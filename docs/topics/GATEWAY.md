@@ -2,8 +2,6 @@
 
 Gateways are Discords from of real-time communication over secure web-sockets. Clients will mostly receive events and data over the gateways, and send data over the REST API.
 
-## Resources
-
 ### Get Gateway %  GET /gateway
 
 Return an object with a single valid WSS URL. Clients should **not** cache this value, but instead should call this endpoint whenever they wish to reestablish a Gateway connection.
@@ -59,7 +57,7 @@ Receiving payloads with the Gateway API is slightly more complex than sending. T
 
 | Field | Type | Description |
 |-------|------|-------------|
-| op | integer | the [opcode](#DOCS_GATEWAY/opcodes) for this payload |
+| op | integer | the [opcode](#DOCS_GATEWAY/gateway-op-codes) for this payload |
 | d | object | any data to be sent along with the payload |
 
 ###### Gateway Dispatch Payload Object
@@ -131,6 +129,8 @@ Sent when a guild becomes unavailable during a guild outage. See GUILD_CREATE fo
 | unavailable | boolean | whether the guild is unavailable, should always be true |
 
 ### Guild Integrations Update
+
+Sent when a guild integration is updated.
 
 | Field | Type | Description |
 |-------|------|-------------|

@@ -2,6 +2,14 @@
 
 OAuth2 enables application developers to build applications that utilize authentication and data from the Discord API. Within the Discord platform, there are two types of oauth2 authentication, "full stack" or "application" auth and bot auth. The former is what is most people will recognize as generic OAuth2, and allows the developer to authenticate and make certain requests on behalf of a user. The latter enables bot creators to have an easy, callback/server-free flow for giving users the ability to add their bot to servers they own.
 
+## Bot vs User Accounts
+
+Bots within the Discord API are a separate type of users that are owned by applications (which are owned by users), and login without a password. Anybody wishing to create a public bot **must** use a bot account and the OAuth2 API, accounts violating this and using normal user accounts for public bots will be permanently banned. Bot accounts have some differences and limitations to normal accounts, namely:
+
+1. Bots cannot utilize the friends list feature.
+2. Bots cannot accept invites.
+3. Bots are not limited to a maximum of 100 guilds
+
 ## Implementing OAuth2
 
 ### Registering Applications
@@ -15,9 +23,8 @@ The first step in implementing OAuth2 is [registering a developer application](#
 | https://discordapp.com/api/oauth2/authorize | Base authorization URL |
 | https://discordapp.com/api/oauth2/token | Token URL |
 
-```info
-Discord also implements refresh tokens, which can be passed to the token URL for valid authentication tokens.
-```
+>info
+> Discord also implements refresh tokens, which can be passed to the token URL for valid authentication tokens.
 
 ### Scopes
 
@@ -50,4 +57,4 @@ A URL can be generated that redirects authenticated users to the add-bot flow, b
 https://discordapp.com/oauth2/authorize?&client_id=157730590492196864&scope=bot&permissions=0
 ```
 
-Where client_id is your _bot_ accounts ID, and permissions is an integer following the [permissions](#/developers/docs/topics/permissions) format.
+Where client_id is your _bot_ accounts ID, and permissions is an integer following the [permissions](#DOCS_PERMISSIONS/bitwise-permission-flags) format.

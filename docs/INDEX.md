@@ -6,8 +6,8 @@ Discord's API is based around two core layers, a HTTPS/REST API for general oper
 
 Authenticating with the Discord API can be done in one of two ways:
 
-1. Using a bot token gained by [registering a bot](#/developers/docs/topics/oauth2).
-2. Using a Oauth2 user token gained through the [OAuth2 API](#OAUTH2)
+1. Using a bot token gained by [registering a bot](/developers/docs/topics/oauth2).
+2. Using an OAuth2 user token gained through the [OAuth2 API](#OAUTH2/oauth2)
 
 ## Encryption
 
@@ -19,7 +19,7 @@ Discord utilizes a Twitter's [snowflake](https://github.com/twitter/snowflake/tr
 
 ## Consistency
 
-Discord operates at a scale where true consistency is impossible. Because of this, lots of operations in our API and in-between our services are [eventually consistent](https://en.wikipedia.org/wiki/Eventual_consistency). Due to this, client actions can never be serialized and may be executed in _any_ order (if executed at all). Along with these constraints, events in discord may:
+Discord operates at a scale where true consistency is impossible. Because of this, lots of operations in our API and in-between our services are [eventually consistent](https://en.wikipedia.org/wiki/Eventual_consistency). Due to this, client actions can never be serialized and may be executed in _any_ order (if executed at all). Along with these constraints, events in Discord may:
 
 - Never be sent to a client
 - Be sent _exactly_ one time to the client
