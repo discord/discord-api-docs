@@ -1,0 +1,19 @@
+{
+  "name": "discord-api-docs",
+  "version": "1.0.0",
+  "description": "Documentation for using Discord's API",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hammerandchisel/discord-api-docs.git"
+  },
+  "author": "Discord Krew",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/hammerandchisel/discord-api-docs/issues"
+  },
+  "homepage": "https://github.com/hammerandchisel/discord-api-docs#readme"
+}
