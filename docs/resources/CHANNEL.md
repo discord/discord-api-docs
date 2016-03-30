@@ -192,13 +192,13 @@ Read states represent the tracking of what messages and mentions have been read.
 | channel | [channel object](#DOCS_CHANNEL/guild-channel-object) | the channel this invite is for |
 | inviter | [user object](#DOCS_USER/user-object) | the user that created this invite |
 
-## Get Channel % GET /channels/{channel.id#DOCS_CHANNEL/message-object}
+## Get Channel % GET /channels/{channel.id#DOCS_CHANNEL/channel-object}
 
 Return a channel by ID. This returns a [guild channel](#DOCS_CHANNEL/guild-channel-object) or [dm channel](#DOCS_CHANNEL/dm-channel-object) object.
 
-## Modify Channel % PUT/PATCH /channels/{channel.id#DOCS_CHANNEL/message-object}
+## Modify Channel % PUT/PATCH /channels/{channel.id#DOCS_CHANNEL/channel-object}
 
-Update a channels settings. Requires the 'MANAGE_GUILD' permission for the guild. This returns a [guild channel](#DOCS_CHANNEL/guild-channel-object) on success, and a 400 BAD REQUEST on invalid parameters.
+Update a channels settings. Requires the 'MANAGE_GUILD' permission for the guild. This returns a [guild channel](#DOCS_CHANNEL/guild-channel-object) on success, and a 400 BAD REQUEST on invalid parameters. Fires a [Channel Update](#DOCS_GATEWAY/channel-update) Gateway event.
 
 ###### JSON Params
 
@@ -211,7 +211,7 @@ Update a channels settings. Requires the 'MANAGE_GUILD' permission for the guild
 
 ## Delete/Close Channel % DELETE /channels/{channel.id#DOCS_CHANNEL/channel-object}
 
-Delete a guild channel, or close a private message. Requires the 'MANAGE_GUILD' permission for the guild. Returns a [guild channel](#DOCS_CHANNEL/guild-channel-object) or [dm channel](#DOCS_CHANNEL/dm-channel-object) object on success.
+Delete a guild channel, or close a private message. Requires the 'MANAGE_GUILD' permission for the guild. Returns a [guild channel](#DOCS_CHANNEL/guild-channel-object) or [dm channel](#DOCS_CHANNEL/dm-channel-object) object on success. Fires a [Channel Delete](#DOCS_GATEWAY/channel-delete) Gateway event.
 
 ## Get Channel Messages % GET /channels/{channel.id#DOCS_CHANNEL/channel-object}/messages
 
@@ -231,7 +231,7 @@ The before and after keys are mutually exclusive, only one may be passed at a ti
 
 ## Create Message % POST /channels/{channel.id}/messages
 
-Post a message to a guild text or DM channel. Requires the 'SEND_MESSAGES' permission for guild channels. Returns a [message](#DOCS_CHANNEL/message-object) object.
+Post a message to a guild text or DM channel. Requires the 'SEND_MESSAGES' permission for guild channels. Returns a [message](#DOCS_CHANNEL/message-object) object. Fires a [Message Create](#DOCS_GATEWAY/message-create) Gateway event.
 
 ###### JSON Params
 
@@ -243,7 +243,7 @@ Post a message to a guild text or DM channel. Requires the 'SEND_MESSAGES' permi
 
 ## Edit Message % PATCH /channels/{channel.id#DOCS_CHANNEL/channel-object}/messages/{message.id#DOCS_CHANNEL/message-object}
 
-Edit a previously sent message. Returns a [message](#DOCS_CHANNEL/message-object) object.
+Edit a previously sent message. Returns a [message](#DOCS_CHANNEL/message-object) object. Fires a [Message Update](#DOCS_GATEWAY/message-update) Gateway event.
 
 ###### JSON Params
 
@@ -253,7 +253,7 @@ Edit a previously sent message. Returns a [message](#DOCS_CHANNEL/message-object
 
 ## Delete Message % DELETE /channels/{channel.id#DOCS_CHANNEL/channel-object}/messages/{message.id#DOCS_CHANNEL/message-object}
 
-Delete a message. Requires the 'MANAGE_MESSAGES' permission if the message author is different. Returns a [message](#DOCS_CHANNEL/message-object) object.
+Delete a message. Requires the 'MANAGE_MESSAGES' permission if the message author is different. Returns a [message](#DOCS_CHANNEL/message-object) object. Fires a [Message Delete](#DOCS_GATEWAY/message-delete) Gateway event.
 
 ## Ack Message % POST /channels/{channel.id#DOCS_CHANNEL/channel-obj}/messages/{message.id#DOCS_CHANNEL/message-object}/ack
 
@@ -272,5 +272,4 @@ Edit the channel permission overwrites for a user or role in a channel. Requires
 
 ## Trigger Typing Indicator % POST /channels/{channel.id#DOCS_CHANNEL/channel-object}/typing
 
-Post a typing indicator for the specified channel. Generally bots should **not** implement this route.
-
+Post a typing indicator for the specified channel. Generally bots should **not** implement this route. Fires a [Typing Start](#DOCS_GATEWAY/typing-start) Gateway event.

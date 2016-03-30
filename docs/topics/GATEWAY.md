@@ -1,6 +1,6 @@
 # Gateways
 
-Gateways are Discords from of real-time communication over secure web-sockets. Clients will mostly receive events and data over the gateways, and send data over the REST API.
+Gateways are Discords from of real-time communication over secure web-sockets. Clients will mostly receive events and data over the gateways, and send data over the REST API. For information about connecting to a gateway, please see the [Connecting](#DOCS_GATEWAY/connecting) section.
 
 ### Get Gateway %  GET /gateway
 
@@ -14,30 +14,25 @@ Return an object with a single valid WSS URL. Clients should **not** cache this 
 }
 ```
 
-## Using Gateways
+## Gateway Protocol Versions
 
-From an implementation perspective, gateways are just secure web-sockets that send and receive JSON or ETF payloads.
+Out of Services versions are versions who's subset of changes compared to the most recent version have been completely removed from the Gateway. Using these versions will break your client, and result in undefined behavior.
 
-## ETF/JSON
+| Version | Changes | Out of Service |
+|------------|--------------|----------------|
+| 3 | first official API version | no |
 
-When initially creating and handshaking connections to the Gateway, a user can chose whether they wish to communicate over plain-text JSON, or binary [ETF](http://erlang.org/doc/apps/erts/erl_ext_dist.html). This selection is communicated to the gateway by sending the initial IDENTIFY packet in the format you wish to use. Payloads to the gateway are limited to a maximum of 4096 bytes sent, going over this will cause a connection termination with error code 4002.
 
-### Rate Limiting
+## Gateway OP Codes/Payloads
 
-Unlike the HTTP API, Gateways do not provide a method for forced back-off or cooldown, but instead implement a hard limit on the number of messages sent over a period of time. Currently clients are allowed 120 events every 60 seconds, meaning you can send at a rate of up to 2 events per second. Clients who surpass this limit are immediately disconnected from the Gateway, and similarly to the HTTP API, repeat offenders will have their API access revoked. Clients are limited to one gateway connection per 5 seconds, if you hit this limit the Gateway will delay your connection until the cooldown has timed out.
+###### Gateway Payload Structure
 
-> warn
-> Clients may only update their game status once every 12 seconds.
-
-## Payloads
-
-### Sending Payloads
-
-Packets sent from the client to the Gateway API are encapsulated within a [gateway payload object](#DOCS_GATEWAY/gateway-payload-object) and must have the proper OP code and data object set. The payload object can then be serialized in the format of choice, and sent over the websocket.
-
-### Receiving Payloads
-
-Receiving payloads with the Gateway API is slightly more complex than sending. The Gateway API has the option of sending payloads compressed using zlib, meaning your library _must_ detect and decompress these payloads.
+| Field | Type | Description | Present |
+|-------|------|-------------|-------------|
+| op | integer | opcode for the payload | Always |
+| d | mixed (object, integer) | event data | Always |
+| s | integer | sequence number, used for reconnecting | Only for OP0 |
+| t | string | the event name for this payload | Only for OP0 |
 
 ###### Gateway OP Codes
 
@@ -53,33 +48,104 @@ Receiving payloads with the Gateway API is slightly more complex than sending. T
 | 7 | Redirect | used to redirect clients to a new gateway |
 | 8 | Request Guild Members | used to request guild members |
 
-###### Gateway Payload Object
+### Gateway Dispatch Payload
+
+Used by the gateway to notify the client of events.
+
+###### Gateway Dispatch Example
+
+```json
+{
+	"op": 0,
+	"d": {...},
+	"s": 42,
+	"t": "GATEWAY_EVENT_NAME"
+}
+```
+
+### Gateway Heartbeat Payload
+
+Used to maintain an active gateway connection. Must be sent every `heartbeat_interval` seconds after the [ready](#DOCS_GATEWAY/ready) payload is received. The inner `d` key should be set to the current unix timestamp in seconds, as an integer.
+
+###### Gateway Heartbeat Example
+
+```json
+{
+	"op": 1,
+	"d": 1445412480
+}
+```
+
+### Gateway Identify Payload
+
+Used to trigger the initial handshake with the gateway.
+
+####### Gateway Identify Structure
 
 | Field | Type | Description |
 |-------|------|-------------|
-| op | integer | the [opcode](#DOCS_GATEWAY/gateway-op-codes) for this payload |
-| d | object | any data to be sent along with the payload |
+| token | string | authentication token |
+| properties | object | connection properties |
+| compress | boolean | whether this connection supports compression (should always be set to true) |
+| large_threshold | integer | value between 50 and 250, total number of members where the gateway will stop sending offline members |
+| v | integer | gateway version to use (should always be set to 3) |
 
-###### Gateway Dispatch Payload Object
+###### Example Gateway Identify Example
 
-| Field | Type | Description |
-|-------|------|-------------|
-| op | integer | always set to 0 |
-| s | integer | sequence number, used for reconnecting |
-| t | string | the event name for this payload |
-| d | object | event data |
+```json
+{
+	"token": "...",
+	"properties": {
+		"$os": "linux",
+		"$browser": "my_library_name",
+		"$device": "my_library_name",
+		"$referrer": "",
+		"$referring_domain": ""
+	},
+	"compress": true,
+	"large_threshold": 250,
+	"v": 3
+}
+```
 
-## Gateway Protocol Versions
+### Gateway Status Update Payload
 
-Out of Services versions are versions who's subset of changes compared to the most version have been completely removed from the Gateway. Using these versions will break your client, and result in undefined behavior.
+### Gateway Voice State Update Payload
 
-| Version | Changes | Out of Service |
-|------------|--------------|----------------|
-| 3 | first official API version | no |
+### Gateway Server Ping Payload
+
+### Gateway Resume Payload
+
+### Gateway Redirect Payload
+
+### Gateway Request Guild Members Payload
+
+## Connecting
+
+The first step to establishing a gateway connection, is requesting a new gateway URL through the [Get Gateway](#DOCS_GATEWAY/get-gateway) API endpoint. Using the "url" field from the response, you can then create a new secure websocket connection that will be used for the duration of your gateway session. Once connected you must send an OP2 [Identify](#DOCS_GATEWAY/gateway-identify-payload). If your token is correct, the gateway will respond with a [Ready](#DOCS_GATEWAY/ready-event) payload. After the ready payload, your client needs to start sending OP1 [heartbeat](#DOCS_GATEWAY/gateway-heartbeat-payload) payloads every `heartbeat_interval` (which is sent in the ready payload) seconds.
+
+### ETF/JSON
+
+When initially creating and handshaking connections to the Gateway, a user can chose whether they wish to communicate over plain-text JSON, or binary [ETF](http://erlang.org/doc/apps/erts/erl_ext_dist.html). This selection is communicated to the gateway by sending the initial IDENTIFY packet in the format you wish to use. Payloads to the gateway are limited to a maximum of 4096 bytes sent, going over this will cause a connection termination with error code 4002.
+
+### Rate Limiting
+
+Unlike the HTTP API, Gateways do not provide a method for forced back-off or cooldown, but instead implement a hard limit on the number of messages sent over a period of time. Currently clients are allowed 120 events every 60 seconds, meaning you can send at a rate of up to 2 events per second. Clients who surpass this limit are immediately disconnected from the Gateway, and similarly to the HTTP API, repeat offenders will have their API access revoked. Clients are limited to one gateway connection per 5 seconds, if you hit this limit the Gateway will delay your connection until the cooldown has timed out.
+
+>warn
+> Clients may only update their game status once every 12 seconds.
+
+## Payloads
+
+### Sending Payloads
+
+Packets sent from the client to the Gateway API are encapsulated within a [gateway payload object](#DOCS_GATEWAY/gateway-payload-object) and must have the proper OP code and data object set. The payload object can then be serialized in the format of choice, and sent over the websocket.
+
+### Receiving Payloads
+
+Receiving payloads with the Gateway API is slightly more complex than sending. The Gateway API has the option of sending payloads compressed using zlib, meaning your library _must_ detect and decompress these payloads.
 
 ## Events
-
-Event names within this document can be formulated by upper-casing the name of the event, and replacing any spaces with underscores. E.g. the Voice State Update event will actually be sent in payloads as `VOICE_STATE_UPDATE`.
 
 ### Ready
 
@@ -99,13 +165,13 @@ The ready event is dispatched when a client has completed the handshake with the
 
 Sent when a new channel is created, relevant to the current user. The inner payload is a [DM](#DOCS_CHANNEL/dm-channel-object) or [Guild](#DOCS_CHANNEL/guild-channel-object) channel object.
 
-### Channel Delete
-
-Sent when a channel relevant to the current user is deleted. The inner payload is a [DM](#DOCS_CHANNEL/dm-channel-object) or [Guild](#DOCS_CHANNEL/guild-channel-object) channel object.
-
 ### Channel Update
 
 Sent when a channel is updated. The inner payload is a [guild channel](#DOCS_CHANNEL/guild-channel-object) object.
+
+### Channel Delete
+
+Sent when a channel relevant to the current user is deleted. The inner payload is a [DM](#DOCS_CHANNEL/dm-channel-object) or [Guild](#DOCS_CHANNEL/guild-channel-object) channel object.
 
 ### Guild Ban Add
 
@@ -118,6 +184,10 @@ Sent when a user is unbanned from a guild. The inner payload is a [user](#DOCS_U
 ### Guild Create
 
 Sent when a guild becomes unavailable after a partial guild outage. Because of the way Discord is architected, it's possible for a set of guilds to go offline (or "unavailable"), while the vast majority of them stay online. When guilds are in an offline state, no actions will be received or sent about them until they come back online, which is signified by this event. The inner payload is a [guild](#DOCS_GUILD/guild-object) object.
+
+### Guild Update
+
+Sent when a guild is updated. The inner payload is a [guild](#DOCS_GUILD/guild-object) object.
 
 ### Guild Delete
 
@@ -168,15 +238,6 @@ Sent when a guild role is created.
 | guild_id | snowflake | the id of the guild |
 | role | a [role](#DOCS_PERMISSIONS/role-object) object | the role created |
 
-### Guild Role Delete
-
-Sent when a guild role is deleted
-
-| Field | Type | Description |
-|-------|------|-------------|
-| guild_id | snowflake | id of the guild |
-| role_id | snowflake | id of the role |
-
 ### Guild Role Update
 
 Sent when a guild role is updated.
@@ -186,9 +247,14 @@ Sent when a guild role is updated.
 | guild_id | snowflake | the id of the guild |
 | role | a [role](#DOCS_PERMISSIONS/role-object) object | the role created |
 
-### Guild Update
+### Guild Role Delete
 
-Sent when a guild is updated. The inner payload is a [guild](#DOCS_GUILD/guild-object) object.
+Sent when a guild role is deleted
+
+| Field | Type | Description |
+|-------|------|-------------|
+| guild_id | snowflake | id of the guild |
+| role_id | snowflake | id of the role |
 
 ### Message Create
 
