@@ -23,22 +23,11 @@ The voice packet is a 70 byte payload that begins with a 4 byte big-endian packe
 
 ### Retrieving Voice Server Information
 
-The first step in connecting to a voice server (and in turn, a guilds voice channel) is formulating a request that can be sent to the [Gateway](#DOCS_GATEWAY/gateways), which will return information about the voice server we will connect to. Because Discord's voice platform is widely distributed, users **should never** cache or save the results of this call. To inform the gateway of our intent to establish voice connectivity, we first send a [Voice State Update](#DOCS_GATEWAY/voice-state-update) with a guild_id, channel_id, and our current mute/deaf settings.
+The first step in connecting to a voice server (and in turn, a guilds voice channel) is formulating a request that can be sent to the [Gateway](#DOCS_GATEWAY/gateways), which will return information about the voice server we will connect to. Because Discord's voice platform is widely distributed, users **should never** cache or save the results of this call. To inform the gateway of our intent to establish voice connectivity, we first send a [Voice State Update](#DOCS_GATEWAY/voice-state-update) payload with a guild_id, channel_id, and our current mute/deaf settings.
 
-###### Example Voice State Update Payload
+If our request succeeded, the gateway will respond with _two_ events (meaning your library must properly wait for both events before continuing), a [Voice State Update](#DOCS_GATEWAY/voice-state-update) _event_ (not a payload), and a [Voice Server Update](#DOCS_GATEWAY/voice-server-update) event. The first will contain a new key, `session_id` and the second will provide voice server information we can use to establish a new voice connection. With this information, we can move on to [Establishing a Voice Websocket Connection](#DOCS_VOICE_CONNECTIONS/establishing-a-voice-websocket-connection).
 
-```json
-{
-	"guild_id": "41771983423143937",
-	"channel_id": "127121515262115840",
-	"self_mute": false,
-	"self_deaf": false
-}
-```
-
-If our request succeeded, the gateway will respond with _two_ events (meaning your library must properly wait for both events before continuing), another [Voice State Update](#DOCS_GATEWAY/voice-state-update) payload, and a [Voice Server Update](#DOCS_GATEWAY/voice-server-update) payload. The first will contain a new key, `session_id` and the second will provide voice server information we can use to establish a new voice connection. With this information, we can move on to [Establishing a Voice Websocket Connection](#DOCS_VOICE_CONNECTIONS/establishing-a-voice-websocket-connection).
-
-###### Example Response Voice State Update Payload
+###### Example Response Voice State Update Event
 
 ```json
 {
@@ -113,7 +102,7 @@ Generally routers on the internet mask or obfuscate UDP ports through a process 
 
 ## Encrypting and Sending Voice
 
-Voice data sent to discord should be encoded in [opus](https://www.opus-codec.org/), with 2 channels (aka stereo) and a sample rate of 48Khz. Data is encrypted using secret-key cryptography (specifically [libsodium](https://download.libsodium.org/doc/)). A encrypted voice packet consists of a 24 byte nonce, plus an encrypted payload of a 12 byte header followed by any voice data. The nonce is currently just the header + 12 null bytes.
+Voice data sent to discord should be encoded in [opus](https://www.opus-codec.org/), with 2 channels (aka stereo) and a sample rate of 48Khz. Data is encrypted using secret-key cryptography (specifically [libsodium](https://download.libsodium.org/doc/)), and the key passed in the session description. A encrypted voice packet consists of a 24 byte nonce, plus an encrypted payload of a 12 byte header followed by any voice data. The nonce is currently just the header + 12 null bytes.
 
 ###### Encrypted Voice Packet Structure
 
