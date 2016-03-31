@@ -96,11 +96,11 @@ Represents the channel an invite is for.
 }
 ```
 
-## Get Invite % GET /inviter/{invite.id#DOCS_INVITE/invite-object}
+## Get Invite % GET /invites/{invite.id#DOCS_INVITE/invite-object}
 
 Return an [invite object](#DOCS_INVITE/invite-object) for the given id.
 
-## Delete Invite % DELETE /inviter/{invite.id#DOCS_INVITE/invite-object}
+## Delete Invite % DELETE /invites/{invite.id#DOCS_INVITE/invite-object}
 
 Delete an invite. Requires the `MANAGE_CHANNELS` permission.
 
