@@ -13,7 +13,7 @@ Avatars are base64 encoded jpeg images, in the following format:
 data:image/jpeg;base64,MY_BASE64_IMAGE_DATA_HERE
 ```
 
-### User Object
+## User Object
 
 ###### User Object
 
@@ -39,7 +39,7 @@ data:image/jpeg;base64,MY_BASE64_IMAGE_DATA_HERE
 }
 ```
 
-### User Guild Object
+## User Guild Object
 
 A brief version of a [guild](#DOCS_GUILD/guild-object) object
 
@@ -99,6 +99,10 @@ Modify the requestors user account settings.
 ## Get Current User Guilds % GET /users/{@me#DOCS_USER/user-object}/guilds
 
 Return a list of [guild](#DOCS_GUILD/guild-object) objects the current user is a member of. Requires the `guilds` OAuth2 scope.
+
+## Leave Guild % DELETE /users/{@me#DOCS_USER/user-object}/guilds/{guild.id#DOCS_GUILD/guild-object}
+
+Leave a guild.
 
 ## Get User DMs % GET /users/{@me#DOCS_USER/user-object}/channels
 
