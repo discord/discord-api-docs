@@ -45,10 +45,10 @@ Out of Services versions are versions who's subset of changes compared to the mo
 | 4 | Voice State Update | used to join/move/leave voice channels |
 | 5 | Voice Server Ping | used for voice ping checking |
 | 6 | Resume | used to resume a closed connection |
-| 7 | Redirect | used to redirect clients to a new gateway |
+| 7 | Reconnect | used to redirect clients to a new gateway |
 | 8 | Request Guild Members | used to request guild members |
 
-### Gateway Dispatch Payload
+### Gateway Dispatch
 
 Used by the gateway to notify the client of events.
 
@@ -63,7 +63,7 @@ Used by the gateway to notify the client of events.
 }
 ```
 
-### Gateway Heartbeat Payload
+### Gateway Heartbeat
 
 Used to maintain an active gateway connection. Must be sent every `heartbeat_interval` seconds after the [ready](#DOCS_GATEWAY/ready) payload is received. The inner `d` key should be set to the current unix timestamp in seconds, as an integer.
 
@@ -76,7 +76,7 @@ Used to maintain an active gateway connection. Must be sent every `heartbeat_int
 }
 ```
 
-### Gateway Identify Payload
+### Gateway Identify
 
 Used to trigger the initial handshake with the gateway.
 
@@ -108,21 +108,112 @@ Used to trigger the initial handshake with the gateway.
 }
 ```
 
-### Gateway Status Update Payload
+### Gateway Status Update
 
-### Gateway Voice State Update Payload
+Sent by the client to indicate a presence or status update.
 
-### Gateway Server Ping Payload
+###### Gateway Status Update Structure
 
-### Gateway Resume Payload
+| Field | Type | Description |
+|-------|------|-------------|
+| idle_since | integer | unix time (in milliseconds) the client has been idle since |
+| game | object | either null, or an object with one key "name", the name of the game being played |
 
-### Gateway Redirect Payload
+###### Gateway Status Update Example
 
-### Gateway Request Guild Members Payload
+```json
+{
+	"idle_since": 91879201,
+	"game": {
+		"name": "Writing Docs FTW"
+	}
+}
+```
+
+### Gateway Voice State Update
+
+Sent when a client wants to join, move, or disconnect from a voice channel.
+
+###### Gateway Voice State Update Structure
+
+| Field | Type | Description |
+|-------|------|-------------|
+| guild_id | snowflake | id of the guild |
+| channel_id | snowflake | id of the voice channel client wants to join (null if disconnecting) |
+| self_mute | boolean | is the client muted |
+| self_deaf | boolean | is the client deafened |
+
+###### Gateway Voice State Update Example
+
+```json
+{
+	"guild_id": "41771983423143937",
+	"channel_id": "127121515262115840",
+	"self_mute": false,
+	"self_deaf": false
+}
+```
+
+### Gateway Server Ping
+
+Shouldn't be used by bot accounts.
+
+
+### Gateway Resume
+
+Used to replay missed events when a disconnected client resumes.
+
+###### Gateway Resume Structure
+
+| Field | Type | Description |
+|-------|------|-------------|
+| token | string | session token |
+| session_id | string | session id |
+| seq | integer | last sequence number received |
+
+###### Gateway Resume Example
+
+```json
+{
+	"token": "randomstring",
+	"session_id": "evenmorerandomstring",
+	"seq": 1337
+}
+```
+
+### Gateway Reconnect
+
+Used to tell clients to reconnect to another gateway. Clients should immediately reconnect, and use the resume payload on the new gateway.
+
+### Gateway Request Guild Members
+
+Used to request offline members for a guild. When initially connecting, the gateway will only send offline members if a guild has less than the `large_threshold` value in the [Gateway Identify](#DOCS_GATEWAY/gateway-identify). If a client wishes to receive all offline members, they need to send this request.
+
+###### Gateway Request Guild Members Structure
+
+| Field | Type | Description |
+|-------|------|-------------|
+| guild_id | snowflake | id of the guild to get offline members for |
+| query | string | should always be empty |
+| limit | integer | maximum number of members to send |
+
+###### Gateway Request Guild Members Example
+
+```json
+{
+	"guild_Id": "41771983444115456",
+	"query": "",
+	"limit": 0
+}
+```
 
 ## Connecting
 
 The first step to establishing a gateway connection, is requesting a new gateway URL through the [Get Gateway](#DOCS_GATEWAY/get-gateway) API endpoint. Using the "url" field from the response, you can then create a new secure websocket connection that will be used for the duration of your gateway session. Once connected you must send an OP2 [Identify](#DOCS_GATEWAY/gateway-identify-payload). If your token is correct, the gateway will respond with a [Ready](#DOCS_GATEWAY/ready-event) payload. After the ready payload, your client needs to start sending OP1 [heartbeat](#DOCS_GATEWAY/gateway-heartbeat-payload) payloads every `heartbeat_interval` (which is sent in the ready payload) seconds.
+
+## Resuming
+
+When clients lose their connection to the gateway and are able to reconnect in a short period of time after, they can utilize a Gateway feature called "client resuming". Once reconnected to a new (or the previous) gateway, the client should send a [Gateway Reconnect](#DOCS_GATEWAY/gateway-reconnect) payload to the server. If successful, the gateway will respond by replying all missed events to the client.
 
 ### ETF/JSON
 
