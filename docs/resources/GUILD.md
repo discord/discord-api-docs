@@ -38,8 +38,8 @@ Guilds in Discord represent a collection of users and channels into an isolated 
 	"embed_enabled": true,
 	"embed_channel_id": "41771983444115456",
 	"verification_level": 1,
-	"roles": [...],
-	"emojis": [...],
+	"roles": [],
+	"emojis": [],
 	"features": ["INVITE_SPLASH"]	
 }
 ```
@@ -78,8 +78,8 @@ Guilds in Discord represent a collection of users and channels into an isolated 
 
 ```json
 {
-	"user": {...},
-	"roles": [...],
+	"user": {},
+	"roles": [],
 	"joined_at": "2015-04-26T06:26:56.936000+00:00",
 	"deaf": false,
 	"mute": false

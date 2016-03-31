@@ -29,7 +29,7 @@ Guild channels represent an isolated set of users and messages within a Guild.
 	"type": "text",
 	"position": 6,
 	"is_private": false,
-	"permission_overwrites": [...],
+	"permission_overwrites": [],
 	"topic": "24/7 chat about how to gank Mike #2",
 	"last_message_id": "155117677105512449"
 }
@@ -45,7 +45,7 @@ Guild channels represent an isolated set of users and messages within a Guild.
 	"type": "voice",
 	"position": 5,
 	"is_private": false,
-	"permission_overwrites": [...],
+	"permission_overwrites": [],
 	"bitrate": 64000
 }
 ```
@@ -69,7 +69,7 @@ DM Channels represent a one-to-one conversation between two users, outside of th
 {
 	"id": "134552934997426176",
 	"is_private": true,
-	"recipient": ...,
+	"recipient": {},
 	"last_message_id": "153642275539255296"
 }
 ```
@@ -121,15 +121,15 @@ Read states represent the tracking of what messages and mentions have been read.
 {
     "id": "162701077035089920",
     "channel_id": "131391742183342080",
-    "author": {...},
+    "author": {},
     "content": "Hey guys!",
     "timestamp": "2016-03-24T23:15:59.605000+00:00",
     "edited_timestamp": null,
     "tts": false,
     "mention_everyone": false,
-    "mentions": [...],
-    "attachments": [...],
-    "embeds": [...]
+    "mentions": [],
+    "attachments": [],
+    "embeds": []
 }
 ```
 

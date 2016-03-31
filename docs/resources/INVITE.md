@@ -18,8 +18,8 @@ Represents a code that when used, adds a user to a guild.
 ```json
 {
 	"code": "0vCdhLbwjZZTWZLD",
-	"guild": {...},
-	"channel": {...},
+	"guild": {},
+	"channel": {},
 	"xkcdpass": null
 }
 ```
@@ -42,7 +42,7 @@ Represents a code that when used, adds a user to a guild.
 
 ```json
 {
-	"inviter": {...},
+	"inviter": {},
 	"users": 0,
 	"max_uses": 0,
 	"max_age": 0,
@@ -70,7 +70,7 @@ Represents the parent guild of an invite.
 {
 	"id": "165176875973476352",
 	"name": "CS:GO Fraggers Only",
-	"splash_hash": nunll
+	"splash_hash": null
 }
 ```
 
