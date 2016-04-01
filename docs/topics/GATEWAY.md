@@ -22,7 +22,6 @@ Out of Services versions are versions who's subset of changes compared to the mo
 |------------|--------------|----------------|
 | 3 | first official API version | no |
 
-
 ## Gateway OP Codes/Payloads
 
 ###### Gateway Payload Structure
@@ -47,6 +46,7 @@ Out of Services versions are versions who's subset of changes compared to the mo
 | 6 | Resume | used to resume a closed connection |
 | 7 | Reconnect | used to redirect clients to a new gateway |
 | 8 | Request Guild Members | used to request guild members |
+| 9 | Invalid Session | used to notify client they have an invalid session id |
 
 ### Gateway Dispatch
 
@@ -57,7 +57,7 @@ Used by the gateway to notify the client of events.
 ```json
 {
 	"op": 0,
-	"d": {...},
+	"d": {},
 	"s": 42,
 	"t": "GATEWAY_EVENT_NAME"
 }
@@ -94,7 +94,7 @@ Used to trigger the initial handshake with the gateway.
 
 ```json
 {
-	"token": "...",
+	"token": "my_token",
 	"properties": {
 		"$os": "linux",
 		"$browser": "my_library_name",

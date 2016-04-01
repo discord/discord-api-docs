@@ -29,7 +29,7 @@ Guild channels represent an isolated set of users and messages within a Guild.
 	"type": "text",
 	"position": 6,
 	"is_private": false,
-	"permission_overwrites": [...],
+	"permission_overwrites": [],
 	"topic": "24/7 chat about how to gank Mike #2",
 	"last_message_id": "155117677105512449"
 }
@@ -45,7 +45,7 @@ Guild channels represent an isolated set of users and messages within a Guild.
 	"type": "voice",
 	"position": 5,
 	"is_private": false,
-	"permission_overwrites": [...],
+	"permission_overwrites": [],
 	"bitrate": 64000
 }
 ```
@@ -69,7 +69,7 @@ DM Channels represent a one-to-one conversation between two users, outside of th
 {
 	"id": "134552934997426176",
 	"is_private": true,
-	"recipient": ...,
+	"recipient": {},
 	"last_message_id": "153642275539255296"
 }
 ```
@@ -113,6 +113,7 @@ Read states represent the tracking of what messages and mentions have been read.
 | mentions | array of [user objects](#DOCS_USER/user-object) | and users mentioned in the message |
 | attachments | array of [attachment objects](#DOC_CHANNEL/attachment-object) | any attached (uploaded) files |
 | embeds | array of [embed objects](#DOC_CHANNEL/embed-object) | any embedded links |
+| nonce | integer | used for validating a message was sent |
 
 ###### Example Message Object
 
@@ -120,15 +121,15 @@ Read states represent the tracking of what messages and mentions have been read.
 {
     "id": "162701077035089920",
     "channel_id": "131391742183342080",
-    "author": {...},
+    "author": {},
     "content": "Hey guys!",
     "timestamp": "2016-03-24T23:15:59.605000+00:00",
     "edited_timestamp": null,
     "tts": false,
     "mention_everyone": false,
-    "mentions": [...],
-    "attachments": [...],
-    "embeds": [...]
+    "mentions": [],
+    "attachments": [],
+    "embeds": []
 }
 ```
 
@@ -174,23 +175,6 @@ Read states represent the tracking of what messages and mentions have been read.
 | proxy_url | string | a proxied url of file |
 | height | integer | height of file (if image) |
 | width | integer | width of file (if image) |
-
-### Invites
-
-###### Invite Object
-
-| Field | Type | Description |
-|-------|------|-------------|
-| code | string | id of the invite |
-| uses | integer | number of times the invite was used |
-| max_uses | integer | max number of uses |
-| max_age | integer | max age of invite (in seconds) |
-| temporary | boolean | whether this invite is temporary |
-| revoked | boolean | whether this invite is revoked |
-| xkcdpass | string | the xkcdpass version of the code |
-| guild | [guild object](#DOCS_GUILD/guild-object) | the guild this invite is for |
-| channel | [channel object](#DOCS_CHANNEL/guild-channel-object) | the channel this invite is for |
-| inviter | [user object](#DOCS_USER/user-object) | the user that created this invite |
 
 ## Get Channel % GET /channels/{channel.id#DOCS_CHANNEL/channel-object}
 
@@ -269,6 +253,27 @@ Edit the channel permission overwrites for a user or role in a channel. Requires
 |-------|------|-------------|
 | allow | integer | the bitwise value of all allowed permissions |
 | deny | integer | the bitwise value of all disallowed permissions |
+
+## Get Channel Invites % GET /channels/{channel.id#DOCS_CHANNEL/channel-obj}/invites
+
+Return a list of [invite](#DOCS_INVITE/invite-object) objects (with [invite metadata](#DOCS_INVITE/invite-metadata-object)) for the channel. Requires the 'MANAGE_CHANNELS' permission.
+
+## Create Channel Invite % POST /channels/{channel.id#DOCS_CHANNEL/channel-obj}/invites
+
+Create a new [invite](#DOCS_INVITE/invite-object) object for the channel. Requires the `CREATE_INSTANT_INVITE` permission. All params for this route are optional.
+
+###### JSON Params
+
+| Field | Type | Description | Default |
+|-------|------|-------------|----------|
+| max_age | integer | duration of invite in seconds before expiry, or 0 for never | 86400 (24 hours) |
+| max_uses | integer | max number of uses or 0 for unlimited | 0 |
+| temporary | boolean | whether this invite only grants temporary membership | false |
+| xkcdpass | boolean | whether to generate an xkcdpass version of the invite code | false |
+
+## Delete Channel Permission % DELETE /channels/{channel.id#DOCS_CHANNEL/channel-obj}/permissions/{overwrite.id}
+
+Delete a channel permission overwrite for a user or role in a channel. Requires the 'MANAGE_ROLES' permission. Returns a 200 empty response on success. For more information about permissions, see [permissions](#DOCS_PERMISSIONS)
 
 ## Trigger Typing Indicator % POST /channels/{channel.id#DOCS_CHANNEL/channel-object}/typing
 

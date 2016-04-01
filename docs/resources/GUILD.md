@@ -38,8 +38,8 @@ Guilds in Discord represent a collection of users and channels into an isolated 
 	"embed_enabled": true,
 	"embed_channel_id": "41771983444115456",
 	"verification_level": 1,
-	"roles": [...],
-	"emojis": [...],
+	"roles": [],
+	"emojis": [],
 	"features": ["INVITE_SPLASH"]	
 }
 ```
@@ -78,8 +78,8 @@ Guilds in Discord represent a collection of users and channels into an isolated 
 
 ```json
 {
-	"user": {...},
-	"roles": [...],
+	"user": {},
+	"roles": [],
 	"joined_at": "2015-04-26T06:26:56.936000+00:00",
 	"deaf": false,
 	"mute": false
@@ -293,7 +293,6 @@ Modify a guild role. Requires the 'MANAGE_ROLES' permission. Returns the [role](
 
 | Field | Type | Description |
 |-------|------|-------------|
-| id | snowflake | the id of the role (cannot be modified, only for reference) |
 | name | string | name of the role |
 | permissions | integer | bitwise of the enabled/disabled permissions |
 | position | integer | sorting position of the role |
@@ -330,7 +329,7 @@ Return a list of [voice region](#DOCS_VOICE/voice-region-object) objects for the
 
 ## Get Guild Invites % GET /guilds/{guild.id#DOCS_GUILD/guild-object}/invites
 
-Return a list of [invite](#DOCS_CHANNEL/invite-object) objects for the guild. Requires the 'MANAGE_GUILD' permission.
+Return a list of [invite](#DOCS_INVITE/invite-object) objects (with [invite metadata](#DOCS_INVITE/invite-metadata-object)) for the guild. Requires the 'MANAGE_GUILD' permission.
 
 ## Get Guild Integrations % GET /guilds/{guild.id#DOCS_GUILD/guild-object}/integrations
 

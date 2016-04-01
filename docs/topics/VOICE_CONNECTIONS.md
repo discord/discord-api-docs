@@ -32,7 +32,7 @@ If our request succeeded, the gateway will respond with _two_ events (meaning yo
 ```json
 {
 	"user_id": "104694319306248192",
-	"session_id": "..."
+	"session_id": "my_session_id"
 }
 ```
 
@@ -40,7 +40,7 @@ If our request succeeded, the gateway will respond with _two_ events (meaning yo
 
 ```json
 {
-	"token": "...",
+	"token": "my_token",
 	"guild_id": "41771983423143937",
 	"endpoint": "smart.loyal.discord.gg"
 }
@@ -56,8 +56,8 @@ Once we retrieve a session_id, token, and endpoint information, we can connect a
 {
 	"server_id": "41771983423143937",
 	"user_id": "104694319306248192",
-	"session_id": "...",
-	"token": "..."
+	"session_id": "my_session_id",
+	"token": "my_token"
 }
 ```
 
