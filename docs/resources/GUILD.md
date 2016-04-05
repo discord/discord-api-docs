@@ -59,7 +59,7 @@ Represents an Offline Guild, or a Guild whose information has not been provided 
 
 ```json
 {
-	"id": "41771983423143937"",
+	"id": "41771983423143937",
 	"unavailable": true
 }
 ```

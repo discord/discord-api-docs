@@ -2,10 +2,6 @@
 
 Gateways are Discords from of real-time communication over secure web-sockets. Clients will mostly receive events and data over the gateways, and send data over the REST API. For information about connecting to a gateway, please see the [Connecting](#DOCS_GATEWAY/connecting) section.
 
-
-- encoding
-- version
-
 ### Get Gateway %  GET /gateway
 
 Return an object with a single valid WSS URL. Clients should **not** cache this value, but instead should call this endpoint whenever they wish to reestablish a Gateway connection.
