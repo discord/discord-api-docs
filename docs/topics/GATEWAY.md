@@ -2,6 +2,10 @@
 
 Gateways are Discords from of real-time communication over secure web-sockets. Clients will mostly receive events and data over the gateways, and send data over the REST API. For information about connecting to a gateway, please see the [Connecting](#DOCS_GATEWAY/connecting) section.
 
+
+- encoding
+- version
+
 ### Get Gateway %  GET /gateway
 
 Return an object with a single valid WSS URL. Clients should **not** cache this value, but instead should call this endpoint whenever they wish to reestablish a Gateway connection.
@@ -18,9 +22,20 @@ Return an object with a single valid WSS URL. Clients should **not** cache this 
 
 Out of Services versions are versions who's subset of changes compared to the most recent version have been completely removed from the Gateway. Using these versions will break your client, and result in undefined behavior.
 
-| Version | Changes | Out of Service |
-|------------|--------------|----------------|
-| 3 | first official API version | no |
+| Version | Out of Service |
+|------------|----------------|
+| 4 | no |
+| 3 | no |
+
+### Version 4 Changelog
+
+- Moved version and encoding options to explicit URL parameters
+- Guilds will lazy load for bots and users with many guilds
+- Changes to session resuming
+
+### Version 3 Changelog
+
+First Official Gateway Protocol Version.
 
 ## Gateway OP Codes/Payloads
 
@@ -88,7 +103,6 @@ Used to trigger the initial handshake with the gateway.
 | properties | object | connection properties |
 | compress | boolean | whether this connection supports compression (should always be set to true) |
 | large_threshold | integer | value between 50 and 250, total number of members where the gateway will stop sending offline members |
-| v | integer | gateway version to use (should always be set to 3) |
 
 ###### Example Gateway Identify Example
 
@@ -104,7 +118,6 @@ Used to trigger the initial handshake with the gateway.
 	},
 	"compress": true,
 	"large_threshold": 250,
-	"v": 3
 }
 ```
 
@@ -209,15 +222,22 @@ Used to request offline members for a guild. When initially connecting, the gate
 
 ## Connecting
 
-The first step to establishing a gateway connection, is requesting a new gateway URL through the [Get Gateway](#DOCS_GATEWAY/get-gateway) API endpoint. Using the "url" field from the response, you can then create a new secure websocket connection that will be used for the duration of your gateway session. Once connected you must send an OP2 [Identify](#DOCS_GATEWAY/gateway-identify-payload). If your token is correct, the gateway will respond with a [Ready](#DOCS_GATEWAY/ready-event) payload. After the ready payload, your client needs to start sending OP1 [heartbeat](#DOCS_GATEWAY/gateway-heartbeat-payload) payloads every `heartbeat_interval` (which is sent in the ready payload) seconds.
+The first step to establishing a gateway connection, is requesting a new gateway URL through the [Get Gateway](#DOCS_GATEWAY/get-gateway) API endpoint. Using the "url" field from the response, you can then create a new secure websocket connection that will be used for the duration of your gateway session (optionally passing any URL params). Once connected you must send an OP2 [Identify](#DOCS_GATEWAY/gateway-identify-payload). If your token is correct, the gateway will respond with a [Ready](#DOCS_GATEWAY/ready-event) payload. After the ready payload, your client needs to start sending OP1 [heartbeat](#DOCS_GATEWAY/gateway-heartbeat-payload) payloads every `heartbeat_interval` (which is sent in the ready payload) seconds.
 
-## Resuming
+###### Gateway URL Params
+
+| Field | Type | Description |
+|-------|------|-------------|
+| v | integer | Gateway Version to use |
+| encoding | string | 'json' or 'etf' |
+
+### Resuming
 
 When clients lose their connection to the gateway and are able to reconnect in a short period of time after, they can utilize a Gateway feature called "client resuming". Once reconnected to a new (or the previous) gateway, the client should send a [Gateway Reconnect](#DOCS_GATEWAY/gateway-reconnect) payload to the server. If successful, the gateway will respond by replying all missed events to the client.
 
 ### ETF/JSON
 
-When initially creating and handshaking connections to the Gateway, a user can chose whether they wish to communicate over plain-text JSON, or binary [ETF](http://erlang.org/doc/apps/erts/erl_ext_dist.html). This selection is communicated to the gateway by sending the initial IDENTIFY packet in the format you wish to use. Payloads to the gateway are limited to a maximum of 4096 bytes sent, going over this will cause a connection termination with error code 4002.
+When initially creating and handshaking connections to the Gateway, a user can chose whether they wish to communicate over plain-text JSON, or binary [ETF](http://erlang.org/doc/apps/erts/erl_ext_dist.html). Payloads to the gateway are limited to a maximum of 4096 bytes sent, going over this will cause a connection termination with error code 4002.
 
 ### Rate Limiting
 
@@ -225,6 +245,10 @@ Unlike the HTTP API, Gateways do not provide a method for forced back-off or coo
 
 >warn
 > Clients may only update their game status once every 12 seconds.
+
+## Tracking State
+
+Users who implement the Gateway API should keep in mind that Discord expects clients to track information and state locally, and will only provide events for objects that are updated/deleted. A good example of state tracking is user status, when initially connecting to the gateway, the client receives information regarding the online status of members. However to keep this state updated a user must receive and track [Presence Update](#DOCS_GATEWAY/presence-update)'s. Generally clients should try to cache and track as much information locally to avoid excess API calls.
 
 ## Payloads
 
@@ -249,7 +273,7 @@ The ready event is dispatched when a client has completed the handshake with the
 | v | integer | [gateway protocol version](#DOCS_GATEWAY/gateway-protocol-versions) |
 | user | object | [user object](#DOCS_USER/user-object) (with email information) |
 | private_channels | array | array of [DM channel](#DOCS_CHANNEL/dm-channel-object) objects |
-| guild_ids | array | array of snowflake guild ids |
+| guilds | array | array of [Unavailable Guild](#DOCS_GUILD/unavailable-guild-object) objects |
 | read_state | array | array of [read state](#DOCS_CHANNEL/read-state-object) objects |
 
 ### Channel Create
@@ -274,7 +298,13 @@ Sent when a user is unbanned from a guild. The inner payload is a [user](#DOCS_U
 
 ### Guild Create
 
-Sent when a guild becomes unavailable after a partial guild outage. Because of the way Discord is architected, it's possible for a set of guilds to go offline (or "unavailable"), while the vast majority of them stay online. When guilds are in an offline state, no actions will be received or sent about them until they come back online, which is signified by this event. The inner payload is a [guild](#DOCS_GUILD/guild-object) object.
+This event can be sent in three different scenarios:
+
+1. When a user is initially connecting, to lazily load and backfill information for all unavailable guilds sent in the [ready](#DOCS_GATEWAY/ready) event
+2. When a Guild returns to an online state after being unavailable.
+3. When a user joins a new Guild
+
+The inner payload is a [guild](#DOCS_GUILD/guild-object) object. An additional 'unavailable' key set to false is added for scenarios 1 and 2.
 
 ### Guild Update
 

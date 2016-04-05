@@ -4,7 +4,7 @@
 
 Return an array of [voice region](#DOCS_VOICE/voice-region-object) objects that can be used when creating servers.
 
-###### Voice Region Object
+###### Voice Region Structure
 
 | Field | Type | Description |
 |-------|------|-------------|

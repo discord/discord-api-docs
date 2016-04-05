@@ -4,7 +4,7 @@ Guilds in Discord represent a collection of users and channels into an isolated 
 
 ### Guild Object
 
-###### Guild Object
+###### Guild Structure
 
 | Field | Type | Description |
 |-------|------|-------------|
@@ -23,7 +23,7 @@ Guilds in Discord represent a collection of users and channels into an isolated 
 | emojis | array | array of [emoji](#DOCS_GUILD/emoji-object) objects |
 | features | array | array of guild features |
 
-###### Example Guild Object
+###### Example Guild
 
 ```json
 {
@@ -44,16 +44,36 @@ Guilds in Discord represent a collection of users and channels into an isolated 
 }
 ```
 
+### Unavailable Guild Object
+
+Represents an Offline Guild, or a Guild whose information has not been provided through [Guild Create](#DOCS_GATEWAY/guild-create) events during the Gateway connect.
+
+###### Unavailable Guild Structure
+
+| Field | Type | Description |
+|-------|------|-------------|
+| id | snowflake | guild id |
+| unavailable | boolean | should always be true |
+
+###### Example Unavailable Guild
+
+```json
+{
+	"id": "41771983423143937"",
+	"unavailable": true
+}
+```
+
 ### Guild Embed Object
 
-###### Guild Embed Object
+###### Guild Embed Structure
 
 | Field | Type | Description |
 |-------|------|-------------|
 | enabled | bool | if the embed is enabled |
 | channel_id | snowflake | the embed channel id |
 
-###### Example Guild Embed Object
+###### Example Guild Embed
 
 ```json
 {
@@ -64,7 +84,7 @@ Guilds in Discord represent a collection of users and channels into an isolated 
 
 ### Guild Member Object
 
-###### Guild Member Object
+###### Guild Member Structure
 
 | Field | Type | Description |
 |-------|------|-------------|
@@ -74,7 +94,7 @@ Guilds in Discord represent a collection of users and channels into an isolated 
 | deaf | bool | if the user is deafened |
 | mute | bool | if the user is muted |
 
-###### Example Guild Member Object
+###### Example Guild Member
 
 ```json
 {
@@ -88,7 +108,7 @@ Guilds in Discord represent a collection of users and channels into an isolated 
 
 ### Integration Object
 
-###### Integration Object
+###### Integration Structure
 
 | Field | Type | Description |
 |-------|------|-------------|
@@ -106,7 +126,7 @@ Guilds in Discord represent a collection of users and channels into an isolated 
 
 ### Integration Account Object
 
-###### Integration Account Object
+###### Integration Account Structure
 
 | Field | Type | Description |
 |-------|------|-------------|
@@ -115,7 +135,7 @@ Guilds in Discord represent a collection of users and channels into an isolated 
 
 ### Emoji Object
 
-###### Emoji Object
+###### Emoji Structure
 
 | Field | Type | Description |
 |-------|------|-------------|

@@ -1,10 +1,10 @@
 # Channels Resource
 
-### Guild Channels
+### Guild Channel Object
 
 Guild channels represent an isolated set of users and messages within a Guild.
 
-###### Guild Channel Object
+###### Guild Channel Structure
 
 | Field | Type | Description | Present |
 |-------|------|-------------|---------|
@@ -19,7 +19,7 @@ Guild channels represent an isolated set of users and messages within a Guild.
 | last\_message\_id | snowflake | the id of the last message sent in this channel | Text only |
 | bitrate | integer | the bitrate (in bits) of the voice channel | Voice only |
 
-###### Example Text Channel Object
+###### Example Text Channel
 
 ```json
 {
@@ -35,7 +35,7 @@ Guild channels represent an isolated set of users and messages within a Guild.
 }
 ```
 
-###### Example Voice Channel Object
+###### Example Voice Channel
 
 ```json
 {
@@ -50,11 +50,11 @@ Guild channels represent an isolated set of users and messages within a Guild.
 }
 ```
 
-### DM Channels
+### DM Channel Object
 
 DM Channels represent a one-to-one conversation between two users, outside of the scope of guilds.
 
-###### DM Channel Object
+###### DM Channel Structure
 
 | Field | Type | Description |
 |-------|------|-------------|
@@ -63,7 +63,7 @@ DM Channels represent a one-to-one conversation between two users, outside of th
 | recipient | object | the [user object](#DOCS_USER/user-object) of the DM recipient |
 | last_message_id | snowflake | the id of the last message sent in this DM |
 
-###### Example DM Channel Object
+###### Example DM Channel
 
 ```json
 {
@@ -76,9 +76,9 @@ DM Channels represent a one-to-one conversation between two users, outside of th
 
 ### Read States
 
-###### Read State Object
-
 Read states represent the tracking of what messages and mentions have been read.
+
+###### Read State Structure
 
 | Field | Type | Description |
 |-------|------|-------------|
@@ -86,7 +86,7 @@ Read states represent the tracking of what messages and mentions have been read.
 | mention_count | integer | number of mentions in this channel |
 | last_message_id | snowflake | last message read in this channel |
 
-###### Example Read State Object
+###### Example Read State
 
 ```json
 {
@@ -98,7 +98,9 @@ Read states represent the tracking of what messages and mentions have been read.
 
 ### Messages
 
-###### Message Object
+Represents a message sent in a channel within Discord.
+
+###### Message Structure
 
 | Field | Type | Description |
 |-------|------|-------------|
@@ -115,7 +117,7 @@ Read states represent the tracking of what messages and mentions have been read.
 | embeds | array of [embed objects](#DOC_CHANNEL/embed-object) | any embedded links |
 | nonce | integer | used for validating a message was sent |
 
-###### Example Message Object
+###### Example Message
 
 ```json
 {
@@ -135,7 +137,7 @@ Read states represent the tracking of what messages and mentions have been read.
 
 ### Embeds
 
-###### Embed Object
+###### Embed Structure
 
 | Field | Type | Description |
 |-------|------|-------------|
@@ -146,7 +148,7 @@ Read states represent the tracking of what messages and mentions have been read.
 | thumbnail | [embed thumbnail object](#DOCS_CHANNEL/embed-thumbnail-object) | thumbnail information |
 | provider | [embed provider object](#DOCS_CHANNEL/embed-provider-object) | provider information |
 
-###### Embed Thumbnail Object
+###### Embed Thumbnail Structure
 
 | Field | Type | Description |
 |-------|------|-------------|
@@ -155,7 +157,7 @@ Read states represent the tracking of what messages and mentions have been read.
 | height | integer | height of thumbnail |
 | width | integer | width of thumbnail |
 
-###### Embed Provider Object
+###### Embed Provider Structure
 
 | Field | Type | Description |
 |-------|------|-------------|
@@ -164,7 +166,7 @@ Read states represent the tracking of what messages and mentions have been read.
 
 ### Attachments
 
-###### Attachment Object
+###### Attachment Structure
 
 | Field | Type | Description |
 |-------|------|-------------|
