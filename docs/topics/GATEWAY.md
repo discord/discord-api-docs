@@ -21,17 +21,7 @@ Out of Services versions are versions who's subset of changes compared to the mo
 | Version | Out of Service |
 |------------|----------------|
 | 4 | no |
-| 3 | no |
 
-### Version 4 Changelog
-
-- Moved version and encoding options to explicit URL parameters
-- Guilds will lazy load for bots and users with many guilds
-- Changes to session resuming
-
-### Version 3 Changelog
-
-First Official Gateway Protocol Version.
 
 ## Gateway OP Codes/Payloads
 
@@ -306,6 +296,10 @@ The inner payload is a [guild](#DOCS_GUILD/guild-object) object. An additional '
 
 Sent when a guild is updated. The inner payload is a [guild](#DOCS_GUILD/guild-object) object.
 
+### Guild Emoji Update
+
+Sent when a guilds emojis have been updated. The inner payload is a `guild_id` snowflake, and a `emojis` key which is an array of [emoji](#DOCS_GUILD/emoji-object) objects.
+
 ### Guild Delete
 
 Sent when a guild becomes unavailable during a guild outage. See GUILD_CREATE for more information about how to handle this event.
@@ -415,6 +409,10 @@ Sent when a user starts typing in a channel.
 ### User Settings Update
 
 Sent when the current user updates their settings. Inner payload is a [user settings](#DOCS_USER/user-settings-object) object.
+
+### User Update
+
+Sent when properties about the user change. Inner payload is a [user](#DOCS_USER/user-object) object.
 
 ### Voice State Update
 
