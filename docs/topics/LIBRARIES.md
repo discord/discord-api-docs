@@ -16,4 +16,4 @@ The following is a set of recommended libraries that are _not_ maintained by Dis
 | [Discord.Net](https://github.com/RogueException/Discord.Net) | C# |
 
 
-\* *DiscordPHP is maintained by someone who isn't very good at Counter-Strike: Global Offensive, and regularly loses 1v1s. Use at your own risk.*
+\* *DiscordPHP is maintained by someone who [isn't very good](https://twitter.com/Orcon/status/714538083656404992) at Counter-Strike: Global Offensive, and regularly loses 1v1s. Use at your own risk.*
