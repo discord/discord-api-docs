@@ -8,7 +8,7 @@ Bots within the Discord API are a separate type of users that are owned by appli
 
 1. Bots cannot utilize the friends list feature.
 2. Bots cannot accept invites.
-3. Bots are not limited to a maximum of 100 guilds
+3. Bots are not limited to a maximum of 100 guilds.
 4. Bots have a per-server rather than global rate limit.
 
 ## Implementing OAuth2
@@ -19,7 +19,7 @@ The first step in implementing OAuth2 is [registering a developer application](#
 
 ### Converting User Accounts
 
-We've provided functionality for users looking to migrate previous (unofficial) user accounts to fully-fledged bot accounts. Users have until May 1st to convert previous accounts, after which the migration endpoint will be removed, and public bots using normal user accounts will be deactivated. The migration endpoint should only be used by users with a good understand of the command line, and the current Discord API landscape. Other users should create a new bot account instead. Once migrated, there is **no way to rollback to a normal account** (don't be a Bastian). Therefore, this process should **not** be used by normal users looking to continue accessing their accounts from the desktop/web apps.
+We've provided functionality for users looking to migrate previous (unofficial) user accounts to fully-fledged bot accounts. Users have until May 1st, 2016 to convert previous accounts, after which the migration endpoint will be removed, and public bots using normal user accounts will be deactivated. The migration endpoint should only be used by users with a good understand of the command line, and the current Discord API landscape. Other users should create a new bot account instead. Once migrated, there is **no way to rollback to a normal account** (don't be a Bastian). Therefore, this process should **not** be used by normal users looking to continue accessing their accounts from the desktop/web apps.
 
 #### Creating Application
 
@@ -77,4 +77,4 @@ A URL can be generated that redirects authenticated users to the add-bot flow, b
 https://discordapp.com/oauth2/authorize?&client_id=157730590492196864&scope=bot&permissions=0
 ```
 
-Where client_id is your _bot_ accounts ID, and permissions is an integer following the [permissions](#DOCS_PERMISSIONS/bitwise-permission-flags) format.
+Where `client_id` is your _bot_ applications ID, and permissions is an integer following the [permissions](#DOCS_PERMISSIONS/bitwise-permission-flags) format.
