@@ -17,6 +17,25 @@ Bots within the Discord API are a separate type of users that are owned by appli
 
 The first step in implementing OAuth2 is [registering a developer application](#MY_APPLICATIONS/top), and retrieving your client ID and client secret. Most people who will be implementing OAuth2 will want to find and utilize a library in the language of their choice. For those implementing OAuth2 from scratch, please see [RFC 6749](https://tools.ietf.org/html/rfc6749) for details. In the Discord OAuth2 API, it's technically valid to _not_ have a redirect URI for your application, this enables one-sided authentication flows which allow for server-less bot-adding. The URLs for OAuth2 are as follows:
 
+### Converting User Accounts
+
+We've provided functionality for users looking to migrate previous (unofficial) user accounts to fully-fledged bot accounts. Users have until May 1st to convert previous accounts, after which the migration endpoint will be removed, and public bots using normal user accounts will be deactivated. The migration endpoint should only be used by users with a good understand of the command line, and the current Discord API landscape. Other users should create a new bot account instead. Once migrated, there is **no way to rollback to a normal account** (don't be a Bastian). Therefore, this process should **not** be used by normal users looking to continue accessing their accounts from the desktop/web apps.
+
+#### Creating Application
+
+The first step to migrating is [creating a new application](#MY_APPLICATIONS/top) that will be used for the process. You should keep track of the application id and secret.
+
+#### Convert account
+
+Now, make the following curl request (take VERY CAREFUL note of the token order):
+
+```
+curl -H 'Authorization: YOUR TOKEN' \
+     -H "Content-Type: application/json" \
+     -X POST -d '{"token": "YOUR BOT USERS TOKEN"}' \
+     https://discordapp.com/api/oauth2/applications/APPLICATION_ID/bot
+```
+
 ###### OAuth2 Application URLs
 
 | URL | Description |

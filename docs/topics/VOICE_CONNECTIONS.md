@@ -102,14 +102,7 @@ Generally routers on the internet mask or obfuscate UDP ports through a process 
 
 ## Encrypting and Sending Voice
 
-Voice data sent to discord should be encoded in [opus](https://www.opus-codec.org/), with 2 channels (aka stereo) and a sample rate of 48Khz. Data is encrypted using secret-key cryptography (specifically [libsodium](https://download.libsodium.org/doc/)), and the key passed in the session description. A encrypted voice packet consists of a 24 byte nonce, plus an encrypted payload of a 12 byte header followed by any voice data. The nonce is currently just the header + 12 null bytes.
-
-###### Encrypted Voice Packet Structure
-
-```
-| 24 byte nonce | ( 12 byte header + voice data) |
-				   encrypted using nonce
-```
+Voice data sent to discord should be encoded with [Opus](https://www.opus-codec.org/), using 2 channels (stereo) and a sample rate of 48Khz. Voice Data is sent using a [RTP Header](http://www.rfcreader.com/#rfc3550_line548), followed by encrypted voice data. Voice encryption uses the key passed in session description, combined with the 24 byte header (used as a nonce, appended with 12 null bytes), encrypted with [libsodium](https://download.libsodium.org/doc/).
 
 ###### Encrypted Voice Packet Header Structure
 
