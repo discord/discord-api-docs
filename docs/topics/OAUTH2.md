@@ -35,11 +35,11 @@ Scopes provide access to certain resources of a users account. Your API client o
 
 | Name | Description |
 |------|-------------|
-| identify | allows [/users/@me](#USER/users/@me) without `email` |
-| email | enables [/users/@me](#USER/users/@me) to return an `email` |
-| connections | allows [/users/@me/connections](#USER/users/@me/connections) to return linked Twitch and Youtube accounts. |
-| guilds | allows [/users/@me/guilds](#USER/users/@me/guilds) to return basic information about all of a users guilds |
-| guilds.join | allows [/invites/{invite.id}](#INVITE/invites/{invite.id) to be used for joining a users guild |
+| identify | allows [/users/@me](#USER/get-current-user) without `email` |
+| email | enables [/users/@me](#USER/get-current-user) to return an `email` |
+| connections | allows [/users/@me/connections](#USER/get-user-connections) to return linked Twitch and Youtube accounts. |
+| guilds | allows [/users/@me/guilds](#USER/get-current-user-guilds) to return basic information about all of a users guilds |
+| guilds.join | allows [/invites/{invite.id}](#INVITE/accept-invite) to be used for joining a users guild |
 | bot | for oauth2 bots, this puts the bot in the users selected guild by default |
 
 ## Bots
