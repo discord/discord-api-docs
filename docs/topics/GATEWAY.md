@@ -195,7 +195,7 @@ Used to request offline members for a guild. When initially connecting, the gate
 
 ```json
 {
-	"guild_Id": "41771983444115456",
+	"guild_id": "41771983444115456",
 	"query": "",
 	"limit": 0
 }
