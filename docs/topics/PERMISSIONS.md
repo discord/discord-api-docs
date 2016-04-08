@@ -37,10 +37,10 @@ Roles represent a set of permissions attached to a group of users. Roles have un
 |-------|------|-------------|
 | id | snowflake | role id |
 | name | string | role name |
-| color | integer | RGB color value |
+| color | integer | integer representation of hexadecimal color code |
 | hoist | bool | if this role is pinned in the user listing |
 | position | integer | position of this role |
-| permissions | integer | bitwise permission set |
+| permissions | integer | permission bit set |
 | managed | bool | whether this role is managed by an integration |
 
 
