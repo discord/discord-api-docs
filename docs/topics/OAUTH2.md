@@ -15,7 +15,7 @@ Bots within the Discord API are a separate type of users that are owned by appli
 
 ### Registering Applications
 
-The first step in implementing OAuth2 is [registering a developer application](#/developers/applications/me), and retrieving your client ID and client secret. Most people who will be implementing OAuth2 will want to find and utilize a library in the language of their choice. For those implementing OAuth2 from scratch, please see [RFC 6749](https://tools.ietf.org/html/rfc6749) for details. In the Discord OAuth2 API, it's technically valid to _not_ have a redirect URI for your application, this enables one-sided authentication flows which allow for server-less bot-adding. The URLs for OAuth2 are as follows:
+The first step in implementing OAuth2 is [registering a developer application](#MY_APPLICATIONS/top), and retrieving your client ID and client secret. Most people who will be implementing OAuth2 will want to find and utilize a library in the language of their choice. For those implementing OAuth2 from scratch, please see [RFC 6749](https://tools.ietf.org/html/rfc6749) for details. In the Discord OAuth2 API, it's technically valid to _not_ have a redirect URI for your application, this enables one-sided authentication flows which allow for server-less bot-adding. The URLs for OAuth2 are as follows:
 
 ###### OAuth2 Application URLs
 
@@ -35,11 +35,11 @@ Scopes provide access to certain resources of a users account. Your API client o
 
 | Name | Description |
 |------|-------------|
-| identify | allows [/users/@me](#USER/get-current-user) without `email` |
-| email | enables [/users/@me](#USER/get-current-user) to return an `email` |
-| connections | allows [/users/@me/connections](#USER/get-user-connections) to return linked Twitch and Youtube accounts. |
-| guilds | allows [/users/@me/guilds](#USER/get-current-user-guilds) to return basic information about all of a users guilds |
-| guilds.join | allows [/invites/{invite.id}](#INVITE/accept-invite) to be used for joining a users guild |
+| identify | allows [/users/@me](#DOCS_USER/get-current-user) without `email` |
+| email | enables [/users/@me](#DOCS_USER/get-current-user) to return an `email` |
+| connections | allows [/users/@me/connections](#DOCS_USER/get-user-connections) to return linked Twitch and Youtube accounts. |
+| guilds | allows [/users/@me/guilds](#DOCS_USER/get-current-user-guilds) to return basic information about all of a users guilds |
+| guilds.join | allows [/invites/{invite.id}](#DOCS_INVITE/accept-invite) to be used for joining a users guild |
 | bot | for oauth2 bots, this puts the bot in the users selected guild by default |
 
 ## Bots
@@ -48,7 +48,7 @@ Bots within the Discord API are a from of user account that is authenticated _wi
 
 ### Registering Bots
 
-Bots can be registered by clicking the "add bot" button when editing or creating an OAuth2 application. Bots are generic user accounts, and can use the [users](#/developers/docs/resources/user) resource to modify attributes about themselves.
+Bots can be registered by clicking the "add bot" button when editing or creating an [OAuth2 application](#MY_APPLICATIONS/top).
 
 ### Adding Bots to Guilds
 
