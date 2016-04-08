@@ -8,7 +8,7 @@ Bots within the Discord API are a separate type of users that are owned by appli
 
 1. Bots cannot utilize the friends list feature.
 2. Bots cannot accept invites.
-3. Bots are not limited to a maximum of 100 guilds
+3. Bots are not limited to a maximum of 100 guilds.
 4. Bots have a per-server rather than global rate limit.
 
 ## Implementing OAuth2
@@ -77,4 +77,4 @@ A URL can be generated that redirects authenticated users to the add-bot flow, b
 https://discordapp.com/oauth2/authorize?&client_id=157730590492196864&scope=bot&permissions=0
 ```
 
-Where client_id is your _bot_ accounts ID, and permissions is an integer following the [permissions](#DOCS_PERMISSIONS/bitwise-permission-flags) format.
+Where client\_id is your _bot_ account's ID, and permissions is an integer following the [permissions](#DOCS_PERMISSIONS/bitwise-permission-flags) format.
