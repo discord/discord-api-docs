@@ -1,5 +1,3 @@
-**This repository is not finalized, please do not submit pull requests**
-
 ## Wanted Changes
 
 1. Fixes to incorrect statements or inaccuracies within the documentation.
@@ -10,4 +8,4 @@
 1. Spelling, grammar or whitespace/formatting changes.
 2. Modifications to the overall structure and format of the API docs.
 
-Contributions to this repository must conform to the [Discord App TOS](https://discordapp.com/tos).
+By submitting pull requests to this repository, you waive any rights or ownership of the included source code and content to Discord. Contributions to this repository must conform to the [Discord App TOS](https://discordapp.com/tos).
