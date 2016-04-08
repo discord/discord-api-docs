@@ -26,7 +26,7 @@ On April 1st we launched [Airhorn Solutions](https://airhorn.solutions) to bring
 
 Now that the noise has subsided, we’ve [open-sourced the source code for Airhorn Solutions](https://github.com/hammerandchisel/airhornbot). It’s the first fully-functional bot built with our initial API launch. If you’re looking for a working example of our API, we highly suggest digging in.
 
-There are two active unofficial community-driven Discord Servers for devs - [Discord API](https://discord.gg/0SBTUU1wZTVSH3Wo) and [Discord Bots.](instant invite to server) Come hang out if you wanna chat with other devs and see what’s being cranked out.
+There is an [active unofficial community-driven Discord Server for devs](https://discord.gg/0SBTUU1wZTVSH3Wo). Come hang out if you wanna chat with other devs and see what’s being cranked out.
 
 We look forward to seeing what you make!
 
