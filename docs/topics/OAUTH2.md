@@ -63,7 +63,7 @@ Scopes provide access to certain resources of a users account. Your API client o
 
 ## Bots
 
-Bots within the Discord API are a from of user account that is authenticated _without_ a username or password, and has similar properties and abilities to normal user accounts. Bot accounts enable developers to have a simple portal that allows authenticated users to add third-party bots to servers they own or manage.
+Bots within the Discord API are a form of user account that is authenticated _without_ a username or password, and has similar properties and abilities to normal user accounts. Bot accounts enable developers to have a simple portal that allows authenticated users to add third-party bots to servers they own or manage.
 
 ### Registering Bots
 
