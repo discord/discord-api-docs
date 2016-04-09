@@ -215,7 +215,7 @@ The before and after keys are mutually exclusive, only one may be passed at a ti
 | after | snowflake | get messages after this message ID | false | absent |
 | limit | integer | max number of messages to return (1-100) | false | 50 |
 
-## Create Message % POST /channels/{channel.id}/messages
+## Create Message % POST /channels/{channel.id#DOCS_CHANNEL/channel-object}/messages
 
 Post a message to a guild text or DM channel. If operating on a guild channel, this endpoint requires the 'SEND_MESSAGES' permission to be present on the current user. Returns a [message](#DOCS_CHANNEL/message-object) object. Fires a [Message Create](#DOCS_GATEWAY/message-create) Gateway event.
 
@@ -227,7 +227,7 @@ Post a message to a guild text or DM channel. If operating on a guild channel, t
 | nonce | string | a nonce that can be used for optimistic message sending | false |
 | tts | bool | true if this is a TTS message | false |
 
-## Upload File % POST /channels/{channel.id}/messages
+## Upload File % POST /channels/{channel.id#DOCS_CHANNEL/channel-object}/messages
 
 Post a file to a guild text or DM channel. If operating on a guild channel, this endpoint requires the 'SEND\_MESSAGES' and 'ATTACH\_FILES' permissions to be present on the current user. Returns a [message](#DOCS_CHANNEL/message-object) object. Fires a [Message Create](#DOCS_GATEWAY/message-create) Gateway event.
 
@@ -238,7 +238,7 @@ Post a file to a guild text or DM channel. If operating on a guild channel, this
 
 | Field | Type | Description | Required |
 |-------|------|-------------|----------|
-| content | string | the message contents (up to 2000 characters) | true |
+| content | string | the message contents (up to 2000 characters) | false |
 | nonce | string | a nonce that can be used for optimistic message sending | false |
 | tts | string | true if this is a TTS message | false |
 | file | file contents | the contents of the file being sent | true |
