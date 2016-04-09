@@ -1,6 +1,6 @@
 # Discord Official API Documentation
 
-This repo contains the official Discord API documentation, which can be viewed online [HERE](TODO). Before submitting pull-requests, please remember to _fully_ read the [Contributing](CONTRIBUTING.md) guidelines.
+This repo contains the official Discord API documentation, which can be viewed online [HERE](https://discordapp.com/developers/docs/intro). Before submitting pull-requests, please remember to _fully_ read the [Contributing](CONTRIBUTING.md) guidelines.
 
 ## Markdown Syntax
 
