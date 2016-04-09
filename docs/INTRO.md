@@ -22,7 +22,7 @@ Head over to our new [applications page](#MY_APPLICATIONS/top) to dive into crea
 
 ## Airhorn Solutions - Bot #0
 
-On April 1st we launched [Airhorn Solutions](https://airhorn.solutions) to bring upon chaos to this meek world.
+On April 1st we launched [Airhorn Solutions](https://airhorn.solutions) to bring chaos upon this meek world.
 
 Now that the noise has subsided, we’ve [open-sourced the source code for Airhorn Solutions](https://github.com/hammerandchisel/airhornbot). It’s the first fully-functional bot built with our initial API launch. If you’re looking for a working example of our API, we highly suggest digging in.
 
