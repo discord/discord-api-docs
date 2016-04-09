@@ -1,7 +1,7 @@
 # Introduction
 
 These developer pages document how to use Discord's API to empower your applications and create awesome bots for your
-communities. All of our [documentation is on Github](https://github.com/hammerandchisel/discord-api-docs) and we would
+communities. All of our [documentation is on GitHub](https://github.com/hammerandchisel/discord-api-docs) and we would
 <3 corrections and improvements!
 
 ![Bot related things](https://images-2.discordapp.net/.eJwVyksOwiAQANC7sJfp8Ke7Lt15A0MoUpJWGmZcGe-ubl_eW7zGLmaxMZ80A6yNch-rJO4j1SJr73Uv6Wwkcz8gMae8HeXJBOjC5NEap42dokUX_4SotI8GVfBaYYDldr3n3y_jomRtD_H5ArCeI9g.zGz1JSL-9DXgpkX_SkmMDM8NWGg.gif)
