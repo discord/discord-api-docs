@@ -113,3 +113,5 @@ Voice data sent to discord should be encoded with [Opus](https://www.opus-codec.
 | Sequence | unsigned short (big endian) | 2 bytes |
 | Timestamp | unsigned int (big endian) | 4 bytes |
 | SSRC | unsigned int (big endian) | 4 bytes |
+
+When there's a break in the sent data, the packet transmission shouldn't simply cut off but rather send five frames of silence (`0xF8, 0xFF, 0xFE`) before stopping to avoid unintended Opus interpolation with following transmissions.
