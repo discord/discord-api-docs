@@ -245,9 +245,13 @@ Packets sent from the client to the Gateway API are encapsulated within a [gatew
 
 Receiving payloads with the Gateway API is slightly more complex than sending. When using the JSON encoding with compression enabled, the Gateway has the option of sending payloads as compressed JSON binaries using zlib, meaning your library _must_ detect and decompress these payloads before attempting to parse them. The gateway does not implement a shared compression context between messages sent.
 
+### Event Names
+
+Event names are full capital with spaces replaced with underscores. Channel Create would be `CHANNEL_CREATE`, Voice State Update would be `VOICE_STATE_UPDATE` and so on.
+
 ## Events
 
-### Ready - `READY`
+### Ready
 
 The ready event is dispatched when a client has completed the handshake with the gateway. The ready event is the largest and most complex event the gateway will send, as it contains all the state required for a client to begin interacting with the rest of the platform.
 
@@ -261,7 +265,7 @@ The ready event is dispatched when a client has completed the handshake with the
 | guilds | array | array of [Unavailable Guild](#DOCS_GUILD/unavailable-guild-object) objects |
 | read_state | array | array of [read state](#DOCS_CHANNEL/read-state-object) objects |
 
-### Channel Create - `CHANNEL_CREATE`
+### Channel Create
 
 Sent when a new channel is created, relevant to the current user.
 
@@ -269,7 +273,7 @@ Sent when a new channel is created, relevant to the current user.
 
 The inner payload is a [DM](#DOCS_CHANNEL/dm-channel-object) or [Guild](#DOCS_CHANNEL/guild-channel-object) channel object.
 
-### Channel Update - `CHANNEL_UPDATE`
+### Channel Update
 
 Sent when a channel is updated.
 
@@ -277,7 +281,7 @@ Sent when a channel is updated.
 
 The inner payload is a [guild channel](#DOCS_CHANNEL/guild-channel-object) object.
 
-### Channel Delete - `CHANNEL_DELETE`
+### Channel Delete
 
 Sent when a channel relevant to the current user is deleted.
 
@@ -285,7 +289,7 @@ Sent when a channel relevant to the current user is deleted.
 
 The inner payload is a [DM](#DOCS_CHANNEL/dm-channel-object) or [Guild](#DOCS_CHANNEL/guild-channel-object) channel object.
 
-### Guild Ban Add - `GUILD_BAN_ADD`
+### Guild Ban Add
 
 Sent when a user is banned from a guild.
 
@@ -293,7 +297,7 @@ Sent when a user is banned from a guild.
 
 The inner payload is a [user](#DOCS_USER/user-object) object.
 
-### Guild Ban Remove - `GUILD_BAN_REMOVE`
+### Guild Ban Remove
 
 Sent when a user is unbanned from a guild.
 
@@ -301,7 +305,7 @@ Sent when a user is unbanned from a guild.
 
 The inner payload is a [user](#DOCS_USER/user-object) object.
 
-### Guild Create - `GUILD_CREATE`
+### Guild Create
 
 This event can be sent in three different scenarios:
 
@@ -313,7 +317,7 @@ This event can be sent in three different scenarios:
 
 The inner payload is a [guild](#DOCS_GUILD/guild-object) object. 
 
-### Guild Update - `GUILD_UPDATE`
+### Guild Update
 
 Sent when a guild is updated.
 
@@ -321,7 +325,7 @@ Sent when a guild is updated.
 
 The inner payload is a [guild](#DOCS_GUILD/guild-object) object.
 
-### Guild Emoji Update - `GUILD_EMOJI_UPDATE`
+### Guild Emoji Update
 
 Sent when a guilds emojis have been updated.
 
@@ -332,7 +336,7 @@ Sent when a guilds emojis have been updated.
 | guild_id | snowflake | id of the guild |
 | emojis | array | array of [emojis](#DOCS_GUILD/emoji-object)  |
 
-### Guild Delete - `GUILD_DELETE`
+### Guild Delete
 
 Sent when a guild becomes unavailable during a guild outage, or when the user leaves or is removed from a guild. See GUILD_CREATE for more information about how to handle this event.
 
@@ -343,7 +347,7 @@ Sent when a guild becomes unavailable during a guild outage, or when the user le
 | id | snowflake | id of the guild |
 | unavailable | boolean | whether the guild is unavailable, should always be true. if not set, this signifies that the user was removed from the guild |
 
-### Guild Integrations Update - `GUILD_INTEGRATIONS_UPDATE`
+### Guild Integrations Update
 
 Sent when a guild integration is updated.
 
@@ -353,7 +357,7 @@ Sent when a guild integration is updated.
 |-------|------|-------------|
 | guild_id | snowflake | id of the guild whose integrations where updated |
 
-### Guild Member Add - `GUILD_MEMBER_ADD`
+### Guild Member Add
 
 Sent when a new user joins a guild.
 
@@ -365,7 +369,7 @@ The inner payload is a [guild member](#DOCS_GUILD/guild-member-object) object wi
 |-------|------|-------------|
 | guild_id | snowflake | id of the guild |
 
-### Guild Member Remove - `GUILD_MEMBER_REMOVE`
+### Guild Member Remove
 
 Sent when a user is removed from a guild (leave/kick/ban).
 
@@ -376,7 +380,7 @@ Sent when a user is removed from a guild (leave/kick/ban).
 | guild_id | snowflake | the id of the guild |
 | user | a [user](#DOCS_USER/user-object) object | the user who was removed |
 
-### Guild Member Update - `GUILD_MEMBER_UPDATE`
+### Guild Member Update
 
 Sent when a guild member is updated.
 
@@ -388,7 +392,7 @@ Sent when a guild member is updated.
 | roles | array of [role](#DOCS_PERMISSIONS/role-object) objects | user roles |
 | user | a [user](#DOCS_USER/user-object) object | the user |
 
-### Guild Role Create - `GUILD_ROLE_CREATE`
+### Guild Role Create
 
 Sent when a guild role is created.
 
@@ -399,7 +403,7 @@ Sent when a guild role is created.
 | guild_id | snowflake | the id of the guild |
 | role | a [role](#DOCS_PERMISSIONS/role-object) object | the role created |
 
-### Guild Role Update - `GUILD_ROLE_UPDATE`
+### Guild Role Update
 
 Sent when a guild role is updated.
 
@@ -410,7 +414,7 @@ Sent when a guild role is updated.
 | guild_id | snowflake | the id of the guild |
 | role | a [role](#DOCS_PERMISSIONS/role-object) object | the role created |
 
-### Guild Role Delete - `GUILD_ROLE_DELETE`
+### Guild Role Delete
 
 Sent when a guild role is deleted
 
@@ -421,7 +425,7 @@ Sent when a guild role is deleted
 | guild_id | snowflake | id of the guild |
 | role_id | snowflake | id of the role |
 
-### Message Create - `MESSAGE_CREATE`
+### Message Create
 
 Sent when a message is created.
 
@@ -429,7 +433,7 @@ Sent when a message is created.
 
 The inner payload is a [message](#DOCS_CHANNEL/message-object) object.
 
-### Message Update - `MESSAGE_UPDATE`
+### Message Update
 
 Sent when a message is updated.
 
@@ -440,7 +444,7 @@ The inner payload is a [message](#DOCS_CHANNEL/message-object) object.
 >warn
 > Unlike creates, message updates may contain only a subset of the full message object payload (but will always contain an id and channel_id).
 
-### Message Delete - `MESSAGE_DELETE`
+### Message Delete
 
 Sent when a message is deleted.
 
@@ -451,7 +455,7 @@ Sent when a message is deleted.
 | id | snowflake | the id of the message |
 | channel_id | snowflake | the id of the channel |
 
-### Presence Update - `PRESENCE_UPDATE`
+### Presence Update
 
 Sent when a users presence is updated.
 
@@ -465,7 +469,7 @@ Sent when a users presence is updated.
 | guild_id | snowflake | id of the guild |
 | status | string | either "idle", "online" or "offline" |
 
-### Typing Start - `TYPING_START`
+### Typing Start
 
 Sent when a user starts typing in a channel.
 
@@ -477,7 +481,7 @@ Sent when a user starts typing in a channel.
 | user_id | snowflake | id of the user |
 | timestamp | timestamp | when the user started typing |
 
-### User Settings Update - `USER_SETTINGS_UPDATE`
+### User Settings Update
 
 Sent when the current user updates their settings.
 
@@ -485,7 +489,7 @@ Sent when the current user updates their settings.
 
 Inner payload is a [user settings](#DOCS_USER/user-settings-object) object.
 
-### User Update - `USER_UPDATE`
+### User Update
 
 Sent when properties about the user change.
 
@@ -493,7 +497,7 @@ Sent when properties about the user change.
 
 Inner payload is a [user](#DOCS_USER/user-object) object.
 
-### Voice State Update - `VOICE_STATE_UPDATE`
+### Voice State Update
 
 Sent when someone joins/leaves/moves voice channels.
 
