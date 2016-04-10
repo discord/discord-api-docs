@@ -81,7 +81,7 @@ Used to maintain an active gateway connection. Must be sent every `heartbeat_int
 
 Used to trigger the initial handshake with the gateway.
 
-####### Gateway Identify Structure
+###### Gateway Identify Structure
 
 | Field | Type | Description |
 |-------|------|-------------|
