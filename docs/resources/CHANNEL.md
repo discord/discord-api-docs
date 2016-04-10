@@ -108,7 +108,7 @@ Represents a message sent in a channel within Discord.
 |-------|------|-------------|
 | id | snowflake | id of the message |
 | channel_id | snowflake | id of the channel the message was sent in |
-| author | the [user object](#DOCS_USER/user-object) for the author |
+| author | a [user](#DOCS_USER/user-object) object | the author of this message |
 | content | string | contents of the message |
 | timestamp | timestamp | when this message was sent |
 | edited_timestamp | ?timestamp | when this message was edited (or null if never) |
