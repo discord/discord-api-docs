@@ -1,5 +1,7 @@
 # Channels Resource
 
+## Channel Objects
+
 ### Guild Channel Object
 
 Guild channels represent an isolated set of users and messages within a Guild.
@@ -189,7 +191,7 @@ Represents a message sent in a channel within Discord.
 | height | ?integer | height of file (if image) |
 | width | ?integer | width of file (if image) |
 
-## Get Channel % GET /channels/{channel.id#DOCS_CHANNEL/guild-channel-object}
+## Get Channel % GET /channels/{channel.id#DOCS_CHANNEL/channel-objects}
 
 Return a channel by ID. This returns a [guild channel](#DOCS_CHANNEL/guild-channel-object) or [dm channel](#DOCS_CHANNEL/dm-channel-object) object.
 
@@ -206,11 +208,11 @@ Update a channels settings. Requires the 'MANAGE_GUILD' permission for the guild
 | topic | string | 0-1024 character channel topic | Text |
 | bitrate | integer | the bitrate (in bits) of the voice channel; 8000 to 96000 (128000 for VIP servers) | Voice |
 
-## Delete/Close Channel % DELETE /channels/{channel.id#DOCS_CHANNEL/guild-channel-object}
+## Delete/Close Channel % DELETE /channels/{channel.id#DOCS_CHANNEL/channel-objects}
 
 Delete a guild channel, or close a private message. Requires the 'MANAGE_GUILD' permission for the guild. Returns a [guild channel](#DOCS_CHANNEL/guild-channel-object) or [dm channel](#DOCS_CHANNEL/dm-channel-object) object on success. Fires a [Channel Delete](#DOCS_GATEWAY/channel-delete) Gateway event. Deleting a guild channel cannot be undone. Use with caution, as it is impossible to undo this action when performed on a guild channel. In contrast, when used with a private message, it is possible to undo the action by opening a private message with the recipient again.
 
-## Get Channel Messages % GET /channels/{channel.id#DOCS_CHANNEL/guild-channel-object}/messages
+## Get Channel Messages % GET /channels/{channel.id#DOCS_CHANNEL/channel-objects}/messages
 
 Return the messages for a channel. If operating on a guild channel, this endpoint requires the 'READ_MESSAGES' permission to be present on the current user. Returns an array of [message](#DOCS_CHANNEL/message-object) objects on success.
 
@@ -226,7 +228,7 @@ The before and after keys are mutually exclusive, only one may be passed at a ti
 | after | snowflake | get messages after this message ID | false | absent |
 | limit | integer | max number of messages to return (1-100) | false | 50 |
 
-## Create Message % POST /channels/{channel.id#DOCS_CHANNEL/guild-channel-object}/messages
+## Create Message % POST /channels/{channel.id#DOCS_CHANNEL/channel-objects}/messages
 
 Post a message to a guild text or DM channel. If operating on a guild channel, this endpoint requires the 'SEND_MESSAGES' permission to be present on the current user. Returns a [message](#DOCS_CHANNEL/message-object) object. Fires a [Message Create](#DOCS_GATEWAY/message-create) Gateway event.
 
@@ -238,7 +240,7 @@ Post a message to a guild text or DM channel. If operating on a guild channel, t
 | nonce | string | a nonce that can be used for optimistic message sending | false |
 | tts | bool | true if this is a TTS message | false |
 
-## Upload File % POST /channels/{channel.id#DOCS_CHANNEL/guild-channel-object}/messages
+## Upload File % POST /channels/{channel.id#DOCS_CHANNEL/channel-objects}/messages
 
 Post a file to a guild text or DM channel. If operating on a guild channel, this endpoint requires the 'SEND\_MESSAGES' and 'ATTACH\_FILES' permissions to be present on the current user. Returns a [message](#DOCS_CHANNEL/message-object) object. Fires a [Message Create](#DOCS_GATEWAY/message-create) Gateway event.
 
@@ -254,7 +256,7 @@ Post a file to a guild text or DM channel. If operating on a guild channel, this
 | tts | string | true if this is a TTS message | false |
 | file | file contents | the contents of the file being sent | true |
 
-## Edit Message % PATCH /channels/{channel.id#DOCS_CHANNEL/guild-channel-object}/messages/{message.id#DOCS_CHANNEL/message-object}
+## Edit Message % PATCH /channels/{channel.id#DOCS_CHANNEL/channel-objects}/messages/{message.id#DOCS_CHANNEL/message-object}
 
 Edit a previously sent message. Returns a [message](#DOCS_CHANNEL/message-object) object. You can only edit messages that have been sent by the current user. Fires a [Message Update](#DOCS_GATEWAY/message-update) Gateway event.
 
@@ -264,11 +266,11 @@ Edit a previously sent message. Returns a [message](#DOCS_CHANNEL/message-object
 |-------|------|-------------|
 | content | string | the new message contents |
 
-## Delete Message % DELETE /channels/{channel.id#DOCS_CHANNEL/guild-channel-object}/messages/{message.id#DOCS_CHANNEL/message-object}
+## Delete Message % DELETE /channels/{channel.id#DOCS_CHANNEL/channel-objects}/messages/{message.id#DOCS_CHANNEL/message-object}
 
 Delete a message. If operating on a guild channel and trying to delete a message that was not sent by the current user, this endpoint requires the 'MANAGE_MESSAGES' permission. Returns a [message](#DOCS_CHANNEL/message-object) object. Fires a [Message Delete](#DOCS_GATEWAY/message-delete) Gateway event.
 
-## Ack Message % POST /channels/{channel.id#DOCS_CHANNEL/guild-channel-object}/messages/{message.id#DOCS_CHANNEL/message-object}/ack
+## Ack Message % POST /channels/{channel.id#DOCS_CHANNEL/channel-objects}/messages/{message.id#DOCS_CHANNEL/message-object}/ack
 
 Ack a message. Generally bots should **not** implement this route.
 
@@ -304,6 +306,6 @@ Create a new [invite](#DOCS_INVITE/invite-object) object for the channel. Only u
 
 Delete a channel permission overwrite for a user or role in a channel. Only usable for guild channels. Requires the 'MANAGE_ROLES' permission. Returns a 200 empty response on success. For more information about permissions, see [permissions](#DOCS_PERMISSIONS/permissions)
 
-## Trigger Typing Indicator % POST /channels/{channel.id#DOCS_CHANNEL/guild-channel-object}/typing
+## Trigger Typing Indicator % POST /channels/{channel.id#DOCS_CHANNEL/channel-objects}/typing
 
 Post a typing indicator for the specified channel. Generally bots should **not** implement this route. However, if a bot is responding to a command and expects the computation to take a few seconds, this endpoint may be called to let the user know that the bot is processing their message. Fires a [Typing Start](#DOCS_GATEWAY/typing-start) Gateway event.
