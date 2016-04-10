@@ -4,7 +4,7 @@ Gateways are Discords form of real-time communication over secure web-sockets. C
 
 ### Get Gateway %  GET /gateway
 
-Return an object with a single valid WSS URL. Clients **should** cache this value, and only call this endpoint to retrieve a new URL if they are unable to establish a Gateway connection to the cached URL. 
+Return an object with a single valid WSS URL. Clients **should** cache this value, and only call this endpoint to retrieve a new URL if they are unable to establish a Gateway connection to the cached URL.
 
 ###### Example Response
 
@@ -66,7 +66,7 @@ Used by the gateway to notify the client of events.
 
 ### Gateway Heartbeat
 
-Used to maintain an active gateway connection. Must be sent every `heartbeat_interval` seconds after the [ready](#DOCS_GATEWAY/ready) payload is received. Note that this interval already has room for error, and that client implementations do not need to send a heartbeat faster than what's specified. The inner `d` key must be set to the last seq (`s`) received by the client.  
+Used to maintain an active gateway connection. Must be sent every `heartbeat_interval` seconds after the [ready](#DOCS_GATEWAY/ready) payload is received. Note that this interval already has room for error, and that client implementations do not need to send a heartbeat faster than what's specified. The inner `d` key must be set to the last seq (`s`) received by the client.
 
 ###### Gateway Heartbeat Example
 
@@ -233,7 +233,7 @@ Users who implement the Gateway API should keep in mind that Discord expects cli
 
 ## Guild (Un)availability
 
-When connecting to the gateway as a bot user, guilds that the bot is a part of start out as unavailable. Unavailable simply means that the gateway is either connecting, is unable to connect to a guild, or has disconnected from a guild. Don't fret however! When a guild goes unavailable the gateway will automatically attempt to reconnect on your behalf. As far as a client is concerned there is no distinction between a truly unavailable guild (meaning that the node that the guild is running on is unavailable) or a guild that the client is trying to connect to. As such, guilds only exist in two states: available or unavailable. 
+When connecting to the gateway as a bot user, guilds that the bot is a part of start out as unavailable. Unavailable simply means that the gateway is either connecting, is unable to connect to a guild, or has disconnected from a guild. Don't fret however! When a guild goes unavailable the gateway will automatically attempt to reconnect on your behalf. As far as a client is concerned there is no distinction between a truly unavailable guild (meaning that the node that the guild is running on is unavailable) or a guild that the client is trying to connect to. As such, guilds only exist in two states: available or unavailable.
 
 ## Payloads
 

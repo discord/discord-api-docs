@@ -50,7 +50,7 @@ A brief version of a [guild](#DOCS_GUILD/guild-object) object
 | id | snowflake | guild.id |
 | name | string | guild.name |
 | icon | string | guild.icon |
-| owner | boolean | true if the user is an owner of the guild |  
+| owner | boolean | true if the user is an owner of the guild |
 
 ###### Example User Guild
 
