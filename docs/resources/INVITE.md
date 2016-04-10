@@ -4,7 +4,7 @@
 
 Represents a code that when used, adds a user to a guild.
 
-###### Invite Object
+###### Invite Structure
 
 | Field | Type | Description |
 |-------|------|-------------|
@@ -13,7 +13,7 @@ Represents a code that when used, adds a user to a guild.
 | channel | a [invite channel](#DOCS_INVITE/invite-channel-object) object | the channel this invite is for |
 | xkcdpass | string | the xkcdpass version of the code (or null) |
 
-###### Invite Object Example
+###### Invite Object
 
 ```json
 {
@@ -26,7 +26,7 @@ Represents a code that when used, adds a user to a guild.
 
 ## Invite Metadata Object
 
-###### Invite Object Metadata
+###### Invite Metadata Structure
 
 | Field | Type | Description |
 |-------|------|-------------|
@@ -38,7 +38,7 @@ Represents a code that when used, adds a user to a guild.
 | created_at | datetime | when this invite was created |
 | revoked | boolean | whether this invite is revoked |
 
-###### Invite Object Metadata Example
+###### Example Invite Metadata
 
 ```json
 {
@@ -56,7 +56,7 @@ Represents a code that when used, adds a user to a guild.
 
 Represents the parent guild of an invite.
 
-###### Invite Guild Object
+###### Invite Guild Structure
 
 | Field | Type | Description |
 |-------|------|-------------|
@@ -64,7 +64,7 @@ Represents the parent guild of an invite.
 | name | string | name of the guild |
 | splash_hash | string | hash of the guild splash (or null) |
 
-###### Invite Guild Object Example
+###### Invite Guild Object
 
 ```json
 {
@@ -78,7 +78,7 @@ Represents the parent guild of an invite.
 
 Represents the channel an invite is for.
 
-###### Invite Channel Object
+###### Invite Channel Structure
 
 | Field | Type | Description |
 |-------|------|-------------|
@@ -86,7 +86,7 @@ Represents the channel an invite is for.
 | name | string | name of the channel |
 | type | string | 'text' or 'voice' |
 
-###### Invite Channel Object Example
+###### Invite Channel Object
 
 ```json
 {

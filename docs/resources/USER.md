@@ -15,7 +15,7 @@ data:image/jpeg;base64,MY_BASE64_IMAGE_DATA_HERE
 
 ## User Object
 
-###### User Object
+###### User Structure
 
 | Field | Type | Description | Required OAuth2 Scope |
 |-------|------|-------------|----|
@@ -26,7 +26,7 @@ data:image/jpeg;base64,MY_BASE64_IMAGE_DATA_HERE
 | verified | bool | whether the email on this account has been verified | email |
 |  email | string | the users email | email |
 
-###### Example User Object
+###### Example User
 
 ```json
 {
@@ -43,16 +43,16 @@ data:image/jpeg;base64,MY_BASE64_IMAGE_DATA_HERE
 
 A brief version of a [guild](#DOCS_GUILD/guild-object) object
 
-###### User Guild Object
+###### User Guild Structure
 
 | Field | Type | Description |
 |-------|------|-------------|
 | id | snowflake | guild.id |
 | name | string | guild.name |
 | icon | string | guild.icon |
-| owner | boolean | true if the user is an owner of the guild |  
+| owner | boolean | true if the user is an owner of the guild |
 
-###### Example User Guild Object
+###### Example User Guild
 
 ```json
 {

@@ -4,7 +4,7 @@ Guilds in Discord represent a collection of users and channels into an isolated 
 
 ### Guild Object
 
-###### Guild Object
+###### Guild Structure
 
 | Field | Type | Description |
 |-------|------|-------------|
@@ -14,16 +14,16 @@ Guilds in Discord represent a collection of users and channels into an isolated 
 | splash | string | splash hash |
 | owner_id | snowflake | id of owner |
 | region | string | {voice_region.id} |
-| afk\_channel\_id | snowflake | id of afk channel | 
+| afk\_channel\_id | snowflake | id of afk channel |
 | afk_timeout | integer | afk timeout in seconds |
 | embed_enabled | bool | is this guild embeddable (e.g. widget) |
 | embed_channel_id | snowflake | id of embedded channel |
 | verification_level | integer | level of verification |
-| roles | array | array of [role](#DOCS_PERMISSION/role-object) objects |
+| roles | array | array of [role](#DOCS_PERMISSIONS/role-object) objects |
 | emojis | array | array of [emoji](#DOCS_GUILD/emoji-object) objects |
 | features | array | array of guild features |
 
-###### Example Guild Object
+###### Example Guild
 
 ```json
 {
@@ -40,20 +40,40 @@ Guilds in Discord represent a collection of users and channels into an isolated 
 	"verification_level": 1,
 	"roles": [],
 	"emojis": [],
-	"features": ["INVITE_SPLASH"]	
+	"features": ["INVITE_SPLASH"]
+}
+```
+
+### Unavailable Guild Object
+
+Represents an Offline Guild, or a Guild whose information has not been provided through [Guild Create](#DOCS_GATEWAY/guild-create) events during the Gateway connect.
+
+###### Unavailable Guild Structure
+
+| Field | Type | Description |
+|-------|------|-------------|
+| id | snowflake | guild id |
+| unavailable | boolean | should always be true |
+
+###### Example Unavailable Guild
+
+```json
+{
+	"id": "41771983423143937",
+	"unavailable": true
 }
 ```
 
 ### Guild Embed Object
 
-###### Guild Embed Object
+###### Guild Embed Structure
 
 | Field | Type | Description |
 |-------|------|-------------|
 | enabled | bool | if the embed is enabled |
 | channel_id | snowflake | the embed channel id |
 
-###### Example Guild Embed Object
+###### Example Guild Embed
 
 ```json
 {
@@ -64,17 +84,17 @@ Guilds in Discord represent a collection of users and channels into an isolated 
 
 ### Guild Member Object
 
-###### Guild Member Object
+###### Guild Member Structure
 
 | Field | Type | Description |
 |-------|------|-------------|
 | user | object | [user](#DOCS_USER/user-object) object |
-| roles | array | array of [role](#DOCS_PERMISSION/role-object) object id's |
+| roles | array | array of [role](#DOCS_PERMISSIONS/role-object) object id's |
 | joined_at | datetime | date the user joined the guild |
 | deaf | bool | if the user is deafened |
 | mute | bool | if the user is muted |
 
-###### Example Guild Member Object
+###### Example Guild Member
 
 ```json
 {
@@ -88,7 +108,7 @@ Guilds in Discord represent a collection of users and channels into an isolated 
 
 ### Integration Object
 
-###### Integration Object
+###### Integration Structure
 
 | Field | Type | Description |
 |-------|------|-------------|
@@ -106,7 +126,7 @@ Guilds in Discord represent a collection of users and channels into an isolated 
 
 ### Integration Account Object
 
-###### Integration Account Object
+###### Integration Account Structure
 
 | Field | Type | Description |
 |-------|------|-------------|
@@ -115,7 +135,7 @@ Guilds in Discord represent a collection of users and channels into an isolated 
 
 ### Emoji Object
 
-###### Emoji Object
+###### Emoji Structure
 
 | Field | Type | Description |
 |-------|------|-------------|
@@ -212,7 +232,7 @@ Return a list of [guild member](#GUILD/guild-member-object) objects that are mem
 | Field | Type | Description | Default |
 |-------|------|-------------|---------|
 | limit | integer | max number of members to return (1-1000) | 1 |
-| offset | integer | the 0-indexed offset to start at | 0 | 
+| offset | integer | the 0-indexed offset to start at | 0 |
 
 ## Modify Guild Member % PATCH /guilds/{guild.id#DOCS_GUILD/guild-object}/members/{user.id#DOCS_USER/user-object}
 
@@ -256,18 +276,18 @@ Remove the ban for a user. Requires the 'BAN_MEMBERS' permissions. Fires a [Guil
 
 ## Get Guild Roles % GET /guilds/{guild.id#DOCS_GUILD/guild-object}/roles
 
-Return a list of [role](#DOCS_PERMISSION/role-object) objects for the guild. Requires the 'MANAGE_ROLES' permission.
+Return a list of [role](#DOCS_PERMISSIONS/role-object) objects for the guild. Requires the 'MANAGE_ROLES' permission.
 
 ## Create Guild Role % POST /guilds/{guild.id#DOCS_GUILD/guild-object}/roles
 
-Create a new empty [role](#DOCS_PERMISSION/role-object) object for the guild. Requires the 'MANAGE_ROLES' permission. Fires a [Guild Role Create](#DOCS_GATEWAY/guild-role-create) Gateway event.
+Create a new empty [role](#DOCS_PERMISSIONS/role-object) object for the guild. Requires the 'MANAGE_ROLES' permission. Fires a [Guild Role Create](#DOCS_GATEWAY/guild-role-create) Gateway event.
 
 >warn
 > This endpoint only creates a blank role, it does not allow you to set attributes for the role on creation. Instead, you must create the role and then modify it with a PATCH request.
 
 ## Batch Modify Guild Role % PATCH /guilds/{guild.id#DOCS_GUILD/guild-object}/roles
 
-Batch modify a set of [role](#DOCS_PERMISSION/role-object) objects for the guild. Requires the 'MANAGE_ROLES' permission. Fires a [Guild Role Update](#DOCS_GATEWAY/guild-role-update) Gateway event.
+Batch modify a set of [role](#DOCS_PERMISSIONS/role-object) objects for the guild. Requires the 'MANAGE_ROLES' permission. Fires a [Guild Role Update](#DOCS_GATEWAY/guild-role-update) Gateway event.
 
 >warn
 > This endpoint should *only* be used for modifying a batch set of roles.
@@ -285,9 +305,9 @@ This endpoint takes a JSON array of parameters in the following format:
 | color | integer | RGB color value |
 | hoist | bool | should this role be displayed separately in the sidebar |
 
-## Modify Guild Role % PATCH /guilds/{guild.id#DOCS_GUILD/guild-object}/roles/{role.id#DOCS_PERMISSION/role-object}
+## Modify Guild Role % PATCH /guilds/{guild.id#DOCS_GUILD/guild-object}/roles/{role.id#DOCS_PERMISSIONS/role-object}
 
-Modify a guild role. Requires the 'MANAGE_ROLES' permission. Returns the [role](#DOCS_PERMISSION/role-object) on success. Fires a [Guild Role Update](#DOCS_GATEWAY/guild-role-update) Gateway event.
+Modify a guild role. Requires the 'MANAGE_ROLES' permission. Returns the [role](#DOCS_PERMISSIONS/role-object) on success. Fires a [Guild Role Update](#DOCS_GATEWAY/guild-role-update) Gateway event.
 
 ###### JSON Params
 
@@ -299,7 +319,7 @@ Modify a guild role. Requires the 'MANAGE_ROLES' permission. Returns the [role](
 | color | integer | RGB color value |
 | hoist | bool | should this role be displayed separately in the sidebar |
 
-## Delete Guild Role % DELETE /guilds/{guild.id#DOCS_GUILD/guild-object}/roles/{role.id#DOCS_PERMISSION/role-object}
+## Delete Guild Role % DELETE /guilds/{guild.id#DOCS_GUILD/guild-object}/roles/{role.id#DOCS_PERMISSIONS/role-object}
 
 Delete a guild role. Requires the 'MANAGE_ROLES' permission. Returns the [role](#PERMISSION/role-object) on success. Fires a [Guild Role Delete](#DOCS_GATEWAY/guild-role-delete) Gateway event.
 
