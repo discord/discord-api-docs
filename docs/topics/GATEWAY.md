@@ -247,7 +247,7 @@ Receiving payloads with the Gateway API is slightly more complex than sending. W
 
 ## Events
 
-### Ready
+### Ready - `READY`
 
 The ready event is dispatched when a client has completed the handshake with the gateway. The ready event is the largest and most complex event the gateway will send, as it contains all the state required for a client to begin interacting with the rest of the platform.
 
@@ -261,27 +261,47 @@ The ready event is dispatched when a client has completed the handshake with the
 | guilds | array | array of [Unavailable Guild](#DOCS_GUILD/unavailable-guild-object) objects |
 | read_state | array | array of [read state](#DOCS_CHANNEL/read-state-object) objects |
 
-### Channel Create
+### Channel Create - `CHANNEL_CREATE`
 
-Sent when a new channel is created, relevant to the current user. The inner payload is a [DM](#DOCS_CHANNEL/dm-channel-object) or [Guild](#DOCS_CHANNEL/guild-channel-object) channel object.
+Sent when a new channel is created, relevant to the current user.
 
-### Channel Update
+###### Channel Create Event Fields
 
-Sent when a channel is updated. The inner payload is a [guild channel](#DOCS_CHANNEL/guild-channel-object) object.
+The inner payload is a [DM](#DOCS_CHANNEL/dm-channel-object) or [Guild](#DOCS_CHANNEL/guild-channel-object) channel object.
 
-### Channel Delete
+### Channel Update - `CHANNEL_UPDATE`
 
-Sent when a channel relevant to the current user is deleted. The inner payload is a [DM](#DOCS_CHANNEL/dm-channel-object) or [Guild](#DOCS_CHANNEL/guild-channel-object) channel object.
+Sent when a channel is updated.
 
-### Guild Ban Add
+###### Channel Update Event Fields
 
-Sent when a user is banned from a guild. The inner payload is a [user](#DOCS_USER/user-object) object.
+The inner payload is a [guild channel](#DOCS_CHANNEL/guild-channel-object) object.
 
-### Guild Ban Remove
+### Channel Delete - `CHANNEL_DELETE`
 
-Sent when a user is unbanned from a guild. The inner payload is a [user](#DOCS_USER/user-object) object.
+Sent when a channel relevant to the current user is deleted.
 
-### Guild Create
+###### Channel Delete Event Fields
+
+The inner payload is a [DM](#DOCS_CHANNEL/dm-channel-object) or [Guild](#DOCS_CHANNEL/guild-channel-object) channel object.
+
+### Guild Ban Add - `GUILD_BAN_ADD`
+
+Sent when a user is banned from a guild.
+
+###### Guild Ban Add Event Fields
+
+The inner payload is a [user](#DOCS_USER/user-object) object.
+
+### Guild Ban Remove - `GUILD_BAN_REMOVE`
+
+Sent when a user is unbanned from a guild.
+
+###### Guild Ban Remove Event Fields
+
+The inner payload is a [user](#DOCS_USER/user-object) object.
+
+### Guild Create - `GUILD_CREATE`
 
 This event can be sent in three different scenarios:
 
@@ -289,49 +309,78 @@ This event can be sent in three different scenarios:
 2. When a Guild becomes available again to the client.
 3. When the current user joins a new Guild.
 
+###### Guild Create Event Fields
+
 The inner payload is a [guild](#DOCS_GUILD/guild-object) object. 
 
-### Guild Update
+### Guild Update - `GUILD_UPDATE`
 
-Sent when a guild is updated. The inner payload is a [guild](#DOCS_GUILD/guild-object) object.
+Sent when a guild is updated.
 
-### Guild Emoji Update
+###### Guild Update Event Fields
 
-Sent when a guilds emojis have been updated. The inner payload is a `guild_id` snowflake, and a `emojis` key which is an array of [emoji](#DOCS_GUILD/emoji-object) objects.
+The inner payload is a [guild](#DOCS_GUILD/guild-object) object.
 
-### Guild Delete
+### Guild Emoji Update - `GUILD_EMOJI_UPDATE`
+
+Sent when a guilds emojis have been updated.
+
+###### Guild Emoji Update Event Fields
+
+| Field | Type | Description |
+|-------|------|-------------|
+| guild_id | snowflake | id of the guild |
+| emojis | array | array of [emojis](#DOCS_GUILD/emoji-object)  |
+
+### Guild Delete - `GUILD_DELETE`
 
 Sent when a guild becomes unavailable during a guild outage, or when the user leaves or is removed from a guild. See GUILD_CREATE for more information about how to handle this event.
+
+###### Guild Delete Event Fields
 
 | Field | Type | Description |
 |-------|------|-------------|
 | id | snowflake | id of the guild |
 | unavailable | boolean | whether the guild is unavailable, should always be true. if not set, this signifies that the user was removed from the guild |
 
-### Guild Integrations Update
+### Guild Integrations Update - `GUILD_INTEGRATIONS_UPDATE`
 
 Sent when a guild integration is updated.
+
+###### Guild Integrations Update Event Fields
 
 | Field | Type | Description |
 |-------|------|-------------|
 | guild_id | snowflake | id of the guild whose integrations where updated |
 
-### Guild Member Add
+### Guild Member Add - `GUILD_MEMBER_ADD`
 
-Sent when a new user joins a guild. The inner payload is a [guild member](#DOCS_GUILD/guild-member-object) object, with an extra `guild_id` key.
+Sent when a new user joins a guild.
 
-### Guild Member Remove
+###### Guild Member Add Event Fields
+
+The inner payload is a [guild member](#DOCS_GUILD/guild-member-object) object with these extra fields:
+
+| Field | Type | Description |
+|-------|------|-------------|
+| guild_id | snowflake | id of the guild |
+
+### Guild Member Remove - `GUILD_MEMBER_REMOVE`
 
 Sent when a user is removed from a guild (leave/kick/ban).
+
+###### Guild Member Remove Event Fields
 
 | Field | Type | Description |
 |-------|------|-------------|
 | guild_id | snowflake | the id of the guild |
 | user | a [user](#DOCS_USER/user-object) object | the user who was removed |
 
-### Guild Member Update
+### Guild Member Update - `GUILD_MEMBER_UPDATE`
 
 Sent when a guild member is updated.
+
+###### Guild Member Update Event Fields
 
 | Field | Type | Description |
 |-------|------|-------------|
@@ -339,53 +388,74 @@ Sent when a guild member is updated.
 | roles | array of [role](#DOCS_PERMISSIONS/role-object) objects | user roles |
 | user | a [user](#DOCS_USER/user-object) object | the user |
 
-### Guild Role Create
+### Guild Role Create - `GUILD_ROLE_CREATE`
 
 Sent when a guild role is created.
 
+###### Guild Role Create Event Fields
+
 | Field | Type | Description |
 |-------|------|-------------|
 | guild_id | snowflake | the id of the guild |
 | role | a [role](#DOCS_PERMISSIONS/role-object) object | the role created |
 
-### Guild Role Update
+### Guild Role Update - `GUILD_ROLE_UPDATE`
 
 Sent when a guild role is updated.
 
+###### Guild Role Update Event Fields
+
 | Field | Type | Description |
 |-------|------|-------------|
 | guild_id | snowflake | the id of the guild |
 | role | a [role](#DOCS_PERMISSIONS/role-object) object | the role created |
 
-### Guild Role Delete
+### Guild Role Delete - `GUILD_ROLE_DELETE`
 
 Sent when a guild role is deleted
+
+###### Guild Role Delete Event Fields
 
 | Field | Type | Description |
 |-------|------|-------------|
 | guild_id | snowflake | id of the guild |
 | role_id | snowflake | id of the role |
 
-### Message Create
+### Message Create - `MESSAGE_CREATE`
 
-Sent when a message is created. The inner payload is a [message](#DOCS_CHANNEL/message-object) object.
+Sent when a message is created.
 
-### Message Update
+###### Message Create Event Fields
 
-Sent when a message is updated. The inner payload is a [message](#DOCS_CHANNEL/message-object) object. Unlike creates, message updates may contain only a subset of the full message object payload (but will always contain an id and channel_id).
+The inner payload is a [message](#DOCS_CHANNEL/message-object) object.
 
-### Message Delete
+### Message Update - `MESSAGE_UPDATE`
+
+Sent when a message is updated.
+
+###### Message Update Event Fields
+
+The inner payload is a [message](#DOCS_CHANNEL/message-object) object.
+
+>warn
+> Unlike creates, message updates may contain only a subset of the full message object payload (but will always contain an id and channel_id).
+
+### Message Delete - `MESSAGE_DELETE`
 
 Sent when a message is deleted.
+
+###### Message Delete Event Fields
 
 | Field | Type | Description |
 |-------|------|-------------|
 | id | snowflake | the id of the message |
 | channel_id | snowflake | the id of the channel |
 
-### Presence Update
+### Presence Update - `PRESENCE_UPDATE`
 
 Sent when a users presence is updated.
+
+###### Presence Update Event Fields
 
 | Field | Type | Description |
 |-------|------|-------------|
@@ -395,9 +465,11 @@ Sent when a users presence is updated.
 | guild_id | snowflake | id of the guild |
 | status | string | either "idle", "online" or "offline" |
 
-### Typing Start
+### Typing Start - `TYPING_START`
 
 Sent when a user starts typing in a channel.
+
+###### Typing Start Event Fields
 
 | Field | Type | Description |
 |-------|------|-------------|
@@ -405,17 +477,27 @@ Sent when a user starts typing in a channel.
 | user_id | snowflake | id of the user |
 | timestamp | timestamp | when the user started typing |
 
-### User Settings Update
+### User Settings Update - `USER_SETTINGS_UPDATE`
 
-Sent when the current user updates their settings. Inner payload is a [user settings](#DOCS_USER/user-settings-object) object.
+Sent when the current user updates their settings.
 
-### User Update
+###### User Settings Update Event Fields
 
-Sent when properties about the user change. Inner payload is a [user](#DOCS_USER/user-object) object.
+Inner payload is a [user settings](#DOCS_USER/user-settings-object) object.
 
-### Voice State Update
+### User Update - `USER_UPDATE`
+
+Sent when properties about the user change.
+
+###### User Update Event Fields
+
+Inner payload is a [user](#DOCS_USER/user-object) object.
+
+### Voice State Update - `VOICE_STATE_UPDATE`
 
 Sent when someone joins/leaves/moves voice channels.
+
+###### Voice State Update Event Fields
 
 | Field | Type | Description |
 |-------|------|-------------|
