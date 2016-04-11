@@ -81,7 +81,7 @@ Used to maintain an active gateway connection. Must be sent every `heartbeat_int
 
 Used to trigger the initial handshake with the gateway.
 
-####### Gateway Identify Structure
+###### Gateway Identify Structure
 
 | Field | Type | Description |
 |-------|------|-------------|
@@ -245,6 +245,10 @@ Packets sent from the client to the Gateway API are encapsulated within a [gatew
 
 Receiving payloads with the Gateway API is slightly more complex than sending. When using the JSON encoding with compression enabled, the Gateway has the option of sending payloads as compressed JSON binaries using zlib, meaning your library _must_ detect and decompress these payloads before attempting to parse them. The gateway does not implement a shared compression context between messages sent.
 
+### Event Names
+
+Event names are in standard constant form, fully upper-cased and replacing all spaces with underscores. For instance, [Channel Create](#DOCS_GATEWAY/channel-create) would be `CHANNEL_CREATE` and [Voice State Update](#DOCS_GATEWAY/voice-state-update) would be `VOICE_STATE_UPDATE`.
+
 ## Events
 
 ### Ready
@@ -289,7 +293,7 @@ This event can be sent in three different scenarios:
 2. When a Guild becomes available again to the client.
 3. When the current user joins a new Guild.
 
-The inner payload is a [guild](#DOCS_GUILD/guild-object) object.
+The inner payload is a [guild](#DOCS_GUILD/guild-object) object. 
 
 ### Guild Update
 
@@ -297,11 +301,20 @@ Sent when a guild is updated. The inner payload is a [guild](#DOCS_GUILD/guild-o
 
 ### Guild Emoji Update
 
-Sent when a guilds emojis have been updated. The inner payload is a `guild_id` snowflake, and a `emojis` key which is an array of [emoji](#DOCS_GUILD/emoji-object) objects.
+Sent when a guilds emojis have been updated.
+
+###### Guild Emoji Update Event Fields
+
+| Field | Type | Description |
+|-------|------|-------------|
+| guild_id | snowflake | id of the guild |
+| emojis | array | array of [emojis](#DOCS_GUILD/emoji-object)  |
 
 ### Guild Delete
 
 Sent when a guild becomes unavailable during a guild outage, or when the user leaves or is removed from a guild. See GUILD_CREATE for more information about how to handle this event.
+
+###### Guild Delete Event Fields
 
 | Field | Type | Description |
 |-------|------|-------------|
@@ -312,17 +325,27 @@ Sent when a guild becomes unavailable during a guild outage, or when the user le
 
 Sent when a guild integration is updated.
 
+###### Guild Integrations Update Event Fields
+
 | Field | Type | Description |
 |-------|------|-------------|
 | guild_id | snowflake | id of the guild whose integrations where updated |
 
 ### Guild Member Add
 
-Sent when a new user joins a guild. The inner payload is a [guild member](#DOCS_GUILD/guild-member-object) object, with an extra `guild_id` key.
+Sent when a new user joins a guild. The inner payload is a [guild member](#DOCS_GUILD/guild-member-object) object with these extra fields:
+
+###### Guild Member Add Extra Fields
+
+| Field | Type | Description |
+|-------|------|-------------|
+| guild_id | snowflake | id of the guild |
 
 ### Guild Member Remove
 
 Sent when a user is removed from a guild (leave/kick/ban).
+
+###### Guild Member Remove Event Fields
 
 | Field | Type | Description |
 |-------|------|-------------|
@@ -332,6 +355,8 @@ Sent when a user is removed from a guild (leave/kick/ban).
 ### Guild Member Update
 
 Sent when a guild member is updated.
+
+###### Guild Member Update Event Fields
 
 | Field | Type | Description |
 |-------|------|-------------|
@@ -343,6 +368,8 @@ Sent when a guild member is updated.
 
 Sent when a guild role is created.
 
+###### Guild Role Create Event Fields
+
 | Field | Type | Description |
 |-------|------|-------------|
 | guild_id | snowflake | the id of the guild |
@@ -352,6 +379,8 @@ Sent when a guild role is created.
 
 Sent when a guild role is updated.
 
+###### Guild Role Update Event Fields
+
 | Field | Type | Description |
 |-------|------|-------------|
 | guild_id | snowflake | the id of the guild |
@@ -360,6 +389,8 @@ Sent when a guild role is updated.
 ### Guild Role Delete
 
 Sent when a guild role is deleted
+
+###### Guild Role Delete Event Fields
 
 | Field | Type | Description |
 |-------|------|-------------|
@@ -372,11 +403,16 @@ Sent when a message is created. The inner payload is a [message](#DOCS_CHANNEL/m
 
 ### Message Update
 
-Sent when a message is updated. The inner payload is a [message](#DOCS_CHANNEL/message-object) object. Unlike creates, message updates may contain only a subset of the full message object payload (but will always contain an id and channel_id).
+Sent when a message is updated. The inner payload is a [message](#DOCS_CHANNEL/message-object) object.
+
+>warn
+> Unlike creates, message updates may contain only a subset of the full message object payload (but will always contain an id and channel_id).
 
 ### Message Delete
 
 Sent when a message is deleted.
+
+###### Message Delete Event Fields
 
 | Field | Type | Description |
 |-------|------|-------------|
@@ -386,6 +422,8 @@ Sent when a message is deleted.
 ### Presence Update
 
 Sent when a users presence is updated.
+
+###### Presence Update Event Fields
 
 | Field | Type | Description |
 |-------|------|-------------|
@@ -398,6 +436,8 @@ Sent when a users presence is updated.
 ### Typing Start
 
 Sent when a user starts typing in a channel.
+
+###### Typing Start Event Fields
 
 | Field | Type | Description |
 |-------|------|-------------|
@@ -416,6 +456,8 @@ Sent when properties about the user change. Inner payload is a [user](#DOCS_USER
 ### Voice State Update
 
 Sent when someone joins/leaves/moves voice channels.
+
+###### Voice State Update Event Fields
 
 | Field | Type | Description |
 |-------|------|-------------|

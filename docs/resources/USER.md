@@ -91,9 +91,6 @@ Modify the requestors user account settings.
 | Field | Type | Description |
 |-------|------|-------------|
 | username | string | users username, if changed will randomize the users discriminator |
-| email | string | users email, if changed will unverify a verified user |
-| password | string | users current password |
-| new_password | string | if passed, will change the users password to this value |
 | avatar | [avatar data](#DOCS_USER/avatar-data) | if passed, modifies the users avatar |
 
 ## Get Current User Guilds % GET /users/{@me#DOCS_USER/user-object}/guilds
