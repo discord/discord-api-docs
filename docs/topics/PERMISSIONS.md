@@ -29,9 +29,12 @@ Permissions in Discord are stored within a 53-bit integer and are calculated usi
 | MOVE_MEMBERS | `0x1000000` | Allows for moving of members between voice channels |
 | USE_VAD | `0x2000000` | Allows for using voice-activity-detection in a voice channel |
 
-###### Role Object
+
+## Role Object
 
 Roles represent a set of permissions attached to a group of users. Roles have unique names, colors, and can be "pinned" to the side bar, causing their members to be listed separately. Roles are unique per guild, and can have separate permission profiles for the global context (guild) and channel context.
+
+###### Role Structure
 
 | Field | Type | Description |
 |-------|------|-------------|
@@ -43,8 +46,7 @@ Roles represent a set of permissions attached to a group of users. Roles have un
 | permissions | integer | permission bit set |
 | managed | bool | whether this role is managed by an integration |
 
-
-###### Role Object Example
+###### Example Role
 
 ```json
 {
