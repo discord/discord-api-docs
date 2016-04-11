@@ -86,18 +86,12 @@ Return a [user](#DOCS_USER/user-object) for a given user ID.
 
 Modify the requestors user account settings.
 
->warn
-> Bot accounts do not have emails and passwords. If you are editing a bot account, do not send `email`, `password` or `new_password`.
-
 ###### JSON Params
 
-| Field | Type | Description | Bot Field |
-|-------|------|-------------|-----------|
-| username | string | users username, if changed will randomize the users discriminator | yes |
-| email | string | users email, if changed will unverify a verified user | no |
-| password | string | users current password | no |
-| new_password | string | if passed, will change the users password to this value | no |
-| avatar | [avatar data](#DOCS_USER/avatar-data) | if passed, modifies the users avatar | no |
+| Field | Type | Description |
+|-------|------|-------------|
+| username | string | users username, if changed will randomize the users discriminator |
+| avatar | [avatar data](#DOCS_USER/avatar-data) | if passed, modifies the users avatar |
 
 ## Get Current User Guilds % GET /users/{@me#DOCS_USER/user-object}/guilds
 
