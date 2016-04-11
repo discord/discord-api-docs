@@ -269,15 +269,11 @@ The ready event is dispatched when a client has completed the handshake with the
 
 Sent when a new channel is created, relevant to the current user.
 
-###### Channel Create Event Fields
-
 The inner payload is a [DM](#DOCS_CHANNEL/dm-channel-object) or [Guild](#DOCS_CHANNEL/guild-channel-object) channel object.
 
 ### Channel Update
 
 Sent when a channel is updated.
-
-###### Channel Update Event Fields
 
 The inner payload is a [guild channel](#DOCS_CHANNEL/guild-channel-object) object.
 
@@ -285,23 +281,17 @@ The inner payload is a [guild channel](#DOCS_CHANNEL/guild-channel-object) objec
 
 Sent when a channel relevant to the current user is deleted.
 
-###### Channel Delete Event Fields
-
 The inner payload is a [DM](#DOCS_CHANNEL/dm-channel-object) or [Guild](#DOCS_CHANNEL/guild-channel-object) channel object.
 
 ### Guild Ban Add
 
 Sent when a user is banned from a guild.
 
-###### Guild Ban Add Event Fields
-
 The inner payload is a [user](#DOCS_USER/user-object) object.
 
 ### Guild Ban Remove
 
 Sent when a user is unbanned from a guild.
-
-###### Guild Ban Remove Event Fields
 
 The inner payload is a [user](#DOCS_USER/user-object) object.
 
@@ -313,15 +303,11 @@ This event can be sent in three different scenarios:
 2. When a Guild becomes available again to the client.
 3. When the current user joins a new Guild.
 
-###### Guild Create Event Fields
-
 The inner payload is a [guild](#DOCS_GUILD/guild-object) object. 
 
 ### Guild Update
 
 Sent when a guild is updated.
-
-###### Guild Update Event Fields
 
 The inner payload is a [guild](#DOCS_GUILD/guild-object) object.
 
@@ -361,9 +347,9 @@ Sent when a guild integration is updated.
 
 Sent when a new user joins a guild.
 
-###### Guild Member Add Event Fields
-
 The inner payload is a [guild member](#DOCS_GUILD/guild-member-object) object with these extra fields:
+
+###### Guild Member Add Extra Fields
 
 | Field | Type | Description |
 |-------|------|-------------|
@@ -429,15 +415,11 @@ Sent when a guild role is deleted
 
 Sent when a message is created.
 
-###### Message Create Event Fields
-
 The inner payload is a [message](#DOCS_CHANNEL/message-object) object.
 
 ### Message Update
 
 Sent when a message is updated.
-
-###### Message Update Event Fields
 
 The inner payload is a [message](#DOCS_CHANNEL/message-object) object.
 
@@ -485,15 +467,11 @@ Sent when a user starts typing in a channel.
 
 Sent when the current user updates their settings.
 
-###### User Settings Update Event Fields
-
 Inner payload is a [user settings](#DOCS_USER/user-settings-object) object.
 
 ### User Update
 
 Sent when properties about the user change.
-
-###### User Update Event Fields
 
 Inner payload is a [user](#DOCS_USER/user-object) object.
 
