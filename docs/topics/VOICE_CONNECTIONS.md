@@ -6,7 +6,7 @@ Voice connections operate in a similar fashion to the [Gateway](#DOCS_GATEWAY/ga
 
 ### Voice Data Packet
 
-The voice packet is a 70 byte payload that begins with a 4 byte big-endian packed unsigned integer, which represents the clients 'ssrc'. The rest of the bytes in the payload are Opus audio data.
+The voice data packet is a payload with an [encrypted voice packet header](#DOCS_VOICE_CONNECTIONS/encrypted-voice-packet-header-structure). The rest of the bytes in the payload are encrypted Opus audio data.
 
 ###### Voice Events
 
@@ -98,11 +98,11 @@ Finally, the voice server will respond with a OP4 Session Description. We can no
 
 #### IP Discovery
 
-Generally routers on the internet mask or obfuscate UDP ports through a process called NAT. Most users who implement voice will want to utilize IP discovery to find their local IP and port which will then be used for receiving voice communications. To retrieve your local IP, send a 72byte [Voice Data Packet](#DOCS_VOICE_CONNECTIONS/voice-data-packet) with empty data past the ssrc. The server will respond back with another 72-byte voice data packet, this time with a NULL-terminated string of the IP, with the port encoded in a **little endian** unsigned short stored in the last two bytes of the packet.
+Generally routers on the internet mask or obfuscate UDP ports through a process called NAT. Most users who implement voice will want to utilize IP discovery to find their local IP and port which will then be used for receiving voice communications. To retrieve your local IP, send a 72-byte packet with empty data past the 4-byte ssrc. The server will respond back with another 72-byte packet, this time with a NULL-terminated string of the IP, with the port encoded in a **little endian** unsigned short stored in the last two bytes of the packet.
 
 ## Encrypting and Sending Voice
 
-Voice data sent to discord should be encoded with [Opus](https://www.opus-codec.org/), using 2 channels (stereo) and a sample rate of 48Khz. Voice Data is sent using a [RTP Header](http://www.rfcreader.com/#rfc3550_line548), followed by encrypted voice data. Voice encryption uses the key passed in session description, combined with the 24 byte header (used as a nonce, appended with 12 null bytes), encrypted with [libsodium](https://download.libsodium.org/doc/).
+Voice data sent to discord should be encoded with [Opus](https://www.opus-codec.org/), using 2 channels (stereo) and a sample rate of 48Khz. Voice Data is sent using a [RTP Header](http://www.rfcreader.com/#rfc3550_line548), followed by encrypted Opus audio data. Voice encryption uses the key passed in session description, combined with the 24 byte header (used as a nonce, appended with 12 null bytes), encrypted with [libsodium](https://download.libsodium.org/doc/).
 
 ###### Encrypted Voice Packet Header Structure
 
