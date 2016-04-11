@@ -247,7 +247,7 @@ Receiving payloads with the Gateway API is slightly more complex than sending. W
 
 ### Event Names
 
-Event names are full capital with spaces replaced with underscores. Channel Create would be `CHANNEL_CREATE`, Voice State Update would be `VOICE_STATE_UPDATE` and so on.
+Event names are in standard constant form, fully upper-cased and replacing all spaces with underscores. For instance, [Channel Create](#DOCS_GATEWAY/channel-create) would be `CHANNEL_CREATE` and [Voice State Update](#DOCS_GATEWAY/voice-state-update) would be `VOICE_STATE_UPDATE`.
 
 ## Events
 
@@ -267,33 +267,23 @@ The ready event is dispatched when a client has completed the handshake with the
 
 ### Channel Create
 
-Sent when a new channel is created, relevant to the current user.
-
-The inner payload is a [DM](#DOCS_CHANNEL/dm-channel-object) or [Guild](#DOCS_CHANNEL/guild-channel-object) channel object.
+Sent when a new channel is created, relevant to the current user. The inner payload is a [DM](#DOCS_CHANNEL/dm-channel-object) or [Guild](#DOCS_CHANNEL/guild-channel-object) channel object.
 
 ### Channel Update
 
-Sent when a channel is updated.
-
-The inner payload is a [guild channel](#DOCS_CHANNEL/guild-channel-object) object.
+Sent when a channel is updated. The inner payload is a [guild channel](#DOCS_CHANNEL/guild-channel-object) object.
 
 ### Channel Delete
 
-Sent when a channel relevant to the current user is deleted.
-
-The inner payload is a [DM](#DOCS_CHANNEL/dm-channel-object) or [Guild](#DOCS_CHANNEL/guild-channel-object) channel object.
+Sent when a channel relevant to the current user is deleted. The inner payload is a [DM](#DOCS_CHANNEL/dm-channel-object) or [Guild](#DOCS_CHANNEL/guild-channel-object) channel object.
 
 ### Guild Ban Add
 
-Sent when a user is banned from a guild.
-
-The inner payload is a [user](#DOCS_USER/user-object) object.
+Sent when a user is banned from a guild. The inner payload is a [user](#DOCS_USER/user-object) object.
 
 ### Guild Ban Remove
 
-Sent when a user is unbanned from a guild.
-
-The inner payload is a [user](#DOCS_USER/user-object) object.
+Sent when a user is unbanned from a guild. The inner payload is a [user](#DOCS_USER/user-object) object.
 
 ### Guild Create
 
@@ -307,9 +297,7 @@ The inner payload is a [guild](#DOCS_GUILD/guild-object) object.
 
 ### Guild Update
 
-Sent when a guild is updated.
-
-The inner payload is a [guild](#DOCS_GUILD/guild-object) object.
+Sent when a guild is updated. The inner payload is a [guild](#DOCS_GUILD/guild-object) object.
 
 ### Guild Emoji Update
 
@@ -345,9 +333,7 @@ Sent when a guild integration is updated.
 
 ### Guild Member Add
 
-Sent when a new user joins a guild.
-
-The inner payload is a [guild member](#DOCS_GUILD/guild-member-object) object with these extra fields:
+Sent when a new user joins a guild. The inner payload is a [guild member](#DOCS_GUILD/guild-member-object) object with these extra fields:
 
 ###### Guild Member Add Extra Fields
 
@@ -413,15 +399,11 @@ Sent when a guild role is deleted
 
 ### Message Create
 
-Sent when a message is created.
-
-The inner payload is a [message](#DOCS_CHANNEL/message-object) object.
+Sent when a message is created. The inner payload is a [message](#DOCS_CHANNEL/message-object) object.
 
 ### Message Update
 
-Sent when a message is updated.
-
-The inner payload is a [message](#DOCS_CHANNEL/message-object) object.
+Sent when a message is updated. The inner payload is a [message](#DOCS_CHANNEL/message-object) object.
 
 >warn
 > Unlike creates, message updates may contain only a subset of the full message object payload (but will always contain an id and channel_id).
@@ -465,15 +447,11 @@ Sent when a user starts typing in a channel.
 
 ### User Settings Update
 
-Sent when the current user updates their settings.
-
-Inner payload is a [user settings](#DOCS_USER/user-settings-object) object.
+Sent when the current user updates their settings. Inner payload is a [user settings](#DOCS_USER/user-settings-object) object.
 
 ### User Update
 
-Sent when properties about the user change.
-
-Inner payload is a [user](#DOCS_USER/user-object) object.
+Sent when properties about the user change. Inner payload is a [user](#DOCS_USER/user-object) object.
 
 ### Voice State Update
 
