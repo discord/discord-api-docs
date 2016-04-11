@@ -96,6 +96,9 @@ Modify the requestors user account settings.
 | new_password | string | if passed, will change the users password to this value |
 | avatar | [avatar data](#DOCS_USER/avatar-data) | if passed, modifies the users avatar |
 
+>warn
+> Bot accounts do not have emails and passwords. If you are editing a bot account, do not send `email`, `password` or `new_password`.
+
 ## Get Current User Guilds % GET /users/{@me#DOCS_USER/user-object}/guilds
 
 Return a list of [guild](#DOCS_GUILD/guild-object) objects the current user is a member of. Requires the `guilds` OAuth2 scope.
