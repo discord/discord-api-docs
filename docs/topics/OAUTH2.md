@@ -74,7 +74,7 @@ Bots can be registered by clicking the "add bot" button when editing or creating
 A URL can be generated that redirects authenticated users to the add-bot flow, by using the following format (this utilizes the OAuth2 authentication flow, without a callback URL):
 
 ```
-https://discordapp.com/oauth2/authorize?&client_id=157730590492196864&scope=bot&permissions=0
+https://discordapp.com/oauth2/authorize?client_id=157730590492196864&scope=bot&permissions=0
 ```
 
 Where `client_id` is your _bot_ applications ID, and permissions is an integer following the [permissions](#DOCS_PERMISSIONS/bitwise-permission-flags) format.
