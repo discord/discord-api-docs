@@ -2,6 +2,14 @@
 
 Discord's API is based around two core layers, a HTTPS/REST API for general operations, and persistent secure websocket based connection for sending and subscribing to real-time events. The most common use case of the Discord API will be providing a service, or access to a platform through the [OAuth2](http://oauth.net/2/) API.
 
+## Base URL
+
+The base URL for all API requests is:
+
+```
+https://discordapp.com/api
+```
+
 ## Authentication
 
 Authenticating with the Discord API can be done in one of two ways:
