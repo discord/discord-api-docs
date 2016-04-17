@@ -279,11 +279,11 @@ Sent when a channel relevant to the current user is deleted. The inner payload i
 
 ### Guild Ban Add
 
-Sent when a user is banned from a guild. The inner payload is a [user](#DOCS_USER/user-object) object.
+Sent when a user is banned from a guild. The inner payload is a [user](#DOCS_USER/user-object) object, with an extra guild_id key.
 
 ### Guild Ban Remove
 
-Sent when a user is unbanned from a guild. The inner payload is a [user](#DOCS_USER/user-object) object.
+Sent when a user is unbanned from a guild. The inner payload is a [user](#DOCS_USER/user-object) object, with an extra guild_id key.
 
 ### Guild Create
 
