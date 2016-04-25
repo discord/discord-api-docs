@@ -20,6 +20,7 @@ Out of Services versions are versions who's subset of changes compared to the mo
 
 | Version | Out of Service |
 |------------|----------------|
+| 5 | no |
 | 4 | no |
 
 
@@ -48,6 +49,7 @@ Out of Services versions are versions who's subset of changes compared to the mo
 | 7 | Reconnect | used to redirect clients to a new gateway |
 | 8 | Request Guild Members | used to request guild members |
 | 9 | Invalid Session | used to notify client they have an invalid session id |
+| 10 | Hello | sent immediately after connecting, contains heartbeat and server information |
 
 ### Gateway Dispatch
 
@@ -201,9 +203,29 @@ Used to request offline members for a guild. When initially connecting, the gate
 }
 ```
 
+### Gateway Hello
+
+Used to inform the client of the heartbeat value.
+
+###### Gateway Hello Structure
+
+| Field | Type | Description |
+|-------|------|-------------|
+| heartbeat_interval | integer | the interval (in seconds) the client should heartbeat with |
+| _trace | array of strings | used for debugging, array of servers connected to |
+
+###### Gateway Hello Example
+
+```json
+{
+	"heartbeat_interval": 45,
+	"_trace": ["discord-gateway-prd-1-99"]
+}
+```
+
 ## Connecting
 
-The first step to establishing a gateway connection is to request a gateway URL through the [Get Gateway](#DOCS_GATEWAY/get-gateway) API endpoint (if the client does not already have one cached). Using the "url" field from the response you can then create a new secure websocket connection that will be used for the duration of your gateway session. Once connected you must send an OP 2 [Identify](#DOCS_GATEWAY/gateway-identify-payload) or OP 6. If your token is correct, the gateway will respond with a [Ready](#DOCS_GATEWAY/ready-event) payload. After the ready payload, your client needs to start sending OP 1 [heartbeat](#DOCS_GATEWAY/gateway-heartbeat-payload) payloads every `heartbeat_interval` (which is sent in the ready payload) seconds.
+The first step to establishing a gateway connection is to request a gateway URL through the [Get Gateway](#DOCS_GATEWAY/get-gateway) API endpoint (if the client does not already have one cached). Using the "url" field from the response you can then create a new secure websocket connection that will be used for the duration of your gateway session. Once connected, the client will immediately receive an OP 10 [Hello](#DOCS_GATEWAY/gateway-hello) payload with the connection heartbeat interval. At this point the client should start sending OP 1 [heartbeat](#DOCS_GATEWAY/gateway-heartbeat) payloads every `heartbeat_interval` seconds. Next, the client sends an OP 2 [Identify](#DOCS_GATEWAY/gateway-identify) or OP 6 [Resume](#DOCS_GATEWAY/gateway-resume) payload. If your token is correct, the gateway will respond with a [Ready](#DOCS_GATEWAY/ready-event) payload.
 
 ###### Gateway URL Params
 
