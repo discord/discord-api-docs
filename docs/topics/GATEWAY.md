@@ -469,3 +469,35 @@ Sent when someone joins/leaves/moves voice channels.
 | self_deaf | boolean | whether the user is deafened |
 | mute | boolean | whether the user is server-muted |
 | deaf | boolean | whether the user is server-deafened |
+
+### Voice Server Update
+
+Sent when a guild's voice server is updated. This is sent when initially connection to voice, and when the current voice instance fails over too a new server.
+
+###### Example Voice State Update Event
+
+```json
+{
+	"user_id": "104694319306248192",
+	"session_id": "my_session_id"
+}
+```
+
+###### Voice Server Update Event Fields
+
+| Field | Type | Description |
+|-------|------|-------------|
+| token | string | voice connection token |
+| guild_id | snowflake | the guild this voice server update is for |
+| endpoint | string | the voice server host |
+
+
+###### Example Voice Server Update Payload
+
+```json
+{
+	"token": "my_token",
+	"guild_id": "41771983423143937",
+	"endpoint": "smart.loyal.discord.gg"
+}
+```

@@ -27,25 +27,6 @@ The first step in connecting to a voice server (and in turn, a guilds voice chan
 
 If our request succeeded, the gateway will respond with _two_ events (meaning your library must properly wait for both events before continuing), a [Voice State Update](#DOCS_GATEWAY/voice-state-update) _event_ (not a payload), and a [Voice Server Update](#DOCS_GATEWAY/voice-server-update) event. The first will contain a new key, `session_id` and the second will provide voice server information we can use to establish a new voice connection. With this information, we can move on to [Establishing a Voice Websocket Connection](#DOCS_VOICE_CONNECTIONS/establishing-a-voice-websocket-connection).
 
-###### Example Response Voice State Update Event
-
-```json
-{
-	"user_id": "104694319306248192",
-	"session_id": "my_session_id"
-}
-```
-
-###### Example Voice Server Update Payload
-
-```json
-{
-	"token": "my_token",
-	"guild_id": "41771983423143937",
-	"endpoint": "smart.loyal.discord.gg"
-}
-```
-
 ### Establishing a Voice Websocket Connection
 
 Once we retrieve a session_id, token, and endpoint information, we can connect and handshake with the voice server over another secure websocket. Unlike the gateway endpoint we receive in a HTTP [get gateway](#DOCS_GATEWAY/get-gateway) request, the endpoint received from our [Voice Server Update](#DOCS_GATEWAY/voice-server-update) payload does not contain a URL protocol, so some libraries may require manually prepending it (`wss://`) before connecting. Once connected to the voice websocket endpoint, we can send a OP0 Identify with our server id, user id, session id, and token.
