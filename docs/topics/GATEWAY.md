@@ -455,20 +455,7 @@ Sent when properties about the user change. Inner payload is a [user](#DOCS_USER
 
 ### Voice State Update
 
-Sent when someone joins/leaves/moves voice channels.
-
-###### Voice State Update Event Fields
-
-| Field | Type | Description |
-|-------|------|-------------|
-| user_id | snowflake | id of the user |
-| guild_id | snowflake | id of the guild |
-| channel_id | snowflake | id of the channel |
-| session_id | string | id of the session |
-| self_mute | boolean | whether the user is muted |
-| self_deaf | boolean | whether the user is deafened |
-| mute | boolean | whether the user is server-muted |
-| deaf | boolean | whether the user is server-deafened |
+Sent when someone joins/leaves/moves voice channels. Inner payload is a [voice state](#DOCS_VOICE/voice-state-object) object.
 
 ### Voice Server Update
 
@@ -490,7 +477,6 @@ Sent when a guild's voice server is updated. This is sent when initially connect
 | token | string | voice connection token |
 | guild_id | snowflake | the guild this voice server update is for |
 | endpoint | string | the voice server host |
-
 
 ###### Example Voice Server Update Payload
 
