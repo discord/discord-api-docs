@@ -225,7 +225,7 @@ When initially creating and handshaking connections to the Gateway, a user can c
 Unlike the HTTP API, the Gateway does not provide a method for forced back-off or cooldown but instead implement a hard limit on the number of messages sent over a period of time. Currently clients are allowed 120 events every 60 seconds, meaning you can send on average at a rate of up to 2 events per second. Clients who surpass this limit are immediately disconnected from the Gateway, and similarly to the HTTP API, repeat offenders will have their API access revoked. Clients are limited to one gateway connection per 5 seconds, if you hit this limit the Gateway will delay your connection until the cooldown has timed out.
 
 >warn
-> Clients may only update their game status once every 12 seconds.
+> Clients may only update their game status 5 times per minute.
 
 ## Tracking State
 
