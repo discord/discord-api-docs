@@ -28,6 +28,8 @@ Permissions in Discord are stored within a 53-bit integer and are calculated usi
 | DEAFEN_MEMBERS | `0x0800000` | Allows for deafening of members in a voice channel |
 | MOVE_MEMBERS | `0x1000000` | Allows for moving of members between voice channels |
 | USE_VAD | `0x2000000` | Allows for using voice-activity-detection in a voice channel |
+| CHANGE_NICKNAME | `0x4000000` | Allows for modification of own nickname |
+| MANAGE_NICKNAMES | `0x8000000` | Allows for modification of other users nicknames |
 
 
 ## Role Object

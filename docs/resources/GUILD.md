@@ -90,6 +90,7 @@ Represents an Offline Guild, or a Guild whose information has not been provided 
 | Field | Type | Description |
 |-------|------|-------------|
 | user | object | [user](#DOCS_USER/user-object) object |
+| nick | string? | this users Guild nickname (if one is set) |
 | roles | array | array of [role](#DOCS_PERMISSIONS/role-object) object id's |
 | joined_at | datetime | date the user joined the guild |
 | deaf | bool | if the user is deafened |
@@ -100,6 +101,7 @@ Represents an Offline Guild, or a Guild whose information has not been provided 
 ```json
 {
 	"user": {},
+	"nick": "NOT API SUPPORT",
 	"roles": [],
 	"joined_at": "2015-04-26T06:26:56.936000+00:00",
 	"deaf": false,
