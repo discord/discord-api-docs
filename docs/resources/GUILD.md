@@ -245,15 +245,15 @@ Modify attributes of a [guild member](#DOCS_GUILD/guild-member-object). Fires a 
 > When moving members to channels, the API user _must_ have permissions to both connect to the
 > channel and have the MOVE_MEMBERS permission.
 
-
 ###### JSON Params
 
 | Field | Type | Description | Permission |
 |-------|------|-------------|------------|
-| roles | array | array of roles the member is assigned | MANAGE_ROLES |
-| mute | bool | if the user is muted | MUTE_MEMBERS |
-| deaf | bool | if the user is deafened | DEAFEN_MEMBERS |
-| channel_id | snowflake | id of channel to move user to (if they are connected to voice) | MOVE_MEMBERS |
+| nick | string? | value to set users nickname too | MANAGE_NICKNAMES |
+| roles | array? | array of roles the member is assigned | MANAGE_ROLES |
+| mute | bool? | if the user is muted | MUTE_MEMBERS |
+| deaf | bool? | if the user is deafened | DEAFEN_MEMBERS |
+| channel_id? | snowflake | id of channel to move user to (if they are connected to voice) | MOVE_MEMBERS |
 
 ## Remove Guild Member % DELETE /guilds/{guild.id#DOCS_GUILD/guild-object}/members/{user.id#DOCS_USER/user-object}
 

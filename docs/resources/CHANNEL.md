@@ -191,6 +191,19 @@ Represents a message sent in a channel within Discord.
 | height | ?integer | height of file (if image) |
 | width | ?integer | width of file (if image) |
 
+## Message Formatting
+
+Discord utilizes a subset of markdown for rendering message content on its clients, while also adding some custom functionality to enable things like mentioning users and channels. Mentions can be created using the following format:
+
+### Mentions
+
+| Type | Structure | Example |
+|---------|-------------|-------------|
+| User | `<@USER_SNOWFLAKE_ID>` | `<@80351110224678912>` |
+| User (Nickname) | `<@!USER_SNOWFLAKE_ID>` | `<@!80351110224678912>` |
+| Channel | `<#CHANNEL_SNOWFLAKE_ID>` | `<#103735883630395392>` |
+| Role | `<@&ROLE_SNOWFLAKE_ID` | `<@&165511591545143296>` |
+
 ## Get Channel % GET /channels/{channel.id#DOCS_CHANNEL/channel-objects}
 
 Return a channel by ID. This returns a [guild channel](#DOCS_CHANNEL/guild-channel-object) or [dm channel](#DOCS_CHANNEL/dm-channel-object) object.
@@ -229,7 +242,7 @@ Return the messages for a channel. If operating on a guild channel, this endpoin
 
 ## Create Message % POST /channels/{channel.id#DOCS_CHANNEL/channel-objects}/messages
 
-Post a message to a guild text or DM channel. If operating on a guild channel, this endpoint requires the 'SEND_MESSAGES' permission to be present on the current user. Returns a [message](#DOCS_CHANNEL/message-object) object. Fires a [Message Create](#DOCS_GATEWAY/message-create) Gateway event.
+Post a message to a guild text or DM channel. If operating on a guild channel, this endpoint requires the 'SEND_MESSAGES' permission to be present on the current user. Returns a [message](#DOCS_CHANNEL/message-object) object. Fires a [Message Create](#DOCS_GATEWAY/message-create) Gateway event. See [message formatting](#DOCS_CHANNEL/message-formatting) for more information on how to properly format messages.
 
 ###### JSON Params
 
