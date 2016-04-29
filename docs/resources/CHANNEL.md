@@ -269,6 +269,9 @@ Edit a previously sent message. Returns a [message](#DOCS_CHANNEL/message-object
 
 Delete a message. If operating on a guild channel and trying to delete a message that was not sent by the current user, this endpoint requires the 'MANAGE_MESSAGES' permission. Returns a [message](#DOCS_CHANNEL/message-object) object. Fires a [Message Delete](#DOCS_GATEWAY/message-delete) Gateway event.
 
+>warn
+> This endpoint has a rate limit of 5 requests per second. Deleting messages created within the last 10 seconds does _not_ count towards this limit.
+
 ## Ack Message % POST /channels/{channel.id#DOCS_CHANNEL/channel-objects}/messages/{message.id#DOCS_CHANNEL/message-object}/ack
 
 Ack a message. Generally bots should **not** implement this route.
