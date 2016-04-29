@@ -264,6 +264,7 @@ The ready event is dispatched when a client has completed the handshake with the
 | private_channels | array | array of [DM channel](#DOCS_CHANNEL/dm-channel-object) objects |
 | guilds | array | array of [Unavailable Guild](#DOCS_GUILD/unavailable-guild-object) objects |
 | read_state | array | array of [read state](#DOCS_CHANNEL/read-state-object) objects |
+| session_id | string | used for resuming connections |
 
 ### Channel Create
 
