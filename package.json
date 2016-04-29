@@ -1,6 +1,6 @@
 {
   "name": "discord-api-docs",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Documentation for using Discord's API",
   "main": "index.js",
   "directories": {
