@@ -358,7 +358,7 @@ Return a list of [invite](#DOCS_INVITE/invite-object) objects (with [invite meta
 
 Return a list of [integration](#DOCS_GUILD/integration-object) objects for the guild. Requires the 'MANAGE_GUILD' permission.
 
-## Create Guild Integration % POST /guilds/{guild.id#DOCS_GUILD/guild-object}integrations
+## Create Guild Integration % POST /guilds/{guild.id#DOCS_GUILD/guild-object}/integrations
 
 Attach an [integration](#DOCS_GUILD/integration-object) object from the current user to the guild. Requires the 'MANAGE_GUILD' permission. Fires a [Guild Integrations Update](#DOCS_GATEWAY/guild-integrations-update) Gateway event.
 
@@ -385,14 +385,14 @@ Modify the behavior and settings of a [integration](#DOCS_INTEGRATION/integratio
 
 Delete the attached [integration](#DOCS_INTEGRATION/integration-object) object for the guild. Requires the 'MANAGE_GUILD' permission. Fires a [Guild Integrations Update](#DOCS_GATEWAY/guild-integrations-update) Gateway event.
 
-## Sync Guild Integration % POST /guilds/{guild.id}/integrations/{integration.id}/sync
+## Sync Guild Integration % POST /guilds/{guild.id#DOCS_GUILD/guild-object}/integrations/{integration.id#DOCS_INTEGRATION/integration-object}/sync
 
 Sync an integration. Requires the 'MANAGE_GUILD' permission.
 
-## Get Guild Embed % GET /guilds/{guild.id}/embed
+## Get Guild Embed % GET /guilds/{guild.id#DOCS_GUILD/guild-object}/embed
 
 Return a [guild embed](#DOCS_GUILD/guild-embed-object) object. Requires the 'MANAGE_GUILD' permission.
 
-## Modify Guild Embed % PATCH /guilds/{guild.id}/embed
+## Modify Guild Embed % PATCH /guilds/{guild.id#DOCS_GUILD/guild-object}/embed
 
 Modify a [guild embed](#DOCS_GUILD/guild-embed-object) object for the guild. All attributes may be passed in with JSON and modified. Requires the 'MANAGE_GUILD' permission.
