@@ -27,25 +27,6 @@ The first step in implementing OAuth2 is [registering a developer application](#
 >info
 > Discord also implements refresh tokens, which can be passed to the token URL for valid authentication tokens.
 
-### Converting User Accounts
-
-We've provided functionality for users looking to migrate previous (unofficial) user accounts to fully-fledged bot accounts. Users have until May 1st, 2016 to convert previous accounts, after which the migration endpoint will be removed, and public bots using normal user accounts will be deactivated. The migration endpoint should only be used by users with a good understand of the command line, and the current Discord API landscape. Other users should create a new bot account instead. Once migrated, there is **no way to rollback to a normal account** (don't be a Bastian). Therefore, this process should **not** be used by normal users looking to continue accessing their accounts from the desktop/web apps.
-
-#### Creating Application
-
-The first step to migrating is [creating a new application](#MY_APPLICATIONS/top) that will be used for the process. You should keep track of the application id and secret.
-
-#### Convert account
-
-Now, make the following curl request (take VERY CAREFUL note of the token order):
-
-```
-curl -H 'Authorization: YOUR TOKEN' \
-     -H "Content-Type: application/json" \
-     -X POST -d '{"token": "YOUR BOT USERS TOKEN"}' \
-     https://discordapp.com/api/oauth2/applications/APPLICATION_ID/bot
-```
-
 ### Scopes
 
 Scopes provide access to certain resources of a users account. Your API client or service should only request scopes it requires for operation.
