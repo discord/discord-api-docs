@@ -51,6 +51,7 @@ A brief version of a [guild](#DOCS_GUILD/guild-object) object
 | name | string | guild.name |
 | icon | string | guild.icon |
 | owner | boolean | true if the user is an owner of the guild |
+| permissions | integer | bitwise of the user's enabled/disabled permissions |
 
 ###### Example User Guild
 
@@ -59,7 +60,8 @@ A brief version of a [guild](#DOCS_GUILD/guild-object) object
 	"id": "80351110224678912",
 	"name": "1337 Krew",
 	"icon": "8342729096ea3675442027381ff50dfe",
-	"owner": true
+	"owner": true,
+	"permissions": 36953089
 }
 ```
 
@@ -95,7 +97,7 @@ Modify the requestors user account settings.
 
 ## Get Current User Guilds % GET /users/{@me#DOCS_USER/user-object}/guilds
 
-Return a list of [guild](#DOCS_GUILD/guild-object) objects the current user is a member of. Requires the `guilds` OAuth2 scope.
+Return a list of [user guild](#DOCS_USER/user-guild-object) objects the current user is a member of. Requires the `guilds` OAuth2 scope.
 
 ## Leave Guild % DELETE /users/{@me#DOCS_USER/user-object}/guilds/{guild.id#DOCS_GUILD/guild-object}
 
