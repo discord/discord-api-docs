@@ -66,7 +66,7 @@ Used by the gateway to notify the client of events.
 
 ### Gateway Heartbeat
 
-Used to maintain an active gateway connection. Must be sent every `heartbeat_interval` seconds after the [ready](#DOCS_GATEWAY/ready) payload is received. Note that this interval already has room for error, and that client implementations do not need to send a heartbeat faster than what's specified. The inner `d` key must be set to the last seq (`s`) received by the client.
+Used to maintain an active gateway connection. Must be sent every `heartbeat_interval` milliseconds after the [ready](#DOCS_GATEWAY/ready) payload is received. Note that this interval already has room for error, and that client implementations do not need to send a heartbeat faster than what's specified. The inner `d` key must be set to the last seq (`s`) received by the client.
 
 ###### Gateway Heartbeat Example
 
@@ -203,7 +203,7 @@ Used to request offline members for a guild. When initially connecting, the gate
 
 ## Connecting
 
-The first step to establishing a gateway connection is to request a gateway URL through the [Get Gateway](#DOCS_GATEWAY/get-gateway) API endpoint (if the client does not already have one cached). Using the "url" field from the response you can then create a new secure websocket connection that will be used for the duration of your gateway session. Once connected you must send an OP 2 [Identify](#DOCS_GATEWAY/gateway-identify-payload) or OP 6. If your token is correct, the gateway will respond with a [Ready](#DOCS_GATEWAY/ready-event) payload. After the ready payload, your client needs to start sending OP 1 [heartbeat](#DOCS_GATEWAY/gateway-heartbeat-payload) payloads every `heartbeat_interval` (which is sent in the ready payload) seconds.
+The first step to establishing a gateway connection is to request a gateway URL through the [Get Gateway](#DOCS_GATEWAY/get-gateway) API endpoint (if the client does not already have one cached). Using the "url" field from the response you can then create a new secure websocket connection that will be used for the duration of your gateway session. Once connected you must send an OP 2 [Identify](#DOCS_GATEWAY/gateway-identify-payload) or OP 6. If your token is correct, the gateway will respond with a [Ready](#DOCS_GATEWAY/ready-event) payload. After the ready payload, your client needs to start sending OP 1 [heartbeat](#DOCS_GATEWAY/gateway-heartbeat-payload) payloads every `heartbeat_interval` (which is sent in the ready payload) milliseconds.
 
 ###### Gateway URL Params
 
