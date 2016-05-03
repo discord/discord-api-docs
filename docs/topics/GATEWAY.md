@@ -460,7 +460,7 @@ Sent when someone joins/leaves/moves voice channels. Inner payload is a [voice s
 
 ### Voice Server Update
 
-Sent when a guild's voice server is updated. This is sent when initially connection to voice, and when the current voice instance fails over too a new server.
+Sent when a guild's voice server is updated. This is sent when initially connection to voice, and when the current voice instance fails over to a new server.
 
 ###### Example Voice State Update Event
 
