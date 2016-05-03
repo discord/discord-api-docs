@@ -97,7 +97,7 @@ Modify the requestors user account settings.
 
 ## Get Current User Guilds % GET /users/{@me#DOCS_USER/user-object}/guilds
 
-Return a list of [guild](#DOCS_USER/user-guild-object) objects the current user is a member of. Requires the `guilds` OAuth2 scope.
+Return a list of [user guild](#DOCS_USER/user-guild-object) objects the current user is a member of. Requires the `guilds` OAuth2 scope.
 
 ## Leave Guild % DELETE /users/{@me#DOCS_USER/user-object}/guilds/{guild.id#DOCS_GUILD/guild-object}
 
