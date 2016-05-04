@@ -203,7 +203,7 @@ Used to request offline members for a guild. When initially connecting, the gate
 
 ## Connecting
 
-The first step to establishing a gateway connection is to request a gateway URL through the [Get Gateway](#DOCS_GATEWAY/get-gateway) API endpoint (if the client does not already have one cached). Using the "url" field from the response you can then create a new secure websocket connection that will be used for the duration of your gateway session. Once connected you must send an OP 2 [Identify](#DOCS_GATEWAY/gateway-identify-payload) or OP 6. If your token is correct, the gateway will respond with a [Ready](#DOCS_GATEWAY/ready-event) payload. After the ready payload, your client needs to start sending OP 1 [heartbeat](#DOCS_GATEWAY/gateway-heartbeat-payload) payloads every `heartbeat_interval` (which is sent in the ready payload) milliseconds.
+The first step to establishing a gateway connection is to request a gateway URL through the [Get Gateway](#DOCS_GATEWAY/get-gateway) API endpoint (if the client does not already have one cached). Using the "url" field from the response you can then create a new secure websocket connection that will be used for the duration of your gateway session. Once connected you must send an OP 2 [Identify](#DOCS_GATEWAY/gateway-identify) or OP 6. If your token is correct, the gateway will respond with a [Ready](#DOCS_GATEWAY/ready) payload. After the ready payload, your client needs to start sending OP 1 [heartbeat](#DOCS_GATEWAY/gateway-heartbeat) payloads every `heartbeat_interval` (which is sent in the ready payload) milliseconds.
 
 ###### Gateway URL Params
 
@@ -214,7 +214,7 @@ The first step to establishing a gateway connection is to request a gateway URL 
 
 ### Resuming
 
-When clients lose their connection to the gateway and are able to reconnect in a short period of time after, they can utilize a Gateway feature called "client resuming". Once reconnected to the gateway socket the client should send a [Gateway Reconnect](#DOCS_GATEWAY/gateway-reconnect) payload to the server. If successful, the gateway will respond by replying all missed events to the client. Otherwise, the gateway will respond with an OP 9 (invalid session), in which case the client should send an OP 2 [Identify](#DOCS_GATEWAY/gateway-identify-payload) payload to start a new connection.
+When clients lose their connection to the gateway and are able to reconnect in a short period of time after, they can utilize a Gateway feature called "client resuming". Once reconnected to the gateway socket the client should send a [Gateway Reconnect](#DOCS_GATEWAY/gateway-reconnect) payload to the server. If successful, the gateway will respond by replying all missed events to the client. Otherwise, the gateway will respond with an OP 9 (invalid session), in which case the client should send an OP 2 [Identify](#DOCS_GATEWAY/gateway-identify) payload to start a new connection.
 
 ### ETF/JSON
 
@@ -239,7 +239,7 @@ When connecting to the gateway as a bot user, guilds that the bot is a part of s
 
 ### Sending Payloads
 
-Packets sent from the client to the Gateway API are encapsulated within a [gateway payload object](#DOCS_GATEWAY/gateway-payload-object) and must have the proper OP code and data object set. The payload object can then be serialized in the format of choice, and sent over the websocket.
+Packets sent from the client to the Gateway API are encapsulated within a [gateway payload object](#DOCS_GATEWAY/gateway-dispatch-example) and must have the proper OP code and data object set. The payload object can then be serialized in the format of choice, and sent over the websocket.
 
 ### Receiving Payloads
 
@@ -460,7 +460,7 @@ Sent when someone joins/leaves/moves voice channels. Inner payload is a [voice s
 
 ### Voice Server Update
 
-Sent when a guild's voice server is updated. This is sent when initially connection to voice, and when the current voice instance fails over too a new server.
+Sent when a guild's voice server is updated. This is sent when initially connecting to voice, and when the current voice instance fails over too a new server.
 
 ###### Example Voice State Update Event
 
