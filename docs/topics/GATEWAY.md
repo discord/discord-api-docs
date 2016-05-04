@@ -214,7 +214,7 @@ The first step to establishing a gateway connection is to request a gateway URL 
 
 ### Resuming
 
-When clients lose their connection to the gateway and are able to reconnect in a short period of time after, they can utilize a Gateway feature called "client resuming". Once reconnected to the gateway socket the client should send a [Gateway Reconnect](#DOCS_GATEWAY/gateway-reconnect) payload to the server. If successful, the gateway will respond by replying all missed events to the client. Otherwise, the gateway will respond with an OP 9 (invalid session), in which case the client should send an OP 2 [Identify](#DOCS_GATEWAY/gateway-identify) payload to start a new connection.
+When clients lose their connection to the gateway and are able to reconnect in a short period of time after, they can utilize a Gateway feature called "client resuming". Once reconnected to the gateway socket the client should send a [Gateway Reconnect](#DOCS_GATEWAY/gateway-reconnect) payload to the server. If successful, the gateway will respond by replaying all missed events to the client. Otherwise, the gateway will respond with an OP 9 (invalid session), in which case the client should send an OP 2 [Identify](#DOCS_GATEWAY/gateway-identify) payload to start a new connection.
 
 ### ETF/JSON
 
@@ -225,7 +225,7 @@ When initially creating and handshaking connections to the Gateway, a user can c
 Unlike the HTTP API, the Gateway does not provide a method for forced back-off or cooldown but instead implement a hard limit on the number of messages sent over a period of time. Currently clients are allowed 120 events every 60 seconds, meaning you can send on average at a rate of up to 2 events per second. Clients who surpass this limit are immediately disconnected from the Gateway, and similarly to the HTTP API, repeat offenders will have their API access revoked. Clients are limited to one gateway connection per 5 seconds, if you hit this limit the Gateway will delay your connection until the cooldown has timed out.
 
 >warn
-> Clients may only update their game status once every 12 seconds.
+> Clients may only update their game status 5 times per minute.
 
 ## Tracking State
 
@@ -239,7 +239,7 @@ When connecting to the gateway as a bot user, guilds that the bot is a part of s
 
 ### Sending Payloads
 
-Packets sent from the client to the Gateway API are encapsulated within a [gateway payload object](#DOCS_GATEWAY/gateway-dispatch-example) and must have the proper OP code and data object set. The payload object can then be serialized in the format of choice, and sent over the websocket.
+Packets sent from the client to the Gateway API are encapsulated within a [gateway payload object](#DOCS_GATEWAY/gateway-dispatch) and must have the proper OP code and data object set. The payload object can then be serialized in the format of choice, and sent over the websocket.
 
 ### Receiving Payloads
 
@@ -460,7 +460,7 @@ Sent when someone joins/leaves/moves voice channels. Inner payload is a [voice s
 
 ### Voice Server Update
 
-Sent when a guild's voice server is updated. This is sent when initially connecting to voice, and when the current voice instance fails over too a new server.
+Sent when a guild's voice server is updated. This is sent when initially connection to voice, and when the current voice instance fails over too a new server.
 
 ###### Example Voice State Update Event
 
