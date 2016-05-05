@@ -293,7 +293,7 @@ Delete multiple messages in a single request. If operating on a guild channel an
 
 | Field | Type | Description |
 |-------|------|-------------|
-| messages | snowflake array | an array of message ids to delete |
+| messages | array of snowflakes | an array of message ids to delete |
 
 ## Ack Message % POST /channels/{channel.id#DOCS_CHANNEL/channel-objects}/messages/{message.id#DOCS_CHANNEL/message-object}/ack
 
