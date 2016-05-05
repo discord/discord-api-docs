@@ -8,7 +8,7 @@ Permissions in Discord are stored within a 53-bit integer and are calculated usi
 
 | Permission | Value | Description |
 |------------|-------|-----------|
-| CREATE\_INSTANT\_INVITE | `0x0000001` | Allows creating of instant invites |
+| CREATE\_INSTANT\_INVITE | `0x0000001` | Allows creation of instant invites |
 | KICK_MEMBERS | `0x0000002` | Allows kicking members |
 | BAN_MEMBERS | `0x0000004` | Allows banning members |
 | MANAGE_ROLES | `0x0000008` | Allows management and editing of roles |
@@ -17,11 +17,11 @@ Permissions in Discord are stored within a 53-bit integer and are calculated usi
 | READ_MESSAGES | `0x0000400` | Allows reading messages in a channel. The channel will not appear for users without this permission |
 | SEND_MESSAGES | `0x0000800` | Allows for sending messages in a channel. |
 | SEND\_TTS_MESSAGES | `0x0001000` | Allows for sending of `/tts` messages |
-| MANAGE_MESSAGES  | `0x0002000` | Allows for deleting messages |
+| MANAGE_MESSAGES  | `0x0002000` | Allows for deletion of other users messages |
 | EMBED_LINKS | `0x0004000` | Links sent by this user will be auto-embedded |
 | ATTACH_FILES | `0x0008000` | Allows for uploading images and files |
-| READ\_MESSAGE_HISTORY | `0x0010000` | Allows for reading messages history |
-| MENTION_EVERYONE | `0x0020000` | Allows for using the `@everyone` tag to notify all users in a channel |
+| READ\_MESSAGE_HISTORY | `0x0010000` | Allows for reading of message history |
+| MENTION_EVERYONE | `0x0020000` | Allows for using the `@everyone` tag to notify all users in a channel, and the `@here` tag to notify all online users in a channel |
 | CONNECT | `0x0100000` | Allows for joining of a voice channel |
 | SPEAK | `0x0200000` | Allows for speaking in a voice channel |
 | MUTE_MEMBERS | `0x0400000` | Allows for muting members in a voice channel |
@@ -47,6 +47,7 @@ Roles represent a set of permissions attached to a group of users. Roles have un
 | position | integer | position of this role |
 | permissions | integer | permission bit set |
 | managed | bool | whether this role is managed by an integration |
+| mentionable | bool | whether this role is mentionable |
 
 ###### Example Role
 
@@ -58,6 +59,7 @@ Roles represent a set of permissions attached to a group of users. Roles have un
 	"hoist": true,
 	"position": 1,
 	"permissions": 66321471,
-	"managed": false
+	"managed": false,
+	"mentionable": false
 }
 ```

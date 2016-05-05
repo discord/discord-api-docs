@@ -90,7 +90,7 @@ Represents an Offline Guild, or a Guild whose information has not been provided 
 | Field | Type | Description |
 |-------|------|-------------|
 | user | object | [user](#DOCS_USER/user-object) object |
-| nick | string? | this users Guild nickname (if one is set) |
+| nick | string? | this users guild nickname (if one is set) |
 | roles | array | array of [role](#DOCS_PERMISSIONS/role-object) object id's |
 | joined_at | datetime | date the user joined the guild |
 | deaf | bool | if the user is deafened |
@@ -320,7 +320,7 @@ Modify a guild role. Requires the 'MANAGE_ROLES' permission. Returns the [role](
 | permissions | integer | bitwise of the enabled/disabled permissions |
 | position | integer | sorting position of the role |
 | color | integer | RGB color value |
-| hoist | bool | should this role be displayed separately in the sidebar |
+| hoist | bool | whether this role should be displayed separately in the sidebar |
 
 ## Delete Guild Role % DELETE /guilds/{guild.id#DOCS_GUILD/guild-object}/roles/{role.id#DOCS_PERMISSIONS/role-object}
 
