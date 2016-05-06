@@ -367,7 +367,7 @@ Sent when a guild member is updated.
 
 ### Guild Members Chunk
 
-Sent in response to [Gateway Request Guild Members](#DOCS_GATEWAY/gateway-request-guild-members)
+Sent in response to [Gateway Request Guild Members](#DOCS_GATEWAY/gateway-request-guild-members).
 
 ###### Guild Members Chunk Event Fields
 
