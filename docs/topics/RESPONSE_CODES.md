@@ -14,6 +14,6 @@ Our API will return semantically valid HTTP response codes based on the success 
 | 403 (FORBIDDEN) | The `Authorization` token you passed did not have permission to the resource |
 | 404 (NOT FOUND) | The resource at the location specified doesn't exist |
 | 405 (METHOD NOT ALLOWED) | The HTTP method used is not valid for the location specified |
-| 429 (TOO MANY REQUESTS) | You've made too many requests, see [Rate Limiting](#DOCS_REFERENCE/rate-limiting) above |
+| 429 (TOO MANY REQUESTS) | You've made too many requests, see [Rate Limiting](#DOCS_REFERENCE/rate-limiting) |
 | 502 (GATEWAY UNAVAILABLE) | There was not a gateway available to process your request. Wait a bit and retry |
 | 5xx (SERVER ERROR) | The server had an error processing your request (these are rare) |

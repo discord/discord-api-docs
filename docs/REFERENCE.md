@@ -14,8 +14,8 @@ https://discordapp.com/api
 
 Authenticating with the Discord API can be done in one of two ways:
 
-1. Using a bot token gained by [registering a bot](/developers/docs/topics/oauth2).
-2. Using an OAuth2 user token gained through the [OAuth2 API](#OAUTH2/oauth2)
+1. Using a bot token gained by [registering a bot](#DOCS_OAUTH2/registering-applications).
+2. Using an OAuth2 user token gained through the [OAuth2 API](#DOCS_OAUTH2/oauth2)
 
 ## Encryption
 
