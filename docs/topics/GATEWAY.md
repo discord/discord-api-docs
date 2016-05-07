@@ -374,7 +374,7 @@ Sent in response to [Gateway Request Guild Members](#DOCS_GATEWAY/gateway-reques
 | Field | Type | Description |
 |-------|------|-------------|
 | guild_id | snowflake | the id of the guild |
-| members | array of [guild members](#DOCS_GUILD/guild-member-object) | a bunch of guild members |
+| members | array of [guild members](#DOCS_GUILD/guild-member-object) | set of guild members |
 
 ### Guild Role Create
 
