@@ -285,7 +285,7 @@ Delete a message. If operating on a guild channel and trying to delete a message
 >warn
 > This endpoint has a rate limit of 5 requests per second per guild. Requests which delete messages created within the last 10 seconds are not affected by this limit.
 
-## Bulk Delete Messages % DELETE /channels/{channel.id#DOCS_CHANNEL/channel-objects}/messages
+## Bulk Delete Messages % POST /channels/{channel.id#DOCS_CHANNEL/channel-objects}/messages/bulk\_delete
 
 Delete multiple messages in a single request. If operating on a guild channel and trying to delete messages that were not sent by the current user, this endpoint requires the 'MANAGE_MESSAGES' permission. Fires multiple [Message Delete](#DOCS_GATEWAY/message-delete) Gateway events.
 
