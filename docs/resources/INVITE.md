@@ -34,9 +34,9 @@ Represents a code that when used, adds a user to a guild.
 | uses | integer | number of times this invite has been used |
 | max_uses | integer | max number of times this invite can be used |
 | max_age | integer | duration (in seconds) after which the invite expires |
-| temporary | boolean | whether this invite only grants temporary membership |
+| temporary | bool | whether this invite only grants temporary membership |
 | created_at | datetime | when this invite was created |
-| revoked | boolean | whether this invite is revoked |
+| revoked | bool | whether this invite is revoked |
 
 ###### Example Invite Metadata
 
@@ -98,12 +98,12 @@ Represents the channel an invite is for.
 
 ## Get Invite % GET /invites/{invite.id#DOCS_INVITE/invite-object}
 
-Return an [invite object](#DOCS_INVITE/invite-object) for the given id.
+Returns an [invite object](#DOCS_INVITE/invite-object) for the given id.
 
 ## Delete Invite % DELETE /invites/{invite.id#DOCS_INVITE/invite-object}
 
-Delete an invite. Requires the `MANAGE_CHANNELS` permission.
+Delete an invite. Requires the `MANAGE_CHANNELS` permission. Returns an [invite object](#DOCS_INVITE/invite-object) on success.
 
 ## Accept Invite % POST /invites/{invite.id#DOCS_INVITE/invite-object}
 
-Accept an invite. This is not available to bot accounts, and requires the `guilds.join` OAuth2 scope for normal users.
+Accept an invite. This is not available to bot accounts, and requires the `guilds.join` OAuth2 scope to accept on behalf of normal users. Returns an [invite object](#DOCS_INVITE/invite-object) on success.
