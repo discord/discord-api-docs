@@ -4,7 +4,7 @@ OAuth2 enables application developers to build applications that utilize authent
 
 ## Bot vs User Accounts
 
-Bots within the Discord API are a separate type of users that are owned by applications (which are owned by users), and authenticate to the system using a token rather than a username and password. Anybody wishing to create a public bot **must** use a bot account and the OAuth2 API. Accounts violating this and using normal user accounts for public bots will be suspended and forced to convert their account to a bot account. Bot accounts have some differences and limitations to normal accounts, namely:
+Bots within the Discord API are a separate type of users that are owned by applications (which are owned by users), and authenticate to the system using a token rather than a username and password. Anybody wishing to create a public bot **must** use a bot account and the OAuth2 API. Accounts violating this and using normal user accounts for public bots will be suspended and forced to use a bot account for their bot. Bot accounts have some differences and limitations to normal accounts, namely:
 
 1. Bots cannot utilize the friends list feature.
 2. Bots cannot accept invites.
