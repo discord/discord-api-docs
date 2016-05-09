@@ -50,7 +50,7 @@ A brief version of a [guild](#DOCS_GUILD/guild-object) object
 | id | snowflake | guild.id |
 | name | string | guild.name |
 | icon | string | guild.icon |
-| owner | boolean | true if the user is an owner of the guild |
+| owner | bool | true if the user is an owner of the guild |
 | permissions | integer | bitwise of the user's enabled/disabled permissions |
 
 ###### Example User Guild
@@ -67,7 +67,7 @@ A brief version of a [guild](#DOCS_GUILD/guild-object) object
 
 ## Query Users % GET /users
 
-Return a list of [user](#DOCS_USER/user-object) objects for a given query. Only returns users that share a mutual guild with the requestor.
+Returns a list of [user](#DOCS_USER/user-object) objects for a given query. Only returns users that share a mutual guild with the requestor.
 
 ###### HTTP Params
 
@@ -78,15 +78,15 @@ Return a list of [user](#DOCS_USER/user-object) objects for a given query. Only 
 
 ## Get Current User % GET /users/{@me#DOCS_USER/user-object}
 
-Return the [user](#DOCS_USER/user-object) object of the requestors account. For OAuth2, this requires the `identify` scope, which will return the object _without_ an email, and optionally the `email` scope, which returns the object _with_ an email.
+Returns the [user](#DOCS_USER/user-object) object of the requestors account. For OAuth2, this requires the `identify` scope, which will return the object _without_ an email, and optionally the `email` scope, which returns the object _with_ an email.
 
 ## Get User % GET /users/{user.id#DOCS_USER/user-object}
 
-Return a [user](#DOCS_USER/user-object) for a given user ID.
+Returns a [user](#DOCS_USER/user-object) for a given user ID.
 
 ## Modify Current User % PATCH /users/{@me#DOCS_USER/user-object}
 
-Modify the requestors user account settings.
+Modify the requestors user account settings. Returns a [user](#DOCS_USER/user-object) object on success.
 
 ###### JSON Params
 
@@ -97,19 +97,19 @@ Modify the requestors user account settings.
 
 ## Get Current User Guilds % GET /users/{@me#DOCS_USER/user-object}/guilds
 
-Return a list of [user guild](#DOCS_USER/user-guild-object) objects the current user is a member of. Requires the `guilds` OAuth2 scope.
+Returns a list of [user guild](#DOCS_USER/user-guild-object) objects the current user is a member of. Requires the `guilds` OAuth2 scope.
 
 ## Leave Guild % DELETE /users/{@me#DOCS_USER/user-object}/guilds/{guild.id#DOCS_GUILD/guild-object}
 
-Leave a guild.
+Leave a guild. Returns a 204 empty response on success.
 
 ## Get User DMs % GET /users/{@me#DOCS_USER/user-object}/channels
 
-Return a list of  [DM](#DOCS_CHANNEL/dm-channel-object) channel objects.
+Returns a list of [DM](#DOCS_CHANNEL/dm-channel-object) channel objects.
 
 ## Create DM % POST /users/{@me#DOCS_USER/user-object}/channels
 
-Create a new [DM](#DOCS_CHANNEL/dm-channel-object) channel.
+Create a new DM channel with a user. Returns a [DM channel](#DOCS_CHANNEL/dm-channel-object) object.
 
 ###### JSON Params
 
@@ -119,4 +119,4 @@ Create a new [DM](#DOCS_CHANNEL/dm-channel-object) channel.
 
 ## Get Users Connections % GET /users/{@me#DOCS_USER/user-object}/connections
 
-Return a list of [connection](#DOCS_USER/connection-object) objects. Requires the `connections` OAuth2 scope.
+Returns a list of [connection](#DOCS_USER/connection-object) objects. Requires the `connections` OAuth2 scope.

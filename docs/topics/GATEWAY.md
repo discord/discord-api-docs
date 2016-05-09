@@ -87,7 +87,7 @@ Used to trigger the initial handshake with the gateway.
 |-------|------|-------------|
 | token | string | authentication token |
 | properties | object | connection properties |
-| compress | boolean | whether this connection supports compression of the initial ready packet |
+| compress | bool | whether this connection supports compression of the initial ready packet |
 | large_threshold | integer | value between 50 and 250, total number of members where the gateway will stop sending offline members in the guild member list |
 
 ###### Example Gateway Identify Example
@@ -139,8 +139,8 @@ Sent when a client wants to join, move, or disconnect from a voice channel.
 |-------|------|-------------|
 | guild_id | snowflake | id of the guild |
 | channel_id | ?snowflake | id of the voice channel client wants to join (null if disconnecting) |
-| self_mute | boolean | is the client muted |
-| self_deaf | boolean | is the client deafened |
+| self_mute | bool | is the client muted |
+| self_deaf | bool | is the client deafened |
 
 ###### Gateway Voice State Update Example
 
@@ -320,7 +320,7 @@ Sent when a guild becomes unavailable during a guild outage, or when the user le
 | Field | Type | Description |
 |-------|------|-------------|
 | id | snowflake | id of the guild |
-| unavailable | boolean | whether the guild is unavailable, should always be true. if not set, this signifies that the user was removed from the guild |
+| unavailable | bool | whether the guild is unavailable, should always be true. if not set, this signifies that the user was removed from the guild |
 
 ### Guild Integrations Update
 

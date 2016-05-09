@@ -54,7 +54,7 @@ Represents an Offline Guild, or a Guild whose information has not been provided 
 | Field | Type | Description |
 |-------|------|-------------|
 | id | snowflake | guild id |
-| unavailable | boolean | should always be true |
+| unavailable | bool | should always be true |
 
 ###### Example Unavailable Guild
 
@@ -118,8 +118,8 @@ Represents an Offline Guild, or a Guild whose information has not been provided 
 | id | snowflake | integration id |
 | name | string | integration name |
 | type | string | integration type (twitch, youtube, etc) |
-| enabled | boolean | is this integration enabled |
-| syncing | boolean | is this integration syncing |
+| enabled | bool | is this integration enabled |
+| syncing | bool | is this integration syncing |
 | role_id | snowflake | id that this integration uses for "subscribers" |
 | expire_behavior | integer | the behavior of expiring subscribers |
 | expire_grace_period | integer | the grace period before expiring subscribers |
@@ -145,8 +145,8 @@ Represents an Offline Guild, or a Guild whose information has not been provided 
 | id | snowflake | emoji id |
 | name | string | emoji name |
 | roles | array of [role object](#DOCS_PERMISSIONS/role-object) ids | roles this emoji is active for |
-| require_colons | boolean | whether this emoji must be wrapped in colons |
-| managed | boolean | whether this emoji is managed |
+| require_colons | bool | whether this emoji must be wrapped in colons |
+| managed | bool | whether this emoji is managed |
 
 ## Create Guild % POST /guilds
 
@@ -166,11 +166,11 @@ Create a new guild. Returns a [guild](#DOCS_GUILD/guild-object) object on succes
 
 ## Get Guild % GET /guilds/{guild.id#DOCS_GUILD/guild-object}
 
-Return a [guild](#DOCS_GUILD/guild-object) object for the given id.
+Returns the new [guild](#DOCS_GUILD/guild-object) object for the given id.
 
 ## Modify Guild % PATCH /guilds/{guild.id#DOCS_GUILD/guild-object}
 
-Modify a guilds settings. Returns a [guild](#DOCS_GUILD/guild-object) object on success. Fires a [Guild Update](#DOCS_GATEWAY/guild-update) Gateway event.
+Modify a guilds settings. Returns the updated [guild](#DOCS_GUILD/guild-object) object on success. Fires a [Guild Update](#DOCS_GATEWAY/guild-update) Gateway event.
 
 >info
 > All parameters to this endpoint are optional
@@ -190,11 +190,11 @@ Modify a guilds settings. Returns a [guild](#DOCS_GUILD/guild-object) object on 
 
 ## Delete Guild % DELETE /guilds/{guild.id#DOCS_GUILD/guild-object}
 
-Delete a guild permanently. User must be owner. Returns a [guild](#DOCS_GUILD/guild-object) object on success. Fires a [Guild Delete](#DOCS_GATEWAY/guild-delete) Gateway event.
+Delete a guild permanently. User must be owner. Returns the [guild](#DOCS_GUILD/guild-object) object on success. Fires a [Guild Delete](#DOCS_GATEWAY/guild-delete) Gateway event.
 
 ## Get Guild Channels % GET /guilds/{guild.id#DOCS_GUILD/guild-object}/channels
 
-Return a list of guild [channel](#DOCS_CHANNEL/guild-channel-object) objects.
+Returns a list of guild [channel](#DOCS_CHANNEL/guild-channel-object) objects.
 
 ## Create Guild Channel % POST /guilds/{guild.id#DOCS_GUILD/guild-object}/channels
 
@@ -210,7 +210,7 @@ Create a new [channel](#DOCS_CHANNEL/guild-channel-object) object for the guild.
 
 ## Modify Guild Channel % PATCH /guilds/{guild.id#DOCS_GUILD/guild-object}/channels
 
-Batch modify the position of channels in a guild. Requires the 'MANAGE_CHANNELS' permission. Fires a [Channel Update](#DOCS_GATEWAY/channel-update) Gateway event. This endpoint takes a JSON array of parameters in the following format:
+Batch modify the position of channels in a guild. Requires the 'MANAGE_CHANNELS' permission. Returns the updated [channel](#DOCS_CHANNEL/guild-channel-object) object on success. Fires a [Channel Update](#DOCS_GATEWAY/channel-update) Gateway event.
 
 ###### JSON Params
 
@@ -221,11 +221,11 @@ Batch modify the position of channels in a guild. Requires the 'MANAGE_CHANNELS'
 
 ## Get Guild Member % GET /guilds/{guild.id#DOCS_GUILD/guild-object}/members/{user.id#DOCS_USER/user-object}
 
-Return a [guild member](#DOCS_GUILD/guild-member-object) object for the specified user.
+Returns a [guild member](#DOCS_GUILD/guild-member-object) object for the specified user.
 
 ## List Guild Members % GET /guilds/{guild.id#DOCS_GUILD/guild-object}/members
 
-Return a list of [guild member](#GUILD/guild-member-object) objects that are members of the guild.
+Returns a list of [guild member](#GUILD/guild-member-object) objects that are members of the guild.
 
 >info
 > All parameters to this endpoint are optional
@@ -239,7 +239,7 @@ Return a list of [guild member](#GUILD/guild-member-object) objects that are mem
 
 ## Modify Guild Member % PATCH /guilds/{guild.id#DOCS_GUILD/guild-object}/members/{user.id#DOCS_USER/user-object}
 
-Modify attributes of a [guild member](#DOCS_GUILD/guild-member-object). Fires a [Guild Member Update](#DOCS_GATEWAY/guild-member-update) Gateway event.
+Modify attributes of a [guild member](#DOCS_GUILD/guild-member-object). Returns the updated [guild member](#DOCS_GUILD/guild-member-object) object on success. Fires a [Guild Member Update](#DOCS_GATEWAY/guild-member-update) Gateway event.
 
 >info
 > When moving members to channels, the API user _must_ have permissions to both connect to the
@@ -257,15 +257,15 @@ Modify attributes of a [guild member](#DOCS_GUILD/guild-member-object). Fires a 
 
 ## Remove Guild Member % DELETE /guilds/{guild.id#DOCS_GUILD/guild-object}/members/{user.id#DOCS_USER/user-object}
 
-Remove a member from a guild. Requires 'KICK_MEMBERS' permission. Fires a [Guild Member Remove](#DOCS_GATEWAY/guild-member-remove) Gateway event.
+Remove a member from a guild. Requires 'KICK_MEMBERS' permission. Returns a 204 empty response on success. Fires a [Guild Member Remove](#DOCS_GATEWAY/guild-member-remove) Gateway event.
 
 ## Get Guild Bans % GET /guilds/{guild.id#DOCS_GUILD/guild-object}/bans
 
-Return a list of [user](#DOCS_USER/user-object) objects that are banned from this guild. Requires the 'BAN_MEMBERS' permission.
+Returns a list of [user](#DOCS_USER/user-object) objects that are banned from this guild. Requires the 'BAN_MEMBERS' permission.
 
 ## Create Guild Ban % PUT /guilds/{guild.id#DOCS_GUILD/guild-object}/bans/{user.id#DOCS_USER/user-object}
 
-Create a guild ban, and optionally delete previous messages sent by the banned user. Requires the 'BAN_MEMBERS' permission. Fires a [Guild Ban Add](#DOCS_GATEWAY/guild-ban-add) Gateway event.
+Create a guild ban, and optionally delete previous messages sent by the banned user. Requires the 'BAN_MEMBERS' permission. Returns a 204 empty response on success. Fires a [Guild Ban Add](#DOCS_GATEWAY/guild-ban-add) Gateway event.
 
 ###### JSON Params
 
@@ -275,22 +275,22 @@ Create a guild ban, and optionally delete previous messages sent by the banned u
 
 ## Remove Guild Ban % DELETE /guilds/{guild.id#DOCS_GUILD/guild-object}/bans/{user.id#DOCS_USER/user-object}
 
-Remove the ban for a user. Requires the 'BAN_MEMBERS' permissions. Fires a [Guild Ban Remove](#DOCS_GATEWAY/guild-ban-remove) Gateway event.
+Remove the ban for a user. Requires the 'BAN_MEMBERS' permissions. Returns a 204 empty response on success. Fires a [Guild Ban Remove](#DOCS_GATEWAY/guild-ban-remove) Gateway event.
 
 ## Get Guild Roles % GET /guilds/{guild.id#DOCS_GUILD/guild-object}/roles
 
-Return a list of [role](#DOCS_PERMISSIONS/role-object) objects for the guild. Requires the 'MANAGE_ROLES' permission.
+Returns a list of [role](#DOCS_PERMISSIONS/role-object) objects for the guild. Requires the 'MANAGE_ROLES' permission.
 
 ## Create Guild Role % POST /guilds/{guild.id#DOCS_GUILD/guild-object}/roles
 
-Create a new empty [role](#DOCS_PERMISSIONS/role-object) object for the guild. Requires the 'MANAGE_ROLES' permission. Fires a [Guild Role Create](#DOCS_GATEWAY/guild-role-create) Gateway event.
+Create a new empty [role](#DOCS_PERMISSIONS/role-object) object for the guild. Requires the 'MANAGE_ROLES' permission. Returns the new [role](#DOCS_PERMISSIONS/role-object) object on success. Fires a [Guild Role Create](#DOCS_GATEWAY/guild-role-create) Gateway event.
 
 >warn
 > This endpoint only creates a blank role, it does not allow you to set attributes for the role on creation. Instead, you must create the role and then modify it with a PATCH request.
 
 ## Batch Modify Guild Role % PATCH /guilds/{guild.id#DOCS_GUILD/guild-object}/roles
 
-Batch modify a set of [role](#DOCS_PERMISSIONS/role-object) objects for the guild. Requires the 'MANAGE_ROLES' permission. Fires a [Guild Role Update](#DOCS_GATEWAY/guild-role-update) Gateway event.
+Batch modify a set of [role](#DOCS_PERMISSIONS/role-object) objects for the guild. Requires the 'MANAGE_ROLES' permission. Returns a list of all of the guild's [role](#DOCS_PERMISSIONS/role-object) objects on success. Fires a [Guild Role Update](#DOCS_GATEWAY/guild-role-update) Gateway event.
 
 >warn
 > This endpoint should *only* be used for modifying a batch set of roles.
@@ -310,7 +310,7 @@ This endpoint takes a JSON array of parameters in the following format:
 
 ## Modify Guild Role % PATCH /guilds/{guild.id#DOCS_GUILD/guild-object}/roles/{role.id#DOCS_PERMISSIONS/role-object}
 
-Modify a guild role. Requires the 'MANAGE_ROLES' permission. Returns the [role](#DOCS_PERMISSIONS/role-object) on success. Fires a [Guild Role Update](#DOCS_GATEWAY/guild-role-update) Gateway event.
+Modify a guild role. Requires the 'MANAGE_ROLES' permission. Returns the updated [role](#DOCS_PERMISSIONS/role-object) on success. Fires a [Guild Role Update](#DOCS_GATEWAY/guild-role-update) Gateway event.
 
 ###### JSON Params
 
@@ -328,7 +328,7 @@ Delete a guild role. Requires the 'MANAGE_ROLES' permission. Returns the [role](
 
 ## Get Guild Prune Count % GET /guilds/{guild.id#DOCS_GUILD/guild-object}/prune
 
-Return an object with one 'pruned' key indicating the number of members that would be removed in a prune operation. Requires the 'KICK_MEMBERS' permission.
+Returns an object with one 'pruned' key indicating the number of members that would be removed in a prune operation. Requires the 'KICK_MEMBERS' permission.
 
 ###### JSON Params
 
@@ -338,7 +338,7 @@ Return an object with one 'pruned' key indicating the number of members that wou
 
 ## Begin Guild Prune % POST /guilds/{guild.id#DOCS_GUILD/guild-object}/prune
 
-Begin a prune operation. Requires the 'KICK_MEMBERS' permission. Fires multiple [Guild Member Remove](#DOCS_GATEWAY/guild-member-remove) Gateway events.
+Begin a prune operation. Requires the 'KICK_MEMBERS' permission. Returns an object with one 'pruned' key indicating the number of members that were removed in the prune operation. Fires multiple [Guild Member Remove](#DOCS_GATEWAY/guild-member-remove) Gateway events.
 
 ###### JSON Params
 
@@ -348,19 +348,19 @@ Begin a prune operation. Requires the 'KICK_MEMBERS' permission. Fires multiple 
 
 ## Get Guild Voice Regions % GET /guilds/{guild.id#DOCS_GUILD/guild-object}/regions
 
-Return a list of [voice region](#DOCS_VOICE/voice-region-object) objects for the guild. Unlike the similar `/voice` route, this returns VIP servers when the guild is VIP-enabled.
+Returns a list of [voice region](#DOCS_VOICE/voice-region-object) objects for the guild. Unlike the similar `/voice` route, this returns VIP servers when the guild is VIP-enabled.
 
 ## Get Guild Invites % GET /guilds/{guild.id#DOCS_GUILD/guild-object}/invites
 
-Return a list of [invite](#DOCS_INVITE/invite-object) objects (with [invite metadata](#DOCS_INVITE/invite-metadata-object)) for the guild. Requires the 'MANAGE_GUILD' permission.
+Returns a list of [invite](#DOCS_INVITE/invite-object) objects (with [invite metadata](#DOCS_INVITE/invite-metadata-object)) for the guild. Requires the 'MANAGE_GUILD' permission.
 
 ## Get Guild Integrations % GET /guilds/{guild.id#DOCS_GUILD/guild-object}/integrations
 
-Return a list of [integration](#DOCS_GUILD/integration-object) objects for the guild. Requires the 'MANAGE_GUILD' permission.
+Returns a list of [integration](#DOCS_GUILD/integration-object) objects for the guild. Requires the 'MANAGE_GUILD' permission.
 
 ## Create Guild Integration % POST /guilds/{guild.id#DOCS_GUILD/guild-object}/integrations
 
-Attach an [integration](#DOCS_GUILD/integration-object) object from the current user to the guild. Requires the 'MANAGE_GUILD' permission. Fires a [Guild Integrations Update](#DOCS_GATEWAY/guild-integrations-update) Gateway event.
+Attach an [integration](#DOCS_GUILD/integration-object) object from the current user to the guild. Requires the 'MANAGE_GUILD' permission. Returns a 204 empty response on success. Fires a [Guild Integrations Update](#DOCS_GATEWAY/guild-integrations-update) Gateway event.
 
 ###### JSON Params
 
@@ -371,7 +371,7 @@ Attach an [integration](#DOCS_GUILD/integration-object) object from the current 
 
 ## Modify Guild Integration % PATCH /guilds/{guild.id#DOCS_GUILD/guild-object}/integrations/{integration.id#DOCS_GUILD/integration-object}
 
-Modify the behavior and settings of a [integration](#DOCS_INTEGRATION/integration-object) object for the guild. Requires the 'MANAGE_GUILD' permission. Fires a [Guild Integrations Update](#DOCS_GATEWAY/guild-integrations-update) Gateway event.
+Modify the behavior and settings of a [integration](#DOCS_INTEGRATION/integration-object) object for the guild. Requires the 'MANAGE_GUILD' permission. Returns a 204 empty response on success. Fires a [Guild Integrations Update](#DOCS_GATEWAY/guild-integrations-update) Gateway event.
 
 ###### JSON Params
 
@@ -383,16 +383,16 @@ Modify the behavior and settings of a [integration](#DOCS_INTEGRATION/integratio
 
 ## Delete Guild Integration % DELETE /guilds/{guild.id#DOCS_GUILD/guild-object}/integrations/{integration.id#DOCS_INTEGRATION/integration-object}
 
-Delete the attached [integration](#DOCS_INTEGRATION/integration-object) object for the guild. Requires the 'MANAGE_GUILD' permission. Fires a [Guild Integrations Update](#DOCS_GATEWAY/guild-integrations-update) Gateway event.
+Delete the attached [integration](#DOCS_INTEGRATION/integration-object) object for the guild. Requires the 'MANAGE_GUILD' permission. Returns a 204 empty response on success. Fires a [Guild Integrations Update](#DOCS_GATEWAY/guild-integrations-update) Gateway event.
 
 ## Sync Guild Integration % POST /guilds/{guild.id#DOCS_GUILD/guild-object}/integrations/{integration.id#DOCS_INTEGRATION/integration-object}/sync
 
-Sync an integration. Requires the 'MANAGE_GUILD' permission.
+Sync an integration. Requires the 'MANAGE_GUILD' permission. Returns a 204 empty response on success.
 
 ## Get Guild Embed % GET /guilds/{guild.id#DOCS_GUILD/guild-object}/embed
 
-Return a [guild embed](#DOCS_GUILD/guild-embed-object) object. Requires the 'MANAGE_GUILD' permission.
+Returns the [guild embed](#DOCS_GUILD/guild-embed-object) object. Requires the 'MANAGE_GUILD' permission.
 
 ## Modify Guild Embed % PATCH /guilds/{guild.id#DOCS_GUILD/guild-object}/embed
 
-Modify a [guild embed](#DOCS_GUILD/guild-embed-object) object for the guild. All attributes may be passed in with JSON and modified. Requires the 'MANAGE_GUILD' permission.
+Modify a [guild embed](#DOCS_GUILD/guild-embed-object) object for the guild. All attributes may be passed in with JSON and modified. Requires the 'MANAGE_GUILD' permission. Returns the updated [guild embed](#DOCS_GUILD/guild-embed-object) object.

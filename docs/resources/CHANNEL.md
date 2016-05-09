@@ -112,8 +112,8 @@ Represents a message sent in a channel within Discord.
 | content | string | contents of the message |
 | timestamp | timestamp | when this message was sent |
 | edited_timestamp | ?timestamp | when this message was edited (or null if never) |
-| tts | boolean | whether this was a TTS message |
-| mention_everyone | boolean | whether this message mentions everyone |
+| tts | bool | whether this was a TTS message |
+| mention_everyone | bool | whether this message mentions everyone |
 | mentions | array of [user objects](#DOCS_USER/user-object) | and users specifically mentioned in the message |
 | attachments | array of [attachment objects](#DOC_CHANNEL/attachment-object) | any attached files |
 | embeds | array of [embed objects](#DOC_CHANNEL/embed-object) | any embedded content |
@@ -206,11 +206,11 @@ Discord utilizes a subset of markdown for rendering message content on its clien
 
 ## Get Channel % GET /channels/{channel.id#DOCS_CHANNEL/channel-objects}
 
-Return a channel by ID. This returns a [guild channel](#DOCS_CHANNEL/guild-channel-object) or [dm channel](#DOCS_CHANNEL/dm-channel-object) object.
+Get a channel by ID. Returns a [guild channel](#DOCS_CHANNEL/guild-channel-object) or [dm channel](#DOCS_CHANNEL/dm-channel-object) object.
 
 ## Modify Channel % PUT/PATCH /channels/{channel.id#DOCS_CHANNEL/guild-channel-object}
 
-Update a channels settings. Requires the 'MANAGE_GUILD' permission for the guild. This returns a [guild channel](#DOCS_CHANNEL/guild-channel-object) on success, and a 400 BAD REQUEST on invalid parameters. Fires a [Channel Update](#DOCS_GATEWAY/channel-update) Gateway event.
+Update a channels settings. Requires the 'MANAGE_GUILD' permission for the guild. Returns a [guild channel](#DOCS_CHANNEL/guild-channel-object) on success, and a 400 BAD REQUEST on invalid parameters. Fires a [Channel Update](#DOCS_GATEWAY/channel-update) Gateway event.
 
 ###### JSON Params
 
@@ -223,11 +223,14 @@ Update a channels settings. Requires the 'MANAGE_GUILD' permission for the guild
 
 ## Delete/Close Channel % DELETE /channels/{channel.id#DOCS_CHANNEL/channel-objects}
 
-Delete a guild channel, or close a private message. Requires the 'MANAGE_GUILD' permission for the guild. Returns a [guild channel](#DOCS_CHANNEL/guild-channel-object) or [dm channel](#DOCS_CHANNEL/dm-channel-object) object on success. Fires a [Channel Delete](#DOCS_GATEWAY/channel-delete) Gateway event. Deleting a guild channel cannot be undone. Use with caution, as it is impossible to undo this action when performed on a guild channel. In contrast, when used with a private message, it is possible to undo the action by opening a private message with the recipient again.
+Delete a guild channel, or close a private message. Requires the 'MANAGE_GUILD' permission for the guild. Returns a [guild channel](#DOCS_CHANNEL/guild-channel-object) or [dm channel](#DOCS_CHANNEL/dm-channel-object) object on success. Fires a [Channel Delete](#DOCS_GATEWAY/channel-delete) Gateway event.
+
+>warn
+> Deleting a guild channel cannot be undone. Use this with caution, as it is impossible to undo this action when performed on a guild channel. In contrast, when used with a private message, it is possible to undo the action by opening a private message with the recipient again.
 
 ## Get Channel Messages % GET /channels/{channel.id#DOCS_CHANNEL/channel-objects}/messages
 
-Return the messages for a channel. If operating on a guild channel, this endpoint requires the 'READ_MESSAGES' permission to be present on the current user. Returns an array of [message](#DOCS_CHANNEL/message-object) objects on success.
+Returns the messages for a channel. If operating on a guild channel, this endpoint requires the 'READ_MESSAGES' permission to be present on the current user. Returns an array of [message](#DOCS_CHANNEL/message-object) objects on success.
 
 >info
 > The before and after keys are mutually exclusive, only one may be passed at a time.
@@ -270,7 +273,7 @@ Post a file to a guild text or DM channel. If operating on a guild channel, this
 
 ## Edit Message % PATCH /channels/{channel.id#DOCS_CHANNEL/channel-objects}/messages/{message.id#DOCS_CHANNEL/message-object}
 
-Edit a previously sent message. Returns a [message](#DOCS_CHANNEL/message-object) object. You can only edit messages that have been sent by the current user. Fires a [Message Update](#DOCS_GATEWAY/message-update) Gateway event.
+Edit a previously sent message. You can only edit messages that have been sent by the current user. Returns a [message](#DOCS_CHANNEL/message-object) object. Fires a [Message Update](#DOCS_GATEWAY/message-update) Gateway event.
 
 ###### JSON Params
 
@@ -291,7 +294,7 @@ Ack a message. Generally bots should **not** implement this route.
 
 ## Edit Channel Permissions % PUT /channels/{channel.id#DOCS_CHANNEL/guild-channel-object}/permissions/{overwrite.id}
 
-Edit the channel permission overwrites for a user or role in a channel. Only usable for guild channels. Requires the 'MANAGE_ROLES' permission. Returns a 204 empty response on success. For more information about permissions, see [permissions](#DOCS_PERMISSIONS/permissions)
+Edit the channel permission overwrites for a user or role in a channel. Only usable for guild channels. Requires the 'MANAGE_ROLES' permission. Returns a 204 empty response on success. For more information about permissions, see [permissions](#DOCS_PERMISSIONS/permissions).
 
 ###### JSON Params
 
@@ -302,11 +305,11 @@ Edit the channel permission overwrites for a user or role in a channel. Only usa
 
 ## Get Channel Invites % GET /channels/{channel.id#DOCS_CHANNEL/guild-channel-object}/invites
 
-Return a list of [invite](#DOCS_INVITE/invite-object) objects (with [invite metadata](#DOCS_INVITE/invite-metadata-object)) for the channel. Only usable for guild channels. Requires the 'MANAGE_CHANNELS' permission.
+Returns a list of [invite](#DOCS_INVITE/invite-object) objects (with [invite metadata](#DOCS_INVITE/invite-metadata-object)) for the channel. Only usable for guild channels. Requires the 'MANAGE_CHANNELS' permission.
 
 ## Create Channel Invite % POST /channels/{channel.id#DOCS_CHANNEL/guild-channel-object}/invites
 
-Create a new [invite](#DOCS_INVITE/invite-object) object for the channel. Only usable for guild channels. Requires the `CREATE_INSTANT_INVITE` permission. All JSON paramaters for this route are optional.
+Create a new [invite](#DOCS_INVITE/invite-object) object for the channel. Only usable for guild channels. Requires the `CREATE_INSTANT_INVITE` permission. All JSON paramaters for this route are optional. Returns an [invite](#DOCS_INVITE/invite-object) object.
 
 ###### JSON Params
 
@@ -314,13 +317,13 @@ Create a new [invite](#DOCS_INVITE/invite-object) object for the channel. Only u
 |-------|------|-------------|----------|
 | max_age | integer | duration of invite in seconds before expiry, or 0 for never | 86400 (24 hours) |
 | max_uses | integer | max number of uses or 0 for unlimited | 0 |
-| temporary | boolean | whether this invite only grants temporary membership | false |
-| xkcdpass | boolean | whether to generate an xkcdpass version of the invite code | false |
+| temporary | bool | whether this invite only grants temporary membership | false |
+| xkcdpass | bool | whether to generate an xkcdpass version of the invite code | false |
 
 ## Delete Channel Permission % DELETE /channels/{channel.id#DOCS_CHANNEL/guild-channel-object}/permissions/{overwrite.id#DOCS_CHANNEL/overwrite-object}
 
-Delete a channel permission overwrite for a user or role in a channel. Only usable for guild channels. Requires the 'MANAGE_ROLES' permission. Returns a 200 empty response on success. For more information about permissions, see [permissions](#DOCS_PERMISSIONS/permissions)
+Delete a channel permission overwrite for a user or role in a channel. Only usable for guild channels. Requires the 'MANAGE_ROLES' permission. Returns a 204 empty response on success. For more information about permissions, see [permissions](#DOCS_PERMISSIONS/permissions)
 
 ## Trigger Typing Indicator % POST /channels/{channel.id#DOCS_CHANNEL/channel-objects}/typing
 
-Post a typing indicator for the specified channel. Generally bots should **not** implement this route. However, if a bot is responding to a command and expects the computation to take a few seconds, this endpoint may be called to let the user know that the bot is processing their message. Fires a [Typing Start](#DOCS_GATEWAY/typing-start) Gateway event.
+Post a typing indicator for the specified channel. Generally bots should **not** implement this route. However, if a bot is responding to a command and expects the computation to take a few seconds, this endpoint may be called to let the user know that the bot is processing their message. Returns a 204 empty response on success. Fires a [Typing Start](#DOCS_GATEWAY/typing-start) Gateway event.
