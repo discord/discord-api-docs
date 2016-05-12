@@ -181,7 +181,7 @@ Used to tell clients to reconnect to another gateway. Clients should immediately
 
 ### Gateway Request Guild Members
 
-Used to request offline members for a guild. When initially connecting, the gateway will only send offline members if a guild has less than the `large_threshold` members (value in the [Gateway Identify](#DOCS_GATEWAY/gateway-identify)). If a client wishes to receive all members, they need to explicitly request them.
+Used to request offline members for a guild. When initially connecting, the gateway will only send offline members if a guild has less than the `large_threshold` members (value in the [Gateway Identify](#DOCS_GATEWAY/gateway-identify)). If a client wishes to receive all members, they need to explicitly request them. The server will send a [Guild Members Chunk](#DOCS_GATEWAY/guild-members-chunk) event in response.
 
 ###### Gateway Request Guild Members Structure
 
@@ -364,6 +364,17 @@ Sent when a guild member is updated.
 | guild_id | snowflake | the id of the guild |
 | roles | array of [role](#DOCS_PERMISSIONS/role-object) objects | user roles |
 | user | a [user](#DOCS_USER/user-object) object | the user |
+
+### Guild Members Chunk
+
+Sent in response to [Gateway Request Guild Members](#DOCS_GATEWAY/gateway-request-guild-members).
+
+###### Guild Members Chunk Event Fields
+
+| Field | Type | Description |
+|-------|------|-------------|
+| guild_id | snowflake | the id of the guild |
+| members | array of [guild members](#DOCS_GUILD/guild-member-object) | set of guild members |
 
 ### Guild Role Create
 
