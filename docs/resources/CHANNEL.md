@@ -293,7 +293,9 @@ Delete a message. If operating on a guild channel and trying to delete a message
 Delete multiple messages in a single request. This endpoint can only be used on guild channels and requires the 'MANAGE_MESSAGES' permission. Returns a 204 empty response on success. Fires multiple [Message Delete](#DOCS_GATEWAY/message-delete) Gateway events.
 
 >warn
-> This endpoint has a rate limit of 1 request per second per guild, and is limited to 100 messages per request. Only bot accounts can use this endpoint.
+> This endpoint has a rate limit of 1 request per second per guild, and is limited to 100 messages per request. The request will fail if less than two snowflakes are provided. Only bot accounts can use this endpoint.
+
+The gateway will ignore any individual messages that do not exist or do not belong to this channel, but these will count towards the minimum and maximum message count. Duplicate snowflakes will only be counted once for these limits.
 
 ###### JSON Params
 
