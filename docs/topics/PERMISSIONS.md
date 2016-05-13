@@ -32,6 +32,15 @@ Permissions in Discord are stored within a 53-bit integer and are calculated usi
 | MANAGE_NICKNAMES | `0x08000000` | Allows for modification of other users nicknames |
 | MANAGE_ROLES | `0x10000000` | Allows management and editing of roles |
 
+###### Permission Hierarchy
+
+Permissions follow a hierarchy with the following roles:
+
+* A bot can grant roles to other users that are of a lower position than their highest role.
+* A bot can edit roles of a lower position than their highest role, but they can only grant permissions they have to those roles.
+* Bots can only sort roles lower than their highest role.
+* Bots can only kick/ban users of with a lower highest role than themselves.
+
 
 ## Role Object
 
@@ -49,6 +58,8 @@ Roles represent a set of permissions attached to a group of users. Roles have un
 | permissions | integer | permission bit set |
 | managed | bool | whether this role is managed by an integration |
 | mentionable | bool | whether this role is mentionable |
+
+Roles without colors (`color == 0`) do not count towards the final computed color in the user list.
 
 ###### Example Role
 
