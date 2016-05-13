@@ -241,13 +241,15 @@ When connecting to the gateway as a bot user, guilds that the bot is a part of s
 
 As bots grow and are added to an increasing number of guilds, some developers may find it necessary to break or split portions of their bots operations into separate logical processes. As such, Discord gateways implement a method of user-controlled guild-sharding which allows for splitting events across a number of gateway connections. Guild sharding is entirely user controlled, and requires no state-sharing between separate connections to operate.
 
-To enable sharding on a connection, the user should send the `shard` array in the [identify](#DOCS_GATEWAY/gateway-identify) payload. The first item in this array should be the integer value of the current shard, while the second represents the total number of shards. To calculate what events will be sent to what shard, the following formula can be used:
+To enable sharding on a connection, the user should send the `shard` array in the [identify](#DOCS_GATEWAY/gateway-identify) payload. The first item in this array should be the zero-based integer value of the current shard, while the second represents the total number of shards. DMs will only be sent to shard 0. To calculate what events will be sent to what shard, the following formula can be used:
 
 ```python
 (guild_id >> 22) % num_shards == shard_id
 ```
 
-DMs will only be sent to shard 0.
+As an example, if you wanted to split the connection between three shards, you'd use the following values for `shard` for each connection: `[0, 3]`, `[1, 3]`, and `[2, 3]`. Note that only the first shard (`[0, 3]`) would receive DMs. 
+
+
 
 ## Payloads
 
