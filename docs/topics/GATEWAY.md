@@ -247,7 +247,7 @@ To enable sharding on a connection, the user should send the `shard` array in th
 (guild_id >> 22) % num_shards == shard_id
 ```
 
-As an example, if you wanted to split the connection between three shards, you'd use the following values for `shard` for each connection: `[0, 3]`, `[1, 3]`, and `[2, 3]`. Note that only the first shard (`[0, 3]`) would receive DMs. 
+As an example, if you wanted to split the connection between three shards, you'd use the following values for `shard` for each connection: `[0, 3]`, `[1, 3]`, and `[2, 3]`. Note that only the first shard (`[0, 3]`) would receive DMs.
 
 
 
@@ -279,7 +279,6 @@ The ready event is dispatched when a client has completed the handshake with the
 | user | object | [user object](#DOCS_USER/user-object) (with email information) |
 | private_channels | array | array of [DM channel](#DOCS_CHANNEL/dm-channel-object) objects |
 | guilds | array | array of [Unavailable Guild](#DOCS_GUILD/unavailable-guild-object) objects |
-| read_state | array | array of [read state](#DOCS_CHANNEL/read-state-object) objects |
 | session_id | string | used for resuming connections |
 
 ### Channel Create
