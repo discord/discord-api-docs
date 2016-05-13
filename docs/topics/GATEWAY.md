@@ -89,6 +89,7 @@ Used to trigger the initial handshake with the gateway.
 | properties | object | connection properties |
 | compress | bool | whether this connection supports compression of the initial ready packet |
 | large_threshold | integer | value between 50 and 250, total number of members where the gateway will stop sending offline members in the guild member list |
+| shard | array of two integers (shard_id, num_shards) | used for [Guild Sharding](#DOCS_GATEWAY/sharding) |
 
 ###### Example Gateway Identify Example
 
@@ -104,6 +105,7 @@ Used to trigger the initial handshake with the gateway.
 	},
 	"compress": true,
 	"large_threshold": 250,
+	"shard": [1, 10]
 }
 ```
 
@@ -234,6 +236,20 @@ Users who implement the Gateway API should keep in mind that Discord expects cli
 ## Guild (Un)availability
 
 When connecting to the gateway as a bot user, guilds that the bot is a part of start out as unavailable. Unavailable simply means that the gateway is either connecting, is unable to connect to a guild, or has disconnected from a guild. Don't fret however! When a guild goes unavailable the gateway will automatically attempt to reconnect on your behalf. As far as a client is concerned there is no distinction between a truly unavailable guild (meaning that the node that the guild is running on is unavailable) or a guild that the client is trying to connect to. As such, guilds only exist in two states: available or unavailable.
+
+## Sharding
+
+As bots grow and are added to an increasing number of guilds, some developers may find it necessary to break or split portions of their bots operations into separate logical processes. As such, Discord gateways implement a method of user-controlled guild-sharding which allows for splitting events across a number of gateway connections. Guild sharding is entirely user controlled, and requires no state-sharing between separate connections to operate.
+
+To enable sharding on a connection, the user should send the `shard` array in the [identify](#DOCS_GATEWAY/gateway-identify) payload. The first item in this array should be the zero-based integer value of the current shard, while the second represents the total number of shards. DMs will only be sent to shard 0. To calculate what events will be sent to what shard, the following formula can be used:
+
+```python
+(guild_id >> 22) % num_shards == shard_id
+```
+
+As an example, if you wanted to split the connection between three shards, you'd use the following values for `shard` for each connection: `[0, 3]`, `[1, 3]`, and `[2, 3]`. Note that only the first shard (`[0, 3]`) would receive DMs. 
+
+
 
 ## Payloads
 
