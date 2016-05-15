@@ -76,7 +76,7 @@ DM Channels represent a one-to-one conversation between two users, outside of th
 }
 ```
 
-### Messages Object
+### Message Object
 
 Represents a message sent in a channel within Discord.
 
