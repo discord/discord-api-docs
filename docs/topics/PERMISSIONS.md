@@ -32,7 +32,7 @@ Permissions in Discord are stored within a 53-bit integer and are calculated usi
 | MANAGE_NICKNAMES | `0x08000000` | Allows for modification of other users nicknames |
 | MANAGE_ROLES | `0x10000000` | Allows management and editing of roles |
 
-###### Permission Hierarchy
+## Permission Hierarchy
 
 Permissions follow a hierarchy with the following roles:
 
