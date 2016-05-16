@@ -76,7 +76,7 @@ DM Channels represent a one-to-one conversation between two users, outside of th
 }
 ```
 
-### Messages Object
+### Message Object
 
 Represents a message sent in a channel within Discord.
 
@@ -173,7 +173,7 @@ Represents a message sent in a channel within Discord.
 
 Discord utilizes a subset of markdown for rendering message content on its clients, while also adding some custom functionality to enable things like mentioning users and channels. Mentions can be created using the following format:
 
-### Mentions
+###### Mentions
 
 | Type | Structure | Example |
 |---------|-------------|-------------|
