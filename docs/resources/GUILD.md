@@ -207,6 +207,7 @@ Create a new [channel](#DOCS_CHANNEL/guild-channel-object) object for the guild.
 | name | string | channel name (2-100 characters) |
 | type | string | "voice" or "text" |
 | bitrate | integer | the bitrate (in bits) of the voice channel (voice only) |
+| user_limit | integer | the user limit of the voice channel |
 
 ## Modify Guild Channel % PATCH /guilds/{guild.id#DOCS_GUILD/guild-object}/channels
 
