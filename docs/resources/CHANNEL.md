@@ -20,6 +20,7 @@ Guild channels represent an isolated set of users and messages within a Guild.
 | topic | string | the channel topic (0-1024 characters) | Text only |
 | last\_message\_id | snowflake | the id of the last message sent in this channel | Text only |
 | bitrate | integer | the bitrate (in bits) of the voice channel | Voice only |
+| user_limit | integer | the user limit of the voice channel | Voice only |
 
 ###### Example Text Channel
 
@@ -48,7 +49,8 @@ Guild channels represent an isolated set of users and messages within a Guild.
 	"position": 5,
 	"is_private": false,
 	"permission_overwrites": [],
-	"bitrate": 64000
+	"bitrate": 64000,
+	"user_limit": 0
 }
 ```
 
@@ -198,6 +200,7 @@ Update a channels settings. Requires the 'MANAGE_GUILD' permission for the guild
 | position | integer | the position of the channel in the left-hand listing | Both |
 | topic | string | 0-1024 character channel topic | Text |
 | bitrate | integer | the bitrate (in bits) of the voice channel; 8000 to 96000 (128000 for VIP servers) | Voice |
+| user_limit | integer | the user limit of the voice channel; 0 refers to no limit, 1 to 99 refers to a user limit | Voice |
 
 ## Delete/Close Channel % DELETE /channels/{channel.id#DOCS_CHANNEL/channel-objects}
 
