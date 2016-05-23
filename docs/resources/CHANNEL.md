@@ -182,7 +182,7 @@ Discord utilizes a subset of markdown for rendering message content on its clien
 | User | `<@USER_SNOWFLAKE_ID>` | `<@80351110224678912>` |
 | User (Nickname) | `<@!USER_SNOWFLAKE_ID>` | `<@!80351110224678912>` |
 | Channel | `<#CHANNEL_SNOWFLAKE_ID>` | `<#103735883630395392>` |
-| Role | `<@&ROLE_SNOWFLAKE_ID` | `<@&165511591545143296>` |
+| Role | `<@&ROLE_SNOWFLAKE_ID>` | `<@&165511591545143296>` |
 
 ## Get Channel % GET /channels/{channel.id#DOCS_CHANNEL/channel-objects}
 
