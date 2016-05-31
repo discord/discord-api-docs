@@ -335,7 +335,7 @@ Returns an object with one 'pruned' key indicating the number of members that wo
 
 | Field | Type | Description |
 |-------|------|-------------|
-| days | integer | number of days to count prune for (1-7) |
+| days | integer | number of days to count prune for (1 or more) |
 
 ## Begin Guild Prune % POST /guilds/{guild.id#DOCS_GUILD/guild-object}/prune
 
@@ -345,7 +345,7 @@ Begin a prune operation. Requires the 'KICK_MEMBERS' permission. Returns an obje
 
 | Field | Type | Description |
 |-------|------|-------------|
-| days | integer | number of days to prune (1-7) |
+| days | integer | number of days to prune (1 or more) |
 
 ## Get Guild Voice Regions % GET /guilds/{guild.id#DOCS_GUILD/guild-object}/regions
 
