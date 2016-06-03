@@ -446,6 +446,17 @@ Sent when a message is deleted.
 | id | snowflake | the id of the message |
 | channel_id | snowflake | the id of the channel |
 
+### Message Delete Bulk
+
+Sent when multiple messages are deleted at once.
+
+###### Message Delete Bulk Event Fields
+
+| Field | Type | Description |
+|-------|------|-------------|
+| ids | array of snowflakes | the ids of the messages |
+| channel_id | snowflake | the id of the channel |
+
 ### Presence Update
 
 Sent when a users presence is updated.
