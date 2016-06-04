@@ -20,11 +20,11 @@ Our API will return semantically valid HTTP response codes based on the success 
 | 502 (GATEWAY UNAVAILABLE) | There was not a gateway available to process your request. Wait a bit and retry |
 | 5xx (SERVER ERROR) | The server had an error processing your request (these are rare) |
 
-## JSON Error Codes
+## JSON Error Response
 
-Along with the HTTP error code, our API will also return more detailed error codes through an `error` key in the JSON error response.
+Along with the HTTP error code, our API will also return more detailed error codes through a `code` key in the JSON error response. The response will also contain a `message` key containing an error string.
 
-###### JSON Error Code List
+###### JSON Error Codes
 
 | Code | Meaning |
 |------|---------|
