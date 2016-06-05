@@ -1,6 +1,6 @@
 # Gateways
 
-Gateways are Discords form of real-time communication over secure web-sockets. Clients will receive events and data over the gateway they are connected to and send data over the REST API. For information about connecting to a gateway see the [Connecting](#DOCS_GATEWAY/connecting) section.
+Gateways are Discords form of real-time communication over secure websockets. Clients will receive events and data over the gateway they are connected to and send data over the REST API. For information about connecting to a gateway see the [Connecting](#DOCS_GATEWAY/connecting) section.
 
 ## Get Gateway % GET /gateway
 
