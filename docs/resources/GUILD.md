@@ -240,7 +240,7 @@ Returns a list of [guild member](#GUILD/guild-member-object) objects that are me
 
 ## Modify Guild Member % PATCH /guilds/{guild.id#DOCS_GUILD/guild-object}/members/{user.id#DOCS_USER/user-object}
 
-Modify attributes of a [guild member](#DOCS_GUILD/guild-member-object). Returns the updated [guild member](#DOCS_GUILD/guild-member-object) object on success. Fires a [Guild Member Update](#DOCS_GATEWAY/guild-member-update) Gateway event.
+Modify attributes of a [guild member](#DOCS_GUILD/guild-member-object). Returns a 204 empty response on success. Fires a [Guild Member Update](#DOCS_GATEWAY/guild-member-update) Gateway event.
 
 >info
 > All parameters to this endpoint are optional. When moving members to channels, the API user
