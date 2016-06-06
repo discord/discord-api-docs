@@ -20,6 +20,7 @@ Out of Services versions are versions who's subset of changes compared to the mo
 
 | Version | Out of Service |
 |------------|----------------|
+| 5 | no |
 | 4 | no |
 
 
@@ -31,7 +32,7 @@ Out of Services versions are versions who's subset of changes compared to the mo
 |-------|------|-------------|-------------|
 | op | integer | opcode for the payload | Always |
 | d | mixed (object, integer) | event data | Always |
-| s | integer | sequence number, used for reconnecting | Only for OP 0 |
+| s | integer | sequence number, used for resuming sessions and heartbeats | Only for OP 0 |
 | t | string | the event name for this payload | Only for OP 0 |
 
 ###### Gateway OP Codes
@@ -48,6 +49,9 @@ Out of Services versions are versions who's subset of changes compared to the mo
 | 7 | Reconnect | used to redirect clients to a new gateway |
 | 8 | Request Guild Members | used to request guild members |
 | 9 | Invalid Session | used to notify client they have an invalid session id |
+| 10 | Hello | sent immediately after connecting, contains heartbeat and server debug information |
+| 11 | Heartback ACK | sent immediately following a client heartbeat that was received |
+| 12 | Sync Guilds | sets the list of guilds to receive states of |
 
 ### Gateway Dispatch
 
@@ -66,7 +70,10 @@ Used by the gateway to notify the client of events.
 
 ### Gateway Heartbeat
 
-Used to maintain an active gateway connection. Must be sent every `heartbeat_interval` milliseconds after the [ready](#DOCS_GATEWAY/ready) payload is received. Note that this interval already has room for error, and that client implementations do not need to send a heartbeat faster than what's specified. The inner `d` key must be set to the last seq (`s`) received by the client.
+Used to maintain an active gateway connection. Must be sent every `heartbeat_interval` milliseconds after the [ready](#DOCS_GATEWAY/ready) payload is received. Note that this interval already has room for error, and that client implementations do not need to send a heartbeat faster than what's specified. The inner `d` key must be set to the last seq (`s`) received by the client. If none has yet been received you should send `null` (you cannot send a heartbeat before authenticating, however).
+
+>info
+> It is worth noting that in the event of a service outage where you stay connected to the gateway, you should continue to heartbeat and receive ACKs. The gateway will eventually respond and issue a session once it is able to.
 
 ###### Gateway Heartbeat Example
 
@@ -74,6 +81,38 @@ Used to maintain an active gateway connection. Must be sent every `heartbeat_int
 {
 	"op": 1,
 	"d": 251
+}
+```
+
+### Gateway Heartbeat ACK
+
+Used for the client to maintain an active gateway connection. Sent by the server after receiving a [Gateway Heartbeat](#DOCS_GATEWAY/gateway-heartbeat)
+
+###### Gateway Heartbeat ACK Example
+
+```json
+{
+	"op": 11
+}
+```
+
+### Gateway Hello
+
+Sent on connection to the websocket. Defines the heartbeat interval that the client should heartbeat to. 
+
+###### Gateway Hello Structure
+
+| Field | Type | Description |
+|-------|------|-------------|
+| heartbeat_interval | integer | the interval (in seconds) the client should heartbeat with |
+| _trace | array of strings | used for debugging, array of servers connected to |
+
+###### Gateway Hello Example
+
+```json
+{
+	"heartbeat_interval": 45,
+	"_trace": ["discord-gateway-prd-1-99"]
 }
 ```
 
@@ -89,6 +128,7 @@ Used to trigger the initial handshake with the gateway.
 | properties | object | connection properties |
 | compress | bool | whether this connection supports compression of the initial ready packet |
 | large_threshold | integer | value between 50 and 250, total number of members where the gateway will stop sending offline members in the guild member list |
+| synced_guilds | array of snowflake ids | contains the initial list of guilds you wish to receive states of |
 | shard | array of two integers (shard_id, num_shards) | used for [Guild Sharding](#DOCS_GATEWAY/sharding) |
 
 ###### Example Gateway Identify Example
@@ -105,6 +145,7 @@ Used to trigger the initial handshake with the gateway.
 	},
 	"compress": true,
 	"large_threshold": 250,
+	"synced_guilds": ["41771983423143937"],
 	"shard": [1, 10]
 }
 ```
@@ -155,6 +196,24 @@ Sent when a client wants to join, move, or disconnect from a voice channel.
 }
 ```
 
+### Gateway Reconnect
+
+Used to redirect clients to a new gateway. Clients should disconnect from the existing gateway, connect to the provided new gateway, and [resume their session](#DOCS_GATEWAY/gateway-resume) on the new gateway.
+
+###### Gateway Reconnect Structure
+
+| Field | Type | Description |
+|-------|------|-------------|
+| url | string | url to new gateway |
+
+###### Gateway Resume Example
+
+```json
+{
+	"url": "wss://gateway.discord.gg"
+}
+```
+
 ### Gateway Resume
 
 Used to replay missed events when a disconnected client resumes.
@@ -176,10 +235,6 @@ Used to replay missed events when a disconnected client resumes.
 	"seq": 1337
 }
 ```
-
-### Gateway Reconnect
-
-Used to tell clients to reconnect to another gateway. Clients should immediately reconnect, and use the resume payload on the new gateway.
 
 ### Gateway Request Guild Members
 
@@ -203,9 +258,19 @@ Used to request offline members for a guild. When initially connecting, the gate
 }
 ```
 
+### Gateway Sync Guilds
+
+Used to change the list of guilds that you receive states of. Upon adding a new guild to the list, your connection will sync with the guild and receive the member list. The structure of the gateway sync guilds data is an array of snowflake ids.
+
+###### Gateway Sync Guilds Example
+
+```json
+["41771983444115456"]
+```
+
 ## Connecting
 
-The first step to establishing a gateway connection is to request a gateway URL through the [Get Gateway](#DOCS_GATEWAY/get-gateway) API endpoint (if the client does not already have one cached). Using the "url" field from the response you can then create a new secure websocket connection that will be used for the duration of your gateway session. Once connected you must send an OP 2 [Identify](#DOCS_GATEWAY/gateway-identify) or OP 6. If your token is correct, the gateway will respond with a [Ready](#DOCS_GATEWAY/ready) payload. After the ready payload, your client needs to start sending OP 1 [heartbeat](#DOCS_GATEWAY/gateway-heartbeat) payloads every `heartbeat_interval` (which is sent in the ready payload) milliseconds.
+The first step to establishing a gateway connection is to request a gateway URL through the [Get Gateway](#DOCS_GATEWAY/get-gateway) API endpoint (if the client does not already have one cached). Using the "url" field from the response you can then create a new secure websocket connection that will be used for the duration of your gateway session. Once connected, the client will immediately receive an OP 10 [Hello](#DOCS_GATEWAY/gateway-hello) payload with the connection heartbeat interval. At this point the client should start sending OP 1 [heartbeat](#DOCS_GATEWAY/gateway-heartbeat) payloads every `heartbeat_interval` seconds. Next, the client sends an OP 2 [Identify](#DOCS_GATEWAY/gateway-identify) or OP 6 [Resume](#DOCS_GATEWAY/gateway-resume) payload. If your token is correct, the gateway will respond with a [Ready](#DOCS_GATEWAY/ready-event) payload.
 
 ###### Gateway URL Params
 
@@ -216,7 +281,27 @@ The first step to establishing a gateway connection is to request a gateway URL 
 
 ### Resuming
 
-When clients lose their connection to the gateway and are able to reconnect in a short period of time after, they can utilize a Gateway feature called "client resuming". Once reconnected to the gateway socket the client should send a [Gateway Reconnect](#DOCS_GATEWAY/gateway-reconnect) payload to the server. If successful, the gateway will respond by replaying all missed events to the client. Otherwise, the gateway will respond with an OP 9 (invalid session), in which case the client should send an OP 2 [Identify](#DOCS_GATEWAY/gateway-identify) payload to start a new connection. It is recommended that all Discord clients implement resume logic. The gateway can and will disconnect your websocket connection as it pleases without any warning. Implementing this feature will allow your client to reconnect seamlessly. Resuming is only supported when the amount of guilds in a given gateway connection is under 2,500 guilds. In order to resume as your bot grows, it's recommended that you shard your gateway connection to reduce the number of guilds per gateway connection.
+When clients lose their connection to the gateway and are able to reconnect in a short period of time after, they can utilize a Gateway feature called "client resuming". Once reconnected to the gateway socket the client should send a [Gateway Resume](#DOCS_GATEWAY/gateway-resume) payload to the server. If successful, the gateway will respond by replaying all missed events to the client. Otherwise, the gateway will respond with an OP 9 (invalid session), in which case the client should send an OP 2 [Identify](#DOCS_GATEWAY/gateway-identify) payload to start a new connection. It is recommended that all Discord clients implement resume logic. The gateway can and will disconnect your websocket connection as it pleases without any warning. Implementing this feature will allow your client to reconnect seamlessly. Resuming is only supported when the amount of guilds in a given gateway connection is under 2,500 guilds. In order to resume as your bot grows, it's recommended that you [shard](#DOCS_GATEWAY/sharding) your gateway connection to reduce the number of guilds per gateway connection.
+
+### Disconnections
+
+If the gateway ever issues a disconnect to your client it will provide a close event code that you can use to properly handle the disconnection.
+
+###### Gateway Close Event Codes
+
+| Code | Description | Explanation |
+|------|-------------|-------------|
+| 4000 | unknown error | We're not sure what went wrong. Try reconnecting? |
+| 4001 | unknown opcode | You sent an invalid [Gateway OP Code](#DOCS_GATEWAY/gateway-op-codes). Don't do that! |
+| 4002 | decode error | You sent an invalid [payload](#DOCS_GATEWAY/sending-payloads) to us. Don't do that! |
+| 4003 | not authenticated | You sent us a payload prior to [identifying](#DOCS_GATEWAY/gateway-identify). |
+| 4004 | authentication failed | The account token sent with your [identify payload](#DOCS_GATEWAY/gateway-identify) is incorrect. |
+| 4005 | already authenticated | You sent more than one identify payloads. Don't do that! |
+| 4006 | session not valid | The session you tried to [resume](#DOCS_GATEWAY/resuming) was invalid. Reconnect and start a new one. |
+| 4007 | invalid seq | The sequence sent when [resuming](#DOCS_GATEWAY/resuming) the session was invalid. Reconnect and start a new session. |
+| 4008 | rate limited | Woah nelly! You're sending payloads to us too quickly. Slow it down! |
+| 4009 | session timeout | Your session timed out. Reconnect and start a new one. |
+| 4010 | invalid shard | You sent us an invalid [shard when identifying](#DOCS_GATEWAY/sharding). |
 
 ### ETF/JSON
 
@@ -269,9 +354,13 @@ Event names are in standard constant form, fully upper-cased and replacing all s
 
 ### Ready
 
-The ready event is dispatched when a client has completed the handshake with the gateway. The ready event is the largest and most complex event the gateway will send, as it contains all the state required for a client to begin interacting with the rest of the platform.
+The ready event is dispatched when a client has completed the initial handshake with the gateway (for new sessions). The ready event can be the largest and most complex event the gateway will send, as it contains all the state required for a client to begin interacting with the rest of the platform.
 
-###### Ready Event Fields
+### Resumed
+
+The resumed event is dispatched when a client has completed the initial handshake with the gateway (for new sessions). The ready event can be the largest and most complex event the gateway will send, as it contains all the state required for a client to begin interacting with the rest of the platform.
+
+###### Ready/Resumed Event Fields
 
 | Field | Type | Description |
 |-------|------|-------------|
