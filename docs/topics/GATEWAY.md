@@ -4,7 +4,7 @@ Gateways are Discords form of real-time communication over secure websockets. Cl
 
 ## Get Gateway % GET /gateway
 
-Return an object with a single valid WSS URL. Clients **should** cache this value, and only call this endpoint to retrieve a new URL if they are unable to establish a Gateway connection to the cached URL.
+Returns an object with a single valid WSS URL. Clients **should** cache this value, and only call this endpoint to retrieve a new URL if they are unable to establish a Gateway connection to the cached URL.
 
 ###### Example Response
 
@@ -46,7 +46,7 @@ Out of Services versions are versions who's subset of changes compared to the mo
 | 4 | Voice State Update | used to join/move/leave voice channels |
 | 5 | Voice Server Ping | used for voice ping checking |
 | 6 | Resume | used to resume a closed connection |
-| 7 | Reconnect | used to redirect clients to a new gateway |
+| 7 | Reconnect | used to tell clients to reconnect to the gateway |
 | 8 | Request Guild Members | used to request guild members |
 | 9 | Invalid Session | used to notify client they have an invalid session id |
 | 10 | Hello | sent immediately after connecting, contains heartbeat and server debug information |
@@ -147,6 +147,54 @@ Used to trigger the initial handshake with the gateway.
 }
 ```
 
+### Gateway Reconnect		
+
+Used to tell clients to reconnect to the gateway. Clients should immediately reconnect, and use the resume payload on the gateway.
+
+### Gateway Request Guild Members
+
+Used to request offline members for a guild. When initially connecting, the gateway will only send offline members if a guild has less than the `large_threshold` members (value in the [Gateway Identify](#DOCS_GATEWAY/gateway-identify)). If a client wishes to receive all members, they need to explicitly request them. The server will send a [Guild Members Chunk](#DOCS_GATEWAY/guild-members-chunk) event in response.
+
+###### Gateway Request Guild Members Structure
+
+| Field | Type | Description |
+|-------|------|-------------|
+| guild_id | snowflake | id of the guild to get offline members for |
+| query | string | string that username starts with, or an empty string to return all members |
+| limit | integer | maximum number of members to send or 0 to request all members matched |
+
+###### Gateway Request Guild Members Example
+
+```json
+{
+	"guild_id": "41771983444115456",
+	"query": "",
+	"limit": 0
+}
+```
+
+### Gateway Resume
+
+Used to replay missed events when a disconnected client resumes.
+
+###### Gateway Resume Structure
+
+| Field | Type | Description |
+|-------|------|-------------|
+| token | string | session token |
+| session_id | string | session id |
+| seq | integer | last sequence number received |
+
+###### Gateway Resume Example
+
+```json
+{
+	"token": "randomstring",
+	"session_id": "evenmorerandomstring",
+	"seq": 1337
+}
+```
+
 ### Gateway Status Update
 
 Sent by the client to indicate a presence or status update.
@@ -193,49 +241,7 @@ Sent when a client wants to join, move, or disconnect from a voice channel.
 }
 ```
 
-### Gateway Resume
 
-Used to replay missed events when a disconnected client resumes.
-
-###### Gateway Resume Structure
-
-| Field | Type | Description |
-|-------|------|-------------|
-| token | string | session token |
-| session_id | string | session id |
-| seq | integer | last sequence number received |
-
-###### Gateway Resume Example
-
-```json
-{
-	"token": "randomstring",
-	"session_id": "evenmorerandomstring",
-	"seq": 1337
-}
-```
-
-### Gateway Request Guild Members
-
-Used to request offline members for a guild. When initially connecting, the gateway will only send offline members if a guild has less than the `large_threshold` members (value in the [Gateway Identify](#DOCS_GATEWAY/gateway-identify)). If a client wishes to receive all members, they need to explicitly request them. The server will send a [Guild Members Chunk](#DOCS_GATEWAY/guild-members-chunk) event in response.
-
-###### Gateway Request Guild Members Structure
-
-| Field | Type | Description |
-|-------|------|-------------|
-| guild_id | snowflake | id of the guild to get offline members for |
-| query | string | string that username starts with, or an empty string to return all members |
-| limit | integer | maximum number of members to send or 0 to request all members matched |
-
-###### Gateway Request Guild Members Example
-
-```json
-{
-	"guild_id": "41771983444115456",
-	"query": "",
-	"limit": 0
-}
-```
 
 ## Connecting
 
@@ -318,6 +324,8 @@ Receiving payloads with the Gateway API is slightly more complex than sending. W
 
 Event names are in standard constant form, fully upper-cased and replacing all spaces with underscores. For instance, [Channel Create](#DOCS_GATEWAY/channel-create) would be `CHANNEL_CREATE` and [Voice State Update](#DOCS_GATEWAY/voice-state-update) would be `VOICE_STATE_UPDATE`.
 
+
+
 ## Events
 
 ### Ready
@@ -333,8 +341,8 @@ The ready event is dispatched when a client has completed the initial handshake 
 | private_channels | array | array of [DM channel](#DOCS_CHANNEL/dm-channel-object) objects |
 | guilds | array | array of [Unavailable Guild](#DOCS_GUILD/unavailable-guild-object) objects |
 | session_id | string | used for resuming connections |
-| presences | array | list of friends' presences |
-| relationships | array | list of friends |
+| presences | array | list of friends' presences (not applicable to bots) |
+| relationships | array | list of friends (not applicable to bots) |
 | _trace | array of strings | used for debugging, array of servers connected to |
 
 ### Resumed
@@ -359,14 +367,6 @@ Sent when a channel is updated. The inner payload is a [guild channel](#DOCS_CHA
 
 Sent when a channel relevant to the current user is deleted. The inner payload is a [DM](#DOCS_CHANNEL/dm-channel-object) or [Guild](#DOCS_CHANNEL/guild-channel-object) channel object.
 
-### Guild Ban Add
-
-Sent when a user is banned from a guild. The inner payload is a [user](#DOCS_USER/user-object) object, with an extra guild_id key.
-
-### Guild Ban Remove
-
-Sent when a user is unbanned from a guild. The inner payload is a [user](#DOCS_USER/user-object) object, with an extra guild_id key.
-
 ### Guild Create
 
 This event can be sent in three different scenarios:
@@ -381,17 +381,6 @@ The inner payload is a [guild](#DOCS_GUILD/guild-object) object, with an extra p
 
 Sent when a guild is updated. The inner payload is a [guild](#DOCS_GUILD/guild-object) object.
 
-### Guild Emoji Update
-
-Sent when a guilds emojis have been updated.
-
-###### Guild Emoji Update Event Fields
-
-| Field | Type | Description |
-|-------|------|-------------|
-| guild_id | snowflake | id of the guild |
-| emojis | array | array of [emojis](#DOCS_GUILD/emoji-object)  |
-
 ### Guild Delete
 
 Sent when a guild becomes unavailable during a guild outage, or when the user leaves or is removed from a guild. See GUILD_CREATE for more information about how to handle this event.
@@ -402,6 +391,25 @@ Sent when a guild becomes unavailable during a guild outage, or when the user le
 |-------|------|-------------|
 | id | snowflake | id of the guild |
 | unavailable | bool | whether the guild is unavailable, should always be true. if not set, this signifies that the user was removed from the guild |
+
+### Guild Ban Add
+
+Sent when a user is banned from a guild. The inner payload is a [user](#DOCS_USER/user-object) object, with an extra guild_id key.
+
+### Guild Ban Remove
+
+Sent when a user is unbanned from a guild. The inner payload is a [user](#DOCS_USER/user-object) object, with an extra guild_id key.
+
+### Guild Emoji Update
+
+Sent when a guilds emojis have been updated.
+
+###### Guild Emoji Update Event Fields
+
+| Field | Type | Description |
+|-------|------|-------------|
+| guild_id | snowflake | id of the guild |
+| emojis | array | array of [emojis](#DOCS_GUILD/emoji-object) |
 
 ### Guild Integrations Update
 
@@ -565,10 +573,6 @@ Sent when properties about the user change. Inner payload is a [user](#DOCS_USER
 
 Sent when someone joins/leaves/moves voice channels. Inner payload is a [voice state](#DOCS_VOICE/voice-state-object) object.
 
-### Voice Server Update
-
-Sent when a guild's voice server is updated. This is sent when initially connection to voice, and when the current voice instance fails over to a new server.
-
 ###### Example Voice State Update Event
 
 ```json
@@ -577,6 +581,10 @@ Sent when a guild's voice server is updated. This is sent when initially connect
 	"session_id": "my_session_id"
 }
 ```
+
+### Voice Server Update
+
+Sent when a guild's voice server is updated. This is sent when initially connection to voice, and when the current voice instance fails over to a new server.
 
 ###### Voice Server Update Event Fields
 
