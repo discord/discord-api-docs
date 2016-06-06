@@ -194,13 +194,13 @@ Update a channels settings. Requires the 'MANAGE_GUILD' permission for the guild
 
 ###### JSON Params
 
-| Field | Type | Description | Channel Type |
-|-------|------|-------------|--------------|
-| name | string | 2-100 character channel name | Both |
-| position | integer | the position of the channel in the left-hand listing | Both |
-| topic | string | 0-1024 character channel topic | Text |
-| bitrate | integer | the bitrate (in bits) of the voice channel; 8000 to 96000 (128000 for VIP servers) | Voice |
-| user_limit | integer | the user limit of the voice channel; 0 refers to no limit, 1 to 99 refers to a user limit | Voice |
+| Field | Type | Description | Required | Channel Type |
+|-------|------|-------------|--------------|--------------|
+| name | string | 2-100 character channel name | false | Both |
+| position | integer | the position of the channel in the left-hand listing | false | Both |
+| topic | string | 0-1024 character channel topic | false | Text |
+| bitrate | integer | the bitrate (in bits) of the voice channel; 8000 to 96000 (128000 for VIP servers) | false | Voice |
+| user_limit | integer | the user limit of the voice channel; 0 refers to no limit, 1 to 99 refers to a user limit | false | Voice |
 
 ## Delete/Close Channel % DELETE /channels/{channel.id#DOCS_CHANNEL/channel-objects}
 
