@@ -66,3 +66,18 @@ https://discordapp.com/oauth2/authorize?client_id=157730590492196864&scope=bot&p
 ```
 
 Where `client_id` is your _bot_ applications ID, and permissions is an integer following the [permissions](#DOCS_PERMISSIONS/bitwise-permission-flags) format.
+
+### Get Current Application Information % GET /oauth2/applications/@me
+
+Returns the bot's OAuth2 application info.
+
+###### Example Application Information
+
+```json
+{
+	"description": "Test",
+	"icon": null,
+	"id": "172150183260323840",
+	"name": "Baba O-Riley"
+}
+```
