@@ -51,7 +51,6 @@ Out of Services versions are versions who's subset of changes compared to the mo
 | 9 | Invalid Session | used to notify client they have an invalid session id |
 | 10 | Hello | sent immediately after connecting, contains heartbeat and server debug information |
 | 11 | Heartback ACK | sent immediately following a client heartbeat that was received |
-| 12 | Sync Guilds | sets the list of guilds to receive states of |
 
 ### Gateway Dispatch
 
@@ -104,7 +103,7 @@ Sent on connection to the websocket. Defines the heartbeat interval that the cli
 
 | Field | Type | Description |
 |-------|------|-------------|
-| heartbeat_interval | integer | the interval (in seconds) the client should heartbeat with |
+| heartbeat_interval | integer | the interval (in milliseconds) the client should heartbeat with |
 | _trace | array of strings | used for debugging, array of servers connected to |
 
 ###### Gateway Hello Example
@@ -128,7 +127,6 @@ Used to trigger the initial handshake with the gateway.
 | properties | object | connection properties |
 | compress | bool | whether this connection supports compression of the initial ready packet |
 | large_threshold | integer | value between 50 and 250, total number of members where the gateway will stop sending offline members in the guild member list |
-| synced_guilds | array of snowflake ids | contains the initial list of guilds you wish to receive states of |
 | shard | array of two integers (shard_id, num_shards) | used for [Guild Sharding](#DOCS_GATEWAY/sharding) |
 
 ###### Example Gateway Identify Example
@@ -145,7 +143,6 @@ Used to trigger the initial handshake with the gateway.
 	},
 	"compress": true,
 	"large_threshold": 250,
-	"synced_guilds": ["41771983423143937"],
 	"shard": [1, 10]
 }
 ```
@@ -195,16 +192,6 @@ Sent when a client wants to join, move, or disconnect from a voice channel.
 	"self_deaf": false
 }
 ```
-
-### Gateway Reconnect
-
-Used to redirect clients to a new gateway. Clients should disconnect from the existing gateway, connect to the provided new gateway, and [resume their session](#DOCS_GATEWAY/gateway-resume) on the new gateway.
-
-###### Gateway Reconnect Structure
-
-| Field | Type | Description |
-|-------|------|-------------|
-| url | string | url to new gateway |
 
 ###### Gateway Resume Example
 
@@ -258,16 +245,6 @@ Used to request offline members for a guild. When initially connecting, the gate
 }
 ```
 
-### Gateway Sync Guilds
-
-Used to change the list of guilds that you receive states of. Upon adding a new guild to the list, your connection will sync with the guild and receive the member list. The structure of the gateway sync guilds data is an array of snowflake ids.
-
-###### Gateway Sync Guilds Example
-
-```json
-["41771983444115456"]
-```
-
 ## Connecting
 
 The first step to establishing a gateway connection is to request a gateway URL through the [Get Gateway](#DOCS_GATEWAY/get-gateway) API endpoint (if the client does not already have one cached). Using the "url" field from the response you can then create a new secure websocket connection that will be used for the duration of your gateway session. Once connected, the client will immediately receive an OP 10 [Hello](#DOCS_GATEWAY/gateway-hello) payload with the connection heartbeat interval. At this point the client should start sending OP 1 [heartbeat](#DOCS_GATEWAY/gateway-heartbeat) payloads every `heartbeat_interval` seconds. Next, the client sends an OP 2 [Identify](#DOCS_GATEWAY/gateway-identify) or OP 6 [Resume](#DOCS_GATEWAY/gateway-resume) payload. If your token is correct, the gateway will respond with a [Ready](#DOCS_GATEWAY/ready-event) payload.
@@ -297,7 +274,6 @@ If the gateway ever issues a disconnect to your client it will provide a close e
 | 4003 | not authenticated | You sent us a payload prior to [identifying](#DOCS_GATEWAY/gateway-identify). |
 | 4004 | authentication failed | The account token sent with your [identify payload](#DOCS_GATEWAY/gateway-identify) is incorrect. |
 | 4005 | already authenticated | You sent more than one identify payloads. Don't do that! |
-| 4006 | session not valid | The session you tried to [resume](#DOCS_GATEWAY/resuming) was invalid. Reconnect and start a new one. |
 | 4007 | invalid seq | The sequence sent when [resuming](#DOCS_GATEWAY/resuming) the session was invalid. Reconnect and start a new session. |
 | 4008 | rate limited | Woah nelly! You're sending payloads to us too quickly. Slow it down! |
 | 4009 | session timeout | Your session timed out. Reconnect and start a new one. |
@@ -356,11 +332,7 @@ Event names are in standard constant form, fully upper-cased and replacing all s
 
 The ready event is dispatched when a client has completed the initial handshake with the gateway (for new sessions). The ready event can be the largest and most complex event the gateway will send, as it contains all the state required for a client to begin interacting with the rest of the platform.
 
-### Resumed
-
-The resumed event is dispatched when a client has completed the initial handshake with the gateway (for new sessions). The ready event can be the largest and most complex event the gateway will send, as it contains all the state required for a client to begin interacting with the rest of the platform.
-
-###### Ready/Resumed Event Fields
+###### Ready Event Fields
 
 | Field | Type | Description |
 |-------|------|-------------|
@@ -369,6 +341,19 @@ The resumed event is dispatched when a client has completed the initial handshak
 | private_channels | array | array of [DM channel](#DOCS_CHANNEL/dm-channel-object) objects |
 | guilds | array | array of [Unavailable Guild](#DOCS_GUILD/unavailable-guild-object) objects |
 | session_id | string | used for resuming connections |
+| presences | array | list of friends' presences |
+| relationships | array | list of friends |
+| _trace | array of strings | used for debugging, array of servers connected to |
+
+### Resumed
+
+The resumed event is dispatched when a client has sent a [resume payload](#DOCS_GATEWAY/resuming) to the gateway (for resuming existing sessions).
+
+###### Resumed Event Fields
+
+| Field | Type | Description |
+|-------|------|-------------|
+| _trace | array of strings | used for debugging, array of servers connected to |
 
 ### Channel Create
 
@@ -548,7 +533,10 @@ Sent when multiple messages are deleted at once.
 
 ### Presence Update
 
-Sent when a users presence is updated.
+A user's presence is their current state on a guild. This event is sent when a user's presence is updated for a guild.
+
+>warn
+> The user object can be partial. The only field that it must contain is the "id" - every other field is optional, and won't be sent if they aren't updated.
 
 ###### Presence Update Event Fields
 
@@ -557,6 +545,7 @@ Sent when a users presence is updated.
 | user | [user](#DOCS_USER/user-object) object | the user presence is being updated for |
 | roles | array of snowflakes | roles this user is in |
 | game | object | null, or an object containing one key of "name" |
+| nick | string | nickname of the user in the guild |
 | guild_id | snowflake | id of the guild |
 | status | string | either "idle", "online" or "offline" |
 
