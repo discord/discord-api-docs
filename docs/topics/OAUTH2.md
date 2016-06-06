@@ -52,7 +52,7 @@ Bots can be registered by clicking the "add bot" button when editing or creating
 
 ### Two-Factor Authentication Requirement
 
->alert
+>danger
 > On June 17th, 2016, bots with elevated permissions will be required to use 2FA on the owner's account.
 
 For bots with [elevated permissions](#DOCS_PERMISSIONS/bitwise-permission-flags) (permissions with a * next to them), we enforce two-factor authentication for the owner's account.
