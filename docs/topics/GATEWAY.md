@@ -193,14 +193,6 @@ Sent when a client wants to join, move, or disconnect from a voice channel.
 }
 ```
 
-###### Gateway Resume Example
-
-```json
-{
-	"url": "wss://gateway.discord.gg"
-}
-```
-
 ### Gateway Resume
 
 Used to replay missed events when a disconnected client resumes.
