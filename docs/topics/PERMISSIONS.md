@@ -9,15 +9,15 @@ Permissions in Discord are stored within a 53-bit integer and are calculated usi
 | Permission | Value | Description |
 |------------|-------|-----------|
 | CREATE\_INSTANT_INVITE | `0x00000001` | Allows creation of instant invites |
-| KICK_MEMBERS | `0x00000002` | Allows kicking members |
-| BAN_MEMBERS | `0x00000004` | Allows banning members |
-| ADMINISTRATOR | `0x00000008` | Allows all permissions and bypasses channel permission overwrites |
-| MANAGE_CHANNELS | `0x00000010` | Allows management and editing of channels |
-| MANAGE_GUILD | `0x00000020` | Allows management and editing of the guild |
+| KICK_MEMBERS * | `0x00000002` | Allows kicking members |
+| BAN_MEMBERS * | `0x00000004` | Allows banning members |
+| ADMINISTRATOR * | `0x00000008` | Allows all permissions and bypasses channel permission overwrites |
+| MANAGE_CHANNELS * | `0x00000010` | Allows management and editing of channels |
+| MANAGE_GUILD * | `0x00000020` | Allows management and editing of the guild |
 | READ_MESSAGES | `0x00000400` | Allows reading messages in a channel. The channel will not appear for users without this permission |
 | SEND_MESSAGES | `0x00000800` | Allows for sending messages in a channel. |
 | SEND\_TTS_MESSAGES | `0x00001000` | Allows for sending of `/tts` messages |
-| MANAGE_MESSAGES  | `0x00002000` | Allows for deletion of other users messages |
+| MANAGE_MESSAGES *  | `0x00002000` | Allows for deletion of other users messages |
 | EMBED_LINKS | `0x00004000` | Links sent by this user will be auto-embedded |
 | ATTACH_FILES | `0x00008000` | Allows for uploading images and files |
 | READ\_MESSAGE_HISTORY | `0x00010000` | Allows for reading of message history |
@@ -30,7 +30,9 @@ Permissions in Discord are stored within a 53-bit integer and are calculated usi
 | USE_VAD | `0x02000000` | Allows for using voice-activity-detection in a voice channel |
 | CHANGE_NICKNAME | `0x04000000` | Allows for modification of own nickname |
 | MANAGE_NICKNAMES | `0x08000000` | Allows for modification of other users nicknames |
-| MANAGE_ROLES | `0x10000000` | Allows management and editing of roles |
+| MANAGE_ROLES * | `0x10000000` | Allows management and editing of roles |
+
+**\* These permissions require the owner account to use [two-factor authentication](#DOCS_OAUTH2/two-factor-authentication-requirement) when used on a guild that has server-wide 2FA enabled.**
 
 ## Permission Hierarchy
 

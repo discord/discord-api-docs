@@ -22,7 +22,7 @@ Our API will return semantically valid HTTP response codes based on the success 
 
 ## JSON Error Response
 
-Along with the HTTP error code, our API will also return more detailed error codes through a `code` key in the JSON error response. The response will also contain a `message` key containing an error string.
+Along with the HTTP error code, our API can also return more detailed error codes through a `code` key in the JSON error response. The response will also contain a `message` key containing an more friendly error string.
 
 ###### JSON Error Codes
 
@@ -71,23 +71,3 @@ Along with the HTTP error code, our API will also return more detailed error cod
     "message": "Invalid authentication token"
 }
 ```
-
-## WS Close Codes
-
-If the gateway WS connection is closed by the server due to an error, Discord will send a custom WS close code.
-
-###### WS Close Code List
-
-| Code | Meaning | What you should do |
-|------|---------|--------------------|
-| 4000 | Unknown error | Reconnect |
-| 4001 | Unknown opcode | Send [valid opcodes](#DOCS_GATEWAY/gateway-op-codes) |
-| 4002 | Decode error | Send properly formatted JSON data |
-| 4003 | Not authenticated | [Identify](#DOCS_GATEWAY/gateway-identify) before sending other data |
-| 4004 | Authentication failed | Send a valid token when [identifying](#DOCS_GATEWAY/gateway-identify) |
-| 4005 | Already authenticated | Authenticate once per session |
-| 4006 | Session not valid | Start a new session instead of trying to resume |
-| 4007 | Invalid seq | Start a new session instead of trying to resume |
-| 4008 | Rate limited | Send packets less frequently |
-| 4009 | Session timeout | Start a new session instead of trying to resume |
-| 4010 | Invalid shard | Send a [proper shard key](#DOCS_GATEWAY/sharding) when identifying |

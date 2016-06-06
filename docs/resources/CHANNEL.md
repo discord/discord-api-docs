@@ -190,7 +190,7 @@ Get a channel by ID. Returns a [guild channel](#DOCS_CHANNEL/guild-channel-objec
 
 ## Modify Channel % PUT/PATCH /channels/{channel.id#DOCS_CHANNEL/guild-channel-object}
 
-Update a channels settings. Requires the 'MANAGE_GUILD' permission for the guild. Returns a [guild channel](#DOCS_CHANNEL/guild-channel-object) on success, and a 400 BAD REQUEST on invalid parameters. Fires a [Channel Update](#DOCS_GATEWAY/channel-update) Gateway event.
+Update a channels settings. Requires the 'MANAGE_GUILD' permission for the guild. Returns a [guild channel](#DOCS_CHANNEL/guild-channel-object) on success, and a 400 BAD REQUEST on invalid parameters. Fires a [Channel Update](#DOCS_GATEWAY/channel-update) Gateway event. For the **PATCH** method, all the JSON Params are optional. 
 
 ###### JSON Params
 

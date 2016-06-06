@@ -50,6 +50,13 @@ Bots within the Discord API are a form of user account that is authenticated _wi
 
 Bots can be registered by clicking the "add bot" button when editing or creating an [OAuth2 application](#MY_APPLICATIONS/top).
 
+### Two-Factor Authentication Requirement
+
+>danger
+> On June 17th, 2016, bots with elevated permissions on server-wide 2FA enabled guilds will be required to use 2FA on the owner's account.
+
+For bots with [elevated permissions](#DOCS_PERMISSIONS/bitwise-permission-flags) (permissions with a * next to them), we enforce two-factor authentication for the owner's account when used on guilds that have server-wide 2FA enabled.
+
 ### Adding Bots to Guilds
 
 A URL can be generated that redirects authenticated users to the add-bot flow, by using the following format (this utilizes the OAuth2 authentication flow, without a callback URL):
@@ -59,3 +66,18 @@ https://discordapp.com/oauth2/authorize?client_id=157730590492196864&scope=bot&p
 ```
 
 Where `client_id` is your _bot_ applications ID, and permissions is an integer following the [permissions](#DOCS_PERMISSIONS/bitwise-permission-flags) format.
+
+### Get Current Application Information % GET /oauth2/applications/@me
+
+Returns the bot's OAuth2 application info.
+
+###### Example Application Information
+
+```json
+{
+	"description": "Test",
+	"icon": null,
+	"id": "172150183260323840",
+	"name": "Baba O-Riley"
+}
+```
