@@ -59,10 +59,10 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 50010 | OAuth2 application does not have a bot |
 | 50011 | OAuth2 application limit reached |
 | 50012 | Invalid OAuth state |
+| 50013 | Missing permissions |
 | 50014 | Invalid authentication token |
 | 50015 | Note is too long |
 | 50016 | Provided too few or too many messages to delete. Must provide at least 2 and fewer than 100 messages to delete. |
-| 70001 | Missing permission |
 
 ###### JSON Error Response Example
 
