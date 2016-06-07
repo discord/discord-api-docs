@@ -8,9 +8,9 @@ Our API will return semantically valid HTTP response codes based on the success 
 
 | Code | Meaning |
 |------|---------|
-| 200 (OK) | The request completed successfully |
+| 200 (OK) | The response completed successfully |
 | 201 (CREATED) | The entity was created successfully |
-| 204 (NO CONTENT) | The request completed successfully but returned no content |
+| 204 (NO CONTENT) | The response completed successfully but returned no content |
 | 304 (NOT MODIFIED) | The entity was not modified (no action was taken) |
 | 400 (BAD REQUEST) | The request was improperly formatted, or the server couldn't understand it |
 | 401 (UNAUTHORIZED) | The `Authorization` header was missing or invalid |
@@ -59,10 +59,10 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 50010 | OAuth2 application does not have a bot |
 | 50011 | OAuth2 application limit reached |
 | 50012 | Invalid OAuth state |
+| 50013 | Missing permissions |
 | 50014 | Invalid authentication token |
 | 50015 | Note is too long |
 | 50016 | Provided too few or too many messages to delete. Must provide at least 2 and fewer than 100 messages to delete. |
-| 70001 | Missing permission |
 
 ###### JSON Error Response Example
 
