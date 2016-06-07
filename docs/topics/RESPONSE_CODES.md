@@ -8,9 +8,9 @@ Our API will return semantically valid HTTP response codes based on the success 
 
 | Code | Meaning |
 |------|---------|
-| 200 (OK) | The response completed successfully |
+| 200 (OK) | The request completed successfully |
 | 201 (CREATED) | The entity was created successfully |
-| 204 (NO CONTENT) | The response completed successfully but returned no content |
+| 204 (NO CONTENT) | The request completed successfully but returned no content |
 | 304 (NOT MODIFIED) | The entity was not modified (no action was taken) |
 | 400 (BAD REQUEST) | The request was improperly formatted, or the server couldn't understand it |
 | 401 (UNAUTHORIZED) | The `Authorization` header was missing or invalid |
