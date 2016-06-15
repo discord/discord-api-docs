@@ -228,6 +228,9 @@ Returns the messages for a channel. If operating on a guild channel, this endpoi
 
 Returns a specific message in the channel. If operating on a guild channel, this endpoints requires the 'READ_MESSAGE_HISTORY' permission to be present on the current user. Returns a [message](#DOCS_CHANNEL/message-object) object on success.
 
+>warn
+> Only bot accounts can use this endpoint.
+
 ## Create Message % POST /channels/{channel.id#DOCS_CHANNEL/channel-objects}/messages
 
 Post a message to a guild text or DM channel. If operating on a guild channel, this endpoint requires the 'SEND_MESSAGES' permission to be present on the current user. Returns a [message](#DOCS_CHANNEL/message-object) object. Fires a [Message Create](#DOCS_GATEWAY/message-create) Gateway event. See [message formatting](#DOCS_CHANNEL/message-formatting) for more information on how to properly format messages.
