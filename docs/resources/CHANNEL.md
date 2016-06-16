@@ -229,7 +229,7 @@ Returns the messages for a channel. If operating on a guild channel, this endpoi
 Returns a specific message in the channel. If operating on a guild channel, this endpoints requires the 'READ_MESSAGE_HISTORY' permission to be present on the current user. Returns a [message](#DOCS_CHANNEL/message-object) object on success.
 
 >warn
-> Only bot accounts can use this endpoint.
+> Only bot accounts can use the Get Channel Message endpoint.
 
 ## Create Message % POST /channels/{channel.id#DOCS_CHANNEL/channel-objects}/messages
 
