@@ -98,7 +98,7 @@ Represents a message sent in a channel within Discord.
 | attachments | array of [attachment objects](#DOC_CHANNEL/attachment-object) | any attached files |
 | embeds | array of [embed objects](#DOC_CHANNEL/embed-object) | any embedded content |
 | nonce | ?integer | used for validating a message was sent |
-| pinned | bool | whether this messages is pinned or not |
+| pinned | bool | whether this messages is pinned |
 
 ###### Example Message
 
