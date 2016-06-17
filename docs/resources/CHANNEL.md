@@ -98,6 +98,7 @@ Represents a message sent in a channel within Discord.
 | attachments | array of [attachment objects](#DOC_CHANNEL/attachment-object) | any attached files |
 | embeds | array of [embed objects](#DOC_CHANNEL/embed-object) | any embedded content |
 | nonce | ?integer | used for validating a message was sent |
+| pinned | bool | whether this messages is pinned or not |
 
 ###### Example Message
 
@@ -170,17 +171,6 @@ Represents a message sent in a channel within Discord.
 | proxy_url | string | a proxied url of file |
 | height | ?integer | height of file (if image) |
 | width | ?integer | width of file (if image) |
-
-### Pinned Message Object
-
-###### Pinned Message Structure
-
-| Field | Type | Description |
-|-------|------|-------------|
-| channel_id | snowflake | channel id of the channel this pin was in |
-| message_id | snowflake | message id this pin is for |
-| pinned_by_id | snowflake | id of the user who pinned this message |
-| pinned_at | datetime | when this pin was created |
 
 ## Message Formatting
 
@@ -345,12 +335,12 @@ Post a typing indicator for the specified channel. Generally bots should **not**
 
 ## Get Pinned Messages % GET /channels/{channel.id#DOCS_CHANNEL/channel-objects}/pins
 
-Returns all pinned messages in the channel as an array of [pinned message](#DOCS_CHANNEL/pinned-message/object) objects.
+Returns all pinned messages in the channel as an array of [message](#DOCS_CHANNEL/message-object) objects.
 
-## Add Pinned Channel Message % PUT /channels/{channel.id#DOCS_CHANNEL/channel-objects}/pins/{message.id#DOCS_CHANNEL/message-objects}
+## Add Pinned Channel Message % PUT /channels/{channel.id#DOCS_CHANNEL/channel-objects}/pins/{message.id#DOCS_CHANNEL/message-object}
 
 Pin a message in a channel. Requires the 'MANAGE_MESSAGES' permission. Returns a 204 empty response on success.
 
-## Delete Pinned Channel Message % DELETE /channels/{channel.id#DOCS_CHANNEL/channel-objects}/pins/{message.id#DOCS_CHANNEL/message-objects}
+## Delete Pinned Channel Message % DELETE /channels/{channel.id#DOCS_CHANNEL/channel-objects}/pins/{message.id#DOCS_CHANNEL/message-object}
 
 Delete a pinned message in a channel. Requires the 'MANAGE_MESSAGES' permission. Returns a 204 empty response on success.
