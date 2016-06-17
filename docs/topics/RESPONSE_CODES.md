@@ -46,6 +46,7 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 20002 | Only bots can use this endpoint |
 | 30001 | Maximum number of guilds reached (100) |
 | 30002 | Maximum number of friends reached (1000) |
+| 30003 | Maximum number of pins reached (50) |
 | 40001 | Unauthorized |
 | 50001 | Missing access |
 | 50002 | Invalid account type |
@@ -63,6 +64,7 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 50014 | Invalid authentication token |
 | 50015 | Note is too long |
 | 50016 | Provided too few or too many messages to delete. Must provide at least 2 and fewer than 100 messages to delete. |
+| 50019 | A message can only be pinned to the channel it was sent in |
 
 ###### JSON Error Response Example
 
