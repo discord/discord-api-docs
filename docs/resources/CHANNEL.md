@@ -215,7 +215,7 @@ Delete a guild channel, or close a private message. Requires the 'MANAGE_GUILD' 
 Returns the messages for a channel. If operating on a guild channel, this endpoint requires the 'READ_MESSAGES' permission to be present on the current user. Returns an array of [message](#DOCS_CHANNEL/message-object) objects on success.
 
 >info
-> The before, after and around keys are mutually exclusive, only one may be passed at a time.
+> The before, after, and around keys are mutually exclusive, only one may be passed at a time.
 
 ###### JSON Params
 
