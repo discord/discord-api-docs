@@ -23,6 +23,7 @@ data:image/jpeg;base64,MY_BASE64_IMAGE_DATA_HERE
 | username | string | the users username, not unique across the platform | identify |
 | discriminator | string | the users 4-digit discord-tag | identify |
 | avatar | string | the users avatar hash | identify |
+| bot | bool | whether the user belongs to a OAuth2 application | identify |
 | mfa_enabled | bool | whether the user has two factor enabled on their account | identify |
 | verified | bool | whether the email on this account has been verified | email |
 |  email | string | the users email | email |
