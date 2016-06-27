@@ -20,6 +20,7 @@ Guild channels represent an isolated set of users and messages within a Guild.
 | topic | string | the channel topic (0-1024 characters) | Text only |
 | last\_message\_id | snowflake | the id of the last message sent in this channel | Text only |
 | bitrate | integer | the bitrate (in bits) of the voice channel | Voice only |
+| user_limit | integer | the user limit of the voice channel | Voice only |
 
 ###### Example Text Channel
 
@@ -48,7 +49,8 @@ Guild channels represent an isolated set of users and messages within a Guild.
 	"position": 5,
 	"is_private": false,
 	"permission_overwrites": [],
-	"bitrate": 64000
+	"bitrate": 64000,
+	"user_limit": 0
 }
 ```
 
@@ -96,6 +98,7 @@ Represents a message sent in a channel within Discord.
 | attachments | array of [attachment objects](#DOC_CHANNEL/attachment-object) | any attached files |
 | embeds | array of [embed objects](#DOC_CHANNEL/embed-object) | any embedded content |
 | nonce | ?integer | used for validating a message was sent |
+| pinned | bool | whether this messages is pinned |
 
 ###### Example Message
 
@@ -180,7 +183,7 @@ Discord utilizes a subset of markdown for rendering message content on its clien
 | User | `<@USER_SNOWFLAKE_ID>` | `<@80351110224678912>` |
 | User (Nickname) | `<@!USER_SNOWFLAKE_ID>` | `<@!80351110224678912>` |
 | Channel | `<#CHANNEL_SNOWFLAKE_ID>` | `<#103735883630395392>` |
-| Role | `<@&ROLE_SNOWFLAKE_ID` | `<@&165511591545143296>` |
+| Role | `<@&ROLE_SNOWFLAKE_ID>` | `<@&165511591545143296>` |
 
 ## Get Channel % GET /channels/{channel.id#DOCS_CHANNEL/channel-objects}
 
@@ -188,7 +191,7 @@ Get a channel by ID. Returns a [guild channel](#DOCS_CHANNEL/guild-channel-objec
 
 ## Modify Channel % PUT/PATCH /channels/{channel.id#DOCS_CHANNEL/guild-channel-object}
 
-Update a channels settings. Requires the 'MANAGE_GUILD' permission for the guild. Returns a [guild channel](#DOCS_CHANNEL/guild-channel-object) on success, and a 400 BAD REQUEST on invalid parameters. Fires a [Channel Update](#DOCS_GATEWAY/channel-update) Gateway event.
+Update a channels settings. Requires the 'MANAGE_GUILD' permission for the guild. Returns a [guild channel](#DOCS_CHANNEL/guild-channel-object) on success, and a 400 BAD REQUEST on invalid parameters. Fires a [Channel Update](#DOCS_GATEWAY/channel-update) Gateway event. For the **PATCH** method, all the JSON Params are optional.
 
 ###### JSON Params
 
@@ -198,6 +201,7 @@ Update a channels settings. Requires the 'MANAGE_GUILD' permission for the guild
 | position | integer | the position of the channel in the left-hand listing | Both |
 | topic | string | 0-1024 character channel topic | Text |
 | bitrate | integer | the bitrate (in bits) of the voice channel; 8000 to 96000 (128000 for VIP servers) | Voice |
+| user_limit | integer | the user limit of the voice channel; 0 refers to no limit, 1 to 99 refers to a user limit | Voice |
 
 ## Delete/Close Channel % DELETE /channels/{channel.id#DOCS_CHANNEL/channel-objects}
 
@@ -211,15 +215,23 @@ Delete a guild channel, or close a private message. Requires the 'MANAGE_GUILD' 
 Returns the messages for a channel. If operating on a guild channel, this endpoint requires the 'READ_MESSAGES' permission to be present on the current user. Returns an array of [message](#DOCS_CHANNEL/message-object) objects on success.
 
 >info
-> The before and after keys are mutually exclusive, only one may be passed at a time.
+> The before, after, and around keys are mutually exclusive, only one may be passed at a time.
 
 ###### JSON Params
 
 | Field | Type | Description | Required | Default |
 |-------|------|-------------|----------|---------|
+| around | snowflake | get messages around this message ID | false | absent |
 | before | snowflake | get messages before this message ID | false | absent |
 | after | snowflake | get messages after this message ID | false | absent |
 | limit | integer | max number of messages to return (1-100) | false | 50 |
+
+## Get Channel Message % GET /channels/{channel.id#DOCS_CHANNEL/channel-objects}/messages/{message.id#DOCS_CHANNEL/message-object}
+
+Returns a specific message in the channel. If operating on a guild channel, this endpoints requires the 'READ_MESSAGE_HISTORY' permission to be present on the current user. Returns a [message](#DOCS_CHANNEL/message-object) object on success.
+
+>warn
+> Only bot accounts can use the Get Channel Message endpoint.
 
 ## Create Message % POST /channels/{channel.id#DOCS_CHANNEL/channel-objects}/messages
 
@@ -320,3 +332,15 @@ Delete a channel permission overwrite for a user or role in a channel. Only usab
 ## Trigger Typing Indicator % POST /channels/{channel.id#DOCS_CHANNEL/channel-objects}/typing
 
 Post a typing indicator for the specified channel. Generally bots should **not** implement this route. However, if a bot is responding to a command and expects the computation to take a few seconds, this endpoint may be called to let the user know that the bot is processing their message. Returns a 204 empty response on success. Fires a [Typing Start](#DOCS_GATEWAY/typing-start) Gateway event.
+
+## Get Pinned Messages % GET /channels/{channel.id#DOCS_CHANNEL/channel-objects}/pins
+
+Returns all pinned messages in the channel as an array of [message](#DOCS_CHANNEL/message-object) objects.
+
+## Add Pinned Channel Message % PUT /channels/{channel.id#DOCS_CHANNEL/channel-objects}/pins/{message.id#DOCS_CHANNEL/message-object}
+
+Pin a message in a channel. Requires the 'MANAGE_MESSAGES' permission. Returns a 204 empty response on success.
+
+## Delete Pinned Channel Message % DELETE /channels/{channel.id#DOCS_CHANNEL/channel-objects}/pins/{message.id#DOCS_CHANNEL/message-object}
+
+Delete a pinned message in a channel. Requires the 'MANAGE_MESSAGES' permission. Returns a 204 empty response on success.

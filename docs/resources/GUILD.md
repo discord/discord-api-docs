@@ -207,6 +207,7 @@ Create a new [channel](#DOCS_CHANNEL/guild-channel-object) object for the guild.
 | name | string | channel name (2-100 characters) |
 | type | string | "voice" or "text" |
 | bitrate | integer | the bitrate (in bits) of the voice channel (voice only) |
+| user_limit | integer | the user limit of the voice channel |
 
 ## Modify Guild Channel % PATCH /guilds/{guild.id#DOCS_GUILD/guild-object}/channels
 
@@ -239,21 +240,21 @@ Returns a list of [guild member](#GUILD/guild-member-object) objects that are me
 
 ## Modify Guild Member % PATCH /guilds/{guild.id#DOCS_GUILD/guild-object}/members/{user.id#DOCS_USER/user-object}
 
-Modify attributes of a [guild member](#DOCS_GUILD/guild-member-object). Returns the updated [guild member](#DOCS_GUILD/guild-member-object) object on success. Fires a [Guild Member Update](#DOCS_GATEWAY/guild-member-update) Gateway event.
+Modify attributes of a [guild member](#DOCS_GUILD/guild-member-object). Returns a 204 empty response on success. Fires a [Guild Member Update](#DOCS_GATEWAY/guild-member-update) Gateway event.
 
 >info
-> When moving members to channels, the API user _must_ have permissions to both connect to the
-> channel and have the MOVE_MEMBERS permission.
+> All parameters to this endpoint are optional. When moving members to channels, the API user
+> _must_ have permissions to both connect to the channel and have the MOVE_MEMBERS permission.
 
 ###### JSON Params
 
 | Field | Type | Description | Permission |
 |-------|------|-------------|------------|
-| nick | string? | value to set users nickname too | MANAGE_NICKNAMES |
-| roles | array? | array of roles the member is assigned | MANAGE_ROLES |
-| mute | bool? | if the user is muted | MUTE_MEMBERS |
-| deaf | bool? | if the user is deafened | DEAFEN_MEMBERS |
-| channel_id? | snowflake | id of channel to move user to (if they are connected to voice) | MOVE_MEMBERS |
+| nick | string | value to set users nickname too | MANAGE_NICKNAMES |
+| roles | array | array of roles the member is assigned | MANAGE_ROLES |
+| mute | bool | if the user is muted | MUTE_MEMBERS |
+| deaf | bool | if the user is deafened | DEAFEN_MEMBERS |
+| channel_id | snowflake | id of channel to move user to (if they are connected to voice) | MOVE_MEMBERS |
 
 ## Remove Guild Member % DELETE /guilds/{guild.id#DOCS_GUILD/guild-object}/members/{user.id#DOCS_USER/user-object}
 
@@ -334,7 +335,7 @@ Returns an object with one 'pruned' key indicating the number of members that wo
 
 | Field | Type | Description |
 |-------|------|-------------|
-| days | integer | number of days to count prune for (1-7) |
+| days | integer | number of days to count prune for (1 or more) |
 
 ## Begin Guild Prune % POST /guilds/{guild.id#DOCS_GUILD/guild-object}/prune
 
@@ -344,7 +345,7 @@ Begin a prune operation. Requires the 'KICK_MEMBERS' permission. Returns an obje
 
 | Field | Type | Description |
 |-------|------|-------------|
-| days | integer | number of days to prune (1-7) |
+| days | integer | number of days to prune (1 or more) |
 
 ## Get Guild Voice Regions % GET /guilds/{guild.id#DOCS_GUILD/guild-object}/regions
 
