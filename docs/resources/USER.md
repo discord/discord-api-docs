@@ -67,6 +67,20 @@ A brief version of a [guild](#DOCS_GUILD/guild-object) object
 }
 ```
 
+## Connection Object
+
+The connection object that the user has attached.
+
+###### Connection Structure
+
+| Field | Type | Description |
+|-------|------|-------------|
+| id | string | id of the connection account |
+| name | string | the username of the connection account |
+| type | string | the service of the connection (twitch, youtube) |
+| revoked | bool | whether the connection is revoked |
+| integrations | array | an array of integrations |
+
 ## Query Users % GET /users
 
 Returns a list of [user](#DOCS_USER/user-object) objects for a given query. Only returns users that share a mutual guild with the requestor.
