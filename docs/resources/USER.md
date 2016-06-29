@@ -79,7 +79,7 @@ The connection object that the user has attached.
 | name | string | the username of the connection account |
 | type | string | the service of the connection (twitch, youtube) |
 | revoked | bool | whether the connection is revoked |
-| integrations | array | an array of [server integrations](#DOCS_GUILD/integration-object) |
+| integrations | array | an array of partial [server integrations](#DOCS_GUILD/integration-object) |
 
 ## Query Users % GET /users
 
