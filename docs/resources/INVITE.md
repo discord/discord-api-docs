@@ -11,7 +11,6 @@ Represents a code that when used, adds a user to a guild.
 | code | string | the invite code (unique ID) |
 | guild | a [invite guild](#DOCS_INVITE/invite-guild-object) object | the guild this invite is for |
 | channel | a [invite channel](#DOCS_INVITE/invite-channel-object) object | the channel this invite is for |
-| xkcdpass | string | the xkcdpass version of the code (or null) |
 
 ###### Invite Object
 
@@ -19,8 +18,7 @@ Represents a code that when used, adds a user to a guild.
 {
 	"code": "0vCdhLbwjZZTWZLD",
 	"guild": {},
-	"channel": {},
-	"xkcdpass": null
+	"channel": {}
 }
 ```
 
