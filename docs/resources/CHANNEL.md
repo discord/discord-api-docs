@@ -323,7 +323,6 @@ Create a new [invite](#DOCS_INVITE/invite-object) object for the channel. Only u
 | max_age | integer | duration of invite in seconds before expiry, or 0 for never | 86400 (24 hours) |
 | max_uses | integer | max number of uses or 0 for unlimited | 0 |
 | temporary | bool | whether this invite only grants temporary membership | false |
-| xkcdpass | bool | whether to generate an xkcdpass version of the invite code | false |
 
 ## Delete Channel Permission % DELETE /channels/{channel.id#DOCS_CHANNEL/guild-channel-object}/permissions/{overwrite.id#DOCS_CHANNEL/overwrite-object}
 
