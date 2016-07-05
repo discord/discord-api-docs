@@ -7,10 +7,10 @@ This repo contains the official Discord API documentation, which can be viewed o
 This repository uses special markdown syntax that helps style the resulting web version of the documentation.
 
 ### H6 Headings
-H6 headings should be used above tables and codeblocks to properly label them
+H6 headings should be used above tables and code blocks to properly label them.
 
 ### Linking
-Links in-between docs can be achieved by using a hash-symbol, plus the markdown file name, plus a hash, and finally the dash-separated anchor. For instance, to link to the above H6 heading section:
+Links between docs can be achieved by using a hash symbol (#), plus the markdown file name, plus another hash, and finally the dash-separated anchor. For instance, to link to the above H6 heading section:
 
 ```md
 [Links to README.md H6](#README/h6-headings)
