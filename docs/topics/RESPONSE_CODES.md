@@ -23,7 +23,7 @@ Our API will return semantically valid HTTP response codes based on the success 
 
 ## JSON Error Response
 
-Along with the HTTP error code, our API can also return more detailed error codes through a `code` key in the JSON error response. The response will also contain a `message` key containing an more friendly error string.
+Along with the HTTP error code, our API can also return more detailed error codes through a `code` key in the JSON error response. The response will also contain a `message` key containing a more friendly error string.
 
 ###### JSON Error Codes
 
