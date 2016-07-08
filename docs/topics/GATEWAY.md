@@ -1,6 +1,6 @@
 # Gateways
 
-Gateways are Discords form of real-time communication over secure websockets. Clients will receive events and data over the gateway they are connected to and send data over the REST API. For information about connecting to a gateway see the [Connecting](#DOCS_GATEWAY/connecting) section.
+Gateways are Discord's form of real-time communication over secure websockets. Clients will receive events and data over the gateway they are connected to and send data over the REST API. For information about connecting to a gateway see the [Connecting](#DOCS_GATEWAY/connecting) section.
 
 ## Get Gateway % GET /gateway
 
@@ -16,7 +16,7 @@ Returns an object with a single valid WSS URL. Clients **should** cache this val
 
 ## Gateway Protocol Versions
 
-Out of Services versions are versions who's subset of changes compared to the most recent version have been completely removed from the Gateway. When connecting with these versions, the gateway may reject your connection entirely.
+Out of Services versions are versions whose subset of changes compared to the most recent version have been completely removed from the Gateway. When connecting with these versions, the gateway may reject your connection entirely.
 
 | Version | Out of Service |
 |------------|----------------|
@@ -290,7 +290,7 @@ Unlike the HTTP API, the Gateway does not provide a method for forced back-off o
 
 ## Tracking State
 
-Users who implement the Gateway API should keep in mind that Discord expects clients to track state locally and will only provide events for objects that are created/updated/deleted. A good example of state tracking is user status, when initially connecting to the gateway, the client receives information regarding the online status of members. However to keep this state updated a user must receive and track [Presence Update](#DOCS_GATEWAY/presence-update)'s. Generally clients should try to cache and track as much information locally to avoid excess API calls.
+Users who implement the Gateway API should keep in mind that Discord expects clients to track state locally and will only provide events for objects that are created/updated/deleted. A good example of state tracking is user status, when initially connecting to the gateway, the client receives information regarding the online status of members. However to keep this state updated a user must receive and track [Presence Updates](#DOCS_GATEWAY/presence-update). Generally clients should try to cache and track as much information locally to avoid excess API calls.
 
 ## Guild (Un)availability
 
@@ -371,7 +371,7 @@ Sent when a channel relevant to the current user is deleted. The inner payload i
 
 This event can be sent in three different scenarios:
 
-1. When a user is initially connecting, to lazily load and backfill information for all unavailable guilds sent in the [ready](#DOCS_GATEWAY/ready) event
+1. When a user is initially connecting, to lazily load and backfill information for all unavailable guilds sent in the [ready](#DOCS_GATEWAY/ready) event.
 2. When a Guild becomes available again to the client.
 3. When the current user joins a new Guild.
 
@@ -489,7 +489,7 @@ Sent when a guild role is updated.
 
 ### Guild Role Delete
 
-Sent when a guild role is deleted
+Sent when a guild role is deleted.
 
 ###### Guild Role Delete Event Fields
 
@@ -584,7 +584,7 @@ Sent when someone joins/leaves/moves voice channels. Inner payload is a [voice s
 
 ### Voice Server Update
 
-Sent when a guild's voice server is updated. This is sent when initially connection to voice, and when the current voice instance fails over to a new server.
+Sent when a guild's voice server is updated. This is sent when initially connecting to voice, and when the current voice instance fails over to a new server.
 
 ###### Voice Server Update Event Fields
 
