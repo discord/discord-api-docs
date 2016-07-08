@@ -23,6 +23,7 @@ Guilds in Discord represent a collection of users and channels into an isolated 
 | roles | array | array of [role](#DOCS_PERMISSIONS/role-object) objects |
 | emojis | array | array of [emoji](#DOCS_GUILD/emoji-object) objects |
 | features | array | array of guild features |
+| unavailable | bool | is this guild unavailable |
 
 ###### Example Guild
 
@@ -41,7 +42,8 @@ Guilds in Discord represent a collection of users and channels into an isolated 
 	"verification_level": 1,
 	"roles": [],
 	"emojis": [],
-	"features": ["INVITE_SPLASH"]
+	"features": ["INVITE_SPLASH"],
+	"unavailable": false
 }
 ```
 
