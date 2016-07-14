@@ -19,14 +19,14 @@ data:image/jpeg;base64,MY_BASE64_IMAGE_DATA_HERE
 
 | Field | Type | Description | Required OAuth2 Scope |
 |-------|------|-------------|----|
-| id | snowflake | the users id | identify |
-| username | string | the users username, not unique across the platform | identify |
-| discriminator | string | the users 4-digit discord-tag | identify |
-| avatar | string | the users avatar hash | identify |
+| id | snowflake | the user's id | identify |
+| username | string | the user's username, not unique across the platform | identify |
+| discriminator | string | the user's 4-digit discord-tag | identify |
+| avatar | string | the user's avatar hash | identify |
 | bot | bool | whether the user belongs to a OAuth2 application | identify |
 | mfa_enabled | bool | whether the user has two factor enabled on their account | identify |
 | verified | bool | whether the email on this account has been verified | email |
-|  email | string | the users email | email |
+|  email | string | the user's email | email |
 
 ###### Example User
 
@@ -83,7 +83,7 @@ The connection object that the user has attached.
 
 ## Query Users % GET /users
 
-Returns a list of [user](#DOCS_USER/user-object) objects for a given query. Only returns users that share a mutual guild with the requestor.
+Returns a list of [user](#DOCS_USER/user-object) objects for a given query. Only returns users that share a mutual guild with the requester.
 
 ###### HTTP Params
 
@@ -94,7 +94,7 @@ Returns a list of [user](#DOCS_USER/user-object) objects for a given query. Only
 
 ## Get Current User % GET /users/{@me#DOCS_USER/user-object}
 
-Returns the [user](#DOCS_USER/user-object) object of the requestors account. For OAuth2, this requires the `identify` scope, which will return the object _without_ an email, and optionally the `email` scope, which returns the object _with_ an email.
+Returns the [user](#DOCS_USER/user-object) object of the requester's account. For OAuth2, this requires the `identify` scope, which will return the object _without_ an email, and optionally the `email` scope, which returns the object _with_ an email.
 
 ## Get User % GET /users/{user.id#DOCS_USER/user-object}
 
@@ -108,8 +108,8 @@ Modify the requestors user account settings. Returns a [user](#DOCS_USER/user-ob
 
 | Field | Type | Description |
 |-------|------|-------------|
-| username | string | users username, if changed will randomize the users discriminator |
-| avatar | [avatar data](#DOCS_USER/avatar-data) | if passed, modifies the users avatar |
+| username | string | users username, if changed will randomize the user's discriminator |
+| avatar | [avatar data](#DOCS_USER/avatar-data) | if passed, modifies the user's avatar |
 
 ## Get Current User Guilds % GET /users/{@me#DOCS_USER/user-object}/guilds
 
