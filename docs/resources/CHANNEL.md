@@ -63,7 +63,7 @@ DM Channels represent a one-to-one conversation between two users, outside of th
 | Field | Type | Description |
 |-------|------|-------------|
 | id | snowflake | the id of this private message |
-| is_private | bool | should always be true for dm channels |
+| is_private | bool | should always be true for DM channels |
 | recipient | object | the [user object](#DOCS_USER/user-object) of the DM recipient |
 | last_message_id | snowflake | the id of the last message sent in this DM |
 
@@ -98,7 +98,7 @@ Represents a message sent in a channel within Discord.
 | attachments | array of [attachment objects](#DOC_CHANNEL/attachment-object) | any attached files |
 | embeds | array of [embed objects](#DOC_CHANNEL/embed-object) | any embedded content |
 | nonce | ?integer | used for validating a message was sent |
-| pinned | bool | whether this messages is pinned |
+| pinned | bool | whether this message is pinned |
 
 ###### Example Message
 
