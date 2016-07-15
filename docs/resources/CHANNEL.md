@@ -273,7 +273,7 @@ Edit a previously sent message. You can only edit messages that have been sent b
 
 ## Delete Message % DELETE /channels/{channel.id#DOCS_CHANNEL/channel-objects}/messages/{message.id#DOCS_CHANNEL/message-object}
 
-Delete a message. If operating on a guild channel and trying to delete a message that was not sent by the current user, this endpoint requires the 'MANAGE_MESSAGES' permission. Returns a [message](#DOCS_CHANNEL/message-object) object. Fires a [Message Delete](#DOCS_GATEWAY/message-delete) Gateway event.
+Delete a message. If operating on a guild channel and trying to delete a message that was not sent by the current user, this endpoint requires the 'MANAGE_MESSAGES' permission. Returns a 204 empty response on success. Fires a [Message Delete](#DOCS_GATEWAY/message-delete) Gateway event.
 
 >warn
 > This endpoint has a rate limit of 5 requests per second per guild. Requests which delete messages created within the last 10 seconds are not affected by this limit.
