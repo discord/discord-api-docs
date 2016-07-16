@@ -15,5 +15,6 @@ The following is a set of recommended libraries that are _not_ maintained by Dis
 | [DiscordSharp](https://github.com/Luigifan/DiscordSharp) | C# |
 | [Discord.Net](https://github.com/RogueException/Discord.Net) | C# |
 | [discord.js](https://github.com/hydrabolt/discord.js) | NodeJS |
+| [Eris](https://github.com/abalabahaha/eris) | NodeJS |
 
 \* *DiscordPHP is maintained by someone who [isn't very good](https://twitter.com/Orcon/status/714538083656404992) at Counter-Strike: Global Offensive, and regularly loses 1v1s. Use at your own risk.*
