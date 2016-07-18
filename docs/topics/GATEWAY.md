@@ -271,7 +271,7 @@ If the gateway ever issues a disconnect to your client it will provide a close e
 | 4002 | decode error | You sent an invalid [payload](#DOCS_GATEWAY/sending-payloads) to us. Don't do that! |
 | 4003 | not authenticated | You sent us a payload prior to [identifying](#DOCS_GATEWAY/gateway-identify). |
 | 4004 | authentication failed | The account token sent with your [identify payload](#DOCS_GATEWAY/gateway-identify) is incorrect. |
-| 4005 | already authenticated | You sent more than one identify payloads. Don't do that! |
+| 4005 | already authenticated | You sent more than one identify payload. Don't do that! |
 | 4007 | invalid seq | The sequence sent when [resuming](#DOCS_GATEWAY/resuming) the session was invalid. Reconnect and start a new session. |
 | 4008 | rate limited | Woah nelly! You're sending payloads to us too quickly. Slow it down! |
 | 4009 | session timeout | Your session timed out. Reconnect and start a new one. |
