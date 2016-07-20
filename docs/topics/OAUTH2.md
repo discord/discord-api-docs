@@ -29,7 +29,7 @@ The first step in implementing OAuth2 is [registering a developer application](#
 
 ### Scopes
 
-Scopes provide access to certain resources of a users account. Your API client or service should only request scopes it requires for operation.
+Scopes provide access to certain resources of a user's account. Your API client or service should only request scopes it requires for operation.
 
 ###### OAuth2 Scopes
 
@@ -37,10 +37,10 @@ Scopes provide access to certain resources of a users account. Your API client o
 |------|-------------|
 | identify | allows [/users/@me](#DOCS_USER/get-current-user) without `email` |
 | email | enables [/users/@me](#DOCS_USER/get-current-user) to return an `email` |
-| connections | allows [/users/@me/connections](#DOCS_USER/get-user-connections) to return linked Twitch and YouTube accounts. |
-| guilds | allows [/users/@me/guilds](#DOCS_USER/get-current-user-guilds) to return basic information about all of a users guilds |
-| guilds.join | allows [/invites/{invite.id}](#DOCS_INVITE/accept-invite) to be used for joining a users guild |
-| bot | for oauth2 bots, this puts the bot in the users selected guild by default |
+| connections | allows [/users/@me/connections](#DOCS_USER/get-user-connections) to return linked Twitch and YouTube accounts |
+| guilds | allows [/users/@me/guilds](#DOCS_USER/get-current-user-guilds) to return basic information about all of a user's guilds |
+| guilds.join | allows [/invites/{invite.id}](#DOCS_INVITE/accept-invite) to be used for joining a user's guild |
+| bot | for oauth2 bots, this puts the bot in the user's selected guild by default |
 
 ## Bots
 
@@ -51,9 +51,6 @@ Bots within the Discord API are a form of user account that is authenticated _wi
 Bots can be registered by clicking the "add bot" button when editing or creating an [OAuth2 application](#MY_APPLICATIONS/top).
 
 ### Two-Factor Authentication Requirement
-
->danger
-> On June 17th, 2016, bots with elevated permissions on server-wide 2FA enabled guilds will be required to use 2FA on the owner's account.
 
 For bots with [elevated permissions](#DOCS_PERMISSIONS/bitwise-permission-flags) (permissions with a * next to them), we enforce two-factor authentication for the owner's account when used on guilds that have server-wide 2FA enabled.
 

@@ -2,7 +2,7 @@
 
 Permissions in Discord are a way to limit and grant certain abilities to users. A set of base permissions can be configured at the guild level for different roles, when these roles are attached to users they grant or revoke specific privileges within the guild. Along with the global guild-level permissions, Discord also supports role overwrites which can be set at the channel level allowing customization of permissions on a per-role, per-channel basis.
 
-Permissions in Discord are stored within a 53-bit integer and are calculated using bitwise operations. Permissions for a user in a given channel can be calculated by ANDing together their guild-level role permission integers, and their channel-level role permission integers. For more information about bitwise operations and flags, see [this page](https://en.wikipedia.org/wiki/Bit_field).
+Permissions in Discord are stored within a 53-bit integer and are calculated using bitwise operations. Permissions for a user in a given channel can be calculated by ORing together their guild-level role permission integers, and their channel-level role permission integers. For more information about bitwise operations and flags, see [this page](https://en.wikipedia.org/wiki/Bit_field).
 
 ###### Bitwise Permission Flags
 
@@ -32,7 +32,7 @@ Permissions in Discord are stored within a 53-bit integer and are calculated usi
 | MANAGE_NICKNAMES | `0x08000000` | Allows for modification of other users nicknames |
 | MANAGE_ROLES * | `0x10000000` | Allows management and editing of roles |
 
-**\* These permissions require the owner account to use [two-factor authentication](#DOCS_OAUTH2/two-factor-authentication-requirement) when used on a guild that has server-wide 2FA enabled.**
+**\* These permissions require the owner account to use [two-factor authentication](#DOCS_OAUTH2/twofactor-authentication-requirement) when used on a guild that has server-wide 2FA enabled.**
 
 ## Permission Hierarchy
 

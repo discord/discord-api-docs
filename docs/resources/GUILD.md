@@ -23,6 +23,7 @@ Guilds in Discord represent a collection of users and channels into an isolated 
 | roles | array | array of [role](#DOCS_PERMISSIONS/role-object) objects |
 | emojis | array | array of [emoji](#DOCS_GUILD/emoji-object) objects |
 | features | array | array of guild features |
+| unavailable | bool | is this guild unavailable |
 
 ###### Example Guild
 
@@ -41,7 +42,8 @@ Guilds in Discord represent a collection of users and channels into an isolated 
 	"verification_level": 1,
 	"roles": [],
 	"emojis": [],
-	"features": ["INVITE_SPLASH"]
+	"features": ["INVITE_SPLASH"],
+	"unavailable": false
 }
 ```
 
@@ -170,7 +172,7 @@ Returns the new [guild](#DOCS_GUILD/guild-object) object for the given id.
 
 ## Modify Guild % PATCH /guilds/{guild.id#DOCS_GUILD/guild-object}
 
-Modify a guilds settings. Returns the updated [guild](#DOCS_GUILD/guild-object) object on success. Fires a [Guild Update](#DOCS_GATEWAY/guild-update) Gateway event.
+Modify a guild's settings. Returns the updated [guild](#DOCS_GUILD/guild-object) object on success. Fires a [Guild Update](#DOCS_GATEWAY/guild-update) Gateway event.
 
 >info
 > All parameters to this endpoint are optional
@@ -236,7 +238,7 @@ Returns a list of [guild member](#GUILD/guild-member-object) objects that are me
 | Field | Type | Description | Default |
 |-------|------|-------------|---------|
 | limit | integer | max number of members to return (1-1000) | 1 |
-| offset | integer | the 0-indexed offset to start at | 0 |
+| after | integer | the highest user id in the previous page | 0 |
 
 ## Modify Guild Member % PATCH /guilds/{guild.id#DOCS_GUILD/guild-object}/members/{user.id#DOCS_USER/user-object}
 

@@ -7,10 +7,10 @@ This repo contains the official Discord API documentation, which can be viewed o
 This repository uses special markdown syntax that helps style the resulting web version of the documentation.
 
 ### H6 Headings
-H6 headings should be used above tables and codeblocks to properly label them
+H6 headings should be used above tables and code blocks to properly label them.
 
 ### Linking
-Links in-between docs can be achieved by using a hash-symbol, plus the markdown file name, plus a hash, and finally the dash-separated anchor. For instance, to link to the above H6 heading section:
+Links between docs can be achieved by using a hash symbol (#), plus the markdown file name, plus another hash, and finally the dash-separated anchor. For instance, to link to the above H6 heading section:
 
 ```md
 [Links to README.md H6](#README/h6-headings)
@@ -22,4 +22,4 @@ Alert boxes are achieved by using a block quote that has one of 'warning', 'dang
 ## Join the Unofficial Discord API Server
 The Unofficial Discord API server is a common hangout for library and bot developers alike. It's a great starting point for those looking to dive in and learn bot-creation with the Discord API.
 
-[![](https://discordapp.com/api/servers/81384788765712384/widget.png?style=banner1)](https://discord.gg/0SBTUU1wZTWPnGdJ)
+[![](https://discordapp.com/api/servers/81384788765712384/widget.png?style=banner1)](https://discord.gg/discord-api)

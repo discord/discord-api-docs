@@ -2,7 +2,7 @@
 
 ## Voice State Object
 
-Used to represent a users voice connection status.
+Used to represent a user's voice connection status.
 
 ###### Voice State Structure
 
@@ -44,7 +44,7 @@ Used to represent a users voice connection status.
 | sample_hostname | string | an example hostname for the region |
 | sample_port | integer | an example port for the region |
 | vip | bool | true if this is a vip-only server |
-| optimal | bool | true for a single server that is closest to the current users client |
+| optimal | bool | true for a single server that is closest to the current user's client |
 
 ## List Voice Regions % GET /voice/regions
 

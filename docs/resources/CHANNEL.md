@@ -63,7 +63,7 @@ DM Channels represent a one-to-one conversation between two users, outside of th
 | Field | Type | Description |
 |-------|------|-------------|
 | id | snowflake | the id of this private message |
-| is_private | bool | should always be true for dm channels |
+| is_private | bool | should always be true for DM channels |
 | recipient | object | the [user object](#DOCS_USER/user-object) of the DM recipient |
 | last_message_id | snowflake | the id of the last message sent in this DM |
 
@@ -98,7 +98,7 @@ Represents a message sent in a channel within Discord.
 | attachments | array of [attachment objects](#DOC_CHANNEL/attachment-object) | any attached files |
 | embeds | array of [embed objects](#DOC_CHANNEL/embed-object) | any embedded content |
 | nonce | ?integer | used for validating a message was sent |
-| pinned | bool | whether this messages is pinned |
+| pinned | bool | whether this message is pinned |
 
 ###### Example Message
 
@@ -273,12 +273,12 @@ Edit a previously sent message. You can only edit messages that have been sent b
 
 ## Delete Message % DELETE /channels/{channel.id#DOCS_CHANNEL/channel-objects}/messages/{message.id#DOCS_CHANNEL/message-object}
 
-Delete a message. If operating on a guild channel and trying to delete a message that was not sent by the current user, this endpoint requires the 'MANAGE_MESSAGES' permission. Returns a [message](#DOCS_CHANNEL/message-object) object. Fires a [Message Delete](#DOCS_GATEWAY/message-delete) Gateway event.
+Delete a message. If operating on a guild channel and trying to delete a message that was not sent by the current user, this endpoint requires the 'MANAGE_MESSAGES' permission. Returns a 204 empty response on success. Fires a [Message Delete](#DOCS_GATEWAY/message-delete) Gateway event.
 
 >warn
 > This endpoint has a rate limit of 5 requests per second per guild. Requests which delete messages created within the last 10 seconds are not affected by this limit.
 
-## Bulk Delete Messages % POST /channels/{channel.id#DOCS_CHANNEL/channel-objects}/messages/bulk\_delete
+## Bulk Delete Messages % POST /channels/{channel.id#DOCS_CHANNEL/channel-objects}/messages/bulk_delete
 
 Delete multiple messages in a single request. This endpoint can only be used on guild channels and requires the 'MANAGE_MESSAGES' permission. Returns a 204 empty response on success. Fires multiple [Message Delete](#DOCS_GATEWAY/message-delete) Gateway events.
 
@@ -323,7 +323,6 @@ Create a new [invite](#DOCS_INVITE/invite-object) object for the channel. Only u
 | max_age | integer | duration of invite in seconds before expiry, or 0 for never | 86400 (24 hours) |
 | max_uses | integer | max number of uses or 0 for unlimited | 0 |
 | temporary | bool | whether this invite only grants temporary membership | false |
-| xkcdpass | bool | whether to generate an xkcdpass version of the invite code | false |
 
 ## Delete Channel Permission % DELETE /channels/{channel.id#DOCS_CHANNEL/guild-channel-object}/permissions/{overwrite.id#DOCS_CHANNEL/overwrite-object}
 

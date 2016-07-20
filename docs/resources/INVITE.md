@@ -11,7 +11,6 @@ Represents a code that when used, adds a user to a guild.
 | code | string | the invite code (unique ID) |
 | guild | a [invite guild](#DOCS_INVITE/invite-guild-object) object | the guild this invite is for |
 | channel | a [invite channel](#DOCS_INVITE/invite-channel-object) object | the channel this invite is for |
-| xkcdpass | string | the xkcdpass version of the code (or null) |
 
 ###### Invite Object
 
@@ -19,8 +18,7 @@ Represents a code that when used, adds a user to a guild.
 {
 	"code": "0vCdhLbwjZZTWZLD",
 	"guild": {},
-	"channel": {},
-	"xkcdpass": null
+	"channel": {}
 }
 ```
 
@@ -96,14 +94,14 @@ Represents the channel an invite is for.
 }
 ```
 
-## Get Invite % GET /invites/{invite.id#DOCS_INVITE/invite-object}
+## Get Invite % GET /invites/{invite.code#DOCS_INVITE/invite-object}
 
-Returns an [invite object](#DOCS_INVITE/invite-object) for the given id.
+Returns an [invite object](#DOCS_INVITE/invite-object) for the given code.
 
-## Delete Invite % DELETE /invites/{invite.id#DOCS_INVITE/invite-object}
+## Delete Invite % DELETE /invites/{invite.code#DOCS_INVITE/invite-object}
 
 Delete an invite. Requires the `MANAGE_CHANNELS` permission. Returns an [invite object](#DOCS_INVITE/invite-object) on success.
 
-## Accept Invite % POST /invites/{invite.id#DOCS_INVITE/invite-object}
+## Accept Invite % POST /invites/{invite.code#DOCS_INVITE/invite-object}
 
 Accept an invite. This is not available to bot accounts, and requires the `guilds.join` OAuth2 scope to accept on behalf of normal users. Returns an [invite object](#DOCS_INVITE/invite-object) on success.

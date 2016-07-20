@@ -23,7 +23,7 @@ Our API will return semantically valid HTTP response codes based on the success 
 
 ## JSON Error Response
 
-Along with the HTTP error code, our API can also return more detailed error codes through a `code` key in the JSON error response. The response will also contain a `message` key containing an more friendly error string.
+Along with the HTTP error code, our API can also return more detailed error codes through a `code` key in the JSON error response. The response will also contain a `message` key containing a more friendly error string.
 
 ###### JSON Error Codes
 
@@ -47,6 +47,7 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 30001 | Maximum number of guilds reached (100) |
 | 30002 | Maximum number of friends reached (1000) |
 | 30003 | Maximum number of pins reached (50) |
+| 30005 | Maximum number of guild roles reached (250) |
 | 40001 | Unauthorized |
 | 50001 | Missing access |
 | 50002 | Invalid account type |
