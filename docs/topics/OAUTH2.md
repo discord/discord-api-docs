@@ -75,6 +75,14 @@ Returns the bot's OAuth2 application info.
 	"description": "Test",
 	"icon": null,
 	"id": "172150183260323840",
-	"name": "Baba O-Riley"
+	"name": "Baba O-Riley",
+	"rpc_origins": [],
+	"flags": 0,
+	"owner": {
+		"username": "i own a bot",
+		"discriminator": "1738",
+		"id": "172150183260323840",
+		"avatar": null
+	}
 }
 ```
