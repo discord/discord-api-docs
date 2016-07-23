@@ -19,7 +19,7 @@ Guilds in Discord represent a collection of users and channels into an isolated 
 | embed_enabled | bool | is this guild embeddable (e.g. widget) |
 | embed_channel_id | snowflake | id of embedded channel |
 | verification_level | integer | level of verification |
-| voice_states | array of [voice state](#DOCS_VOICE/voice-state-object) objects (without the `guild_id` key) |
+| voice_states | array | array of [voice state](#DOCS_VOICE/voice-state-object) objects (without the `guild_id` key) |
 | roles | array | array of [role](#DOCS_PERMISSIONS/role-object) objects |
 | emojis | array | array of [emoji](#DOCS_GUILD/emoji-object) objects |
 | features | array | array of guild features |
