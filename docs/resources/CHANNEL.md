@@ -94,7 +94,8 @@ Represents a message sent in a channel within Discord.
 | edited_timestamp | ?timestamp | when this message was edited (or null if never) |
 | tts | bool | whether this was a TTS message |
 | mention_everyone | bool | whether this message mentions everyone |
-| mentions | array of [user objects](#DOCS_USER/user-object) | and users specifically mentioned in the message |
+| mentions | array of [user objects](#DOCS_USER/user-object) | users specifically mentioned in the message |
+| mention_roles | array of [role object](#DOCS_PERMISSIONS/role-object) ids | roles specifically mentioned in this message |
 | attachments | array of [attachment objects](#DOC_CHANNEL/attachment-object) | any attached files |
 | embeds | array of [embed objects](#DOC_CHANNEL/embed-object) | any embedded content |
 | nonce | ?integer | used for validating a message was sent |
@@ -113,6 +114,7 @@ Represents a message sent in a channel within Discord.
 	"tts": false,
 	"mention_everyone": false,
 	"mentions": [],
+	"mention_roles": [],
 	"attachments": [],
 	"embeds": []
 }
