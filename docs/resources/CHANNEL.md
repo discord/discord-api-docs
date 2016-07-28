@@ -297,7 +297,7 @@ The gateway will ignore any individual messages that do not exist or do not belo
 
 ## Ack Message % POST /channels/{channel.id#DOCS_CHANNEL/channel-objects}/messages/{message.id#DOCS_CHANNEL/message-object}/ack
 
-Ack a message. Generally bots should **not** implement this route.
+Ack a message. It will ack up to that message on a channel just like alt + clicking on a message on discord. Lets say that you were mentioned in a chat. When you click on mark as read or when you scroll down to the bottom, it will ack the message. Generally bots should **not** implement this route. This is only needed if the application is a discord client.
 
 ## Edit Channel Permissions % PUT /channels/{channel.id#DOCS_CHANNEL/guild-channel-object}/permissions/{overwrite.id}
 
