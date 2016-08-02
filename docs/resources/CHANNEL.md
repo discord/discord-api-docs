@@ -295,10 +295,6 @@ The gateway will ignore any individual messages that do not exist or do not belo
 |-------|------|-------------|
 | messages | array of snowflakes | an array of message ids to delete |
 
-## Ack Message % POST /channels/{channel.id#DOCS_CHANNEL/channel-objects}/messages/{message.id#DOCS_CHANNEL/message-object}/ack
-
-Ack a message. Generally bots should **not** implement this route.
-
 ## Edit Channel Permissions % PUT /channels/{channel.id#DOCS_CHANNEL/guild-channel-object}/permissions/{overwrite.id}
 
 Edit the channel permission overwrites for a user or role in a channel. Only usable for guild channels. Requires the 'MANAGE_ROLES' permission. Returns a 204 empty response on success. For more information about permissions, see [permissions](#DOCS_PERMISSIONS/permissions).
