@@ -305,6 +305,7 @@ Edit the channel permission overwrites for a user or role in a channel. Only usa
 |-------|------|-------------|
 | allow | integer | the bitwise value of all allowed permissions |
 | deny | integer | the bitwise value of all disallowed permissions |
+| type | string | "member" for a user or "role" for a role |
 
 ## Get Channel Invites % GET /channels/{channel.id#DOCS_CHANNEL/guild-channel-object}/invites
 
