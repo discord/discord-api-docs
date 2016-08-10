@@ -26,11 +26,13 @@ Authorization: TOKEN_TYPE TOKEN
 ### Example Authorization Headers
 
 For bot tokens:
+
 ```
 Authorization: Bot MTk4NjIyNDgzNDcxOTI1MjQ4.Cl2FMQ.ZnCjm1XVW7vRze4b7Cq4se7kKWs
 ```
 
 For OAuth bearer tokens:
+
 ```
 Authorization: Bearer CZhtkLDpNYXgPH9Ml6shqh2OwykChw
 ```
