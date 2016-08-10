@@ -9,20 +9,19 @@ Because we may change rate limits at any time and rate limits can be different p
 For every API request made, we return optional HTTP response headers containing the rate limit encountered during your request.
 
 ```
-X-RateLimit-Global: true
-X-RateLimit-Limit: 50
+X-RateLimit-Limit: 5
 X-RateLimit-Remaining: 0
 X-RateLimit-Reset: 1470173023
 ```
 
-**X-RateLimit-Global** - Returned only if the rate limit headers returned are of the global rate limit (not per-method)
+**X-RateLimit-Global** - Returned only on a HTTP 429 response if the rate limit headers returned are of the global rate limit (not per-method)
 **X-RateLimit-Limit** - The number of requests that can be made
 **X-RateLimit-Remaining** - The number of remaining requests that can be made
 **X-RateLimit-Reset** - Epoch time (in seconds) at which the rate limit resets
 
 ## Exceeding A Rate Limit
 
-In the case that a rate limit is exceeded, we do return an HTTP 429 response from our server. It looks something like the following:
+In the case that a per-method rate limit is exceeded, we do return an HTTP 429 response from our server. It looks something like the following:
 
 ```
 < HTTP/1.1 429 TOO MANY REQUESTS
@@ -33,6 +32,21 @@ In the case that a rate limit is exceeded, we do return an HTTP 429 response fro
 < X-RateLimit-Reset: 1470173023
 {
   "message": "You are being rate limited.", 
-  "retry_after": 6457
+  "retry_after": 6457,
+  "global": false
+}
+```
+
+For a global rate limit, the response would look like:
+
+```
+< HTTP/1.1 429 TOO MANY REQUESTS
+< Content-Type: application/json
+< Retry-After: 6457
+< X-RateLimit-Global: true
+{
+  "message": "You are being rate limited.", 
+  "retry_after": 6457,
+  "global": true
 }
 ```
