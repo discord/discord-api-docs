@@ -17,7 +17,7 @@ X-RateLimit-Reset: 1470173023
 * **X-RateLimit-Global** - Returned only on a HTTP 429 response if the rate limit headers returned are of the global rate limit (not per-method)
 * **X-RateLimit-Limit** - The number of requests that can be made
 * **X-RateLimit-Remaining** - The number of remaining requests that can be made
-* **X-RateLimit-Reset** - Epoch time (in seconds) at which the rate limit resets
+* **X-RateLimit-Reset** - Epoch time (seconds since 00:00:00 UTC on January 1, 1970) at which the rate limit resets
 
 ## Exceeding A Rate Limit
 
