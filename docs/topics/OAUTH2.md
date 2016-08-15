@@ -9,7 +9,7 @@ Bots within the Discord API are a separate type of users that are owned by appli
 1. Bots cannot utilize the friends list feature.
 2. Bots cannot accept invites.
 3. Bots are not limited to a maximum of 100 guilds.
-4. Bots have a per-channel rather than global rate limit.
+4. Bots have a per-channel and a global rate limit.
 
 ## Implementing OAuth2
 

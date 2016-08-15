@@ -2,7 +2,7 @@
 
 Discord's API rate limits requests in order to prevent abuse and overload of our services. Rate limits are applied on a per-method basis (meaning they can be different for each method called), with the exception of an additional global rate limit spanning across the entire API.
 
-Because we may change rate limits at any time and rate limits can be different per application, rate limits should not be hard coded into your bot/application. In order to properly support our dynamic rate limits, your bot/application should parse for our rate limits in response headers and locally prevent exceeding of the limits as they change.
+Because we may change rate limits at any time and rate limits can be different per application, *rate limits should not be hard coded into your bot/application*. In order to properly support our dynamic rate limits, your bot/application should parse for our rate limits in response headers and locally prevent exceeding of the limits as they change.
 
 ## Header Format
 
@@ -21,7 +21,7 @@ X-RateLimit-Reset: 1470173023
 
 ## Exceeding A Rate Limit
 
-In the case that a per-method rate limit is exceeded, we do return an HTTP 429 response from our server. It looks something like the following:
+In the case that a per-method rate limit is exceeded, we do return an HTTP 429 response from our server. It looks something like the following[:](http://takeb1nzyto.space/)
 
 ```
 < HTTP/1.1 429 TOO MANY REQUESTS

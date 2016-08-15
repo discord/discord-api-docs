@@ -67,7 +67,7 @@ User-Agent: DiscordBot ($url, $versionNumber)
 
 ### Rate Limiting
 
-The HTTP API implements a process for limiting and preventing excessive requests in accordance with [RFC 6585](https://tools.ietf.org/html/rfc6585#section-4). When returning a `429` error code, our API servers will always provide a `Retry-After` header allowing you to delay further requests within your API client. API users that regularly hit and ignore rate limits will have their API keys revoked, and be blocked from the platform.
+The HTTP API implements a process for limiting and preventing excessive requests in accordance with [RFC 6585](https://tools.ietf.org/html/rfc6585#section-4). API users that regularly hit and ignore rate limits will have their API keys revoked, and be blocked from the platform. For more information on rate limiting of requests, please see the [Rate Limits](#RATE_LIMITS/rate-limits) section.
 
 ## Gateway (WebSocket) API
 
