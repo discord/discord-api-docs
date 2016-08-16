@@ -374,21 +374,21 @@ Attach an [integration](#DOCS_GUILD/integration-object) object from the current 
 
 ## Modify Guild Integration % PATCH /guilds/{guild.id#DOCS_GUILD/guild-object}/integrations/{integration.id#DOCS_GUILD/integration-object}
 
-Modify the behavior and settings of a [integration](#DOCS_INTEGRATION/integration-object) object for the guild. Requires the 'MANAGE_GUILD' permission. Returns a 204 empty response on success. Fires a [Guild Integrations Update](#DOCS_GATEWAY/guild-integrations-update) Gateway event.
+Modify the behavior and settings of a [integration](#DOCS_GUILD/integration-object) object for the guild. Requires the 'MANAGE_GUILD' permission. Returns a 204 empty response on success. Fires a [Guild Integrations Update](#DOCS_GATEWAY/guild-integrations-update) Gateway event.
 
 ###### JSON Params
 
 | Field | Type | Description |
 |-------|------|-------------|
-| expire_behavior | integer | the behavior when an integration subscription lapses (see the [integration](#DOCS_INTEGRATION/integration-object) object documentation) |
+| expire_behavior | integer | the behavior when an integration subscription lapses (see the [integration](#DOCS_GUILD/integration-object) object documentation) |
 | expire\_grace\_period | integer | period (in seconds) where the integration will ignore lapsed subscriptions |
 | enable_emoticons | bool | whether emoticons should be synced for this integration (twitch only currently) |
 
-## Delete Guild Integration % DELETE /guilds/{guild.id#DOCS_GUILD/guild-object}/integrations/{integration.id#DOCS_INTEGRATION/integration-object}
+## Delete Guild Integration % DELETE /guilds/{guild.id#DOCS_GUILD/guild-object}/integrations/{integration.id#DOCS_GUILD/integration-object}
 
-Delete the attached [integration](#DOCS_INTEGRATION/integration-object) object for the guild. Requires the 'MANAGE_GUILD' permission. Returns a 204 empty response on success. Fires a [Guild Integrations Update](#DOCS_GATEWAY/guild-integrations-update) Gateway event.
+Delete the attached [integration](#DOCS_GUILD/integration-object) object for the guild. Requires the 'MANAGE_GUILD' permission. Returns a 204 empty response on success. Fires a [Guild Integrations Update](#DOCS_GATEWAY/guild-integrations-update) Gateway event.
 
-## Sync Guild Integration % POST /guilds/{guild.id#DOCS_GUILD/guild-object}/integrations/{integration.id#DOCS_INTEGRATION/integration-object}/sync
+## Sync Guild Integration % POST /guilds/{guild.id#DOCS_GUILD/guild-object}/integrations/{integration.id#DOCS_GUILD/integration-object}/sync
 
 Sync an integration. Requires the 'MANAGE_GUILD' permission. Returns a 204 empty response on success.
 
