@@ -22,6 +22,7 @@ Permissions in Discord are stored within a 53-bit integer and are calculated usi
 | ATTACH_FILES | `0x00008000` | Allows for uploading images and files |
 | READ\_MESSAGE_HISTORY | `0x00010000` | Allows for reading of message history |
 | MENTION_EVERYONE | `0x00020000` | Allows for using the `@everyone` tag to notify all users in a channel, and the `@here` tag to notify all online users in a channel |
+| USE_EXTERNAL_EMOJIS | `unknown, yet...` | Allows use of custom emojis from other servers |
 | CONNECT | `0x00100000` | Allows for joining of a voice channel |
 | SPEAK | `0x00200000` | Allows for speaking in a voice channel |
 | MUTE_MEMBERS | `0x00400000` | Allows for muting members in a voice channel |
