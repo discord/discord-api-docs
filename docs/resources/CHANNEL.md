@@ -98,7 +98,7 @@ Represents a message sent in a channel within Discord.
 | mention_roles | array of [role object](#DOCS_PERMISSIONS/role-object) ids | roles specifically mentioned in this message |
 | attachments | array of [attachment objects](#DOC_CHANNEL/attachment-object) | any attached files |
 | embeds | array of [embed objects](#DOC_CHANNEL/embed-object) | any embedded content |
-| nonce | ?integer | used for validating a message was sent |
+| nonce | ?snowflake | used for validating a message was sent |
 | pinned | bool | whether this message is pinned |
 
 ###### Example Message
@@ -244,7 +244,7 @@ Post a message to a guild text or DM channel. If operating on a guild channel, t
 | Field | Type | Description | Required |
 |-------|------|-------------|----------|
 | content | string | the message contents (up to 2000 characters) | true |
-| nonce | string | a nonce that can be used for optimistic message sending | false |
+| nonce | snowflake | a nonce that can be used for optimistic message sending | false |
 | tts | bool | true if this is a TTS message | false |
 
 ## Upload File % POST /channels/{channel.id#DOCS_CHANNEL/channel-objects}/messages
@@ -259,7 +259,7 @@ Post a file to a guild text or DM channel. If operating on a guild channel, this
 | Field | Type | Description | Required |
 |-------|------|-------------|----------|
 | content | string | the message contents (up to 2000 characters) | false |
-| nonce | string | a nonce that can be used for optimistic message sending | false |
+| nonce | snowflake | a nonce that can be used for optimistic message sending | false |
 | tts | string | true if this is a TTS message | false |
 | file | file contents | the contents of the file being sent | true |
 
