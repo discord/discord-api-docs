@@ -250,7 +250,7 @@ Returns a list of [guild member](#GUILD/guild-member-object) objects that are me
 | limit | integer | max number of members to return (1-1000) | 1 |
 | after | integer | the highest user id in the previous page | 0 |
 
-## Add Guild Member % PATCH /guilds/{guild.id#DOCS_GUILD/guild-object}/members/{user.id#DOCS_USER/user-object}
+## Add Guild Member % PUT /guilds/{guild.id#DOCS_GUILD/guild-object}/members/{user.id#DOCS_USER/user-object}
 
 Adds a user to the guild, provided you have a valid oauth2 access token for the user with the `guilds.join` scope. Returns a 201 Created with a the [guild member](#DOCS_GUILD/guild-member-object) as the body. Fires a [Guild Member Add](#DOCS_GATEWAY/guild-member-add) Gateway event. Requires the bot to have the `CREATE_INSTANT_INVITE` permission. 
 
