@@ -419,7 +419,7 @@ Sent when a guild integration is updated.
 
 | Field | Type | Description |
 |-------|------|-------------|
-| guild_id | snowflake | id of the guild whose integrations where updated |
+| guild_id | snowflake | id of the guild whose integrations were updated |
 
 ### Guild Member Add
 
