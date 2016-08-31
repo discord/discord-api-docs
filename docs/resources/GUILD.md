@@ -12,18 +12,28 @@ Guilds in Discord represent a collection of users and channels into an isolated 
 | name | string | guild name (2-100 characters) |
 | icon | string | icon hash |
 | splash | string | splash hash |
-| owner_id | snowflake | id of owner |
-| region | string | {voice_region.id} |
+| owner\_id | snowflake | id of owner |
+| region | string | {voice\_region.id} |
 | afk\_channel\_id | snowflake | id of afk channel |
-| afk_timeout | integer | afk timeout in seconds |
-| embed_enabled | bool | is this guild embeddable (e.g. widget) |
-| embed_channel_id | snowflake | id of embedded channel |
-| verification_level | integer | level of verification |
-| voice_states | array | array of [voice state](#DOCS_VOICE/voice-state-object) objects (without the `guild_id` key) |
+| afk\_timeout | integer | afk timeout in seconds |
+| embed\_enabled | bool | is this guild embeddable (e.g. widget) |
+| embed\_channel\_id | snowflake | id of embedded channel |
+| verification\_level | integer | level of verification |
+| default\_message\_notifications | integer | default message notifications level |
 | roles | array | array of [role](#DOCS_PERMISSIONS/role-object) objects |
 | emojis | array | array of [emoji](#DOCS_GUILD/emoji-object) objects |
 | features | array | array of guild features |
-| unavailable | bool | is this guild unavailable |
+| mfa\_level | integer | required MFA level for the guild |
+| joined\_at \* | datetime | date this guild was joined at |
+| large \* | bool | whether this is considered a large guild |
+| unavailable \* | bool | is this guild unavailable |
+| member\_count | integer | total number of members in this guild |
+| voice\_states \* | array | array of [voice state](#DOCS_VOICE/voice-state-object) objects (without the `guild_id` key) |
+| members \* | array | array of [guild member](#DOCS_GUILD/guild-member-object) objects |
+| channels \* | array | array of [channel](DOCS_CHANNEL/guild-channel-object) objects |
+| presences \* | array | array of simple presence objects, which share the same fields as [Presence Update event](#DOCS_GATEWAY/presence-update) sans a roles or guild_id key |
+
+** \* These fields are only sent within the [GUILD_CREATE](#DOCS_GATEWAY/guild-create) event **
 
 ###### Example Guild
 

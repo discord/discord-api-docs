@@ -375,7 +375,7 @@ This event can be sent in three different scenarios:
 2. When a Guild becomes available again to the client.
 3. When the current user joins a new Guild.
 
-The inner payload is a [guild](#DOCS_GUILD/guild-object) object, with an extra presences key containing an array of simple presence objects. The simple presence objects each have the same fields as a [Presence Update event](#DOCS_GATEWAY/presence-update) without a roles or guild_id key.
+The inner payload is a [guild](#DOCS_GUILD/guild-object) object, with all the extra fields specified.
 
 ### Guild Update
 
