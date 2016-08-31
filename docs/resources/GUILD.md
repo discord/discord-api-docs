@@ -240,6 +240,23 @@ Returns a list of [guild member](#GUILD/guild-member-object) objects that are me
 | limit | integer | max number of members to return (1-1000) | 1 |
 | after | integer | the highest user id in the previous page | 0 |
 
+## Add Guild Member % PATCH /guilds/{guild.id#DOCS_GUILD/guild-object}/members/{user.id#DOCS_USER/user-object}
+
+Adds a user to the guild, provided you have a valid oauth2 access token for the user with the `guilds.join` scope. Returns a 201 Created with a the [guild member](#DOCS_GUILD/guild-member-object) as the body. Fires a [Guild Member Add](#DOCS_GATEWAY/guild-member-add) Gateway event. Requires the bot to have the `CREATE_INSTANT_INVITE` permission. 
+
+>info
+> All parameters to this endpoint except for `access_token` are optional. 
+
+###### JSON Params
+
+| Field | Type | Description | Permission |
+|-------|------|-------------|------------|
+| access_token | string | an oauth2 access token granted with the `guilds.join` to the bot's application for the user you want to add to the guild | |
+| nick | string | value to set users nickname too | MANAGE_NICKNAMES |
+| roles | array | array of roles the member is assigned | MANAGE_ROLES |
+| mute | bool | if the user is muted | MUTE_MEMBERS |
+| deaf | bool | if the user is deafened | DEAFEN_MEMBERS |
+
 ## Modify Guild Member % PATCH /guilds/{guild.id#DOCS_GUILD/guild-object}/members/{user.id#DOCS_USER/user-object}
 
 Modify attributes of a [guild member](#DOCS_GUILD/guild-member-object). Returns a 204 empty response on success. Fires a [Guild Member Update](#DOCS_GATEWAY/guild-member-update) Gateway event.
@@ -257,6 +274,7 @@ Modify attributes of a [guild member](#DOCS_GUILD/guild-member-object). Returns 
 | mute | bool | if the user is muted | MUTE_MEMBERS |
 | deaf | bool | if the user is deafened | DEAFEN_MEMBERS |
 | channel_id | snowflake | id of channel to move user to (if they are connected to voice) | MOVE_MEMBERS |
+
 
 ## Remove Guild Member % DELETE /guilds/{guild.id#DOCS_GUILD/guild-object}/members/{user.id#DOCS_USER/user-object}
 
