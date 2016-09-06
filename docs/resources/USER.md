@@ -108,7 +108,7 @@ Modify the requestors user account settings. Returns a [user](#DOCS_USER/user-ob
 
 | Field | Type | Description |
 |-------|------|-------------|
-| username | string | users username, if changed will randomize the user's discriminator if the new set conflicts with someone that shares the same username and discriminator |
+| username | string | users username, if changed may cause the users discriminator to be randomized. |
 | avatar | [avatar data](#DOCS_USER/avatar-data) | if passed, modifies the user's avatar |
 
 ## Get Current User Guilds % GET /users/{@me#DOCS_USER/user-object}/guilds
