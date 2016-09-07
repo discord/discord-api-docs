@@ -337,7 +337,8 @@ This endpoint takes a JSON array of parameters in the following format:
 | permissions | integer | bitwise of the enabled/disabled permissions |
 | position | integer | sorting position of the role |
 | color | integer | RGB color value |
-| hoist | bool | should this role be displayed separately in the sidebar |
+| hoist | bool | whether the role should be displayed separately in the sidebar |
+| mentionable | bool | whether the role should be mentionable |
 
 ## Modify Guild Role % PATCH /guilds/{guild.id#DOCS_GUILD/guild-object}/roles/{role.id#DOCS_PERMISSIONS/role-object}
 
@@ -351,7 +352,8 @@ Modify a guild role. Requires the 'MANAGE_ROLES' permission. Returns the updated
 | permissions | integer | bitwise of the enabled/disabled permissions |
 | position | integer | sorting position of the role |
 | color | integer | RGB color value |
-| hoist | bool | whether this role should be displayed separately in the sidebar |
+| hoist | bool | whether the role should be displayed separately in the sidebar |
+| mentionable | bool | whether the role should be mentionable |
 
 ## Delete Guild Role % DELETE /guilds/{guild.id#DOCS_GUILD/guild-object}/roles/{role.id#DOCS_PERMISSIONS/role-object}
 
