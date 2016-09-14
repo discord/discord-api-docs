@@ -30,7 +30,7 @@ Guilds in Discord represent a collection of users and channels into an isolated 
 | member\_count | integer | total number of members in this guild |
 | voice\_states \* | array | array of [voice state](#DOCS_VOICE/voice-state-object) objects (without the `guild_id` key) |
 | members \* | array | array of [guild member](#DOCS_GUILD/guild-member-object) objects |
-| channels \* | array | array of [channel](DOCS_CHANNEL/guild-channel-object) objects |
+| channels \* | array | array of [channel](#DOCS_CHANNEL/guild-channel-object) objects |
 | presences \* | array | array of simple presence objects, which share the same fields as [Presence Update event](#DOCS_GATEWAY/presence-update) sans a roles or guild_id key |
 
 ** \* These fields are only sent within the [GUILD_CREATE](#DOCS_GATEWAY/guild-create) event **
