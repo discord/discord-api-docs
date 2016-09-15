@@ -4,7 +4,7 @@ These developer pages document how to use Discord's API to empower your applicat
 communities. All of our [documentation is on GitHub](https://github.com/hammerandchisel/discord-api-docs) and we would
 <3 corrections and improvements!
 
-![Bot related things](https://cdn.discordapp.com/attachments/180015572224835585/226046392005558282/API_center-2.gif)
+![Bot related things](API_center.gif)
 
 
 ## Applications (aka Apps)
