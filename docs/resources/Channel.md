@@ -316,7 +316,7 @@ Create a new [invite](#DOCS_INVITE/invite-object) object for the channel. Only u
 | max_age | integer | duration of invite in seconds before expiry, or 0 for never | 86400 (24 hours) |
 | max_uses | integer | max number of uses or 0 for unlimited | 0 |
 | temporary | bool | whether this invite only grants temporary membership | false |
-| unique | bool | if true, don't try to reuse a similar invite, otherwise (useful for creating many unique one time use invites) | false |
+| unique | bool | if true, don't try to reuse a similar invite (useful for creating many unique one time use invites) | false |
 
 ## Delete Channel Permission % DELETE /channels/{channel.id#DOCS_CHANNEL/guild-channel-object}/permissions/{overwrite.id#DOCS_CHANNEL/overwrite-object}
 
