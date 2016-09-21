@@ -1,6 +1,8 @@
 # Rate Limits
 
-Discord's API rate limits requests in order to prevent abuse and overload of our services. Rate limits are applied on a per-method basis (meaning they can be different for each method called), with the exception of an additional global rate limit spanning across the entire API.
+Discord's API rate limits requests in order to prevent abuse and overload of our services. Rate limits are applied on a per-route basis (meaning they can be different for each route called), with the exception of an additional global rate limit spanning across the entire API.
+
+By "per-route," we mean that unique rate limits exist for each path you are accessing on our API, not including the HTTP method (GET, POST, PUT, DELETE) and including major parameters. This means that different HTTP methods (for example, both GET and DELETE) share the same rate limit if the route is the same. Additionally, rate limits take into account major parameters in the URL. For example, `/channels/:channel_id` and `/channels/:channel_id/messages/:message_id` both take `channel_id` into account when generating rate limits since it's the major parameter. The only current major parameters are `channel_id` and `guild_id`.
 
 Because we may change rate limits at any time and rate limits can be different per application, *rate limits should not be hard coded into your bot/application*. In order to properly support our dynamic rate limits, your bot/application should parse for our rate limits in response headers and locally prevent exceeding of the limits as they change.
 
@@ -14,14 +16,14 @@ X-RateLimit-Remaining: 0
 X-RateLimit-Reset: 1470173023
 ```
 
-* **X-RateLimit-Global** - Returned only on a HTTP 429 response if the rate limit headers returned are of the global rate limit (not per-method)
+* **X-RateLimit-Global** - Returned only on a HTTP 429 response if the rate limit headers returned are of the global rate limit (not per-route)
 * **X-RateLimit-Limit** - The number of requests that can be made
 * **X-RateLimit-Remaining** - The number of remaining requests that can be made
 * **X-RateLimit-Reset** - Epoch time (seconds since 00:00:00 UTC on January 1, 1970) at which the rate limit resets
 
 ## Exceeding A Rate Limit
 
-In the case that a per-method rate limit is exceeded, we do return an HTTP 429 response from our server. It looks something like the following[:](http://takeb1nzyto.space/)
+In the case that a per-route rate limit is exceeded, we do return an HTTP 429 response from our server. It looks something like the following[:](http://takeb1nzyto.space/)
 
 ```
 < HTTP/1.1 429 TOO MANY REQUESTS
