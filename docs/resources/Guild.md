@@ -221,9 +221,9 @@ Create a new [channel](#DOCS_CHANNEL/guild-channel-object) object for the guild.
 | bitrate | integer | the bitrate (in bits) of the voice channel (voice only) |
 | user_limit | integer | the user limit of the voice channel |
 
-## Modify Guild Channel % PATCH /guilds/{guild.id#DOCS_GUILD/guild-object}/channels
+## Modify Guild Channel Position % PATCH /guilds/{guild.id#DOCS_GUILD/guild-object}/channels
 
-Batch modify the position of channels in a guild. Requires the 'MANAGE_CHANNELS' permission. Returns the updated [channel](#DOCS_CHANNEL/guild-channel-object) object on success. Fires a [Channel Update](#DOCS_GATEWAY/channel-update) Gateway event.
+Modify the position of a guild channel. Requires 'MANAGE\_CHANNELS' permission. Returns a 204 empty response on success. Fires a [Channel Update](#DOCS_GATEWAY/channel-update) Gateway event.
 
 ###### JSON Params
 
