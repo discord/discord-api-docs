@@ -175,6 +175,13 @@ Create a new guild. Returns a [guild](#DOCS_GUILD/guild-object) object on succes
 | name | string | name of the guild (2-100 characters) |
 | region | string | {voice_region.id} for voice |
 | icon | string | base64 128x128 jpeg image for the guild icon |
+| verification_level | integer | guild verification level |
+| default\_message\_notifications | integer | default message notifications setting |
+| roles | array of [role](#DOCS_PERMISSIONS/role-object) objects | new guild roles
+| channels | array of [create guild channel](#DOCS_CHANNEL/create-guild-channel) body objects | new guild's channels
+
+>info
+> If roles are specified, the required `id` field within each role object is an integer placeholder, and will be replaced by the API upon consumption. Its purpose is to allow you to [overwrite](#DOCS_CHANNEL/overwrite-object) a role's permissions in a channel when also passing in channels with the channels array.
 
 ## Get Guild % GET /guilds/{guild.id#DOCS_GUILD/guild-object}
 
@@ -194,6 +201,7 @@ Modify a guild's settings. Returns the updated [guild](#DOCS_GUILD/guild-object)
 | name | string | guild name |
 | region | string | guild {voice_region.id} |
 | verification_level | integer | guild verification level |
+| default\_message\_notifications | integer | default message notifications setting |
 | afk\_channel\_id | snowflake | id for afk channel |
 | afk_timeout | integer | afk timeout in seconds |
 | icon | string | base64 128x128 jpeg image for the guild icon |
@@ -219,7 +227,8 @@ Create a new [channel](#DOCS_CHANNEL/guild-channel-object) object for the guild.
 | name | string | channel name (2-100 characters) |
 | type | string | "voice" or "text" |
 | bitrate | integer | the bitrate (in bits) of the voice channel (voice only) |
-| user_limit | integer | the user limit of the voice channel |
+| user_limit | integer | the user limit of the voice channel (voice only) |
+| permission_overwrites | an array of [overwrite](#DOCS_CHANNEL/overwrite-object) objects | the channel's permission overwrites |
 
 ## Modify Guild Channel Position % PATCH /guilds/{guild.id#DOCS_GUILD/guild-object}/channels
 

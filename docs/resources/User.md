@@ -133,6 +133,20 @@ Create a new DM channel with a user. Returns a [DM channel](#DOCS_CHANNEL/dm-cha
 |-------|------|-------------|
 | recipient_id | snowflake | the recipient to open a DM channel with |
 
+## Create Group DM % POST /users/{@me#DOCS_USER/user-object}/channels
+
+Create a new group DM channel with multiple users. Returns a [DM channel](#DOCS_CHANNEL/dm-channel-object) object.
+
+>warn
+> This endpoint is only available for whitelisted bots. If you believe you have a legitimate use case for
+> automating group dm creation, please contact us at support@discordapp.com and we'll look into whitelisting you.
+
+###### JSON Params
+
+| Field | Type | Description |
+|-------|------|-------------|
+| access_tokens | array of strings | access tokens of users that have granted your app the `gdm.join` scope |
+
 ## Get Users Connections % GET /users/{@me#DOCS_USER/user-object}/connections
 
 Returns a list of [connection](#DOCS_USER/connection-object) objects. Requires the `connections` OAuth2 scope.
