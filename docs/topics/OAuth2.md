@@ -40,7 +40,7 @@ Scopes provide access to certain resources of a user's account. Your API client 
 | connections | allows [/users/@me/connections](#DOCS_USER/get-user-connections) to return linked Twitch and YouTube accounts |
 | guilds | allows [/users/@me/guilds](#DOCS_USER/get-current-user-guilds) to return basic information about all of a user's guilds |
 | guilds.join | allows [/invites/{invite.id}](#DOCS_INVITE/accept-invite) to be used for joining a user's guild |
-| gdm.join | allows your app to join users to a group dm |
+| gdm.join | allows your app to [join users to a group dm](#DOCS_CHANNEL/group-dm-add-recipient) |
 | bot | for oauth2 bots, this puts the bot in the user's selected guild by default |
 
 ## Bots
