@@ -337,3 +337,21 @@ Pin a message in a channel. Requires the 'MANAGE_MESSAGES' permission. Returns a
 ## Delete Pinned Channel Message % DELETE /channels/{channel.id#DOCS_CHANNEL/channel-objects}/pins/{message.id#DOCS_CHANNEL/message-object}
 
 Delete a pinned message in a channel. Requires the 'MANAGE_MESSAGES' permission. Returns a 204 empty response on success.
+
+## Group DM Add Recipient % PUT /channels/{channel.id#DOCS_CHANNEL/channel-objects}/recipients/{user.id#DOCS_USER/user-object}
+
+Adds a recipient to a Group DM using their access token
+
+>warn
+> This endpoint is only available for whitelisted bots. If you believe you have a legitimate use case for
+> automating group dm creation, please contact us at support@discordapp.com and we'll look into whitelisting you.
+
+###### JSON Params
+
+| Field | Type | Description |
+|-------|------|-------------|
+| access_token | string | access token of a user that has granted your app the `gdm.join` scope |
+
+## Group DM Remove Recipient % DELETE /channels/{channel.id#DOCS_CHANNEL/channel-objects}/recipients/{user.id#DOCS_USER/user-object}
+
+Removes a recipient from a Group DM
