@@ -14,6 +14,19 @@ Returns an object with a single valid WSS URL. Clients **should** cache this val
 }
 ```
 
+## Get Gateway % GET /gateway/bot
+
+Returns an object with the same information as [Get Gateway](#DOCS_GATEWAY/get-gateway), plus a `shards` key, containing the recommended number of shards to connect with (as an integer). Bots that want to dynamically/automatically spawn shard processes should use this endpoint to determine the number of processes to run. This route should be called once, and the result cached/passed to all processes. This value is not guarenteed to be the same per-call.
+
+###### Example Response
+
+```json
+{
+  "url": "wss://gateway.discord.gg/",
+  "shards": 9,
+}
+```
+
 ## Gateway Protocol Versions
 
 Out of Services versions are versions whose subset of changes compared to the most recent version have been completely removed from the Gateway. When connecting with these versions, the gateway may reject your connection entirely.
