@@ -188,6 +188,8 @@ Discord utilizes a subset of markdown for rendering message content on its clien
 | Role | `<@&ROLE_SNOWFLAKE_ID>` | `<@&165511591545143296>` |
 | Custom Emoji | `<:NAME:ID>` | `<:mmLol:216154654256398347>` |
 
+Using the markdown for either users, roles or channels will mention the target(s) accordingly.
+
 ## Get Channel % GET /channels/{channel.id#DOCS_CHANNEL/channel-objects}
 
 Get a channel by ID. Returns a [guild channel](#DOCS_CHANNEL/guild-channel-object) or [dm channel](#DOCS_CHANNEL/dm-channel-object) object.
