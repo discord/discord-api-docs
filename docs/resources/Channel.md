@@ -176,9 +176,9 @@ Represents a message sent in a channel within Discord.
 
 ## Message Formatting
 
-Discord utilizes a subset of markdown for rendering message content on its clients, while also adding some custom functionality to enable things like mentioning users and channels. Mentions can be created using the following format:
+Discord utilizes a subset of markdown for rendering message content on its clients, while also adding some custom functionality to enable things like mentioning users and channels. This functionality uses the following formats:
 
-###### Mentions
+###### Formats
 
 | Type | Structure | Example |
 |---------|-------------|-------------|
@@ -186,6 +186,7 @@ Discord utilizes a subset of markdown for rendering message content on its clien
 | User (Nickname) | `<@!USER_SNOWFLAKE_ID>` | `<@!80351110224678912>` |
 | Channel | `<#CHANNEL_SNOWFLAKE_ID>` | `<#103735883630395392>` |
 | Role | `<@&ROLE_SNOWFLAKE_ID>` | `<@&165511591545143296>` |
+| Custom Emoji | `<:NAME:ID>` | `<:mmLol:216154654256398347>` |
 
 ## Get Channel % GET /channels/{channel.id#DOCS_CHANNEL/channel-objects}
 
