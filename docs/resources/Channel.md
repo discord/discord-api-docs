@@ -88,7 +88,7 @@ Represents a message sent in a channel within Discord.
 |-------|------|-------------|
 | id | snowflake | id of the message |
 | channel_id | snowflake | id of the channel the message was sent in |
-| author | a [user](#DOCS_USER/user-object) object | the author of this message |
+| author | a [user](#DOCS_USER/user-object) object | the author of this message (the author of a message is not guaranteed to be a user) |
 | content | string | contents of the message |
 | timestamp | timestamp | when this message was sent |
 | edited_timestamp | ?timestamp | when this message was edited (or null if never) |
@@ -138,11 +138,17 @@ Represents a message sent in a channel within Discord.
 | Field | Type | Description |
 |-------|------|-------------|
 | title | string | title of embed |
-| type | string | type of embed |
+| type | string | type of embed (always "rich" for webhook embeds) |
 | description | string | description of embed |
 | url | string | url of embed |
+| timestamp | date | timestamp of embed content |
+| color | integer | color code of the embed |
+| footer | [embed footer object](#DOCS_CHANNEL/embed-footer-structure) | footer information
+| image | [embed image object](#DOCS_CHANNEL/embed-image-structure) | image information
 | thumbnail | [embed thumbnail object](#DOCS_CHANNEL/embed-thumbnail-structure) | thumbnail information |
 | provider | [embed provider object](#DOCS_CHANNEL/embed-provider-structure) | provider information |
+| author | [embed author object](#DOCS_CHANNEL/embed-author-structure) | author information |
+| fields | array of [embed field objects](#DOCS_CHANNEL/embed-field-structure) | fields information |
 
 ###### Embed Thumbnail Structure
 
@@ -153,12 +159,46 @@ Represents a message sent in a channel within Discord.
 | height | integer | height of thumbnail |
 | width | integer | width of thumbnail |
 
+###### Embed Image Structure
+
+| Field | Type | Description |
+|-------|------|-------------|
+| url | string | source url of image |
+| proxy_url | string | a proxied url of the image |
+| height | integer | height of image |
+| width | integer | width of image |
+
 ###### Embed Provider Structure
 
 | Field | Type | Description |
 |-------|------|-------------|
 | name | string | name of provider |
 | url | string | url of provider |
+
+###### Embed Author Structure
+
+| Field | Type | Description |
+|-------|------|-------------|
+| name | string | name of author |
+| url | string | url of author |
+| icon_url | string | url of author icon |
+| proxy_icon_url | string | a proxied url of author icon |
+
+###### Embed Footer Structure
+
+| Field | Type | Description |
+|-------|------|-------------|
+| text | string | footer text |
+| icon_url | string | url of footer icon |
+| proxy_icon_url | string | a proxied url of footer icon |
+
+###### Embed Field Structure
+
+| Field | Type | Description |
+|-------|------|-------------|
+| name | string | name of the field |
+| value | string | value of the field |
+| inline | bool | whether or not this field should display inline |
 
 ### Attachment Object
 
@@ -277,7 +317,7 @@ Edit a previously sent message. You can only edit messages that have been sent b
 
 Delete a message. If operating on a guild channel and trying to delete a message that was not sent by the current user, this endpoint requires the 'MANAGE_MESSAGES' permission. Returns a 204 empty response on success. Fires a [Message Delete](#DOCS_GATEWAY/message-delete) Gateway event.
 
-## Bulk Delete Messages % POST /channels/{channel.id#DOCS_CHANNEL/channel-objects}/messages/bulk_delete
+## Bulk Delete Messages % POST /channels/{channel.id#DOCS_CHANNEL/channel-objects}/messages/bulk-delete
 
 Delete multiple messages in a single request. This endpoint can only be used on guild channels and requires the 'MANAGE_MESSAGES' permission. Returns a 204 empty response on success. Fires multiple [Message Delete](#DOCS_GATEWAY/message-delete) Gateway events.
 
