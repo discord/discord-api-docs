@@ -485,7 +485,7 @@ Sent when a guild role is updated.
 | Field | Type | Description |
 |-------|------|-------------|
 | guild_id | snowflake | the id of the guild |
-| role | a [role](#DOCS_PERMISSIONS/role-object) object | the role created |
+| role | a [role](#DOCS_PERMISSIONS/role-object) object | the role updated |
 
 ### Guild Role Delete
 
