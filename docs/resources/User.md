@@ -81,17 +81,6 @@ The connection object that the user has attached.
 | revoked | bool | whether the connection is revoked |
 | integrations | array | an array of partial [server integrations](#DOCS_GUILD/integration-object) |
 
-## Query Users % GET /users
-
-Returns a list of [user](#DOCS_USER/user-object) objects for a given query. Only returns users that share a mutual guild with the requester.
-
-###### HTTP Params
-
-| Field | Type | Description |
-|-------|------|-------------|
-| q | string | username query |
-| limit | integer | maximum number of users to return (default 25) |
-
 ## Get Current User % GET /users/{@me#DOCS_USER/user-object}
 
 Returns the [user](#DOCS_USER/user-object) object of the requester's account. For OAuth2, this requires the `identify` scope, which will return the object _without_ an email, and optionally the `email` scope, which returns the object _with_ an email.
