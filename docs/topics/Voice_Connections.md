@@ -69,7 +69,7 @@ Once we receive the properties of a UDP voice server from our OP2 ready payload,
 	"protocol": "udp",
 	"data": {
 		"address": "127.0.0.1",
-		"port": "1337",
+		"port": 1337,
 		"mode": "xsalsa20_poly1305"
 	}
 }
