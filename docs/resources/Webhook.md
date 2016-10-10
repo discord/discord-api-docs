@@ -13,7 +13,7 @@ Used to represent a webhook.
 | id | snowflake | the id of the webhook |
 | guild_id | snowflake? | the guild id this webhook is for |
 | channel_id | snowflake | the channel id this webhook is for |
-| user | [User](#DOCS_USER/user-object)? | the user this webhook was created by |
+| user | [User](#DOCS_USER/user-object)? | the user this webhook was created by (not returned when getting a webhook with its token) |
 | name | ?string | the default name of the webhook |
 | avatar | ?string | the default avatar of the webhook |
 | token | string | the secure token of the webhook |
@@ -124,3 +124,13 @@ Same as above, except this call does not require authentication.
 | wait | bool | waits for server confirmation of message send before response (defaults to `true`; when `false` a message that is not saved does not return an error) | false |
 
 Refer to [Slack's documentation](https://api.slack.com/incoming-webhooks) for more information. We do not support Slack's `channel`, `icon_emoji`, `mrkdwn`, or `mrkdwn_in` properties.
+
+## Execute GitHub-Compatible Webhook % POST /webhooks/{webhook.id#DOCS_WEBHOOK/webhook-object}/{webhook.token#DOCS_WEBHOOK/webhook-object}/github
+
+###### Querystring Params
+
+| Field | Type | Description | Required |
+|-------|------|-------------|----------|
+| wait | bool | waits for server confirmation of message send before response (defaults to `true`; when `false` a message that is not saved does not return an error) | false |
+
+Add a new webhook to your GitHub repo (in the repo's settings), and use this endpoint as the "Payload URL." You can choose what events your Discord channel receives by choosing the "Let me select individual events" option and selecting individual events for the new webhook you're configuring.
