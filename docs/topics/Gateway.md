@@ -400,11 +400,11 @@ Sent when a user is banned from a guild. The inner payload is a [user](#DOCS_USE
 
 Sent when a user is unbanned from a guild. The inner payload is a [user](#DOCS_USER/user-object) object, with an extra guild_id key.
 
-### Guild Emoji Update
+### Guild Emojis Update
 
 Sent when a guilds emojis have been updated.
 
-###### Guild Emoji Update Event Fields
+###### Guild Emojis Update Event Fields
 
 | Field | Type | Description |
 |-------|------|-------------|
