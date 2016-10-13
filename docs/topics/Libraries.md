@@ -1,6 +1,6 @@
 # Libraries
 
-The Discord team curates the following list of officially vetted libraries that conform to our APIs standards around authentication and rate limiting. Using custom implementations or non-compliant libraries which abuse the API or cause excessive rate limits may result in a **permanent** IP ban.
+The Discord team curates the following list of officially vetted libraries that conform to our APIs standards around authentication and rate limiting. Using custom implementations or non-compliant libraries which abuse the API or cause excessive rate limits may result in a **permanent** ban.
 
 | Name | Language |
 |------|----------|
