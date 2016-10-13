@@ -402,7 +402,7 @@ Sent when a user is unbanned from a guild. The inner payload is a [user](#DOCS_U
 
 ### Guild Emojis Update
 
-Sent when a guilds emojis have been updated.
+Sent when a guild's emojis have been updated.
 
 ###### Guild Emojis Update Event Fields
 
