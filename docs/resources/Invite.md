@@ -41,7 +41,7 @@ Represents a code that when used, adds a user to a guild.
 ```json
 {
 	"inviter": {},
-	"users": 0,
+	"uses": 0,
 	"max_uses": 0,
 	"max_age": 0,
 	"temporary": false,

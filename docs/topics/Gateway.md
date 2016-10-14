@@ -6,11 +6,30 @@ Gateways are Discord's form of real-time communication over secure websockets. C
 
 Returns an object with a single valid WSS URL. Clients **should** cache this value, and only call this endpoint to retrieve a new URL if they are unable to establish a Gateway connection to the cached URL.
 
+>info
+> This endpoint does not require any authentication.
+
 ###### Example Response
 
 ```json
 {
 	"url": "wss://gateway.discord.gg/"
+}
+```
+
+## Get Gateway % GET /gateway/bot
+
+Returns an object with the same information as [Get Gateway](#DOCS_GATEWAY/get-gateway), plus a `shards` key, containing the recommended number of shards to connect with (as an integer). Bots that want to dynamically/automatically spawn shard processes should use this endpoint to determine the number of processes to run. This route should be called once, and the result cached/passed to all processes. This value is not guarenteed to be the same per-call.
+
+>warning
+> This endpoint requires authentication using a valid bot token.
+
+###### Example Response
+
+```json
+{
+  "url": "wss://gateway.discord.gg/",
+  "shards": 9,
 }
 ```
 
@@ -400,11 +419,11 @@ Sent when a user is banned from a guild. The inner payload is a [user](#DOCS_USE
 
 Sent when a user is unbanned from a guild. The inner payload is a [user](#DOCS_USER/user-object) object, with an extra guild_id key.
 
-### Guild Emoji Update
+### Guild Emojis Update
 
-Sent when a guilds emojis have been updated.
+Sent when a guild's emojis have been updated.
 
-###### Guild Emoji Update Event Fields
+###### Guild Emojis Update Event Fields
 
 | Field | Type | Description |
 |-------|------|-------------|
@@ -485,7 +504,7 @@ Sent when a guild role is updated.
 | Field | Type | Description |
 |-------|------|-------------|
 | guild_id | snowflake | the id of the guild |
-| role | a [role](#DOCS_PERMISSIONS/role-object) object | the role created |
+| role | a [role](#DOCS_PERMISSIONS/role-object) object | the role updated |
 
 ### Guild Role Delete
 

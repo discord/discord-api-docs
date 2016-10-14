@@ -23,6 +23,8 @@ The first step in implementing OAuth2 is [registering a developer application](#
 |-----|-------------|
 | https://discordapp.com/api/oauth2/authorize | Base authorization URL |
 | https://discordapp.com/api/oauth2/token | Token URL |
+| https://discordapp.com/api/oauth2/revoke | Revocation URL |
+
 
 >info
 > Discord also implements refresh tokens, which can be passed to the token URL for valid authentication tokens.

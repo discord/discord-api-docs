@@ -23,7 +23,7 @@ data:image/jpeg;base64,MY_BASE64_IMAGE_DATA_HERE
 | username | string | the user's username, not unique across the platform | identify |
 | discriminator | string | the user's 4-digit discord-tag | identify |
 | avatar | string | the user's avatar hash | identify |
-| bot | bool | whether the user belongs to a OAuth2 application | identify |
+| bot | bool | whether the user belongs to an OAuth2 application | identify |
 | mfa_enabled | bool | whether the user has two factor enabled on their account | identify |
 | verified | bool | whether the email on this account has been verified | email |
 |  email | string | the user's email | email |
@@ -80,17 +80,6 @@ The connection object that the user has attached.
 | type | string | the service of the connection (twitch, youtube) |
 | revoked | bool | whether the connection is revoked |
 | integrations | array | an array of partial [server integrations](#DOCS_GUILD/integration-object) |
-
-## Query Users % GET /users
-
-Returns a list of [user](#DOCS_USER/user-object) objects for a given query. Only returns users that share a mutual guild with the requester.
-
-###### HTTP Params
-
-| Field | Type | Description |
-|-------|------|-------------|
-| q | string | username query |
-| limit | integer | maximum number of users to return (default 25) |
 
 ## Get Current User % GET /users/{@me#DOCS_USER/user-object}
 

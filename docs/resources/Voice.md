@@ -45,6 +45,8 @@ Used to represent a user's voice connection status.
 | sample_port | integer | an example port for the region |
 | vip | bool | true if this is a vip-only server |
 | optimal | bool | true for a single server that is closest to the current user's client |
+| deprecated | bool | whether this is a deprecated voice region (avoid switching to these) |
+| custom | bool | whether this is a custom voice region (used for events/etc) |
 
 ## List Voice Regions % GET /voice/regions
 
