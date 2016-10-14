@@ -70,7 +70,7 @@ https://discordapp.com/api/oauth2/authorize?client_id=157730590492196864&scope=b
 
 ### Adding Webhooks to Channels
 
-A URL can be generated that redirects authenticated users to the add-webhook flow, by using the following format (this utilizes the OAuth2 authentication authorization code flow, with requires a server-side application):
+A URL can be generated that redirects authenticated users to the add-webhook flow, by using the following format (this utilizes the OAuth2 authentication authorization code flow, which requires a server-side application):
 
 ```
 https://discordapp.com/api/oauth2/authorize?client_id=157730590492196864&scope=webhook.incoming&redirect_uri=https%3A%2F%2Fnicememe.website&response_type=code
