@@ -555,7 +555,7 @@ Sent when multiple messages are deleted at once.
 A user's presence is their current state on a guild. This event is sent when a user's presence is updated for a guild.
 
 >warn
-> The user object can be partial. The only field that it must contain is the "id" - every other field is optional, and won't be sent if they aren't updated.
+> The user object within this event can be partial, the only field which must be sent is the `id` field, everything else is optional. Along with this limitation, no fields are required, and the types of the fields are **not** validated. Your client should expect any combination of fields and types within this event.
 
 ###### Presence Update Event Fields
 
