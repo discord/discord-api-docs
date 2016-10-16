@@ -6,6 +6,7 @@ The Discord team curates the following list of officially vetted libraries that 
 |------|----------|
 | [discordcr](https://github.com/meew0/discordcr) | Crystal |
 | [dscord](https://github.com/b1naryth1ef/dscord) | D |
+| [Discord Dart](https://github.com/Hackzzila/Discord-Dart) | Dart |
 | [Discord.Net](https://github.com/RogueException/Discord.Net) | C# |
 | [Discord4j](https://github.com/austinv11/Discord4J) | Java |
 | [JDA](https://github.com/DV8FromTheWorld/JDA) | Java |
