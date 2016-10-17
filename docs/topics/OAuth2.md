@@ -44,6 +44,7 @@ Scopes provide access to certain resources of a user's account. Your API client 
 | guilds.join | allows [/invites/{invite.id}](#DOCS_INVITE/accept-invite) to be used for joining a user's guild |
 | gdm.join | allows your app to [join users to a group dm](#DOCS_CHANNEL/group-dm-add-recipient) |
 | bot | for oauth2 bots, this puts the bot in the user's selected guild by default |
+| webhook.incoming | this generates a webhook that is returned in the oauth token response for authorization code grants |
 
 ## Bots
 
@@ -62,10 +63,42 @@ For bots with [elevated permissions](#DOCS_PERMISSIONS/bitwise-permission-flags)
 A URL can be generated that redirects authenticated users to the add-bot flow, by using the following format (this utilizes the OAuth2 authentication flow, without a callback URL):
 
 ```
-https://discordapp.com/oauth2/authorize?client_id=157730590492196864&scope=bot&permissions=0
+https://discordapp.com/api/oauth2/authorize?client_id=157730590492196864&scope=bot&permissions=0
 ```
 
-Where `client_id` is your _bot_ applications ID, and permissions is an integer following the [permissions](#DOCS_PERMISSIONS/bitwise-permission-flags) format.
+`client_id` is your _bot_ application's ID and permissions is an integer following the [permissions](#DOCS_PERMISSIONS/bitwise-permission-flags) format.
+
+### Adding Webhooks to Channels
+
+A URL can be generated that redirects authenticated users to the add-webhook flow, by using the following format (this utilizes the OAuth2 authentication authorization code flow, which requires a server-side application):
+
+```
+https://discordapp.com/api/oauth2/authorize?client_id=157730590492196864&scope=webhook.incoming&redirect_uri=https%3A%2F%2Fnicememe.website&response_type=code
+```
+
+`client_id` is your application's ID and `redirect_uri` is one of your application's url-encoded redirect uris.
+
+When a user is directed to this url, they are prompted to select a channel for the webhook to be placed in. Your application will receive an authorization code back in the querystring (as usual with the authorization code grant). 
+
+When you exchange the authorization code for an access token, the token response will contain the webhook object:
+
+```json
+{
+	"token_type": "Bearer",
+	"access_token": "7r70pJOvarwv1fkPqacZqFOCv39tX2",
+	"scope": "webhook.incoming",
+	"expires_in": 604800,
+	"refresh_token": "TY0U8LP8joJURIhqREL4AuQXcj5DlO",
+	"webhook": {
+		"name": "test",
+		"channel_id": 199737254929760256,
+		"token": "DuAt6zzLQpPhaAq0IcnCrDUWWpY9Y07dqkB5ulLkhwpA00ZK7IjLve5AE4ACUZqCUTY8",
+		"avatar": "eaa0292a003ceb15264a838a8eff961a",
+		"guild_id": 199737254929760256,
+		"id": 236380988341485568
+	}
+}
+```
 
 ### Get Current Application Information % GET /oauth2/applications/@me
 
