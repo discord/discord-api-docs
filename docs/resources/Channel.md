@@ -410,6 +410,7 @@ Adds a recipient to a Group DM using their access token
 | Field | Type | Description |
 |-------|------|-------------|
 | access_token | string | access token of a user that has granted your app the `gdm.join` scope |
+| nick | string | nickname of the user being added |
 
 ## Group DM Remove Recipient % DELETE /channels/{channel.id#DOCS_CHANNEL/channel-objects}/recipients/{user.id#DOCS_USER/user-object}
 
