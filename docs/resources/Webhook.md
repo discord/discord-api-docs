@@ -93,7 +93,7 @@ Same as above, except this call does not require authentication.
 ## Execute Webhook % POST /webhooks/{webhook.id#DOCS_WEBHOOK/webhook-object}/{webhook.token#DOCS_WEBHOOK/webhook-object}
 
 >warn
-> This endpoint supports both JSON and form data bodies. It does require multipart/form-data requests instead of the normal JSON request type when uploading files. Make sure you set your `Content-Type` to `multipart/form-data` if you're doing that.
+> This endpoint supports both JSON and form data bodies. It does require multipart/form-data requests instead of the normal JSON request type when uploading files. Make sure you set your `Content-Type` to `multipart/form-data` if you're doing that. Note that in that case, the `embeds` field cannot be used; this means that you can either send a `file` to a webhook or some number of `embeds`, but not both at once.
 
 ###### Querystring Params
 
