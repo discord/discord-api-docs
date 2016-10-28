@@ -116,7 +116,7 @@ Used for the client to maintain an active gateway connection. Sent by the server
 
 ### Gateway Hello
 
-Sent on connection to the websocket. Defines the heartbeat interval that the client should heartbeat to. 
+Sent on connection to the websocket. Defines the heartbeat interval that the client should heartbeat to.
 
 ###### Gateway Hello Structure
 
@@ -472,6 +472,7 @@ Sent when a guild member is updated.
 | guild_id | snowflake | the id of the guild |
 | roles | array of [role](#DOCS_PERMISSIONS/role-object) objects | user roles |
 | user | a [user](#DOCS_USER/user-object) object | the user |
+| nick | string | nickname of the user in the guild |
 
 ### Guild Members Chunk
 
@@ -564,7 +565,6 @@ A user's presence is their current state on a guild. This event is sent when a u
 | user | [user](#DOCS_USER/user-object) object | the user presence is being updated for |
 | roles | array of snowflakes | roles this user is in |
 | game | object | null, or an object containing one key of "name" |
-| nick | string | nickname of the user in the guild |
 | guild_id | snowflake | id of the guild |
 | status | string | either "idle", "online" or "offline" |
 
