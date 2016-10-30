@@ -219,6 +219,9 @@ Returns a list of guild [channel](#DOCS_CHANNEL/guild-channel-object) objects.
 
 Create a new [channel](#DOCS_CHANNEL/guild-channel-object) object for the guild. Requires the 'MANAGE_CHANNELS' permission. Returns the new [channel](#DOCS_CHANNEL/guild-channel-object) object on success. Fires a [Channel Create](#DOCS_GATEWAY/channel-create) Gateway event.
 
+>info
+> All parameters to this endpoint except for name are optional.
+
 ###### JSON Params
 
 | Field | Type | Description |
