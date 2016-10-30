@@ -233,6 +233,9 @@ Create a new [channel](#DOCS_CHANNEL/guild-channel-object) object for the guild.
 
 Modify the positions of a set of [channel](#DOCS_CHANNEL/guild-channel-object) objects for the guild. Requires 'MANAGE_CHANNELS' permission. Returns a list of all of the guild's [channel](#DOCS_CHANNEL/guild-channel-object) objects on success. Fires multiple [Channel Update](#DOCS_GATEWAY/channel-update) Gateway events.
 
+>info
+> Only channels to be modified are required, with the minimum being a swap between at least two channels.
+
 This endpoint takes a JSON array of parameters in the following format:
 
 ###### JSON Params
