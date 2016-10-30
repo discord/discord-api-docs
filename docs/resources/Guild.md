@@ -256,7 +256,13 @@ Returns a list of [guild member](#GUILD/guild-member-object) objects that are me
 >info
 > All parameters to this endpoint are optional
 
-###### HTTP Params
+>warn
+> This endpoint uses query strings instead of the normal JSON request type. Example:
+> ```
+/guilds/215678153757163520/members?limit=10&after=0
+```
+
+###### URL Params
 
 | Field | Type | Description | Default |
 |-------|------|-------------|---------|
