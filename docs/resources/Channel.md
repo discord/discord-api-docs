@@ -293,7 +293,13 @@ Returns the messages for a channel. If operating on a guild channel, this endpoi
 >info
 > The before, after, and around keys are mutually exclusive, only one may be passed at a time.
 
-###### JSON Params
+>warn
+> This endpoint uses query strings instead of the normal JSON request type. Example:
+> ```
+/channels/155101607195836416/messages?around=242083114434822144&limit=3
+```
+
+###### URL Params
 
 | Field | Type | Description | Required | Default |
 |-------|------|-------------|----------|---------|
