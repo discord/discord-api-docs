@@ -377,7 +377,13 @@ Delete a guild role. Requires the 'MANAGE_ROLES' permission. Returns the [role](
 
 Returns an object with one 'pruned' key indicating the number of members that would be removed in a prune operation. Requires the 'KICK_MEMBERS' permission.
 
-###### JSON Params
+>warn
+> This endpoint uses query strings instead of the normal JSON request type. Example:
+> ```
+/guilds/215678153757163520/prune?days=7
+```
+
+###### URL Params
 
 | Field | Type | Description |
 |-------|------|-------------|
@@ -387,7 +393,13 @@ Returns an object with one 'pruned' key indicating the number of members that wo
 
 Begin a prune operation. Requires the 'KICK_MEMBERS' permission. Returns an object with one 'pruned' key indicating the number of members that were removed in the prune operation. Fires multiple [Guild Member Remove](#DOCS_GATEWAY/guild-member-remove) Gateway events.
 
-###### JSON Params
+>warn
+> This endpoint uses query strings instead of the normal JSON request type. Example:
+> ```
+/guilds/215678153757163520/prune?days=7
+```
+
+###### URL Params
 
 | Field | Type | Description |
 |-------|------|-------------|
