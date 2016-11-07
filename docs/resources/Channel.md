@@ -132,15 +132,15 @@ Represents a message sent in a channel within Discord.
 | Field | Type | Description |
 |-------|------|-------------|
 | count | integer | times this emoji has been used to react |
-| me | bool | whether the user reacted using this emoji |
-| emoji | emoji object | emoji information
+| me | bool | whether the current user reacted using this emoji |
+| emoji | emoji object | emoji information |
 
 ###### Emoji Structure
 
 | Field | Type | Description |
 |-------|------|-------------|
-| id | snowflake | id of this emoji, null if an unicode emote
-| name | string | name of this emoji
+| id | snowflake | id of this emoji, null if an unicode emote |
+| name | string | name of this emoji | 
 
 ### Overwrite Object
 
