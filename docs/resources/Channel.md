@@ -313,6 +313,14 @@ Returns a specific message in the channel. If operating on a guild channel, this
 
 Post a message to a guild text or DM channel. If operating on a guild channel, this endpoint requires the 'SEND_MESSAGES' permission to be present on the current user. Returns a [message](#DOCS_CHANNEL/message-object) object. Fires a [Message Create](#DOCS_GATEWAY/message-create) Gateway event. See [message formatting](#DOCS_CHANNEL/message-formatting) for more information on how to properly format messages.
 
+###### JSON Params
+
+| Field | Type | Description | Required |
+|-------|------|-------------|----------|
+| content | string | the message contents (up to 2000 characters) | true |
+| nonce | snowflake | a nonce that can be used for optimistic message sending | false |
+| tts | bool | true if this is a TTS message | false |
+
 ## Create Reaction % PUT /channels/{channel.id#DOCS_CHANNEL/channel-objects}/messages/{message.id#DOCS_CHANNEL/message-object}/reactions/{emoji}/@me
 
 Create a reaction for the message. This endpoint requires the 'ADD\_REACTIONS' permission to be present on the current user. Returns a 204 empty response on success.
@@ -325,13 +333,7 @@ Delete a reaction for the message the user has made. Returns a 204 empty respons
 
 Deletes a reaction from another user. This endpoint requires the 'MANAGE\_MESSAGES' permission to be present on the current user. Returns a 204 empty response on success.
 
-###### JSON Params
 
-| Field | Type | Description | Required |
-|-------|------|-------------|----------|
-| content | string | the message contents (up to 2000 characters) | true |
-| nonce | snowflake | a nonce that can be used for optimistic message sending | false |
-| tts | bool | true if this is a TTS message | false |
 
 ## Upload File % POST /channels/{channel.id#DOCS_CHANNEL/channel-objects}/messages
 
