@@ -315,15 +315,15 @@ Post a message to a guild text or DM channel. If operating on a guild channel, t
 
 ## Create Reaction % PUT /channels/{channel.id#DOCS_CHANNEL/channel-objects}/messages/{message.id#DOCS_CHANNEL/message-object}/reactions/{emoji}/@me
 
-Create a reaction for the message, this endpoint requires the ADD_REACTIONS permission to be present on the current user. Returns 204 No Content on success.
+Create a reaction for the message. This endpoint requires the 'ADD\_REACTIONS' permission to be present on the current user. Returns a 204 empty response on success.
 
 ## Delete Own Reaction % DELETE /channels/{channel.id#DOCS_CHANNEL/channel-objects}/messages/{message.id#DOCS_CHANNEL/message-object}/reactions/{emoji}/@me
 
-Delete a reaction for the message the user has made. Returns 204 No Content on success.
+Delete a reaction for the message the user has made. Returns a 204 empty response on success.
 
-## Delete Other's Reaction % DELETE /channels/{channel.id#DOCS_CHANNEL/channel-objects}/messages/{message.id#DOCS_CHANNEL/message-object}/reactions/{emoji}/{user.id#DOCS_USER/user-object}
+## Delete User Reaction % DELETE /channels/{channel.id#DOCS_CHANNEL/channel-objects}/messages/{message.id#DOCS_CHANNEL/message-object}/reactions/{emoji}/{user.id#DOCS_USER/user-object}
 
-Deletes a reaction from another user, this endpoint requires the MANAGE_MESSAGES permission to be present on the current user. Returns 204 No Content on success.
+Deletes a reaction from another user. This endpoint requires the 'MANAGE\_MESSAGES' permission to be present on the current user. Returns a 204 empty response on success.
 
 ###### JSON Params
 
