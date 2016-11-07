@@ -331,9 +331,7 @@ Delete a reaction for the message the user has made. Returns a 204 empty respons
 
 ## Delete User Reaction % DELETE /channels/{channel.id#DOCS_CHANNEL/channel-objects}/messages/{message.id#DOCS_CHANNEL/message-object}/reactions/{emoji}/{user.id#DOCS_USER/user-object}
 
-Deletes a reaction from another user. This endpoint requires the 'MANAGE\_MESSAGES' permission to be present on the current user. Returns a 204 empty response on success.
-
-
+Delete's another user's reaction. This endpoint requires the 'MANAGE\_MESSAGES' permission to be present on the current user. Returns a 204 empty response on success.
 
 ## Upload File % POST /channels/{channel.id#DOCS_CHANNEL/channel-objects}/messages
 
