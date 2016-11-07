@@ -139,7 +139,7 @@ Represents a message sent in a channel within Discord.
 
 | Field | Type | Description |
 |-------|------|-------------|
-| id | snowflake | id of this emoji, null if an unicode emote |
+| id | ?snowflake | id of emoji (if custom emote) |
 | name | string | name of this emoji | 
 
 ### Overwrite Object
@@ -323,7 +323,7 @@ Post a message to a guild text or DM channel. If operating on a guild channel, t
 
 ## Create Reaction % PUT /channels/{channel.id#DOCS_CHANNEL/channel-objects}/messages/{message.id#DOCS_CHANNEL/message-object}/reactions/{emoji}/@me
 
-Create a reaction for the message. This endpoint requires the 'ADD\_REACTIONS' permission to be present on the current user. Returns a 204 empty response on success.
+Create a reaction for the message. If nobody else has reacted to the message using this emoji, this endpoint requires the 'ADD\_REACTIONS' permission to be present on the current user. Returns a 204 empty response on success.
 
 ## Delete Own Reaction % DELETE /channels/{channel.id#DOCS_CHANNEL/channel-objects}/messages/{message.id#DOCS_CHANNEL/message-object}/reactions/{emoji}/@me
 
