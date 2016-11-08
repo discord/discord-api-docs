@@ -9,6 +9,7 @@ The Discord team curates the following list of officially vetted libraries that 
 | [Discord.Net](https://github.com/RogueException/Discord.Net) | C# |
 | [Discord4j](https://github.com/austinv11/Discord4J) | Java |
 | [JDA](https://github.com/DV8FromTheWorld/JDA) | Java |
+| [Discordia](https://github.com/SinisterRectus/Discordia) | Lua |
 | [discord.js](https://github.com/hydrabolt/discord.js) | NodeJS |
 | [Eris](https://github.com/abalabahaha/eris) | NodeJS |
 | [DiscordPHP](https://github.com/teamreflex/DiscordPHP) | PHP |
