@@ -331,7 +331,7 @@ Delete a reaction the current user has made for the message. Returns a 204 empty
 
 ## Delete User Reaction % DELETE /channels/{channel.id#DOCS_CHANNEL/channel-objects}/messages/{message.id#DOCS_CHANNEL/message-object}/reactions/{emoji#DOCS_CHANNEL/emoji-structure}/{user.id#DOCS_USER/user-object}
 
-Delete's another user's reaction. This endpoint requires the 'MANAGE\_MESSAGES' permission to be present on the current user. Returns a 204 empty response on success.
+Deletes another user's reaction. This endpoint requires the 'MANAGE\_MESSAGES' permission to be present on the current user. Returns a 204 empty response on success.
 
 ## Get Reactions % GET /channels/{channel.id#DOCS_CHANNEL/channel-objects}/messages/{message.id#DOCS_CHANNEL/message-object}/reactions/{emoji#DOCS_CHANNEL/emoji-structure}
 
@@ -339,7 +339,7 @@ Get a list of users that reacted with this emoji. Returns an array of [user](#DO
 
 ## Delete All Reactions % DELETE /channels/{channel.id#DOCS_CHANNEL/channel-objects}/messages/{message.id#DOCS_CHANNEL/message-object}/reactions
 
-Delete's all reactions on a message. This endpoint requires the 'MANAGE\_MESSAGES' permission to be present on the current user.
+Deletes all reactions on a message. This endpoint requires the 'MANAGE\_MESSAGES' permission to be present on the current user.
 
 ## Upload File % POST /channels/{channel.id#DOCS_CHANNEL/channel-objects}/messages
 
