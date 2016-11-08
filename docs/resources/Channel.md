@@ -14,7 +14,7 @@ Guild channels represent an isolated set of users and messages within a Guild.
 | guild_id | snowflake | the id of the guild | Always |
 | name | string | the name of the channel (2-100 characters) | Always |
 | type | string | "text" or "voice" | Always |
-| position | integer | the ordering position of the channel | Always |
+| position | integer | sorting position of the channel | Always |
 | is_private | bool | should always be false for guild channels | Always |
 | permission_overwrites | array | an array of [overwrite](#DOCS_CHANNEL/overwrite-object) objects | Always |
 | topic | string | the channel topic (0-1024 characters) | Text only |

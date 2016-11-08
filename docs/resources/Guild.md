@@ -230,16 +230,18 @@ Create a new [channel](#DOCS_CHANNEL/guild-channel-object) object for the guild.
 | user_limit | integer | the user limit of the voice channel (voice only) |
 | permission_overwrites | an array of [overwrite](#DOCS_CHANNEL/overwrite-object) objects | the channel's permission overwrites |
 
-## Modify Guild Channel Position % PATCH /guilds/{guild.id#DOCS_GUILD/guild-object}/channels
+## Modify Guild Channel Positions % PATCH /guilds/{guild.id#DOCS_GUILD/guild-object}/channels
 
-Modify the position of a guild channel. Requires 'MANAGE\_CHANNELS' permission. Returns a 204 empty response on success. Fires a [Channel Update](#DOCS_GATEWAY/channel-update) Gateway event.
+Modify the positions of a set of [channel](#DOCS_CHANNEL/guild-channel-object) objects for the guild. Requires 'MANAGE_CHANNELS' permission. Returns a list of all of the guild's [channel](#DOCS_CHANNEL/guild-channel-object) objects on success. Fires multiple [Channel Update](#DOCS_GATEWAY/channel-update) Gateway events.
+
+This endpoint takes a JSON array of parameters in the following format:
 
 ###### JSON Params
 
 | Field | Type | Description |
 |-------|------|-------------|
 | id | snowflake | channel id |
-| position | integer | position of channel |
+| position | integer | sorting position of the channel |
 
 ## Get Guild Member % GET /guilds/{guild.id#DOCS_GUILD/guild-object}/members/{user.id#DOCS_USER/user-object}
 
@@ -328,12 +330,9 @@ Create a new empty [role](#DOCS_PERMISSIONS/role-object) object for the guild. R
 >warn
 > This endpoint only creates a blank role, it does not allow you to set attributes for the role on creation. Instead, you must create the role and then modify it with a PATCH request.
 
-## Batch Modify Guild Role % PATCH /guilds/{guild.id#DOCS_GUILD/guild-object}/roles
+## Modify Guild Role Positions % PATCH /guilds/{guild.id#DOCS_GUILD/guild-object}/roles
 
-Batch modify a set of [role](#DOCS_PERMISSIONS/role-object) objects for the guild. Requires the 'MANAGE_ROLES' permission. Returns a list of all of the guild's [role](#DOCS_PERMISSIONS/role-object) objects on success. Fires a [Guild Role Update](#DOCS_GATEWAY/guild-role-update) Gateway event.
-
->warn
-> This endpoint should *only* be used for modifying a batch set of roles.
+Modify the positions of a set of [role](#DOCS_PERMISSIONS/role-object) objects for the guild. Requires the 'MANAGE_ROLES' permission. Returns a list of all of the guild's [role](#DOCS_PERMISSIONS/role-object) objects on success. Fires multiple [Guild Role Update](#DOCS_GATEWAY/guild-role-update) Gateway events.
 
 This endpoint takes a JSON array of parameters in the following format:
 
@@ -341,13 +340,8 @@ This endpoint takes a JSON array of parameters in the following format:
 
 | Field | Type | Description |
 |-------|------|-------------|
-| id | snowflake | the id of the role (cannot be modified, only for reference) |
-| name | string | name of the role |
-| permissions | integer | bitwise of the enabled/disabled permissions |
+| id | snowflake | role |
 | position | integer | sorting position of the role |
-| color | integer | RGB color value |
-| hoist | bool | whether the role should be displayed separately in the sidebar |
-| mentionable | bool | whether the role should be mentionable |
 
 ## Modify Guild Role % PATCH /guilds/{guild.id#DOCS_GUILD/guild-object}/roles/{role.id#DOCS_PERMISSIONS/role-object}
 
