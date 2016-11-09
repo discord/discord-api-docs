@@ -14,6 +14,7 @@ Permissions in Discord are stored within a 53-bit integer and are calculated usi
 | ADMINISTRATOR * | `0x00000008` | Allows all permissions and bypasses channel permission overwrites |
 | MANAGE\_CHANNELS * | `0x00000010` | Allows management and editing of channels |
 | MANAGE\_GUILD * | `0x00000020` | Allows management and editing of the guild |
+| ADD\_REACTIONS | `0x00000040` | Allows for the addition of reactions to messages |
 | READ\_MESSAGES | `0x00000400` | Allows reading messages in a channel. The channel will not appear for users without this permission |
 | SEND\_MESSAGES | `0x00000800` | Allows for sending messages in a channel. |
 | SEND\_TTS\_MESSAGES | `0x00001000` | Allows for sending of `/tts` messages |
