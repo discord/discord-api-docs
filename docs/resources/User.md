@@ -135,6 +135,7 @@ Create a new group DM channel with multiple users. Returns a [DM channel](#DOCS_
 | Field | Type | Description |
 |-------|------|-------------|
 | access_tokens | array of strings | access tokens of users that have granted your app the `gdm.join` scope |
+| nicks | dict | a dictionary of user ids to their respective nicknames |
 
 ## Get Users Connections % GET /users/{@me#DOCS_USER/user-object}/connections
 
