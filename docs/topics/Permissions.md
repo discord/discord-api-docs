@@ -33,6 +33,8 @@ Permissions in Discord are stored within a 53-bit integer and are calculated usi
 | CHANGE\_NICKNAME | `0x04000000` | Allows for modification of own nickname |
 | MANAGE\_NICKNAMES | `0x08000000` | Allows for modification of other users nicknames |
 | MANAGE\_ROLES * | `0x10000000` | Allows management and editing of roles |
+| MANAGE\_WEBHOOKS * | `0x20000000` | Allows management and editing of webhooks |
+| MANAGE\_EMOJIS * | `0x40000000` | Allows management and editing of emojis |
 
 **\* These permissions require the owner account to use [two-factor authentication](#DOCS_OAUTH2/twofactor-authentication-requirement) when used on a guild that has server-wide 2FA enabled.**
 
