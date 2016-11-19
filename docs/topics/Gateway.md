@@ -470,7 +470,7 @@ Sent when a guild member is updated.
 | Field | Type | Description |
 |-------|------|-------------|
 | guild_id | snowflake | the id of the guild |
-| roles | array of [role](#DOCS_PERMISSIONS/role-object) objects | user roles |
+| roles | array of snowflakes | user role ids |
 | user | a [user](#DOCS_USER/user-object) object | the user |
 | nick | string | nickname of the user in the guild |
 
