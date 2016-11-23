@@ -313,6 +313,9 @@ Returns a specific message in the channel. If operating on a guild channel, this
 
 Post a message to a guild text or DM channel. If operating on a guild channel, this endpoint requires the 'SEND_MESSAGES' permission to be present on the current user. Returns a [message](#DOCS_CHANNEL/message-object) object. Fires a [Message Create](#DOCS_GATEWAY/message-create) Gateway event. See [message formatting](#DOCS_CHANNEL/message-formatting) for more information on how to properly format messages.
 
+>warn
+> This endpoint supports both JSON and form data bodies. It does require multipart/form-data requests instead of the normal JSON request type when uploading files. Make sure you set your `Content-Type` to `multipart/form-data` if you're doing that. Note that in that case, the `embed` field cannot be used, but you can pass an url-encoded JSON body as a form value for `payload_json`.
+
 ###### JSON Params
 
 | Field | Type | Description | Required |
@@ -320,6 +323,11 @@ Post a message to a guild text or DM channel. If operating on a guild channel, t
 | content | string | the message contents (up to 2000 characters) | true |
 | nonce | snowflake | a nonce that can be used for optimistic message sending | false |
 | tts | bool | true if this is a TTS message | false |
+| file | file contents | the contents of the file being sent | one of content, file, embeds (multipart form data only) |
+| embed | [embed](#DOCS_CHANNEL/embed-object) object | embedded `rich` content | false |
+
+>info
+> For the embed object, you can set every field except `type` (it will be `rich` regardless of if you try to set it), `provider`, `video`, and any `height`, `width`, or `proxy_url` values for images.
 
 ## Create Reaction % PUT /channels/{channel.id#DOCS_CHANNEL/channel-objects}/messages/{message.id#DOCS_CHANNEL/message-object}/reactions/{emoji#DOCS_CHANNEL/emoji-structure}/@me
 
@@ -340,22 +348,6 @@ Get a list of users that reacted with this emoji. Returns an array of [user](#DO
 ## Delete All Reactions % DELETE /channels/{channel.id#DOCS_CHANNEL/channel-objects}/messages/{message.id#DOCS_CHANNEL/message-object}/reactions
 
 Deletes all reactions on a message. This endpoint requires the 'MANAGE\_MESSAGES' permission to be present on the current user.
-
-## Upload File % POST /channels/{channel.id#DOCS_CHANNEL/channel-objects}/messages
-
-Post a file to a guild text or DM channel. If operating on a guild channel, this endpoint requires the 'SEND\_MESSAGES' and 'ATTACH\_FILES' permissions to be present on the current user. Returns a [message](#DOCS_CHANNEL/message-object) object. Fires a [Message Create](#DOCS_GATEWAY/message-create) Gateway event.
-
->warn
-> This endpoint uses multipart/form-data requests instead of the normal JSON request type. Make sure you set your `Content-Type` to `multipart/form-data`.
-
-###### Multipart Params
-
-| Field | Type | Description | Required |
-|-------|------|-------------|----------|
-| content | string | the message contents (up to 2000 characters) | false |
-| nonce | snowflake | a nonce that can be used for optimistic message sending | false |
-| tts | string | true if this is a TTS message | false |
-| file | file contents | the contents of the file being sent | true |
 
 ## Edit Message % PATCH /channels/{channel.id#DOCS_CHANNEL/channel-objects}/messages/{message.id#DOCS_CHANNEL/message-object}
 
