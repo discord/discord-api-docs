@@ -281,7 +281,7 @@ Update a channels settings. Requires the 'MANAGE_GUILD' permission for the guild
 
 ## Delete/Close Channel % DELETE /channels/{channel.id#DOCS_CHANNEL/channel-objects}
 
-Delete a guild channel, or close a private message. Requires the 'MANAGE_GUILD' permission for the guild. Returns a [guild channel](#DOCS_CHANNEL/guild-channel-object) or [dm channel](#DOCS_CHANNEL/dm-channel-object) object on success. Fires a [Channel Delete](#DOCS_GATEWAY/channel-delete) Gateway event.
+Delete a guild channel, or close a private message. Requires the 'MANAGE_CHANNELS' permission for the guild. Returns a [guild channel](#DOCS_CHANNEL/guild-channel-object) or [dm channel](#DOCS_CHANNEL/dm-channel-object) object on success. Fires a [Channel Delete](#DOCS_GATEWAY/channel-delete) Gateway event.
 
 >warn
 > Deleting a guild channel cannot be undone. Use this with caution, as it is impossible to undo this action when performed on a guild channel. In contrast, when used with a private message, it is possible to undo the action by opening a private message with the recipient again.
