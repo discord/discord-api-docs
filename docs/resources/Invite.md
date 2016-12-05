@@ -60,7 +60,8 @@ Represents the parent guild of an invite.
 |-------|------|-------------|
 | id | snowflake | id of the guild |
 | name | string | name of the guild |
-| splash_hash | string | hash of the guild splash (or null) |
+| splash | string | hash of the guild splash (or null) |
+| icon | string | hash of the guild icon (or null) |
 
 ###### Invite Guild Object
 
@@ -68,7 +69,8 @@ Represents the parent guild of an invite.
 {
 	"id": "165176875973476352",
 	"name": "CS:GO Fraggers Only",
-	"splash_hash": null
+	"splash": null,
+	"icon": null
 }
 ```
 
