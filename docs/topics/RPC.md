@@ -2,6 +2,10 @@
 
 All Discord clients have an RPC server running on localhost that allows control over local Discord clients. Most games will want to use our [GameBridge](#DOCS_GAMEBRIDGE) in combination, since it offers the power of Discord to players who don't have Discord yet installed.
 
+## Private Beta FYI
+
+For now RPC is in private beta. If you're interested in trying out Discord to power your game please [sign up over here](https://discordapp.com/gamebridge).
+
 ## Sample Code
 
 In addition to the documentation below we have put together a sample project that shows the basics of using the RPC within a game. Check it out if you'd like to see how all of these concepts come together. [Click this link and you'll find it.](https://github.com/hammerandchisel/sample-game-integration)

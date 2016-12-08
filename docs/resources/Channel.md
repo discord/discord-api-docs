@@ -177,7 +177,7 @@ Represents a message sent in a channel within Discord.
 
 | Field | Type | Description |
 |-------|------|-------------|
-| url | string | source url of thumbnail (only supports http(s)) |
+| url | string | source url of thumbnail (only supports http(s) and attachments) |
 | proxy_url | string | a proxied url of the thumbnail |
 | height | integer | height of thumbnail |
 | width | integer | width of thumbnail |
@@ -194,7 +194,7 @@ Represents a message sent in a channel within Discord.
 
 | Field | Type | Description |
 |-------|------|-------------|
-| url | string | source url of image (only supports http(s)) |
+| url | string | source url of image (only supports http(s) and attachments) |
 | proxy_url | string | a proxied url of the image |
 | height | integer | height of image |
 | width | integer | width of image |
@@ -212,7 +212,7 @@ Represents a message sent in a channel within Discord.
 |-------|------|-------------|
 | name | string | name of author |
 | url | string | url of author |
-| icon_url | string | url of author icon (only supports http(s)) |
+| icon_url | string | url of author icon (only supports http(s) and attachments) |
 | proxy_icon_url | string | a proxied url of author icon |
 
 ###### Embed Footer Structure
@@ -220,7 +220,7 @@ Represents a message sent in a channel within Discord.
 | Field | Type | Description |
 |-------|------|-------------|
 | text | string | footer text |
-| icon_url | string | url of footer icon (only supports http(s)) |
+| icon_url | string | url of footer icon (only supports http(s) and attachments) |
 | proxy_icon_url | string | a proxied url of footer icon |
 
 ###### Embed Field Structure
@@ -328,6 +328,27 @@ Post a message to a guild text or DM channel. If operating on a guild channel, t
 
 >info
 > For the embed object, you can set every field except `type` (it will be `rich` regardless of if you try to set it), `provider`, `video`, and any `height`, `width`, or `proxy_url` values for images.
+
+###### Using Attachments within Embeds
+
+You can upload attachments when creating a message and use those attachments within your embed. To do this, you will want to upload files as part of your `multipart/form-data` body. Make sure that you're uploading files that contain a filename, as you will need a filename to reference against.
+
+In the embed object, you can then set an image to use an attachment as its url with our attachment scheme syntax: `attachment://filename.png`
+
+For example:
+
+```json
+{
+	"embed": {
+		"image": {
+			"url": "attachment://screenshot.png"
+		}
+	}
+}
+```
+
+>warn
+> Only filenames with proper image extensions are supported for the time being.
 
 ## Create Reaction % PUT /channels/{channel.id#DOCS_CHANNEL/channel-objects}/messages/{message.id#DOCS_CHANNEL/message-object}/reactions/{emoji#DOCS_CHANNEL/emoji-structure}/@me
 

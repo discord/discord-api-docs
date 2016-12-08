@@ -12,4 +12,4 @@ The GameBridge SDK is a headless, optimized version of [Discord's RPC](#DOCS_RPC
 
 ## Using GameBridge
 
-GameBridge is still baking. If you've signed up for the private beta, we will reach out to you with some beta goodness. In the meantime, you can develop against a Discord client's [RPC server](#DOCS_RPC) to start building your integration.
+The GameBridge SDK is still baking. If you've signed up for the private beta, we will reach out to you with some beta goodness. In the meantime, if you've requested access you can develop against a Discord client's [RPC server](#DOCS_RPC) to start building your integration now.
