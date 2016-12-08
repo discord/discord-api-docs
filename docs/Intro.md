@@ -33,7 +33,7 @@ GameBridge is a free SDK that lets power your desktop game's social features wit
 tasty flavors GameBridge offers:
 
 * Add low latency voice and text chat to your game.
-* Let your player share fancy moments including screenshots and links.
+* Let your players share fancy moments including screenshots and links.
 * Show chat from your game's Discord community directly on your main menu.
 * Use servers for your game's guild chat extending it into the Discord experience.
 
