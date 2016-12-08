@@ -165,8 +165,7 @@ Represents an Offline Guild, or a Guild whose information has not been provided 
 Create a new guild. Returns a [guild](#DOCS_GUILD/guild-object) object on success. Fires a [Guild Create](#DOCS_GATEWAY/guild-create) Gateway event.
 
 >warn
-> This endpoint is only available for whitelisted bots. If you believe you have a legitimate use case for
-> automating guild creation, please contact us at support@discordapp.com and we'll look into whitelisting you.
+> This endpoint is only available for GameBridge apps. [Learn more](#DOCS_GAMEBRIDGE)
 
 ###### JSON Params
 

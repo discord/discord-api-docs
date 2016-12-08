@@ -127,8 +127,7 @@ Create a new DM channel with a user. Returns a [DM channel](#DOCS_CHANNEL/dm-cha
 Create a new group DM channel with multiple users. Returns a [DM channel](#DOCS_CHANNEL/dm-channel-object) object.
 
 >warn
-> This endpoint is only available for whitelisted bots. If you believe you have a legitimate use case for
-> automating group dm creation, please contact us at support@discordapp.com and we'll look into whitelisting you.
+> This endpoint is only available for GameBridge apps. [Learn more](#DOCS_GAMEBRIDGE)
 
 ###### JSON Params
 

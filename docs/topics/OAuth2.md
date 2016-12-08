@@ -37,13 +37,16 @@ Scopes provide access to certain resources of a user's account. Your API client 
 
 | Name | Description |
 |------|-------------|
-| identify | allows [/users/@me](#DOCS_USER/get-current-user) without `email` |
-| email | enables [/users/@me](#DOCS_USER/get-current-user) to return an `email` |
+| bot | for oauth2 bots, this puts the bot in the user's selected guild by default |
 | connections | allows [/users/@me/connections](#DOCS_USER/get-user-connections) to return linked Twitch and YouTube accounts |
+| email | enables [/users/@me](#DOCS_USER/get-current-user) to return an `email` |
+| identify | allows [/users/@me](#DOCS_USER/get-current-user) without `email` |
 | guilds | allows [/users/@me/guilds](#DOCS_USER/get-current-user-guilds) to return basic information about all of a user's guilds |
 | guilds.join | allows [/invites/{invite.id}](#DOCS_INVITE/accept-invite) to be used for joining a user's guild |
 | gdm.join | allows your app to [join users to a group dm](#DOCS_CHANNEL/group-dm-add-recipient) |
-| bot | for oauth2 bots, this puts the bot in the user's selected guild by default |
+| messages.read | for local rpc server api access, this allows you to read messages from all client channels (otherwise restricted to channels/guilds your app creates) |
+| rpc | for local rpc server access, this allows you to control a user's local Discord client |
+| rpc.api | for local rpc server api access, this allows you to access the API as the local user |
 | webhook.incoming | this generates a webhook that is returned in the oauth token response for authorization code grants |
 
 ## Bots
@@ -91,11 +94,11 @@ When you exchange the authorization code for an access token, the token response
 	"refresh_token": "TY0U8LP8joJURIhqREL4AuQXcj5DlO",
 	"webhook": {
 		"name": "test",
-		"channel_id": 199737254929760256,
+		"channel_id": "199737254929760256",
 		"token": "DuAt6zzLQpPhaAq0IcnCrDUWWpY9Y07dqkB5ulLkhwpA00ZK7IjLve5AE4ACUZqCUTY8",
 		"avatar": "eaa0292a003ceb15264a838a8eff961a",
-		"guild_id": 199737254929760256,
-		"id": 236380988341485568
+		"guild_id": "199737254929760256",
+		"id": "236380988341485568"
 	}
 }
 ```
