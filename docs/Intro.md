@@ -26,11 +26,6 @@ On April 1st we launched [Airhorn Solutions](https://airhorn.solutions) to bring
 
 Now that the noise has subsided, we’ve [open-sourced the source code for Airhorn Solutions](https://github.com/hammerandchisel/airhornbot). It’s the first fully-functional bot built with our initial API launch. If you’re looking for a working example of our API, we highly suggest digging in.
 
-There is an [active unofficial community-driven Discord Server for devs](https://discordapp.com/invite/0SBTUU1wZTUzBx2q). Come hang out if you wanna chat with other devs and see what’s being cranked out.
-
-We look forward to seeing what you make!
-
- -- Discord Dev Team
 
 ## Games (aka Games)
 
@@ -42,4 +37,10 @@ tasty flavors GameBridge offers:
 * Show chat from your game's Discord community directly on your main menu.
 * Use servers for your game's guild chat extending it into the Discord experience.
 
-For now GameBridge is in private beta. If you're interested in trying out Discord to power your game please [sign up over here.](https://discordapp.com/gamebridge)
+For now GameBridge is in private beta. If you're interested in trying out Discord to power your game please [sign up over here](https://discordapp.com/gamebridge).
+
+There is also an [active unofficial community-driven Discord Server for devs](https://discord.gg/discord-api). Come hang out if you wanna chat with other devs and see what’s being cranked out.
+
+We look forward to seeing what you make!
+
+ -- Discord Dev Team
