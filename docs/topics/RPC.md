@@ -69,7 +69,7 @@ Proxied API requests are not applicable to the rest of the RPC Server docs, so c
 
 For connections to the RPC server, a [whitelist](#authorize) is used to restrict access while you're still developing. You can invite up to 50 people to your whitelist.
 
-For applications/games not approved, we limit you to 50 guilds and 50 channels your app can create. This limit is raised to virtually unlimited after approval.
+For applications/games not approved, we limit you to 10 guilds and 10 channels your app can create. This limit is raised to virtually unlimited after approval.
 
 ## RPC Server Versions
 
