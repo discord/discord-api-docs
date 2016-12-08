@@ -4,12 +4,12 @@ All Discord clients have an RPC server running on localhost that allows control 
 
 ## Private Beta FYI
 
-For now RPC is in private beta. If you're interested in trying out Discord to power your game please [sign up over here](https://discordapp.com/gamebridge).
+For now RPC is in private beta, which means that only apps that have signed up can access the RPC. If you're interested in trying out Discord to power your game please [sign up over here](https://discordapp.com/gamebridge).
 
 ## Sample Code
 
-In addition to the documentation below we have put together a sample project that shows the basics of using the RPC within a game. Check it out if you'd like to see how all of these concepts come together. [Click this link and you'll find it.](https://github.com/hammerandchisel/sample-game-integration)
-  
+In addition to the documentation below we have put together a sample project that shows the basics of using the RPC within a game. Check it out if you'd like to see how all of these concepts come together. [Click this link and you'll find it](https://github.com/hammerandchisel/sample-game-integration).
+
 ## Connecting to the RPC Server
 
 The local RPC server runs only on localhost (`127.0.0.1`) and can be accessed over TLS with our `discordapp.io` domain.
@@ -27,7 +27,7 @@ wss://discordapp.io:PORT/?v=VERSION&client_id=CLIENT_ID&encoding=ENCODING
 * `PORT` is the port of the RPC Server.
 * `ENCODING` is the type of encoding for this connection to use. `json` and `etf` are supported.
 
-When you create an app on our Developers site, you must specify an "RPC Origin" and "Redirect URI" to permit connections and authorizations from. **The origin you send when connecting and the redirect uri you send when exchanging an authorization code for an access token must match one of the ones entered on the Developers site.**
+You'll need to create an app on Discord's platform. To do that head to [your apps](https://discordapp.com/developers/applications/me) and click the giant plus button. When you create an app on our Developers site, you must specify an "RPC Origin" and "Redirect URI" to permit connections and authorizations from. **The origin you send when connecting and the redirect uri you send when exchanging an authorization code for an access token must match one of the ones entered on the Developers site.**
 
 When establishing a WebSocket connection, we verify the Origin header on connection to prevent client ID spoofing, so you will be instantly disconnected if the Origin does not match.
 
@@ -64,6 +64,12 @@ curl -H 'Authorization: Bearer CZhtkLDpNYXgPH9Ml6shqh2OwykChw' https://discordap
 ```
 
 Proxied API requests are not applicable to the rest of the RPC Server docs, so check out the [rest of our API docs](https://discordapp.com/developers/docs/reference) to learn how to interface with our OAuth2 API.
+
+## Restrictions
+
+For connections to the RPC server, a [whitelist](#authorize) is used to restrict access while you're still developing. You can invite up to 50 people to your whitelist.
+
+For applications/games not approved, we limit you to 50 guilds and 50 channels your app can create. This limit is raised to virtually unlimited after approval.
 
 ## RPC Server Versions
 
@@ -234,9 +240,11 @@ Used to authenticate an existing client with your app.
 
 ### AUTHORIZE
 
-Used to authenticate a new client with your app. This pops up a modal in-app that asks the user to authorize access to your app.
+Used to authenticate a new client with your app. By default this pops up a modal in-app that asks the user to authorize access to your app.
 
-If necessary, we have an RPC token system to bypass the user authorization modal. It requires an application whitelist to use. If you have been granted access, you can send a POST request to `https://discordapp.com/api/oauth2/token/rpc` with your application's `client_id` and `client_secret` in the body (sent as a url-encoded body). You can then pass the returned `rpc_token` value to the `rpc_token` field in your RPC authorize request (documented below).
+**We currently do not allow access to RPC for unapproved games without an entry on a game's whitelist.** We grant 50 whitelist spots, which should be ample for development and testing. After approval, this restriction is removed and the whitelist is no longer needed.
+
+We also have an RPC token system to bypass the user authorization modal. This is usable by approved games as well as by users on a game's whitelist, and also disallows use of the `messages.read` scope. If you have been granted access, you can send a POST request to `https://discordapp.com/api/oauth2/token/rpc` with your application's `client_id` and `client_secret` in the body (sent as a url-encoded body, **not JSON**).You can then pass the returned `rpc_token` value to the `rpc_token` field in your RPC authorize request (documented below).
 
 ###### Authorize Argument Structure
 
@@ -244,7 +252,7 @@ If necessary, we have an RPC token system to bypass the user authorization modal
 |-------|------|-------------|
 | scopes | Array | array of OAuth2 scopes to authorize |
 | client_id | String | OAuth2 application id |
-| rpc_token | String | one-time use RPC token (requires whitelist) |
+| rpc_token | String | one-time use RPC token |
 
 ###### Authorize Response Structure
 
