@@ -20,7 +20,7 @@ Here are some examples to whet your appetite:
 Head over to our new [applications page](#MY_APPLICATIONS/top) to dive into creating your own custom juice.
 
 
-## Airhorn Solutions - Bot #0
+### Airhorn Solutions - Bot #0
 
 On April 1st we launched [Airhorn Solutions](https://airhorn.solutions) to bring chaos upon this meek world.
 
@@ -31,3 +31,15 @@ There is an [active unofficial community-driven Discord Server for devs](https:/
 We look forward to seeing what you make!
 
  -- Discord Dev Team
+
+## Games (aka Games)
+
+GameBridge is a free SDK that lets power your desktop game's social features with Discord. Check out some of the
+tasty flavors GameBridge offers:
+
+* Add low latency voice and text chat to your game.
+* Let your player's share fancy moments including screenshots and links.
+* Show chat from your game's Discord community directly on your main menu.
+* Use servers for your game's guild chat extending it into the Discord experience.
+
+For now GameBridge is in private beta. If you're interested in trying out Discord to power your game please [sign up over here.](https://discordapp.com/gamebridge)
