@@ -21,7 +21,7 @@ Returns an object with a single valid WSS URL. Clients **should** cache this val
 
 Returns an object with the same information as [Get Gateway](#DOCS_GATEWAY/get-gateway), plus a `shards` key, containing the recommended number of shards to connect with (as an integer). Bots that want to dynamically/automatically spawn shard processes should use this endpoint to determine the number of processes to run. This route should be called once, and the result cached/passed to all processes. This value is not guarenteed to be the same per-call.
 
->warning
+>warn
 > This endpoint requires authentication using a valid bot token.
 
 ###### Example Response
