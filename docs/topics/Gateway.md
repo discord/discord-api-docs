@@ -578,7 +578,7 @@ Sent when a user starts typing in a channel.
 |-------|------|-------------|
 | channel_id | snowflake | id of the channel |
 | user_id | snowflake | id of the user |
-| timestamp | timestamp | when the user started typing |
+| timestamp | integer | unix time (in seconds) of when the user started typing |
 
 ### User Settings Update
 
