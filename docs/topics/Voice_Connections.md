@@ -59,7 +59,7 @@ The voice server should respond with an OP2 Ready payload, which informs us of o
 
 Once we receive the properties of a UDP voice server from our OP2 ready payload, we can proceed to the final step of voice connections, which entails establishing and handshaking a UDP connection for voice data. First, we open a UDP connection to the same endpoint we originally received in the [Voice Server Update](#DOCS_GATEWAY/voice-server-update) payload, combined with the port we received in the Voice Ready payload. If required, we can now perform an [IP Discovery](#DOCS_VOICE_CONNECTIONS/ip-discovery) using this connection. Once we've fully discovered our local IP and UDP port, we can then tell the voice websocket what it is, and start receiving/sending data. We do this using the select protocol payload.
 
->warning
+>warn
 > The plain mode is deprecated and will be removed soon. All data should be sent using a supported encryption method (right now only `xsalsa20_poly1305`).
 
 ###### Example Select Protocol Payload
