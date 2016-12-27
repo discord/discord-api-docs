@@ -220,7 +220,7 @@ Returns a list of guild [channel](#DOCS_CHANNEL/guild-channel-object) objects.
 Create a new [channel](#DOCS_CHANNEL/guild-channel-object) object for the guild. Requires the 'MANAGE_CHANNELS' permission. Returns the new [channel](#DOCS_CHANNEL/guild-channel-object) object on success. Fires a [Channel Create](#DOCS_GATEWAY/channel-create) Gateway event.
 
 >info
-> All parameters to this endpoint except for name are optional.
+> All parameters for this endpoint are optional excluding 'name'
 
 ###### JSON Params
 
@@ -259,7 +259,7 @@ Returns a list of [guild member](#GUILD/guild-member-object) objects that are me
 >info
 > All parameters to this endpoint are optional
 
-###### URL Params
+###### Query String Params
 
 | Field | Type | Description | Default |
 |-------|------|-------------|---------|
@@ -371,7 +371,7 @@ Delete a guild role. Requires the 'MANAGE_ROLES' permission. Returns the [role](
 
 Returns an object with one 'pruned' key indicating the number of members that would be removed in a prune operation. Requires the 'KICK_MEMBERS' permission.
 
-###### URL Params
+###### Query String Params
 
 | Field | Type | Description |
 |-------|------|-------------|
@@ -381,7 +381,7 @@ Returns an object with one 'pruned' key indicating the number of members that wo
 
 Begin a prune operation. Requires the 'KICK_MEMBERS' permission. Returns an object with one 'pruned' key indicating the number of members that were removed in the prune operation. Fires multiple [Guild Member Remove](#DOCS_GATEWAY/guild-member-remove) Gateway events.
 
-###### URL Params
+###### Query String Params
 
 | Field | Type | Description |
 |-------|------|-------------|
