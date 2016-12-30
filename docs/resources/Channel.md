@@ -293,7 +293,7 @@ Returns the messages for a channel. If operating on a guild channel, this endpoi
 >info
 > The before, after, and around keys are mutually exclusive, only one may be passed at a time.
 
-###### JSON Params
+###### Query String Params
 
 | Field | Type | Description | Required | Default |
 |-------|------|-------------|----------|---------|
