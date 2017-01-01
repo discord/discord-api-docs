@@ -301,6 +301,13 @@ Modify attributes of a [guild member](#DOCS_GUILD/guild-member-object). Returns 
 | deaf | bool | if the user is deafened | DEAFEN_MEMBERS |
 | channel_id | snowflake | id of channel to move user to (if they are connected to voice) | MOVE_MEMBERS |
 
+## Add Guild Member Role % PUT /guilds/{guild.id#DOCS_GUILD/guild-object}/members/{user.id#DOCS_USER/user-object}/roles/{role.id#DOCS_PERMISSIONS/role-object}
+
+Adds a role to a [guild member](#DOCS_GUILD/guild-member-object). Requires the 'MANAGE_ROLES' permission. Returns a 204 empty response on success. Fires a [Guild Member Update](#DOCS_GATEWAY/guild-member-update) Gateway event.
+
+## Remove Guild Member Role % DELETE /guilds/{guild.id#DOCS_GUILD/guild-object}/members/{user.id#DOCS_USER/user-object}/roles/{role.id#DOCS_PERMISSIONS/role-object}
+
+Removes a role from a [guild member](#DOCS_GUILD/guild-member-object). Requires the 'MANAGE_ROLES' permission. Returns a 204 empty response on success. Fires a [Guild Member Update](#DOCS_GATEWAY/guild-member-update) Gateway event.
 
 ## Remove Guild Member % DELETE /guilds/{guild.id#DOCS_GUILD/guild-object}/members/{user.id#DOCS_USER/user-object}
 
