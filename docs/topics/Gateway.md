@@ -295,6 +295,7 @@ If the gateway ever issues a disconnect to your client it will provide a close e
 | 4008 | rate limited | Woah nelly! You're sending payloads to us too quickly. Slow it down! |
 | 4009 | session timeout | Your session timed out. Reconnect and start a new one. |
 | 4010 | invalid shard | You sent us an invalid [shard when identifying](#DOCS_GATEWAY/sharding). |
+| 4011 | sharding required | The session would have handled too many guilds - you are required to [shard](#DOCS_GATEWAY/sharding) your connection in order to connect. | 
 
 ### ETF/JSON
 
