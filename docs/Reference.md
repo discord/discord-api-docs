@@ -70,7 +70,7 @@ User-Agent: DiscordBot ($url, $versionNumber)
 The HTTP API implements a process for limiting and preventing excessive requests in accordance with [RFC 6585](https://tools.ietf.org/html/rfc6585#section-4). API users that regularly hit and ignore rate limits will have their API keys revoked, and be blocked from the platform. For more information on rate limiting of requests, please see the [Rate Limits](#DOCS_RATE_LIMITS/rate-limits) section.
 
 >warn
-> New bot accounts must connect to the API via the gateway at least once before sending messages through the HTTP REST API. Once the bot makes a successful connection, it can then be used through the HTTP REST API without issue, and does not need to remain connected to the gateway for use. This requirement is not needed if you don't intend to send messages.
+> New bot accounts must be authorized through the Gateway API once before being used to send messages through the HTTP API.
 
 ## Gateway (WebSocket) API
 
