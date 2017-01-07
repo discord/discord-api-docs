@@ -90,7 +90,7 @@ Returns the [user](#DOCS_USER/user-object) object of the requester's account. Fo
 Returns a [user](#DOCS_USER/user-object) for a given user ID.
 
 >warn
-> Only user accounts can use the Get User endpoint.
+> Only bot accounts can use the Get User endpoint.
 
 ## Modify Current User % PATCH /users/{@me#DOCS_USER/user-object}
 
