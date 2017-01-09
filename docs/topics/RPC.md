@@ -67,7 +67,7 @@ Proxied API requests are not applicable to the rest of the RPC Server docs, so c
 
 ## Restrictions
 
-For connections to the RPC server, a [whitelist](#authorize) is used to restrict access while you're still developing. You can invite up to 50 people to your whitelist.
+For connections to the RPC server, a [whitelist](#DOCS_RPC/authorize) is used to restrict access while you're still developing. You can invite up to 50 people to your whitelist.
 
 For applications/games not approved, we limit you to 10 guilds and 10 channels your app can create. This limit is raised to virtually unlimited after approval.
 
@@ -99,40 +99,43 @@ The port range for Discord's local RPC server is [6463, 6472]. Since the RPC ser
 
 | Name | Description |
 |--------|-----------------|
-| [DISPATCH](#events) | event dispatch |
-| [AUTHORIZE](#authorize) | used to authorize a new client with your app |
-| [AUTHENTICATE](#authenticate) | used to authenticate an existing client with your app |
-| [GET_GUILD](#get_guild) | used to retrieve guild information from the client |
-| [GET_GUILDS](#get_guilds) | used to retrieve a list of guilds from the client |
-| [GET_CHANNEL](#get_channel) | used to retrieve channel information from the client |
-| [GET_CHANNELS](#get_channels) | used to retrieve a list of channels for a guild from the client |
-| [SUBSCRIBE](#subscribe) | used to subscribe to an RPC event |
-| [UNSUBSCRIBE](#unsubscribe) | used to unsubscribe from an RPC event |
-| [SET_USER_VOICE_SETTINGS](#set_user_voice_settings) | used to change voice settings of users in voice channels |
-| [SELECT_VOICE_CHANNEL](#select_voice_channel) | used to join or leave a voice channel, group dm, or dm |
-| [SELECT_TEXT_CHANNEL](#select_text_channel) | used to join or leave a text channel, group dm, or dm |
-| [GET_VOICE_SETTINGS](#get_voice_settings) | used to retrieve the client's voice settings |
-| [SET_VOICE_SETTINGS](#set_voice_settings) | used to set the client's voice settings |
+| [DISPATCH](#DOCS_RPC/events) | event dispatch |
+| [AUTHORIZE](#DOCS_RPC/authorize) | used to authorize a new client with your app |
+| [AUTHENTICATE](#DOCS_RPC/authenticate) | used to authenticate an existing client with your app |
+| [GET_GUILD](#DOCS_RPC/get_guild) | used to retrieve guild information from the client |
+| [GET_GUILDS](#DOCS_RPC/get_guilds) | used to retrieve a list of guilds from the client |
+| [GET_CHANNEL](#DOCS_RPC/get_channel) | used to retrieve channel information from the client |
+| [GET_CHANNELS](#DOCS_RPC/get_channels) | used to retrieve a list of channels for a guild from the client |
+| [SUBSCRIBE](#DOCS_RPC/subscribe) | used to subscribe to an RPC event |
+| [UNSUBSCRIBE](#DOCS_RPC/unsubscribe) | used to unsubscribe from an RPC event |
+| [SET_USER_VOICE_SETTINGS](#DOCS_RPC/set_user_voice_settings) | used to change voice settings of users in voice channels |
+| [SELECT_VOICE_CHANNEL](#DOCS_RPC/select_voice_channel) | used to join or leave a voice channel, group dm, or dm |
+| [GET_SELECTED_VOICE_CHANNEL](#DOCS_RPC/get_selected_voice_channel) | used to get the current voice channel the client is in |
+| [SELECT_TEXT_CHANNEL](#DOCS_RPC/select_text_channel) | used to join or leave a text channel, group dm, or dm |
+| [GET_VOICE_SETTINGS](#DOCS_RPC/get_voice_settings) | used to retrieve the client's voice settings |
+| [SET_VOICE_SETTINGS](#DOCS_RPC/set_voice_settings) | used to set the client's voice settings |
 
 ###### RPC Events
 
 | Name | Description |
 |--------|-----------------|
-| [READY](#ready) | non-subscription event sent immediately after connecting, contains server information |
-| [ERROR](#error) | non-subscription event sent when there is an error, including command responses |
-| [GUILD_STATUS](#guild_status) | sent when a subscribed server's state changes |
-| [GUILD_CREATE](#guild_create) | sent when a guild is created/joined on the client |
-| [CHANNEL_CREATE](#channel_create) | sent when a channel is created/joined on the client |
-| [VOICE_STATE_CREATE](#voice_state_createvoice_state_updatevoice_state_delete) | sent when a user joins a subscribed voice channel |
-| [VOICE_STATE_UPDATE](#voice_state_createvoice_state_updatevoice_state_delete) | sent when a user's voice state changes in a subscribed voice channel (mute, volume, etc.) |
-| [VOICE_STATE_DELETE](#voice_state_createvoice_state_updatevoice_state_delete) | sent when a user parts a subscribed voice channel |
-| [VOICE_SETTINGS_UPDATE](#voice_settings_update) | sent when the client's voice settings update |
-| [VOICE_CONNECTION_STATUS](#voice_connection_status) | sent when the client's voice connection status changes |
-| [SPEAKING_START](#speaking_startspeaking_stop) | sent when a user in a subscribed voice channel speaks |
-| [SPEAKING_STOP](#speaking_startspeaking_stop) | sent when a user in a subscribed voice channel stops speaking |
-| [MESSAGE_CREATE](#message_createmessage_updatemessage_delete) | sent when a message is created in a subscribed text channel |
-| [MESSAGE_UPDATE](#message_createmessage_updatemessage_delete) | sent when a message is updated in a subscribed text channel |
-| [MESSAGE_DELETE](#message_createmessage_updatemessage_delete) | sent when a message is deleted in a subscribed text channel |
+| [READY](#DOCS_RPC/ready) | non-subscription event sent immediately after connecting, contains server information |
+| [ERROR](#DOCS_RPC/error) | non-subscription event sent when there is an error, including command responses |
+| [GUILD_STATUS](#DOCS_RPC/guild_status) | sent when a subscribed server's state changes |
+| [GUILD_CREATE](#DOCS_RPC/guild_create) | sent when a guild is created/joined on the client |
+| [CHANNEL_CREATE](#DOCS_RPC/channel_create) | sent when a channel is created/joined on the client |
+| [VOICE_CHANNEL_SELECT](#DOCS_RPC/voice_channel_select) | sent when the client joins a voice channel |
+| [VOICE_STATE_CREATE](#DOCS_RPC/voice_state_createvoice_state_updatevoice_state_delete) | sent when a user joins a subscribed voice channel |
+| [VOICE_STATE_UPDATE](#DOCS_RPC/voice_state_createvoice_state_updatevoice_state_delete) | sent when a user's voice state changes in a subscribed voice channel (mute, volume, etc.) |
+| [VOICE_STATE_DELETE](#DOCS_RPC/voice_state_createvoice_state_updatevoice_state_delete) | sent when a user parts a subscribed voice channel |
+| [VOICE_SETTINGS_UPDATE](#DOCS_RPC/voice_settings_update) | sent when the client's voice settings update |
+| [VOICE_CONNECTION_STATUS](#DOCS_RPC/voice_connection_status) | sent when the client's voice connection status changes |
+| [SPEAKING_START](#DOCS_RPC/speaking_startspeaking_stop) | sent when a user in a subscribed voice channel speaks |
+| [SPEAKING_STOP](#DOCS_RPC/speaking_startspeaking_stop) | sent when a user in a subscribed voice channel stops speaking |
+| [MESSAGE_CREATE](#DOCS_RPC/message_createmessage_updatemessage_delete) | sent when a message is created in a subscribed text channel |
+| [MESSAGE_UPDATE](#DOCS_RPC/message_createmessage_updatemessage_delete) | sent when a message is updated in a subscribed text channel |
+| [MESSAGE_DELETE](#DOCS_RPC/message_createmessage_updatemessage_delete) | sent when a message is deleted in a subscribed text channel |
+| [NOTIFICATION_CREATE](#DOCS_RPC/notification_create) | sent when the client receives a notification (mention or new message in eligible channels) |
 
 ###### RPC Errors
 
@@ -171,11 +174,11 @@ In order to call any commands over RPC, you must be authenticated or you will re
 
 We have implemented the OAuth2 flow over RPC. To authenticate, you will need to get an access token.
 
-You would first call the [AUTHORIZE](#authorize) command, and then the user would be prompted to authorize your app to access RPC on Discord.
+You would first call the [AUTHORIZE](#DOCS_RPC/authorize) command, and then the user would be prompted to authorize your app to access RPC on Discord.
 
 The AUTHORIZE command returns a `code` that you can exchange with a POST to `https://discordapp.com/api/oauth2/token` containing the [standard OAuth2 body parameters](https://tools.ietf.org/html/rfc6749#section-4.1.3) for the token exchange.
 
-The token endpoint on our API will return an `access_token` that can be sent with the [AUTHENTICATE](#authenticate) command over RPC.
+The token endpoint on our API will return an `access_token` that can be sent with the [AUTHENTICATE](#DOCS_RPC/authenticate) command over RPC.
 
 After authentication you are then able to call commands over RPC.
 
@@ -586,7 +589,7 @@ Used to join and leave voice channels, group dms, or dms
 
 ###### Select Voice Channel Response Structure
 
-Returns the Get Channel response
+Returns the Get Channel response, `null` if none.
 
 ###### Select Voice Channel Example Command Payload
 
@@ -641,6 +644,68 @@ Returns the Get Channel response
 }
 ```
 
+### GET_SELECTED_VOICE_CHANNEL
+
+Used to get the client's current voice channel
+
+###### Get Selected Voice Channel Argument Structure
+
+There are no arguments for this command
+
+###### Get Selected Voice Channel Response Structure
+
+Returns the Get Channel response, `null` if none.
+
+###### Get Selected Voice Channel Example Command Payload
+
+```json
+{
+    "nonce": "fe3508b2-5819-42f2-be56-d77b507acb60",
+    "cmd": "GET_SELECTED_VOICE_CHANNEL"
+}
+```
+
+###### Get Selected Voice Channel Example Response Payload
+
+```json
+{
+    "cmd": "GET_SELECTED_VOICE_CHANNEL",
+    "data": {
+        "id": "199737254929760257",
+        "name": "General",
+        "type": 2,
+        "bitrate": 64000,
+        "user_limit": 0,
+        "guild_id": "199737254929760256",
+        "position": 0,
+        "voice_states": [{
+            "voice_state": {
+                "mute": false,
+                "deaf": false,
+                "self_mute": false,
+                "self_deaf": false,
+                "suppress": false
+            },
+            "user": {
+                "id": "190320984123768832",
+                "username": "test 2",
+                "discriminator": "7479",
+                "avatar": "b004ec1740a63ca06ae2e14c5cee11f3",
+                "bot": false
+            },
+            "nick": "test user 2",
+            "mute": false,
+            "volume": 110,
+            "pan": {
+                "left": 1.0,
+                "right": 1.0
+            }
+        }]
+    },
+    "nonce": "fe3508b2-5819-42f2-be56-d77b507acb60"
+}
+```
+
 ### SELECT_TEXT_CHANNEL
 
 Used to join and leave text channels, group dms, or dms
@@ -654,7 +719,7 @@ Used to join and leave text channels, group dms, or dms
 
 ###### Select Text Channel Response Structure
 
-Returns the Get Channel response
+Returns the Get Channel response, `null` if none.
 
 ###### Select Text Channel Example Command Payload
 
@@ -1143,6 +1208,32 @@ No arguments
 }
 ```
 
+### VOICE_CHANNEL_SELECT
+
+###### Voice Channel Select Argument Structure
+
+No arguments
+
+###### Voice Channel Select Dispatch Data Structure
+
+| Field | Type | Description |
+|-------|------|-------------|
+| channel_id | String | id of channel (`null` if none) |
+| guild_id | String | id of guild (`null` if none) |
+
+###### Voice Channel Select Example Dispatch Payload
+
+```json
+{
+    "cmd": "DISPATCH",
+    "data": {
+        "channel_id": "199737254929760257",
+        "guild_id": "199737254929760256"
+    },
+    "evt": "VOICE_CHANNEL_SELECT"
+}
+```
+
 ### VOICE_SETTINGS_UPDATE
 
 ###### Voice Settings Argument Structure
@@ -1377,5 +1468,63 @@ Dispatches message objects, with the exception of deletions, which only contains
         "user_id": "190320984123768832"
     },
     "evt": "SPEAKING_STOP"
+}
+```
+
+### NOTIFICATION_CREATE
+
+###### Notification Create Argument Structure
+
+No arguments
+
+###### Notification Create Dispatch Data Structure
+
+| Field | Type | Description |
+|-------|------|-------------|
+| channel_id | String | id of channel where notification occurred |
+| message | Message | message object that generated this notification |
+| icon | String | icon url of the notification |
+| title | String | title of the notification |
+| body | String | body of the notification |
+
+###### Notification Create Example Dispatch Payload
+
+```json
+{
+    "cmd": "DISPATCH",
+    "data": {
+        "channel_id": "199737254929760256",
+        "message": {
+            "id": "199743874640379904",
+            "blocked": false,
+            "content": "test",
+            "content_parsed": [{
+                "content": "test",
+                "type": "text"
+            }],
+            "author_color": "#ffffff",
+            "edited_timestamp": null,
+            "timestamp": "2016-07-05T04:30:50.776Z",
+            "tts": false,
+            "mentions": [],
+            "mention_roles": [],
+            "mention_everyone": false,
+            "embeds": [],
+            "attachments": [],
+            "type": 0,
+            "pinned": false,
+            "author": {
+                "id": "190320984123768832",
+                "username": "test user 2",
+                "discriminator": "7479",
+                "avatar": "b004ec1740a63ca06ae2e14c5cee11f3",
+                "bot": false
+            }
+        },
+        "icon": "https://cdn.discordapp.com/avatars/155607406007681024/8ab559b8286e48270c04471ae382cd9d.jpg",
+        "title": "test_user (#general)",
+        "body": "test message"
+    },
+    "evt": "NOTIFICATION_CREATE"
 }
 ```
