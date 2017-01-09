@@ -1483,7 +1483,7 @@ No arguments
 |-------|------|-------------|
 | channel_id | String | id of channel where notification occurred |
 | message | Message | message object that generated this notification |
-| icon | String | icon url of the notification |
+| icon_url | String | icon url of the notification |
 | title | String | title of the notification |
 | body | String | body of the notification |
 
@@ -1521,7 +1521,7 @@ No arguments
                 "bot": false
             }
         },
-        "icon": "https://cdn.discordapp.com/avatars/155607406007681024/8ab559b8286e48270c04471ae382cd9d.jpg",
+        "icon_url": "https://cdn.discordapp.com/avatars/155607406007681024/8ab559b8286e48270c04471ae382cd9d.jpg",
         "title": "test_user (#general)",
         "body": "test message"
     },
