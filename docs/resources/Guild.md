@@ -372,7 +372,7 @@ Modify a guild role. Requires the 'MANAGE_ROLES' permission. Returns the updated
 
 ## Delete Guild Role % DELETE /guilds/{guild.id#DOCS_GUILD/guild-object}/roles/{role.id#DOCS_PERMISSIONS/role-object}
 
-Delete a guild role. Requires the 'MANAGE_ROLES' permission. Returns the [role](#PERMISSION/role-object) on success. Fires a [Guild Role Delete](#DOCS_GATEWAY/guild-role-delete) Gateway event.
+Delete a guild role. Requires the 'MANAGE_ROLES' permission. Returns a 204 empty response on success. Fires a [Guild Role Delete](#DOCS_GATEWAY/guild-role-delete) Gateway event.
 
 ## Get Guild Prune Count % GET /guilds/{guild.id#DOCS_GUILD/guild-object}/prune
 
