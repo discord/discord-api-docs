@@ -337,10 +337,17 @@ Returns a list of [role](#DOCS_PERMISSIONS/role-object) objects for the guild. R
 
 ## Create Guild Role % POST /guilds/{guild.id#DOCS_GUILD/guild-object}/roles
 
-Create a new empty [role](#DOCS_PERMISSIONS/role-object) object for the guild. Requires the 'MANAGE_ROLES' permission. Returns the new [role](#DOCS_PERMISSIONS/role-object) object on success. Fires a [Guild Role Create](#DOCS_GATEWAY/guild-role-create) Gateway event.
+Create a new [role](#DOCS_PERMISSIONS/role-object) for the guild. Requires the 'MANAGE_ROLES' permission. Returns the new [role](#DOCS_PERMISSIONS/role-object) object on success. Fires a [Guild Role Create](#DOCS_GATEWAY/guild-role-create) Gateway event. All JSON params are optional.
 
->warn
-> This endpoint only creates a blank role, it does not allow you to set attributes for the role on creation. Instead, you must create the role and then modify it with a PATCH request.
+###### JSON Params
+
+| Field | Type | Description | Default |
+|-------|------|-------------|---------|
+| name | string | name of the role | "new role" |
+| permissions | integer | bitwise of the enabled/disabled permissions | @everyone permissions in guild |
+| color | integer | RGB color value | 0 |
+| hoist | bool | whether the role should be displayed separately in the sidebar | false |
+| mentionable | bool | whether the role should be mentionable | false |
 
 ## Modify Guild Role Positions % PATCH /guilds/{guild.id#DOCS_GUILD/guild-object}/roles
 
@@ -365,7 +372,6 @@ Modify a guild role. Requires the 'MANAGE_ROLES' permission. Returns the updated
 |-------|------|-------------|
 | name | string | name of the role |
 | permissions | integer | bitwise of the enabled/disabled permissions |
-| position | integer | sorting position of the role |
 | color | integer | RGB color value |
 | hoist | bool | whether the role should be displayed separately in the sidebar |
 | mentionable | bool | whether the role should be mentionable |
