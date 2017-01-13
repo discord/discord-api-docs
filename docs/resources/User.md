@@ -104,6 +104,17 @@ Modify the requestors user account settings. Returns a [user](#DOCS_USER/user-ob
 
 Returns a list of [user guild](#DOCS_USER/user-guild-object) objects the current user is a member of. Requires the `guilds` OAuth2 scope.
 
+>info
+> This endpoint returns 100 guilds by default, which is the maximum number of guilds a non-bot user can join. Therefore, pagination is **not needed** for integrations that need to get a list of users' guilds.
+
+###### Query String Params
+
+| Field | Type | Description | Required | Default |
+|-------|------|-------------|----------|---------|
+| before | snowflake | get guilds before this guild ID | false | absent |
+| after | snowflake | get guilds after this guild ID | false | absent |
+| limit | integer | max number of guilds to return (1-100) | false | 100 |
+
 ## Leave Guild % DELETE /users/{@me#DOCS_USER/user-object}/guilds/{guild.id#DOCS_GUILD/guild-object}
 
 Leave a guild. Returns a 204 empty response on success.
