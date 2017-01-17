@@ -361,8 +361,6 @@ The ready event is dispatched when a client has completed the initial handshake 
 | private_channels | array | array of [DM channel](#DOCS_CHANNEL/dm-channel-object) objects |
 | guilds | array | array of [Unavailable Guild](#DOCS_GUILD/unavailable-guild-object) objects |
 | session_id | string | used for resuming connections |
-| presences | array | list of friends' presences (not applicable to bots) |
-| relationships | array | list of friends (not applicable to bots) |
 | _trace | array of strings | used for debugging, array of servers connected to |
 
 ### Resumed
