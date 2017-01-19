@@ -301,6 +301,16 @@ Modify attributes of a [guild member](#DOCS_GUILD/guild-member-object). Returns 
 | deaf | bool | if the user is deafened | DEAFEN_MEMBERS |
 | channel_id | snowflake | id of channel to move user to (if they are connected to voice) | MOVE_MEMBERS |
 
+## Modify Current User's Nick % PATCH /guilds/{guild.id#DOCS_GUILD/guild-object}/members/@me/nick
+
+Modifies the nickname of the current user in a guild. Returns a 200 with the nickname on success. Fires a [Guild Member Update](#DOCS_GATEWAY/guild-member-update) Gateway event.
+
+###### JSON Params
+
+| Field | Type | Description | Permission |
+|-------|------|-------------|------------|
+| nick | string | value to set users nickname too | CHANGE_NICKNAME |
+
 ## Add Guild Member Role % PUT /guilds/{guild.id#DOCS_GUILD/guild-object}/members/{user.id#DOCS_USER/user-object}/roles/{role.id#DOCS_PERMISSIONS/role-object}
 
 Adds a role to a [guild member](#DOCS_GUILD/guild-member-object). Requires the 'MANAGE_ROLES' permission. Returns a 204 empty response on success. Fires a [Guild Member Update](#DOCS_GATEWAY/guild-member-update) Gateway event.
