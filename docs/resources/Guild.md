@@ -278,7 +278,7 @@ Adds a user to the guild, provided you have a valid oauth2 access token for the 
 | Field | Type | Description | Permission |
 |-------|------|-------------|------------|
 | access_token | string | an oauth2 access token granted with the `guilds.join` to the bot's application for the user you want to add to the guild | |
-| nick | string | value to set users nickname too | MANAGE_NICKNAMES |
+| nick | string | value to set users nickname to | MANAGE_NICKNAMES |
 | roles | array | array of roles the member is assigned | MANAGE_ROLES |
 | mute | bool | if the user is muted | MUTE_MEMBERS |
 | deaf | bool | if the user is deafened | DEAFEN_MEMBERS |
@@ -295,7 +295,7 @@ Modify attributes of a [guild member](#DOCS_GUILD/guild-member-object). Returns 
 
 | Field | Type | Description | Permission |
 |-------|------|-------------|------------|
-| nick | string | value to set users nickname too | MANAGE_NICKNAMES |
+| nick | string | value to set users nickname to | MANAGE_NICKNAMES |
 | roles | array | array of roles the member is assigned | MANAGE_ROLES |
 | mute | bool | if the user is muted | MUTE_MEMBERS |
 | deaf | bool | if the user is deafened | DEAFEN_MEMBERS |
@@ -309,7 +309,7 @@ Modifies the nickname of the current user in a guild. Returns a 200 with the nic
 
 | Field | Type | Description | Permission |
 |-------|------|-------------|------------|
-| nick | string | value to set users nickname too | CHANGE_NICKNAME |
+| nick | string | value to set users nickname to | CHANGE_NICKNAME |
 
 ## Add Guild Member Role % PUT /guilds/{guild.id#DOCS_GUILD/guild-object}/members/{user.id#DOCS_USER/user-object}/roles/{role.id#DOCS_PERMISSIONS/role-object}
 
