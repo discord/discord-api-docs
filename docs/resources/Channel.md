@@ -388,7 +388,7 @@ Delete multiple messages in a single request. This endpoint can only be used on 
 The gateway will ignore any individual messages that do not exist or do not belong to this channel, but these will count towards the minimum and maximum message count. Duplicate snowflakes will only be counted once for these limits.
 
 > warn
-> This endpoint will not delete messages older than 2 weeks.
+> This endpoint will not delete messages older than 2 weeks, and will fail if any message provided is older than that.
 > An endpoint will be added in the future to prune messages older than 2 weeks from a channel.
 
 ###### JSON Params
