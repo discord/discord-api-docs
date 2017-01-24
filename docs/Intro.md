@@ -27,7 +27,7 @@ On April 1st we launched [Airhorn Solutions](https://airhorn.solutions) to bring
 Now that the noise has subsided, we’ve [open-sourced the source code for Airhorn Solutions](https://github.com/hammerandchisel/airhornbot). It’s the first fully-functional bot built with our initial API launch. If you’re looking for a working example of our API, we highly suggest digging in.
 
 
-## Games (aka Games)
+## GameBridge (aka Games)
 
 GameBridge is a free SDK that lets power your desktop game's social features with Discord. Check out some of the
 tasty flavors GameBridge offers:
