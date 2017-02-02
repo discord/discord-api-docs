@@ -1095,8 +1095,8 @@ Used to capture a keyboard shortcut entered by the user
 
 ###### Capture Shortcut Argument Structure
 
-This command is asynchronously returned. You being capturing by sending the `START` action, 
-and then when the user finishes capturing sending the `STOP` action. The `START` call will return 
+This command is asynchronously returned. You capture a shortcut by sending the `START` action, 
+and then when the user finishes capturing by sending the `STOP` action. The `START` call will return 
 the captured shortcut in its `data` object, while the `STOP` call will have no `data`.
 
 | Field | Type | Description |
