@@ -47,6 +47,7 @@ Scopes provide access to certain resources of a user's account. Your API client 
 | messages.read | for local rpc server api access, this allows you to read messages from all client channels (otherwise restricted to channels/guilds your app creates) |
 | rpc | for local rpc server access, this allows you to control a user's local Discord client |
 | rpc.api | for local rpc server api access, this allows you to access the API as the local user |
+| rpc.notifications.read | for local rpc server api access, this allows you to receive notifications pushed out to the user |
 | webhook.incoming | this generates a webhook that is returned in the oauth token response for authorization code grants |
 
 ## Bots

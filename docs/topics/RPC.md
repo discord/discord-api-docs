@@ -114,6 +114,7 @@ The port range for Discord's local RPC server is [6463, 6472]. Since the RPC ser
 | [SELECT_TEXT_CHANNEL](#DOCS_RPC/select_text_channel) | used to join or leave a text channel, group dm, or dm |
 | [GET_VOICE_SETTINGS](#DOCS_RPC/get_voice_settings) | used to retrieve the client's voice settings |
 | [SET_VOICE_SETTINGS](#DOCS_RPC/set_voice_settings) | used to set the client's voice settings |
+| [CAPTURE_SHORTCUT](#DOCS_RPC/capture_shortcut) | used to capture a keyboard shortcut entered by the user |
 
 ###### RPC Events
 
@@ -156,6 +157,7 @@ The port range for Discord's local RPC server is [6463, 6472]. Since the RPC ser
 | 5001 | Select Channel Timed Out | sent when an asyncronous SELECT_TEXT_CHANNEL/SELECT_VOICE_CHANNEL command times out |
 | 5002 | Get Guild Timed Out | sent when an asyncronous GET_GUILD command times out |
 | 5003 | Select Voice Force Required | sent when you try to join a user to a voice channel but the user is already in one |
+| 5004 | Capture Shortcut Already Listening | sent when you try to capture a shortcut key when already capturing one |
 
 ###### RPC Close Codes
 
@@ -522,6 +524,14 @@ Used to change voice settings of users in voice channels
 
 ###### Set User Voice Settings Argument and Response Structure
 
+>info
+> In the current release, we only support a single modifier of voice settings at a time over RPC. 
+> If an app changes voice settings, it will lock voice settings so that other apps connected simultaneously 
+> lose the ability to change voice settings. Settings reset to what they were before being changed after the 
+> controlling app disconnects. When an app that has previously set voice settings connects, the client will swap 
+> to that app's configured voice settings and lock voice settings again. This is a temporary situation that will 
+> be changed in the future.
+
 | Field | Type | Description |
 |-------|------|-------------|
 | user_id | String | user id |
@@ -819,7 +829,7 @@ Returns the Get Channel response, `null` if none.
 | type | Enum | voice setting mode type (can be `PUSH_TO_TALK` or `VOICE_ACTIVITY` |
 | auto_threshold | Boolean | voice activity threshold automatically sets its threshold |
 | threshold | Float | threshold for voice activity (in dB) (min: -100, max: 0) |
-| shortcut | ShortcutKeyCombo | *read-only* shortcut key combo array for PTT |
+| shortcut | ShortcutKeyCombo | shortcut key combo array for PTT |
 | delay | Float | the PTT release delay (in ms) (min: 0, max: 2000) |
 
 ###### ShortcutKeyCombo Structure
@@ -879,9 +889,17 @@ Returns the Get Channel response, `null` if none.
 
 ### SET_VOICE_SETTINGS
 
-###### Set Local Pan Argument and Response Structure
+###### Set Voice Settings Argument and Response Structure
 
 When setting voice settings, all fields are optional. Only passed fields are updated.
+
+>info
+> In the current release, we only support a single modifier of voice settings at a time over RPC. 
+> If an app changes voice settings, it will lock voice settings so that other apps connected simultaneously 
+> lose the ability to change voice settings. Settings reset to what they were before being changed after the 
+> controlling app disconnects. When an app that has previously set voice settings connects, the client will swap 
+> to that app's configured voice settings and lock voice settings again. This is a temporary situation that will 
+> be changed in the future.
 
 | Field | Type | Description |
 |-------|------|-------------|
@@ -919,7 +937,7 @@ When setting voice settings, all fields are optional. Only passed fields are upd
 | type | Enum | voice setting mode type (can be `PUSH_TO_TALK` or `VOICE_ACTIVITY` |
 | auto_threshold | Boolean | voice activity threshold automatically sets its threshold |
 | threshold | Float | threshold for voice activity (in dB) (min: -100, max: 0) |
-| shortcut | ShortcutKeyCombo | *read-only* shortcut key combo array for PTT |
+| shortcut | ShortcutKeyCombo | shortcut key combo array for PTT |
 | delay | Float | the PTT release delay (in ms) (min: 0, max: 2000) |
 
 ###### ShortcutKeyCombo Structure
@@ -1068,6 +1086,52 @@ Used to unsubscribe from events
         "evt": "GUILD_STATUS"
     },
     "nonce": "647d814a-4cf8-4fbb-948f-898aad24f55b"
+}
+```
+
+### CAPTURE_SHORTCUT
+
+Used to capture a keyboard shortcut entered by the user
+
+###### Capture Shortcut Argument Structure
+
+This command is asyncronously returned. You being capturing by sending the `START` action, 
+and then when the user finishes capturing sending the `STOP` action. The `START` call will return 
+the captured shortcut in its `data` object, while the `STOP` call will have no `data`.
+
+| Field | Type | Description |
+|-------|------|-------------|
+| action | string | capture action; `START` or `STOP` |
+
+###### Capture Shortcut Response Structure
+
+Returns the shortcut captured, and `null` for the `STOP` action.
+
+| Field | Type | Description |
+|-------|------|-------------|
+| shortcut | [ShortcutKeyCombo](#DOCS_RPC/shortcutkeycombo-structure) | the captured shortcut key combo array |
+
+###### Capture Shortcut Example Command Payload
+
+```json
+{
+    "nonce": "9b4e9711-97f3-4f35-b047-32c82a51978e",
+    "args": {
+        "action": "START"
+    },
+    "cmd": "CAPTURE_SHORTCUT"
+}
+```
+
+###### Capture Shortcut Example Response Payload
+
+```json
+{
+    "cmd": "CAPTURE_SHORTCUT",
+    "data": {
+        "shortcut": [{"type":0,"code":12,"name":"i"}]
+    },
+    "nonce": "9b4e9711-97f3-4f35-b047-32c82a51978e"
 }
 ```
 
@@ -1472,6 +1536,10 @@ Dispatches message objects, with the exception of deletions, which only contains
 ```
 
 ### NOTIFICATION_CREATE
+
+###### Notification Create Required OAuth2 Scope
+
+This event requires the `rpc.notifications.read` OAuth2 scope.
 
 ###### Notification Create Argument Structure
 
