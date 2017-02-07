@@ -102,19 +102,19 @@ The port range for Discord's local RPC server is [6463, 6472]. Since the RPC ser
 | [DISPATCH](#DOCS_RPC/events) | event dispatch |
 | [AUTHORIZE](#DOCS_RPC/authorize) | used to authorize a new client with your app |
 | [AUTHENTICATE](#DOCS_RPC/authenticate) | used to authenticate an existing client with your app |
-| [GET_GUILD](#DOCS_RPC/get_guild) | used to retrieve guild information from the client |
-| [GET_GUILDS](#DOCS_RPC/get_guilds) | used to retrieve a list of guilds from the client |
-| [GET_CHANNEL](#DOCS_RPC/get_channel) | used to retrieve channel information from the client |
-| [GET_CHANNELS](#DOCS_RPC/get_channels) | used to retrieve a list of channels for a guild from the client |
+| [GET_GUILD](#DOCS_RPC/getguild) | used to retrieve guild information from the client |
+| [GET_GUILDS](#DOCS_RPC/getguilds) | used to retrieve a list of guilds from the client |
+| [GET_CHANNEL](#DOCS_RPC/getchannel) | used to retrieve channel information from the client |
+| [GET_CHANNELS](#DOCS_RPC/getchannels) | used to retrieve a list of channels for a guild from the client |
 | [SUBSCRIBE](#DOCS_RPC/subscribe) | used to subscribe to an RPC event |
 | [UNSUBSCRIBE](#DOCS_RPC/unsubscribe) | used to unsubscribe from an RPC event |
-| [SET_USER_VOICE_SETTINGS](#DOCS_RPC/set_user_voice_settings) | used to change voice settings of users in voice channels |
-| [SELECT_VOICE_CHANNEL](#DOCS_RPC/select_voice_channel) | used to join or leave a voice channel, group dm, or dm |
-| [GET_SELECTED_VOICE_CHANNEL](#DOCS_RPC/get_selected_voice_channel) | used to get the current voice channel the client is in |
-| [SELECT_TEXT_CHANNEL](#DOCS_RPC/select_text_channel) | used to join or leave a text channel, group dm, or dm |
-| [GET_VOICE_SETTINGS](#DOCS_RPC/get_voice_settings) | used to retrieve the client's voice settings |
-| [SET_VOICE_SETTINGS](#DOCS_RPC/set_voice_settings) | used to set the client's voice settings |
-| [CAPTURE_SHORTCUT](#DOCS_RPC/capture_shortcut) | used to capture a keyboard shortcut entered by the user |
+| [SET_USER_VOICE_SETTINGS](#DOCS_RPC/setuservoicesettings) | used to change voice settings of users in voice channels |
+| [SELECT_VOICE_CHANNEL](#DOCS_RPC/selectvoicechannel) | used to join or leave a voice channel, group dm, or dm |
+| [GET_SELECTED_VOICE_CHANNEL](#DOCS_RPC/getselectedvoicechannel) | used to get the current voice channel the client is in |
+| [SELECT_TEXT_CHANNEL](#DOCS_RPC/selecttextchannel) | used to join or leave a text channel, group dm, or dm |
+| [GET_VOICE_SETTINGS](#DOCS_RPC/getvoicesettings) | used to retrieve the client's voice settings |
+| [SET_VOICE_SETTINGS](#DOCS_RPC/setvoicesettings) | used to set the client's voice settings |
+| [CAPTURE_SHORTCUT](#DOCS_RPC/captureshortcut) | used to capture a keyboard shortcut entered by the user |
 
 ###### RPC Events
 
@@ -122,21 +122,21 @@ The port range for Discord's local RPC server is [6463, 6472]. Since the RPC ser
 |--------|-----------------|
 | [READY](#DOCS_RPC/ready) | non-subscription event sent immediately after connecting, contains server information |
 | [ERROR](#DOCS_RPC/error) | non-subscription event sent when there is an error, including command responses |
-| [GUILD_STATUS](#DOCS_RPC/guild_status) | sent when a subscribed server's state changes |
-| [GUILD_CREATE](#DOCS_RPC/guild_create) | sent when a guild is created/joined on the client |
-| [CHANNEL_CREATE](#DOCS_RPC/channel_create) | sent when a channel is created/joined on the client |
-| [VOICE_CHANNEL_SELECT](#DOCS_RPC/voice_channel_select) | sent when the client joins a voice channel |
-| [VOICE_STATE_CREATE](#DOCS_RPC/voice_state_createvoice_state_updatevoice_state_delete) | sent when a user joins a subscribed voice channel |
-| [VOICE_STATE_UPDATE](#DOCS_RPC/voice_state_createvoice_state_updatevoice_state_delete) | sent when a user's voice state changes in a subscribed voice channel (mute, volume, etc.) |
-| [VOICE_STATE_DELETE](#DOCS_RPC/voice_state_createvoice_state_updatevoice_state_delete) | sent when a user parts a subscribed voice channel |
-| [VOICE_SETTINGS_UPDATE](#DOCS_RPC/voice_settings_update) | sent when the client's voice settings update |
-| [VOICE_CONNECTION_STATUS](#DOCS_RPC/voice_connection_status) | sent when the client's voice connection status changes |
-| [SPEAKING_START](#DOCS_RPC/speaking_startspeaking_stop) | sent when a user in a subscribed voice channel speaks |
-| [SPEAKING_STOP](#DOCS_RPC/speaking_startspeaking_stop) | sent when a user in a subscribed voice channel stops speaking |
-| [MESSAGE_CREATE](#DOCS_RPC/message_createmessage_updatemessage_delete) | sent when a message is created in a subscribed text channel |
-| [MESSAGE_UPDATE](#DOCS_RPC/message_createmessage_updatemessage_delete) | sent when a message is updated in a subscribed text channel |
-| [MESSAGE_DELETE](#DOCS_RPC/message_createmessage_updatemessage_delete) | sent when a message is deleted in a subscribed text channel |
-| [NOTIFICATION_CREATE](#DOCS_RPC/notification_create) | sent when the client receives a notification (mention or new message in eligible channels) |
+| [GUILD_STATUS](#DOCS_RPC/guildstatus) | sent when a subscribed server's state changes |
+| [GUILD_CREATE](#DOCS_RPC/guildcreate) | sent when a guild is created/joined on the client |
+| [CHANNEL_CREATE](#DOCS_RPC/channelcreate) | sent when a channel is created/joined on the client |
+| [VOICE_CHANNEL_SELECT](#DOCS_RPC/voicechannelselect) | sent when the client joins a voice channel |
+| [VOICE_STATE_CREATE](#DOCS_RPC/voicestatecreatevoicestateupdatevoicestatedelete) | sent when a user joins a subscribed voice channel |
+| [VOICE_STATE_UPDATE](#DOCS_RPC/voicestatecreatevoicestateupdatevoicestatedelete) | sent when a user's voice state changes in a subscribed voice channel (mute, volume, etc.) |
+| [VOICE_STATE_DELETE](#DOCS_RPC/voicestatecreatevoicestateupdatevoicestatedelete) | sent when a user parts a subscribed voice channel |
+| [VOICE_SETTINGS_UPDATE](#DOCS_RPC/voicesettingsupdate) | sent when the client's voice settings update |
+| [VOICE_CONNECTION_STATUS](#DOCS_RPC/voiceconnectionstatus) | sent when the client's voice connection status changes |
+| [SPEAKING_START](#DOCS_RPC/speakingstartspeakingstop) | sent when a user in a subscribed voice channel speaks |
+| [SPEAKING_STOP](#DOCS_RPC/speakingstartspeakingstop) | sent when a user in a subscribed voice channel stops speaking |
+| [MESSAGE_CREATE](#DOCS_RPC/messagecreatemessageupdatemessagedelete) | sent when a message is created in a subscribed text channel |
+| [MESSAGE_UPDATE](#DOCS_RPC/messagecreatemessageupdatemessagedelete) | sent when a message is updated in a subscribed text channel |
+| [MESSAGE_DELETE](#DOCS_RPC/messagecreatemessageupdatemessagedelete) | sent when a message is deleted in a subscribed text channel |
+| [NOTIFICATION_CREATE](#DOCS_RPC/notificationcreate) | sent when the client receives a notification (mention or new message in eligible channels) |
 
 ###### RPC Errors
 
