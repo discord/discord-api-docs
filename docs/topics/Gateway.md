@@ -563,7 +563,7 @@ A user's presence is their current state on a guild. This event is sent when a u
 |-------|------|-------------|
 | user | [user](#DOCS_USER/user-object) object | the user presence is being updated for |
 | roles | array of snowflakes | roles this user is in |
-| game | ?[game](#DOCS_GATEWAY/game-object) object | the game being played/streamed, or null |
+| game | ?[game](#DOCS_GATEWAY/game-object) object | null, or the user's current activity |
 | guild_id | snowflake | id of the guild |
 | status | string | either "idle", "online" or "offline" |
 
@@ -574,8 +574,16 @@ A user's presence is their current state on a guild. This event is sent when a u
 | Field | Type | Description | Present |
 |-------|------|-------------|---------|
 | name | string | the game's name | Always |
-| type | ?integer | 0 is default, 1 is a twitch stream, 2 is a youtube stream  | Sometimes |
-| url | ?string | stream url | When type is 1 or 2 |
+| type | ?integer | see [Game Types](#DOCS_GATEWAY/game-types)  | Sometimes |
+| url | ?string | stream url, is validated when type is 1 | When type is 1 or 2 |
+
+###### Game Types
+
+| ID | Name | Description |
+|----|------|-------------|
+| 0 | Game | "Playing {}" |
+| 1 | Twitch | "Streaming {}" |
+| 2 | YouTube | "Streaming {}" |
 
 ###### Example Game
 
