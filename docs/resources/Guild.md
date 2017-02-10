@@ -27,7 +27,7 @@ Guilds in Discord represent a collection of users and channels into an isolated 
 | joined\_at \* | datetime | date this guild was joined at |
 | large \* | bool | whether this is considered a large guild |
 | unavailable \* | bool | is this guild unavailable |
-| member\_count | integer | total number of members in this guild |
+| member\_count \* | integer | total number of members in this guild |
 | voice\_states \* | array | array of [voice state](#DOCS_VOICE/voice-state-object) objects (without the `guild_id` key) |
 | members \* | array | array of [guild member](#DOCS_GUILD/guild-member-object) objects |
 | channels \* | array | array of [channel](#DOCS_CHANNEL/guild-channel-object) objects |
