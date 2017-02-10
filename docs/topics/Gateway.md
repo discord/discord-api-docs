@@ -575,7 +575,7 @@ A user's presence is their current state on a guild. This event is sent when a u
 |-------|------|-------------|---------|
 | name | string | the game's name | Always |
 | type | ?integer | see [Game Types](#DOCS_GATEWAY/game-types)  | Sometimes |
-| url | ?string | stream url, is validated when type is 1 | When type is 1 or 2 |
+| url | ?string | stream url, is validated when type is 1  | When type is 1 |
 
 ###### Game Types
 
@@ -583,7 +583,6 @@ A user's presence is their current state on a guild. This event is sent when a u
 |----|------|-------------|
 | 0 | Game | "Playing Rocket League" |
 | 1 | Twitch | "Streaming Rocket League" |
-| 2 | YouTube | "Streaming Rocket League" |
 
 ###### Example Game
 
