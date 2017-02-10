@@ -581,15 +581,15 @@ A user's presence is their current state on a guild. This event is sent when a u
 
 | ID | Name | Description |
 |----|------|-------------|
-| 0 | Game | "Playing {}" |
-| 1 | Twitch | "Streaming {}" |
-| 2 | YouTube | "Streaming {}" |
+| 0 | Game | "Playing Rocket League" |
+| 1 | Twitch | "Streaming Rocket League" |
+| 2 | YouTube | "Streaming Rocket League" |
 
 ###### Example Game
 
 ```json
 {
-	"name": "google chrome",
+	"name": "Rocket League",
 	"type": 1,
 	"url": "https://www.twitch.tv/123"
 }
