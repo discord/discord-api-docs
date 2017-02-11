@@ -69,7 +69,7 @@ Out of Services versions are versions whose subset of changes compared to the mo
 | 8 | Request Guild Members | used to request guild members |
 | 9 | Invalid Session | used to notify client they have an invalid session id |
 | 10 | Hello | sent immediately after connecting, contains heartbeat and server debug information |
-| 11 | Heartback ACK | sent immediately following a client heartbeat that was received |
+| 11 | Heartbeat ACK | sent immediately following a client heartbeat that was received |
 
 ### Gateway Dispatch
 
