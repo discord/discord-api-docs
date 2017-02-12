@@ -579,10 +579,13 @@ A user's presence is their current state on a guild. This event is sent when a u
 
 ###### Game Types
 
-| ID | Name | Description |
-|----|------|-------------|
-| 0 | Game | "Playing Rocket League" |
-| 1 | Twitch | "Streaming Rocket League" |
+| ID | Name | Format | Example |
+|----|------|--------|---------|
+| 0 | Game | Playing {name} | "Playing Rocket League" |
+| 1 | Streaming | Streaming {name} | "Streaming Rocket League" |
+
+>info
+> The streaming type currently only supports Twitch. Only `https://twitch.tv/` urls will work.
 
 ###### Example Game
 
