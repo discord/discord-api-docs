@@ -563,9 +563,36 @@ A user's presence is their current state on a guild. This event is sent when a u
 |-------|------|-------------|
 | user | [user](#DOCS_USER/user-object) object | the user presence is being updated for |
 | roles | array of snowflakes | roles this user is in |
-| game | object | null, or an object containing one key of "name" |
+| game | ?[game](#DOCS_GATEWAY/game-object) object | null, or the user's current activity |
 | guild_id | snowflake | id of the guild |
 | status | string | either "idle", "online" or "offline" |
+
+### Game Object
+
+###### Game Structure
+
+| Field | Type | Description | Present |
+|-------|------|-------------|---------|
+| name | string | the game's name | Always |
+| type | ?integer | see [Game Types](#DOCS_GATEWAY/game-types)  | Sometimes |
+| url | ?string | stream url, is validated when type is 1  | When type is 1 |
+
+###### Game Types
+
+| ID | Name | Description |
+|----|------|-------------|
+| 0 | Game | "Playing Rocket League" |
+| 1 | Twitch | "Streaming Rocket League" |
+
+###### Example Game
+
+```json
+{
+	"name": "Rocket League",
+	"type": 1,
+	"url": "https://www.twitch.tv/123"
+}
+```
 
 ### Typing Start
 
