@@ -1,10 +1,10 @@
 # Gateways
 
-Gateways are Discord's form of real-time communication over secure websockets. Clients will receive events and data over the gateway they are connected to and send data over the REST API. For information about connecting to a gateway see the [Connecting](#DOCS_GATEWAY/connecting) section.
+Gateways are Discord's form of real-time communication over secure websockets. Clients will receive events and data over the gateway they are connected to and send data over the REST API. For information about connecting to a gateway see the [Connecting](#DOCS_GATEWAY/connecting) section. The API for interacting with Gateways is complex and fairly unforgiving, therefore its highly recommended you read _all_ of the following documentation before writing a custom implementation.
 
 ## Get Gateway % GET /gateway
 
-Returns an object with a single valid WSS URL. Clients **should** cache this value, and only call this endpoint to retrieve a new URL if they are unable to establish a Gateway connection to the cached URL.
+Returns an object with a single valid WSS URL, which the client can use as a basis for [Connecting](#DOCS_GATEWAY/connecting). Clients **should** cache this value and only call this endpoint to retrieve a new URL if they are unable to properly establish a connection using the cached version of the URL.
 
 >info
 > This endpoint does not require any authentication.
@@ -17,9 +17,9 @@ Returns an object with a single valid WSS URL. Clients **should** cache this val
 }
 ```
 
-## Get Gateway % GET /gateway/bot
+## Get Gateway Bot % GET /gateway/bot
 
-Returns an object with the same information as [Get Gateway](#DOCS_GATEWAY/get-gateway), plus a `shards` key, containing the recommended number of shards to connect with (as an integer). Bots that want to dynamically/automatically spawn shard processes should use this endpoint to determine the number of processes to run. This route should be called once, and the result cached/passed to all processes. This value is not guarenteed to be the same per-call.
+Returns an object with the same information as [Get Gateway](#DOCS_GATEWAY/get-gateway), plus a `shards` key, containing the recommended number of [shards](#DOCS_GATEWAY/sharding) to connect with (as an integer). Bots that want to dynamically/automatically spawn shard processes should use this endpoint to determine the number of processes to run. This route should be called once when starting up numerous shards, with the response being cached and passed to all sub-shards/processes. Unlike the [Get Gateway](#DOCS_GATEWAY/get-gateway), this route should not be cached for extended periods of time as the value is not guaranteed to be the same per-call, and changes as the bot joins/leaves guilds.
 
 >warn
 > This endpoint requires authentication using a valid bot token.
@@ -29,13 +29,13 @@ Returns an object with the same information as [Get Gateway](#DOCS_GATEWAY/get-g
 ```json
 {
   "url": "wss://gateway.discord.gg/",
-  "shards": 9,
+  "shards": 9
 }
 ```
 
 ## Gateway Protocol Versions
 
-Out of Services versions are versions whose subset of changes compared to the most recent version have been completely removed from the Gateway. When connecting with these versions, the gateway may reject your connection entirely.
+The Discord Gateway has a versioning system which is separate from the core APIs. The following table specifies all versions of the Gateway API that have been officially supported, and whether or not they are out of service (e.g. unsupported and potentially disfunctional). The documentation herein is only for the latest version in the following table, unless otherwise specified.
 
 | Version | Out of Service |
 |------------|----------------|
@@ -260,11 +260,19 @@ Sent when a client wants to join, move, or disconnect from a voice channel.
 }
 ```
 
+### Gateway Invalid Session
 
+Sent when a client attempts to resume, but the passed session ID is invalid or expired. See [Resuming](#DOCS_GATEWAY/resuming) for more information.
 
 ## Connecting
 
-The first step to establishing a gateway connection is to request a gateway URL through the [Get Gateway](#DOCS_GATEWAY/get-gateway) API endpoint (if the client does not already have one cached). Using the "url" field from the response you can then create a new secure websocket connection that will be used for the duration of your gateway session. Once connected, the client will immediately receive an OP 10 [Hello](#DOCS_GATEWAY/gateway-hello) payload with the connection heartbeat interval. At this point the client should start sending OP 1 [heartbeat](#DOCS_GATEWAY/gateway-heartbeat) payloads every `heartbeat_interval` milliseconds. Next, the client sends an OP 2 [Identify](#DOCS_GATEWAY/gateway-identify) or OP 6 [Resume](#DOCS_GATEWAY/gateway-resume) payload. If your token is correct, the gateway will respond with a [Ready](#DOCS_GATEWAY/ready-event) payload.
+The first step in establishing connectivity to the gateway, is requesting a valid websocket endpoint from the API. This can be done through either the [Get Gateway](#DOCS_GATEWAY/get-getway) or the [Get Gateway Bot](DOCS_GATEWAY/get-getway-bot) endpoints.
+
+With the resulting payload you can now open a websocket connection to the "url" (or endpoint) specified. Generally it is a good idea to explicitly pass the gateway version and encoding (see the url params table below) as URL parameters (e.g. from our example we may connect to `wss://gateway.discord.gg?v=5&encoding=json`).
+
+Once connected, the client should immediately receive an [OP 10 Hello](#DOCS_GATEWAY/gateway-hello) payload, with information on the connections heartbeat interval. The client should now begin sending [OP 1 Heartbeat](#DOCS_GATEWAY/gateway-heartbeat) payloads every `heartbeat_interval` milliseconds, until the connection is eventually closed or terminated. Clients can detect zombied or failed connections by listening for [OP 11 Heartbeat ACK](#DOCS_GATEWAY/gateway-heartbeat-ack). If a client does not receive a heartbeat ack between its attempts at sending heartbeats, it should immediately terminate the connection with a non 1000 close code, reconnect, and attempt to resume.
+
+Next the client is expected to send an [OP 2 Identify](#DOCS_GATEWAY/gateway-identify) _or_ [OP 6 Resume](#DOCS_GATEWAY/gateway-resume) payload. If the token passed is correct, the gateway will respond with a [Ready](#DOCS_GATEWAY/ready) event, and your client can be considered in a "connected" state. Clients are limited to 1 identify every 5 seconds, if they exceed this limit the gateway will respond with an [OP 9 Invalid Session](#DOCS_GATEWAY/gateway-invalid-session) and terminate the connection. It is important to note that although the ready event contains a large portion of the required initial state, some information (such as guilds and their members) is asynchronously sent (see [Guild Create](#DOCS_GATEWAY/guild-create) event)
 
 ###### Gateway URL Params
 
@@ -275,7 +283,9 @@ The first step to establishing a gateway connection is to request a gateway URL 
 
 ### Resuming
 
-When clients lose their connection to the gateway and are able to reconnect in a short period of time after, they can utilize a Gateway feature called "client resuming". Once reconnected to the gateway socket the client should send a [Gateway Resume](#DOCS_GATEWAY/gateway-resume) payload to the server. If successful, the gateway will respond by replaying all missed events to the client. Otherwise, the gateway will respond with an OP 9 (invalid session), in which case the client should send an OP 2 [Identify](#DOCS_GATEWAY/gateway-identify) payload to start a new session. It is recommended that all Discord clients implement resume logic. The gateway can and will disconnect your websocket connection as it pleases without any warning. Implementing this feature will allow your client to reconnect seamlessly. Resuming is only supported when the amount of guilds in a given gateway connection is under 2,500. In order to resume as your bot grows, it's recommended that you [shard](#DOCS_GATEWAY/sharding) your gateway connection to reduce the number of guilds per gateway connection.
+The internet is a scary place, and persistent connections can often experience issues which causes them to sever and disconnect. Due to Discord architecture, this is a semi-regular event and should be expected. Because a large portion of a clients state must be thrown out and recomputed when a connection is opened, Discord has a process for "resuming" (or reconnecting) a connection without throwing away the previous state. This process is very similar to starting a fresh connection, and allows the client to replay any lost events from the last sequence number they received in the exact same way they would receive them normally.
+
+To utilize resuming, your client should store the `session_id` from the [Ready](#DOCS_GATEWAY/ready), and the sequence number of the last event it received. When your client detects that the connection has been disconnected, through either the underlying socketing being closed or from a lack of [Gateway Heartbeat ACK](#DOCS_GATEWAY/gateway-heartbeat-ack)'s it should completely close the connection and open a new one (following the same strategy as [Connecting](#DOCS_GATEWAY/connecting)). Once the new connection has been opened, the client should send a [Gateway Resume](#DOCS_GATEWAY/gateway-resume). If successful, the gateway will respond by replaying all missed events in order, finishing with a [Resumed](#DOCS_GATEWAY/resumed) event to signal replay has finished, and all subsequent events are new. It's also possible that your client cannot reconnect in time to resume, in which case the client will receive a [OP 9 Invalid Session](#DOCS_GATEWAY/invalid-session) and is expected to send a fresh [OP 2 Identify](#DOCS_GATEWAY/gateway-identify).
 
 ### Disconnections
 
@@ -299,7 +309,7 @@ If the gateway ever issues a disconnect to your client it will provide a close e
 
 ### ETF/JSON
 
-When initially creating and handshaking connections to the Gateway, a user can chose whether they wish to communicate over plain-text JSON, or binary [ETF](http://erlang.org/doc/apps/erts/erl_ext_dist.html). Payloads to the gateway are limited to a maximum of 4096 bytes sent, going over this will cause a connection termination with error code 4002. Additionally, when using ETF, the client must not send compressed messages to the server.
+When initially creating and handshaking connections to the Gateway, a user can chose whether they wish to communicate over plain-text JSON, or binary [ETF](http://erlang.org/doc/apps/erts/erl_ext_dist.html). When using ETF, the client must not send compressed messages to the server.
 
 ### Rate Limiting
 
@@ -328,23 +338,19 @@ To enable sharding on a connection, the user should send the `shard` array in th
 
 As an example, if you wanted to split the connection between three shards, you'd use the following values for `shard` for each connection: `[0, 3]`, `[1, 3]`, and `[2, 3]`. Note that only the first shard (`[0, 3]`) would receive DMs.
 
-
-
 ## Payloads
 
 ### Sending Payloads
 
-Packets sent from the client to the Gateway API are encapsulated within a [gateway payload object](#DOCS_GATEWAY/gateway-dispatch) and must have the proper OP code and data object set. The payload object can then be serialized in the format of choice, and sent over the websocket.
+Packets sent from the client to the Gateway API are encapsulated within a [gateway payload object](#DOCS_GATEWAY/gateway-dispatch) and must have the proper OP code and data object set. The payload object can then be serialized in the format of choice (see [ETF/JSON](#DOCS_GATEWAY/etf-json)), and sent over the websocket. Payloads to the gateway are limited to a maximum of 4096 bytes sent, going over this will cause a connection termination with error code 4002.
 
 ### Receiving Payloads
 
-Receiving payloads with the Gateway API is slightly more complex than sending. When using the JSON encoding with compression enabled, the Gateway has the option of sending payloads as compressed JSON binaries using zlib, meaning your library _must_ detect and decompress these payloads before attempting to parse them. The gateway does not implement a shared compression context between messages sent.
+Receiving payloads with the Gateway API is slightly more complex than sending. When using the JSON encoding with compression enabled, the Gateway has the option of sending payloads as compressed JSON binaries using zlib, meaning your library _must_ detect (see [RFC1950 2.2](https://tools.ietf.org/html/rfc1950#section-2.2)) and decompress these payloads before attempting to parse them. The gateway does not implement a shared compression context between messages sent.
 
 ### Event Names
 
-Event names are in standard constant form, fully upper-cased and replacing all spaces with underscores. For instance, [Channel Create](#DOCS_GATEWAY/channel-create) would be `CHANNEL_CREATE` and [Voice State Update](#DOCS_GATEWAY/voice-state-update) would be `VOICE_STATE_UPDATE`.
-
-
+Event names are in standard constant form, fully upper-cased and replacing all spaces with underscores. For instance, [Channel Create](#DOCS_GATEWAY/channel-create) would be `CHANNEL_CREATE` and [Voice State Update](#DOCS_GATEWAY/voice-state-update) would be `VOICE_STATE_UPDATE`. Within the following documentation they have been left in standard english form to aid in readability.
 
 ## Events
 
