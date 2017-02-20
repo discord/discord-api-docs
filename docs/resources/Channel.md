@@ -375,7 +375,7 @@ Edit a previously sent message. You can only edit messages that have been sent b
 
 | Field | Type | Description | Required |
 |-------|------|-------------|----------|
-| content | string | the new message contents (up to 2000 characters) | true |
+| content | string | the new message contents (up to 2000 characters) | false |
 | embed | [embed](#DOCS_CHANNEL/embed-object) object | embedded `rich` content | false |
 
 ## Delete Message % DELETE /channels/{channel.id#DOCS_CHANNEL/channel-objects}/messages/{message.id#DOCS_CHANNEL/message-object}
