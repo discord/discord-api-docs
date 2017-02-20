@@ -81,7 +81,7 @@ The connection object that the user has attached.
 | revoked | bool | whether the connection is revoked |
 | integrations | array | an array of partial [server integrations](#DOCS_GUILD/integration-object) |
 
-## Get Current User % GET /users/{@me#DOCS_USER/user-object}
+## Get Current User % GET /users/@me
 
 Returns the [user](#DOCS_USER/user-object) object of the requester's account. For OAuth2, this requires the `identify` scope, which will return the object _without_ an email, and optionally the `email` scope, which returns the object _with_ an email.
 
@@ -89,7 +89,7 @@ Returns the [user](#DOCS_USER/user-object) object of the requester's account. Fo
 
 Returns a [user](#DOCS_USER/user-object) for a given user ID.
 
-## Modify Current User % PATCH /users/{@me#DOCS_USER/user-object}
+## Modify Current User % PATCH /users/@me
 
 Modify the requestors user account settings. Returns a [user](#DOCS_USER/user-object) object on success.
 
@@ -100,7 +100,7 @@ Modify the requestors user account settings. Returns a [user](#DOCS_USER/user-ob
 | username | string | users username, if changed may cause the users discriminator to be randomized. |
 | avatar | [avatar data](#DOCS_USER/avatar-data) | if passed, modifies the user's avatar |
 
-## Get Current User Guilds % GET /users/{@me#DOCS_USER/user-object}/guilds
+## Get Current User Guilds % GET /users/@me/guilds
 
 Returns a list of [user guild](#DOCS_USER/user-guild-object) objects the current user is a member of. Requires the `guilds` OAuth2 scope.
 
@@ -115,15 +115,15 @@ Returns a list of [user guild](#DOCS_USER/user-guild-object) objects the current
 | after | snowflake | get guilds after this guild ID | false | absent |
 | limit | integer | max number of guilds to return (1-100) | false | 100 |
 
-## Leave Guild % DELETE /users/{@me#DOCS_USER/user-object}/guilds/{guild.id#DOCS_GUILD/guild-object}
+## Leave Guild % DELETE /users/@me/guilds/{guild.id#DOCS_GUILD/guild-object}
 
 Leave a guild. Returns a 204 empty response on success.
 
-## Get User DMs % GET /users/{@me#DOCS_USER/user-object}/channels
+## Get User DMs % GET /users/@me/channels
 
 Returns a list of [DM](#DOCS_CHANNEL/dm-channel-object) channel objects.
 
-## Create DM % POST /users/{@me#DOCS_USER/user-object}/channels
+## Create DM % POST /users/@me/channels
 
 Create a new DM channel with a user. Returns a [DM channel](#DOCS_CHANNEL/dm-channel-object) object.
 
@@ -133,7 +133,7 @@ Create a new DM channel with a user. Returns a [DM channel](#DOCS_CHANNEL/dm-cha
 |-------|------|-------------|
 | recipient_id | snowflake | the recipient to open a DM channel with |
 
-## Create Group DM % POST /users/{@me#DOCS_USER/user-object}/channels
+## Create Group DM % POST /users/@me/channels
 
 Create a new group DM channel with multiple users. Returns a [DM channel](#DOCS_CHANNEL/dm-channel-object) object.
 
@@ -147,6 +147,6 @@ Create a new group DM channel with multiple users. Returns a [DM channel](#DOCS_
 | access_tokens | array of strings | access tokens of users that have granted your app the `gdm.join` scope |
 | nicks | dict | a dictionary of user ids to their respective nicknames |
 
-## Get Users Connections % GET /users/{@me#DOCS_USER/user-object}/connections
+## Get Users Connections % GET /users/@me/connections
 
 Returns a list of [connection](#DOCS_USER/connection-object) objects. Requires the `connections` OAuth2 scope.
