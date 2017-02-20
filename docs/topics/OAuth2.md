@@ -80,9 +80,9 @@ A URL can be generated that redirects authenticated users to the add-webhook flo
 https://discordapp.com/api/oauth2/authorize?client_id=157730590492196864&scope=webhook.incoming&redirect_uri=https%3A%2F%2Fnicememe.website&response_type=code
 ```
 
-`client_id` is your application's ID and `redirect_uri` is one of your application's url-encoded redirect uris.
+`client_id` is your application's ID and `redirect_uri` is one of your application's URL-encoded redirect URIs.
 
-When a user is directed to this url, they are prompted to select a channel for the webhook to be placed in. Your application will receive an authorization code back in the querystring (as usual with the authorization code grant). 
+When a user is directed to this URL, they are prompted to select a channel for the webhook to be placed in. Your application will receive an authorization code back in the querystring (as usual with the authorization code grant). 
 
 When you exchange the authorization code for an access token, the token response will contain the [webhook object](#DOCS_WEBHOOK/webhook-object):
 
