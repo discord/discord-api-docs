@@ -165,7 +165,7 @@ Represents an Offline Guild, or a Guild whose information has not been provided 
 Create a new guild. Returns a [guild](#DOCS_GUILD/guild-object) object on success. Fires a [Guild Create](#DOCS_GATEWAY/guild-create) Gateway event.
 
 >warn
-> This endpoint is only available for GameBridge apps. [Learn more](#DOCS_GAMEBRIDGE)
+> By default this endpoint is limited to 10 active guilds. These limits are raised for whitelisted [GameBridge](#DOCS_GAMEBRDIGE) applications.
 
 ###### JSON Params
 

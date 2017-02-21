@@ -454,9 +454,6 @@ Delete a pinned message in a channel. Requires the 'MANAGE_MESSAGES' permission.
 
 Adds a recipient to a Group DM using their access token
 
->warn
-> This endpoint is only available for GameBridge apps. [Learn more](#DOCS_GAMEBRIDGE)
-
 ###### JSON Params
 
 | Field | Type | Description |

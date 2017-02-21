@@ -138,7 +138,7 @@ Create a new DM channel with a user. Returns a [DM channel](#DOCS_CHANNEL/dm-cha
 Create a new group DM channel with multiple users. Returns a [DM channel](#DOCS_CHANNEL/dm-channel-object) object.
 
 >warn
-> This endpoint is only available for GameBridge apps. [Learn more](#DOCS_GAMEBRIDGE)
+> By default this endpoint is limited to 10 active group DMs. These limits are raised for whitelisted [GameBridge](#DOCS_GAMEBRDIGE) applications.
 
 ###### JSON Params
 
