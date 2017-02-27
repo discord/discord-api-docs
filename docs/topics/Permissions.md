@@ -4,6 +4,8 @@ Permissions in Discord are a way to limit and grant certain abilities to users. 
 
 Permissions in Discord are stored within a 53-bit integer and are calculated using bitwise operations. Permissions for a user in a given channel can be calculated by ORing together their guild-level role permission integers, and their channel-level role permission integers. For more information about bitwise operations and flags, see [this page](https://en.wikipedia.org/wiki/Bit_field).
 
+You can also use [this permissions calculator](https://discordapi.com/permissions.html) to calculate the appropriate integer for a set of permissions.
+
 ###### Bitwise Permission Flags
 
 | Permission | Value | Description |
