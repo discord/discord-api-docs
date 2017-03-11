@@ -372,7 +372,7 @@ Deletes all reactions on a message. This endpoint requires the 'MANAGE\_MESSAGES
 Edit a previously sent message. You can only edit messages that have been sent by the current user. Returns a [message](#DOCS_CHANNEL/message-object) object. Fires a [Message Update](#DOCS_GATEWAY/message-update) Gateway event.
 
 >info
-> Only fields to be modified are required, with minimum one.
+> All parameters to this endpoint are optional.
 
 ###### JSON Params
 
