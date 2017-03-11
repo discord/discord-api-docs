@@ -264,7 +264,7 @@ Returns a list of [guild member](#GUILD/guild-member-object) objects that are me
 | Field | Type | Description | Default |
 |-------|------|-------------|---------|
 | limit | integer | max number of members to return (1-1000) | 1 |
-| after | integer | the highest user id in the previous page | 0 |
+| after | snowflake | the highest user id in the previous page | 0 |
 
 ## Add Guild Member % PUT /guilds/{guild.id#DOCS_GUILD/guild-object}/members/{user.id#DOCS_USER/user-object}
 
