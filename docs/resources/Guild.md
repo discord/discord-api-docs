@@ -296,7 +296,7 @@ Modify attributes of a [guild member](#DOCS_GUILD/guild-member-object). Returns 
 | Field | Type | Description | Permission |
 |-------|------|-------------|------------|
 | nick | string | value to set users nickname to | MANAGE_NICKNAMES |
-| roles | array | array of roles the member is assigned | MANAGE_ROLES |
+| roles | array | array of role ids the member is assigned | MANAGE_ROLES |
 | mute | bool | if the user is muted | MUTE_MEMBERS |
 | deaf | bool | if the user is deafened | DEAFEN_MEMBERS |
 | channel_id | snowflake | id of channel to move user to (if they are connected to voice) | MOVE_MEMBERS |
