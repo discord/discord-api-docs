@@ -371,11 +371,15 @@ Deletes all reactions on a message. This endpoint requires the 'MANAGE\_MESSAGES
 
 Edit a previously sent message. You can only edit messages that have been sent by the current user. Returns a [message](#DOCS_CHANNEL/message-object) object. Fires a [Message Update](#DOCS_GATEWAY/message-update) Gateway event.
 
+>info
+> All parameters to this endpoint are optional.
+
 ###### JSON Params
 
 | Field | Type | Description |
 |-------|------|-------------|
-| content | string | the new message contents |
+| content | string | the new message contents (up to 2000 characters) |
+| embed | [embed](#DOCS_CHANNEL/embed-object) object | embedded `rich` content |
 
 ## Delete Message % DELETE /channels/{channel.id#DOCS_CHANNEL/channel-objects}/messages/{message.id#DOCS_CHANNEL/message-object}
 
