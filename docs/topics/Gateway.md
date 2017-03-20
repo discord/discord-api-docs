@@ -223,7 +223,7 @@ Sent by the client to indicate a presence or status update.
 | Field | Type | Description |
 |-------|------|-------------|
 | since | integer | unix time (in milliseconds) of when the client went idle, or null if the client is not idle |
-| game | ?object | either null, or an object with one key "name", representing the name of the game being played |
+| game | ?[game](#DOCS_GATEWAY/game-object) object | null, or the user's new activity |
 | status | string | see [status types](#DOCS_GATEWAY/status-types), the new status of the client |
 | afk | boolean | whether or not the client is afk |
 
@@ -243,7 +243,7 @@ Sent by the client to indicate a presence or status update.
 {
 	"since": 123,
 	"game": {
-		"name": "Writing Docs FTW"
+		"name": "Best docs ever"
 	},
 	"status": "online",
 	"afk": false
