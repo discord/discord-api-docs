@@ -41,7 +41,7 @@ Authorization: Bearer CZhtkLDpNYXgPH9Ml6shqh2OwykChw
 
 All HTTP-layer services and protocols (e.g. http, websocket) within the Discord API use TLS 1.2.
 
-## Snowflake ID's
+## Snowflake IDs
 
 Discord utilizes Twitter's [snowflake](https://github.com/twitter/snowflake/tree/snowflake-2010) format for uniquely identifiable descriptors (ID's). These ID's are up to 64bits in size (e.g. a uint64) and therefore are always returned as strings in the API to prevent integer overflows in some languages. Snowflake ID's are guaranteed to be unique across all of Discord, except in some unique scenarios in which child objects share their parents ID.
 
