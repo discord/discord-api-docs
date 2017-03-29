@@ -29,7 +29,7 @@ Now that the noise has subsided, we’ve [open-sourced the source code for Airho
 
 ## Games (aka Games)
 
-GameBridge is a free SDK that lets power your desktop game's social features with Discord. Check out some of the
+GameBridge is a free SDK that lets you power your desktop game's social features with Discord. Check out some of the
 tasty flavors GameBridge offers:
 
 * Add low latency voice and text chat to your game.
