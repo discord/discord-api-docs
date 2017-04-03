@@ -249,7 +249,7 @@ Used to authenticate a new client with your app. By default this pops up a modal
 
 **We currently do not allow access to RPC for unapproved games without an entry on a game's whitelist.** We grant 50 whitelist spots, which should be ample for development and testing. After approval, this restriction is removed and the whitelist is no longer needed.
 
-We also have an RPC token system to bypass the user authorization modal. This is usable by approved games as well as by users on a game's whitelist, and also disallows use of the `messages.read` scope. If you have been granted access, you can send a POST request to `https://discordapp.com/api/oauth2/token/rpc` with your application's `client_id` and `client_secret` in the body (sent as a url-encoded body, **not JSON**).You can then pass the returned `rpc_token` value to the `rpc_token` field in your RPC authorize request (documented below).
+We also have an RPC token system to bypass the user authorization modal. This is usable by approved games as well as by users on a game's whitelist, and also disallows use of the `messages.read` scope. If you have been granted access, you can send a POST request to `https://discordapp.com/api/oauth2/token/rpc` with your application's `client_id` and `client_secret` in the body (sent as a url-encoded body, **not JSON**). You can then pass the returned `rpc_token` value to the `rpc_token` field in your RPC authorize request (documented below).
 
 ###### Authorize Argument Structure
 
@@ -258,6 +258,7 @@ We also have an RPC token system to bypass the user authorization modal. This is
 | scopes | Array | array of OAuth2 scopes to authorize |
 | client_id | String | OAuth2 application id |
 | rpc_token | String | one-time use RPC token |
+| username | String | username to create a guest account with if the user does not have Discord (only in GameBridge SDK) |
 
 ###### Authorize Response Structure
 
