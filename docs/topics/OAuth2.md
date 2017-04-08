@@ -130,7 +130,7 @@ Returns the bot's OAuth2 application info.
 	"id": "172150183260323840",
 	"name": "Baba O-Riley",
 	"bot_public": true,
-	"bot_requires_code_grant": false,
+	"bot_require_code_grant": false,
 	"owner": {
 		"username": "i own a bot",
 		"discriminator": "1738",
