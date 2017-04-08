@@ -118,7 +118,7 @@ Returns the bot's OAuth2 application info.
 | description | string? | the description of the app |
 | rpc_origins? | array | an array of rpc origin url strings, if rpc is enabled |
 | bot_public | boolean | when false only app owner can join the app's bot to guilds |
-| bot_requires_code_grant | boolean | when true the app's bot will only join upon completion of the full oauth2 code grant flow |
+| bot_require_code_grant | boolean | when true the app's bot will only join upon completion of the full oauth2 code grant flow |
 | owner | [User](#DOCS_USER/user-object) | partial user object containing info on the owner of the application |
 
 ###### Example Application Information
