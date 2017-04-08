@@ -627,6 +627,9 @@ Sent when properties about the user change. Inner payload is a [user](#DOCS_USER
 
 Sent when someone joins/leaves/moves voice channels. Inner payload is a [voice state](#DOCS_VOICE/voice-state-object) object.
 
+>warn
+> `user_id` and `session_id` are the only required fields for this event. All other fields from [voice state](#DOCS_VOICE/voice-state-object) object are optional.
+
 ###### Example Voice State Update Event
 
 ```json
