@@ -262,7 +262,7 @@ Sent when a client wants to join, move, or disconnect from a voice channel.
 
 ### Gateway Invalid Session
 
-Sent when a client attempts to resume, but the passed session ID is invalid or expired. The inner `d` key will be true if you should wait 1 second before sending [OP 2 Identify](#DOCS_GATEWAY/gateway-identify), or false if you should it immediately. See [Resuming](#DOCS_GATEWAY/resuming) for more information.
+Sent when a client attempts to resume, but the passed session ID is invalid or expired. The inner `d` key will be true if you should wait 1 second before sending [OP 2 Identify](#DOCS_GATEWAY/gateway-identify), or false if you should send it immediately. See [Resuming](#DOCS_GATEWAY/resuming) for more information.
 
 ###### Gateway Invalid Session Example
 
