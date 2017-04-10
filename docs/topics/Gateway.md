@@ -49,26 +49,26 @@ The Discord Gateway has a versioning system which is separate from the core APIs
 | Field | Type | Description | Present |
 |-------|------|-------------|---------|
 | op | integer | opcode for the payload | Always |
-| d | mixed (object, integer, bool, null) | event data | Usually |
-| s | integer | sequence number, used for resuming sessions and heartbeats | Only for OP 0 |
-| t | string | the event name for this payload | Only for OP 0 |
+| d | ?mixed (object, integer, bool) | event data | Always |
+| s | ?integer | sequence number, used for resuming sessions and heartbeats | Always |
+| t | ?string | the event name for this payload | Always |
 
 ###### Gateway OP Codes
 
-| Code | Name | d | Description |
-|------|------|---|-------------|
-| 0 | Dispatch | object | dispatches an event |
-| 1 | Heartbeat | integer | used for ping checking |
-| 2 | Identify | object | used for client handshake |
-| 3 | Status Update | object | used to update the client status |
-| 4 | Voice State Update | object | used to join/move/leave voice channels |
-| 5 | Voice Server Ping | integer | used for voice ping checking |
-| 6 | Resume | object | used to resume a closed connection |
-| 7 | Reconnect | null | used to tell clients to reconnect to the gateway |
-| 8 | Request Guild Members | object | used to request guild members |
-| 9 | Invalid Session | bool | used to notify client they have an invalid session id |
-| 10 | Hello | object | sent immediately after connecting, contains heartbeat and server debug information |
-| 11 | Heartbeat ACK | null | sent immediately following a client heartbeat that was received |
+| Code | Name | Description |
+|------|------|-------------|
+| 0 | Dispatch | dispatches an event |
+| 1 | Heartbeat | used for ping checking |
+| 2 | Identify | used for client handshake |
+| 3 | Status Update | used to update the client status |
+| 4 | Voice State Update | used to join/move/leave voice channels |
+| 5 | Voice Server Ping | used for voice ping checking |
+| 6 | Resume | used to resume a closed connection |
+| 7 | Reconnect | used to tell clients to reconnect to the gateway |
+| 8 | Request Guild Members | used to request guild members |
+| 9 | Invalid Session | used to notify client they have an invalid session id |
+| 10 | Hello | sent immediately after connecting, contains heartbeat and server debug information |
+| 11 | Heartbeat ACK | sent immediately following a client heartbeat that was received |
 
 ### Gateway Dispatch
 
