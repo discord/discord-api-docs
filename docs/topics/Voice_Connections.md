@@ -23,7 +23,7 @@ The voice data packet is a payload with an [encrypted voice packet header](#DOCS
 
 ### Retrieving Voice Server Information
 
-The first step in connecting to a voice server (and in turn, a guilds voice channel) is formulating a request that can be sent to the [Gateway](#DOCS_GATEWAY/gateways), which will return information about the voice server we will connect to. Because Discord's voice platform is widely distributed, users **should never** cache or save the results of this call. To inform the gateway of our intent to establish voice connectivity, we first send an [OP 4 Voice State Update](#DOCS_GATEWAY/gateway-voice-state-update).
+The first step in connecting to a voice server (and in turn, a guilds voice channel) is formulating a request that can be sent to the [Gateway](#DOCS_GATEWAY/gateways), which will return information about the voice server we will connect to. Because Discord's voice platform is widely distributed, users **should never** cache or save the results of this call. To inform the gateway of our intent to establish voice connectivity, we first send an [OP 4 Gateway Voice State Update](#DOCS_GATEWAY/gateway-voice-state-update).
 
 If our request succeeded, the gateway will respond with _two_ events (meaning your library must properly wait for both events before continuing), a [Voice State Update](#DOCS_GATEWAY/voice-state-update) _event_ (not a payload), and a [Voice Server Update](#DOCS_GATEWAY/voice-server-update) event. The first will contain a new key, `session_id` and the second will provide voice server information we can use to establish a new voice connection. With this information, we can move on to [Establishing a Voice Websocket Connection](#DOCS_VOICE_CONNECTIONS/establishing-a-voice-websocket-connection).
 
