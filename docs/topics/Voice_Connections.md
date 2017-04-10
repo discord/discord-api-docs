@@ -24,7 +24,6 @@ Voice connections operate in a similar fashion to the [Gateway](#DOCS_GATEWAY/ga
 | 4 | Session Description | ? | used to describe the session |
 | 5 | Speaking | object | used to indicate which users are speaking |
 | 6 | Heartbeat ACK | null | sent immediately following a client heartbeat that was received |
-| 7 | ? |  | ? |
 | 8 | Hello | object | provides heartbeat interval immediately after connecting |
 
 ### Voice Identify
