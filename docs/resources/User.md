@@ -7,11 +7,13 @@ although similar, bot users are automated users that are "owned" by other users.
 
 ## Avatar Data
 
-Avatars are base64 encoded jpeg images, in the following format:
+Avatar data is a [Data URI scheme](https://en.wikipedia.org/wiki/Data_URI_scheme) and supports JPG, GIF, and PNG formats. An example Data URI format is:
 
 ```
-data:image/jpeg;base64,MY_BASE64_IMAGE_DATA_HERE
+data:image/jpeg;base64,BASE64_ENCODED_JPEG_IMAGE_DATA
 ```
+
+Ensure you use the proper header type (`image/jpeg`, `image/png`, `image/gif`) that matches the image data being provided.
 
 ## User Object
 
