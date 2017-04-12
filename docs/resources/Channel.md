@@ -164,7 +164,7 @@ Represents a message sent in a channel within Discord.
 | description | string | description of embed |
 | url | string | url of embed |
 | timestamp | date | timestamp of embed content |
-| color | integer | color code of the embed |
+| color | integer | is a base10 integer calculated from the following formula: `red*65536 + green*256 + blue` |
 | footer | [embed footer object](#DOCS_CHANNEL/embed-footer-structure) | footer information
 | image | [embed image object](#DOCS_CHANNEL/embed-image-structure) | image information
 | thumbnail | [embed thumbnail object](#DOCS_CHANNEL/embed-thumbnail-structure) | thumbnail information |
