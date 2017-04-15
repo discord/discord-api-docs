@@ -1,12 +1,12 @@
 # Users Resource
 
 Users in Discord are generally considered the base entity. Users can spawn across the entire platform, be members of
-guilds, participate and text and voice chat, and much more. Users are separated by a distinction of "bot" vs "normal". Although they are similar, bot users are automated users that are "owned" by other users. Unlike normal users, bot users do
+guilds, participate in text and voice chat, and much more. Users are separated by a distinction of "bot" vs "normal". Although they are similar, bot users are automated users that are "owned" by other users. Unlike normal users, bot users do
 *not* have a limitation on the number of Guilds they can be a part of.
 
 ## Avatar Data
 
-Avatar data is a [Data URI scheme](https://en.wikipedia.org/wiki/Data_URI_scheme) and supports JPG, GIF, and PNG formats. An example Data URI format is:
+Avatar data is a [Data URI scheme](https://en.wikipedia.org/wiki/Data_URI_scheme) that supports JPG, GIF, and PNG formats. An example Data URI format is:
 
 ```
 data:image/jpeg;base64,BASE64_ENCODED_JPEG_IMAGE_DATA
