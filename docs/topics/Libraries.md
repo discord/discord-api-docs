@@ -13,7 +13,7 @@ The Discord team curates the following list of officially vetted libraries that 
 | [JDA](https://github.com/DV8FromTheWorld/JDA) | Java |
 | [Discordia](https://github.com/SinisterRectus/Discordia) | Lua |
 | [discord.js](https://github.com/hydrabolt/discord.js) | JavaScript |
-| [Eris](https://github.com/abalabahaha/eris) | NodeJS |
+| [Eris](https://github.com/abalabahaha/eris) | JavaScript |
 | [DiscordPHP](https://github.com/teamreflex/DiscordPHP) | PHP |
 | [discord.py](https://github.com/Rapptz/discord.py) | Python |
 | [disco](https://github.com/b1naryth1ef/disco) | Python |
