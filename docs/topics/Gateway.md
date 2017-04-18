@@ -38,26 +38,25 @@ Returns an object with the same information as [Get Gateway](#DOCS_GATEWAY/get-g
 The Discord Gateway has a versioning system which is separate from the core APIs. The following table specifies all versions of the Gateway API that have been officially supported, and whether or not they are out of service (e.g. unsupported and potentially disfunctional). The documentation herein is only for the latest version in the following table, unless otherwise specified.
 
 | Version | Out of Service |
-|------------|----------------|
+|---------|----------------|
 | 5 | no |
 | 4 | no |
-
 
 ## Gateway OP Codes/Payloads
 
 ###### Gateway Payload Structure
 
 | Field | Type | Description | Present |
-|-------|------|-------------|-------------|
+|-------|------|-------------|---------|
 | op | integer | opcode for the payload | Always |
-| d | mixed (object, integer) | event data | Always |
+| d | ?mixed (object, integer, bool) | event data | Always |
 | s | integer | sequence number, used for resuming sessions and heartbeats | Only for OP 0 |
 | t | string | the event name for this payload | Only for OP 0 |
 
 ###### Gateway OP Codes
 
 | Code | Name | Description |
-|--------|----------|-----------------|
+|------|------|-------------|
 | 0 | Dispatch | dispatches an event |
 | 1 | Heartbeat | used for ping checking |
 | 2 | Identify | used for client handshake |
