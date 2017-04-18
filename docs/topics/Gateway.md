@@ -262,7 +262,7 @@ Sent when a client wants to join, move, or disconnect from a voice channel.
 
 ### Gateway Invalid Session
 
-Sent when a client attempts to resume, but the passed session ID is invalid or expired. The inner `d` key is a boolean that indicates whether or not the session was invalidated due to an internal netsplit, which means that it may be resumable. See [Resuming](#DOCS_GATEWAY/resuming) for more information.
+Sent when a client attempts to resume, but the passed session ID is invalid or expired. The inner `d` key is a boolean that indicates whether or not the session may be resumable. See [Resuming](#DOCS_GATEWAY/resuming) for more information.
 
 ###### Gateway Invalid Session Example
 
