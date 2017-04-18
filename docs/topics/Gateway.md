@@ -50,8 +50,8 @@ The Discord Gateway has a versioning system which is separate from the core APIs
 |-------|------|-------------|---------|
 | op | integer | opcode for the payload | Always |
 | d | ?mixed (object, integer, bool) | event data | Always |
-| s | ?integer | sequence number, used for resuming sessions and heartbeats | Always |
-| t | ?string | the event name for this payload | Always |
+| s | integer | sequence number, used for resuming sessions and heartbeats | Only for OP 0 |
+| t | string | the event name for this payload | Only for OP 0 |
 
 ###### Gateway OP Codes
 
