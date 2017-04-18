@@ -93,7 +93,7 @@ Returns a [user](#DOCS_USER/user-object) for a given user ID.
 
 ## Modify Current User % PATCH /users/@me
 
-Modify the requestor's user account settings. Returns a [user](#DOCS_USER/user-object) object on success.
+Modify the requester's user account settings. Returns a [user](#DOCS_USER/user-object) object on success.
 
 ###### JSON Params
 
