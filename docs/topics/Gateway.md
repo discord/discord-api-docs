@@ -623,10 +623,6 @@ Sent when a user starts typing in a channel.
 | user_id | snowflake | id of the user |
 | timestamp | integer | unix time (in seconds) of when the user started typing |
 
-### User Settings Update
-
-Sent when the current user updates their settings. Inner payload is a [user settings](#DOCS_USER/user-settings-object) object.
-
 ### User Update
 
 Sent when properties about the user change. Inner payload is a [user](#DOCS_USER/user-object) object.
