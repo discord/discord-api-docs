@@ -137,6 +137,7 @@ The port range for Discord's local RPC server is [6463, 6472]. Since the RPC ser
 | [MESSAGE_UPDATE](#DOCS_RPC/messagecreatemessageupdatemessagedelete) | sent when a message is updated in a subscribed text channel |
 | [MESSAGE_DELETE](#DOCS_RPC/messagecreatemessageupdatemessagedelete) | sent when a message is deleted in a subscribed text channel |
 | [NOTIFICATION_CREATE](#DOCS_RPC/notificationcreate) | sent when the client receives a notification (mention or new message in eligible channels) |
+| [CAPTURE_SHORTCUT_CHANGE](#DOCS_RPC/captureshortcutchange) | sent when the user presses a key during [shortcut capturing](#DOCS_RPC/captureshortcut) |
 
 ###### RPC Errors
 
@@ -1096,9 +1097,9 @@ Used to capture a keyboard shortcut entered by the user
 
 ###### Capture Shortcut Argument Structure
 
-This command is asynchronously returned. You capture a shortcut by sending the `START` action, 
-and then when the user finishes capturing by sending the `STOP` action. The `START` call will return 
-the captured shortcut in its `data` object, while the `STOP` call will have no `data`.
+This command is asynchronously returned. You capture a shortcut by first sending the `START` action. Then, the user is free to press keys while we log the shortcut key codes for you. As they press keys, we will emit a [CAPTURE_SHORTCUT_CHANGE](#DOCS_RPC/captureshortcutchange) event with the updated key codes. **When the user finishes, you then need to finish capturing by sending the `STOP` action.**
+
+Note: The `START` call will return the captured shortcut in its `data` object, while the `STOP` call will have no `data`.
 
 | Field | Type | Description |
 |-------|------|-------------|
@@ -1595,5 +1596,29 @@ No arguments
         "body": "test message"
     },
     "evt": "NOTIFICATION_CREATE"
+}
+```
+
+### CAPTURE_SHORTCUT_CHANGE
+
+###### Capture Shortcut Change Argument Structure
+
+No arguments
+
+###### Capture Shortcut Change Dispatch Data Structure
+
+| Field | Type | Description |
+|-------|------|-------------|
+| shortcut | [ShortcutKeyCombo](#DOCS_RPC/shortcutkeycombo-structure) | the captured shortcut key combo array |
+
+###### Capture Shortcut Change Example Dispatch Payload
+
+```json
+{
+    "cmd": "DISPATCH",
+    "evt": "CAPTURE_SHORTCUT_CHANGE",
+    "data": {
+        "shortcut": [{"type":0,"code":12,"name":"i"}]
+    }
 }
 ```
