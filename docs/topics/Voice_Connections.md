@@ -95,6 +95,19 @@ Voice data sent to discord should be encoded with [Opus](https://www.opus-codec.
 | Timestamp | unsigned int (big endian) | 4 bytes |
 | SSRC | unsigned int (big endian) | 4 bytes |
 
+### Speaking
+
+To notify clients that you are speaking or have stopped speaking, send an OP5 Speaking payload.
+
+###### Example Speaking Payload
+
+```json
+{
+	"speaking": true,
+	"delay": 0
+}
+```
+
 ### Voice Data Interpolation
 
 When there's a break in the sent data, the packet transmission shouldn't simply cut off but rather send five frames of silence (`0xF8, 0xFF, 0xFE`) before stopping to avoid unintended Opus interpolation with following transmissions.
