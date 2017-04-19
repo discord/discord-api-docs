@@ -97,7 +97,7 @@ Voice data sent to discord should be encoded with [Opus](https://www.opus-codec.
 
 ### Speaking
 
-Right before you start sending audio, you must send an OP 5 Speaking on the Voice WebSocket with `speaking` set to true, and send another when done with `speaking` set to false.
+To notify clients that you are speaking or have stopped speaking, send an OP5 Speaking payload.
 
 ###### Example Speaking Payload
 
