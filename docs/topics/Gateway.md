@@ -631,15 +631,6 @@ Sent when properties about the user change. Inner payload is a [user](#DOCS_USER
 
 Sent when someone joins/leaves/moves voice channels. Inner payload is a [voice state](#DOCS_VOICE/voice-state-object) object.
 
-###### Example Voice State Update Event
-
-```json
-{
-	"user_id": "104694319306248192",
-	"session_id": "my_session_id"
-}
-```
-
 ### Voice Server Update
 
 Sent when a guild's voice server is updated. This is sent when initially connecting to voice, and when the current voice instance fails over to a new server.
