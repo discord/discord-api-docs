@@ -42,13 +42,17 @@ Scopes provide access to certain resources of a user's account. Your API client 
 | email | enables [/users/@me](#DOCS_USER/get-current-user) to return an `email` |
 | identify | allows [/users/@me](#DOCS_USER/get-current-user) without `email` |
 | guilds | allows [/users/@me/guilds](#DOCS_USER/get-current-user-guilds) to return basic information about all of a user's guilds |
-| guilds.join | allows [/invites/{invite.id}](#DOCS_INVITE/accept-invite) to be used for joining a user's guild |
+| guilds.join | allows [/invites/{invite.id}](#DOCS_INVITE/accept-invite) to be used for joining a guild your bot is a member of |
 | gdm.join | allows your app to [join users to a group dm](#DOCS_CHANNEL/group-dm-add-recipient) |
 | messages.read | for local rpc server api access, this allows you to read messages from all client channels (otherwise restricted to channels/guilds your app creates) |
 | rpc | for local rpc server access, this allows you to control a user's local Discord client |
 | rpc.api | for local rpc server api access, this allows you to access the API as the local user |
 | rpc.notifications.read | for local rpc server api access, this allows you to receive notifications pushed out to the user |
 | webhook.incoming | this generates a webhook that is returned in the oauth token response for authorization code grants |
+
+##### A note on `guilds.join`
+
+`guilds.join` requires you to have a bot account linked to the application, unlike the rest of the scopes. Additionally, you may only join users to servers your bot is in.
 
 ## Bots
 
