@@ -42,7 +42,7 @@ Scopes provide access to certain resources of a user's account. Your API client 
 | email | enables [/users/@me](#DOCS_USER/get-current-user) to return an `email` |
 | identify | allows [/users/@me](#DOCS_USER/get-current-user) without `email` |
 | guilds | allows [/users/@me/guilds](#DOCS_USER/get-current-user-guilds) to return basic information about all of a user's guilds |
-| guilds.join | allows [/invites/{invite.id}](#DOCS_INVITE/accept-invite) to be used for joining a guild your bot is a member of |
+| guilds.join | allows [/invites/{invite.id}](#DOCS_INVITE/accept-invite) to be used for joining users to a guild |
 | gdm.join | allows your app to [join users to a group dm](#DOCS_CHANNEL/group-dm-add-recipient) |
 | messages.read | for local rpc server api access, this allows you to read messages from all client channels (otherwise restricted to channels/guilds your app creates) |
 | rpc | for local rpc server access, this allows you to control a user's local Discord client |
