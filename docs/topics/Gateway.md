@@ -579,7 +579,7 @@ A user's presence is their current state on a guild. This event is sent when a u
 | roles | array of snowflakes | roles this user is in |
 | game | ?[game](#DOCS_GATEWAY/game-object) object | null, or the user's current activity |
 | guild_id | snowflake | id of the guild |
-| status | string | either "idle", "online" or "offline" |
+| status | string | either "idle", "dnd", "online" or "offline" |
 
 ### Game Object
 
