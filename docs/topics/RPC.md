@@ -1372,6 +1372,7 @@ Dispatches channel voice state objects
 ```json
 {
     "cmd": "DISPATCH",
+    "evt": "VOICE_STATE_CREATE",
     "data": {
         "voice_state": {
             "mute": false,
@@ -1429,33 +1430,18 @@ No arguments
 | NO_ROUTE | No route to host |
 | ICE_CHECKING | WebRTC ice checking |
 
-###### Voice State Example Dispatch Payload
+###### Voice Connection Status Example Dispatch Payload
 
 ```json
 {
     "cmd": "DISPATCH",
+    "evt": "VOICE_CONNECTION_STATUS",
     "data": {
-        "voice_state": {
-            "mute": false,
-            "deaf": false,
-            "self_mute": false,
-            "self_deaf": false,
-            "suppress": false
-        },
-        "user": {
-            "id": "190320984123768832",
-            "username": "test 2",
-            "discriminator": "7479",
-            "avatar": "b004ec1740a63ca06ae2e14c5cee11f3",
-            "bot": false
-        },
-        "nick": "test user 2",
-        "volume": 110,
-        "mute": false,
-        "pan": {
-            "left": 1.0,
-            "right": 1.0
-        }
+        "state": "VOICE_CONNECTED",
+        "hostname": "some-server.discord.gg",
+        "pings": [20, 13.37],
+        "average_ping": 13.37,
+        "last_ping": 20
     }
 }
 ```
