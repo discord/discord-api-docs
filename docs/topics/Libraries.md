@@ -19,3 +19,4 @@ The Discord team curates the following list of officially vetted libraries that 
 | [disco](https://github.com/b1naryth1ef/disco) | Python |
 | [discordrb](https://github.com/meew0/discordrb) | Ruby |
 | [discord-rs](https://github.com/SpaceManiac/discord-rs) | Rust |
+| [discord.py](https://github.com/Rapptz/discord.py) | Python |
