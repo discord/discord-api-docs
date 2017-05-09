@@ -76,7 +76,7 @@ Modify a webhook. Returns the updated [webhook](#DOCS_WEBHOOK/webhook-object) ob
 | Field | Type | Description |
 |-------|------|-------------|
 | name | string | the default name of the webhook |
-| avatar | string | base64 128x128 jpeg image for the default webhook avatar |
+| avatar | [avatar data](#DOCS_USER/avatar-data) | base64 128x128 jpeg image for the default webhook avatar |
 
 ## Modify Webhook with Token % PATCH /webhooks/{webhook.id#DOCS_WEBHOOK/webhook-object}/{webhook.token#DOCS_WEBHOOK/webhook-object}
 
