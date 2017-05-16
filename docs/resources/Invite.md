@@ -106,4 +106,7 @@ Delete an invite. Requires the `MANAGE_CHANNELS` permission. Returns an [invite 
 
 ## Accept Invite % POST /invites/{invite.code#DOCS_INVITE/invite-object}
 
-Accept an invite. This is not available to bot accounts, and requires the `guilds.join` OAuth2 scope to accept on behalf of normal users. Returns an [invite object](#DOCS_INVITE/invite-object) on success.
+Accept an invite. Requires the `guilds.join` OAuth2 scope to accept on behalf of normal users. Returns an [invite object](#DOCS_INVITE/invite-object) on success.
+
+>warn
+> This endpoint requires your application has a linked bot account, and that the bot account is present in the server the invite belongs to.
