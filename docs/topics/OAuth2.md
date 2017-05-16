@@ -23,7 +23,7 @@ The first step in implementing OAuth2 is [registering a developer application](#
 |-----|-------------|
 | https://discordapp.com/api/oauth2/authorize | Base authorization URL |
 | https://discordapp.com/api/oauth2/token | Token URL |
-| https://discordapp.com/api/oauth2/revoke | Revocation URL |
+| https://discordapp.com/api/oauth2/token/revoke | Revocation URL |
 
 
 >info
@@ -42,13 +42,17 @@ Scopes provide access to certain resources of a user's account. Your API client 
 | email | enables [/users/@me](#DOCS_USER/get-current-user) to return an `email` |
 | identify | allows [/users/@me](#DOCS_USER/get-current-user) without `email` |
 | guilds | allows [/users/@me/guilds](#DOCS_USER/get-current-user-guilds) to return basic information about all of a user's guilds |
-| guilds.join | allows [/invites/{invite.id}](#DOCS_INVITE/accept-invite) to be used for joining a user's guild |
+| guilds.join | allows [/invites/{invite.id}](#DOCS_INVITE/accept-invite) to be used for joining users to a guild |
 | gdm.join | allows your app to [join users to a group dm](#DOCS_CHANNEL/group-dm-add-recipient) |
 | messages.read | for local rpc server api access, this allows you to read messages from all client channels (otherwise restricted to channels/guilds your app creates) |
 | rpc | for local rpc server access, this allows you to control a user's local Discord client |
 | rpc.api | for local rpc server api access, this allows you to access the API as the local user |
 | rpc.notifications.read | for local rpc server api access, this allows you to receive notifications pushed out to the user |
 | webhook.incoming | this generates a webhook that is returned in the oauth token response for authorization code grants |
+
+##### A note on `guilds.join`
+
+`guilds.join` requires you to have a bot account linked to the application, unlike the rest of the scopes. Additionally, you may only join users to servers your bot is in.
 
 ## Bots
 
@@ -80,9 +84,9 @@ A URL can be generated that redirects authenticated users to the add-webhook flo
 https://discordapp.com/api/oauth2/authorize?client_id=157730590492196864&scope=webhook.incoming&redirect_uri=https%3A%2F%2Fnicememe.website&response_type=code
 ```
 
-`client_id` is your application's ID and `redirect_uri` is one of your application's url-encoded redirect uris.
+`client_id` is your application's ID and `redirect_uri` is one of your application's URL-encoded redirect URIs.
 
-When a user is directed to this url, they are prompted to select a channel for the webhook to be placed in. Your application will receive an authorization code back in the querystring (as usual with the authorization code grant). 
+When a user is directed to this URL, they are prompted to select a channel for the webhook to be placed in. Your application will receive an authorization code back in the querystring (as usual with the authorization code grant). 
 
 When you exchange the authorization code for an access token, the token response will contain the [webhook object](#DOCS_WEBHOOK/webhook-object):
 
@@ -118,7 +122,7 @@ Returns the bot's OAuth2 application info.
 | description | string? | the description of the app |
 | rpc_origins? | array | an array of rpc origin url strings, if rpc is enabled |
 | bot_public | boolean | when false only app owner can join the app's bot to guilds |
-| bot_requires_code_grant | boolean | when true the app's bot will only join upon completion of the full oauth2 code grant flow |
+| bot_require_code_grant | boolean | when true the app's bot will only join upon completion of the full oauth2 code grant flow |
 | owner | [User](#DOCS_USER/user-object) | partial user object containing info on the owner of the application |
 
 ###### Example Application Information
@@ -130,7 +134,7 @@ Returns the bot's OAuth2 application info.
 	"id": "172150183260323840",
 	"name": "Baba O-Riley",
 	"bot_public": true,
-	"bot_requires_code_grant": false,
+	"bot_require_code_grant": false,
 	"owner": {
 		"username": "i own a bot",
 		"discriminator": "1738",

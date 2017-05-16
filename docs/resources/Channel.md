@@ -349,7 +349,7 @@ For example:
 
 ## Create Reaction % PUT /channels/{channel.id#DOCS_CHANNEL/channel-objects}/messages/{message.id#DOCS_CHANNEL/message-object}/reactions/{emoji#DOCS_CHANNEL/emoji-structure}/@me
 
-Create a reaction for the message. If nobody else has reacted to the message using this emoji, this endpoint requires the 'ADD\_REACTIONS' permission to be present on the current user. Returns a 204 empty response on success.
+Create a reaction for the message. This endpoint requires the 'READ\_MESSAGE\_HISTORY' permission to be present on the current user.  Additionally, if nobody else has reacted to the message using this emoji, this endpoint requires the 'ADD\_REACTIONS' permission to be present on the current user. Returns a 204 empty response on success.
 
 ## Delete Own Reaction % DELETE /channels/{channel.id#DOCS_CHANNEL/channel-objects}/messages/{message.id#DOCS_CHANNEL/message-object}/reactions/{emoji#DOCS_CHANNEL/emoji-structure}/@me
 
@@ -371,11 +371,15 @@ Deletes all reactions on a message. This endpoint requires the 'MANAGE\_MESSAGES
 
 Edit a previously sent message. You can only edit messages that have been sent by the current user. Returns a [message](#DOCS_CHANNEL/message-object) object. Fires a [Message Update](#DOCS_GATEWAY/message-update) Gateway event.
 
+>info
+> All parameters to this endpoint are optional.
+
 ###### JSON Params
 
 | Field | Type | Description |
 |-------|------|-------------|
-| content | string | the new message contents |
+| content | string | the new message contents (up to 2000 characters) |
+| embed | [embed](#DOCS_CHANNEL/embed-object) object | embedded `rich` content |
 
 ## Delete Message % DELETE /channels/{channel.id#DOCS_CHANNEL/channel-objects}/messages/{message.id#DOCS_CHANNEL/message-object}
 
@@ -453,9 +457,6 @@ Delete a pinned message in a channel. Requires the 'MANAGE_MESSAGES' permission.
 ## Group DM Add Recipient % PUT /channels/{channel.id#DOCS_CHANNEL/channel-objects}/recipients/{user.id#DOCS_USER/user-object}
 
 Adds a recipient to a Group DM using their access token
-
->warn
-> This endpoint is only available for GameBridge apps. [Learn more](#DOCS_GAMEBRIDGE)
 
 ###### JSON Params
 

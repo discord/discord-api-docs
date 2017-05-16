@@ -137,6 +137,7 @@ The port range for Discord's local RPC server is [6463, 6472]. Since the RPC ser
 | [MESSAGE_UPDATE](#DOCS_RPC/messagecreatemessageupdatemessagedelete) | sent when a message is updated in a subscribed text channel |
 | [MESSAGE_DELETE](#DOCS_RPC/messagecreatemessageupdatemessagedelete) | sent when a message is deleted in a subscribed text channel |
 | [NOTIFICATION_CREATE](#DOCS_RPC/notificationcreate) | sent when the client receives a notification (mention or new message in eligible channels) |
+| [CAPTURE_SHORTCUT_CHANGE](#DOCS_RPC/captureshortcutchange) | sent when the user presses a key during [shortcut capturing](#DOCS_RPC/captureshortcut) |
 
 ###### RPC Errors
 
@@ -249,7 +250,7 @@ Used to authenticate a new client with your app. By default this pops up a modal
 
 **We currently do not allow access to RPC for unapproved games without an entry on a game's whitelist.** We grant 50 whitelist spots, which should be ample for development and testing. After approval, this restriction is removed and the whitelist is no longer needed.
 
-We also have an RPC token system to bypass the user authorization modal. This is usable by approved games as well as by users on a game's whitelist, and also disallows use of the `messages.read` scope. If you have been granted access, you can send a POST request to `https://discordapp.com/api/oauth2/token/rpc` with your application's `client_id` and `client_secret` in the body (sent as a url-encoded body, **not JSON**).You can then pass the returned `rpc_token` value to the `rpc_token` field in your RPC authorize request (documented below).
+We also have an RPC token system to bypass the user authorization modal. This is usable by approved games as well as by users on a game's whitelist, and also disallows use of the `messages.read` scope. If you have been granted access, you can send a POST request to `https://discordapp.com/api/oauth2/token/rpc` with your application's `client_id` and `client_secret` in the body (sent as a url-encoded body, **not JSON**). You can then pass the returned `rpc_token` value to the `rpc_token` field in your RPC authorize request (documented below).
 
 ###### Authorize Argument Structure
 
@@ -258,6 +259,7 @@ We also have an RPC token system to bypass the user authorization modal. This is
 | scopes | Array | array of OAuth2 scopes to authorize |
 | client_id | String | OAuth2 application id |
 | rpc_token | String | one-time use RPC token |
+| username | String | username to create a guest account with if the user does not have Discord (only in GameBridge SDK) |
 
 ###### Authorize Response Structure
 
@@ -1095,9 +1097,9 @@ Used to capture a keyboard shortcut entered by the user
 
 ###### Capture Shortcut Argument Structure
 
-This command is asynchronously returned. You capture a shortcut by sending the `START` action, 
-and then when the user finishes capturing by sending the `STOP` action. The `START` call will return 
-the captured shortcut in its `data` object, while the `STOP` call will have no `data`.
+This command is asynchronously returned. You capture a shortcut by first sending the `START` action. Then, the user is free to press keys while we log the shortcut key codes for you. As they press keys, we will emit a [CAPTURE_SHORTCUT_CHANGE](#DOCS_RPC/captureshortcutchange) event with the updated key codes. **When the user finishes, you then need to finish capturing by sending the `STOP` action.**
+
+Note: The `START` call will return the captured shortcut in its `data` object, while the `STOP` call will have no `data`.
 
 | Field | Type | Description |
 |-------|------|-------------|
@@ -1370,6 +1372,7 @@ Dispatches channel voice state objects
 ```json
 {
     "cmd": "DISPATCH",
+    "evt": "VOICE_STATE_CREATE",
     "data": {
         "voice_state": {
             "mute": false,
@@ -1427,33 +1430,18 @@ No arguments
 | NO_ROUTE | No route to host |
 | ICE_CHECKING | WebRTC ice checking |
 
-###### Voice State Example Dispatch Payload
+###### Voice Connection Status Example Dispatch Payload
 
 ```json
 {
     "cmd": "DISPATCH",
+    "evt": "VOICE_CONNECTION_STATUS",
     "data": {
-        "voice_state": {
-            "mute": false,
-            "deaf": false,
-            "self_mute": false,
-            "self_deaf": false,
-            "suppress": false
-        },
-        "user": {
-            "id": "190320984123768832",
-            "username": "test 2",
-            "discriminator": "7479",
-            "avatar": "b004ec1740a63ca06ae2e14c5cee11f3",
-            "bot": false
-        },
-        "nick": "test user 2",
-        "volume": 110,
-        "mute": false,
-        "pan": {
-            "left": 1.0,
-            "right": 1.0
-        }
+        "state": "VOICE_CONNECTED",
+        "hostname": "some-server.discord.gg",
+        "pings": [20, 13.37],
+        "average_ping": 13.37,
+        "last_ping": 20
     }
 }
 ```
@@ -1594,5 +1582,29 @@ No arguments
         "body": "test message"
     },
     "evt": "NOTIFICATION_CREATE"
+}
+```
+
+### CAPTURE_SHORTCUT_CHANGE
+
+###### Capture Shortcut Change Argument Structure
+
+No arguments
+
+###### Capture Shortcut Change Dispatch Data Structure
+
+| Field | Type | Description |
+|-------|------|-------------|
+| shortcut | [ShortcutKeyCombo](#DOCS_RPC/shortcutkeycombo-structure) | the captured shortcut key combo array |
+
+###### Capture Shortcut Change Example Dispatch Payload
+
+```json
+{
+    "cmd": "DISPATCH",
+    "evt": "CAPTURE_SHORTCUT_CHANGE",
+    "data": {
+        "shortcut": [{"type":0,"code":12,"name":"i"}]
+    }
 }
 ```

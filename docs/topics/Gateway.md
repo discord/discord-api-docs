@@ -38,26 +38,25 @@ Returns an object with the same information as [Get Gateway](#DOCS_GATEWAY/get-g
 The Discord Gateway has a versioning system which is separate from the core APIs. The following table specifies all versions of the Gateway API that have been officially supported, and whether or not they are out of service (e.g. unsupported and potentially disfunctional). The documentation herein is only for the latest version in the following table, unless otherwise specified.
 
 | Version | Out of Service |
-|------------|----------------|
+|---------|----------------|
 | 5 | no |
 | 4 | no |
-
 
 ## Gateway OP Codes/Payloads
 
 ###### Gateway Payload Structure
 
 | Field | Type | Description | Present |
-|-------|------|-------------|-------------|
+|-------|------|-------------|---------|
 | op | integer | opcode for the payload | Always |
-| d | mixed (object, integer) | event data | Always |
+| d | ?mixed (object, integer, bool) | event data | Always |
 | s | integer | sequence number, used for resuming sessions and heartbeats | Only for OP 0 |
 | t | string | the event name for this payload | Only for OP 0 |
 
 ###### Gateway OP Codes
 
 | Code | Name | Description |
-|--------|----------|-----------------|
+|------|------|-------------|
 | 0 | Dispatch | dispatches an event |
 | 1 | Heartbeat | used for ping checking |
 | 2 | Identify | used for client handshake |
@@ -88,7 +87,7 @@ Used by the gateway to notify the client of events.
 
 ### Gateway Heartbeat
 
-Used to maintain an active gateway connection. Must be sent every `heartbeat_interval` milliseconds after the [ready](#DOCS_GATEWAY/ready) payload is received. Note that this interval already has room for error, and that client implementations do not need to send a heartbeat faster than what's specified. The inner `d` key must be set to the last seq (`s`) received by the client. If none has yet been received you should send `null` (you cannot send a heartbeat before authenticating, however).
+Used to maintain an active gateway connection. Must be sent every `heartbeat_interval` milliseconds after the [Hello](#DOCS_GATEWAY/gateway-hello) payload is received. Note that this interval already has room for error, and that client implementations do not need to send a heartbeat faster than what's specified. The inner `d` key must be set to the last seq (`s`) received by the client. If none has yet been received you should send `null` (you cannot send a heartbeat before authenticating, however).
 
 >info
 > It is worth noting that in the event of a service outage where you stay connected to the gateway, you should continue to heartbeat and receive ACKs. The gateway will eventually respond and issue a session once it is able to.
@@ -262,7 +261,16 @@ Sent when a client wants to join, move, or disconnect from a voice channel.
 
 ### Gateway Invalid Session
 
-Sent when a client attempts to resume, but the passed session ID is invalid or expired. See [Resuming](#DOCS_GATEWAY/resuming) for more information.
+Sent when a client attempts to resume, but the passed session ID is invalid or expired. The inner `d` key is a boolean that indicates whether or not the session may be resumable. See [Resuming](#DOCS_GATEWAY/resuming) for more information.
+
+###### Gateway Invalid Session Example
+
+```json
+{
+    "op": 9,
+    "d": false
+}
+```
 
 ## Connecting
 
@@ -285,7 +293,7 @@ Next the client is expected to send an [OP 2 Identify](#DOCS_GATEWAY/gateway-ide
 
 The internet is a scary place, and persistent connections can often experience issues which causes them to sever and disconnect. Due to Discord architecture, this is a semi-regular event and should be expected. Because a large portion of a clients state must be thrown out and recomputed when a connection is opened, Discord has a process for "resuming" (or reconnecting) a connection without throwing away the previous state. This process is very similar to starting a fresh connection, and allows the client to replay any lost events from the last sequence number they received in the exact same way they would receive them normally.
 
-To utilize resuming, your client should store the `session_id` from the [Ready](#DOCS_GATEWAY/ready), and the sequence number of the last event it received. When your client detects that the connection has been disconnected, through either the underlying socketing being closed or from a lack of [Gateway Heartbeat ACK](#DOCS_GATEWAY/gateway-heartbeat-ack)'s it should completely close the connection and open a new one (following the same strategy as [Connecting](#DOCS_GATEWAY/connecting)). Once the new connection has been opened, the client should send a [Gateway Resume](#DOCS_GATEWAY/gateway-resume). If successful, the gateway will respond by replaying all missed events in order, finishing with a [Resumed](#DOCS_GATEWAY/resumed) event to signal replay has finished, and all subsequent events are new. It's also possible that your client cannot reconnect in time to resume, in which case the client will receive a [OP 9 Invalid Session](#DOCS_GATEWAY/invalid-session) and is expected to send a fresh [OP 2 Identify](#DOCS_GATEWAY/gateway-identify).
+To utilize resuming, your client should store the `session_id` from the [Ready](#DOCS_GATEWAY/ready), and the sequence number of the last event it received. When your client detects that the connection has been disconnected, through either the underlying socketing being closed or from a lack of [Gateway Heartbeat ACK](#DOCS_GATEWAY/gateway-heartbeat-ack)'s it should completely close the connection and open a new one (following the same strategy as [Connecting](#DOCS_GATEWAY/connecting)). Once the new connection has been opened, the client should send a [Gateway Resume](#DOCS_GATEWAY/gateway-resume). If successful, the gateway will respond by replaying all missed events in order, finishing with a [Resumed](#DOCS_GATEWAY/resumed) event to signal replay has finished, and all subsequent events are new. It's also possible that your client cannot reconnect in time to resume, in which case the client will receive a [OP 9 Invalid Session](#DOCS_GATEWAY/invalid-session) and is expected to wait a random amount of time (between 1 and 5 seconds), then send a fresh [OP 2 Identify](#DOCS_GATEWAY/gateway-identify).
 
 ### Disconnections
 
@@ -571,7 +579,7 @@ A user's presence is their current state on a guild. This event is sent when a u
 | roles | array of snowflakes | roles this user is in |
 | game | ?[game](#DOCS_GATEWAY/game-object) object | null, or the user's current activity |
 | guild_id | snowflake | id of the guild |
-| status | string | either "idle", "online" or "offline" |
+| status | string | either "idle", "dnd", "online", or "offline" |
 
 ### Game Object
 
@@ -615,10 +623,6 @@ Sent when a user starts typing in a channel.
 | user_id | snowflake | id of the user |
 | timestamp | integer | unix time (in seconds) of when the user started typing |
 
-### User Settings Update
-
-Sent when the current user updates their settings. Inner payload is a [user settings](#DOCS_USER/user-settings-object) object.
-
 ### User Update
 
 Sent when properties about the user change. Inner payload is a [user](#DOCS_USER/user-object) object.
@@ -626,15 +630,6 @@ Sent when properties about the user change. Inner payload is a [user](#DOCS_USER
 ### Voice State Update
 
 Sent when someone joins/leaves/moves voice channels. Inner payload is a [voice state](#DOCS_VOICE/voice-state-object) object.
-
-###### Example Voice State Update Event
-
-```json
-{
-	"user_id": "104694319306248192",
-	"session_id": "my_session_id"
-}
-```
 
 ### Voice Server Update
 
