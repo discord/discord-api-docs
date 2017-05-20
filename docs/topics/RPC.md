@@ -526,6 +526,13 @@ Used to change voice settings of users in voice channels
 
 ###### Set User Voice Settings Argument and Response Structure
 
+| Field | Type | Description |
+|-------|------|-------------|
+| user_id | String | user id |
+| pan | Pan Object | (optional) set the pan of the user |
+| volume | Number | (optional) set the volume of user (defaults to 100, min 0, max 200)|
+| mute | Boolean | (optional) set the mute state of the user |
+
 >info
 > In the current release, we only support a single modifier of voice settings at a time over RPC. 
 > If an app changes voice settings, it will lock voice settings so that other apps connected simultaneously 
@@ -533,13 +540,6 @@ Used to change voice settings of users in voice channels
 > controlling app disconnects. When an app that has previously set voice settings connects, the client will swap 
 > to that app's configured voice settings and lock voice settings again. This is a temporary situation that will 
 > be changed in the future.
-
-| Field | Type | Description |
-|-------|------|-------------|
-| user_id | String | user id |
-| pan | Pan Object | (optional) set the pan of the user |
-| volume | Number | (optional) set the volume of user (defaults to 100, min 0, max 200)|
-| mute | Boolean | (optional) set the mute state of the user |
 
 ###### Pan Object
 
