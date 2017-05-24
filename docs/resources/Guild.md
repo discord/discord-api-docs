@@ -325,7 +325,7 @@ Remove a member from a guild. Requires 'KICK_MEMBERS' permission. Returns a 204 
 
 ## Get Guild Bans % GET /guilds/{guild.id#DOCS_GUILD/guild-object}/bans
 
-Returns a list of [user](#DOCS_USER/user-object) objects that are banned from this guild. Requires the 'BAN_MEMBERS' permission.
+Returns a list of [user](#DOCS_USER/user-object) objects that are banned from this guild (with a reason, currently being always null). Requires the 'BAN_MEMBERS' permission.
 
 ## Create Guild Ban % PUT /guilds/{guild.id#DOCS_GUILD/guild-object}/bans/{user.id#DOCS_USER/user-object}
 
