@@ -207,10 +207,6 @@ Modify a guild's settings. Returns the updated [guild](#DOCS_GUILD/guild-object)
 | owner_id | snowflake | user id to transfer guild ownership to (must be owner) |
 | splash | string | base64 128x128 jpeg image for the guild splash (VIP only) |
 
-## Delete Guild % DELETE /guilds/{guild.id#DOCS_GUILD/guild-object}
-
-Delete a guild permanently. User must be owner. Returns the [guild](#DOCS_GUILD/guild-object) object on success. Fires a [Guild Delete](#DOCS_GATEWAY/guild-delete) Gateway event.
-
 ## Get Guild Channels % GET /guilds/{guild.id#DOCS_GUILD/guild-object}/channels
 
 Returns a list of guild [channel](#DOCS_CHANNEL/guild-channel-object) objects.
