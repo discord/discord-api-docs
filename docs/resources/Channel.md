@@ -260,6 +260,7 @@ Discord utilizes a subset of markdown for rendering message content on its clien
 | Custom Emoji | `<:NAME:ID>` | `<:mmLol:216154654256398347>` |
 
 Using the markdown for either users, roles or channels will mention the target(s) accordingly.
+Roles that have mentioning disabled will not mention the target(s).
 
 ## Get Channel % GET /channels/{channel.id#DOCS_CHANNEL/channel-objects}
 
