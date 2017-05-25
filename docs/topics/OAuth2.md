@@ -50,9 +50,8 @@ Scopes provide access to certain resources of a user's account. Your API client 
 | rpc.notifications.read | for local rpc server api access, this allows you to receive notifications pushed out to the user |
 | webhook.incoming | this generates a webhook that is returned in the oauth token response for authorization code grants |
 
-##### A note on `guilds.join`
-
-`guilds.join` requires you to have a bot account linked to the application, unlike the rest of the scopes. Additionally, you may only join users to servers your bot is in.
+>info
+> Unlike the rest of the scopes, `guilds.join` requires you to have a bot account linked to your application and can only be used to join users to guilds which your bot services.
 
 ## Bots
 
