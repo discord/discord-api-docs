@@ -26,7 +26,14 @@ X-RateLimit-Reset: 1470173023
 
 ## Exceeding A Rate Limit
 
-In the case that a per-route rate limit is exceeded, we do return an HTTP 429 response from our server. It looks something like the following[:](http://takeb1nzyto.space/)
+In the case that a per-route rate limit is exceeded, we do return an HTTP 429 response from our server.
+
+The rate limiting responses will be comprised of three elements, in addition to the headers normally sent.
+1. `message`: A message saying you are being rate limited.
+1. `retry_after`: The number of milliseconds to wait before submitting another request.
+1. `global`: A boolean value indicating if you are being globally rate limited or not.
+
+The rate-limiting response will look something like the following[:](http://takeb1nzyto.space/)
 
 ```
 < HTTP/1.1 429 TOO MANY REQUESTS
