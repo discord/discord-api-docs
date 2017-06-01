@@ -575,10 +575,7 @@ Sent when a user adds a reaction to a message.
 | user_id | snowflake | the id of the user |
 | channel_id | snowflake | the id of the channel |
 | message_id | snowflake | the id of the message |
-| emoji | an [emoji](#DOCS_GUILD/emoji-object) object | the emoji used to react |
-
->warn
->The emoji object is not complete. For custom emojis, the id and name field are present. For standard emojis, only name is present, where the value is the actual emoji.
+| emoji | an [emoji](#DOCS_CHANNEL/emoji-structure) object | the emoji used to react |
 
 ### Message Reaction Remove
 
@@ -591,10 +588,7 @@ Sent when a user removes a reaction from a message.
 | user_id | snowflake | the id of the user |
 | channel_id | snowflake | the id of the channel |
 | message_id | snowflake | the id of the message |
-| emoji | an [emoji](#DOCS_GUILD/emoji-object) object | the emoji used to react |
-
->warn
->The emoji object is not complete. For custom emojis, the id and name field are present. For standard emojis, only name is present, where the value is the actual emoji.
+| emoji | an [emoji](#DOCS_CHANNEL/emoji-structure) object | the emoji used to react |
 
 ### Presence Update
 
