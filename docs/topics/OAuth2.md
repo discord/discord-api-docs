@@ -75,6 +75,8 @@ https://discordapp.com/api/oauth2/authorize?client_id=157730590492196864&scope=b
 
 `client_id` is your _bot_ application's ID and permissions is an integer following the [permissions](#DOCS_PERMISSIONS/bitwise-permission-flags) format.
 
+You can also use [this permissions calculator](https://discordapi.com/permissions.html) to generate a URL for your bot.
+
 ### Adding Webhooks to Channels
 
 A URL can be generated that redirects authenticated users to the add-webhook flow, by using the following format (this utilizes the OAuth2 authentication authorization code flow, which requires a server-side application):
