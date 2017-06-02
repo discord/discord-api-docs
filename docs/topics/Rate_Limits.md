@@ -26,7 +26,7 @@ X-RateLimit-Reset: 1470173023
 
 ## Exceeding A Rate Limit
 
-In the case that a per-route rate limit is exceeded, we do return an HTTP 429 response from our server.
+In the case that the rate limit is exceeded, the API will return a HTTP 429 response code with a JSON body.
 
 ###### Rate Limit Response Structure
 
