@@ -313,7 +313,7 @@ If the gateway ever issues a disconnect to your client it will provide a close e
 | 4008 | rate limited | Woah nelly! You're sending payloads to us too quickly. Slow it down! |
 | 4009 | session timeout | Your session timed out. Reconnect and start a new one. |
 | 4010 | invalid shard | You sent us an invalid [shard when identifying](#DOCS_GATEWAY/sharding). |
-| 4011 | sharding required | The session would have handled too many guilds - you are required to [shard](#DOCS_GATEWAY/sharding) your connection in order to connect. | 
+| 4011 | sharding required | The session would have handled too many guilds - you are required to [shard](#DOCS_GATEWAY/sharding) your connection in order to connect. |
 
 ### ETF/JSON
 
@@ -589,6 +589,17 @@ Sent when a user removes a reaction from a message.
 | channel_id | snowflake | the id of the channel |
 | message_id | snowflake | the id of the message |
 | emoji | an [emoji](#DOCS_CHANNEL/emoji-structure) object | the emoji used to react |
+
+### Message Reaction Remove All
+
+Sent when a user explicitly removes all reactions from a message.
+
+###### Message Reaction Remove All Event Fields
+
+| Field | Type | Description |
+|-------|------|-------------|
+| channel_id | snowflake | the id of the channel |
+| message_id | snowflake | the id of the message |
 
 ### Presence Update
 
