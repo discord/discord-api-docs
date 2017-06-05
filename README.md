@@ -1,3 +1,5 @@
+[![API Testing](https://img.shields.io/badge/API%20Test-RapidAPI-blue.svg)](https://rapidapi.com/package/DiscordBot/functions?utm_source=DiscordBotGithub&utm_medium=button&utm_content=Vender_Github)
+
 # Discord Official API Documentation
 
 This repo contains the official Discord API documentation, which can be viewed online [HERE](https://discordapp.com/developers/docs/intro). Before submitting pull-requests, please remember to _fully_ read the [Contributing](CONTRIBUTING.md) guidelines.
