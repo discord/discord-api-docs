@@ -70,7 +70,7 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 50019 | A message can only be pinned to the channel it was sent in |
 | 50021 | Cannot execute action on a system message |
 | 50034 | A message provided was too old to bulk delete |
-| 50036 | You cannot accept an invite to a guild the application's bot is not in. |
+| 50036 | You cannot accept an invite to a guild the application's bot is not in |
 | 90001 | Reaction Blocked |
 
 ###### JSON Error Response Example
