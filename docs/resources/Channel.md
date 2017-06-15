@@ -18,7 +18,7 @@ Guild channels represent an isolated set of users and messages within a Guild.
 | is\_private | bool | should always be false for guild channels | Always |
 | permission\_overwrites | array | an array of [overwrite](#DOCS_CHANNEL/overwrite-object) objects | Always |
 | topic | string | the channel topic (0-1024 characters) | Text only |
-| last\_message\_id | snowflake | the id of the last message sent in this channel | Text only |
+| last\_message\_id | snowflake | the id of the last message sent in this channel (may not point to an existing or valid message) | Text only |
 | bitrate | integer | the bitrate (in bits) of the voice channel | Voice only |
 | user\_limit | integer | the user limit of the voice channel | Voice only |
 
@@ -65,7 +65,7 @@ DM Channels represent a one-to-one conversation between two users, outside of th
 | id | snowflake | the id of this private message |
 | is\_private | bool | should always be true for DM channels |
 | recipient | object | the [user object](#DOCS_USER/user-object) of the DM recipient |
-| last\_message\_id | snowflake | the id of the last message sent in this DM |
+| last\_message\_id | snowflake | the id of the last message sent in this DM (may not point to an existing or valid message) |
 
 ###### Example DM Channel
 
