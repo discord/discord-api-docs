@@ -128,7 +128,7 @@ Sent on connection to the websocket. Defines the heartbeat interval that the cli
 
 ```json
 {
-	"heartbeat_interval": 45,
+	"heartbeat_interval": 45000,
 	"_trace": ["discord-gateway-prd-1-99"]
 }
 ```
