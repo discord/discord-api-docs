@@ -57,7 +57,7 @@ The voice server should respond with an OP2 Ready payload, which informs us of o
 
 ### Establishing a Voice UDP Connection
 
-Once we receive the properties of a UDP voice server from our OP2 ready payload, we can proceed to the final step of voice connections, which entails establishing and handshaking a UDP connection for voice data. First, we open a UDP connection to the same endpoint we originally received in the [Voice Server Update](#DOCS_GATEWAY/voice-server-update) payload, combined with the port we received in the Voice Ready payload. If required, we can now perform an [IP Discovery](#DOCS_VOICE_CONNECTIONS/ip-discovery) using this connection. Once we've fully discovered our local IP and UDP port, we can then tell the voice websocket what it is, and start receiving/sending data. We do this using the select protocol payload.
+Once we receive the properties of a UDP voice server from our OP2 ready payload, we can proceed to the final step of voice connections, which entails establishing and handshaking a UDP connection for voice data. First, we open a UDP connection to the same endpoint we originally received in the [Voice Server Update](#DOCS_GATEWAY/voice-server-update) payload, combined with the port we received in the Voice Ready payload. If required, we can now perform an [IP Discovery](#DOCS_VOICE_CONNECTIONS/ip-discovery) using this connection. Once we've fully discovered our external IP and UDP port, we can then tell the voice websocket what it is, and start receiving/sending data. We do this using the select protocol payload.
 
 >warn
 > The plain mode is deprecated and will be removed soon. All data should be sent using a supported encryption method (right now only `xsalsa20_poly1305`).
@@ -79,7 +79,7 @@ Finally, the voice server will respond with a OP4 Session Description. We can no
 
 #### IP Discovery
 
-Generally routers on the internet mask or obfuscate UDP ports through a process called NAT. Most users who implement voice will want to utilize IP discovery to find their local IP and port which will then be used for receiving voice communications. To retrieve your local IP, send a 70-byte packet with empty data past the 4-byte ssrc. The server will respond back with another 70-byte packet, this time with a NULL-terminated string of the IP, with the port encoded in a **little endian** unsigned short stored in the last two bytes of the packet.
+Generally routers on the internet mask or obfuscate UDP ports through a process called NAT. Most users who implement voice will want to utilize IP discovery to find their external IP and port which will then be used for receiving voice communications. To retrieve your external IP and port, send a 70-byte packet with empty data past the 4-byte ssrc. The server will respond back with another 70-byte packet, this time with a NULL-terminated string of the IP, with the port encoded in a **little endian** unsigned short stored in the last two bytes of the packet.
 
 ## Encrypting and Sending Voice
 
