@@ -96,8 +96,8 @@ Represents a message sent in a channel within Discord.
 | mention\_everyone | bool | whether this message mentions everyone |
 | mentions | array of [user objects](#DOCS_USER/user-object) | users specifically mentioned in the message |
 | mention\_roles | array of [role object](#DOCS_PERMISSIONS/role-object) ids | roles specifically mentioned in this message |
-| attachments | array of [attachment objects](#DOC_CHANNEL/attachment-object) | any attached files |
-| embeds | array of [embed objects](#DOC_CHANNEL/embed-object) | any embedded content |
+| attachments | array of [attachment objects](#DOCS_CHANNEL/attachment-object) | any attached files |
+| embeds | array of [embed objects](#DOCS_CHANNEL/embed-object) | any embedded content |
 | reactions | array of [reaction objects](#DOCS_CHANNEL/reaction-object) | reactions to the message |
 | nonce | ?snowflake | used for validating a message was sent |
 | pinned | bool | whether this message is pinned |
