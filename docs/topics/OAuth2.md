@@ -4,12 +4,17 @@ OAuth2 enables application developers to build applications that utilize authent
 
 ## Bot vs User Accounts
 
-Bots within the Discord API are a separate type of users that are owned by applications (which are owned by users), and authenticate to the system using a token rather than a username and password. Anybody wishing to create a public bot **must** use a bot account and the OAuth2 API. Accounts violating this and using normal user accounts for public bots will be suspended and forced to use a bot account for their bot. Bot accounts have some differences and limitations to normal accounts, namely:
+Discord's API provides a seperate type of user account dedicated to automation, called a bot account. Bot accounts can be created through the [applications page](#MY_APPLICATIONS/top), and are authenticated using a token (rather than a username and password). Unlike the normal OAuth2 flow, bot accounts have full access to all API routes without using bearer tokens, and can connect to the [Real Time Gateway](#DOCS_GATEWAY/gateways). Automating normal user accounts (generally called "self-bots") outside of the OAuth2/bot API is forbidden, and can result in an account termination if found.
 
-1. Bots cannot utilize the friends list feature.
-2. Bots cannot accept invites.
-3. Bots are not limited to a maximum of 100 guilds.
-4. Bots have a per-channel and a global rate limit.
+Bot accounts have a few differences in comparison to normal user accounts, namely:
+
+1. Bots are added to servers through the OAuth2 API, and cannot accept normal invites.
+2. Bots cannot have friends, nor be added to or join Group DMs.
+3. Bots do not have a maximum number of Guilds (unlike user accounts, which are limited to 100).
+4. Bots have ane entirely seperate set of [Rate Limits](#DOCS_RATE_LIMITS/rate-limits).
+
+
+Users interested in providing real-time automation to user accounts should consider the [RPC API](#DOCS_RPC/rpc).
 
 ## Implementing OAuth2
 
