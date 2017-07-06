@@ -45,7 +45,7 @@ Create a new webhook. Returns a [webhook](#DOCS_WEBHOOK/webhook-object) object o
 
 | Field | Type | Description |
 |-------|------|-------------|
-| name | string | name of the webhook (2-100 characters) |
+| name | string | name of the webhook (2-32 characters) |
 | avatar | [avatar data](#DOCS_USER/avatar-data) | base64 128x128 jpeg image for the default webhook avatar |
 
 ## Get Channel Webhooks % GET /channels/{channel.id#DOCS_CHANNEL/channel-object}/webhooks
