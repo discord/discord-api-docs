@@ -16,18 +16,19 @@ Ensure you use the proper header type (`image/jpeg`, `image/png`, `image/gif`) t
 
 ## Usernames and Nicknames
 
-Limitations on Discord usernames are few and far between. We do, however, have a few of which developers should be mindful. Discord usernames and nicknames are restricted to a minimum of `2` unicode characters and a maximum of `32`.
+Discord enforces the following restrictions for usernames and nicknames:
 
-We also enforce some basic sane data sanitization, like trimming whitespace characters and certain other bad characters. We also block the following substrings and names:
+1. Names can contain most valid unicode characters. We limit some zero-width and non-rendering characters.
 
-|Invalid Username Substrings| Invalid Usernames|
-|----| ----|
-|@| discordtag
-|#| everyone
-|:| here
-| \```|
+2. Names must be between 2 and 32 characters long.
 
-There are other rules and restrictions not shared here for the sake of spam and abuse mitigation, but the majority of users won't encounter them. It's important to be cognizent of error messages returned by Discord when editing or updating usernames and nicknames so that edge cases can be handled appropriately.
+3. Names cannot contain the follow substrings: '@', '#', ':', '\```'.
+
+4. Names cannot be: 'discordtag', 'everyone', 'here'.
+
+5. Names are sanitized and trimmed of leading, trailing, and exessive internal whitespace.
+
+There are other rules and restrictions not shared here for the sake of spam and abuse mitigation, but the majority of users won't encounter them. It's important to properly handle all error messages returned by Discord when editing or updating names.
 
 ## User Object
 
