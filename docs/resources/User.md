@@ -14,6 +14,22 @@ data:image/jpeg;base64,BASE64_ENCODED_JPEG_IMAGE_DATA
 
 Ensure you use the proper header type (`image/jpeg`, `image/png`, `image/gif`) that matches the image data being provided.
 
+## Usernames and Nicknames
+
+Discord enforces the following restrictions for usernames and nicknames:
+
+1. Names can contain most valid unicode characters. We limit some zero-width and non-rendering characters.
+
+2. Names must be between 2 and 32 characters long.
+
+3. Names cannot contain the following substrings: '@', '#', ':', '\```'.
+
+4. Names cannot be: 'discordtag', 'everyone', 'here'.
+
+5. Names are sanitized and trimmed of leading, trailing, and exessive internal whitespace.
+
+There are other rules and restrictions not shared here for the sake of spam and abuse mitigation, but the majority of users won't encounter them. It's important to properly handle all error messages returned by Discord when editing or updating names.
+
 ## User Object
 
 ###### User Structure
