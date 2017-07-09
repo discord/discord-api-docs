@@ -33,7 +33,7 @@ Represents a code that when used, adds a user to a guild.
 | max_uses | integer | max number of times this invite can be used |
 | max_age | integer | duration (in seconds) after which the invite expires |
 | temporary | bool | whether this invite only grants temporary membership |
-| created_at | datetime | when this invite was created |
+| created_at | ISO8601 timestamp | when this invite was created |
 | revoked | bool | whether this invite is revoked |
 
 ###### Example Invite Metadata

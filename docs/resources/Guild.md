@@ -24,7 +24,7 @@ Guilds in Discord represent a collection of users and channels into an isolated 
 | emojis | array | array of [emoji](#DOCS_GUILD/emoji-object) objects |
 | features | array | array of guild features |
 | mfa\_level | integer | required MFA level for the guild |
-| joined\_at \* | datetime | date this guild was joined at |
+| joined\_at \* | ISO8601 timestamp | when this guild was joined at |
 | large \* | bool | whether this is considered a large guild |
 | unavailable \* | bool | is this guild unavailable |
 | member\_count \* | integer | total number of members in this guild |
@@ -104,7 +104,7 @@ Represents an Offline Guild, or a Guild whose information has not been provided 
 | user | object | [user](#DOCS_USER/user-object) object |
 | nick | string? | this users guild nickname (if one is set) |
 | roles | array | array of [role](#DOCS_PERMISSIONS/role-object) object id's |
-| joined_at | datetime | date the user joined the guild |
+| joined_at | ISO8601 timestamp | when the user joined the guild |
 | deaf | bool | if the user is deafened |
 | mute | bool | if the user is muted |
 
@@ -137,7 +137,7 @@ Represents an Offline Guild, or a Guild whose information has not been provided 
 | expire_grace_period | integer | the grace period before expiring subscribers |
 | user | [user](#DOCS_USER/user-object) object | user for this integration |
 | account | [account](#DOCS_GUILD/integration-account-object) object | integration account information |
-| synced_at | timestamp | when this integration was last synced |
+| synced_at | ISO8601 timestamp | when this integration was last synced |
 
 ### Integration Account Object
 

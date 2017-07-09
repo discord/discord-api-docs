@@ -90,8 +90,8 @@ Represents a message sent in a channel within Discord.
 | channel\_id | snowflake | id of the channel the message was sent in |
 | author* | a [user](#DOCS_USER/user-object) object | the author of this message (not guaranteed to be a valid user, see below) |
 | content | string | contents of the message |
-| timestamp | timestamp | when this message was sent |
-| edited\_timestamp | ?timestamp | when this message was edited (or null if never) |
+| timestamp | ISO8601 timestamp | when this message was sent |
+| edited\_timestamp | ?ISO8601 timestamp | when this message was edited (or null if never) |
 | tts | bool | whether this was a TTS message |
 | mention\_everyone | bool | whether this message mentions everyone |
 | mentions | array of [user objects](#DOCS_USER/user-object) | users specifically mentioned in the message |
@@ -163,7 +163,7 @@ Represents a message sent in a channel within Discord.
 | type | string | type of embed (always "rich" for webhook embeds) |
 | description | string | description of embed |
 | url | string | url of embed |
-| timestamp | date | timestamp of embed content |
+| timestamp | ISO8601 timestamp | timestamp of embed content |
 | color | integer | color code of the embed |
 | footer | [embed footer object](#DOCS_CHANNEL/embed-footer-structure) | footer information
 | image | [embed image object](#DOCS_CHANNEL/embed-image-structure) | image information
