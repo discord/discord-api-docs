@@ -268,7 +268,7 @@ Returns a list of [guild member](#GUILD/guild-member-object) objects that are me
 
 ## Add Guild Member % PUT /guilds/{guild.id#DOCS_GUILD/guild-object}/members/{user.id#DOCS_USER/user-object}
 
-Adds a user to the guild, provided you have a valid oauth2 access token for the user with the `guilds.join` scope. Returns a 201 Created with the [guild member](#DOCS_GUILD/guild-member-object) as the body. Fires a [Guild Member Add](#DOCS_GATEWAY/guild-member-add) Gateway event. Requires the bot to have the `CREATE_INSTANT_INVITE` permission. 
+Adds a user to the guild, provided you have a valid oauth2 access token for the user with the `guilds.join` scope. Returns a 201 Created with the [guild member](#DOCS_GUILD/guild-member-object) as the body. Fires a [Guild Member Add](#DOCS_GATEWAY/guild-member-add) Gateway event. Requires the bot to have the `CREATE_INSTANT_INVITE` permission.
 
 >info
 > All parameters to this endpoint except for `access_token` are optional.

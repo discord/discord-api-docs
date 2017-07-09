@@ -45,6 +45,14 @@ All HTTP-layer services and protocols (e.g. http, websocket) within the Discord 
 
 Discord utilizes Twitter's [snowflake](https://github.com/twitter/snowflake/tree/snowflake-2010) format for uniquely identifiable descriptors (IDs). These IDs are up to 64bits in size (e.g. a uint64) and therefore are always returned as strings in the API to prevent integer overflows in some languages. Snowflake IDs are guaranteed to be unique across all of Discord, except in some unique scenarios in which child objects share their parents ID.
 
+## Nullable Resource Fields
+
+Resource fields that may be null have types that are prefixed with a question mark.
+
+## Optional Resource Fields
+
+Resources fields that are optional have types that are suffixed with a question mark.
+
 ## Consistency
 
 Discord operates at a scale where true consistency is impossible. Because of this, lots of operations in our API and in-between our services are [eventually consistent](https://en.wikipedia.org/wiki/Eventual_consistency). Due to this, client actions can never be serialized and may be executed in _any_ order (if executed at all). Along with these constraints, events in Discord may:
