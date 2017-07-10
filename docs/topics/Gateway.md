@@ -35,12 +35,13 @@ Returns an object with the same information as [Get Gateway](#DOCS_GATEWAY/get-g
 
 ## Gateway Protocol Versions
 
-The Discord Gateway has a versioning system which is separate from the core APIs. The following table specifies all versions of the Gateway API that have been officially supported, and whether or not they are out of service (e.g. unsupported and potentially disfunctional). The documentation herein is only for the latest version in the following table, unless otherwise specified.
+The Discord Gateway has a versioning system which is separate from the core APIs. The documentation herein is only for the latest version in the following table, unless otherwise specified. All gateway versions below version 6 will be deprecated on **August 10, 2017**.
 
-| Version | Out of Service |
+| Version | Status |
 |---------|----------------|
-| 5 | no |
-| 4 | no |
+| 6 | In Service
+| 5 | To Be Deprecated: August 10, 2017 |
+| 4 | To Be Deprecated: August 10, 2017 |
 
 ## Gateway OP Codes/Payloads
 
@@ -165,7 +166,7 @@ Used to trigger the initial handshake with the gateway.
 }
 ```
 
-### Gateway Reconnect		
+### Gateway Reconnect
 
 Used to tell clients to reconnect to the gateway. Clients should immediately reconnect, and use the resume payload on the gateway.
 
