@@ -35,13 +35,13 @@ Returns an object with the same information as [Get Gateway](#DOCS_GATEWAY/get-g
 
 ## Gateway Protocol Versions
 
-The Discord Gateway has a versioning system which is separate from the core APIs. The documentation herein is only for the latest version in the following table, unless otherwise specified. All gateway versions below version 6 will be deprecated on **August 10, 2017**.
+The Discord Gateway has a versioning system which is separate from the core APIs. The documentation herein is only for the latest version in the following table, unless otherwise specified. All gateway versions below version 6 will be discontinued on **August 10, 2017**.
 
 | Version | Status |
 |---------|----------------|
 | 6 | In Service
-| 5 | To Be Deprecated: August 10, 2017 |
-| 4 | To Be Deprecated: August 10, 2017 |
+| 5 | To Be Discontinued: August 10, 2017 |
+| 4 | To Be Discontinued: August 10, 2017 |
 
 ## Gateway OP Codes/Payloads
 
