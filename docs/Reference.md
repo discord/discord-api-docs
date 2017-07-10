@@ -10,6 +10,24 @@ The base URL for all API requests is:
 https://discordapp.com/api
 ```
 
+## API Versioning
+
+Discord's uses a route versioning system to expose different versions of our API. You can specify version by including it in the request route:
+
+```
+https://discordapp.com/api/v{version_number}
+```
+
+Omitting the version number from the route will route requests to the current default version.
+
+### API Versions
+| Version | Status | Default |
+| ------- | ------ | ------- |
+| 6 | Available | |
+| 5 | To Be Discontinued: August 10, 2017|
+| 4 | To Be Discontinued: August 10, 2017|
+| 3 | To Be Discontinued: August 10, 2017| ✓
+
 ## Authentication
 
 Authenticating with the Discord API can be done in one of two ways:

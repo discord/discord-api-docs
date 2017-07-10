@@ -11,7 +11,7 @@ Bot accounts have a few differences in comparison to normal user accounts, namel
 1. Bots are added to servers through the OAuth2 API, and cannot accept normal invites.
 2. Bots cannot have friends, nor be added to or join Group DMs.
 3. Bots do not have a maximum number of Guilds (unlike user accounts, which are limited to 100).
-4. Bots have ane entirely seperate set of [Rate Limits](#DOCS_RATE_LIMITS/rate-limits).
+4. Bots have an entirely separate set of [Rate Limits](#DOCS_RATE_LIMITS/rate-limits).
 
 
 Users interested in providing real-time automation to user accounts should consider the [RPC API](#DOCS_RPC/rpc).
@@ -90,7 +90,7 @@ https://discordapp.com/api/oauth2/authorize?client_id=157730590492196864&scope=w
 
 `client_id` is your application's ID and `redirect_uri` is one of your application's URL-encoded redirect URIs.
 
-When a user is directed to this URL, they are prompted to select a channel for the webhook to be placed in. Your application will receive an authorization code back in the querystring (as usual with the authorization code grant). 
+When a user is directed to this URL, they are prompted to select a channel for the webhook to be placed in. Your application will receive an authorization code back in the querystring (as usual with the authorization code grant).
 
 When you exchange the authorization code for an access token, the token response will contain the [webhook object](#DOCS_WEBHOOK/webhook-object):
 

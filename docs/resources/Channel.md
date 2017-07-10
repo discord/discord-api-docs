@@ -13,7 +13,7 @@ Guild channels represent an isolated set of users and messages within a Guild.
 | id | snowflake | the id of this channel (will be equal to the guild if it's the "general" channel) | Always|
 | guild\_id | snowflake | the id of the guild | Always |
 | name | string | the name of the channel (2-100 characters) | Always |
-| type | string | "text" or "voice" | Always |
+| type | integer | see [channel types](#DOCS_CHANNEL/channel-types) | Always |
 | position | integer | sorting position of the channel | Always |
 | is\_private | bool | should always be false for guild channels | Always |
 | permission\_overwrites | array | an array of [overwrite](#DOCS_CHANNEL/overwrite-object) objects | Always |
@@ -22,6 +22,14 @@ Guild channels represent an isolated set of users and messages within a Guild.
 | bitrate | integer | the bitrate (in bits) of the voice channel | Voice only |
 | user\_limit | integer | the user limit of the voice channel | Voice only |
 
+###### Channel Types
+| Type | ID |
+| ---- | -- |
+| GUILD_TEXT| 0
+| DM | 1
+| GUILD_VOICE | 2
+| GROUP_DM | 3
+
 ###### Example Text Channel
 
 ```json
@@ -29,7 +37,7 @@ Guild channels represent an isolated set of users and messages within a Guild.
 	"id": "41771983423143937",
 	"guild_id": "41771983423143937",
 	"name": "general",
-	"type": "text",
+	"type": 0,
 	"position": 6,
 	"is_private": false,
 	"permission_overwrites": [],
@@ -45,7 +53,7 @@ Guild channels represent an isolated set of users and messages within a Guild.
 	"id": "155101607195836416",
 	"guild_id": "41771983423143937",
 	"name": "ROCKET CHEESE",
-	"type": "voice",
+	"type": 2,
 	"position": 5,
 	"is_private": false,
 	"permission_overwrites": [],
