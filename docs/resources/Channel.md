@@ -8,27 +8,18 @@ Guild channels represent an isolated set of users and messages within a Guild.
 
 ###### Guild Channel Structure
 
-| Field | Type | Description | Present |
+| Field | Type | Description | Present In |
 |-------|------|-------------|---------|
-| id | snowflake | the id of this channel (will be equal to the guild if it's the "general" channel) | Always|
-| guild\_id | snowflake | the id of the guild | Always |
-| name | string | the name of the channel (2-100 characters) | Always |
-| type | integer | see [channel types](#DOCS_CHANNEL/channel-types) | Always |
-| position | integer | sorting position of the channel | Always |
-| is\_private | bool | should always be false for guild channels | Always |
-| permission\_overwrites | array | an array of [overwrite](#DOCS_CHANNEL/overwrite-object) objects | Always |
-| topic | string | the channel topic (0-1024 characters) | Text only |
-| last\_message\_id | snowflake | the id of the last message sent in this channel (may not point to an existing or valid message) | Text only |
-| bitrate | integer | the bitrate (in bits) of the voice channel | Voice only |
-| user\_limit | integer | the user limit of the voice channel | Voice only |
-
-###### Channel Types
-| Type | ID |
-| ---- | -- |
-| GUILD_TEXT| 0
-| DM | 1
-| GUILD_VOICE | 2
-| GROUP_DM | 3
+| id | snowflake | the id of this channel (will be equal to the guild if it's the "general" channel) | All|
+| guild\_id | snowflake | the id of the guild | All |
+| name | string | the name of the channel (2-100 characters) | All |
+| type | integer | the [type of channel](#DOCS_CHANNEL/channel-types) | All |
+| position | integer | sorting position of the channel | All |
+| permission\_overwrites | array | an array of [overwrite](#DOCS_CHANNEL/overwrite-object) objects | All |
+| topic? | string | the channel topic (0-1024 characters) | GUILD_TEXT |
+| last\_message\_id? | snowflake | the id of the last message sent in this channel (may not point to an existing or valid message) | GUILD_TEXT |
+| bitrate? | integer | the bitrate (in bits) of the voice channel | GUILD_VOICE |
+| user\_limit? | integer | the user limit of the voice channel | GUILD_VOICE |
 
 ###### Example Text Channel
 
@@ -39,7 +30,6 @@ Guild channels represent an isolated set of users and messages within a Guild.
 	"name": "general",
 	"type": 0,
 	"position": 6,
-	"is_private": false,
 	"permission_overwrites": [],
 	"topic": "24/7 chat about how to gank Mike #2",
 	"last_message_id": "155117677105512449"
@@ -55,7 +45,6 @@ Guild channels represent an isolated set of users and messages within a Guild.
 	"name": "ROCKET CHEESE",
 	"type": 2,
 	"position": 5,
-	"is_private": false,
 	"permission_overwrites": [],
 	"bitrate": 64000,
 	"user_limit": 0
@@ -68,23 +57,69 @@ DM Channels represent a one-to-one conversation between two users, outside of th
 
 ###### DM Channel Structure
 
-| Field | Type | Description |
-|-------|------|-------------|
-| id | snowflake | the id of this private message |
-| is\_private | bool | should always be true for DM channels |
-| recipient | object | the [user object](#DOCS_USER/user-object) of the DM recipient |
-| last\_message\_id | snowflake | the id of the last message sent in this DM (may not point to an existing or valid message) |
+| Field | Type | Description | Present In |
+|-------|------|-------------| ---------- |
+| id | snowflake | the id of this private message | All
+| type | integer | the [type of channel](#DOCS_CHANNEL/channel-types) | All
+| recipients | array of [user](#DOCS_USER/user-object) objects | the recipients of the DM | All
+| last\_message\_id | snowflake | the id of the last message sent in this DM (may not point to an existing or valid message)| All
+| name? | string | name of the group DM | GROUP_DM
+| icon? | ?string | icon hash | GROUP_DM
+| owner_id | snowflake | id of the DM creator | GROUP_DM
 
 ###### Example DM Channel
 
 ```json
 {
-	"id": "134552934997426176",
-	"is_private": true,
-	"recipient": {},
-	"last_message_id": "153642275539255296"
+	"last_message_id": "3343820033257021450",
+	"type": 1,
+	"id": "319674150115610528",
+	"recipients": [
+		{
+			"username": "test",
+			"discriminator": "9999",
+			"id": "82198898841029460",
+			"avatar": "33ecab261d4681afa4d85a04691c4a01"
+		}
+	]
 }
 ```
+
+###### Example Group DM Channel
+
+```json
+{
+	"name": "Some test channel",
+	"icon": null,
+	"recipients": [
+		{
+			"username": "test",
+			"discriminator": "9999",
+			"id": "82198898841029460",
+			"avatar": "33ecab261d4681afa4d85a04691c4a01"
+		},
+		{
+			"username": "test2",
+			"discriminator": "9999",
+			"id": "82198810841029460",
+			"avatar": "33ecab261d4681afa4d85a10691c4a01"
+		}
+	],
+	"last_message_id": "3343820033257021450",
+	"type": 3,
+	"id": "319674150115710528",
+	"owner_id": "82198810841029460"
+}
+```
+
+###### Channel Types
+
+| Type | ID |
+| ---- | -- |
+| GUILD_TEXT| 0
+| DM | 1
+| GUILD_VOICE | 2
+| GROUP_DM | 3
 
 ### Message Object
 

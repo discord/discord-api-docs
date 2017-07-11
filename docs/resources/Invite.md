@@ -84,7 +84,7 @@ Represents the channel an invite is for.
 |-------|------|-------------|
 | id | snowflake | id of the channel |
 | name | string | name of the channel |
-| type | string | 'text' or 'voice' |
+| type | integer | [type](#DOCS_CHANNEL/channel-types) of the channel |
 
 ###### Invite Channel Object
 
@@ -92,7 +92,7 @@ Represents the channel an invite is for.
 {
 	"id": "165176875973476352",
 	"name": "illuminati",
-	"type": "text"
+	"type": 0
 }
 ```
 

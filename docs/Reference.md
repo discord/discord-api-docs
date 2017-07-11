@@ -12,7 +12,7 @@ https://discordapp.com/api
 
 ## API Versioning
 
-Discord's uses a route versioning system to expose different versions of our API. You can specify version by including it in the request route:
+Discord exposes different versions of our API. You can specify version by including it in the request path:
 
 ```
 https://discordapp.com/api/v{version_number}
