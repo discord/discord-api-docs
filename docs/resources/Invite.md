@@ -33,7 +33,7 @@ Represents a code that when used, adds a user to a guild.
 | max_uses | integer | max number of times this invite can be used |
 | max_age | integer | duration (in seconds) after which the invite expires |
 | temporary | bool | whether this invite only grants temporary membership |
-| created_at | datetime | when this invite was created |
+| created_at | ISO8601 timestamp | when this invite was created |
 | revoked | bool | whether this invite is revoked |
 
 ###### Example Invite Metadata
@@ -60,8 +60,8 @@ Represents the parent guild of an invite.
 |-------|------|-------------|
 | id | snowflake | id of the guild |
 | name | string | name of the guild |
-| splash | string | hash of the guild splash (or null) |
-| icon | string | hash of the guild icon (or null) |
+| splash | ?string | hash of the guild splash (or null) |
+| icon | ?string | hash of the guild icon (or null) |
 
 ###### Invite Guild Object
 
