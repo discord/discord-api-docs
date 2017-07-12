@@ -8,6 +8,7 @@ The Discord team curates the following list of officially vetted libraries that 
 | [dscord](https://github.com/b1naryth1ef/dscord) | D |
 | [nyx](https://github.com/Hackzzila/nyx) | Dart |
 | [Discord.Net](https://github.com/RogueException/Discord.Net) | C# |
+| [DSharpPlus](https://github.com/NaamloosDT/DSharpPlus) | C# |
 | [DiscordGo](https://github.com/bwmarrin/discordgo) | Go |
 | [Discord4j](https://github.com/austinv11/Discord4J) | Java |
 | [JDA](https://github.com/DV8FromTheWorld/JDA) | Java |
