@@ -209,7 +209,7 @@ Modify a guild's settings. Returns the updated [guild](#DOCS_GUILD/guild-object)
 
 ## Delete Guild % DELETE /guilds/{guild.id#DOCS_GUILD/guild-object}
 
-Delete a guild permanently. User must be owner. Returns the [guild](#DOCS_GUILD/guild-object) object on success. Fires a [Guild Delete](#DOCS_GATEWAY/guild-delete) Gateway event.
+Delete a guild permanently. User must be owner. Returns `204 No Content` on success. Fires a [Guild Delete](#DOCS_GATEWAY/guild-delete) Gateway event.
 
 ## Get Guild Channels % GET /guilds/{guild.id#DOCS_GUILD/guild-object}/channels
 
@@ -268,7 +268,7 @@ Returns a list of [guild member](#GUILD/guild-member-object) objects that are me
 
 ## Add Guild Member % PUT /guilds/{guild.id#DOCS_GUILD/guild-object}/members/{user.id#DOCS_USER/user-object}
 
-Adds a user to the guild, provided you have a valid oauth2 access token for the user with the `guilds.join` scope. Returns a 201 Created with the [guild member](#DOCS_GUILD/guild-member-object) as the body. Fires a [Guild Member Add](#DOCS_GATEWAY/guild-member-add) Gateway event. Requires the bot to have the `CREATE_INSTANT_INVITE` permission. 
+Adds a user to the guild, provided you have a valid oauth2 access token for the user with the `guilds.join` scope. Returns a 201 Created with the [guild member](#DOCS_GUILD/guild-member-object) as the body. Fires a [Guild Member Add](#DOCS_GATEWAY/guild-member-add) Gateway event. Requires the bot to have the `CREATE_INSTANT_INVITE` permission.
 
 >info
 > All parameters to this endpoint except for `access_token` are optional.
