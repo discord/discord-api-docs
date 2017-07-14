@@ -64,7 +64,9 @@ DM Channels represent a one-to-one conversation between two users, outside of th
 |-------|------|-------------|
 | id | snowflake | the id of this private message |
 | is\_private | bool | should always be true for DM channels |
+| type | int | represents if it's a DM or Group DM (1 for DM, 3 for Group) |
 | recipient | object | the [user object](#DOCS_USER/user-object) of the DM recipient |
+| recipients | array of objects | an array of [user object](#DOCS_USER/user-object) with each recipient (in case of Group DM |
 | last\_message\_id | snowflake | the id of the last message sent in this DM (may not point to an existing or valid message) |
 
 ###### Example DM Channel
@@ -73,7 +75,9 @@ DM Channels represent a one-to-one conversation between two users, outside of th
 {
 	"id": "134552934997426176",
 	"is_private": true,
+	"type" : 1,
 	"recipient": {},
+	"recipients": [],
 	"last_message_id": "153642275539255296"
 }
 ```
