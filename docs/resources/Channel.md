@@ -133,7 +133,7 @@ Represents a message sent in a channel within Discord.
 |-------|------|-------------|
 | count | integer | times this emoji has been used to react |
 | me | bool | whether the current user reacted using this emoji |
-| emoji | [emoji object](#DOCS_CHANNEL/emoji-structure) | emoji information |
+| emoji | [emoji object](#DOCS_GUILD/emoji-structure) | emoji information |
 
 ###### Emoji Structure
 
