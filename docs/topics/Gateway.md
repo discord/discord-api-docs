@@ -222,17 +222,30 @@ Sent by the client to indicate a presence or status update.
 
 | Field | Type | Description |
 |-------|------|-------------|
-| idle_since | ?integer | unix time (in milliseconds) of when the client went idle, or null if the client is not idle |
-| game | ?object | either null, or an object with one key "name", representing the name of the game being played |
+| since | ?integer | unix time (in milliseconds) of when the client went idle, or null if the client is not idle |
+| game | ?[game](#DOCS_GATEWAY/game-object) | null, or the user's new activity
+| status | string | the user's new [status](#DOCS_GATEWAY/status-types)
+| afk | bool | whether or not the client is afk
+
+###### Status Types
+| Status | Description |
+| ------ | ----------- |
+| online | Online
+| dnd | Do Not Disturb
+| idle | AFK
+| invisible | Invisible and shown as offline
+| offline | Offline
 
 ###### Gateway Status Update Example
 
 ```json
 {
-	"idle_since": 91879201,
+	"since": 91879201,
 	"game": {
-		"name": "Writing Docs FTW"
-	}
+		"name": "Save the Oxford Comma"
+	},
+	"status": "online",
+	"afk": false
 }
 ```
 
