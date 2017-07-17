@@ -18,15 +18,15 @@ Discord exposes different versions of our API. You can specify version by includ
 https://discordapp.com/api/v{version_number}
 ```
 
-Omitting the version number from the route will route requests to the current default version.
+Omitting the version number from the route will route requests to the current default version. API versions below 6 will be discontinued on August 16, 2017, after which they will be non-functioning. At that time, API v6 will be made the default.
 
 ### API Versions
 | Version | Status | Default |
 | ------- | ------ | ------- |
 | 6 | Available | |
-| 5 | To Be Discontinued: August 10, 2017|
-| 4 | To Be Discontinued: August 10, 2017|
-| 3 | To Be Discontinued: August 10, 2017| ✓
+| 5 | To Be Discontinued: August 16, 2017|
+| 4 | To Be Discontinued: August 16, 2017|
+| 3 | To Be Discontinued: August 16, 2017| ✓
 
 ## Authentication
 
