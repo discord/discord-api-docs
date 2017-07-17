@@ -24,7 +24,7 @@ Guilds in Discord represent a collection of users and channels into an isolated 
 | emojis | array | array of [emoji](#DOCS_GUILD/emoji-object) objects |
 | features | array | array of guild features |
 | mfa\_level | integer | required MFA level for the guild |
-| joined\_at \* | datetime | date this guild was joined at |
+| joined\_at \* | ISO8601 timestamp | when this guild was joined at |
 | large \* | bool | whether this is considered a large guild |
 | unavailable \* | bool | is this guild unavailable |
 | member\_count \* | integer | total number of members in this guild |
@@ -104,7 +104,7 @@ Represents an Offline Guild, or a Guild whose information has not been provided 
 | user | object | [user](#DOCS_USER/user-object) object |
 | nick | string? | this users guild nickname (if one is set) |
 | roles | array | array of [role](#DOCS_PERMISSIONS/role-object) object id's |
-| joined_at | datetime | date the user joined the guild |
+| joined_at | ISO8601 timestamp | when the user joined the guild |
 | deaf | bool | if the user is deafened |
 | mute | bool | if the user is muted |
 
@@ -137,7 +137,7 @@ Represents an Offline Guild, or a Guild whose information has not been provided 
 | expire_grace_period | integer | the grace period before expiring subscribers |
 | user | [user](#DOCS_USER/user-object) object | user for this integration |
 | account | [account](#DOCS_GUILD/integration-account-object) object | integration account information |
-| synced_at | timestamp | when this integration was last synced |
+| synced_at | ISO8601 timestamp | when this integration was last synced |
 
 ### Integration Account Object
 
@@ -209,7 +209,7 @@ Modify a guild's settings. Returns the updated [guild](#DOCS_GUILD/guild-object)
 
 ## Delete Guild % DELETE /guilds/{guild.id#DOCS_GUILD/guild-object}
 
-Delete a guild permanently. User must be owner. Returns the [guild](#DOCS_GUILD/guild-object) object on success. Fires a [Guild Delete](#DOCS_GATEWAY/guild-delete) Gateway event.
+Delete a guild permanently. User must be owner. Returns `204 No Content` on success. Fires a [Guild Delete](#DOCS_GATEWAY/guild-delete) Gateway event.
 
 ## Get Guild Channels % GET /guilds/{guild.id#DOCS_GUILD/guild-object}/channels
 
@@ -268,7 +268,7 @@ Returns a list of [guild member](#GUILD/guild-member-object) objects that are me
 
 ## Add Guild Member % PUT /guilds/{guild.id#DOCS_GUILD/guild-object}/members/{user.id#DOCS_USER/user-object}
 
-Adds a user to the guild, provided you have a valid oauth2 access token for the user with the `guilds.join` scope. Returns a 201 Created with the [guild member](#DOCS_GUILD/guild-member-object) as the body. Fires a [Guild Member Add](#DOCS_GATEWAY/guild-member-add) Gateway event. Requires the bot to have the `CREATE_INSTANT_INVITE` permission. 
+Adds a user to the guild, provided you have a valid oauth2 access token for the user with the `guilds.join` scope. Returns a 201 Created with the [guild member](#DOCS_GUILD/guild-member-object) as the body. Fires a [Guild Member Add](#DOCS_GATEWAY/guild-member-add) Gateway event. Requires the bot to have the `CREATE_INSTANT_INVITE` permission.
 
 >info
 > All parameters to this endpoint except for `access_token` are optional.
