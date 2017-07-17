@@ -133,14 +133,7 @@ Represents a message sent in a channel within Discord.
 |-------|------|-------------|
 | count | integer | times this emoji has been used to react |
 | me | bool | whether the current user reacted using this emoji |
-| emoji | [emoji object](#DOCS_GUILD/emoji-object) | emoji information |
-
-###### Emoji Structure
-
-| Field | Type | Description |
-|-------|------|-------------|
-| id | ?snowflake | id of emoji (if custom emoji) |
-| name | string | name of emoji |
+| emoji | partial [emoji object](#DOCS_GUILD/emoji-object) | emoji information |
 
 ### Overwrite Object
 
