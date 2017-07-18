@@ -226,18 +226,18 @@ Sent by the client to indicate a presence or status update.
 | Field | Type | Description |
 |-------|------|-------------|
 | since | ?integer | unix time (in milliseconds) of when the client went idle, or null if the client is not idle |
-| game | ?[game](#DOCS_GATEWAY/game-object) | null, or the user's new activity
-| status | string | the user's new [status](#DOCS_GATEWAY/status-types)
-| afk | bool | whether or not the client is afk
+| game | ?[game](#DOCS_GATEWAY/game-object) | null, or the user's new activity |
+| status | string | the user's new [status](#DOCS_GATEWAY/status-types) |
+| afk | bool | whether or not the client is afk |
 
 ###### Status Types
 | Status | Description |
 | ------ | ----------- |
-| online | Online
-| dnd | Do Not Disturb
-| idle | AFK
-| invisible | Invisible and shown as offline
-| offline | Offline
+| online | Online |
+| dnd | Do Not Disturb |
+| idle | AFK |
+| invisible | Invisible and shown as offline |
+| offline | Offline |
 
 ###### Gateway Status Update Example
 
@@ -300,7 +300,7 @@ Once connected, the client should immediately receive an [OP 10 Hello](#DOCS_GAT
 Next the client is expected to send an [OP 2 Identify](#DOCS_GATEWAY/gateway-identify) _or_ [OP 6 Resume](#DOCS_GATEWAY/gateway-resume) payload. If the token passed is correct, the gateway will respond with a [Ready](#DOCS_GATEWAY/ready) event, and your client can be considered in a "connected" state. Clients are limited to 1 identify every 5 seconds, if they exceed this limit the gateway will respond with an [OP 9 Invalid Session](#DOCS_GATEWAY/gateway-invalid-session) and terminate the connection. It is important to note that although the ready event contains a large portion of the required initial state, some information (such as guilds and their members) is asynchronously sent (see [Guild Create](#DOCS_GATEWAY/guild-create) event)
 
 >warn
-> Clients are limited to 1000 successful `IDENTIFY` calls to the websocket in a 24-hour period. This limit is global and across all shards, but does not include `RESUME` calls. Upon hitting this limit, all active sessions for the bot will be terminated, the bot's token will be reset, and the owner will receive an email notification. It's up to the owner to update their application with the new token.
+> Clients are limited to 1000 `IDENTIFY` calls to the websocket in a 24-hour period. This limit is global and across all shards, but does not include `RESUME` calls. Upon hitting this limit, all active sessions for the bot will be terminated, the bot's token will be reset, and the owner will receive an email notification. It's up to the owner to update their application with the new token.
 
 ###### Gateway URL Params
 

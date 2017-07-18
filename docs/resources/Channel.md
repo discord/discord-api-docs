@@ -10,7 +10,7 @@ Guild channels represent an isolated set of users and messages within a Guild.
 
 | Field | Type | Description | Present |
 |-------|------|-------------|---------|
-| id | snowflake | the id of this channel (will be equal to the guild if it's the "general" channel) | All|
+| id | snowflake | the id of this channel (will be equal to the guild if it's the "general" channel) | All |
 | guild\_id | snowflake | the id of the guild | All |
 | name | string | the name of the channel (2-100 characters) | All |
 | type | integer | the [type of channel](#DOCS_CHANNEL/channel-types) | All |
