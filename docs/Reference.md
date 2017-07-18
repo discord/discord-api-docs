@@ -22,7 +22,8 @@ Omitting the version number from the route will route requests to the current de
 
 >danger
 >API versions below v6 will be discontinued on October 16, 2017, after which they will be non-functioning.
-
+```
+```
 >warn
 >API v6 will be made default on October 16, 2017
 
