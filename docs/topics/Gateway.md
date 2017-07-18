@@ -231,6 +231,7 @@ Sent by the client to indicate a presence or status update.
 | afk | bool | whether or not the client is afk |
 
 ###### Status Types
+
 | Status | Description |
 | ------ | ----------- |
 | online | Online |

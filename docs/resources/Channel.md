@@ -186,6 +186,7 @@ Represents a message sent in a channel within Discord.
 ```
 
 ###### Message Types
+
 | Type | Value |
 | ---- | ----- |
 | DEFAULT | 0 |

@@ -1,25 +1,24 @@
 # Changelog
 
-## API Version 6
+>danger
+>API versions below v6 will be discontinued on October 16, 2017, after which they will be non-functioning.
 
-* **Reference**
-  * [API versions](#DOCS_REFERENCE/api-versions) below v6 are now deprecated and will be discontinued on **October 16, 2017**
-  * API v6 will become default on **October 16, 2017**
-* **Channels**
-  * Updated [guild channel](#DOCS_CHANNEL/guild-channel-structure) object
-    * Removed `is_private` boolean
-    * Added `type`
-  * Updated [DM channel](#DOCS_CHANNEL/dm-channel-structure) object
-    * Removed `is_private` boolean
-    * Added `type`, `last_message_id`, `name`, `icon`, and `owner_id`
-    * Updated `recipient` to `recipients`, an array of [user](#DOCS_USER/user-object) objects
-  * Updated [message](#DOCS_CHANNEL/message-object) object
-    * Added `type`
-* **Invites**
-  * Updated [invite channel](#DOCS_INVITE/invite-channel-structure) object
-    * Added `type`
-* **Gateway**
-  *  [Gateway versions below v6](#DOCS_GATEWAY/gateway-protocol-versions) are now deprecated and will be discontinued on **October 16, 2017**.
-  * Updated [status update](#DOCS_GATEWAY/gateway-status-update-structure) object
-    * Renamed `idle_since` to `since`
-    * Added `status` and `afk`
+This document contains breaking changes between API versions.
+
+## Version 6
+
+* [Guild Channel](#DOCS_channel/channel-objects) Object
+  * `is_private` removed
+  * `type` is now an integer
+* [DM Channel](#DOCS_CHANNEL/dm-channel-structure) Object
+  * `is_private` removed
+  * `type` is now an integer
+  * `recipient` is now `recipients`, an array of [user](#DOCS_USER/user-object) objects
+  * `type`, `last_message_id`, `name`, `icon`, and `owner_id` added
+* [Message](#DOCS_CHANNEL/message-object) Object
+    * `type` added to support system messages
+* [Invite Channel](#DOCS_INVITE/invite-channel-structure) Object
+    * `type` is now an integer
+* [Status Update](#DOCS_GATEWAY/gateway-status-update-structure) Object
+    * `idle_since` renamed to `since`
+    * `status` and `afk` added
