@@ -153,19 +153,35 @@ Represents a message sent in a channel within Discord.
 
 ```json
 {
-	"id": "162701077035089920",
-	"channel_id": "131391742183342080",
-	"author": {},
-	"content": "Hey guys!",
-	"timestamp": "2016-03-24T23:15:59.605000+00:00",
-	"edited_timestamp": null,
-	"tts": false,
-	"mention_everyone": false,
-	"mentions": [],
-	"mention_roles": [],
-	"attachments": [],
-	"embeds": [],
-	"reactions": []
+    "reactions": [
+        {
+            "count": 1,
+            "me": false,
+            "emoji": {
+                "id": null,
+                "name": "🔥"
+            }
+        }
+    ],
+    "attachments": [],
+    "tts": false,
+    "embeds": [],
+    "timestamp": "2017-07-11T17:27:07.299000+00:00",
+    "mention_everyone": false,
+    "id": "334385199974967042",
+    "pinned": false,
+    "edited_timestamp": null,
+    "author": {
+        "username": "Mason",
+        "discriminator": "9999",
+        "id": "53908099506183680",
+        "avatar": "a_bab14f271d565501444b2ca3be944b25"
+    },
+    "mention_roles": [],
+    "content": "Supa Hot",
+    "channel_id": "290926798999357250",
+    "mentions": [],
+    "type": 0
 }
 ```
 
