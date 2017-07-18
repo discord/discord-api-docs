@@ -11,9 +11,7 @@ This document contains breaking changes between API versions.
   * `is_private` removed
   * [`type`](#DOCS_CHANNEL/channel-object-channel-types) is now an integer
   * `recipient` is now `recipients`, an array of [user](#DOCS_USER/user-object) objects
-  * `owner_id` and `icon` added
 * [Message](#DOCS_CHANNEL/message-object) Object
   * [`type`](#DOCS_CHANNEL/message-object-message-types) added to support system messages
 * [Status Update](#DOCS_GATEWAY/gateway-status-update-gateway-status-update-structure) Object
   * `idle_since` renamed to `since`
-  * [`status`](#DOCS_GATEWAY/gateway-status-update-status-types) and `afk` added
