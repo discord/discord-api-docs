@@ -31,6 +31,7 @@ Represents a guild or DM channel within Discord.
 | DM | 1 |
 | GUILD_VOICE | 2 |
 | GROUP_DM | 3 |
+| GUILD_CATEGORY | 4 |
 
 ###### Example Guild Text Channel
 
