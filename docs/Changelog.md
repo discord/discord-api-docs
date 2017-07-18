@@ -16,9 +16,9 @@ This document contains breaking changes between API versions.
   * `recipient` is now `recipients`, an array of [user](#DOCS_USER/user-object) objects
   * `type`, `last_message_id`, `name`, `icon`, and `owner_id` added
 * [Message](#DOCS_CHANNEL/message-object) Object
-    * `type` added to support system messages
+  * `type` added to support system messages
 * [Invite Channel](#DOCS_INVITE/invite-channel-structure) Object
-    * `type` is now an integer
+  * `type` is now an integer
 * [Status Update](#DOCS_GATEWAY/gateway-status-update-structure) Object
-    * `idle_since` renamed to `since`
-    * `status` and `afk` added
+  * `idle_since` renamed to `since`
+  * `status` and `afk` added
