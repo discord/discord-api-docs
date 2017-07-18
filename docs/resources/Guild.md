@@ -30,7 +30,7 @@ Guilds in Discord represent a collection of users and channels into an isolated 
 | member\_count \* | integer | total number of members in this guild |
 | voice\_states \* | array | array of [voice state](#DOCS_VOICE/voice-state-object) objects (without the `guild_id` key) |
 | members \* | array | array of [guild member](#DOCS_GUILD/guild-member-object) objects |
-| channels \* | array | array of [channel](#DOCS_CHANNEL/guild-channel-object) objects |
+| channels \* | array | array of [channel](#DOCS_CHANNEL/channel-object) objects |
 | presences \* | array | array of simple presence objects, which share the same fields as [Presence Update event](#DOCS_GATEWAY/presence-update) sans a roles or guild_id key |
 
 ** \* These fields are only sent within the [GUILD_CREATE](#DOCS_GATEWAY/guild-create) event **
@@ -213,11 +213,11 @@ Delete a guild permanently. User must be owner. Returns `204 No Content` on succ
 
 ## Get Guild Channels % GET /guilds/{guild.id#DOCS_GUILD/guild-object}/channels
 
-Returns a list of guild [channel](#DOCS_CHANNEL/guild-channel-object) objects.
+Returns a list of guild [channel](#DOCS_CHANNEL/channel-object) objects.
 
 ## Create Guild Channel % POST /guilds/{guild.id#DOCS_GUILD/guild-object}/channels
 
-Create a new [channel](#DOCS_CHANNEL/guild-channel-object) object for the guild. Requires the 'MANAGE_CHANNELS' permission. Returns the new [channel](#DOCS_CHANNEL/guild-channel-object) object on success. Fires a [Channel Create](#DOCS_GATEWAY/channel-create) Gateway event.
+Create a new [channel](#DOCS_CHANNEL/channel-object) object for the guild. Requires the 'MANAGE_CHANNELS' permission. Returns the new [channel](#DOCS_CHANNEL/channel-object) object on success. Fires a [Channel Create](#DOCS_GATEWAY/channel-create) Gateway event.
 
 >info
 > All parameters for this endpoint are optional excluding 'name'
@@ -234,7 +234,7 @@ Create a new [channel](#DOCS_CHANNEL/guild-channel-object) object for the guild.
 
 ## Modify Guild Channel Positions % PATCH /guilds/{guild.id#DOCS_GUILD/guild-object}/channels
 
-Modify the positions of a set of [channel](#DOCS_CHANNEL/guild-channel-object) objects for the guild. Requires 'MANAGE_CHANNELS' permission. Returns a list of all of the guild's [channel](#DOCS_CHANNEL/guild-channel-object) objects on success. Fires multiple [Channel Update](#DOCS_GATEWAY/channel-update) Gateway events.
+Modify the positions of a set of [channel](#DOCS_CHANNEL/channel-object) objects for the guild. Requires 'MANAGE_CHANNELS' permission. Returns a list of all of the guild's [channel](#DOCS_CHANNEL/channel-object) objects on success. Fires multiple [Channel Update](#DOCS_GATEWAY/channel-update) Gateway events.
 
 >info
 > Only channels to be modified are required, with the minimum being a swap between at least two channels.

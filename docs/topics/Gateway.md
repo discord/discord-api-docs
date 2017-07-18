@@ -393,7 +393,7 @@ The ready event is dispatched when a client has completed the initial handshake 
 |-------|------|-------------|
 | v | integer | [gateway protocol version](#DOCS_GATEWAY/gateway-protocol-versions) |
 | user | object | [user object](#DOCS_USER/user-object) (with email information) |
-| private_channels | array | array of [DM channel](#DOCS_CHANNEL/dm-channel-object) objects |
+| private_channels | array | array of [DM channel](#DOCS_CHANNEL/channel-object) objects |
 | guilds | array | array of [Unavailable Guild](#DOCS_GUILD/unavailable-guild-object) objects |
 | session_id | string | used for resuming connections |
 | _trace | array of strings | used for debugging, array of servers connected to |
@@ -410,15 +410,15 @@ The resumed event is dispatched when a client has sent a [resume payload](#DOCS_
 
 ### Channel Create
 
-Sent when a new channel is created, relevant to the current user. The inner payload is a [DM](#DOCS_CHANNEL/dm-channel-object) or [Guild](#DOCS_CHANNEL/guild-channel-object) channel object.
+Sent when a new channel is created, relevant to the current user. The inner payload is a [DM](#DOCS_CHANNEL/channel-object) or [Guild](#DOCS_CHANNEL/channel-object) channel object.
 
 ### Channel Update
 
-Sent when a channel is updated. The inner payload is a [guild channel](#DOCS_CHANNEL/guild-channel-object) object.
+Sent when a channel is updated. The inner payload is a [guild channel](#DOCS_CHANNEL/channel-object) object.
 
 ### Channel Delete
 
-Sent when a channel relevant to the current user is deleted. The inner payload is a [DM](#DOCS_CHANNEL/dm-channel-object) or [Guild](#DOCS_CHANNEL/guild-channel-object) channel object.
+Sent when a channel relevant to the current user is deleted. The inner payload is a [DM](#DOCS_CHANNEL/channel-object) or [Guild](#DOCS_CHANNEL/channel-object) channel object.
 
 ### Guild Create
 

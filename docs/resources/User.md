@@ -134,11 +134,11 @@ Leave a guild. Returns a 204 empty response on success.
 
 ## Get User DMs % GET /users/@me/channels
 
-Returns a list of [DM](#DOCS_CHANNEL/dm-channel-object) channel objects.
+Returns a list of [DM](#DOCS_CHANNEL/channel-object) channel objects.
 
 ## Create DM % POST /users/@me/channels
 
-Create a new DM channel with a user. Returns a [DM channel](#DOCS_CHANNEL/dm-channel-object) object.
+Create a new DM channel with a user. Returns a [DM channel](#DOCS_CHANNEL/channel-object) object.
 
 ###### JSON Params
 
@@ -148,7 +148,7 @@ Create a new DM channel with a user. Returns a [DM channel](#DOCS_CHANNEL/dm-cha
 
 ## Create Group DM % POST /users/@me/channels
 
-Create a new group DM channel with multiple users. Returns a [DM channel](#DOCS_CHANNEL/dm-channel-object) object.
+Create a new group DM channel with multiple users. Returns a [DM channel](#DOCS_CHANNEL/channel-object) object.
 
 >warn
 > By default this endpoint is limited to 10 active group DMs. These limits are raised for whitelisted [GameBridge](#DOCS_GAMEBRDIGE) applications.
