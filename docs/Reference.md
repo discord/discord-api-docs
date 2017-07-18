@@ -13,7 +13,7 @@ https://discordapp.com/api
 ## API Versioning
 
 >danger
->API versions below v6 will be discontinued on October 16, 2017, after which they will be non-functioning.
+>API and Gateway versions below v6 will be discontinued on October 16, 2017, after which they will be non-functioning.
 
 Discord exposes different versions of our API. You can specify version by including it in the request path:
 
@@ -24,7 +24,7 @@ https://discordapp.com/api/v{version_number}
 Omitting the version number from the route will route requests to the current default version. You can find the changelog for the newest API version [here](#DOCS_CHANGELOG/api-version-6).
 
 >warn
->API v6 will be made default on October 16, 2017
+>API and Gateway v6 will be made default on October 16, 2017
 
 ###### API Versions
 

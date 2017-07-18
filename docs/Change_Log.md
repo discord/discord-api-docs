@@ -1,7 +1,7 @@
 # Change Log
 
 >danger
->API versions below v6 will be discontinued on October 16, 2017, after which they will be non-functioning.
+>API and Gateway versions below v6 will be discontinued on October 16, 2017, after which they will be non-functioning.
 
 This document contains breaking changes between API versions.
 
