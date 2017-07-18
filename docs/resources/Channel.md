@@ -21,6 +21,7 @@ Represents a guild or DM channel within Discord.
 | recipients? | array of [user](#DOCS_USER/user-object) objects | the recipients of the DM |
 | icon? | ?string | icon hash |
 | owner_id? | snowflake | id of the DM creator |
+| application_id? | snowflake | application id of the group DM creator if it is bot-created |
 
 ###### Channel Types
 
