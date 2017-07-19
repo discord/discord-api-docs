@@ -1,80 +1,110 @@
 # Channels Resource
 
-## Channel Objects
+## Channel Object
 
-### Guild Channel Object
+Represents a guild or DM channel within Discord.
 
-Guild channels represent an isolated set of users and messages within a Guild.
+###### Channel Structure
 
-###### Guild Channel Structure
+| Field | Type | Description |
+|-------|------|-------------|
+| id | snowflake | the id of this channel (will be equal to the guild if it's the "general" channel) |
+| type | integer | the [type of channel](#DOCS_CHANNEL/channel-types) |
+| guild\_id? | snowflake | the id of the guild |
+| position? | integer | sorting position of the channel |
+| permission\_overwrites? | array | an array of [overwrite](#DOCS_CHANNEL/overwrite-object) objects |
+| name? | string | the name of the channel (2-100 characters) |
+| topic? | string | the channel topic (0-1024 characters) |
+| last\_message\_id? | snowflake | the id of the last message sent in this channel (may not point to an existing or valid message) |
+| bitrate? | integer | the bitrate (in bits) of the voice channel |
+| user\_limit? | integer | the user limit of the voice channel |
+| recipients? | array of [user](#DOCS_USER/user-object) objects | the recipients of the DM |
+| icon? | ?string | icon hash |
+| owner_id? | snowflake | id of the DM creator |
+| application_id? | snowflake | application id of the group DM creator if it is bot-created |
 
-| Field | Type | Description | Present |
-|-------|------|-------------|---------|
-| id | snowflake | the id of this channel (will be equal to the guild if it's the "general" channel) | Always|
-| guild\_id | snowflake | the id of the guild | Always |
-| name | string | the name of the channel (2-100 characters) | Always |
-| type | string | "text" or "voice" | Always |
-| position | integer | sorting position of the channel | Always |
-| is\_private | bool | should always be false for guild channels | Always |
-| permission\_overwrites | array | an array of [overwrite](#DOCS_CHANNEL/overwrite-object) objects | Always |
-| topic | string | the channel topic (0-1024 characters) | Text only |
-| last\_message\_id | snowflake | the id of the last message sent in this channel (may not point to an existing or valid message) | Text only |
-| bitrate | integer | the bitrate (in bits) of the voice channel | Voice only |
-| user\_limit | integer | the user limit of the voice channel | Voice only |
+###### Channel Types
 
-###### Example Text Channel
+| Type | ID |
+| ---- | -- |
+| GUILD_TEXT| 0 |
+| DM | 1 |
+| GUILD_VOICE | 2 |
+| GROUP_DM | 3 |
+| GUILD_CATEGORY | 4 |
+
+###### Example Guild Text Channel
 
 ```json
 {
 	"id": "41771983423143937",
 	"guild_id": "41771983423143937",
 	"name": "general",
-	"type": "text",
+	"type": 0,
 	"position": 6,
-	"is_private": false,
 	"permission_overwrites": [],
 	"topic": "24/7 chat about how to gank Mike #2",
 	"last_message_id": "155117677105512449"
 }
 ```
 
-###### Example Voice Channel
+###### Example Guild Voice Channel
 
 ```json
 {
 	"id": "155101607195836416",
 	"guild_id": "41771983423143937",
 	"name": "ROCKET CHEESE",
-	"type": "voice",
+	"type": 2,
 	"position": 5,
-	"is_private": false,
 	"permission_overwrites": [],
 	"bitrate": 64000,
 	"user_limit": 0
 }
 ```
 
-### DM Channel Object
-
-DM Channels represent a one-to-one conversation between two users, outside of the scope of guilds.
-
-###### DM Channel Structure
-
-| Field | Type | Description |
-|-------|------|-------------|
-| id | snowflake | the id of this private message |
-| is\_private | bool | should always be true for DM channels |
-| recipient | object | the [user object](#DOCS_USER/user-object) of the DM recipient |
-| last\_message\_id | snowflake | the id of the last message sent in this DM (may not point to an existing or valid message) |
-
 ###### Example DM Channel
 
 ```json
 {
-	"id": "134552934997426176",
-	"is_private": true,
-	"recipient": {},
-	"last_message_id": "153642275539255296"
+	"last_message_id": "3343820033257021450",
+	"type": 1,
+	"id": "319674150115610528",
+	"recipients": [
+		{
+			"username": "test",
+			"discriminator": "9999",
+			"id": "82198898841029460",
+			"avatar": "33ecab261d4681afa4d85a04691c4a01"
+		}
+	]
+}
+```
+
+###### Example Group DM Channel
+
+```json
+{
+	"name": "Some test channel",
+	"icon": null,
+	"recipients": [
+		{
+			"username": "test",
+			"discriminator": "9999",
+			"id": "82198898841029460",
+			"avatar": "33ecab261d4681afa4d85a04691c4a01"
+		},
+		{
+			"username": "test2",
+			"discriminator": "9999",
+			"id": "82198810841029460",
+			"avatar": "33ecab261d4681afa4d85a10691c4a01"
+		}
+	],
+	"last_message_id": "3343820033257021450",
+	"type": 3,
+	"id": "319674150115710528",
+	"owner_id": "82198810841029460"
 }
 ```
 
@@ -98,30 +128,60 @@ Represents a message sent in a channel within Discord.
 | mention\_roles | array of [role object](#DOCS_PERMISSIONS/role-object) ids | roles specifically mentioned in this message |
 | attachments | array of [attachment objects](#DOCS_CHANNEL/attachment-object) | any attached files |
 | embeds | array of [embed objects](#DOCS_CHANNEL/embed-object) | any embedded content |
-| reactions | array of [reaction objects](#DOCS_CHANNEL/reaction-object) | reactions to the message |
-| nonce? | snowflake | used for validating a message was sent |
+| reactions? | array of [reaction objects](#DOCS_CHANNEL/reaction-object) | reactions to the message |
+| nonce? | ?snowflake | used for validating a message was sent |
 | pinned | bool | whether this message is pinned |
-| webhook\_id | string | if the message is generated by a webhook, this is the webhook's id |
+| webhook\_id? | string | if the message is generated by a webhook, this is the webhook's id |
+| type | int | [type of message](#DOCS_CHANNEL/message-types) |
 
 * The author object follows the structure of the user object, but is only a valid user in the case where the message is generated by a user or bot user. If the message is generated by a webhook, the author object corresponds to the webhook's id, username, and avatar. You can tell if a message is generated by a webhook by checking for the `webhook_id` on the message object.
+
+###### Message Types
+
+| Type | Value |
+| ---- | ----- |
+| DEFAULT | 0 |
+| RECIPIENT_ADD | 1 |
+| RECIPIENT_REMOVE | 2 |
+| CALL | 3 |
+| CHANNEL_NAME_CHANGE | 4 |
+| CHANNEL_ICON_CHANGE | 5 |
+| CHANNEL_PINNED_MESSAGE | 6 |
+| GUILD_MEMBER_JOIN | 7 |
 
 ###### Example Message
 
 ```json
 {
-	"id": "162701077035089920",
-	"channel_id": "131391742183342080",
-	"author": {},
-	"content": "Hey guys!",
-	"timestamp": "2016-03-24T23:15:59.605000+00:00",
-	"edited_timestamp": null,
-	"tts": false,
-	"mention_everyone": false,
-	"mentions": [],
-	"mention_roles": [],
-	"attachments": [],
-	"embeds": [],
-	"reactions": []
+    "reactions": [
+        {
+            "count": 1,
+            "me": false,
+            "emoji": {
+                "id": null,
+                "name": "🔥"
+            }
+        }
+    ],
+    "attachments": [],
+    "tts": false,
+    "embeds": [],
+    "timestamp": "2017-07-11T17:27:07.299000+00:00",
+    "mention_everyone": false,
+    "id": "334385199974967042",
+    "pinned": false,
+    "edited_timestamp": null,
+    "author": {
+        "username": "Mason",
+        "discriminator": "9999",
+        "id": "53908099506183680",
+        "avatar": "a_bab14f271d565501444b2ca3be944b25"
+    },
+    "mention_roles": [],
+    "content": "Supa Hot",
+    "channel_id": "290926798999357250",
+    "mentions": [],
+    "type": 0
 }
 ```
 
@@ -133,6 +193,14 @@ Represents a message sent in a channel within Discord.
 |-------|------|-------------|
 | count | integer | times this emoji has been used to react |
 | me | bool | whether the current user reacted using this emoji |
+| emoji | partial [emoji object](#DOCS_GUILD/emoji-object) | emoji information |
+
+###### Emoji Structure
+
+| Field | Type | Description |
+|-------|------|-------------|
+| id | ?snowflake | id of emoji (if custom emoji) |
+| name | string | name of emoji |
 | emoji | partial [emoji object](#DOCS_GUILD/emoji-object) | emoji information |
 
 ### Overwrite Object
@@ -254,13 +322,13 @@ Discord utilizes a subset of markdown for rendering message content on its clien
 
 Using the markdown for either users, roles or channels will mention the target(s) accordingly.
 
-## Get Channel % GET /channels/{channel.id#DOCS_CHANNEL/channel-objects}
+## Get Channel % GET /channels/{channel.id#DOCS_CHANNEL/channel-object}
 
-Get a channel by ID. Returns a [guild channel](#DOCS_CHANNEL/guild-channel-object) or [dm channel](#DOCS_CHANNEL/dm-channel-object) object.
+Get a channel by ID. Returns a [guild channel](#DOCS_CHANNEL/channel-object) or [dm channel](#DOCS_CHANNEL/channel-object) object.
 
-## Modify Channel % PUT/PATCH /channels/{channel.id#DOCS_CHANNEL/guild-channel-object}
+## Modify Channel % PUT/PATCH /channels/{channel.id#DOCS_CHANNEL/channel-object}
 
-Update a channels settings. Requires the 'MANAGE_CHANNELS' permission for the guild. Returns a [guild channel](#DOCS_CHANNEL/guild-channel-object) on success, and a 400 BAD REQUEST on invalid parameters. Fires a [Channel Update](#DOCS_GATEWAY/channel-update) Gateway event. For the **PATCH** method, all the JSON Params are optional.
+Update a channels settings. Requires the 'MANAGE_CHANNELS' permission for the guild. Returns a [guild channel](#DOCS_CHANNEL/channel-object) on success, and a 400 BAD REQUEST on invalid parameters. Fires a [Channel Update](#DOCS_GATEWAY/channel-update) Gateway event. For the **PATCH** method, all the JSON Params are optional.
 
 ###### JSON Params
 
@@ -272,14 +340,14 @@ Update a channels settings. Requires the 'MANAGE_CHANNELS' permission for the gu
 | bitrate | integer | the bitrate (in bits) of the voice channel; 8000 to 96000 (128000 for VIP servers) | Voice |
 | user_limit | integer | the user limit of the voice channel; 0 refers to no limit, 1 to 99 refers to a user limit | Voice |
 
-## Delete/Close Channel % DELETE /channels/{channel.id#DOCS_CHANNEL/channel-objects}
+## Delete/Close Channel % DELETE /channels/{channel.id#DOCS_CHANNEL/channel-object}
 
-Delete a guild channel, or close a private message. Requires the 'MANAGE_CHANNELS' permission for the guild. Returns a [guild channel](#DOCS_CHANNEL/guild-channel-object) or [dm channel](#DOCS_CHANNEL/dm-channel-object) object on success. Fires a [Channel Delete](#DOCS_GATEWAY/channel-delete) Gateway event.
+Delete a guild channel, or close a private message. Requires the 'MANAGE_CHANNELS' permission for the guild. Returns a [guild channel](#DOCS_CHANNEL/channel-object) or [dm channel](#DOCS_CHANNEL/channel-object) object on success. Fires a [Channel Delete](#DOCS_GATEWAY/channel-delete) Gateway event.
 
 >warn
 > Deleting a guild channel cannot be undone. Use this with caution, as it is impossible to undo this action when performed on a guild channel. In contrast, when used with a private message, it is possible to undo the action by opening a private message with the recipient again.
 
-## Get Channel Messages % GET /channels/{channel.id#DOCS_CHANNEL/channel-objects}/messages
+## Get Channel Messages % GET /channels/{channel.id#DOCS_CHANNEL/channel-object}/messages
 
 Returns the messages for a channel. If operating on a guild channel, this endpoint requires the 'READ_MESSAGES' permission to be present on the current user. Returns an array of [message](#DOCS_CHANNEL/message-object) objects on success.
 
@@ -295,11 +363,11 @@ Returns the messages for a channel. If operating on a guild channel, this endpoi
 | after | snowflake | get messages after this message ID | false | absent |
 | limit | integer | max number of messages to return (1-100) | false | 50 |
 
-## Get Channel Message % GET /channels/{channel.id#DOCS_CHANNEL/channel-objects}/messages/{message.id#DOCS_CHANNEL/message-object}
+## Get Channel Message % GET /channels/{channel.id#DOCS_CHANNEL/channel-object}/messages/{message.id#DOCS_CHANNEL/message-object}
 
 Returns a specific message in the channel. If operating on a guild channel, this endpoints requires the 'READ_MESSAGE_HISTORY' permission to be present on the current user. Returns a [message](#DOCS_CHANNEL/message-object) object on success.
 
-## Create Message % POST /channels/{channel.id#DOCS_CHANNEL/channel-objects}/messages
+## Create Message % POST /channels/{channel.id#DOCS_CHANNEL/channel-object}/messages
 
 Post a message to a guild text or DM channel. If operating on a guild channel, this endpoint requires the 'SEND_MESSAGES' permission to be present on the current user. Returns a [message](#DOCS_CHANNEL/message-object) object. Fires a [Message Create](#DOCS_GATEWAY/message-create) Gateway event. See [message formatting](#DOCS_CHANNEL/message-formatting) for more information on how to properly format messages.
 
@@ -340,27 +408,27 @@ For example:
 >warn
 > Only filenames with proper image extensions are supported for the time being.
 
-## Create Reaction % PUT /channels/{channel.id#DOCS_CHANNEL/channel-objects}/messages/{message.id#DOCS_CHANNEL/message-object}/reactions/{emoji#DOCS_CHANNEL/emoji-structure}/@me
+## Create Reaction % PUT /channels/{channel.id#DOCS_CHANNEL/channel-object}/messages/{message.id#DOCS_CHANNEL/message-object}/reactions/{emoji#DOCS_CHANNEL/reaction-object-emoji-structure}/@me
 
 Create a reaction for the message. This endpoint requires the 'READ\_MESSAGE\_HISTORY' permission to be present on the current user.  Additionally, if nobody else has reacted to the message using this emoji, this endpoint requires the 'ADD\_REACTIONS' permission to be present on the current user. Returns a 204 empty response on success.
 
-## Delete Own Reaction % DELETE /channels/{channel.id#DOCS_CHANNEL/channel-objects}/messages/{message.id#DOCS_CHANNEL/message-object}/reactions/{emoji#DOCS_CHANNEL/emoji-structure}/@me
+## Delete Own Reaction % DELETE /channels/{channel.id#DOCS_CHANNEL/channel-object}/messages/{message.id#DOCS_CHANNEL/message-object}/reactions/{emoji#DOCS_CHANNEL/reaction-object-emoji-structure}/@me
 
 Delete a reaction the current user has made for the message. Returns a 204 empty response on success.
 
-## Delete User Reaction % DELETE /channels/{channel.id#DOCS_CHANNEL/channel-objects}/messages/{message.id#DOCS_CHANNEL/message-object}/reactions/{emoji#DOCS_CHANNEL/emoji-structure}/{user.id#DOCS_USER/user-object}
+## Delete User Reaction % DELETE /channels/{channel.id#DOCS_CHANNEL/channel-object}/messages/{message.id#DOCS_CHANNEL/message-object}/reactions/{emoji#DOCS_CHANNEL/reaction-object-emoji-structure}/{user.id#DOCS_USER/user-object}
 
 Deletes another user's reaction. This endpoint requires the 'MANAGE\_MESSAGES' permission to be present on the current user. Returns a 204 empty response on success.
 
-## Get Reactions % GET /channels/{channel.id#DOCS_CHANNEL/channel-objects}/messages/{message.id#DOCS_CHANNEL/message-object}/reactions/{emoji#DOCS_CHANNEL/emoji-structure}
+## Get Reactions % GET /channels/{channel.id#DOCS_CHANNEL/channel-object}/messages/{message.id#DOCS_CHANNEL/message-object}/reactions/{emoji#DOCS_CHANNEL/reaction-object-emoji-structure}
 
 Get a list of users that reacted with this emoji. Returns an array of [user](#DOCS_USER/user-object) objects on success.
 
-## Delete All Reactions % DELETE /channels/{channel.id#DOCS_CHANNEL/channel-objects}/messages/{message.id#DOCS_CHANNEL/message-object}/reactions
+## Delete All Reactions % DELETE /channels/{channel.id#DOCS_CHANNEL/channel-object}/messages/{message.id#DOCS_CHANNEL/message-object}/reactions
 
 Deletes all reactions on a message. This endpoint requires the 'MANAGE\_MESSAGES' permission to be present on the current user.
 
-## Edit Message % PATCH /channels/{channel.id#DOCS_CHANNEL/channel-objects}/messages/{message.id#DOCS_CHANNEL/message-object}
+## Edit Message % PATCH /channels/{channel.id#DOCS_CHANNEL/channel-object}/messages/{message.id#DOCS_CHANNEL/message-object}
 
 Edit a previously sent message. You can only edit messages that have been sent by the current user. Returns a [message](#DOCS_CHANNEL/message-object) object. Fires a [Message Update](#DOCS_GATEWAY/message-update) Gateway event.
 
@@ -374,11 +442,11 @@ Edit a previously sent message. You can only edit messages that have been sent b
 | content | string | the new message contents (up to 2000 characters) |
 | embed | [embed](#DOCS_CHANNEL/embed-object) object | embedded `rich` content |
 
-## Delete Message % DELETE /channels/{channel.id#DOCS_CHANNEL/channel-objects}/messages/{message.id#DOCS_CHANNEL/message-object}
+## Delete Message % DELETE /channels/{channel.id#DOCS_CHANNEL/channel-object}/messages/{message.id#DOCS_CHANNEL/message-object}
 
 Delete a message. If operating on a guild channel and trying to delete a message that was not sent by the current user, this endpoint requires the 'MANAGE_MESSAGES' permission. Returns a 204 empty response on success. Fires a [Message Delete](#DOCS_GATEWAY/message-delete) Gateway event.
 
-## Bulk Delete Messages % POST /channels/{channel.id#DOCS_CHANNEL/channel-objects}/messages/bulk-delete
+## Bulk Delete Messages % POST /channels/{channel.id#DOCS_CHANNEL/channel-object}/messages/bulk-delete
 
 Delete multiple messages in a single request. This endpoint can only be used on guild channels and requires the 'MANAGE_MESSAGES' permission. Returns a 204 empty response on success. Fires multiple [Message Delete](#DOCS_GATEWAY/message-delete) Gateway events.
 
@@ -394,11 +462,11 @@ The gateway will ignore any individual messages that do not exist or do not belo
 |-------|------|-------------|
 | messages | array of snowflakes | an array of message ids to delete |
 
-## Bulk Delete Messages (deprecated) % POST /channels/{channel.id#DOCS_CHANNEL/channel-objects}/messages/bulk_delete
+## Bulk Delete Messages (deprecated) % POST /channels/{channel.id#DOCS_CHANNEL/channel-object}/messages/bulk_delete
 
 Same as above, but this endpoint is deprecated.
 
-## Edit Channel Permissions % PUT /channels/{channel.id#DOCS_CHANNEL/guild-channel-object}/permissions/{overwrite.id}
+## Edit Channel Permissions % PUT /channels/{channel.id#DOCS_CHANNEL/channel-object}/permissions/{overwrite.id}
 
 Edit the channel permission overwrites for a user or role in a channel. Only usable for guild channels. Requires the 'MANAGE_ROLES' permission. Returns a 204 empty response on success. For more information about permissions, see [permissions](#DOCS_PERMISSIONS/permissions).
 
@@ -410,11 +478,11 @@ Edit the channel permission overwrites for a user or role in a channel. Only usa
 | deny | integer | the bitwise value of all disallowed permissions |
 | type | string | "member" for a user or "role" for a role |
 
-## Get Channel Invites % GET /channels/{channel.id#DOCS_CHANNEL/guild-channel-object}/invites
+## Get Channel Invites % GET /channels/{channel.id#DOCS_CHANNEL/channel-object}/invites
 
 Returns a list of [invite](#DOCS_INVITE/invite-object) objects (with [invite metadata](#DOCS_INVITE/invite-metadata-object)) for the channel. Only usable for guild channels. Requires the 'MANAGE_CHANNELS' permission.
 
-## Create Channel Invite % POST /channels/{channel.id#DOCS_CHANNEL/guild-channel-object}/invites
+## Create Channel Invite % POST /channels/{channel.id#DOCS_CHANNEL/channel-object}/invites
 
 Create a new [invite](#DOCS_INVITE/invite-object) object for the channel. Only usable for guild channels. Requires the `CREATE_INSTANT_INVITE` permission. All JSON paramaters for this route are optional, however the request body is not. If you are not sending any fields, you still have to send an empty JSON object (`{}`). Returns an [invite](#DOCS_INVITE/invite-object) object.
 
@@ -427,27 +495,27 @@ Create a new [invite](#DOCS_INVITE/invite-object) object for the channel. Only u
 | temporary | bool | whether this invite only grants temporary membership | false |
 | unique | bool | if true, don't try to reuse a similar invite (useful for creating many unique one time use invites) | false |
 
-## Delete Channel Permission % DELETE /channels/{channel.id#DOCS_CHANNEL/guild-channel-object}/permissions/{overwrite.id#DOCS_CHANNEL/overwrite-object}
+## Delete Channel Permission % DELETE /channels/{channel.id#DOCS_CHANNEL/channel-object}/permissions/{overwrite.id#DOCS_CHANNEL/overwrite-object}
 
 Delete a channel permission overwrite for a user or role in a channel. Only usable for guild channels. Requires the 'MANAGE_ROLES' permission. Returns a 204 empty response on success. For more information about permissions, see [permissions](#DOCS_PERMISSIONS/permissions)
 
-## Trigger Typing Indicator % POST /channels/{channel.id#DOCS_CHANNEL/channel-objects}/typing
+## Trigger Typing Indicator % POST /channels/{channel.id#DOCS_CHANNEL/channel-object}/typing
 
 Post a typing indicator for the specified channel. Generally bots should **not** implement this route. However, if a bot is responding to a command and expects the computation to take a few seconds, this endpoint may be called to let the user know that the bot is processing their message. Returns a 204 empty response on success. Fires a [Typing Start](#DOCS_GATEWAY/typing-start) Gateway event.
 
-## Get Pinned Messages % GET /channels/{channel.id#DOCS_CHANNEL/channel-objects}/pins
+## Get Pinned Messages % GET /channels/{channel.id#DOCS_CHANNEL/channel-object}/pins
 
 Returns all pinned messages in the channel as an array of [message](#DOCS_CHANNEL/message-object) objects.
 
-## Add Pinned Channel Message % PUT /channels/{channel.id#DOCS_CHANNEL/channel-objects}/pins/{message.id#DOCS_CHANNEL/message-object}
+## Add Pinned Channel Message % PUT /channels/{channel.id#DOCS_CHANNEL/channel-object}/pins/{message.id#DOCS_CHANNEL/message-object}
 
 Pin a message in a channel. Requires the 'MANAGE_MESSAGES' permission. Returns a 204 empty response on success.
 
-## Delete Pinned Channel Message % DELETE /channels/{channel.id#DOCS_CHANNEL/channel-objects}/pins/{message.id#DOCS_CHANNEL/message-object}
+## Delete Pinned Channel Message % DELETE /channels/{channel.id#DOCS_CHANNEL/channel-object}/pins/{message.id#DOCS_CHANNEL/message-object}
 
 Delete a pinned message in a channel. Requires the 'MANAGE_MESSAGES' permission. Returns a 204 empty response on success.
 
-## Group DM Add Recipient % PUT /channels/{channel.id#DOCS_CHANNEL/channel-objects}/recipients/{user.id#DOCS_USER/user-object}
+## Group DM Add Recipient % PUT /channels/{channel.id#DOCS_CHANNEL/channel-object}/recipients/{user.id#DOCS_USER/user-object}
 
 Adds a recipient to a Group DM using their access token
 
@@ -458,6 +526,6 @@ Adds a recipient to a Group DM using their access token
 | access_token | string | access token of a user that has granted your app the `gdm.join` scope |
 | nick | string | nickname of the user being added |
 
-## Group DM Remove Recipient % DELETE /channels/{channel.id#DOCS_CHANNEL/channel-objects}/recipients/{user.id#DOCS_USER/user-object}
+## Group DM Remove Recipient % DELETE /channels/{channel.id#DOCS_CHANNEL/channel-object}/recipients/{user.id#DOCS_USER/user-object}
 
 Removes a recipient from a Group DM

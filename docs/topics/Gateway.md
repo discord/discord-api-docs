@@ -35,12 +35,16 @@ Returns an object with the same information as [Get Gateway](#DOCS_GATEWAY/get-g
 
 ## Gateway Protocol Versions
 
-The Discord Gateway has a versioning system which is separate from the core APIs. The following table specifies all versions of the Gateway API that have been officially supported, and whether or not they are out of service (e.g. unsupported and potentially disfunctional). The documentation herein is only for the latest version in the following table, unless otherwise specified.
+The Discord Gateway has a versioning system which is separate from the core APIs. The documentation herein is only for the latest version in the following table, unless otherwise specified.
 
-| Version | Out of Service |
+>danger
+>Gateway versions below v6 will be discontinued on **October 16, 2017**.
+
+| Version | Status |
 |---------|----------------|
-| 5 | no |
-| 4 | no |
+| 6 | In Service |
+| 5 | Deprecated |
+| 4 | Deprecated |
 
 ## Gateway OP Codes/Payloads
 
@@ -165,7 +169,7 @@ Used to trigger the initial handshake with the gateway.
 }
 ```
 
-### Gateway Reconnect		
+### Gateway Reconnect
 
 Used to tell clients to reconnect to the gateway. Clients should immediately reconnect, and use the resume payload on the gateway.
 
@@ -221,17 +225,31 @@ Sent by the client to indicate a presence or status update.
 
 | Field | Type | Description |
 |-------|------|-------------|
-| idle_since | ?integer | unix time (in milliseconds) of when the client went idle, or null if the client is not idle |
-| game | ?object | either null, or an object with one key "name", representing the name of the game being played |
+| since | ?integer | unix time (in milliseconds) of when the client went idle, or null if the client is not idle |
+| game | ?[game](#DOCS_GATEWAY/game-object) | null, or the user's new activity |
+| status | string | the user's new [status](#DOCS_GATEWAY/status-types) |
+| afk | bool | whether or not the client is afk |
+
+###### Status Types
+
+| Status | Description |
+| ------ | ----------- |
+| online | Online |
+| dnd | Do Not Disturb |
+| idle | AFK |
+| invisible | Invisible and shown as offline |
+| offline | Offline |
 
 ###### Gateway Status Update Example
 
 ```json
 {
-	"idle_since": 91879201,
+	"since": 91879201,
 	"game": {
-		"name": "Writing Docs FTW"
-	}
+		"name": "Save the Oxford Comma"
+	},
+	"status": "online",
+	"afk": false
 }
 ```
 
@@ -281,6 +299,9 @@ With the resulting payload you can now open a websocket connection to the "url" 
 Once connected, the client should immediately receive an [OP 10 Hello](#DOCS_GATEWAY/gateway-hello) payload, with information on the connections heartbeat interval. The client should now begin sending [OP 1 Heartbeat](#DOCS_GATEWAY/gateway-heartbeat) payloads every `heartbeat_interval` milliseconds, until the connection is eventually closed or terminated. Clients can detect zombied or failed connections by listening for [OP 11 Heartbeat ACK](#DOCS_GATEWAY/gateway-heartbeat-ack). If a client does not receive a heartbeat ack between its attempts at sending heartbeats, it should immediately terminate the connection with a non 1000 close code, reconnect, and attempt to resume.
 
 Next the client is expected to send an [OP 2 Identify](#DOCS_GATEWAY/gateway-identify) _or_ [OP 6 Resume](#DOCS_GATEWAY/gateway-resume) payload. If the token passed is correct, the gateway will respond with a [Ready](#DOCS_GATEWAY/ready) event, and your client can be considered in a "connected" state. Clients are limited to 1 identify every 5 seconds, if they exceed this limit the gateway will respond with an [OP 9 Invalid Session](#DOCS_GATEWAY/gateway-invalid-session) and terminate the connection. It is important to note that although the ready event contains a large portion of the required initial state, some information (such as guilds and their members) is asynchronously sent (see [Guild Create](#DOCS_GATEWAY/guild-create) event)
+
+>warn
+> Clients are limited to 1000 `IDENTIFY` calls to the websocket in a 24-hour period. This limit is global and across all shards, but does not include `RESUME` calls. Upon hitting this limit, all active sessions for the bot will be terminated, the bot's token will be reset, and the owner will receive an email notification. It's up to the owner to update their application with the new token.
 
 ###### Gateway URL Params
 
@@ -372,7 +393,7 @@ The ready event is dispatched when a client has completed the initial handshake 
 |-------|------|-------------|
 | v | integer | [gateway protocol version](#DOCS_GATEWAY/gateway-protocol-versions) |
 | user | object | [user object](#DOCS_USER/user-object) (with email information) |
-| private_channels | array | array of [DM channel](#DOCS_CHANNEL/dm-channel-object) objects |
+| private_channels | array | array of [DM channel](#DOCS_CHANNEL/channel-object) objects |
 | guilds | array | array of [Unavailable Guild](#DOCS_GUILD/unavailable-guild-object) objects |
 | session_id | string | used for resuming connections |
 | _trace | array of strings | used for debugging, array of servers connected to |
@@ -389,15 +410,15 @@ The resumed event is dispatched when a client has sent a [resume payload](#DOCS_
 
 ### Channel Create
 
-Sent when a new channel is created, relevant to the current user. The inner payload is a [DM](#DOCS_CHANNEL/dm-channel-object) or [Guild](#DOCS_CHANNEL/guild-channel-object) channel object.
+Sent when a new channel is created, relevant to the current user. The inner payload is a [DM](#DOCS_CHANNEL/channel-object) or [Guild](#DOCS_CHANNEL/channel-object) channel object.
 
 ### Channel Update
 
-Sent when a channel is updated. The inner payload is a [guild channel](#DOCS_CHANNEL/guild-channel-object) object.
+Sent when a channel is updated. The inner payload is a [guild channel](#DOCS_CHANNEL/channel-object) object.
 
 ### Channel Delete
 
-Sent when a channel relevant to the current user is deleted. The inner payload is a [DM](#DOCS_CHANNEL/dm-channel-object) or [Guild](#DOCS_CHANNEL/guild-channel-object) channel object.
+Sent when a channel relevant to the current user is deleted. The inner payload is a [DM](#DOCS_CHANNEL/channel-object) or [Guild](#DOCS_CHANNEL/channel-object) channel object.
 
 ### Guild Create
 
@@ -575,7 +596,7 @@ Sent when a user adds a reaction to a message.
 | user_id | snowflake | the id of the user |
 | channel_id | snowflake | the id of the channel |
 | message_id | snowflake | the id of the message |
-| emoji | an [emoji](#DOCS_CHANNEL/emoji-structure) object | the emoji used to react |
+| emoji | an [emoji](#DOCS_CHANNEL/reaction-object-emoji-structure) object | the emoji used to react |
 
 ### Message Reaction Remove
 
@@ -588,7 +609,7 @@ Sent when a user removes a reaction from a message.
 | user_id | snowflake | the id of the user |
 | channel_id | snowflake | the id of the channel |
 | message_id | snowflake | the id of the message |
-| emoji | an [emoji](#DOCS_CHANNEL/emoji-structure) object | the emoji used to react |
+| emoji | an [emoji](#DOCS_CHANNEL/reaction-object-emoji-structure) object | the emoji used to react |
 
 ### Message Reaction Remove All
 
