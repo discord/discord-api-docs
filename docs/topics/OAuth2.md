@@ -43,7 +43,7 @@ Scopes provide access to certain resources of a user's account. Your API client 
 | Name | Description |
 |------|-------------|
 | bot | for oauth2 bots, this puts the bot in the user's selected guild by default |
-| connections | allows [/users/@me/connections](#DOCS_USER/get-user-connections) to return linked third-party connections |
+| connections | allows [/users/@me/connections](#DOCS_USER/get-user-connections) to return linked third-party accounts |
 | email | enables [/users/@me](#DOCS_USER/get-current-user) to return an `email` |
 | identify | allows [/users/@me](#DOCS_USER/get-current-user) without `email` |
 | guilds | allows [/users/@me/guilds](#DOCS_USER/get-current-user-guilds) to return basic information about all of a user's guilds |
