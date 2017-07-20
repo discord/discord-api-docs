@@ -24,7 +24,7 @@ Guilds in Discord represent a collection of users and channels into an isolated 
 | emojis | array | array of [emoji](#DOCS_GUILD/emoji-object) objects |
 | features | array | array of guild features |
 | mfa\_level | integer | required MFA level for the guild |
-| application_id? | snowflake | application id of the guild creator if it is bot-created |
+| application_id | snowflake? | application id of the guild creator if it is bot-created |
 | joined\_at \* | ISO8601 timestamp | when this guild was joined at |
 | large \* | bool | whether this is considered a large guild |
 | unavailable \* | bool | is this guild unavailable |
