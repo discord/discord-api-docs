@@ -22,8 +22,8 @@ For WebSocket connections, the connection is always
 wss://discordapp.io:PORT/?v=VERSION&client_id=CLIENT_ID&encoding=ENCODING
 ```
 
-* `CLIENT_ID` is the client ID of the application accessing the RPC Server. 
-* `VERSION` is the version of the RPC Server. 
+* `CLIENT_ID` is the client ID of the application accessing the RPC Server.
+* `VERSION` is the version of the RPC Server.
 * `PORT` is the port of the RPC Server.
 * `ENCODING` is the type of encoding for this connection to use. `json` and `etf` are supported.
 
@@ -173,7 +173,7 @@ The port range for Discord's local RPC server is [6463, 6472]. Since the RPC ser
 
 ## Authenticating over RPC
 
-In order to call any commands over RPC, you must be authenticated or you will receive a code `4006` error response. 
+In order to call any commands over RPC, you must be authenticated or you will receive a code `4006` error response.
 
 We have implemented the OAuth2 flow over RPC. To authenticate, you will need to get an access token.
 
@@ -413,9 +413,9 @@ Used to get a channel the client is in.
 | name | String | channel name |
 | type | Number | channel type (guild text: 0, guild voice: 2, dm: 1, group dm: 3) |
 | topic | String | (text) channel topic |
-| bitrate | Int | (voice) bitrate of voice channel |
-| user_limit | Int | (voice) user limit of voice channel (0 for none) |
-| position | Int | position of channel in channel list |
+| bitrate | integer | (voice) bitrate of voice channel |
+| user_limit | integer | (voice) user limit of voice channel (0 for none) |
+| position | integer | position of channel in channel list |
 | voice_states | Array | (voice) array of channel voice states |
 | messages | Array | (text) array of channel text messages |
 
@@ -534,11 +534,11 @@ Used to change voice settings of users in voice channels
 | mute | Boolean | (optional) set the mute state of the user |
 
 >info
-> In the current release, we only support a single modifier of voice settings at a time over RPC. 
-> If an app changes voice settings, it will lock voice settings so that other apps connected simultaneously 
-> lose the ability to change voice settings. Settings reset to what they were before being changed after the 
-> controlling app disconnects. When an app that has previously set voice settings connects, the client will swap 
-> to that app's configured voice settings and lock voice settings again. This is a temporary situation that will 
+> In the current release, we only support a single modifier of voice settings at a time over RPC.
+> If an app changes voice settings, it will lock voice settings so that other apps connected simultaneously
+> lose the ability to change voice settings. Settings reset to what they were before being changed after the
+> controlling app disconnects. When an app that has previously set voice settings connects, the client will swap
+> to that app's configured voice settings and lock voice settings again. This is a temporary situation that will
 > be changed in the future.
 
 ###### Pan Object
@@ -838,8 +838,8 @@ Returns the Get Channel response, `null` if none.
 
 | Field | Type | Description |
 |-------|------|-------------|
-| type | Int | key type. `0`: keyboard key, `1`: mouse button, `2`: keyboard modifier key, `3`: gamepad button |
-| code | Int | key code |
+| type | integer | key type. `0`: keyboard key, `1`: mouse button, `2`: keyboard modifier key, `3`: gamepad button |
+| code | integer | key code |
 | name | String | key name |
 
 ###### Get Voice Settings Example Response Payload
@@ -896,11 +896,11 @@ Returns the Get Channel response, `null` if none.
 When setting voice settings, all fields are optional. Only passed fields are updated.
 
 >info
-> In the current release, we only support a single modifier of voice settings at a time over RPC. 
-> If an app changes voice settings, it will lock voice settings so that other apps connected simultaneously 
-> lose the ability to change voice settings. Settings reset to what they were before being changed after the 
-> controlling app disconnects. When an app that has previously set voice settings connects, the client will swap 
-> to that app's configured voice settings and lock voice settings again. This is a temporary situation that will 
+> In the current release, we only support a single modifier of voice settings at a time over RPC.
+> If an app changes voice settings, it will lock voice settings so that other apps connected simultaneously
+> lose the ability to change voice settings. Settings reset to what they were before being changed after the
+> controlling app disconnects. When an app that has previously set voice settings connects, the client will swap
+> to that app's configured voice settings and lock voice settings again. This is a temporary situation that will
 > be changed in the future.
 
 | Field | Type | Description |
@@ -946,8 +946,8 @@ When setting voice settings, all fields are optional. Only passed fields are upd
 
 | Field | Type | Description |
 |-------|------|-------------|
-| type | Int | key type. `0`: keyboard key, `1`: mouse button, `2`: keyboard modifier key, `3`: gamepad button |
-| code | Int | key code |
+| type | integer | key type. `0`: keyboard key, `1`: mouse button, `2`: keyboard modifier key, `3`: gamepad button |
+| code | integer | key code |
 | name | String | key name |
 
 ###### Set Voice Settings Example Command Payload
@@ -1145,7 +1145,7 @@ Returns the shortcut captured, and `null` for the `STOP` action.
 
 | Field | Type | Description |
 |-------|------|-------------|
-| v | Int | RPC version |
+| v | integer | RPC version |
 | config | Object | RPC server configuration object |
 
 ###### Ready Dispatch Example Payload
@@ -1171,7 +1171,7 @@ Returns the shortcut captured, and `null` for the `STOP` action.
 
 | Field | Type | Description |
 |-------|------|-------------|
-| code | Int | RPC Error Code |
+| code | integer | RPC Error Code |
 | message | String | Error description |
 
 ###### Error Example Payload
@@ -1201,7 +1201,7 @@ Returns the shortcut captured, and `null` for the `STOP` action.
 | Field | Type | Description |
 |-------|------|-------------|
 | guild | Guild | guild partial with id, name, and iconUrl |
-| online | Int | number of online users in guild |
+| online | integer | number of online users in guild |
 
 ###### Guild Status Example Dispatch Payload
 
