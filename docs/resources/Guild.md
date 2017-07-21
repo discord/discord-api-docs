@@ -45,8 +45,6 @@ Guilds in Discord represent a collection of users and channels into an isolated 
 | --- | ----- |
 | ALL_MESSAGES | 0 |
 | ONLY_MENTIONS | 1 |
-| NO_MESSAGES| 2 |
-| NULL | 3 |
 
 ###### Explicit Content Filter Level
 
@@ -61,7 +59,7 @@ Guilds in Discord represent a collection of users and channels into an isolated 
 | Level | Integer |
 | ----- | ------- |
 | NONE | 0 |
-| ENABLED | 1 |
+| ELEVATED | 1 |
 
 ###### Verification Level
 
@@ -71,7 +69,7 @@ Guilds in Discord represent a collection of users and channels into an isolated 
 | LOW | 1 | must have verified email on account |
 | MEDIUM | 2 | must be registered on Discord for longer than 5 minutes |
 | HIGH | 3 |  (╯°□°）╯︵ ┻━┻ - must be a member of the server for longer than 10 minutes |
-| VERY_HIGH | 4 | ┻━┻ミヽ(ಠ益ಠ)ﾉ彡┻━┻ - must have a verified phone number
+| VERY_HIGH | 4 | ┻━┻ミヽ(ಠ益ಠ)ﾉ彡┻━┻ - must have a verified phone number |
 
 ###### Example Guild
 
@@ -204,22 +202,6 @@ Represents an Offline Guild, or a Guild whose information has not been provided 
 | require_colons | bool | whether this emoji must be wrapped in colons |
 | managed | bool | whether this emoji is managed |
 
-###### Default Message Notification Level
-
-| Key | Value |
-| --- | ----- |
-| ALL_MESSAGES | 0
-| ONLY_MENTIONS | 1
-| NO_MESSAGES| 2
-| NULL | 3
-
-###### Explicit Content Filter Level
-
-| Level | Integer
-| ---- | ------ |
-| DISABLED | 0
-| MEMBERS_WITHOUT_ROLES | 1
-| ALL_MEMBERS | 2
 
 ## Create Guild % POST /guilds
 

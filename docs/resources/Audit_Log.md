@@ -6,7 +6,7 @@ Whenever an admin action is performed on the API, an entry is added to the respe
 
 ### Audit Log Object
 
-###### Audit Log Object Structure
+###### Audit Log Structure
 
 | Field | Type | Description |
 |-------|------|-------------|
