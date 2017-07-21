@@ -146,10 +146,18 @@ Used to trigger the initial handshake with the gateway.
 | Field | Type | Description |
 |-------|------|-------------|
 | token | string | authentication token |
-| properties | object | connection properties |
+| properties | object | [connection properties](#DOCS_GATEWAY/gateway-identify-gateway-identify-connection-properties) |
 | compress | bool | whether this connection supports compression of the initial ready packet |
 | large_threshold | integer | value between 50 and 250, total number of members where the gateway will stop sending offline members in the guild member list |
 | shard | array of two integers (shard_id, num_shards) | used for [Guild Sharding](#DOCS_GATEWAY/sharding) |
+
+###### Gateway Identify Connection Properties
+
+| Field | Type | Description |
+| ----- | ---- | ----------- |
+| $os | string | your operating system |
+| $browser | string | your library name |
+| $device | string | your library name
 
 ###### Example Gateway Identify Example
 
@@ -158,10 +166,8 @@ Used to trigger the initial handshake with the gateway.
 	"token": "my_token",
 	"properties": {
 		"$os": "linux",
-		"$browser": "my_library_name",
-		"$device": "my_library_name",
-		"$referrer": "",
-		"$referring_domain": ""
+		"$browser": "disco",
+		"$device": "disco"
 	},
 	"compress": true,
 	"large_threshold": 250,
