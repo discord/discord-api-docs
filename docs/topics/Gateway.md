@@ -325,7 +325,7 @@ If the gateway ever issues a disconnect to your client it will provide a close e
 | Code | Description | Explanation |
 |------|-------------|-------------|
 | 4000 | unknown error | We're not sure what went wrong. Try reconnecting? |
-| 4001 | unknown opcode | You sent an invalid [Gateway OP Code](#DOCS_GATEWAY/gateway-op-codes). Don't do that! |
+| 4001 | unknown opcode | You sent an invalid [Gateway OP Code](#DOCS_GATEWAY/gateway-op-codespayloads). Don't do that! |
 | 4002 | decode error | You sent an invalid [payload](#DOCS_GATEWAY/sending-payloads) to us. Don't do that! |
 | 4003 | not authenticated | You sent us a payload prior to [identifying](#DOCS_GATEWAY/gateway-identify). |
 | 4004 | authentication failed | The account token sent with your [identify payload](#DOCS_GATEWAY/gateway-identify) is incorrect. |
