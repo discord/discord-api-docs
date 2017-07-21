@@ -458,7 +458,7 @@ The gateway will ignore any individual messages that do not exist or do not belo
 
 Same as above, but this endpoint is deprecated.
 
-## Edit Channel Permissions % PUT /channels/{channel.id#DOCS_CHANNEL/channel-object}/permissions/{overwrite.id}
+## Edit Channel Permissions % PUT /channels/{channel.id#DOCS_CHANNEL/channel-object}/permissions/{overwrite.id#DOCS_CHANNEL/overwrite-object}
 
 Edit the channel permission overwrites for a user or role in a channel. Only usable for guild channels. Requires the 'MANAGE_ROLES' permission. Returns a 204 empty response on success. For more information about permissions, see [permissions](#DOCS_PERMISSIONS/permissions).
 
