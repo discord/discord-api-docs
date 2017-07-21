@@ -21,7 +21,7 @@ Discord exposes different versions of our API. You can specify version by includ
 https://discordapp.com/api/v{version_number}
 ```
 
-Omitting the version number from the route will route requests to the current default version. You can find the changelog for the newest API version [here](#DOCS_CHANGELOG/api-version-6).
+Omitting the version number from the route will route requests to the current default version. You can find the change log for the newest API version [here](https://discordapp.com/developers/docs/change-log).
 
 >warn
 >API and Gateway v6 will be made default on October 16, 2017

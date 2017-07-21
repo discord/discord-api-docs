@@ -84,7 +84,7 @@ Represents the channel an invite is for.
 |-------|------|-------------|
 | id | snowflake | id of the channel |
 | name | string | name of the channel |
-| type | integer | [type](#DOCS_CHANNEL/channel-types) of the channel |
+| type | integer | [type](#DOCS_CHANNEL/channel-object-channel-types) of the channel |
 
 ###### Invite Channel Object
 
