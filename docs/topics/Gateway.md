@@ -150,6 +150,7 @@ Used to trigger the initial handshake with the gateway.
 | compress | bool | whether this connection supports compression of the initial ready packet |
 | large_threshold | integer | value between 50 and 250, total number of members where the gateway will stop sending offline members in the guild member list |
 | shard | array of two integers (shard_id, num_shards) | used for [Guild Sharding](#DOCS_GATEWAY/sharding) |
+| presence | [presence](#DOCS_GATEWAY/gateway-status-update) | presence structure for initial presence information |
 
 ###### Gateway Identify Connection Properties
 
