@@ -426,6 +426,17 @@ Sent when a channel is updated. The inner payload is a [guild channel](#DOCS_CHA
 
 Sent when a channel relevant to the current user is deleted. The inner payload is a [DM](#DOCS_CHANNEL/channel-object) or [Guild](#DOCS_CHANNEL/channel-object) channel object.
 
+### Channel Pins Update
+
+Sent when a message is pinned or unpinned in a text channel. This is not sent when a pinned message is deleted.
+
+###### Channel Pins Update Event Fields
+
+| Field | Type | Description |
+|-------|------|-------------|
+| channel_id | snowflake | the id of the channel |
+| last_pin_timestamp? | ISO8601 timestamp | the time at which the most recent pinned message was pinned |
+
 ### Guild Create
 
 This event can be sent in three different scenarios:
@@ -627,17 +638,6 @@ Sent when a user explicitly removes all reactions from a message.
 |-------|------|-------------|
 | channel_id | snowflake | the id of the channel |
 | message_id | snowflake | the id of the message |
-
-### Channel Pins Update
-
-Sent when a message is pinned or unpinned in a text channel. This is not sent when a pinned message is deleted.
-
-###### Channel Pins Update Event Fields
-
-| Field | Type | Description |
-|-------|------|-------------|
-| channel_id | snowflake | the id of the channel |
-| last_pin_timestamp? | ISO8601 timestamp | the time at which the most recent pinned message was pinned |
 
 ### Presence Update
 
