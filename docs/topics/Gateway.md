@@ -146,7 +146,7 @@ Used to trigger the initial handshake with the gateway.
 | Field | Type | Description |
 |-------|------|-------------|
 | token | string | authentication token |
-| properties | object | [connection properties](#DOCS_GATEWAY/gateway-identify-connection-properties) |
+| properties | object | [connection properties](#DOCS_GATEWAY/gateway-identify-gateway-identify-connection-properties) |
 | compress | bool | whether this connection supports compression of the initial ready packet |
 | large_threshold | integer | value between 50 and 250, total number of members where the gateway will stop sending offline members in the guild member list |
 | shard | array of two integers (shard_id, num_shards) | used for [Guild Sharding](#DOCS_GATEWAY/sharding) |
