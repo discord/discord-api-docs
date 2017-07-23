@@ -727,3 +727,14 @@ Sent when a guild's voice server is updated. This is sent when initially connect
 	"endpoint": "smart.loyal.discord.gg"
 }
 ```
+
+### Webhooks Update
+
+Sent when a guild channel's webhook is created, updated, or deleted.
+
+###### Webhook Update Event Fields
+
+| Field | Type | Description |
+|-------|------|-------------|
+| guild_id | snowflake | id of the guild |
+| channel_id | snowflake | id of the channel |
