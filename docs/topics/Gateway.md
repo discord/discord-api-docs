@@ -285,7 +285,7 @@ Sent when a client wants to join, move, or disconnect from a voice channel.
 
 ### Gateway Invalid Session
 
-Sent when a client attempts to resume, but the passed session ID is invalid or expired. The inner `d` key is a boolean that indicates whether or not the session may be resumable. See [Resuming](#DOCS_GATEWAY/resuming) for more information.
+Sent when a client attempts to identify too soon after a previous identification or attempts to resume with an invalid or expired session ID. The inner `d` key is a boolean that indicates whether or not the session may be resumable. See [Connecting](#DOCS_GATEWAY/connecting) and [Resuming](#DOCS_GATEWAY/resuming) for more information.
 
 ###### Gateway Invalid Session Example
 
@@ -304,7 +304,7 @@ With the resulting payload, you can now open a websocket connection to the "url"
 
 Once connected, the client should immediately receive an [OP 10 Hello](#DOCS_GATEWAY/gateway-hello) payload, with information on the connection's heartbeat interval. The client should now begin sending [OP 1 Heartbeat](#DOCS_GATEWAY/gateway-heartbeat) payloads every `heartbeat_interval` milliseconds, until the connection is eventually closed or terminated. Clients can detect zombied or failed connections by listening for [OP 11 Heartbeat ACK](#DOCS_GATEWAY/gateway-heartbeat-ack). If a client does not receive a heartbeat ack between its attempts at sending heartbeats, it should immediately terminate the connection with a non 1000 close code, reconnect, and attempt to resume.
 
-Next, the client is expected to send an [OP 2 Identify](#DOCS_GATEWAY/gateway-identify) _or_ [OP 6 Resume](#DOCS_GATEWAY/gateway-resume) payload. If the passed token is valid, the gateway will respond with a [Ready](#DOCS_GATEWAY/ready) event, and your client can be considered in a "connected" state. Clients are limited to 1 identify every 5 seconds, if they exceed this limit the gateway will respond with an [OP 9 Invalid Session](#DOCS_GATEWAY/gateway-invalid-session) and terminate the connection. It is important to note that although the ready event contains a large portion of the required initial state, some information (such as guilds and their members) is asynchronously sent (see [Guild Create](#DOCS_GATEWAY/guild-create) event)
+Next, the client is expected to send an [OP 2 Identify](#DOCS_GATEWAY/gateway-identify) _or_ [OP 6 Resume](#DOCS_GATEWAY/gateway-resume) payload. If the payload is valid, the gateway will respond with a [Ready](#DOCS_GATEWAY/ready) event after identifying or a [Resumed](#DOCS_GATEWAY/resumed) event after resuming, and your client can be considered in a "connected" state. Clients are limited to 1 identify every 5 seconds, if they exceed this limit the gateway will respond with an [OP 9 Invalid Session](#DOCS_GATEWAY/gateway-invalid-session) and terminate the connection. It is important to note that although the ready event contains a large portion of the required initial state, some information (such as guilds and their members) is asynchronously sent (see [Guild Create](#DOCS_GATEWAY/guild-create) event)
 
 >warn
 > Clients are limited to 1000 `IDENTIFY` calls to the websocket in a 24-hour period. This limit is global and across all shards, but does not include `RESUME` calls. Upon hitting this limit, all active sessions for the bot will be terminated, the bot's token will be reset, and the owner will receive an email notification. It's up to the owner to update their application with the new token.
@@ -348,7 +348,7 @@ When initially creating and handshaking connections to the Gateway, a user can c
 
 ### Rate Limiting
 
-Unlike the HTTP API, the Gateway does not provide a method for forced back-off or cooldown, but instead implements a hard limit on the number of messages sent over a period of time. Currently, clients are allowed 120 events every 60 seconds, meaning you can send on average at a rate of up to 2 events per second. Clients who surpass this limit are immediately disconnected from the Gateway, and similarly to the HTTP API, repeat offenders will have their API access revoked. Clients are also limited to one gateway connection per 5 seconds. If you hit this limit, the Gateway will delay your connection until the cooldown has timed out.
+Unlike the HTTP API, the Gateway does not provide a method for forced back-off or cooldown, but instead implements a hard limit on the number of messages sent over a period of time. Currently, clients are allowed 120 events every 60 seconds, meaning you can send on average at a rate of up to 2 events per second. Clients who surpass this limit are immediately disconnected from the Gateway, and similarly to the HTTP API, repeat offenders will have their API access revoked. Clients are also limited to one gateway connection per 5 seconds. If you hit this limit, the Gateway will respond with an [OP 9 Invalid Session](#DOCS_GATEWAY/gateway-invalid-session).
 
 >warn
 > Clients may only update their game status 5 times per minute.
