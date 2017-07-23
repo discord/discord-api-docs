@@ -285,7 +285,7 @@ Sent when a client wants to join, move, or disconnect from a voice channel.
 
 ### Gateway Invalid Session
 
-Sent when a client attempts to identify too soon after a previous identification or attempts to resume with an invalid or expired session ID. The inner `d` key is a boolean that indicates whether or not the session may be resumable. See [Connecting](#DOCS_GATEWAY/connecting) and [Resuming](#DOCS_GATEWAY/resuming) for more information.
+Sent to clients to indicate that a new session could not be established or that an active session is no longer valid. This can happen if a client attempts to identify too quickly, or if a client attempts to resume a session that is not resumable, or after a server-side disruption of the session. The inner `d` key is a boolean that indicates whether or not the session may be resumable. See [Connecting](#DOCS_GATEWAY/connecting) and [Resuming](#DOCS_GATEWAY/resuming) for more information.
 
 ###### Gateway Invalid Session Example
 
