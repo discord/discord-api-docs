@@ -628,6 +628,17 @@ Sent when a user explicitly removes all reactions from a message.
 | channel_id | snowflake | the id of the channel |
 | message_id | snowflake | the id of the message |
 
+### Channel Pins Update
+
+Sent when a message is pinned or unpinned in a text channel. This is not sent when a pinned message is deleted.
+
+###### Channel Pins Update Event Fields
+
+| Field | Type | Description |
+|-------|------|-------------|
+| channel_id | snowflake | the id of the channel |
+| last_pin_timestamp? | ISO8601 timestamp | the time at which the most recent pinned message was pinned |
+
 ### Presence Update
 
 A user's presence is their current state on a guild. This event is sent when a user's presence is updated for a guild.
