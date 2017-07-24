@@ -285,7 +285,12 @@ Sent when a client wants to join, move, or disconnect from a voice channel.
 
 ### Gateway Invalid Session
 
-Sent to indicate one of at least three different situations: (1) the gateway could not initialize a session after receiving an [OP 2 Identify](#DOCS_GATEWAY/gateway-identify); (2) the gateway could not resume a previous session after receiving an [OP 6 Resume](#DOCS_GATEWAY/gateway-resume); (3) the gateway has invalidated an active session and is requesting client action. The inner `d` key is a boolean that indicates whether the session may be resumable. See [Connecting](#DOCS_GATEWAY/connecting) and [Resuming](#DOCS_GATEWAY/resuming) for more information.
+Sent to indicate one of at least three different situations:
+- the gateway could not initialize a session after receiving an [OP 2 Identify](#DOCS_GATEWAY/gateway-identify)
+- the gateway could not resume a previous session after receiving an [OP 6 Resume](#DOCS_GATEWAY/gateway-resume)
+- the gateway has invalidated an active session and is requesting client action
+
+The inner `d` key is a boolean that indicates whether the session may be resumable. See [Connecting](#DOCS_GATEWAY/connecting) and [Resuming](#DOCS_GATEWAY/resuming) for more information.
 
 ###### Gateway Invalid Session Example
 
