@@ -160,6 +160,6 @@ Create a new group DM channel with multiple users. Returns a [DM channel](#DOCS_
 | access_tokens | array of strings | access tokens of users that have granted your app the `gdm.join` scope |
 | nicks | dict | a dictionary of user ids to their respective nicknames |
 
-## Get Users Connections % GET /users/@me/connections
+## Get User Connections % GET /users/@me/connections
 
 Returns a list of [connection](#DOCS_USER/connection-object) objects. Requires the `connections` OAuth2 scope.

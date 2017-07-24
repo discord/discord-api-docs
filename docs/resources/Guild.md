@@ -18,13 +18,16 @@ Guilds in Discord represent a collection of users and channels into an isolated 
 | afk\_timeout | integer | afk timeout in seconds |
 | embed\_enabled | bool | is this guild embeddable (e.g. widget) |
 | embed\_channel\_id | snowflake | id of embedded channel |
-| verification\_level | integer | level of verification |
-| default\_message\_notifications | integer | default message notifications level |
+| verification\_level | integer | level of [verification](#DOCS_GUILD/guild-object-verification-level) required for the guild |
+| default\_message\_notifications | integer | default message [notifications level](#DOCS_GUILD/guild-object-default-message-notification-level) |
+| explicit\_content\_filter | integer | default explicit content [filter level](#DOCS_GUILD/guild-object-explicit-content-filter-level) |
 | roles | array | array of [role](#DOCS_PERMISSIONS/role-object) objects |
 | emojis | array | array of [emoji](#DOCS_GUILD/emoji-object) objects |
 | features | array | array of guild features |
-| mfa\_level | integer | required MFA level for the guild |
-| application_id? | snowflake | application id of the guild creator if it is bot-created |
+| mfa\_level | integer | required [MFA level](#DOCS_GUILD/guild-object-mfa-level) for the guild |
+| application_id | ?snowflake | application id of the guild creator if it is bot-created |
+| widget_enabled | bool | whether or not the server widget is enabled |
+| widget_channel_id | snowflake | the channel id for the server widget |
 | joined\_at \* | ISO8601 timestamp | when this guild was joined at |
 | large \* | bool | whether this is considered a large guild |
 | unavailable \* | bool | is this guild unavailable |
@@ -36,11 +39,44 @@ Guilds in Discord represent a collection of users and channels into an isolated 
 
 ** \* These fields are only sent within the [GUILD_CREATE](#DOCS_GATEWAY/guild-create) event **
 
+###### Default Message Notification Level
+
+| Key | Value |
+| --- | ----- |
+| ALL_MESSAGES | 0 |
+| ONLY_MENTIONS | 1 |
+
+###### Explicit Content Filter Level
+
+| Level | Integer
+| ---- | ------ |
+| DISABLED | 0 |
+| MEMBERS_WITHOUT_ROLES | 1 |
+| ALL_MEMBERS | 2 |
+
+###### MFA Level
+
+| Level | Integer |
+| ----- | ------- |
+| NONE | 0 |
+| ELEVATED | 1 |
+
+###### Verification Level
+
+| Level | Integer | Description |
+| ----- | ------- | ----------- |
+| NONE | 0 | unrestricted |
+| LOW | 1 | must have verified email on account |
+| MEDIUM | 2 | must be registered on Discord for longer than 5 minutes |
+| HIGH | 3 |  (╯°□°）╯︵ ┻━┻ - must be a member of the server for longer than 10 minutes |
+| VERY_HIGH | 4 | ┻━┻ミヽ(ಠ益ಠ)ﾉ彡┻━┻ - must have a verified phone number |
+
 ###### Example Guild
 
 ```json
 {
 	"id": "41771983423143937",
+	"application_id": null,
 	"name": "Discord Developers",
 	"icon": "SEkgTU9NIElUUyBBTkRSRUkhISEhISEh",
 	"splash": null,
@@ -51,6 +87,11 @@ Guilds in Discord represent a collection of users and channels into an isolated 
 	"embed_enabled": true,
 	"embed_channel_id": "41771983444115456",
 	"verification_level": 1,
+	"default_message_notifications": 0,
+	"explicit_content_filter": 0,
+	"mfa_level": 0,
+	"widget_enabled": false,
+	"widget_channel_id": "41771983423143937",
 	"roles": [],
 	"emojis": [],
 	"features": ["INVITE_SPLASH"],
@@ -161,6 +202,7 @@ Represents an Offline Guild, or a Guild whose information has not been provided 
 | require_colons | bool | whether this emoji must be wrapped in colons |
 | managed | bool | whether this emoji is managed |
 
+
 ## Create Guild % POST /guilds
 
 Create a new guild. Returns a [guild](#DOCS_GUILD/guild-object) object on success. Fires a [Guild Create](#DOCS_GATEWAY/guild-create) Gateway event.
@@ -176,7 +218,7 @@ Create a new guild. Returns a [guild](#DOCS_GUILD/guild-object) object on succes
 | region | string | {voice_region.id} for voice |
 | icon | string | base64 128x128 jpeg image for the guild icon |
 | verification_level | integer | guild verification level |
-| default\_message\_notifications | integer | default message notifications setting |
+| default\_message\_notifications | integer | default message [notifications setting](#DOCS_GUILD/default-message-notification-level) |
 | roles | array of [role](#DOCS_PERMISSIONS/role-object) objects | new guild roles
 | channels | array of [create guild channel](#DOCS_CHANNEL/create-guild-channel) body objects | new guild's channels
 
@@ -201,7 +243,7 @@ Modify a guild's settings. Returns the updated [guild](#DOCS_GUILD/guild-object)
 | name | string | guild name |
 | region | string | guild {voice_region.id} |
 | verification_level | integer | guild verification level |
-| default\_message\_notifications | integer | default message notifications setting |
+| default\_message\_notifications | integer | default message [notifications setting](#DOCS_GUILD/default-message-notification-level) |
 | afk\_channel\_id | snowflake | id for afk channel |
 | afk_timeout | integer | afk timeout in seconds |
 | icon | string | base64 128x128 jpeg image for the guild icon |
