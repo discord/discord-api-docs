@@ -146,10 +146,18 @@ Used to trigger the initial handshake with the gateway.
 | Field | Type | Description |
 |-------|------|-------------|
 | token | string | authentication token |
-| properties | object | connection properties |
+| properties | object | [connection properties](#DOCS_GATEWAY/gateway-identify-gateway-identify-connection-properties) |
 | compress | bool | whether this connection supports compression of the initial ready packet |
 | large_threshold | integer | value between 50 and 250, total number of members where the gateway will stop sending offline members in the guild member list |
 | shard | array of two integers (shard_id, num_shards) | used for [Guild Sharding](#DOCS_GATEWAY/sharding) |
+
+###### Gateway Identify Connection Properties
+
+| Field | Type | Description |
+| ----- | ---- | ----------- |
+| $os | string | your operating system |
+| $browser | string | your library name |
+| $device | string | your library name
 
 ###### Example Gateway Identify Example
 
@@ -158,10 +166,8 @@ Used to trigger the initial handshake with the gateway.
 	"token": "my_token",
 	"properties": {
 		"$os": "linux",
-		"$browser": "my_library_name",
-		"$device": "my_library_name",
-		"$referrer": "",
-		"$referring_domain": ""
+		"$browser": "disco",
+		"$device": "disco"
 	},
 	"compress": true,
 	"large_threshold": 250,
@@ -325,7 +331,7 @@ If the gateway ever issues a disconnect to your client it will provide a close e
 | Code | Description | Explanation |
 |------|-------------|-------------|
 | 4000 | unknown error | We're not sure what went wrong. Try reconnecting? |
-| 4001 | unknown opcode | You sent an invalid [Gateway OP Code](#DOCS_GATEWAY/gateway-op-codes). Don't do that! |
+| 4001 | unknown opcode | You sent an invalid [Gateway OP Code](#DOCS_GATEWAY/gateway-op-codespayloads-gateway-op-codes). Don't do that! |
 | 4002 | decode error | You sent an invalid [payload](#DOCS_GATEWAY/sending-payloads) to us. Don't do that! |
 | 4003 | not authenticated | You sent us a payload prior to [identifying](#DOCS_GATEWAY/gateway-identify). |
 | 4004 | authentication failed | The account token sent with your [identify payload](#DOCS_GATEWAY/gateway-identify) is incorrect. |

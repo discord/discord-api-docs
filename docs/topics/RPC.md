@@ -4,17 +4,17 @@ All Discord clients have an RPC server running on localhost that allows control 
 
 ## Private Beta FYI
 
-For now RPC is in private beta, which means that only apps that have signed up can access the RPC. If you're interested in trying out Discord to power your game please [sign up over here](https://discordapp.com/gamebridge).
+For now, RPC is in private beta, which means that only apps that have signed up can access the RPC. If you're interested in trying out Discord to power your game, please [sign up here](https://discordapp.com/gamebridge).
 
 ## Sample Code
 
-In addition to the documentation below we have put together a sample project that shows the basics of using the RPC within a game. Check it out if you'd like to see how all of these concepts come together. [Click this link and you'll find it](https://github.com/hammerandchisel/sample-game-integration).
+In addition to the documentation below, we have put together a sample project that shows the basics of using the RPC within a game. [Check it out](https://github.com/hammerandchisel/sample-game-integration) if you'd like to see how all of these concepts come together.
 
 ## Connecting to the RPC Server
 
-The local RPC server runs only on localhost (`127.0.0.1`) and can be accessed over TLS with our `discordapp.io` domain.
+The local RPC server runs on localhost (`127.0.0.1`) and can be accessed over TLS with the `discordapp.io` domain.
 
-The RPC Server is setup to process WebSocket connections and proxy API requests.
+The RPC Server is set up to process WebSocket connections and proxy API requests.
 
 For WebSocket connections, the connection is always
 
@@ -27,11 +27,11 @@ wss://discordapp.io:PORT/?v=VERSION&client_id=CLIENT_ID&encoding=ENCODING
 * `PORT` is the port of the RPC Server.
 * `ENCODING` is the type of encoding for this connection to use. `json` and `etf` are supported.
 
-You'll need to create an app on Discord's platform. To do that head to [your apps](https://discordapp.com/developers/applications/me) and click the giant plus button. When you create an app on our Developers site, you must specify an "RPC Origin" and "Redirect URI" to permit connections and authorizations from. **The origin you send when connecting and the redirect uri you send when exchanging an authorization code for an access token must match one of the ones entered on the Developers site.**
+To begin, you'll need to create an app on Discord's platform. Head to [your apps](https://discordapp.com/developers/applications/me) and click the big plus button. When you create an app on our Developers site, you must specify an "RPC Origin" and "Redirect URI" from which to permit connections and authorizations. **The origin you send when connecting and the redirect uri you send when exchanging an authorization code for an access token must match one of the ones entered on the Developers site.**
 
 When establishing a WebSocket connection, we verify the Origin header on connection to prevent client ID spoofing, so you will be instantly disconnected if the Origin does not match.
 
-If you're connecting to the RPC server from within a browser, RPC origins are usually in the form `SCHEME://HOST[:PORT]`, where `SCHEME` is typically https or http, `HOST` is your domain or ip, and `PORT` is the port of the webserver where the user will be connecting from (omitted for ports 80 and 443). For example, `https://discordapp.com` would be used if the user is connecting from `https://discordapp.com/some/page/url`.
+If you're connecting to the RPC server from within a browser, RPC origins are usually in the form `SCHEME://HOST[:PORT]`, where `SCHEME` is typically https or http, `HOST` is your domain or ip, and `PORT` is the port of the webserver from which the user will be connecting (omitted for ports 80 and 443). For example, `https://discordapp.com` would be used if the user were connecting from `https://discordapp.com/some/page/url`.
 
 If you're connecting to the RPC server from within a non-browser application (like a game), you just need to make sure that the origin is sent with the upgrade request when connecting to the WebSocket. For local testing, we recommend testing with an origin like `https://localhost`. For production apps, we recommend setting the origin to your company/game's domain, for example `https://discordapp.com`.
 
@@ -47,7 +47,7 @@ https://discordapp.io:PORT/
 
 * `PORT` is the port of the RPC Server.
 
-Proxied API requests accept your OAuth2 Bearer token in the Authorization header, and respond exactly as our API normally would. The only difference between proxied and non-proxied API requests are that proxied requests are executed with the user's token instead of the OAuth2 Bearer token, which provides access to modify most of what the client has access to (we do block certain endpoints which are deemed unsafe, like most authentication-related endpoints and user management endpoints).
+Proxied API requests accept your OAuth2 Bearer token in the Authorization header, and respond exactly as our API normally would. The only difference between proxied and non-proxied API requests are that proxied requests are executed with the user's token instead of the OAuth2 Bearer token, which provides access to modify most of what the client has access to. We do block certain endpoints which are deemed unsafe, like most authentication-related endpoints and user management endpoints.
 
 ###### Example RPC Proxy Call
 
@@ -69,7 +69,7 @@ Proxied API requests are not applicable to the rest of the RPC Server docs, so c
 
 For connections to the RPC server, a [whitelist](#DOCS_RPC/authorize) is used to restrict access while you're still developing. You can invite up to 50 people to your whitelist.
 
-For applications/games not approved, we limit you to 10 guilds and 10 channels your app can create. This limit is raised to virtually unlimited after approval.
+For applications/games not approved, we limit you to creating 10 guilds and 10 channels. This limit is raised to virtually unlimited after approval.
 
 ## RPC Server Versions
 
@@ -89,9 +89,9 @@ The port range for Discord's local RPC server is [6463, 6472]. Since the RPC ser
 
 | Field | Type | Description | Present |
 |-------|------|-------------|-------------|
-| cmd | enum | payload command | Always |
+| cmd | enum | [payload command](#DOCS_RPC/rpc-server-paylods-rpc-commands) | Always |
 | nonce | string | unique string used once for replies from the server | In responses to commands (not subscribed events) |
-| evt | enum | subscription event | In subscribed events, errors, and (un)subscribing events |
+| evt | enum | [subscription event](#DOCS_RPC/rpc-server-paylods-rpc-events) | In subscribed events, errors, and (un)subscribing events |
 | data | object | event data | In responses from the server |
 | args | object | command arguments | In commands sent to the server |
 
@@ -201,10 +201,10 @@ Used to authenticate an existing client with your app.
 
 | Field | Type | Description |
 |-------|------|-------------|
-| user | User | partial user object |
-| scopes | Array | array of authorized [OAuth2 scopes](#DOCS_OAUTH2/scopes) |
-| expires | Date | expiration date of OAuth2 token |
-| application | Application | OAuth2 application object |
+| user | object | partial [user](#DOCS_USER/user-object) object |
+| scopes | array | array of authorized [OAuth2 scopes](#DOCS_OAUTH2/scopes) |
+| expires | date | expiration date of OAuth2 token |
+| application | object | OAuth2 application object |
 
 ###### Authenticate Example Command Payload
 
@@ -244,6 +244,18 @@ Used to authenticate an existing client with your app.
 }
 ```
 
+## OAuth2 Application Object
+
+####### OAuth2 Application Structure
+
+| Field | Type | Description |
+| ----- | ---- | ----------- |
+| description | string | application description |
+| icon | string | hash of the icon |
+| id | snowflake | application client id |
+| rpc_origins | array | array of strings - |
+| name | string | application name
+
 ### AUTHORIZE
 
 Used to authenticate a new client with your app. By default this pops up a modal in-app that asks the user to authorize access to your app.
@@ -257,15 +269,15 @@ We also have an RPC token system to bypass the user authorization modal. This is
 | Field | Type | Description |
 |-------|------|-------------|
 | scopes | Array | array of OAuth2 scopes to authorize |
-| client_id | String | OAuth2 application id |
-| rpc_token | String | one-time use RPC token |
-| username | String | username to create a guest account with if the user does not have Discord (only in GameBridge SDK) |
+| client_id | string | OAuth2 application id |
+| rpc_token | string | one-time use RPC token |
+| username | string | username to create a guest account with if the user does not have Discord (only in GameBridge SDK) |
 
 ###### Authorize Response Structure
 
 | Field | Type | Description |
 |-------|------|-------------|
-| code | String | OAuth2 authorization code |
+| code | string | OAuth2 authorization code |
 
 ###### Authorize Example Command Payload
 
@@ -335,16 +347,16 @@ Used to get a guild the client is in.
 
 | Field | Type | Description |
 |-------|------|-------------|
-| guild_id | String | id of the guild to get |
-| timeout | Number | asyncronously get guild with time to wait before timing out |
+| guild_id | string | id of the guild to get |
+| timeout | integer | asyncronously get guild with time to wait before timing out |
 
 ###### Get Guild Response Structure
 
 | Field | Type | Description |
 |-------|------|-------------|
-| id | String | guild id |
-| name | String | guild name |
-| icon_url | String | guild icon url |
+| id | string | guild id |
+| name | string | guild name |
+| icon_url | string | guild icon url |
 | members | Array | array of guild members |
 
 ###### Get Guild Example Command Payload
@@ -402,17 +414,17 @@ Used to get a channel the client is in.
 
 | Field | Type | Description |
 |-------|------|-------------|
-| channel_id | String | id of the channel to get |
+| channel_id | string | id of the channel to get |
 
 ###### Get Channel Response Structure
 
 | Field | Type | Description |
 |-------|------|-------------|
-| id | String | channel id |
-| guild_id | String | channel's guild id |
-| name | String | channel name |
-| type | Number | channel type (guild text: 0, guild voice: 2, dm: 1, group dm: 3) |
-| topic | String | (text) channel topic |
+| id | string | channel id |
+| guild_id | string | channel's guild id |
+| name | string | channel name |
+| type | integer | channel type (guild text: 0, guild voice: 2, dm: 1, group dm: 3) |
+| topic | string | (text) channel topic |
 | bitrate | integer | (voice) bitrate of voice channel |
 | user_limit | integer | (voice) user limit of voice channel (0 for none) |
 | position | integer | position of channel in channel list |
@@ -480,7 +492,7 @@ Used to get a guild's channels the client is in.
 
 | Field | Type | Description |
 |-------|------|-------------|
-| guild_id | String | id of the guild to get channels for |
+| guild_id | string | id of the guild to get channels for |
 
 ###### Get Channels Response Structure
 
@@ -528,9 +540,9 @@ Used to change voice settings of users in voice channels
 
 | Field | Type | Description |
 |-------|------|-------------|
-| user_id | String | user id |
+| user_id | string | user id |
 | pan | Pan Object | (optional) set the pan of the user |
-| volume | Number | (optional) set the volume of user (defaults to 100, min 0, max 200)|
+| volume | integer | (optional) set the volume of user (defaults to 100, min 0, max 200)|
 | mute | Boolean | (optional) set the mute state of the user |
 
 >info
@@ -592,8 +604,8 @@ Used to join and leave voice channels, group dms, or dms
 
 | Field | Type | Description |
 |-------|------|-------------|
-| channel_id | String | channel id to join (or `null` to leave) |
-| timeout | Number | asyncronously join channel with time to wait before timing out |
+| channel_id | string | channel id to join (or `null` to leave) |
+| timeout | integer | asyncronously join channel with time to wait before timing out |
 | force | Boolean | forces a user to join a voice channel |
 
 >warn
@@ -726,8 +738,8 @@ Used to join and leave text channels, group dms, or dms
 
 | Field | Type | Description |
 |-------|------|-------------|
-| channel_id | String | channel id to join (or `null` to leave) |
-| timeout | Number | asyncronously join channel with time to wait before timing out |
+| channel_id | string | channel id to join (or `null` to leave) |
+| timeout | integer | asyncronously join channel with time to wait before timing out |
 
 ###### Select Text Channel Response Structure
 
@@ -812,7 +824,7 @@ Returns the Get Channel response, `null` if none.
 
 | Field | Type | Description |
 |-------|------|-------------|
-| device_id | String | device id |
+| device_id | string | device id |
 | volume | Float | input voice level (min: 0, max: 100) |
 | available_devices | Array | array of *read-only* device objects containing `id` and `name` string keys |
 
@@ -820,7 +832,7 @@ Returns the Get Channel response, `null` if none.
 
 | Field | Type | Description |
 |-------|------|-------------|
-| device_id | String | device id |
+| device_id | string | device id |
 | volume | Float | output voice level (min: 0, max: 200) |
 | available_devices | Array | array of *read-only* device objects containing `id` and `name` string keys |
 
@@ -840,7 +852,7 @@ Returns the Get Channel response, `null` if none.
 |-------|------|-------------|
 | type | integer | key type. `0`: keyboard key, `1`: mouse button, `2`: keyboard modifier key, `3`: gamepad button |
 | code | integer | key code |
-| name | String | key name |
+| name | string | key name |
 
 ###### Get Voice Settings Example Response Payload
 
@@ -920,7 +932,7 @@ When setting voice settings, all fields are optional. Only passed fields are upd
 
 | Field | Type | Description |
 |-------|------|-------------|
-| device_id | String | device id |
+| device_id | string | device id |
 | volume | Float | input voice level (min: 0, max: 100) |
 | available_devices | Array | array of *read-only* device objects containing `id` and `name` string keys |
 
@@ -928,7 +940,7 @@ When setting voice settings, all fields are optional. Only passed fields are upd
 
 | Field | Type | Description |
 |-------|------|-------------|
-| device_id | String | device id |
+| device_id | string | device id |
 | volume | Float | output voice level (min: 0, max: 200) |
 | available_devices | Array | array of *read-only* device objects containing `id` and `name` string keys |
 
@@ -948,7 +960,7 @@ When setting voice settings, all fields are optional. Only passed fields are upd
 |-------|------|-------------|
 | type | integer | key type. `0`: keyboard key, `1`: mouse button, `2`: keyboard modifier key, `3`: gamepad button |
 | code | integer | key code |
-| name | String | key name |
+| name | string | key name |
 
 ###### Set Voice Settings Example Command Payload
 
@@ -1024,7 +1036,7 @@ Used to subscribe to events
 
 | Field | Type | Description |
 |-------|------|-------------|
-| evt | String | event name now subscribed to |
+| evt | string | event name now subscribed to |
 
 ###### Subscribe Example Command Payload
 
@@ -1064,7 +1076,7 @@ Used to unsubscribe from events
 
 | Field | Type | Description |
 |-------|------|-------------|
-| evt | String | event name now unsubscribed from |
+| evt | string | event name now unsubscribed from |
 
 ###### Unsubscribe Example Command Payload
 
@@ -1172,7 +1184,7 @@ Returns the shortcut captured, and `null` for the `STOP` action.
 | Field | Type | Description |
 |-------|------|-------------|
 | code | integer | RPC Error Code |
-| message | String | Error description |
+| message | string | Error description |
 
 ###### Error Example Payload
 
@@ -1194,7 +1206,7 @@ Returns the shortcut captured, and `null` for the `STOP` action.
 
 | Field | Type | Description |
 |-------|------|-------------|
-| guild_id | String | id of guild to listen to updates of |
+| guild_id | string | id of guild to listen to updates of |
 
 ###### Guild Status Dispatch Data Structure
 
@@ -1230,8 +1242,8 @@ No arguments
 
 | Field | Type | Description |
 |-------|------|-------------|
-| id | String | guild id |
-| name | String | name of the guild |
+| id | string | guild id |
+| name | string | name of the guild |
 
 ###### Guild Create Example Dispatch Payload
 
@@ -1256,9 +1268,9 @@ No arguments
 
 | Field | Type | Description |
 |-------|------|-------------|
-| id | String | channel id |
-| name | String | name of the channel |
-| type | Number | channel type (guild text: 0, guild voice: 2, dm: 1, group dm: 3) |
+| id | string | channel id |
+| name | string | name of the channel |
+| type | integer | channel type (guild text: 0, guild voice: 2, dm: 1, group dm: 3) |
 
 ###### Channel Create Example Dispatch Payload
 
@@ -1284,8 +1296,8 @@ No arguments
 
 | Field | Type | Description |
 |-------|------|-------------|
-| channel_id | String | id of channel (`null` if none) |
-| guild_id | String | id of guild (`null` if none) |
+| channel_id | string | id of channel (`null` if none) |
+| guild_id | string | id of guild (`null` if none) |
 
 ###### Voice Channel Select Example Dispatch Payload
 
@@ -1361,7 +1373,7 @@ Dispatches the voice settings object (see the GET_VOICE_SETTINGS response).
 
 | Field | Type | Description |
 |-------|------|-------------|
-| channel_id | String | id of channel to listen to updates of |
+| channel_id | string | id of channel to listen to updates of |
 
 ###### Voice State Dispatch Data Structure
 
@@ -1409,11 +1421,11 @@ No arguments
 
 | Field | Type | Description |
 |-------|------|-------------|
-| state | String | one of the voice connection states listed below |
-| hostname | String | hostname of the connected voice server |
+| state | string | one of the voice connection states listed below |
+| hostname | string | hostname of the connected voice server |
 | pings | Array of Numbers | last 20 pings (in ms) |
-| average_ping | Number | average ping (in ms) |
-| last_ping | Number | last ping (in ms) |
+| average_ping | integer | average ping (in ms) |
+| last_ping | integer | last ping (in ms) |
 
 ###### Voice Connection States
 
@@ -1452,7 +1464,7 @@ No arguments
 
 | Field | Type | Description |
 |-------|------|-------------|
-| channel_id | String | id of channel to listen to updates of |
+| channel_id | string | id of channel to listen to updates of |
 
 ###### Message Dispatch Data Structure
 
@@ -1503,13 +1515,13 @@ Dispatches message objects, with the exception of deletions, which only contains
 
 | Field | Type | Description |
 |-------|------|-------------|
-| channel_id | String | id of channel to listen to updates of |
+| channel_id | string | id of channel to listen to updates of |
 
 ###### Speaking Dispatch Data Structure
 
 | Field | Type | Description |
 |-------|------|-------------|
-| user_id | String | id of user who started/stopped speaking |
+| user_id | string | id of user who started/stopped speaking |
 
 ###### Speaking Example Dispatch Payload
 
@@ -1537,11 +1549,11 @@ No arguments
 
 | Field | Type | Description |
 |-------|------|-------------|
-| channel_id | String | id of channel where notification occurred |
+| channel_id | string | id of channel where notification occurred |
 | message | Message | message object that generated this notification |
-| icon_url | String | icon url of the notification |
-| title | String | title of the notification |
-| body | String | body of the notification |
+| icon_url | string | icon url of the notification |
+| title | string | title of the notification |
+| body | string | body of the notification |
 
 ###### Notification Create Example Dispatch Payload
 

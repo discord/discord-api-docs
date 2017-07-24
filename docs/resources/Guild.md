@@ -144,7 +144,7 @@ Represents an Offline Guild, or a Guild whose information has not been provided 
 | Field | Type | Description |
 |-------|------|-------------|
 | user | object | [user](#DOCS_USER/user-object) object |
-| nick | string? | this users guild nickname (if one is set) |
+| nick? | string | this users guild nickname (if one is set) |
 | roles | array | array of [role](#DOCS_PERMISSIONS/role-object) object id's |
 | joined_at | ISO8601 timestamp | when the user joined the guild |
 | deaf | bool | if the user is deafened |

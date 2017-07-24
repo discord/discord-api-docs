@@ -11,9 +11,9 @@ Used to represent a webhook.
 | Field | Type | Description |
 |-------|------|-------------|
 | id | snowflake | the id of the webhook |
-| guild_id | snowflake? | the guild id this webhook is for |
+| guild_id? | snowflake | the guild id this webhook is for |
 | channel_id | snowflake | the channel id this webhook is for |
-| user | [User](#DOCS_USER/user-object)? | the user this webhook was created by (not returned when getting a webhook with its token) |
+| user? | [User](#DOCS_USER/user-object) | the user this webhook was created by (not returned when getting a webhook with its token) |
 | name | ?string | the default name of the webhook |
 | avatar | ?string | the default avatar of the webhook |
 | token | string | the secure token of the webhook |
