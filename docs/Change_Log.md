@@ -3,9 +3,11 @@
 >danger
 >API and Gateway versions below v6 will be discontinued on October 16, 2017, after which they will be non-functioning.
 
-This document contains breaking changes between API versions.
+## July 24, 2017
 
-## Version 6
+Audit logs are here! Well, they've been here all along, but now we've got [documentation](#DOCS_AUDIT_LOG/audit-logs) about them. Check it out, but remember: with great power comes great responsibility.
+
+## July 19, 2017 — Version 6 Breaking Changes
 
 * [Channel](#DOCS_CHANNEL/channel-object) Object
   * `is_private` removed
