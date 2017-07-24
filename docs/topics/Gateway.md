@@ -285,7 +285,7 @@ Sent when a client wants to join, move, or disconnect from a voice channel.
 
 ### Gateway Invalid Session
 
-Sent to clients to indicate that a new session could not be established or that an active session is no longer valid. This can happen if a client attempts to identify too quickly, or if a client attempts to resume a session that is not resumable, or after a server-side disruption of the session. The inner `d` key is a boolean that indicates whether or not the session may be resumable. See [Connecting](#DOCS_GATEWAY/connecting) and [Resuming](#DOCS_GATEWAY/resuming) for more information.
+Sent to indicate one of at least three different situations: (1) the gateway could not initialize a session after receiving an [OP 2 Identify](#DOCS_GATEWAY/gateway-identify); (2) the gateway could not resume a previous session after receiving an [OP 6 Resume](#DOCS_GATEWAY/gateway-resume); (3) the gateway has invalidated an active session and is requesting client action. The inner `d` key is a boolean that indicates whether the session may be resumable. See [Connecting](#DOCS_GATEWAY/connecting) and [Resuming](#DOCS_GATEWAY/resuming) for more information.
 
 ###### Gateway Invalid Session Example
 
@@ -355,7 +355,9 @@ Unlike the HTTP API, the Gateway does not provide a method for forced back-off o
 
 ## Tracking State
 
-Users who implement the Gateway API should keep in mind that Discord expects clients to track state locally and will only provide events for objects that are created/updated/deleted. A good example of state tracking is user status. When initially connecting to the gateway, the client receives information regarding the online status of members. However to keep this state updated a user must receive and track [Presence Updates](#DOCS_GATEWAY/presence-update). Generally clients should try to cache and track as much information locally to avoid excess API calls.
+Most of a client's state is provided during the initial [Ready](#DOCS_GATEWAY/ready) event and the [Guild Create](#DOCS_GATEWAY/guild-create) events that immediately follow. As objects are further created/updated/deleted, other events are sent to notify the client of these changes and to provide the new or updated data. To avoid excessive API calls, Discord expects clients to locally cache as many object states as possible, and to update them as gateway events are received.
+
+An example of state tracking can be found with member status caching. When initially connecting to the gateway, the client receives information regarding the online status of guild members (online, idle, dnd, offline). To keep this state updated, a client must track and parse [Presence Update](#DOCS_GATEWAY/presence-update) events as they are received, and apply the provided data to the cached member objects.
 
 ## Guild (Un)availability
 
