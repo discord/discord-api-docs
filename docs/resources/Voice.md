@@ -8,7 +8,7 @@ Used to represent a user's voice connection status.
 
 | Field | Type | Description |
 |-------|------|-------------|
-| guild_id | snowflake? | the guild id this voice state is for |
+| guild_id? | snowflake | the guild id this voice state is for |
 | channel_id | snowflake | the channel id this user is connected to |
 | user_id | snowflake | the user id this voice state is for |
 | session_id | string | the session id for this voice state |

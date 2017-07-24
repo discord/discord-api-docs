@@ -76,7 +76,15 @@ Resource fields that may be null have types that are prefixed with a question ma
 
 ## Optional Resource Fields
 
-Resources fields that are optional have types that are suffixed with a question mark.
+Resources fields that are optional have names that are suffixed with a question mark.
+
+###### Nullable and Optional Field Examples
+
+| Field | Type |
+| ----- | ---- |
+| optional_field? | string |
+| nullable_field | ?string |
+| optional_and_nullable_field? | ?string |
 
 ## Consistency
 
