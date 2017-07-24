@@ -12,6 +12,7 @@ Bot accounts have a few differences in comparison to normal user accounts, namel
 2. Bots cannot have friends, nor be added to or join Group DMs.
 3. Bots do not have a maximum number of Guilds (unlike user accounts, which are limited to 100).
 4. Bots have an entirely separate set of [Rate Limits](#DOCS_RATE_LIMITS/rate-limits).
+5. Bots can use emojis of every server they are joined.
 
 
 Users interested in providing real-time automation to user accounts should consider the [RPC API](#DOCS_RPC/rpc).
