@@ -1,6 +1,6 @@
 # Guild Resource
 
-Guilds in Discord represent a collection of users and channels into an isolated "server".
+Guilds in Discord represent an isolated collection of users and channels, and are often referred to as "servers" in the UI.
 
 ### Guild Object
 
