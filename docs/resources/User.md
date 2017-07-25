@@ -39,7 +39,7 @@ There are other rules and restrictions not shared here for the sake of spam and 
 | bot | bool | whether the user belongs to an OAuth2 application | identify |
 | mfa_enabled | bool | whether the user has two factor enabled on their account | identify |
 | verified | bool | whether the email on this account has been verified | email |
-|  email | string | the user's email | email |
+| email | string | the user's email | email |
 
 ###### Example User
 
@@ -51,32 +51,6 @@ There are other rules and restrictions not shared here for the sake of spam and 
 	"avatar": "8342729096ea3675442027381ff50dfe",
 	"verified": true,
 	"email": "nelly@discordapp.com"
-}
-```
-
-## User Guild Object
-
-A brief version of a [guild](#DOCS_GUILD/guild-object) object
-
-###### User Guild Structure
-
-| Field | Type | Description |
-|-------|------|-------------|
-| id | snowflake | guild.id |
-| name | string | guild.name |
-| icon | string | guild.icon |
-| owner | bool | true if the user is an owner of the guild |
-| permissions | integer | bitwise of the user's enabled/disabled permissions |
-
-###### Example User Guild
-
-```json
-{
-	"id": "80351110224678912",
-	"name": "1337 Krew",
-	"icon": "8342729096ea3675442027381ff50dfe",
-	"owner": true,
-	"permissions": 36953089
 }
 ```
 
@@ -100,7 +74,7 @@ Returns the [user](#DOCS_USER/user-object) object of the requester's account. Fo
 
 ## Get User % GET /users/{user.id#DOCS_USER/user-object}
 
-Returns a [user](#DOCS_USER/user-object) for a given user ID.
+Returns a [user](#DOCS_USER/user-object) object for a given user ID.
 
 ## Modify Current User % PATCH /users/@me
 
@@ -115,7 +89,19 @@ Modify the requester's user account settings. Returns a [user](#DOCS_USER/user-o
 
 ## Get Current User Guilds % GET /users/@me/guilds
 
-Returns a list of [user guild](#DOCS_USER/user-guild-object) objects the current user is a member of. Requires the `guilds` OAuth2 scope.
+Returns a list of partial [guild](#DOCS_GUILD/guild-object) objects the current user is a member of. Requires the `guilds` OAuth2 scope.
+
+###### Example Partial Guild
+
+```json
+{
+	"id": "80351110224678912",
+	"name": "1337 Krew",
+	"icon": "8342729096ea3675442027381ff50dfe",
+	"owner": true,
+	"permissions": 36953089
+}
+```
 
 >info
 > This endpoint returns 100 guilds by default, which is the maximum number of guilds a non-bot user can join. Therefore, pagination is **not needed** for integrations that need to get a list of users' guilds.
@@ -134,7 +120,7 @@ Leave a guild. Returns a 204 empty response on success.
 
 ## Get User DMs % GET /users/@me/channels
 
-Returns a list of [DM](#DOCS_CHANNEL/channel-object) channel objects.
+Returns a list of [DM channel](#DOCS_CHANNEL/channel-object) objects.
 
 ## Create DM % POST /users/@me/channels
 

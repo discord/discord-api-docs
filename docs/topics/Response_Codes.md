@@ -73,7 +73,7 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 50036 | An invite was accepted to a guild the application's bot is not in |
 | 90001 | Reaction Blocked |
 
-###### JSON Error Response Example
+###### Example JSON Error Response
 
 ```json
 {

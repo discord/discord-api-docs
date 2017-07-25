@@ -21,9 +21,9 @@ Guilds in Discord represent a collection of users and channels into an isolated 
 | verification\_level | integer | level of [verification](#DOCS_GUILD/guild-object-verification-level) required for the guild |
 | default\_message\_notifications | integer | default message [notifications level](#DOCS_GUILD/guild-object-default-message-notification-level) |
 | explicit\_content\_filter | integer | default explicit content [filter level](#DOCS_GUILD/guild-object-explicit-content-filter-level) |
-| roles | array | array of [role](#DOCS_PERMISSIONS/role-object) objects |
-| emojis | array | array of [emoji](#DOCS_GUILD/emoji-object) objects |
-| features | array | array of guild features |
+| roles | array of [role](#DOCS_PERMISSIONS/role-object) objects | roles in the guild |
+| emojis | array of [emoji](#DOCS_GUILD/emoji-object) objects | custom guild emojis |
+| features | array of strings | enabled guild features |
 | mfa\_level | integer | required [MFA level](#DOCS_GUILD/guild-object-mfa-level) for the guild |
 | application_id | ?snowflake | application id of the guild creator if it is bot-created |
 | widget_enabled | bool | whether or not the server widget is enabled |
@@ -32,10 +32,10 @@ Guilds in Discord represent a collection of users and channels into an isolated 
 | large \* | bool | whether this is considered a large guild |
 | unavailable \* | bool | is this guild unavailable |
 | member\_count \* | integer | total number of members in this guild |
-| voice\_states \* | array | array of [voice state](#DOCS_VOICE/voice-state-object) objects (without the `guild_id` key) |
-| members \* | array | array of [guild member](#DOCS_GUILD/guild-member-object) objects |
-| channels \* | array | array of [channel](#DOCS_CHANNEL/channel-object) objects |
-| presences \* | array | array of simple presence objects, which share the same fields as [Presence Update event](#DOCS_GATEWAY/presence-update) sans a roles or guild_id key |
+| voice\_states \* | array of partial [voice state](#DOCS_VOICE/voice-state-object) objects |  (without the `guild_id` key) |
+| members \* | array of [guild member](#DOCS_GUILD/guild-member-object) objects | users in the guild |
+| channels \* | array of [channel](#DOCS_CHANNEL/channel-object) objects | channels in the guild |
+| presences \* | array of partial [presence](#DOCS_GATEWAY/gateway-status-update) objects | presences of the users in the guild |
 
 ** \* These fields are only sent within the [GUILD_CREATE](#DOCS_GATEWAY/guild-create) event **
 
@@ -101,14 +101,7 @@ Guilds in Discord represent a collection of users and channels into an isolated 
 
 ### Unavailable Guild Object
 
-Represents an Offline Guild, or a Guild whose information has not been provided through [Guild Create](#DOCS_GATEWAY/guild-create) events during the Gateway connect.
-
-###### Unavailable Guild Structure
-
-| Field | Type | Description |
-|-------|------|-------------|
-| id | snowflake | guild id |
-| unavailable | bool | should always be true |
+A partial [guild](#DOCS_GUILD/guild-object) object. Represents an Offline Guild, or a Guild whose information has not been provided through [Guild Create](#DOCS_GATEWAY/guild-create) events during the Gateway connect.
 
 ###### Example Unavailable Guild
 
@@ -219,15 +212,24 @@ Create a new guild. Returns a [guild](#DOCS_GUILD/guild-object) object on succes
 | icon | string | base64 128x128 jpeg image for the guild icon |
 | verification_level | integer | guild verification level |
 | default\_message\_notifications | integer | default message [notifications setting](#DOCS_GUILD/default-message-notification-level) |
-| roles | array of [role](#DOCS_PERMISSIONS/role-object) objects | new guild roles
-| channels | array of [create guild channel](#DOCS_CHANNEL/create-guild-channel) body objects | new guild's channels
+| roles | array of [role](#DOCS_PERMISSIONS/role-object) objects | new guild roles |
+| channels | array of partial [channel](#DOCS_CHANNEL/channel-object) objects | new guild's channels |
+
+###### Example Partial Channel Object
+
+```json
+{
+	"name": "naming-things-is-hard",
+	"type": 0
+}
+```
 
 >info
 > If roles are specified, the required `id` field within each role object is an integer placeholder, and will be replaced by the API upon consumption. Its purpose is to allow you to [overwrite](#DOCS_CHANNEL/overwrite-object) a role's permissions in a channel when also passing in channels with the channels array.
 
 ## Get Guild % GET /guilds/{guild.id#DOCS_GUILD/guild-object}
 
-Returns the new [guild](#DOCS_GUILD/guild-object) object for the given id.
+Returns the [guild](#DOCS_GUILD/guild-object) object for the given id.
 
 ## Modify Guild % PATCH /guilds/{guild.id#DOCS_GUILD/guild-object}
 

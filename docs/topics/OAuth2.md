@@ -92,7 +92,7 @@ https://discordapp.com/api/oauth2/authorize?client_id=157730590492196864&scope=w
 
 When a user is directed to this URL, they are prompted to select a channel for the webhook to be placed in. Your application will receive an authorization code back in the querystring (as usual with the authorization code grant).
 
-When you exchange the authorization code for an access token, the token response will contain the [webhook object](#DOCS_WEBHOOK/webhook-object):
+When you exchange the authorization code for an access token, the token response will contain the [webhook](#DOCS_WEBHOOK/webhook-object) object:
 
 ```json
 {
@@ -125,9 +125,9 @@ Returns the bot's OAuth2 application info.
 | icon? | string | the icon hash of the app |
 | description? | string | the description of the app |
 | rpc_origins? | array | an array of rpc origin url strings, if rpc is enabled |
-| bot_public | boolean | when false only app owner can join the app's bot to guilds |
-| bot_require_code_grant | boolean | when true the app's bot will only join upon completion of the full oauth2 code grant flow |
-| owner | [User](#DOCS_USER/user-object) | partial user object containing info on the owner of the application |
+| bot_public | bool | when false only app owner can join the app's bot to guilds |
+| bot_require_code_grant | bool | when true the app's bot will only join upon completion of the full oauth2 code grant flow |
+| owner | [user](#DOCS_USER/user-object) object | partial user object containing info on the owner of the application |
 
 ###### Example Application Information
 
