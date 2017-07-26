@@ -72,13 +72,19 @@ For bots with [elevated permissions](#DOCS_PERMISSIONS/bitwise-permission-flags)
 
 ### Adding Bots to Guilds
 
-A URL can be generated that redirects authenticated users to the add-bot flow, by using the following format (this utilizes the OAuth2 authentication flow, without a callback URL):
+A URL can be generated that redirects authenticated users to the add-bot flow. It can be in the following format without a `redirect_uri`:
 
 ```
 https://discordapp.com/api/oauth2/authorize?client_id=157730590492196864&scope=bot&permissions=0
 ```
 
-`client_id` is your _bot_ application's ID and permissions is an integer following the [permissions](#DOCS_PERMISSIONS/bitwise-permission-flags) format.
+Or with a `redirect_uri`:
+
+```
+https://discordapp.com/api/oauth2/authorize?client_id=157730590492196864&scope=bot&permissions=0&redirect_uri=https%3A%2F%2Fnicememe.website
+```
+
+`client_id` is your _bot's_ application ID. `permissions` is an integer following the [permissions](#DOCS_PERMISSIONS/bitwise-permission-flags) format. If supplied, the `redirect_uri` will include additional query string parameters on redirect: `guild_id`, the guild the _bot_ has joined, and `permissions`, the same integer sent at the start of the flow.
 
 ### Adding Webhooks to Channels
 
