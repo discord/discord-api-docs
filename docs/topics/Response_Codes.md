@@ -70,6 +70,7 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 50019 | A message can only be pinned to the channel it was sent in |
 | 50021 | Cannot execute action on a system message |
 | 50034 | A message provided was too old to bulk delete |
+| 50035 | Invalid Form Body |
 | 50036 | An invite was accepted to a guild the application's bot is not in |
 | 90001 | Reaction Blocked |
 
