@@ -1,6 +1,6 @@
 # Voice
 
-Voice connections operate in a similar fashion to the [Gateway](#DOCS_GATEWAY/gateways) connection, however they operate on a different set of payloads, and utilize a separate UDP-based connection for voice data transmission. Because UDP is utilized for both the receiving and transmitting of voice, your client _must_ be able to receive UDP packets, even through a firewall or NAT (see [UDP Hole Punching](https://en.wikipedia.org/wiki/UDP_hole_punching) for more information). The Discord Voice servers implement functionality (see [IP Discovery](#DOCS_VOICE_CONNECTIONS/ip-discovery)) for discovering the local machines remote UDP IP/Port, which can assist in some network configurations.
+Voice connections operate in a similar fashion to the [Gateway](#DOCS_GATEWAY/gateways) connection. However, they use a different set of payloads and a separate UDP-based connection for voice data transmission. Because UDP is used for both receiving and transmitting voice data, your client _must_ be able to receive UDP packets, even through a firewall or NAT (see [UDP Hole Punching](https://en.wikipedia.org/wiki/UDP_hole_punching) for more information). The Discord Voice servers implement functionality (see [IP Discovery](#DOCS_VOICE_CONNECTIONS/ip-discovery)) for discovering the local machines remote UDP IP/Port, which can assist in some network configurations.
 
 ## Voice Events
 
@@ -36,10 +36,6 @@ Voice connections operate in a similar fashion to the [Gateway](#DOCS_GATEWAY/ga
 | 4015 | Voice server crashed | The server crashed. Our bad! Try [resuming](#DOCS_VOICE_CONNECTIONS/resuming-voice-connection). |
 | 4016 | Unknown Encryption Mode | We didn't recognize your [encryption](#DOCS_VOICE_CONNECTIONS/encrypting-and-sending-voice). |
 
-### Voice Data Packet
-
-The voice data packet is a payload with an [encrypted voice packet header](#DOCS_VOICE_CONNECTIONS/encrypted-voice-packet-header-structure). The rest of the bytes in the payload are encrypted Opus audio data.
-
 ## Connecting to Voice
 
 ### Retrieving Voice Server Information
@@ -57,7 +53,7 @@ The first step in connecting to a voice server (and in turn, a guild's voice cha
 }
 ```
 
-If our request succeeded, the gateway will respond with _two_ events—a [Voice State Update](#DOCS_GATEWAY/voice-state-update) event and a [Voice Server Update](#DOCS_GATEWAY/voice-server-update) event—meaning your library must properly wait for both events before continuing. The first will contain a new key, `session_id` and the second will provide voice server information we can use to establish a new voice connection:
+If our request succeeded, the gateway will respond with _two_ events—a [Voice State Update](#DOCS_GATEWAY/voice-state-update) event and a [Voice Server Update](#DOCS_GATEWAY/voice-server-update) event—meaning your library must properly wait for both events before continuing. The first will contain a new key, `session_id`, and the second will provide voice server information we can use to establish a new voice connection:
 
 ###### Example Voice Server Update Payload
 
@@ -69,14 +65,14 @@ If our request succeeded, the gateway will respond with _two_ events—a [Voice 
 }
 ```
 
-With this information, we can move on to [Establishing a Voice Websocket Connection](#DOCS_VOICE_CONNECTIONS/establishing-a-voice-websocket-connection).
+With this information, we can move on to establishing a voice websocket connection.
 
 ## Establishing a Voice Websocket Connection
 
-Once we retrieve a session\_id, token, and endpoint information, we can connect and handshake with the voice server over another secure websocket. Unlike the gateway endpoint we receive in a HTTP [Get Gateway](#DOCS_GATEWAY/get-gateway) request, the endpoint received from our [Voice Server Update](#DOCS_GATEWAY/voice-server-update) payload does not contain a URL protocol, so some libraries may require manually prepending it with "wss://" before connecting. Once connected to the voice websocket endpoint, we can send an [OP 0 Identify](#DOCS_VOICE_CONNECTIONS/voice-events-voice-op-codes) payload with our server\_id, user\_id, session\_id, and token:
+Once we retrieve a session\_id, token, and endpoint information, we can connect and handshake with the voice server over another secure websocket. Unlike the gateway endpoint we receive in an HTTP [Get Gateway](#DOCS_GATEWAY/get-gateway) request, the endpoint received from our [Voice Server Update](#DOCS_GATEWAY/voice-server-update) payload does not contain a URL protocol, so some libraries may require manually prepending it with "wss://" before connecting. Once connected to the voice websocket endpoint, we can send an [OP 0 Identify](#DOCS_VOICE_CONNECTIONS/voice-events-voice-op-codes) payload with our server\_id, user\_id, session\_id, and token:
 
 >warn
-> Much like our standard Gateways, voice sockets support versioning via querystring parameters. To ensure that you have the most up-to-date information, please append "`?v=3`" to your URL. Otherwise, we cannot guarantee that the [OP codes](#DOCS_VOICE_CONNECTIONS/voice-events-voice-op-codes) documented here will reflect what you receive over the socket.
+>Much like our standard Gateways, voice sockets support versioning via querystring parameters. To ensure that you have the most up-to-date information, please append "`?v=3`" to your URL. Otherwise, we cannot guarantee that the [OP codes](#DOCS_VOICE_CONNECTIONS/voice-events-voice-op-codes) documented here will reflect what you receive over the socket.
 
 ###### Example Voice Identify Payload
 
@@ -92,7 +88,7 @@ Once we retrieve a session\_id, token, and endpoint information, we can connect 
 }
 ```
 
-The voice server should respond with an [OP 2 Ready](#DOCS_VOICE_CONNECTIONS/voice-events-voice-op-codes) payload, which informs us of the `ssrc`, UDP port, supported encryption modes, and heartbeat_interval the voice server expects:
+The voice server should respond with an [OP 2 Ready](#DOCS_VOICE_CONNECTIONS/voice-events-voice-op-codes) payload, which informs us of the `ssrc`, UDP port, and supported encryption modes the voice server expects:
 
 ###### Example Voice Ready Payload
 
@@ -109,7 +105,7 @@ The voice server should respond with an [OP 2 Ready](#DOCS_VOICE_CONNECTIONS/voi
 ```
 
 >danger
-> `heartbeat_interval` here is an erroneous field and should be ignored. The correct heartbeat_interval value comes from the Hello payload.
+>`heartbeat_interval` here is an erroneous field and should be ignored. The correct heartbeat_interval value comes from the Hello payload.
 
 ## Heartbeating
 
@@ -135,7 +131,7 @@ This is sent immediately after [OP 2 Ready](#DOCS_VOICE_CONNECTIONS/voice-events
 }
 ```
 
-In return, you will be sent back an [OP 6 Heartbeat ACK](#DOCS_VOICE_CONNECTIONS/voice-events-voice-op-codes) which contains the previously sent nonce:
+In return, you will be sent back an [OP 6 Heartbeat ACK](#DOCS_VOICE_CONNECTIONS/voice-events-voice-op-codes) that contains the previously sent nonce:
 
 ###### Example Heartbeat ACK Payload
 
@@ -151,7 +147,7 @@ In return, you will be sent back an [OP 6 Heartbeat ACK](#DOCS_VOICE_CONNECTIONS
 Once we receive the properties of a UDP voice server from our [OP 2 Ready](#DOCS_VOICE_CONNECTIONS/voice-events-voice-op-codes) payload, we can proceed to the final step of voice connections, which entails establishing and handshaking a UDP connection for voice data. First, we open a UDP connection to the same endpoint we originally received in the [Voice Server Update](#DOCS_GATEWAY/voice-server-update) payload, combined with the port we received in the Voice Ready payload. If required, we can now perform an [IP Discovery](#DOCS_VOICE_CONNECTIONS/ip-discovery) using this connection. Once we've fully discovered our external IP and UDP port, we can then tell the voice websocket what it is, and start receiving/sending data. We do this using [OP 1 Select Protocol](#DOCS_VOICE_CONNECTIONS/voice-events-voice-op-codes):
 
 >warn
-> The plain mode is no longer supported. All data should be sent using a supported encryption method, right now only `xsalsa20_poly1305`.
+>The plain mode is no longer supported. All data should be sent using a supported encryption method, right now only `xsalsa20_poly1305`.
 
 ###### Example Select Protocol Payload
 
