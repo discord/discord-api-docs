@@ -2,6 +2,18 @@
 
 Voice connections operate in a similar fashion to the [Gateway](#DOCS_GATEWAY/gateways) connection. However, they use a different set of payloads and a separate UDP-based connection for voice data transmission. Because UDP is used for both receiving and transmitting voice data, your client _must_ be able to receive UDP packets, even through a firewall or NAT (see [UDP Hole Punching](https://en.wikipedia.org/wiki/UDP_hole_punching) for more information). The Discord Voice servers implement functionality (see [IP Discovery](#DOCS_VOICE_CONNECTIONS/ip-discovery)) for discovering the local machines remote UDP IP/Port, which can assist in some network configurations.
 
+## Voice Gateway Versioning
+
+To ensure that you have the most up-to-date information, please use [version 3](#DOCS_VOICE_CONNECTIONS/voice-gateway-versioning-gateway-versions). Otherwise, we cannot guarantee that the [OP codes](#DOCS_VOICE_CONNECTIONS/voice-events-voice-op-codes) documented here will reflect what you receive over the socket.
+
+###### Gateway Versions
+
+| Version | Status | WebSocket URL Append |
+| ------- | ------ | -------------------- |
+| 3 | recommended | ?v=3 |
+| 2 | available | ?v=2 |
+| 1 | default | ?v=1 or omit |
+
 ## Voice Events
 
 ###### Voice OP Codes
@@ -18,7 +30,7 @@ Voice connections operate in a similar fashion to the [Gateway](#DOCS_GATEWAY/ga
 | 7 | Resume | client | resume a connection |
 | 8 | Hello | server | the continuous interval in milliseconds after which the client should send a heartbeat |
 | 9 | Resumed | server | acknowledge Resume |
-| 13 | Client Disconnect | server | another client has disconnected |
+| 13 | Client Disconnect | server | a client has disconnected from the voice channel |
 
 ###### Voice Close Event Codes
 
@@ -70,9 +82,6 @@ With this information, we can move on to establishing a voice websocket connecti
 ## Establishing a Voice Websocket Connection
 
 Once we retrieve a session\_id, token, and endpoint information, we can connect and handshake with the voice server over another secure websocket. Unlike the gateway endpoint we receive in an HTTP [Get Gateway](#DOCS_GATEWAY/get-gateway) request, the endpoint received from our [Voice Server Update](#DOCS_GATEWAY/voice-server-update) payload does not contain a URL protocol, so some libraries may require manually prepending it with "wss://" before connecting. Once connected to the voice websocket endpoint, we can send an [OP 0 Identify](#DOCS_VOICE_CONNECTIONS/voice-events-voice-op-codes) payload with our server\_id, user\_id, session\_id, and token:
-
->warn
->Much like our standard Gateways, voice sockets support versioning via querystring parameters. To ensure that you have the most up-to-date information, please append "`?v=3`" to your URL. Otherwise, we cannot guarantee that the [OP codes](#DOCS_VOICE_CONNECTIONS/voice-events-voice-op-codes) documented here will reflect what you receive over the socket.
 
 ###### Example Voice Identify Payload
 
