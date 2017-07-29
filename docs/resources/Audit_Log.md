@@ -129,7 +129,7 @@ Whenever an admin action is performed on the API, an entry is added to the respe
 | type | any | string/int | type of entity created - can be of [channel type](#DOCS_CHANNEL/channel-object-channel-types) or a string like "role" |
 
 
-## Get Guild Audit Log % GET /guilds/{guild.id#DOCS_GUILD/guild-object}/audit-log
+## Get Guild Audit Log % GET /guilds/{guild.id#DOCS_GUILD/guild-object}/audit-logs
 
 Returns an an [audit log object](#DOCS_AUDIT_LOG/audit-log-object) for the guild. Requires the 'VIEW_AUDIT_LOG' permission.
 
