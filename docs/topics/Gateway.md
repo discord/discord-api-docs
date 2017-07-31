@@ -78,7 +78,7 @@ The Discord Gateway has a versioning system which is separate from the core APIs
 
 Used by the gateway to notify the client of events.
 
-###### Gateway Dispatch Example
+###### Example Gateway Dispatch
 
 ```json
 {
@@ -96,7 +96,7 @@ Used to maintain an active gateway connection. Must be sent every `heartbeat_int
 >info
 > It is worth noting that in the event of a service outage where you stay connected to the gateway, you should continue to heartbeat and receive ACKs. The gateway will eventually respond and issue a session once it is able to.
 
-###### Gateway Heartbeat Example
+###### Example Gateway Heartbeat
 
 ```json
 {
@@ -109,7 +109,7 @@ Used to maintain an active gateway connection. Must be sent every `heartbeat_int
 
 Used for the client to maintain an active gateway connection. Sent by the server after receiving a [Gateway Heartbeat](#DOCS_GATEWAY/gateway-heartbeat)
 
-###### Gateway Heartbeat ACK Example
+###### Example Gateway Heartbeat ACK
 
 ```json
 {
@@ -128,7 +128,7 @@ Sent on connection to the websocket. Defines the heartbeat interval that the cli
 | heartbeat_interval | integer | the interval (in milliseconds) the client should heartbeat with |
 | _trace | array of strings | used for debugging, array of servers connected to |
 
-###### Gateway Hello Example
+###### Example Gateway Hello
 
 ```json
 {
@@ -150,7 +150,7 @@ Used to trigger the initial handshake with the gateway.
 | compress | bool | whether this connection supports compression of packets |
 | large_threshold | integer | value between 50 and 250, total number of members where the gateway will stop sending offline members in the guild member list |
 | shard | array of two integers (shard_id, num_shards) | used for [Guild Sharding](#DOCS_GATEWAY/sharding) |
-| presence | [presence](#DOCS_GATEWAY/gateway-status-update) | presence structure for initial presence information |
+| presence | [presence](#DOCS_GATEWAY/gateway-status-update) object | presence structure for initial presence information |
 
 ###### Gateway Identify Connection Properties
 
@@ -160,7 +160,7 @@ Used to trigger the initial handshake with the gateway.
 | $browser | string | your library name |
 | $device | string | your library name
 
-###### Gateway Identify Example
+###### Example Gateway Identify
 
 ```json
 {
@@ -200,7 +200,7 @@ Used to request offline members for a guild. When initially connecting, the gate
 | query | string | string that username starts with, or an empty string to return all members |
 | limit | integer | maximum number of members to send or 0 to request all members matched |
 
-###### Gateway Request Guild Members Example
+###### Example Gateway Request Guild Members
 
 ```json
 {
@@ -222,7 +222,7 @@ Used to replay missed events when a disconnected client resumes.
 | session_id | string | session id |
 | seq | integer | last sequence number received |
 
-###### Gateway Resume Example
+###### Example Gateway Resume
 
 ```json
 {
@@ -241,7 +241,7 @@ Sent by the client to indicate a presence or status update.
 | Field | Type | Description |
 |-------|------|-------------|
 | since | ?integer | unix time (in milliseconds) of when the client went idle, or null if the client is not idle |
-| game | ?[game](#DOCS_GATEWAY/game-object) | null, or the user's new activity |
+| game | ?[game](#DOCS_GATEWAY/game-object) object | null, or the user's new activity |
 | status | string | the user's new [status](#DOCS_GATEWAY/status-types) |
 | afk | bool | whether or not the client is afk |
 
@@ -255,7 +255,7 @@ Sent by the client to indicate a presence or status update.
 | invisible | Invisible and shown as offline |
 | offline | Offline |
 
-###### Gateway Status Update Example
+###### Example Gateway Status Update
 
 ```json
 {
@@ -281,7 +281,7 @@ Sent when a client wants to join, move, or disconnect from a voice channel.
 | self_mute | bool | is the client muted |
 | self_deaf | bool | is the client deafened |
 
-###### Gateway Voice State Update Example
+###### Example Gateway Voice State Update
 
 ```json
 {
@@ -301,7 +301,7 @@ Sent to indicate one of at least three different situations:
 
 The inner `d` key is a boolean that indicates whether the session may be resumable. See [Connecting](#DOCS_GATEWAY/connecting) and [Resuming](#DOCS_GATEWAY/resuming) for more information.
 
-###### Gateway Invalid Session Example
+###### Example Gateway Invalid Session
 
 ```json
 {
@@ -414,11 +414,11 @@ The ready event is dispatched when a client has completed the initial handshake 
 | Field | Type | Description |
 |-------|------|-------------|
 | v | integer | [gateway protocol version](#DOCS_GATEWAY/gateway-protocol-versions) |
-| user | object | [user object](#DOCS_USER/user-object) (with email information) |
-| private_channels | array | array of [DM channel](#DOCS_CHANNEL/channel-object) objects |
-| guilds | array | array of [Unavailable Guild](#DOCS_GUILD/unavailable-guild-object) objects |
+| user | [user](#DOCS_USER/user-object) object | information about the user including email |
+| private_channels | array of [DM channel](#DOCS_CHANNEL/channel-object) objects | the direct messages the user is in |
+| guilds | array of [Unavailable Guild](#DOCS_GUILD/unavailable-guild-object) objects | the guilds the user is in |
 | session_id | string | used for resuming connections |
-| _trace | array of strings | used for debugging, array of servers connected to |
+| _trace | array of strings | used for debugging - the guilds the user is in |
 
 ### Resumed
 
@@ -428,19 +428,27 @@ The resumed event is dispatched when a client has sent a [resume payload](#DOCS_
 
 | Field | Type | Description |
 |-------|------|-------------|
-| _trace | array of strings | used for debugging, array of servers connected to |
+| _trace | array of strings | used for debugging - the guilds the user is in |
 
 ### Channel Create
 
-Sent when a new channel is created, relevant to the current user. The inner payload is a [DM](#DOCS_CHANNEL/channel-object) or [Guild](#DOCS_CHANNEL/channel-object) channel object.
+Sent when a new channel is created, relevant to the current user. The inner payload is a [DM channel](#DOCS_CHANNEL/channel-object) or [guild channel](#DOCS_CHANNEL/channel-object) object.
 
 ### Channel Update
 
 Sent when a channel is updated. The inner payload is a [guild channel](#DOCS_CHANNEL/channel-object) object.
 
-### Channel Delete
+### Guild Delete
 
-Sent when a channel relevant to the current user is deleted. The inner payload is a [DM](#DOCS_CHANNEL/channel-object) or [Guild](#DOCS_CHANNEL/channel-object) channel object.
+Sent when a guild becomes unavailable during a guild outage, or when the user leaves or is removed from a guild.
+
+###### Guild Delete Event Fields
+
+| Field | Type | Description |
+|-------|------|-------------|
+| id | snowflake | id of the guild |
+| unavailable | bool | whether the guild is unavailable, should always be true. if not set, this signifies that the user was removed from the guild |
+
 
 ### Channel Pins Update
 
@@ -457,7 +465,7 @@ Sent when a message is pinned or unpinned in a text channel. This is not sent wh
 
 This event can be sent in three different scenarios:
 
-1. When a user is initially connecting, to lazily load and backfill information for all unavailable guilds sent in the [ready](#DOCS_GATEWAY/ready) event.
+1. When a user is initially connecting, to lazily load and backfill information for all unavailable guilds sent in the [Ready](#DOCS_GATEWAY/ready) event.
 2. When a Guild becomes available again to the client.
 3. When the current user joins a new Guild.
 
@@ -469,14 +477,7 @@ Sent when a guild is updated. The inner payload is a [guild](#DOCS_GUILD/guild-o
 
 ### Guild Delete
 
-Sent when a guild becomes unavailable during a guild outage, or when the user leaves or is removed from a guild. See GUILD_CREATE for more information about how to handle this event.
-
-###### Guild Delete Event Fields
-
-| Field | Type | Description |
-|-------|------|-------------|
-| id | snowflake | id of the guild |
-| unavailable | bool | whether the guild is unavailable, should always be true. if not set, this signifies that the user was removed from the guild |
+Sent when a guild becomes unavailable during a guild outage, or when the user leaves or is removed from a guild. The inner payload is an [unavailable guild](#DOCS_GUILD/unavailable-guild-object) object. If the `unavailable` field is not set, the user was removed from the guild.
 
 ### Guild Ban Add
 

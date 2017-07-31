@@ -13,12 +13,12 @@ Used to represent a webhook.
 | id | snowflake | the id of the webhook |
 | guild_id? | snowflake | the guild id this webhook is for |
 | channel_id | snowflake | the channel id this webhook is for |
-| user? | [User](#DOCS_USER/user-object) | the user this webhook was created by (not returned when getting a webhook with its token) |
+| user? | [user](#DOCS_USER/user-object) object | the user this webhook was created by (not returned when getting a webhook with its token) |
 | name | ?string | the default name of the webhook |
 | avatar | ?string | the default avatar of the webhook |
 | token | string | the secure token of the webhook |
 
-###### Webhook Example
+###### Example Webhook
 
 ```json
 {
@@ -46,7 +46,7 @@ Create a new webhook. Returns a [webhook](#DOCS_WEBHOOK/webhook-object) object o
 | Field | Type | Description |
 |-------|------|-------------|
 | name | string | name of the webhook (2-32 characters) |
-| avatar | [avatar data](#DOCS_USER/avatar-data) | base64 128x128 jpeg image for the default webhook avatar |
+| avatar | [avatar data](#DOCS_USER/avatar-data) string | base64 128x128 jpeg image for the default webhook avatar |
 
 ## Get Channel Webhooks % GET /channels/{channel.id#DOCS_CHANNEL/channel-object}/webhooks
 
@@ -76,7 +76,7 @@ Modify a webhook. Returns the updated [webhook](#DOCS_WEBHOOK/webhook-object) ob
 | Field | Type | Description |
 |-------|------|-------------|
 | name | string | the default name of the webhook |
-| avatar | [avatar data](#DOCS_USER/avatar-data) | base64 128x128 jpeg image for the default webhook avatar |
+| avatar | [avatar data](#DOCS_USER/avatar-data) string | base64 128x128 jpeg image for the default webhook avatar |
 
 ## Modify Webhook with Token % PATCH /webhooks/{webhook.id#DOCS_WEBHOOK/webhook-object}/{webhook.token#DOCS_WEBHOOK/webhook-object}
 

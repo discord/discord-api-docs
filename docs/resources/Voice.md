@@ -18,7 +18,7 @@ Used to represent a user's voice connection status.
 | self_mute | bool | whether this user is locally muted |
 | suppress | bool | whether this user is muted by the current user |
 
-###### Voice State Example
+###### Example Voice State
 
 ```json
 {
