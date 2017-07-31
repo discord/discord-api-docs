@@ -48,6 +48,18 @@ Permissions follow a hierarchy with the following roles:
 * Bots can only sort roles lower than their highest role.
 * Bots can only kick/ban users of with a lower highest role than themselves.
 
+There are cases where permission collisions could occur for a user; that is to say, they may have certain roles or overrides with permissions that contradict each other. With this in mind, permissions are applied to users in the following hierarchy:
+
+1. Base permissions given to @everyone are applied at a guild level
+2. Permissions allowed to a user by their roles are applied at a guild level
+3. Overwrites that deny permissions for @everyone are applied at a channel level
+4. Overwrites that allow permissions for @everyone are applied at a channel level
+5. Overwrites that deny permissions for specific roles are applied at a channel level
+6. Overwrites that allow permissions for specific roles are applied at a channel level
+7. Member-specific overwrites that deny permissions are applied at a channel level
+8. Member-specific overwrites that allow permissions are applied at a channel level
+
+Permissions do not obey role hierarchy if they conflict on the same resource. For example, a user has two roles: A and B. A denies the `READ_MESSAGE` permission on a #coolstuff channel. B allows the `READ_MESSAGE` permission on the same #coolstuff channel. The user would ultimately be able to read messages from #coolstuff.
 
 ## Role Object
 
