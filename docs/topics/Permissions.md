@@ -48,15 +48,6 @@ Permissions follow a hierarchy with the following roles:
 * Bots can only sort roles lower than their highest role.
 * Bots can only kick/ban users of with a lower highest role than themselves.
 
-In the case of permissions overlapping with each other—e.g. a user's role is banned from seeing a channel, but the user has a specific override—they are applied to a user in the following order:
-
-1. Base permissions (@everyone) are applied
-2. All permissions for the roles assigned to a user are applied
-3. @everyone overwrites are applied
-4. Role-specific overwrites are applied
-5. Member-specific overwrites are applied
-
-
 ## Role Object
 
 Roles represent a set of permissions attached to a group of users. Roles have unique names, colors, and can be "pinned" to the side bar, causing their members to be listed separately. Roles are unique per guild, and can have separate permission profiles for the global context (guild) and channel context.
