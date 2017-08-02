@@ -48,6 +48,8 @@ Permissions follow a hierarchy with the following roles:
 * Bots can only sort roles lower than their highest role.
 * Bots can only kick/ban users of with a lower highest role than themselves.
 
+Otherwise, permissions do not obey role hierarchy. For example, a user has two roles: A and B. A denies the `READ_MESSAGE` permission on a #coolstuff channel. B allows the `READ_MESSAGE` permission on the same #coolstuff channel. The user would ultimately be able to read messages from #coolstuff.
+
 There are cases where permission collisions could occur for a user; that is to say, they may have certain roles or overrides with permissions that contradict each other. With this in mind, permissions are applied to users in the following hierarchy:
 
 1. Base permissions given to @everyone are applied at a guild level
@@ -59,7 +61,53 @@ There are cases where permission collisions could occur for a user; that is to s
 7. Member-specific overwrites that deny permissions are applied at a channel level
 8. Member-specific overwrites that allow permissions are applied at a channel level
 
-Permissions do not obey role hierarchy if they conflict on the same resource. For example, a user has two roles: A and B. A denies the `READ_MESSAGE` permission on a #coolstuff channel. B allows the `READ_MESSAGE` permission on the same #coolstuff channel. The user would ultimately be able to read messages from #coolstuff.
+The follow pseudocode demonstrates this process programmatically:
+
+```python
+# Check if the member is the owner, as they have all permissions.
+if current_member.id == guild.owner_id:
+    return ALL_PERMISSIONS
+
+# Apply @everyone role permissions
+resolved = everyone_role.permissions
+
+# Apply our guild-level permissions
+# Note: guild_roles does not include the @everyone role
+for role in guild_roles:
+    resolved |= role.permissions
+
+# If a user has administrator permissions, they have all permissions
+if resolved & ADMINISTRATOR == ADMINISTRATOR:
+    return ALL_PERMISSIONS
+
+# Apply the @everyone allow/deny
+# Note: it may or may not exist
+if everyone_role_overwrite:
+    resolved &= ~everyone_role_overwrite.deny
+    resolved |= everyone_role_overwrite.allow
+
+# Apply the channel specific role overwrites
+# Note: this does not include @everyone overwrite
+# Note: these are overwrites with "type" set to "role"
+
+denies = 0
+allows = 0
+for overwrite in role_overwrites:
+    denies |= overwrite.deny
+    allows |= overwrite.allow
+
+resolved &= ~denies
+resolved |= allows
+
+# Apply the specific member overwrite
+# Note: it may or may not exist
+if current_member_overwrite:
+    resolved &= ~current_member_overwrite.deny
+    resolved |= current_member_overwrite.allow
+
+# Our permissions have been fully resolved
+return resolved
+```
 
 ## Role Object
 
