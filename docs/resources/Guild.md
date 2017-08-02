@@ -279,7 +279,7 @@ Create a new [channel](#DOCS_CHANNEL/channel-object) object for the guild. Requi
 
 ## Modify Guild Channel Positions % PATCH /guilds/{guild.id#DOCS_GUILD/guild-object}/channels
 
-Modify the positions of a set of [channel](#DOCS_CHANNEL/channel-object) objects for the guild. Requires 'MANAGE_CHANNELS' permission. Returns a list of all of the guild's [channel](#DOCS_CHANNEL/channel-object) objects on success. Fires multiple [Channel Update](#DOCS_GATEWAY/channel-update) Gateway events.
+Modify the positions of a set of [channel](#DOCS_CHANNEL/channel-object) objects for the guild. Requires 'MANAGE_CHANNELS' permission. Returns a 204 empty response on success. Fires multiple [Channel Update](#DOCS_GATEWAY/channel-update) Gateway events.
 
 >info
 > Only channels to be modified are required, with the minimum being a swap between at least two channels.
