@@ -438,6 +438,10 @@ Sent when a new channel is created, relevant to the current user. The inner payl
 
 Sent when a channel is updated. The inner payload is a [guild channel](#DOCS_CHANNEL/channel-object) object.
 
+### Channel Delete
+
+Sent when a channel relevant to the current user is deleted. The inner payload is a [DM](#DOCS_CHANNEL/channel-object) or [Guild](#DOCS_CHANNEL/channel-object) channel object.
+
 ### Guild Delete
 
 Sent when a guild becomes unavailable during a guild outage, or when the user leaves or is removed from a guild.
