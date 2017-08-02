@@ -124,12 +124,14 @@ In order to maintain your websocket connection, you need to continuously send he
 
 ```json
 {
-	"op": 8,
-	"d": 41250
+	"heartbeat_interval": 41250
 }
 ```
 
-This is sent immediately after [OP 2 Ready](#DOCS_VOICE_CONNECTIONS/voice-events-voice-op-codes). After this, you should send [OP 3 Heartbeat](#DOCS_VOICE_CONNECTIONS/voice-events-voice-op-codes)—which contains an integer nonce—every elapsed interval:
+>warn
+>Unlike the other payloads, [OP 8 Hello](#DOCS_VOICE_CONNECTIONS/voice-events-voice-op-codes) does not have an OP code or a data field denoted by `d`. Be sure to expect this different format.
+
+This is sent at the start of the connection. After this, you should send [OP 3 Heartbeat](#DOCS_VOICE_CONNECTIONS/voice-events-voice-op-codes)—which contains an integer nonce—every elapsed interval:
 
 ###### Example Heartbeat Payload
 
@@ -192,7 +194,7 @@ Finally, the voice server will respond with a [OP 4 Session Description](#DOCS_V
 
 ## Encrypting and Sending Voice
 
-Voice data sent to discord should be encoded with [Opus](https://www.opus-codec.org/), using two channels (stereo) and a sample rate of 48kHz. Voice Data is sent using a [RTP Header](http://www.rfcreader.com/#rfc3550_line548), followed by encrypted Opus audio data. Voice encryption uses the key passed in [OP 4 Session Description](#DOCS_VOICE_CONNECTIONS/voice-events-voice-op-codes), combined with the below 24 byte header—12 bytes of data and 12 null bytes—encrypted with [libsodium](https://download.libsodium.org/doc/):
+Voice data sent to discord should be encoded with [Opus](https://www.opus-codec.org/), using two channels (stereo) and a sample rate of 48kHz. Voice Data is sent using a [RTP Header](http://www.rfcreader.com/#rfc3550_line548), followed by encrypted Opus audio data. Voice encryption uses the key passed in [OP 4 Session Description](#DOCS_VOICE_CONNECTIONS/voice-events-voice-op-codes) combined with the 24 byte header (used as a nonce, appended with 12 null bytes), encrypted with [libsodium](https://download.libsodium.org/doc/):
 
 ###### Encrypted Voice Packet Header Structure
 
@@ -203,7 +205,6 @@ Voice data sent to discord should be encoded with [Opus](https://www.opus-codec.
 | Sequence | unsigned short (big endian) | 2 bytes |
 | Timestamp | unsigned int (big endian) | 4 bytes |
 | SSRC | unsigned int (big endian) | 4 bytes |
-| null | null | 12 bytes |
 
 ### Speaking
 
@@ -218,6 +219,9 @@ To notify clients that you are speaking or have stopped speaking, send an [OP 5 
 	"ssrc": 1
 }
 ```
+
+>warn
+>You must send at least one [OP 5 Speaking](#DOCS_VOICE_CONNECTIONS/voice-events-voice-op-codes) payload before sending voice data, or you will be disconnected with an invalid SSRC error.
 
 ### Voice Data Interpolation
 
