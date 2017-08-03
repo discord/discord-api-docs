@@ -3,7 +3,7 @@
 >danger
 >API and Gateway versions below v6 will be discontinued on October 16, 2017, after which they will be non-functioning.
 
-## August 1, 2017 - Breaking Change
+## August 3, 2017 - Breaking Change
 
 After today, we are changing how default channels function. The "default" channel for a given user is now the channel with the highest position that their permissions allow them to see. New guilds will no longer have a default channel with the same id as the guild. Existing guilds will not have their #general channel id changed. It is possible, if permissions are set in such a way, that a user will not have a default channel in a guild.
 
