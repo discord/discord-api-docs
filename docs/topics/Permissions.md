@@ -48,7 +48,6 @@ Permissions follow a hierarchy with the following roles:
 * Bots can only sort roles lower than their highest role.
 * Bots can only kick/ban users of with a lower highest role than themselves.
 
-
 ## Role Object
 
 Roles represent a set of permissions attached to a group of users. Roles have unique names, colors, and can be "pinned" to the side bar, causing their members to be listed separately. Roles are unique per guild, and can have separate permission profiles for the global context (guild) and channel context.
