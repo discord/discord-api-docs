@@ -195,6 +195,29 @@ A partial [guild](#DOCS_GUILD/guild-object) object. Represents an Offline Guild,
 | require_colons | bool | whether this emoji must be wrapped in colons |
 | managed | bool | whether this emoji is managed |
 
+### Guild Ban Object
+
+###### Guild Ban Structure
+
+| Field | Type | Description |
+|-------|------|-------------|
+| reason | ?string | the reason for the ban |
+| user | [user](#DOCS_USER/user-object) object | the banned user |
+
+###### Example Guild Ban
+
+```json
+{
+	"reason": "mentioning b1nzy",
+	"user": {
+		"username": "Mason",
+		"discriminator": "9999",
+		"id": "53908099506183680",
+		"avatar": "a_bab14f271d565501444b2ca3be944b25"
+	}
+}
+```
+
 
 ## Create Guild % POST /guilds
 
@@ -370,7 +393,7 @@ Remove a member from a guild. Requires 'KICK_MEMBERS' permission. Returns a 204 
 
 ## Get Guild Bans % GET /guilds/{guild.id#DOCS_GUILD/guild-object}/bans
 
-Returns a list of [user](#DOCS_USER/user-object) objects that are banned from this guild. Requires the 'BAN_MEMBERS' permission.
+Returns a list of [ban](#DOCS_GUILD/ban-object) objects for the users banned from this guild. Requires the 'BAN_MEMBERS' permission.
 
 ## Create Guild Ban % PUT /guilds/{guild.id#DOCS_GUILD/guild-object}/bans/{user.id#DOCS_USER/user-object}
 
