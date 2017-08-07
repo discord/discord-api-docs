@@ -195,16 +195,16 @@ A partial [guild](#DOCS_GUILD/guild-object) object. Represents an Offline Guild,
 | require_colons | bool | whether this emoji must be wrapped in colons |
 | managed | bool | whether this emoji is managed |
 
-### Guild Ban Object
+### Ban Object
 
-###### Guild Ban Structure
+###### Ban Structure
 
 | Field | Type | Description |
 |-------|------|-------------|
 | reason | ?string | the reason for the ban |
 | user | [user](#DOCS_USER/user-object) object | the banned user |
 
-###### Example Guild Ban
+###### Example Ban
 
 ```json
 {
