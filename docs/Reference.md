@@ -68,7 +68,7 @@ All HTTP-layer services and protocols (e.g. http, websocket) within the Discord 
 
 ## Snowflake IDs
 
-Discord utilizes Twitter's [snowflake](https://github.com/twitter/snowflake/tree/snowflake-2010) format for uniquely identifiable descriptors (IDs). These IDs are up to 64bits in size (e.g. a uint64) and therefore are always returned as strings in the API to prevent integer overflows in some languages. Snowflake IDs are guaranteed to be unique across all of Discord, except in some unique scenarios in which child objects share their parents ID.
+Discord utilizes Twitter's [snowflake](https://github.com/twitter/snowflake/tree/snowflake-2010) format for uniquely identifiable descriptors (IDs), which produces integers up to 64 bits in size (e.g. a uint64). Because such integers may overflow in some languages, Discord returns Snowflake IDs as strings when using JSON encoding. Integers are returned when using ETF encoding (optional encoding available only for the gateway API). Snowflake IDs are guaranteed to be unique across all of Discord, except in some unique scenarios in which child objects share their parent's ID.
 
 ## Nullable Resource Fields
 
