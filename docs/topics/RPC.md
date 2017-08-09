@@ -89,9 +89,9 @@ The port range for Discord's local RPC server is [6463, 6472]. Since the RPC ser
 
 | Field | Type | Description | Present |
 |-------|------|-------------|-------------|
-| cmd | enum | [payload command](#DOCS_RPC/rpc-server-paylods-rpc-commands) | Always |
+| cmd | enum | [payload command](#DOCS_RPC/rpc-server-payloads-rpc-commands) | Always |
 | nonce | string | unique string used once for replies from the server | In responses to commands (not subscribed events) |
-| evt | enum | [subscription event](#DOCS_RPC/rpc-server-paylods-rpc-events) | In subscribed events, errors, and (un)subscribing events |
+| evt | enum | [subscription event](#DOCS_RPC/rpc-server-payloads-rpc-events) | In subscribed events, errors, and (un)subscribing events |
 | data | object | event data | In responses from the server |
 | args | object | command arguments | In commands sent to the server |
 
