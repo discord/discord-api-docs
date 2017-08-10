@@ -128,10 +128,10 @@ In order to maintain your websocket connection, you need to continuously send he
 }
 ```
 
->warn
->Unlike the other payloads, [Opcode 8 Hello](#DOCS_VOICE_CONNECTIONS/voice-events-voice-opcodes) does not have an opcode or a data field denoted by `d`. Be sure to expect this different format.
+>danger
+>There is currently a bug in the Hello payload heartbeat interval. Until it is fixed, please take your heartbeat interval as `heartbeat_interval` * .75. This warning will be removed and a changelog published when the bug is fixed.
 
-This is sent at the start of the connection. After this, you should send [Opcode 3 Heartbeat](#DOCS_VOICE_CONNECTIONS/voice-events-voice-opcodes)—which contains an integer nonce—every elapsed interval:
+This is sent at the start of the connection. Unlike the other payloads, [Opcode 8 Hello](#DOCS_VOICE_CONNECTIONS/voice-events-voice-opcodes) does not have an opcode or a data field denoted by `d`. Be sure to expect this different format. After this, you should send [Opcode 3 Heartbeat](#DOCS_VOICE_CONNECTIONS/voice-events-voice-opcodes)—which contains an integer nonce—every elapsed interval:
 
 ###### Example Heartbeat Payload
 
