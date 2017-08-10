@@ -314,7 +314,7 @@ The inner `d` key is a boolean that indicates whether the session may be resumab
 
 The first step in establishing connectivity to the gateway is requesting a valid websocket endpoint from the API. This can be done through either the [Get Gateway](#DOCS_GATEWAY/get-getway) or the [Get Gateway Bot](#DOCS_GATEWAY/get-getway-bot) endpoints.
 
-With the resulting payload, you can now open a websocket connection to the "url" (or endpoint) specified. Generally, it is a good idea to explicitly pass the gateway version and encoding (see the url params table below) as URL parameters (e.g. from our example we may connect to `wss://gateway.discord.gg?v=6&encoding=json`).
+With the resulting payload, you can now open a websocket connection to the "url" (or endpoint) specified. Generally, it is a good idea to explicitly pass the gateway version and encoding (see the url params table below) as URL parameters (e.g. from our example we may connect to `wss://gateway.discord.gg/?v=6&encoding=json`).
 
 Once connected, the client should immediately receive an [OP 10 Hello](#DOCS_GATEWAY/gateway-hello) payload, with information on the connection's heartbeat interval. The client should now begin sending [OP 1 Heartbeat](#DOCS_GATEWAY/gateway-heartbeat) payloads every `heartbeat_interval` milliseconds, until the connection is eventually closed or terminated. Clients can detect zombied or failed connections by listening for [OP 11 Heartbeat ACK](#DOCS_GATEWAY/gateway-heartbeat-ack). If a client does not receive a heartbeat ack between its attempts at sending heartbeats, it should immediately terminate the connection with a non 1000 close code, reconnect, and attempt to resume.
 
