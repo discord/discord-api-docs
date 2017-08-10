@@ -30,7 +30,7 @@ These five callbacks make up the entirety of what you need to implement. Behind 
 
 The first step in implementing Rich Presence is registering your callback functions to the five `DiscordEventHandlers` and then calling `Discord_Initialize()` with your `APPLICATION_ID`:
 
-```
+```cpp
 void InitDiscord()
 {
     DiscordEventHandlers handlers;
@@ -46,7 +46,7 @@ The `Discord_Initialize()` function has a parameter `autoRegister`. Marking this
 
 The core of Discord's Rich Presence SDK is the `Discord_UpdatePresence()` function. This is what sends your game data up to Discord to be seen and used by others. You should call `Discord_UpdatePresence()` with the necessary data in your `ready()` callback and any time something in the presence payload changes. The payload is outlined in detail in a later section, but for now, here's an example of a super rich presence:
 
-```
+```cpp
 void UpdatePresence()
 {
     DiscordRichPresence discordPresence;
@@ -81,7 +81,7 @@ The header file also contains the `Discord_RunCallbacks()` function. This invoke
 
 Earlier, we showed an example payload of some really rich presence data. The full list of fields is as follows:
 
-```
+```cpp
 typedef struct DiscordRichPresence {
     const char* state; /* max 128 bytes */
     const char* details; /* max 128 bytes */
@@ -125,6 +125,9 @@ __`joinSecret`__ and __`spectateSecret`__ are unique, non-guessable data that se
 
 __`instance`__ helps Discord be smart about notifications and display. Setting it to `true` tells us to show the "Notify me" button and alert whoever clicks it when the `matchSecret` changes.
 
+>warn
+>The "Notify Me" feature is coming soon. If you want your game to support it on release, you should hook up the necessary fields now.
+
 We've chosen the fields based on common data between the most popular games on Discord, but they are by no means rigid. Play with them to fit the data you'd like to display for your game! You can also omit any of the fields, and the UI will gracefully adjust. Below is an image that shows which fields go where when sending a full data payload with spectating and notifications enabled; use it for reference for your own data:
 
 ![](rp-profile-view.png)
@@ -147,7 +150,7 @@ The secrets you send us can be whatever data you want, so make life easy for you
 
 Just because you're doing it doesn't necessarily mean you're doing it in the best—and safest—way possible. Create your secrets on your server, not on your client, and consider using strong encryption methods (anyone seen my private key?) to keep your data safe. [Sodium](https://download.libsodium.org/doc/), a multi-language, cross-compilable crypto library, is a great place to start. It's available straight from [GitHub](https://github.com/jedisct1/libsodium), as a [pre-built library](https://download.libsodium.org/doc/installation/) for some common editors, and on [NuGet](https://www.nuget.org/packages?q=libsodium). It's so easy to use, even this example in C isn't scary:
 
-```
+```cpp
 #include <sodium.h>
 
 unsigned char* myMessage = "a super secret message for Discord";
@@ -172,7 +175,7 @@ printf("Encrypted: %s \n \n", hex);
 
 We encrypt the data, and then convert it to hex for the sake of readability. Your key is then stored as `hex`, which is what you should send to Discord. And to unencrypt on callback:
 
-```
+```cpp
 unsigned char* decrypted = malloc(messageLength);
 unsigned char* bin = malloc(ciphertextLength);
 sodium_hex2bin(bin, ciphertextLength, hex, hexLength, "", NULL, NULL);
