@@ -12,14 +12,12 @@ In addition to the documentation below, we have put together a sample project th
 
 ## Connecting to the RPC Server
 
-The local RPC server runs on localhost (`127.0.0.1`) and can be accessed over TLS with the `discordapp.io` domain.
-
-The RPC Server is set up to process WebSocket connections and proxy API requests.
+The local RPC server runs on localhost (`127.0.0.1`) and is set up to process WebSocket connections and proxy API requests.
 
 For WebSocket connections, the connection is always
 
 ```
-wss://discordapp.io:PORT/?v=VERSION&client_id=CLIENT_ID&encoding=ENCODING
+ws://127.0.0.1:PORT/?v=VERSION&client_id=CLIENT_ID&encoding=ENCODING
 ```
 
 * `CLIENT_ID` is the client ID of the application accessing the RPC Server.
@@ -42,7 +40,7 @@ If you request the `rpc.api` scope when authorizing your app to the client, your
 For proxied API requests, the schema, host, and path to the API endpoint is always
 
 ```
-https://discordapp.io:PORT/
+http://127.0.0.1:PORT/
 ```
 
 * `PORT` is the port of the RPC Server.
@@ -52,7 +50,7 @@ Proxied API requests accept your OAuth2 Bearer token in the Authorization header
 ###### Example RPC Proxy Call
 
 ```
-curl -H 'Authorization: Bearer CZhtkLDpNYXgPH9Ml6shqh2OwykChw' https://discordapp.io:6463/users/@me/guilds
+curl -H 'Authorization: Bearer CZhtkLDpNYXgPH9Ml6shqh2OwykChw' http://127.0.0.1:6463/users/@me/guilds
 
 [{
     "owner": true,
