@@ -1,5 +1,7 @@
 # Discord Developer Terms of Service
 
+## Effective Date: August 20, 2017
+
 This Discord Developer Terms of Service (“Agreement”) is between Discord Inc. (“Discord” or
 “us”) and you (“you” or “Licensee”).
 
