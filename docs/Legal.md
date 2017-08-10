@@ -159,7 +159,7 @@ security, confidentiality and integrity of the personal information of your End 
 promptly report any security deficiencies in, or intrusions to, your Applications or systems that
 you discover.
 
-2.9 __Audit and Monitoring.__ You agree to provide us with access to your network, systems,
+2.9 __Audit and Monitoring.__ You agree to provide us with access to your
 Applications and/or other materials related to your use of the API and SDK as may be requested
 by us to verify your compliance with this Agreement, to audit your use, display and storage of
 the API and SDK. You agree that we may crawl or otherwise remotely monitor such items
