@@ -46,7 +46,7 @@ The Discord Gateway has a versioning system which is separate from the core APIs
 | 5 | Deprecated |
 | 4 | Deprecated |
 
-## Gateway OP Codes/Payloads
+## Gateway Opcodes/Payloads
 
 ###### Gateway Payload Structure
 
@@ -54,10 +54,10 @@ The Discord Gateway has a versioning system which is separate from the core APIs
 |-------|------|-------------|---------|
 | op | integer | opcode for the payload | Always |
 | d | ?mixed (object, integer, bool) | event data | Always |
-| s | integer | sequence number, used for resuming sessions and heartbeats | Only for OP 0 |
-| t | string | the event name for this payload | Only for OP 0 |
+| s | integer | sequence number, used for resuming sessions and heartbeats | Only for Opcode 0 |
+| t | string | the event name for this payload | Only for Opcode 0 |
 
-###### Gateway OP Codes
+###### Gateway Opcodes
 
 | Code | Name | Description |
 |------|------|-------------|
@@ -295,8 +295,8 @@ Sent when a client wants to join, move, or disconnect from a voice channel.
 ### Gateway Invalid Session
 
 Sent to indicate one of at least three different situations:
-- the gateway could not initialize a session after receiving an [OP 2 Identify](#DOCS_GATEWAY/gateway-identify)
-- the gateway could not resume a previous session after receiving an [OP 6 Resume](#DOCS_GATEWAY/gateway-resume)
+- the gateway could not initialize a session after receiving an [Opcode 2 Identify](#DOCS_GATEWAY/gateway-identify)
+- the gateway could not resume a previous session after receiving an [Opcode 6 Resume](#DOCS_GATEWAY/gateway-resume)
 - the gateway has invalidated an active session and is requesting client action
 
 The inner `d` key is a boolean that indicates whether the session may be resumable. See [Connecting](#DOCS_GATEWAY/connecting) and [Resuming](#DOCS_GATEWAY/resuming) for more information.
@@ -316,9 +316,9 @@ The first step in establishing connectivity to the gateway is requesting a valid
 
 With the resulting payload, you can now open a websocket connection to the "url" (or endpoint) specified. Generally, it is a good idea to explicitly pass the gateway version and encoding (see the url params table below) as URL parameters (e.g. from our example we may connect to `wss://gateway.discord.gg?v=6&encoding=json`).
 
-Once connected, the client should immediately receive an [OP 10 Hello](#DOCS_GATEWAY/gateway-hello) payload, with information on the connection's heartbeat interval. The client should now begin sending [OP 1 Heartbeat](#DOCS_GATEWAY/gateway-heartbeat) payloads every `heartbeat_interval` milliseconds, until the connection is eventually closed or terminated. Clients can detect zombied or failed connections by listening for [OP 11 Heartbeat ACK](#DOCS_GATEWAY/gateway-heartbeat-ack). If a client does not receive a heartbeat ack between its attempts at sending heartbeats, it should immediately terminate the connection with a non 1000 close code, reconnect, and attempt to resume.
+Once connected, the client should immediately receive an [Opcode 10 Hello](#DOCS_GATEWAY/gateway-hello) payload, with information on the connection's heartbeat interval. The client should now begin sending [Opcode 1 Heartbeat](#DOCS_GATEWAY/gateway-heartbeat) payloads every `heartbeat_interval` milliseconds, until the connection is eventually closed or terminated. Clients can detect zombied or failed connections by listening for [Opcode 11 Heartbeat ACK](#DOCS_GATEWAY/gateway-heartbeat-ack). If a client does not receive a heartbeat ack between its attempts at sending heartbeats, it should immediately terminate the connection with a non 1000 close code, reconnect, and attempt to resume.
 
-Next, the client is expected to send an [OP 2 Identify](#DOCS_GATEWAY/gateway-identify) _or_ [OP 6 Resume](#DOCS_GATEWAY/gateway-resume) payload. If the payload is valid, the gateway will respond with a [Ready](#DOCS_GATEWAY/ready) event after identifying or a [Resumed](#DOCS_GATEWAY/resumed) event after resuming, and your client can be considered in a "connected" state. Clients are limited to 1 identify every 5 seconds; if they exceed this limit, the gateway will respond with an [OP 9 Invalid Session](#DOCS_GATEWAY/gateway-invalid-session). It is important to note that although the ready event contains a large portion of the required initial state, some information (such as guilds and their members) is asynchronously sent (see [Guild Create](#DOCS_GATEWAY/guild-create) event)
+Next, the client is expected to send an [Opcode 2 Identify](#DOCS_GATEWAY/gateway-identify) _or_ [Opcode 6 Resume](#DOCS_GATEWAY/gateway-resume) payload. If the payload is valid, the gateway will respond with a [Ready](#DOCS_GATEWAY/ready) event after identifying or a [Resumed](#DOCS_GATEWAY/resumed) event after resuming, and your client can be considered in a "connected" state. Clients are limited to 1 identify every 5 seconds; if they exceed this limit, the gateway will respond with an [Opcode 9 Invalid Session](#DOCS_GATEWAY/gateway-invalid-session). It is important to note that although the ready event contains a large portion of the required initial state, some information (such as guilds and their members) is asynchronously sent (see [Guild Create](#DOCS_GATEWAY/guild-create) event)
 
 >warn
 > Clients are limited to 1000 `IDENTIFY` calls to the websocket in a 24-hour period. This limit is global and across all shards, but does not include `RESUME` calls. Upon hitting this limit, all active sessions for the bot will be terminated, the bot's token will be reset, and the owner will receive an email notification. It's up to the owner to update their application with the new token.
@@ -334,7 +334,7 @@ Next, the client is expected to send an [OP 2 Identify](#DOCS_GATEWAY/gateway-id
 
 The internet is a scary place, and persistent connections can often experience issues which causes them to sever and disconnect. Due to Discord's architecture, this is a semi-regular event and should be expected. Because a large portion of a client's state must be thrown out and recomputed when a connection is opened, Discord has a process for "resuming" (or reconnecting) a connection without throwing away the previous state. This process is very similar to starting a fresh connection, and allows the client to replay any lost events from the last sequence number they received in the exact same way they would receive them normally.
 
-To utilize resuming, your client should store the `session_id` from the [Ready](#DOCS_GATEWAY/ready), and the sequence number of the last event it received. When your client detects that the connection has been disconnected, through either the underlying socketing being closed or from a lack of [Gateway Heartbeat ACK](#DOCS_GATEWAY/gateway-heartbeat-ack)'s it should completely close the connection and open a new one (following the same strategy as [Connecting](#DOCS_GATEWAY/connecting)). Once the new connection has been opened, the client should send a [Gateway Resume](#DOCS_GATEWAY/gateway-resume). If successful, the gateway will respond by replaying all missed events in order, finishing with a [Resumed](#DOCS_GATEWAY/resumed) event to signal replay has finished, and all subsequent events are new. It's also possible that your client cannot reconnect in time to resume, in which case the client will receive a [OP 9 Invalid Session](#DOCS_GATEWAY/invalid-session) and is expected to wait a random amount of time—between 1 and 5 seconds—then send a fresh [OP 2 Identify](#DOCS_GATEWAY/gateway-identify).
+To utilize resuming, your client should store the `session_id` from the [Ready](#DOCS_GATEWAY/ready), and the sequence number of the last event it received. When your client detects that the connection has been disconnected, through either the underlying socketing being closed or from a lack of [Gateway Heartbeat ACK](#DOCS_GATEWAY/gateway-heartbeat-ack)'s it should completely close the connection and open a new one (following the same strategy as [Connecting](#DOCS_GATEWAY/connecting)). Once the new connection has been opened, the client should send a [Gateway Resume](#DOCS_GATEWAY/gateway-resume). If successful, the gateway will respond by replaying all missed events in order, finishing with a [Resumed](#DOCS_GATEWAY/resumed) event to signal replay has finished, and all subsequent events are new. It's also possible that your client cannot reconnect in time to resume, in which case the client will receive a [Opcode 9 Invalid Session](#DOCS_GATEWAY/invalid-session) and is expected to wait a random amount of time—between 1 and 5 seconds—then send a fresh [Opcode 2 Identify](#DOCS_GATEWAY/gateway-identify).
 
 ### Disconnections
 
@@ -345,7 +345,7 @@ If the gateway ever issues a disconnect to your client it will provide a close e
 | Code | Description | Explanation |
 |------|-------------|-------------|
 | 4000 | unknown error | We're not sure what went wrong. Try reconnecting? |
-| 4001 | unknown opcode | You sent an invalid [Gateway OP Code](#DOCS_GATEWAY/gateway-op-codespayloads-gateway-op-codes). Don't do that! |
+| 4001 | unknown opcode | You sent an invalid [Gateway opcode](#DOCS_GATEWAY/gateway-opcodespayloads-gateway-opcodes). Don't do that! |
 | 4002 | decode error | You sent an invalid [payload](#DOCS_GATEWAY/sending-payloads) to us. Don't do that! |
 | 4003 | not authenticated | You sent us a payload prior to [identifying](#DOCS_GATEWAY/gateway-identify). |
 | 4004 | authentication failed | The account token sent with your [identify payload](#DOCS_GATEWAY/gateway-identify) is incorrect. |
@@ -362,7 +362,7 @@ When initially creating and handshaking connections to the Gateway, a user can c
 
 ### Rate Limiting
 
-Unlike the HTTP API, the Gateway does not provide a method for forced back-off or cooldown, but instead implements a hard limit on the number of messages sent over a period of time. Currently, clients are allowed 120 events every 60 seconds, meaning you can send on average at a rate of up to 2 events per second. Clients who surpass this limit are immediately disconnected from the Gateway, and similarly to the HTTP API, repeat offenders will have their API access revoked. Clients are also limited to one gateway connection per 5 seconds. If you hit this limit, the Gateway will respond with an [OP 9 Invalid Session](#DOCS_GATEWAY/gateway-invalid-session).
+Unlike the HTTP API, the Gateway does not provide a method for forced back-off or cooldown, but instead implements a hard limit on the number of messages sent over a period of time. Currently, clients are allowed 120 events every 60 seconds, meaning you can send on average at a rate of up to 2 events per second. Clients who surpass this limit are immediately disconnected from the Gateway, and similarly to the HTTP API, repeat offenders will have their API access revoked. Clients are also limited to one gateway connection per 5 seconds. If you hit this limit, the Gateway will respond with an [Opcode 9 Invalid Session](#DOCS_GATEWAY/gateway-invalid-session).
 
 >warn
 > Clients may only update their game status 5 times per minute.
@@ -393,7 +393,7 @@ As an example, if you wanted to split the connection between three shards, you'd
 
 ### Sending Payloads
 
-Packets sent from the client to the Gateway API are encapsulated within a [gateway payload object](#DOCS_GATEWAY/gateway-dispatch) and must have the proper OP code and data object set. The payload object can then be serialized in the format of choice (see [ETF/JSON](#DOCS_GATEWAY/etf-json)), and sent over the websocket. Payloads to the gateway are limited to a maximum of 4096 bytes sent, going over this will cause a connection termination with error code 4002.
+Packets sent from the client to the Gateway API are encapsulated within a [gateway payload object](#DOCS_GATEWAY/gateway-dispatch) and must have the proper opcode and data object set. The payload object can then be serialized in the format of choice (see [ETF/JSON](#DOCS_GATEWAY/etf-json)), and sent over the websocket. Payloads to the gateway are limited to a maximum of 4096 bytes sent, going over this will cause a connection termination with error code 4002.
 
 ### Receiving Payloads
 
