@@ -58,10 +58,13 @@ The first step in connecting to a voice server (and in turn, a guild's voice cha
 
 ```json
 {
-	"guild_id": "41771983423143937",
-	"channel_id": "127121515262115840",
-	"self_mute": false,
-	"self_deaf": false
+	"op": 4,
+	"d": {
+		"guild_id": "41771983423143937",
+		"channel_id": "127121515262115840",
+		"self_mute": false,
+		"self_deaf": false
+	}
 }
 ```
 
@@ -71,9 +74,14 @@ If our request succeeded, the gateway will respond with _two_ events—a [Voice 
 
 ```json
 {
-	"token": "my_token",
-	"guild_id": "41771983423143937",
-	"endpoint": "smart.loyal.discord.gg"
+	"t": "VOICE_SERVER_UPDATE",
+	"s": 2,
+	"op": 0,
+	"d": {
+		"token": "my_token",
+		"guild_id": "41771983423143937",
+		"endpoint": "smart.loyal.discord.gg"
+	}
 }
 ```
 
@@ -214,9 +222,12 @@ To notify clients that you are speaking or have stopped speaking, send an [Opcod
 
 ```json
 {
-	"speaking": true,
-	"delay": 0,
-	"ssrc": 1
+	"op": 5,
+	"d": {
+		"speaking": true,
+		"delay": 0,
+		"ssrc": 1
+	}
 }
 ```
 
