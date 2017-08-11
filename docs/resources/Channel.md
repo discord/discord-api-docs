@@ -298,6 +298,24 @@ Represents a message sent in a channel within Discord.
 | height | ?integer | height of file (if image) |
 | width | ?integer | width of file (if image) |
 
+## Embed Limits
+
+To facilitate showing rich content, rich embeds do not follow the traditional limits of message content. However, some limits are still in place to prevent excessively large embeds. The following table describes the limits:
+
+###### Limits
+
+| Field | Limit |
+|-------|-------|
+| title | 256 characters |
+| description | 2048 characters |
+| fields | Up to 25 [field](#DOCS_CHANNEL/embed-field-structure) objects |
+| [field.name](#DOCS_CHANNEL/embed-field-structure) | 256 characters |
+| [field.value](#DOCS_CHANNEL/embed-field-structure) | 1024 characters |
+| [footer.text](#DOCS_CHANNEL/embed-footer-structure) | 2048 characters |
+| [author.name](#DOCS_CHANNEL/embed-author-structure) | 256 characters |
+
+In addition to the limits above, the sum of all characters in an embed structure must not exceed 6000 characters.
+
 ## Message Formatting
 
 Discord utilizes a subset of markdown for rendering message content on its clients, while also adding some custom functionality to enable things like mentioning users and channels. This functionality uses the following formats:
