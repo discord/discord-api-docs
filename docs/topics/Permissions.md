@@ -64,50 +64,63 @@ There are cases where permission collisions could occur for a user; that is to s
 The follow pseudocode demonstrates this process programmatically:
 
 ```python
-# Check if the member is the owner, as they have all permissions.
-if current_member.id == guild.owner_id:
-    return ALL_PERMISSIONS
+def compute_base_permissions(member, guild):
+    if guild.is_owner(member):
+        return ALL
 
-# Apply @everyone role permissions
-resolved = everyone_role.permissions
+    role_everyone = guild.get_role(guild.id)  # get @everyone role
+    permissions = role_everyone.permissions
 
-# Apply our guild-level permissions
-# Note: guild_roles does not include the @everyone role
-for role in guild_roles:
-    resolved |= role.permissions
+    for role in member.roles:
+        permissions |= role.permissions
 
-# If a user has administrator permissions, they have all permissions
-if resolved & ADMINISTRATOR == ADMINISTRATOR:
-    return ALL_PERMISSIONS
+    if permissions & ADMINISTRATOR == ADMINISTRATOR:
+        return ALL
 
-# Apply the @everyone allow/deny
-# Note: it may or may not exist
-if everyone_role_overwrite:
-    resolved &= ~everyone_role_overwrite.deny
-    resolved |= everyone_role_overwrite.allow
+def compute_overwrites(base_permissions, member, channel):
+    # ADMINISTRATOR overrides any potential permission overwrites, so there is nothing to do here.
+    if base_permissions & ADMINISTRATOR == ADMINISTRATOR:
+        return ALL
 
-# Apply the channel specific role overwrites
-# Note: this does not include @everyone overwrite
-# Note: these are overwrites with "type" set to "role"
+    permissions = base_permissions
+    overwrite_everyone = overwrites.get(channel.guild_id)  # Find (@everyone) role overwrite and apply it.
+    if overwrite_everyone:
+        permissions &= ~overwrite_everyone.deny
+        permissions |= overwrite_everyone.allow
 
-denies = 0
-allows = 0
-for overwrite in role_overwrites:
-    denies |= overwrite.deny
-    allows |= overwrite.allow
+    # Apply role specific overwrites.
+    overwrites = channel.permission_overwrites
+    allow = NONE
+    deny = NONE
+    for role_id in member.roles:
+        overwrite_role = overwrites.get(role_id)
+        if overwrite_role:
+            allow |= overwrite_role.allow
+            deny |= overwrite_role.deny
 
-resolved &= ~denies
-resolved |= allows
+    permissions &= ~deny
+    permissions |= allow
 
-# Apply the specific member overwrite
-# Note: it may or may not exist
-if current_member_overwrite:
-    resolved &= ~current_member_overwrite.deny
-    resolved |= current_member_overwrite.allow
+    # Apply member specific overwrite if it exist.
+    overwrite_member = overwrites.get(member.user_id)
+    if overwrite_member:
+        permissions &= ~overwrite_member.deny
+        permissions |= overwrite_member.allow
 
-# Our permissions have been fully resolved
-return resolved
+    return permissions
+
+def compute_permissions(member, channel):
+    base_permissions = compute_base_permissions(member, channel.guild)
+    return compute_overwrites(base_permissions, member, channel)
 ```
+
+## Implicit Permissions
+
+Permissions in Discord are sometimes implicitly denied or allowed based on logical use. The two main cases are `READ_MESSAGES` and `SEND_MESSAGES` for text channels. Denying a user or a role `READ_MESSAGES` on a channel implicitly denies other permissions on the channel. Though permissions like `SEND_MESSAGES` are not explicitly denied for the user, they are ignored because the user cannot read messages in the channel, and therefore isn't allowed to interact with it at all.
+
+Denying `SEND_MESSAGES` implicitly denies `MENTION_EVERYONE`, `SEND_TTS_MESSAGES`, `ATTACH_FILES`, and `EMBED_LINKS`. Again, they are not explicitly denied when doing permissions calculations, but they are ignored because the user cannot do the base action of sending messages.
+
+There may be other cases in which certain permissions implicitly deny or allow other permissions. In all cases, it is based on logical conclusions about how a user with certain permissions should or should not interact with Discord.
 
 ## Role Object
 
