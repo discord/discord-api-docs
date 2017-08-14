@@ -332,6 +332,34 @@ Discord utilizes a subset of markdown for rendering message content on its clien
 
 Using the markdown for either users, roles or channels will mention the target(s) accordingly.
 
+## URL Formatting
+
+Discord utilizes the id's and hashes from specific objects to provide the images rendered in the client. This functionality uses the following formats:
+
+###### Image Formats
+
+| Name | Extension |
+|-------|------------|
+| JPEG | .jpg, .jpeg |
+| PNG | .png |
+| WebP | .webp |
+| GIF | .gif ([user](#DOCS_USER/user-object) avatars only) |
+
+###### Image Sizes
+
+Power of 2 between 16 and 1024.
+
+###### Urls
+
+| Type | Structure |
+|---------|-----------------|
+| Custom Emoji | https://discordapp.com/api/emojis/[{emoji.id}](#DOCS_GUILD/emoji-object).png |
+| Guild Icon | https://cdn.discordapp.com/icons/[{guild.id}](#DOCS_GUILD/guild-object)/[{guild.icon}](#DOCS_GUILD/guild-object).[{format}](#DOCS_CHANNEL/image-formats)?size=[{size}](#DOCS_CHANNEL/image-sizes) |
+| Invite Splash | https://discordapp.com/splashes/[{guild.id}](#DOCS_GUILD/guild-object)/[{guild.splash}](#DOCS_GUILD/guild-object).jpg?size=2048 |
+| Invite Code | http://discord.gg/[{invite.code}](#DOCS_INVITE/invite-structure) |
+| Default User Avatar | https://cdn.discordapp.com/embed/avatars/{[user.discriminator](#DOCS_USER/user-object) % 5}.png |
+| User Avatar | https://cdn.discordapp.com/avatars/[{user.id}](#DOCS_USER/user-object)/[{user.avatar](#DOCS_USER/user-object).[{format}](#DOCS_CHANNEL/image-formats)?size=[{size}](#DOCS_CHANNEL/image-sizes) |
+
 ## Get Channel % GET /channels/{channel.id#DOCS_CHANNEL/channel-object}
 
 Get a channel by ID. Returns a [guild channel](#DOCS_CHANNEL/channel-object) or [dm channel](#DOCS_CHANNEL/channel-object) object.
