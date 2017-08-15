@@ -116,3 +116,46 @@ The HTTP API implements a process for limiting and preventing excessive requests
 ## Gateway (WebSocket) API
 
 Discord's Gateway API is used for maintaining persistent, stateful websocket connections between your client and our servers. These connections are used for sending and receiving real-time events your client can use to track and update local state. The Gateway API uses secure websocket connections as specified in [RFC 6455](https://tools.ietf.org/html/rfc6455). For information on opening Gateway connections, please see the [Gateway API](#DOCS_GATEWAY/gateways) section.
+
+## Message Formatting
+
+Discord utilizes a subset of markdown for rendering message content on its clients, while also adding some custom functionality to enable things like mentioning users and channels. This functionality uses the following formats:
+
+###### Formats
+
+| Type | Structure | Example |
+|---------|-------------|-------------|
+| User | `<@USER_SNOWFLAKE_ID>` | `<@80351110224678912>` |
+| User (Nickname) | `<@!USER_SNOWFLAKE_ID>` | `<@!80351110224678912>` |
+| Channel | `<#CHANNEL_SNOWFLAKE_ID>` | `<#103735883630395392>` |
+| Role | `<@&ROLE_SNOWFLAKE_ID>` | `<@&165511591545143296>` |
+| Custom Emoji | `<:NAME:ID>` | `<:mmLol:216154654256398347>` |
+
+Using the markdown for either users, roles, or channels will mention the target(s) accordingly.
+
+## Image Formatting
+
+Discord uses ids and hashes to render images in the client. These hashes can be retrieved through various API requests, like [Get User](#DOCS_USER/get-user). Below are the formats, size limitations, and CDN endpoints for images in Discord:
+
+###### Image Formats
+
+| Name | Extension |
+|-------|------------|
+| JPEG | .jpg, .jpeg |
+| PNG | .png |
+| WebP | .webp |
+| GIF | .gif ([user](#DOCS_USER/user-object) avatars only) |
+
+###### Image Sizes
+
+Power of 2 between 16 and 1024.
+
+###### CDN Endpoints
+
+| Type | URL |
+|---------|-----------------|
+| Custom Emoji | https://cdn.discordapp.com/emojis/[{emoji.id}](#DOCS_GUILD/emoji-object).png |
+| Guild Icon | https://cdn.discordapp.com/icons/[{guild.id}](#DOCS_GUILD/guild-object)/[{guild.icon}](#DOCS_GUILD/guild-object).[{format}](#DOCS_REFERENCE/image-formats)?size=[{size}](#DOCS_REFERENCE/image-sizes) |
+| Guild Splash | https://cdn.discordapp.com/splashes/[{guild.id}](#DOCS_GUILD/guild-object)/[{guild.splash}](#DOCS_GUILD/guild-object).[{format}](#DOCS_REFERENCE/image-formats)?size=2048 |
+| Default User Avatar | https://cdn.discordapp.com/embed/avatars/{[user.discriminator](#DOCS_USER/user-object) % 5}.png |
+| User Avatar | https://cdn.discordapp.com/avatars/[{user.id}](#DOCS_USER/user-object)/[{user.avatar](#DOCS_USER/user-object).[{format}](#DOCS_REFERENCE/image-formats)?size=[{size}](#DOCS_REFERENCE/image-sizes) |
