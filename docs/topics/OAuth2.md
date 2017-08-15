@@ -1,42 +1,26 @@
 # OAuth2
 
-OAuth2 enables application developers to build applications that utilize authentication and data from the Discord API. Within the Discord platform, there are two types of oauth2 authentication, "full stack" or "application" auth and bot auth. The former is what is most people will recognize as generic OAuth2, and allows the developer to authenticate and make certain requests on behalf of a user. The latter enables bot creators to have an easy, callback/server-free flow for giving users the ability to add their bot to servers they own.
+OAuth2 enables application developers to build applications that utilize authentication and data from the Discord API. Within Discord, there are two types of OAuth2 authentication: full stack—what most people will recognize as generic OAuth2—and bot auth—a callback/server-free flow for easily adding bots to servers.
 
-## Bot vs User Accounts
+There are some nuances between the two flows, as well as a slight variation on the full stack flow specifically for webhooks. To reflect this, we've broken the documentation into three sections:
 
-Discord's API provides a seperate type of user account dedicated to automation, called a bot account. Bot accounts can be created through the [applications page](#MY_APPLICATIONS/top), and are authenticated using a token (rather than a username and password). Unlike the normal OAuth2 flow, bot accounts have full access to all API routes without using bearer tokens, and can connect to the [Real Time Gateway](#DOCS_GATEWAY/gateways). Automating normal user accounts (generally called "self-bots") outside of the OAuth2/bot API is forbidden, and can result in an account termination if found.
+1. [Full Stack](#DOCS_OAUTH2/full-stack)
+2. [Bots](#DOCS_OAUTH2/bots)
+3. [Webhooks](#DOCS_OAUTH2/webhooks)
 
-Bot accounts have a few differences in comparison to normal user accounts, namely:
+Let's start with the shared resources between the flows.
 
-1. Bots are added to servers through the OAuth2 API, and cannot accept normal invites.
-2. Bots cannot have friends, nor be added to or join Group DMs.
-3. Bots do not have a maximum number of Guilds (unlike user accounts, which are limited to 100).
-4. Bots have an entirely separate set of [Rate Limits](#DOCS_RATE_LIMITS/rate-limits).
+## Shared Resources
 
+The first step in implementing OAuth2 is [registering a developer application](#MY_APPLICATIONS/top), and retrieving your client ID and client secret. Most people who will be implementing OAuth2 will want to find and utilize a library in the language of their choice. For those implementing OAuth2 from scratch, please see [RFC 6749](https://tools.ietf.org/html/rfc6749) for details.
 
-Users interested in providing real-time automation to user accounts should consider the [RPC API](#DOCS_RPC/rpc).
-
-## Implementing OAuth2
-
-### Registering Applications
-
-The first step in implementing OAuth2 is [registering a developer application](#MY_APPLICATIONS/top), and retrieving your client ID and client secret. Most people who will be implementing OAuth2 will want to find and utilize a library in the language of their choice. For those implementing OAuth2 from scratch, please see [RFC 6749](https://tools.ietf.org/html/rfc6749) for details. In the Discord OAuth2 API, it's technically valid to _not_ have a redirect URI for your application, this enables one-sided authentication flows which allow for server-less bot-adding. The URLs for OAuth2 are as follows:
-
-###### OAuth2 Application URLs
+###### OAuth2 URLs
 
 | URL | Description |
 |-----|-------------|
 | https://discordapp.com/api/oauth2/authorize | Base authorization URL |
 | https://discordapp.com/api/oauth2/token | Token URL |
 | https://discordapp.com/api/oauth2/token/revoke | Revocation URL |
-
-
->info
-> Discord also implements refresh tokens, which can be passed to the token URL for valid authentication tokens.
-
-### Scopes
-
-Scopes provide access to certain resources of a user's account. Your API client or service should only request scopes it requires for operation.
 
 ###### OAuth2 Scopes
 
@@ -58,65 +42,155 @@ Scopes provide access to certain resources of a user's account. Your API client 
 >info
 > Unlike the rest of the scopes, `guilds.join` requires you to have a bot account linked to your application and can only be used to join users to guilds which your bot services.
 
-## Bots
+## Full Stack
 
-Bots within the Discord API are a form of user account that is authenticated _without_ a username or password, and has similar properties and abilities to normal user accounts. Bot accounts enable developers to have a simple portal that allows authenticated users to add third-party bots to servers they own or manage.
-
-### Registering Bots
-
-Bots can be registered by clicking the "add bot" button when editing or creating an [OAuth2 application](#MY_APPLICATIONS/top).
-
-### Two-Factor Authentication Requirement
-
-For bots with [elevated permissions](#DOCS_PERMISSIONS/bitwise-permission-flags) (permissions with a * next to them), we enforce two-factor authentication for the owner's account when used on guilds that have server-wide 2FA enabled.
-
-### Adding Bots to Guilds
-
-A URL can be generated that redirects authenticated users to the add-bot flow. It can be in the following format without a `redirect_uri`:
+After you create your application with Discord, make sure that you have your `client_id` and `client_secret` handy. The next step is to create the URL that allows other Discord users to authorize with your application. That URL is in the form of:
 
 ```
-https://discordapp.com/api/oauth2/authorize?client_id=157730590492196864&scope=bot&permissions=0
+https://discordapp.com/oauth2/authorize?response_type=code&client_id=A&scope=B&redirect_uri=C
 ```
 
-Or with a `redirect_uri`:
+`client_id` is your application's `client_id`. `scope` is a list of [OAuth2 scopes](#DOCS_OAUTH2/shared-resources-oauth2-scopes) separated by '+'. `redirect_uri` is whatever URL you registered when creating your application, url-encoded. In practice, the entire URL will look something like this:
 
 ```
-https://discordapp.com/api/oauth2/authorize?client_id=157730590492196864&scope=bot&permissions=0&redirect_uri=https%3A%2F%2Fnicememe.website
+https://discordapp.com/oauth2/authorize?response_type=code&client_id=157730590492196864&scope=identify+guilds.join&redirect_uri=https%3A%2F%2Fnicememe.website
 ```
 
-`client_id` is your _bot's_ application ID. `permissions` is an integer following the [permissions](#DOCS_PERMISSIONS/bitwise-permission-flags) format. If supplied, the `redirect_uri` will include additional query string parameters on redirect: `guild_id`, the guild the _bot_ has joined, and `permissions`, the same integer sent at the start of the flow.
+When someone navigates to this URL, they will be prompted to authorize your application for the requested scopes. On acceptance, they will be redirected to your `redirect_uri`, which will contain an additional querystring parameter, `code`. This should be exchanged for the user's access token by making a `POST` request to the [token URL](#DOCS_OAUTH2/shared-resources-oauth2-urls) with the following parameters:
 
-### Adding Webhooks to Channels
+- `client_id` - your application's client id
+- `client_secret` - your application's client secret
+- `grant_type` - must be set to `authorization_code`
+- `code` - the code from the querystring
+- `redirect_uri` - your `redirect_uri`
 
-A URL can be generated that redirects authenticated users to the add-webhook flow, by using the following format (this utilizes the OAuth2 authentication authorization code flow, which requires a server-side application):
+>warn
+>In accordance with [RFC 6749](https://tools.ietf.org/html/rfc6749), the [token URL](#DOCS_OAUTH2/shared-resources-oauth2-urls) **only** accepts a content type of `x-www-form-urlencoded`. JSON content is not permitted and will return an error.
 
+###### Access Token Exchange Example
+
+```python
+def exchangeCode(code):
+  data = {
+    'client_id': '332269999912132097',
+    'client_secret': '456265548123452097',
+    'grant_type': 'authorization_code',
+    'code': code,
+    'redirect_uri': 'https://nicememe.website'
+  }
+  headers = {
+    'Content-Type': 'application/x-www-form-urlencoded'
+  }
+  return requests.post('https://discordapp.com/api/oauth2/token', data, headers).json()
 ```
-https://discordapp.com/api/oauth2/authorize?client_id=157730590492196864&scope=webhook.incoming&redirect_uri=https%3A%2F%2Fnicememe.website&response_type=code
-```
 
-`client_id` is your application's ID and `redirect_uri` is one of your application's URL-encoded redirect URIs.
+You will receive the following response:
 
-When a user is directed to this URL, they are prompted to select a channel for the webhook to be placed in. Your application will receive an authorization code back in the querystring (as usual with the authorization code grant).
-
-When you exchange the authorization code for an access token, the token response will contain the [webhook](#DOCS_WEBHOOK/webhook-object) object:
+###### Access Token Response
 
 ```json
 {
-	"token_type": "Bearer",
-	"access_token": "7r70pJOvarwv1fkPqacZqFOCv39tX2",
-	"scope": "webhook.incoming",
-	"expires_in": 604800,
-	"refresh_token": "TY0U8LP8joJURIhqREL4AuQXcj5DlO",
-	"webhook": {
-		"name": "test",
-		"channel_id": "199737254929760256",
-		"token": "DuAt6zzLQpPhaAq0IcnCrDUWWpY9Y07dqkB5ulLkhwpA00ZK7IjLve5AE4ACUZqCUTY8",
-		"avatar": "eaa0292a003ceb15264a838a8eff961a",
-		"guild_id": "199737254929760256",
-		"id": "236380988341485568"
-	}
+    "access_token": "6qrZcUqja7812RVdnEKjpzOL4CvHBFG",
+    "token_type": "Bearer",
+    "expires_in": 604800,
+    "refresh_token": "D43f5y0ahjqew82jZ4NViEr2YafMKhue",
+    "scope": "identify"
 }
 ```
+
+Having the user's access token allows your application to make certain requests to the API on their behalf, restricted to whatever scopes were requested. `expires_in` allows you to anticipate the token's expiration. To refresh the token, make another `POST` request to the [token URL](#DOCS_OAUTH2/shared-resources-oauth2-urls) with the following parameters:
+
+- `client_id` - your application's client id
+- `client_secret` - your application's client secret
+- `grant_type` - must be set to `refresh_token`
+- `refresh_token` - the user's refresh token
+- `redirect_uri` - your `redirect_uri`
+
+###### Refresh Token Exchange Example
+
+```python
+def refreshToken(refreshToken):
+  data = {
+    'client_id': '332269999912132097',
+    'client_secret': '456265548123452097',
+    'grant_type': 'refresh_token',
+    'refresh_token': refreshToken,
+    'redirect_uri': 'https://nicememe.website'
+  }
+  headers = {
+    'Content-Type': 'application/x-www-form-urlencoded'
+  }
+  return requests.post('https://discordapp.com/api/oauth2/token', data, headers).json()
+```
+
+You will receive a fresh [access token response](#DOCS_OAUTH2/full-stack-access-token-response) in response!
+
+## Bots
+
+So, what are bot accounts?
+
+### Bot vs User Accounts
+
+Discord's API provides a seperate type of user account dedicated to automation, called a bot account. Bot accounts can be created through the [applications page](#MY_APPLICATIONS/top), and are authenticated using a token (rather than a username and password). Unlike the normal OAuth2 flow, bot accounts have full access to all API routes without using bearer tokens, and can connect to the [Real Time Gateway](#DOCS_GATEWAY/gateways). Automating normal user accounts (generally called "self-bots") outside of the OAuth2/bot API is forbidden, and can result in an account termination if found.
+
+Bot accounts have a few differences in comparison to normal user accounts, namely:
+
+1. Bots are added to servers through the OAuth2 API, and cannot accept normal invites.
+2. Bots cannot have friends, nor be added to or join Group DMs.
+3. Bots do not have a maximum number of Guilds (unlike user accounts, which are limited to 100).
+4. Bots have an entirely separate set of [Rate Limits](#DOCS_RATE_LIMITS/rate-limits).
+
+### Bot Auth Flow
+
+Bot auth is a special server-less and callback-less OAuth2 flow that makes it easy for users to add bots to servers. The URL you create looks similar to what we use for full stack implementation:
+
+```
+https://discordapp.com/oauth2/authorize?client_id=157730590492196864&scope=bot&permissions=1
+```
+
+In the case of bots, the `scope` parameter should be set to `bot`. There's also a new parameter, `permissions`, which is an integer corresponding to the [permission calculations](#DOCS_PERMISSIONS/permissions-bitwise-permission-flags) for the bot. You'll also notice the absence of `response_type` and `redirect_uri`. Bot auth does not require these parameters because there is no need to retrieve the user's access token.
+
+When the user navigates to this page, they'll be prompted to add the bot to a server in which they have proper permissions. On acceptance, the bot will be added. Super easy!
+
+### Advanced Bot Auth
+
+Enterprising devs can add some complexity to bot auth. You can request additional scopes outside of "bot", which will prompt a continuation into the [full stack](#DOCS_OAUTH2/full-stack) flow and add the ability to request the user's access token. If you continue into the full stack flow while including "bot" in your scopes, you'll get some additional querystring parameters on redirection: `guild_id`, the id of the guild to which the bot was added, and `permissions`, the permission integer from the original URL.
+
+>info
+>If you request any scopes outside of `bot`, the `response_type` and `redirect_uri` parameters are again mandatory.
+
+## Wehbooks
+
+Discord's webhook flow is a specialized version of a [full stack](#DOCS_OAUTH2/full-stack) implementation. In this case, the `scope` querystring parameter needs to be set to `webhook.incoming`:
+
+```
+https://discordapp.com/oauth2/authorize?response_type=code&client_id=157730590492196864&scope=webhook.incoming&redirect_uri=https%3A%2F%2Fnicememe.website
+```
+
+When the user navigates to this URL, they will be prompted to select a channel in which to allow the webhook. When the webhook is [executed](#DOCS_WEBHOOK/execute-webhook), it will post it's message into this channel. On acceptance, the user will be redirected to your `redirect_uri`. Much like the full stack flow, the URL will contain the `code` querystring parameter which should be [exchanged for an access token](#DOCS_OAUTH2/full-stack-access-token-exchange-example). In return, you will receive a slightly modified token response:
+
+###### Webhook Token Response Example
+
+```json
+{
+    "token_type": "Bearer",
+    "access_token": "GNaVzEtATqdh173tNHEXY9ZYAuhiYxvy",
+    "scope": "webhook.incoming",
+    "expires_in": 604800,
+    "refresh_token": "PvPL7ELyMDc1836457XCDh1Y8jPbRm",
+    "webhook": {
+        "name": "testwebhook",
+        "url": "https://discordapp.com/api/webhooks/347114750880120863/kKDdjXa1g9tKNs0-_yOwLyALC9gydEWP6gr9sHabuK1vuofjhQDDnlOclJeRIvYK-pj_",
+        "channel_id": "345626669224982402",
+        "token": "kKDdjXa1g9tKNs0-_yOwLyALC9gydEWP6gr9sHabuK1vuofjhQDDnlOclJeRIvYK-pj_",
+        "avatar": null,
+        "guild_id": "290926792226357250",
+        "id": "347114750880120863"
+    }
+}
+```
+
+You can ignore everything that is not the `webhook` object. Inside this object, what we really care about is `webhook.url`. This is the URL to which you will make POST requests in order to [execute your webhook](#DOCS_WEBHOOK/execute-webhook). Any user that wishes to add your webhook to their channel will need to go through the full OAuth flow, but it's not necessary to save the webhook information each time—it will be identical. Now, whenever you execute your webhook, everyone who's added it will see the message!
 
 ### Get Current Application Information % GET /oauth2/applications/@me
 
