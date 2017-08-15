@@ -10,8 +10,8 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 |-------|------|-------------|
 | id | snowflake | guild id |
 | name | string | guild name (2-100 characters) |
-| icon | string | [icon hash](#DOCS_REFERENCE/url-formatting) |
-| splash | string | [splash hash](#DOCS_REFERENCE/url-formatting) |
+| icon | string | [icon hash](#DOCS_REFERENCE/image-formatting) |
+| splash | string | [splash hash](#DOCS_REFERENCE/image-formatting) |
 | owner\_id | snowflake | id of owner |
 | region | string | {voice\_region.id} |
 | afk\_channel\_id | snowflake | id of afk channel |
@@ -189,7 +189,7 @@ A partial [guild](#DOCS_GUILD/guild-object) object. Represents an Offline Guild,
 
 | Field | Type | Description |
 |-------|------|-------------|
-| id | snowflake | [emoji id](#DOCS_REFERENCE/url-formatting) |
+| id | snowflake | [emoji id](#DOCS_REFERENCE/image-formatting) |
 | name | string | emoji name |
 | roles | array of [role object](#DOCS_PERMISSIONS/role-object) ids | roles this emoji is active for |
 | require_colons | bool | whether this emoji must be wrapped in colons |

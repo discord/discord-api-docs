@@ -35,7 +35,7 @@ There are other rules and restrictions not shared here for the sake of spam and 
 | id | snowflake | the user's id | identify |
 | username | string | the user's username, not unique across the platform | identify |
 | discriminator | string | the user's 4-digit discord-tag | identify |
-| avatar | string | the user's [avatar hash](#DOCS_REFERENCE/url-formatting) | identify |
+| avatar | string | the user's [avatar hash](#DOCS_REFERENCE/image-formatting) | identify |
 | bot | bool | whether the user belongs to an OAuth2 application | identify |
 | mfa_enabled | bool | whether the user has two factor enabled on their account | identify |
 | verified | bool | whether the email on this account has been verified | email |
