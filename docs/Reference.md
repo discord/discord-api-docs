@@ -155,7 +155,7 @@ Power of 2 between 16 and 1024.
 | Type | URL |
 |---------|-----------------|
 | Custom Emoji | https://cdn.discordapp.com/emojis/[{emoji.id}](#DOCS_GUILD/emoji-object).png |
-| Guild Icon | https://cdn.discordapp.com/icons/[{guild.id}](#DOCS_GUILD/guild-object)/[{guild.icon}](#DOCS_GUILD/guild-object).[{format}](#DOCS_CHANNEL/image-formats)?size=[{size}](#DOCS_CHANNEL/image-sizes) |
-| Guild Splash | https://cdn.discordapp.com/splashes/[{guild.id}](#DOCS_GUILD/guild-object)/[{guild.splash}](#DOCS_GUILD/guild-object).[{format}](#DOCS_CHANNEL/image-formats)?size=2048 |
+| Guild Icon | https://cdn.discordapp.com/icons/[{guild.id}](#DOCS_GUILD/guild-object)/[{guild.icon}](#DOCS_GUILD/guild-object).[{format}](#DOCS_REFERENCE/image-formats)?size=[{size}](#DOCS_REFERENCE/image-sizes) |
+| Guild Splash | https://cdn.discordapp.com/splashes/[{guild.id}](#DOCS_GUILD/guild-object)/[{guild.splash}](#DOCS_GUILD/guild-object).[{format}](#DOCS_REFERENCE/image-formats)?size=2048 |
 | Default User Avatar | https://cdn.discordapp.com/embed/avatars/{[user.discriminator](#DOCS_USER/user-object) % 5}.png |
-| User Avatar | https://cdn.discordapp.com/avatars/[{user.id}](#DOCS_USER/user-object)/[{user.avatar](#DOCS_USER/user-object).[{format}](#DOCS_CHANNEL/image-formats)?size=[{size}](#DOCS_CHANNEL/image-sizes) |
+| User Avatar | https://cdn.discordapp.com/avatars/[{user.id}](#DOCS_USER/user-object)/[{user.avatar](#DOCS_USER/user-object).[{format}](#DOCS_REFERENCE/image-formats)?size=[{size}](#DOCS_REFERENCE/image-sizes) |
