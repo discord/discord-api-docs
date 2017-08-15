@@ -131,11 +131,11 @@ Discord utilizes a subset of markdown for rendering message content on its clien
 | Role | `<@&ROLE_SNOWFLAKE_ID>` | `<@&165511591545143296>` |
 | Custom Emoji | `<:NAME:ID>` | `<:mmLol:216154654256398347>` |
 
-Using the markdown for either users, roles or channels will mention the target(s) accordingly.
+Using the markdown for either users, roles, or channels will mention the target(s) accordingly.
 
-## URL Formatting
+## Image Formatting
 
-Discord utilizes the id's and hashes from specific objects to provide the images rendered in the client. This functionality uses the following formats:
+Discord uses ids and hashes to render images in the client. These hashes can be retrieved through various API requests, like [Get User](#DOCS_USER/get-user). Below are the formats, size limitations, and CDN endpoints for images in Discord:
 
 ###### Image Formats
 
