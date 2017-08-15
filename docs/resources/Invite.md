@@ -8,7 +8,7 @@ Represents a code that when used, adds a user to a guild.
 
 | Field | Type | Description |
 |-------|------|-------------|
-| code | string | the invite code (unique ID) |
+| code | string | the invite code (unique ID), [url format](#DOCS_CHANNEL/url-formatting) |
 | guild | partial [guild](#DOCS_GUILD/guild-object) object | the guild this invite is for |
 | channel | partial [channel](#DOCS_CHANNEL/channel-object) object | the channel this invite is for |
 
