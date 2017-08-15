@@ -316,50 +316,6 @@ To facilitate showing rich content, rich embeds do not follow the traditional li
 
 In addition to the limits above, the sum of all characters in an embed structure must not exceed 6000 characters.
 
-## Message Formatting
-
-Discord utilizes a subset of markdown for rendering message content on its clients, while also adding some custom functionality to enable things like mentioning users and channels. This functionality uses the following formats:
-
-###### Formats
-
-| Type | Structure | Example |
-|---------|-------------|-------------|
-| User | `<@USER_SNOWFLAKE_ID>` | `<@80351110224678912>` |
-| User (Nickname) | `<@!USER_SNOWFLAKE_ID>` | `<@!80351110224678912>` |
-| Channel | `<#CHANNEL_SNOWFLAKE_ID>` | `<#103735883630395392>` |
-| Role | `<@&ROLE_SNOWFLAKE_ID>` | `<@&165511591545143296>` |
-| Custom Emoji | `<:NAME:ID>` | `<:mmLol:216154654256398347>` |
-
-Using the markdown for either users, roles or channels will mention the target(s) accordingly.
-
-## URL Formatting
-
-Discord utilizes the id's and hashes from specific objects to provide the images rendered in the client. This functionality uses the following formats:
-
-###### Image Formats
-
-| Name | Extension |
-|-------|------------|
-| JPEG | .jpg, .jpeg |
-| PNG | .png |
-| WebP | .webp |
-| GIF | .gif ([user](#DOCS_USER/user-object) avatars only) |
-
-###### Image Sizes
-
-Power of 2 between 16 and 1024.
-
-###### Urls
-
-| Type | Structure |
-|---------|-----------------|
-| Custom Emoji | https://cdn.discordapp.com/emojis/[{emoji.id}](#DOCS_GUILD/emoji-object).png |
-| Guild Icon | https://cdn.discordapp.com/icons/[{guild.id}](#DOCS_GUILD/guild-object)/[{guild.icon}](#DOCS_GUILD/guild-object).[{format}](#DOCS_CHANNEL/image-formats)?size=[{size}](#DOCS_CHANNEL/image-sizes) |
-| Guild Splash | https://cdn.discordapp.com/splashes/[{guild.id}](#DOCS_GUILD/guild-object)/[{guild.splash}](#DOCS_GUILD/guild-object).[{format}](#DOCS_CHANNEL/image-formats)?size=2048 |
-| Invite Code | http://discord.gg/[{invite.code}](#DOCS_INVITE/invite-structure) |
-| Default User Avatar | https://cdn.discordapp.com/embed/avatars/{[user.discriminator](#DOCS_USER/user-object) % 5}.png |
-| User Avatar | https://cdn.discordapp.com/avatars/[{user.id}](#DOCS_USER/user-object)/[{user.avatar](#DOCS_USER/user-object).[{format}](#DOCS_CHANNEL/image-formats)?size=[{size}](#DOCS_CHANNEL/image-sizes) |
-
 ## Get Channel % GET /channels/{channel.id#DOCS_CHANNEL/channel-object}
 
 Get a channel by ID. Returns a [guild channel](#DOCS_CHANNEL/channel-object) or [dm channel](#DOCS_CHANNEL/channel-object) object.
@@ -407,7 +363,7 @@ Returns a specific message in the channel. If operating on a guild channel, this
 
 ## Create Message % POST /channels/{channel.id#DOCS_CHANNEL/channel-object}/messages
 
-Post a message to a guild text or DM channel. If operating on a guild channel, this endpoint requires the 'SEND_MESSAGES' permission to be present on the current user. Returns a [message](#DOCS_CHANNEL/message-object) object. Fires a [Message Create](#DOCS_GATEWAY/message-create) Gateway event. See [message formatting](#DOCS_CHANNEL/message-formatting) for more information on how to properly format messages.
+Post a message to a guild text or DM channel. If operating on a guild channel, this endpoint requires the 'SEND_MESSAGES' permission to be present on the current user. Returns a [message](#DOCS_CHANNEL/message-object) object. Fires a [Message Create](#DOCS_GATEWAY/message-create) Gateway event. See [message formatting](#DOCS_REFERENCE/message-formatting) for more information on how to properly format messages.
 
 >warn
 > This endpoint supports both JSON and form data bodies. It does require multipart/form-data requests instead of the normal JSON request type when uploading files. Make sure you set your `Content-Type` to `multipart/form-data` if you're doing that. Note that in that case, the `embed` field cannot be used, but you can pass an url-encoded JSON body as a form value for `payload_json`.
