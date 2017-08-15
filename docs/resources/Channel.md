@@ -353,7 +353,7 @@ Power of 2 between 16 and 1024.
 
 | Type | Structure |
 |---------|-----------------|
-| Custom Emoji | https://cdn.discordapp.com/api/emojis/[{emoji.id}](#DOCS_GUILD/emoji-object).png |
+| Custom Emoji | https://cdn.discordapp.com/emojis/[{emoji.id}](#DOCS_GUILD/emoji-object).png |
 | Guild Icon | https://cdn.discordapp.com/icons/[{guild.id}](#DOCS_GUILD/guild-object)/[{guild.icon}](#DOCS_GUILD/guild-object).[{format}](#DOCS_CHANNEL/image-formats)?size=[{size}](#DOCS_CHANNEL/image-sizes) |
 | Guild Splash | https://cdn.discordapp.com/splashes/[{guild.id}](#DOCS_GUILD/guild-object)/[{guild.splash}](#DOCS_GUILD/guild-object).[{format}](#DOCS_CHANNEL/image-formats)?size=2048 |
 | Invite Code | http://discord.gg/[{invite.code}](#DOCS_INVITE/invite-structure) |
