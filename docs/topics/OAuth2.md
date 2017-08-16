@@ -1,10 +1,11 @@
 # OAuth2
 
-OAuth2 enables application developers to build applications that utilize authentication and data from the Discord API. Within Discord, there are two types of OAuth2 authentication: full stack—what most people will recognize as generic OAuth2—and bot auth—a callback/server-free flow for easily adding bots to servers.
-
-There are some nuances between the two flows, as well as a slight variation on the full stack flow specifically for webhooks. To reflect this, we've broken the documentation into three sections:
+OAuth2 enables application developers to build applications that utilize authentication and data from the Discord API. Within Discord, there are multiple types of OAuth2 authentication. We support the authorization code grant, the implicit grant, client credentials, and some modified special-for-Discord flows for Bots and Webhooks. We've broken it down into sections:
 
 1. [Full Stack](#DOCS_OAUTH2/full-stack)
+  a. [Authorization Code](#DOCS_OAUTH2/full-stack-authorization-code)
+  b. [Implicit](#DOCS_OAUTH2/full-stack-implicit)
+  c. [Client Credentials](#DOCS_OAUTH2/full-stack-client-credentials)
 2. [Bots](#DOCS_OAUTH2/bots)
 3. [Webhooks](#DOCS_OAUTH2/webhooks)
 
@@ -21,6 +22,9 @@ The first step in implementing OAuth2 is [registering a developer application](#
 | https://discordapp.com/api/oauth2/authorize | Base authorization URL |
 | https://discordapp.com/api/oauth2/token | Token URL |
 | https://discordapp.com/api/oauth2/token/revoke | Revocation URL |
+
+>warn
+>In accordance with [RFC 6749](https://tools.ietf.org/html/rfc6749), the [token URL](#DOCS_OAUTH2/shared-resources-oauth2-urls) **only** accepts a content type of `x-www-form-urlencoded`. JSON content is not permitted and will return an error.
 
 ###### OAuth2 Scopes
 
@@ -40,11 +44,17 @@ The first step in implementing OAuth2 is [registering a developer application](#
 | webhook.incoming | this generates a webhook that is returned in the oauth token response for authorization code grants |
 
 >info
-> Unlike the rest of the scopes, `guilds.join` requires you to have a bot account linked to your application and can only be used to join users to guilds which your bot services.
+>Unlike the rest of the scopes, `guilds.join` requires you to have a bot account linked to your application and can only be used to join users to guilds which your bot services.
 
 ## Full Stack
 
-After you create your application with Discord, make sure that you have your `client_id` and `client_secret` handy. The next step is to create the URL that allows other Discord users to authorize with your application. That URL is in the form of:
+After you create your application with Discord, make sure that you have your `client_id` and `client_secret` handy. The next step is to figure out which OAuth2 flow is right for your purposes:
+
+### Authorization Code
+
+The authorization code grant is the "fullest" and most secure of the OAuth2 flavors. It allows the authorization server to act as an intermediary between the client and the resource owner, so the resource owner's credentials are never shared directly with the client. This is what most developers will recognize as "standard OAuth2" and involves retrieving an access code and exchanging it for a user's access token.
+
+###### Authorization Code URL Example
 
 ```
 https://discordapp.com/oauth2/authorize?response_type=code&client_id=A&scope=B&redirect_uri=C
@@ -64,9 +74,6 @@ When someone navigates to this URL, they will be prompted to authorize your appl
 - `code` - the code from the querystring
 - `redirect_uri` - your `redirect_uri`
 
->warn
->In accordance with [RFC 6749](https://tools.ietf.org/html/rfc6749), the [token URL](#DOCS_OAUTH2/shared-resources-oauth2-urls) **only** accepts a content type of `x-www-form-urlencoded`. JSON content is not permitted and will return an error.
-
 ###### Access Token Exchange Example
 
 ```python
@@ -80,6 +87,25 @@ def exchangeCode(code):
   }
   headers = {
     'Content-Type': 'application/x-www-form-urlencoded'
+  }
+  return requests.post('https://discordapp.com/api/oauth2/token', data, headers).json()
+```
+
+You can also pass your `client_id` and `client_secret` as an authentication header of type `Basic` and a value of the base64 encoded string formatted as "client\_id:client_secret":
+
+###### Access Token Exchange Authentication Header Example
+
+```python
+import base64
+def exchangeCode(code):
+  data = {
+    'grant_type': 'authorization_code',
+    'code': code,
+    'redirect_uri': 'https://nicememe.website'
+  }
+  headers = {
+    'Content-Type': 'application/x-www-form-urlencoded'
+    'Authorization': 'Basic ' + base64.b64encode(b'332269999912132097:456265548123452097')
   }
   return requests.post('https://discordapp.com/api/oauth2/token', data, headers).json()
 ```
@@ -124,6 +150,61 @@ def refreshToken(refreshToken):
 ```
 
 You will receive a fresh [access token response](#DOCS_OAUTH2/full-stack-access-token-response) in response!
+
+### Implicit
+
+The implicit OAuth2 grant is a simplified flow optimized for in-browser clients. Instead of issuing the client an authorization code to be exchanged for an access token, the client is directly issued an access token. The URL is formatted as follows:
+
+###### Implicit URL Example
+
+```
+https://discordapp.com/oauth2/authorize?response_type=token&client_id=A&scope=B
+```
+
+On redirect, your redirect URI will contain additional querystring parameters of `access_token`, `token_type`, `expires_in`, and `scope`. You will not receive a refresh token:
+
+###### Implicit Redirect URL Example
+
+```
+https://myredirect.com/#access_token=A&token_type=Bearer&expires_in=B&scope=C
+```
+
+Be mindful of the "#" character before the `access_token` parameter when parsing the querystring.
+
+There are tradeoffs in using the implicit grant flow. It is both quicker and easier to implement, but rather than exchanging a code and getting a token returned in a secure HTTP body, the access token is returned in the URI fragment, which makes it possibly exposed to unauthorized parties. If you choose to implement the implicit grant, we highly recommend using the `state` parameter to help protect against cross-site request forgery. You also are not returned a refresh token, so the user must explicitly re-authorize once their token expires.
+
+### Client Credentials
+
+The client credential flow is a quick and easy way for bot developers to get their own bearer tokens for testing purposes. By making a `POST` request to the [token URL](#DOCS_OAUTH2/shared-resources-oauth2-urls) with a grant type of `client_credentials`, you will be returned an access token for the currently logged in user. You can specify scopes with the option `scope` parameter, which is a list of [OAuth2 scopes](#DOCS_OAUTH2/shared-resources-oauth2-scopes) separated by spaces:
+
+###### Client Credentials Token Request Example
+
+```python
+import base64
+def getToken():
+  data = {
+    'grant_type': 'client_credentials',
+    'scope': 'identify connections'
+  }
+  headers = {
+    'Content-Type': 'application/x-www-form-urlencoded'
+    'Authorization': 'Basic ' + base64.b64encode(b'332269999912132097:456265548123452097')
+  }
+  return requests.post('https://discordapp.com/api/oauth2/token', data, headers).json()
+```
+
+In return, you will receive an access token without a refresh token:
+
+###### Client Credentials Access Token Response
+
+```json
+{
+    "access_token": "6qrZcUqja7812RVdnEKjpzOL4CvHBFG",
+    "token_type": "Bearer",
+    "expires_in": 604800,
+    "scope": "identify connections"
+}
+```
 
 ## Bots
 
