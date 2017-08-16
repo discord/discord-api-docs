@@ -75,21 +75,23 @@ locations a disclaimer stating that your Applications, website or any services i
 endorsed or created by Discord.
 
 2.4 __End User Data.__ “End User Data” means all data associated with the content within the
-functionality enabled by the API or SDK, including but not limited to message content, message
-metadata, voice data and voice metadata. You acknowledge and agree that Discord and its end
-users, as applicable, retain all worldwide right, title and interest in and to the End User Data. If
-you have access to End User Data, you shall ensure that your Applications do not collect, use
-and/or disclose End User Data except (a) as necessary to exercise your rights under this
-Agreement, (b) as expressly permitted by the End Users, and (c) in accordance with Discord’s
-Privacy Policy. You shall not sell, license or otherwise commercialize any End User Data. You
-may not use End User Data to target End Users for marketing or advertising purposes. You may
-not disclose End User Data to any ad network, data broker or other advertising or monetization related
-service. You shall permanently delete all End User Data upon Discord’s or the End
-User’s request and within seven (7) days following the End User’s termination of the End User’s
-account. You may only retain chat logs as necessary for the operation of your Applications.
-Discord’s offering of an API or SDK that allows you to reproduce or display End User
-message content is not an express or implied license to such content from Discord. You
-must seek permission from End Users.
+functionality enabled by the API or SDK, including but not limited to message content, message metadata,
+voice data and voice metadata. You acknowledge and agree that Discord and its end users, as applicable,
+retain all worldwide right, title and interest in and to the End User Data. If you have access to
+End User Data through the API or the SDK, you shall ensure that your Applications do not collect,
+use and/or disclose End User Data except (a) as necessary to exercise your rights under this Agreement,
+(b) in accordance with Discord’s Privacy Policy. If you have access to End User Data through the SDK,
+you additionally agree to get express permission from the End Users.
+
+You shall not sell, license or otherwise commercialize any End User Data. You may not use End User Data
+to target End Users for marketing or advertising purposes. You may not disclose End User Data to
+any ad network, data broker or other advertising or monetization related service.
+
+You shall delete all End User Data upon Discord’s or the End User’s request and within seven (7) days
+following the End User’s termination of the End User’s account. You may only retain chat logs as
+necessary for the operation of your Applications. Discord’s offering of an API or SDK that allows
+you to reproduce or display End User message content is not an express or implied license to such
+content from Discord.
 
 2.5 __End Users.__ Without limiting any other provision of this Agreement, you agree to the
 following with respect to End Users and their accounts:
@@ -103,10 +105,10 @@ finder" app).
 User except in response to such End User expressly opting-in to each instance of such
 behavior.
 
-(c) You shall ensure that your Application retains End User Data only if the End User
-associated with such End User Data expressly triggers a command with an explicit
-keyword or click (on a website) and even in such cases, such End User Data shall be
-retained only as necessary to provide the defined functionality of the Application.
+(c) You shall ensure that your Application retains End User Data after the End User’s termination
+of the End User’s account only if the End User associated with such End User Data expressly triggers
+a command with an explicit keyword or click (on a website) and even in such cases, such End User Data
+shall be retained only as necessary to provide the defined functionality of the Application.
 
 (d) You shall ensure that an End User’s access to the Platform or any portion of
 functionality enabled by the SDK or API is subject to the TOS; accordingly, you shall
@@ -118,8 +120,8 @@ Agreement and the TOS, which includes Discord’s Privacy Policy.
 (e) You and your Application will not, and you will not, encourage or create functionality
 for your users that violates Discord’s TOS.
 
-(f) You shall ensure that all End User Data is stored using encryption and that you take
-reasonable steps to secure End User Data.
+(f) You shall ensure that all End User Data is stored using reasonable security measures, including,
+but not limited to encryption, and that you take reasonable steps to secure End User Data.
 
 (g) You shall not obtain End User passwords to Discord’s service under any
 circumstance; you shall use only Discord’s designated approval methods for obtaining
