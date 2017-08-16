@@ -1,5 +1,8 @@
 # Introducing Rich Presence
 
+>danger
+>Rich Presence is live! If you are testing a game integration with Rich Presence, other users will be able to see the integration. If you want to keep things on the down low, create a test account and do not join any public servers.
+
 How easy is it for people to play your game together? With Rich Presence from Discord—a new feature in the ever-expanding GameBridge suite—it just got so easy, a ~~caveman~~ Junior Dev could do it.
 
 Rich Presence is currently in a private alpha phase. If you're interested in getting access, [apply to our Gamebridge program](https://discordapp.com/gamebridge) and mention Rich Presence, and we'll review your application.
@@ -131,6 +134,12 @@ __`instance`__ helps Discord be smart about notifications and display. Setting i
 We've chosen the fields based on common data between the most popular games on Discord, but they are by no means rigid. Play with them to fit the data you'd like to display for your game! You can also omit any of the fields, and the UI will gracefully adjust. Below is an image that shows which fields go where when sending a full data payload with spectating and notifications enabled; use it for reference for your own data:
 
 ![](rp-profile-view.png)
+
+## A note on game detection
+
+In order to test your Rich Presence integration locally, you and your testers will need to make sure that your game client is detected by Discord. If your game is not automatically detected, presence data will not be shown. To detect your game, go to User Settings -> Games -> Add it! and select your application from the dropdown list. Every user working with your local development build will need to follow these steps in order for Discord to detect their presence.
+
+If you are having issues with your release build not being detected, send us an email at [gamedevs@discordapp.com](mailto:gamedevs@discordapp.com) and we'll add it to our database for you.
 
 ## Secrets, secrets are...fun!
 
