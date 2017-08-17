@@ -2,18 +2,17 @@
 
 OAuth2 enables application developers to build applications that utilize authentication and data from the Discord API. Within Discord, there are multiple types of OAuth2 authentication. We support the authorization code grant, the implicit grant, client credentials, and some modified special-for-Discord flows for Bots and Webhooks. We've broken it down into sections:
 
-1. [Full Stack](#DOCS_OAUTH2/full-stack)
-  a. [Authorization Code](#DOCS_OAUTH2/full-stack-authorization-code)
-  b. [Implicit](#DOCS_OAUTH2/full-stack-implicit)
-  c. [Client Credentials](#DOCS_OAUTH2/full-stack-client-credentials)
-2. [Bots](#DOCS_OAUTH2/bots)
-3. [Webhooks](#DOCS_OAUTH2/webhooks)
+1. [Authorization Code Grant](#DOCS_OAUTH2/authorization-code-grant)
+2. [Implicit Grant](#DOCS_OAUTH2/implicit)
+3. [Client Credentials Grant](#DOCS_OAUTH2/client-credentials)
+4. [Bots](#DOCS_OAUTH2/bots)
+5. [Webhooks](#DOCS_OAUTH2/webhooks)
 
 Let's start with the shared resources between the flows.
 
 ## Shared Resources
 
-The first step in implementing OAuth2 is [registering a developer application](#MY_APPLICATIONS/top), and retrieving your client ID and client secret. Most people who will be implementing OAuth2 will want to find and utilize a library in the language of their choice. For those implementing OAuth2 from scratch, please see [RFC 6749](https://tools.ietf.org/html/rfc6749) for details.
+The first step in implementing OAuth2 is [registering a developer application](#MY_APPLICATIONS/top) and retrieving your client ID and client secret. Most people who will be implementing OAuth2 will want to find and utilize a library in the language of their choice. For those implementing OAuth2 from scratch, please see [RFC 6749](https://tools.ietf.org/html/rfc6749) for details. After you create your application with Discord, make sure that you have your `client_id` and `client_secret` handy. The next step is to figure out which OAuth2 flow is right for your purposes.
 
 ###### OAuth2 URLs
 
@@ -46,11 +45,7 @@ The first step in implementing OAuth2 is [registering a developer application](#
 >info
 >Unlike the rest of the scopes, `guilds.join` requires you to have a bot account linked to your application and can only be used to join users to guilds which your bot services.
 
-## Full Stack
-
-After you create your application with Discord, make sure that you have your `client_id` and `client_secret` handy. The next step is to figure out which OAuth2 flow is right for your purposes:
-
-### Authorization Code
+## Authorization Code Grant
 
 The authorization code grant is the "fullest" and most secure of the OAuth2 flavors. It allows the authorization server to act as an intermediary between the client and the resource owner, so the resource owner's credentials are never shared directly with the client. This is what most developers will recognize as "standard OAuth2" and involves retrieving an access code and exchanging it for a user's access token.
 
@@ -149,9 +144,9 @@ def refreshToken(refreshToken):
   return requests.post('https://discordapp.com/api/oauth2/token', data, headers).json()
 ```
 
-You will receive a fresh [access token response](#DOCS_OAUTH2/full-stack-access-token-response) in response!
+Boom; fresh [access token response](#DOCS_OAUTH2/authorization-code-grant-access-token-response)!
 
-### Implicit
+## Implicit Grant
 
 The implicit OAuth2 grant is a simplified flow optimized for in-browser clients. Instead of issuing the client an authorization code to be exchanged for an access token, the client is directly issued an access token. The URL is formatted as follows:
 
@@ -161,21 +156,21 @@ The implicit OAuth2 grant is a simplified flow optimized for in-browser clients.
 https://discordapp.com/oauth2/authorize?response_type=token&client_id=A&scope=B
 ```
 
-On redirect, your redirect URI will contain additional querystring parameters of `access_token`, `token_type`, `expires_in`, and `scope`. You will not receive a refresh token:
+On redirect, your redirect URI will contain additional **URI fragments**: `access_token`, `token_type`, `expires_in`, and `scope`. **These are not querystring parameters.** Be mindful of the "#" character:
 
 ###### Implicit Redirect URL Example
 
 ```
-https://myredirect.com/#access_token=A&token_type=Bearer&expires_in=B&scope=C
+https://findingfakeurlsisprettyhard.tv/#access_token=A&token_type=Bearer&expires_in=B&scope=C
 ```
-
-Be mindful of the "#" character before the `access_token` parameter when parsing the querystring.
 
 There are tradeoffs in using the implicit grant flow. It is both quicker and easier to implement, but rather than exchanging a code and getting a token returned in a secure HTTP body, the access token is returned in the URI fragment, which makes it possibly exposed to unauthorized parties. If you choose to implement the implicit grant, we highly recommend using the `state` parameter to help protect against cross-site request forgery. You also are not returned a refresh token, so the user must explicitly re-authorize once their token expires.
 
-### Client Credentials
+### Client Credentials Grant
 
-The client credential flow is a quick and easy way for bot developers to get their own bearer tokens for testing purposes. By making a `POST` request to the [token URL](#DOCS_OAUTH2/shared-resources-oauth2-urls) with a grant type of `client_credentials`, you will be returned an access token for the currently logged in user. You can specify scopes with the option `scope` parameter, which is a list of [OAuth2 scopes](#DOCS_OAUTH2/shared-resources-oauth2-scopes) separated by spaces:
+The client credential flow is a quick and easy way for bot developers to get their own bearer tokens for testing purposes. By making a `POST` request to the [token URL](#DOCS_OAUTH2/shared-resources-oauth2-urls) with a grant type of `client_credentials`, you will be returned an access token for the bot owner. Therefore, always be super-extra-very-we-are-not-kidding-like-really-be-secure-make-sure-your-info-is-not-in-your-source-code careful with your `client_id` and `client_secret`.
+
+You can specify scopes with the `scope` parameter, which is a list of [OAuth2 scopes](#DOCS_OAUTH2/shared-resources-oauth2-scopes) separated by spaces:
 
 ###### Client Credentials Token Request Example
 
@@ -193,7 +188,7 @@ def getToken():
   return requests.post('https://discordapp.com/api/oauth2/token', data, headers).json()
 ```
 
-In return, you will receive an access token without a refresh token:
+In return, you will receive an access token (without a refresh token):
 
 ###### Client Credentials Access Token Response
 
@@ -235,20 +230,19 @@ When the user navigates to this page, they'll be prompted to add the bot to a se
 
 ### Advanced Bot Auth
 
-Enterprising devs can add some complexity to bot auth. You can request additional scopes outside of "bot", which will prompt a continuation into the [full stack](#DOCS_OAUTH2/full-stack) flow and add the ability to request the user's access token. If you continue into the full stack flow while including "bot" in your scopes, you'll get some additional querystring parameters on redirection: `guild_id`, the id of the guild to which the bot was added, and `permissions`, the permission integer from the original URL.
+Enterprising devs can add some complexity to bot auth. You can request additional scopes outside of "bot", which will prompt a continuation into the [authorization code](#DOCS_OAUTH2/authorization-code-grant) flow and add the ability to request the user's access token. If you request any scopes outside of `bot`, the `response_type` and `redirect_uri` parameters are again mandatory. A full OAuth2 flow is also required if you check "Require OAuth2 Code Grant" in your application's settings.
 
->info
->If you request any scopes outside of `bot`, the `response_type` and `redirect_uri` parameters are again mandatory.
+If you continue into the full stack flow while including "bot" in your scopes, you'll get some additional querystring parameters on redirection: `guild_id`, the id of the guild to which the bot was added, and `permissions`, the permission integer from the original URL.
 
-## Wehbooks
+## Webhooks
 
-Discord's webhook flow is a specialized version of a [full stack](#DOCS_OAUTH2/full-stack) implementation. In this case, the `scope` querystring parameter needs to be set to `webhook.incoming`:
+Discord's webhook flow is a specialized version of an [authorization code](#DOCS_OAUTH2/authorization-code-grant) implementation. In this case, the `scope` querystring parameter needs to be set to `webhook.incoming`:
 
 ```
 https://discordapp.com/oauth2/authorize?response_type=code&client_id=157730590492196864&scope=webhook.incoming&redirect_uri=https%3A%2F%2Fnicememe.website
 ```
 
-When the user navigates to this URL, they will be prompted to select a channel in which to allow the webhook. When the webhook is [executed](#DOCS_WEBHOOK/execute-webhook), it will post it's message into this channel. On acceptance, the user will be redirected to your `redirect_uri`. Much like the full stack flow, the URL will contain the `code` querystring parameter which should be [exchanged for an access token](#DOCS_OAUTH2/full-stack-access-token-exchange-example). In return, you will receive a slightly modified token response:
+When the user navigates to this URL, they will be prompted to select a channel in which to allow the webhook. When the webhook is [executed](#DOCS_WEBHOOK/execute-webhook), it will post it's message into this channel. On acceptance, the user will be redirected to your `redirect_uri`. The URL will contain the `code` querystring parameter which should be [exchanged for an access token](#DOCS_OAUTH2/authorization-code-grant-access-token-exchange-example). In return, you will receive a slightly modified token response:
 
 ###### Webhook Token Response Example
 
@@ -271,7 +265,9 @@ When the user navigates to this URL, they will be prompted to select a channel i
 }
 ```
 
-You can ignore everything that is not the `webhook` object. Inside this object, what we really care about is `webhook.url`. This is the URL to which you will make POST requests in order to [execute your webhook](#DOCS_WEBHOOK/execute-webhook). Any user that wishes to add your webhook to their channel will need to go through the full OAuth flow, but it's not necessary to save the webhook information each time—it will be identical. Now, whenever you execute your webhook, everyone who's added it will see the message!
+You can ignore everything that is not the `webhook` object. Inside this object, what we really care about is `webhook.url`. This is the URL to which you will make POST requests in order to [execute your webhook](#DOCS_WEBHOOK/execute-webhook).
+
+Any user that wishes to add your webhook to their channel will need to go through the full OAuth2 flow, but it's not necessary to save the webhook information each time—it will be identical. Now, whenever you execute your webhook, everyone who's added it will see the message!
 
 ### Get Current Application Information % GET /oauth2/applications/@me
 
