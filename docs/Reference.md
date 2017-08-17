@@ -161,4 +161,4 @@ Power of 2 between 16 and 1024.
 | User Avatar | cdn.discordapp.com/avatars/[{user.id}](#DOCS_USER/user-object)/[{user.avatar](#DOCS_USER/user-object).[{format}](#DOCS_REFERENCE/image-formatting-image-formats)?size=[{size}](#DOCS_REFERENCE/image-formatting-image-sizes) |
 
 >info
->All CDN Enpoints should be prefixed with `https://`
+>All CDN Endpoints should be prefixed with `https://`
