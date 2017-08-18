@@ -59,20 +59,20 @@ The Discord Gateway has a versioning system which is separate from the core APIs
 
 ###### Gateway OP Codes
 
-| Code | Name | Description |
-|------|------|-------------|
-| 0 | Dispatch | dispatches an event |
-| 1 | Heartbeat | used for ping checking |
-| 2 | Identify | used for client handshake |
-| 3 | Status Update | used to update the client status |
-| 4 | Voice State Update | used to join/move/leave voice channels |
-| 5 | Voice Server Ping | used for voice ping checking |
-| 6 | Resume | used to resume a closed connection |
-| 7 | Reconnect | used to tell clients to reconnect to the gateway |
-| 8 | Request Guild Members | used to request guild members |
-| 9 | Invalid Session | used to notify client they have an invalid session id |
-| 10 | Hello | sent immediately after connecting, contains heartbeat and server debug information |
-| 11 | Heartbeat ACK | sent immediately following a client heartbeat that was received |
+| Code | Name | Client Action | Description |
+|------|------|------|-------------|
+| 0 | Dispatch | Receive | dispatches an event |
+| 1 | Heartbeat | Send/Receive | used for ping checking |
+| 2 | Identify | Send | used for client handshake |
+| 3 | Status Update | Send | used to update the client status |
+| 4 | Voice State Update | Send | used to join/move/leave voice channels |
+| 5 | Voice Server Ping | Send | used for voice ping checking |
+| 6 | Resume | Send | used to resume a closed connection |
+| 7 | Reconnect | Receive | used to tell clients to reconnect to the gateway |
+| 8 | Request Guild Members | Send | used to request guild members |
+| 9 | Invalid Session | Receive | used to notify client they have an invalid session id |
+| 10 | Hello | Receive | sent immediately after connecting, contains heartbeat and server debug information |
+| 11 | Heartbeat ACK | Receive | sent immediately following a client heartbeat that was received |
 
 ### Gateway Dispatch
 
@@ -91,7 +91,9 @@ Used by the gateway to notify the client of events.
 
 ### Gateway Heartbeat
 
-Used to maintain an active gateway connection. Must be sent every `heartbeat_interval` milliseconds after the [Hello](#DOCS_GATEWAY/gateway-hello) payload is received. Note that this interval already has room for error, and that client implementations do not need to send a heartbeat faster than what's specified. The inner `d` key must be set to the last seq (`s`) received by the client. If none has yet been received you should send `null` (you cannot send a heartbeat before authenticating, however).
+Used to maintain an active gateway connection. Must be sent every `heartbeat_interval` milliseconds after the [Hello](#DOCS_GATEWAY/gateway-hello) payload is received. *Note that this interval already has room for error, and that client implementations do not need to send a heartbeat faster than what's specified.* The inner `d` key must be set to the last seq (`s`) received by the client. If none has yet been received you should send `null` (you cannot send a heartbeat before authenticating, however).
+
+This OP code is also bidirectional. The gateway may request a heartbeat from you in some situations, and you should send a heartbeat back to the gateway as you normally would.
 
 >info
 > It is worth noting that in the event of a service outage where you stay connected to the gateway, you should continue to heartbeat and receive ACKs. The gateway will eventually respond and issue a session once it is able to.
