@@ -91,7 +91,7 @@ Used by the gateway to notify the client of events.
 
 ### Gateway Heartbeat
 
-Used to maintain an active gateway connection. Must be sent every `heartbeat_interval` milliseconds after the [Hello](#DOCS_GATEWAY/gateway-hello) payload is received. Note that this interval already has room for error, and that client implementations do not need to send a heartbeat faster than what's specified. The inner `d` key must be set to the last seq (`s`) received by the client. If none has yet been received you should send `null` (you cannot send a heartbeat before authenticating, however).
+Used to maintain an active gateway connection. Must be sent every `heartbeat_interval` milliseconds after the [Hello](#DOCS_GATEWAY/gateway-hello) payload is received. Note that this interval already has room for error, and that client implementations do not need to send a heartbeat faster than what's specified. The inner `d` key must be set to the last seq (`s`) received by the client. If none has yet been received you should send `null` (you cannot send a heartbeat before authenticating, however). If this payload is received, Discord is wanting to keep your connection alive; in this case, you should immediately send this payload back with the `d` key the same as your last received seq (`s`).
 
 >info
 > It is worth noting that in the event of a service outage where you stay connected to the gateway, you should continue to heartbeat and receive ACKs. The gateway will eventually respond and issue a session once it is able to.
