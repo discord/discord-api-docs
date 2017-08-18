@@ -177,7 +177,8 @@ Used to trigger the initial handshake with the gateway.
 	"shard": [1, 10],
 	"presence": {
 		"game": {
-			"name": "Cards Against Humanity"
+			"name": "Cards Against Humanity",
+			"type": 0
 		},
 		"status": "dnd",
 		"since": 91879201,
@@ -263,7 +264,8 @@ Sent by the client to indicate a presence or status update.
 {
 	"since": 91879201,
 	"game": {
-		"name": "Save the Oxford Comma"
+		"name": "Save the Oxford Comma",
+		"type": 0
 	},
 	"status": "online",
 	"afk": false
