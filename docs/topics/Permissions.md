@@ -116,7 +116,7 @@ def compute_permissions(member, channel):
 
 ## Implicit Permissions
 
-Permissions in Discord are sometimes implicitly denied or allowed based on logical use. The two main cases are `READ_MESSAGES` and `SEND_MESSAGES` for text channels. Denying a user or a role `READ_MESSAGES` on a channel implicitly denies other permissions on the channel. Though permissions like `SEND_MESSAGES` are not explicitly denied for the user, they are ignored because the user cannot read messages in the channel, and therefore isn't allowed to interact with it at all.
+Permissions in Discord are sometimes implicitly denied or allowed based on logical use. The two main cases are `READ_MESSAGES` and `SEND_MESSAGES` for text channels. Denying a user or a role `READ_MESSAGES` on a channel implicitly denies other permissions on the channel. Though permissions like `SEND_MESSAGES` are not explicitly denied for the user, they are ignored because the user cannot read messages in the channel.
 
 Denying `SEND_MESSAGES` implicitly denies `MENTION_EVERYONE`, `SEND_TTS_MESSAGES`, `ATTACH_FILES`, and `EMBED_LINKS`. Again, they are not explicitly denied when doing permissions calculations, but they are ignored because the user cannot do the base action of sending messages.
 
