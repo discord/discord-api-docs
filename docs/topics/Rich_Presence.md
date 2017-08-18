@@ -31,7 +31,9 @@ These five callbacks make up the entirety of what you need to implement. Behind 
 
 ## Whatcha dooooooin'?
 
-The first step in implementing Rich Presence is registering your callback functions to the five `DiscordEventHandlers` and then calling `Discord_Initialize()` with your `APPLICATION_ID`:
+The first step in implementing Rich Presence is [creating an application](https://discordapp.com/developers/applications/me). Once you've created your application, note and save your `Client ID`. You will need this to initialize the SDK; this value will be referred to throughout this documentation as both `client_id` and `application_id`. Next, scroll down to the bottom of your application's page and hit the button that says "Enable Rich Presence". This will allow you to upload assets to your dashboard for later use.
+
+ Now we're ready to get coding! To begin, you'll register your callback functions to the five `DiscordEventHandlers` and then call `Discord_Initialize()` with your `APPLICATION_ID`:
 
 ```cpp
 void InitDiscord()
@@ -45,7 +47,7 @@ void InitDiscord()
 }
 ```
 
-The `Discord_Initialize()` function has a parameter `autoRegister`. Marking this field as true lets Discord register an application protocol in the format `discord-[your app id]://` so that joining and spectating will work even when the game is closed. Once the game launches, we'll call your `joinGame()` and `spectateGame()` functions to continue the flow. If your game needs custom parameters on launch, such as an auth ticket, you'll need to register your own protocol on the system. More information on this coming soon. For now, just ask us!
+The `Discord_Initialize()` function has a parameter `autoRegister`. Marking this field as true lets Discord register an application protocol in the format `discord-[application_id]://` so that joining and spectating will work even when the game is closed. Once the game launches, we'll call your `joinGame()` and `spectateGame()` functions to continue the flow. If your game needs custom parameters on launch, such as an auth ticket, you'll need to register your own protocol on the system. More information on this coming soon. For now, just ask us!
 
 The core of Discord's Rich Presence SDK is the `Discord_UpdatePresence()` function. This is what sends your game data up to Discord to be seen and used by others. You should call `Discord_UpdatePresence()` with the necessary data in your `ready()` callback and any time something in the presence payload changes. The payload is outlined in detail in a later section, but for now, here's an example of a super rich presence:
 
