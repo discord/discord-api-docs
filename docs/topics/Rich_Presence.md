@@ -27,6 +27,14 @@ In the header file, you'll find five event-emitting callbacks:
 
 These five callbacks make up the entirety of what you need to implement. Behind the scenes, we do all the heavy lifting for you.
 
+## A note on Testing
+
+In order to test your Rich Presence integration locally, you and your testers will need to make sure that your game client is detected by Discord. If your game is not automatically detected, presence data will not be shown. To detect your game, go to User Settings -> Games -> Add it! and select your application from the dropdown list. Every user working with your local development build will need to follow these steps in order for Discord to detect their presence.
+
+If you are having issues with your release build not being detected, send us an email at [gamedevs@discordapp.com](mailto:gamedevs@discordapp.com) and we'll add it to our database for you.
+
+If you're testing on your own, we recommend [downloading two separate release channels](https://discordapp.com/download) of the Discord desktop client. You can log into the stable, public test, and canary builds with separate credentials, making testing easier for a single developer.
+
 ## Whatcha dooooooin'?
 
 The first step in implementing Rich Presence is [creating an application](https://discordapp.com/developers/applications/me). Once you've created your application, note and save your `Client ID`. You will need this to initialize the SDK; this value will be referred to throughout this documentation as both `client_id` and `application_id`. Next, scroll down to the bottom of your application's page and hit the button that says "Enable Rich Presence". This will allow you to upload assets to your dashboard for later use.
@@ -134,12 +142,6 @@ typedef struct DiscordRichPresence {
 We've chosen the fields based on common data between the most popular games on Discord, but they are by no means rigid. Play with them to fit the data you'd like to display for your game! You can also omit any of the fields, and the UI will gracefully adjust. Below is an image that shows which fields go where when sending a full data payload with spectating and notifications enabled; use it for reference for your own data:
 
 ![](rp-profile-view.png)
-
-## A note on game detection
-
-In order to test your Rich Presence integration locally, you and your testers will need to make sure that your game client is detected by Discord. If your game is not automatically detected, presence data will not be shown. To detect your game, go to User Settings -> Games -> Add it! and select your application from the dropdown list. Every user working with your local development build will need to follow these steps in order for Discord to detect their presence.
-
-If you are having issues with your release build not being detected, send us an email at [gamedevs@discordapp.com](mailto:gamedevs@discordapp.com) and we'll add it to our database for you.
 
 ## Secrets, secrets are...fun!
 
