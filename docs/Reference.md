@@ -125,17 +125,17 @@ Discord utilizes a subset of markdown for rendering message content on its clien
 
 | Type | Structure | Example |
 |---------|-------------|-------------|
-| User | `<@USER_SNOWFLAKE_ID>` | `<@80351110224678912>` |
-| User (Nickname) | `<@!USER_SNOWFLAKE_ID>` | `<@!80351110224678912>` |
-| Channel | `<#CHANNEL_SNOWFLAKE_ID>` | `<#103735883630395392>` |
-| Role | `<@&ROLE_SNOWFLAKE_ID>` | `<@&165511591545143296>` |
-| Custom Emoji | `<:NAME:ID>` | `<:mmLol:216154654256398347>` |
+| User | <@USER_ID> | <@80351110224678912> |
+| User (Nickname) | <@!USER_ID> | <@!80351110224678912> |
+| Channel | <#CHANNEL_ID> | <#103735883630395392> |
+| Role | <@&ROLE_ID> | <@&165511591545143296> |
+| Custom Emoji | <:NAME:ID> | <:mmLol:216154654256398347> |
 
 Using the markdown for either users, roles, or channels will mention the target(s) accordingly.
 
 ## Image Formatting
 
-Discord uses ids and hashes to render images in the client. These hashes can be retrieved through various API requests, like [Get User](#DOCS_USER/get-user). Below are the formats, size limitations, and CDN endpoints for images in Discord:
+Discord uses ids and hashes to render images in the client. These hashes can be retrieved through various API requests, like [Get User](#DOCS_USER/get-user). Below are the formats, size limitations, and CDN endpoints for images in Discord. The returned format can be changed by changing the extension name at the end of the URL, within the [limitations](#DOCS_REFERENCE/image-formatting-image-formats). The returned size can be changed by appending a querystring of `?size=desired_size` to the URL, within the [limitations](#DOCS_REFERENCE/image-formatting-image-sizes).
 
 ###### Image Formats
 
@@ -150,15 +150,18 @@ Discord uses ids and hashes to render images in the client. These hashes can be 
 
 Power of 2 between 16 and 1024.
 
+>info
+>All image URLs are prefixed with https\://cdn.discordapp.com/
+
 ###### CDN Endpoints
 
-| Type | URL |
-|-------|-----------------|
-| Custom Emoji | cdn.discordapp.com/emojis/[{emoji.id}](#DOCS_GUILD/emoji-object).png |
-| Guild Icon | cdn.discordapp.com/icons/[{guild.id}](#DOCS_GUILD/guild-object)/[{guild.icon}](#DOCS_GUILD/guild-object).[{format}](#DOCS_REFERENCE/image-formatting-image-formats)?size=[{size}](#DOCS_REFERENCE/image-formatting-image-sizes) |
-| Guild Splash | cdn.discordapp.com/splashes/[{guild.id}](#DOCS_GUILD/guild-object)/[{guild.splash}](#DOCS_GUILD/guild-object).[{format}](#DOCS_REFERENCE/image-formatting-image-formats)?size=2048 |
-| Default User Avatar | cdn.discordapp.com/embed/avatars/{[user.discriminator](#DOCS_USER/user-object) % 5}.png |
-| User Avatar | cdn.discordapp.com/avatars/[{user.id}](#DOCS_USER/user-object)/[{user.avatar](#DOCS_USER/user-object).[{format}](#DOCS_REFERENCE/image-formatting-image-formats)?size=[{size}](#DOCS_REFERENCE/image-formatting-image-sizes) |
+| Type | Path | Supports |
+| ---- | --- | -------- |
+| Custom Emoji | emojis/[emoji_id](#DOCS_GUILD/emoji-object).png | PNG |
+| Guild Icon | icons/[guild_id](#DOCS_GUILD/guild-object)/[guild_icon](#DOCS_GUILD/guild-object).png | PNG, JPEG, WebP |
+| Guild Splash | splashes/[guild_id](#DOCS_GUILD/guild-object)/[guild_splash](#DOCS_GUILD/guild-object).png | PNG, JPEG, WebP, size up to 2048 |
+| Default User Avatar | embed/avatars/[user_discriminator](#DOCS_USER/user-object).png * | PNG |
+| User Avatar | avatars/[user_id](#DOCS_USER/user-object)/[user_avatar](#DOCS_USER/user-object).png | PNG, JPEG, WebP, GIF |
+| Application Icon | app-icons/[application_id](#MY_APPLICATIONS/top)/[icon](#DOCS_OAUTH2/get-current-application-information).png | PNG, JPEG, WebP |
 
->info
->All CDN Endpoints should be prefixed with `https://`
+\* In the case of the Default User Avatar endpoint, the value for `user_discriminator` in the path should be the user's discriminator modulo 5—Test#1337 would be `1337 % 5`, which evaluates to 2.
