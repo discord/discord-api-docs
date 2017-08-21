@@ -9,9 +9,7 @@ Rich Presence is currently in a private alpha phase. If you're interested in get
 
 ## So, what is it?
 
-Rich Presence allows you to leverage the totally overhauled "Now Playing" section in a Discord user's profile to help people play your game together. Rich game data—including duration, score, current boss or map, and so much more—lives inside a user's profile alongside buttons that let you spectate or join a friend's game directly from Discord, or get a notification when it's over.
-
-It also features beautiful embeds right in your chat window with real-time information about open party slots and the party's in-game status. No more wondering if there's room for you to join, or if they're mid-game, or about to finish. It's a living invitation to play together!
+Rich Presence allows you to leverage the totally overhauled "Now Playing" section in a Discord user's profile to help people play your game together. Rich game data—including duration, score, current boss or map, and so much more—lives inside Discord. You can spectate a friend's game directly from their profile popout, or party up via beautiful chat embeds with real-time information about open party slots and the party's in-game status. No more exchanging usernames and friend codes, or wondering if there's room for you to join. Rich Presence is a living invitation to play together, or to watch your friends kick butt.
 
 ## So, how does it work?
 
@@ -108,27 +106,27 @@ typedef struct DiscordRichPresence {
 
 *Ooo, let's break it down!*
 
-__`state`__ is the user's current context. This could be "In Game," "In Queue," "Looking to Play," or any other states you want to denote.
+`state` is the user's current context. This could be "In Game," "In Queue," "Looking to Play," or any other states you want to denote.
 
-__`details`__ is a catch-all field that you can customize as you please. It's the first line of data displayed under the name of your game, and should display the most prominent data. For example, "Competitive | Match Type (Score)".
+`details` is a catch-all field that you can customize as you please. It's the first line of data displayed under the name of your game, and should display the most prominent data. For example, "Competitive | Match Type (Score)".
 
-__`startTimestamp`__ is the Unix timestamp (in seconds) at which the player entered their most recent instanced state, for example, a new game. Providing `startTimestamp` will cause the display time in the presence popout to count up from `00:00`.
+`startTimestamp` is the Unix timestamp (in seconds) at which the player entered their most recent instanced state, for example, a new game. Providing `startTimestamp` will cause the display time in the presence popout to count up from `00:00`.
 
-__`endTimestamp`__ is also a Unix timestamp (in seconds), but denotes at what time the player's current instanced state will end. Send this if you want us to do the math and display the timer as counting down to `00:00` from your timestamp.
+`endTimestamp` is also a Unix timestamp (in seconds), but denotes at what time the player's current instanced state will end. Send this if you want us to do the math and display the timer as counting down to `00:00` from your timestamp.
 
-__`largeImageKey`__ and __`smallImageKey`__ are the key values for the artwork you have uploaded to your Developer Dashboard (more on that later!). __`largeImageText`__ and __`smallImageText`__ are the mouseover tooltips on the corresponding artwork.
+`largeImageKey` and `smallImageKey` are the key values for the artwork you have uploaded to your Developer Dashboard (more on that later!). `largeImageText` and `smallImageText` are the mouseover tooltips on the corresponding artwork.
 
-__`partyId`__ is the public id for the player's current party. Discord uses this to power party status and render dynamic party slots in the chat embeds. It is also required for join invites, but should not be sent for spectate invites.
+`partyId` is the public id for the player's current party. Discord uses this to power party status and render dynamic party slots in the chat embeds. It is also required for join embeds, but does not need to be sent for spectate invites.
 
-__`partySize`__ is the current size of the player's party. Sending `0` is the same as omitting it.
+`partySize` is the current size of the player's party. Sending `0` is the same as omitting it.
 
-__`partyMax`__ is the maximum allowed size for a party. Sending `0` means there is no limit on the size.
+`partyMax` is the maximum allowed size for a party. Sending `0` means there is no limit on the size.
 
-__`matchSecret`__ works in tandem with `instance` to power the notification piece of Rich Presence. It's also used as an internal identifier for the player's current match/dungeon/raid so we can match presences for things like the `joinGame()` embed. When you send us a `matchSecret` with `instance` set to `true`, we know a further change in `matchSecret` means the player is done with whatever they were doing, or finally gave up on the Water Temple, and we can send a notification to anyone who subscribed.
+`matchSecret` works in tandem with `instance` to power the notification piece of Rich Presence. It's also used as an internal identifier for the player's current match/dungeon/raid so we can match presences for things like the `joinGame()` embed. When you send us a `matchSecret` with `instance` set to `true`, we know a further change in `matchSecret` means the player is done with whatever they were doing, or finally gave up on the Water Temple, and we can send a notification to anyone who subscribed.
 
-__`joinSecret`__ and __`spectateSecret`__ are unique, non-guessable data that serve as Discord's way to make callbacks to your game. These could be hashed or encrypted values of a player's id for `spectateSecret`, a lobby id and password for `joinSecret`, or any other data your game needs. Discord sends these values back to you in the appropriate callback functions. More on these in the next section.
+`joinSecret` and `spectateSecret` are unique, non-guessable data that serve as Discord's way to make callbacks to your game. These could be hashed or encrypted values of a player's id for `spectateSecret`, a lobby id and password for `joinSecret`, or any other data your game needs. Discord sends these values back to you in the appropriate callback functions. More on these in the next section.
 
-__`instance`__ helps Discord be smart about notifications and display. Setting it to `true` tells us to show the "Notify me" button and alert whoever clicks it when the `matchSecret` changes.
+`instance` helps Discord be smart about notifications and display. Setting it to `true` tells us to show the "Notify me" button and alert whoever clicks it when the `matchSecret` changes.
 
 >warn
 >The "Notify Me" feature is coming soon. If you want your game to support it on release, you should hook up the necessary fields now.
@@ -149,7 +147,7 @@ Security is of the utmost importance to us here at Discord, and we know it is fo
 
 Secrets are obfuscated data of your choosing. They could be match ids, player ids, lobby ids, or your favorite color in hexadecimal over and over. You should send us data that someone else's game client would need to join or spectate their friend. If you can't or don't want to support those actions, you don't need to send us secrets. In fact, you could skip the rest of this section, but we all know that the real magic is _learning_.
 
-Your secrets on Discord need to be well-kept. When someone wants to join a friend's game, they hit the "Join" button. Discord checks to make sure their permissions are in order, and then passes their client the `joinSecret` so the callback can fire on their machine, and their game client can handle it.
+Your secrets on Discord need to be well-kept. When someone wants to spectate a friend's game, for example, they hit the "Spectate" button in their friend's profile. Discord checks to make sure their permissions are in order, and then passes their client the `spectateSecret` so the callback can fire on their machine, and their game client can handle it.
 
 To keep security on the up and up, Discord requires that you properly hash/encode/encrypt/put-a-padlock-on-and-swallow-the-key-but-wait-then-how-would-you-open-it your secrets. There are more than a couple of ways of going about this, but here's a couple points to muse over:
 
