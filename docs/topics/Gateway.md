@@ -446,18 +446,6 @@ Sent when a channel is updated. The inner payload is a [guild channel](#DOCS_CHA
 
 Sent when a channel relevant to the current user is deleted. The inner payload is a [DM](#DOCS_CHANNEL/channel-object) or [Guild](#DOCS_CHANNEL/channel-object) channel object.
 
-### Guild Delete
-
-Sent when a guild becomes unavailable during a guild outage, or when the user leaves or is removed from a guild.
-
-###### Guild Delete Event Fields
-
-| Field | Type | Description |
-|-------|------|-------------|
-| id | snowflake | id of the guild |
-| unavailable | bool | whether the guild is unavailable, should always be true. if not set, this signifies that the user was removed from the guild |
-
-
 ### Channel Pins Update
 
 Sent when a message is pinned or unpinned in a text channel. This is not sent when a pinned message is deleted.
