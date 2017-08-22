@@ -8,7 +8,7 @@ Represents a guild or DM channel within Discord.
 
 | Field | Type | Description |
 |-------|------|-------------|
-| id | snowflake | the id of this channel (will be equal to the guild if it's the "general" channel) |
+| id | snowflake | the id of this channel |
 | type | integer | the [type of channel](#DOCS_CHANNEL/channel-object-channel-types) |
 | guild\_id? | snowflake | the id of the guild |
 | position? | integer | sorting position of the channel |
