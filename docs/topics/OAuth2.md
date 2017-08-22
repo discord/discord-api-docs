@@ -254,9 +254,15 @@ When the user navigates to this URL, they will be prompted to select a channel i
 }
 ```
 
-Inside this object, what we really care about is `webhook.url`. This is the URL to which you will make POST requests in order to [execute your webhook](#DOCS_WEBHOOK/execute-webhook).
+From this object, you should store the `webhook.token` and `webhook.id`. To execute a particular webhook, send a `POST` request to:
 
-Any user that wishes to add your webhook to their channel will need to go through the full OAuth2 flow, but it's not necessary to save the webhook information each time—it will be identical. Now, whenever you execute your webhook, everyone who's added it will see the message!
+###### Webhook URL Example
+
+```
+https://discordapp.com/api/webhooks/webhook_id/webhook_token
+```
+
+Any user that wishes to add your webhook to their channel will need to go through the full OAuth2 flow. A new webhook is created each time, so you will need to save the token and id. If you wish to send a message to all your webhooks, you'll need to iterate over each stored id:token combination and make `POST` requests to each one.
 
 ### Get Current Application Information % GET /oauth2/applications/@me
 
