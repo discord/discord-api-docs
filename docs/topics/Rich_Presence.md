@@ -27,7 +27,7 @@ In the header file, you'll find five event-emitting callbacks:
 
 These five callbacks make up the entirety of what you need to implement. Behind the scenes, we do all the heavy lifting for you.
 
-## A note on Testing
+## A note on testing and Game Detection
 
 In order to test your Rich Presence integration locally, you and your testers will need to make sure that your game client is detected by Discord. If your game is not automatically detected, presence data will not be shown. To detect your game, go to User Settings -> Games -> Add it! and select your application from the dropdown list. Every user working with your local development build will need to follow these steps in order for Discord to detect their presence.
 
