@@ -43,6 +43,12 @@ The first step in implementing OAuth2 is [registering a developer application](#
 >info
 >`guilds.join` and `bot` require you to have a bot account linked to your application. Also, in order to add a user to a guild, your bot has to already belong to that guild.
 
+## State and Security
+
+Before we dive into the semantics of the different OAuth2 grants, we should stop and discuss security, specifically the use of the `state` parameter. [Cross Site Request Forgery](https://en.wikipedia.org/wiki/Cross-site_request_forgery), or CSRF, and [Clickjacking](https://en.wikipedia.org/wiki/Clickjacking) are security vulnerabilities that must be addressed by anyone implementing OAuth. This is typically accomplished using the `state` parameter. `state` is sent in the authorization request and returned back in the response and should be a value that binds the user's request to their authenticated state. For example, `state` could be a hash of the user's session cookie, or some other nonce that can be linked to the user's session.
+
+When a user begins an authorization flow on the client, a `state` is generated that is unique to that user's request. This value is stored somewhere only accessible to the client and the user, i.e. protected by the [same-origin policy](https://en.wikipedia.org/wiki/Same-origin_policy). When the user is redirected, the `state` parameter is returned. The client validates the request by checking that the `state` returned matches the stored value. If they match, it is a valid authorization request. If they do not match, it's possible that someone intercepted the request or otherwise falsely authorized themselves to another user's resources, and the request should be denied.
+
 ## Authorization Code Grant
 
 The authorization code grant is is what most developers will recognize as "standard OAuth2" and involves retrieving an access code and exchanging it for a user's access token. It allows the authorization server to act as an intermediary between the client and the resource owner, so the resource owner's credentials are never shared directly with the client.
@@ -140,7 +146,7 @@ On redirect, your redirect URI will contain additional **URI fragments**: `acces
 ###### Implicit Redirect URL Example
 
 ```
-https://findingfakeurlsisprettyhard.tv/#access_token=RTfP0OKC7U3kbRtHOoKLmJbOn45PjL&token_type=Bearer604800expires_in=B&scope=identify
+https://findingfakeurlsisprettyhard.tv/#access_token=RTfP0OKC7U3kbRtHOoKLmJbOn45PjL&token_type=Bearer&expires_in=604800&scope=identify
 ```
 
 There are tradeoffs in using the implicit grant flow. It is both quicker and easier to implement, but rather than exchanging a code and getting a token returned in a secure HTTP body, the access token is returned in the URI fragment, which makes it possibly exposed to unauthorized parties. If you choose to implement the implicit grant, we highly recommend using the `state` parameter to help protect against cross-site request forgery. You also are not returned a refresh token, so the user must explicitly re-authorize once their token expires.
@@ -210,7 +216,7 @@ When the user navigates to this page, they'll be prompted to add the bot to a se
 
 ### Advanced Bot Auth
 
-Enterprising devs can add some complexity to bot auth. You can request additional scopes outside of "bot", which will prompt a continuation into a complete flow and add the ability to request the user's access token. If you request any scopes outside of `bot`, the `response_type` and `redirect_uri` parameters are again mandatory. A full OAuth2 flow is also required if you check "Require OAuth2 Code Grant" in your application's settings. On a similar note, if you extend into a full OAuth2 flow but do not specify a `redirect_uri` in your querystring, we will automatically redirect to the first uri in your application's registered list.
+Enterprising devs can add some complexity to bot auth. You can request additional scopes outside of "bot", which will prompt a continuation into a complete flow and add the ability to request the user's access token. If you request any scopes outside of `bot`, `response_type` is again mandatory; we will also automatically redirect the user to the first uri in your application's registered list unless `redirect_uri` is specified. A full OAuth2 flow is also required if you check "Require OAuth2 Code Grant" in your application's settings.
 
 If you continue into the full stack flow while including "bot" in your scopes, you'll get some additional querystring parameters on redirection: `guild_id`, the id of the guild to which the bot was added, and `permissions`, the permission integer from the original URL. `guild_id` should only be used as a hint that the bot has joined that guild and not as a source of truth. If you are looking to associate your bot to that guild, you should ensure at minimum that the user adding the bot has MANAGE_SERVER permissions on that guild. You could also use the [Get Current User Guilds](#DOCS_USER/get-current-user-guilds) endpoint with your bot's token and look for that `guild_id`.
 
