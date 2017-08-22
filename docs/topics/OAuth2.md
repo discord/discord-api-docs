@@ -56,7 +56,7 @@ The authorization code grant is is what most developers will recognize as "stand
 ###### Authorization Code URL Example
 
 ```
-https://discordapp.com/oauth2/authorize?response_type=code&client_id=157730590492196864&scope=identify%20guilds.join&redirect_uri=https%3A%2F%2Fnicememe.website
+https://discordapp.com/oauth2/authorize?response_type=code&client_id=157730590492196864&scope=identify%20guilds.join&state=15773059ghq9183habn&redirect_uri=https%3A%2F%2Fnicememe.website
 ```
 
 `client_id` is your application's `client_id`. `scope` is a list of [OAuth2 scopes](#DOCS_OAUTH2/shared-resources-oauth2-scopes) separated by url encoded spaces (`%20`). `redirect_uri` is whatever URL you registered when creating your application, url-encoded.
@@ -72,13 +72,14 @@ When someone navigates to this URL, they will be prompted to authorize your appl
 ###### Access Token Exchange Example
 
 ```python
-def exchange_code(code):
+def exchange_code(code, state):
   data = {
     'client_id': '332269999912132097',
     'client_secret': '456265548123452097',
     'grant_type': 'authorization_code',
     'code': code,
-    'redirect_uri': 'https://nicememe.website'
+    'redirect_uri': 'https://nicememe.website',
+    'state': state
   }
   headers = {
     'Content-Type': 'application/x-www-form-urlencoded'
@@ -138,7 +139,7 @@ The implicit OAuth2 grant is a simplified flow optimized for in-browser clients.
 ###### Implicit URL Example
 
 ```
-https://discordapp.com/oauth2/authorize?response_type=token&client_id=290926444748734499&scope=identify
+https://discordapp.com/oauth2/authorize?response_type=token&client_id=290926444748734499&state=15773059ghq9183habn&scope=identify
 ```
 
 On redirect, your redirect URI will contain additional **URI fragments**: `access_token`, `token_type`, `expires_in`, and `scope`. **These are not querystring parameters.** Be mindful of the "#" character:
@@ -146,7 +147,7 @@ On redirect, your redirect URI will contain additional **URI fragments**: `acces
 ###### Implicit Redirect URL Example
 
 ```
-https://findingfakeurlsisprettyhard.tv/#access_token=RTfP0OKC7U3kbRtHOoKLmJbOn45PjL&token_type=Bearer&expires_in=604800&scope=identify
+https://findingfakeurlsisprettyhard.tv/#access_token=RTfP0OK99U3kbRtHOoKLmJbOn45PjL&token_type=Bearer&expires_in=604800&scope=identify&state=15773059ghq9183habn
 ```
 
 There are tradeoffs in using the implicit grant flow. It is both quicker and easier to implement, but rather than exchanging a code and getting a token returned in a secure HTTP body, the access token is returned in the URI fragment, which makes it possibly exposed to unauthorized parties. If you choose to implement the implicit grant, we highly recommend using the `state` parameter to help protect against cross-site request forgery. You also are not returned a refresh token, so the user must explicitly re-authorize once their token expires.
@@ -225,7 +226,7 @@ If you continue into the full stack flow while including "bot" in your scopes, y
 Discord's webhook flow is a specialized version of an [authorization code](#DOCS_OAUTH2/authorization-code-grant) implementation. In this case, the `scope` querystring parameter needs to be set to `webhook.incoming`:
 
 ```
-https://discordapp.com/oauth2/authorize?response_type=code&client_id=157730590492196864&scope=webhook.incoming&redirect_uri=https%3A%2F%2Fnicememe.website
+https://discordapp.com/oauth2/authorize?response_type=code&client_id=157730590492196864&scope=webhook.incoming&state=15773059ghq9183habn&redirect_uri=https%3A%2F%2Fnicememe.website
 ```
 
 When the user navigates to this URL, they will be prompted to select a channel in which to allow the webhook. When the webhook is [executed](#DOCS_WEBHOOK/execute-webhook), it will post its message into this channel. On acceptance, the user will be redirected to your `redirect_uri`. The URL will contain the `code` querystring parameter which should be [exchanged for an access token](#DOCS_OAUTH2/authorization-code-grant-access-token-exchange-example). In return, you will receive a slightly modified token response:
