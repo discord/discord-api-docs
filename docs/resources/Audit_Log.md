@@ -91,7 +91,7 @@ Whenever an admin action is performed on the API, an entry is added to the respe
 | owner_id | [guild](#DOCS_GUILD/guild-object) | snowflake | owner changed |
 | region | [guild](#DOCS_GUILD/guild-object) | string | region changed |
 | afk_channel_id | [guild](#DOCS_GUILD/guild-object) | snowflake | afk channel changed |
-| afk_timeout | [guild](#DOCS_GUILD/guild-object) | integer | afk timout duration changed |
+| afk_timeout | [guild](#DOCS_GUILD/guild-object) | integer | afk timeout duration changed |
 | mfa_level | [guild](#DOCS_GUILD/guild-object) | integer | two-factor auth requirement changed |
 | verification_level | [guild](#DOCS_GUILD/guild-object) | integer | required verification level changed |
 | explicit_content_filter | [guild](#DOCS_GUILD/guild-object) | integer | change in [whose messages](#DOCS_GUILD/guild-object-explicit-content-filter-level) are scanned and deleted for explicit content in the server |
