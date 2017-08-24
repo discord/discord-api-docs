@@ -106,6 +106,8 @@ Clients using the HTTP API must provide a valid [User Agent](https://www.w3.org/
 User-Agent: DiscordBot ($url, $versionNumber)
 ```
 
+Clients may append more information and metadata to the _end_ of this string as they wish.
+
 ### Rate Limiting
 
 The HTTP API implements a process for limiting and preventing excessive requests in accordance with [RFC 6585](https://tools.ietf.org/html/rfc6585#section-4). API users that regularly hit and ignore rate limits will have their API keys revoked, and be blocked from the platform. For more information on rate limiting of requests, please see the [Rate Limits](#DOCS_RATE_LIMITS/rate-limits) section.
