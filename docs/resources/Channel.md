@@ -208,6 +208,8 @@ Represents a message sent in a channel within Discord.
 
 ### Embed Object
 
+A very useful tool for experimenting with different embed object types is to use this [community-built embed visualizer](https://leovoel.github.io/embed-visualizer/).
+
 ###### Embed Structure
 
 | Field | Type | Description |
