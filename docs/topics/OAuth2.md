@@ -55,15 +55,15 @@ While Discord does not require the use of the `state` parameter, we support it a
 
 The authorization code grant is is what most developers will recognize as "standard OAuth2" and involves retrieving an access code and exchanging it for a user's access token. It allows the authorization server to act as an intermediary between the client and the resource owner, so the resource owner's credentials are never shared directly with the client.
 
-###### Authorization Code URL Example
+###### URL Example
 
 ```
-https://discordapp.com/oauth2/authorize?response_type=code&client_id=157730590492196864&scope=identify%20guilds.join&state=15773059ghq9183habn&redirect_uri=https%3A%2F%2Fnicememe.website
+https://discordapp.com/api/oauth2/authorize?response_type=code&client_id=157730590492196864&scope=identify%20guilds.join&state=15773059ghq9183habn&redirect_uri=https%3A%2F%2Fnicememe.website
 ```
 
-`client_id` is your application's `client_id`. `scope` is a list of [OAuth2 scopes](#DOCS_OAUTH2/shared-resources-oauth2-scopes) separated by url encoded spaces (`%20`). `redirect_uri` is whatever URL you registered when creating your application, url-encoded.
+`client_id` is your application's `client_id`. `scope` is a list of [OAuth2 scopes](#DOCS_OAUTH2/shared-resources-oauth2-scopes) separated by url encoded spaces (`%20`). `redirect_uri` is whatever URL you registered when creating your application, url-encoded. `state` is the unique string mentioned in [State and Security](#DOCS_OAUTH2/state-and-security).
 
-When someone navigates to this URL, they will be prompted to authorize your application for the requested scopes. On acceptance, they will be redirected to your `redirect_uri`, which will contain an additional querystring parameter, `code`. This should be exchanged for the user's access token by making a `POST` request to the [token URL](#DOCS_OAUTH2/shared-resources-oauth2-urls) with the following parameters:
+When someone navigates to this URL, they will be prompted to authorize your application for the requested scopes. On acceptance, they will be redirected to your `redirect_uri`, which will contain an additional querystring parameter, `code`. `state` will also be returned if previously sent, and should be validated at this point. `code` is now exchanged for the user's access token by making a `POST` request to the [token URL](#DOCS_OAUTH2/shared-resources-oauth2-urls) with the following parameters:
 
 - `client_id` - your application's client id
 - `client_secret` - your application's client secret
@@ -74,14 +74,13 @@ When someone navigates to this URL, they will be prompted to authorize your appl
 ###### Access Token Exchange Example
 
 ```python
-def exchange_code(code, state):
+def exchange_code(code):
   data = {
     'client_id': '332269999912132097',
     'client_secret': '456265548123452097',
     'grant_type': 'authorization_code',
     'code': code,
-    'redirect_uri': 'https://nicememe.website',
-    'state': state
+    'redirect_uri': 'https://nicememe.website'
   }
   headers = {
     'Content-Type': 'application/x-www-form-urlencoded'
@@ -91,7 +90,7 @@ def exchange_code(code, state):
   return r.json()
 ```
 
-You can also pass your `client_id` and `client_secret` as an authentication header of type `Basic` with `client_id` as the username and `client_secret` as the password. In response, you will receive:
+You can also pass your `client_id` and `client_secret` as basic authentication with `client_id` as the username and `client_secret` as the password. In response, you will receive:
 
 ###### Access Token Response
 
@@ -138,21 +137,21 @@ Boom; fresh [access token response](#DOCS_OAUTH2/authorization-code-grant-access
 
 The implicit OAuth2 grant is a simplified flow optimized for in-browser clients. Instead of issuing the client an authorization code to be exchanged for an access token, the client is directly issued an access token. The URL is formatted as follows:
 
-###### Implicit URL Example
+###### URL Example
 
 ```
-https://discordapp.com/oauth2/authorize?response_type=token&client_id=290926444748734499&state=15773059ghq9183habn&scope=identify
+https://discordapp.com/api/oauth2/authorize?response_type=token&client_id=290926444748734499&state=15773059ghq9183habn&scope=identify
 ```
 
-On redirect, your redirect URI will contain additional **URI fragments**: `access_token`, `token_type`, `expires_in`, and `scope`. **These are not querystring parameters.** Be mindful of the "#" character:
+On redirect, your redirect URI will contain additional **URI fragments**: `access_token`, `token_type`, `expires_in`, `scope`, and [`state`](#DOCS_OAUTH2/state-and-security)(if specified). **These are not querystring parameters.** Be mindful of the "#" character:
 
-###### Implicit Redirect URL Example
+###### URL Example
 
 ```
 https://findingfakeurlsisprettyhard.tv/#access_token=RTfP0OK99U3kbRtHOoKLmJbOn45PjL&token_type=Bearer&expires_in=604800&scope=identify&state=15773059ghq9183habn
 ```
 
-There are tradeoffs in using the implicit grant flow. It is both quicker and easier to implement, but rather than exchanging a code and getting a token returned in a secure HTTP body, the access token is returned in the URI fragment, which makes it possibly exposed to unauthorized parties. If you choose to implement the implicit grant, we highly recommend using the `state` parameter to help protect against cross-site request forgery. You also are not returned a refresh token, so the user must explicitly re-authorize once their token expires.
+There are tradeoffs in using the implicit grant flow. It is both quicker and easier to implement, but rather than exchanging a code and getting a token returned in a secure HTTP body, the access token is returned in the URI fragment, which makes it possibly exposed to unauthorized parties. **You also are not returned a refresh token, so the user must explicitly re-authorize once their token expires.**
 
 ### Client Credentials Grant
 
@@ -205,30 +204,82 @@ Bot accounts have a few differences in comparison to normal user accounts, namel
 3. Bots do not have a maximum number of Guilds (unlike user accounts, which are limited to 100).
 4. Bots have an entirely separate set of [Rate Limits](#DOCS_RATE_LIMITS/rate-limits).
 
-### Bot Auth Flow
+### Bot Authorization Flow
 
-Bot auth is a special server-less and callback-less OAuth2 flow that makes it easy for users to add bots to servers. The URL you create looks similar to what we use for full stack implementation:
+Bot authorization is a special server-less and callback-less OAuth2 flow that makes it easy for users to add bots to servers. The URL you create looks similar to what we use for full stack implementation:
+
+###### URL Example
 
 ```
-https://discordapp.com/oauth2/authorize?client_id=157730590492196864&scope=bot&permissions=1
+https://discordapp.com/api/oauth2/authorize?client_id=157730590492196864&scope=bot&permissions=1
 ```
 
-In the case of bots, the `scope` parameter should be set to `bot`. There's also a new parameter, `permissions`, which is an integer corresponding to the [permission calculations](#DOCS_PERMISSIONS/permissions-bitwise-permission-flags) for the bot. You'll also notice the absence of `response_type` and `redirect_uri`. Bot auth does not require these parameters because there is no need to retrieve the user's access token.
+In the case of bots, the `scope` parameter should be set to `bot`. There's also a new parameter, `permissions`, which is an integer corresponding to the [permission calculations](#DOCS_PERMISSIONS/permissions-bitwise-permission-flags) for the bot. You'll also notice the absence of `response_type` and `redirect_uri`. Bot authorization does not require these parameters because there is no need to retrieve the user's access token.
 
 When the user navigates to this page, they'll be prompted to add the bot to a server in which they have proper permissions. On acceptance, the bot will be added. Super easy!
 
-### Advanced Bot Auth
+If your bot is super specific to your private clubhouse, or you just don't like sharing, you can leave the `Public Bot` option unchecked in your application's settings. If unchecked, only you can add the bot to servers. If marked as public, anyone with your bot's URL can add it to servers in which they have proper permissions.
 
-Enterprising devs can add some complexity to bot auth. You can request additional scopes outside of "bot", which will prompt a continuation into a complete flow and add the ability to request the user's access token. If you request any scopes outside of `bot`, `response_type` is again mandatory; we will also automatically redirect the user to the first uri in your application's registered list unless `redirect_uri` is specified. A full OAuth2 flow is also required if you check "Require OAuth2 Code Grant" in your application's settings.
+### Advanced Bot Authorization
 
-If you continue into the full stack flow while including "bot" in your scopes, you'll get some additional querystring parameters on redirection: `guild_id`, the id of the guild to which the bot was added, and `permissions`, the permission integer from the original URL. `guild_id` should only be used as a hint that the bot has joined that guild and not as a source of truth. If you are looking to associate your bot to that guild, you should ensure at minimum that the user adding the bot has MANAGE_SERVER permissions on that guild. You could also use the [Get Current User Guilds](#DOCS_USER/get-current-user-guilds) endpoint with your bot's token and look for that `guild_id`.
+Enterprising devs can extend the bot authorization functionality. You can request additional scopes outside of `bot`, which will prompt a continuation into a complete [authorization code grant flow](#DOCS_OAUTH2/authorization-code-grant) and add the ability to request the user's access token. If you request any scopes outside of `bot`, `response_type` is again mandatory; we will also automatically redirect the user to the first uri in your application's registered list unless `redirect_uri` is specified.
+
+A full OAuth2 [authorization code grant flow](#DOCS_OAUTH2/authorization-code-grant) can also be required by ticking "Require OAuth2 Code Grant" in your application's settings. If, for instance, your bot needs to store a relationship between third-party websites and guilds to which it was added, requiring the OAuth2 code grant affords you the ability to get extra data during the token exchange. When receiving the access code on redirect, there will be additional querystring parameters of `guild_id` and `permissions`. The `guild_id` parameter should only be used as a hint as to the relationship between your bot and a guild. To be sure, enable the OAuth2 code grant requirement. When you retrieve the user's access token, you'll also receive information about the guild to which your bot was added:
+
+###### Extended Bot Authorization Access Token Example
+
+```json
+{
+    "token_type": "Bearer",
+    "guild": {
+        "mfa_level": 0,
+        "emojis": [],
+        "application_id": null,
+        "name": "SomeTest",
+        "roles": [
+            {
+                "hoist": false,
+                "name": "@everyone",
+                "mentionable": false,
+                "color": 0,
+                "position": 0,
+                "id": "290926798626357250",
+                "managed": false,
+                "permissions": 49794241
+            }
+        ],
+        "afk_timeout": 300,
+        "system_channel_id": null,
+        "widget_channel_id": null,
+        "region": "us-east",
+        "default_message_notifications": 1,
+        "embed_channel_id": null,
+        "explicit_content_filter": 0,
+        "splash": null,
+        "features": [],
+        "afk_channel_id": null,
+        "widget_enabled": false,
+        "verification_level": 0,
+        "owner_id": "53908232999183680",
+        "embed_enabled": false,
+        "id": "2909267986347357250",
+        "icon": null
+    },
+    "access_token": "zMndOe7jFLXGawdlxMOdNvXjjOce5X",
+    "scope": "bot",
+    "expires_in": 604800,
+    "refresh_token": "mgp8qnvBwJcmadwgCYKyYD5CAzGAX4"
+}
+```
 
 ## Webhooks
 
 Discord's webhook flow is a specialized version of an [authorization code](#DOCS_OAUTH2/authorization-code-grant) implementation. In this case, the `scope` querystring parameter needs to be set to `webhook.incoming`:
 
+###### URL Example
+
 ```
-https://discordapp.com/oauth2/authorize?response_type=code&client_id=157730590492196864&scope=webhook.incoming&state=15773059ghq9183habn&redirect_uri=https%3A%2F%2Fnicememe.website
+https://discordapp.com/api/oauth2/authorize?response_type=code&client_id=157730590492196864&scope=webhook.incoming&state=15773059ghq9183habn&redirect_uri=https%3A%2F%2Fnicememe.website
 ```
 
 When the user navigates to this URL, they will be prompted to select a channel in which to allow the webhook. When the webhook is [executed](#DOCS_WEBHOOK/execute-webhook), it will post its message into this channel. On acceptance, the user will be redirected to your `redirect_uri`. The URL will contain the `code` querystring parameter which should be [exchanged for an access token](#DOCS_OAUTH2/authorization-code-grant-access-token-exchange-example). In return, you will receive a slightly modified token response:
@@ -256,13 +307,13 @@ When the user navigates to this URL, they will be prompted to select a channel i
 
 From this object, you should store the `webhook.token` and `webhook.id`. To execute a particular webhook, send a `POST` request to:
 
-###### Webhook URL Example
+###### Webhook Execution URL
 
 ```
-https://discordapp.com/api/webhooks/webhook_id/webhook_token
+https://discordapp.com/api/webhooks/WEBHOOK_ID/WEBHOOK_TOKEN
 ```
 
-Any user that wishes to add your webhook to their channel will need to go through the full OAuth2 flow. A new webhook is created each time, so you will need to save the token and id. If you wish to send a message to all your webhooks, you'll need to iterate over each stored id:token combination and make `POST` requests to each one.
+Any user that wishes to add your webhook to their channel will need to go through the full OAuth2 flow. A new webhook is created each time, so you will need to save the token and id. If you wish to send a message to all your webhooks, you'll need to iterate over each stored id:token combination and make `POST` requests to each one. Be mindful of our [Rate Limits](#DOCS_RATE_LIMITS/rate-limits)!
 
 ### Get Current Application Information % GET /oauth2/applications/@me
 
