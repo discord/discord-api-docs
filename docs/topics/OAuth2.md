@@ -206,7 +206,7 @@ Bot accounts have a few differences in comparison to normal user accounts, namel
 
 ### Bot Authorization Flow
 
-Bot authorization is a special server-less and callback-less OAuth2 flow that makes it easy for users to add bots to servers. The URL you create looks similar to what we use for full stack implementation:
+Bot authorization is a special server-less and callback-less OAuth2 flow that makes it easy for users to add bots to guilds. The URL you create looks similar to what we use for full stack implementation:
 
 ###### URL Example
 
