@@ -199,7 +199,7 @@ Discord's API provides a seperate type of user account dedicated to automation, 
 
 Bot accounts have a few differences in comparison to normal user accounts, namely:
 
-1. Bots are added to servers through the OAuth2 API, and cannot accept normal invites.
+1. Bots are added to guilds through the OAuth2 API, and cannot accept normal invites.
 2. Bots cannot have friends, nor be added to or join Group DMs.
 3. Bots do not have a maximum number of Guilds (unlike user accounts, which are limited to 100).
 4. Bots have an entirely separate set of [Rate Limits](#DOCS_RATE_LIMITS/rate-limits).
@@ -216,9 +216,9 @@ https://discordapp.com/api/oauth2/authorize?client_id=157730590492196864&scope=b
 
 In the case of bots, the `scope` parameter should be set to `bot`. There's also a new parameter, `permissions`, which is an integer corresponding to the [permission calculations](#DOCS_PERMISSIONS/permissions-bitwise-permission-flags) for the bot. You'll also notice the absence of `response_type` and `redirect_uri`. Bot authorization does not require these parameters because there is no need to retrieve the user's access token.
 
-When the user navigates to this page, they'll be prompted to add the bot to a server in which they have proper permissions. On acceptance, the bot will be added. Super easy!
+When the user navigates to this page, they'll be prompted to add the bot to a guild in which they have proper permissions. On acceptance, the bot will be added. Super easy!
 
-If your bot is super specific to your private clubhouse, or you just don't like sharing, you can leave the `Public Bot` option unchecked in your application's settings. If unchecked, only you can add the bot to servers. If marked as public, anyone with your bot's URL can add it to servers in which they have proper permissions.
+If your bot is super specific to your private clubhouse, or you just don't like sharing, you can leave the `Public Bot` option unchecked in your application's settings. If unchecked, only you can add the bot to guilds. If marked as public, anyone with your bot's URL can add it to guilds in which they have proper permissions.
 
 ### Advanced Bot Authorization
 
