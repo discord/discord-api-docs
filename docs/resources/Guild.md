@@ -399,7 +399,7 @@ Returns a list of [ban](#DOCS_GUILD/ban-object) objects for the users banned fro
 
 Create a guild ban, and optionally delete previous messages sent by the banned user. Requires the 'BAN_MEMBERS' permission. Returns a 204 empty response on success. Fires a [Guild Ban Add](#DOCS_GATEWAY/guild-ban-add) Gateway event.
 
-###### JSON Params
+###### Query String Params
 
 | Field | Type | Description |
 |-------|------|-------------|
