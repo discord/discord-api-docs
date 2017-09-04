@@ -50,6 +50,7 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 30003 | Maximum number of pins reached (50) |
 | 30005 | Maximum number of guild roles reached (250) |
 | 30010 | Too many reactions |
+| 30013 | Maximum number of guild channels reached (500) |
 | 40001 | Unauthorized |
 | 50001 | Missing access |
 | 50002 | Invalid account type |
