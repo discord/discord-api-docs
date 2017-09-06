@@ -82,7 +82,7 @@ https://nicememe.website/?code=NhhvTDYsFcdgNLnnLijcl7Ku7bEEeee&state=15773059ghq
 ###### Access Token Exchange Example
 
 ```python
-API_ENDPOINT = 'https://discordapp.com/api/v6'
+API_ENDPOINT = 'https://discordapp.com/api/v6/'
 CLIENT_ID = '332269999912132097'
 CLIENT_SECRET = '937it3ow87i4ery69876wqire'
 REDIRECT_URI = 'https://nicememe.website'
@@ -98,7 +98,7 @@ def exchange_code(code):
   headers = {
     'Content-Type': 'application/x-www-form-urlencoded'
   }
-  r = requests.post(API_ENDPOINT, data, headers)
+  r = requests.post('%s/oauth2/token' % API_ENDPOINT, data, headers)
   r.raise_for_status()
   return r.json()
 ```
@@ -128,7 +128,7 @@ Having the user's access token allows your application to make certain requests 
 ###### Refresh Token Exchange Example
 
 ```python
-API_ENDPOINT = 'https://discordapp.com/api/v6'
+API_ENDPOINT = 'https://discordapp.com/api/v6/'
 CLIENT_ID = '332269999912132097'
 CLIENT_SECRET = '937it3ow87i4ery69876wqire'
 REDIRECT_URI = 'https://nicememe.website'
@@ -144,7 +144,7 @@ def refresh_token(refresh_token):
   headers = {
     'Content-Type': 'application/x-www-form-urlencoded'
   }
-  r = requests.post(API_ENDPOINT, data, headers)
+  r = requests.post('%s/oauth2/token' % API_ENDPOINT + 'token', data, headers)
   r.raise_for_status()
   return r.json()
 ```
@@ -182,7 +182,7 @@ You can specify scopes with the `scope` parameter, which is a list of [OAuth2 sc
 ```python
 import base64
 
-API_ENDPOINT = 'https://discordapp.com/api/v6'
+API_ENDPOINT = 'https://discordapp.com/api/v6/'
 CLIENT_ID = '332269999912132097'
 CLIENT_SECRET = '937it3ow87i4ery69876wqire'
 
@@ -194,7 +194,7 @@ def get_token():
   headers = {
     'Content-Type': 'application/x-www-form-urlencoded'
   }
-  r = requests.post(API_ENDPOINT, data, headers, auth=(CLIENT_ID, CLIENT_SECRET))
+  r = requests.post('%s/oauth2/token' % API_ENDPOINT, data, headers, auth=(CLIENT_ID, CLIENT_SECRET))
   r.raise_for_status()
   return r.json()
 ```
@@ -245,11 +245,9 @@ If your bot is super specific to your private clubhouse, or you just don't like 
 
 ### Advanced Bot Authorization
 
-Enterprising devs can extend the bot authorization functionality. You can request additional scopes outside of `bot`, which will prompt a continuation into a complete [authorization code grant flow](#DOCS_OAUTH2/authorization-code-grant) and add the ability to request the user's access token. If you request any scopes outside of `bot`, `response_type` is again mandatory; we will also automatically redirect the user to the first uri in your application's registered list unless `redirect_uri` is specified.
+Devs can extend the bot authorization functionality. You can request additional scopes outside of `bot`, which will prompt a continuation into a complete [authorization code grant flow](#DOCS_OAUTH2/authorization-code-grant) and add the ability to request the user's access token. If you request any scopes outside of `bot`, `response_type` is again mandatory; we will also automatically redirect the user to the first uri in your application's registered list unless `redirect_uri` is specified.
 
-When receiving the access code on redirect, there will be additional querystring parameters of `guild_id` and `permissions`. The `guild_id` parameter should only be used as a hint as to the relationship between your bot and a guild. To be sure, enable the OAuth2 code grant requirement.
-
-Ticking "Require OAuth2 Code Grant" in your application's settings will require anyone adding your bot to a server to go through a full OAuth2 [authorization code grant flow](#DOCS_OAUTH2/authorization-code-grant). If, for instance, your bot needs to store a relationship between third-party websites and guilds to which it was added, requiring the OAuth2 code grant affords you the ability to get extra data during the token exchange. When you retrieve the user's access token, you'll also receive information about the guild to which your bot was added:
+When receiving the access code on redirect, there will be additional querystring parameters of `guild_id` and `permissions`. The `guild_id` parameter should only be used as a hint as to the relationship between your bot and a guild. To be sure of the relationship between your bot and the guild, considering requiring the Oauth2 code grant in your bot's settings. Enabling it requires anyone adding your bot to a server to go through a full OAuth2 [authorization code grant flow](#DOCS_OAUTH2/authorization-code-grant). When you retrieve the user's access token, you'll also receive information about the guild to which your bot was added:
 
 ###### Extended Bot Authorization Access Token Example
 
