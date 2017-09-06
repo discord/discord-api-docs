@@ -1,11 +1,11 @@
 # Introducing Rich Presence
 
 >danger
->Rich Presence is live! If you are testing a game integration with Rich Presence, other users will be able to see the integration. If you want to keep things on the down low, create a test account and do not join any public servers.
+>Rich Presence is live! If you are testing a game integration with Rich Presence, other users will be able to see it. Please create a private test account and do not join any public servers while testing your integration.
 
 How easy is it for people to play your game together? With Rich Presence from Discord—a new feature in the ever-expanding GameBridge suite—it just got so easy, a ~~caveman~~ Junior Dev could do it.
 
-Rich Presence is currently in a private alpha phase. If you're interested in getting access, [apply to our Gamebridge program](https://discordapp.com/gamebridge) and mention Rich Presence, and we'll review your application.
+Rich Presence is currently in a private alpha phase intended for game integrations and not yet ready for general public access. If you are a game developer interested in getting access, [apply to our Gamebridge program](https://discordapp.com/gamebridge) and mention Rich Presence, and we'll review your application.
 
 ## So, what is it?
 
