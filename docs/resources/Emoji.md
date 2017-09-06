@@ -15,22 +15,20 @@
 | require\_colons | bool | whether this emoji must be wrapped in colons |
 | managed | bool | whether this emoji is managed |
 
-
 ## List Guild Emojis % GET /guilds/{guild.id#DOCS_GUILD/guild-object}/emojis
 
 Returns a list of [emoji](#DOCS_EMOJI/emoji-object) objects for the given guild.
 
 ## Get Guild Emoji % GET /guilds/{guild.id#DOCS_GUILD/guild-object}/emojis/{emoji.id#DOCS_EMOJI/emoji-object}
 
-Returns a list of [emoji](#DOCS_EMOJI/emoji-object) object for the given guild and emoji IDs.
+Returns an [emoji](#DOCS_EMOJI/emoji-object) object for the given guild and emoji IDs.
 
 ## Create Guild Emoji % POST /guilds/{guild.id#DOCS_GUILD/guild-object}/emojis
 
 Create a new emoji for the guild. Returns the new [emoji](#DOCS_EMOJI/emoji-object) object on success. Fires a [Guild Emojis Update](#DOCS_GATEWAY/guild-emojis-update) Gateway event.
 
 >info
-> Passing the roles field above will be ignored unless the application is whitelisted as an emoji provider. For more information and to request whitelisting please contact support@discordapp.com
-
+> Passing the roles field will be ignored unless the application is whitelisted as an emoji provider. For more information and to request whitelisting please contact support@discordapp.com
 
 ###### JSON Params
 
@@ -40,13 +38,12 @@ Create a new emoji for the guild. Returns the new [emoji](#DOCS_EMOJI/emoji-obje
 | image | base64 image data | the 128x128 emoji image |
 | roles | array of snowflakes | roles to which this emoji will be whitelisted |
 
-
 ## Modify Guild Emoji % PATCH /guilds/{guild.id#DOCS_GUILD/guild-object}/emojis/{emoji.id#DOCS_EMOJI/emoji-object}
 
 Modify the given emoji. Returns the updated [emoji](#DOCS_EMOJI/emoji-object) object on success. Fires a [Guild Emojis Update](#DOCS_GATEWAY/guild-emojis-update) Gateway event.
 
 >info
-> Passing the roles field above will be ignored unless the application is whitelisted as an emoji provider. For more information and to request whitelisting please contact support@discordapp.com
+> Passing the roles field will be ignored unless the application is whitelisted as an emoji provider. For more information and to request whitelisting please contact support@discordapp.com
 
 ###### JSON Params
 
