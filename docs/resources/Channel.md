@@ -444,7 +444,7 @@ Delete a message. If operating on a guild channel and trying to delete a message
 
 Delete multiple messages in a single request. This endpoint can only be used on guild channels and requires the 'MANAGE_MESSAGES' permission. Returns a 204 empty response on success. Fires multiple [Message Delete](#DOCS_GATEWAY/message-delete) Gateway events.
 
-The gateway will ignore any individual messages that do not exist or do not belong to this channel, but these will count towards the minimum and maximum message count. Duplicate snowflakes will only be counted once for these limits.
+Any message IDs given that do not exist or are invalid will count towards the minimum and maximum message count (currently 2 and 100 respectively). Additionally, duplicated IDs will only be counted once.
 
 > warn
 > This endpoint will not delete messages older than 2 weeks, and will fail if any message provided is older than that.
@@ -454,7 +454,7 @@ The gateway will ignore any individual messages that do not exist or do not belo
 
 | Field | Type | Description |
 |-------|------|-------------|
-| messages | array of snowflakes | an array of message ids to delete |
+| messages | array of snowflakes | an array of message ids to delete (2-100) |
 
 ## Bulk Delete Messages (deprecated) % POST /channels/{channel.id#DOCS_CHANNEL/channel-object}/messages/bulk_delete
 
