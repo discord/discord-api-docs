@@ -55,7 +55,7 @@ While Discord does not require the use of the `state` parameter, we support it a
 
 The authorization code grant is is what most developers will recognize as "standard OAuth2" and involves retrieving an access code and exchanging it for a user's access token. It allows the authorization server to act as an intermediary between the client and the resource owner, so the resource owner's credentials are never shared directly with the client.
 
-###### URL Example
+###### Authorization URL Example
 
 ```
 https://discordapp.com/api/oauth2/authorize?response_type=code&client_id=157730590492196864&scope=identify%20guilds.join&state=15773059ghq9183habn&redirect_uri=https%3A%2F%2Fnicememe.website
@@ -63,7 +63,15 @@ https://discordapp.com/api/oauth2/authorize?response_type=code&client_id=1577305
 
 `client_id` is your application's `client_id`. `scope` is a list of [OAuth2 scopes](#DOCS_OAUTH2/shared-resources-oauth2-scopes) separated by url encoded spaces (`%20`). `redirect_uri` is whatever URL you registered when creating your application, url-encoded. `state` is the unique string mentioned in [State and Security](#DOCS_OAUTH2/state-and-security).
 
-When someone navigates to this URL, they will be prompted to authorize your application for the requested scopes. On acceptance, they will be redirected to your `redirect_uri`, which will contain an additional querystring parameter, `code`. `state` will also be returned if previously sent, and should be validated at this point. `code` is now exchanged for the user's access token by making a `POST` request to the [token URL](#DOCS_OAUTH2/shared-resources-oauth2-urls) with the following parameters:
+When someone navigates to this URL, they will be prompted to authorize your application for the requested scopes. On acceptance, they will be redirected to your `redirect_uri`, which will contain an additional querystring parameter, `code`. `state` will also be returned if previously sent, and should be validated at this point.
+
+###### Redirect URL Example
+
+```
+https://nicememe.website/?code=NhhvTDYsFcdgNLnnLijcl7Ku7bEEeee&state=15773059ghq9183habn
+```
+
+`code` is now exchanged for the user's access token by making a `POST` request to the [token URL](#DOCS_OAUTH2/shared-resources-oauth2-urls) with the following parameters:
 
 - `client_id` - your application's client id
 - `client_secret` - your application's client secret
@@ -74,18 +82,23 @@ When someone navigates to this URL, they will be prompted to authorize your appl
 ###### Access Token Exchange Example
 
 ```python
+API_ENDPOINT = 'https://discordapp.com/api/v6'
+CLIENT_ID = '332269999912132097'
+CLIENT_SECRET = '937it3ow87i4ery69876wqire'
+REDIRECT_URI = 'https://nicememe.website'
+
 def exchange_code(code):
   data = {
-    'client_id': '332269999912132097',
-    'client_secret': '456265548123452097',
+    'client_id': CLIENT_ID,
+    'client_secret': CLIENT_SECRET,
     'grant_type': 'authorization_code',
     'code': code,
-    'redirect_uri': 'https://nicememe.website'
+    'redirect_uri': REDIRECT_URI
   }
   headers = {
     'Content-Type': 'application/x-www-form-urlencoded'
   }
-  r = requests.post('https://discordapp.com/api/oauth2/token', data, headers)
+  r = requests.post(API_ENDPOINT, data, headers)
   r.raise_for_status()
   return r.json()
 ```
@@ -115,18 +128,23 @@ Having the user's access token allows your application to make certain requests 
 ###### Refresh Token Exchange Example
 
 ```python
+API_ENDPOINT = 'https://discordapp.com/api/v6'
+CLIENT_ID = '332269999912132097'
+CLIENT_SECRET = '937it3ow87i4ery69876wqire'
+REDIRECT_URI = 'https://nicememe.website'
+
 def refresh_token(refresh_token):
   data = {
-    'client_id': '332269999912132097',
-    'client_secret': '456265548123452097',
+    'client_id': CLIENT_ID,
+    'client_secret': CLIENT_SECRET,
     'grant_type': 'refresh_token',
     'refresh_token': refresh_token,
-    'redirect_uri': 'https://nicememe.website'
+    'redirect_uri': REDIRECT_URI
   }
   headers = {
     'Content-Type': 'application/x-www-form-urlencoded'
   }
-  r = requests.post('https://discordapp.com/api/oauth2/token', data, headers)
+  r = requests.post(API_ENDPOINT, data, headers)
   r.raise_for_status()
   return r.json()
 ```
@@ -137,7 +155,7 @@ Boom; fresh [access token response](#DOCS_OAUTH2/authorization-code-grant-access
 
 The implicit OAuth2 grant is a simplified flow optimized for in-browser clients. Instead of issuing the client an authorization code to be exchanged for an access token, the client is directly issued an access token. The URL is formatted as follows:
 
-###### URL Example
+###### Authorization URL Example
 
 ```
 https://discordapp.com/api/oauth2/authorize?response_type=token&client_id=290926444748734499&state=15773059ghq9183habn&scope=identify
@@ -145,7 +163,7 @@ https://discordapp.com/api/oauth2/authorize?response_type=token&client_id=290926
 
 On redirect, your redirect URI will contain additional **URI fragments**: `access_token`, `token_type`, `expires_in`, `scope`, and [`state`](#DOCS_OAUTH2/state-and-security)(if specified). **These are not querystring parameters.** Be mindful of the "#" character:
 
-###### URL Example
+###### Redirect URL Example
 
 ```
 https://findingfakeurlsisprettyhard.tv/#access_token=RTfP0OK99U3kbRtHOoKLmJbOn45PjL&token_type=Bearer&expires_in=604800&scope=identify&state=15773059ghq9183habn
@@ -163,7 +181,12 @@ You can specify scopes with the `scope` parameter, which is a list of [OAuth2 sc
 
 ```python
 import base64
-def get_token(client_id, client_secret):
+
+API_ENDPOINT = 'https://discordapp.com/api/v6'
+CLIENT_ID = '332269999912132097'
+CLIENT_SECRET = '937it3ow87i4ery69876wqire'
+
+def get_token():
   data = {
     'grant_type': 'client_credentials',
     'scope': 'identify connections'
@@ -171,7 +194,7 @@ def get_token(client_id, client_secret):
   headers = {
     'Content-Type': 'application/x-www-form-urlencoded'
   }
-  r = requests.post('https://discordapp.com/api/oauth2/token', data, headers, auth=(client_id, client_secret))
+  r = requests.post(API_ENDPOINT, data, headers, auth=(CLIENT_ID, CLIENT_SECRET))
   r.raise_for_status()
   return r.json()
 ```
@@ -224,7 +247,9 @@ If your bot is super specific to your private clubhouse, or you just don't like 
 
 Enterprising devs can extend the bot authorization functionality. You can request additional scopes outside of `bot`, which will prompt a continuation into a complete [authorization code grant flow](#DOCS_OAUTH2/authorization-code-grant) and add the ability to request the user's access token. If you request any scopes outside of `bot`, `response_type` is again mandatory; we will also automatically redirect the user to the first uri in your application's registered list unless `redirect_uri` is specified.
 
-A full OAuth2 [authorization code grant flow](#DOCS_OAUTH2/authorization-code-grant) can also be required by ticking "Require OAuth2 Code Grant" in your application's settings. If, for instance, your bot needs to store a relationship between third-party websites and guilds to which it was added, requiring the OAuth2 code grant affords you the ability to get extra data during the token exchange. When receiving the access code on redirect, there will be additional querystring parameters of `guild_id` and `permissions`. The `guild_id` parameter should only be used as a hint as to the relationship between your bot and a guild. To be sure, enable the OAuth2 code grant requirement. When you retrieve the user's access token, you'll also receive information about the guild to which your bot was added:
+When receiving the access code on redirect, there will be additional querystring parameters of `guild_id` and `permissions`. The `guild_id` parameter should only be used as a hint as to the relationship between your bot and a guild. To be sure, enable the OAuth2 code grant requirement.
+
+Ticking "Require OAuth2 Code Grant" in your application's settings will require anyone adding your bot to a server to go through a full OAuth2 [authorization code grant flow](#DOCS_OAUTH2/authorization-code-grant). If, for instance, your bot needs to store a relationship between third-party websites and guilds to which it was added, requiring the OAuth2 code grant affords you the ability to get extra data during the token exchange. When you retrieve the user's access token, you'll also receive information about the guild to which your bot was added:
 
 ###### Extended Bot Authorization Access Token Example
 
