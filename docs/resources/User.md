@@ -149,3 +149,16 @@ Create a new group DM channel with multiple users. Returns a [DM channel](#DOCS_
 ## Get User Connections % GET /users/@me/connections
 
 Returns a list of [connection](#DOCS_USER/connection-object) objects. Requires the `connections` OAuth2 scope.
+
+## Delete Account % POST /users/@me/delete
+
+Deletes the requester's user account permanently. Returns a [placeholder here for what this returns].
+
+>danger
+> This will immediately delete the account, closing this and all other sessions on the account permanently. Use with caution.
+
+###### JSON Params
+
+| Field | Type | Description |
+|-------|------|-------------|
+| password | string | the requesting account's password |
