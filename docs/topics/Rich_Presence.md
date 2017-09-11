@@ -41,7 +41,7 @@ If you're testing on your own, we recommend [downloading two separate release ch
 
 The first step in implementing Rich Presence is [creating an application](https://discordapp.com/developers/applications/me). Once you've created your application, note and save your `Client ID`. You will need this to initialize the SDK; this value will be referred to throughout this documentation as both `client_id` and `application_id`. Next, scroll down to the bottom of your application's page and hit the button that says "Enable Rich Presence". This will allow you to upload assets to your dashboard for later use.
 
- Now we're ready to get coding! To begin, you'll register your callback functions to the five `DiscordEventHandlers` and then call `Discord_Initialize()` with your `APPLICATION_ID`:
+ Now we're ready to get coding! To begin, you'll register your callback functions to the five `DiscordEventHandlers` and then call `Discord_Initialize()` with your `APPLICATION_ID`. If your game is distributed via Steam, you should also pass your application's Steam ID so Discord can launch your game through Steam:
 
 ```cpp
 void InitDiscord()
@@ -51,11 +51,11 @@ void InitDiscord()
     handlers.ready = handleDiscordReady;
     handlers.disconnected = handleDiscordDisconnected;
     handlers.errored = handleDiscordError;
-    Discord_Initialize(APPLICATION_ID, &handlers, 1);
+    Discord_Initialize(APPLICATION_ID, &handlers, 1, STEAM_APP_ID);
 }
 ```
 
-The `Discord_Initialize()` function has a parameter `autoRegister`. Marking this field as true lets Discord register an application protocol in the format `discord-[application_id]://` so that joining and spectating will work even when the game is closed. Once the game launches, we'll call your `joinGame()` and `spectateGame()` functions to continue the flow. If your game needs custom parameters on launch, such as an auth ticket, you'll need to register your own protocol on the system. More information on this coming soon. For now, just ask us!
+The `Discord_Initialize()` function also has a parameter `autoRegister`. Marking this field as true lets Discord register an application protocol in the format `discord-[application_id]://`—or use Steam's browser protocol if you gave us a Steam ID—so that joining and spectating will work even when the game is closed. Once the game launches, we'll call your `joinGame()` and `spectateGame()` functions to continue the flow. If your game needs custom parameters on launch, such as an auth ticket, you'll need to register your own protocol on the system. More information on this coming soon. For now, just ask us!
 
 The core of Discord's Rich Presence SDK is the `Discord_UpdatePresence()` function. This is what sends your game data up to Discord to be seen and used by others. You should call `Discord_UpdatePresence()` with the necessary data in your `ready()` callback and any time something in the presence payload changes. The payload is outlined in detail in a later section, but for now, here's an example of a super rich presence:
 
@@ -76,7 +76,8 @@ void UpdatePresence()
 }
 ```
 
->Note: In order for a user to send a join or spectate invite, Discord needs a `joinSecret` or `spectateSecret`. This means you should call `Discord_UpdatePresence()` even when a user is not actively in a group or game match. That way, Discord has all the data it needs to properly route a party request to other players.
+>info
+>In order for a user to send a join or spectate invite, Discord needs a `joinSecret` or `spectateSecret`. This means you should call `Discord_UpdatePresence()` even when a user is not actively in a group or game match. That way, Discord has all the data it needs to properly route a party request to other players.
 
 ## Knock knock! Who's there? You!
 
@@ -86,7 +87,7 @@ Let's get into the meat of the callback functions:
 
 `joinGame()` and `spectateGame()` are up to you to handle and implement in your game's infrastructure. For these functions, we send you back either the `joinSecret` or `spectateSecret`, depending on which action happens. You should then reverse your secret back into usable data and handle it as necessary. More on what those secrets are and how to generate them later.
 
-`disconnect()` and `errored()` don't actually require you to do anything. If for some reason your client disconnects from Discord or encounters an error, we'll reconnect automatically. However, we will send you the events if you'd like to display them, log them, or ignore the problem like a good developer.
+`disconnected()` and `errored()` don't actually require you to do anything. If for some reason your client disconnects from Discord or encounters an error, we'll reconnect automatically. However, we will send you the events if you'd like to display them, log them, or ignore the problem like a good developer.
 
 The header file also contains the `Discord_RunCallbacks()` function. This invokes any pending callbacks from Discord on the calling thread (it's thread safe!), giving you ultimate control over your events. If you aren't sure what to do, just call it once per frame in your game's main loop. As Captain Planet says, the power is _yours_!
 
@@ -126,15 +127,17 @@ typedef struct DiscordRichPresence {
 
 `largeImageKey` and `smallImageKey` are the key values for the artwork you have uploaded to your Developer Dashboard (more on that later!). `largeImageText` and `smallImageText` are the mouseover tooltips on the corresponding artwork.
 
-`partyId` is the public id for the player's current party. Discord uses this to power party status and render dynamic party slots in the chat embeds. It is also required for join embeds, but does not need to be sent for spectate invites.
+`partyId` is the public id for the player's current party. Discord uses this to power party status and render dynamic party slots in the invite embeds.
 
 `partySize` is the current size of the player's party. Sending `0` is the same as omitting it.
 
 `partyMax` is the maximum allowed size for a party. Sending `0` means there is no limit on the size.
 
-`matchSecret` works in tandem with `instance` to power the notification piece of Rich Presence. It's also used as an internal identifier for the player's current match/dungeon/raid so we can match presences for things like the `joinGame()` embed. When you send us a `matchSecret` with `instance` set to `true`, we know a further change in `matchSecret` means the player is done with whatever they were doing, or finally gave up on the Water Temple, and we can send a notification to anyone who subscribed.
+`matchSecret` works in tandem with `instance` to power the "Notify Me" piece of Rich Presence. When you send us a `matchSecret` with `instance` set to `true`, we know a further change in `matchSecret` means the player is done with whatever they were doing, or finally gave up on the Water Temple, and we can send a notification to anyone who subscribed.
 
-`joinSecret` and `spectateSecret` are unique, non-guessable data that serve as Discord's way to make callbacks to your game. These could be hashed or encrypted values of a player's id for `spectateSecret`, a lobby id and password for `joinSecret`, or any other data your game needs. Discord sends these values back to you in the appropriate callback functions. More on these in the next section.
+`spectateSecret` is a unique, non-guessable string that powers the spectate button in a user's profile. More on secrets in the next section.
+
+`joinSecret` is a unique, non-guessable string that allows a user to post a game invitation in chat. When this is sent along with a `partyId`, the user's chat bar will notify them that they can invite friends to join their game. More on secrets in the next section.
 
 `instance` helps Discord be smart about notifications and display. Setting it to `true` tells us to show the "Notify me" button and alert whoever clicks it when the `matchSecret` changes.
 
@@ -221,7 +224,7 @@ All fields in the `DiscordRichPresence` object are entirely optional. Anything y
 
 | Field          | Custom Artwork | Notification | Spectating | Joining  |
 | :------------: | :------------: | :----------: | :--------: | :------: |
-| state          |                |      x       | x          | x        |
+| state          |                |              |            |          |
 | details        |                |              |            |          |
 | startTimestamp |                |              |            |          |
 | endTimestamp   |                |              |            |          |
