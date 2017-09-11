@@ -193,7 +193,7 @@ Represents a message sent in a channel within Discord.
 |-------|------|-------------|
 | count | integer | times this emoji has been used to react |
 | me | bool | whether the current user reacted using this emoji |
-| emoji | partial [emoji object](#DOCS_GUILD/emoji-object) | emoji information |
+| emoji | partial [emoji object](#DOCS_EMOJI/emoji-object) | emoji information |
 
 ### Overwrite Object
 
@@ -402,19 +402,19 @@ For example:
 >warn
 > Only filenames with proper image extensions are supported for the time being.
 
-## Create Reaction % PUT /channels/{channel.id#DOCS_CHANNEL/channel-object}/messages/{message.id#DOCS_CHANNEL/message-object}/reactions/{emoji#DOCS_GUILD/emoji-object}/@me
+## Create Reaction % PUT /channels/{channel.id#DOCS_CHANNEL/channel-object}/messages/{message.id#DOCS_CHANNEL/message-object}/reactions/{emoji#DOCS_EMOJI/emoji-object}/@me
 
 Create a reaction for the message. This endpoint requires the 'READ\_MESSAGE\_HISTORY' permission to be present on the current user.  Additionally, if nobody else has reacted to the message using this emoji, this endpoint requires the 'ADD\_REACTIONS' permission to be present on the current user. Returns a 204 empty response on success.
 
-## Delete Own Reaction % DELETE /channels/{channel.id#DOCS_CHANNEL/channel-object}/messages/{message.id#DOCS_CHANNEL/message-object}/reactions/{emoji#DOCS_GUILD/emoji-object}/@me
+## Delete Own Reaction % DELETE /channels/{channel.id#DOCS_CHANNEL/channel-object}/messages/{message.id#DOCS_CHANNEL/message-object}/reactions/{emoji#DOCS_EMOJI/emoji-object}/@me
 
 Delete a reaction the current user has made for the message. Returns a 204 empty response on success.
 
-## Delete User Reaction % DELETE /channels/{channel.id#DOCS_CHANNEL/channel-object}/messages/{message.id#DOCS_CHANNEL/message-object}/reactions/{emoji#DOCS_GUILD/emoji-object}/{user.id#DOCS_USER/user-object}
+## Delete User Reaction % DELETE /channels/{channel.id#DOCS_CHANNEL/channel-object}/messages/{message.id#DOCS_CHANNEL/message-object}/reactions/{emoji#DOCS_EMOJI/emoji-object}/{user.id#DOCS_USER/user-object}
 
 Deletes another user's reaction. This endpoint requires the 'MANAGE\_MESSAGES' permission to be present on the current user. Returns a 204 empty response on success.
 
-## Get Reactions % GET /channels/{channel.id#DOCS_CHANNEL/channel-object}/messages/{message.id#DOCS_CHANNEL/message-object}/reactions/{emoji#DOCS_GUILD/emoji-object}
+## Get Reactions % GET /channels/{channel.id#DOCS_CHANNEL/channel-object}/messages/{message.id#DOCS_CHANNEL/message-object}/reactions/{emoji#DOCS_EMOJI/emoji-object}
 
 Get a list of users that reacted with this emoji. Returns an array of [user](#DOCS_USER/user-object) objects on success.
 

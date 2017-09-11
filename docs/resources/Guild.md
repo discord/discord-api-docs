@@ -22,7 +22,7 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 | default\_message\_notifications | integer | default message [notifications level](#DOCS_GUILD/guild-object-default-message-notification-level) |
 | explicit\_content\_filter | integer | default explicit content [filter level](#DOCS_GUILD/guild-object-explicit-content-filter-level) |
 | roles | array of [role](#DOCS_PERMISSIONS/role-object) objects | roles in the guild |
-| emojis | array of [emoji](#DOCS_GUILD/emoji-object) objects | custom guild emojis |
+| emojis | array of [emoji](#DOCS_EMOJI/emoji-object) objects | custom guild emojis |
 | features | array of strings | enabled guild features |
 | mfa\_level | integer | required [MFA level](#DOCS_GUILD/guild-object-mfa-level) for the guild |
 | application_id | ?snowflake | application id of the guild creator if it is bot-created |
@@ -182,18 +182,6 @@ A partial [guild](#DOCS_GUILD/guild-object) object. Represents an Offline Guild,
 |-------|------|-------------|
 | id | string | id of the account |
 | name | string | name of the account |
-
-### Emoji Object
-
-###### Emoji Structure
-
-| Field | Type | Description |
-|-------|------|-------------|
-| id | snowflake | [emoji id](#DOCS_REFERENCE/image-formatting) |
-| name | string | emoji name |
-| roles | array of [role object](#DOCS_PERMISSIONS/role-object) ids | roles this emoji is active for |
-| require_colons | bool | whether this emoji must be wrapped in colons |
-| managed | bool | whether this emoji is managed |
 
 ### Ban Object
 

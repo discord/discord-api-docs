@@ -492,7 +492,7 @@ Sent when a guild's emojis have been updated.
 | Field | Type | Description |
 |-------|------|-------------|
 | guild_id | snowflake | id of the guild |
-| emojis | array | array of [emojis](#DOCS_GUILD/emoji-object) |
+| emojis | array | array of [emojis](#DOCS_EMOJI/emoji-object) |
 
 ### Guild Integrations Update
 
@@ -626,7 +626,7 @@ Sent when a user adds a reaction to a message.
 | user_id | snowflake | the id of the user |
 | channel_id | snowflake | the id of the channel |
 | message_id | snowflake | the id of the message |
-| emoji | an [emoji](#DOCS_GUILD/emoji-object) object | the emoji used to react |
+| emoji | an [emoji](#DOCS_EMOJI/emoji-object) object | the emoji used to react |
 
 ### Message Reaction Remove
 
@@ -639,7 +639,7 @@ Sent when a user removes a reaction from a message.
 | user_id | snowflake | the id of the user |
 | channel_id | snowflake | the id of the channel |
 | message_id | snowflake | the id of the message |
-| emoji | an [emoji](#DOCS_GUILD/emoji-object) object | the emoji used to react |
+| emoji | an [emoji](#DOCS_EMOJI/emoji-object) object | the emoji used to react |
 
 ### Message Reaction Remove All
 
