@@ -339,14 +339,14 @@ Update a channels settings. Requires the 'MANAGE_CHANNELS' permission for the gu
 Delete a guild channel, or close a private message. Requires the 'MANAGE_CHANNELS' permission for the guild. Returns a [guild channel](#DOCS_CHANNEL/channel-object) or [dm channel](#DOCS_CHANNEL/channel-object) object on success. Fires a [Channel Delete](#DOCS_GATEWAY/channel-delete) Gateway event.
 
 >warn
-> Deleting a guild channel cannot be undone. Use this with caution, as it is impossible to undo this action when performed on a guild channel. In contrast, when used with a private message, it is possible to undo the action by opening a private message with the recipient again.
+>Deleting a guild channel cannot be undone. Use this with caution, as it is impossible to undo this action when performed on a guild channel. In contrast, when used with a private message, it is possible to undo the action by opening a private message with the recipient again.
 
 ## Get Channel Messages % GET /channels/{channel.id#DOCS_CHANNEL/channel-object}/messages
 
 Returns the messages for a channel. If operating on a guild channel, this endpoint requires the 'READ_MESSAGES' permission to be present on the current user. Returns an array of [message](#DOCS_CHANNEL/message-object) objects on success.
 
 >info
-> The before, after, and around keys are mutually exclusive, only one may be passed at a time.
+>The before, after, and around keys are mutually exclusive, only one may be passed at a time.
 
 ###### Query String Params
 
@@ -366,7 +366,7 @@ Returns a specific message in the channel. If operating on a guild channel, this
 Post a message to a guild text or DM channel. If operating on a guild channel, this endpoint requires the 'SEND_MESSAGES' permission to be present on the current user. Returns a [message](#DOCS_CHANNEL/message-object) object. Fires a [Message Create](#DOCS_GATEWAY/message-create) Gateway event. See [message formatting](#DOCS_REFERENCE/message-formatting) for more information on how to properly format messages.
 
 >warn
-> This endpoint supports both JSON and form data bodies. It does require multipart/form-data requests instead of the normal JSON request type when uploading files. Make sure you set your `Content-Type` to `multipart/form-data` if you're doing that. Note that in that case, the `embed` field cannot be used, but you can pass an url-encoded JSON body as a form value for `payload_json`.
+>This endpoint supports both JSON and form data bodies. It does require multipart/form-data requests instead of the normal JSON request type when uploading files. Make sure you set your `Content-Type` to `multipart/form-data` if you're doing that. Note that in that case, the `embed` field cannot be used, but you can pass an url-encoded JSON body as a form value for `payload_json`.
 
 ###### JSON Params
 
@@ -379,7 +379,7 @@ Post a message to a guild text or DM channel. If operating on a guild channel, t
 | embed | [embed](#DOCS_CHANNEL/embed-object) object | embedded `rich` content | false |
 
 >info
-> For the embed object, you can set every field except `type` (it will be `rich` regardless of if you try to set it), `provider`, `video`, and any `height`, `width`, or `proxy_url` values for images.
+>For the embed object, you can set every field except `type` (it will be `rich` regardless of if you try to set it), `provider`, `video`, and any `height`, `width`, or `proxy_url` values for images.
 
 ###### Using Attachments within Embeds
 
@@ -400,7 +400,7 @@ For example:
 ```
 
 >warn
-> Only filenames with proper image extensions are supported for the time being.
+>Only filenames with proper image extensions are supported for the time being.
 
 ## Create Reaction % PUT /channels/{channel.id#DOCS_CHANNEL/channel-object}/messages/{message.id#DOCS_CHANNEL/message-object}/reactions/{emoji#DOCS_EMOJI/emoji-object}/@me
 
@@ -427,7 +427,7 @@ Deletes all reactions on a message. This endpoint requires the 'MANAGE\_MESSAGES
 Edit a previously sent message. You can only edit messages that have been sent by the current user. Returns a [message](#DOCS_CHANNEL/message-object) object. Fires a [Message Update](#DOCS_GATEWAY/message-update) Gateway event.
 
 >info
-> All parameters to this endpoint are optional.
+>All parameters to this endpoint are optional.
 
 ###### JSON Params
 
@@ -446,9 +446,9 @@ Delete multiple messages in a single request. This endpoint can only be used on 
 
 Any message IDs given that do not exist or are invalid will count towards the minimum and maximum message count (currently 2 and 100 respectively). Additionally, duplicated IDs will only be counted once.
 
-> warn
-> This endpoint will not delete messages older than 2 weeks, and will fail if any message provided is older than that.
-> An endpoint will be added in the future to prune messages older than 2 weeks from a channel.
+>warn
+>This endpoint will not delete messages older than 2 weeks, and will fail if any message provided is older than that.
+>An endpoint will be added in the future to prune messages older than 2 weeks from a channel.
 
 ###### JSON Params
 

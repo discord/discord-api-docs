@@ -3,6 +3,10 @@
 >danger
 >API and Gateway versions below v6 will be discontinued on October 16, 2017, after which they will be non-functioning.
 
+## September 10, 2017 - New Feature
+
+[Emoji endpoints](#DOCS_EMOJI/emoji-resource) have been added to the API. Bots can now manage guild emojis to their robo-hearts' content!
+
 ## August 16, 2017 — Breaking Change
 
 The `type` field in the [game object](#DOCS_GATEWAY/game-object) for [Gateway Status Update](#DOCS_GATEWAY/gateway-status-update) and [Presence Update](DOCS_GATEWAY/presence-update) payloads is no longer optional when the game object is not null.

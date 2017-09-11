@@ -7,7 +7,7 @@ Gateways are Discord's form of real-time communication over secure websockets. C
 Returns an object with a single valid WSS URL, which the client can use as a basis for [Connecting](#DOCS_GATEWAY/connecting). Clients **should** cache this value and only call this endpoint to retrieve a new URL if they are unable to properly establish a connection using the cached version of the URL.
 
 >info
-> This endpoint does not require any authentication.
+>This endpoint does not require any authentication.
 
 ###### Example Response
 
@@ -22,7 +22,7 @@ Returns an object with a single valid WSS URL, which the client can use as a bas
 Returns an object with the same information as [Get Gateway](#DOCS_GATEWAY/get-gateway), plus a `shards` key, containing the recommended number of [shards](#DOCS_GATEWAY/sharding) to connect with (as an integer). Bots that want to dynamically/automatically spawn shard processes should use this endpoint to determine the number of processes to run. This route should be called once when starting up numerous shards, with the response being cached and passed to all sub-shards/processes. Unlike the [Get Gateway](#DOCS_GATEWAY/get-gateway), this route should not be cached for extended periods of time as the value is not guaranteed to be the same per-call, and changes as the bot joins/leaves guilds.
 
 >warn
-> This endpoint requires authentication using a valid bot token.
+>This endpoint requires authentication using a valid bot token.
 
 ###### Example Response
 
@@ -96,7 +96,7 @@ Used to maintain an active gateway connection. Must be sent every `heartbeat_int
 This OP code is also bidirectional. The gateway may request a heartbeat from you in some situations, and you should send a heartbeat back to the gateway as you normally would.
 
 >info
-> It is worth noting that in the event of a service outage where you stay connected to the gateway, you should continue to heartbeat and receive ACKs. The gateway will eventually respond and issue a session once it is able to.
+>It is worth noting that in the event of a service outage where you stay connected to the gateway, you should continue to heartbeat and receive ACKs. The gateway will eventually respond and issue a session once it is able to.
 
 ###### Example Gateway Heartbeat
 
@@ -325,7 +325,7 @@ Once connected, the client should immediately receive an [Opcode 10 Hello](#DOCS
 Next, the client is expected to send an [Opcode 2 Identify](#DOCS_GATEWAY/gateway-identify) _or_ [Opcode 6 Resume](#DOCS_GATEWAY/gateway-resume) payload. If the payload is valid, the gateway will respond with a [Ready](#DOCS_GATEWAY/ready) event after identifying or a [Resumed](#DOCS_GATEWAY/resumed) event after resuming, and your client can be considered in a "connected" state. Clients are limited to 1 identify every 5 seconds; if they exceed this limit, the gateway will respond with an [Opcode 9 Invalid Session](#DOCS_GATEWAY/gateway-invalid-session). It is important to note that although the ready event contains a large portion of the required initial state, some information (such as guilds and their members) is asynchronously sent (see [Guild Create](#DOCS_GATEWAY/guild-create) event)
 
 >warn
-> Clients are limited to 1000 `IDENTIFY` calls to the websocket in a 24-hour period. This limit is global and across all shards, but does not include `RESUME` calls. Upon hitting this limit, all active sessions for the bot will be terminated, the bot's token will be reset, and the owner will receive an email notification. It's up to the owner to update their application with the new token.
+>Clients are limited to 1000 `IDENTIFY` calls to the websocket in a 24-hour period. This limit is global and across all shards, but does not include `RESUME` calls. Upon hitting this limit, all active sessions for the bot will be terminated, the bot's token will be reset, and the owner will receive an email notification. It's up to the owner to update their application with the new token.
 
 ###### Gateway URL Params
 
@@ -369,7 +369,7 @@ When initially creating and handshaking connections to the Gateway, a user can c
 Unlike the HTTP API, the Gateway does not provide a method for forced back-off or cooldown, but instead implements a hard limit on the number of messages sent over a period of time. Currently, clients are allowed 120 events every 60 seconds, meaning you can send on average at a rate of up to 2 events per second. Clients who surpass this limit are immediately disconnected from the Gateway, and similarly to the HTTP API, repeat offenders will have their API access revoked. Clients are also limited to one gateway connection per 5 seconds. If you hit this limit, the Gateway will respond with an [Opcode 9 Invalid Session](#DOCS_GATEWAY/gateway-invalid-session).
 
 >warn
-> Clients may only update their game status 5 times per minute.
+>Clients may only update their game status 5 times per minute.
 
 ## Tracking State
 
@@ -591,7 +591,7 @@ Sent when a message is created. The inner payload is a [message](#DOCS_CHANNEL/m
 Sent when a message is updated. The inner payload is a [message](#DOCS_CHANNEL/message-object) object.
 
 >warn
-> Unlike creates, message updates may contain only a subset of the full message object payload (but will always contain an id and channel_id).
+>Unlike creates, message updates may contain only a subset of the full message object payload (but will always contain an id and channel_id).
 
 ### Message Delete
 
@@ -657,7 +657,7 @@ Sent when a user explicitly removes all reactions from a message.
 A user's presence is their current state on a guild. This event is sent when a user's presence is updated for a guild.
 
 >warn
-> The user object within this event can be partial, the only field which must be sent is the `id` field, everything else is optional. Along with this limitation, no fields are required, and the types of the fields are **not** validated. Your client should expect any combination of fields and types within this event.
+>The user object within this event can be partial, the only field which must be sent is the `id` field, everything else is optional. Along with this limitation, no fields are required, and the types of the fields are **not** validated. Your client should expect any combination of fields and types within this event.
 
 ###### Presence Update Event Fields
 
@@ -687,7 +687,7 @@ A user's presence is their current state on a guild. This event is sent when a u
 | 1 | Streaming | Streaming {name} | "Streaming Rocket League" |
 
 >info
-> The streaming type currently only supports Twitch. Only `https://twitch.tv/` urls will work.
+>The streaming type currently only supports Twitch. Only `https://twitch.tv/` urls will work.
 
 ###### Example Game
 

@@ -1,7 +1,7 @@
 # Emoji Resource
 
 >warn
-> Routes for controlling emojis do not follow the normal rate limit conventions. These routes are specifically limited on a per-guild basis to prevent abuse. This means that the quota returned by our APIs may be inaccurate, and you may encounter 429s.
+>Routes for controlling emojis do not follow the normal rate limit conventions. These routes are specifically limited on a per-guild basis to prevent abuse. This means that the quota returned by our APIs may be inaccurate, and you may encounter 429s.
 
 ### Emoji Object
 
@@ -28,7 +28,7 @@ Returns an [emoji](#DOCS_EMOJI/emoji-object) object for the given guild and emoj
 Create a new emoji for the guild. Returns the new [emoji](#DOCS_EMOJI/emoji-object) object on success. Fires a [Guild Emojis Update](#DOCS_GATEWAY/guild-emojis-update) Gateway event.
 
 >info
-> Passing the roles field will be ignored unless the application is whitelisted as an emoji provider. For more information and to request whitelisting please contact support@discordapp.com
+>Passing the roles field will be ignored unless the application is whitelisted as an emoji provider. For more information and to request whitelisting please contact support@discordapp.com
 
 ###### JSON Params
 
@@ -36,14 +36,14 @@ Create a new emoji for the guild. Returns the new [emoji](#DOCS_EMOJI/emoji-obje
 |-------|------|-------------|
 | name | string | name of the emoji |
 | image | base64 image data | the 128x128 emoji image |
-| roles | array of snowflakes | roles to which this emoji will be whitelisted |
+| roles | array of snowflakes | roles for which this emoji will be whitelisted |
 
 ## Modify Guild Emoji % PATCH /guilds/{guild.id#DOCS_GUILD/guild-object}/emojis/{emoji.id#DOCS_EMOJI/emoji-object}
 
 Modify the given emoji. Returns the updated [emoji](#DOCS_EMOJI/emoji-object) object on success. Fires a [Guild Emojis Update](#DOCS_GATEWAY/guild-emojis-update) Gateway event.
 
 >info
-> Passing the roles field will be ignored unless the application is whitelisted as an emoji provider. For more information and to request whitelisting please contact support@discordapp.com
+>Passing the roles field will be ignored unless the application is whitelisted as an emoji provider. For more information and to request whitelisting please contact support@discordapp.com
 
 ###### JSON Params
 

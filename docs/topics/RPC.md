@@ -544,12 +544,12 @@ Used to change voice settings of users in voice channels
 | mute? | bool | set the mute state of the user |
 
 >info
-> In the current release, we only support a single modifier of voice settings at a time over RPC.
-> If an app changes voice settings, it will lock voice settings so that other apps connected simultaneously
-> lose the ability to change voice settings. Settings reset to what they were before being changed after the
-> controlling app disconnects. When an app that has previously set voice settings connects, the client will swap
-> to that app's configured voice settings and lock voice settings again. This is a temporary situation that will
-> be changed in the future.
+>In the current release, we only support a single modifier of voice settings at a time over RPC.
+>If an app changes voice settings, it will lock voice settings so that other apps connected simultaneously
+>lose the ability to change voice settings. Settings reset to what they were before being changed after the
+>controlling app disconnects. When an app that has previously set voice settings connects, the client will swap
+>to that app's configured voice settings and lock voice settings again. This is a temporary situation that will
+>be changed in the future.
 
 ## Pan Object
 
@@ -607,7 +607,7 @@ Used to join and leave voice channels, group dms, or dms
 | force | bool | forces a user to join a voice channel |
 
 >warn
-> When trying to join the user to a voice channel, you will receive a `5003` error coded response if the user is already in a voice channel. The `force` parameter should only be specified in response to the case where a user is already in a voice channel and they have **approved** to be moved by your app to a new voice channel.
+>When trying to join the user to a voice channel, you will receive a `5003` error coded response if the user is already in a voice channel. The `force` parameter should only be specified in response to the case where a user is already in a voice channel and they have **approved** to be moved by your app to a new voice channel.
 
 ###### Select Voice Channel Response Structure
 
@@ -915,12 +915,12 @@ Returns the Get Channel response, `null` if none.
 When setting voice settings, all fields are optional. Only passed fields are updated.
 
 >info
-> In the current release, we only support a single modifier of voice settings at a time over RPC.
-> If an app changes voice settings, it will lock voice settings so that other apps connected simultaneously
-> lose the ability to change voice settings. Settings reset to what they were before being changed after the
-> controlling app disconnects. When an app that has previously set voice settings connects, the client will swap
-> to that app's configured voice settings and lock voice settings again. This is a temporary situation that will
-> be changed in the future.
+>In the current release, we only support a single modifier of voice settings at a time over RPC.
+>If an app changes voice settings, it will lock voice settings so that other apps connected simultaneously
+>lose the ability to change voice settings. Settings reset to what they were before being changed after the
+>controlling app disconnects. When an app that has previously set voice settings connects, the client will swap
+>to that app's configured voice settings and lock voice settings again. This is a temporary situation that will
+>be changed in the future.
 
 | Field | Type | Description |
 |-------|------|-------------|

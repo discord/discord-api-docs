@@ -212,7 +212,7 @@ A partial [guild](#DOCS_GUILD/guild-object) object. Represents an Offline Guild,
 Create a new guild. Returns a [guild](#DOCS_GUILD/guild-object) object on success. Fires a [Guild Create](#DOCS_GATEWAY/guild-create) Gateway event.
 
 >warn
-> By default this endpoint is limited to 10 active guilds. These limits are raised for whitelisted [GameBridge](#DOCS_GAMEBRDIGE) applications.
+>By default this endpoint is limited to 10 active guilds. These limits are raised for whitelisted [GameBridge](#DOCS_GAMEBRDIGE) applications.
 
 ###### JSON Params
 
@@ -236,7 +236,7 @@ Create a new guild. Returns a [guild](#DOCS_GUILD/guild-object) object on succes
 ```
 
 >info
-> If roles are specified, the required `id` field within each role object is an integer placeholder, and will be replaced by the API upon consumption. Its purpose is to allow you to [overwrite](#DOCS_CHANNEL/overwrite-object) a role's permissions in a channel when also passing in channels with the channels array.
+>If roles are specified, the required `id` field within each role object is an integer placeholder, and will be replaced by the API upon consumption. Its purpose is to allow you to [overwrite](#DOCS_CHANNEL/overwrite-object) a role's permissions in a channel when also passing in channels with the channels array.
 
 ## Get Guild % GET /guilds/{guild.id#DOCS_GUILD/guild-object}
 
@@ -247,7 +247,7 @@ Returns the [guild](#DOCS_GUILD/guild-object) object for the given id.
 Modify a guild's settings. Returns the updated [guild](#DOCS_GUILD/guild-object) object on success. Fires a [Guild Update](#DOCS_GATEWAY/guild-update) Gateway event.
 
 >info
-> All parameters to this endpoint are optional
+>All parameters to this endpoint are optional
 
 ###### JSON Params
 
@@ -276,7 +276,7 @@ Returns a list of guild [channel](#DOCS_CHANNEL/channel-object) objects.
 Create a new [channel](#DOCS_CHANNEL/channel-object) object for the guild. Requires the 'MANAGE_CHANNELS' permission. Returns the new [channel](#DOCS_CHANNEL/channel-object) object on success. Fires a [Channel Create](#DOCS_GATEWAY/channel-create) Gateway event.
 
 >info
-> All parameters for this endpoint are optional excluding 'name'
+>All parameters for this endpoint are optional excluding 'name'
 
 ###### JSON Params
 
@@ -293,7 +293,7 @@ Create a new [channel](#DOCS_CHANNEL/channel-object) object for the guild. Requi
 Modify the positions of a set of [channel](#DOCS_CHANNEL/channel-object) objects for the guild. Requires 'MANAGE_CHANNELS' permission. Returns a 204 empty response on success. Fires multiple [Channel Update](#DOCS_GATEWAY/channel-update) Gateway events.
 
 >info
-> Only channels to be modified are required, with the minimum being a swap between at least two channels.
+>Only channels to be modified are required, with the minimum being a swap between at least two channels.
 
 This endpoint takes a JSON array of parameters in the following format:
 
@@ -313,7 +313,7 @@ Returns a [guild member](#DOCS_GUILD/guild-member-object) object for the specifi
 Returns a list of [guild member](#GUILD/guild-member-object) objects that are members of the guild.
 
 >info
-> All parameters to this endpoint are optional
+>All parameters to this endpoint are optional
 
 ###### Query String Params
 
@@ -327,7 +327,7 @@ Returns a list of [guild member](#GUILD/guild-member-object) objects that are me
 Adds a user to the guild, provided you have a valid oauth2 access token for the user with the `guilds.join` scope. Returns a 201 Created with the [guild member](#DOCS_GUILD/guild-member-object) as the body. Fires a [Guild Member Add](#DOCS_GATEWAY/guild-member-add) Gateway event. Requires the bot to have the `CREATE_INSTANT_INVITE` permission.
 
 >info
-> All parameters to this endpoint except for `access_token` are optional.
+>All parameters to this endpoint except for `access_token` are optional.
 
 ###### JSON Params
 
@@ -344,8 +344,8 @@ Adds a user to the guild, provided you have a valid oauth2 access token for the 
 Modify attributes of a [guild member](#DOCS_GUILD/guild-member-object). Returns a 204 empty response on success. Fires a [Guild Member Update](#DOCS_GATEWAY/guild-member-update) Gateway event.
 
 >info
-> All parameters to this endpoint are optional. When moving members to channels, the API user
-> _must_ have permissions to both connect to the channel and have the MOVE_MEMBERS permission.
+>All parameters to this endpoint are optional. When moving members to channels, the API user
+>_must_ have permissions to both connect to the channel and have the MOVE_MEMBERS permission.
 
 ###### JSON Params
 

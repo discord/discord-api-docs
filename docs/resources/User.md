@@ -104,7 +104,7 @@ Returns a list of partial [guild](#DOCS_GUILD/guild-object) objects the current 
 ```
 
 >info
-> This endpoint returns 100 guilds by default, which is the maximum number of guilds a non-bot user can join. Therefore, pagination is **not needed** for integrations that need to get a list of users' guilds.
+>This endpoint returns 100 guilds by default, which is the maximum number of guilds a non-bot user can join. Therefore, pagination is **not needed** for integrations that need to get a list of users' guilds.
 
 ###### Query String Params
 
@@ -137,7 +137,7 @@ Create a new DM channel with a user. Returns a [DM channel](#DOCS_CHANNEL/channe
 Create a new group DM channel with multiple users. Returns a [DM channel](#DOCS_CHANNEL/channel-object) object.
 
 >warn
-> By default this endpoint is limited to 10 active group DMs. These limits are raised for whitelisted [GameBridge](#DOCS_GAMEBRDIGE) applications.
+>By default this endpoint is limited to 10 active group DMs. These limits are raised for whitelisted [GameBridge](#DOCS_GAMEBRDIGE) applications.
 
 ###### JSON Params
 
