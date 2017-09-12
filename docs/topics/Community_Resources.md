@@ -32,7 +32,7 @@ The Discord team curates the following list of officially vetted libraries that 
 [Permissions](#DOCS_PERMISSIONS/permissions) in Discord are tricky. Luckily, we've got really smart people who love us and have made some great permissions calculators. If you're making a bot for others, and you're not sure how to properly calculate permissions or generate your [authorization URL](#DOCS_OAUTH2/bot-authorization-flow), these are great tools:
 
 - [FiniteReality's Permissions Calculator](https://finitereality.github.io/permissions-calculator/?v=0)
-- [Abalabahaha's Permissions Calculator](https://discordapi.com/permissions.html#0)
+- [abalabahaha's Permissions Calculator](https://discordapi.com/permissions.html#0)
 
 ## Embed Visualizer
 
