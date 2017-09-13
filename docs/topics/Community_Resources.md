@@ -20,14 +20,12 @@ The Discord team curates the following list of officially vetted libraries that 
 | [discord.js](https://github.com/hydrabolt/discord.js) | JavaScript |
 | [Eris](https://github.com/abalabahaha/eris) | JavaScript |
 | [Discordia](https://github.com/SinisterRectus/Discordia) | Lua |
-| [RestCord](https://www.restcord.com/)* | PHP |
+| [RestCord](https://www.restcord.com/) | PHP |
 | [discord.py](https://github.com/Rapptz/discord.py) | Python |
 | [disco](https://github.com/b1naryth1ef/disco) | Python |
 | [discordrb](https://github.com/meew0/discordrb) | Ruby |
 | [discord-rs](https://github.com/SpaceManiac/discord-rs) | Rust |
 | [Sword](https://github.com/Azoy/Sword) | Swift |
-
-* REST Only Implementation
 
 ## Permission Calculators
 
