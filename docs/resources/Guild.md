@@ -138,7 +138,7 @@ A partial [guild](#DOCS_GUILD/guild-object) object. Represents an Offline Guild,
 |-------|------|-------------|
 | user | object | [user](#DOCS_USER/user-object) object |
 | nick? | string | this users guild nickname (if one is set) |
-| roles | array | array of [role](#DOCS_PERMISSIONS/role-object) object id's |
+| roles | array of snowflakes | array of [role](#DOCS_PERMISSIONS/role-object) object ids |
 | joined_at | ISO8601 timestamp | when the user joined the guild |
 | deaf | bool | if the user is deafened |
 | mute | bool | if the user is muted |
@@ -283,7 +283,7 @@ Create a new [channel](#DOCS_CHANNEL/channel-object) object for the guild. Requi
 | Field | Type | Description |
 |-------|------|-------------|
 | name | string | channel name (2-100 characters) |
-| type | string | "voice" or "text" |
+| type | integer | the [type of channel](#DOCS_CHANNEL/channel-object-channel-types), either 0 or 2 |
 | bitrate | integer | the bitrate (in bits) of the voice channel (voice only) |
 | user_limit | integer | the user limit of the voice channel (voice only) |
 | permission_overwrites | an array of [overwrite](#DOCS_CHANNEL/overwrite-object) objects | the channel's permission overwrites |
@@ -335,7 +335,7 @@ Adds a user to the guild, provided you have a valid oauth2 access token for the 
 |-------|------|-------------|------------|
 | access_token | string | an oauth2 access token granted with the `guilds.join` to the bot's application for the user you want to add to the guild | |
 | nick | string | value to set users nickname to | MANAGE_NICKNAMES |
-| roles | array | array of roles the member is assigned | MANAGE_ROLES |
+| roles | array of snowflakes | array of role ids the member is assigned | MANAGE_ROLES |
 | mute | bool | if the user is muted | MUTE_MEMBERS |
 | deaf | bool | if the user is deafened | DEAFEN_MEMBERS |
 
@@ -352,7 +352,7 @@ Modify attributes of a [guild member](#DOCS_GUILD/guild-member-object). Returns 
 | Field | Type | Description | Permission |
 |-------|------|-------------|------------|
 | nick | string | value to set users nickname to | MANAGE_NICKNAMES |
-| roles | array | array of role ids the member is assigned | MANAGE_ROLES |
+| roles | array of snowflakes | array of role ids the member is assigned | MANAGE_ROLES |
 | mute | bool | if the user is muted | MUTE_MEMBERS |
 | deaf | bool | if the user is deafened | DEAFEN_MEMBERS |
 | channel_id | snowflake | id of channel to move user to (if they are connected to voice) | MOVE_MEMBERS |
