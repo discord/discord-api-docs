@@ -283,7 +283,7 @@ Create a new [channel](#DOCS_CHANNEL/channel-object) object for the guild. Requi
 | Field | Type | Description |
 |-------|------|-------------|
 | name | string | channel name (2-100 characters) |
-| type | integer | the [type of channel](#DOCS_CHANNEL/channel-object-channel-types), either 0 or 2 |
+| type | integer | the [type of channel](#DOCS_CHANNEL/channel-object-channel-types) |
 | bitrate | integer | the bitrate (in bits) of the voice channel (voice only) |
 | user_limit | integer | the user limit of the voice channel (voice only) |
 | permission_overwrites | an array of [overwrite](#DOCS_CHANNEL/overwrite-object) objects | the channel's permission overwrites |
