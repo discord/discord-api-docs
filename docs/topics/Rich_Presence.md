@@ -117,17 +117,17 @@ typedef struct DiscordRichPresence {
 
 *Ooo, let's break it down!*
 
-`state` is the user's current context. This could be "In Game," "In Queue," "Looking to Play," or any other states you want to denote.
+`state` is the user's current party status. This could be "In Queue," "Looking to Play," "Looking for More," "Playing Solo," or any other states you want to denote.
 
-`details` is a catch-all field that you can customize as you please. It's the first line of data displayed under the name of your game, and should display the most prominent data. For example, "Competitive | Match Type (Score)".
+`details` is the first line of data displayed under the name of your game, and should provide others—in conjunction with `state`—a clear understanding of what the user is currently doing. For example, "Competitive | Match Type (Score)".
 
-`startTimestamp` is the Unix timestamp (in seconds) at which the player entered their most recent instanced state, for example, a new game. Providing `startTimestamp` will cause the display time in the presence popout to count up from `00:00`.
+`startTimestamp` is the Unix timestamp (in seconds) at which the player entered their most recent instanced state, for example, a new game. Providing `startTimestamp` will cause the timer in the profile to count up from `00:00`.
 
 `endTimestamp` is also a Unix timestamp (in seconds), but denotes at what time the player's current instanced state will end. Send this if you want us to do the math and display the timer as counting down to `00:00` from your timestamp.
 
 `largeImageKey` and `smallImageKey` are the key values for the artwork you have uploaded to your Developer Dashboard (more on that later!). `largeImageText` and `smallImageText` are the mouseover tooltips on the corresponding artwork.
 
-`partyId` is the public id for the player's current party. Discord uses this to power party status and render dynamic party slots in the invite embeds.
+`partyId` is the id for the player's current party, lobby, or other differentiated group. Discord uses this to power party status and render dynamic party slots in the invite embeds. If you have multiple ids to choose from—for example, a lobby with two teams inside that lobby—`partyId` should reflect the group the player will join from the invite.
 
 `partySize` is the current size of the player's party. Sending `0` is the same as omitting it.
 
@@ -135,9 +135,9 @@ typedef struct DiscordRichPresence {
 
 `matchSecret` works in tandem with `instance` to power the "Notify Me" piece of Rich Presence. When you send us a `matchSecret` with `instance` set to `true`, we know a further change in `matchSecret` means the player is done with whatever they were doing, or finally gave up on the Water Temple, and we can send a notification to anyone who subscribed.
 
-`spectateSecret` is a unique, non-guessable string that powers the spectate button in a user's profile. More on secrets in the next section.
+`spectateSecret` is a unique, non-guessable string that powers the spectate button in a user's profile and the ability to invite a channel to spectate the user's game. More on secrets in the next section.
 
-`joinSecret` is a unique, non-guessable string that allows a user to post a game invitation in chat. When this is sent along with a `partyId`, the user's chat bar will notify them that they can invite friends to join their game. More on secrets in the next section.
+`joinSecret` is a unique, non-guessable string that allows a user to post a game invitation in chat. When this is sent along with a `partyId`, `partySize`, and `partyMax`, the user's chat bar will show them that they can invite friends to join their game. More on secrets in the next section.
 
 `instance` helps Discord be smart about notifications and display. Setting it to `true` tells us to show the "Notify me" button and alert whoever clicks it when the `matchSecret` changes.
 
@@ -214,7 +214,7 @@ Encrypted: 1a4a00a71fac73a645f9bbbc09b089b986210a50c17a926543384c7548f1742d2f92d
 Decrypted: a super secret message for Discord
 ```
 
-Discord maintains the highest standards of security for data, so we require that you hold yourself to those same standards if you wish to implement these secrets. Remember, it's for your benefit as well! We wouldn't want evildoers ending up in places they shouldn't be!
+Discord maintains the highest standards of security for data, so we require that you hold yourself to those same standards if you wish to implement these secrets. Remember, it's for your benefit as well! We wouldn't want evildoers ending up in places they shouldn't be.
 
 ## There's a time and a place for everything
 
