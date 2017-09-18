@@ -295,6 +295,10 @@ When receiving the access code on redirect, there will be additional querystring
 }
 ```
 
+### Two-Factor Authentication Requirement
+
+For bots with [elevated permissions](#DOCS_PERMISSIONS/bitwise-permission-flags) (permissions with a `*` next to them), we enforce two-factor authentication on the owner's account when added to guilds that have server-wide 2FA enabled.
+
 ## Webhooks
 
 Discord's webhook flow is a specialized version of an [authorization code](#DOCS_OAUTH2/authorization-code-grant) implementation. In this case, the `scope` querystring parameter needs to be set to `webhook.incoming`:
