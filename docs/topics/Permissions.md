@@ -122,6 +122,10 @@ Denying `SEND_MESSAGES` implicitly denies `MENTION_EVERYONE`, `SEND_TTS_MESSAGES
 
 There may be other cases in which certain permissions implicitly deny or allow other permissions. In all cases, it is based on logical conclusions about how a user with certain permissions should or should not interact with Discord.
 
+## Permission Syncing
+
+Permissions with regards to categories and channels within categories are a bit tricky. Rather than inheritence, permissions are calculated by means of what we call Permission Syncing. If a child channel has the same permissions and overwrites (or lackthereof) as its parent category, the channel is considered "synced" to the category. Any further changes to a **parent category** will be reflected in its synced child channels. Any further changes to a **child channel** will cause it to become de-synced from its parent category, and its permissions will no longer change with changes to its parent category.
+
 ## Role Object
 
 Roles represent a set of permissions attached to a group of users. Roles have unique names, colors, and can be "pinned" to the side bar, causing their members to be listed separately. Roles are unique per guild, and can have separate permission profiles for the global context (guild) and channel context.

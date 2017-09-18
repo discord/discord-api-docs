@@ -22,6 +22,7 @@ Represents a guild or DM channel within Discord.
 | icon? | ?string | icon hash |
 | owner_id? | snowflake | id of the DM creator |
 | application_id? | snowflake | application id of the group DM creator if it is bot-created |
+| parent_id? | snowflake | id of the parent category for a channel |
 
 ###### Channel Types
 
@@ -105,6 +106,21 @@ Represents a guild or DM channel within Discord.
 	"type": 3,
 	"id": "319674150115710528",
 	"owner_id": "82198810841029460"
+}
+```
+
+###### Example Channel Category
+
+```json
+{
+    "permission_overwrites": [],
+    "name": "Test",
+    "parent_id": null,
+    "nsfw": false,
+    "position": 0,
+    "guild_id": "290926798629997250",
+    "type": 4,
+    "id": "399942396007890945"
 }
 ```
 
@@ -336,7 +352,7 @@ Update a channels settings. Requires the 'MANAGE_CHANNELS' permission for the gu
 
 ## Delete/Close Channel % DELETE /channels/{channel.id#DOCS_CHANNEL/channel-object}
 
-Delete a guild channel, or close a private message. Requires the 'MANAGE_CHANNELS' permission for the guild. Returns a [guild channel](#DOCS_CHANNEL/channel-object) or [dm channel](#DOCS_CHANNEL/channel-object) object on success. Fires a [Channel Delete](#DOCS_GATEWAY/channel-delete) Gateway event.
+Delete a guild channel or category, or close a private message. Requires the 'MANAGE_CHANNELS' permission for the guild. Deleting a category does not delete its child channels; they will just have their `parent_id` removed. Returns a [channel](#DOCS_CHANNEL/channel-object) object on success. Fires a [Channel Delete](#DOCS_GATEWAY/channel-delete) Gateway event.
 
 >warn
 >Deleting a guild channel cannot be undone. Use this with caution, as it is impossible to undo this action when performed on a guild channel. In contrast, when used with a private message, it is possible to undo the action by opening a private message with the recipient again.
