@@ -1,7 +1,7 @@
 # Introduction
 
 These developer pages document how to use Discord's API to empower your applications and create awesome bots for your
-communities. All of our [documentation is on GitHub](https://github.com/hammerandchisel/discord-api-docs) and we would
+communities. All of our [documentation is on GitHub](https://github.com/discordapp/discord-api-docs) and we would
 <3 corrections and improvements!
 
 ![Bot related things](API_center.gif)
@@ -24,7 +24,7 @@ Head over to our new [applications page](#MY_APPLICATIONS/top) to dive into crea
 
 On April 1st we launched [Airhorn Solutions](https://airhorn.solutions) to bring chaos upon this meek world.
 
-Now that the noise has subsided, we’ve [open-sourced the source code for Airhorn Solutions](https://github.com/hammerandchisel/airhornbot). It’s the first fully-functional bot built with our initial API launch. If you’re looking for a working example of our API, we highly suggest digging in.
+Now that the noise has subsided, we’ve [open-sourced the source code for Airhorn Solutions](https://github.com/discordapp/airhornbot). It’s the first fully-functional bot built with our initial API launch. If you’re looking for a working example of our API, we highly suggest digging in.
 
 
 ## Games (aka Games)

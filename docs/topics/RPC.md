@@ -8,7 +8,7 @@ For now, RPC is in private beta, which means that only apps that have signed up 
 
 ## Sample Code
 
-In addition to the documentation below, we have put together a sample project that shows the basics of using the RPC within a game. [Check it out](https://github.com/hammerandchisel/sample-game-integration) if you'd like to see how all of these concepts come together.
+In addition to the documentation below, we have put together a sample project that shows the basics of using the RPC within a game. [Check it out](https://github.com/discordapp/sample-game-integration) if you'd like to see how all of these concepts come together.
 
 ## Connecting to the RPC Server
 
