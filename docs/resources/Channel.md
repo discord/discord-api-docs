@@ -334,11 +334,11 @@ In addition to the limits above, the sum of all characters in an embed structure
 
 ## Get Channel % GET /channels/{channel.id#DOCS_CHANNEL/channel-object}
 
-Get a channel by ID. Returns a [guild channel](#DOCS_CHANNEL/channel-object) or [dm channel](#DOCS_CHANNEL/channel-object) object.
+Get a channel by ID. Returns a [channel](#DOCS_CHANNEL/channel-object) object.
 
 ## Modify Channel % PUT/PATCH /channels/{channel.id#DOCS_CHANNEL/channel-object}
 
-Update a channels settings. Requires the 'MANAGE_CHANNELS' permission for the guild. Returns a [guild channel](#DOCS_CHANNEL/channel-object) on success, and a 400 BAD REQUEST on invalid parameters. Fires a [Channel Update](#DOCS_GATEWAY/channel-update) Gateway event. If modifying a category, individual [Channel Update](#DOCS_GATEWAY/channel-update) events will fire for each child channel that also changes. For the **PATCH** method, all the JSON Params are optional.
+Update a channels settings. Requires the 'MANAGE_CHANNELS' permission for the guild. Returns a [channel](#DOCS_CHANNEL/channel-object) on success, and a 400 BAD REQUEST on invalid parameters. Fires a [Channel Update](#DOCS_GATEWAY/channel-update) Gateway event. If modifying a category, individual [Channel Update](#DOCS_GATEWAY/channel-update) events will fire for each child channel that also changes. For the **PATCH** method, all the JSON Params are optional.
 
 ###### JSON Params
 
@@ -350,6 +350,7 @@ Update a channels settings. Requires the 'MANAGE_CHANNELS' permission for the gu
 | bitrate | integer | the bitrate (in bits) of the voice channel; 8000 to 96000 (128000 for VIP servers) | Voice |
 | user_limit | integer | the user limit of the voice channel; 0 refers to no limit, 1 to 99 refers to a user limit | Voice |
 | permission_overwrites | array of [overwrite](#DOCS_CHANNEL/overwrite-object) objects | channel or category-specific permissions | All |
+| parent_id | snowflake | id of the new parent category for a channel |
 
 ## Delete/Close Channel % DELETE /channels/{channel.id#DOCS_CHANNEL/channel-object}
 
