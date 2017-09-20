@@ -338,7 +338,7 @@ Get a channel by ID. Returns a [guild channel](#DOCS_CHANNEL/channel-object) or 
 
 ## Modify Channel % PUT/PATCH /channels/{channel.id#DOCS_CHANNEL/channel-object}
 
-Update a channels settings. Requires the 'MANAGE_CHANNELS' permission for the guild. Returns a [guild channel](#DOCS_CHANNEL/channel-object) on success, and a 400 BAD REQUEST on invalid parameters. Fires a [Channel Update](#DOCS_GATEWAY/channel-update) Gateway event. For the **PATCH** method, all the JSON Params are optional.
+Update a channels settings. Requires the 'MANAGE_CHANNELS' permission for the guild. Returns a [guild channel](#DOCS_CHANNEL/channel-object) on success, and a 400 BAD REQUEST on invalid parameters. Fires a [Channel Update](#DOCS_GATEWAY/channel-update) Gateway event. If modifying a category, individual [Channel Update](#DOCS_GATEWAY/channel-update) events will fire for each child channel that also changes. For the **PATCH** method, all the JSON Params are optional.
 
 ###### JSON Params
 
@@ -349,10 +349,11 @@ Update a channels settings. Requires the 'MANAGE_CHANNELS' permission for the gu
 | topic | string | 0-1024 character channel topic | Text |
 | bitrate | integer | the bitrate (in bits) of the voice channel; 8000 to 96000 (128000 for VIP servers) | Voice |
 | user_limit | integer | the user limit of the voice channel; 0 refers to no limit, 1 to 99 refers to a user limit | Voice |
+| permission_overwrites | array of [overwrite](#DOCS_CHANNEL/overwrite-object) objects | channel or category-specific permissions | All |
 
 ## Delete/Close Channel % DELETE /channels/{channel.id#DOCS_CHANNEL/channel-object}
 
-Delete a guild channel or category, or close a private message. Requires the 'MANAGE_CHANNELS' permission for the guild. Deleting a category does not delete its child channels; they will just have their `parent_id` removed. Returns a [channel](#DOCS_CHANNEL/channel-object) object on success. Fires a [Channel Delete](#DOCS_GATEWAY/channel-delete) Gateway event.
+Delete a channel, or close a private message. Requires the 'MANAGE_CHANNELS' permission for the guild. Deleting a category does not delete its child channels; they will have their `parent_id` removed. Returns a [channel](#DOCS_CHANNEL/channel-object) object on success. Fires a [Channel Delete](#DOCS_GATEWAY/channel-delete) Gateway event.
 
 >warn
 >Deleting a guild channel cannot be undone. Use this with caution, as it is impossible to undo this action when performed on a guild channel. In contrast, when used with a private message, it is possible to undo the action by opening a private message with the recipient again.
