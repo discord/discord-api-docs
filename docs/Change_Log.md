@@ -7,7 +7,7 @@
 
 #### September 20, 2017
 
-Changes have been made throughout the documentation to reflect the addition of channel categories to Discord. These includes an additional field—`parent_id`—to the base [channel](#DOCS_CHANNEL/channel-obect) object and a new [channel category example] (#DOCS_CHANNEL/channel-object-example-channel-category).
+Changes have been made throughout the documentation to reflect the addition of channel categories to Discord. These includes an additional field—`parent_id`—to the base [channel](#DOCS_CHANNEL/channel-obect) object and a new [channel category example](#DOCS_CHANNEL/channel-object-example-channel-category).
 
 ## New Feature: Emoji Endpoints
 
