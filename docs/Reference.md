@@ -161,7 +161,7 @@ Powers of 2 between 16 and 2048.
 | ---- | --- | -------- |
 | Custom Emoji | emojis/[emoji_id](#DOCS_EMOJI/emoji-object).png | PNG |
 | Guild Icon | icons/[guild_id](#DOCS_GUILD/guild-object)/[guild_icon](#DOCS_GUILD/guild-object).png | PNG, JPEG, WebP |
-| Group Dm Icon | channel-icons/[channel_id](#DOCS_CHANNEL/channel-object)/[channel_icon](#DOCS_CHANNEL/channel-object).png | PNG, JPEG, WebP |
+| Group DM Icon | channel-icons/[channel_id](#DOCS_CHANNEL/channel-object)/[channel_icon](#DOCS_CHANNEL/channel-object).png | PNG, JPEG, WebP |
 | Guild Splash | splashes/[guild_id](#DOCS_GUILD/guild-object)/[guild_splash](#DOCS_GUILD/guild-object).png | PNG, JPEG, WebP |
 | Default User Avatar | embed/avatars/[user_discriminator](#DOCS_USER/user-object).png * | PNG |
 | User Avatar | avatars/[user_id](#DOCS_USER/user-object)/[user_avatar](#DOCS_USER/user-object).png | PNG, JPEG, WebP, GIF |
