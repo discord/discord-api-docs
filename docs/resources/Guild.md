@@ -226,6 +226,9 @@ Create a new guild. Returns a [guild](#DOCS_GUILD/guild-object) object on succes
 | roles | array of [role](#DOCS_PERMISSIONS/role-object) objects | new guild roles |
 | channels | array of partial [channel](#DOCS_CHANNEL/channel-object) objects | new guild's channels |
 
+>info
+>Creating channel categories from this endpoint is not supported
+
 ###### Example Partial Channel Object
 
 ```json
@@ -287,6 +290,7 @@ Create a new [channel](#DOCS_CHANNEL/channel-object) object for the guild. Requi
 | bitrate | integer | the bitrate (in bits) of the voice channel (voice only) |
 | user_limit | integer | the user limit of the voice channel (voice only) |
 | permission_overwrites | an array of [overwrite](#DOCS_CHANNEL/overwrite-object) objects | the channel's permission overwrites |
+| parent_id | snowflake | id of the parent category for a channel |
 
 ## Modify Guild Channel Positions % PATCH /guilds/{guild.id#DOCS_GUILD/guild-object}/channels
 
