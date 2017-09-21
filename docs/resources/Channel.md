@@ -354,7 +354,7 @@ Update a channels settings. Requires the 'MANAGE_CHANNELS' permission for the gu
 
 ## Delete/Close Channel % DELETE /channels/{channel.id#DOCS_CHANNEL/channel-object}
 
-Delete a channel, or close a private message. Requires the 'MANAGE_CHANNELS' permission for the guild. Deleting a category does not delete its child channels; they will have their `parent_id` removed. Returns a [channel](#DOCS_CHANNEL/channel-object) object on success. Fires a [Channel Delete](#DOCS_GATEWAY/channel-delete) Gateway event.
+Delete a channel, or close a private message. Requires the 'MANAGE_CHANNELS' permission for the guild. Deleting a category does not delete its child channels; they will have their `parent_id` removed and a [Channel Update](#DOCS_GATEWAY/channel-update) Gateway event will fire for each of them. Returns a [channel](#DOCS_CHANNEL/channel-object) object on success. Fires a [Channel Delete](#DOCS_GATEWAY/channel-delete) Gateway event.
 
 >warn
 >Deleting a guild channel cannot be undone. Use this with caution, as it is impossible to undo this action when performed on a guild channel. In contrast, when used with a private message, it is possible to undo the action by opening a private message with the recipient again.
