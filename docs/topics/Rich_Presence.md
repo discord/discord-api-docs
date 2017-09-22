@@ -5,7 +5,7 @@
 
 How easy is it for people to play your game together? With Rich Presence from Discord—a new feature in the ever-expanding GameBridge suite—it just got so easy, a ~~caveman~~ Junior Dev could do it.
 
-Rich Presence is currently in a private alpha phase intended for game integrations and not yet ready for general public access. If you are a game developer interested in getting access, [apply to our Gamebridge program](https://discordapp.com/gamebridge), mention Rich Presence, and we'll review your application.
+Rich Presence is currently in a private alpha phase intended for game integrations and not yet ready for general public access. If you are a game developer interested in getting early access, mention Rich Presence in an [application to our Gamebridge program](https://discordapp.com/gamebridge) and we'll keep it in mind when we review your application.
 
 ## So, what is it?
 
