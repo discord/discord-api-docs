@@ -45,7 +45,8 @@ Represents a guild or DM channel within Discord.
 	"position": 6,
 	"permission_overwrites": [],
 	"topic": "24/7 chat about how to gank Mike #2",
-	"last_message_id": "155117677105512449"
+	"last_message_id": "155117677105512449",
+	"parent_id": "399942396007890945"
 }
 ```
 
@@ -60,7 +61,8 @@ Represents a guild or DM channel within Discord.
 	"position": 5,
 	"permission_overwrites": [],
 	"bitrate": 64000,
-	"user_limit": 0
+	"user_limit": 0,
+	"parent_id": null
 }
 ```
 
