@@ -15,14 +15,14 @@ Represents a guild or DM channel within Discord.
 | permission\_overwrites? | array of [overwrite](#DOCS_CHANNEL/overwrite-object) objects | explicit permission overwrites for members and roles  |
 | name? | string | the name of the channel (2-100 characters) |
 | topic? | string | the channel topic (0-1024 characters) |
-| last\_message\_id? | snowflake | the id of the last message sent in this channel (may not point to an existing or valid message) |
+| last\_message\_id? | ?snowflake | the id of the last message sent in this channel (may not point to an existing or valid message) |
 | bitrate? | integer | the bitrate (in bits) of the voice channel |
 | user\_limit? | integer | the user limit of the voice channel |
 | recipients? | array of [user](#DOCS_USER/user-object) objects | the recipients of the DM |
 | icon? | ?string | icon hash |
 | owner_id? | snowflake | id of the DM creator |
 | application_id? | snowflake | application id of the group DM creator if it is bot-created |
-| parent_id? | snowflake | id of the parent category for a channel |
+| parent_id? | ?snowflake | id of the parent category for a channel |
 
 ###### Channel Types
 
@@ -45,7 +45,8 @@ Represents a guild or DM channel within Discord.
 	"position": 6,
 	"permission_overwrites": [],
 	"topic": "24/7 chat about how to gank Mike #2",
-	"last_message_id": "155117677105512449"
+	"last_message_id": "155117677105512449",
+	"parent_id": "399942396007890945"
 }
 ```
 
@@ -60,7 +61,8 @@ Represents a guild or DM channel within Discord.
 	"position": 5,
 	"permission_overwrites": [],
 	"bitrate": 64000,
-	"user_limit": 0
+	"user_limit": 0,
+	"parent_id": null
 }
 ```
 
