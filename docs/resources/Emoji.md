@@ -1,5 +1,8 @@
 # Emoji Resource
 
+>info
+>Bots can only retrieve, modify, and delete emoji they created. This doesn't apply to listing.
+
 >warn
 >Routes for controlling emojis do not follow the normal rate limit conventions. These routes are specifically limited on a per-guild basis to prevent abuse. This means that the quota returned by our APIs may be inaccurate, and you may encounter 429s.
 
