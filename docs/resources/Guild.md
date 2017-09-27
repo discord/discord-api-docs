@@ -291,6 +291,7 @@ Create a new [channel](#DOCS_CHANNEL/channel-object) object for the guild. Requi
 | user_limit | integer | the user limit of the voice channel (voice only) |
 | permission_overwrites | an array of [overwrite](#DOCS_CHANNEL/overwrite-object) objects | the channel's permission overwrites |
 | parent_id | snowflake | id of the parent category for a channel |
+| nsfw | bool | if the channel is nsfw |
 
 ## Modify Guild Channel Positions % PATCH /guilds/{guild.id#DOCS_GUILD/guild-object}/channels
 
