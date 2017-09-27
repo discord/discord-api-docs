@@ -15,6 +15,7 @@
 | id | snowflake | [emoji id](#DOCS_REFERENCE/image-formatting) |
 | name | string | emoji name |
 | roles | array of [role object](#DOCS_PERMISSIONS/role-object) ids | roles this emoji is whitelisted to |
+| user? | [user](#DOCS_USER/user-object) object | User that created this emoji |
 | require\_colons | bool | whether this emoji must be wrapped in colons |
 | managed | bool | whether this emoji is managed |
 
