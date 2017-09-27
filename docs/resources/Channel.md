@@ -351,6 +351,7 @@ Update a channels settings. Requires the 'MANAGE_CHANNELS' permission for the gu
 | name | string | 2-100 character channel name | All |
 | position | integer | the position of the channel in the left-hand listing | All |
 | topic | string | 0-1024 character channel topic | Text |
+| nsfw | bool | if the channel is nsfw | Text |
 | bitrate | integer | the bitrate (in bits) of the voice channel; 8000 to 96000 (128000 for VIP servers) | Voice |
 | user_limit | integer | the user limit of the voice channel; 0 refers to no limit, 1 to 99 refers to a user limit | Voice |
 | permission_overwrites | array of [overwrite](#DOCS_CHANNEL/overwrite-object) objects | channel or category-specific permissions | All |
