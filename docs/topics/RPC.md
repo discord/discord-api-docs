@@ -496,7 +496,7 @@ Used to get a guild's channels the client is in.
 
 | Field | Type | Description |
 |-------|------|-------------|
-| channels | array of partial [channe](#DOCS_CHANNEL/channel-object) objects | guild channels the user is in |
+| channels | array of partial [channel](#DOCS_CHANNEL/channel-object) objects | guild channels the user is in |
 
 ###### Example Get Channels Command Payload
 
