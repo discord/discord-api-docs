@@ -118,7 +118,7 @@ Discord's Gateway API is used for maintaining persistent, stateful websocket con
 
 >warn
 >A bot must connect and identify to a gateway at least once before being able to use the [Create Message](#DOCS_CHANNEL/create-message) endpoint.
->If you only want to send messages, consider using a [Webhook](#DOCS_WEBHOOK) instead.
+>If you only want to send messages and don't need to read them, consider using a [Webhook](#DOCS_WEBHOOK) instead.
 
 ## Message Formatting
 
