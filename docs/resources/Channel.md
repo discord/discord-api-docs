@@ -15,6 +15,7 @@ Represents a guild or DM channel within Discord.
 | permission\_overwrites? | array of [overwrite](#DOCS_CHANNEL/overwrite-object) objects | explicit permission overwrites for members and roles  |
 | name? | string | the name of the channel (2-100 characters) |
 | topic? | string | the channel topic (0-1024 characters) |
+| nsfw? | bool | if the channel is nsfw
 | last\_message\_id? | ?snowflake | the id of the last message sent in this channel (may not point to an existing or valid message) |
 | bitrate? | integer | the bitrate (in bits) of the voice channel |
 | user\_limit? | integer | the user limit of the voice channel |
@@ -44,6 +45,7 @@ Represents a guild or DM channel within Discord.
 	"type": 0,
 	"position": 6,
 	"permission_overwrites": [],
+	"nsfw": true,
 	"topic": "24/7 chat about how to gank Mike #2",
 	"last_message_id": "155117677105512449",
 	"parent_id": "399942396007890945"
@@ -349,6 +351,7 @@ Update a channels settings. Requires the 'MANAGE_CHANNELS' permission for the gu
 | name | string | 2-100 character channel name | All |
 | position | integer | the position of the channel in the left-hand listing | All |
 | topic | string | 0-1024 character channel topic | Text |
+| nsfw | bool | if the channel is nsfw | Text |
 | bitrate | integer | the bitrate (in bits) of the voice channel; 8000 to 96000 (128000 for VIP servers) | Voice |
 | user_limit | integer | the user limit of the voice channel; 0 refers to no limit, 1 to 99 refers to a user limit | Voice |
 | permission_overwrites | array of [overwrite](#DOCS_CHANNEL/overwrite-object) objects | channel or category-specific permissions | All |
