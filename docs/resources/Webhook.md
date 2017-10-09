@@ -77,10 +77,11 @@ Modify a webhook. Returns the updated [webhook](#DOCS_WEBHOOK/webhook-object) ob
 |-------|------|-------------|
 | name | string | the default name of the webhook |
 | avatar | [avatar data](#DOCS_USER/avatar-data) string | image for the default webhook avatar |
+| channel_id | string | the new channel id this webhook is for |
 
 ## Modify Webhook with Token % PATCH /webhooks/{webhook.id#DOCS_WEBHOOK/webhook-object}/{webhook.token#DOCS_WEBHOOK/webhook-object}
 
-Same as above, except this call does not require authentication and returns no user in the webhook object.
+Same as above, except this call does not require authentication and returns no user in the webhook object. Additionally, the `channel_id` parameter is not present in this endpoint.
 
 ## Delete Webhook % DELETE /webhooks/{webhook.id#DOCS_WEBHOOK/webhook-object}
 
