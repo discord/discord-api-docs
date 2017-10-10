@@ -2,8 +2,6 @@
 
 >warn
 >Routes for controlling emojis do not follow the normal rate limit conventions. These routes are specifically limited on a per-guild basis to prevent abuse. This means that the quota returned by our APIs may be inaccurate, and you may encounter 429s.
->
->Furthermore, bots can only retrieve, modify, and delete emojis they have created. This restriction does not apply to the [List Guild Emojis](#DOCS_EMOJI/list-guild-emojis) endpoint.
 
 ### Emoji Object
 
