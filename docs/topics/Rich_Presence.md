@@ -32,7 +32,7 @@ The header file also contains the `Discord_RunCallbacks()` function. This invoke
 
 The first step in implementing Rich Presence is [creating an application](https://discordapp.com/developers/applications/me). Once you've created your application, note and save your `Client ID`. You will need this to initialize the SDK; this value will be referred to throughout this documentation as both `client_id` and `application_id`. Next, scroll down to the bottom of your application's page and hit the button that says "Enable Rich Presence". This will allow you to upload assets to your dashboard for later use.
 
- To begin, you'll register your callback functions to the five `DiscordEventHandlers` and then call `Discord_Initialize()` with your `APPLICATION_ID`. If your game is distributed via Steam, you should also pass your application's Steam ID so Discord can launch your game through Steam:
+ To begin, you'll register your callback functions to the six `DiscordEventHandlers` and then call `Discord_Initialize()` with your `APPLICATION_ID`. If your game is distributed via Steam, you should also pass your application's Steam ID so Discord can launch your game through Steam:
 
 ```cpp
 void InitDiscord()
@@ -40,63 +40,17 @@ void InitDiscord()
     DiscordEventHandlers handlers;
     memset(&handlers, 0, sizeof(handlers));
     handlers.ready = handleDiscordReady;
-    handlers.disconnected = handleDiscordDisconnected;
     handlers.errored = handleDiscordError;
+    handlers.disconnected = handleDiscordDisconnected;
+    handlers.joinGame = handleDiscordJoinGame;
+    handlers.spectateGame = handleDiscordSpectateGame();
+    handlers.joinRequest = handleDiscordJoinRequest();
     Discord_Initialize(APPLICATION_ID, &handlers, 1, STEAM_APP_ID);
 }
 ```
-
-## Joining
-
-Relevant Callbacks:
-
-    - `joinGame()`
-    - `joinRequest()`
-
-Relevant Payload Data:
-
-    - `partyId`
-    - `partySize`
-    - `partyMax`
-    - `joinSecret`
-    - `matchSecret`
-
-When you send the relevant payload data in `Discord_UpdatePresence()` call, your player will gain the ability to invite a Discord chat channel to play with them. This invite is tied to the player's party information; if their `partyId` changes, the invite will expire. If their `partySize` and `partyMax` changes, the invite will add, remove, and fill up slots dynamically.
-
-Other Discord users can click "Join" on the invitation. Their game will then launch, and the `joinGame()` callback will fire in their client with the inviting player's `joinSecret`. The client should reverse hash or otherwise unencrypt this secret and match the players together.
-
-To enable the Ask to Join button on your players' profiles, you'll need to be whitelisted by us—send an email to [gamedevs@discordapp.com](mailto:gamedevs@discordapp.com) to request access. Once whitelisted, you'll have access to the `joinRequest()` callback which sends the following data:
-
-###### Ask to Join Payload
-
-| parameter | type | description |
-| --------- | ---- | ----------- |
-| userId    | char* | the userId of the player asking to join |
-| username  | char* | the username of the player asking to join |
-| avatarUrl | char* | the url from which the avatar of the player asking to join can be retrieved |
-
-When it fires, your game should surface this data with a Yes or No choice for the player to accept whether or not they wish to play with the other user. If no, return false. If yes, return true and the `userId` from the request.
-
-## Spectating
-
-Relevant Callbacks:
-
-    - `spectateGame()`
-
-Relevant Payload Data:
-
-    - `spectateSecret`
-    - `matchSecret`
-
-When you send the relevant payload data in `Discord_UpdatePresence()` call, your player will gain the ability to invite a Discord chat channel to spectate their game. This invite is tied to the `matchSecret` and will expire when it changes.
-
-Other Discord users can click "Spectate" on the invitation. Their game will launch, and the `spectateGame()` callback will fire in their client with the inviting player's `spectateSecret`. The clinet should reverse hash or otherwise unencrypt this secret and spectate the player's game.
-
-To enable the Spectate button on your players' profiles, you'll need to be whitelisted by us—send an email to [gamedevs@discordapp.com](mailto:gamedevs@discordapp.com) to request access. Once whitelisted, you'll have access to the `spectateGame()` callback, and the profile button will appear.
-
 ## Updating Presence
 
-The core of Discord's Rich Presence SDK is the `Discord_UpdatePresence()` function. This is what sends your game data up to Discord to be seen and used by others. You should call `Discord_UpdatePresence()` any time something important in the presence payload changes. The payload is outlined in detail in a later section, but for now, here's an example:
+The core of Discord's Rich Presence SDK is the `Discord_UpdatePresence()` function. This is what sends your game data up to Discord to be seen and used by others. You should call `Discord_UpdatePresence()` any time something important in the presence payload changes. Here's an example:
 
 ###### Update Presence Example
 
@@ -161,13 +115,61 @@ Below is an image that shows which fields go where when sending a full data payl
 
 ![](rp-profile-view.png)
 
+## Joining
+
+Relevant Callbacks:
+
+    - `joinGame()`
+    - `joinRequest()`
+
+Relevant Payload Data:
+
+    - `partyId`
+    - `partySize`
+    - `partyMax`
+    - `joinSecret`
+    - `matchSecret`
+
+When you send the relevant payload data in the `Discord_UpdatePresence()` call, your player can invite a Discord chat channel to play with them. This invite is tied to the player's party information; if their `partyId` changes, the invite will expire. If their `partySize` and `partyMax` changes, the invite will add, remove, and fill up slots dynamically.
+
+Other Discord users can click "Join" on the invitation. Their game will then launch, and the `joinGame()` callback will fire in their client with the inviting player's `joinSecret`. The client should reverse hash or otherwise unencrypt this secret and match the players together.
+
+To enable the Ask to Join button on your players' profiles, you'll need to be whitelisted by us—send an email to [gamedevs@discordapp.com](mailto:gamedevs@discordapp.com) to request access. Once whitelisted, you'll have access to the `joinRequest()` callback which sends the following data:
+
+###### Ask to Join Payload
+
+| parameter | type | description |
+| --------- | ---- | ----------- |
+| userId    | char* | the userId of the player asking to join |
+| username  | char* | the username of the player asking to join |
+| avatarUrl | char* | the url from which the avatar of the player asking to join can be retrieved |
+
+When it fires, your game should surface this data with a Yes or No choice for the player to accept whether or not they wish to play with the other user. If no, return false. If yes, return true and the `userId` from the request.
+
+## Spectating
+
+Relevant Callbacks:
+
+    - `spectateGame()`
+
+Relevant Payload Data:
+
+    - `spectateSecret`
+    - `matchSecret`
+
+When you send the relevant payload data in the `Discord_UpdatePresence()` call, your player will gain the ability to invite a Discord chat channel to spectate their game. This invite is tied to the `matchSecret` and will expire when it changes.
+
+Other Discord users can click "Spectate" on the invitation. Their game will launch, and the `spectateGame()` callback will fire in their client with the inviting player's `spectateSecret`. The client should reverse hash or otherwise unencrypt this secret and spectate the player's game.
+
+To enable the Spectate button on your players' profiles, you'll need to be whitelisted by us—send an email to [gamedevs@discordapp.com](mailto:gamedevs@discordapp.com) to request access. Once whitelisted, you'll have access to the `spectateGame()` callback, and the profile button will appear.
+
 ## Secrets
 
 Security is of the utmost importance to us here at Discord, and we know it is for you, too. That's why we want to make sure that you properly understand `matchSecret`, `joinSecret`, and `spectateSecret` so that your game data is safe and secure over the wire.
 
-Secrets are obfuscated data of your choosing. They could be match ids, player ids, lobby ids, etc. You should send us data that someone else's game client would need to join or spectate their friend. If you can't or don't want to support those actions, you don't need to send us secrets. In fact, you could skip the rest of this section, but we all know that the real magic is _learning_.
-
 To keep security on the up and up, Discord requires that you properly hash/encode/encrypt/put-a-padlock-on-and-swallow-the-key-but-wait-then-how-would-you-open-it your secrets.
+
+Secrets are obfuscated data of your choosing. They could be match ids, player ids, lobby ids, etc. You should send us data that someone else's game client would need to join or spectate their friend. If you can't or don't want to support those actions, you don't need to send us secrets.
 
 ## Rich Presence Field Requirements
 
@@ -198,6 +200,9 @@ All fields in the `DiscordRichPresence` object are entirely optional. Anything y
 Included with the launch of Rich Presence is an overhaul of Discord's Developer Dashboard. We want to make Rich Presence and the rest of the GameBridge Suite as easy as possible to use. Our first step is helping you ditch your CDN. You're welcome.
 
 OK, well, not entirely. But! Discord _will_ host any and all artwork that you need to have the very richest of presences. Upload an image, tag it with a key—preferrably one you can remember—and **bam**. It's ready for Rich Presence use. Head over to your [applications page](#MY_APPLICATIONS/top) to check it out!
+
+>warn
+>Asset keys are automatically stored as **all lowercase** strings. Be mindful of this when referring to them in your code.
 
 ## A final note on testing and Game Detection
 
