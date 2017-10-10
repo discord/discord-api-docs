@@ -441,6 +441,14 @@ Deletes another user's reaction. This endpoint requires the 'MANAGE\_MESSAGES' p
 
 Get a list of users that reacted with this emoji. Returns an array of [user](#DOCS_USER/user-object) objects on success.
 
+###### Query String Params
+
+| Field | Type | Description | Required | Default |
+|-------|------|-------------|----------|---------|
+| before | snowflake | get users before this user ID | false | absent |
+| after | snowflake | get users after this user ID | false | absent |
+| limit | integer | max number of users to return (1-100) | false | 100 |
+
 ## Delete All Reactions % DELETE /channels/{channel.id#DOCS_CHANNEL/channel-object}/messages/{message.id#DOCS_CHANNEL/message-object}/reactions
 
 Deletes all reactions on a message. This endpoint requires the 'MANAGE\_MESSAGES' permission to be present on the current user.
