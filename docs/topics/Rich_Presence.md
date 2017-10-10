@@ -43,8 +43,8 @@ void InitDiscord()
     handlers.errored = handleDiscordError;
     handlers.disconnected = handleDiscordDisconnected;
     handlers.joinGame = handleDiscordJoinGame;
-    handlers.spectateGame = handleDiscordSpectateGame();
-    handlers.joinRequest = handleDiscordJoinRequest();
+    handlers.spectateGame = handleDiscordSpectateGame;
+    handlers.joinRequest = handleDiscordJoinRequest;
     Discord_Initialize(APPLICATION_ID, &handlers, 1, STEAM_APP_ID);
 }
 ```
