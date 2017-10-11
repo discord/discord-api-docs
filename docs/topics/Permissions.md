@@ -18,7 +18,7 @@ Below is a table of all current permissions, their integer values in hexadecimal
 | MANAGE\_GUILD * | `0x00000020` | Allows management and editing of the guild |
 | ADD\_REACTIONS | `0x00000040` | Allows for the addition of reactions to messages |
 | VIEW\_AUDIT\_LOG | `0x00000080` | Allows for viewing of audit logs |
-| READ\_MESSAGES | `0x00000400` | Allows reading messages in a channel. The channel will not appear for users without this permission |
+| VIEW\_CHANNEL | `0x00000400` | Allows guild members to view a channel, which includes reading messages in text channels |
 | SEND\_MESSAGES | `0x00000800` | Allows for sending messages in a channel |
 | SEND\_TTS\_MESSAGES | `0x00001000` | Allows for sending of `/tts` messages |
 | MANAGE\_MESSAGES *  | `0x00002000` | Allows for deletion of other users messages |
@@ -41,7 +41,7 @@ Below is a table of all current permissions, their integer values in hexadecimal
 
 **\* These permissions require the owner account to use [two-factor authentication](#DOCS_OAUTH2/twofactor-authentication-requirement) when used on a guild that has server-wide 2FA enabled.**
 
-Note that these internal permission names may be referred to differently by the Discord client. For example, "Read Text Channels and See Voice Channels" refers to READ_MESSAGES; "Manage Permissions" refers to MANAGE_ROLES, and "Use Voice Activity" refers to USE_VAD.
+Note that these internal permission names may be referred to differently by the Discord client. For example, "Manage Permissions" refers to MANAGE_ROLES, and "Use Voice Activity" refers to USE_VAD.
 
 ## Permission Hierarchy
 
@@ -52,7 +52,7 @@ How permissions apply may at first seem intuitive, but there are some hidden res
 * Bots can only sort roles lower than their highest role.
 * Bots can only kick/ban users that have lower highest role than themselves.
 
-Otherwise, permissions do not obey the role hierarchy. For example, a user has two roles: A and B. A denies the `READ_MESSAGE` permission on a #coolstuff channel. B allows the `READ_MESSAGE` permission on the same #coolstuff channel. The user would ultimately be able to read messages from #coolstuff, regardless of the role positions.
+Otherwise, permissions do not obey the role hierarchy. For example, a user has two roles: A and B. A denies the `VIEW_CHANNEL` permission on a #coolstuff channel. B allows the `VIEW_CHANNEL` permission on the same #coolstuff channel. The user would ultimately be able to view the #coolstuff channel, regardless of the role positions.
 
 ## Permission Overwrites
 
@@ -63,7 +63,7 @@ As mentioned above, certain permissions can be applied to roles or directly to m
 | CREATE\_INSTANT\_INVITE | `0x00000001` | X | X |
 | MANAGE\_CHANNELS | `0x00000010` | X | X |
 | ADD\_REACTIONS | `0x00000040` | X | |
-| READ\_MESSAGES | `0x00000400` | X | X |
+| VIEW\_CHANNEL | `0x00000400` | X | X |
 | SEND\_MESSAGES | `0x00000800` | X |  |
 | SEND\_TTS\_MESSAGES | `0x00001000` | X | |
 | MANAGE\_MESSAGES | `0x00002000` | X | |
@@ -147,7 +147,7 @@ def compute_permissions(member, channel):
 
 ## Implicit Permissions
 
-Permissions in Discord are sometimes implicitly denied or allowed based on logical use. The two main cases are `READ_MESSAGES` and `SEND_MESSAGES` for text channels. Denying a user or a role `READ_MESSAGES` on a channel implicitly denies other permissions on the channel. Though permissions like `SEND_MESSAGES` are not explicitly denied for the user, they are ignored because the user cannot read messages in the channel.
+Permissions in Discord are sometimes implicitly denied or allowed based on logical use. The two main cases are `VIEW_CHANNEL` and `SEND_MESSAGES` for text channels. Denying a user or a role `VIEW_CHANNEL` on a channel implicitly denies other permissions on the channel. Though permissions like `SEND_MESSAGES` are not explicitly denied for the user, they are ignored because the user cannot read messages in the channel.
 
 Denying `SEND_MESSAGES` implicitly denies `MENTION_EVERYONE`, `SEND_TTS_MESSAGES`, `ATTACH_FILES`, and `EMBED_LINKS`. Again, they are not explicitly denied when doing permissions calculations, but they are ignored because the user cannot do the base action of sending messages.
 
