@@ -149,7 +149,15 @@ When Player B clicks the Ask to Join button on Player A's profile, the `joinRequ
 | username  | char* | the username of the player asking to join |
 | avatarUrl | char* | the url from which the avatar of the player asking to join can be retrieved |
 
-When it fires, your game should surface this data with a Yes or No choice for Player A to accept whether or not they wish to play with Player B. If no, return `false`. If yes, return `true` and Player B's `userId` from the request.
+When it fires, your game should surface this data with a Yes or No choice for Player A to accept whether or not they wish to play with Player B. Then, call `Discord_Respond()` with Player B's `userId` and the appropriate response code:
+
+###### Ask to Join Response Codes
+
+| code | value |
+| ---- | ----- |
+| DISCORD\_REPLY_NO | 0 |
+| DISCORD\_REPLY_YES | 1 |
+| DISCORD\_REPLY_IGNORE | 2 |
 
 ## Spectating
 
