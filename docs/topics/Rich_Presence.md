@@ -134,7 +134,12 @@ When you send the relevant payload data in the `Discord_UpdatePresence()` call, 
 
 Other Discord users can click "Join" on the invitation. Their game will then launch, and the `joinGame()` callback will fire in their client with the inviting player's `joinSecret`. The client should reverse hash or otherwise unencrypt this secret and match the players together.
 
-To enable the Ask to Join button on your players' profiles, you'll need to be whitelisted by us—send an email to [gamedevs@discordapp.com](mailto:gamedevs@discordapp.com) to request access. Once whitelisted, you'll have access to the `joinRequest()` callback which sends the following data:
+### Ask to Join
+
+>warn
+>To enable the Ask to Join button on your players' profiles, you'll need to be whitelisted by us—send an email to [gamedevs@discordapp.com](mailto:gamedevs@discordapp.com) to request access. Once whitelisted, you'll see the button.
+
+When Player B clicks the Ask to Join button on Player A's profile, the `joinRequest()` callback fires for Player A, sending the following data:
 
 ###### Ask to Join Payload
 
@@ -144,9 +149,12 @@ To enable the Ask to Join button on your players' profiles, you'll need to be wh
 | username  | char* | the username of the player asking to join |
 | avatarUrl | char* | the url from which the avatar of the player asking to join can be retrieved |
 
-When it fires, your game should surface this data with a Yes or No choice for the player to accept whether or not they wish to play with the other user. If no, return false. If yes, return true and the `userId` from the request.
+When it fires, your game should surface this data with a Yes or No choice for Player A to accept whether or not they wish to play with Player B. If no, return `false`. If yes, return `true` and Player B's `userId` from the request.
 
 ## Spectating
+
+>warn
+>To enable the Spectate button on your players' profiles, you'll need to be whitelisted by us—send an email to [gamedevs@discordapp.com](mailto:gamedevs@discordapp.com) to request access. Once whitelisted the profile button will appear.
 
 Relevant Callbacks:
 
@@ -159,9 +167,7 @@ Relevant Payload Data:
 
 When you send the relevant payload data in the `Discord_UpdatePresence()` call, your player will gain the ability to invite a Discord chat channel to spectate their game. This invite is tied to the `matchSecret` and will expire when it changes.
 
-Other Discord users can click "Spectate" on the invitation. Their game will launch, and the `spectateGame()` callback will fire in their client with the inviting player's `spectateSecret`. The client should reverse hash or otherwise unencrypt this secret and spectate the player's game.
-
-To enable the Spectate button on your players' profiles, you'll need to be whitelisted by us—send an email to [gamedevs@discordapp.com](mailto:gamedevs@discordapp.com) to request access. Once whitelisted, you'll have access to the `spectateGame()` callback, and the profile button will appear.
+Other Discord users can click "Spectate" on the invitation. Their game will launch, and the `spectateGame()` callback will fire in their client with the original player's `spectateSecret`. The client should reverse hash or otherwise unencrypt this secret and spectate that player's game.
 
 ## Secrets
 
@@ -188,8 +194,8 @@ All fields in the `DiscordRichPresence` object are entirely optional. Anything y
 | largeImageText | x              |              |            |          |             |
 | smallImageText | x              |              |            |          |             |
 | partyId        |                |              |            | x        |     x       |
-| partySize      |                |              |            |          |             |
-| partyMax       |                |              |            |          |             |
+| partySize      |                |              |            | x        |     x       |
+| partyMax       |                |              |            | x        |     x       |
 | matchSecret    |                | x            |            |          |             |
 | joinSecret     |                |              |            | x        |     x       |
 | spectateSecret |                |              | x          |          |             |
@@ -202,7 +208,7 @@ Included with the launch of Rich Presence is an overhaul of Discord's Developer 
 OK, well, not entirely. But! Discord _will_ host any and all artwork that you need to have the very richest of presences. Upload an image, tag it with a key—preferrably one you can remember—and **bam**. It's ready for Rich Presence use. Head over to your [applications page](#MY_APPLICATIONS/top) to check it out!
 
 >warn
->Asset keys are automatically stored as **all lowercase** strings. Be mindful of this when referring to them in your code.
+>**Asset keys are automatically normalized to lowercase**. Be mindful of this when referring to them in your code.
 
 ## A final note on testing and Game Detection
 
