@@ -34,6 +34,8 @@ The first step in implementing Rich Presence is [creating an application](https:
 
  To begin, you'll register your callback functions to the six `DiscordEventHandlers` and then call `Discord_Initialize()` with your `APPLICATION_ID`. If your game is distributed via Steam, you should also pass your application's Steam ID so Discord can launch your game through Steam:
 
+ ###### SDK Initialization Example
+
 ```cpp
 void InitDiscord()
 {
@@ -48,6 +50,7 @@ void InitDiscord()
     Discord_Initialize(APPLICATION_ID, &handlers, 1, STEAM_APP_ID);
 }
 ```
+
 ## Updating Presence
 
 The core of Discord's Rich Presence SDK is the `Discord_UpdatePresence()` function. This is what sends your game data up to Discord to be seen and used by others. You should call `Discord_UpdatePresence()` any time something important in the presence payload changes. Here's an example:
@@ -93,6 +96,8 @@ typedef struct DiscordRichPresence {
 } DiscordRichPresence;
 ```
 
+###### Update Presence Payload Fields
+
 | parameter      | type    | description                                              | example                                                    |
 | -------------- | ------- | -------------------------------------------------------- | ---------------------------------------------------------- |
 | state          | char*   | the user's current party status                          | "Looking to Play", "Playing Solo", "In a Group"            |
@@ -117,18 +122,18 @@ Below is an image that shows which fields go where when sending a full data payl
 
 ## Joining
 
-Relevant Callbacks:
+#### Relevant Callbacks:
 
-    - `joinGame()`
-    - `joinRequest()`
+`joinGame()`
+`joinRequest()`
 
-Relevant Payload Data:
+#### Relevant Payload Data:
 
-    - `partyId`
-    - `partySize`
-    - `partyMax`
-    - `joinSecret`
-    - `matchSecret`
+`partyId`
+`partySize`
+`partyMax`
+`joinSecret`
+`matchSecret`
 
 When you send the relevant payload data in the `Discord_UpdatePresence()` call, your player can invite a Discord chat channel to play with them. This invite is tied to the player's party information; if their `partyId` changes, the invite will expire. If their `partySize` and `partyMax` changes, the invite will add, remove, and fill up slots dynamically.
 
@@ -164,14 +169,14 @@ When it fires, your game should surface this data with a Yes or No choice for Pl
 >warn
 >To enable the Spectate button on your players' profiles, you'll need to be whitelisted by us—send an email to [gamedevs@discordapp.com](mailto:gamedevs@discordapp.com) to request access. Once whitelisted the profile button will appear.
 
-Relevant Callbacks:
+#### Relevant Callbacks:
 
-    - `spectateGame()`
+`spectateGame()`
 
-Relevant Payload Data:
+#### Relevant Payload Data:
 
-    - `spectateSecret`
-    - `matchSecret`
+`spectateSecret`
+`matchSecret`
 
 When you send the relevant payload data in the `Discord_UpdatePresence()` call, your player will gain the ability to invite a Discord chat channel to spectate their game. This invite is tied to the `matchSecret` and will expire when it changes.
 
@@ -192,7 +197,7 @@ All fields in the `DiscordRichPresence` object are entirely optional. Anything y
 ###### Rich Presence Field Requirements
 
 | Field          | Custom Artwork | Notification | Spectating | Joining  | Ask to Join |
-| :------------: | :------------: | :----------: | :--------: | :------: | ----------- |
+| :------------: | :------------: | :----------: | :--------: | :------: | :---------: |
 | state          |                |              |            |          |             |
 | details        |                |              |            |          |             |
 | startTimestamp |                |              |            |          |             |
@@ -201,13 +206,13 @@ All fields in the `DiscordRichPresence` object are entirely optional. Anything y
 | smallImageKey  | x              |              |            |          |             |
 | largeImageText | x              |              |            |          |             |
 | smallImageText | x              |              |            |          |             |
-| partyId        |                |              |            | x        |     x       |
-| partySize      |                |              |            | x        |     x       |
-| partyMax       |                |              |            | x        |     x       |
+| partyId        |                |              |            | x        | x           |
+| partySize      |                |              |            | x        | x           |
+| partyMax       |                |              |            | x        | x           |
 | matchSecret    |                | x            |            |          |             |
-| joinSecret     |                |              |            | x        |     x       |
+| joinSecret     |                |              |            | x        | x           |
 | spectateSecret |                |              | x          |          |             |
-| instance       |                | x            |            |          |             |
+| instance       |                | x            |            |          |             | |
 
 ## Your New Developer Dashboard
 
