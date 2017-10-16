@@ -36,7 +36,7 @@ The first step in implementing Rich Presence is [creating an application](https:
 
  ###### SDK Initialization Example
 
-```cpp
+```c
 void InitDiscord()
 {
     DiscordEventHandlers handlers;
@@ -57,7 +57,7 @@ The core of Discord's Rich Presence SDK is the `Discord_UpdatePresence()` functi
 
 ###### Update Presence Example
 
-```cpp
+```c
 void UpdatePresence()
 {
     DiscordRichPresence discordPresence;
@@ -76,7 +76,7 @@ void UpdatePresence()
 
 ###### Update Presence Payload
 
-```cpp
+```c
 typedef struct DiscordRichPresence {
     const char* state; /* max 128 bytes */
     const char* details; /* max 128 bytes */
@@ -148,11 +148,24 @@ When Player B clicks the Ask to Join button on Player A's profile, the `joinRequ
 
 ###### Ask to Join Payload
 
+```c
+typedef struct DiscordJoinRequest {
+    char userId[24];
+    char username[48];
+    char avatarUrl[128];
+} DiscordJoinRequest;
+```
+
+###### Ask to Join Payload Fields
+
 | parameter | type | description |
 | --------- | ---- | ----------- |
-| userId    | char* | the userId of the player asking to join |
-| username  | char* | the username of the player asking to join |
-| avatarUrl | char* | the url from which the avatar of the player asking to join can be retrieved |
+| userId    | char[24]  | the userId of the player asking to join |
+| username  | char[48]  | the username of the player asking to join |
+| avatar*   | char[128] | the avatar hash of the player asking to join—see [image formatting](#DOCS_REFERENCE/image-formatting) for how to retrieve the image |
+
+>warn
+>`avatar` can be an empty string if the user has not uploaded an avatar to Discord
 
 When it fires, your game should surface this data with a Yes or No choice for Player A to accept whether or not they wish to play with Player B. Then, call `Discord_Respond()` with Player B's `userId` and the appropriate response code:
 
@@ -163,6 +176,11 @@ When it fires, your game should surface this data with a Yes or No choice for Pl
 | DISCORD\_REPLY_NO | 0 |
 | DISCORD\_REPLY_YES | 1 |
 | DISCORD\_REPLY_IGNORE | 2 |
+
+The Ask to Join request persists for 30 seconds after the request is received, regardless of whether you have called `Discord_RunCallbacks()` within that window. Therefore, keep these two points in mind:
+
+- Ensure you call `Discord_RunCallbacks()` as frequently as possible to ensure your game client is up to date with any data from Discord
+- If the player is in a state in which they cannot interact with an Ask to Join request—like in the middle of a match—you should not send a `joinSecret` in the presence payload
 
 ## Spectating
 
