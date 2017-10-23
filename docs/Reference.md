@@ -30,10 +30,10 @@ Omitting the version number from the route will route requests to the current de
 
 | Version | Status | Default |
 | ------- | ------ | ------- |
-| 6 | Available | |
+| 6 | Available | ✓ |
 | 5 | Deprecated | |
 | 4 | Deprecated | |
-| 3 | Deprecated | ✓ |
+| 3 | Deprecated | |
 
 ## Authentication
 
