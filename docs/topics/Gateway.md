@@ -397,11 +397,10 @@ As an example, if you wanted to split the connection between three shards, you'd
 ## Payloads
 
 ### Encoding Options
-Currently the gateway allows ETF or JSON for encoding payloads. There are advantages and disadvantages. An obvious perk of JSON is that many lanaguages already have fast JSON support in official packages or their standard library. However, as your bot grows, it may be preferable to use ETF, which will generally be faster and more effecient for larger payloads such as `GUILD_CREATE` or tasks like member chunking.
+Currently the gateway allows ETF or JSON for encoding payloads. There are advantages and disadvantages to both. An obvious perk of JSON is that many lanaguages already have fast JSON support in official packages or their standard library. However, as your bot grows, it may be preferable to use ETF, which will generally be faster and more effecient for larger payloads such as `GUILD_CREATE` or tasks like member chunking. If you choose JSON, you can also use [per-payload compression](#DOCS_GATEWAY/payload-compression). See below for more information about the differences in sending/receiving payloads using these different encodings.
 
 ### Sending Payloads
-
-Packets sent from the client to the Gateway API are encapsulated within a [gateway payload object](#DOCS_GATEWAY/gateway-dispatch) and must have the proper opcode and data object set. The payload object can then be serialized in the format of choice (see [ETF/JSON](#DOCS_GATEWAY/etf-json)), and sent over the websocket. Payloads to the gateway are limited to a maximum of 4096 bytes sent, going over this will cause a connection termination with error code 4002.
+Packets sent from the client to the Gateway API are encapsulated within a [gateway payload object](#DOCS_GATEWAY/gateway-dispatch) and must have the proper opcode and data object set. The payload object can then be serialized in the format of choice (see [encoding options](#DOCS_GATEWAY/encoding options))), and sent over the websocket. Payloads to the gateway are limited to a maximum of 4096 bytes sent, going over this will cause a connection termination with error code 4002.
 
 ### Receiving Payloads
 Receiving payloads with the Gateway API is slightly more complex than sending.
@@ -410,9 +409,9 @@ Receiving payloads with the Gateway API is slightly more complex than sending.
 When using JSON encoding with payload compression enabled (`compress: true` in identify), the Gateway may optionally send zlib-compressed payloads  (see [RFC1950 2.2](https://tools.ietf.org/html/rfc1950#section-2.2)). Your library _must_ detect and decompress these payloads to plain-text JSON before attempting to parse them. If you are using payload compression, the gateway does not implement a shared compression context between messages sent. Payload compression will be disabled if you use transport compression (see below).
 
 #### Transport Compression
-Currently the only available transport compression option is `zlib-stream`  . You will need to run all received packets through a shared zlib context, as seen in the example below. Every connection to the gateway should use its own unique zlib context.
+Currently the only available transport compression option is `zlib-stream`. You will need to run all received packets through a shared zlib context, as seen in the example below. Every connection to the gateway should use its own unique zlib context.
 
-```py
+```python
 ZLIB_SUFFIX = '\x00\x00\xff\xff'
 # initialize a buffer to store chunks
 buffer = bytearray()
