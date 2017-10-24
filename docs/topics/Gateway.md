@@ -412,6 +412,7 @@ When using JSON encoding with payload compression enabled (`compress: true` in i
 Currently the only available transport compression option is `zlib-stream`. You will need to run all received packets through a shared zlib context, as seen in the example below. Every connection to the gateway should use its own unique zlib context.
 
 ```python
+# Z_SYNC_FLUSH suffix
 ZLIB_SUFFIX = '\x00\x00\xff\xff'
 # initialize a buffer to store chunks
 buffer = bytearray()
@@ -423,11 +424,8 @@ def on_websocket_message(msg):
   # always push the message data to your cache
   buffer.extend(msg)
 
-  if len(msg) < 4:
-    return
-
   # check if the last four bytes are equal to ZLIB_SUFFIX
-  if msg[-4:] != ZLIB_SUFFIX:
+  if len(msg) < 4 or msg[-4:] != ZLIB_SUFFIX:
     return
 
   # if the message *does* end with ZLIB_SUFFIX,
