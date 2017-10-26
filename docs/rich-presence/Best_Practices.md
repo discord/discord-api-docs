@@ -4,7 +4,8 @@ Rich Presence is a new feature from Discord that allows you to surface unique, i
 
 If you take away one thing from this guide, let it be this:
 
-**Rich Presence data should give others a clear understanding of what someone is doing so they can decide if they want to play together or not.**
+>warn
+>Rich Presence data should give others a clear understanding of what someone is doing so they can decide if they want to play together or not.
 
 ## Who should use Rich Presence?
 
@@ -35,31 +36,28 @@ For a great real world example, check out [Holodrive](store.steampowered.com/app
 
 A user’s profile is a small space. Keep your strings short and sweet!
 
-BAD
-The data wraps onto multiple lines. It’s repetitive and hard to read
-
-GOOD
-The data all fits on one line per string. Clean!
+| Bad | Good |
+|:-----:|:----: |
+| ![](rp-long-strings.png) | ![](rp-short-strings.png) |
+| The data wraps onto multiple lines. It’s repetitive, slower to read, and messy. | The data all fits on one line per string. Clean! |
 
 ### Make it Actionable!
 
 Someone’s presence should encourage others to join them in their game. Present data that makes me want to play with you.
 
-BAD
-While it’s interesting to know that this player is level 110, it doesn’t present any actionable data. The player’s group has an empty slot, but it’s not clear if they are looking for more people to play with.
-
-GOOD
-It’s clear that this user wants people to play with them! They have empty party slots, they’re in queue, and we know what they’re looking to do. We even know how long they’ve been waiting!
+| Bad | Good |
+|:-----:|:----: |
+| ![](rp-non-actionable.png) | ![](rp-actionable.png) |
+| While Rank 9999 is impressive, it doesn’t present any actionable data for their friends. | This player is in queue for something I want to play. Let's ask to join that open spot! |
 
 ### Use ALL of the fields (where applicable)!
 
 Though a user’s profile is small, we’ve given you a lot of cool ways to show more information. Make use of all the fields that are applicable to you. For example, rather than putting map names in the text, use the mouseover text! Also, try not to repeat information. Each piece of the profile should provide relevant information for someone looking to play with friends.
 
-BAD
-The map name is also taking up valuable space that could be used for other data.
-
-GOOD
-Moving the name of the map to the tooltip frees up more space for other information. Using the small image for a class icon adds more information without adding more text.
+| Bad | Good |
+|:-----:|:----: |
+| ![](rp-not-all-fields.png) | ![](rp-all-fields.png) |
+| The map name takes up space and makes the player's status harder to read at a glance. | Moving the name of the map to the tooltip makes the data cleaner and frees up space for the score. |
 
 ### Have interesting, expressive art!
 
@@ -67,8 +65,7 @@ Good artwork on a user’s profile will get people excited about the game and wa
 
 Use high resolution artwork so your art looks great on fancy, high DPI screens. We also strongly recommend image sizes of 1024x1024—that way, your images will scale nicely between the small and large profile.
 
-BAD
-The large image is dark and hard to see. Be cautious of highly-detailed images—they can be hard to see in such a small size.
-
-GOOD
-A cool image of the current boss is the focal piece, with a small class icon for the player. Putting the boss name in the tooltip allows us to use the state to better explain what the player is doing
+| Bad | Good |
+|:-----:|:----: |
+| ![](rp-bad-art.png) | ![](rp-good-art.png)|
+| The image is dark and unfocused. Highly-detailed images can be hard to see. | This image is bright and matches the details. Let's help! |
