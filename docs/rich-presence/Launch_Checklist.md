@@ -6,6 +6,7 @@ Ready to launch a Rich Presence integration for your game? We recommend looking 
 
 - Have you made use of all available fields where appropriate?
 - Do your strings fit on their own lines without line wrapping?
+  - Did you check on the smaller profile pop out?
 - Do they clearly communicate:
   - What the player is currently doing?
   - If the player is in a group or playing alone?
@@ -40,6 +41,6 @@ Ready to launch a Rich Presence integration for your game? We recommend looking 
 
 - Have you successfully implemented spectate invites for your game if applicable?
 - Is your game's spectate mode true spectating?
-  - We do _not_ allow using the Spectate button as a pseudo-Join button
+  - We do _not_ allow using the Spectate button as a pseudo-Join button.
 - Are you properly removing data from the presence payload when someone can no longer spectate?
-  - A `spectateSecret` and `matchSecret` should not be sent if the player can't be spectated!
+  - A `spectateSecret` should not be sent if the player can't be spectated!
