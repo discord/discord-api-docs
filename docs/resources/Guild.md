@@ -212,7 +212,7 @@ A partial [guild](#DOCS_GUILD/guild-object) object. Represents an Offline Guild,
 Create a new guild. Returns a [guild](#DOCS_GUILD/guild-object) object on success. Fires a [Guild Create](#DOCS_GATEWAY/guild-create) Gateway event.
 
 >warn
->By default this endpoint is limited to 10 active guilds. These limits are raised for whitelisted [GameBridge](#DOCS_GAMEBRDIGE) applications.
+>By default this endpoint is limited to 10 active guilds. These limits are raised for whitelisted [GameBridge](#DOCS_GAMEBRDIGE) applications. Creating channel categories from this endpoint is also not supported.
 
 ###### JSON Params
 
@@ -226,8 +226,8 @@ Create a new guild. Returns a [guild](#DOCS_GUILD/guild-object) object on succes
 | roles | array of [role](#DOCS_PERMISSIONS/role-object) objects | new guild roles |
 | channels | array of partial [channel](#DOCS_CHANNEL/channel-object) objects | new guild's channels |
 
->info
->Creating channel categories from this endpoint is not supported
+>warn
+>When using the `roles` parameter, the first member of the array is used to change properties of the guild's `@everyone` role. If you are trying to bootstrap a guild with additional roles, keep this in mind.
 
 ###### Example Partial Channel Object
 
