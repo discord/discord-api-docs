@@ -70,15 +70,12 @@ All HTTP-layer services and protocols (e.g. http, websocket) within the Discord 
 
 Discord utilizes Twitter's [snowflake](https://github.com/twitter/snowflake/tree/snowflake-2010) format for uniquely identifiable descriptors (IDs). These IDs are guaranteed to be unique across all of Discord, except in some unique scenarios in which child objects share their parent's ID. Because Snowflake IDs are up to 64 bits in size (e.g. a uint64), they are always returned as strings in the HTTP API to prevent integer overflows in some languages. See [Gateway ETF/JSON](#DOCS_GATEWAY/etf-json) for more information regarding Gateway encoding.
 
-## Nullable Resource Fields
+## Nullable and Optional Resource Fields
 
-Resource fields that may be null have types that are prefixed with a question mark.
+Resource fields that may contain a `null` value have types that are prefixed with a question mark.
+Resource fields that are optional have names that are suffixed with a question mark.
 
-## Optional Resource Fields
-
-Resources fields that are optional have names that are suffixed with a question mark.
-
-###### Example Nullable and Optional Field
+###### Example Nullable and Optional Fields
 
 | Field | Type |
 | ----- | ---- |
