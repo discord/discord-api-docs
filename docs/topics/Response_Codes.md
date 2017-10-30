@@ -73,6 +73,7 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 50034 | A message provided was too old to bulk delete |
 | 50035 | Invalid Form Body |
 | 50036 | An invite was accepted to a guild the application's bot is not in |
+| 50041 | Invalid API version |
 | 90001 | Reaction Blocked |
 
 ###### Example JSON Error Response
