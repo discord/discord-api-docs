@@ -394,15 +394,16 @@ Post a message to a guild text or DM channel. If operating on a guild channel, t
 >warn
 >This endpoint supports both JSON and form data bodies. It does require multipart/form-data requests instead of the normal JSON request type when uploading files. Make sure you set your `Content-Type` to `multipart/form-data` if you're doing that. Note that in that case, the `embed` field cannot be used, but you can pass an url-encoded JSON body as a form value for `payload_json`.
 
-###### JSON Params
+###### Params
 
 | Field | Type | Description | Required |
 |-------|------|-------------|----------|
 | content | string | the message contents (up to 2000 characters) | true |
 | nonce | snowflake | a nonce that can be used for optimistic message sending | false |
 | tts | bool | true if this is a TTS message | false |
-| file | file contents | the contents of the file being sent | one of content, file, embeds (multipart form data only) |
+| file | file contents | the contents of the file being sent | one of content, file, embeds (`multipart/form-data` only) |
 | embed | [embed](#DOCS_CHANNEL/embed-object) object | embedded `rich` content | false |
+| payload_json | string | url-encoded JSON body used in place of the `embed` field | `multipart/form-data` only
 
 >info
 >For the embed object, you can set every field except `type` (it will be `rich` regardless of if you try to set it), `provider`, `video`, and any `height`, `width`, or `proxy_url` values for images.
