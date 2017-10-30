@@ -391,6 +391,8 @@ Returns a specific message in the channel. If operating on a guild channel, this
 
 Post a message to a guild text or DM channel. If operating on a guild channel, this endpoint requires the 'SEND_MESSAGES' permission to be present on the current user. Returns a [message](#DOCS_CHANNEL/message-object) object. Fires a [Message Create](#DOCS_GATEWAY/message-create) Gateway event. See [message formatting](#DOCS_REFERENCE/message-formatting) for more information on how to properly format messages.
 
+The maximum request size when sending a message is 8MB.
+
 >warn
 >This endpoint supports both JSON and form data bodies. It does require multipart/form-data requests instead of the normal JSON request type when uploading files. Make sure you set your `Content-Type` to `multipart/form-data` if you're doing that. Note that in that case, the `embed` field cannot be used, but you can pass an url-encoded JSON body as a form value for `payload_json`.
 
