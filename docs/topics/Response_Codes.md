@@ -55,7 +55,7 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 50001 | Missing access |
 | 50002 | Invalid account type |
 | 50003 | Cannot execute action on a DM channel |
-| 50004 | Embed disabled |
+| 50004 | Widget Disabled |
 | 50005 | Cannot edit a message authored by another user |
 | 50006 | Cannot send an empty message |
 | 50007 | Cannot send messages to this user |
