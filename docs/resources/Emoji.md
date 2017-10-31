@@ -26,7 +26,7 @@ Returns an [emoji](#DOCS_EMOJI/emoji-object) object for the given guild and emoj
 
 ## Create Guild Emoji % POST /guilds/{guild.id#DOCS_GUILD/guild-object}/emojis
 
-Create a new emoji for the guild. Returns the new [emoji](#DOCS_EMOJI/emoji-object) object on success. Fires a [Guild Emojis Update](#DOCS_GATEWAY/guild-emojis-update) Gateway event.
+Create a new emoji for the guild. Requires the 'MANAGE_EMOJIS' permission. Returns the new [emoji](#DOCS_EMOJI/emoji-object) object on success. Fires a [Guild Emojis Update](#DOCS_GATEWAY/guild-emojis-update) Gateway event.
 
 >info
 >Passing the roles field will be ignored unless the application is whitelisted as an emoji provider. For more information and to request whitelisting please contact support@discordapp.com
@@ -41,7 +41,7 @@ Create a new emoji for the guild. Returns the new [emoji](#DOCS_EMOJI/emoji-obje
 
 ## Modify Guild Emoji % PATCH /guilds/{guild.id#DOCS_GUILD/guild-object}/emojis/{emoji.id#DOCS_EMOJI/emoji-object}
 
-Modify the given emoji. Returns the updated [emoji](#DOCS_EMOJI/emoji-object) object on success. Fires a [Guild Emojis Update](#DOCS_GATEWAY/guild-emojis-update) Gateway event.
+Modify the given emoji. Requires the 'MANAGE_EMOJIS' permission. Returns the updated [emoji](#DOCS_EMOJI/emoji-object) object on success. Fires a [Guild Emojis Update](#DOCS_GATEWAY/guild-emojis-update) Gateway event.
 
 >info
 >Passing the roles field will be ignored unless the application is whitelisted as an emoji provider. For more information and to request whitelisting please contact support@discordapp.com
@@ -55,4 +55,4 @@ Modify the given emoji. Returns the updated [emoji](#DOCS_EMOJI/emoji-object) ob
 
 ## Delete Guild Emoji % DELETE /guilds/{guild.id#DOCS_GUILD/guild-object}/emojis/{emoji.id#DOCS_EMOJI/emoji-object}
 
-Delete the given emoji. Returns `204 No Content` on success. Fires a [Guild Emojis Update](#DOCS_GATEWAY/guild-emojis-update) Gateway event.
+Delete the given emoji. Requires the 'MANAGE_EMOJIS' permission. Returns `204 No Content` on success. Fires a [Guild Emojis Update](#DOCS_GATEWAY/guild-emojis-update) Gateway event.
