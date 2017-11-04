@@ -1,15 +1,19 @@
 # Introducing Rich Presence
 
->danger
->Rich Presence is live! If you are testing a game integration with Rich Presence, other users will be able to see it. Please create a private test account and do not join any public servers while testing your integration.
-
 How easy is it for people to play your game together? With Rich Presence from Discord—a new feature in the ever-expanding GameBridge suite—it just got so easy, a ~~caveman~~ Junior Dev could do it.
 
-Rich Presence is currently in a private alpha phase intended for game integrations and not yet ready for general public access. If you are a game developer interested in getting early access, mention Rich Presence in an [application to our Gamebridge program](https://discordapp.com/gamebridge) and we'll keep it in mind when we review your application.
+Rich Presence is now **live**! If you are testing a game integration with Rich Presence, other users will be able to see it. Please create a private test account and do not join any public servers while testing your integration.
+
+>info
+>If you want to stay up to date with the latest developer news from Discord and learn about new and exciting ways to work with us, sign up for our [developer newsletter](https://discordapp.com/dev-newsletter).
 
 ## So, what is it?
 
 Rich Presence allows you to leverage the totally overhauled "Now Playing" section in a Discord user's profile to help people play your game together. Rich game data—including duration, score, current boss or map, and so much more—lives inside Discord. You can spectate a friend's game directly from their profile popout, or party up via beautiful chat embeds with real-time information about open party slots and the party's in-game status. No more exchanging usernames and friend codes, or wondering if there's room for you to join. Rich Presence is a living invitation to play together, or to watch your friends kick butt.
+
+## Step 0: Get the SDK
+
+You've decided you want to integrate with Rich Presence. Of course you did! It's awesome—just ask us. You can get the SDK from our [GitHub repository](https://github.com/discordapp/discord-rpc). Grab a release build or use our build scripts, and check out the examples while you're there! We support C, C++, Unity, and Unreal Engine out of the box. If we don't have a release type that fits your development needs, roll your own! It's all open-source.
 
 ## So, how does it work?
 
@@ -51,6 +55,8 @@ void InitDiscord()
 }
 ```
 
+When you are ready to publish your integration, we recommend digging into the source code of the SDK and copying `discord_register.h`, `discord_register_win.cpp`, `discord_register_osx.m`, and `discord_register_linux.cpp` into your installation and update process. By registering your application protocols on installation and update, your players won't need to run the game before being able to interact with invites, Ask to Join, and spectating in Discord.
+
 ## Updating Presence
 
 The core of Discord's Rich Presence SDK is the `Discord_UpdatePresence()` function. This is what sends your game data up to Discord to be seen and used by others. You should call `Discord_UpdatePresence()` any time something important in the presence payload changes. Here's an example:
@@ -60,12 +66,17 @@ The core of Discord's Rich Presence SDK is the `Discord_UpdatePresence()` functi
 ```c
 void UpdatePresence()
 {
+    char buffer[256];
     DiscordRichPresence discordPresence;
+    memset(&discordPresence, 0, sizeof(discordPresence));
     discordPresence.state = "In a Group";
-    discordPresence.details = "Competitive | In a Match";
-    discordPresence.endTimestamp = time(nullptr) + ((60 * 5) + 23);
+    sprintf(buffer, "Ranked | Mode: %d", GameEngine.GetMode());
+    discordPresence.details = buffer;
+    discordPresence.endTimestamp = time(0) + 5 * 60;
+    discordPresence.largeImageKey = "canary-large";
+    discordPresence.smallImageKey = "ptb-small";
     discordPresence.partyId = GameEngine.GetPartyId();
-    discordPresence.partySize = 3;
+    discordPresence.partySize = 1;
     discordPresence.partyMax = 6;
     discordPresence.matchSecret = "4b2fdce12f639de8bfa7e3591b71a0d679d7c93f";
     discordPresence.spectateSecret = "e7eb30d2ee025ed05c71ea495f770b76454ee4e0";
@@ -115,10 +126,6 @@ typedef struct DiscordRichPresence {
 | spectateSecret | char*   | unique hased string for Spectate button                  | MTIzNDV8MTIzNDV8MTMyNDU0                                   |
 | joinSecret     | char*   | unique hased string for chat invitations and Ask to Join | MTI4NzM0OjFpMmhuZToxMjMxMjM=                               |
 | instance       | int8_t  | helps track when games have ended                        | 1                                                          |
-
-Below is an image that shows which fields go where when sending a full data payload with spectating and notifications enabled; use it for reference for your own data:
-
-![](rp-profile-view.png)
 
 ## Joining
 
@@ -241,7 +248,7 @@ OK, well, not entirely. But! Discord _will_ host any and all artwork that you ne
 >warn
 >**Asset keys are automatically normalized to lowercase**. Be mindful of this when referring to them in your code.
 
-## A final note on testing and Game Detection
+## A note on testing and Game Detection
 
 In order to test your Rich Presence integration locally, you and your testers will need to make sure that your game client is detected by Discord. If your game is not automatically detected, presence data will not be shown. To detect your game, go to User Settings -> Games -> Add it! and select your application from the dropdown list. Every user working with your local development build will need to follow these steps in order for Discord to detect their presence.
 
@@ -250,3 +257,7 @@ If you don't see Rich Presence data in your profile while testing, make sure you
 If you are having issues with your release build not being detected, send us an email at [gamedevs@discordapp.com](mailto:gamedevs@discordapp.com) and we'll add it to our database for you.
 
 If you're testing on your own, we recommend [downloading two separate release channels](https://discordapp.com/download) of the Discord desktop client. You can log into the stable, public test, and canary builds with separate credentials, making testing easier for a single developer.
+
+## So, what now?
+
+Get to coding! We can't wait to see the awesome integration you come up with. If you need some quick questions answered, look no further than our [Rich Presence FAQ](#DOCS_FAQ/). If you want to know how to make your integration the best it can be, read our [Best Practices Guide](#DOCS_BEST_PRACTICES/). If you're ready to release, consult our [Launch Checklist](#DOCS_LAUNCH_CHECKLIST/) and make sure you haven't missed anything!
