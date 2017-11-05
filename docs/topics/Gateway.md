@@ -316,7 +316,7 @@ The inner `d` key is a boolean that indicates whether the session may be resumab
 
 ## Connecting
 
-The first step in establishing connectivity to the gateway is requesting a valid websocket endpoint from the API. This can be done through either the [Get Gateway](#DOCS_GATEWAY/get-getway) or the [Get Gateway Bot](#DOCS_GATEWAY/get-getway-bot) endpoints.
+The first step in establishing connectivity to the gateway is requesting a valid websocket endpoint from the API. This can be done through either the [Get Gateway](#DOCS_GATEWAY/get-gateway) or the [Get Gateway Bot](#DOCS_GATEWAY/get-gateway-bot) endpoints.
 
 With the resulting payload, you can now open a websocket connection to the "url" (or endpoint) specified. Generally, it is a good idea to explicitly pass the gateway version and encoding (see the url params table below) as URL parameters (e.g. from our example we may connect to `wss://gateway.discord.gg/?v=6&encoding=json`).
 
