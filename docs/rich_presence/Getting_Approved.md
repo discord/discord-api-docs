@@ -62,6 +62,6 @@ To be approved for Spectate, submit a video of your game’s Spectate flow that 
 - Game client launches
 - Begin spectating friend
 
-In the case of spectating, your players should not be able to join the game directly via spectating. If you want players to be able to join a game session, use our Ask to Join feature instead. Discord’s Spectate feature is limited to a “true spectate” experience—that means no joining on.
+In the case of spectating, your players should not be able to join the game directly. If you want players to be able to join a game session, use our Ask to Join feature instead. Discord’s Spectate feature is limited to a “true spectate” experience—that means no joining on.
 
 To test Spectate for your game, you can add whitelisted users on [your app's developer dashboard](https://discordapp.com/developers/applications/me) who will then have the feature enabled on their profile.
