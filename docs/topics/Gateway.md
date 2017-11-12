@@ -685,6 +685,8 @@ A user's presence is their current state on a guild. This event is sent when a u
 |----|------|--------|---------|
 | 0 | Game | Playing {name} | "Playing Rocket League" |
 | 1 | Streaming | Streaming {name} | "Streaming Rocket League" |
+| 2 | Listening | Listening to {name} | "Listening to Nyan Cat - 10 Hour Version" |
+| 3 | Watching | Watching {name} | "Watching Stranger Things" |
 
 >info
 >The streaming type currently only supports Twitch. Only `https://twitch.tv/` urls will work.
