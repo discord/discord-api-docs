@@ -677,7 +677,13 @@ A user's presence is their current state on a guild. This event is sent when a u
 |-------|------|-------------|---------|
 | name | string | the game's name | Always |
 | type | integer | see [Game Types](#DOCS_GATEWAY/game-types)  | Always |
-| url | ?string | stream url, is validated when type is 1  | When type is 1 |
+| url? | ?string | stream url, is validated when type is 1  | When type is 1 |
+| timestamps? | see [timestamps](#DOCS_GATEWAY/game-timestamps) | Unix timestamps for start and/or end of the game | Sometimes |
+| application_id? | snowflake | Application ID for the game | Sometimes |
+| details? | ?string | What the player is currently doing | Sometimes |
+| state? | ?state | The user's current party status | Sometimes |
+| party? | see [party](#DOCS_GATEWAY/game-party) | Information for the current party of the player | Sometimes |
+| assets? | see [assets](#DOCS_GATEWAY/game-assets) | Images for the presence and their hover texts | Sometimes |
 
 ###### Game Types
 
@@ -689,6 +695,29 @@ A user's presence is their current state on a guild. This event is sent when a u
 >info
 >The streaming type currently only supports Twitch. Only `https://twitch.tv/` urls will work.
 
+###### Game Timestamps
+
+| Field | Type | Description |
+|-------|------|-------------|
+| start? | float/int | Epoch seconds of start | 
+| end? | float/int | Epoch seconds of end | 
+
+###### Game Party
+
+| Field | Type | Description |
+|-------|------|-------------|
+| id? | string | The ID, relevant for joining the party |
+| size | Array containing the current and maximum size | First element is the current size, second the max `[2, 5]` |
+
+###### Game Assets 
+
+| Field | Type | Description |
+|-------|------|-------------|
+| large_image? | snowflake | ID for an asset of the application |
+| large_text? | string | Text displayed when hovering the large image of the presence |
+| small_image? | snowflake | ID for an asset of the application |
+| small_text? | string | Text displayed when hovering the small image of the presence |
+
 ###### Example Game
 
 ```json
@@ -696,6 +725,25 @@ A user's presence is their current state on a guild. This event is sent when a u
 	"name": "Rocket League",
 	"type": 1,
 	"url": "https://www.twitch.tv/123"
+}
+```
+
+With Rich Presence
+
+```json
+{
+	"name": "Overwatch",
+	"type": 0,
+	"application_id": "379286085710381056",
+	"state": "In Menus",
+	"details": "Join the official Overwatch discord server discord.gg/overwatch",
+	"timestamps": {
+		"start": 1.510341850081E12
+	},
+	"assets": {
+         "large_image": "351371005538729984",
+         "large_text": "Overwatch"
+	}
 }
 ```
 
