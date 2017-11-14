@@ -31,6 +31,14 @@ Anyone can see your profile data, whether they own the game or not. They'll only
 
 Currently, the SDK does not support this. Party slot information is determined by the party data you sent in your presence payload.
 
+#### Q: I'm not seeing my artwork or my artwork won't refresh!
+
+If you have everything set up correctly but don't see your artwork, Discord may be caching old api calls. The same thing is likely occuring if your artwork doesn't refresh. To clear the cache and force fresh assets, open the Dev Tools (CTRL + I), and under the Network tab, select "Disable cache". Reload your game and you should be good to go! (remember to re-enable the cache!)
+
+#### Q: I've disabled my cache and I still don't see my artwork!
+
+If you've cleared your cache and images still aren't showing, you've likely misconfigured application. Make sure you use the exact same name's on your Application Dashboard as you do in game. Discord doesn't automatically add `-large` and `-small` to your file names. Additionally, when adding art, make sure to hit the "upload art" button. If your art appears in a list below, you can now hit save and it will be uploaded.
+
 #### Q: Can I send images via the payload rather than uploading them to my Developer Dashboard?
 
 Unfortunately, the SDK does not support this feature right now.  However, we hear your desires! We know that a lot of games, like customization-heavy RPGs, would benefit greatly from being able to programmatically upload assets. It may be something we tackle in the future.
