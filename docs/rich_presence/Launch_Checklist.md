@@ -18,7 +18,7 @@ Ready to launch a Rich Presence integration for your game? Did you read our [Bes
 #### Artwork
 
 - Is your artwork high resolution?
-- Are your image sizes at least 1024x1024?
+- Are your images at least 1024x1024 pixels?
 - Is it clean, interesting, and descriptive without being too highly detailed?
 - Do you have artwork for every different state? Don't forget your default state/main menu!
 - Did you make use of tooltips and the small image where appropriate?
@@ -26,7 +26,7 @@ Ready to launch a Rich Presence integration for your game? Did you read our [Bes
 #### Joining
 
 >warn
->If you want the Ask to Join button on users' profiles, check out [Getting Aproved](#DOCS_GETTING_APPROVED/) for more information!
+>If you want the Ask to Join button on users' profiles, check out [Getting Approved](#DOCS_GETTING_APPROVED/) for more information!
 
 - Have you successfully implemented join invites for your game if applicable?
 - Does the state of the invite properly represent the party/group in-game with regards to:

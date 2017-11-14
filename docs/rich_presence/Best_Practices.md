@@ -75,7 +75,7 @@ For a great real world example, check out [Holodrive](https://store.steampowered
 - The large image should be consistent for all players in a party.
 - The small image is where you can customize on a per-player basis.
 - Use high resolution artwork so your art looks great on fancy, high DPI screens.
-- We strongly recommend image sizes of 1024x1024.
+- We strongly recommend image sizes of 1024x1024 pixels.
 
 ###### Examples
 
