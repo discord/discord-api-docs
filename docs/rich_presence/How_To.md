@@ -60,6 +60,11 @@ void InitDiscord()
 
 When you are ready to publish your integration, we recommend digging into the source code of the SDK and copying `discord_register.h`, `discord_register_win.cpp`, `discord_register_osx.m`, and `discord_register_linux.cpp` into your installation and update process. By registering your application protocols on installation and update, your players won't need to run the game before being able to interact with invites, Ask to Join, and spectating in Discord.
 
+>danger
+>**Shutting Down**
+
+>Don't leave so soon! But when you _do_ shut down your application, don't forget to call `Discord_Shutdown()`. This properly terminates the thread and allows your application to shut down cleanly.
+
 ## Updating Presence
 
 The core of Discord's Rich Presence SDK is the `Discord_UpdatePresence()` function. This is what sends your game data up to Discord to be seen and used by others. You should call `Discord_UpdatePresence()` any time something important in the presence payload changes. Here's an example:
