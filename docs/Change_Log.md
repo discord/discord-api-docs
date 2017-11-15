@@ -1,7 +1,22 @@
 # Change Log
 
->danger
->API and Gateway versions below v6 will be discontinued on October 16, 2017, after which they will be non-functioning.
+## New Feature: Rich Presence
+
+#### November 9, 2017
+
+Rich Presence is now live and available for all developers! Rich Presence allows developers to closely integrate with Discord in a number of new, cool ways like:
+
+- Showing more information about a user's current game in their profile
+- Allowing users to post invitations to join their party or spectate their game in chat
+- Displaying "Spectate" and "Ask to Join" buttons on users' profiles
+
+For more information, check out our [Rich Presence site](https://discordapp.com/rich-presence). To get started on development, [read the docs](#DOCS_HOW_TO/)!
+
+## Breaking Change: API & Gateway Below v6 Discontinued
+
+#### October 16, 2017
+
+[API](#DOCS_REFERENCE/api-versioning) and [Gateway](#DOCS_GATEWAY/gateway-protocol-versions) versions below v6 are now discontinued after being previously deprecated. Version 6 is now the default API and Gateway version. Attempting to use a version below 6 will result in an error.
 
 ## New Feature: Channel Categories
 

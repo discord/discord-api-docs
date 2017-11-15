@@ -42,9 +42,9 @@ The Discord Gateway has a versioning system which is separate from the core APIs
 
 | Version | Status |
 |---------|----------------|
-| 6 | In Service |
-| 5 | Deprecated |
-| 4 | Deprecated |
+| 6 | Available |
+| 5 | Discontinued |
+| 4 | Discontinued |
 
 ## Gateway Opcodes/Payloads
 
