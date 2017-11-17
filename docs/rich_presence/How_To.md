@@ -67,7 +67,9 @@ When you are ready to publish your integration, we recommend digging into the so
 
 ## Updating Presence
 
-The core of Discord's Rich Presence SDK is the `Discord_UpdatePresence()` function. This is what sends your game data up to Discord to be seen and used by others. You should call `Discord_UpdatePresence()` any time something important in the presence payload changes. Here's an example:
+The core of Discord's Rich Presence SDK is the `Discord_UpdatePresence()` function. This is what sends your game data up to Discord to be seen and used by others. You should call `Discord_UpdatePresence()` any time something important in the presence payload changes.
+
+`Discord_UpdatePresence()` has a rate limit of one update per 15 seconds. Developers do not need to do anything to handle this rate limit. The SDK will queue up any presence updates sent in that window and send the newest one once the client is free to do so. If you are sending presence updates very frequently and wondering why you don't see your Discord presence changing, that's why!
 
 ###### Update Presence Example
 
