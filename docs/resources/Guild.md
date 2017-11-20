@@ -266,6 +266,7 @@ Modify a guild's settings. Returns the updated [guild](#DOCS_GUILD/guild-object)
 | icon | string | base64 128x128 jpeg image for the guild icon |
 | owner_id | snowflake | user id to transfer guild ownership to (must be owner) |
 | splash | string | base64 128x128 jpeg image for the guild splash (VIP only) |
+| system\_channel\_id | ?snowflake | the id of the channel to which system messages are sent |
 
 ## Delete Guild % DELETE /guilds/{guild.id#DOCS_GUILD/guild-object}
 
