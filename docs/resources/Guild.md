@@ -28,6 +28,7 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 | application_id | ?snowflake | application id of the guild creator if it is bot-created |
 | widget_enabled | bool | whether or not the server widget is enabled |
 | widget_channel_id | snowflake | the channel id for the server widget |
+| system\_channel\_id | ?snowflake | the id of the channel to which system messages are sent |
 | joined\_at \* | ISO8601 timestamp | when this guild was joined at |
 | large \* | bool | whether this is considered a large guild |
 | unavailable \* | bool | is this guild unavailable |
@@ -265,6 +266,7 @@ Modify a guild's settings. Returns the updated [guild](#DOCS_GUILD/guild-object)
 | icon | string | base64 128x128 jpeg image for the guild icon |
 | owner_id | snowflake | user id to transfer guild ownership to (must be owner) |
 | splash | string | base64 128x128 jpeg image for the guild splash (VIP only) |
+| system\_channel\_id | snowflake | the id of the channel to which system messages are sent |
 
 ## Delete Guild % DELETE /guilds/{guild.id#DOCS_GUILD/guild-object}
 

@@ -24,6 +24,7 @@ Represents a guild or DM channel within Discord.
 | owner_id? | snowflake | id of the DM creator |
 | application_id? | snowflake | application id of the group DM creator if it is bot-created |
 | parent_id? | ?snowflake | id of the parent category for a channel |
+| last\_pin\_timestamp? | ISO8601 timestamp | when the last pinned message was pinned |
 
 ###### Channel Types
 
