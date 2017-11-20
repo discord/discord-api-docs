@@ -676,10 +676,10 @@ A user's presence is their current state on a guild. This event is sent when a u
 | Field | Type | Description | Present |
 |-------|------|-------------|---------|
 | name | string | the game's name | Always |
-| type | integer | see [Game Types](#DOCS_GATEWAY/game-types)  | Always |
+| type | integer | see [Activity Types](#DOCS_GATEWAY/game-object-activity-types)  | Always |
 | url | ?string | stream url, is validated when type is 1  | When type is 1 |
 
-###### Game Types
+###### Activity Types
 
 | ID | Name | Format | Example |
 |----|------|--------|---------|
