@@ -699,8 +699,8 @@ A user's presence is their current state on a guild. This event is sent when a u
 
 | Field | Type | Description |
 |-------|------|-------------|
-| start? | float/int | Epoch seconds of start | 
-| end? | float/int | Epoch seconds of end | 
+| start? | float/int | Epoch seconds of start |
+| end? | float/int | Epoch seconds of end |
 
 ###### Game Party
 
@@ -709,14 +709,14 @@ A user's presence is their current state on a guild. This event is sent when a u
 | id? | string | The ID, relevant for joining the party |
 | size | Array containing the current and maximum size | First element is the current size, second the max `[2, 5]` |
 
-###### Game Assets 
+###### Game Assets
 
 | Field | Type | Description |
 |-------|------|-------------|
 | large_image? | snowflake | ID for an asset of the application |
-| large_text? | string | Text displayed when hovering the large image of the presence |
+| large_text? | string | Text displayed when hovering over the large image of the presence |
 | small_image? | snowflake | ID for an asset of the application |
-| small_text? | string | Text displayed when hovering the small image of the presence |
+| small_text? | string | Text displayed when hovering over the small image of the presence |
 
 ###### Example Game
 
@@ -732,17 +732,23 @@ With Rich Presence
 
 ```json
 {
-	"name": "Overwatch",
+	"name": "Rocket League",
 	"type": 0,
-	"application_id": "379286085710381056",
-	"state": "In Menus",
-	"details": "Join the official Overwatch discord server discord.gg/overwatch",
+	"application_id": "379286085710381999",
+	"state": "In a Match",
+	"details": "Ranked Duos: 2-1",
 	"timestamps": {
-		"start": 1.510341850081E12
+		"start": 1511200066
+	},
+	"party": {
+		"id": "35137100553872123",
+		"size": [2, 2]
 	},
 	"assets": {
-         "large_image": "351371005538729984",
-         "large_text": "Overwatch"
+		"large_image": "351371005538729000",
+		"large_text": "DFH Stadium",
+		"small_image": "351371005538729111",
+		"small_text": "Silver III"
 	}
 }
 ```
