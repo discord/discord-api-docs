@@ -390,7 +390,7 @@ Returns a specific message in the channel. If operating on a guild channel, this
 >warn
 >Before using this endpoint, you must connect to and identify with a [gateway](#DOCS_GATEWAY/gateways) at least once.
 
-Post a message to a guild text or DM channel. If operating on a guild channel, this endpoint requires the 'SEND_MESSAGES' permission to be present on the current user. Returns a [message](#DOCS_CHANNEL/message-object) object. Fires a [Message Create](#DOCS_GATEWAY/message-create) Gateway event. See [message formatting](#DOCS_REFERENCE/message-formatting) for more information on how to properly format messages.
+Post a message to a guild text or DM channel. If operating on a guild channel, this endpoint requires the 'SEND_MESSAGES' permission to be present on the current user. If the `tts` field is set to `true`, the SEND_TTS_MESSAGES permission is required for the message to be spoken. Returns a [message](#DOCS_CHANNEL/message-object) object. Fires a [Message Create](#DOCS_GATEWAY/message-create) Gateway event. See [message formatting](#DOCS_REFERENCE/message-formatting) for more information on how to properly format messages.
 
 The maximum request size when sending a message is 8MB.
 
