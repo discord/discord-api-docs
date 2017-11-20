@@ -678,12 +678,12 @@ A user's presence is their current state on a guild. This event is sent when a u
 | name | string | the game's name | Always |
 | type | integer | see [Game Types](#DOCS_GATEWAY/game-types)  | Always |
 | url? | ?string | stream url, is validated when type is 1  | When type is 1 |
-| timestamps? | see [timestamps](#DOCS_GATEWAY/game-timestamps) | Unix timestamps for start and/or end of the game | Sometimes |
+| timestamps? | see [timestamps](#DOCS_GATEWAY/game-object-game-timestamps) | Unix timestamps for start and/or end of the game | Sometimes |
 | application_id? | snowflake | Application ID for the game | Sometimes |
 | details? | ?string | What the player is currently doing | Sometimes |
 | state? | ?state | The user's current party status | Sometimes |
-| party? | see [party](#DOCS_GATEWAY/game-party) | Information for the current party of the player | Sometimes |
-| assets? | see [assets](#DOCS_GATEWAY/game-assets) | Images for the presence and their hover texts | Sometimes |
+| party? | see [party](#DOCS_GATEWAY/game-object-game-party) | Information for the current party of the player | Sometimes |
+| assets? | see [assets](#DOCS_GATEWAY/game-object-game-assets) | Images for the presence and their hover texts | Sometimes |
 
 >info
 >Bots are only able to send `name`, `type`, and optionally `url`.
