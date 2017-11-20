@@ -685,6 +685,9 @@ A user's presence is their current state on a guild. This event is sent when a u
 | party? | see [party](#DOCS_GATEWAY/game-party) | Information for the current party of the player | Sometimes |
 | assets? | see [assets](#DOCS_GATEWAY/game-assets) | Images for the presence and their hover texts | Sometimes |
 
+>info
+>Bots are only able to send `name`, `type`, and optionally `url`.
+
 ###### Game Types
 
 | ID | Name | Format | Example |
