@@ -133,8 +133,8 @@ typedef struct DiscordRichPresence {
 | partySize      | int     | current size of the player's party, lobby, or group                       | 1                                                          |
 | partyMax       | int     | maximum size of the player's party, lobby, or group                       | 5                                                          |
 | matchSecret    | char*   | unique hashed string for Spectate and Join                                | MmhuZToxMjMxMjM6cWl3amR3MWlqZA==                           |
-| spectateSecret | char*   | unique hased string for Spectate button                                   | MTIzNDV8MTIzNDV8MTMyNDU0                                   |
-| joinSecret     | char*   | unique hased string for chat invitations and Ask to Join                  | MTI4NzM0OjFpMmhuZToxMjMxMjM=                               |
+| spectateSecret | char*   | unique hashed string for Spectate button                                   | MTIzNDV8MTIzNDV8MTMyNDU0                                   |
+| joinSecret     | char*   | unique hashed string for chat invitations and Ask to Join                  | MTI4NzM0OjFpMmhuZToxMjMxMjM=                               |
 | instance       | int8_t  | marks the matchSecret as a game session with a specific beginning and end | 1                                                          |
 
 ## Joining
