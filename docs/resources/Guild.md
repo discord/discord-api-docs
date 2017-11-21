@@ -14,7 +14,7 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 | splash | string | [splash hash](#DOCS_REFERENCE/image-formatting) |
 | owner? | bool | whether or not [the user](#DOCS_USER/get-current-user-guilds) is the owner of the guild |
 | owner\_id | snowflake | id of owner |
-| permissions? | integer | total permissions for [the user](#DOCS_USER/get-current-user-guilds) in the guild |
+| permissions? | integer | total permissions for [the user](#DOCS_USER/get-current-user-guilds) in the guild (does not include channel overrides) |
 | region | string | {voice\_region.id} |
 | afk\_channel\_id | snowflake | id of afk channel |
 | afk\_timeout | integer | afk timeout in seconds |
