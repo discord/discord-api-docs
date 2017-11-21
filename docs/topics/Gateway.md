@@ -53,7 +53,7 @@ The Discord Gateway has a versioning system which is separate from the core APIs
 | Field | Type | Description | Present |
 |-------|------|-------------|---------|
 | op | integer | opcode for the payload | Always |
-| d | ?mixed (object, integer, bool) | event data | Always |
+| d | ?mixed (any JSON value) | event data | Always |
 | s | integer | sequence number, used for resuming sessions and heartbeats | Only for Opcode 0 |
 | t | string | the event name for this payload | Only for Opcode 0 |
 
