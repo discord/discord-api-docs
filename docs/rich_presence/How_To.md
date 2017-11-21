@@ -60,9 +60,16 @@ void InitDiscord()
 
 When you are ready to publish your integration, we recommend digging into the source code of the SDK and copying `discord_register.h`, `discord_register_win.cpp`, `discord_register_osx.m`, and `discord_register_linux.cpp` into your installation and update process. By registering your application protocols on installation and update, your players won't need to run the game before being able to interact with invites, Ask to Join, and spectating in Discord.
 
+>danger
+>**Shutting Down**
+
+>Don't leave so soon! But when you _do_ shut down your application, don't forget to call `Discord_Shutdown()`. This properly terminates the thread and allows your application to shut down cleanly.
+
 ## Updating Presence
 
-The core of Discord's Rich Presence SDK is the `Discord_UpdatePresence()` function. This is what sends your game data up to Discord to be seen and used by others. You should call `Discord_UpdatePresence()` any time something important in the presence payload changes. Here's an example:
+The core of Discord's Rich Presence SDK is the `Discord_UpdatePresence()` function. This is what sends your game data up to Discord to be seen and used by others. You should call `Discord_UpdatePresence()` any time something important in the presence payload changes.
+
+`Discord_UpdatePresence()` has a rate limit of one update per 15 seconds. Developers do not need to do anything to handle this rate limit. The SDK will queue up any presence updates sent in that window and send the newest one once the client is free to do so. If you are sending presence updates very frequently and wondering why you don't see your Discord presence changing, that's why!
 
 ###### Update Presence Example
 
@@ -126,8 +133,8 @@ typedef struct DiscordRichPresence {
 | partySize      | int     | current size of the player's party, lobby, or group                       | 1                                                          |
 | partyMax       | int     | maximum size of the player's party, lobby, or group                       | 5                                                          |
 | matchSecret    | char*   | unique hashed string for Spectate and Join                                | MmhuZToxMjMxMjM6cWl3amR3MWlqZA==                           |
-| spectateSecret | char*   | unique hased string for Spectate button                                   | MTIzNDV8MTIzNDV8MTMyNDU0                                   |
-| joinSecret     | char*   | unique hased string for chat invitations and Ask to Join                  | MTI4NzM0OjFpMmhuZToxMjMxMjM=                               |
+| spectateSecret | char*   | unique hashed string for Spectate button                                   | MTIzNDV8MTIzNDV8MTMyNDU0                                   |
+| joinSecret     | char*   | unique hashed string for chat invitations and Ask to Join                  | MTI4NzM0OjFpMmhuZToxMjMxMjM=                               |
 | instance       | int8_t  | marks the matchSecret as a game session with a specific beginning and end | 1                                                          |
 
 ## Joining
@@ -261,7 +268,7 @@ In order to test your Rich Presence integration locally, you and your testers wi
 
 If you don't see Rich Presence data in your profile while testing, make sure you have the correct process selected for Game Detection. Also make sure you don't have multiple instances of Discord running—if you do, your presence might be changing in one of those!
 
-If you are having issues with your release build not being detected, send us an email at [gamedevs@discordapp.com](mailto:gamedevs@discordapp.com) and we'll add it to our database for you.
+If you are having issues with your release build not being detected, send us an email at [gamedevs@discordapp.com](mailto:gamedevs@discordapp.com) and we'll add it to our database for you. If you distribute your game via Steam, Discord will auto-detect your game if it is marked as released and running from Steam. Local testing clients and un-released games may still need to be manually added.
 
 If you're testing on your own, we recommend [downloading two separate release channels](https://discordapp.com/download) of the Discord desktop client. You can log into the stable, public test, and canary builds with separate credentials, making testing easier for a single developer.
 

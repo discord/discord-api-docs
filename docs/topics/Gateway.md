@@ -42,9 +42,9 @@ The Discord Gateway has a versioning system which is separate from the core APIs
 
 | Version | Status |
 |---------|----------------|
-| 6 | In Service |
-| 5 | Deprecated |
-| 4 | Deprecated |
+| 6 | Available |
+| 5 | Discontinued |
+| 4 | Discontinued |
 
 ## Gateway Opcodes/Payloads
 
@@ -676,7 +676,7 @@ A user's presence is their current state on a guild. This event is sent when a u
 | Field | Type | Description | Present |
 |-------|------|-------------|---------|
 | name | string | the game's name | Always |
-| type | integer | see [Game Types](#DOCS_GATEWAY/game-types)  | Always |
+| type | integer | see [Activity Types](#DOCS_GATEWAY/game-object-activity-types)  | Always |
 | url? | ?string | stream url, is validated when type is 1  | When type is 1 |
 | timestamps? | see [timestamps](#DOCS_GATEWAY/game-object-game-timestamps) | Unix timestamps for start and/or end of the game | Sometimes |
 | application_id? | snowflake | Application ID for the game | Sometimes |
@@ -688,12 +688,14 @@ A user's presence is their current state on a guild. This event is sent when a u
 >info
 >Bots are only able to send `name`, `type`, and optionally `url`.
 
-###### Game Types
+###### Activity Types
 
 | ID | Name | Format | Example |
 |----|------|--------|---------|
 | 0 | Game | Playing {name} | "Playing Rocket League" |
 | 1 | Streaming | Streaming {name} | "Streaming Rocket League" |
+| 2 | Listening | Listening to {name} | "Listening to Nyan Cat - 10 Hour Version" |
+| 3 | Watching | Watching {name} | "Watching Stranger Things" |
 
 >info
 >The streaming type currently only supports Twitch. Only `https://twitch.tv/` urls will work.

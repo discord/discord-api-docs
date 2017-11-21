@@ -12,7 +12,9 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 | name | string | guild name (2-100 characters) |
 | icon | string | [icon hash](#DOCS_REFERENCE/image-formatting) |
 | splash | string | [splash hash](#DOCS_REFERENCE/image-formatting) |
+| owner? | bool | whether or not [the user](#DOCS_USER/get-current-user-guilds) is the owner of the guild |
 | owner\_id | snowflake | id of owner |
+| permissions? | integer | total permissions for [the user](#DOCS_USER/get-current-user-guilds) in the guild (does not include channel overrides) |
 | region | string | {voice\_region.id} |
 | afk\_channel\_id | snowflake | id of afk channel |
 | afk\_timeout | integer | afk timeout in seconds |
@@ -28,6 +30,7 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 | application_id | ?snowflake | application id of the guild creator if it is bot-created |
 | widget_enabled | bool | whether or not the server widget is enabled |
 | widget_channel_id | snowflake | the channel id for the server widget |
+| system\_channel\_id | ?snowflake | the id of the channel to which system messages are sent |
 | joined\_at \* | ISO8601 timestamp | when this guild was joined at |
 | large \* | bool | whether this is considered a large guild |
 | unavailable \* | bool | is this guild unavailable |
@@ -247,7 +250,7 @@ Returns the [guild](#DOCS_GUILD/guild-object) object for the given id.
 
 ## Modify Guild % PATCH /guilds/{guild.id#DOCS_GUILD/guild-object}
 
-Modify a guild's settings. Returns the updated [guild](#DOCS_GUILD/guild-object) object on success. Fires a [Guild Update](#DOCS_GATEWAY/guild-update) Gateway event.
+Modify a guild's settings. Requires the 'MANAGE_GUILD' permission. Returns the updated [guild](#DOCS_GUILD/guild-object) object on success. Fires a [Guild Update](#DOCS_GATEWAY/guild-update) Gateway event.
 
 >info
 >All parameters to this endpoint are optional
@@ -265,6 +268,7 @@ Modify a guild's settings. Returns the updated [guild](#DOCS_GUILD/guild-object)
 | icon | string | base64 128x128 jpeg image for the guild icon |
 | owner_id | snowflake | user id to transfer guild ownership to (must be owner) |
 | splash | string | base64 128x128 jpeg image for the guild splash (VIP only) |
+| system\_channel\_id | snowflake | the id of the channel to which system messages are sent |
 
 ## Delete Guild % DELETE /guilds/{guild.id#DOCS_GUILD/guild-object}
 
