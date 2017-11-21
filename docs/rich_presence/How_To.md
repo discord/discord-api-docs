@@ -268,7 +268,7 @@ In order to test your Rich Presence integration locally, you and your testers wi
 
 If you don't see Rich Presence data in your profile while testing, make sure you have the correct process selected for Game Detection. Also make sure you don't have multiple instances of Discord running—if you do, your presence might be changing in one of those!
 
-If you are having issues with your release build not being detected, send us an email at [gamedevs@discordapp.com](mailto:gamedevs@discordapp.com) and we'll add it to our database for you.
+If you are having issues with your release build not being detected, send us an email at [gamedevs@discordapp.com](mailto:gamedevs@discordapp.com) and we'll add it to our database for you. If you distribute your game via Steam, Discord will auto-detect your game if it is marked as released and running from Steam. Local testing clients and un-released games may still need to be manually added.
 
 If you're testing on your own, we recommend [downloading two separate release channels](https://discordapp.com/download) of the Discord desktop client. You can log into the stable, public test, and canary builds with separate credentials, making testing easier for a single developer.
 
