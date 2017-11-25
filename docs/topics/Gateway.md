@@ -681,7 +681,7 @@ A user's presence is their current state on a guild. This event is sent when a u
 | timestamps? | see [timestamps](#DOCS_GATEWAY/game-object-game-timestamps) | Unix timestamps for start and/or end of the game | Sometimes |
 | application_id? | snowflake | Application ID for the game | Sometimes |
 | details? | ?string | What the player is currently doing | Sometimes |
-| state? | ?state | The user's current party status | Sometimes |
+| state? | ?string | The user's current party status | Sometimes |
 | party? | see [party](#DOCS_GATEWAY/game-object-game-party) | Information for the current party of the player | Sometimes |
 | assets? | see [assets](#DOCS_GATEWAY/game-object-game-assets) | Images for the presence and their hover texts | Sometimes |
 
