@@ -9,12 +9,23 @@
 
 | Field | Type | Description |
 |-------|------|-------------|
-| id | snowflake | [emoji id](#DOCS_REFERENCE/image-formatting) |
+| id | ?snowflake | [emoji id](#DOCS_REFERENCE/image-formatting) |
 | name | string | emoji name |
-| roles | array of [role object](#DOCS_PERMISSIONS/role-object) ids | roles this emoji is whitelisted to |
+| roles? | array of [role object](#DOCS_PERMISSIONS/role-object) ids | roles this emoji is whitelisted to |
 | user? | [user](#DOCS_USER/user-object) object | user that created this emoji |
-| require\_colons | bool | whether this emoji must be wrapped in colons |
-| managed | bool | whether this emoji is managed |
+| require\_colons? | bool | whether this emoji must be wrapped in colons |
+| managed? | bool | whether this emoji is managed |
+
+### Gateway Reaction Object
+
+Received over the gateway in message reaction events.
+
+###### Gateway Reaction Structure
+
+| Field | Type | Description |
+|-------|------|-------------|
+| id | ?snowflake | [emoji id](#DOCS_REFERENCE/image-formatting), present on custom emojis |
+| name | string | emoji name for custom emojis, actual emoji for standard ones |
 
 ## List Guild Emojis % GET /guilds/{guild.id#DOCS_GUILD/guild-object}/emojis
 
