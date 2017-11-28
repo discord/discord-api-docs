@@ -6,6 +6,11 @@ communities. All of our [documentation is on GitHub](https://github.com/discorda
 
 ![Bot related things](API_center.gif)
 
+## Getting Help
+
+If you believe you're experiencing a bug with our API or want to report incorrect documentation, open an issue on our [issue tracker](https://github.com/discordapp/discord-api-docs/issues).
+
+For a more real-time avenue of communication, check out the [unofficial, community-driven Discord server for developers](https://discord.gg/discord-api). There you'll find community members who can help answer questions about our API, community libraries, bot creation, and other development questions.
 
 ## Applications (aka Apps)
 
@@ -19,28 +24,20 @@ Here are some examples to whet your appetite:
 
 Head over to our new [applications page](#MY_APPLICATIONS/top) to dive into creating your own custom juice.
 
-
-### Airhorn Solutions - Bot #0
-
-On April 1st we launched [Airhorn Solutions](https://airhorn.solutions) to bring chaos upon this meek world.
-
-Now that the noise has subsided, we’ve [open-sourced the source code for Airhorn Solutions](https://github.com/discordapp/airhornbot). It’s the first fully-functional bot built with our initial API launch. If you’re looking for a working example of our API, we highly suggest digging in.
-
-
 ## Games (aka Games)
 
-GameBridge is a free SDK that lets you power your desktop game's social features with Discord. Check out some of the
-tasty flavors GameBridge offers:
+There are a couple ways for games and their developers to work with Discord. [Rich Presence](https://discordapp.com/rich-presence) is a great way to more deeply integrate with Discord. It lets you:
 
-* Add low latency voice and text chat to your game.
-* Let your players share fancy moments including screenshots and links.
-* Show chat from your game's Discord community directly on your main menu.
-* Use servers for your game's guild chat extending it into the Discord experience.
+- Show more detailed status information on your players' profiles
+- Allow your players to create invites in Discord for others to play with them
+- Launch into game sessions, parties, and groups directly from Discord
+- Launch into your game's spectate mode directly from Discord
+- Allow your players to ask to join their friends' games
 
-For now GameBridge is in private beta. If you're interested in trying out Discord to power your game please [sign up over here](https://discordapp.com/gamebridge).
+Rich Presence is free, open-sourced, and self-serve, so check out [the How To guide](#DOCS_HOW_TO/) and get started!
 
-There is also an [active unofficial community-driven Discord Server for devs](https://discord.gg/discord-api). Come hang out if you wanna chat with other devs and see what’s being cranked out.
+We also have a Voice and Text Chat SDK to power in-game communication. This SDK is in private beta. If you're interested in using Discord to power your game's chat features, [apply for access](https://discordapp.com/gamebridge).
 
-We look forward to seeing what you make!
+We can't wait to see what you make!
 
  -- Discord Dev Team
