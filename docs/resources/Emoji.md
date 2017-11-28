@@ -16,16 +16,42 @@
 | require\_colons? | bool | whether this emoji must be wrapped in colons |
 | managed? | bool | whether this emoji is managed |
 
-### Gateway Reaction Object
+###### Emoji Example
 
-Received over the gateway in message reaction events.
+```json
+{
+  "id": "41771983429993937",
+  "name": "LUL",
+  "roles": [ "41771983429993000", "41771983429993111" ],
+  "user": {
+    "username": "Luigi",
+    "discriminator": "0002",
+    "id": "96008815106887111",
+    "avatar": "5500909a3274e1812beb4e8de6631111"
+  },
+  "require_colons": true,
+  "managed": false
+}
+```
 
-###### Gateway Reaction Structure
 
-| Field | Type | Description |
-|-------|------|-------------|
-| id | ?snowflake | [emoji id](#DOCS_REFERENCE/image-formatting), present on custom emojis |
-| name | string | emoji name for custom emojis, actual emoji for standard ones |
+###### Gateway Reaction Standard Emoji Example
+
+```json
+{
+  "id": null,
+  "name": "🔥"
+}
+```
+
+###### Gateway Reaction Custom Emoji Example
+
+```json
+{
+  "id": "41771983429993937",
+  "name": "LUL"
+}
+```
 
 ## List Guild Emojis % GET /guilds/{guild.id#DOCS_GUILD/guild-object}/emojis
 
