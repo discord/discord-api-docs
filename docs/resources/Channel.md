@@ -239,13 +239,13 @@ Represents a message sent in a channel within Discord.
 | url | string | url of embed |
 | timestamp | ISO8601 timestamp | timestamp of embed content |
 | color | integer | color code of the embed |
-| footer | [embed footer](#DOCS_CHANNEL/embed-footer-structure) object | footer information
-| image | [embed image](#DOCS_CHANNEL/embed-image-structure) object | image information
-| thumbnail | [embed thumbnail](#DOCS_CHANNEL/embed-thumbnail-structure) object | thumbnail information |
-| video | [embed video](#DOCS_CHANNEL/embed-video-structure) object | video information |
-| provider | [embed provider](#DOCS_CHANNEL/embed-provider-structure) object | provider information |
-| author | [embed author](#DOCS_CHANNEL/embed-author-structure) object | author information |
-| fields | array of [embed field](#DOCS_CHANNEL/embed-field-structure) objects | fields information |
+| footer | [embed footer](#DOCS_CHANNEL/embed-object-embed-footer-structure) object | footer information
+| image | [embed image](#DOCS_CHANNEL/embed-object-embed-image-structure) object | image information
+| thumbnail | [embed thumbnail](#DOCS_CHANNEL/embed-object-embed-thumbnail-structure) object | thumbnail information |
+| video | [embed video](#DOCS_CHANNEL/embed-object-embed-video-structure) object | video information |
+| provider | [embed provider](#DOCS_CHANNEL/embed-object-embed-provider-structure) object | provider information |
+| author | [embed author](#DOCS_CHANNEL/embed-object-embed-author-structure) object | author information |
+| fields | array of [embed field](#DOCS_CHANNEL/embed-object-embed-field-structure) objects | fields information |
 
 ###### Embed Thumbnail Structure
 
@@ -329,11 +329,11 @@ To facilitate showing rich content, rich embeds do not follow the traditional li
 |-------|-------|
 | title | 256 characters |
 | description | 2048 characters |
-| fields | Up to 25 [field](#DOCS_CHANNEL/embed-field-structure) objects |
-| [field.name](#DOCS_CHANNEL/embed-field-structure) | 256 characters |
-| [field.value](#DOCS_CHANNEL/embed-field-structure) | 1024 characters |
-| [footer.text](#DOCS_CHANNEL/embed-footer-structure) | 2048 characters |
-| [author.name](#DOCS_CHANNEL/embed-author-structure) | 256 characters |
+| fields | Up to 25 [field](#DOCS_CHANNEL/embed-object-embed-field-structure) objects |
+| [field.name](#DOCS_CHANNEL/embed-object-embed-field-structure) | 256 characters |
+| [field.value](#DOCS_CHANNEL/embed-object-embed-field-structure) | 1024 characters |
+| [footer.text](#DOCS_CHANNEL/embed-object-embed-footer-structure) | 2048 characters |
+| [author.name](#DOCS_CHANNEL/embed-object-embed-author-structure) | 256 characters |
 
 In addition to the limits above, the sum of all characters in an embed structure must not exceed 6000 characters.
 
