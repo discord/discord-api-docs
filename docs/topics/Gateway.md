@@ -37,9 +37,6 @@ Returns an object with the same information as [Get Gateway](#DOCS_GATEWAY/get-g
 
 The Discord Gateway has a versioning system which is separate from the core APIs. The documentation herein is only for the latest version in the following table, unless otherwise specified.
 
->danger
->Gateway versions below v6 will be discontinued on **October 16, 2017**.
-
 | Version | Status |
 |---------|----------------|
 | 6 | Available |
