@@ -32,7 +32,7 @@ The Discord Gateway has a versioning system which is separate from the core APIs
 | Field | Type | Description | Present |
 |-------|------|-------------|---------|
 | op | integer | opcode for the payload | Always |
-| d | ?mixed (object, integer, bool) | event data | Always |
+| d | ?mixed (any JSON value) | event data | Always |
 | s | integer | sequence number, used for resuming sessions and heartbeats | Only for Opcode 0 |
 | t | string | the event name for this payload | Only for Opcode 0 |
 
@@ -53,6 +53,9 @@ The Discord Gateway has a versioning system which is separate from the core APIs
 | 10 | Hello | Receive | sent immediately after connecting, contains heartbeat and server debug information |
 | 11 | Heartbeat ACK | Receive | sent immediately following a client heartbeat that was received |
 
+### Encoding Options
+Currently the gateway allows ETF or JSON for encoding payloads. There are advantages and disadvantages to both. An obvious perk of JSON is that many lanaguages already have fast JSON support in official packages or their standard library. However, as your bot grows, it may be preferable to use ETF, which will generally be faster and more effecient for larger payloads such as `GUILD_CREATE` or tasks like member chunking. If you choose JSON, you can also use [per-payload compression](#DOCS_GATEWAY/payload-compression). See below for more information about the differences in sending/receiving payloads using these different encodings.
+
 ### Sending Payloads
 
 Packets sent from the client to the Gateway API are encapsulated within a [gateway payload object](#DOCS_GATEWAY/sending-payloads-example-gateway-dispatch) and must have the proper opcode and data object set. The payload object can then be serialized in the format of choice (see [ETF/JSON](#DOCS_GATEWAY/etf-json)), and sent over the websocket. Payloads to the gateway are limited to a maximum of 4096 bytes sent, going over this will cause a connection termination with error code 4002.
@@ -71,6 +74,42 @@ Packets sent from the client to the Gateway API are encapsulated within a [gatew
 ### Receiving Payloads
 
 Receiving payloads with the Gateway API is slightly more complex than sending. When using the JSON encoding with compression enabled, the Gateway has the option of sending payloads as compressed JSON binaries using zlib, meaning your library _must_ detect (see [RFC1950 2.2](https://tools.ietf.org/html/rfc1950#section-2.2)) and decompress these payloads before attempting to parse them. The gateway does not implement a shared compression context between messages sent.
+
+### ETF/JSON
+
+When initially creating and handshaking connections to the Gateway, a user can chose whether they wish to communicate over plain-text JSON or binary [ETF](http://erlang.org/doc/apps/erts/erl_ext_dist.html). When using ETF, the client must not send compressed messages to the server. Note that Snowflake IDs are transmitted as 64-bit integers over ETF, but are transmitted as strings over JSON. See [erlpack](https://github.com/discordapp/erlpack) for an implementation example.
+
+#### Payload Compression
+When using JSON encoding with payload compression enabled (`compress: true` in identify), the Gateway may optionally send zlib-compressed payloads  (see [RFC1950 2.2](https://tools.ietf.org/html/rfc1950#section-2.2)). Your library _must_ detect and decompress these payloads to plain-text JSON before attempting to parse them. If you are using payload compression, the gateway does not implement a shared compression context between messages sent. Payload compression will be disabled if you use transport compression (see below).
+
+#### Transport Compression
+Currently the only available transport compression option is `zlib-stream`. You will need to run all received packets through a shared zlib context, as seen in the example below. Every connection to the gateway should use its own unique zlib context.
+
+```python
+# Z_SYNC_FLUSH suffix
+ZLIB_SUFFIX = '\x00\x00\xff\xff'
+# initialize a buffer to store chunks
+buffer = bytearray()
+# create a zlib inflation context to run chunks through
+inflator = zlib.decompressobj()
+
+# ...
+def on_websocket_message(msg):
+  # always push the message data to your cache
+  buffer.extend(msg)
+
+  # check if the last four bytes are equal to ZLIB_SUFFIX
+  if len(msg) < 4 or msg[-4:] != ZLIB_SUFFIX:
+    return
+
+  # if the message *does* end with ZLIB_SUFFIX,
+  # get the full message by decompressing the buffers
+  msg = inflator.decompress(buffer).decode('utf-8')
+  buffer = bytearray()
+
+  # here you can treat `msg` as either JSON or ETF encoded,
+  # depending on your `encoding` param
+```
 
 ## Connecting to the Gateway
 
@@ -411,7 +450,13 @@ Sent on connection to the websocket. Defines the heartbeat interval that the cli
 }
 ```
 
-#### Ready
+## Events
+
+### Event Names
+
+Event names are in standard constant form, fully upper-cased and replacing all spaces with underscores. For instance, [Channel Create](#DOCS_GATEWAY/channel-create) would be `CHANNEL_CREATE` and [Voice State Update](#DOCS_GATEWAY/voice-state-update) would be `VOICE_STATE_UPDATE`. Within the following documentation they have been left in standard English form to aid in readability.
+
+### Ready
 
 The ready event is dispatched when a client has completed the initial handshake with the gateway (for new sessions). The ready event can be the largest and most complex event the gateway will send, as it contains all the state required for a client to begin interacting with the rest of the platform.
 
@@ -424,7 +469,7 @@ The ready event is dispatched when a client has completed the initial handshake 
 | private_channels | array of [DM channel](#DOCS_CHANNEL/channel-object) objects | the direct messages the user is in |
 | guilds | array of [Unavailable Guild](#DOCS_GUILD/unavailable-guild-object) objects | the guilds the user is in |
 | session_id | string | used for resuming connections |
-| _trace | array of strings | used for debugging - the guilds the user is in |
+| \_trace | array of strings | used for debugging - the guilds the user is in |
 
 >warn
 >`guilds` are the guilds of which your bot is a member. They start out as unavailable when you connect to the gateway. As they become available to your bot, you will be notified via [Guild Create](#DOCS_GATEWAY/guild-create) events.
@@ -437,7 +482,7 @@ The resumed event is dispatched when a client has sent a [resume payload](#DOCS_
 
 | Field | Type | Description |
 |-------|------|-------------|
-| _trace | array of strings | used for debugging - the guilds the user is in |
+| \_trace | array of strings | used for debugging - the guilds the user is in |
 
 #### Invalid Session
 
@@ -707,15 +752,17 @@ A user's presence is their current state on a guild. This event is sent when a u
 | Field | Type | Description | Present |
 |-------|------|-------------|---------|
 | name | string | the game's name | Always |
-| type | integer | see [Game Types](#DOCS_GATEWAY/game-types)  | Always |
+| type | integer | see [Activity Types](#DOCS_GATEWAY/game-object-activity-types)  | Always |
 | url | ?string | stream url, is validated when type is 1  | When type is 1 |
 
-###### Game Types
+###### Activity Types
 
 | ID | Name | Format | Example |
 |----|------|--------|---------|
 | 0 | Game | Playing {name} | "Playing Rocket League" |
 | 1 | Streaming | Streaming {name} | "Streaming Rocket League" |
+| 2 | Listening | Listening to {name} | "Listening to Nyan Cat - 10 Hour Version" |
+| 3 | Watching | Watching {name} | "Watching Stranger Things" |
 
 >info
 >The streaming type currently only supports Twitch. Only `https://twitch.tv/` urls will work.
