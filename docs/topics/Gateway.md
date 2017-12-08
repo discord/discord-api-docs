@@ -167,9 +167,9 @@ If the payload is valid, the gateway will respond with a [Ready](#DOCS_GATEWAY/r
 >Clients are limited to 1000 `IDENTIFY` calls to the websocket in a 24-hour period. This limit is global and across all shards, but does not include `RESUME` calls. Upon hitting this limit, all active sessions for the bot will be terminated, the bot's token will be reset, and the owner will receive an email notification. It's up to the owner to update their application with the new token.
 
 
-## Resuming a Dicsonnected Session
+## Resuming a Disconnected Session
 
-The internet is a scary place, and persistent connections can often experience issues which causes them to sever and disconnect. Due to Discord's architecture, this is a semi-regular event and should be expected. Because a large portion of a client's state must be thrown out and recomputed when a connection is opened, Discord has a process for "resuming" (or reconnecting) a connection without throwing away the previous state. This process is very similar to starting a fresh connection, and allows the client to replay any lost events from the last sequence number they received in the exact same way they would receive them normally.
+The internet is a scary place. Disconnections happen, especially with persistent connections. Due to Discord's architecture, this is a semi-regular event and should be expected and handled. Discord has a process for "resuming" (or reconnecting) a connection without that allows the client to replay any lost events from the last sequence number they received in the exact same way they would receive them normally.
 
 Your client should store the `session_id` from the [Ready](#DOCS_GATEWAY/ready), and the sequence number of the last event it received. When your client detects that it has been disconnected, it should completely close the connection and open a new one (following the same strategy as [Connecting](#DOCS_GATEWAY/connecting)). Once the new connection has been opened, the client should send a [Gateway Resume](#DOCS_GATEWAY/gateway-resume):
 
