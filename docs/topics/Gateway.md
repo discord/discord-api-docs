@@ -676,14 +676,14 @@ A user's presence is their current state on a guild. This event is sent when a u
 | Field | Type | Description |
 |-------|------|-------------|
 | name | string | the game's name |
-| type | integer | see [Activity Types](#DOCS_GATEWAY/game-object-activity-types)  |
+| type | integer | [Activity Type](#DOCS_GATEWAY/game-object-activity-types) |
 | url? | ?string | stream url, is validated when type is 1  |
-| timestamps? | see [timestamps](#DOCS_GATEWAY/game-object-game-timestamps) | Unix timestamps for start and/or end of the game |
+| timestamps? | [timestamps](#DOCS_GATEWAY/game-object-game-timestamps) object | Unix timestamps for start and/or end of the game |
 | application_id? | snowflake | Application ID for the game |
 | details? | ?string | What the player is currently doing |
 | state? | ?string | The user's current party status |
-| party? | see [party](#DOCS_GATEWAY/game-object-game-party) | Information for the current party of the player |
-| assets? | see [assets](#DOCS_GATEWAY/game-object-game-assets) | Images for the presence and their hover texts |
+| party? | [party](#DOCS_GATEWAY/game-object-game-party) object | Information for the current party of the player |
+| assets? | [assets](#DOCS_GATEWAY/game-object-game-assets) object | Images for the presence and their hover texts |
 
 >info
 >Bots are only able to send `name`, `type`, and optionally `url`.
@@ -704,15 +704,15 @@ A user's presence is their current state on a guild. This event is sent when a u
 
 | Field | Type | Description |
 |-------|------|-------------|
-| start? | float/int | Epoch seconds of start |
-| end? | float/int | Epoch seconds of end |
+| start? | int | Epoch millis of start |
+| end? | int | Epoch millis of end |
 
 ###### Game Party
 
 | Field | Type | Description |
 |-------|------|-------------|
 | id? | string | The ID, relevant for joining the party |
-| size | array of two integers | First element is the current size, second the max `[2, 5]` |
+| size? | array of two integers | First element is the current size, second the max `[2, 5]` |
 
 ###### Game Assets
 
