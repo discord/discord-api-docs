@@ -15,6 +15,7 @@ The Discord Gateway has a versioning system which is separate from the core APIs
 ## Topics
 
 1. [Payloads and Opcodes](#DOCS_GATEWAY/payloads)
+2. [Encoding and Compression](#DOCS_GATEWAY/encoding-and-compression)
 2. [Connecting to the Gateway](#DOCS_GATEWAY/connecting)
 3. [Resuming a Disconnected Session](#DOCS_GATEWAY/resuming)
 4. [Rate Limits](#DOCS_GATEWAY/rate-limits)
@@ -23,7 +24,6 @@ The Discord Gateway has a versioning system which is separate from the core APIs
 7. [Sharding](#DOCS_GATEWAY/sharding)
 8. [Commands](#DOCS_GATEWAY/commands)
 9. [Events](#DOCS_GATEWAY/events)
-10. [Endpoints](#DOCS_GATEWAY/endpoints)
 
 ## Payloads and Opcodes
 
@@ -53,12 +53,10 @@ The Discord Gateway has a versioning system which is separate from the core APIs
 | 10 | Hello | Receive | sent immediately after connecting, contains heartbeat and server debug information |
 | 11 | Heartbeat ACK | Receive | sent immediately following a client heartbeat that was received |
 
-### Encoding Options
-Currently the gateway allows ETF or JSON for encoding payloads. There are advantages and disadvantages to both. An obvious perk of JSON is that many lanaguages already have fast JSON support in official packages or their standard library. However, as your bot grows, it may be preferable to use ETF, which will generally be faster and more effecient for larger payloads such as `GUILD_CREATE` or tasks like member chunking. If you choose JSON, you can also use [per-payload compression](#DOCS_GATEWAY/payload-compression). See below for more information about the differences in sending/receiving payloads using these different encodings.
 
 ### Sending Payloads
 
-Packets sent from the client to the Gateway API are encapsulated within a [gateway payload object](#DOCS_GATEWAY/sending-payloads-example-gateway-dispatch) and must have the proper opcode and data object set. The payload object can then be serialized in the format of choice (see [ETF/JSON](#DOCS_GATEWAY/etf-json)), and sent over the websocket. Payloads to the gateway are limited to a maximum of 4096 bytes sent, going over this will cause a connection termination with error code 4002.
+Packets sent from the client to the Gateway API are encapsulated within a [gateway payload object](#DOCS_GATEWAY/sending-payloads-example-gateway-dispatch) and must have the proper opcode and data object set. The payload object can then be serialized in the format of choice (see [ETF/JSON](#DOCS_GATEWAY/encoding-and-compression-etf-json)), and sent over the websocket. Payloads to the gateway are limited to a maximum of 4096 bytes sent, going over this will cause a connection termination with error code 4002.
 
 ###### Example Gateway Dispatch
 
@@ -75,15 +73,21 @@ Packets sent from the client to the Gateway API are encapsulated within a [gatew
 
 Receiving payloads with the Gateway API is slightly more complex than sending. When using the JSON encoding with compression enabled, the Gateway has the option of sending payloads as compressed JSON binaries using zlib, meaning your library _must_ detect (see [RFC1950 2.2](https://tools.ietf.org/html/rfc1950#section-2.2)) and decompress these payloads before attempting to parse them. The gateway does not implement a shared compression context between messages sent.
 
-### ETF/JSON
+## Encoding and Compression
+
+#### ETF/JSON
 
 When initially creating and handshaking connections to the Gateway, a user can chose whether they wish to communicate over plain-text JSON or binary [ETF](http://erlang.org/doc/apps/erts/erl_ext_dist.html). When using ETF, the client must not send compressed messages to the server. Note that Snowflake IDs are transmitted as 64-bit integers over ETF, but are transmitted as strings over JSON. See [erlpack](https://github.com/discordapp/erlpack) for an implementation example.
 
 #### Payload Compression
+
 When using JSON encoding with payload compression enabled (`compress: true` in identify), the Gateway may optionally send zlib-compressed payloads (see [RFC1950 2.2](https://tools.ietf.org/html/rfc1950#section-2.2)). Your library _must_ detect and decompress these payloads to plain-text JSON before attempting to parse them. If you are using payload compression, the gateway does not implement a shared compression context between messages sent. Payload compression will be disabled if you use transport compression (see below).
 
 #### Transport Compression
+
 Currently the only available transport compression option is `zlib-stream`. You will need to run all received packets through a shared zlib context, as seen in the example below. Every connection to the gateway should use its own unique zlib context.
+
+###### Transport Compression Example
 
 ```python
 # Z_SYNC_FLUSH suffix
@@ -115,10 +119,6 @@ def on_websocket_message(msg):
 
 ### Connecting
 
-The first step in establishing connectivity to the gateway is requesting a valid websocket endpoint from the API. This can be done through either the [Get Gateway](#DOCS_GATEWAY/get-gateway) or the [Get Gateway Bot](#DOCS_GATEWAY/get-gateway-bot) endpoint.
-
-With the resulting payload, you can now open a websocket connection to the "url" (or endpoint) specified. Generally, it is a good idea to explicitly pass the gateway version and encoding (see the url params table below) as URL parameters (e.g. from our example we may connect to `wss://gateway.discord.gg/?v=6&encoding=json`).
-
 ###### Gateway URL Params
 
 | Field | Type | Description |
@@ -126,7 +126,9 @@ With the resulting payload, you can now open a websocket connection to the "url"
 | v | integer | Gateway Version to use |
 | encoding | string | 'json' or 'etf' |
 
-When initially creating and handshaking connections to the Gateway, a user can chose whether they wish to communicate over plain-text JSON or binary [ETF](http://erlang.org/doc/apps/erts/erl_ext_dist.html). When using ETF, the client must not send compressed messages to the server. Note that Snowflake IDs are transmitted as 64-bit integers over ETF, but are transmitted as strings over JSON. See [erlpack](https://github.com/discordapp/erlpack) for an implementation example.
+The first step in establishing connectivity to the gateway is requesting a valid websocket endpoint from the API. This can be done through either the [Get Gateway](#DOCS_GATEWAY/get-gateway) or the [Get Gateway Bot](#DOCS_GATEWAY/get-gateway-bot) endpoint.
+
+With the resulting payload, you can now open a websocket connection to the "url" (or endpoint) specified. Generally, it is a good idea to explicitly pass the gateway version and encoding. For example, we may connect to `wss://gateway.discord.gg/?v=6&encoding=json`.
 
 Once connected, the client should immediately receive an [Opcode 10 Hello](#DOCS_GATEWAY/gateway-hello) payload, with information on the connection's heartbeat interval:
 
@@ -152,7 +154,7 @@ The client should now begin sending [Opcode 1 Heartbeat](#DOCS_GATEWAY/gateway-h
 }
 ```
 
-The inner `d` key must be set to the last seq (`s`) received by the client. If none has yet been received you should send `null` (you cannot send a heartbeat before authenticating, however).
+The inner `d` key must be set to the last seq (`s`) received by the client. If none has yet been received you should send `null`.
 
 This OP code is also bidirectional. The gateway may request a heartbeat from you in some situations, and you should send a heartbeat back to the gateway as you normally would.
 
@@ -200,7 +202,7 @@ Next, the client is expected to send an [Opcode 2 Identify](#DOCS_GATEWAY/gatewa
 }
 ```
 
-If the payload is valid, the gateway will respond with a [Ready](#DOCS_GATEWAY/ready) event. Your client is now considered in a "connected" state. Clients are limited to 1 identify every 5 seconds; if they exceed this limit, the gateway will respond with an [Opcode 9 Invalid Session](#DOCS_GATEWAY/invalid-session). It is important to note that although the ready event contains a large portion of the required initial state, some information (such as guilds and their members) is asynchronously sent (see [Guild Create](#DOCS_GATEWAY/guild-create) event)
+If the payload is valid, the gateway will respond with a [Ready](#DOCS_GATEWAY/ready) event. Your client is now considered in a "connected" state. Clients are limited to 1 identify every 5 seconds; if they exceed this limit, the gateway will respond with an [Opcode 9 Invalid Session](#DOCS_GATEWAY/invalid-session). It is important to note that although the ready event contains a large portion of the required initial state, some information (such as guilds and their members) is sent asynchronously (see [Guild Create](#DOCS_GATEWAY/guild-create) event).
 
 >warn
 >Clients are limited to 1000 `IDENTIFY` calls to the websocket in a 24-hour period. This limit is global and across all shards, but does not include `RESUME` calls. Upon hitting this limit, all active sessions for the bot will be terminated, the bot's token will be reset, and the owner will receive an email notification. It's up to the owner to update their application with the new token.
@@ -208,7 +210,7 @@ If the payload is valid, the gateway will respond with a [Ready](#DOCS_GATEWAY/r
 
 ## Resuming a Disconnected Session
 
-The internet is a scary place. Disconnections happen, especially with persistent connections. Due to Discord's architecture, this is a semi-regular event and should be expected and handled. Discord has a process for "resuming" (or reconnecting) a connection without that allows the client to replay any lost events from the last sequence number they received in the exact same way they would receive them normally.
+The internet is a scary place. Disconnections happen, especially with persistent connections. Due to Discord's architecture, this is a semi-regular event and should be expected and handled. Discord has a process for "resuming" (or reconnecting) a connection that allows the client to replay any lost events from the last sequence number they received in the exact same way they would receive them normally.
 
 Your client should store the `session_id` from the [Ready](#DOCS_GATEWAY/ready), and the sequence number of the last event it received. When your client detects that it has been disconnected, it should completely close the connection and open a new one (following the same strategy as [Connecting](#DOCS_GATEWAY/connecting)). Once the new connection has been opened, the client should send a [Gateway Resume](#DOCS_GATEWAY/gateway-resume):
 
@@ -217,8 +219,8 @@ Your client should store the `session_id` from the [Ready](#DOCS_GATEWAY/ready),
 
 ```json
 {
-	"token": "randomstring",
-	"session_id": "evenmorerandomstring",
+	"token": "my_token",
+	"session_id": "session_id_i_stored",
 	"seq": 1337
 }
 ```
@@ -260,6 +262,8 @@ An example of state tracking can be found with member status caching. When initi
 As bots grow and are added to an increasing number of guilds, some developers may find it necessary to break or split portions of their bots operations into separate logical processes. As such, Discord gateways implement a method of user-controlled guild sharding which allows for splitting events across a number of gateway connections. Guild sharding is entirely user controlled, and requires no state-sharing between separate connections to operate.
 
 To enable sharding on a connection, the user should send the `shard` array in the [identify](#DOCS_GATEWAY/gateway-identify) payload. The first item in this array should be the zero-based integer value of the current shard, while the second represents the total number of shards. DMs will only be sent to shard 0. To calculate what events will be sent to what shard, the following formula can be used:
+
+###### Sharding Formula
 
 ```python
 (guild_id >> 22) % num_shards == shard_id
@@ -430,7 +434,7 @@ Event names are in standard constant form, fully upper-cased and replacing all s
 
 ### Connecting and Resuming
 
-### Hello
+#### Hello
 
 Sent on connection to the websocket. Defines the heartbeat interval that the client should heartbeat to.
 
@@ -450,13 +454,7 @@ Sent on connection to the websocket. Defines the heartbeat interval that the cli
 }
 ```
 
-## Events
-
-### Event Names
-
-Event names are in standard constant form, fully upper-cased and replacing all spaces with underscores. For instance, [Channel Create](#DOCS_GATEWAY/channel-create) would be `CHANNEL_CREATE` and [Voice State Update](#DOCS_GATEWAY/voice-state-update) would be `VOICE_STATE_UPDATE`. Within the following documentation they have been left in standard English form to aid in readability.
-
-### Ready
+#### Ready
 
 The ready event is dispatched when a client has completed the initial handshake with the gateway (for new sessions). The ready event can be the largest and most complex event the gateway will send, as it contains all the state required for a client to begin interacting with the rest of the platform.
 
@@ -506,15 +504,15 @@ The inner `d` key is a boolean that indicates whether the session may be resumab
 
 #### Channel Create
 
-Sent when a new channel is created, relevant to the current user. The inner payload is a [DM channel](#DOCS_CHANNEL/channel-object) or [guild channel](#DOCS_CHANNEL/channel-object) object.
+Sent when a new channel is created, relevant to the current user. The inner payload is a [channel](#DOCS_CHANNEL/channel-object) object.
 
 #### Channel Update
 
-Sent when a channel is updated. The inner payload is a [guild channel](#DOCS_CHANNEL/channel-object) object.
+Sent when a channel is updated. The inner payload is a [channel](#DOCS_CHANNEL/channel-object) object.
 
 #### Channel Delete
 
-Sent when a channel relevant to the current user is deleted. The inner payload is a [DM](#DOCS_CHANNEL/channel-object) or [Guild](#DOCS_CHANNEL/channel-object) channel object.
+Sent when a channel relevant to the current user is deleted. The inner payload is a [channel](#DOCS_CHANNEL/channel-object) object.
 
 #### Channel Pins Update
 
@@ -549,11 +547,23 @@ Sent when a guild becomes unavailable during a guild outage, or when the user le
 
 #### Guild Ban Add
 
-Sent when a user is banned from a guild. The inner payload is a [user](#DOCS_USER/user-object) object, with an extra guild_id key.
+Sent when a user is banned from a guild. The inner payload is a [user](#DOCS_USER/user-object) object, with an extra `guild_id` key.
+
+###### Guild Ban Add Extra Fields
+
+| Field | Type | Description |
+|-------|------|-------------|
+| guild_id | snowflake | id of the guild |
 
 #### Guild Ban Remove
 
-Sent when a user is unbanned from a guild. The inner payload is a [user](#DOCS_USER/user-object) object, with an extra guild_id key.
+Sent when a user is unbanned from a guild. The inner payload is a [user](#DOCS_USER/user-object) object, with an extra `guild_id` key.
+
+###### Guild Ban Remove Extra Fields
+
+| Field | Type | Description |
+|-------|------|-------------|
+| guild_id | snowflake | id of the guild |
 
 #### Guild Emojis Update
 
@@ -578,7 +588,7 @@ Sent when a guild integration is updated.
 
 #### Guild Member Add
 
-Sent when a new user joins a guild. The inner payload is a [guild member](#DOCS_GUILD/guild-member-object) object with these extra fields:
+Sent when a new user joins a guild. The inner payload is a [guild member](#DOCS_GUILD/guild-member-object) object with an extra `guild_id` key:
 
 ###### Guild Member Add Extra Fields
 
