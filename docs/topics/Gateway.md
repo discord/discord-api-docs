@@ -14,16 +14,16 @@ The Discord Gateway has a versioning system which is separate from the core APIs
 
 ## Topics
 
-1. [Payloads and Opcodes](#DOCS_GATEWAY/payloads)
+1. [Payloads and Opcodes](#DOCS_GATEWAY/payloads-and-opcodes)
 2. [Encoding and Compression](#DOCS_GATEWAY/encoding-and-compression)
-2. [Connecting to the Gateway](#DOCS_GATEWAY/connecting)
-3. [Resuming a Disconnected Session](#DOCS_GATEWAY/resuming)
-4. [Rate Limits](#DOCS_GATEWAY/rate-limits)
-5. [Tracking State](#DOCS_GATEWAY/tracking-state)
-6. [Guild Availability](#DOCS_GATEWAY/guild-availability)
-7. [Sharding](#DOCS_GATEWAY/sharding)
-8. [Commands](#DOCS_GATEWAY/commands)
-9. [Events](#DOCS_GATEWAY/events)
+3. [Connecting to the Gateway](#DOCS_GATEWAY/connecting)
+4. [Resuming a Disconnected Session](#DOCS_GATEWAY/resuming)
+5. [Rate Limits](#DOCS_GATEWAY/rate-limiting)
+6. [Tracking State](#DOCS_GATEWAY/tracking-state)
+7. [Guild Availability](#DOCS_GATEWAY/guild-availability)
+8. [Sharding](#DOCS_GATEWAY/sharding)
+9. [Commands](#DOCS_GATEWAY/commands)
+10. [Events](#DOCS_GATEWAY/events)
 
 ## Payloads and Opcodes
 
@@ -56,7 +56,7 @@ The Discord Gateway has a versioning system which is separate from the core APIs
 
 ### Sending Payloads
 
-Packets sent from the client to the Gateway API are encapsulated within a [gateway payload object](#DOCS_GATEWAY/sending-payloads-example-gateway-dispatch) and must have the proper opcode and data object set. The payload object can then be serialized in the format of choice (see [ETF/JSON](#DOCS_GATEWAY/encoding-and-compression-etf-json)), and sent over the websocket. Payloads to the gateway are limited to a maximum of 4096 bytes sent, going over this will cause a connection termination with error code 4002.
+Packets sent from the client to the Gateway API are encapsulated within a [gateway payload object](#DOCS_GATEWAY/sending-payloads-example-gateway-dispatch) and must have the proper opcode and data object set. The payload object can then be serialized in the format of choice (see [ETF/JSON](#DOCS_GATEWAY/etf-json)), and sent over the websocket. Payloads to the gateway are limited to a maximum of 4096 bytes sent, going over this will cause a connection termination with error code 4002.
 
 ###### Example Gateway Dispatch
 
@@ -130,7 +130,7 @@ The first step in establishing connectivity to the gateway is requesting a valid
 
 With the resulting payload, you can now open a websocket connection to the "url" (or endpoint) specified. Generally, it is a good idea to explicitly pass the gateway version and encoding. For example, we may connect to `wss://gateway.discord.gg/?v=6&encoding=json`.
 
-Once connected, the client should immediately receive an [Opcode 10 Hello](#DOCS_GATEWAY/gateway-hello) payload, with information on the connection's heartbeat interval:
+Once connected, the client should immediately receive an [Opcode 10 Hello](#DOCS_GATEWAY/hello) payload, with information on the connection's heartbeat interval:
 
 ###### Example Gateway Hello
 
@@ -143,25 +143,12 @@ Once connected, the client should immediately receive an [Opcode 10 Hello](#DOCS
 
 ### Heartbeating
 
-The client should now begin sending [Opcode 1 Heartbeat](#DOCS_GATEWAY/gateway-heartbeat) payloads every `heartbeat_interval` milliseconds, until the connection is eventually closed or terminated:
-
-###### Example Gateway Heartbeat
-
-```json
-{
-	"op": 1,
-	"d": 251
-}
-```
-
-The inner `d` key must be set to the last seq (`s`) received by the client. If none has yet been received you should send `null`.
-
-This OP code is also bidirectional. The gateway may request a heartbeat from you in some situations, and you should send a heartbeat back to the gateway as you normally would.
+The client should now begin sending [Opcode 1 Heartbeat](#DOCS_GATEWAY/heartbeat) payloads every `heartbeat_interval` milliseconds, until the connection is eventually closed or terminated. This OP code is also bidirectional. The gateway may request a heartbeat from you in some situations, and you should send a heartbeat back to the gateway as you normally would.
 
 >info
 >In the event of a service outage where you stay connected to the gateway, you should continue to heartbeat and receive ACKs. The gateway will eventually respond and issue a session once it's able to.
 
-Clients can detect zombied or failed connections by listening for [Opcode 11 Heartbeat ACK](#DOCS_GATEWAY/gateway-heartbeat-ack):
+Clients can detect zombied or failed connections by listening for [Opcode 11 Heartbeat ACK](#DOCS_GATEWAY/heartbeating-example-gateway-heartbeat-ack):
 
 ###### Example Gateway Heartbeat ACK
 
@@ -175,7 +162,7 @@ If a client does not receive a heartbeat ack between its attempts at sending hea
 
 ### Identifying
 
-Next, the client is expected to send an [Opcode 2 Identify](#DOCS_GATEWAY/gateway-identify):
+Next, the client is expected to send an [Opcode 2 Identify](#DOCS_GATEWAY/identify):
 
 ###### Example Gateway Identify
 
@@ -208,11 +195,11 @@ If the payload is valid, the gateway will respond with a [Ready](#DOCS_GATEWAY/r
 >Clients are limited to 1000 `IDENTIFY` calls to the websocket in a 24-hour period. This limit is global and across all shards, but does not include `RESUME` calls. Upon hitting this limit, all active sessions for the bot will be terminated, the bot's token will be reset, and the owner will receive an email notification. It's up to the owner to update their application with the new token.
 
 
-## Resuming a Disconnected Session
+## Resuming
 
 The internet is a scary place. Disconnections happen, especially with persistent connections. Due to Discord's architecture, this is a semi-regular event and should be expected and handled. Discord has a process for "resuming" (or reconnecting) a connection that allows the client to replay any lost events from the last sequence number they received in the exact same way they would receive them normally.
 
-Your client should store the `session_id` from the [Ready](#DOCS_GATEWAY/ready), and the sequence number of the last event it received. When your client detects that it has been disconnected, it should completely close the connection and open a new one (following the same strategy as [Connecting](#DOCS_GATEWAY/connecting)). Once the new connection has been opened, the client should send a [Gateway Resume](#DOCS_GATEWAY/gateway-resume):
+Your client should store the `session_id` from the [Ready](#DOCS_GATEWAY/ready), and the sequence number of the last event it received. When your client detects that it has been disconnected, it should completely close the connection and open a new one (following the same strategy as [Connecting](#DOCS_GATEWAY/connecting)). Once the new connection has been opened, the client should send a [Gateway Resume](#DOCS_GATEWAY/resume):
 
 
 ###### Example Gateway Resume
@@ -225,7 +212,7 @@ Your client should store the `session_id` from the [Ready](#DOCS_GATEWAY/ready),
 }
 ```
 
-If successful, the gateway will respond by replaying all missed events in order, finishing with a [Resumed](#DOCS_GATEWAY/resumed) event to signal replay has finished, and all subsequent events are new. It's also possible that your client cannot reconnect in time to resume, in which case the client will receive a [Opcode 9 Invalid Session](#DOCS_GATEWAY/invalid-session) and is expected to wait a random amount of time—between 1 and 5 seconds—then send a fresh [Opcode 2 Identify](#DOCS_GATEWAY/gateway-identify).
+If successful, the gateway will respond by replaying all missed events in order, finishing with a [Resumed](#DOCS_GATEWAY/resumed) event to signal replay has finished, and all subsequent events are new. It's also possible that your client cannot reconnect in time to resume, in which case the client will receive a [Opcode 9 Invalid Session](#DOCS_GATEWAY/invalid-session) and is expected to wait a random amount of time—between 1 and 5 seconds—then send a fresh [Opcode 2 Identify](#DOCS_GATEWAY/identify).
 
 ### Disconnections
 
@@ -236,12 +223,12 @@ If the gateway ever issues a disconnect to your client, it will provide a close 
 | Code | Description | Explanation |
 |------|-------------|-------------|
 | 4000 | unknown error | We're not sure what went wrong. Try reconnecting? |
-| 4001 | unknown opcode | You sent an invalid [Gateway opcode](#DOCS_GATEWAY/gateway-opcodespayloads-gateway-opcodes). Don't do that! |
+| 4001 | unknown opcode | You sent an invalid [Gateway opcode](#DOCS_GATEWAY/payloads-and-opcodes). Don't do that! |
 | 4002 | decode error | You sent an invalid [payload](#DOCS_GATEWAY/sending-payloads) to us. Don't do that! |
-| 4003 | not authenticated | You sent us a payload prior to [identifying](#DOCS_GATEWAY/gateway-identify). |
-| 4004 | authentication failed | The account token sent with your [identify payload](#DOCS_GATEWAY/gateway-identify) is incorrect. |
+| 4003 | not authenticated | You sent us a payload prior to [identifying](#DOCS_GATEWAY/identify). |
+| 4004 | authentication failed | The account token sent with your [identify payload](#DOCS_GATEWAY/identify) is incorrect. |
 | 4005 | already authenticated | You sent more than one identify payload. Don't do that! |
-| 4007 | invalid seq | The sequence sent when [resuming](#DOCS_GATEWAY/resuming) the session was invalid. Reconnect and start a new session. |
+| 4007 | invalid seq | The sequence sent when [resuming](#DOCS_GATEWAY/resume) the session was invalid. Reconnect and start a new session. |
 | 4008 | rate limited | Woah nelly! You're sending payloads to us too quickly. Slow it down! |
 | 4009 | session timeout | Your session timed out. Reconnect and start a new one. |
 | 4010 | invalid shard | You sent us an invalid [shard when identifying](#DOCS_GATEWAY/sharding). |
@@ -249,7 +236,7 @@ If the gateway ever issues a disconnect to your client, it will provide a close 
 
 ## Rate Limiting
 
-Clients are allowed 120 events every 60 seconds, meaning you can send on average at a rate of up to 2 events per second. Clients who surpass this limit are immediately disconnected from the Gateway, and similarly to the HTTP API, repeat offenders will have their API access revoked. Clients are also limited to one gateway connection per 5 seconds. If you hit this limit, the Gateway will respond with an [Opcode 9 Invalid Session](#DOCS_GATEWAY/gateway-invalid-session).
+Clients are allowed 120 events every 60 seconds, meaning you can send on average at a rate of up to 2 events per second. Clients who surpass this limit are immediately disconnected from the Gateway, and similarly to the HTTP API, repeat offenders will have their API access revoked. Clients are also limited to one gateway connection per 5 seconds. If you hit this limit, the Gateway will respond with an [Opcode 9 Invalid Session](#DOCS_GATEWAY/invalid-session).
 
 ## Tracking State
 
@@ -257,11 +244,15 @@ Most of a client's state is provided during the initial [Ready](#DOCS_GATEWAY/re
 
 An example of state tracking can be found with member status caching. When initially connecting to the gateway, the client receives information regarding the online status of guild members (online, idle, dnd, offline). To keep this state updated, a client must track and parse [Presence Update](#DOCS_GATEWAY/presence-update) events as they are received, and apply the provided data to the cached member objects.
 
+## Guild Availability
+
+When connecting to the gateway as a bot user, guilds that the bot is a part of start out as unavailable. Don't fret! The gateway will automatically attempt to reconnect on your behalf. As guilds become available to you, you will receive [Guild Create](#DOCS_GATEWAY/guild-create) events.
+
 ## Sharding
 
 As bots grow and are added to an increasing number of guilds, some developers may find it necessary to break or split portions of their bots operations into separate logical processes. As such, Discord gateways implement a method of user-controlled guild sharding which allows for splitting events across a number of gateway connections. Guild sharding is entirely user controlled, and requires no state-sharing between separate connections to operate.
 
-To enable sharding on a connection, the user should send the `shard` array in the [identify](#DOCS_GATEWAY/gateway-identify) payload. The first item in this array should be the zero-based integer value of the current shard, while the second represents the total number of shards. DMs will only be sent to shard 0. To calculate what events will be sent to what shard, the following formula can be used:
+To enable sharding on a connection, the user should send the `shard` array in the [Identify](#DOCS_GATEWAY/identify) payload. The first item in this array should be the zero-based integer value of the current shard, while the second represents the total number of shards. DMs will only be sent to shard 0. To calculate what events will be sent to what shard, the following formula can be used:
 
 ###### Sharding Formula
 
@@ -273,7 +264,7 @@ As an example, if you wanted to split the connection between three shards, you'd
 
 ## Commands
 
-### Identify
+#### Identify
 
 Used to trigger the initial handshake with the gateway.
 
@@ -282,11 +273,11 @@ Used to trigger the initial handshake with the gateway.
 | Field | Type | Description |
 |-------|------|-------------|
 | token | string | authentication token |
-| properties | object | [connection properties](#DOCS_GATEWAY/gateway-identify-gateway-identify-connection-properties) |
+| properties | object | [connection properties](#DOCS_GATEWAY/identify-identify-connection-properties) |
 | compress | bool | whether this connection supports compression of packets |
 | large_threshold | integer | value between 50 and 250, total number of members where the gateway will stop sending offline members in the guild member list |
 | shard | array of two integers (shard_id, num_shards) | used for [Guild Sharding](#DOCS_GATEWAY/sharding) |
-| presence | [gateway status update](#DOCS_GATEWAY/gateway-status-update) object | presence structure for initial presence information |
+| presence | [update status](#DOCS_GATEWAY/update-status) object | presence structure for initial presence information |
 
 ###### Identify Connection Properties
 
@@ -321,7 +312,7 @@ Used to trigger the initial handshake with the gateway.
 }
 ```
 
-### Resume
+#### Resume
 
 Used to replay missed events when a disconnected client resumes.
 
@@ -343,9 +334,22 @@ Used to replay missed events when a disconnected client resumes.
 }
 ```
 
-### Request Guild Members
+#### Heartbeat
 
-Used to request offline members for a guild. When initially connecting, the gateway will only send offline members if a guild has less than the `large_threshold` members (value in the [Gateway Identify](#DOCS_GATEWAY/gateway-identify)). If a client wishes to receive additional members, they need to explicitly request them via this operation. The server will send [Guild Members Chunk](#DOCS_GATEWAY/guild-members-chunk) events in response with up to 1000 members per chunk until all members that match the request have been sent.
+Used to maintain an active gateway connection. Must be sent every `heartbeat_interval` milliseconds after the [Opcode 10 Hello](#DOCS_GATEWAY/hello) payload is received. The inner `d` key is the last sequence number—`s`—received by the client. If you have not yet received one, send `null`.
+
+###### Example Heartbeat
+
+```
+{
+	"op": 1,
+	"d": 251
+}
+```
+
+#### Request Guild Members
+
+Used to request offline members for a guild. When initially connecting, the gateway will only send offline members if a guild has less than the `large_threshold` members (value in the [Gateway Identify](#DOCS_GATEWAY/identify)). If a client wishes to receive additional members, they need to explicitly request them via this operation. The server will send [Guild Members Chunk](#DOCS_GATEWAY/guild-members-chunk) events in response with up to 1000 members per chunk until all members that match the request have been sent.
 
 ###### Guild Request Members Structure
 
@@ -365,7 +369,7 @@ Used to request offline members for a guild. When initially connecting, the gate
 }
 ```
 
-### Update Voice State
+#### Update Voice State
 
 Sent when a client wants to join, move, or disconnect from a voice channel.
 
@@ -389,7 +393,7 @@ Sent when a client wants to join, move, or disconnect from a voice channel.
 }
 ```
 
-### Update Status
+#### Update Status
 
 Sent by the client to indicate a presence or status update.
 
@@ -399,7 +403,7 @@ Sent by the client to indicate a presence or status update.
 |-------|------|-------------|
 | since | ?integer | unix time (in milliseconds) of when the client went idle, or null if the client is not idle |
 | game | ?[game](#DOCS_GATEWAY/game-object) object | null, or the user's new activity |
-| status | string | the user's new [status](#DOCS_GATEWAY/gateway-status-update-status-types) |
+| status | string | the user's new [status](#DOCS_GATEWAY/update-status-status-types) |
 | afk | bool | whether or not the client is afk |
 
 ###### Status Types
@@ -474,7 +478,7 @@ The ready event is dispatched when a client has completed the initial handshake 
 
 #### Resumed
 
-The resumed event is dispatched when a client has sent a [resume payload](#DOCS_GATEWAY/resuming) to the gateway (for resuming existing sessions).
+The resumed event is dispatched when a client has sent a [resume payload](#DOCS_GATEWAY/resume) to the gateway (for resuming existing sessions).
 
 ###### Resumed Event Fields
 
@@ -485,8 +489,8 @@ The resumed event is dispatched when a client has sent a [resume payload](#DOCS_
 #### Invalid Session
 
 Sent to indicate one of at least three different situations:
-- the gateway could not initialize a session after receiving an [Opcode 2 Identify](#DOCS_GATEWAY/gateway-identify)
-- the gateway could not resume a previous session after receiving an [Opcode 6 Resume](#DOCS_GATEWAY/gateway-resume)
+- the gateway could not initialize a session after receiving an [Opcode 2 Identify](#DOCS_GATEWAY/identify)
+- the gateway could not resume a previous session after receiving an [Opcode 6 Resume](#DOCS_GATEWAY/resume)
 - the gateway has invalidated an active session and is requesting client action
 
 The inner `d` key is a boolean that indicates whether the session may be resumable. See [Connecting](#DOCS_GATEWAY/connecting) and [Resuming](#DOCS_GATEWAY/resuming) for more information.
