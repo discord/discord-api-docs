@@ -714,7 +714,7 @@ Sent when a user adds a reaction to a message.
 | user_id | snowflake | the id of the user |
 | channel_id | snowflake | the id of the channel |
 | message_id | snowflake | the id of the message |
-| emoji | an [emoji](#DOCS_EMOJI/emoji-object) object | the emoji used to react |
+| emoji | a partial [emoji](#DOCS_EMOJI/emoji-object) object | the emoji used to react - [example](#DOCS_EMOJI/emoji-object-gateway-reaction-standard-emoji-example) |
 
 #### Message Reaction Remove
 
@@ -727,7 +727,7 @@ Sent when a user removes a reaction from a message.
 | user_id | snowflake | the id of the user |
 | channel_id | snowflake | the id of the channel |
 | message_id | snowflake | the id of the message |
-| emoji | an [emoji](#DOCS_EMOJI/emoji-object) object | the emoji used to react |
+| emoji | a partial [emoji](#DOCS_EMOJI/emoji-object) object | the emoji used to react - [example](#DOCS_EMOJI/emoji-object-gateway-reaction-standard-emoji-example) |
 
 #### Message Reaction Remove All
 
