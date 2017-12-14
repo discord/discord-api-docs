@@ -169,9 +169,10 @@ When Player B clicks the Ask to Join button on Player A's profile, the `joinRequ
 
 ```c
 typedef struct DiscordJoinRequest {
-    char userId[24];
-    char username[48];
-    char avatarUrl[128];
+    char userId[32];
+    char username[344];
+    char discriminator[8]
+    char avatar[128];
 } DiscordJoinRequest;
 ```
 
@@ -180,7 +181,8 @@ typedef struct DiscordJoinRequest {
 | parameter | type | description |
 | --------- | ---- | ----------- |
 | userId    | char[24]  | the userId of the player asking to join |
-| username  | char[48]  | the username of the player asking to join |
+| username  | char[344]  | the username of the player asking to join |
+| discriminator | char[8] | the discriminator of the player asking to join |
 | avatar*   | char[128] | the avatar hash of the player asking to join—see [image formatting](#DOCS_REFERENCE/image-formatting) for how to retrieve the image |
 
 >warn

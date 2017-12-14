@@ -9,12 +9,49 @@
 
 | Field | Type | Description |
 |-------|------|-------------|
-| id | snowflake | [emoji id](#DOCS_REFERENCE/image-formatting) |
+| id | ?snowflake | [emoji id](#DOCS_REFERENCE/image-formatting) |
 | name | string | emoji name |
-| roles | array of [role object](#DOCS_PERMISSIONS/role-object) ids | roles this emoji is whitelisted to |
+| roles? | array of [role object](#DOCS_PERMISSIONS/role-object) ids | roles this emoji is whitelisted to |
 | user? | [user](#DOCS_USER/user-object) object | user that created this emoji |
-| require\_colons | bool | whether this emoji must be wrapped in colons |
-| managed | bool | whether this emoji is managed |
+| require\_colons? | bool | whether this emoji must be wrapped in colons |
+| managed? | bool | whether this emoji is managed |
+
+###### Emoji Example
+
+```json
+{
+  "id": "41771983429993937",
+  "name": "LUL",
+  "roles": [ "41771983429993000", "41771983429993111" ],
+  "user": {
+    "username": "Luigi",
+    "discriminator": "0002",
+    "id": "96008815106887111",
+    "avatar": "5500909a3274e1812beb4e8de6631111"
+  },
+  "require_colons": true,
+  "managed": false
+}
+```
+
+
+###### Gateway Reaction Standard Emoji Example
+
+```json
+{
+  "id": null,
+  "name": "🔥"
+}
+```
+
+###### Gateway Reaction Custom Emoji Example
+
+```json
+{
+  "id": "41771983429993937",
+  "name": "LUL"
+}
+```
 
 ## List Guild Emojis % GET /guilds/{guild.id#DOCS_GUILD/guild-object}/emojis
 

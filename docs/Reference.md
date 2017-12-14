@@ -30,7 +30,7 @@ Omitting the version number from the route will route requests to the current de
 | 6 | Available | ✓ |
 | 5 | Discontinued | |
 | 4 | Discontinued | |
-| 3 | Discontinued | |
+| 3 | Discontinued | | |
 
 ## Authentication
 
