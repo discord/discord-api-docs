@@ -13,7 +13,7 @@ https://discordapp.com/api
 ## API Versioning
 
 >danger
->API and Gateway versions below v6 are now discontinued, meaning they are now non-functioning. Trying to use versions below v6 will return 400 Bad Request.
+>Some API and Gateway versions are now non-functioning, and are labeled as discontinued in the table below. Trying to use these versions will fail and return 400 Bad Request. They are listed in the table below for posterity only.
 
 Discord exposes different versions of our API. You can specify version by including it in the request path:
 
@@ -21,7 +21,7 @@ Discord exposes different versions of our API. You can specify version by includ
 https://discordapp.com/api/v{version_number}
 ```
 
-Omitting the version number from the route will route requests to the current default version. You can find the change log for the newest API version [here](https://discordapp.com/developers/docs/change-log).
+Omitting the version number from the route will route requests to the current default version (marked below accordingly). You can find the change log for the newest API version [here](https://discordapp.com/developers/docs/change-log).
 
 ###### API Versions
 
