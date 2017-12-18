@@ -402,7 +402,7 @@ Sent by the client to indicate a presence or status update.
 | Field | Type | Description |
 |-------|------|-------------|
 | since | ?integer | unix time (in milliseconds) of when the client went idle, or null if the client is not idle |
-| game | ?[game](#DOCS_GATEWAY/game-object) object | null, or the user's new activity |
+| game | ?[activity](#DOCS_GATEWAY/activity-object) object | null, or the user's new activity |
 | status | string | the user's new [status](#DOCS_GATEWAY/update-status-status-types) |
 | afk | bool | whether or not the client is afk |
 
@@ -755,25 +755,25 @@ A user's presence is their current state on a guild. This event is sent when a u
 |-------|------|-------------|
 | user | [user](#DOCS_USER/user-object) object | the user presence is being updated for |
 | roles | array of snowflakes | roles this user is in |
-| game | ?[game](#DOCS_GATEWAY/game-object) object | null, or the user's current activity |
+| game | ?[game](#DOCS_GATEWAY/activity-object) object | null, or the user's current activity |
 | guild_id | snowflake | id of the guild |
 | status | string | either "idle", "dnd", "online", or "offline" |
 
-#### Game Object
+#### Activity Object
 
-###### Game Structure
+###### Activity Structure
 
 | Field | Type | Description |
 |-------|------|-------------|
 | name | string | the game's name |
-| type | integer | [Activity Type](#DOCS_GATEWAY/game-object-activity-types) |
+| type | integer | [activity type](#DOCS_GATEWAY/activity-object-activity-types) |
 | url? | ?string | stream url, is validated when type is 1  |
-| timestamps? | [timestamps](#DOCS_GATEWAY/game-object-game-timestamps) object | Unix timestamps for start and/or end of the game |
-| application_id? | snowflake | Application ID for the game |
-| details? | ?string | What the player is currently doing |
-| state? | ?string | The user's current party status |
-| party? | [party](#DOCS_GATEWAY/game-object-game-party) object | Information for the current party of the player |
-| assets? | [assets](#DOCS_GATEWAY/game-object-game-assets) object | Images for the presence and their hover texts |
+| timestamps? | [timestamps](#DOCS_GATEWAY/activity-object-game-timestamps) object | unix timestamps for start and/or end of the game |
+| application_id? | snowflake | application ID for the game |
+| details? | ?string | what the player is currently doing |
+| state? | ?string | the user's current party status |
+| party? | [party](#DOCS_GATEWAY/activity-object-game-party) object | information for the current party of the player |
+| assets? | [assets](#DOCS_GATEWAY/activity-object-game-assets) object | images for the presence and their hover texts |
 
 >info
 >Bots are only able to send `name`, `type`, and optionally `url`.
@@ -790,30 +790,30 @@ A user's presence is their current state on a guild. This event is sent when a u
 >info
 >The streaming type currently only supports Twitch. Only `https://twitch.tv/` urls will work.
 
-###### Game Timestamps
+###### Activity Timestamps
 
 | Field | Type | Description |
 |-------|------|-------------|
-| start? | int | Epoch millis of start |
-| end? | int | Epoch millis of end |
+| start? | int | unix time (in milliseconds) of when the activity started |
+| end? | int | unix time (in milliseconds) of when the activity ends |
 
-###### Game Party
-
-| Field | Type | Description |
-|-------|------|-------------|
-| id? | string | The ID, relevant for joining the party |
-| size? | array of two integers | First element is the current size, second the max `[2, 5]` |
-
-###### Game Assets
+###### Activity Party
 
 | Field | Type | Description |
 |-------|------|-------------|
-| large_image? | snowflake | ID for an asset of the application |
-| large_text? | string | Text displayed when hovering over the large image of the presence |
-| small_image? | snowflake | ID for an asset of the application |
-| small_text? | string | Text displayed when hovering over the small image of the presence |
+| id? | string | the ID of the party |
+| size? | array of two integers (current\_size, max\_size) | used to show the party's current and maximum size |
 
-###### Example Game
+###### Activity Assets
+
+| Field | Type | Description |
+|-------|------|-------------|
+| large_image? | snowflake/string | the ID for an asset of the application |
+| large_text? | string | text displayed when hovering over the large image of the presence |
+| small_image? | snowflake/string | the ID for an asset of the application |
+| small_text? | string | text displayed when hovering over the small image of the presence |
+
+###### Example Activity
 
 ```json
 {
@@ -823,7 +823,7 @@ A user's presence is their current state on a guild. This event is sent when a u
 }
 ```
 
-###### Example Game with Rich Presence
+###### Example Activity with Rich Presence
 
 ```json
 {
@@ -833,10 +833,10 @@ A user's presence is their current state on a guild. This event is sent when a u
 	"state": "In a Match",
 	"details": "Ranked Duos: 2-1",
 	"timestamps": {
-		"start": 1511200066
+		"start": 15112000660000
 	},
 	"party": {
-		"id": "35137100553872123",
+		"id": "35137100553872123-aee8b2.eu",
 		"size": [2, 2]
 	},
 	"assets": {
