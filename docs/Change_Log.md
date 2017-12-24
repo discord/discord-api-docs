@@ -34,7 +34,7 @@ Changes have been made throughout the documentation to reflect the addition of c
 
 #### August 16, 2017
 
-The `type` field in the [game object](#DOCS_GATEWAY/game-object) for [Gateway Status Update](#DOCS_GATEWAY/gateway-status-update) and [Presence Update](DOCS_GATEWAY/presence-update) payloads is no longer optional when the game object is not null.
+The `type` field in the [game object](#DOCS_GATEWAY/game-object) for [Gateway Status Update](#DOCS_GATEWAY/update-status) and [Presence Update](#DOCS_GATEWAY/presence-update) payloads is no longer optional when the game object is not null.
 
 ## Breaking Change: Default Channels
 
@@ -62,5 +62,5 @@ Audit logs are here! Well, they've been here all along, but now we've got [docum
   * `recipient` is now `recipients`, an array of [user](#DOCS_USER/user-object) objects
 * [Message](#DOCS_CHANNEL/message-object) Object
   * [`type`](#DOCS_CHANNEL/message-object-message-types) added to support system messages
-* [Status Update](#DOCS_GATEWAY/gateway-status-update-gateway-status-update-structure) Object
+* [Status Update](#DOCS_GATEWAY/update-status-gateway-status-update-structure) Object
   * `idle_since` renamed to `since`
