@@ -15,6 +15,7 @@
 | user? | [user](#DOCS_USER/user-object) object | user that created this emoji |
 | require\_colons? | bool | whether this emoji must be wrapped in colons |
 | managed? | bool | whether this emoji is managed |
+| animated? | bool | whether this emoji is animated |
 
 ###### Emoji Example
 
@@ -30,7 +31,8 @@
     "avatar": "5500909a3274e1812beb4e8de6631111"
   },
   "require_colons": true,
-  "managed": false
+  "managed": false,
+  "animated": false
 }
 ```
 

@@ -123,8 +123,8 @@ typedef struct DiscordRichPresence {
 | -------------- | ------- | ------------------------------------------------------------------------- | ---------------------------------------------------------- |
 | state          | char*   | the user's current party status                                           | "Looking to Play", "Playing Solo", "In a Group"            |
 | details        | char*   | what the player is currently doing                                        | "Competitive - Captain's Mode", "In Queue", "Unranked PvP" |
-| startTimestamp | int64_t | unix timestamp for the start of the game                                  | 1507665886                                                 |
-| endTimestamp   | int64_t | unix timestamp for when the game will end                                 | 1507665886                                                 |
+| startTimestamp | int64_t | epoch seconds for game start - including will show time as "elapsed"      | 1507665886                                                 |
+| endTimestamp   | int64_t | epoch seconds for game end - including will show time as "remaining"      | 1507665886                                                 |
 | largeImageKey  | char*   | name of the uploaded image for the large profile artwork                  | "default"                                                  |
 | largeImageText | char*   | tooltip for the largeImageKey                                             | "Blade's Edge Arena", "Numbani", "Danger Zone"             |
 | smallImageKey  | char*   | name of the uploaded image for the small profile artwork                  | "rogue"                                                    |
@@ -133,9 +133,12 @@ typedef struct DiscordRichPresence {
 | partySize      | int     | current size of the player's party, lobby, or group                       | 1                                                          |
 | partyMax       | int     | maximum size of the player's party, lobby, or group                       | 5                                                          |
 | matchSecret    | char*   | unique hashed string for Spectate and Join                                | MmhuZToxMjMxMjM6cWl3amR3MWlqZA==                           |
-| spectateSecret | char*   | unique hashed string for Spectate button                                   | MTIzNDV8MTIzNDV8MTMyNDU0                                   |
-| joinSecret     | char*   | unique hashed string for chat invitations and Ask to Join                  | MTI4NzM0OjFpMmhuZToxMjMxMjM=                               |
+| spectateSecret | char*   | unique hashed string for Spectate button                                  | MTIzNDV8MTIzNDV8MTMyNDU0                                   |
+| joinSecret     | char*   | unique hashed string for chat invitations and Ask to Join                 | MTI4NzM0OjFpMmhuZToxMjMxMjM=                               |
 | instance       | int8_t  | marks the matchSecret as a game session with a specific beginning and end | 1                                                          |
+
+>info
+>Sending `endTimestamp` will **always** have the time displayed as "remaining" until the given time. Sending `startTimestamp` will show "elapsed" as long as there is no `endTimestamp` sent.
 
 ## Joining
 
