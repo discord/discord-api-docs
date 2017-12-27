@@ -34,7 +34,7 @@ Changes have been made throughout the documentation to reflect the addition of c
 
 #### August 16, 2017
 
-The `type` field in the [game object](#DOCS_GATEWAY/activity-object) for [Gateway Status Update](#DOCS_GATEWAY/update-status) and [Presence Update](DOCS_GATEWAY/presence-update) payloads is no longer optional when the game object is not null.
+The `type` field in the [game object](#DOCS_GATEWAY/activity-object) for [Gateway Status Update](#DOCS_GATEWAY/update-status) and [Presence Update](#DOCS_GATEWAY/presence-update) payloads is no longer optional when the game object is not null.
 
 ## Breaking Change: Default Channels
 
