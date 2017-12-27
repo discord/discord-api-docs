@@ -755,7 +755,7 @@ A user's presence is their current state on a guild. This event is sent when a u
 |-------|------|-------------|
 | user | [user](#DOCS_USER/user-object) object | the user presence is being updated for |
 | roles | array of snowflakes | roles this user is in |
-| game | ?[game](#DOCS_GATEWAY/activity-object) object | null, or the user's current activity |
+| game | ?[activity](#DOCS_GATEWAY/activity-object) object | null, or the user's current activity |
 | guild_id | snowflake | id of the guild |
 | status | string | either "idle", "dnd", "online", or "offline" |
 
@@ -765,11 +765,11 @@ A user's presence is their current state on a guild. This event is sent when a u
 
 | Field | Type | Description |
 |-------|------|-------------|
-| name | string | the game's name |
+| name | string | the activity's name |
 | type | integer | [activity type](#DOCS_GATEWAY/activity-object-activity-types) |
 | url? | ?string | stream url, is validated when type is 1  |
 | timestamps? | [timestamps](#DOCS_GATEWAY/activity-object-game-timestamps) object | unix timestamps for start and/or end of the game |
-| application_id? | snowflake | application ID for the game |
+| application_id? | snowflake | application id for the game |
 | details? | ?string | what the player is currently doing |
 | state? | ?string | the user's current party status |
 | party? | [party](#DOCS_GATEWAY/activity-object-game-party) object | information for the current party of the player |
@@ -801,16 +801,16 @@ A user's presence is their current state on a guild. This event is sent when a u
 
 | Field | Type | Description |
 |-------|------|-------------|
-| id? | string | the ID of the party |
+| id? | string | the id of the party |
 | size? | array of two integers (current\_size, max\_size) | used to show the party's current and maximum size |
 
 ###### Activity Assets
 
 | Field | Type | Description |
 |-------|------|-------------|
-| large_image? | snowflake/string | the ID for an asset of the application |
+| large_image? | string | the id for a large asset of the application |
 | large_text? | string | text displayed when hovering over the large image of the presence |
-| small_image? | snowflake/string | the ID for an asset of the application |
+| small_image? | string | the id for a small asset of the application |
 | small_text? | string | text displayed when hovering over the small image of the presence |
 
 ###### Example Activity
