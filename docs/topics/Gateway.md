@@ -856,6 +856,8 @@ Sent when a guild channel's webhook is created, updated, or deleted.
 >info
 >This endpoint does not require authentication.
 
+Returns an object with a single valid WSS URL, which the client can use for [Connecting](#DOCS_GATEWAY/connecting). Clients **should** cache this value and only call this endpoint to retrieve a new URL if they are unable to properly establish a connection using the cached version of the URL.
+
 ###### Example Response
 
 ```json
@@ -869,6 +871,8 @@ Sent when a guild channel's webhook is created, updated, or deleted.
 
 >warn
 >This endpoint requires authentication using a valid bot token.
+
+Returns an object with the same information as [Get Gateway](#DOCS_GATEWAY/get-gateway), plus a `shards` key, containing the recommended number of [shards](#DOCS_GATEWAY/sharding) to connect with (as an integer). Bots that want to dynamically/automatically spawn shard processes should use this endpoint to determine the number of processes to run. This route should be called once when starting up numerous shards, with the response being cached and passed to all sub-shards/processes. Unlike the [Get Gateway](#DOCS_GATEWAY/get-gateway), this route should not be cached for extended periods of time as the value is not guaranteed to be the same per-call, and changes as the bot joins/leaves guilds.
 
 ###### Example Response
 
