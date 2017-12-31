@@ -784,8 +784,7 @@ A user's presence is their current state on a guild. This event is sent when a u
 |----|------|--------|---------|
 | 0 | Game | Playing {name} | "Playing Rocket League" |
 | 1 | Streaming | Streaming {name} | "Streaming Rocket League" |
-| 2 | Listening | Listening to {name} | "Listening to Nyan Cat - 10 Hour Version" |
-| 3 | Watching | Watching {name} | "Watching Stranger Things" |
+| 2 | Listening | Listening to {name} | "Listening to Spotify" |
 
 >info
 >The streaming type currently only supports Twitch. Only `https://twitch.tv/` urls will work.
@@ -808,10 +807,10 @@ A user's presence is their current state on a guild. This event is sent when a u
 
 | Field | Type | Description |
 |-------|------|-------------|
-| large_image? | string | the id for a large asset of the application |
-| large_text? | string | text displayed when hovering over the large image of the presence |
-| small_image? | string | the id for a small asset of the application |
-| small_text? | string | text displayed when hovering over the small image of the presence |
+| large_image? | string | the id for a large asset of the activity, usually a snowflake |
+| large_text? | string | text displayed when hovering over the large image of the activity |
+| small_image? | string | the id for a small asset of the activity, usually a snowflake |
+| small_text? | string | text displayed when hovering over the small image of the activity |
 
 ###### Example Activity
 
@@ -836,7 +835,7 @@ A user's presence is their current state on a guild. This event is sent when a u
 		"start": 15112000660000
 	},
 	"party": {
-		"id": "35137100553872123-aee8b2.eu",
+		"id": "9dd6594e-81b3-49f6-a6b5-a679e6a060d3",
 		"size": [2, 2]
 	},
 	"assets": {
