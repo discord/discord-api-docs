@@ -30,11 +30,11 @@ Changes have been made throughout the documentation to reflect the addition of c
 
 [Emoji endpoints](#DOCS_EMOJI/emoji-resource) have been added to the API. Bots can now manage guild emojis to their robo-hearts' content!
 
-## Breaking Change: Game Object
+## Breaking Change: Presence Activity Objects
 
 #### August 16, 2017
 
-The `type` field in the [game object](#DOCS_GATEWAY/game-object) for [Gateway Status Update](#DOCS_GATEWAY/update-status) and [Presence Update](#DOCS_GATEWAY/presence-update) payloads is no longer optional when the game object is not null.
+The `type` field in the [activity object](#DOCS_GATEWAY/activity-object) for [Gateway Status Update](#DOCS_GATEWAY/update-status) and [Presence Update](#DOCS_GATEWAY/presence-update) payloads is no longer optional when the activity object is not null.
 
 ## Breaking Change: Default Channels
 

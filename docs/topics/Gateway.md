@@ -402,7 +402,7 @@ Sent by the client to indicate a presence or status update.
 | Field | Type | Description |
 |-------|------|-------------|
 | since | ?integer | unix time (in milliseconds) of when the client went idle, or null if the client is not idle |
-| game | ?[game](#DOCS_GATEWAY/game-object) object | null, or the user's new activity |
+| game | ?[activity](#DOCS_GATEWAY/activity-object) object | null, or the user's new activity |
 | status | string | the user's new [status](#DOCS_GATEWAY/update-status-status-types) |
 | afk | bool | whether or not the client is afk |
 
@@ -755,19 +755,28 @@ A user's presence is their current state on a guild. This event is sent when a u
 |-------|------|-------------|
 | user | [user](#DOCS_USER/user-object) object | the user presence is being updated for |
 | roles | array of snowflakes | roles this user is in |
-| game | ?[game](#DOCS_GATEWAY/game-object) object | null, or the user's current activity |
+| game | ?[activity](#DOCS_GATEWAY/activity-object) object | null, or the user's current activity |
 | guild_id | snowflake | id of the guild |
 | status | string | either "idle", "dnd", "online", or "offline" |
 
-#### Game Object
+#### Activity Object
 
-###### Game Structure
+###### Activity Structure
 
-| Field | Type | Description | Present |
-|-------|------|-------------|---------|
-| name | string | the game's name | Always |
-| type | integer | see [Activity Types](#DOCS_GATEWAY/game-object-activity-types)  | Always |
-| url | ?string | stream url, is validated when type is 1  | When type is 1 |
+| Field | Type | Description |
+|-------|------|-------------|
+| name | string | the activity's name |
+| type | integer | [activity type](#DOCS_GATEWAY/activity-object-activity-types) |
+| url? | ?string | stream url, is validated when type is 1  |
+| timestamps? | [timestamps](#DOCS_GATEWAY/activity-object-game-timestamps) object | unix timestamps for start and/or end of the game |
+| application_id? | snowflake | application id for the game |
+| details? | ?string | what the player is currently doing |
+| state? | ?string | the user's current party status |
+| party? | [party](#DOCS_GATEWAY/activity-object-game-party) object | information for the current party of the player |
+| assets? | [assets](#DOCS_GATEWAY/activity-object-game-assets) object | images for the presence and their hover texts |
+
+>info
+>Bots are only able to send `name`, `type`, and optionally `url`.
 
 ###### Activity Types
 
@@ -775,19 +784,66 @@ A user's presence is their current state on a guild. This event is sent when a u
 |----|------|--------|---------|
 | 0 | Game | Playing {name} | "Playing Rocket League" |
 | 1 | Streaming | Streaming {name} | "Streaming Rocket League" |
-| 2 | Listening | Listening to {name} | "Listening to Nyan Cat - 10 Hour Version" |
-| 3 | Watching | Watching {name} | "Watching Stranger Things" |
+| 2 | Listening | Listening to {name} | "Listening to Spotify" |
 
 >info
 >The streaming type currently only supports Twitch. Only `https://twitch.tv/` urls will work.
 
-###### Example Game
+###### Activity Timestamps
+
+| Field | Type | Description |
+|-------|------|-------------|
+| start? | int | unix time (in milliseconds) of when the activity started |
+| end? | int | unix time (in milliseconds) of when the activity ends |
+
+###### Activity Party
+
+| Field | Type | Description |
+|-------|------|-------------|
+| id? | string | the id of the party |
+| size? | array of two integers (current\_size, max\_size) | used to show the party's current and maximum size |
+
+###### Activity Assets
+
+| Field | Type | Description |
+|-------|------|-------------|
+| large_image? | string | the id for a large asset of the activity, usually a snowflake |
+| large_text? | string | text displayed when hovering over the large image of the activity |
+| small_image? | string | the id for a small asset of the activity, usually a snowflake |
+| small_text? | string | text displayed when hovering over the small image of the activity |
+
+###### Example Activity
 
 ```json
 {
 	"name": "Rocket League",
 	"type": 1,
 	"url": "https://www.twitch.tv/123"
+}
+```
+
+###### Example Activity with Rich Presence
+
+```json
+{
+	"name": "Rocket League",
+	"type": 0,
+	"application_id": "379286085710381999",
+	"state": "In a Match",
+	"details": "Ranked Duos: 2-1",
+	"timestamps": {
+		"start": 15112000660000
+	},
+	"party": {
+		"id": "9dd6594e-81b3-49f6-a6b5-a679e6a060d3",
+		"size": [2, 2]
+	},
+	"assets": {
+		"large_image": "351371005538729000",
+		"large_text": "DFH Stadium",
+		"small_image": "351371005538729111",
+		"small_text": "Silver III"
+	}
 }
 ```
 
