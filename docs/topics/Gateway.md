@@ -262,6 +262,14 @@ To enable sharding on a connection, the user should send the `shard` array in th
 
 As an example, if you wanted to split the connection between three shards, you'd use the following values for `shard` for each connection: `[0, 3]`, `[1, 3]`, and `[2, 3]`. Note that only the first shard (`[0, 3]`) would receive DMs.
 
+## Sharding for Very Large Bots
+
+If you are a bot that is in over 100,000 guilds, there are some additional considerations you must take around sharding. We will contact you if you are required to adhere to these changes.
+
+The number of shards you run must be a multiple of a fixed number we will determine when reaching out to you. If you attempt to start your bot with an invalid number of shards, your websocket connection will close with a 4010 Invalid Shard opcode. The gateway bot bootstrap endpoint will return the correct amount of shards, so if you're already using this endpoint to determine your number of shards, you shouldn't require any further changes.
+
+The session start limit for these bots will also be increased from 1000 to 2000 per day. Finally, the [Get Current User Guilds](#DOCS_USER/get-current-user-guilds) endpoint will no longer return results for your bot. We will be creating a new endpoint that is more shard-aware to iterate through your bot's guilds if needed.
+
 ## Commands
 
 #### Identify
