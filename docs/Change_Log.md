@@ -1,5 +1,11 @@
 # Change Log
 
+## Semi-Breaking Change: Very Large Bot Sharding
+
+#### January 3, 2018
+
+Additional sharding requirements and information for bots in over 100,000 guilds has been added. This requires a small change in numbers of shards for affected bots. See the [documentation](#DOCS_GATEWAY/sharding-for-very-large-bots) for more information.
+
 ## New Feature: Rich Presence
 
 #### November 9, 2017
