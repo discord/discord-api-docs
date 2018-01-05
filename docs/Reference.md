@@ -67,6 +67,22 @@ All HTTP-layer services and protocols (e.g. http, websocket) within the Discord 
 
 Discord utilizes Twitter's [snowflake](https://github.com/twitter/snowflake/tree/snowflake-2010) format for uniquely identifiable descriptors (IDs). These IDs are guaranteed to be unique across all of Discord, except in some unique scenarios in which child objects share their parent's ID. Because Snowflake IDs are up to 64 bits in size (e.g. a uint64), they are always returned as strings in the HTTP API to prevent integer overflows in some languages. See [Gateway ETF/JSON](#DOCS_GATEWAY/etf-json) for more information regarding Gateway encoding.
 
+###### Snowflake ID Broken Down in Binary
+
+```
+111111111111111111111111111111111111111111 11111 11111 111111111111
+64                                         22    17    12          0
+```
+
+###### Snowflake ID Format Structure (Right to Left)
+
+| Bits | Field | Number of bits | Description |
+|------------|-------|-------------|--------------|
+| Timestamp | 64 to 22 | 42 bits | Milliseconds since Discord Epoch, the first second of 2015 or 1420070400000. ``(snowflake >> 22) + 1420070400000`` |
+| Internal worker ID | 22 to 17 | 5 bits | |
+| Internal process ID | 17 to 12 | 5 bits | |
+| Increment | 12 to 0 | 10 bits | For every Id that is generated on that process, the number is incremented |
+
 ## Nullable and Optional Resource Fields
 
 Resource fields that may contain a `null` value have types that are prefixed with a question mark.
