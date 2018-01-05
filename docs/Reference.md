@@ -76,7 +76,7 @@ Discord utilizes Twitter's [snowflake](https://github.com/twitter/snowflake/tree
 
 ###### Snowflake ID Format Structure (Right to Left)
 
-| Bits | Field | Number of bits | Description |
+| Field | Bits | Number of bits | Description |
 |------------|-------|-------------|--------------|
 | Timestamp | 64 to 22 | 42 bits | Milliseconds since Discord Epoch, the first second of 2015 or 1420070400000. ``(snowflake >> 22) + 1420070400000`` |
 | Internal worker ID | 22 to 17 | 5 bits | |
