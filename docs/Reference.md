@@ -76,7 +76,7 @@ Discord utilizes Twitter's [snowflake](https://github.com/twitter/snowflake/tree
 64                                         22    17    12          0
 ```
 
-###### Snowflake ID Format Structure (Right to Left)
+###### Snowflake ID Format Structure (Left to Right)
 
 | Field | Bits | Number of bits | Description |
 |------------|-------|-------------|--------------|
