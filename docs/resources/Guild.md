@@ -15,7 +15,7 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 | owner? | bool | whether or not [the user](#DOCS_USER/get-current-user-guilds) is the owner of the guild |
 | owner\_id | snowflake | id of owner |
 | permissions? | integer | total permissions for [the user](#DOCS_USER/get-current-user-guilds) in the guild (does not include channel overrides) |
-| region | string | {voice\_region.id} |
+| region | string | [voice region](#DOCS_VOICE/voice-region) id for the guild |
 | afk\_channel\_id | snowflake | id of afk channel |
 | afk\_timeout | integer | afk timeout in seconds |
 | embed\_enabled | bool | is this guild embeddable (e.g. widget) |
@@ -222,7 +222,7 @@ Create a new guild. Returns a [guild](#DOCS_GUILD/guild-object) object on succes
 | Field | Type | Description |
 |-------|------|-------------|
 | name | string | name of the guild (2-100 characters) |
-| region | string | {voice_region.id} for voice |
+| region | string | [voice region](#DOCS_VOICE/voice-region) id|
 | icon | string | base64 128x128 jpeg image for the guild icon |
 | verification_level | integer | guild verification level |
 | default\_message\_notifications | integer | default message [notifications setting](#DOCS_GUILD/default-message-notification-level) |
@@ -260,7 +260,7 @@ Modify a guild's settings. Requires the 'MANAGE_GUILD' permission. Returns the u
 | Field | Type | Description |
 |-------|------|-------------|
 | name | string | guild name |
-| region | string | guild {voice_region.id} |
+| region | string | guild [voice region](#DOCS_VOICE/voice-region) id|
 | verification_level | integer | guild verification level |
 | default\_message\_notifications | integer | default message [notifications setting](#DOCS_GUILD/default-message-notification-level) |
 | afk\_channel\_id | snowflake | id for afk channel |
