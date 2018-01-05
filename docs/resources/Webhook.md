@@ -39,7 +39,7 @@ Used to represent a webhook.
 
 ## Create Webhook % POST /channels/{channel.id#DOCS_CHANNEL/channel-object}/webhooks
 
-Create a new webhook. Returns a [webhook](#DOCS_WEBHOOK/webhook-object) object on success.
+Create a new webhook. Requires the 'MANAGE_WEBHOOKS' permission. Returns a [webhook](#DOCS_WEBHOOK/webhook-object) object on success.
 
 ###### JSON Params
 
@@ -50,11 +50,11 @@ Create a new webhook. Returns a [webhook](#DOCS_WEBHOOK/webhook-object) object o
 
 ## Get Channel Webhooks % GET /channels/{channel.id#DOCS_CHANNEL/channel-object}/webhooks
 
-Returns a list of channel [webhook](#DOCS_WEBHOOK/webhook-object) objects.
+Returns a list of channel [webhook](#DOCS_WEBHOOK/webhook-object) objects. Requires the 'MANAGE_WEBHOOKS' permission.
 
 ## Get Guild Webhooks % GET /guilds/{guild.id#DOCS_GUILD/guild-object}/webhooks
 
-Returns a list of guild [webhook](#DOCS_WEBHOOK/webhook-object) objects.
+Returns a list of guild [webhook](#DOCS_WEBHOOK/webhook-object) objects. Requires the 'MANAGE_WEBHOOKS' permission.
 
 ## Get Webhook % GET /webhooks/{webhook.id#DOCS_WEBHOOK/webhook-object}
 
@@ -66,7 +66,7 @@ Same as above, except this call does not require authentication and returns no u
 
 ## Modify Webhook % PATCH /webhooks/{webhook.id#DOCS_WEBHOOK/webhook-object}
 
-Modify a webhook. Returns the updated [webhook](#DOCS_WEBHOOK/webhook-object) object on success.
+Modify a webhook. Requires the 'MANAGE_WEBHOOKS' permission. Returns the updated [webhook](#DOCS_WEBHOOK/webhook-object) object on success.
 
 >info
 >All parameters to this endpoint are optional
@@ -77,10 +77,11 @@ Modify a webhook. Returns the updated [webhook](#DOCS_WEBHOOK/webhook-object) ob
 |-------|------|-------------|
 | name | string | the default name of the webhook |
 | avatar | [avatar data](#DOCS_USER/avatar-data) string | image for the default webhook avatar |
+| channel_id | snowflake | the new channel id this webhook should be moved to |
 
 ## Modify Webhook with Token % PATCH /webhooks/{webhook.id#DOCS_WEBHOOK/webhook-object}/{webhook.token#DOCS_WEBHOOK/webhook-object}
 
-Same as above, except this call does not require authentication and returns no user in the webhook object.
+Same as above, except this call does not require authentication, does not accept a `channel_id` parameter in the body, and does not return a user in the webhook object.
 
 ## Delete Webhook % DELETE /webhooks/{webhook.id#DOCS_WEBHOOK/webhook-object}
 

@@ -9,11 +9,51 @@
 
 | Field | Type | Description |
 |-------|------|-------------|
-| id | snowflake | [emoji id](#DOCS_REFERENCE/image-formatting) |
+| id | ?snowflake | [emoji id](#DOCS_REFERENCE/image-formatting) |
 | name | string | emoji name |
-| roles | array of [role object](#DOCS_PERMISSIONS/role-object) ids | roles this emoji is whitelisted to |
-| require\_colons | bool | whether this emoji must be wrapped in colons |
-| managed | bool | whether this emoji is managed |
+| roles? | array of [role object](#DOCS_PERMISSIONS/role-object) ids | roles this emoji is whitelisted to |
+| user? | [user](#DOCS_USER/user-object) object | user that created this emoji |
+| require\_colons? | bool | whether this emoji must be wrapped in colons |
+| managed? | bool | whether this emoji is managed |
+| animated? | bool | whether this emoji is animated |
+
+###### Emoji Example
+
+```json
+{
+  "id": "41771983429993937",
+  "name": "LUL",
+  "roles": [ "41771983429993000", "41771983429993111" ],
+  "user": {
+    "username": "Luigi",
+    "discriminator": "0002",
+    "id": "96008815106887111",
+    "avatar": "5500909a3274e1812beb4e8de6631111"
+  },
+  "require_colons": true,
+  "managed": false,
+  "animated": false
+}
+```
+
+
+###### Gateway Reaction Standard Emoji Example
+
+```json
+{
+  "id": null,
+  "name": "🔥"
+}
+```
+
+###### Gateway Reaction Custom Emoji Example
+
+```json
+{
+  "id": "41771983429993937",
+  "name": "LUL"
+}
+```
 
 ## List Guild Emojis % GET /guilds/{guild.id#DOCS_GUILD/guild-object}/emojis
 
@@ -25,7 +65,7 @@ Returns an [emoji](#DOCS_EMOJI/emoji-object) object for the given guild and emoj
 
 ## Create Guild Emoji % POST /guilds/{guild.id#DOCS_GUILD/guild-object}/emojis
 
-Create a new emoji for the guild. Returns the new [emoji](#DOCS_EMOJI/emoji-object) object on success. Fires a [Guild Emojis Update](#DOCS_GATEWAY/guild-emojis-update) Gateway event.
+Create a new emoji for the guild. Requires the 'MANAGE_EMOJIS' permission. Returns the new [emoji](#DOCS_EMOJI/emoji-object) object on success. Fires a [Guild Emojis Update](#DOCS_GATEWAY/guild-emojis-update) Gateway event.
 
 >info
 >Passing the roles field will be ignored unless the application is whitelisted as an emoji provider. For more information and to request whitelisting please contact support@discordapp.com
@@ -40,7 +80,7 @@ Create a new emoji for the guild. Returns the new [emoji](#DOCS_EMOJI/emoji-obje
 
 ## Modify Guild Emoji % PATCH /guilds/{guild.id#DOCS_GUILD/guild-object}/emojis/{emoji.id#DOCS_EMOJI/emoji-object}
 
-Modify the given emoji. Returns the updated [emoji](#DOCS_EMOJI/emoji-object) object on success. Fires a [Guild Emojis Update](#DOCS_GATEWAY/guild-emojis-update) Gateway event.
+Modify the given emoji. Requires the 'MANAGE_EMOJIS' permission. Returns the updated [emoji](#DOCS_EMOJI/emoji-object) object on success. Fires a [Guild Emojis Update](#DOCS_GATEWAY/guild-emojis-update) Gateway event.
 
 >info
 >Passing the roles field will be ignored unless the application is whitelisted as an emoji provider. For more information and to request whitelisting please contact support@discordapp.com
@@ -54,4 +94,4 @@ Modify the given emoji. Returns the updated [emoji](#DOCS_EMOJI/emoji-object) ob
 
 ## Delete Guild Emoji % DELETE /guilds/{guild.id#DOCS_GUILD/guild-object}/emojis/{emoji.id#DOCS_EMOJI/emoji-object}
 
-Delete the given emoji. Returns `204 No Content` on success. Fires a [Guild Emojis Update](#DOCS_GATEWAY/guild-emojis-update) Gateway event.
+Delete the given emoji. Requires the 'MANAGE_EMOJIS' permission. Returns `204 No Content` on success. Fires a [Guild Emojis Update](#DOCS_GATEWAY/guild-emojis-update) Gateway event.

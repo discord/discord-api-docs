@@ -15,6 +15,7 @@ Represents a guild or DM channel within Discord.
 | permission\_overwrites? | array of [overwrite](#DOCS_CHANNEL/overwrite-object) objects | explicit permission overwrites for members and roles  |
 | name? | string | the name of the channel (2-100 characters) |
 | topic? | string | the channel topic (0-1024 characters) |
+| nsfw? | bool | if the channel is nsfw
 | last\_message\_id? | ?snowflake | the id of the last message sent in this channel (may not point to an existing or valid message) |
 | bitrate? | integer | the bitrate (in bits) of the voice channel |
 | user\_limit? | integer | the user limit of the voice channel |
@@ -23,6 +24,7 @@ Represents a guild or DM channel within Discord.
 | owner_id? | snowflake | id of the DM creator |
 | application_id? | snowflake | application id of the group DM creator if it is bot-created |
 | parent_id? | ?snowflake | id of the parent category for a channel |
+| last\_pin\_timestamp? | ISO8601 timestamp | when the last pinned message was pinned |
 
 ###### Channel Types
 
@@ -44,6 +46,7 @@ Represents a guild or DM channel within Discord.
 	"type": 0,
 	"position": 6,
 	"permission_overwrites": [],
+	"nsfw": true,
 	"topic": "24/7 chat about how to gank Mike #2",
 	"last_message_id": "155117677105512449",
 	"parent_id": "399942396007890945"
@@ -236,13 +239,13 @@ Represents a message sent in a channel within Discord.
 | url | string | url of embed |
 | timestamp | ISO8601 timestamp | timestamp of embed content |
 | color | integer | color code of the embed |
-| footer | [embed footer](#DOCS_CHANNEL/embed-footer-structure) object | footer information
-| image | [embed image](#DOCS_CHANNEL/embed-image-structure) object | image information
-| thumbnail | [embed thumbnail](#DOCS_CHANNEL/embed-thumbnail-structure) object | thumbnail information |
-| video | [embed video](#DOCS_CHANNEL/embed-video-structure) object | video information |
-| provider | [embed provider](#DOCS_CHANNEL/embed-provider-structure) object | provider information |
-| author | [embed author](#DOCS_CHANNEL/embed-author-structure) object | author information |
-| fields | array of [embed field](#DOCS_CHANNEL/embed-field-structure) objects | fields information |
+| footer | [embed footer](#DOCS_CHANNEL/embed-object-embed-footer-structure) object | footer information
+| image | [embed image](#DOCS_CHANNEL/embed-object-embed-image-structure) object | image information
+| thumbnail | [embed thumbnail](#DOCS_CHANNEL/embed-object-embed-thumbnail-structure) object | thumbnail information |
+| video | [embed video](#DOCS_CHANNEL/embed-object-embed-video-structure) object | video information |
+| provider | [embed provider](#DOCS_CHANNEL/embed-object-embed-provider-structure) object | provider information |
+| author | [embed author](#DOCS_CHANNEL/embed-object-embed-author-structure) object | author information |
+| fields | array of [embed field](#DOCS_CHANNEL/embed-object-embed-field-structure) objects | fields information |
 
 ###### Embed Thumbnail Structure
 
@@ -326,11 +329,11 @@ To facilitate showing rich content, rich embeds do not follow the traditional li
 |-------|-------|
 | title | 256 characters |
 | description | 2048 characters |
-| fields | Up to 25 [field](#DOCS_CHANNEL/embed-field-structure) objects |
-| [field.name](#DOCS_CHANNEL/embed-field-structure) | 256 characters |
-| [field.value](#DOCS_CHANNEL/embed-field-structure) | 1024 characters |
-| [footer.text](#DOCS_CHANNEL/embed-footer-structure) | 2048 characters |
-| [author.name](#DOCS_CHANNEL/embed-author-structure) | 256 characters |
+| fields | Up to 25 [field](#DOCS_CHANNEL/embed-object-embed-field-structure) objects |
+| [field.name](#DOCS_CHANNEL/embed-object-embed-field-structure) | 256 characters |
+| [field.value](#DOCS_CHANNEL/embed-object-embed-field-structure) | 1024 characters |
+| [footer.text](#DOCS_CHANNEL/embed-object-embed-footer-structure) | 2048 characters |
+| [author.name](#DOCS_CHANNEL/embed-object-embed-author-structure) | 256 characters |
 
 In addition to the limits above, the sum of all characters in an embed structure must not exceed 6000 characters.
 
@@ -349,6 +352,7 @@ Update a channels settings. Requires the 'MANAGE_CHANNELS' permission for the gu
 | name | string | 2-100 character channel name | All |
 | position | integer | the position of the channel in the left-hand listing | All |
 | topic | string | 0-1024 character channel topic | Text |
+| nsfw | bool | if the channel is nsfw | Text |
 | bitrate | integer | the bitrate (in bits) of the voice channel; 8000 to 96000 (128000 for VIP servers) | Voice |
 | user_limit | integer | the user limit of the voice channel; 0 refers to no limit, 1 to 99 refers to a user limit | Voice |
 | permission_overwrites | array of [overwrite](#DOCS_CHANNEL/overwrite-object) objects | channel or category-specific permissions | All |
@@ -363,7 +367,7 @@ Delete a channel, or close a private message. Requires the 'MANAGE_CHANNELS' per
 
 ## Get Channel Messages % GET /channels/{channel.id#DOCS_CHANNEL/channel-object}/messages
 
-Returns the messages for a channel. If operating on a guild channel, this endpoint requires the 'READ_MESSAGES' permission to be present on the current user. Returns an array of [message](#DOCS_CHANNEL/message-object) objects on success.
+Returns the messages for a channel. If operating on a guild channel, this endpoint requires the 'VIEW_CHANNEL' permission to be present on the current user. If the current user is missing the 'READ_MESSAGE_HISTORY' permission in the channel then this will return no messages (since they cannot read the message history). Returns an array of [message](#DOCS_CHANNEL/message-object) objects on success.
 
 >info
 >The before, after, and around keys are mutually exclusive, only one may be passed at a time.
@@ -383,20 +387,26 @@ Returns a specific message in the channel. If operating on a guild channel, this
 
 ## Create Message % POST /channels/{channel.id#DOCS_CHANNEL/channel-object}/messages
 
-Post a message to a guild text or DM channel. If operating on a guild channel, this endpoint requires the 'SEND_MESSAGES' permission to be present on the current user. Returns a [message](#DOCS_CHANNEL/message-object) object. Fires a [Message Create](#DOCS_GATEWAY/message-create) Gateway event. See [message formatting](#DOCS_REFERENCE/message-formatting) for more information on how to properly format messages.
+>warn
+>Before using this endpoint, you must connect to and identify with a [gateway](#DOCS_GATEWAY/gateways) at least once.
+
+Post a message to a guild text or DM channel. If operating on a guild channel, this endpoint requires the 'SEND_MESSAGES' permission to be present on the current user. If the `tts` field is set to `true`, the SEND_TTS_MESSAGES permission is required for the message to be spoken. Returns a [message](#DOCS_CHANNEL/message-object) object. Fires a [Message Create](#DOCS_GATEWAY/message-create) Gateway event. See [message formatting](#DOCS_REFERENCE/message-formatting) for more information on how to properly format messages.
+
+The maximum request size when sending a message is 8MB.
 
 >warn
 >This endpoint supports both JSON and form data bodies. It does require multipart/form-data requests instead of the normal JSON request type when uploading files. Make sure you set your `Content-Type` to `multipart/form-data` if you're doing that. Note that in that case, the `embed` field cannot be used, but you can pass an url-encoded JSON body as a form value for `payload_json`.
 
-###### JSON Params
+###### Params
 
 | Field | Type | Description | Required |
 |-------|------|-------------|----------|
 | content | string | the message contents (up to 2000 characters) | true |
 | nonce | snowflake | a nonce that can be used for optimistic message sending | false |
 | tts | bool | true if this is a TTS message | false |
-| file | file contents | the contents of the file being sent | one of content, file, embeds (multipart form data only) |
+| file | file contents | the contents of the file being sent | one of content, file, embeds (`multipart/form-data` only) |
 | embed | [embed](#DOCS_CHANNEL/embed-object) object | embedded `rich` content | false |
+| payload_json | string | url-encoded JSON body used in place of the `embed` field | `multipart/form-data` only
 
 >info
 >For the embed object, you can set every field except `type` (it will be `rich` regardless of if you try to set it), `provider`, `video`, and any `height`, `width`, or `proxy_url` values for images.
@@ -437,6 +447,14 @@ Deletes another user's reaction. This endpoint requires the 'MANAGE\_MESSAGES' p
 ## Get Reactions % GET /channels/{channel.id#DOCS_CHANNEL/channel-object}/messages/{message.id#DOCS_CHANNEL/message-object}/reactions/{emoji#DOCS_EMOJI/emoji-object}
 
 Get a list of users that reacted with this emoji. Returns an array of [user](#DOCS_USER/user-object) objects on success.
+
+###### Query String Params
+
+| Field | Type | Description | Required | Default |
+|-------|------|-------------|----------|---------|
+| before | snowflake | get users before this user ID | false | absent |
+| after | snowflake | get users after this user ID | false | absent |
+| limit | integer | max number of users to return (1-100) | false | 100 |
 
 ## Delete All Reactions % DELETE /channels/{channel.id#DOCS_CHANNEL/channel-object}/messages/{message.id#DOCS_CHANNEL/message-object}/reactions
 

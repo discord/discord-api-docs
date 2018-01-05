@@ -12,8 +12,10 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 | name | string | guild name (2-100 characters) |
 | icon | string | [icon hash](#DOCS_REFERENCE/image-formatting) |
 | splash | string | [splash hash](#DOCS_REFERENCE/image-formatting) |
+| owner? | bool | whether or not [the user](#DOCS_USER/get-current-user-guilds) is the owner of the guild |
 | owner\_id | snowflake | id of owner |
-| region | string | {voice\_region.id} |
+| permissions? | integer | total permissions for [the user](#DOCS_USER/get-current-user-guilds) in the guild (does not include channel overrides) |
+| region | string | [voice region](#DOCS_VOICE/voice-region) id for the guild |
 | afk\_channel\_id | snowflake | id of afk channel |
 | afk\_timeout | integer | afk timeout in seconds |
 | embed\_enabled | bool | is this guild embeddable (e.g. widget) |
@@ -28,6 +30,7 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 | application_id | ?snowflake | application id of the guild creator if it is bot-created |
 | widget_enabled | bool | whether or not the server widget is enabled |
 | widget_channel_id | snowflake | the channel id for the server widget |
+| system\_channel\_id | ?snowflake | the id of the channel to which system messages are sent |
 | joined\_at \* | ISO8601 timestamp | when this guild was joined at |
 | large \* | bool | whether this is considered a large guild |
 | unavailable \* | bool | is this guild unavailable |
@@ -212,22 +215,22 @@ A partial [guild](#DOCS_GUILD/guild-object) object. Represents an Offline Guild,
 Create a new guild. Returns a [guild](#DOCS_GUILD/guild-object) object on success. Fires a [Guild Create](#DOCS_GATEWAY/guild-create) Gateway event.
 
 >warn
->By default this endpoint is limited to 10 active guilds. These limits are raised for whitelisted [GameBridge](#DOCS_GAMEBRDIGE) applications.
+>By default this endpoint is limited to 10 active guilds. These limits are raised for whitelisted [GameBridge](#DOCS_GAMEBRDIGE) applications. Creating channel categories from this endpoint is also not supported.
 
 ###### JSON Params
 
 | Field | Type | Description |
 |-------|------|-------------|
 | name | string | name of the guild (2-100 characters) |
-| region | string | {voice_region.id} for voice |
+| region | string | [voice region](#DOCS_VOICE/voice-region) id|
 | icon | string | base64 128x128 jpeg image for the guild icon |
 | verification_level | integer | guild verification level |
 | default\_message\_notifications | integer | default message [notifications setting](#DOCS_GUILD/default-message-notification-level) |
 | roles | array of [role](#DOCS_PERMISSIONS/role-object) objects | new guild roles |
 | channels | array of partial [channel](#DOCS_CHANNEL/channel-object) objects | new guild's channels |
 
->info
->Creating channel categories from this endpoint is not supported
+>warn
+>When using the `roles` parameter, the first member of the array is used to change properties of the guild's `@everyone` role. If you are trying to bootstrap a guild with additional roles, keep this in mind.
 
 ###### Example Partial Channel Object
 
@@ -247,7 +250,7 @@ Returns the [guild](#DOCS_GUILD/guild-object) object for the given id.
 
 ## Modify Guild % PATCH /guilds/{guild.id#DOCS_GUILD/guild-object}
 
-Modify a guild's settings. Returns the updated [guild](#DOCS_GUILD/guild-object) object on success. Fires a [Guild Update](#DOCS_GATEWAY/guild-update) Gateway event.
+Modify a guild's settings. Requires the 'MANAGE_GUILD' permission. Returns the updated [guild](#DOCS_GUILD/guild-object) object on success. Fires a [Guild Update](#DOCS_GATEWAY/guild-update) Gateway event.
 
 >info
 >All parameters to this endpoint are optional
@@ -257,7 +260,7 @@ Modify a guild's settings. Returns the updated [guild](#DOCS_GUILD/guild-object)
 | Field | Type | Description |
 |-------|------|-------------|
 | name | string | guild name |
-| region | string | guild {voice_region.id} |
+| region | string | guild [voice region](#DOCS_VOICE/voice-region) id|
 | verification_level | integer | guild verification level |
 | default\_message\_notifications | integer | default message [notifications setting](#DOCS_GUILD/default-message-notification-level) |
 | afk\_channel\_id | snowflake | id for afk channel |
@@ -265,6 +268,7 @@ Modify a guild's settings. Returns the updated [guild](#DOCS_GUILD/guild-object)
 | icon | string | base64 128x128 jpeg image for the guild icon |
 | owner_id | snowflake | user id to transfer guild ownership to (must be owner) |
 | splash | string | base64 128x128 jpeg image for the guild splash (VIP only) |
+| system\_channel\_id | snowflake | the id of the channel to which system messages are sent |
 
 ## Delete Guild % DELETE /guilds/{guild.id#DOCS_GUILD/guild-object}
 
@@ -291,6 +295,7 @@ Create a new [channel](#DOCS_CHANNEL/channel-object) object for the guild. Requi
 | user_limit | integer | the user limit of the voice channel (voice only) |
 | permission_overwrites | an array of [overwrite](#DOCS_CHANNEL/overwrite-object) objects | the channel's permission overwrites |
 | parent_id | snowflake | id of the parent category for a channel |
+| nsfw | bool | if the channel is nsfw |
 
 ## Modify Guild Channel Positions % PATCH /guilds/{guild.id#DOCS_GUILD/guild-object}/channels
 

@@ -1,7 +1,28 @@
 # Change Log
 
->danger
->API and Gateway versions below v6 will be discontinued on October 16, 2017, after which they will be non-functioning.
+## Semi-Breaking Change: Very Large Bot Sharding
+
+#### January 3, 2018
+
+Additional sharding requirements and information for bots in over 100,000 guilds has been added. This requires a small change in numbers of shards for affected bots. See the [documentation](#DOCS_GATEWAY/sharding-for-very-large-bots) for more information.
+
+## New Feature: Rich Presence
+
+#### November 9, 2017
+
+Rich Presence is now live and available for all developers! Rich Presence allows developers to closely integrate with Discord in a number of new, cool ways like:
+
+- Showing more information about a user's current game in their profile
+- Allowing users to post invitations to join their party or spectate their game in chat
+- Displaying "Spectate" and "Ask to Join" buttons on users' profiles
+
+For more information, check out our [Rich Presence site](https://discordapp.com/rich-presence). To get started on development, [read the docs](#DOCS_HOW_TO/)!
+
+## Breaking Change: API & Gateway Below v6 Discontinued
+
+#### October 16, 2017
+
+[API](#DOCS_REFERENCE/api-versioning) and [Gateway](#DOCS_GATEWAY/gateway-protocol-versions) versions below v6 are now discontinued after being previously deprecated. Version 6 is now the default API and Gateway version. Attempting to use a version below 6 will result in an error.
 
 ## New Feature: Channel Categories
 
@@ -15,11 +36,11 @@ Changes have been made throughout the documentation to reflect the addition of c
 
 [Emoji endpoints](#DOCS_EMOJI/emoji-resource) have been added to the API. Bots can now manage guild emojis to their robo-hearts' content!
 
-## Breaking Change: Game Object
+## Breaking Change: Presence Activity Objects
 
 #### August 16, 2017
 
-The `type` field in the [game object](#DOCS_GATEWAY/game-object) for [Gateway Status Update](#DOCS_GATEWAY/gateway-status-update) and [Presence Update](DOCS_GATEWAY/presence-update) payloads is no longer optional when the game object is not null.
+The `type` field in the [activity object](#DOCS_GATEWAY/activity-object) for [Gateway Status Update](#DOCS_GATEWAY/update-status) and [Presence Update](#DOCS_GATEWAY/presence-update) payloads is no longer optional when the activity object is not null.
 
 ## Breaking Change: Default Channels
 
@@ -47,5 +68,5 @@ Audit logs are here! Well, they've been here all along, but now we've got [docum
   * `recipient` is now `recipients`, an array of [user](#DOCS_USER/user-object) objects
 * [Message](#DOCS_CHANNEL/message-object) Object
   * [`type`](#DOCS_CHANNEL/message-object-message-types) added to support system messages
-* [Status Update](#DOCS_GATEWAY/gateway-status-update-gateway-status-update-structure) Object
+* [Status Update](#DOCS_GATEWAY/update-status-gateway-status-update-structure) Object
   * `idle_since` renamed to `since`

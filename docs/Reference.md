@@ -13,7 +13,7 @@ https://discordapp.com/api
 ## API Versioning
 
 >danger
->API and Gateway versions below v6 will be discontinued on October 16, 2017, after which they will be non-functioning.
+>Some API and Gateway versions are now non-functioning, and are labeled as discontinued in the table below. Trying to use these versions will fail and return 400 Bad Request. They are listed in the table below for posterity only.
 
 Discord exposes different versions of our API. You can specify version by including it in the request path:
 
@@ -21,19 +21,16 @@ Discord exposes different versions of our API. You can specify version by includ
 https://discordapp.com/api/v{version_number}
 ```
 
-Omitting the version number from the route will route requests to the current default version. You can find the change log for the newest API version [here](https://discordapp.com/developers/docs/change-log).
-
->warn
->API and Gateway v6 will be made default on October 16, 2017
+Omitting the version number from the route will route requests to the current default version (marked below accordingly). You can find the change log for the newest API version [here](https://discordapp.com/developers/docs/change-log).
 
 ###### API Versions
 
 | Version | Status | Default |
 | ------- | ------ | ------- |
-| 6 | Available | |
-| 5 | Deprecated | |
-| 4 | Deprecated | |
-| 3 | Deprecated | ✓ |
+| 6 | Available | ✓ |
+| 5 | Discontinued | |
+| 4 | Discontinued | |
+| 3 | Discontinued | | |
 
 ## Authentication
 
@@ -70,15 +67,12 @@ All HTTP-layer services and protocols (e.g. http, websocket) within the Discord 
 
 Discord utilizes Twitter's [snowflake](https://github.com/twitter/snowflake/tree/snowflake-2010) format for uniquely identifiable descriptors (IDs). These IDs are guaranteed to be unique across all of Discord, except in some unique scenarios in which child objects share their parent's ID. Because Snowflake IDs are up to 64 bits in size (e.g. a uint64), they are always returned as strings in the HTTP API to prevent integer overflows in some languages. See [Gateway ETF/JSON](#DOCS_GATEWAY/etf-json) for more information regarding Gateway encoding.
 
-## Nullable Resource Fields
+## Nullable and Optional Resource Fields
 
-Resource fields that may be null have types that are prefixed with a question mark.
+Resource fields that may contain a `null` value have types that are prefixed with a question mark.
+Resource fields that are optional have names that are suffixed with a question mark.
 
-## Optional Resource Fields
-
-Resources fields that are optional have names that are suffixed with a question mark.
-
-###### Example Nullable and Optional Field
+###### Example Nullable and Optional Fields
 
 | Field | Type |
 | ----- | ---- |
@@ -112,12 +106,13 @@ Clients may append more information and metadata to the _end_ of this string as 
 
 The HTTP API implements a process for limiting and preventing excessive requests in accordance with [RFC 6585](https://tools.ietf.org/html/rfc6585#section-4). API users that regularly hit and ignore rate limits will have their API keys revoked, and be blocked from the platform. For more information on rate limiting of requests, please see the [Rate Limits](#DOCS_RATE_LIMITS/rate-limits) section.
 
->warn
->A bot account must connect and identify to a [Gateway](#DOCS_GATEWAY/connecting) at least once before being able to send messages.
-
 ## Gateway (WebSocket) API
 
 Discord's Gateway API is used for maintaining persistent, stateful websocket connections between your client and our servers. These connections are used for sending and receiving real-time events your client can use to track and update local state. The Gateway API uses secure websocket connections as specified in [RFC 6455](https://tools.ietf.org/html/rfc6455). For information on opening Gateway connections, please see the [Gateway API](#DOCS_GATEWAY/gateways) section.
+
+>warn
+>A bot must connect to and identify with a gateway at least once before it can use the [Create Message](#DOCS_CHANNEL/create-message) endpoint.
+>If your only requirement is to send messages to a channel, consider using a [Webhook](#DOCS_WEBHOOK) instead.
 
 ## Message Formatting
 
@@ -132,6 +127,7 @@ Discord utilizes a subset of markdown for rendering message content on its clien
 | Channel | <#CHANNEL_ID> | <#103735883630395392> |
 | Role | <@&ROLE_ID> | <@&165511591545143296> |
 | Custom Emoji | <:NAME:ID> | <:mmLol:216154654256398347> |
+| Custom Emoji (Animated) | <a:NAME:ID:> | <a:b1nzy:392938283556143104> |
 
 Using the markdown for either users, roles, or channels will mention the target(s) accordingly.
 
@@ -146,7 +142,7 @@ Discord uses ids and hashes to render images in the client. These hashes can be 
 | JPEG | .jpg, .jpeg |
 | PNG | .png |
 | WebP | .webp |
-| GIF | .gif ([user](#DOCS_USER/user-object) avatars only) |
+| GIF | .gif |
 
 ###### Image Sizes
 
@@ -159,7 +155,7 @@ Powers of 2 between 16 and 2048.
 
 | Type | Path | Supports |
 | ---- | --- | -------- |
-| Custom Emoji | emojis/[emoji_id](#DOCS_EMOJI/emoji-object).png | PNG |
+| Custom Emoji | emojis/[emoji_id](#DOCS_EMOJI/emoji-object).png | PNG, GIF |
 | Guild Icon | icons/[guild_id](#DOCS_GUILD/guild-object)/[guild_icon](#DOCS_GUILD/guild-object).png | PNG, JPEG, WebP |
 | Guild Splash | splashes/[guild_id](#DOCS_GUILD/guild-object)/[guild_splash](#DOCS_GUILD/guild-object).png | PNG, JPEG, WebP |
 | Default User Avatar | embed/avatars/[user_discriminator](#DOCS_USER/user-object).png * | PNG |
