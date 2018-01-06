@@ -81,7 +81,7 @@ Discord utilizes Twitter's [snowflake](https://github.com/twitter/snowflake/tree
 | Timestamp | 64 to 22 | 42 bits | Milliseconds since Discord Epoch, the first second of 2015 or 1420070400000. | ``(snowflake >> 22) + 1420070400000`` |
 | Internal worker ID | 22 to 17 | 5 bits | | ``(snowflake & 0x3E0000) >> 17`` |
 | Internal process ID | 17 to 12 | 5 bits | | ``(snowflake & 0x1F000) >> 12`` |
-| Increment | 12 to 0 | 10 bits | For every Id that is generated on that process, this number is incremented | ``snowflake & 0xFFF`` |
+| Increment | 12 to 0 | 10 bits | For every ID that is generated on that process, this number is incremented | ``snowflake & 0xFFF`` |
 
 ![](snowflake.png)
 
