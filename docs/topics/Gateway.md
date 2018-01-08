@@ -216,23 +216,7 @@ If successful, the gateway will respond by replaying all missed events in order,
 
 ### Disconnections
 
-If the gateway ever issues a disconnect to your client, it will provide a close event code that you can use to properly handle the disconnection.
-
-###### Gateway Close Event Codes
-
-| Code | Description | Explanation |
-|------|-------------|-------------|
-| 4000 | unknown error | We're not sure what went wrong. Try reconnecting? |
-| 4001 | unknown opcode | You sent an invalid [Gateway opcode](#DOCS_GATEWAY/payloads-and-opcodes) or an invalid payload for an opcode. Don't do that! |
-| 4002 | decode error | You sent an invalid [payload](#DOCS_GATEWAY/sending-payloads) to us. Don't do that! |
-| 4003 | not authenticated | You sent us a payload prior to [identifying](#DOCS_GATEWAY/identify). |
-| 4004 | authentication failed | The account token sent with your [identify payload](#DOCS_GATEWAY/identify) is incorrect. |
-| 4005 | already authenticated | You sent more than one identify payload. Don't do that! |
-| 4007 | invalid seq | The sequence sent when [resuming](#DOCS_GATEWAY/resume) the session was invalid. Reconnect and start a new session. |
-| 4008 | rate limited | Woah nelly! You're sending payloads to us too quickly. Slow it down! |
-| 4009 | session timeout | Your session timed out. Reconnect and start a new one. |
-| 4010 | invalid shard | You sent us an invalid [shard when identifying](#DOCS_GATEWAY/sharding). |
-| 4011 | sharding required | The session would have handled too many guilds - you are required to [shard](#DOCS_GATEWAY/sharding) your connection in order to connect. |
+If the gateway ever issues a disconnect to your client, it will provide a close event code that you can use to properly handle the disconnection. A full list of these close codes can be found in the [Response Codes](#DOCS_RESPONSE_CODES/gateway-close-event-codes) documentation.
 
 ## Rate Limiting
 

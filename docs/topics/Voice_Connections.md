@@ -32,22 +32,6 @@ To ensure that you have the most up-to-date information, please use [version 3](
 | 9 | Resumed | server | acknowledge Resume |
 | 13 | Client Disconnect | server | a client has disconnected from the voice channel |
 
-###### Voice Close Event Codes
-
-| Code | Description | Explanation |
-| ---- | ----------- | ----------- |
-| 4001 | Unknown opcode | You sent an invalid [opcode](#DOCS_VOICE_CONNECTIONS/voice-events-voice-opcodes). |
-| 4003 | Not authenticated | You sent a payload before [identifying](#DOCS_GATEWAY/gateway-identify) with the Gateway. |
-| 4004 | Authentication failed | The token you sent in your [identify](#DOCS_GATEWAY/gateway-identify) payload is incorrect. |
-| 4005 | Already authenticated | You sent more than one [identify](#DOCS_GATEWAY/gateway-identify) payload. Stahp. |
-| 4006 | Session no longer valid | Your session is no longer valid. |
-| 4009 | Session timeout | Your session has timed out. |
-| 4011 | Server not found | We can't find the server you're trying to connect to. |
-| 4012 | Unknown Protocol | We didn't recognize the [protocol](#DOCS_VOICE_CONNECTIONS/establishing-a-voice-udp-connection-example-select-protocol-payload) you sent. |
-| 4014 | Disconnected | Oh no! You've been disconnected! Try [resuming](#DOCS_VOICE_CONNECTIONS/resuming-voice-connection). |
-| 4015 | Voice server crashed | The server crashed. Our bad! Try [resuming](#DOCS_VOICE_CONNECTIONS/resuming-voice-connection). |
-| 4016 | Unknown Encryption Mode | We didn't recognize your [encryption](#DOCS_VOICE_CONNECTIONS/encrypting-and-sending-voice). |
-
 ## Connecting to Voice
 
 ### Retrieving Voice Server Information
@@ -266,7 +250,7 @@ If successful, the Voice server will respond with an [Opcode 9 Resumed](#DOCS_VO
 }
 ```
 
-If the resume is unsuccessful—for example, due to an invalid session—the websocket connection will close with the appropriate [close event code](#DOCS_VOICE_CONNECTIONS/voice-events-voice-close-event-codes). You should then follow the [Connecting](#DOCS_VOICE_CONNECTS/connecting-to-voice) flow to reconnect.
+If the resume is unsuccessful—for example, due to an invalid session—the websocket connection will close with the appropriate [close event code](#DOCS_RESPONSE_CODES/voice-close-event-codes). You should then follow the [Connecting](#DOCS_VOICE_CONNECTS/connecting-to-voice) flow to reconnect.
 
 #### IP Discovery
 
