@@ -36,7 +36,6 @@
 }
 ```
 
-
 ###### Gateway Reaction Standard Emoji Example
 
 ```json

@@ -128,7 +128,6 @@ Whenever an admin action is performed on the API, an entry is added to the respe
 | id | any | snowflake | the id of the changed entity - sometimes used in conjunction with other keys |
 | type | any | integer ([channel type](#DOCS_CHANNEL/channel-object-channel-types)) or string | type of entity created |
 
-
 ## Get Guild Audit Log % GET /guilds/{guild.id#DOCS_GUILD/guild-object}/audit-logs
 
 Returns an [audit log](#DOCS_AUDIT_LOG/audit-log-object) object for the guild. Requires the 'VIEW_AUDIT_LOG' permission.

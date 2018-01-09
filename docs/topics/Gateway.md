@@ -14,7 +14,7 @@ The Discord Gateway has a versioning system which is separate from the core APIs
 
 ## Topics
 
-1. [Payloads and Opcodes](#DOCS_GATEWAY/payloads-and-opcodes)
+1. [Payloads](#DOCS_GATEWAY/payloads)
 2. [Encoding and Compression](#DOCS_GATEWAY/encoding-and-compression)
 3. [Connecting to the Gateway](#DOCS_GATEWAY/connecting)
 4. [Resuming a Disconnected Session](#DOCS_GATEWAY/resuming)
@@ -25,34 +25,16 @@ The Discord Gateway has a versioning system which is separate from the core APIs
 9. [Commands](#DOCS_GATEWAY/commands)
 10. [Events](#DOCS_GATEWAY/events)
 
-## Payloads and Opcodes
+## Payloads
 
 ###### Gateway Payload Structure
 
 | Field | Type | Description | Present |
 |-------|------|-------------|---------|
-| op | integer | opcode for the payload | Always |
+| op | integer | [opcode](#DOCS_OPCODES_AND_RESPONSE_CODES/gateway-opcodes) for the payload | Always |
 | d | ?mixed (any JSON value) | event data | Always |
 | s | integer | sequence number, used for resuming sessions and heartbeats | Only for Opcode 0 |
 | t | string | the event name for this payload | Only for Opcode 0 |
-
-###### Gateway Opcodes
-
-| Code | Name | Client Action | Description |
-|------|------|------|-------------|
-| 0 | Dispatch | Receive | dispatches an event |
-| 1 | Heartbeat | Send/Receive | used for ping checking |
-| 2 | Identify | Send | used for client handshake |
-| 3 | Status Update | Send | used to update the client status |
-| 4 | Voice State Update | Send | used to join/move/leave voice channels |
-| 5 | Voice Server Ping | Send | used for voice ping checking |
-| 6 | Resume | Send | used to resume a closed connection |
-| 7 | Reconnect | Receive | used to tell clients to reconnect to the gateway |
-| 8 | Request Guild Members | Send | used to request guild members |
-| 9 | Invalid Session | Receive | used to notify client they have an invalid session id |
-| 10 | Hello | Receive | sent immediately after connecting, contains heartbeat and server debug information |
-| 11 | Heartbeat ACK | Receive | sent immediately following a client heartbeat that was received |
-
 
 ### Sending Payloads
 
@@ -216,7 +198,7 @@ If successful, the gateway will respond by replaying all missed events in order,
 
 ### Disconnections
 
-If the gateway ever issues a disconnect to your client, it will provide a close event code that you can use to properly handle the disconnection. A full list of these close codes can be found in the [Response Codes](#DOCS_RESPONSE_CODES/gateway-close-event-codes) documentation.
+If the gateway ever issues a disconnect to your client, it will provide a close event code that you can use to properly handle the disconnection. A full list of these close codes can be found in the [Response Codes](#DOCS_OPCODES_AND_RESPONSE_CODES/gateway-close-event-codes) documentation.
 
 ## Rate Limiting
 

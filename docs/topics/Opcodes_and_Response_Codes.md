@@ -1,4 +1,41 @@
-# Response/Error Codes
+# Opcodes and Response/Error Codes
+
+## Opcodes
+
+All gateway events in Discord are tagged with an opcode that denotes the payload type.
+
+## Gateway Opcodes
+
+| Code | Name | Client Action | Description |
+|------|------|------|-------------|
+| 0 | Dispatch | Receive | dispatches an event |
+| 1 | Heartbeat | Send/Receive | used for ping checking |
+| 2 | Identify | Send | used for client handshake |
+| 3 | Status Update | Send | used to update the client status |
+| 4 | Voice State Update | Send | used to join/move/leave voice channels |
+| 5 | Voice Server Ping | Send | used for voice ping checking |
+| 6 | Resume | Send | used to resume a closed connection |
+| 7 | Reconnect | Receive | used to tell clients to reconnect to the gateway |
+| 8 | Request Guild Members | Send | used to request guild members |
+| 9 | Invalid Session | Receive | used to notify client they have an invalid session id |
+| 10 | Hello | Receive | sent immediately after connecting, contains heartbeat and server debug information |
+| 11 | Heartbeat ACK | Receive | sent immediately following a client heartbeat that was received |
+
+## Voice Opcodes
+
+| Code | Name | Sent By | Description |
+| ---- | ---- | ------- | ----------- |
+| 0 | Identify | client | begin a voice websocket connection |
+| 1 | Select Protocol | client | select the voice protocol |
+| 2 | Ready | server | complete the websocket handshake |
+| 3 | Heartbeat | client | keep the websocket connection alive |
+| 4 | Session Description | server | describe the session |
+| 5 | Speaking | client and server | indicate which users are speaking |
+| 6 | Heartbeat ACK | server | sent immediately following a received client heartbeat |
+| 7 | Resume | client | resume a connection |
+| 8 | Hello | server | the continuous interval in milliseconds after which the client should send a heartbeat |
+| 9 | Resumed | server | acknowledge Resume |
+| 13 | Client Disconnect | server | a client has disconnected from the voice channel |
 
 ## HTTP Response/Error Codes
 
