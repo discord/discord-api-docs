@@ -31,14 +31,14 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 | widget_enabled | bool | whether or not the server widget is enabled |
 | widget_channel_id | snowflake | the channel id for the server widget |
 | system\_channel\_id | ?snowflake | the id of the channel to which system messages are sent |
-| joined\_at \* | ISO8601 timestamp | when this guild was joined at |
-| large \* | bool | whether this is considered a large guild |
-| unavailable \* | bool | is this guild unavailable |
-| member\_count \* | integer | total number of members in this guild |
-| voice\_states \* | array of partial [voice state](#DOCS_VOICE/voice-state-object) objects |  (without the `guild_id` key) |
-| members \* | array of [guild member](#DOCS_GUILD/guild-member-object) objects | users in the guild |
-| channels \* | array of [channel](#DOCS_CHANNEL/channel-object) objects | channels in the guild |
-| presences \* | array of partial [presence update](#DOCS_GATEWAY/presence-update) objects | presences of the users in the guild |
+| joined\_at? \* | ISO8601 timestamp | when this guild was joined at |
+| large? \* | bool | whether this is considered a large guild |
+| unavailable? \* | bool | is this guild unavailable |
+| member\_count? \* | integer | total number of members in this guild |
+| voice\_states? \* | array of partial [voice state](#DOCS_VOICE/voice-state-object) objects |  (without the `guild_id` key) |
+| members? \* | array of [guild member](#DOCS_GUILD/guild-member-object) objects | users in the guild |
+| channels? \* | array of [channel](#DOCS_CHANNEL/channel-object) objects | channels in the guild |
+| presences? \* | array of partial [presence update](#DOCS_GATEWAY/presence-update) objects | presences of the users in the guild |
 
 ** \* These fields are only sent within the [GUILD_CREATE](#DOCS_GATEWAY/guild-create) event **
 
