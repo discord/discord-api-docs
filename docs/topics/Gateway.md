@@ -31,7 +31,7 @@ The Discord Gateway has a versioning system which is separate from the core APIs
 
 | Field | Type | Description | Present |
 |-------|------|-------------|---------|
-| op | integer | [opcode](#DOCS_OPCODES_AND_RESPONSE_CODES/gateway-opcodes) for the payload | Always |
+| op | integer | [opcode](#DOCS_OPCODES_AND_STATUS_CODES/gateway-opcodes) for the payload | Always |
 | d | ?mixed (any JSON value) | event data | Always |
 | s | integer | sequence number, used for resuming sessions and heartbeats | Only for Opcode 0 |
 | t | string | the event name for this payload | Only for Opcode 0 |
@@ -198,7 +198,7 @@ If successful, the gateway will respond by replaying all missed events in order,
 
 ### Disconnections
 
-If the gateway ever issues a disconnect to your client, it will provide a close event code that you can use to properly handle the disconnection. A full list of these close codes can be found in the [Response Codes](#DOCS_OPCODES_AND_RESPONSE_CODES/gateway-close-event-codes) documentation.
+If the gateway ever issues a disconnect to your client, it will provide a close event code that you can use to properly handle the disconnection. A full list of these close codes can be found in the [Response Codes](#DOCS_OPCODES_AND_STATUS_CODES/gateway-close-event-codes) documentation.
 
 ## Rate Limiting
 
