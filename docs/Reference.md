@@ -83,6 +83,8 @@ Discord utilizes Twitter's [snowflake](https://github.com/twitter/snowflake/tree
 | Internal process ID | 17 to 12 | 5 bits | | ``(snowflake & 0x1F000) >> 12`` |
 | Increment | 12 to 0 | 10 bits | For every ID that is generated on that process, this number is incremented | ``snowflake & 0xFFF`` |
 
+### Convert Snowflake to DateTime
+
 ![](snowflake.png)
 
 ## Nullable and Optional Resource Fields
