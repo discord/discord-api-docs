@@ -14,7 +14,7 @@ The Discord Gateway has a versioning system which is separate from the core APIs
 
 ## Topics
 
-1. [Payloads and Opcodes](#DOCS_GATEWAY/payloads-and-opcodes)
+1. [Payloads](#DOCS_GATEWAY/payloads)
 2. [Encoding and Compression](#DOCS_GATEWAY/encoding-and-compression)
 3. [Connecting to the Gateway](#DOCS_GATEWAY/connecting)
 4. [Resuming a Disconnected Session](#DOCS_GATEWAY/resuming)
@@ -25,34 +25,16 @@ The Discord Gateway has a versioning system which is separate from the core APIs
 9. [Commands](#DOCS_GATEWAY/commands)
 10. [Events](#DOCS_GATEWAY/events)
 
-## Payloads and Opcodes
+## Payloads
 
 ###### Gateway Payload Structure
 
 | Field | Type | Description | Present |
 |-------|------|-------------|---------|
-| op | integer | opcode for the payload | Always |
+| op | integer | [opcode](#DOCS_OPCODES_AND_STATUS_CODES/gateway-opcodes) for the payload | Always |
 | d | ?mixed (any JSON value) | event data | Always |
 | s | integer | sequence number, used for resuming sessions and heartbeats | Only for Opcode 0 |
 | t | string | the event name for this payload | Only for Opcode 0 |
-
-###### Gateway Opcodes
-
-| Code | Name | Client Action | Description |
-|------|------|------|-------------|
-| 0 | Dispatch | Receive | dispatches an event |
-| 1 | Heartbeat | Send/Receive | used for ping checking |
-| 2 | Identify | Send | used for client handshake |
-| 3 | Status Update | Send | used to update the client status |
-| 4 | Voice State Update | Send | used to join/move/leave voice channels |
-| 5 | Voice Server Ping | Send | used for voice ping checking |
-| 6 | Resume | Send | used to resume a closed connection |
-| 7 | Reconnect | Receive | used to tell clients to reconnect to the gateway |
-| 8 | Request Guild Members | Send | used to request guild members |
-| 9 | Invalid Session | Receive | used to notify client they have an invalid session id |
-| 10 | Hello | Receive | sent immediately after connecting, contains heartbeat and server debug information |
-| 11 | Heartbeat ACK | Receive | sent immediately following a client heartbeat that was received |
-
 
 ### Sending Payloads
 
@@ -216,23 +198,7 @@ If successful, the gateway will respond by replaying all missed events in order,
 
 ### Disconnections
 
-If the gateway ever issues a disconnect to your client, it will provide a close event code that you can use to properly handle the disconnection.
-
-###### Gateway Close Event Codes
-
-| Code | Description | Explanation |
-|------|-------------|-------------|
-| 4000 | unknown error | We're not sure what went wrong. Try reconnecting? |
-| 4001 | unknown opcode | You sent an invalid [Gateway opcode](#DOCS_GATEWAY/payloads-and-opcodes) or an invalid payload for an opcode. Don't do that! |
-| 4002 | decode error | You sent an invalid [payload](#DOCS_GATEWAY/sending-payloads) to us. Don't do that! |
-| 4003 | not authenticated | You sent us a payload prior to [identifying](#DOCS_GATEWAY/identify). |
-| 4004 | authentication failed | The account token sent with your [identify payload](#DOCS_GATEWAY/identify) is incorrect. |
-| 4005 | already authenticated | You sent more than one identify payload. Don't do that! |
-| 4007 | invalid seq | The sequence sent when [resuming](#DOCS_GATEWAY/resume) the session was invalid. Reconnect and start a new session. |
-| 4008 | rate limited | Woah nelly! You're sending payloads to us too quickly. Slow it down! |
-| 4009 | session timeout | Your session timed out. Reconnect and start a new one. |
-| 4010 | invalid shard | You sent us an invalid [shard when identifying](#DOCS_GATEWAY/sharding). |
-| 4011 | sharding required | The session would have handled too many guilds - you are required to [shard](#DOCS_GATEWAY/sharding) your connection in order to connect. |
+If the gateway ever issues a disconnect to your client, it will provide a close event code that you can use to properly handle the disconnection. A full list of these close codes can be found in the [Response Codes](#DOCS_OPCODES_AND_STATUS_CODES/gateway-close-event-codes) documentation.
 
 ## Rate Limiting
 

@@ -209,7 +209,6 @@ A partial [guild](#DOCS_GUILD/guild-object) object. Represents an Offline Guild,
 }
 ```
 
-
 ## Create Guild % POST /guilds
 
 Create a new guild. Returns a [guild](#DOCS_GUILD/guild-object) object on success. Fires a [Guild Create](#DOCS_GATEWAY/guild-create) Gateway event.
