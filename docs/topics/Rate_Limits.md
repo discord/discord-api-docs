@@ -16,6 +16,8 @@ Because we may change rate limits at any time and rate limits can be different p
 
 For every API request made, we return optional HTTP response headers containing the rate limit encountered during your request.
 
+###### Rate Limit Header Examples
+
 ```
 X-RateLimit-Limit: 5
 X-RateLimit-Remaining: 0
@@ -39,11 +41,9 @@ In the case that a rate limit is exceeded, the API will return a HTTP 429 respon
 | retry_after | integer | The number of milliseconds to wait before submitting another request. |
 | global | bool | A value indicating if you are being globally rate limited or not |
 
-Note that the normal rate-limiting headers will be sent in this response.
+Note that the normal rate-limiting headers will be sent in this response. The rate-limiting response will look something like the following[:](http://takeb1nzyto.space/)
 
-###### Example Rate Limit Responses
-
-The rate-limiting response will look something like the following[:](http://takeb1nzyto.space/)
+###### Example Rate Limit Response
 
 ```
 < HTTP/1.1 429 TOO MANY REQUESTS
@@ -59,7 +59,7 @@ The rate-limiting response will look something like the following[:](http://take
 }
 ```
 
-For a global rate limit, the response would look like:
+###### Example Global Rate Limit Response
 
 ```
 < HTTP/1.1 429 TOO MANY REQUESTS
