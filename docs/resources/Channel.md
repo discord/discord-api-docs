@@ -61,6 +61,7 @@ Represents a guild or DM channel within Discord.
 	"guild_id": "41771983423143937",
 	"name": "ROCKET CHEESE",
 	"type": 2,
+	"nsfw": false,
 	"position": 5,
 	"permission_overwrites": [],
 	"bitrate": 64000,
