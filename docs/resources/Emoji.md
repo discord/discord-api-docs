@@ -66,9 +66,6 @@ Returns an [emoji](#DOCS_EMOJI/emoji-object) object for the given guild and emoj
 
 Create a new emoji for the guild. Requires the 'MANAGE_EMOJIS' permission. Returns the new [emoji](#DOCS_EMOJI/emoji-object) object on success. Fires a [Guild Emojis Update](#DOCS_GATEWAY/guild-emojis-update) Gateway event.
 
->info
->Passing the roles field will be ignored unless the application is whitelisted as an emoji provider. For more information and to request whitelisting please contact support@discordapp.com
-
 ###### JSON Params
 
 | Field | Type | Description |
@@ -80,9 +77,6 @@ Create a new emoji for the guild. Requires the 'MANAGE_EMOJIS' permission. Retur
 ## Modify Guild Emoji % PATCH /guilds/{guild.id#DOCS_GUILD/guild-object}/emojis/{emoji.id#DOCS_EMOJI/emoji-object}
 
 Modify the given emoji. Requires the 'MANAGE_EMOJIS' permission. Returns the updated [emoji](#DOCS_EMOJI/emoji-object) object on success. Fires a [Guild Emojis Update](#DOCS_GATEWAY/guild-emojis-update) Gateway event.
-
->info
->Passing the roles field will be ignored unless the application is whitelisted as an emoji provider. For more information and to request whitelisting please contact support@discordapp.com
 
 ###### JSON Params
 
