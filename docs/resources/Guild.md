@@ -20,9 +20,9 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 | afk\_timeout | integer | afk timeout in seconds |
 | embed\_enabled | bool | is this guild embeddable (e.g. widget) |
 | embed\_channel\_id | snowflake | id of embedded channel |
-| verification\_level | integer | level of [verification](#DOCS_GUILD/guild-object-verification-level) required for the guild |
-| default\_message\_notifications | integer | default message [notifications level](#DOCS_GUILD/guild-object-default-message-notification-level) |
-| explicit\_content\_filter | integer | default explicit content [filter level](#DOCS_GUILD/guild-object-explicit-content-filter-level) |
+| verification\_level | integer | [verification level](#DOCS_GUILD/guild-object-verification-level) required for the guild |
+| default\_message\_notifications | integer | default [message notifications level](#DOCS_GUILD/guild-object-default-message-notification-level) |
+| explicit\_content\_filter | integer | [explicit content filter level](#DOCS_GUILD/guild-object-explicit-content-filter-level) |
 | roles | array of [role](#DOCS_PERMISSIONS/role-object) objects | roles in the guild |
 | emojis | array of [emoji](#DOCS_EMOJI/emoji-object) objects | custom guild emojis |
 | features | array of strings | enabled guild features |
@@ -223,8 +223,9 @@ Create a new guild. Returns a [guild](#DOCS_GUILD/guild-object) object on succes
 | name | string | name of the guild (2-100 characters) |
 | region | string | [voice region](#DOCS_VOICE/voice-region) id|
 | icon | string | base64 128x128 jpeg image for the guild icon |
-| verification_level | integer | guild verification level |
-| default\_message\_notifications | integer | default message [notifications setting](#DOCS_GUILD/default-message-notification-level) |
+| verification\_level | integer | [verification level](#DOCS_GUILD/guild-object-verification-level) |
+| default\_message\_notifications | integer | default [message notification level](#DOCS_GUILD/guild-object-default-message-notification-level) |
+| explicit\_content\_filter | integer | [explicit content filter level](#DOCS_GUILD/guild-object-explicit-content-filter-level) |
 | roles | array of [role](#DOCS_PERMISSIONS/role-object) objects | new guild roles |
 | channels | array of partial [channel](#DOCS_CHANNEL/channel-object) objects | new guild's channels |
 
@@ -260,8 +261,9 @@ Modify a guild's settings. Requires the 'MANAGE_GUILD' permission. Returns the u
 |-------|------|-------------|
 | name | string | guild name |
 | region | string | guild [voice region](#DOCS_VOICE/voice-region) id|
-| verification_level | integer | guild verification level |
-| default\_message\_notifications | integer | default message [notifications setting](#DOCS_GUILD/default-message-notification-level) |
+| verification\_level | integer | [verification level](#DOCS_GUILD/guild-object-verification-level) |
+| default\_message\_notifications | integer | default [message notification level](#DOCS_GUILD/guild-object-default-message-notification-level) |
+| explicit\_content\_filter | integer | [explicit content filter level](#DOCS_GUILD/guild-object-explicit-content-filter-level) |
 | afk\_channel\_id | snowflake | id for afk channel |
 | afk_timeout | integer | afk timeout in seconds |
 | icon | string | base64 128x128 jpeg image for the guild icon |
