@@ -22,8 +22,7 @@ The Discord Gateway has a versioning system which is separate from the core APIs
 6. [Tracking State](#DOCS_GATEWAY/tracking-state)
 7. [Guild Availability](#DOCS_GATEWAY/guild-availability)
 8. [Sharding](#DOCS_GATEWAY/sharding)
-9. [Commands](#DOCS_GATEWAY/commands)
-10. [Events](#DOCS_GATEWAY/events)
+9. [Commands and Events](#DOCS_GATEWAY/commands-and-events)
 
 ## Payloads
 
@@ -236,7 +235,66 @@ The number of shards you run must be a multiple of a fixed number we will determ
 
 The session start limit for these bots will also be increased from 1000 to 2000 per day. Finally, the [Get Current User Guilds](#DOCS_USER/get-current-user-guilds) endpoint will no longer return results for your bot. We will be creating a new endpoint that is more shard-aware to iterate through your bot's guilds if needed.
 
-## Commands
+## Commands and Events
+
+Commands are requests made to the gateway socket by a client.
+
+###### Gateway Commands
+
+| name | description |
+| ---- | ----------- |
+| [Identify](#DOCS_GATEWAY/identify) | triggers the initial handshake with the gateway |
+| [Resume](#DOCS_GATEWAY/resume) | resumes a dropped gateway connection |
+| [Heartbeat](#DOCS_GATEWAY/heartbeat) | maintains an active gateway connection |
+| [Request Guild Members](#DOCS_GATEWAY/request-guild-members) | requests offline members for a guild |
+| [Update Voice State](#DOCS_GATEWAY/update-voice-state) | joins, moves, or disconnects the client from a voice channel |
+| [Update Status](#DOCS_GATEWAY/update-status) | updates a client's presence |
+
+Events are payloads sent over the socket to a client that correspond events in Discord.
+
+###### Gateway Events
+
+| name | description |
+| ---- | ----------- |
+| [Hello](#DOCS_GATEWAY/hello) | defines the heartbeat interval |
+| [Ready](#DOCS_GATEWAY/ready) | contains the initial state information |
+| [Resumed](#DOCS_GATEWAY/resumed) | esponse to [Resume](#DOCS_GATEWAY/resume) |
+| [Invalid Session](#DOCS_GATEWAY/invalid-session) | failure response to [Identify](#DOCS_GATEWAY/identify) or [Resume](#DOCS_GATEWAY/resume) or invalid active session |
+| [Channel Create](#DOCS_GATEWAY/channel-create) | new channel created |
+| [Channel Update](#DOCS_GATEWAY/channel-update) | channel was updated |
+| [Channel Delete](#DOCS_GATEWAY/channel-delete) | channel was deleted |
+| [Channel Pins Update](#DOCS_GATEWAY/channel-pins-update) | message was pinned or unpinned |
+| [Guild Create](#DOCS_GATEWAY/guild-create) | lazy-load for unavailable guild, guild became available, or user joined a new guild |
+| [Guild Update](#DOCS_GATEWAY/guild-update) | guild was updated |
+| [Guild Delete](#DOCS_GATEWAY/guild-delete) | guild became unavailable, or user left/was removed from a guild |
+| [Guild Ban Add](#DOCS_GATEWAY/guild-ban-add) | user was banned from a guild |
+| [Guild Ban Remove](#DOCS_GATEWAY/guild-ban-removed) | user was unbanned from a guild |
+| [Guild Emojis Update](#DOCS_GATEWAY/guild-emojis-update) | guild emojis were updated |
+| [Guild Integrations Update](#DOCS_GATEWAY/guild-integrations-update) | guild integration was updated |
+| [Guild Member Add](#DOCS_GATEWAY/guild-member-add) | new user joined a guild |
+| [Guild Member Remove](#DOCS_GATEWAY/guild-member-remove) | user was removed from a guild |
+| [Guild Member Update](#DOCS_GATEWAY/guild-member-update) | guild member was updated |
+| [Guild Members Chunk](#DOCS_GATEWAY/guild-members-chunk) | respose to [Request Guild Members](#DOCS_GATEWAY/request-guild-members) |
+| [Guild Role Create](#DOCS_GATEWAY/guild-role-create) | guild role was created |
+| [Guild Role Update](#DOCS_GATEWAY/guild-role-update) | guild role was updated |
+| [Guild Role Delete](#DOCS_GATEWAY/guild-role-delete) | guild role was deleted |
+| [Message Create](#DOCS_GATEWAY/message-create) | message was created |
+| [Message Update](#DOCS_GATEWAY/message-update) | message was edited |
+| [Message Delete](#DOCS_GATEWAY/message-delete) | message was deleted |
+| [Message Delete Bulk](#DOCS_GATEWAY/message-delete-bulk) | multiple messages were deleted at once |
+| [Message Reaction Add](#DOCS_GATEWAY/message-reaction-add) | user reacted to a message |
+| [Message Reaction Remove](#DOCS_GATEWAY/message-reaction-remove) | user removed a reaction from a message |
+| [Message Reaction Remove All](#DOCS_GATEWAY/message-reaction-remove-all) | all reactions were explicitly removed from a message |
+| [Presence Update](#DOCS_GATEWAY/presence-update) | user's presence was updated in a guild |
+| [Typing Start](#DOCS_GATEWAY/typing-start) | user started typing in a channel |
+| [User Update](#DOCS_GATEWAY/user-update) | properties about a user changed |
+| [Voice State Update](#DOCS_GATEWAY/voice-state-update) | someone joined, left, or moved a voice channel |
+| [Voice Server Update](#DOCS_GATEWAY/voice-server-update) | guild's voice server was updated |
+| [Webhooks Update](#DOCS_GATEWAY/webhooks-update) | guild channel webhook was created, update, or deleted |
+
+### Event Names
+
+Event names are in standard constant form, fully upper-cased and replacing all spaces with underscores. For instance, [Channel Create](#DOCS_GATEWAY/channel-create) would be `CHANNEL_CREATE` and [Voice State Update](#DOCS_GATEWAY/voice-state-update) would be `VOICE_STATE_UPDATE`. Within the following documentation they have been left in standard English form to aid in readability.
 
 #### Identify
 
@@ -403,12 +461,6 @@ Sent by the client to indicate a presence or status update.
 	"afk": false
 }
 ```
-
-## Events
-
-### Event Names
-
-Event names are in standard constant form, fully upper-cased and replacing all spaces with underscores. For instance, [Channel Create](#DOCS_GATEWAY/channel-create) would be `CHANNEL_CREATE` and [Voice State Update](#DOCS_GATEWAY/voice-state-update) would be `VOICE_STATE_UPDATE`. Within the following documentation they have been left in standard English form to aid in readability.
 
 ### Connecting and Resuming
 

@@ -1,51 +1,106 @@
 # RPC
 
-All Discord clients have an RPC server running on localhost that allows control over local Discord clients. Most games will want to use our [GameBridge](#DOCS_GAMEBRIDGE) in combination, since it offers the power of Discord to players who don't have Discord yet installed.
+>danger
+>For now, RPC is in a private beta, which means that only apps that have signed up and been approved can access it.
+>If you're interested in trying out Discord to power your game, please [sign up here](https://discordapp.com/gamebridge).
 
-## Private Beta FYI
+###### RPC Versions
 
-For now, RPC is in private beta, which means that only apps that have signed up can access the RPC. If you're interested in trying out Discord to power your game, please [sign up here](https://discordapp.com/gamebridge).
+| Version | Out of Service |
+|------------|----------------|
+| 1 | no |
 
-## Sample Code
+All Discord clients have an RPC server running on localhost that allows control over local Discord clients. Most games will want to use our [GameBridge](#DOCS_GAMEBRIDGE) SDK in combination, since it offers the power of Discord to players who don't have Discord yet installed. In addition to the documentation below, we have put together a sample project that shows the basics of using the RPC within a game. [Check it out](https://github.com/discordapp/sample-game-integration) if you'd like to see how all of these concepts come together.
 
-In addition to the documentation below, we have put together a sample project that shows the basics of using the RPC within a game. [Check it out](https://github.com/discordapp/sample-game-integration) if you'd like to see how all of these concepts come together.
+## Topics
 
-## Connecting to the RPC Server
+1. [Payloads](#DOCS_RPC/payloads)
+2. [Connecting](#DOCS_RPC/connecting)
+3. [Authenticating](#DOCS_RPC/authenticating)
+4. [Proxied API Requests](#DOCS_RPC/proxied-api-requests)
+5. [Commands and Events](#DOCS_RPC/commands-and-events)
+
+## Restrictions
+
+For connections to the RPC server, a [whitelist](#DOCS_RPC/authorize) is used to restrict access while you're still developing. You can invite up to 50 people to your whitelist.
+
+For applications/games not approved, we limit you to creating 10 guilds and 10 channels. This limit is raised to virtually unlimited after approval.
+
+## Payloads
+
+###### Payload Structure
+
+| Field | Type | Description | Present |
+|-------|------|-------------|-------------|
+| cmd | enum | [payload command](#DOCS_RPC/commands-and-events-rpc-commands) | Always |
+| nonce | string | unique string used once for replies from the server | In responses to commands (not subscribed events) |
+| evt | enum | [subscription event](#DOCS_RPC/commands-and-events-rpc-events) | In subscribed events, errors, and (un)subscribing events |
+| data | object | event data | In responses from the server |
+| args | object | command arguments | In commands sent to the server |
+
+## Connecting
 
 The local RPC server runs on localhost (`127.0.0.1`) and is set up to process WebSocket connections and proxy API requests.
 
-For WebSocket connections, the connection is always
-
-```
-ws://127.0.0.1:PORT/?v=VERSION&client_id=CLIENT_ID&encoding=ENCODING
-```
+For WebSocket connections, the connection is always `ws://127.0.0.1:PORT/?v=VERSION&client_id=CLIENT_ID&encoding=ENCODING`:
 
 * `CLIENT_ID` is the client ID of the application accessing the RPC Server.
 * `VERSION` is the version of the RPC Server.
 * `PORT` is the port of the RPC Server.
 * `ENCODING` is the type of encoding for this connection to use. `json` and `etf` are supported.
 
-To begin, you'll need to create an app on Discord's platform. Head to [your apps](https://discordapp.com/developers/applications/me) and click the big plus button. When you create an app on our Developers site, you must specify an "RPC Origin" and "Redirect URI" from which to permit connections and authorizations. **The origin you send when connecting and the redirect uri you send when exchanging an authorization code for an access token must match one of the ones entered on the Developers site.**
+To begin, you'll need to create an app. Head to [your apps](https://discordapp.com/developers/applications/me) and click the big plus button. When you create an app on our Developers site, you must specify an "RPC Origin" and "Redirect URI" from which to permit connections and authorizations. **The origin you send when connecting and the redirect uri you send when exchanging an authorization code for an access token must match one of the ones entered on the Developers site.**
 
-When establishing a WebSocket connection, we verify the Origin header on connection to prevent client ID spoofing, so you will be instantly disconnected if the Origin does not match.
+When establishing a WebSocket connection, we verify the Origin header on connection to prevent client ID spoofing. You will be instantly disconnected if the Origin does not match.
 
 If you're connecting to the RPC server from within a browser, RPC origins are usually in the form `SCHEME://HOST[:PORT]`, where `SCHEME` is typically https or http, `HOST` is your domain or ip, and `PORT` is the port of the webserver from which the user will be connecting (omitted for ports 80 and 443). For example, `https://discordapp.com` would be used if the user were connecting from `https://discordapp.com/some/page/url`.
 
 If you're connecting to the RPC server from within a non-browser application (like a game), you just need to make sure that the origin is sent with the upgrade request when connecting to the WebSocket. For local testing, we recommend testing with an origin like `https://localhost`. For production apps, we recommend setting the origin to your company/game's domain, for example `https://discordapp.com`.
 
+### RPC Server Ports
+
+The port range for Discord's local RPC server is [6463, 6472]. Since the RPC server runs locally, there's a chance it might not be able to obtain its preferred port when it tries to bind to one. For this reason, the local RPC server will pick one port out of a range of these 10 ports, trying sequentially until it can bind to one. When implementing your client, you should perform the same sequential checking to find the correct port to connect to.
+
+## Authenticating
+
+In order to call any commands over RPC, you must be authenticated or you will receive a code `4006` error response. Thankfully, we've removed the oppressive nature of a couple commands that will let you `AUTHORIZE` and `AUTHENTICATE` new users. First, call [AUTHORIZE](#DOCS_RPC/authorize):
+
+###### RPC Authorize Example
+
+```json
+{
+    "nonce": "f48f6176-4afb-4c03-b1b8-d960861f5216",
+    "args": {
+        "client_id": "192741864418312192",
+        "scopes": ["rpc.api", "rpc", "identify"]
+    },
+    "cmd": "AUTHORIZE"
+}
+```
+
+The user will then be prompted to authorize your app to access RPC on Discord. The `AUTHORIZE` command returns a `code` that you can exchange with a POST to `https://discordapp.com/api/oauth2/token` containing the [standard OAuth2 body parameters](https://tools.ietf.org/html/rfc6749#section-4.1.3) for the token exchange. The token endpoint on our API will return an `access_token` that can be sent with [AUTHENTICATE](#DOCS_RPC/authenticate):
+
+###### RPC Authenticate Example
+
+```json
+{
+    "nonce": "5bb10a43-1fdc-4391-9512-0c8f4aa203d4",
+    "args": {
+        "access_token": "CZhtkLDpNYXgPH9Ml6shqh2OwykChw"
+    },
+    "cmd": "AUTHENTICATE"
+}
+```
+
+You can now call RPC commands on behalf of the authorized user!
+
 ## Proxied API Requests
 
-If you request the `rpc.api` scope when authorizing your app to the client, your app is able to call the Discord API on behalf of the user with your access token.
+If you request the `rpc.api` [scope](#DOCS_OAUTH2/shared-resources-oauth2-scopes) when authorizing your app to the client, your app is able to call the Discord API on behalf of the user whose access token you retrieved.
 
-For proxied API requests, the schema, host, and path to the API endpoint is always
+For proxied API requests, the schema, host, and path to the API endpoint is always `http://127.0.0.1:PORT/` where `PORT` is the same port on which the RPC server is listening.
 
-```
-http://127.0.0.1:PORT/
-```
-
-* `PORT` is the port of the RPC Server.
-
-Proxied API requests accept your OAuth2 Bearer token in the Authorization header, and respond exactly as our API normally would. The only difference between proxied and non-proxied API requests are that proxied requests are executed with the user's token instead of the OAuth2 Bearer token, which provides access to modify most of what the client has access to. We do block certain endpoints which are deemed unsafe, like most authentication-related endpoints and user management endpoints.
+Proxied API requests accept an OAuth2 Bearer token in the Authorization header and respond as our API normally does. However, they are executed with the user's bearer token instead of a bot token, providing the ability to modify most of what the client has access to.
 
 ###### Example RPC Proxy Call
 
@@ -61,37 +116,11 @@ curl -H 'Authorization: Bearer CZhtkLDpNYXgPH9Ml6shqh2OwykChw' http://127.0.0.1:
 }]
 ```
 
-Proxied API requests are not applicable to the rest of the RPC Server docs, so check out the [rest of our API docs](https://discordapp.com/developers/docs/reference) to learn how to interface with our OAuth2 API.
+Certain endpoints deemed potentially unsafe—like authorization and user management—are blocked. Check out the [rest of our API docs](https://discordapp.com/developers/docs/reference) to learn more about interfacing with our REST API.
 
-## Restrictions
+## Commands and Events
 
-For connections to the RPC server, a [whitelist](#DOCS_RPC/authorize) is used to restrict access while you're still developing. You can invite up to 50 people to your whitelist.
-
-For applications/games not approved, we limit you to creating 10 guilds and 10 channels. This limit is raised to virtually unlimited after approval.
-
-## RPC Server Versions
-
-Out of Service versions are versions whose subset of changes compared to the most recent version have been completely removed from the RPC Server. When connecting with these versions, the RPC Server may reject your connection entirely.
-
-| Version | Out of Service |
-|------------|----------------|
-| 1 | no |
-
-## RPC Server Ports
-
-The port range for Discord's local RPC server is [6463, 6472]. Since the RPC server runs locally, there's a chance it might not be able to obtain its preferred port when it tries to bind to one. For this reason, the local RPC server will pick one port out of a range of these 10 ports, trying sequentially until it can bind to one. When implementing your client, you should perform the same sequential checking to find the correct port to connect to.
-
-## RPC Server Payloads
-
-###### Payload Structure
-
-| Field | Type | Description | Present |
-|-------|------|-------------|-------------|
-| cmd | enum | [payload command](#DOCS_RPC/rpc-server-payloads-rpc-commands) | Always |
-| nonce | string | unique string used once for replies from the server | In responses to commands (not subscribed events) |
-| evt | enum | [subscription event](#DOCS_RPC/rpc-server-payloads-rpc-events) | In subscribed events, errors, and (un)subscribing events |
-| data | object | event data | In responses from the server |
-| args | object | command arguments | In commands sent to the server |
+Commands are requests made to the RPC socket by a client.
 
 ###### RPC Commands
 
@@ -113,6 +142,8 @@ The port range for Discord's local RPC server is [6463, 6472]. Since the RPC ser
 | [GET_VOICE_SETTINGS](#DOCS_RPC/getvoicesettings) | used to retrieve the client's voice settings |
 | [SET_VOICE_SETTINGS](#DOCS_RPC/setvoicesettings) | used to set the client's voice settings |
 | [CAPTURE_SHORTCUT](#DOCS_RPC/captureshortcut) | used to capture a keyboard shortcut entered by the user |
+
+Events are payloads sent over the socket to a client that correspond events in Discord.
 
 ###### RPC Events
 
@@ -137,124 +168,7 @@ The port range for Discord's local RPC server is [6463, 6472]. Since the RPC ser
 | [NOTIFICATION_CREATE](#DOCS_RPC/notificationcreate) | sent when the client receives a notification (mention or new message in eligible channels) |
 | [CAPTURE_SHORTCUT_CHANGE](#DOCS_RPC/captureshortcutchange) | sent when the user presses a key during [shortcut capturing](#DOCS_RPC/captureshortcut) |
 
-###### RPC Errors
-
-| Code | Name | Description |
-|--------|----------|-----------------|
-| 1000 | Unknown Error | sent when an unknown error occurred |
-| 4000 | Invalid Payload | sent when an invalid payload is received |
-| 4002 | Invalid Command | sent when the command name specified is invalid |
-| 4003 | Invalid Guild | sent when the guild id specified is invalid |
-| 4004 | Invalid Event | sent when the event name specified is invalid |
-| 4005 | Invalid Channel | sent when the channel id specified is invalid |
-| 4006 | Invalid Permissions | sent when the user doesn't have the permission required to access the requested resource |
-| 4007 | Invalid Client ID | sent when an invalid OAuth2 application ID is used to authorize or authenticate with |
-| 4008 | Invalid Origin | sent when an invalid OAuth2 application origin is used to authorize or authenticate with |
-| 4009 | Invalid Token | sent when an invalid OAuth2 token is used to authorize or authenticate with |
-| 4010 | Invalid User | sent when the user id specified is invalid |
-| 5000 | OAuth2 Error | sent when a standard OAuth2 error occurred; check the data object for the OAuth 2 error information |
-| 5001 | Select Channel Timed Out | sent when an asyncronous SELECT_TEXT_CHANNEL/SELECT_VOICE_CHANNEL command times out |
-| 5002 | Get Guild Timed Out | sent when an asyncronous GET_GUILD command times out |
-| 5003 | Select Voice Force Required | sent when you try to join a user to a voice channel but the user is already in one |
-| 5004 | Capture Shortcut Already Listening | sent when you try to capture a shortcut key when already capturing one |
-
-###### RPC Close Codes
-
-| Code | Name | Description |
-|--------|----------|-----------------|
-| 4000 | Invalid Client ID | sent when you connect to the RPC server with an invalid client ID |
-| 4001 | Invalid Origin | sent when you connect to the RPC server with an invalid origin |
-| 4002 | Ratelimited | sent when the RPC Server rejects your connection to a ratelimit |
-| 4003 | Token Revoke | sent when the OAuth2 token associated with a connection is revoked |
-| 4004 | Invalid Version | sent when the RPC Server version specified in the connection string is not valid |
-| 4005 | Invalid Encoding | sent when the encoding specified in the connection string is not valid |
-
-## Authenticating over RPC
-
-In order to call any commands over RPC, you must be authenticated or you will receive a code `4006` error response.
-
-We have implemented the OAuth2 flow over RPC. To authenticate, you will need to get an access token.
-
-You would first call the [AUTHORIZE](#DOCS_RPC/authorize) command, and then the user would be prompted to authorize your app to access RPC on Discord.
-
-The AUTHORIZE command returns a `code` that you can exchange with a POST to `https://discordapp.com/api/oauth2/token` containing the [standard OAuth2 body parameters](https://tools.ietf.org/html/rfc6749#section-4.1.3) for the token exchange.
-
-The token endpoint on our API will return an `access_token` that can be sent with the [AUTHENTICATE](#DOCS_RPC/authenticate) command over RPC.
-
-After authentication you are then able to call commands over RPC.
-
-## Commands
-
-### AUTHENTICATE
-
-Used to authenticate an existing client with your app.
-
-###### Authenticate Argument Structure
-
-| Field | Type | Description |
-|-------|------|-------------|
-| access_token | string | OAuth2 access token |
-
-###### Authenticate Response Structure
-
-| Field | Type | Description |
-|-------|------|-------------|
-| user | partial [user](#DOCS_USER/user-object) object | the authed user |
-| scopes | array of [OAuth2 scopes](#DOCS_OAUTH2/scopes) | authorized scopes |
-| expires | date | expiration date of OAuth2 token |
-| application | [OAuth2 application](#DOCS_RPC/oauth2-application-object) object | application the user authorized |
-
-###### Example Authenticate Command Payload
-
-```json
-{
-    "nonce": "5bb10a43-1fdc-4391-9512-0c8f4aa203d4",
-    "args": {
-        "access_token": "CZhtkLDpNYXgPH9Ml6shqh2OwykChw"
-    },
-    "cmd": "AUTHENTICATE"
-}
-```
-
-###### Example Authenticate Response Payload
-
-```json
-{
-    "cmd": "AUTHENTICATE",
-    "data": {
-        "application": {
-            "description": "test app description",
-            "icon": "d6b51c21c48482d5b64aa4832d92fe14",
-            "id": "192741864418312192",
-            "rpc_origins": ["http://localhost:3344"],
-            "name": "test app"
-        },
-        "expires": "2017-06-29T19:09:52.361000+00:00",
-        "user": {
-            "username": "test user",
-            "discriminator": "7479",
-            "id": "190320984123768832",
-            "avatar": "b004ec1740a63ca06ae2e14c5cee11f3"
-        },
-        "scopes": ["rpc.api", "rpc", "identify"]
-    },
-    "nonce": "5bb10a43-1fdc-4391-9512-0c8f4aa203d4"
-}
-```
-
-## OAuth2 Application Object
-
-###### OAuth2 Application Structure
-
-| Field | Type | Description |
-| ----- | ---- | ----------- |
-| description | string | application description |
-| icon | string | hash of the icon |
-| id | snowflake | application client id |
-| rpc_origins | array | array of strings - |
-| name | string | application name
-
-### AUTHORIZE
+#### AUTHORIZE
 
 Used to authenticate a new client with your app. By default this pops up a modal in-app that asks the user to authorize access to your app.
 
@@ -302,7 +216,74 @@ We also have an RPC token system to bypass the user authorization modal. This is
 }
 ```
 
-### GET_GUILDS
+#### AUTHENTICATE
+
+Used to authenticate an existing client with your app.
+
+###### Authenticate Argument Structure
+
+| Field | Type | Description |
+|-------|------|-------------|
+| access_token | string | OAuth2 access token |
+
+###### Authenticate Response Structure
+
+| Field | Type | Description |
+|-------|------|-------------|
+| user | partial [user](#DOCS_USER/user-object) object | the authed user |
+| scopes | array of [OAuth2 scopes](#DOCS_OAUTH2/scopes) | authorized scopes |
+| expires | date | expiration date of OAuth2 token |
+| application | [OAuth2 application](#DOCS_RPC/authenticate-oauth2-application-structure) object | application the user authorized |
+
+###### OAuth2 Application Structure
+
+| Field | Type | Description |
+| ----- | ---- | ----------- |
+| description | string | application description |
+| icon | string | hash of the icon |
+| id | snowflake | application client id |
+| rpc_origins | array | array of strings - |
+| name | string | application name
+
+###### Example Authenticate Command Payload
+
+```json
+{
+    "nonce": "5bb10a43-1fdc-4391-9512-0c8f4aa203d4",
+    "args": {
+        "access_token": "CZhtkLDpNYXgPH9Ml6shqh2OwykChw"
+    },
+    "cmd": "AUTHENTICATE"
+}
+```
+
+###### Example Authenticate Response Payload
+
+```json
+{
+    "cmd": "AUTHENTICATE",
+    "data": {
+        "application": {
+            "description": "test app description",
+            "icon": "d6b51c21c48482d5b64aa4832d92fe14",
+            "id": "192741864418312192",
+            "rpc_origins": ["http://localhost:3344"],
+            "name": "test app"
+        },
+        "expires": "2017-06-29T19:09:52.361000+00:00",
+        "user": {
+            "username": "test user",
+            "discriminator": "7479",
+            "id": "190320984123768832",
+            "avatar": "b004ec1740a63ca06ae2e14c5cee11f3"
+        },
+        "scopes": ["rpc.api", "rpc", "identify"]
+    },
+    "nonce": "5bb10a43-1fdc-4391-9512-0c8f4aa203d4"
+}
+```
+
+#### GET_GUILDS
 
 Used to get a list of guilds the client is in.
 
@@ -337,7 +318,7 @@ Used to get a list of guilds the client is in.
 }
 ```
 
-### GET_GUILD
+#### GET_GUILD
 
 Used to get a guild the client is in.
 
@@ -404,7 +385,7 @@ Used to get a guild the client is in.
 }
 ```
 
-### GET_CHANNEL
+#### GET_CHANNEL
 
 Used to get a channel the client is in.
 
@@ -482,7 +463,7 @@ Used to get a channel the client is in.
 }
 ```
 
-### GET_CHANNELS
+#### GET_CHANNELS
 
 Used to get a guild's channels the client is in.
 
@@ -530,7 +511,7 @@ Used to get a guild's channels the client is in.
 }
 ```
 
-### SET_USER_VOICE_SETTINGS
+#### SET_USER_VOICE_SETTINGS
 
 Used to change voice settings of users in voice channels
 
@@ -539,7 +520,7 @@ Used to change voice settings of users in voice channels
 | Field | Type | Description |
 |-------|------|-------------|
 | user_id | string | user id |
-| pan? | [pan](#DOCS_RPC/pan-object) object | set the pan of the user |
+| pan? | [pan](#DOCS_RPC/set-user-voice-settings-pan-object) object | set the pan of the user |
 | volume? | integer | set the volume of user (defaults to 100, min 0, max 200)|
 | mute? | bool | set the mute state of the user |
 
@@ -551,7 +532,7 @@ Used to change voice settings of users in voice channels
 >to that app's configured voice settings and lock voice settings again. This is a temporary situation that will
 >be changed in the future.
 
-## Pan Object
+####### Pan Object
 
 | Field | Type | Description |
 |-------|------|-------------|
@@ -594,7 +575,7 @@ Used to change voice settings of users in voice channels
 }
 ```
 
-### SELECT_VOICE_CHANNEL
+#### SELECT_VOICE_CHANNEL
 
 Used to join and leave voice channels, group dms, or dms
 
@@ -666,71 +647,13 @@ Returns the Get Channel response, `null` if none.
 }
 ```
 
-### GET_SELECTED_VOICE_CHANNEL
+#### GET_SELECTED_VOICE_CHANNEL
 
-Used to get the client's current voice channel
+Used to get the client's current voice channel. There are no arguments for this command. Returns the [Get Channel](#DOCS_RPC/get-channel) response, or `null` if none.
 
-###### Get Selected Voice Channel Argument Structure
+#### SELECT_TEXT_CHANNEL
 
-There are no arguments for this command
-
-###### Get Selected Voice Channel Response Structure
-
-Returns the Get Channel response, `null` if none.
-
-###### Example Get Selected Voice Channel Command Payload
-
-```json
-{
-    "nonce": "fe3508b2-5819-42f2-be56-d77b507acb60",
-    "cmd": "GET_SELECTED_VOICE_CHANNEL"
-}
-```
-
-###### Example Get Selected Voice Channel Response Payload
-
-```json
-{
-    "cmd": "GET_SELECTED_VOICE_CHANNEL",
-    "data": {
-        "id": "199737254929760257",
-        "name": "General",
-        "type": 2,
-        "bitrate": 64000,
-        "user_limit": 0,
-        "guild_id": "199737254929760256",
-        "position": 0,
-        "voice_states": [{
-            "voice_state": {
-                "mute": false,
-                "deaf": false,
-                "self_mute": false,
-                "self_deaf": false,
-                "suppress": false
-            },
-            "user": {
-                "id": "190320984123768832",
-                "username": "test 2",
-                "discriminator": "7479",
-                "avatar": "b004ec1740a63ca06ae2e14c5cee11f3",
-                "bot": false
-            },
-            "nick": "test user 2",
-            "mute": false,
-            "volume": 110,
-            "pan": {
-                "left": 1.0,
-                "right": 1.0
-            }
-        }]
-    },
-    "nonce": "fe3508b2-5819-42f2-be56-d77b507acb60"
-}
-```
-
-### SELECT_TEXT_CHANNEL
-
-Used to join and leave text channels, group dms, or dms
+Used to join and leave text channels, group dms, or dms. Returns the [Get Channel](#DOCS_RPC/get-channel) response, or `null` if none.
 
 ###### Select Text Channel Argument Structure
 
@@ -739,77 +662,15 @@ Used to join and leave text channels, group dms, or dms
 | channel_id | string | channel id to join (or `null` to leave) |
 | timeout | integer | asyncronously join channel with time to wait before timing out |
 
-###### Select Text Channel Response Structure
-
-Returns the Get Channel response, `null` if none.
-
-###### Example Select Text Channel Command Payload
-
-```json
-{
-    "nonce": "2683deb0-acb1-4e84-beca-ab4c6e1b16a3",
-    "args": {
-        "channel_id": "199737254929760257"
-    },
-    "cmd": "SELECT_TEXT_CHANNEL"
-}
-```
-
-###### Example Select Text Channel Response Payload
-
-```json
-{
-    "cmd": "SELECT_TEXT_CHANNEL",
-    "data": {
-        "id": "199737254929760257",
-        "name": "General",
-        "type": 0,
-        "topic": "test topic",
-        "guild_id": "199737254929760256",
-        "position": 0,
-        "messages": [{
-            "id": "219370467260104407",
-            "blocked": false,
-            "bot": false,
-            "content": "test content",
-            "content_parsed": [{
-                "content": "test content",
-                "type": "text"
-            }],
-            "nick": null,
-            "author_color": "#206694",
-            "edited_timestamp": null,
-            "timestamp": "2016-08-28T08:19:55.101Z",
-            "tts": false,
-            "mentions": [],
-            "mention_roles": [],
-            "mention_everyone": false,
-            "embeds": [],
-            "attachments": [],
-            "author": {
-                "id": "180169777707352560",
-                "username": "test",
-                "discriminator": "1234",
-                "avatar": null,
-                "bot": false
-            },
-            "pinned": false,
-            "type": 0
-        }]
-    },
-    "nonce": "2683deb0-acb1-4e84-beca-ab4c6e1b16a3"
-}
-```
-
-### GET_VOICE_SETTINGS
+#### GET_VOICE_SETTINGS
 
 ###### Get Voice Settings Response Structure
 
 | Field | Type | Description |
 |-------|------|-------------|
-| input | [voice settings input](#DOCS_RPC/voice-settings-input-object) object | input settings |
-| output | [voice settings ouput](#DOCS_RPC/voice-settings-output-object) | output settings |
-| mode | [voice settings mode](#DOCS_RPC/voice-settings-mode-object) object | voice mode settings |
+| input | [voice settings input](#DOCS_RPC/get-voice-settings-voice-settings-input-object) object | input settings |
+| output | [voice settings ouput](#DOCS_RPC/get-voice-settings-voice-settings-output-object) | output settings |
+| mode | [voice settings mode](#DOCS_RPC/get-voice-settings-voice-settings-mode-object) object | voice mode settings |
 | automatic_gain_control | bool | state of automatic gain control |
 | echo_cancellation | bool | state of echo cancellation |
 | noise_suppression | bool | state of noise suppression |
@@ -818,7 +679,7 @@ Returns the Get Channel response, `null` if none.
 | deaf | bool | state of self-deafen |
 | mute | bool | state of self-mute |
 
-### Voice Settings Input Object
+###### Voice Settings Input Object
 
 | Field | Type | Description |
 |-------|------|-------------|
@@ -826,7 +687,7 @@ Returns the Get Channel response, `null` if none.
 | volume | float | input voice level (min: 0, max: 100) |
 | available_devices | array | array of *read-only* device objects containing `id` and `name` string keys |
 
-### Voice Settings Output Object
+###### Voice Settings Output Object
 
 | Field | Type | Description |
 |-------|------|-------------|
@@ -834,17 +695,17 @@ Returns the Get Channel response, `null` if none.
 | volume | float | output voice level (min: 0, max: 200) |
 | available_devices | array | array of *read-only* device objects containing `id` and `name` string keys |
 
-### Voice Settings Mode Object
+###### Voice Settings Mode Object
 
 | Field | Type | Description |
 |-------|------|-------------|
 | type | string | voice setting mode type (can be `PUSH_TO_TALK` or `VOICE_ACTIVITY`) |
 | auto_threshold | bool | voice activity threshold automatically sets its threshold |
 | threshold | float | threshold for voice activity (in dB) (min: -100, max: 0) |
-| shortcut | [shortcut key combo](#DOCS_RPC/shortcut-key-combo-object) object | shortcut key combos for PTT |
+| shortcut | [shortcut key combo](#DOCS_RPC/get-voice-settings-shortcut-key-combo-object) object | shortcut key combos for PTT |
 | delay | float | the PTT release delay (in ms) (min: 0, max: 2000) |
 
-### Shortcut Key Combo Object
+###### Shortcut Key Combo Object
 
 | Field | Type | Description |
 |-------|------|-------------|
@@ -908,11 +769,7 @@ Returns the Get Channel response, `null` if none.
 }
 ```
 
-### SET_VOICE_SETTINGS
-
-###### Set Voice Settings Argument and Response Structure
-
-When setting voice settings, all fields are optional. Only passed fields are updated.
+#### SET_VOICE_SETTINGS
 
 >info
 >In the current release, we only support a single modifier of voice settings at a time over RPC.
@@ -921,6 +778,10 @@ When setting voice settings, all fields are optional. Only passed fields are upd
 >controlling app disconnects. When an app that has previously set voice settings connects, the client will swap
 >to that app's configured voice settings and lock voice settings again. This is a temporary situation that will
 >be changed in the future.
+
+When setting voice settings, all fields are optional. Only passed fields are updated.
+
+###### Set Voice Settings Argument and Response Structure
 
 | Field | Type | Description |
 |-------|------|-------------|
@@ -996,14 +857,9 @@ When setting voice settings, all fields are optional. Only passed fields are upd
 }
 ```
 
-### SUBSCRIBE
+#### SUBSCRIBE
 
-Used to subscribe to events
-
-###### Subscribe Argument Structure
-
-`evt` of the payload should be set to the event being subscribed to.
-`args` of the payload should be set to the args needed for the event.
+Used to subscribe to events. `evt` of the payload should be set to the event being subscribed to. `args` of the payload should be set to the args needed for the event.
 
 ###### Subscribe Response Structure
 
@@ -1036,14 +892,9 @@ Used to subscribe to events
 }
 ```
 
-### UNSUBSCRIBE
+#### UNSUBSCRIBE
 
-Used to unsubscribe from events
-
-###### Unsubscribe Argument Structure
-
-`evt` of the payload should be set to the event that was subscribed to.
-`args` of the payload should be set to the args needed for the previously subscribed event.
+Used to unsubscribe from events. `evt` of the payload should be set to the event that was subscribed to. `args` of the payload should be set to the args needed for the previously subscribed event.
 
 ###### Unsubscribe Response Structure
 
@@ -1076,7 +927,7 @@ Used to unsubscribe from events
 }
 ```
 
-### CAPTURE_SHORTCUT
+#### CAPTURE_SHORTCUT
 
 Used to capture a keyboard shortcut entered by the user.
 
@@ -1122,18 +973,16 @@ Note: The `START` call will return the captured shortcut in its `data` object, w
 }
 ```
 
-## Events
-
-### READY
+#### READY
 
 ###### Ready Dispatch Data Structure
 
 | Field | Type | Description |
 |-------|------|-------------|
 | v | integer | RPC version |
-| config | [rpc server configuration](#DOCS_RPC/rpc-server-configuration-object) object | server configuration |
+| config | [rpc server configuration](#DOCS_RPC/ready-rpc-server-configuration-object) object | server configuration |
 
-### RPC Server Configuration Object
+###### RPC Server Configuration Object
 
 | Field | Type | Description |
 |-------|------|-------------|
@@ -1158,7 +1007,7 @@ Note: The `START` call will return the captured shortcut in its `data` object, w
 }
 ```
 
-### ERROR
+#### ERROR
 
 ###### Error Data Structure
 
@@ -1181,7 +1030,7 @@ Note: The `START` call will return the captured shortcut in its `data` object, w
 }
 ```
 
-### GUILD_STATUS
+#### GUILD_STATUS
 
 ###### Guild Status Argument Structure
 
@@ -1213,9 +1062,7 @@ Note: The `START` call will return the captured shortcut in its `data` object, w
 }
 ```
 
-### GUILD_CREATE
-
-###### Guild Create Argument Structure
+#### GUILD_CREATE
 
 No arguments
 
@@ -1239,9 +1086,7 @@ No arguments
 }
 ```
 
-### CHANNEL_CREATE
-
-###### Channel Create Argument Structure
+#### CHANNEL_CREATE
 
 No arguments
 
@@ -1267,9 +1112,7 @@ No arguments
 }
 ```
 
-### VOICE_CHANNEL_SELECT
-
-###### Voice Channel Select Argument Structure
+#### VOICE_CHANNEL_SELECT
 
 No arguments
 
@@ -1293,15 +1136,11 @@ No arguments
 }
 ```
 
-### VOICE_SETTINGS_UPDATE
+#### VOICE_SETTINGS_UPDATE
 
 ###### Voice Settings Argument Structure
 
-No arguments
-
-###### Voice Settings Dispatch Data Structure
-
-Dispatches the voice settings object (see the GET_VOICE_SETTINGS response).
+No arguments. Dispatches the [Get Voice Settings](#DOCS_RPC/get-voice-settings) response.
 
 ###### Example Voice Settings Dispatch Payload
 
@@ -1348,17 +1187,15 @@ Dispatches the voice settings object (see the GET_VOICE_SETTINGS response).
 }
 ```
 
-### VOICE_STATE_CREATE/VOICE_STATE_UPDATE/VOICE_STATE_DELETE
+#### VOICE_STATE_CREATE/VOICE_STATE_UPDATE/VOICE_STATE_DELETE
+
+Dispatches channel voice state objects
 
 ###### Voice State Argument Structure
 
 | Field | Type | Description |
 |-------|------|-------------|
 | channel_id | string | id of channel to listen to updates of |
-
-###### Voice State Dispatch Data Structure
-
-Dispatches channel voice state objects
 
 ###### Example Voice State Dispatch Payload
 
@@ -1392,9 +1229,7 @@ Dispatches channel voice state objects
 }
 ```
 
-### VOICE_CONNECTION_STATUS
-
-###### Voice Connection Status Argument Structure
+#### VOICE_CONNECTION_STATUS
 
 No arguments
 
@@ -1439,17 +1274,15 @@ No arguments
 }
 ```
 
-### MESSAGE_CREATE/MESSAGE_UPDATE/MESSAGE_DELETE
+#### MESSAGE_CREATE/MESSAGE_UPDATE/MESSAGE_DELETE
+
+Dispatches message objects, with the exception of deletions, which only contains the id in the message object.
 
 ###### Message Argument Structure
 
 | Field | Type | Description |
 |-------|------|-------------|
 | channel_id | string | id of channel to listen to updates of |
-
-###### Message Dispatch Data Structure
-
-Dispatches message objects, with the exception of deletions, which only contains the id in the message object.
 
 ###### Example Message Dispatch Payload
 
@@ -1490,7 +1323,7 @@ Dispatches message objects, with the exception of deletions, which only contains
 }
 ```
 
-### SPEAKING_START/SPEAKING_STOP
+#### SPEAKING_START/SPEAKING_STOP
 
 ###### Speaking Argument Structure
 
@@ -1516,15 +1349,9 @@ Dispatches message objects, with the exception of deletions, which only contains
 }
 ```
 
-### NOTIFICATION_CREATE
+#### NOTIFICATION_CREATE
 
-###### Notification Create Required OAuth2 Scope
-
-This event requires the `rpc.notifications.read` OAuth2 scope.
-
-###### Notification Create Argument Structure
-
-No arguments
+No arguments. This event requires the `rpc.notifications.read` [OAuth2 scope](#DOCS_OAUTH2/shared-resources-oauth2-scopes).
 
 ###### Notification Create Dispatch Data Structure
 
@@ -1578,9 +1405,7 @@ No arguments
 }
 ```
 
-### CAPTURE_SHORTCUT_CHANGE
-
-###### Capture Shortcut Change Argument Structure
+#### CAPTURE_SHORTCUT_CHANGE
 
 No arguments
 

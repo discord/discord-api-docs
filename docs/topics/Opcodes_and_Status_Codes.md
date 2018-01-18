@@ -158,3 +158,39 @@ Along with the HTTP error code, our API can also return more detailed error code
     "message": "Invalid authentication token"
 }
 ```
+
+## RPC
+
+RPC is the [local Discord server](#DOCS_RPC/) running on localhost. Access to the RPC server is gated behind a whitelist.
+
+###### RPC Errors
+
+| Code | Name | Description |
+|--------|----------|-----------------|
+| 1000 | Unknown Error | sent when an unknown error occurred |
+| 4000 | Invalid Payload | sent when an invalid payload is received |
+| 4002 | Invalid Command | sent when the command name specified is invalid |
+| 4003 | Invalid Guild | sent when the guild id specified is invalid |
+| 4004 | Invalid Event | sent when the event name specified is invalid |
+| 4005 | Invalid Channel | sent when the channel id specified is invalid |
+| 4006 | Invalid Permissions | sent when the user doesn't have the permission required to access the requested resource |
+| 4007 | Invalid Client ID | sent when an invalid OAuth2 application ID is used to authorize or authenticate with |
+| 4008 | Invalid Origin | sent when an invalid OAuth2 application origin is used to authorize or authenticate with |
+| 4009 | Invalid Token | sent when an invalid OAuth2 token is used to authorize or authenticate with |
+| 4010 | Invalid User | sent when the user id specified is invalid |
+| 5000 | OAuth2 Error | sent when a standard OAuth2 error occurred; check the data object for the OAuth 2 error information |
+| 5001 | Select Channel Timed Out | sent when an asyncronous SELECT_TEXT_CHANNEL/SELECT_VOICE_CHANNEL command times out |
+| 5002 | Get Guild Timed Out | sent when an asyncronous GET_GUILD command times out |
+| 5003 | Select Voice Force Required | sent when you try to join a user to a voice channel but the user is already in one |
+| 5004 | Capture Shortcut Already Listening | sent when you try to capture a shortcut key when already capturing one |
+
+###### RPC Close Codes
+
+| Code | Name | Description |
+|--------|----------|-----------------|
+| 4000 | Invalid Client ID | sent when you connect to the RPC server with an invalid client ID |
+| 4001 | Invalid Origin | sent when you connect to the RPC server with an invalid origin |
+| 4002 | Ratelimited | sent when the RPC Server rejects your connection to a ratelimit |
+| 4003 | Token Revoke | sent when the OAuth2 token associated with a connection is revoked |
+| 4004 | Invalid Version | sent when the RPC Server version specified in the connection string is not valid |
+| 4005 | Invalid Encoding | sent when the encoding specified in the connection string is not valid |
