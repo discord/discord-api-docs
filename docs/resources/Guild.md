@@ -10,8 +10,8 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 |-------|------|-------------|
 | id | snowflake | guild id |
 | name | string | guild name (2-100 characters) |
-| icon | string | [icon hash](#DOCS_REFERENCE/image-formatting) |
-| splash | string | [splash hash](#DOCS_REFERENCE/image-formatting) |
+| icon | ?string | [icon hash](#DOCS_REFERENCE/image-formatting) |
+| splash | ?string | [splash hash](#DOCS_REFERENCE/image-formatting) |
 | owner? | bool | whether or not [the user](#DOCS_USER/get-current-user-guilds) is the owner of the guild |
 | owner\_id | snowflake | id of owner |
 | permissions? | integer | total permissions for [the user](#DOCS_USER/get-current-user-guilds) in the guild (does not include channel overrides) |
