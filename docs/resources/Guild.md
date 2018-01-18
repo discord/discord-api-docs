@@ -18,8 +18,8 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 | region | string | [voice region](#DOCS_VOICE/voice-region) id for the guild |
 | afk\_channel\_id | snowflake | id of afk channel |
 | afk\_timeout | integer | afk timeout in seconds |
-| embed\_enabled | bool | is this guild embeddable (e.g. widget) |
-| embed\_channel\_id | snowflake | id of embedded channel |
+| embed\_enabled? | bool | is this guild embeddable (e.g. widget) |
+| embed\_channel\_id? | snowflake | id of embedded channel |
 | verification\_level | integer | [verification level](#DOCS_GUILD/guild-object-verification-level) required for the guild |
 | default\_message\_notifications | integer | default [message notifications level](#DOCS_GUILD/guild-object-default-message-notification-level) |
 | explicit\_content\_filter | integer | [explicit content filter level](#DOCS_GUILD/guild-object-explicit-content-filter-level) |
@@ -28,8 +28,8 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 | features | array of strings | enabled guild features |
 | mfa\_level | integer | required [MFA level](#DOCS_GUILD/guild-object-mfa-level) for the guild |
 | application_id | ?snowflake | application id of the guild creator if it is bot-created |
-| widget_enabled | bool | whether or not the server widget is enabled |
-| widget_channel_id | snowflake | the channel id for the server widget |
+| widget_enabled? | bool | whether or not the server widget is enabled |
+| widget_channel_id? | snowflake | the channel id for the server widget |
 | system\_channel\_id | ?snowflake | the id of the channel to which system messages are sent |
 | joined\_at? \* | ISO8601 timestamp | when this guild was joined at |
 | large? \* | bool | whether this is considered a large guild |
