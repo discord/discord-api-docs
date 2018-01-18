@@ -402,6 +402,7 @@ Create a guild ban, and optionally delete previous messages sent by the banned u
 | Field | Type | Description |
 |-------|------|-------------|
 | delete-message-days | integer | number of days to delete messages for (0-7) |
+| reason | string | reason for the ban |
 
 ## Remove Guild Ban % DELETE /guilds/{guild.id#DOCS_GUILD/guild-object}/bans/{user.id#DOCS_USER/user-object}
 
