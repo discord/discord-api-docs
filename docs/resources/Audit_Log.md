@@ -77,8 +77,8 @@ Whenever an admin action is performed on the API, an entry is added to the respe
 
 | Field | Type | Description |
 |-------|------|-------------|
-| new_value | [mixed](#DOCS_AUDIT_LOG/audit-log-change-object-audit-log-change-key) | new value of the key |
-| old_value | [mixed](#DOCS_AUDIT_LOG/audit-log-change-object-audit-log-change-key) | old value of the key |
+| new_value? | [mixed](#DOCS_AUDIT_LOG/audit-log-change-object-audit-log-change-key) | new value of the key |
+| old_value? | [mixed](#DOCS_AUDIT_LOG/audit-log-change-object-audit-log-change-key) | old value of the key |
 | key | string | type of audit log [change key](#DOCS_AUDIT_LOG/audit-log-change-object-audit-log-change-key) |
 
 ###### Audit Log Change Key
