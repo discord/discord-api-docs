@@ -14,11 +14,11 @@ All Discord clients have an RPC server running on localhost that allows control 
 
 ## Topics
 
-1. [Payloads](#DOCS_RPC/payloads)
-2. [Connecting](#DOCS_RPC/connecting)
-3. [Authenticating](#DOCS_RPC/authenticating)
-4. [Proxied API Requests](#DOCS_RPC/proxied-api-requests)
-5. [Commands and Events](#DOCS_RPC/commands-and-events)
+- [Payloads](#DOCS_RPC/payloads)
+- [Connecting](#DOCS_RPC/connecting)
+- [Authenticating](#DOCS_RPC/authenticating)
+- [Proxied API Requests](#DOCS_RPC/proxied-api-requests)
+- [Commands and Events](#DOCS_RPC/commands-and-events)
 
 ## Restrictions
 

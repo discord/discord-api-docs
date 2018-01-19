@@ -8,6 +8,19 @@ Discord's API is based around two core layers, a HTTPS/REST API for general oper
 https://discordapp.com/api
 ```
 
+## Topics
+
+- [API Versioning](#DOCS_REFERNCE/api-versioning)
+- [Authentication](#DOCS_REFERENCE/authentication)
+- [Encryption](#DOCS_REFERENCE/encryption)
+- [Snowflakes](#DOCS_REFERENCE/snowflakes)
+- [Nullable and Optional Resource Fields](#DOCS_REFERENCE/nullable-and-optional-resource-fields)
+- [Consistency](#DOCS_REFERENCE/consistency)
+- [HTTP API](#DOCS_REFERENCE/http-api)
+- [Gateway (WebSocket) API](#DOCS_REFERENCE/gateway-websocket-api)
+- [Message Formatting](#DOCS_REFERENCE/message-formatting)
+- [Image Formatting](#DOCS_REFERENCE/image-formatting)
+
 ## API Versioning
 
 >danger
@@ -49,7 +62,7 @@ Authorization: Bearer CZhtkLDpNYXgPH9Ml6shqh2OwykChw
 
 All HTTP-layer services and protocols (e.g. http, websocket) within the Discord API use TLS 1.2.
 
-## Snowflake IDs
+## Snowflakes
 
 Discord utilizes Twitter's [snowflake](https://github.com/twitter/snowflake/tree/snowflake-2010) format for uniquely identifiable descriptors (IDs). These IDs are guaranteed to be unique across all of Discord, except in some unique scenarios in which child objects share their parent's ID. Because Snowflake IDs are up to 64 bits in size (e.g. a uint64), they are always returned as strings in the HTTP API to prevent integer overflows in some languages. See [Gateway ETF/JSON](#DOCS_GATEWAY/etf-json) for more information regarding Gateway encoding.
 

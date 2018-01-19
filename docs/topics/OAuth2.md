@@ -2,11 +2,11 @@
 
 OAuth2 enables application developers to build applications that utilize authentication and data from the Discord API. Within Discord, there are multiple types of OAuth2 authentication. We support the authorization code grant, the implicit grant, client credentials, and some modified special-for-Discord flows for Bots and Webhooks. We've broken it down into sections:
 
-1. [Authorization Code Grant](#DOCS_OAUTH2/authorization-code-grant)
-2. [Implicit Grant](#DOCS_OAUTH2/implicit-grant)
-3. [Client Credentials Grant](#DOCS_OAUTH2/client-credentials-grant)
-4. [Bots](#DOCS_OAUTH2/bots)
-5. [Webhooks](#DOCS_OAUTH2/webhooks)
+- [Authorization Code Grant](#DOCS_OAUTH2/authorization-code-grant)
+- [Implicit Grant](#DOCS_OAUTH2/implicit-grant)
+- [Client Credentials Grant](#DOCS_OAUTH2/client-credentials-grant)
+- [Bots](#DOCS_OAUTH2/bots)
+- [Webhooks](#DOCS_OAUTH2/webhooks)
 
 ## Shared Resources
 
