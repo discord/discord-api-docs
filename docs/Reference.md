@@ -2,9 +2,7 @@
 
 Discord's API is based around two core layers, a HTTPS/REST API for general operations, and persistent secure websocket based connection for sending and subscribing to real-time events. The most common use case of the Discord API will be providing a service, or access to a platform through the [OAuth2](http://oauth.net/2/) API.
 
-## Base URL
-
-The base URL for all API requests is:
+###### Base URL
 
 ```
 https://discordapp.com/api
@@ -13,15 +11,9 @@ https://discordapp.com/api
 ## API Versioning
 
 >danger
->Some API and Gateway versions are now non-functioning, and are labeled as discontinued in the table below. Trying to use these versions will fail and return 400 Bad Request. They are listed in the table below for posterity only.
+>Some API and Gateway versions are now non-functioning, and are labeled as discontinued in the table below for posterity. Trying to use these versions will fail and return 400 Bad Request.
 
-Discord exposes different versions of our API. You can specify version by including it in the request path:
-
-```
-https://discordapp.com/api/v{version_number}
-```
-
-Omitting the version number from the route will route requests to the current default version (marked below accordingly). You can find the change log for the newest API version [here](https://discordapp.com/developers/docs/change-log).
+Discord exposes different versions of our API. You can specify version by including it in the request path like `https://discordapp.com/api/v{version_number}`. Omitting the version number from the route will route requests to the current default version (marked below accordingly). You can find the change log for the newest API version [here](https://discordapp.com/developers/docs/change-log).
 
 ###### API Versions
 
@@ -39,21 +31,15 @@ Authenticating with the Discord API can be done in one of two ways:
 1. Using a bot token gained by [registering a bot](#DOCS_OAUTH2/registering-applications), for more information on bots see [bots vs user accounts](#DOCS_OAUTH2/bot-vs-user-accounts).
 2. Using an OAuth2 bearer token gained through the [OAuth2 API](#DOCS_OAUTH2/oauth2).
 
-For all authentication types, authentication is performed with the `Authorization` HTTP header in the following format:
+For all authentication types, authentication is performed with the `Authorization` HTTP header in the format `Authorization: TOKEN_TYPE TOKEN`.
 
-```
-Authorization: TOKEN_TYPE TOKEN
-```
-
-### Example Authorization Headers
-
-For bot tokens:
+###### Example Bot Token Authorization Header
 
 ```
 Authorization: Bot MTk4NjIyNDgzNDcxOTI1MjQ4.Cl2FMQ.ZnCjm1XVW7vRze4b7Cq4se7kKWs
 ```
 
-For OAuth bearer tokens:
+###### Example Bearer Token Authorization Header
 
 ```
 Authorization: Bearer CZhtkLDpNYXgPH9Ml6shqh2OwykChw
@@ -114,7 +100,9 @@ Clients should operate on events and results from the API in as much of a idempo
 
 ### User Agent
 
-Clients using the HTTP API must provide a valid [User Agent](https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.43) which specifies information about the client library and version, in the following format:
+Clients using the HTTP API must provide a valid [User Agent](https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.43) which specifies information about the client library and version in the following format:
+
+###### User Agent Example
 
 ```
 User-Agent: DiscordBot ($url, $versionNumber)
@@ -153,7 +141,13 @@ Using the markdown for either users, roles, or channels will mention the target(
 
 ## Image Formatting
 
-Discord uses ids and hashes to render images in the client. These hashes can be retrieved through various API requests, like [Get User](#DOCS_USER/get-user). Below are the formats, size limitations, and CDN endpoints for images in Discord. The returned format can be changed by changing the extension name at the end of the URL, within the [limitations](#DOCS_REFERENCE/image-formatting-image-formats). The returned size can be changed by appending a querystring of `?size=desired_size` to the URL, within the [limitations](#DOCS_REFERENCE/image-formatting-image-sizes).
+###### Image Base Url
+
+```
+https\://cdn.discordapp.com/
+```
+
+Discord uses ids and hashes to render images in the client. These hashes can be retrieved through various API requests, like [Get User](#DOCS_USER/get-user). Below are the formats, size limitations, and CDN endpoints for images in Discord. The returned format can be changed by changing the [extension name](#DOCS_REFERENCE/image-formatting-image-formats) at the end of the URL. The returned size can be changed by appending a querystring of `?size=desired_size` to the URL. Image size can be any power of two between 16 asnd 2048.
 
 ###### Image Formats
 
@@ -163,13 +157,6 @@ Discord uses ids and hashes to render images in the client. These hashes can be 
 | PNG | .png |
 | WebP | .webp |
 | GIF | .gif |
-
-###### Image Sizes
-
-Powers of 2 between 16 and 2048.
-
->info
->All image URLs are prefixed with https\://cdn.discordapp.com/
 
 ###### CDN Endpoints
 
