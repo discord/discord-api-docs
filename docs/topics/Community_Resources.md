@@ -17,7 +17,7 @@ The Discord team curates the following list of officially vetted libraries that 
 | [DiscordGo](https://github.com/bwmarrin/discordgo) | Go |
 | [Discord4j](https://github.com/austinv11/Discord4J) | Java |
 | [JDA](https://github.com/DV8FromTheWorld/JDA) | Java |
-| [discord.js](https://github.com/hydrabolt/discord.js) | JavaScript |
+| [discord.js](https://github.com/discordjs/discord.js) | JavaScript |
 | [Eris](https://github.com/abalabahaha/eris) | JavaScript |
 | [Discordia](https://github.com/SinisterRectus/Discordia) | Lua |
 | [RestCord](https://www.restcord.com/) | PHP |
