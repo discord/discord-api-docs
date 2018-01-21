@@ -8,19 +8,6 @@ Discord's API is based around two core layers, a HTTPS/REST API for general oper
 https://discordapp.com/api
 ```
 
-## Topics
-
-- [API Versioning](#DOCS_REFERNCE/api-versioning)
-- [Authentication](#DOCS_REFERENCE/authentication)
-- [Encryption](#DOCS_REFERENCE/encryption)
-- [Snowflakes](#DOCS_REFERENCE/snowflakes)
-- [Nullable and Optional Resource Fields](#DOCS_REFERENCE/nullable-and-optional-resource-fields)
-- [Consistency](#DOCS_REFERENCE/consistency)
-- [HTTP API](#DOCS_REFERENCE/http-api)
-- [Gateway (WebSocket) API](#DOCS_REFERENCE/gateway-websocket-api)
-- [Message Formatting](#DOCS_REFERENCE/message-formatting)
-- [Image Formatting](#DOCS_REFERENCE/image-formatting)
-
 ## API Versioning
 
 >danger

@@ -1,15 +1,5 @@
 # Opcodes and Status Codes
 
-- [Gateway Opcodes](#DOCS_OPCODES_AND_STATUS_CODES/gateway-gateway-opcodes)
-- [Gateway Close Event Codes](#DOCS_OPCODES_AND_STATUS_CODES/gateway-gateway-close-event-codes)
-- [Voice Opcodes](#DOCS_OPCODES_AND_STATUS_CODES/voice-voice-opcodes)
-- [Voice Close Event Codes](#DOCS_OPCODES_AND_STATUS_CODES/voice-voice-close-event-codes)
-- [HTTP Response Codes](#DOCS_OPCODES_AND_STATUS_CODES/http-http-response-codes)
-- [JSON Error Codes](#DOCS_OPCODES_AND_STATUS_CODES/json-json-error-codes)
-- [RPC Error Codes](#DOCS_OPCODES_AND_STATUS_CODES/rpc-rpc-error-codes)
-- [RPC Close Event Codes](#DOCS_OPCODES_AND_STATUS_CODES/rpc-rpc-close-event-codes)
-
-
 ## Gateway
 
 All gateway events in Discord are tagged with an opcode that denotes the payload type. Your connection to our gateway may also sometimes close. When it does, you will receive a close code that tells you what happened.

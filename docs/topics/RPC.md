@@ -12,14 +12,6 @@
 
 All Discord clients have an RPC server running on localhost that allows control over local Discord clients. Most games will want to use our [GameBridge](#DOCS_GAMEBRIDGE) SDK in combination, since it offers the power of Discord to players who don't have Discord yet installed. In addition to the documentation below, we have put together a sample project that shows the basics of using the RPC within a game. [Check it out](https://github.com/discordapp/sample-game-integration) if you'd like to see how all of these concepts come together.
 
-## Topics
-
-- [Payloads](#DOCS_RPC/payloads)
-- [Connecting](#DOCS_RPC/connecting)
-- [Authenticating](#DOCS_RPC/authenticating)
-- [Proxied API Requests](#DOCS_RPC/proxied-api-requests)
-- [Commands and Events](#DOCS_RPC/commands-and-events)
-
 ## Restrictions
 
 For connections to the RPC server, a [whitelist](#DOCS_RPC/authorize) is used to restrict access while you're still developing. You can invite up to 50 people to your whitelist.
