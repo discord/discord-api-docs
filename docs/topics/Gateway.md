@@ -258,7 +258,7 @@ Events are payloads sent over the socket to a client that correspond events in D
 | ---- | ----------- |
 | [Hello](#DOCS_GATEWAY/hello) | defines the heartbeat interval |
 | [Ready](#DOCS_GATEWAY/ready) | contains the initial state information |
-| [Resumed](#DOCS_GATEWAY/resumed) | esponse to [Resume](#DOCS_GATEWAY/resume) |
+| [Resumed](#DOCS_GATEWAY/resumed) | response to [Resume](#DOCS_GATEWAY/resume) |
 | [Invalid Session](#DOCS_GATEWAY/invalid-session) | failure response to [Identify](#DOCS_GATEWAY/identify) or [Resume](#DOCS_GATEWAY/resume) or invalid active session |
 | [Channel Create](#DOCS_GATEWAY/channel-create) | new channel created |
 | [Channel Update](#DOCS_GATEWAY/channel-update) | channel was updated |
