@@ -1,6 +1,6 @@
 # Introducing Rich Presence
 
-How easy is it for people to play your game together? With Rich Presence from Discord—a new feature in the ever-expanding GameBridge suite—it just got so easy, a ~~caveman~~ Junior Dev could do it.
+How easy is it for people to play your game together? With Rich Presence from Discord, it just got so easy, a ~~caveman~~ Junior Dev could do it.
 
 Rich Presence is now **live**! If you are testing a game integration with Rich Presence, other users will be able to see it. Please create a private test account and do not join any public servers while testing your integration.
 
@@ -260,7 +260,7 @@ All fields in the `DiscordRichPresence` object are entirely optional. Anything y
 
 ## Your New Developer Dashboard
 
-Included with the launch of Rich Presence is an overhaul of Discord's Developer Dashboard. We want to make Rich Presence and the rest of the GameBridge Suite as easy as possible to use. Our first step is helping you ditch your CDN. You're welcome.
+Included with the launch of Rich Presence is an overhaul of Discord's Developer Dashboard. We want to make Rich Presence as easy as possible to use. Our first step is helping you ditch your CDN. You're welcome.
 
 OK, well, not entirely. But! Discord _will_ host any and all artwork that you need to have the very richest of presences. Upload an image, tag it with a key—preferrably one you can remember—and **bam**. It's ready for Rich Presence use. Head over to your [applications page](#MY_APPLICATIONS/top) to check it out!
 

@@ -214,7 +214,7 @@ A partial [guild](#DOCS_GUILD/guild-object) object. Represents an Offline Guild,
 Create a new guild. Returns a [guild](#DOCS_GUILD/guild-object) object on success. Fires a [Guild Create](#DOCS_GATEWAY/guild-create) Gateway event.
 
 >warn
->By default this endpoint is limited to 10 active guilds. These limits are raised for whitelisted [GameBridge](#DOCS_GAMEBRDIGE) applications. Creating channel categories from this endpoint is also not supported.
+>This endpoint is limited to 10 active guilds. Creating channel categories from this endpoint is not supported.
 
 ###### JSON Params
 

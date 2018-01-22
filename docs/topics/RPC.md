@@ -3,13 +3,13 @@
 >danger
 >For now, RPC is in a private beta, which means that only apps that have signed up and been approved can access it.
 
+All Discord clients have an RPC server running on localhost that allows control over local Discord clients.
+
 ###### RPC Versions
 
 | Version | Out of Service |
 |------------|----------------|
 | 1 | no |
-
-All Discord clients have an RPC server running on localhost that allows control over local Discord clients. Most games will want to use our [GameBridge](#DOCS_GAMEBRIDGE) SDK in combination, since it offers the power of Discord to players who don't have Discord yet installed. In addition to the documentation below, we have put together a sample project that shows the basics of using the RPC within a game. [Check it out](https://github.com/discordapp/sample-game-integration) if you'd like to see how all of these concepts come together.
 
 ## Restrictions
 
@@ -174,7 +174,7 @@ We also have an RPC token system to bypass the user authorization modal. This is
 | scopes | array of [OAuth2 scopes](#DOCS_OAUTH2/scopes) | scopes to authorize |
 | client_id | string | OAuth2 application id |
 | rpc_token | string | one-time use RPC token |
-| username | string | username to create a guest account with if the user does not have Discord (only in GameBridge SDK) |
+| username | string | username to create a guest account with if the user does not have Discord |
 
 ###### Authorize Response Structure
 
