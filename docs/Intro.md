@@ -26,7 +26,7 @@ Head over to our new [applications page](#MY_APPLICATIONS/top) to dive into crea
 
 ## Games (aka Games)
 
-There are a couple ways for games and their developers to work with Discord. [Rich Presence](https://discordapp.com/rich-presence) is a great way to more deeply integrate with Discord. It lets you:
+Discord is built around the idea of bringing people together through games. As part of that goal, we want to offer ways for game developers to work closely with us and make awesome stuff. [Rich Presence](https://discordapp.com/rich-presence) is a great way to more deeply integrate with Discord! It lets you:
 
 - Show more detailed status information on your players' profiles
 - Allow your players to create invites in Discord for others to play with them
@@ -36,8 +36,13 @@ There are a couple ways for games and their developers to work with Discord. [Ri
 
 Rich Presence is free, open-sourced, and self-serve, so check out [the How To guide](#DOCS_HOW_TO/) and get started!
 
-We also have a Voice and Text Chat SDK to power in-game communication. This SDK is in private beta. If you're interested in using Discord to power your game's chat features, [apply for access](https://discordapp.com/gamebridge).
+Those looking to test out the waters before jumping into the deep end with a technical integration should check out our [Verified Servers](https://discordapp.com/verification) program. Being a game developer and owning and operating your game's Discord server makes you eligible for special perks like:
 
-We can't wait to see what you make!
+- A vanity url—no more `discord.gg/V913Lkm`
+- Custom invite splash art
+- Access to VIP voice server regions
+- A verified check mark to show that you're legit
+
+We can't wait to work with you and see what you make!
 
  -- Discord Dev Team

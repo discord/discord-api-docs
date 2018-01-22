@@ -2,7 +2,6 @@
 
 >danger
 >For now, RPC is in a private beta, which means that only apps that have signed up and been approved can access it.
->If you're interested in trying out Discord to power your game, please [sign up here](https://discordapp.com/gamebridge).
 
 ###### RPC Versions
 
