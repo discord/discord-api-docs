@@ -11,14 +11,6 @@
 
 All Discord clients have an RPC server running on localhost that allows control over local Discord clients. Most games will want to use our [GameBridge](#DOCS_GAMEBRIDGE) SDK in combination, since it offers the power of Discord to players who don't have Discord yet installed. In addition to the documentation below, we have put together a sample project that shows the basics of using the RPC within a game. [Check it out](https://github.com/discordapp/sample-game-integration) if you'd like to see how all of these concepts come together.
 
-## Topics
-
-1. [Payloads](#DOCS_RPC/payloads)
-2. [Connecting](#DOCS_RPC/connecting)
-3. [Authenticating](#DOCS_RPC/authenticating)
-4. [Proxied API Requests](#DOCS_RPC/proxied-api-requests)
-5. [Commands and Events](#DOCS_RPC/commands-and-events)
-
 ## Restrictions
 
 For connections to the RPC server, a [whitelist](#DOCS_RPC/authorize) is used to restrict access while you're still developing. You can invite up to 50 people to your whitelist.
@@ -576,7 +568,7 @@ Used to change voice settings of users in voice channels
 
 #### SELECT_VOICE_CHANNEL
 
-Used to join and leave voice channels, group dms, or dms
+Used to join and leave voice channels, group dms, or dms. Returns the [Get Channel](#DOCS_RPC/get-channel) response, `null` if none.
 
 ###### Select Voice Channel Argument Structure
 
@@ -588,10 +580,6 @@ Used to join and leave voice channels, group dms, or dms
 
 >warn
 >When trying to join the user to a voice channel, you will receive a `5003` error coded response if the user is already in a voice channel. The `force` parameter should only be specified in response to the case where a user is already in a voice channel and they have **approved** to be moved by your app to a new voice channel.
-
-###### Select Voice Channel Response Structure
-
-Returns the Get Channel response, `null` if none.
 
 ###### Example Select Voice Channel Command Payload
 

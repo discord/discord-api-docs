@@ -74,11 +74,11 @@ Our voice gateways have their own set of opcodes and close codes.
 | 4016 | Unknown Encryption Mode | We didn't recognize your [encryption](#DOCS_VOICE_CONNECTIONS/encrypting-and-sending-voice). |
 
 
-## HTTP Response/Error Codes
+## HTTP
 
 Our API will return semantically valid HTTP response codes based on the success of your request. The following table can be used as a reference for response codes it will return.
 
-###### HTTP Response/Error Code List
+###### HTTP Response Codes
 
 | Code | Meaning |
 |------|---------|
@@ -95,7 +95,7 @@ Our API will return semantically valid HTTP response codes based on the success 
 | 502 (GATEWAY UNAVAILABLE) | There was not a gateway available to process your request. Wait a bit and retry |
 | 5xx (SERVER ERROR) | The server had an error processing your request (these are rare) |
 
-## JSON Error Response
+## JSON
 
 Along with the HTTP error code, our API can also return more detailed error codes through a `code` key in the JSON error response. The response will also contain a `message` key containing a more friendly error string.
 
@@ -163,7 +163,7 @@ Along with the HTTP error code, our API can also return more detailed error code
 
 RPC is the [local Discord server](#DOCS_RPC/) running on localhost. Access to the RPC server is gated behind a whitelist.
 
-###### RPC Errors
+###### RPC Error Codes
 
 | Code | Name | Description |
 |--------|----------|-----------------|
@@ -184,7 +184,7 @@ RPC is the [local Discord server](#DOCS_RPC/) running on localhost. Access to th
 | 5003 | Select Voice Force Required | sent when you try to join a user to a voice channel but the user is already in one |
 | 5004 | Capture Shortcut Already Listening | sent when you try to capture a shortcut key when already capturing one |
 
-###### RPC Close Codes
+###### RPC Close Event Codes
 
 | Code | Name | Description |
 |--------|----------|-----------------|

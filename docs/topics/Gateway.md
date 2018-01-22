@@ -12,18 +12,6 @@ The Discord Gateway has a versioning system which is separate from the core APIs
 | 5 | Discontinued |
 | 4 | Discontinued |
 
-## Topics
-
-1. [Payloads](#DOCS_GATEWAY/payloads)
-2. [Encoding and Compression](#DOCS_GATEWAY/encoding-and-compression)
-3. [Connecting to the Gateway](#DOCS_GATEWAY/connecting)
-4. [Resuming a Disconnected Session](#DOCS_GATEWAY/resuming)
-5. [Rate Limits](#DOCS_GATEWAY/rate-limiting)
-6. [Tracking State](#DOCS_GATEWAY/tracking-state)
-7. [Guild Availability](#DOCS_GATEWAY/guild-availability)
-8. [Sharding](#DOCS_GATEWAY/sharding)
-9. [Commands and Events](#DOCS_GATEWAY/commands-and-events)
-
 ## Payloads
 
 ###### Gateway Payload Structure
