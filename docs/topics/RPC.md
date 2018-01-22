@@ -569,7 +569,7 @@ Used to change voice settings of users in voice channels
 
 #### SELECT_VOICE_CHANNEL
 
-Used to join and leave voice channels, group dms, or dms
+Used to join and leave voice channels, group dms, or dms. Returns the [Get Channel](#DOCS_RPC/get-channel) response, `null` if none.
 
 ###### Select Voice Channel Argument Structure
 
@@ -581,10 +581,6 @@ Used to join and leave voice channels, group dms, or dms
 
 >warn
 >When trying to join the user to a voice channel, you will receive a `5003` error coded response if the user is already in a voice channel. The `force` parameter should only be specified in response to the case where a user is already in a voice channel and they have **approved** to be moved by your app to a new voice channel.
-
-###### Select Voice Channel Response Structure
-
-Returns the Get Channel response, `null` if none.
 
 ###### Example Select Voice Channel Command Payload
 
