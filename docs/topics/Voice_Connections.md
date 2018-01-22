@@ -94,7 +94,7 @@ The voice server should respond with an [Opcode 2 Ready](#DOCS_OPCODES_AND_STATU
 
 In order to maintain your websocket connection, you need to continuously send heartbeats at the interval determined in [Opcode 8 Hello](#DOCS_OPCODES_AND_STATUS_CODES/voice-opcodes):
 
-###### Example Hello Payload
+###### Example Hello Payload Below V3
 
 ```json
 {
@@ -102,10 +102,23 @@ In order to maintain your websocket connection, you need to continuously send he
 }
 ```
 
+###### Exmaple Hello Payload V3
+
+```json
+{
+	"op": 8,
+	"d": {
+		"heartbeat_interval": 41250
+	}
+}
+```
+
 >danger
 >There is currently a bug in the Hello payload heartbeat interval. Until it is fixed, please take your heartbeat interval as `heartbeat_interval` * .75. This warning will be removed and a changelog published when the bug is fixed.
 
-This is sent at the start of the connection. Unlike the other payloads, [Opcode 8 Hello](#DOCS_OPCODES_AND_STATUS_CODES/voice-opcodes) does not have an opcode or a data field denoted by `d`. Be sure to expect this different format. After this, you should send [Opcode 3 Heartbeat](#DOCS_OPCODES_AND_STATUS_CODES/voice-opcodes)—which contains an integer nonce—every elapsed interval:
+This is sent at the start of the connection. Be warned that the [Opcode 8 Hello](#DOCS_OPCODES_AND_STATUS_CODES/voice-opcodes) structure differs by gateway version as shown in the above examples. Versions below v3 do not have an opcode or a data field denoted by `d`. V3 is updated to be structured like other payloads. Be sure to expect this different format based on your version.
+
+After receiving [Opcode 8 Hello](#DOCS_OPCODES_AND_STATUS_CODES/voice-opcodes), you should send [Opcode 3 Heartbeat](#DOCS_OPCODES_AND_STATUS_CODES/voice-opcodes)—which contains an integer nonce—every elapsed interval:
 
 ###### Example Heartbeat Payload
 
