@@ -1,5 +1,11 @@
 # Change Log
 
+## Deprecation: Accept Invite Endpoint
+
+#### January 23, 2018
+
+The [Accept Invite](#DOCS_INVITE/accept-invite) endpoint is deprecated starting today, and will be discontinued on March 23, 2018. The [Add Guild Member](#DOCS_GUILD/add-guild-member) endpoint should be used in its place.
+
 ## Semi-Breaking Change: Very Large Bot Sharding
 
 #### January 3, 2018

@@ -69,4 +69,7 @@ Delete an invite. Requires the `MANAGE_CHANNELS` permission. Returns an [invite]
 
 ## Accept Invite % POST /invites/{invite.code#DOCS_INVITE/invite-object}
 
+>danger
+>This endpoint is deprecated and will be discontinued on March 23, 2018. [Add Guild Member](#DOCS_GUILD/add-guild-member) should be used in its place.
+
 Accept an invite. This requires the `guilds.join` OAuth2 scope to be able to accept invites on behalf of normal users (via an OAuth2 Bearer token). Bot users are disallowed. Returns an [invite](#DOCS_INVITE/invite-object) object on success.
