@@ -149,7 +149,7 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 50036 | An invite was accepted to a guild the application's bot is not in |
 | 50041 | Invalid API version |
 | 90001 | Reaction blocked |
-| XXXXX | Emojis cannot be larger than XXX Xb |
+| XXXXX | Emojis cannot be larger than 256kb |
 
 ###### Example JSON Error Response
 
