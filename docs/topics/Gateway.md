@@ -482,12 +482,16 @@ The ready event is dispatched when a client has completed the initial handshake 
 |-------|------|-------------|
 | v | integer | [gateway protocol version](#DOCS_GATEWAY/gateway-protocol-versions) |
 | user | [user](#DOCS_USER/user-object) object | information about the user including email |
+| private_channels | array of [DM channel](#DOCS_CHANNEL/channel-object) objects | the direct message channels the user is in |
 | guilds | array of [Unavailable Guild](#DOCS_GUILD/unavailable-guild-object) objects | the guilds the user is in |
 | session_id | string | used for resuming connections |
 | \_trace | array of strings | used for debugging - the guilds the user is in |
 
 >warn
 >`guilds` are the guilds of which your bot is a member. They start out as unavailable when you connect to the gateway. As they become available to your bot, you will be notified via [Guild Create](#DOCS_GATEWAY/guild-create) events.
+
+>warn
+>`private_channels` will be an empty array for bot accounts. As bots receive messages, you will receive [Channel Create](#DOCS_GATEWAY/channel-create) payloads before the [Message Create](#DOCS_GATEWAY/message-create) ones.
 
 #### Resumed
 
