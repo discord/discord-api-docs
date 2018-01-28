@@ -482,7 +482,6 @@ The ready event is dispatched when a client has completed the initial handshake 
 |-------|------|-------------|
 | v | integer | [gateway protocol version](#DOCS_GATEWAY/gateway-protocol-versions) |
 | user | [user](#DOCS_USER/user-object) object | information about the user including email |
-| private_channels | array of [DM channel](#DOCS_CHANNEL/channel-object) objects | the direct messages the user is in |
 | guilds | array of [Unavailable Guild](#DOCS_GUILD/unavailable-guild-object) objects | the guilds the user is in |
 | session_id | string | used for resuming connections |
 | \_trace | array of strings | used for debugging - the guilds the user is in |
