@@ -491,7 +491,7 @@ The ready event is dispatched when a client has completed the initial handshake 
 >`guilds` are the guilds of which your bot is a member. They start out as unavailable when you connect to the gateway. As they become available to your bot, you will be notified via [Guild Create](#DOCS_GATEWAY/guild-create) events.
 
 >warn
->`private_channels` will be an empty array for bot accounts. As bots receive messages, you will receive [Channel Create](#DOCS_GATEWAY/channel-create) payloads before the [Message Create](#DOCS_GATEWAY/message-create) ones.
+>`private_channels` will be an empty array for bot accounts. As bots receive private messages, you will receive a [Channel Create](#DOCS_GATEWAY/channel-create) payload before the [Message Create](#DOCS_GATEWAY/message-create) one.
 
 #### Resumed
 
