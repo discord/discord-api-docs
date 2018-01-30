@@ -476,6 +476,8 @@ Sent on connection to the websocket. Defines the heartbeat interval that the cli
 
 The ready event is dispatched when a client has completed the initial handshake with the gateway (for new sessions). The ready event can be the largest and most complex event the gateway will send, as it contains all the state required for a client to begin interacting with the rest of the platform.
 
+For bots, `guilds` are the guilds of which your bot is a member. They start out as unavailable when you connect to the gateway. As they become available to your bot, you will be notified via [Guild Create](#DOCS_GATEWAY/guild-create) events. Also for bots, `private_channels` will be an empty array. As bots receive private messages, they will receive [Channel Create](#DOCS_GATEWAY/channel-create) payloads before the [Message Create](#DOCS_GATEWAY/message-create) ones.
+
 ###### Ready Event Fields
 
 | Field | Type | Description |
@@ -486,12 +488,6 @@ The ready event is dispatched when a client has completed the initial handshake 
 | guilds | array of [Unavailable Guild](#DOCS_GUILD/unavailable-guild-object) objects | the guilds the user is in |
 | session_id | string | used for resuming connections |
 | \_trace | array of strings | used for debugging - the guilds the user is in |
-
->warn
->`guilds` are the guilds of which your bot is a member. They start out as unavailable when you connect to the gateway. As they become available to your bot, you will be notified via [Guild Create](#DOCS_GATEWAY/guild-create) events.
-
->warn
->`private_channels` will be an empty array for bot accounts. As bots receive private messages, you will receive [Channel Create](#DOCS_GATEWAY/channel-create) payloads before the [Message Create](#DOCS_GATEWAY/message-create) ones.
 
 #### Resumed
 
