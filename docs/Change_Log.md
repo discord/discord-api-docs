@@ -1,5 +1,11 @@
 # Change Log
 
+## Enhancement: Get Guild Emoji Endpoint
+
+#### January 30, 2018
+
+The [Get Guild Emoji](#DOCS_EMOJI/get-guild-emoji) response now also includes a user object if the emoji was added by a user.
+
 ## Deprecation: Accept Invite Endpoint
 
 #### January 23, 2018
