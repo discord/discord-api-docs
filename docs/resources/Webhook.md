@@ -2,7 +2,7 @@
 
 Webhooks are a low-effort way to post messages to channels in Discord. They do not require a bot user or authentication to use.
 
-## Webhook Object
+### Webhook Object
 
 Used to represent a webhook.
 
