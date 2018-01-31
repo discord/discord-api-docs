@@ -262,7 +262,7 @@ Events are payloads sent over the socket to a client that correspond events in D
 | [Guild Member Add](#DOCS_GATEWAY/guild-member-add) | new user joined a guild |
 | [Guild Member Remove](#DOCS_GATEWAY/guild-member-remove) | user was removed from a guild |
 | [Guild Member Update](#DOCS_GATEWAY/guild-member-update) | guild member was updated |
-| [Guild Members Chunk](#DOCS_GATEWAY/guild-members-chunk) | respose to [Request Guild Members](#DOCS_GATEWAY/request-guild-members) |
+| [Guild Members Chunk](#DOCS_GATEWAY/guild-members-chunk) | response to [Request Guild Members](#DOCS_GATEWAY/request-guild-members) |
 | [Guild Role Create](#DOCS_GATEWAY/guild-role-create) | guild role was created |
 | [Guild Role Update](#DOCS_GATEWAY/guild-role-update) | guild role was updated |
 | [Guild Role Delete](#DOCS_GATEWAY/guild-role-delete) | guild role was deleted |
