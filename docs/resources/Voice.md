@@ -33,7 +33,7 @@ Used to represent a user's voice connection status.
 }
 ```
 
-## Voice Region
+### Voice Region Object
 
 ###### Voice Region Structure
 
