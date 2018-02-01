@@ -217,7 +217,7 @@ As an example, if you wanted to split the connection between three shards, you'd
 
 ## Sharding for Very Large Bots
 
-If you are a bot that is in over 100,000 guilds, there are some additional considerations you must take around sharding. We will contact you if you are required to adhere to these changes.
+If you own a bot that is in over 100,000 guilds, there are some additional considerations you must take around sharding. We will contact you if you are required to adhere to these changes.
 
 The number of shards you run must be a multiple of a fixed number we will determine when reaching out to you. If you attempt to start your bot with an invalid number of shards, your websocket connection will close with a 4010 Invalid Shard opcode. The gateway bot bootstrap endpoint will return the correct amount of shards, so if you're already using this endpoint to determine your number of shards, you shouldn't require any further changes.
 
