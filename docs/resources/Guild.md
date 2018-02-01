@@ -320,7 +320,7 @@ Returns a [guild member](#DOCS_GUILD/guild-member-object) object for the specifi
 
 ## List Guild Members % GET /guilds/{guild.id#DOCS_GUILD/guild-object}/members
 
-Returns a list of [guild member](#GUILD/guild-member-object) objects that are members of the guild.
+Returns a list of [guild member](#DOCS_GUILD/guild-member-object) objects that are members of the guild.
 
 >info
 >All parameters to this endpoint are optional
