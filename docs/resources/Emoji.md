@@ -3,9 +3,6 @@
 >warn
 >Routes for controlling emojis do not follow the normal rate limit conventions. These routes are specifically limited on a per-guild basis to prevent abuse. This means that the quota returned by our APIs may be inaccurate, and you may encounter 429s.
 
->warn
->Emojis have a maximum file size of 256kb each to prevent abuse. This limit also applies to animated emojis. Attempting to upload an emoji higher than this limit will fail and return 400 Bad Request, however will not return a JSON status code (at this time).
-
 ### Emoji Object
 
 ###### Emoji Structure
