@@ -26,7 +26,7 @@ Discord enforces the following restrictions for usernames and nicknames:
 
 There are other rules and restrictions not shared here for the sake of spam and abuse mitigation, but the majority of users won't encounter them. It's important to properly handle all error messages returned by Discord when editing or updating names.
 
-## User Object
+### User Object
 
 ###### User Structure
 
@@ -54,7 +54,7 @@ There are other rules and restrictions not shared here for the sake of spam and 
 }
 ```
 
-## Connection Object
+### Connection Object
 
 The connection object that the user has attached.
 

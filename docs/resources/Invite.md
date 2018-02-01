@@ -1,6 +1,6 @@
 # Invite Resource
 
-## Invite Object
+### Invite Object
 
 Represents a code that when used, adds a user to a guild.
 
@@ -31,7 +31,7 @@ Represents a code that when used, adds a user to a guild.
 }
 ```
 
-## Invite Metadata Object
+### Invite Metadata Object
 
 ###### Invite Metadata Structure
 

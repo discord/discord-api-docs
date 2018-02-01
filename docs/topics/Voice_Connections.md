@@ -193,7 +193,7 @@ Voice data sent to discord should be encoded with [Opus](https://www.opus-codec.
 | Timestamp | unsigned int (big endian) | 4 bytes |
 | SSRC | unsigned int (big endian) | 4 bytes |
 
-### Speaking
+## Speaking
 
 To notify clients that you are speaking or have stopped speaking, send an [Opcode 5 Speaking](#DOCS_OPCODES_AND_STATUS_CODES/voice-opcodes) payload:
 

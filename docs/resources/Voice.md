@@ -1,6 +1,6 @@
 # Voice Resource
 
-## Voice State Object
+### Voice State Object
 
 Used to represent a user's voice connection status.
 
@@ -33,7 +33,7 @@ Used to represent a user's voice connection status.
 }
 ```
 
-## Voice Region
+### Voice Region Object
 
 ###### Voice Region Structure
 

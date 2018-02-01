@@ -1,6 +1,6 @@
 # Channels Resource
 
-## Channel Object
+### Channel Object
 
 Represents a guild or DM channel within Discord.
 
