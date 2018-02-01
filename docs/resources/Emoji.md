@@ -67,7 +67,7 @@ Returns an [emoji](#DOCS_EMOJI/emoji-object) object for the given guild and emoj
 Create a new emoji for the guild. Requires the 'MANAGE_EMOJIS' permission. Returns the new [emoji](#DOCS_EMOJI/emoji-object) object on success. Fires a [Guild Emojis Update](#DOCS_GATEWAY/guild-emojis-update) Gateway event.
 
 >warn
->Emojis have a maximum file size of 256kb each to prevent abuse. This limit also applies to animated emojis. Attempting to upload an emoji higher than this limit will fail and return 400 Bad Request, however will not return a JSON status code (at this time).
+>Emojis and animated emojis have a maximum file size of 256kb. Attempting to upload an emoji larger than this limit will fail and return 400 Bad Request and an error message, but not a [JSON status code](#DOCS_OPCODES_AND_STATUS_CODES/json).
 
 ###### JSON Params
 
