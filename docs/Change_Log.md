@@ -1,5 +1,11 @@
 # Change Log
 
+## Enhancement: New Message Property
+
+### February 5, 2018
+
+The [Activity](#DOCS_GATEWAY/activity-object) object has been added to the [Message](#DOCS_CHANNEL/message-object) object in support of our newly-released [Spotify integration](https://support.discordapp.com/hc/en-us/articles/360000167212-Discord-Spotify-Connection).
+
 ## Enhancement: Get Guild Emoji Endpoint
 
 #### January 30, 2018
