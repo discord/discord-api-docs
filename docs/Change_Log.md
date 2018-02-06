@@ -1,10 +1,10 @@
 # Change Log
 
-## Enhancement: New Message Property
+## Enhancement: New Message Properties
 
 ### February 5, 2018
 
-The [Activity](#DOCS_GATEWAY/activity-object) object has been added to the [Message](#DOCS_CHANNEL/message-object) object in support of our newly-released [Spotify integration](https://support.discordapp.com/hc/en-us/articles/360000167212-Discord-Spotify-Connection).
+Additional `activity` and `application` fields—as well as corresponding object documentation—have been added to the [Message](#DOCS_CHANNEL/message-object) object in support of our newly-released [Spotify integration](https://support.discordapp.com/hc/en-us/articles/360000167212-Discord-Spotify-Connection) and previous Rich Presence enhancements.
 
 ## Enhancement: Get Guild Emoji Endpoint
 
