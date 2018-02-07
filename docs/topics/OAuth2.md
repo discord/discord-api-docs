@@ -138,7 +138,7 @@ def refresh_token(refresh_token):
   headers = {
     'Content-Type': 'application/x-www-form-urlencoded'
   }
-  r = requests.post('%s/oauth2/token' % API_ENDPOINT + 'token', data, headers)
+  r = requests.post('%s/oauth2/token' % API_ENDPOINT, data, headers)
   r.raise_for_status()
   return r.json()
 ```
