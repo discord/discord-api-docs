@@ -94,7 +94,7 @@ def on_websocket_message(msg):
 |-------|------|-------------|
 | v | integer | Gateway Version to use |
 | encoding | string | 'json' or 'etf' |
-| compress | string | 'zlib-stream' (optional) |
+| compress? | string | 'zlib-stream'|
 
 The first step in establishing connectivity to the gateway is requesting a valid websocket endpoint from the API. This can be done through either the [Get Gateway](#DOCS_GATEWAY/get-gateway) or the [Get Gateway Bot](#DOCS_GATEWAY/get-gateway-bot) endpoint.
 
