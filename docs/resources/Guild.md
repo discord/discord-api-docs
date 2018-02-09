@@ -528,6 +528,14 @@ Returns the [guild embed](#DOCS_GUILD/guild-embed-object) object. Requires the '
 
 Modify a [guild embed](#DOCS_GUILD/guild-embed-object) object for the guild. All attributes may be passed in with JSON and modified. Requires the 'MANAGE_GUILD' permission. Returns the updated [guild embed](#DOCS_GUILD/guild-embed-object) object.
 
-## Get Guild Vanity URL % GET /guilds/{guild.id#DOCS_GUILD/guild-object}/vanity_url
+## Get Guild Vanity URL % GET /guilds/{guild.id#DOCS_GUILD/guild-object}/vanity-url
 
-Returns the vanity URL code for guilds with that feature enabled.
+Returns a partial [invite](#DOCS_INVITE/invite-object) object for guilds with that feature enabled. Requires the 'MANAGE_GUILD' permission.
+
+###### Example Partial Invite Object
+
+```json
+{
+	"code": "abc"
+}
+```
