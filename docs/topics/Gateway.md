@@ -295,7 +295,7 @@ Used to trigger the initial handshake with the gateway.
 | token | string | authentication token | - |
 | properties | object | [connection properties](#DOCS_GATEWAY/identify-identify-connection-properties) | - |
 | compress? | bool | whether this connection supports compression of packets | false |
-| large_threshold? | integer | value between 50 and 250, total number of members where the gateway will stop sending offline members in the guild member list | 100 |
+| large_threshold? | integer | value between 50 and 250, total number of members where the gateway will stop sending offline members in the guild member list | 50 |
 | shard? | array of two integers (shard_id, num_shards) | used for [Guild Sharding](#DOCS_GATEWAY/sharding) | - |
 | presence? | [update status](#DOCS_GATEWAY/update-status) object | presence structure for initial presence information | - |
 
