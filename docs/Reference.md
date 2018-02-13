@@ -64,14 +64,14 @@ Discord utilizes Twitter's [snowflake](https://github.com/twitter/snowflake/tree
 
 | Field | Bits | Number of bits | Description | Retrieval |
 |-------|------|----------------|-------------|-----------|
-| Timestamp | 64 to 22 | 42 bits | Milliseconds since Discord Epoch, the first second of 2015 or 1420070400000. | ``(snowflake >> 22) + 1420070400000`` |
-| Internal worker ID | 22 to 17 | 5 bits | | ``(snowflake & 0x3E0000) >> 17`` |
-| Internal process ID | 17 to 12 | 5 bits | | ``(snowflake & 0x1F000) >> 12`` |
-| Increment | 12 to 0 | 10 bits | For every ID that is generated on that process, this number is incremented | ``snowflake & 0xFFF`` |
+| Timestamp | 63 to 22 | 42 bits | Milliseconds since Discord Epoch, the first second of 2015 or 1420070400000. | ``(snowflake >> 22) + 1420070400000`` |
+| Internal worker ID | 21 to 17 | 5 bits | | ``(snowflake & 0x3E0000) >> 17`` |
+| Internal process ID | 16 to 12 | 5 bits | | ``(snowflake & 0x1F000) >> 12`` |
+| Increment | 11 to 0 | 12 bits | For every ID that is generated on that process, this number is incremented | ``snowflake & 0xFFF`` |
 
 ### Convert Snowflake to DateTime
 
-![](snowflake.png)
+![snowflake-composition](snowflake.png)
 
 ## Nullable and Optional Resource Fields
 
