@@ -367,7 +367,7 @@ Modify attributes of a [guild member](#DOCS_GUILD/guild-member-object). Returns 
 | deaf | bool | if the user is deafened | DEAFEN_MEMBERS |
 | channel_id | snowflake | id of channel to move user to (if they are connected to voice) | MOVE_MEMBERS |
 
-## Modify Current User's Nick % PATCH /guilds/{guild.id#DOCS_GUILD/guild-object}/members/@me/nick
+## Modify Current User Nick % PATCH /guilds/{guild.id#DOCS_GUILD/guild-object}/members/@me/nick
 
 Modifies the nickname of the current user in a guild. Returns a 200 with the nickname on success. Fires a [Guild Member Update](#DOCS_GATEWAY/guild-member-update) Gateway event.
 
