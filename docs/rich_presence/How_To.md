@@ -2,6 +2,8 @@
 
 How easy is it for people to play your game together? With Rich Presence from Discord, it just got so easy, a ~~caveman~~ Junior Dev could do it.
 
+If you are testing a game integration with Rich Presence, other users will be able to see it. Please create a private test account and do not join any public servers while testing your integration.
+
 >info
 >If you want to stay up to date with the latest developer news from Discord and learn about new and exciting ways to work with us, sign up for our [developer newsletter](https://discordapp.com/dev-newsletter).
 
