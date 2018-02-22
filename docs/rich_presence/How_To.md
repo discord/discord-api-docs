@@ -140,6 +140,10 @@ typedef struct DiscordRichPresence {
 >info
 >Sending `endTimestamp` will **always** have the time displayed as "remaining" until the given time. Sending `startTimestamp` will show "elapsed" as long as there is no `endTimestamp` sent.
 
+Here's a handy image to see how these fields are actually displayed on a profile:
+
+![](rp-legend.png)
+
 ## Joining
 
 #### Relevant Callbacks:
