@@ -13,7 +13,7 @@ All Discord clients have an RPC server running on localhost that allows control 
 
 ## Restrictions
 
-For connections to the RPC server, a [whitelist](#DOCS_RPC/authorize) is used to restrict access while you're still developing. You can invite up to 50 people to your whitelist.
+For connections to the RPC server, a [whitelist](#DOCS_TOPICS_RPC/authorize) is used to restrict access while you're still developing. You can invite up to 50 people to your whitelist.
 
 For applications/games not approved, we limit you to creating 10 guilds and 10 channels. This limit is raised to virtually unlimited after approval.
 
@@ -23,9 +23,9 @@ For applications/games not approved, we limit you to creating 10 guilds and 10 c
 
 | Field | Type | Description | Present |
 |-------|------|-------------|-------------|
-| cmd | enum | [payload command](#DOCS_RPC/commands-and-events-rpc-commands) | Always |
+| cmd | enum | [payload command](#DOCS_TOPICS_RPC/commands-and-events-rpc-commands) | Always |
 | nonce | string | unique string used once for replies from the server | In responses to commands (not subscribed events) |
-| evt | enum | [subscription event](#DOCS_RPC/commands-and-events-rpc-events) | In subscribed events, errors, and (un)subscribing events |
+| evt | enum | [subscription event](#DOCS_TOPICS_RPC/commands-and-events-rpc-events) | In subscribed events, errors, and (un)subscribing events |
 | data | object | event data | In responses from the server |
 | args | object | command arguments | In commands sent to the server |
 
@@ -54,7 +54,7 @@ The port range for Discord's local RPC server is [6463, 6472]. Since the RPC ser
 
 ## Authenticating
 
-In order to call any commands over RPC, you must be authenticated or you will receive a code `4006` error response. Thankfully, we've removed the oppressive nature of a couple commands that will let you `AUTHORIZE` and `AUTHENTICATE` new users. First, call [AUTHORIZE](#DOCS_RPC/authorize):
+In order to call any commands over RPC, you must be authenticated or you will receive a code `4006` error response. Thankfully, we've removed the oppressive nature of a couple commands that will let you `AUTHORIZE` and `AUTHENTICATE` new users. First, call [AUTHORIZE](#DOCS_TOPICS_RPC/authorize):
 
 ###### RPC Authorize Example
 
@@ -69,7 +69,7 @@ In order to call any commands over RPC, you must be authenticated or you will re
 }
 ```
 
-The user will then be prompted to authorize your app to access RPC on Discord. The `AUTHORIZE` command returns a `code` that you can exchange with a POST to `https://discordapp.com/api/oauth2/token` containing the [standard OAuth2 body parameters](https://tools.ietf.org/html/rfc6749#section-4.1.3) for the token exchange. The token endpoint on our API will return an `access_token` that can be sent with [AUTHENTICATE](#DOCS_RPC/authenticate):
+The user will then be prompted to authorize your app to access RPC on Discord. The `AUTHORIZE` command returns a `code` that you can exchange with a POST to `https://discordapp.com/api/oauth2/token` containing the [standard OAuth2 body parameters](https://tools.ietf.org/html/rfc6749#section-4.1.3) for the token exchange. The token endpoint on our API will return an `access_token` that can be sent with [AUTHENTICATE](#DOCS_TOPICS_RPC/authenticate):
 
 ###### RPC Authenticate Example
 
@@ -87,7 +87,7 @@ You can now call RPC commands on behalf of the authorized user!
 
 ## Proxied API Requests
 
-If you request the `rpc.api` [scope](#DOCS_OAUTH2/shared-resources-oauth2-scopes) when authorizing your app to the client, your app is able to call the Discord API on behalf of the user whose access token you retrieved.
+If you request the `rpc.api` [scope](#DOCS_TOPICS_OAUTH2/shared-resources-oauth2-scopes) when authorizing your app to the client, your app is able to call the Discord API on behalf of the user whose access token you retrieved.
 
 For proxied API requests, the schema, host, and path to the API endpoint is always `http://127.0.0.1:PORT/` where `PORT` is the same port on which the RPC server is listening.
 
@@ -117,22 +117,22 @@ Commands are requests made to the RPC socket by a client.
 
 | Name | Description |
 |--------|-----------------|
-| [DISPATCH](#DOCS_RPC/events) | event dispatch |
-| [AUTHORIZE](#DOCS_RPC/authorize) | used to authorize a new client with your app |
-| [AUTHENTICATE](#DOCS_RPC/authenticate) | used to authenticate an existing client with your app |
-| [GET_GUILD](#DOCS_RPC/getguild) | used to retrieve guild information from the client |
-| [GET_GUILDS](#DOCS_RPC/getguilds) | used to retrieve a list of guilds from the client |
-| [GET_CHANNEL](#DOCS_RPC/getchannel) | used to retrieve channel information from the client |
-| [GET_CHANNELS](#DOCS_RPC/getchannels) | used to retrieve a list of channels for a guild from the client |
-| [SUBSCRIBE](#DOCS_RPC/subscribe) | used to subscribe to an RPC event |
-| [UNSUBSCRIBE](#DOCS_RPC/unsubscribe) | used to unsubscribe from an RPC event |
-| [SET_USER_VOICE_SETTINGS](#DOCS_RPC/setuservoicesettings) | used to change voice settings of users in voice channels |
-| [SELECT_VOICE_CHANNEL](#DOCS_RPC/selectvoicechannel) | used to join or leave a voice channel, group dm, or dm |
-| [GET_SELECTED_VOICE_CHANNEL](#DOCS_RPC/getselectedvoicechannel) | used to get the current voice channel the client is in |
-| [SELECT_TEXT_CHANNEL](#DOCS_RPC/selecttextchannel) | used to join or leave a text channel, group dm, or dm |
-| [GET_VOICE_SETTINGS](#DOCS_RPC/getvoicesettings) | used to retrieve the client's voice settings |
-| [SET_VOICE_SETTINGS](#DOCS_RPC/setvoicesettings) | used to set the client's voice settings |
-| [CAPTURE_SHORTCUT](#DOCS_RPC/captureshortcut) | used to capture a keyboard shortcut entered by the user |
+| [DISPATCH](#DOCS_TOPICS_RPC/events) | event dispatch |
+| [AUTHORIZE](#DOCS_TOPICS_RPC/authorize) | used to authorize a new client with your app |
+| [AUTHENTICATE](#DOCS_TOPICS_RPC/authenticate) | used to authenticate an existing client with your app |
+| [GET_GUILD](#DOCS_TOPICS_RPC/getguild) | used to retrieve guild information from the client |
+| [GET_GUILDS](#DOCS_TOPICS_RPC/getguilds) | used to retrieve a list of guilds from the client |
+| [GET_CHANNEL](#DOCS_TOPICS_RPC/getchannel) | used to retrieve channel information from the client |
+| [GET_CHANNELS](#DOCS_TOPICS_RPC/getchannels) | used to retrieve a list of channels for a guild from the client |
+| [SUBSCRIBE](#DOCS_TOPICS_RPC/subscribe) | used to subscribe to an RPC event |
+| [UNSUBSCRIBE](#DOCS_TOPICS_RPC/unsubscribe) | used to unsubscribe from an RPC event |
+| [SET_USER_VOICE_SETTINGS](#DOCS_TOPICS_RPC/setuservoicesettings) | used to change voice settings of users in voice channels |
+| [SELECT_VOICE_CHANNEL](#DOCS_TOPICS_RPC/selectvoicechannel) | used to join or leave a voice channel, group dm, or dm |
+| [GET_SELECTED_VOICE_CHANNEL](#DOCS_TOPICS_RPC/getselectedvoicechannel) | used to get the current voice channel the client is in |
+| [SELECT_TEXT_CHANNEL](#DOCS_TOPICS_RPC/selecttextchannel) | used to join or leave a text channel, group dm, or dm |
+| [GET_VOICE_SETTINGS](#DOCS_TOPICS_RPC/getvoicesettings) | used to retrieve the client's voice settings |
+| [SET_VOICE_SETTINGS](#DOCS_TOPICS_RPC/setvoicesettings) | used to set the client's voice settings |
+| [CAPTURE_SHORTCUT](#DOCS_TOPICS_RPC/captureshortcut) | used to capture a keyboard shortcut entered by the user |
 
 Events are payloads sent over the socket to a client that correspond events in Discord.
 
@@ -140,24 +140,24 @@ Events are payloads sent over the socket to a client that correspond events in D
 
 | Name | Description |
 |--------|-----------------|
-| [READY](#DOCS_RPC/ready) | non-subscription event sent immediately after connecting, contains server information |
-| [ERROR](#DOCS_RPC/error) | non-subscription event sent when there is an error, including command responses |
-| [GUILD_STATUS](#DOCS_RPC/guildstatus) | sent when a subscribed server's state changes |
-| [GUILD_CREATE](#DOCS_RPC/guildcreate) | sent when a guild is created/joined on the client |
-| [CHANNEL_CREATE](#DOCS_RPC/channelcreate) | sent when a channel is created/joined on the client |
-| [VOICE_CHANNEL_SELECT](#DOCS_RPC/voicechannelselect) | sent when the client joins a voice channel |
-| [VOICE_STATE_CREATE](#DOCS_RPC/voicestatecreatevoicestateupdatevoicestatedelete) | sent when a user joins a subscribed voice channel |
-| [VOICE_STATE_UPDATE](#DOCS_RPC/voicestatecreatevoicestateupdatevoicestatedelete) | sent when a user's voice state changes in a subscribed voice channel (mute, volume, etc.) |
-| [VOICE_STATE_DELETE](#DOCS_RPC/voicestatecreatevoicestateupdatevoicestatedelete) | sent when a user parts a subscribed voice channel |
-| [VOICE_SETTINGS_UPDATE](#DOCS_RPC/voicesettingsupdate) | sent when the client's voice settings update |
-| [VOICE_CONNECTION_STATUS](#DOCS_RPC/voiceconnectionstatus) | sent when the client's voice connection status changes |
-| [SPEAKING_START](#DOCS_RPC/speakingstartspeakingstop) | sent when a user in a subscribed voice channel speaks |
-| [SPEAKING_STOP](#DOCS_RPC/speakingstartspeakingstop) | sent when a user in a subscribed voice channel stops speaking |
-| [MESSAGE_CREATE](#DOCS_RPC/messagecreatemessageupdatemessagedelete) | sent when a message is created in a subscribed text channel |
-| [MESSAGE_UPDATE](#DOCS_RPC/messagecreatemessageupdatemessagedelete) | sent when a message is updated in a subscribed text channel |
-| [MESSAGE_DELETE](#DOCS_RPC/messagecreatemessageupdatemessagedelete) | sent when a message is deleted in a subscribed text channel |
-| [NOTIFICATION_CREATE](#DOCS_RPC/notificationcreate) | sent when the client receives a notification (mention or new message in eligible channels) |
-| [CAPTURE_SHORTCUT_CHANGE](#DOCS_RPC/captureshortcutchange) | sent when the user presses a key during [shortcut capturing](#DOCS_RPC/captureshortcut) |
+| [READY](#DOCS_TOPICS_RPC/ready) | non-subscription event sent immediately after connecting, contains server information |
+| [ERROR](#DOCS_TOPICS_RPC/error) | non-subscription event sent when there is an error, including command responses |
+| [GUILD_STATUS](#DOCS_TOPICS_RPC/guildstatus) | sent when a subscribed server's state changes |
+| [GUILD_CREATE](#DOCS_TOPICS_RPC/guildcreate) | sent when a guild is created/joined on the client |
+| [CHANNEL_CREATE](#DOCS_TOPICS_RPC/channelcreate) | sent when a channel is created/joined on the client |
+| [VOICE_CHANNEL_SELECT](#DOCS_TOPICS_RPC/voicechannelselect) | sent when the client joins a voice channel |
+| [VOICE_STATE_CREATE](#DOCS_TOPICS_RPC/voicestatecreatevoicestateupdatevoicestatedelete) | sent when a user joins a subscribed voice channel |
+| [VOICE_STATE_UPDATE](#DOCS_TOPICS_RPC/voicestatecreatevoicestateupdatevoicestatedelete) | sent when a user's voice state changes in a subscribed voice channel (mute, volume, etc.) |
+| [VOICE_STATE_DELETE](#DOCS_TOPICS_RPC/voicestatecreatevoicestateupdatevoicestatedelete) | sent when a user parts a subscribed voice channel |
+| [VOICE_SETTINGS_UPDATE](#DOCS_TOPICS_RPC/voicesettingsupdate) | sent when the client's voice settings update |
+| [VOICE_CONNECTION_STATUS](#DOCS_TOPICS_RPC/voiceconnectionstatus) | sent when the client's voice connection status changes |
+| [SPEAKING_START](#DOCS_TOPICS_RPC/speakingstartspeakingstop) | sent when a user in a subscribed voice channel speaks |
+| [SPEAKING_STOP](#DOCS_TOPICS_RPC/speakingstartspeakingstop) | sent when a user in a subscribed voice channel stops speaking |
+| [MESSAGE_CREATE](#DOCS_TOPICS_RPC/messagecreatemessageupdatemessagedelete) | sent when a message is created in a subscribed text channel |
+| [MESSAGE_UPDATE](#DOCS_TOPICS_RPC/messagecreatemessageupdatemessagedelete) | sent when a message is updated in a subscribed text channel |
+| [MESSAGE_DELETE](#DOCS_TOPICS_RPC/messagecreatemessageupdatemessagedelete) | sent when a message is deleted in a subscribed text channel |
+| [NOTIFICATION_CREATE](#DOCS_TOPICS_RPC/notificationcreate) | sent when the client receives a notification (mention or new message in eligible channels) |
+| [CAPTURE_SHORTCUT_CHANGE](#DOCS_TOPICS_RPC/captureshortcutchange) | sent when the user presses a key during [shortcut capturing](#DOCS_TOPICS_RPC/captureshortcut) |
 
 #### AUTHORIZE
 
@@ -171,7 +171,7 @@ We also have an RPC token system to bypass the user authorization modal. This is
 
 | Field | Type | Description |
 |-------|------|-------------|
-| scopes | array of [OAuth2 scopes](#DOCS_OAUTH2/scopes) | scopes to authorize |
+| scopes | array of [OAuth2 scopes](#DOCS_TOPICS_OAUTH2/scopes) | scopes to authorize |
 | client_id | string | OAuth2 application id |
 | rpc_token | string | one-time use RPC token |
 | username | string | username to create a guest account with if the user does not have Discord |
@@ -221,10 +221,10 @@ Used to authenticate an existing client with your app.
 
 | Field | Type | Description |
 |-------|------|-------------|
-| user | partial [user](#DOCS_USER/user-object) object | the authed user |
-| scopes | array of [OAuth2 scopes](#DOCS_OAUTH2/scopes) | authorized scopes |
+| user | partial [user](#DOCS_RESOURCES_USER/user-object) object | the authed user |
+| scopes | array of [OAuth2 scopes](#DOCS_TOPICS_OAUTH2/scopes) | authorized scopes |
 | expires | date | expiration date of OAuth2 token |
-| application | [OAuth2 application](#DOCS_RPC/authenticate-oauth2-application-structure) object | application the user authorized |
+| application | [OAuth2 application](#DOCS_TOPICS_RPC/authenticate-oauth2-application-structure) object | application the user authorized |
 
 ###### OAuth2 Application Structure
 
@@ -282,7 +282,7 @@ Used to get a list of guilds the client is in.
 
 | Field | Type | Description |
 |-------|------|-------------|
-| guilds | array of partial [guild](#DOCS_GUILD/guild-object) objects | the guilds the user is in |
+| guilds | array of partial [guild](#DOCS_RESOURCES_GUILD/guild-object) objects | the guilds the user is in |
 
 ###### Example Get Guilds Command Payload
 
@@ -327,7 +327,7 @@ Used to get a guild the client is in.
 | id | string | guild id |
 | name | string | guild name |
 | icon_url | string | guild icon url |
-| members | array of [guild member](#DOCS_GUILD/guild-member-object) objects | members of the guild |
+| members | array of [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) objects | members of the guild |
 
 ###### Example Get Guild Command Payload
 
@@ -398,8 +398,8 @@ Used to get a channel the client is in.
 | bitrate | integer | (voice) bitrate of voice channel |
 | user_limit | integer | (voice) user limit of voice channel (0 for none) |
 | position | integer | position of channel in channel list |
-| voice_states | array of [voice state](#DOCS_VOICE/voice-state-object) objects | (voice) channel's voice states |
-| messages | array of [message](#DOCS_CHANNEL/message-object) objects | (text) channel's messages |
+| voice_states | array of [voice state](#DOCS_RESOURCES_VOICE/voice-state-object) objects | (voice) channel's voice states |
+| messages | array of [message](#DOCS_RESOURCES_CHANNEL/message-object) objects | (text) channel's messages |
 
 ###### Example Get Channel Command Payload
 
@@ -468,7 +468,7 @@ Used to get a guild's channels the client is in.
 
 | Field | Type | Description |
 |-------|------|-------------|
-| channels | array of partial [channel](#DOCS_CHANNEL/channel-object) objects | guild channels the user is in |
+| channels | array of partial [channel](#DOCS_RESOURCES_CHANNEL/channel-object) objects | guild channels the user is in |
 
 ###### Example Get Channels Command Payload
 
@@ -511,7 +511,7 @@ Used to change voice settings of users in voice channels
 | Field | Type | Description |
 |-------|------|-------------|
 | user_id | string | user id |
-| pan? | [pan](#DOCS_RPC/set-user-voice-settings-pan-object) object | set the pan of the user |
+| pan? | [pan](#DOCS_TOPICS_RPC/set-user-voice-settings-pan-object) object | set the pan of the user |
 | volume? | integer | set the volume of user (defaults to 100, min 0, max 200)|
 | mute? | bool | set the mute state of the user |
 
@@ -568,7 +568,7 @@ Used to change voice settings of users in voice channels
 
 #### SELECT_VOICE_CHANNEL
 
-Used to join and leave voice channels, group dms, or dms. Returns the [Get Channel](#DOCS_RPC/get-channel) response, `null` if none.
+Used to join and leave voice channels, group dms, or dms. Returns the [Get Channel](#DOCS_TOPICS_RPC/get-channel) response, `null` if none.
 
 ###### Select Voice Channel Argument Structure
 
@@ -636,11 +636,11 @@ Used to join and leave voice channels, group dms, or dms. Returns the [Get Chann
 
 #### GET_SELECTED_VOICE_CHANNEL
 
-Used to get the client's current voice channel. There are no arguments for this command. Returns the [Get Channel](#DOCS_RPC/get-channel) response, or `null` if none.
+Used to get the client's current voice channel. There are no arguments for this command. Returns the [Get Channel](#DOCS_TOPICS_RPC/get-channel) response, or `null` if none.
 
 #### SELECT_TEXT_CHANNEL
 
-Used to join and leave text channels, group dms, or dms. Returns the [Get Channel](#DOCS_RPC/get-channel) response, or `null` if none.
+Used to join and leave text channels, group dms, or dms. Returns the [Get Channel](#DOCS_TOPICS_RPC/get-channel) response, or `null` if none.
 
 ###### Select Text Channel Argument Structure
 
@@ -655,9 +655,9 @@ Used to join and leave text channels, group dms, or dms. Returns the [Get Channe
 
 | Field | Type | Description |
 |-------|------|-------------|
-| input | [voice settings input](#DOCS_RPC/get-voice-settings-voice-settings-input-object) object | input settings |
-| output | [voice settings ouput](#DOCS_RPC/get-voice-settings-voice-settings-output-object) | output settings |
-| mode | [voice settings mode](#DOCS_RPC/get-voice-settings-voice-settings-mode-object) object | voice mode settings |
+| input | [voice settings input](#DOCS_TOPICS_RPC/get-voice-settings-voice-settings-input-object) object | input settings |
+| output | [voice settings ouput](#DOCS_TOPICS_RPC/get-voice-settings-voice-settings-output-object) | output settings |
+| mode | [voice settings mode](#DOCS_TOPICS_RPC/get-voice-settings-voice-settings-mode-object) object | voice mode settings |
 | automatic_gain_control | bool | state of automatic gain control |
 | echo_cancellation | bool | state of echo cancellation |
 | noise_suppression | bool | state of noise suppression |
@@ -689,14 +689,14 @@ Used to join and leave text channels, group dms, or dms. Returns the [Get Channe
 | type | string | voice setting mode type (can be `PUSH_TO_TALK` or `VOICE_ACTIVITY`) |
 | auto_threshold | bool | voice activity threshold automatically sets its threshold |
 | threshold | float | threshold for voice activity (in dB) (min: -100, max: 0) |
-| shortcut | [shortcut key combo](#DOCS_RPC/get-voice-settings-shortcut-key-combo-object) object | shortcut key combos for PTT |
+| shortcut | [shortcut key combo](#DOCS_TOPICS_RPC/get-voice-settings-shortcut-key-combo-object) object | shortcut key combos for PTT |
 | delay | float | the PTT release delay (in ms) (min: 0, max: 2000) |
 
 ###### Shortcut Key Combo Object
 
 | Field | Type | Description |
 |-------|------|-------------|
-| type | integer | see [key types](#DOCS_RPC/shortcut-key-combo-object-key-types) |
+| type | integer | see [key types](#DOCS_TOPICS_RPC/shortcut-key-combo-object-key-types) |
 | code | integer | key code |
 | name | string | key name |
 
@@ -772,9 +772,9 @@ When setting voice settings, all fields are optional. Only passed fields are upd
 
 | Field | Type | Description |
 |-------|------|-------------|
-| input | [voice settings input](#DOCS_RPC/voice-settings-input-object) object | input settings |
-| output | [voice settings ouput](#DOCS_RPC/voice-settings-output-object) | output settings |
-| mode | [voice settings mode](#DOCS_RPC/voice-settings-mode-object) object | voice mode settings |
+| input | [voice settings input](#DOCS_TOPICS_RPC/voice-settings-input-object) object | input settings |
+| output | [voice settings ouput](#DOCS_TOPICS_RPC/voice-settings-output-object) | output settings |
+| mode | [voice settings mode](#DOCS_TOPICS_RPC/voice-settings-mode-object) object | voice mode settings |
 | automatic_gain_control | bool | state of automatic gain control |
 | echo_cancellation | bool | state of echo cancellation |
 | noise_suppression | bool | state of noise suppression |
@@ -918,7 +918,7 @@ Used to unsubscribe from events. `evt` of the payload should be set to the event
 
 Used to capture a keyboard shortcut entered by the user.
 
-This command is asynchronously returned. You capture a shortcut by first sending the `START` action. Then, the user is free to press keys while we log the shortcut key codes for you. As they press keys, we will emit a [CAPTURE_SHORTCUT_CHANGE](#DOCS_RPC/captureshortcutchange) event with the updated key codes. **When the user finishes, you then need to finish capturing by sending the `STOP` action.**
+This command is asynchronously returned. You capture a shortcut by first sending the `START` action. Then, the user is free to press keys while we log the shortcut key codes for you. As they press keys, we will emit a [CAPTURE_SHORTCUT_CHANGE](#DOCS_TOPICS_RPC/captureshortcutchange) event with the updated key codes. **When the user finishes, you then need to finish capturing by sending the `STOP` action.**
 
 Returns the shortcut captured, and `null` for the `STOP` action.
 
@@ -934,7 +934,7 @@ Note: The `START` call will return the captured shortcut in its `data` object, w
 
 | Field | Type | Description |
 |-------|------|-------------|
-| shortcut | [shortcut key combo](#DOCS_RPC/shortcut-key-combo-object) object | the captured shortcut key combo array |
+| shortcut | [shortcut key combo](#DOCS_TOPICS_RPC/shortcut-key-combo-object) object | the captured shortcut key combo array |
 
 ###### Example Capture Shortcut Command Payload
 
@@ -967,7 +967,7 @@ Note: The `START` call will return the captured shortcut in its `data` object, w
 | Field | Type | Description |
 |-------|------|-------------|
 | v | integer | RPC version |
-| config | [rpc server configuration](#DOCS_RPC/ready-rpc-server-configuration-object) object | server configuration |
+| config | [rpc server configuration](#DOCS_TOPICS_RPC/ready-rpc-server-configuration-object) object | server configuration |
 
 ###### RPC Server Configuration Object
 
@@ -1029,7 +1029,7 @@ Note: The `START` call will return the captured shortcut in its `data` object, w
 
 | Field | Type | Description |
 |-------|------|-------------|
-| guild | partial [guild](#DOCS_GUILD/guild-object) | guild with requested id |
+| guild | partial [guild](#DOCS_RESOURCES_GUILD/guild-object) | guild with requested id |
 | online | integer | number of online users in guild |
 
 ###### Example Guild Status Dispatch Payload
@@ -1127,7 +1127,7 @@ No arguments
 
 ###### Voice Settings Argument Structure
 
-No arguments. Dispatches the [Get Voice Settings](#DOCS_RPC/get-voice-settings) response.
+No arguments. Dispatches the [Get Voice Settings](#DOCS_TOPICS_RPC/get-voice-settings) response.
 
 ###### Example Voice Settings Dispatch Payload
 
@@ -1338,14 +1338,14 @@ Dispatches message objects, with the exception of deletions, which only contains
 
 #### NOTIFICATION_CREATE
 
-No arguments. This event requires the `rpc.notifications.read` [OAuth2 scope](#DOCS_OAUTH2/shared-resources-oauth2-scopes).
+No arguments. This event requires the `rpc.notifications.read` [OAuth2 scope](#DOCS_TOPICS_OAUTH2/shared-resources-oauth2-scopes).
 
 ###### Notification Create Dispatch Data Structure
 
 | Field | Type | Description |
 |-------|------|-------------|
 | channel_id | string | id of channel where notification occurred |
-| message | [message](#DOCS_CHANNEL/message-object) object | message that generated this notification |
+| message | [message](#DOCS_RESOURCES_CHANNEL/message-object) object | message that generated this notification |
 | icon_url | string | icon url of the notification |
 | title | string | title of the notification |
 | body | string | body of the notification |
@@ -1400,7 +1400,7 @@ No arguments
 
 | Field | Type | Description |
 |-------|------|-------------|
-| shortcut | array of [shortcut key combo](#DOCS_RPC/shortcut-key-combo-object) objects | captured shortcut key combos |
+| shortcut | array of [shortcut key combo](#DOCS_TOPICS_RPC/shortcut-key-combo-object) objects | captured shortcut key combos |
 
 ###### Example Capture Shortcut Change Dispatch Payload
 

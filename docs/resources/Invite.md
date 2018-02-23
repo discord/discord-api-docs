@@ -9,8 +9,8 @@ Represents a code that when used, adds a user to a guild.
 | Field | Type | Description |
 |-------|------|-------------|
 | code | string | the invite code (unique ID) |
-| guild | partial [guild](#DOCS_GUILD/guild-object) object | the guild this invite is for |
-| channel | partial [channel](#DOCS_CHANNEL/channel-object) object | the channel this invite is for |
+| guild | partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object | the guild this invite is for |
+| channel | partial [channel](#DOCS_RESOURCES_CHANNEL/channel-object) object | the channel this invite is for |
 
 ###### Example Invite Object
 
@@ -37,7 +37,7 @@ Represents a code that when used, adds a user to a guild.
 
 | Field | Type | Description |
 |-------|------|-------------|
-| inviter | a [user](#DOCS_USER/user-object) object | user who created the invite |
+| inviter | a [user](#DOCS_RESOURCES_USER/user-object) object | user who created the invite |
 | uses | integer | number of times this invite has been used |
 | max_uses | integer | max number of times this invite can be used |
 | max_age | integer | duration (in seconds) after which the invite expires |
@@ -59,17 +59,17 @@ Represents a code that when used, adds a user to a guild.
 }
 ```
 
-## Get Invite % GET /invites/{invite.code#DOCS_INVITE/invite-object}
+## Get Invite % GET /invites/{invite.code#DOCS_RESOURCES_INVITE/invite-object}
 
-Returns an [invite](#DOCS_INVITE/invite-object) object for the given code.
+Returns an [invite](#DOCS_RESOURCES_INVITE/invite-object) object for the given code.
 
-## Delete Invite % DELETE /invites/{invite.code#DOCS_INVITE/invite-object}
+## Delete Invite % DELETE /invites/{invite.code#DOCS_RESOURCES_INVITE/invite-object}
 
-Delete an invite. Requires the `MANAGE_CHANNELS` permission. Returns an [invite](#DOCS_INVITE/invite-object) object on success.
+Delete an invite. Requires the `MANAGE_CHANNELS` permission. Returns an [invite](#DOCS_RESOURCES_INVITE/invite-object) object on success.
 
-## Accept Invite % POST /invites/{invite.code#DOCS_INVITE/invite-object}
+## Accept Invite % POST /invites/{invite.code#DOCS_RESOURCES_INVITE/invite-object}
 
 >danger
->This endpoint is deprecated and will be discontinued on March 23, 2018. [Add Guild Member](#DOCS_GUILD/add-guild-member) should be used in its place.
+>This endpoint is deprecated and will be discontinued on March 23, 2018. [Add Guild Member](#DOCS_RESOURCES_GUILD/add-guild-member) should be used in its place.
 
-Accept an invite. This requires the `guilds.join` OAuth2 scope to be able to accept invites on behalf of normal users (via an OAuth2 Bearer token). Bot users are disallowed. Returns an [invite](#DOCS_INVITE/invite-object) object on success.
+Accept an invite. This requires the `guilds.join` OAuth2 scope to be able to accept invites on behalf of normal users (via an OAuth2 Bearer token). Bot users are disallowed. Returns an [invite](#DOCS_RESOURCES_INVITE/invite-object) object on success.

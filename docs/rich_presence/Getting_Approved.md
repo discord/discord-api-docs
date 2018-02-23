@@ -22,7 +22,7 @@ And another fictional game, where players are fighting a boss:
 
 ![](rp-profile-example-1.png)
 
-Be sure to check out our [Best Practices Guide](#DOCS_BEST_PRACTICES/) before submitting!
+Be sure to check out our [Best Practices Guide](#DOCS_RICH_PRESENCE_BEST_PRACTICES/) before submitting!
 
 ## Ask to Join Video
 
