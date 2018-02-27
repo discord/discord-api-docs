@@ -26,16 +26,16 @@ All gateway events in Discord are tagged with an opcode that denotes the payload
 | Code | Description | Explanation |
 |------|-------------|-------------|
 | 4000 | unknown error | We're not sure what went wrong. Try reconnecting? |
-| 4001 | unknown opcode | You sent an invalid [Gateway opcode](#DOCS_GATEWAY/payloads-and-opcodes) or an invalid payload for an opcode. Don't do that! |
-| 4002 | decode error | You sent an invalid [payload](#DOCS_GATEWAY/sending-payloads) to us. Don't do that! |
-| 4003 | not authenticated | You sent us a payload prior to [identifying](#DOCS_GATEWAY/identify). |
-| 4004 | authentication failed | The account token sent with your [identify payload](#DOCS_GATEWAY/identify) is incorrect. |
+| 4001 | unknown opcode | You sent an invalid [Gateway opcode](#DOCS_TOPICS_GATEWAY/payloads-and-opcodes) or an invalid payload for an opcode. Don't do that! |
+| 4002 | decode error | You sent an invalid [payload](#DOCS_TOPICS_GATEWAY/sending-payloads) to us. Don't do that! |
+| 4003 | not authenticated | You sent us a payload prior to [identifying](#DOCS_TOPICS_GATEWAY/identify). |
+| 4004 | authentication failed | The account token sent with your [identify payload](#DOCS_TOPICS_GATEWAY/identify) is incorrect. |
 | 4005 | already authenticated | You sent more than one identify payload. Don't do that! |
-| 4007 | invalid seq | The sequence sent when [resuming](#DOCS_GATEWAY/resume) the session was invalid. Reconnect and start a new session. |
+| 4007 | invalid seq | The sequence sent when [resuming](#DOCS_TOPICS_GATEWAY/resume) the session was invalid. Reconnect and start a new session. |
 | 4008 | rate limited | Woah nelly! You're sending payloads to us too quickly. Slow it down! |
 | 4009 | session timeout | Your session timed out. Reconnect and start a new one. |
-| 4010 | invalid shard | You sent us an invalid [shard when identifying](#DOCS_GATEWAY/sharding). |
-| 4011 | sharding required | The session would have handled too many guilds - you are required to [shard](#DOCS_GATEWAY/sharding) your connection in order to connect. |
+| 4010 | invalid shard | You sent us an invalid [shard when identifying](#DOCS_TOPICS_GATEWAY/sharding). |
+| 4011 | sharding required | The session would have handled too many guilds - you are required to [shard](#DOCS_TOPICS_GATEWAY/sharding) your connection in order to connect. |
 
 ## Voice
 
@@ -61,17 +61,17 @@ Our voice gateways have their own set of opcodes and close codes.
 
 | Code | Description | Explanation |
 | ---- | ----------- | ----------- |
-| 4001 | Unknown opcode | You sent an invalid [opcode](#DOCS_VOICE_CONNECTIONS/voice-events-voice-opcodes). |
-| 4003 | Not authenticated | You sent a payload before [identifying](#DOCS_GATEWAY/gateway-identify) with the Gateway. |
-| 4004 | Authentication failed | The token you sent in your [identify](#DOCS_GATEWAY/gateway-identify) payload is incorrect. |
-| 4005 | Already authenticated | You sent more than one [identify](#DOCS_GATEWAY/gateway-identify) payload. Stahp. |
+| 4001 | Unknown opcode | You sent an invalid [opcode](#DOCS_RESOURCES_VOICE_CONNECTIONS/voice-events-voice-opcodes). |
+| 4003 | Not authenticated | You sent a payload before [identifying](#DOCS_TOPICS_GATEWAY/gateway-identify) with the Gateway. |
+| 4004 | Authentication failed | The token you sent in your [identify](#DOCS_TOPICS_GATEWAY/gateway-identify) payload is incorrect. |
+| 4005 | Already authenticated | You sent more than one [identify](#DOCS_TOPICS_GATEWAY/gateway-identify) payload. Stahp. |
 | 4006 | Session no longer valid | Your session is no longer valid. |
 | 4009 | Session timeout | Your session has timed out. |
 | 4011 | Server not found | We can't find the server you're trying to connect to. |
-| 4012 | Unknown Protocol | We didn't recognize the [protocol](#DOCS_VOICE_CONNECTIONS/establishing-a-voice-udp-connection-example-select-protocol-payload) you sent. |
-| 4014 | Disconnected | Oh no! You've been disconnected! Try [resuming](#DOCS_VOICE_CONNECTIONS/resuming-voice-connection). |
-| 4015 | Voice server crashed | The server crashed. Our bad! Try [resuming](#DOCS_VOICE_CONNECTIONS/resuming-voice-connection). |
-| 4016 | Unknown Encryption Mode | We didn't recognize your [encryption](#DOCS_VOICE_CONNECTIONS/encrypting-and-sending-voice). |
+| 4012 | Unknown Protocol | We didn't recognize the [protocol](#DOCS_RESOURCES_VOICE_CONNECTIONS/establishing-a-voice-udp-connection-example-select-protocol-payload) you sent. |
+| 4014 | Disconnected | Oh no! You've been disconnected! Try [resuming](#DOCS_RESOURCES_VOICE_CONNECTIONS/resuming-voice-connection). |
+| 4015 | Voice server crashed | The server crashed. Our bad! Try [resuming](#DOCS_RESOURCES_VOICE_CONNECTIONS/resuming-voice-connection). |
+| 4016 | Unknown Encryption Mode | We didn't recognize your [encryption](#DOCS_RESOURCES_VOICE_CONNECTIONS/encrypting-and-sending-voice). |
 
 
 ## HTTP
@@ -91,7 +91,7 @@ Our API will return semantically valid HTTP response codes based on the success 
 | 403 (FORBIDDEN) | The `Authorization` token you passed did not have permission to the resource |
 | 404 (NOT FOUND) | The resource at the location specified doesn't exist |
 | 405 (METHOD NOT ALLOWED) | The HTTP method used is not valid for the location specified |
-| 429 (TOO MANY REQUESTS) | You've made too many requests, see [Rate Limits](#DOCS_RATE_LIMITS/rate-limits) |
+| 429 (TOO MANY REQUESTS) | You've made too many requests, see [Rate Limits](#DOCS_TOPICS_RATE_LIMITS/rate-limits) |
 | 502 (GATEWAY UNAVAILABLE) | There was not a gateway available to process your request. Wait a bit and retry |
 | 5xx (SERVER ERROR) | The server had an error processing your request (these are rare) |
 
@@ -161,7 +161,7 @@ Along with the HTTP error code, our API can also return more detailed error code
 
 ## RPC
 
-RPC is the [local Discord server](#DOCS_RPC/) running on localhost. Access to the RPC server is gated behind a whitelist.
+RPC is the [local Discord server](#DOCS_TOPICS_RPC/) running on localhost. Access to the RPC server is gated behind a whitelist.
 
 ###### RPC Error Codes
 

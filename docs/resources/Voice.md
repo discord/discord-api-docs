@@ -48,4 +48,4 @@ Used to represent a user's voice connection status.
 
 ## List Voice Regions % GET /voice/regions
 
-Returns an array of [voice region](#DOCS_VOICE/voice-region-object) objects that can be used when creating servers.
+Returns an array of [voice region](#DOCS_RESOURCES_VOICE/voice-region-object) objects that can be used when creating servers.

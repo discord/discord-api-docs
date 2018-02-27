@@ -168,7 +168,7 @@ Other Discord users can click "Join" on the invitation. Their game will then lau
 >warn
 >Requires Approval
 
-To enable the Ask to Join button on your players' profiles, you'll need to be approved by us. Submit your integration for approval on your [app's developer dashboard](https://discordapp.com/developers/applications/me). While there, you can also whitelist individual accounts for testing. Those accounts will have the Ask to Join button enabled on their profiles. For an in-depth explanation of what we look for during approval, see [Getting Approved](#DOCS_GETTING_APPROVED/).
+To enable the Ask to Join button on your players' profiles, you'll need to be approved by us. Submit your integration for approval on your [app's developer dashboard](https://discordapp.com/developers/applications/me). While there, you can also whitelist individual accounts for testing. Those accounts will have the Ask to Join button enabled on their profiles. For an in-depth explanation of what we look for during approval, see [Getting Approved](#DOCS_RICH_PRESENCE_GETTING_APPROVED/).
 
 When Player B clicks the Ask to Join button on Player A's profile, the `joinRequest()` callback fires for Player A, sending the following data:
 
@@ -215,7 +215,7 @@ The Ask to Join request persists for 30 seconds after the request is received, r
 >warn
 >Requires Approval
 
-To enable the Spectate button on your players' profiles, you'll need to be approved by us. Submit your integration for approval on your [app's developer dashboard](https://discordapp.com/developers/applications/me). While there, you can also whitelist individual accounts for testing. Those accounts will have the Spectate button enabled on their profiles. For an in-depth explanation of what we look for during approval, see [Getting Approved](#DOCS_GETTING_APPROVED/).
+To enable the Spectate button on your players' profiles, you'll need to be approved by us. Submit your integration for approval on your [app's developer dashboard](https://discordapp.com/developers/applications/me). While there, you can also whitelist individual accounts for testing. Those accounts will have the Spectate button enabled on their profiles. For an in-depth explanation of what we look for during approval, see [Getting Approved](#DOCS_RICH_PRESENCE_GETTING_APPROVED/).
 
 #### Relevant Callbacks:
 
@@ -283,4 +283,4 @@ If you're testing on your own, we recommend [downloading two separate release ch
 
 ## So, what now?
 
-Get to coding! We can't wait to see the awesome integration you come up with. If you need some quick questions answered, look no further than our [Rich Presence FAQ](#DOCS_FAQ/). If you want to know how to make your integration the best it can be, read our [Best Practices Guide](#DOCS_BEST_PRACTICES/). If you're ready to release, consult our [Launch Checklist](#DOCS_LAUNCH_CHECKLIST/) and make sure you haven't missed anything!
+Get to coding! We can't wait to see the awesome integration you come up with. If you need some quick questions answered, look no further than our [Rich Presence FAQ](#DOCS_RICH_PRESENCE_FAQ/). If you want to know how to make your integration the best it can be, read our [Best Practices Guide](#DOCS_RICH_PRESENCE_BEST_PRACTICES/). If you're ready to release, consult our [Launch Checklist](#DOCS_RICH_PRESENCE_LAUNCH_CHECKLIST/) and make sure you haven't missed anything!

@@ -66,30 +66,30 @@ The connection object that the user has attached.
 | name | string | the username of the connection account |
 | type | string | the service of the connection (twitch, youtube) |
 | revoked | bool | whether the connection is revoked |
-| integrations | array | an array of partial [server integrations](#DOCS_GUILD/integration-object) |
+| integrations | array | an array of partial [server integrations](#DOCS_RESOURCES_GUILD/integration-object) |
 
 ## Get Current User % GET /users/@me
 
-Returns the [user](#DOCS_USER/user-object) object of the requester's account. For OAuth2, this requires the `identify` scope, which will return the object _without_ an email, and optionally the `email` scope, which returns the object _with_ an email.
+Returns the [user](#DOCS_RESOURCES_USER/user-object) object of the requester's account. For OAuth2, this requires the `identify` scope, which will return the object _without_ an email, and optionally the `email` scope, which returns the object _with_ an email.
 
-## Get User % GET /users/{user.id#DOCS_USER/user-object}
+## Get User % GET /users/{user.id#DOCS_RESOURCES_USER/user-object}
 
-Returns a [user](#DOCS_USER/user-object) object for a given user ID.
+Returns a [user](#DOCS_RESOURCES_USER/user-object) object for a given user ID.
 
 ## Modify Current User % PATCH /users/@me
 
-Modify the requester's user account settings. Returns a [user](#DOCS_USER/user-object) object on success.
+Modify the requester's user account settings. Returns a [user](#DOCS_RESOURCES_USER/user-object) object on success.
 
 ###### JSON Params
 
 | Field | Type | Description |
 |-------|------|-------------|
 | username | string | users username, if changed may cause the users discriminator to be randomized. |
-| avatar | [avatar data](#DOCS_USER/avatar-data) | if passed, modifies the user's avatar |
+| avatar | [avatar data](#DOCS_RESOURCES_USER/avatar-data) | if passed, modifies the user's avatar |
 
 ## Get Current User Guilds % GET /users/@me/guilds
 
-Returns a list of partial [guild](#DOCS_GUILD/guild-object) objects the current user is a member of. Requires the `guilds` OAuth2 scope.
+Returns a list of partial [guild](#DOCS_RESOURCES_GUILD/guild-object) objects the current user is a member of. Requires the `guilds` OAuth2 scope.
 
 ###### Example Partial Guild
 
@@ -114,17 +114,17 @@ Returns a list of partial [guild](#DOCS_GUILD/guild-object) objects the current 
 | after | snowflake | get guilds after this guild ID | false | absent |
 | limit | integer | max number of guilds to return (1-100) | false | 100 |
 
-## Leave Guild % DELETE /users/@me/guilds/{guild.id#DOCS_GUILD/guild-object}
+## Leave Guild % DELETE /users/@me/guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}
 
 Leave a guild. Returns a 204 empty response on success.
 
 ## Get User DMs % GET /users/@me/channels
 
-Returns a list of [DM channel](#DOCS_CHANNEL/channel-object) objects.
+Returns a list of [DM channel](#DOCS_RESOURCES_CHANNEL/channel-object) objects.
 
 ## Create DM % POST /users/@me/channels
 
-Create a new DM channel with a user. Returns a [DM channel](#DOCS_CHANNEL/channel-object) object.
+Create a new DM channel with a user. Returns a [DM channel](#DOCS_RESOURCES_CHANNEL/channel-object) object.
 
 ###### JSON Params
 
@@ -134,7 +134,7 @@ Create a new DM channel with a user. Returns a [DM channel](#DOCS_CHANNEL/channe
 
 ## Create Group DM % POST /users/@me/channels
 
-Create a new group DM channel with multiple users. Returns a [DM channel](#DOCS_CHANNEL/channel-object) object.
+Create a new group DM channel with multiple users. Returns a [DM channel](#DOCS_RESOURCES_CHANNEL/channel-object) object.
 
 >warn
 >This endpoint is limited to 10 active group DMs.
@@ -148,4 +148,4 @@ Create a new group DM channel with multiple users. Returns a [DM channel](#DOCS_
 
 ## Get User Connections % GET /users/@me/connections
 
-Returns a list of [connection](#DOCS_USER/connection-object) objects. Requires the `connections` OAuth2 scope.
+Returns a list of [connection](#DOCS_RESOURCES_USER/connection-object) objects. Requires the `connections` OAuth2 scope.

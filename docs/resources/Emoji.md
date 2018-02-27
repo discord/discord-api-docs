@@ -11,8 +11,8 @@
 |-------|------|-------------|
 | id | ?snowflake | [emoji id](#DOCS_REFERENCE/image-formatting) |
 | name | string | emoji name |
-| roles? | array of [role object](#DOCS_PERMISSIONS/role-object) ids | roles this emoji is whitelisted to |
-| user? | [user](#DOCS_USER/user-object) object | user that created this emoji |
+| roles? | array of [role object](#DOCS_TOPICS_PERMISSIONS/role-object) ids | roles this emoji is whitelisted to |
+| user? | [user](#DOCS_RESOURCES_USER/user-object) object | user that created this emoji |
 | require\_colons? | bool | whether this emoji must be wrapped in colons |
 | managed? | bool | whether this emoji is managed |
 | animated? | bool | whether this emoji is animated |
@@ -54,20 +54,20 @@
 }
 ```
 
-## List Guild Emojis % GET /guilds/{guild.id#DOCS_GUILD/guild-object}/emojis
+## List Guild Emojis % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/emojis
 
-Returns a list of [emoji](#DOCS_EMOJI/emoji-object) objects for the given guild.
+Returns a list of [emoji](#DOCS_RESOURCES_EMOJI/emoji-object) objects for the given guild.
 
-## Get Guild Emoji % GET /guilds/{guild.id#DOCS_GUILD/guild-object}/emojis/{emoji.id#DOCS_EMOJI/emoji-object}
+## Get Guild Emoji % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/emojis/{emoji.id#DOCS_RESOURCES_EMOJI/emoji-object}
 
-Returns an [emoji](#DOCS_EMOJI/emoji-object) object for the given guild and emoji IDs.
+Returns an [emoji](#DOCS_RESOURCES_EMOJI/emoji-object) object for the given guild and emoji IDs.
 
-## Create Guild Emoji % POST /guilds/{guild.id#DOCS_GUILD/guild-object}/emojis
+## Create Guild Emoji % POST /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/emojis
 
-Create a new emoji for the guild. Requires the 'MANAGE_EMOJIS' permission. Returns the new [emoji](#DOCS_EMOJI/emoji-object) object on success. Fires a [Guild Emojis Update](#DOCS_GATEWAY/guild-emojis-update) Gateway event.
+Create a new emoji for the guild. Requires the 'MANAGE_EMOJIS' permission. Returns the new [emoji](#DOCS_RESOURCES_EMOJI/emoji-object) object on success. Fires a [Guild Emojis Update](#DOCS_TOPICS_GATEWAY/guild-emojis-update) Gateway event.
 
 >warn
->Emojis and animated emojis have a maximum file size of 256kb. Attempting to upload an emoji larger than this limit will fail and return 400 Bad Request and an error message, but not a [JSON status code](#DOCS_OPCODES_AND_STATUS_CODES/json).
+>Emojis and animated emojis have a maximum file size of 256kb. Attempting to upload an emoji larger than this limit will fail and return 400 Bad Request and an error message, but not a [JSON status code](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/json).
 
 ###### JSON Params
 
@@ -77,9 +77,9 @@ Create a new emoji for the guild. Requires the 'MANAGE_EMOJIS' permission. Retur
 | image | base64 image data | the 128x128 emoji image |
 | roles | array of snowflakes | roles for which this emoji will be whitelisted |
 
-## Modify Guild Emoji % PATCH /guilds/{guild.id#DOCS_GUILD/guild-object}/emojis/{emoji.id#DOCS_EMOJI/emoji-object}
+## Modify Guild Emoji % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/emojis/{emoji.id#DOCS_RESOURCES_EMOJI/emoji-object}
 
-Modify the given emoji. Requires the 'MANAGE_EMOJIS' permission. Returns the updated [emoji](#DOCS_EMOJI/emoji-object) object on success. Fires a [Guild Emojis Update](#DOCS_GATEWAY/guild-emojis-update) Gateway event.
+Modify the given emoji. Requires the 'MANAGE_EMOJIS' permission. Returns the updated [emoji](#DOCS_RESOURCES_EMOJI/emoji-object) object on success. Fires a [Guild Emojis Update](#DOCS_TOPICS_GATEWAY/guild-emojis-update) Gateway event.
 
 ###### JSON Params
 
@@ -88,6 +88,6 @@ Modify the given emoji. Requires the 'MANAGE_EMOJIS' permission. Returns the upd
 | name | string | name of the emoji |
 | roles | array of snowflakes | roles to which this emoji will be whitelisted |
 
-## Delete Guild Emoji % DELETE /guilds/{guild.id#DOCS_GUILD/guild-object}/emojis/{emoji.id#DOCS_EMOJI/emoji-object}
+## Delete Guild Emoji % DELETE /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/emojis/{emoji.id#DOCS_RESOURCES_EMOJI/emoji-object}
 
-Delete the given emoji. Requires the 'MANAGE_EMOJIS' permission. Returns `204 No Content` on success. Fires a [Guild Emojis Update](#DOCS_GATEWAY/guild-emojis-update) Gateway event.
+Delete the given emoji. Requires the 'MANAGE_EMOJIS' permission. Returns `204 No Content` on success. Fires a [Guild Emojis Update](#DOCS_TOPICS_GATEWAY/guild-emojis-update) Gateway event.

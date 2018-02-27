@@ -18,14 +18,14 @@ The Discord Gateway has a versioning system which is separate from the core APIs
 
 | Field | Type | Description | Present |
 |-------|------|-------------|---------|
-| op | integer | [opcode](#DOCS_OPCODES_AND_STATUS_CODES/gateway-opcodes) for the payload | Always |
+| op | integer | [opcode](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/gateway-opcodes) for the payload | Always |
 | d | ?mixed (any JSON value) | event data | Always |
 | s | integer | sequence number, used for resuming sessions and heartbeats | Only for Opcode 0 |
 | t | string | the event name for this payload | Only for Opcode 0 |
 
 ### Sending Payloads
 
-Packets sent from the client to the Gateway API are encapsulated within a [gateway payload object](#DOCS_GATEWAY/sending-payloads-example-gateway-dispatch) and must have the proper opcode and data object set. The payload object can then be serialized in the format of choice (see [ETF/JSON](#DOCS_GATEWAY/etfjson)), and sent over the websocket. Payloads to the gateway are limited to a maximum of 4096 bytes sent, going over this will cause a connection termination with error code 4002.
+Packets sent from the client to the Gateway API are encapsulated within a [gateway payload object](#DOCS_TOPICS_GATEWAY/sending-payloads-example-gateway-dispatch) and must have the proper opcode and data object set. The payload object can then be serialized in the format of choice (see [ETF/JSON](#DOCS_TOPICS_GATEWAY/etfjson)), and sent over the websocket. Payloads to the gateway are limited to a maximum of 4096 bytes sent, going over this will cause a connection termination with error code 4002.
 
 ###### Example Gateway Dispatch
 
@@ -96,11 +96,11 @@ def on_websocket_message(msg):
 | encoding | string | 'json' or 'etf' |
 | compress? | string | 'zlib-stream'|
 
-The first step in establishing connectivity to the gateway is requesting a valid websocket endpoint from the API. This can be done through either the [Get Gateway](#DOCS_GATEWAY/get-gateway) or the [Get Gateway Bot](#DOCS_GATEWAY/get-gateway-bot) endpoint.
+The first step in establishing connectivity to the gateway is requesting a valid websocket endpoint from the API. This can be done through either the [Get Gateway](#DOCS_TOPICS_GATEWAY/get-gateway) or the [Get Gateway Bot](#DOCS_TOPICS_GATEWAY/get-gateway-bot) endpoint.
 
 With the resulting payload, you can now open a websocket connection to the "url" (or endpoint) specified. Generally, it is a good idea to explicitly pass the gateway version and encoding. For example, we may connect to `wss://gateway.discord.gg/?v=6&encoding=json`.
 
-Once connected, the client should immediately receive an [Opcode 10 Hello](#DOCS_GATEWAY/hello) payload, with information on the connection's heartbeat interval:
+Once connected, the client should immediately receive an [Opcode 10 Hello](#DOCS_TOPICS_GATEWAY/hello) payload, with information on the connection's heartbeat interval:
 
 ###### Example Gateway Hello
 
@@ -113,12 +113,12 @@ Once connected, the client should immediately receive an [Opcode 10 Hello](#DOCS
 
 ### Heartbeating
 
-The client should now begin sending [Opcode 1 Heartbeat](#DOCS_GATEWAY/heartbeat) payloads every `heartbeat_interval` milliseconds, until the connection is eventually closed or terminated. This OP code is also bidirectional. The gateway may request a heartbeat from you in some situations, and you should send a heartbeat back to the gateway as you normally would.
+The client should now begin sending [Opcode 1 Heartbeat](#DOCS_TOPICS_GATEWAY/heartbeat) payloads every `heartbeat_interval` milliseconds, until the connection is eventually closed or terminated. This OP code is also bidirectional. The gateway may request a heartbeat from you in some situations, and you should send a heartbeat back to the gateway as you normally would.
 
 >info
 >In the event of a service outage where you stay connected to the gateway, you should continue to heartbeat and receive ACKs. The gateway will eventually respond and issue a session once it's able to.
 
-Clients can detect zombied or failed connections by listening for [Opcode 11 Heartbeat ACK](#DOCS_GATEWAY/heartbeating-example-gateway-heartbeat-ack):
+Clients can detect zombied or failed connections by listening for [Opcode 11 Heartbeat ACK](#DOCS_TOPICS_GATEWAY/heartbeating-example-gateway-heartbeat-ack):
 
 ###### Example Gateway Heartbeat ACK
 
@@ -132,7 +132,7 @@ If a client does not receive a heartbeat ack between its attempts at sending hea
 
 ### Identifying
 
-Next, the client is expected to send an [Opcode 2 Identify](#DOCS_GATEWAY/identify):
+Next, the client is expected to send an [Opcode 2 Identify](#DOCS_TOPICS_GATEWAY/identify):
 
 ###### Example Gateway Identify
 
@@ -159,7 +159,7 @@ Next, the client is expected to send an [Opcode 2 Identify](#DOCS_GATEWAY/identi
 }
 ```
 
-If the payload is valid, the gateway will respond with a [Ready](#DOCS_GATEWAY/ready) event. Your client is now considered in a "connected" state. Clients are limited to 1 identify every 5 seconds; if they exceed this limit, the gateway will respond with an [Opcode 9 Invalid Session](#DOCS_GATEWAY/invalid-session). It is important to note that although the ready event contains a large portion of the required initial state, some information (such as guilds and their members) is sent asynchronously (see [Guild Create](#DOCS_GATEWAY/guild-create) event).
+If the payload is valid, the gateway will respond with a [Ready](#DOCS_TOPICS_GATEWAY/ready) event. Your client is now considered in a "connected" state. Clients are limited to 1 identify every 5 seconds; if they exceed this limit, the gateway will respond with an [Opcode 9 Invalid Session](#DOCS_TOPICS_GATEWAY/invalid-session). It is important to note that although the ready event contains a large portion of the required initial state, some information (such as guilds and their members) is sent asynchronously (see [Guild Create](#DOCS_TOPICS_GATEWAY/guild-create) event).
 
 >warn
 >Clients are limited to 1000 `IDENTIFY` calls to the websocket in a 24-hour period. This limit is global and across all shards, but does not include `RESUME` calls. Upon hitting this limit, all active sessions for the bot will be terminated, the bot's token will be reset, and the owner will receive an email notification. It's up to the owner to update their application with the new token.
@@ -169,7 +169,7 @@ If the payload is valid, the gateway will respond with a [Ready](#DOCS_GATEWAY/r
 
 The internet is a scary place. Disconnections happen, especially with persistent connections. Due to Discord's architecture, this is a semi-regular event and should be expected and handled. Discord has a process for "resuming" (or reconnecting) a connection that allows the client to replay any lost events from the last sequence number they received in the exact same way they would receive them normally.
 
-Your client should store the `session_id` from the [Ready](#DOCS_GATEWAY/ready), and the sequence number of the last event it received. When your client detects that it has been disconnected, it should completely close the connection and open a new one (following the same strategy as [Connecting](#DOCS_GATEWAY/connecting)). Once the new connection has been opened, the client should send a [Gateway Resume](#DOCS_GATEWAY/resume):
+Your client should store the `session_id` from the [Ready](#DOCS_TOPICS_GATEWAY/ready), and the sequence number of the last event it received. When your client detects that it has been disconnected, it should completely close the connection and open a new one (following the same strategy as [Connecting](#DOCS_TOPICS_GATEWAY/connecting)). Once the new connection has been opened, the client should send a [Gateway Resume](#DOCS_TOPICS_GATEWAY/resume):
 
 
 ###### Example Gateway Resume
@@ -182,31 +182,31 @@ Your client should store the `session_id` from the [Ready](#DOCS_GATEWAY/ready),
 }
 ```
 
-If successful, the gateway will respond by replaying all missed events in order, finishing with a [Resumed](#DOCS_GATEWAY/resumed) event to signal replay has finished, and all subsequent events are new. It's also possible that your client cannot reconnect in time to resume, in which case the client will receive a [Opcode 9 Invalid Session](#DOCS_GATEWAY/invalid-session) and is expected to wait a random amount of time—between 1 and 5 seconds—then send a fresh [Opcode 2 Identify](#DOCS_GATEWAY/identify).
+If successful, the gateway will respond by replaying all missed events in order, finishing with a [Resumed](#DOCS_TOPICS_GATEWAY/resumed) event to signal replay has finished, and all subsequent events are new. It's also possible that your client cannot reconnect in time to resume, in which case the client will receive a [Opcode 9 Invalid Session](#DOCS_TOPICS_GATEWAY/invalid-session) and is expected to wait a random amount of time—between 1 and 5 seconds—then send a fresh [Opcode 2 Identify](#DOCS_TOPICS_GATEWAY/identify).
 
 ### Disconnections
 
-If the gateway ever issues a disconnect to your client, it will provide a close event code that you can use to properly handle the disconnection. A full list of these close codes can be found in the [Response Codes](#DOCS_OPCODES_AND_STATUS_CODES/gateway-close-event-codes) documentation.
+If the gateway ever issues a disconnect to your client, it will provide a close event code that you can use to properly handle the disconnection. A full list of these close codes can be found in the [Response Codes](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/gateway-close-event-codes) documentation.
 
 ## Rate Limiting
 
-Clients are allowed 120 events every 60 seconds, meaning you can send on average at a rate of up to 2 events per second. Clients who surpass this limit are immediately disconnected from the Gateway, and similarly to the HTTP API, repeat offenders will have their API access revoked. Clients are also limited to one gateway connection per 5 seconds. If you hit this limit, the Gateway will respond with an [Opcode 9 Invalid Session](#DOCS_GATEWAY/invalid-session).
+Clients are allowed 120 events every 60 seconds, meaning you can send on average at a rate of up to 2 events per second. Clients who surpass this limit are immediately disconnected from the Gateway, and similarly to the HTTP API, repeat offenders will have their API access revoked. Clients are also limited to one gateway connection per 5 seconds. If you hit this limit, the Gateway will respond with an [Opcode 9 Invalid Session](#DOCS_TOPICS_GATEWAY/invalid-session).
 
 ## Tracking State
 
-Most of a client's state is provided during the initial [Ready](#DOCS_GATEWAY/ready) event and the [Guild Create](#DOCS_GATEWAY/guild-create) events that immediately follow. As objects are further created/updated/deleted, other events are sent to notify the client of these changes and to provide the new or updated data. To avoid excessive API calls, Discord expects clients to locally cache as many object states as possible, and to update them as gateway events are received.
+Most of a client's state is provided during the initial [Ready](#DOCS_TOPICS_GATEWAY/ready) event and the [Guild Create](#DOCS_TOPICS_GATEWAY/guild-create) events that immediately follow. As objects are further created/updated/deleted, other events are sent to notify the client of these changes and to provide the new or updated data. To avoid excessive API calls, Discord expects clients to locally cache as many object states as possible, and to update them as gateway events are received.
 
-An example of state tracking can be found with member status caching. When initially connecting to the gateway, the client receives information regarding the online status of guild members (online, idle, dnd, offline). To keep this state updated, a client must track and parse [Presence Update](#DOCS_GATEWAY/presence-update) events as they are received, and apply the provided data to the cached member objects.
+An example of state tracking can be found with member status caching. When initially connecting to the gateway, the client receives information regarding the online status of guild members (online, idle, dnd, offline). To keep this state updated, a client must track and parse [Presence Update](#DOCS_TOPICS_GATEWAY/presence-update) events as they are received, and apply the provided data to the cached member objects.
 
 ## Guild Availability
 
-When connecting to the gateway as a bot user, guilds that the bot is a part of start out as unavailable. Don't fret! The gateway will automatically attempt to reconnect on your behalf. As guilds become available to you, you will receive [Guild Create](#DOCS_GATEWAY/guild-create) events.
+When connecting to the gateway as a bot user, guilds that the bot is a part of start out as unavailable. Don't fret! The gateway will automatically attempt to reconnect on your behalf. As guilds become available to you, you will receive [Guild Create](#DOCS_TOPICS_GATEWAY/guild-create) events.
 
 ## Sharding
 
 As bots grow and are added to an increasing number of guilds, some developers may find it necessary to break or split portions of their bots operations into separate logical processes. As such, Discord gateways implement a method of user-controlled guild sharding which allows for splitting events across a number of gateway connections. Guild sharding is entirely user controlled, and requires no state-sharing between separate connections to operate.
 
-To enable sharding on a connection, the user should send the `shard` array in the [Identify](#DOCS_GATEWAY/identify) payload. The first item in this array should be the zero-based integer value of the current shard, while the second represents the total number of shards. DMs will only be sent to shard 0. To calculate what events will be sent to what shard, the following formula can be used:
+To enable sharding on a connection, the user should send the `shard` array in the [Identify](#DOCS_TOPICS_GATEWAY/identify) payload. The first item in this array should be the zero-based integer value of the current shard, while the second represents the total number of shards. DMs will only be sent to shard 0. To calculate what events will be sent to what shard, the following formula can be used:
 
 ###### Sharding Formula
 
@@ -222,7 +222,7 @@ If you own a bot that is in over 100,000 guilds, there are some additional consi
 
 The number of shards you run must be a multiple of a fixed number we will determine when reaching out to you. If you attempt to start your bot with an invalid number of shards, your websocket connection will close with a 4010 Invalid Shard opcode. The gateway bot bootstrap endpoint will return the correct amount of shards, so if you're already using this endpoint to determine your number of shards, you shouldn't require any further changes.
 
-The session start limit for these bots will also be increased from 1000 to 2000 per day. Finally, the [Get Current User Guilds](#DOCS_USER/get-current-user-guilds) endpoint will no longer return results for your bot. We will be creating a new endpoint that is more shard-aware to iterate through your bot's guilds if needed.
+The session start limit for these bots will also be increased from 1000 to 2000 per day. Finally, the [Get Current User Guilds](#DOCS_RESOURCES_USER/get-current-user-guilds) endpoint will no longer return results for your bot. We will be creating a new endpoint that is more shard-aware to iterate through your bot's guilds if needed.
 
 ## Commands and Events
 
@@ -232,12 +232,12 @@ Commands are requests made to the gateway socket by a client.
 
 | name | description |
 | ---- | ----------- |
-| [Identify](#DOCS_GATEWAY/identify) | triggers the initial handshake with the gateway |
-| [Resume](#DOCS_GATEWAY/resume) | resumes a dropped gateway connection |
-| [Heartbeat](#DOCS_GATEWAY/heartbeat) | maintains an active gateway connection |
-| [Request Guild Members](#DOCS_GATEWAY/request-guild-members) | requests offline members for a guild |
-| [Update Voice State](#DOCS_GATEWAY/update-voice-state) | joins, moves, or disconnects the client from a voice channel |
-| [Update Status](#DOCS_GATEWAY/update-status) | updates a client's presence |
+| [Identify](#DOCS_TOPICS_GATEWAY/identify) | triggers the initial handshake with the gateway |
+| [Resume](#DOCS_TOPICS_GATEWAY/resume) | resumes a dropped gateway connection |
+| [Heartbeat](#DOCS_TOPICS_GATEWAY/heartbeat) | maintains an active gateway connection |
+| [Request Guild Members](#DOCS_TOPICS_GATEWAY/request-guild-members) | requests offline members for a guild |
+| [Update Voice State](#DOCS_TOPICS_GATEWAY/update-voice-state) | joins, moves, or disconnects the client from a voice channel |
+| [Update Status](#DOCS_TOPICS_GATEWAY/update-status) | updates a client's presence |
 
 Events are payloads sent over the socket to a client that correspond events in Discord.
 
@@ -245,45 +245,45 @@ Events are payloads sent over the socket to a client that correspond events in D
 
 | name | description |
 | ---- | ----------- |
-| [Hello](#DOCS_GATEWAY/hello) | defines the heartbeat interval |
-| [Ready](#DOCS_GATEWAY/ready) | contains the initial state information |
-| [Resumed](#DOCS_GATEWAY/resumed) | response to [Resume](#DOCS_GATEWAY/resume) |
-| [Invalid Session](#DOCS_GATEWAY/invalid-session) | failure response to [Identify](#DOCS_GATEWAY/identify) or [Resume](#DOCS_GATEWAY/resume) or invalid active session |
-| [Channel Create](#DOCS_GATEWAY/channel-create) | new channel created |
-| [Channel Update](#DOCS_GATEWAY/channel-update) | channel was updated |
-| [Channel Delete](#DOCS_GATEWAY/channel-delete) | channel was deleted |
-| [Channel Pins Update](#DOCS_GATEWAY/channel-pins-update) | message was pinned or unpinned |
-| [Guild Create](#DOCS_GATEWAY/guild-create) | lazy-load for unavailable guild, guild became available, or user joined a new guild |
-| [Guild Update](#DOCS_GATEWAY/guild-update) | guild was updated |
-| [Guild Delete](#DOCS_GATEWAY/guild-delete) | guild became unavailable, or user left/was removed from a guild |
-| [Guild Ban Add](#DOCS_GATEWAY/guild-ban-add) | user was banned from a guild |
-| [Guild Ban Remove](#DOCS_GATEWAY/guild-ban-removed) | user was unbanned from a guild |
-| [Guild Emojis Update](#DOCS_GATEWAY/guild-emojis-update) | guild emojis were updated |
-| [Guild Integrations Update](#DOCS_GATEWAY/guild-integrations-update) | guild integration was updated |
-| [Guild Member Add](#DOCS_GATEWAY/guild-member-add) | new user joined a guild |
-| [Guild Member Remove](#DOCS_GATEWAY/guild-member-remove) | user was removed from a guild |
-| [Guild Member Update](#DOCS_GATEWAY/guild-member-update) | guild member was updated |
-| [Guild Members Chunk](#DOCS_GATEWAY/guild-members-chunk) | response to [Request Guild Members](#DOCS_GATEWAY/request-guild-members) |
-| [Guild Role Create](#DOCS_GATEWAY/guild-role-create) | guild role was created |
-| [Guild Role Update](#DOCS_GATEWAY/guild-role-update) | guild role was updated |
-| [Guild Role Delete](#DOCS_GATEWAY/guild-role-delete) | guild role was deleted |
-| [Message Create](#DOCS_GATEWAY/message-create) | message was created |
-| [Message Update](#DOCS_GATEWAY/message-update) | message was edited |
-| [Message Delete](#DOCS_GATEWAY/message-delete) | message was deleted |
-| [Message Delete Bulk](#DOCS_GATEWAY/message-delete-bulk) | multiple messages were deleted at once |
-| [Message Reaction Add](#DOCS_GATEWAY/message-reaction-add) | user reacted to a message |
-| [Message Reaction Remove](#DOCS_GATEWAY/message-reaction-remove) | user removed a reaction from a message |
-| [Message Reaction Remove All](#DOCS_GATEWAY/message-reaction-remove-all) | all reactions were explicitly removed from a message |
-| [Presence Update](#DOCS_GATEWAY/presence-update) | user's presence was updated in a guild |
-| [Typing Start](#DOCS_GATEWAY/typing-start) | user started typing in a channel |
-| [User Update](#DOCS_GATEWAY/user-update) | properties about a user changed |
-| [Voice State Update](#DOCS_GATEWAY/voice-state-update) | someone joined, left, or moved a voice channel |
-| [Voice Server Update](#DOCS_GATEWAY/voice-server-update) | guild's voice server was updated |
-| [Webhooks Update](#DOCS_GATEWAY/webhooks-update) | guild channel webhook was created, update, or deleted |
+| [Hello](#DOCS_TOPICS_GATEWAY/hello) | defines the heartbeat interval |
+| [Ready](#DOCS_TOPICS_GATEWAY/ready) | contains the initial state information |
+| [Resumed](#DOCS_TOPICS_GATEWAY/resumed) | response to [Resume](#DOCS_TOPICS_GATEWAY/resume) |
+| [Invalid Session](#DOCS_TOPICS_GATEWAY/invalid-session) | failure response to [Identify](#DOCS_TOPICS_GATEWAY/identify) or [Resume](#DOCS_TOPICS_GATEWAY/resume) or invalid active session |
+| [Channel Create](#DOCS_TOPICS_GATEWAY/channel-create) | new channel created |
+| [Channel Update](#DOCS_TOPICS_GATEWAY/channel-update) | channel was updated |
+| [Channel Delete](#DOCS_TOPICS_GATEWAY/channel-delete) | channel was deleted |
+| [Channel Pins Update](#DOCS_TOPICS_GATEWAY/channel-pins-update) | message was pinned or unpinned |
+| [Guild Create](#DOCS_TOPICS_GATEWAY/guild-create) | lazy-load for unavailable guild, guild became available, or user joined a new guild |
+| [Guild Update](#DOCS_TOPICS_GATEWAY/guild-update) | guild was updated |
+| [Guild Delete](#DOCS_TOPICS_GATEWAY/guild-delete) | guild became unavailable, or user left/was removed from a guild |
+| [Guild Ban Add](#DOCS_TOPICS_GATEWAY/guild-ban-add) | user was banned from a guild |
+| [Guild Ban Remove](#DOCS_TOPICS_GATEWAY/guild-ban-removed) | user was unbanned from a guild |
+| [Guild Emojis Update](#DOCS_TOPICS_GATEWAY/guild-emojis-update) | guild emojis were updated |
+| [Guild Integrations Update](#DOCS_TOPICS_GATEWAY/guild-integrations-update) | guild integration was updated |
+| [Guild Member Add](#DOCS_TOPICS_GATEWAY/guild-member-add) | new user joined a guild |
+| [Guild Member Remove](#DOCS_TOPICS_GATEWAY/guild-member-remove) | user was removed from a guild |
+| [Guild Member Update](#DOCS_TOPICS_GATEWAY/guild-member-update) | guild member was updated |
+| [Guild Members Chunk](#DOCS_TOPICS_GATEWAY/guild-members-chunk) | response to [Request Guild Members](#DOCS_TOPICS_GATEWAY/request-guild-members) |
+| [Guild Role Create](#DOCS_TOPICS_GATEWAY/guild-role-create) | guild role was created |
+| [Guild Role Update](#DOCS_TOPICS_GATEWAY/guild-role-update) | guild role was updated |
+| [Guild Role Delete](#DOCS_TOPICS_GATEWAY/guild-role-delete) | guild role was deleted |
+| [Message Create](#DOCS_TOPICS_GATEWAY/message-create) | message was created |
+| [Message Update](#DOCS_TOPICS_GATEWAY/message-update) | message was edited |
+| [Message Delete](#DOCS_TOPICS_GATEWAY/message-delete) | message was deleted |
+| [Message Delete Bulk](#DOCS_TOPICS_GATEWAY/message-delete-bulk) | multiple messages were deleted at once |
+| [Message Reaction Add](#DOCS_TOPICS_GATEWAY/message-reaction-add) | user reacted to a message |
+| [Message Reaction Remove](#DOCS_TOPICS_GATEWAY/message-reaction-remove) | user removed a reaction from a message |
+| [Message Reaction Remove All](#DOCS_TOPICS_GATEWAY/message-reaction-remove-all) | all reactions were explicitly removed from a message |
+| [Presence Update](#DOCS_TOPICS_GATEWAY/presence-update) | user's presence was updated in a guild |
+| [Typing Start](#DOCS_TOPICS_GATEWAY/typing-start) | user started typing in a channel |
+| [User Update](#DOCS_TOPICS_GATEWAY/user-update) | properties about a user changed |
+| [Voice State Update](#DOCS_TOPICS_GATEWAY/voice-state-update) | someone joined, left, or moved a voice channel |
+| [Voice Server Update](#DOCS_TOPICS_GATEWAY/voice-server-update) | guild's voice server was updated |
+| [Webhooks Update](#DOCS_TOPICS_GATEWAY/webhooks-update) | guild channel webhook was created, update, or deleted |
 
 ### Event Names
 
-Event names are in standard constant form, fully upper-cased and replacing all spaces with underscores. For instance, [Channel Create](#DOCS_GATEWAY/channel-create) would be `CHANNEL_CREATE` and [Voice State Update](#DOCS_GATEWAY/voice-state-update) would be `VOICE_STATE_UPDATE`. Within the following documentation they have been left in standard English form to aid in readability.
+Event names are in standard constant form, fully upper-cased and replacing all spaces with underscores. For instance, [Channel Create](#DOCS_TOPICS_GATEWAY/channel-create) would be `CHANNEL_CREATE` and [Voice State Update](#DOCS_TOPICS_GATEWAY/voice-state-update) would be `VOICE_STATE_UPDATE`. Within the following documentation they have been left in standard English form to aid in readability.
 
 #### Identify
 
@@ -294,11 +294,11 @@ Used to trigger the initial handshake with the gateway.
 | Field | Type | Description | Default |
 |-------|------|-------------|---------|
 | token | string | authentication token | - |
-| properties | object | [connection properties](#DOCS_GATEWAY/identify-identify-connection-properties) | - |
+| properties | object | [connection properties](#DOCS_TOPICS_GATEWAY/identify-identify-connection-properties) | - |
 | compress? | bool | whether this connection supports compression of packets | false |
 | large_threshold? | integer | value between 50 and 250, total number of members where the gateway will stop sending offline members in the guild member list | 50 |
-| shard? | array of two integers (shard_id, num_shards) | used for [Guild Sharding](#DOCS_GATEWAY/sharding) | - |
-| presence? | [update status](#DOCS_GATEWAY/update-status) object | presence structure for initial presence information | - |
+| shard? | array of two integers (shard_id, num_shards) | used for [Guild Sharding](#DOCS_TOPICS_GATEWAY/sharding) | - |
+| presence? | [update status](#DOCS_TOPICS_GATEWAY/update-status) object | presence structure for initial presence information | - |
 
 ###### Identify Connection Properties
 
@@ -357,7 +357,7 @@ Used to replay missed events when a disconnected client resumes.
 
 #### Heartbeat
 
-Used to maintain an active gateway connection. Must be sent every `heartbeat_interval` milliseconds after the [Opcode 10 Hello](#DOCS_GATEWAY/hello) payload is received. The inner `d` key is the last sequence number—`s`—received by the client. If you have not yet received one, send `null`.
+Used to maintain an active gateway connection. Must be sent every `heartbeat_interval` milliseconds after the [Opcode 10 Hello](#DOCS_TOPICS_GATEWAY/hello) payload is received. The inner `d` key is the last sequence number—`s`—received by the client. If you have not yet received one, send `null`.
 
 ###### Example Heartbeat
 
@@ -370,7 +370,7 @@ Used to maintain an active gateway connection. Must be sent every `heartbeat_int
 
 #### Request Guild Members
 
-Used to request offline members for a guild. When initially connecting, the gateway will only send offline members if a guild has less than the `large_threshold` members (value in the [Gateway Identify](#DOCS_GATEWAY/identify)). If a client wishes to receive additional members, they need to explicitly request them via this operation. The server will send [Guild Members Chunk](#DOCS_GATEWAY/guild-members-chunk) events in response with up to 1000 members per chunk until all members that match the request have been sent.
+Used to request offline members for a guild. When initially connecting, the gateway will only send offline members if a guild has less than the `large_threshold` members (value in the [Gateway Identify](#DOCS_TOPICS_GATEWAY/identify)). If a client wishes to receive additional members, they need to explicitly request them via this operation. The server will send [Guild Members Chunk](#DOCS_TOPICS_GATEWAY/guild-members-chunk) events in response with up to 1000 members per chunk until all members that match the request have been sent.
 
 ###### Guild Request Members Structure
 
@@ -423,8 +423,8 @@ Sent by the client to indicate a presence or status update.
 | Field | Type | Description |
 |-------|------|-------------|
 | since | ?integer | unix time (in milliseconds) of when the client went idle, or null if the client is not idle |
-| game | ?[activity](#DOCS_GATEWAY/activity-object) object | null, or the user's new activity |
-| status | string | the user's new [status](#DOCS_GATEWAY/update-status-status-types) |
+| game | ?[activity](#DOCS_TOPICS_GATEWAY/activity-object) object | null, or the user's new activity |
+| status | string | the user's new [status](#DOCS_TOPICS_GATEWAY/update-status-status-types) |
 | afk | bool | whether or not the client is afk |
 
 ###### Status Types
@@ -477,22 +477,22 @@ Sent on connection to the websocket. Defines the heartbeat interval that the cli
 
 The ready event is dispatched when a client has completed the initial handshake with the gateway (for new sessions). The ready event can be the largest and most complex event the gateway will send, as it contains all the state required for a client to begin interacting with the rest of the platform.
 
-`guilds` are the guilds of which your bot is a member. They start out as unavailable when you connect to the gateway. As they become available, your bot will be notified via [Guild Create](#DOCS_GATEWAY/guild-create) events. `private_channels` will be an empty array. As bots receive private messages, they will be notified via [Channel Create](#DOCS_GATEWAY/channel-create) events.
+`guilds` are the guilds of which your bot is a member. They start out as unavailable when you connect to the gateway. As they become available, your bot will be notified via [Guild Create](#DOCS_TOPICS_GATEWAY/guild-create) events. `private_channels` will be an empty array. As bots receive private messages, they will be notified via [Channel Create](#DOCS_TOPICS_GATEWAY/channel-create) events.
 
 ###### Ready Event Fields
 
 | Field | Type | Description |
 |-------|------|-------------|
-| v | integer | [gateway protocol version](#DOCS_GATEWAY/gateway-protocol-versions) |
-| user | [user](#DOCS_USER/user-object) object | information about the user including email |
-| private_channels | array of [DM channel](#DOCS_CHANNEL/channel-object) objects | the direct message channels the user is in |
-| guilds | array of [Unavailable Guild](#DOCS_GUILD/unavailable-guild-object) objects | the guilds the user is in |
+| v | integer | [gateway protocol version](#DOCS_TOPICS_GATEWAY/gateway-protocol-versions) |
+| user | [user](#DOCS_RESOURCES_USER/user-object) object | information about the user including email |
+| private_channels | array of [DM channel](#DOCS_RESOURCES_CHANNEL/channel-object) objects | the direct message channels the user is in |
+| guilds | array of [Unavailable Guild](#DOCS_RESOURCES_GUILD/unavailable-guild-object) objects | the guilds the user is in |
 | session_id | string | used for resuming connections |
 | \_trace | array of strings | used for debugging - the guilds the user is in |
 
 #### Resumed
 
-The resumed event is dispatched when a client has sent a [resume payload](#DOCS_GATEWAY/resume) to the gateway (for resuming existing sessions).
+The resumed event is dispatched when a client has sent a [resume payload](#DOCS_TOPICS_GATEWAY/resume) to the gateway (for resuming existing sessions).
 
 ###### Resumed Event Fields
 
@@ -503,11 +503,11 @@ The resumed event is dispatched when a client has sent a [resume payload](#DOCS_
 #### Invalid Session
 
 Sent to indicate one of at least three different situations:
-- the gateway could not initialize a session after receiving an [Opcode 2 Identify](#DOCS_GATEWAY/identify)
-- the gateway could not resume a previous session after receiving an [Opcode 6 Resume](#DOCS_GATEWAY/resume)
+- the gateway could not initialize a session after receiving an [Opcode 2 Identify](#DOCS_TOPICS_GATEWAY/identify)
+- the gateway could not resume a previous session after receiving an [Opcode 6 Resume](#DOCS_TOPICS_GATEWAY/resume)
 - the gateway has invalidated an active session and is requesting client action
 
-The inner `d` key is a boolean that indicates whether the session may be resumable. See [Connecting](#DOCS_GATEWAY/connecting) and [Resuming](#DOCS_GATEWAY/resuming) for more information.
+The inner `d` key is a boolean that indicates whether the session may be resumable. See [Connecting](#DOCS_TOPICS_GATEWAY/connecting) and [Resuming](#DOCS_TOPICS_GATEWAY/resuming) for more information.
 
 ###### Example Gateway Invalid Session
 
@@ -522,15 +522,15 @@ The inner `d` key is a boolean that indicates whether the session may be resumab
 
 #### Channel Create
 
-Sent when a new channel is created, relevant to the current user. The inner payload is a [channel](#DOCS_CHANNEL/channel-object) object.
+Sent when a new channel is created, relevant to the current user. The inner payload is a [channel](#DOCS_RESOURCES_CHANNEL/channel-object) object.
 
 #### Channel Update
 
-Sent when a channel is updated. The inner payload is a [channel](#DOCS_CHANNEL/channel-object) object.
+Sent when a channel is updated. The inner payload is a [channel](#DOCS_RESOURCES_CHANNEL/channel-object) object.
 
 #### Channel Delete
 
-Sent when a channel relevant to the current user is deleted. The inner payload is a [channel](#DOCS_CHANNEL/channel-object) object.
+Sent when a channel relevant to the current user is deleted. The inner payload is a [channel](#DOCS_RESOURCES_CHANNEL/channel-object) object.
 
 #### Channel Pins Update
 
@@ -549,23 +549,23 @@ Sent when a message is pinned or unpinned in a text channel. This is not sent wh
 
 This event can be sent in three different scenarios:
 
-1. When a user is initially connecting, to lazily load and backfill information for all unavailable guilds sent in the [Ready](#DOCS_GATEWAY/ready) event.
+1. When a user is initially connecting, to lazily load and backfill information for all unavailable guilds sent in the [Ready](#DOCS_TOPICS_GATEWAY/ready) event.
 2. When a Guild becomes available again to the client.
 3. When the current user joins a new Guild.
 
-The inner payload is a [guild](#DOCS_GUILD/guild-object) object, with all the extra fields specified.
+The inner payload is a [guild](#DOCS_RESOURCES_GUILD/guild-object) object, with all the extra fields specified.
 
 #### Guild Update
 
-Sent when a guild is updated. The inner payload is a [guild](#DOCS_GUILD/guild-object) object.
+Sent when a guild is updated. The inner payload is a [guild](#DOCS_RESOURCES_GUILD/guild-object) object.
 
 #### Guild Delete
 
-Sent when a guild becomes unavailable during a guild outage, or when the user leaves or is removed from a guild. The inner payload is an [unavailable guild](#DOCS_GUILD/unavailable-guild-object) object. If the `unavailable` field is not set, the user was removed from the guild.
+Sent when a guild becomes unavailable during a guild outage, or when the user leaves or is removed from a guild. The inner payload is an [unavailable guild](#DOCS_RESOURCES_GUILD/unavailable-guild-object) object. If the `unavailable` field is not set, the user was removed from the guild.
 
 #### Guild Ban Add
 
-Sent when a user is banned from a guild. The inner payload is a [user](#DOCS_USER/user-object) object, with an extra `guild_id` key.
+Sent when a user is banned from a guild. The inner payload is a [user](#DOCS_RESOURCES_USER/user-object) object, with an extra `guild_id` key.
 
 ###### Guild Ban Add Extra Fields
 
@@ -575,7 +575,7 @@ Sent when a user is banned from a guild. The inner payload is a [user](#DOCS_USE
 
 #### Guild Ban Remove
 
-Sent when a user is unbanned from a guild. The inner payload is a [user](#DOCS_USER/user-object) object, with an extra `guild_id` key.
+Sent when a user is unbanned from a guild. The inner payload is a [user](#DOCS_RESOURCES_USER/user-object) object, with an extra `guild_id` key.
 
 ###### Guild Ban Remove Extra Fields
 
@@ -592,7 +592,7 @@ Sent when a guild's emojis have been updated.
 | Field | Type | Description |
 |-------|------|-------------|
 | guild_id | snowflake | id of the guild |
-| emojis | array | array of [emojis](#DOCS_EMOJI/emoji-object) |
+| emojis | array | array of [emojis](#DOCS_RESOURCES_EMOJI/emoji-object) |
 
 #### Guild Integrations Update
 
@@ -606,7 +606,7 @@ Sent when a guild integration is updated.
 
 #### Guild Member Add
 
-Sent when a new user joins a guild. The inner payload is a [guild member](#DOCS_GUILD/guild-member-object) object with an extra `guild_id` key:
+Sent when a new user joins a guild. The inner payload is a [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) object with an extra `guild_id` key:
 
 ###### Guild Member Add Extra Fields
 
@@ -623,7 +623,7 @@ Sent when a user is removed from a guild (leave/kick/ban).
 | Field | Type | Description |
 |-------|------|-------------|
 | guild_id | snowflake | the id of the guild |
-| user | a [user](#DOCS_USER/user-object) object | the user who was removed |
+| user | a [user](#DOCS_RESOURCES_USER/user-object) object | the user who was removed |
 
 #### Guild Member Update
 
@@ -635,19 +635,19 @@ Sent when a guild member is updated.
 |-------|------|-------------|
 | guild_id | snowflake | the id of the guild |
 | roles | array of snowflakes | user role ids |
-| user | a [user](#DOCS_USER/user-object) object | the user |
+| user | a [user](#DOCS_RESOURCES_USER/user-object) object | the user |
 | nick | string | nickname of the user in the guild |
 
 #### Guild Members Chunk
 
-Sent in response to [Guild Request Members](#DOCS_GATEWAY/request-guild-members).
+Sent in response to [Guild Request Members](#DOCS_TOPICS_GATEWAY/request-guild-members).
 
 ###### Guild Members Chunk Event Fields
 
 | Field | Type | Description |
 |-------|------|-------------|
 | guild_id | snowflake | the id of the guild |
-| members | array of [guild members](#DOCS_GUILD/guild-member-object) | set of guild members |
+| members | array of [guild members](#DOCS_RESOURCES_GUILD/guild-member-object) | set of guild members |
 
 #### Guild Role Create
 
@@ -658,7 +658,7 @@ Sent when a guild role is created.
 | Field | Type | Description |
 |-------|------|-------------|
 | guild_id | snowflake | the id of the guild |
-| role | a [role](#DOCS_PERMISSIONS/role-object) object | the role created |
+| role | a [role](#DOCS_TOPICS_PERMISSIONS/role-object) object | the role created |
 
 #### Guild Role Update
 
@@ -669,7 +669,7 @@ Sent when a guild role is updated.
 | Field | Type | Description |
 |-------|------|-------------|
 | guild_id | snowflake | the id of the guild |
-| role | a [role](#DOCS_PERMISSIONS/role-object) object | the role updated |
+| role | a [role](#DOCS_TOPICS_PERMISSIONS/role-object) object | the role updated |
 
 #### Guild Role Delete
 
@@ -686,11 +686,11 @@ Sent when a guild role is deleted.
 
 #### Message Create
 
-Sent when a message is created. The inner payload is a [message](#DOCS_CHANNEL/message-object) object.
+Sent when a message is created. The inner payload is a [message](#DOCS_RESOURCES_CHANNEL/message-object) object.
 
 #### Message Update
 
-Sent when a message is updated. The inner payload is a [message](#DOCS_CHANNEL/message-object) object.
+Sent when a message is updated. The inner payload is a [message](#DOCS_RESOURCES_CHANNEL/message-object) object.
 
 >warn
 >Unlike creates, message updates may contain only a subset of the full message object payload (but will always contain an id and channel_id).
@@ -728,7 +728,7 @@ Sent when a user adds a reaction to a message.
 | user_id | snowflake | the id of the user |
 | channel_id | snowflake | the id of the channel |
 | message_id | snowflake | the id of the message |
-| emoji | a partial [emoji](#DOCS_EMOJI/emoji-object) object | the emoji used to react - [example](#DOCS_EMOJI/emoji-object-gateway-reaction-standard-emoji-example) |
+| emoji | a partial [emoji](#DOCS_RESOURCES_EMOJI/emoji-object) object | the emoji used to react - [example](#DOCS_RESOURCES_EMOJI/emoji-object-gateway-reaction-standard-emoji-example) |
 
 #### Message Reaction Remove
 
@@ -741,7 +741,7 @@ Sent when a user removes a reaction from a message.
 | user_id | snowflake | the id of the user |
 | channel_id | snowflake | the id of the channel |
 | message_id | snowflake | the id of the message |
-| emoji | a partial [emoji](#DOCS_EMOJI/emoji-object) object | the emoji used to react - [example](#DOCS_EMOJI/emoji-object-gateway-reaction-standard-emoji-example) |
+| emoji | a partial [emoji](#DOCS_RESOURCES_EMOJI/emoji-object) object | the emoji used to react - [example](#DOCS_RESOURCES_EMOJI/emoji-object-gateway-reaction-standard-emoji-example) |
 
 #### Message Reaction Remove All
 
@@ -767,9 +767,9 @@ A user's presence is their current state on a guild. This event is sent when a u
 
 | Field | Type | Description |
 |-------|------|-------------|
-| user | [user](#DOCS_USER/user-object) object | the user presence is being updated for |
+| user | [user](#DOCS_RESOURCES_USER/user-object) object | the user presence is being updated for |
 | roles | array of snowflakes | roles this user is in |
-| game | ?[activity](#DOCS_GATEWAY/activity-object) object | null, or the user's current activity |
+| game | ?[activity](#DOCS_TOPICS_GATEWAY/activity-object) object | null, or the user's current activity |
 | guild_id | snowflake | id of the guild |
 | status | string | either "idle", "dnd", "online", or "offline" |
 
@@ -780,14 +780,14 @@ A user's presence is their current state on a guild. This event is sent when a u
 | Field | Type | Description |
 |-------|------|-------------|
 | name | string | the activity's name |
-| type | integer | [activity type](#DOCS_GATEWAY/activity-object-activity-types) |
+| type | integer | [activity type](#DOCS_TOPICS_GATEWAY/activity-object-activity-types) |
 | url? | ?string | stream url, is validated when type is 1  |
-| timestamps? | [timestamps](#DOCS_GATEWAY/activity-object-activity-timestamps) object | unix timestamps for start and/or end of the game |
+| timestamps? | [timestamps](#DOCS_TOPICS_GATEWAY/activity-object-activity-timestamps) object | unix timestamps for start and/or end of the game |
 | application_id? | snowflake | application id for the game |
 | details? | ?string | what the player is currently doing |
 | state? | ?string | the user's current party status |
-| party? | [party](#DOCS_GATEWAY/activity-object-activity-party) object | information for the current party of the player |
-| assets? | [assets](#DOCS_GATEWAY/activity-object-activity-assets) object | images for the presence and their hover texts |
+| party? | [party](#DOCS_TOPICS_GATEWAY/activity-object-activity-party) object | information for the current party of the player |
+| assets? | [assets](#DOCS_TOPICS_GATEWAY/activity-object-activity-assets) object | images for the presence and their hover texts |
 
 >info
 >Bots are only able to send `name`, `type`, and optionally `url`.
@@ -878,13 +878,13 @@ Sent when a user starts typing in a channel.
 
 #### User Update
 
-Sent when properties about the user change. Inner payload is a [user](#DOCS_USER/user-object) object.
+Sent when properties about the user change. Inner payload is a [user](#DOCS_RESOURCES_USER/user-object) object.
 
 ### Voice
 
 #### Voice State Update
 
-Sent when someone joins/leaves/moves voice channels. Inner payload is a [voice state](#DOCS_VOICE/voice-state-object) object.
+Sent when someone joins/leaves/moves voice channels. Inner payload is a [voice state](#DOCS_RESOURCES_VOICE/voice-state-object) object.
 
 #### Voice Server Update
 
@@ -926,7 +926,7 @@ Sent when a guild channel's webhook is created, updated, or deleted.
 >info
 >This endpoint does not require authentication.
 
-Returns an object with a single valid WSS URL, which the client can use for [Connecting](#DOCS_GATEWAY/connecting). Clients **should** cache this value and only call this endpoint to retrieve a new URL if they are unable to properly establish a connection using the cached version of the URL.
+Returns an object with a single valid WSS URL, which the client can use for [Connecting](#DOCS_TOPICS_GATEWAY/connecting). Clients **should** cache this value and only call this endpoint to retrieve a new URL if they are unable to properly establish a connection using the cached version of the URL.
 
 ###### Example Response
 
@@ -942,7 +942,7 @@ Returns an object with a single valid WSS URL, which the client can use for [Con
 >warn
 >This endpoint requires authentication using a valid bot token.
 
-Returns an object with the same information as [Get Gateway](#DOCS_GATEWAY/get-gateway), plus a `shards` key, containing the recommended number of [shards](#DOCS_GATEWAY/sharding) to connect with (as an integer). Bots that want to dynamically/automatically spawn shard processes should use this endpoint to determine the number of processes to run. This route should be called once when starting up numerous shards, with the response being cached and passed to all sub-shards/processes. Unlike the [Get Gateway](#DOCS_GATEWAY/get-gateway), this route should not be cached for extended periods of time as the value is not guaranteed to be the same per-call, and changes as the bot joins/leaves guilds.
+Returns an object with the same information as [Get Gateway](#DOCS_TOPICS_GATEWAY/get-gateway), plus a `shards` key, containing the recommended number of [shards](#DOCS_TOPICS_GATEWAY/sharding) to connect with (as an integer). Bots that want to dynamically/automatically spawn shard processes should use this endpoint to determine the number of processes to run. This route should be called once when starting up numerous shards, with the response being cached and passed to all sub-shards/processes. Unlike the [Get Gateway](#DOCS_TOPICS_GATEWAY/get-gateway), this route should not be cached for extended periods of time as the value is not guaranteed to be the same per-call, and changes as the bot joins/leaves guilds.
 
 ###### Example Response
 

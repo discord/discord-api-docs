@@ -34,7 +34,7 @@ Discord is built around the idea of bringing people together through games. As p
 - Launch into your game's spectate mode directly from Discord
 - Allow your players to ask to join their friends' games
 
-Rich Presence is free, open-sourced, and self-serve, so check out [the How To guide](#DOCS_HOW_TO/) and get started!
+Rich Presence is free, open-sourced, and self-serve, so check out [the How To guide](#DOCS_RICH_PRESENCE_HOW_TO/) and get started!
 
 Those looking to test out the waters before jumping into the deep end with a technical integration should check out our [Verified Servers](https://discordapp.com/verification) program. Being a game developer and owning and operating your game's Discord server makes you eligible for special perks like:
 
