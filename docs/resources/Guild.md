@@ -214,7 +214,7 @@ A partial [guild](#DOCS_GUILD/guild-object) object. Represents an Offline Guild,
 Create a new guild. Returns a [guild](#DOCS_GUILD/guild-object) object on success. Fires a [Guild Create](#DOCS_GATEWAY/guild-create) Gateway event.
 
 >warn
->This endpoint can be used only by bots in less than 10 guilds.
+>This endpoint can be used only by bots in less than 10 guilds. Creating channel categories from this endpoint is not supported.
 
 ###### JSON Params
 
