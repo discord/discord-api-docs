@@ -122,7 +122,7 @@ A partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object. Represents an Offl
 | Field | Type | Description |
 |-------|------|-------------|
 | enabled | bool | if the embed is enabled |
-| channel_id | snowflake | the embed channel id |
+| channel_id | ?snowflake | the embed channel id |
 
 ###### Example Guild Embed
 
