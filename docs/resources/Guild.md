@@ -81,7 +81,7 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 	"id": "41771983423143937",
 	"application_id": null,
 	"name": "Discord Developers",
-	"icon": "SEkgTU9NIElUUyBBTkRSRUkhISEhISEh",
+	"icon": "86e39f7ae3307e811784e2ffd11a7310",
 	"splash": null,
 	"owner_id": "80351110224678912",
 	"region": "us-east",
