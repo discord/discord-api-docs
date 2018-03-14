@@ -16,7 +16,7 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 | owner\_id | snowflake | id of owner |
 | permissions? | integer | total permissions for [the user](#DOCS_RESOURCES_USER/get-current-user-guilds) in the guild (does not include channel overrides) |
 | region | string | [voice region](#DOCS_RESOURCES_VOICE/voice-region) id for the guild |
-| afk\_channel\_id | snowflake | id of afk channel |
+| afk\_channel\_id | ?snowflake | id of afk channel |
 | afk\_timeout | integer | afk timeout in seconds |
 | embed\_enabled? | bool | is this guild embeddable (e.g. widget) |
 | embed\_channel\_id? | snowflake | id of embedded channel |
