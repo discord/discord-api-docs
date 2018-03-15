@@ -515,7 +515,6 @@ Any message IDs given that do not exist or are invalid will count towards the mi
 
 >warn
 >This endpoint will not delete messages older than 2 weeks, and will fail if any message provided is older than that.
->An endpoint will be added in the future to prune messages older than 2 weeks from a channel.
 
 ###### JSON Params
 
