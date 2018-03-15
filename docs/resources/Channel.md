@@ -14,7 +14,7 @@ Represents a guild or DM channel within Discord.
 | position? | integer | sorting position of the channel |
 | permission\_overwrites? | array of [overwrite](#DOCS_RESOURCES_CHANNEL/overwrite-object) objects | explicit permission overwrites for members and roles  |
 | name? | string | the name of the channel (2-100 characters) |
-| topic? | string | the channel topic (0-1024 characters) |
+| topic? | ?string | the channel topic (0-1024 characters) |
 | nsfw? | bool | if the channel is nsfw
 | last\_message\_id? | ?snowflake | the id of the last message sent in this channel (may not point to an existing or valid message) |
 | bitrate? | integer | the bitrate (in bits) of the voice channel |
