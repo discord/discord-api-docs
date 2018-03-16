@@ -11,6 +11,8 @@ Represents a code that when used, adds a user to a guild.
 | code | string | the invite code (unique ID) |
 | guild | partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object | the guild this invite is for |
 | channel | partial [channel](#DOCS_RESOURCES_CHANNEL/channel-object) object | the channel this invite is for |
+| appoximate_presence_count? | int | appoximate count of online members |
+| approximate_member_count? | int | appoximate count of total members |
 
 ###### Example Invite Object
 
@@ -62,6 +64,12 @@ Represents a code that when used, adds a user to a guild.
 ## Get Invite % GET /invites/{invite.code#DOCS_RESOURCES_INVITE/invite-object}
 
 Returns an [invite](#DOCS_RESOURCES_INVITE/invite-object) object for the given code.
+
+###### Get Invite URL Parameters
+
+| Field | Type | Description |
+|-----------|------|-------------|
+| with_counts? | boolean | whether the invite should contain approximate member counts |
 
 ## Delete Invite % DELETE /invites/{invite.code#DOCS_RESOURCES_INVITE/invite-object}
 
