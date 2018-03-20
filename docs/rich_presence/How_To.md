@@ -141,10 +141,10 @@ typedef struct DiscordRichPresence {
 | partyId        | char*   | id of the player's party, lobby, or group                                 | "ae488379-351d-4a4f-ad32-2b9b01c91657"                     |
 | partySize      | int     | current size of the player's party, lobby, or group                       | 1                                                          |
 | partyMax       | int     | maximum size of the player's party, lobby, or group                       | 5                                                          |
-| matchSecret    | char*   | unique hashed string for Spectate and Join                                | MmhuZToxMjMxMjM6cWl3amR3MWlqZA==                           |
+| matchSecret    | char*   | [deprecated Notify Me feature, may be re-used in future]                  | MmhuZToxMjMxMjM6cWl3amR3MWlqZA==                           |
 | spectateSecret | char*   | unique hashed string for Spectate button                                  | MTIzNDV8MTIzNDV8MTMyNDU0                                   |
 | joinSecret     | char*   | unique hashed string for chat invitations and Ask to Join                 | MTI4NzM0OjFpMmhuZToxMjMxMjM=                               |
-| instance       | int8_t  | marks the matchSecret as a game session with a specific beginning and end | 1                                                          |
+| instance       | int8_t  | [deprecated Notify Me feature, may be re-used in future]                  | 1                                                          |
 
 >info
 >Sending `endTimestamp` will **always** have the time displayed as "remaining" until the given time. Sending `startTimestamp` will show "elapsed" as long as there is no `endTimestamp` sent.
@@ -166,7 +166,6 @@ Here's a handy image to see how these fields are actually displayed on a profile
 `partySize`
 `partyMax`
 `joinSecret`
-`matchSecret`
 
 When you send the relevant payload data in the `Discord_UpdatePresence()` call, your player can invite a Discord chat channel to play with them. This invite is tied to the player's party information; if their `partyId` changes, the invite will expire. If their `partySize` and `partyMax` changes, the invite will add, remove, and fill up slots dynamically.
 
@@ -233,7 +232,6 @@ To enable the Spectate button on your players' profiles, you'll need to be appro
 #### Relevant Payload Data:
 
 `spectateSecret`
-`matchSecret`
 
 When you send the relevant payload data in the `Discord_UpdatePresence()` call, your player will gain the ability to invite a Discord chat channel to spectate their game. This invite is tied to the `matchSecret` and will expire when it changes.
 
@@ -253,23 +251,23 @@ All fields in the `DiscordRichPresence` object are entirely optional. Anything y
 
 ###### Rich Presence Field Requirements
 
-| Field          | Custom Artwork | Notification | Spectating | Joining  | Ask to Join |
-| :------------: | :------------: | :----------: | :--------: | :------: | :---------: |
-| state          |                |              |            |          |             |
-| details        |                |              |            |          |             |
-| startTimestamp |                |              |            |          |             |
-| endTimestamp   |                |              |            |          |             |
-| largeImageKey  | x              |              |            |          |             |
-| smallImageKey  | x              |              |            |          |             |
-| largeImageText | x              |              |            |          |             |
-| smallImageText | x              |              |            |          |             |
-| partyId        |                |              |            | x        | x           |
-| partySize      |                |              |            | x        | x           |
-| partyMax       |                |              |            | x        | x           |
-| matchSecret    |                | x            |            |          |             |
-| joinSecret     |                |              |            | x        | x           |
-| spectateSecret |                |              | x          |          |             |
-| instance       |                | x            |            |          |             | |
+| Field          | Custom Artwork | Spectating | Joining  | Ask to Join |
+| :------------: | :------------: | :--------: | :------: | :---------: |
+| state          |                |            |          |             |
+| details        |                |            |          |             |
+| startTimestamp |                |            |          |             |
+| endTimestamp   |                |            |          |             |
+| largeImageKey  | x              |            |          |             |
+| smallImageKey  | x              |            |          |             |
+| largeImageText | x              |            |          |             |
+| smallImageText | x              |            |          |             |
+| partyId        |                |            | x        | x           |
+| partySize      |                |            | x        | x           |
+| partyMax       |                |            | x        | x           |
+| matchSecret    |                |            |          |             |
+| joinSecret     |                |            | x        | x           |
+| spectateSecret |                | x          |          |             |
+| instance       |                |            |          |             | |
 
 ## Your New Developer Dashboard
 
