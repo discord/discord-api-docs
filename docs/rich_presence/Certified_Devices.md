@@ -16,12 +16,12 @@ Yup, that's it. You give us the real-time info about any connected devices, and 
 
 ## Device Object
 
-| name | type | description |
-| ---- | ---- | ----------- |
+| Field | Type | Description |
+| ----- | ---- | ----------- |
 | type | [device type](#DOCS_RICH_PRESENCE_CERTIFIED_DEVICES/device-type) | the type of device |
 | id   | string | your client id |
-| vendor | string | name of the hardware vendor |
-| model | string | model name of the product |
+| vendor | [vendor](#DOCS_RICH_PRESENCE_CERTIFIED_DEVICES/vendor-object) object | the hardware vendor |
+| model | [model](#DOCS_RICH_PRESENCE_CERTIFIED_DEVICES/model-object) object | the model of the product |
 | related | array of strings | model names of related products |
 | echo_cancellation?* | bool | if the device's native echo cancellation is enabled |
 | noise_suppression?* | bool | if the device's native noise suppression is enabled |
@@ -30,9 +30,23 @@ Yup, that's it. You give us the real-time info about any connected devices, and 
 
 *These fields are only applicable for `AUDIO_INPUT` device types
 
+## Vendor Object
+
+| Field | Type   | Description        |
+| ----- | ------ | ------------------ |
+| name  | string | name of the vendor |
+| url   | string | url for the vendor |
+
+## Model Object
+
+| Field | Type   | Description       |
+| ----- | ------ | ----------------- |
+| name  | string | name of the model |
+| url   | string | url for the model |
+
 ## Device Types
 
-| name         | value         |
+| Type         | Value         |
 | ------------ | ------------- |
 | AUDIO_INPUT  | "audioinput"  |
 | AUDIO_OUTPUT | "audiooutput" |
@@ -42,15 +56,21 @@ Yup, that's it. You give us the real-time info about any connected devices, and 
 
 ```json
 {
-  "nonce": "123456789-abcdefg",
+  "nonce": "9b4e9711-97f3-4f35-b047-32c82a51978e",
   "cmd": "SET_CERTIFIED_DEVICES",
   "args": {
     "devices": [
       {
         "type": "audioinput",
         "id": "422289129460465999",
-        "vendor": "SteelSeries",
-        "model": "Arctis 7",
+        "vendor": {
+          "name": "SteelSeries",
+          "url": "https://steelseries.com"
+        },
+        "model": {
+          "name": "Arctis 7",
+          "url": "https://steelseries.com/gaming-headsets/arctis-7"
+        },
         "related": ["Arctis 5 - Dota 2 Limited Edition"],
         "echo_cancellation": true,
         "noise_suppression": true,
@@ -67,15 +87,21 @@ Yup, that's it. You give us the real-time info about any connected devices, and 
 ```
 curl -X POST -H "Authorization: your_client_id, Content-Type: application/json" "http://127.0.0.1:PORT" -d "
 {
-  "nonce": "123456789-abcdefg",
+  "nonce": "9b4e9711-97f3-4f35-b047-32c82a51978e",
   "cmd": "SET_CERTIFIED_DEVICES",
   "args": {
     "devices": [
       {
         "type": "audioinput",
         "id": "422289129460465999",
-        "vendor": "SteelSeries",
-        "model": "Arctis 7",
+        "vendor": {
+          "name": "SteelSeries",
+          "url": "https://steelseries.com"
+        },
+        "model": {
+          "name": "Arctis 7",
+          "url": "https://steelseries.com/gaming-headsets/arctis-7"
+        },
         "related": ["Arctis 5 - Dota 2 Limited Edition"],
         "echo_cancellation": true,
         "noise_suppression": true,
