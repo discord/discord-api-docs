@@ -22,7 +22,7 @@ Yup, that's it. You give us the real-time info about any connected devices, and 
 | id   | string | your client id |
 | vendor | string | name of the hardware vendor |
 | model | string | model name of the product |
-| related | array of strings | |
+| related | array of strings | model names of related products |
 | echo_cancellation?* | bool | if the device's native echo cancellation is enabled |
 | noise_suppression?* | bool | if the device's native noise suppression is enabled |
 | automatic_gain_control?* | bool | if the device's native automatic gain control is enabled |
