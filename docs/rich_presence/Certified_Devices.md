@@ -12,7 +12,7 @@ I'm glad you asked!
 
 Yup, that's it. You give us the real-time info about any connected devices, and we'll handle the rest to make sure that anyone using your device will have an awesome experience. Your device will also have a `CERTIFIED` badge in Discord's audio settings, and really, who doesn't love badges?
 
-![](images/certified-device.png)
+![](certified-device.png)
 
 ## Device Object
 
