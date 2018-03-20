@@ -8,7 +8,7 @@ I'm glad you asked!
 
 1. [Create an application](https://discordapp.com/developers/applications/me) for your hardware vendor
 2. Talk to Discord via one simple HTTP call (or RPC, if you're already whitelisted for it)
-3. Send us a [#DOCS_TOPICS_RPC/set-certified-devices] RPC command—or via HTTP with matching JSON—whenever the state of the device changes
+3. Send us a [`SET_CERTIFIED_DEVICES`](#DOCS_TOPICS_RPC/set-certified-devices) RPC command—or via HTTP with matching JSON—whenever the state of the device changes
 
 Yup, that's it. You give us the real-time info about any connected devices, and we'll handle the rest to make sure that anyone using your device will have an awesome experience. Your device will also have a `CERTIFIED` badge in Discord's audio settings, and really, who doesn't love badges?
 
