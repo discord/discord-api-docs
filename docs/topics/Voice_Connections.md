@@ -102,7 +102,7 @@ In order to maintain your websocket connection, you need to continuously send he
 }
 ```
 
-###### Exmaple Hello Payload V3
+###### Example Hello Payload V3
 
 ```json
 {
