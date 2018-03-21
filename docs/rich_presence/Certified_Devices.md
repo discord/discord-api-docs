@@ -59,6 +59,18 @@ curl -X POST -H 'Content-Type: application/json' -d '
 ' http://127.0.0.1:PORT/rpc?v=1&client_id=YOUR_CLIENT_ID
 ```
 
+The socket will respond with a `200 OK` status code and the following JSON.
+
+###### HTTP Response Example
+
+```json
+{
+  "cmd": "SET_CERTIFIED_DEVICES",
+  "data": null,
+  "evt": null,
+  "nonce": "9b4e9711-97f3-4f35-b047-32c82a51978e"
+}
+
 ## RPC
 
 If you are already whitelisted for Discord's RPC capabilities, you can easily keep your hardware up to date by sending `SET_CERTIFIED_DEVICES` commands over the socket whenever yuor device state changes.
