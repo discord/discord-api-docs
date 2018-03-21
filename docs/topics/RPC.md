@@ -967,17 +967,17 @@ Used by hardware manufacturers to send information about the current state of th
 
 ###### Set Certified Devices Argument Strucure
 
-| Field | Type | Description |
-| ----- | ---- | ----------- |
-| type | [device type](#DOCS_RICH_PRESENCE_CERTIFIED_DEVICES/device-type) | the type of device |
-| id   | string | your client id |
-| vendor | [vendor](#DOCS_RICH_PRESENCE_CERTIFIED_DEVICES/vendor-object) object | the hardware vendor |
-| model | [model](#DOCS_RICH_PRESENCE_CERTIFIED_DEVICES/model-object) object | the model of the product |
-| related | array of strings | model names of related products |
-| echo_cancellation?* | bool | if the device's native echo cancellation is enabled |
-| noise_suppression?* | bool | if the device's native noise suppression is enabled |
-| automatic_gain_control?* | bool | if the device's native automatic gain control is enabled |
-| hardware_mute?* | bool | if the device is hardware muted |
+| Field                    | Type                                                                 | Description                                              |
+| ------------------------ | -------------------------------------------------------------------- | -------------------------------------------------------- |
+| type                     | [device type](#DOCS_RICH_PRESENCE_CERTIFIED_DEVICES/device-type)     | the type of device                                       |
+| id                       | string                                                               | the device's Windows UUID                                |
+| vendor                   | [vendor](#DOCS_RICH_PRESENCE_CERTIFIED_DEVICES/vendor-object) object | the hardware vendor                                      |
+| model                    | [model](#DOCS_RICH_PRESENCE_CERTIFIED_DEVICES/model-object) object   | the model of the product                                 |
+| related                  | array of strings                                                     | UUIDs of related products                                |
+| echo_cancellation?*      | bool                                                                 | if the device's native echo cancellation is enabled      |
+| noise_suppression?*      | bool                                                                 | if the device's native noise suppression is enabled      |
+| automatic_gain_control?* | bool                                                                 | if the device's native automatic gain control is enabled |
+| hardware_mute?*          | bool                                                                 | if the device is hardware muted                          |
 
 *These fields are only applicable for `AUDIO_INPUT` device types
 
@@ -1013,7 +1013,7 @@ Used by hardware manufacturers to send information about the current state of th
     "devices": [
       {
         "type": "audioinput",
-        "id": "422289129460465999",
+        "id": "aafc2003-da0e-42a3-b982-6a17a2812510",
         "vendor": {
           "name": "SteelSeries",
           "url": "https://steelseries.com"
@@ -1022,7 +1022,7 @@ Used by hardware manufacturers to send information about the current state of th
           "name": "Arctis 7",
           "url": "https://steelseries.com/gaming-headsets/arctis-7"
         },
-        "related": ["Arctis 5 - Dota 2 Limited Edition"],
+        "related": ["aafc2003-da0e-42a3-b982-6a17a2819999"],
         "echo_cancellation": true,
         "noise_suppression": true,
         "automatic_gain_control": true,
