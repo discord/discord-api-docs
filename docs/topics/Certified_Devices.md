@@ -119,7 +119,7 @@ If WebSockets are your thing, you can easily keep your hardware up to date by se
 
 ## Models
 
-## Device Object
+### Device Object
 
 | Field                    | Type                                                                 | Description                                              |
 | ------------------------ | -------------------------------------------------------------------- | -------------------------------------------------------- |
