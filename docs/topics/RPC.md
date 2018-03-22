@@ -967,13 +967,19 @@ Used by hardware manufacturers to send information about the current state of th
 
 ###### Set Certified Devices Argument Strucure
 
+| Field   | Type                                                                                      | Description                                                   |
+| ------- | ----------------------------------------------------------------------------------------- | ------------------------------------------------------------- |
+| devices | array of [certified device](#DOCS_TOPICS_RPC/set-certified-devices-device-object) objects | a list of devices for your manufacturer, in order of priority |
+
+###### Device Object
+
 | Field                    | Type                                                                  | Description                                              |
 | ------------------------ | --------------------------------------------------------------------- | -------------------------------------------------------- |
 | type                     | [device type](#DOCS_TOPICS_RPC/set-certified-devices-device-type)     | the type of device                                       |
 | id                       | string                                                                | the device's Windows UUID                                |
 | vendor                   | [vendor](#DOCS_TOPICS_RPC/set-certified-devices-vendor-object) object | the hardware vendor                                      |
 | model                    | [model](#DOCS_TOPICS_RPC/set-certified-devices-model-object) object   | the model of the product                                 |
-| related                  | array of strings                                                      | UUIDs of related products                                |
+| related                  | array of strings                                                      | UUIDs of related devices                                 |
 | echo_cancellation?*      | bool                                                                  | if the device's native echo cancellation is enabled      |
 | noise_suppression?*      | bool                                                                  | if the device's native noise suppression is enabled      |
 | automatic_gain_control?* | bool                                                                  | if the device's native automatic gain control is enabled |

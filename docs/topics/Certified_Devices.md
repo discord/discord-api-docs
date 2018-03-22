@@ -14,18 +14,37 @@ Yup, that's it. You give us the real-time info about any connected devices, and 
 
 ![](certified-device.png)
 
-## HTTP
-
-Discord listens for request on `http://127.0.0.1:PORT/rpc?v=1&client_id=YOUR_CLIENT_ID`, where `PORT` is a range of ports from `6463` to `6473`. You should iterate over these ports with your request until one returns a success response code. Keep track of that successful port number for the rest of the session.
+## Connecting
 
 ###### Querystring Parameters
 
-| Name      | Value                | Required |
-| --------- | -------------------- | -------- |
-| v         | 1                    | yes      |
-| client_id | your app's client id | yes      |
+| Name      | Value                | Required  |
+| --------- | -------------------- | --------- |
+| v         | `1`                  | All       |
+| client_id | your app's client id | All       |
+| encoding  | `json`               | WebSocket |
 
-To keep your hardware in sync with Discord, POST to this endpoint any time the hardware mute is toggled, or one of the voice features like echo cancellation is enabled or disabled by the user. This lets Discord get out of the way of your optimization when you're in control, or help out when you're not, ensuring an awesome experience for anyone using your hardware.
+You can send event updates to the following URIs:
+
+###### HTTP
+
+```
+http://127.0.0.1:PORT/rpc?v=1&client_id=YOUR_CLIENT_ID
+```
+
+###### WebSocket
+
+```
+ws://127.0.0.1:PORT?v=1&client_id=YOUR_CLIENT_ID&encoding=json
+```
+
+`PORT` is a range of ports from `6463` to `6473`. You should iterate over these ports with your request until one returns a success response code or succeeds with a socket connection. Keep track of that port number for the rest of the session.
+
+To keep your hardware in sync with Discord, send updates any time the hardware mute is toggled, or one of the voice features like echo cancellation is enabled or disabled by the user. This lets Discord get out of the way of your optimization when you're in control, or help out when you're not, ensuring an awesome experience for anyone using your hardware.
+
+Each time you update, send a full array of `devices`, sorted by your preffered priority. That means if you want a specific headset to be the default that Discord will attempt to use, put it first in the array.
+
+## HTTP Example
 
 ###### HTTP Request Example
 
@@ -72,9 +91,7 @@ The socket will respond with a `200 OK` status code and the following JSON.
 }
 ```
 
-## WebSocket
-
-If WebSockets are your thing, you can easily keep your hardware up to date by sending `SET_CERTIFIED_DEVICES` commands over the socket whenever your device state changes. Open a connection to `ws://127.0.0.1:PORT?v=1&client_id=YOUR_CLIENT_ID&encoding=json`, where `PORT` is a range of ports from `6463` to `6473`. You should iterate over these ports with your request until one successfully connects. Keep track of that port number for the rest of the session.
+## WebSocket Example
 
 ###### RPC Command Example
 
@@ -127,7 +144,7 @@ If WebSockets are your thing, you can easily keep your hardware up to date by se
 | id                       | string                                                               | the device's Windows UUID                                |
 | vendor                   | [vendor](#DOCS_TOPICS_CERTIFIED_DEVICES/models-vendor-object) object | the hardware vendor                                      |
 | model                    | [model](#DOCS_TOPICS_CERTIFIED_DEVICES/models-model-object) object   | the model of the product                                 |
-| related                  | array of strings                                                     | UUIDs of related products                                |
+| related                  | array of strings                                                     | UUIDs of related devices                                 |
 | echo_cancellation?*      | bool                                                                 | if the device's native echo cancellation is enabled      |
 | noise_suppression?*      | bool                                                                 | if the device's native noise suppression is enabled      |
 | automatic_gain_control?* | bool                                                                 | if the device's native automatic gain control is enabled |
