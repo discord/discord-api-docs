@@ -133,7 +133,7 @@ Commands are requests made to the RPC socket by a client.
 | [GET_VOICE_SETTINGS](#DOCS_TOPICS_RPC/getvoicesettings) | used to retrieve the client's voice settings |
 | [SET_VOICE_SETTINGS](#DOCS_TOPICS_RPC/setvoicesettings) | used to set the client's voice settings |
 | [CAPTURE_SHORTCUT](#DOCS_TOPICS_RPC/captureshortcut) | used to capture a keyboard shortcut entered by the user |
-| [SET_CERTIFIED_DEVICES](#DOCS_TOPICS_RPC/setcertifieddevices) | used by hardware manufacturers to send info about certified devices |
+| [SET_CERTIFIED_DEVICES](#DOCS_TOPICS_RPC/setcertifieddevices) | used to send info about certified hardware devices |
 
 Events are payloads sent over the socket to a client that correspond events in Discord.
 
@@ -773,9 +773,9 @@ When setting voice settings, all fields are optional. Only passed fields are upd
 
 | Field | Type | Description |
 |-------|------|-------------|
-| input | [voice settings input](#DOCS_TOPICS_RPC/voice-settings-input-object) object | input settings |
-| output | [voice settings ouput](#DOCS_TOPICS_RPC/voice-settings-output-object) | output settings |
-| mode | [voice settings mode](#DOCS_TOPICS_RPC/voice-settings-mode-object) object | voice mode settings |
+| input | [voice settings input](#DOCS_TOPICS_RPC/get-voice-settings-voice-settings-input-object) object | input settings |
+| output | [voice settings ouput](#DOCS_TOPICS_RPC/get-voice-settings-voice-settings-output-object) | output settings |
+| mode | [voice settings mode](#DOCS_TOPICS_RPC/get-voice-settings-voice-settings-mode-object) object | voice mode settings |
 | automatic_gain_control | bool | state of automatic gain control |
 | echo_cancellation | bool | state of echo cancellation |
 | noise_suppression | bool | state of noise suppression |
@@ -967,35 +967,35 @@ Used by hardware manufacturers to send information about the current state of th
 
 ###### Set Certified Devices Argument Strucure
 
-| Field                    | Type                                                                 | Description                                              |
-| ------------------------ | -------------------------------------------------------------------- | -------------------------------------------------------- |
-| type                     | [device type](#DOCS_RICH_PRESENCE_CERTIFIED_DEVICES/device-type)     | the type of device                                       |
-| id                       | string                                                               | the device's Windows UUID                                |
-| vendor                   | [vendor](#DOCS_RICH_PRESENCE_CERTIFIED_DEVICES/vendor-object) object | the hardware vendor                                      |
-| model                    | [model](#DOCS_RICH_PRESENCE_CERTIFIED_DEVICES/model-object) object   | the model of the product                                 |
-| related                  | array of strings                                                     | UUIDs of related products                                |
-| echo_cancellation?*      | bool                                                                 | if the device's native echo cancellation is enabled      |
-| noise_suppression?*      | bool                                                                 | if the device's native noise suppression is enabled      |
-| automatic_gain_control?* | bool                                                                 | if the device's native automatic gain control is enabled |
-| hardware_mute?*          | bool                                                                 | if the device is hardware muted                          |
+| Field                    | Type                                                                  | Description                                              |
+| ------------------------ | --------------------------------------------------------------------- | -------------------------------------------------------- |
+| type                     | [device type](#DOCS_TOPICS_RPC/set-certified-devices-device-type)     | the type of device                                       |
+| id                       | string                                                                | the device's Windows UUID                                |
+| vendor                   | [vendor](#DOCS_TOPICS_RPC/set-certified-devices-vendor-object) object | the hardware vendor                                      |
+| model                    | [model](#DOCS_TOPICS_RPC/set-certified-devices-model-object) object   | the model of the product                                 |
+| related                  | array of strings                                                      | UUIDs of related products                                |
+| echo_cancellation?*      | bool                                                                  | if the device's native echo cancellation is enabled      |
+| noise_suppression?*      | bool                                                                  | if the device's native noise suppression is enabled      |
+| automatic_gain_control?* | bool                                                                  | if the device's native automatic gain control is enabled |
+| hardware_mute?*          | bool                                                                  | if the device is hardware muted                          |
 
 *These fields are only applicable for `AUDIO_INPUT` device types
 
-### Vendor Object
+###### Vendor Object
 
 | Field | Type   | Description        |
 | ----- | ------ | ------------------ |
 | name  | string | name of the vendor |
 | url   | string | url for the vendor |
 
-### Model Object
+###### Model Object
 
 | Field | Type   | Description       |
 | ----- | ------ | ----------------- |
 | name  | string | name of the model |
 | url   | string | url for the model |
 
-### Device Types
+###### Device Types
 
 | Type         | Value         |
 | ------------ | ------------- |

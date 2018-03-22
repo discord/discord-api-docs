@@ -119,14 +119,14 @@ If WebSockets are your thing, you can easily keep your hardware up to date by se
 
 ## Models
 
-### Device Object
+###### Device Object
 
 | Field                    | Type                                                                 | Description                                              |
 | ------------------------ | -------------------------------------------------------------------- | -------------------------------------------------------- |
-| type                     | [device type](#DOCS_RICH_PRESENCE_CERTIFIED_DEVICES/device-type)     | the type of device                                       |
+| type                     | [device type](#DOCS_TOPICS_CERTIFIED_DEVICES/models-device-type)     | the type of device                                       |
 | id                       | string                                                               | the device's Windows UUID                                |
-| vendor                   | [vendor](#DOCS_RICH_PRESENCE_CERTIFIED_DEVICES/vendor-object) object | the hardware vendor                                      |
-| model                    | [model](#DOCS_RICH_PRESENCE_CERTIFIED_DEVICES/model-object) object   | the model of the product                                 |
+| vendor                   | [vendor](#DOCS_TOPICS_CERTIFIED_DEVICES/models-vendor-object) object | the hardware vendor                                      |
+| model                    | [model](#DOCS_TOPICS_CERTIFIED_DEVICES/models-model-object) object   | the model of the product                                 |
 | related                  | array of strings                                                     | UUIDs of related products                                |
 | echo_cancellation?*      | bool                                                                 | if the device's native echo cancellation is enabled      |
 | noise_suppression?*      | bool                                                                 | if the device's native noise suppression is enabled      |
@@ -135,21 +135,21 @@ If WebSockets are your thing, you can easily keep your hardware up to date by se
 
 *These fields are only applicable for `AUDIO_INPUT` device types
 
-### Vendor Object
+###### Vendor Object
 
 | Field | Type   | Description        |
 | ----- | ------ | ------------------ |
 | name  | string | name of the vendor |
 | url   | string | url for the vendor |
 
-### Model Object
+###### Model Object
 
 | Field | Type   | Description       |
 | ----- | ------ | ----------------- |
 | name  | string | name of the model |
 | url   | string | url for the model |
 
-### Device Types
+###### Device Types
 
 | Type         | Value         |
 | ------------ | ------------- |
