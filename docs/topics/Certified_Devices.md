@@ -7,8 +7,8 @@ Baked into Discord is the ability for hardware manufacturers to tell us a little
 I'm glad you asked!
 
 1. [Create an application](https://discordapp.com/developers/applications/me) for your hardware vendor—save the Client ID!
-2. Talk to Discord via one simple HTTP or websocket call
-3. Send us a [`SET_CERTIFIED_DEVICES`](#DOCS_TOPICS_RPC/set-certified-devices) websocket payload or equivalent HTTP POST whenever the state of the device changes
+2. Talk to Discord via one simple HTTP or WebSocket call
+3. Send us a [`SET_CERTIFIED_DEVICES`](#DOCS_TOPICS_RPC/set-certified-devices) WebSocket payload or equivalent HTTP POST whenever the state of the device changes
 
 Yup, that's it. You give us the real-time info about any connected devices, and we'll handle the rest to make sure that anyone using your device will have an awesome experience. Your device will also have a `CERTIFIED` badge in Discord's audio settings, and really, who doesn't love badges?
 
@@ -72,9 +72,9 @@ The socket will respond with a `200 OK` status code and the following JSON.
 }
 ```
 
-## Websocket
+## WebSocket
 
-If websockets are your thing, you can easily keep your hardware up to date by sending `SET_CERTIFIED_DEVICES` commands over the socket whenever your device state changes. Open a connection to `ws://127.0.0.1:PORT?v=1&client_id=YOUR_CLIENT_ID&encoding=json`, where `PORT` is a range of ports from `6463` to `6473`. You should iterate over these ports with your request until one successfully connects. Keep track of that port number for the rest of the session.
+If WebSockets are your thing, you can easily keep your hardware up to date by sending `SET_CERTIFIED_DEVICES` commands over the socket whenever your device state changes. Open a connection to `ws://127.0.0.1:PORT?v=1&client_id=YOUR_CLIENT_ID&encoding=json`, where `PORT` is a range of ports from `6463` to `6473`. You should iterate over these ports with your request until one successfully connects. Keep track of that port number for the rest of the session.
 
 ###### RPC Command Example
 
