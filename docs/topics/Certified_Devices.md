@@ -1,14 +1,14 @@
 # Certified Devices
 
-Baked into Discord's Rich Presence functionality is the ability for hardware manufacturers to tell us a little more about the certified devices that are plugged into a user's computer. Unfortunately, no, you can't show that a user's PUBG Chicken Dinner was all thanks to the amazing TotallyRealHardware RGB Mouse and Keyboard Set Extraordinaire™, but you _can_ give them an amazing experience using your hardware with Discord!
+Baked into Discord is the ability for hardware manufacturers to tell us a little more about the certified devices that are plugged into a user's computer. Unfortunately, no, you can't show that a user's PUBG Chicken Dinner was all thanks to the amazing TotallyRealHardware RGB Mouse and Keyboard Set Extraordinaire™, but you _can_ give them an amazing experience using your hardware with Discord!
 
 ## How's it work?
 
 I'm glad you asked!
 
 1. [Create an application](https://discordapp.com/developers/applications/me) for your hardware vendor—save the Client ID!
-2. Talk to Discord via one simple HTTP call (or RPC, if you're already whitelisted for it)
-3. Send us a [`SET_CERTIFIED_DEVICES`](#DOCS_TOPICS_RPC/set-certified-devices) RPC command—or via HTTP with matching JSON—whenever the state of the device changes
+2. Talk to Discord via one simple HTTP or websocket call
+3. Send us a [`SET_CERTIFIED_DEVICES`](#DOCS_TOPICS_RPC/set-certified-devices) websocket payload or equivalent HTTP POST whenever the state of the device changes
 
 Yup, that's it. You give us the real-time info about any connected devices, and we'll handle the rest to make sure that anyone using your device will have an awesome experience. Your device will also have a `CERTIFIED` badge in Discord's audio settings, and really, who doesn't love badges?
 
@@ -70,10 +70,11 @@ The socket will respond with a `200 OK` status code and the following JSON.
   "evt": null,
   "nonce": "9b4e9711-97f3-4f35-b047-32c82a51978e"
 }
+```
 
-## RPC
+## Websocket
 
-If you are already whitelisted for Discord's RPC capabilities, you can easily keep your hardware up to date by sending `SET_CERTIFIED_DEVICES` commands over the socket whenever yuor device state changes.
+If websockets are your thing, you can easily keep your hardware up to date by sending `SET_CERTIFIED_DEVICES` commands over the socket whenever your device state changes. Open a connection to `ws://127.0.0.1:PORT?v=1&client_id=YOUR_CLIENT_ID&encoding=json`, where `PORT` is a range of ports from `6463` to `6473`. You should iterate over these ports with your request until one successfully connects. Keep track of that port number for the rest of the session.
 
 ###### RPC Command Example
 
