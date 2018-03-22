@@ -133,6 +133,7 @@ Commands are requests made to the RPC socket by a client.
 | [GET_VOICE_SETTINGS](#DOCS_TOPICS_RPC/getvoicesettings) | used to retrieve the client's voice settings |
 | [SET_VOICE_SETTINGS](#DOCS_TOPICS_RPC/setvoicesettings) | used to set the client's voice settings |
 | [CAPTURE_SHORTCUT](#DOCS_TOPICS_RPC/captureshortcut) | used to capture a keyboard shortcut entered by the user |
+| [SET_CERTIFIED_DEVICES](#DOCS_TOPICS_RPC/setcertifieddevices) | used by hardware manufacturers to send info about certified devices |
 
 Events are payloads sent over the socket to a client that correspond events in Discord.
 
@@ -957,6 +958,89 @@ Note: The `START` call will return the captured shortcut in its `data` object, w
         "shortcut": [{"type":0,"code":12,"name":"i"}]
     },
     "nonce": "9b4e9711-97f3-4f35-b047-32c82a51978e"
+}
+```
+
+#### SET_CERTIFIED_DEVICES
+
+Used by hardware manufacturers to send information about the current state of their certified devices that are connected to Discord.
+
+###### Set Certified Devices Argument Strucure
+
+| Field                    | Type                                                                 | Description                                              |
+| ------------------------ | -------------------------------------------------------------------- | -------------------------------------------------------- |
+| type                     | [device type](#DOCS_RICH_PRESENCE_CERTIFIED_DEVICES/device-type)     | the type of device                                       |
+| id                       | string                                                               | the device's Windows UUID                                |
+| vendor                   | [vendor](#DOCS_RICH_PRESENCE_CERTIFIED_DEVICES/vendor-object) object | the hardware vendor                                      |
+| model                    | [model](#DOCS_RICH_PRESENCE_CERTIFIED_DEVICES/model-object) object   | the model of the product                                 |
+| related                  | array of strings                                                     | UUIDs of related products                                |
+| echo_cancellation?*      | bool                                                                 | if the device's native echo cancellation is enabled      |
+| noise_suppression?*      | bool                                                                 | if the device's native noise suppression is enabled      |
+| automatic_gain_control?* | bool                                                                 | if the device's native automatic gain control is enabled |
+| hardware_mute?*          | bool                                                                 | if the device is hardware muted                          |
+
+*These fields are only applicable for `AUDIO_INPUT` device types
+
+## Vendor Object
+
+| Field | Type   | Description        |
+| ----- | ------ | ------------------ |
+| name  | string | name of the vendor |
+| url   | string | url for the vendor |
+
+## Model Object
+
+| Field | Type   | Description       |
+| ----- | ------ | ----------------- |
+| name  | string | name of the model |
+| url   | string | url for the model |
+
+## Device Types
+
+| Type         | Value         |
+| ------------ | ------------- |
+| AUDIO_INPUT  | "audioinput"  |
+| AUDIO_OUTPUT | "audiooutput" |
+| VIDEO_INPUT  | "videoinput"  |
+
+###### Example Set Certified Devices Command Payload
+
+```json
+{
+  "nonce": "9b4e9711-97f3-4f35-b047-32c82a51978e",
+  "cmd": "SET_CERTIFIED_DEVICES",
+  "args": {
+    "devices": [
+      {
+        "type": "audioinput",
+        "id": "aafc2003-da0e-42a3-b982-6a17a2812510",
+        "vendor": {
+          "name": "SteelSeries",
+          "url": "https://steelseries.com"
+        },
+        "model": {
+          "name": "Arctis 7",
+          "url": "https://steelseries.com/gaming-headsets/arctis-7"
+        },
+        "related": ["aafc2003-da0e-42a3-b982-6a17a2819999"],
+        "echo_cancellation": true,
+        "noise_suppression": true,
+        "automatic_gain_control": true,
+        "hardware_mute": false
+      }
+    ]
+  }
+}
+```
+
+###### Example Set Certified Devices Response Payload
+
+```json
+{
+  "nonce": "9b4e9711-97f3-4f35-b047-32c82a51978e",
+  "cmd": "SET_CERTIFIED_DEVICES",
+  "data": null,
+  "evt": null
 }
 ```
 
