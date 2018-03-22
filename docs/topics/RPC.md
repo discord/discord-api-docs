@@ -981,21 +981,21 @@ Used by hardware manufacturers to send information about the current state of th
 
 *These fields are only applicable for `AUDIO_INPUT` device types
 
-## Vendor Object
+### Vendor Object
 
 | Field | Type   | Description        |
 | ----- | ------ | ------------------ |
 | name  | string | name of the vendor |
 | url   | string | url for the vendor |
 
-## Model Object
+### Model Object
 
 | Field | Type   | Description       |
 | ----- | ------ | ----------------- |
 | name  | string | name of the model |
 | url   | string | url for the model |
 
-## Device Types
+### Device Types
 
 | Type         | Value         |
 | ------------ | ------------- |
