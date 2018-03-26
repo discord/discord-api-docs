@@ -134,6 +134,9 @@ Commands are requests made to the RPC socket by a client.
 | [SET_VOICE_SETTINGS](#DOCS_TOPICS_RPC/setvoicesettings) | used to set the client's voice settings |
 | [CAPTURE_SHORTCUT](#DOCS_TOPICS_RPC/captureshortcut) | used to capture a keyboard shortcut entered by the user |
 | [SET_CERTIFIED_DEVICES](#DOCS_TOPICS_RPC/setcertifieddevices) | used to send info about certified hardware devices |
+| [SET_ACTIVITY](#DOCS_TOPICS_RPC/setactivity) | used to update a user's Rich Presence |
+| [SEND_ACTIVITY_JOIN_INVITE](#DOCS_TOPICS_RPC/sendactivityjoininvite) | used to consent to a Rich Presence Ask to Join request |
+| [CLOSE_ACTIVITY_REQUEST](#DOCS_TOPICS_RPC/closeactivityrequest) | used to reject a Rich Presence Ask to Join request |
 
 Events are payloads sent over the socket to a client that correspond events in Discord.
 
@@ -159,6 +162,9 @@ Events are payloads sent over the socket to a client that correspond events in D
 | [MESSAGE_DELETE](#DOCS_TOPICS_RPC/messagecreatemessageupdatemessagedelete) | sent when a message is deleted in a subscribed text channel |
 | [NOTIFICATION_CREATE](#DOCS_TOPICS_RPC/notificationcreate) | sent when the client receives a notification (mention or new message in eligible channels) |
 | [CAPTURE_SHORTCUT_CHANGE](#DOCS_TOPICS_RPC/captureshortcutchange) | sent when the user presses a key during [shortcut capturing](#DOCS_TOPICS_RPC/captureshortcut) |
+| [ACTIVITY_JOIN](#DOCS_TOPICS_RPC/activityjoin) | sent when the user clicks a Rich Presence join invite in chat to join a game |
+| [ACTIVITY_SPECTATE](#DOCS_TOPICS_RPC/activityspectate) | sent when the user clicks a Rich Presence spectate invite in chat to spectate a game |
+| [ACTIVITY_JOIN_REQUEST](#DOCS_TOPICS_RPC/activityjoinrequest) | sent when the user receives a Rich Presence Ask to Join request |
 
 #### AUTHORIZE
 
@@ -1050,6 +1056,99 @@ Used by hardware manufacturers to send information about the current state of th
 }
 ```
 
+#### SET_ACTIVITY
+
+Used to update a user's Rich Presence.
+
+###### SET_ACTIVITY Argument Structure
+
+| Field    | Type                                                    | Description                             |
+| -------- | ------------------------------------------------------- | --------------------------------------- |
+| pid      | int                                                     | the application's process id            |
+| activity | [activity](#DOCS_TOPICS_GATEWAY/activity-object) object | the rich presence to assign to the user |
+
+###### Example Set Activity Payload
+
+```json
+{
+  "cmd": "SET_ACTIVITY",
+  "args": {
+    "pid": 9999,
+    "activity": {
+      "state": "In a Group",
+      "details": "Competitive | In a Match",
+      "timestamps": {
+        "start": time(nullptr),
+        "end": time(nullptr) + ((60 * 5) + 23)
+      },
+      "assets": {
+        "large_image": "numbani_map",
+        "large_text": "Numbani",
+        "small_image": "pharah_profile",
+        "small_text": "Pharah"
+      },
+      "party": {
+        "id": GameEngine.GetPartyId(),
+        "size": [3, 6]
+      },
+      "secrets": {
+        "join": "025ed05c71f639de8bfaa0d679d7c94b2fdce12f",
+        "spectate": "e7eb30d2ee025ed05c71ea495f770b76454ee4e0",
+        "match": "4b2fdce12f639de8bfa7e3591b71a0d679d7c93f"
+      },
+      "instance": true
+    }
+  },
+  "nonce": "647d814a-4cf8-4fbb-948f-898abd24f55b"
+}
+```
+
+#### SEND_ACTIVITY_JOIN_INVITE
+
+Used to accept an Ask to Join request.
+
+###### SEND_ACTIVITY_JOIN_INVITE Argument Structure
+
+| Field   | Type      | Description                   |
+| ------- | --------- | ----------------------------- |
+| user_id | snowflake | the id of the requesting user |
+
+###### Example Send Activity Join Invite Payload
+
+```json
+{
+    "nonce": "5dc0c062-98c6-47a0-8922-15aerg126",
+    "cmd": "SEND_ACTIVITY_JOIN_INVITE",
+    "args":
+    {
+        "user_id": "53908232506183680"
+    }
+}
+```
+
+#### CLOSE_ACTIVITY_REQUEST
+
+Used to reject an Ask to Join request.
+
+###### CLOSE_ACTIVITY_REQUEST Argument Structure
+
+| Field   | Type      | Description                   |
+| ------- | --------- | ----------------------------- |
+| user_id | snowflake | the id of the requesting user |
+
+###### Example Close Activity Request Payload
+
+```json
+{
+    "nonce": "5dc0c062-98c6-47a0-8922-15aerg126",
+    "cmd": "CLOSE_ACTIVITY_REQUEST",
+    "args":
+    {
+        "user_id": "53908232506183680"
+    }
+}
+```
+
 #### READY
 
 ###### Ready Dispatch Data Structure
@@ -1501,5 +1600,76 @@ No arguments
     "data": {
         "shortcut": [{"type":0,"code":12,"name":"i"}]
     }
+}
+```
+
+#### ACTIVITY_JOIN
+
+No arguments
+
+###### Activity Join Dispatch Data Structure
+
+| Field  | Type   | Description                                                                                                           |
+| ------ | ------ | --------------------------------------------------------------------------------------------------------------------- |
+| secret | string | the [`join_secret`](#DOCS_RICH_PRESENCE_HOW_TO/updating-presence-update-presence-payload-fields) for the given invite |
+
+###### Example Activity Join Dispatch Payload
+
+```json
+{
+  "cmd": "DISPATCH",
+  "data": {
+    "secret": "025ed05c71f639de8bfaa0d679d7c94b2fdce12f"
+  },
+  "evt": "ACTIVITY_JOIN"
+}
+```
+
+#### ACTIVITY_SPECTATE
+
+No arguments
+
+###### Activity Spectate Dispatch Data Structure
+
+| Field  | Type   | Description                                                                                                               |
+| ------ | ------ | ------------------------------------------------------------------------------------------------------------------------- |
+| secret | string | the [`spectate_secret`](#DOCS_RICH_PRESENCE_HOW_TO/updating-presence-update-presence-payload-fields) for the given invite |
+
+###### Example Activity Spectate Dispatch Payload
+
+```json
+{
+  "cmd": "DISPATCH",
+  "data": {
+    "secret": "e7eb30d2ee025ed05c71ea495f770b76454ee4e0"
+  },
+  "evt": "ACTIVITY_SPECTATE"
+}
+```
+
+#### ACTIVITY_JOIN_REQUEST
+
+No arguments
+
+###### Activity Join Request Data Structure
+
+| Field | Type                                                    | Description                                   |
+| ----- | ------------------------------------------------------- | --------------------------------------------- |
+| user  | partial [user](#DOCS_RESOURCES_USER/user-object) object | information about the user requesting to join |
+
+###### Example Activity Join Request Dispatch Payload
+
+```json
+{
+  "cmd": "DISPATCH",
+  "data": {
+    "user": {
+      "id": "53908232506183680",
+      "username": "Mason",
+      "discriminator": "1337",
+      "avatar": "a_bab14f271d565501444b2ca3be944b25"
+    }
+  },
+  "evt": "ACTIVITY_JOIN_REQUEST"
 }
 ```
