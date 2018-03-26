@@ -790,6 +790,7 @@ A user's presence is their current state on a guild. This event is sent when a u
 | assets? | [assets](#DOCS_TOPICS_GATEWAY/activity-object-activity-assets) object | images for the presence and their hover texts |
 | secrets? | [secrets](#DOCS_TOPICS_GATEWAY/activity-object-activity-secrets) object | secrets for Rich Presence joining and spectating |
 | instance? | boolean | whether or not the activity is an instanced game session |
+| flags? | int | [activity flags](#DOCS_TOPICS_GATEWAY/activity-object-activity-flags) `OR`d together, describes what the payload includes |
 
 >info
 >Bots are only able to send `name`, `type`, and optionally `url`.
@@ -835,6 +836,17 @@ A user's presence is their current state on a guild. This event is sent when a u
 | join?  | string | the secret for joining a party |
 | spectate? | string | the secret for spectating a game |
 | match? | string | the secret for a specific instanced match |
+
+###### Activity Flags
+
+| Name         | Value  |
+| ------------ | -------|
+| INSTANCE     | 1 << 0 |
+| JOIN         | 1 << 1 |
+| SPECTATE     | 1 << 2 |
+| JOIN_REQUEST | 1 << 3 |
+| SYNC 				 | 1 << 4 |
+| PLAY 				 | 1 << 5 |
 
 ###### Example Activity
 
