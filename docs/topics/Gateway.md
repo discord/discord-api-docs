@@ -788,6 +788,8 @@ A user's presence is their current state on a guild. This event is sent when a u
 | state? | ?string | the user's current party status |
 | party? | [party](#DOCS_TOPICS_GATEWAY/activity-object-activity-party) object | information for the current party of the player |
 | assets? | [assets](#DOCS_TOPICS_GATEWAY/activity-object-activity-assets) object | images for the presence and their hover texts |
+| secrets? | [secrets](#DOCS_TOPICS_GATEWAY/activity-object-activity-secrets) object | secrets for Rich Presence joining and spectating |
+| instance? | boolean | whether or not the activity is an instanced game session |
 
 >info
 >Bots are only able to send `name`, `type`, and optionally `url`.
@@ -826,6 +828,14 @@ A user's presence is their current state on a guild. This event is sent when a u
 | small_image? | string | the id for a small asset of the activity, usually a snowflake |
 | small_text? | string | text displayed when hovering over the small image of the activity |
 
+###### Activity Secrets
+
+| Field | Type | Description |
+| ----- | ---- | ----------- |
+| join?  | string | the secret for joining a party |
+| spectate? | string | the secret for spectating a game |
+| match? | string | the secret for a specific instanced match |
+
 ###### Example Activity
 
 ```json
@@ -857,6 +867,11 @@ A user's presence is their current state on a guild. This event is sent when a u
 		"large_text": "DFH Stadium",
 		"small_image": "351371005538729111",
 		"small_text": "Silver III"
+	},
+	"secrets": {
+		"join": "025ed05c71f639de8bfaa0d679d7c94b2fdce12f",
+		"spectate": "e7eb30d2ee025ed05c71ea495f770b76454ee4e0",
+		"match": "4b2fdce12f639de8bfa7e3591b71a0d679d7c93f"
 	}
 }
 ```

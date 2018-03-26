@@ -1060,7 +1060,7 @@ Used by hardware manufacturers to send information about the current state of th
 
 Used to update a user's Rich Presence.
 
-###### SET_ACTIVITY Argument Structure
+###### Set Activity Argument Structure
 
 | Field    | Type                                                    | Description                             |
 | -------- | ------------------------------------------------------- | --------------------------------------- |
@@ -1107,7 +1107,7 @@ Used to update a user's Rich Presence.
 
 Used to accept an Ask to Join request.
 
-###### SEND_ACTIVITY_JOIN_INVITE Argument Structure
+###### Send Activity Join Invite Argument Structure
 
 | Field   | Type      | Description                   |
 | ------- | --------- | ----------------------------- |
@@ -1130,7 +1130,7 @@ Used to accept an Ask to Join request.
 
 Used to reject an Ask to Join request.
 
-###### CLOSE_ACTIVITY_REQUEST Argument Structure
+###### Close Activity Request Argument Structure
 
 | Field   | Type      | Description                   |
 | ------- | --------- | ----------------------------- |
