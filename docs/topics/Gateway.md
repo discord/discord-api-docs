@@ -845,8 +845,8 @@ A user's presence is their current state on a guild. This event is sent when a u
 | JOIN         | 1 << 1 |
 | SPECTATE     | 1 << 2 |
 | JOIN_REQUEST | 1 << 3 |
-| SYNC 				 | 1 << 4 |
-| PLAY 				 | 1 << 5 |
+| SYNC         | 1 << 4 |
+| PLAY         | 1 << 5 |
 
 ###### Example Activity
 
