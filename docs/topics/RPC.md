@@ -1157,6 +1157,7 @@ Used to reject an Ask to Join request.
 |-------|------|-------------|
 | v | integer | RPC version |
 | config | [rpc server configuration](#DOCS_TOPICS_RPC/ready-rpc-server-configuration-object) object | server configuration |
+| user | partial [user](#DOCS_RESOURCES_USER/user-object) object | the user to whom you are connected |
 
 ###### RPC Server Configuration Object
 
@@ -1177,6 +1178,12 @@ Used to reject an Ask to Join request.
             "cdn_host": "cdn.discordapp.com",
             "api_endpoint": "//discordapp.com/api",
             "environment": "production"
+        },
+        "user": {
+            "id": "53908232506183680",
+            "username": "Mason",
+            "discriminator": "1337",
+            "avatar": null
         }
     },
     "evt": "READY"
