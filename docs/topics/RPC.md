@@ -1,8 +1,4 @@
 # RPC
-
->danger
->For now, RPC is in a private beta, which means that only apps that have signed up and been approved can access it.
-
 All Discord clients have an RPC server running on localhost that allows control over local Discord clients.
 
 ###### RPC Versions
