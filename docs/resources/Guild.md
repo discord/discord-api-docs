@@ -292,6 +292,7 @@ Create a new [channel](#DOCS_RESOURCES_CHANNEL/channel-object) object for the gu
 |-------|------|-------------|
 | name | string | channel name (2-100 characters) |
 | type | integer | the [type of channel](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types) |
+| topic | string | channel topic (0-1024 characters) |
 | bitrate | integer | the bitrate (in bits) of the voice channel (voice only) |
 | user_limit | integer | the user limit of the voice channel (voice only) |
 | permission_overwrites | an array of [overwrite](#DOCS_RESOURCES_CHANNEL/overwrite-object) objects | the channel's permission overwrites |
