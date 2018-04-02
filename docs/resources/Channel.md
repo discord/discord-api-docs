@@ -262,69 +262,69 @@ Represents a message sent in a channel within Discord.
 
 | Field | Type | Description |
 |-------|------|-------------|
-| title | string | title of embed |
-| type | string | type of embed (always "rich" for webhook embeds) |
-| description | string | description of embed |
-| url | string | url of embed |
-| timestamp | ISO8601 timestamp | timestamp of embed content |
-| color | integer | color code of the embed |
-| footer | [embed footer](#DOCS_RESOURCES_CHANNEL/embed-object-embed-footer-structure) object | footer information
-| image | [embed image](#DOCS_RESOURCES_CHANNEL/embed-object-embed-image-structure) object | image information
-| thumbnail | [embed thumbnail](#DOCS_RESOURCES_CHANNEL/embed-object-embed-thumbnail-structure) object | thumbnail information |
-| video | [embed video](#DOCS_RESOURCES_CHANNEL/embed-object-embed-video-structure) object | video information |
-| provider | [embed provider](#DOCS_RESOURCES_CHANNEL/embed-object-embed-provider-structure) object | provider information |
-| author | [embed author](#DOCS_RESOURCES_CHANNEL/embed-object-embed-author-structure) object | author information |
+| title? | string | title of embed |
+| type? | string | type of embed (always "rich" for webhook embeds) |
+| description? | string | description of embed |
+| url? | string | url of embed |
+| timestamp? | ISO8601 timestamp | timestamp of embed content |
+| color? | integer | color code of the embed |
+| footer? | [embed footer](#DOCS_RESOURCES_CHANNEL/embed-object-embed-footer-structure) object | footer information
+| image? | [embed image](#DOCS_RESOURCES_CHANNEL/embed-object-embed-image-structure) object | image information
+| thumbnail? | [embed thumbnail](#DOCS_RESOURCES_CHANNEL/embed-object-embed-thumbnail-structure) object | thumbnail information |
+| video? | [embed video](#DOCS_RESOURCES_CHANNEL/embed-object-embed-video-structure) object | video information |
+| provider? | [embed provider](#DOCS_RESOURCES_CHANNEL/embed-object-embed-provider-structure) object | provider information |
+| author? | [embed author](#DOCS_RESOURCES_CHANNEL/embed-object-embed-author-structure) object | author information |
 | fields | array of [embed field](#DOCS_RESOURCES_CHANNEL/embed-object-embed-field-structure) objects | fields information |
 
 ###### Embed Thumbnail Structure
 
 | Field | Type | Description |
 |-------|------|-------------|
-| url | string | source url of thumbnail (only supports http(s) and attachments) |
-| proxy_url | string | a proxied url of the thumbnail |
-| height | integer | height of thumbnail |
-| width | integer | width of thumbnail |
+| url? | string | source url of thumbnail (only supports http(s) and attachments) |
+| proxy_url? | string | a proxied url of the thumbnail |
+| height? | integer | height of thumbnail |
+| width? | integer | width of thumbnail |
 
 ###### Embed Video Structure
 
 | Field | Type | Description |
 |-------|------|-------------|
-| url | string | source url of video |
-| height | integer | height of video |
-| width | integer | width of video |
+| url? | string | source url of video |
+| height? | integer | height of video |
+| width? | integer | width of video |
 
 ###### Embed Image Structure
 
 | Field | Type | Description |
 |-------|------|-------------|
-| url | string | source url of image (only supports http(s) and attachments) |
-| proxy_url | string | a proxied url of the image |
-| height | integer | height of image |
-| width | integer | width of image |
+| url? | string | source url of image (only supports http(s) and attachments) |
+| proxy_url? | string | a proxied url of the image |
+| height? | integer | height of image |
+| width? | integer | width of image |
 
 ###### Embed Provider Structure
 
 | Field | Type | Description |
 |-------|------|-------------|
-| name | string | name of provider |
-| url | string | url of provider |
+| name? | string | name of provider |
+| url? | string | url of provider |
 
 ###### Embed Author Structure
 
 | Field | Type | Description |
 |-------|------|-------------|
-| name | string | name of author |
-| url | string | url of author |
-| icon_url | string | url of author icon (only supports http(s) and attachments) |
-| proxy_icon_url | string | a proxied url of author icon |
+| name? | string | name of author |
+| url? | string | url of author |
+| icon_url? | string | url of author icon (only supports http(s) and attachments) |
+| proxy_icon_url? | string | a proxied url of author icon |
 
 ###### Embed Footer Structure
 
 | Field | Type | Description |
 |-------|------|-------------|
 | text | string | footer text |
-| icon_url | string | url of footer icon (only supports http(s) and attachments) |
-| proxy_icon_url | string | a proxied url of footer icon |
+| icon_url? | string | url of footer icon (only supports http(s) and attachments) |
+| proxy_icon_url? | string | a proxied url of footer icon |
 
 ###### Embed Field Structure
 
@@ -332,7 +332,7 @@ Represents a message sent in a channel within Discord.
 |-------|------|-------------|
 | name | string | name of the field |
 | value | string | value of the field |
-| inline | bool | whether or not this field should display inline |
+| inline? | bool | whether or not this field should display inline |
 
 ### Attachment Object
 
