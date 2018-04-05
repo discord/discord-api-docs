@@ -26,7 +26,7 @@ The first step in implementing OAuth2 is [registering a developer application](#
 | email | enables [/users/@me](#DOCS_RESOURCES_USER/get-current-user) to return an `email` |
 | identify | allows [/users/@me](#DOCS_RESOURCES_USER/get-current-user) without `email` |
 | guilds | allows [/users/@me/guilds](#DOCS_RESOURCES_USER/get-current-user-guilds) to return basic information about all of a user's guilds |
-| guilds.join | allows [/invites/{invite.id}](#DOCS_RESOURCES_INVITE/accept-invite) to be used for joining users to a guild |
+| guilds.join | allows [/guilds/{guild.id}/members/{user.id}](#DOCS_RESOURCES_GUILD/add-guild-member) to be used for joining users to a guild |
 | gdm.join | allows your app to [join users to a group dm](#DOCS_RESOURCES_CHANNEL/group-dm-add-recipient) |
 | messages.read | for local rpc server api access, this allows you to read messages from all client channels (otherwise restricted to channels/guilds your app creates) |
 | rpc | for local rpc server access, this allows you to control a user's local Discord client |
