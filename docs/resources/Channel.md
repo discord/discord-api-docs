@@ -274,7 +274,7 @@ Represents a message sent in a channel within Discord.
 | video? | [embed video](#DOCS_RESOURCES_CHANNEL/embed-object-embed-video-structure) object | video information |
 | provider? | [embed provider](#DOCS_RESOURCES_CHANNEL/embed-object-embed-provider-structure) object | provider information |
 | author? | [embed author](#DOCS_RESOURCES_CHANNEL/embed-object-embed-author-structure) object | author information |
-| fields | array of [embed field](#DOCS_RESOURCES_CHANNEL/embed-object-embed-field-structure) objects | fields information |
+| fields? | array of [embed field](#DOCS_RESOURCES_CHANNEL/embed-object-embed-field-structure) objects | fields information |
 
 ###### Embed Thumbnail Structure
 
