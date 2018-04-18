@@ -56,7 +56,7 @@
 
 ## List Guild Emojis % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/emojis
 
-Returns a list of [emoji](#DOCS_RESOURCES_EMOJI/emoji-object) objects for the given guild. Requires the `MANAGE_EMOJIS` permission.
+Returns a list of [emoji](#DOCS_RESOURCES_EMOJI/emoji-object) objects for the given guild.
 
 ## Get Guild Emoji % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/emojis/{emoji.id#DOCS_RESOURCES_EMOJI/emoji-object}
 
