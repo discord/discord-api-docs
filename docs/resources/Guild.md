@@ -411,7 +411,7 @@ Remove the ban for a user. Requires the 'BAN_MEMBERS' permissions. Returns a 204
 
 ## Get Guild Roles % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/roles
 
-Returns a list of [role](#DOCS_TOPICS_PERMISSIONS/role-object) objects for the guild. Requires the 'MANAGE_ROLES' permission.
+Returns a list of [role](#DOCS_TOPICS_PERMISSIONS/role-object) objects for the guild.
 
 ## Create Guild Role % POST /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/roles
 
