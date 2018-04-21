@@ -85,6 +85,8 @@ def compute_base_permissions(member, guild):
     if permissions & ADMINISTRATOR == ADMINISTRATOR:
         return ALL
 
+    return permissions
+
 def compute_overwrites(base_permissions, member, channel):
     # ADMINISTRATOR overrides any potential permission overwrites, so there is nothing to do here.
     if base_permissions & ADMINISTRATOR == ADMINISTRATOR:
