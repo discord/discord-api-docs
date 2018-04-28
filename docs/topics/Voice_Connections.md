@@ -71,7 +71,7 @@ Once we retrieve a session\_id, token, and endpoint information, we can connect 
 }
 ```
 
-The voice server should respond with an [Opcode 2 Ready](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice-opcodes) payload, which informs us of the `ssrc`, UDP port, and supported encryption modes the voice server expects:
+The voice server should respond with an [Opcode 2 Ready](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice-opcodes) payload, which informs us of the `ssrc`, UDP IP/port, and supported encryption modes the voice server expects:
 
 ###### Example Voice Ready Payload
 
@@ -80,6 +80,7 @@ The voice server should respond with an [Opcode 2 Ready](#DOCS_TOPICS_OPCODES_AN
 	"op": 2,
 	"d": {
 		"ssrc": 1,
+		"ip": "127.0.0.1",
 		"port": 1234,
 		"modes": ["plain", "xsalsa20_poly1305"],
 		"heartbeat_interval": 1
@@ -142,7 +143,7 @@ In return, you will be sent back an [Opcode 6 Heartbeat ACK](#DOCS_TOPICS_OPCODE
 
 ## Establishing a Voice UDP Connection
 
-Once we receive the properties of a UDP voice server from our [Opcode 2 Ready](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice-opcodes) payload, we can proceed to the final step of voice connections, which entails establishing and handshaking a UDP connection for voice data. First, we open a UDP connection to the same endpoint we originally received in the [Voice Server Update](#DOCS_TOPICS_GATEWAY/voice-server-update) payload, combined with the port we received in the Voice Ready payload. If required, we can now perform an [IP Discovery](#DOCS_RESOURCES_VOICE_CONNECTIONS/ip-discovery) using this connection. Once we've fully discovered our external IP and UDP port, we can then tell the voice websocket what it is, and start receiving/sending data. We do this using [Opcode 1 Select Protocol](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice-opcodes):
+Once we receive the properties of a UDP voice server from our [Opcode 2 Ready](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice-opcodes) payload, we can proceed to the final step of voice connections, which entails establishing and handshaking a UDP connection for voice data. First, we open a UDP connection to the IP and port provided in the Ready payload. If required, we can now perform an [IP Discovery](#DOCS_RESOURCES_VOICE_CONNECTIONS/ip-discovery) using this connection. Once we've fully discovered our external IP and UDP port, we can then tell the voice websocket what it is, and start receiving/sending data. We do this using [Opcode 1 Select Protocol](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice-opcodes):
 
 >warn
 >The plain mode is no longer supported. All data should be sent using a supported encryption method, right now only `xsalsa20_poly1305`.
