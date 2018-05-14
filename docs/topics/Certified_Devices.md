@@ -44,6 +44,31 @@ To keep your hardware in sync with Discord, send updates any time the hardware m
 
 Each time you update, send a full array of `devices`, sorted by your preffered priority. That means if you want a specific headset to be the default that Discord will attempt to use, put it first in the array.
 
+## Getting Device UUID
+
+For each device in the `SET_CERTIFIED_DEVICES` payload, there is an `id` field. This `id` should be the Window's device UUID, retrieved through the native Windows API. You'll get back something that looks like `{0.0.1.00000000}.{6cff2b76-44a8-46b9-b528-262ad8609d9f}`.
+
+>info
+>On macOS, the `id` will be the name of the device.
+
+###### Microphone Id Example
+
+```cpp
+id = waveInMessage((HWAVEIN)IntToPtr(index),
+                      DRV_QUERYFUNCTIONINSTANCEID,
+                      (DWORD_PTR)pstrEndpointId,
+                      cbEndpointId);
+```
+
+###### Speaker Id Example
+
+```cpp
+id = waveOutMessage((HWAVEIN)IntToPtr(index),
+                      DRV_QUERYFUNCTIONINSTANCEID,
+                      (DWORD_PTR)pstrEndpointId,
+                      cbEndpointId);
+```
+
 ## HTTP Example
 
 ###### HTTP Request Example
@@ -57,7 +82,7 @@ curl -X POST -H 'Content-Type: application/json' -d '
     "devices": [
       {
         "type": "audioinput",
-        "id": "aafc2003-da0e-42a3-b982-6a17a2812510",
+        "id": "{0.0.1.00000000}.{6cff2b76-44a8-46b9-b528-262ad8609d9f}",
         "vendor": {
           "name": "SteelSeries",
           "url": "https://steelseries.com"
@@ -66,7 +91,7 @@ curl -X POST -H 'Content-Type: application/json' -d '
           "name": "Arctis 7",
           "url": "https://steelseries.com/gaming-headsets/arctis-7"
         },
-        "related": ["aafc2003-da0e-42a3-b982-6a17a2819999"],
+        "related": ["{0.0.1.00000000}.{6cff2b76-44a8-46b9-b528-262ad8609d9f}"],
         "echo_cancellation": true,
         "noise_suppression": true,
         "automatic_gain_control": true,
@@ -103,7 +128,7 @@ The socket will respond with a `200 OK` status code and the following JSON.
     "devices": [
       {
         "type": "audioinput",
-        "id": "aafc2003-da0e-42a3-b982-6a17a2812510",
+        "id": "{0.0.1.00000000}.{6cff2b76-44a8-46b9-b528-262ad8609d9f}",
         "vendor": {
           "name": "SteelSeries",
           "url": "https://steelseries.com"
@@ -112,7 +137,7 @@ The socket will respond with a `200 OK` status code and the following JSON.
           "name": "Arctis 7",
           "url": "https://steelseries.com/gaming-headsets/arctis-7"
         },
-        "related": ["aafc2003-da0e-42a3-b982-6a17a2819999"],
+        "related": ["{0.0.1.00000000}.{6cff2b76-44a8-46b9-b528-262ad8609d9f}"],
         "echo_cancellation": true,
         "noise_suppression": true,
         "automatic_gain_control": true,
