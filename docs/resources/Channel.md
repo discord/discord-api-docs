@@ -483,7 +483,7 @@ Get a list of users that reacted with this emoji. Returns an array of [user](#DO
 |-------|------|-------------|----------|---------|
 | before | snowflake | get users before this user ID | false | absent |
 | after | snowflake | get users after this user ID | false | absent |
-| limit | integer | max number of users to return (1-100) | false | 100 |
+| limit | integer | max number of users to return (1-100) | false | 25 |
 
 ## Delete All Reactions % DELETE /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}/reactions
 
