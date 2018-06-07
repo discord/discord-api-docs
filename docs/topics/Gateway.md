@@ -257,7 +257,7 @@ Events are payloads sent over the socket to a client that correspond events in D
 | [Guild Update](#DOCS_TOPICS_GATEWAY/guild-update) | guild was updated |
 | [Guild Delete](#DOCS_TOPICS_GATEWAY/guild-delete) | guild became unavailable, or user left/was removed from a guild |
 | [Guild Ban Add](#DOCS_TOPICS_GATEWAY/guild-ban-add) | user was banned from a guild |
-| [Guild Ban Remove](#DOCS_TOPICS_GATEWAY/guild-ban-removed) | user was unbanned from a guild |
+| [Guild Ban Remove](#DOCS_TOPICS_GATEWAY/guild-ban-remove) | user was unbanned from a guild |
 | [Guild Emojis Update](#DOCS_TOPICS_GATEWAY/guild-emojis-update) | guild emojis were updated |
 | [Guild Integrations Update](#DOCS_TOPICS_GATEWAY/guild-integrations-update) | guild integration was updated |
 | [Guild Member Add](#DOCS_TOPICS_GATEWAY/guild-member-add) | new user joined a guild |
