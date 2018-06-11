@@ -1,8 +1,14 @@
 # Change Log
 
+## Deprecation: RPC online member count and members list
+
+#### June 11, 2018
+
+We released server changes that allow guilds to represent an incomplete state of the member list in our clients, which results in inaccurate member lists and online counts over RPC. These fields are now deprecated and will now return an empty members array and an online count of 0 moving forward.
+
 ## Enhancement: New Message Properties
 
-### February 5, 2018
+#### February 5, 2018
 
 Additional `activity` and `application` fields—as well as corresponding object documentation—have been added to the [Message](#DOCS_RESOURCES_CHANNEL/message-object) object in support of our newly-released [Spotify integration](https://support.discordapp.com/hc/en-us/articles/360000167212-Discord-Spotify-Connection) and previous Rich Presence enhancements.
 
