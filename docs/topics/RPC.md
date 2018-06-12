@@ -334,7 +334,7 @@ Used to get a guild the client is in.
 | id | string | guild id |
 | name | string | guild name |
 | icon_url | string | guild icon url |
-| members | array of [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) objects | members of the guild |
+| members | array of [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) objects | members of the guild (deprecated; always empty array) |
 
 ###### Example Get Guild Command Payload
 
@@ -357,27 +357,7 @@ Used to get a guild the client is in.
         "id": "199737254929760256",
         "name": "test",
         "icon_url": null,
-        "members": [{
-            "user": {
-                "id": "190320984123768832",
-                "username": "test 2",
-                "discriminator": "7479",
-                "avatar": "b004ec1740a63ca06ae2e14c5cee11f3",
-                "bot": false
-            },
-            "status": "online",
-            "activity": null
-        }, {
-            "user": {
-                "id": "192731515703001088",
-                "username": "test",
-                "discriminator": "5844",
-                "avatar": null,
-                "bot": false
-            },
-            "status": "idle",
-            "activity": null
-        }]
+        "members": []
     },
     "nonce": "9524922c-3d32-413a-bdaa-0804f4332588"
 }
@@ -1226,7 +1206,7 @@ Used to reject an Ask to Join request.
 | Field | Type | Description |
 |-------|------|-------------|
 | guild | partial [guild](#DOCS_RESOURCES_GUILD/guild-object) | guild with requested id |
-| online | integer | number of online users in guild |
+| online | integer | number of online users in guild (deprecated; always 0) |
 
 ###### Example Guild Status Dispatch Payload
 
@@ -1239,7 +1219,7 @@ Used to reject an Ask to Join request.
             "name": "test",
             "icon_url": null
         },
-        "online": 2
+        "online": 0
     },
     "evt": "GUILD_STATUS"
 }
