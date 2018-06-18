@@ -2,14 +2,14 @@
 
 ### Invite Object
 
-Represents a code that when used, adds a user to a guild.
+Represents a code that when used, adds a user to a guild or group DM channel.
 
 ###### Invite Structure
 
 | Field | Type | Description |
 |-------|------|-------------|
 | code | string | the invite code (unique ID) |
-| guild | partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object | the guild this invite is for |
+| guild? | partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object | the guild this invite is for |
 | channel | partial [channel](#DOCS_RESOURCES_CHANNEL/channel-object) object | the channel this invite is for |
 | approximate_presence_count? | int | approximate count of online members |
 | approximate_member_count? | int | approximate count of total members |
