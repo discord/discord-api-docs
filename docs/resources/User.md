@@ -121,7 +121,7 @@ Leave a guild. Returns a 204 empty response on success.
 
 ## Get User DMs % GET /users/@me/channels
 
-Returns a list of [DM channel](#DOCS_RESOURCES_CHANNEL/channel-object) objects.
+Returns a list of [DM channel](#DOCS_RESOURCES_CHANNEL/channel-object) objects. For bots, this is no longer a supported method of getting recent DMs, and will return an empty array.
 
 ## Create DM % POST /users/@me/channels
 

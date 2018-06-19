@@ -1,5 +1,11 @@
 # Change Log
 
+## Documentation Fix: List of Open DMS in Certain Payloads
+
+#### June 19, 2018
+
+The documentation has been updated to correctly note that the `private_channels` field in the [Ready](#DOCS_TOPICS_GATEWAY/ready) should be an empty array, as well as the response from `/users/@me/channels` for a bot user. This change has been in effect for a long time, but the documentation was not updated.
+
 ## Deprecation: RPC online member count and members list
 
 #### June 11, 2018
@@ -86,11 +92,11 @@ Audit logs are here! Well, they've been here all along, but now we've got [docum
 
 #### July 19, 2017
 
-* [Channel](#DOCS_RESOURCES_CHANNEL/channel-object) Object
-  * `is_private` removed
-  * [`type`](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types) is now an integer
-  * `recipient` is now `recipients`, an array of [user](#DOCS_RESOURCES_USER/user-object) objects
-* [Message](#DOCS_RESOURCES_CHANNEL/message-object) Object
-  * [`type`](#DOCS_RESOURCES_CHANNEL/message-object-message-types) added to support system messages
-* [Status Update](#DOCS_TOPICS_GATEWAY/update-status-gateway-status-update-structure) Object
-  * `idle_since` renamed to `since`
+- [Channel](#DOCS_RESOURCES_CHANNEL/channel-object) Object
+  - `is_private` removed
+  - [`type`](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types) is now an integer
+  - `recipient` is now `recipients`, an array of [user](#DOCS_RESOURCES_USER/user-object) objects
+- [Message](#DOCS_RESOURCES_CHANNEL/message-object) Object
+  - [`type`](#DOCS_RESOURCES_CHANNEL/message-object-message-types) added to support system messages
+- [Status Update](#DOCS_TOPICS_GATEWAY/update-status-gateway-status-update-structure) Object
+  - `idle_since` renamed to `since`
