@@ -4,8 +4,6 @@ These developer pages document how to use Discord's API to empower your applicat
 communities. All of our [documentation is on GitHub](https://github.com/discordapp/discord-api-docs) and we would
 <3 corrections and improvements!
 
-![Bot related things](API_center.gif)
-
 ## Getting Help
 
 If you believe you're experiencing a bug with our API or want to report incorrect documentation, open an issue on our [issue tracker](https://github.com/discordapp/discord-api-docs/issues).
@@ -17,10 +15,10 @@ For a more real-time avenue of communication, check out the [unofficial, communi
 Making an app on Discord opens up many possibilities for deeper integrations with your other services and platforms.
 Here are some examples to whet your appetite:
 
-* Using your Discord account to safely login to your guild's website
-* Display who’s online or in-game on your website or forum
-* Automatically join private Discord servers or gain new roles based on external website permissions
-* Other neat things.
+- Using your Discord account to safely login to your guild's website
+- Display who’s online or in-game on your website or forum
+- Automatically join private Discord servers or gain new roles based on external website permissions
+- Other neat things.
 
 Head over to our new [applications page](#MY_APPLICATIONS/top) to dive into creating your own custom juice.
 
@@ -45,4 +43,4 @@ Those looking to test out the waters before jumping into the deep end with a tec
 
 We can't wait to work with you and see what you make!
 
- -- Discord Dev Team
+-- Discord Dev Team
