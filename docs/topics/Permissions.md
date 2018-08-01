@@ -33,6 +33,7 @@ Below is a table of all current permissions, their integer values in hexadecimal
 | DEAFEN\_MEMBERS | `0x00800000` | Allows for deafening of members in a voice channel | V |
 | MOVE\_MEMBERS | `0x01000000` | Allows for moving of members between voice channels | V |
 | USE\_VAD | `0x02000000` | Allows for using voice-activity-detection in a voice channel | V |
+| PRIORITY\_SPEAKER | `0x00000100` | Allows for using priority speaker in a voice channel | V |
 | CHANGE\_NICKNAME | `0x04000000` | Allows for modification of own nickname | |
 | MANAGE\_NICKNAMES | `0x08000000` | Allows for modification of other users nicknames | |
 | MANAGE\_ROLES * | `0x10000000` | Allows management and editing of roles | T, V |
