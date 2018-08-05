@@ -19,7 +19,7 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 | afk\_channel\_id | ?snowflake | id of afk channel |
 | afk\_timeout | integer | afk timeout in seconds |
 | embed\_enabled? | bool | is this guild embeddable (e.g. widget) |
-| embed\_channel\_id? | snowflake | id of embedded channel |
+| embed\_channel\_id? | snowflake | if not null, the channel id that the widget will generate an invite to |
 | verification\_level | integer | [verification level](#DOCS_RESOURCES_GUILD/guild-object-verification-level) required for the guild |
 | default\_message\_notifications | integer | default [message notifications level](#DOCS_RESOURCES_GUILD/guild-object-default-message-notification-level) |
 | explicit\_content\_filter | integer | [explicit content filter level](#DOCS_RESOURCES_GUILD/guild-object-explicit-content-filter-level) |
