@@ -302,7 +302,7 @@ In the preceding section, you probably noticed there are a couple different meth
 If you are creating lobbies for users in the game client, and not on a backend server, consider using `GetLobbyActivitySecret` and `ConnectWithActivitySecret()`. `GetLobbyActivitySecret()` will return you a unique secret for the lobby concatenated with the lobby's id. You can pipe this value directly to the `Secrets.Join` field of the `Activity` payload. Then, when a user receives the secret, their client can call `ConnectWithActivitySecret()` with just the secret; the lobby id is parsed out automatically. This saves you the effort of concatenating the secret + id together yourself and then parsing them out again. As a code example:
 
 ```cs
-var discord = new Discord.Discord(clientId);
+var discord = new Discord.Discord(clientId, Discord.CreateFlags.Default);
 var lobbiesManager = Discord.CreateLobbiesManager();
 var activitiesManager = Discord.CreateActivitiesManager();
 
@@ -347,7 +347,7 @@ If you are creating lobbies with your own backend system (see the section below)
 ### Example: Search for a Lobby, Connect, and Join Voice
 
 ```cs
-var discord = new Discord.Discord(clientId);
+var discord = new Discord.Discord(clientId, Discord.CreateFlags.Default);
 
 // Search lobbies.
 var query = lobbiesManager.CreateLobbySearch();

@@ -51,7 +51,7 @@ OnOverlayLocked += (bool locked) =>
 ### Example: Unlock the Overlay
 
 ```cs
-var discord = new Discord.Discord(clientId);
+var discord = new Discord.Discord(clientId, Discord.CreateFlags.Default);
 
 var overlayManager = discord.CreateOverlayManager();
 
@@ -64,7 +64,7 @@ overlayManager.SetLocked(false);
 ### Example: Activate Overlay Invite Modal
 
 ```cs
-var discord = new Discord.Discord(clientId);
+var discord = new Discord.Discord(clientId, Discord.CreateFlags.Default);
 var overlayManager = discord.CreateOverlayManager();
 
 // Invite users to join your game

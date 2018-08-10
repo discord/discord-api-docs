@@ -76,7 +76,7 @@ FileStat StatIndex(int index);
 ### Example: Saving, Reading, Deleting, and Checking Data
 
 ```cs
-var discord = new Discord.Discord(clientId);
+var discord = new Discord.Discord(clientId, Discord.CreateFlags.Default);
 var storageManager = discord.CreateStorageManager();
 
 // Create some nonsense data

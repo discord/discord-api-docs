@@ -85,7 +85,7 @@ OnRelationshipUpdate += (Relationship relationship) =>
 ### Example: Accessing a User's Friends List
 
 ```cs
-var discord = new Discord.Discord(clientId);
+var discord = new Discord.Discord(clientId, Discord.CreateFlags.Default);
 var relationshipsManager = discord.CreateRelationshipsManager();
 
 // Assign this handle right away to get the initial relationships update.
@@ -116,7 +116,7 @@ relationshipsManager.OnRelationshipsUpdate += () =>
 ### Example: Invite Users Who Are Playing the Same Game
 
 ```cs
-var discord = new Discord.Discord(clientId);
+var discord = new Discord.Discord(clientId, Discord.CreateFlags.Default);
 var relationshipsManager = discord.CreateRelationshipsManager();
 var activitiesManager = discord.CreateActivitiesManager();
 

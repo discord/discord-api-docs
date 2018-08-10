@@ -41,7 +41,7 @@ OnCurrentUserUpdate =+ User user =>
 ### Example: Fetching Data About a Discord User
 
 ```cs
-var discord = new Discord.Discord(clientId);
+var discord = new Discord.Discord(clientId, Discord.CreateFlags.Default);
 
 var usersManager = discord.CreateUsersManager();
 usersManager.Fetch(450795363658366976, (Discord.Result result, ref Discord.User user) =>

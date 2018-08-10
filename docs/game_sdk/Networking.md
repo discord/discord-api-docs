@@ -103,7 +103,7 @@ A quick note here may be helpful for the two functions that should be called con
 ### Example: Connecting to Another Player in a Lobby
 
 ```cs
-var discord = new Discord.Discord(clientId);
+var discord = new Discord.Discord(clientId, Discord.CreateFlags.Default);
 
 // Join a lobby with another user in it
 // Get their session id, and connect to them

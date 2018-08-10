@@ -102,7 +102,7 @@ Now we're gonna start coding. Didn't think we'd get three so fast, did ya? _Thin
 
 ```cs
 // Grab that Client ID from earlier
-var discord = new Discord.Discord(CLIENT_ID);
+var discord = new Discord.Discord(CLIENT_ID, Discord.CreateFlags.Default);
 ```
 
 5.  Make sure to call `discord.RunCallbacks()` in your main game loop; for Unity, that's your `Update()` function.
@@ -127,12 +127,19 @@ struct Application {
 };
 
 struct Application app;
+// Don't forget to memset or otherwise initialize your classes!
 memset(&app, 0, sizeof(app));
 
 struct IDiscordCoreEvents events;
 memset(&events, 0, sizeof(events));
 
-DiscordCreate(0, CLIENT_ID, &events, &app, &app.core);
+struct DiscordCreateParams params;
+params.client_id = CLIENT_ID;
+params.flags = DiscordCreateFlags_Default;
+params.events = &events;
+params.event_data = &app;
+
+DiscordCreate(0, &params, &app.core);
 ```
 
 5.  Make sure to call `core->run_callbacks(core, 0)` in your game loop.
@@ -151,8 +158,9 @@ You're ready to go! Check out the rest of the documentation for more info on how
 4.  It's dangerous to go alone—take this small code block with you (to start)!
 
 ```cpp
+// Don't forget to memset or otherwise initialize your classes!
 discord::Core* core{};
-auto result = discord::Core::Create(CLIENT_ID, &core);
+auto result = discord::Core::Create(CLIENT_ID, DiscordCreateFlags_Default, &core);
 ```
 
 5.  Make sure to call `core->RunCallbacks()` in your game loop

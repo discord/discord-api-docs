@@ -50,7 +50,7 @@ void ValidateOrExit((Discord.Result result) =>
 ### Example: Get OAuth2 Token
 
 ```cs
-var discord = new Discord.Discord(clientId);
+var discord = new Discord.Discord(clientId, Discord.CreateFlags.Default);
 var appManager = new discord.CreateApplicationsManager();
 
 // Retrieve the token

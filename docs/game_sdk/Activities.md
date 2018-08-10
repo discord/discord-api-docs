@@ -158,7 +158,7 @@ OnActivityInvite += (ActivityActionType type, User user, Activity activity) =>
 ### Example: Inviting a User to a Game
 
 ```cs
-var discord = new Discord.Discord(clientId);
+var discord = new Discord.Discord(clientId, Discord.CreateFlags.Default);
 
 // Update user's activity for your game.
 // Party and secrets are vital.

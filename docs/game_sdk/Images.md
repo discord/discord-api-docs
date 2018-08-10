@@ -48,7 +48,7 @@ void GetData(ImageHandle handle, (Discord.Result result, byte[] data) =>
 ### Example: A Helper Method for Getting a User's Avatar Data
 
 ```cs
-var discord = new Discord.Discord(clientId);
+var discord = new Discord.Discord(clientId, Discord.CreateFlags.Default);
 
 // Request user's avatar data. Sizes can be powers of 2 between 16 and 2048
 static void FetchAvatar(Discord.ImagesManager imagesManager, Int64 userID)
