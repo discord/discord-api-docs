@@ -132,6 +132,19 @@ In order for Discord to understand what you're sending, you need to set up a con
 
 This config file tells Discord which files to bundle together, how to run them, and other metadata to include. You should keep this file safe in your version control system of choice; that way, Discord is always up to date with whatever you've got locally. You'll reference these manifests later when building your store pages, so that Discord knows what to download to someone's computer when they hit that Big Buy Button.
 
+## DRM
+
+You can choose to add DRM to your game. Dispatch will wrap your executables and prevent a user from launching the game if they are not logged into Discord.
+
+> danger
+> This is a destructive operation. It will wrap your executable in place. It will not back up your executable. Make sure you have a backup somewhere else.
+
+If you understand and agree to the above, run the following command on each of the executables you want to wrap.
+
+```
+dispatch build drm-wrap <application_id> <path_to_executable_to_wrap>
+```
+
 ## Pushing Our First Build
 
 We've got all our files ready for processing; let's ship this baby!
@@ -182,13 +195,3 @@ If you need to push out a patch or a new build, no problem! Just repeat the proc
 Discord will do some magic in the background to diff your files, ensuring that your players only have to download the changes they need and letting them do it quickly so they can get back in the game. Or, really, without them even needing to know there _was_ a patch! Your players will automatically download your latest and greatest stuff, and quickly!
 
 Now that you've got a game in the system, let's [create a store page](#DOCS_DISPATCH_MANAGING_STORE_LISTINGS) for it!
-
-## DRM
-
-If you want Discord to wrap your game executable in a light DRM, you can do it right from Dispatch! All that's required is a quick:
-
-```
-dispatch build drm-wrap <application_id> <path_to_executable>
-```
-
-And ta-da! If you try to wrap it again, we'll throw an error. It used to break everything. It doesn't anymore. You're welcome.
