@@ -46,6 +46,23 @@
 | win64    |
 | linux    |
 
+###### Redistributable values
+
+| Redistributable            |
+| -------------------------- |
+| directx_june_2010          |
+| vcredist_2008_sp1_x86      |
+| vcredist_2010_x64          |
+| vcredist_2010_x86          |
+| vcredist_2012_update_4_x64 |
+| vcredist_2012_update_4_x86 |
+| vcredist_2013_x64          |
+| vcredist_2013_x86          |
+| vcredist_2015_x64          |
+| vcredist_2015_x86          |
+| vcredist_2017_x64          |
+| vcredist_2017_x86          |
+
 ## Store Pages
 
 ###### SKU Types

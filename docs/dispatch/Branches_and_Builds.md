@@ -94,18 +94,27 @@ This is the top level of the config file. It has an `application` object at the 
         "platforms": ["win32", "win64"],
         "locales": [],
         "local_root": "./game-files/windows",
+        "redistributables": [
+          "directx_june_2010"
+        ]
       }
   ]
 }
 ```
 
-`manifests` is an array of objects that denote file bundles; part of that object is listed here. `label` is the name you want to give an individual manifest/bundle of files. `platforms` are the platforms for which it is valid. `locales` is an array of locales for which the manifest is valid; leaving it empty denotes it's valid for all locales. `local_root` is the relative path from this file to the directory that contains the raw game files to upload.
+`manifests` is an array of objects that denote file bundles; part of that object is listed here. `label` is the name you want to give an individual manifest/bundle of files. `platforms` are the platforms for which it is valid. `locales` is an array of locales for which the manifest is valid; leaving it empty denotes it's valid for all locales. `local_root` is the relative path from this file to the directory that contains the raw game files to upload. `redistributables` is an array of any redistributable packages your game may need to function, like a certain install of DirectX, or a Microsoft C++ redistributable. A list of valid values can be found in [Field Values](#DOCS_DISPATCH_FIELD_VALUES/).
 
 ```js
 {
   "manifests": [
     {
       "file_rules": {
+        "mappings": [
+          {
+            "local_path": ".",
+            "install_path": "."
+          }
+        ],
         "properties": [
           {
             "install_path": "save/*",
@@ -132,7 +141,11 @@ This is the top level of the config file. It has an `application` object at the 
 }
 ```
 
-This is another subset of a manifest object. `file_rules` allows you to mark properties on globs of files. In this case, marking a glob of files as `"user_data"` tells Dispatch not to touch these files in any way if it sees them; don't want that save data overwritten!
+This is another subset of a manifest object, `file_rules`. `file_rules` allows you to mark certain globs of files with certain tags, so Dispatch can handle them specially.
+
+`mappings` lets you tell Dispatch to download files to a certain place in the install directory on a user's machine, letting you create the folder structure you need.
+
+`properties` allows you to mark properties on globs of files. In this case, marking a glob of files as `"user_data"` tells Dispatch not to touch these files in any way if it sees them; don't want that save data overwritten!
 
 `exclusions` also allow you to mark off globs of files. Files globs here will not be uploaded by Dispatch on a build push. In the above example, debug files that match the `*.pdb` pattern in any directory will be ignored. We also explicitly ignore linux and osx server and client distributables, since this manifest is for Windows.
 
