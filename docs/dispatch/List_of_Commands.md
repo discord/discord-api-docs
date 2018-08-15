@@ -47,8 +47,8 @@ Publishes a given build from a given branch
 `dispatch build push <application_id> <branch_id> <path_to_config>`  
 Pushes as build to branch with the given manifests
 
-`dispatch build update <application_id> <branch_id> <path_to_game_files> <path_to_config> --platform <value> --locale <value>`  
-Updates the build on the branch, optionally restricted to manifests for the given platform and locale
+`dispatch build update <application_id> <branch_id> <path_to_install_to> <path_to_config> --platform <value> --locale <value>`  
+Downloads the build for the given application id and branch id to the given install path, for the given platform and locale
 
 `dispatch build verify`  
 Verifies the build, returning any hashes and locations that are corrupted

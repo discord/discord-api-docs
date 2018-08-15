@@ -61,7 +61,7 @@
 | Type         | Description           |
 | ------------ | --------------------- |
 | full         | fully released        |
-| early access | early access          |
+| early_access | early access          |
 | vip          | super duper beta only |
 
 ###### ESRB Ratings
@@ -69,50 +69,50 @@
 | Value             |
 | ----------------- |
 | everyone          |
-| everyone ten plus |
+| everyone_ten_plus |
 | teen              |
 | mature            |
-| adults only       |
-| rating pending    |
+| adults_only       |
+| rating_pending    |
 
 ###### ESRB Content Descriptors
 
 | Value                 |
 | --------------------- |
-| alcohol reference     |
-| animated blood        |
+| alcohol_reference     |
+| animated_blood        |
 | blood                 |
-| blood and gore        |
-| cartoon violence      |
-| comic mischief        |
-| crude humor           |
-| drug reference        |
-| fantasy violence      |
-| intense violence      |
+| blood_and_gore        |
+| cartoon_violence      |
+| comic_mischief        |
+| crude_humor           |
+| drug_reference        |
+| fantasy_violence      |
+| intense_violence      |
 | language              |
 | lyrics                |
-| mature humor          |
+| mature_humor          |
 | nudity                |
-| partial nudity        |
-| real gambling         |
-| sexual content        |
-| sexual themes         |
-| sexual violence       |
-| simulated gambling    |
-| strong language       |
-| strong lyrics         |
-| strong sexual content |
-| suggestive themes     |
-| tobacco reference     |
-| use of alcohol        |
-| use of drugs          |
-| use of tobacco        |
+| partial_nudity        |
+| real_gambling         |
+| sexual_content        |
+| sexual_themes         |
+| sexual_violence       |
+| simulated_gambling    |
+| strong_language       |
+| strong_lyrics         |
+| strong_sexual_content |
+| suggestive_themes     |
+| tobacco_reference     |
+| use_of_alcohol        |
+| use_of_drugs          |
+| use_of_tobacco        |
 | violence              |
-| violent references    |
-| in game purchases     |
-| users interact        |
-| shares location       |
-| unrestricted internet |
+| violent_references    |
+| in_game_purchases     |
+| users_interact        |
+| shares_location       |
+| unrestricted_internet |
 
 ###### PEGI Categories
 
@@ -129,7 +129,7 @@
 | Value          |
 | -------------- |
 | violence       |
-| bad language   |
+| bad_language   |
 | fear           |
 | gambling       |
 | sex            |
@@ -140,14 +140,14 @@
 
 | Value                | Description                                 |
 | -------------------- | ------------------------------------------- |
-| single player        | single player game                          |
-| online multiplayer   | has online multiplayer                      |
-| local multiplayer    | has local multiplayer                       |
+| single_player        | single player game                          |
+| online_multiplayer   | has online multiplayer                      |
+| local+multiplayer    | has local multiplayer                       |
 | pvp                  | features Player vs. Player interations      |
 | coop                 | has cooperative play                        |
-| cross platform       | has cross-platform play                     |
-| rich presence        | features Discord's Rich Presence system     |
-| discord game invites | allows direct game invites to Discord users |
-| spectator mode       | has a spectate mode                         |
-| controller support   | has controller support                      |
-| cloud saves          | offers cloud saves                          |
+| cross_platform       | has cross-platform play                     |
+| rich_presence        | features Discord's Rich Presence system     |
+| discord_game_invites | allows direct game invites to Discord users |
+| spectator_mode       | has a spectate mode                         |
+| controller_support   | has controller support                      |
+| cloud_saves          | offers cloud saves                          |

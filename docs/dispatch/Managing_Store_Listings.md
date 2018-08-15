@@ -200,11 +200,11 @@ You'll notice that `name,` `summary`, and `price` are mappings between locales/c
   "content_ratings": {
     "esrb": {
       "rating": "teen",
-      "descriptors": ["fantasy violence"]
+      "descriptors": ["fantasy_violence"]
     },
     "pegi": {}
   },
-  "features": ["discord game invites", "single player", "online multiplayer", "cloud saves", "rich presence"],
+  "features": ["discord_game_invites", "single_player", "online_multiplayer", "cloud_saves", "rich_presence"],
   "locales": ["ru", "fr", "ko", "en-US", "tr", "it", "zh-CN", "pt-BR", "ro", "es-ES", "ja"]
 }
 ```
@@ -295,10 +295,10 @@ Here's what a completed config file looks like all put together. How does yours 
   "content_ratings": {
     "esrb": {
       "rating": "teen",
-      "descriptors": ["fantasy violence"]
+      "descriptors": ["fantasy_violence"]
     }
   },
-  "features": ["discord game invites", "single player", "online multiplayer", "cloud saves", "rich presence"],
+  "features": ["discord_game_invites", "single_player", "online_multiplayer", "cloud_saves", "rich_presence"],
   "price": {
     "usd": 1999,
     "cad": 1999

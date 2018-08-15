@@ -93,6 +93,27 @@ In order for Discord to understand what you're sending, you need to set up a con
         // the directory that contains the files for this bundle
         "dir": "data/",
 
+        // Allows you to specify files that Dispatch should not touch on update or upload
+        "file_rules": {
+
+          // Allows you to set file properties on directories for the installation
+          // Marking a folder as "user_data" means that Dispatch will never overwrite or otherwise touch these files
+          "properties" [
+            {
+              "install_path": "save/*",
+              "attributes": ["user_data"]
+            }
+          ],
+
+          // Exclusions are files that should never be uploaded from a local installation
+          // For example, you don't want your local save directory in the build for everyone!
+          "exclusions": [
+            {
+              "local_path": "save/*"
+            }
+          ]
+        },
+
         // Any registry keys that need to be added to the user's system on install
         "registry_keys": [
           {
