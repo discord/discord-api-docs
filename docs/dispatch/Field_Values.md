@@ -142,7 +142,7 @@
 | -------------------- | ------------------------------------------- |
 | single_player        | single player game                          |
 | online_multiplayer   | has online multiplayer                      |
-| local+multiplayer    | has local multiplayer                       |
+| local_multiplayer    | has local multiplayer                       |
 | pvp                  | features Player vs. Player interations      |
 | coop                 | has cooperative play                        |
 | cross_platform       | has cross-platform play                     |
