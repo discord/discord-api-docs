@@ -113,6 +113,10 @@ This is the top level of the config file. It has an `application` object at the 
           {
             "local_path": ".",
             "install_path": "."
+          },
+          {
+            "local_path": "./languages/en-US/no-but-the-data-is-really-in-here/"
+            "install_path": "./english"
           }
         ],
         "properties": [
