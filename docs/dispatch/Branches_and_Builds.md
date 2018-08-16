@@ -70,88 +70,150 @@ dispatch branch list <application_id>
 
 ## Setting Up Our First Build
 
-In order for Discord to understand what you're sending, you need to set up a config file for your game. Here's an example `config.json`—let's break it down!
+In order for Discord to understand what you're sending, you need to set up a config file for your game. This config file tells Discord which files to bundle together, how to run them, and other metadata to include. You should keep this file safe in your version control system of choice; that way, Discord is always up to date with whatever you've got locally. You'll reference these manifests later when building your store pages, so that Discord knows what to download to someone's computer when they hit that Big Buy Button.
+
+Let's break an example `config.json` file down into pieces, and then put it together at the end.
 
 ```js
 {
   "application": {
-    // Your application id
-    "id": 53908232506189999,
-    // An array of file bundles
-    "manifests": [
-      // The first one is the game binary
+    "id": 467102538279999224,
+    "manifests": []
+  }
+}
+```
+
+This is the top level of the config file. It has an `application` object at the top. `id` is your application id. `manifests` are the heart of this file, and offer a lot of customization for tagging and uploading data for the build. Let's jump into that now.
+
+```js
+{
+  "label": "my-awesome-game/windows",
+  "platforms": ["win32", "win64"],
+  "locales": [],
+  "local_root": "./game-files/windows",
+  "redistributables": [
+    "directx_june_2010"
+  ]
+}
+```
+
+`manifests` is an array of objects that denote file bundles; part of that object is listed here. `label` is the name you want to give an individual manifest/bundle of files. `platforms` are the platforms for which it is valid. `locales` is an array of locales for which the manifest is valid; leaving it empty denotes it's valid for all locales. `local_root` is the relative path from this file to the directory that contains the raw game files to upload. `redistributables` is an array of any redistributable packages your game may need to function, like a certain install of DirectX, or a Microsoft C++ redistributable. A list of valid values can be found in [Field Values](#DOCS_DISPATCH_FIELD_VALUES/).
+
+```js
+{
+  "file_rules": {
+    "mappings": [
       {
-        // the name of the bundle
-        "label": "goty-2018/data",
-
-        // valid platforms for the bundle
-        "platforms": ["win32", "win64", "macos", "linux"],
-
-        // The locales the bundle supports
-        "locales": ["en-US", "en-GB"],
-
-        // the directory that contains the files for this bundle
-        "dir": "data/",
-
-        // Allows you to specify files that Dispatch should not touch on update or upload
-        "file_rules": {
-
-          // Allows you to set file properties on directories for the installation
-          // Marking a folder as "user_data" means that Dispatch will never overwrite or otherwise touch these files
-          "properties" [
-            {
-              "install_path": "save/*",
-              "attributes": ["user_data"]
-            }
-          ],
-
-          // Exclusions are files that should never be uploaded from a local installation
-          // For example, you don't want your local save directory in the build for everyone!
-          "exclusions": [
-            {
-              "local_path": "save/*"
-            }
-          ]
-        },
-
-        // Any registry keys that need to be added to the user's system on install
-        "registry_keys": [
-          {
-            "key": "foo",
-            "value": "bar"
-          }
-        ],
-
-        // the launch commands for each platform with any needed arguments
-        // executable should be the path to the executable with the current directory as the root
-        "launch_commands": {
-          "win32": {
-            "executable": "data/launchers/win32/do_the_thing.exe",
-            "arguments": ["32-bit", "2", "3"]
-          },
-          "win64": {
-            "executable": "data/launchers/win64/do_the_thing.exe",
-            "arguments": ["64-bit", "2", "3"]
-          },
-          "macos": {
-            "executable": "data/launchers/macos/do_the_thing.sh"
-          }
-        }
+        "local_path": ".",
+        "install_path": "."
       },
-
-      // A second bundle - this one's a langauge pack
       {
-        "label": "goty-2018/english",
-        "platforms": ["macos", "win32", "win64", "linux"],
-        "locales": ["en-US", "en-GB"],
-        "dir": "locales/english"
+        "local_path": "./languages/en-US/no-but-the-data-is-really-in-here/"
+        "install_path": "./english"
+      }
+    ],
+    "properties": [
+      {
+        "install_path": "save/*",
+        "attributes": ["user_data"]
+      }
+    ],
+    "exclusions": [
+      {
+        "local_path": "**/*.pdb"
+      },
+      {
+        "local_path": "server_distribution/linux/*"
+      },
+      {
+        "local_path": "client_distribution/linux/*"
+      },
+      {
+        "local_path": "client_distribution/osx/*"
       }
     ]
   }
 }
 ```
 
-This config file tells Discord which files to bundle together, how to run them, and other metadata to include. You should keep this file safe in your version control system of choice; that way, Discord is always up to date with whatever you've got locally. You'll reference these manifests later when building your store pages, so that Discord knows what to download to someone's computer when they hit that Big Buy Button.
+This is another subset of a manifest object, `file_rules`. `file_rules` allows you to mark certain globs of files with certain tags, so Dispatch can handle them specially.
+
+`mappings` lets you tell Dispatch to download files to a certain place in the install directory on a user's machine, letting you create the folder structure you need.
+
+`properties` allows you to mark properties on globs of files. In this case, marking a glob of files as `"user_data"` tells Dispatch not to touch these files in any way if it sees them; don't want that save data overwritten!
+
+`exclusions` also allow you to mark off globs of files. Files globs here will not be uploaded by Dispatch on a build push. In the above example, debug files that match the `*.pdb` pattern in any directory will be ignored. We also explicitly ignore linux and osx server and client distributables, since this manifest is for Windows.
+
+> warn
+> Dispatch supports [Rust globbing patterns](https://docs.rs/glob/0.2.11/glob/struct.Pattern.html).
+
+```js
+{
+  "launch_commands": {
+    "win32": {
+      "executable": "client_distribution/win32/starbound.exe",
+      "arguments": []
+    },
+    "win64": {
+      "executable": "client_distribution/win64/starbound.exe",
+      "arguments": []
+    }
+  }
+}
+```
+
+The last bit of the config file is the launch commands for your game. Here, you should specify the executables for the platforms for this manifest (if there are any) and any arguments they require.
+
+Let's see what one looks like all together!
+
+```js
+{
+  "application": {
+    "id": 467102538279999224,
+    "drm": true,
+    "manifests": [
+      {
+        "label": "my-awesome-game/windows",
+        "platforms": ["win32", "win64"],
+        "locales": [],
+        "local_root": "./",
+        "file_rules": {
+          "properties": [
+            {
+              "install_path": "save/*",
+              "attributes": ["user_data"]
+            }
+          ],
+          "exclusions": [
+            {
+              "local_path": "**/*.pdb"
+            },
+            {
+              "local_path": "server_distribution/linux/*"
+            },
+            {
+              "local_path": "client_distribution/linux/*"
+            },
+            {
+              "local_path": "client_distribution/osx/*"
+            }
+          ]
+        },
+        "launch_commands": {
+          "win32": {
+            "executable": "client_distribution/win32/starbound.exe",
+            "arguments": []
+          },
+          "win64": {
+            "executable": "client_distribution/win64/starbound.exe",
+            "arguments": []
+          }
+        }
+      }
+    ]
+  }
+}
+```
 
 ## DRM
 
@@ -216,3 +278,7 @@ If you need to push out a patch or a new build, no problem! Just repeat the proc
 Discord will do some magic in the background to diff your files, ensuring that your players only have to download the changes they need and letting them do it quickly so they can get back in the game. Or, really, without them even needing to know there _was_ a patch! Your players will automatically download your latest and greatest stuff, and quickly!
 
 Now that you've got a game in the system, let's [create a store page](#DOCS_DISPATCH_MANAGING_STORE_LISTINGS) for it!
+
+```
+
+```
