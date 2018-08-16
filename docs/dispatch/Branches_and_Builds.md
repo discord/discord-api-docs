@@ -87,16 +87,12 @@ This is the top level of the config file. It has an `application` object at the 
 
 ```js
 {
-  "manifests": [
-      {
-        "label": "my-awesome-game/windows",
-        "platforms": ["win32", "win64"],
-        "locales": [],
-        "local_root": "./game-files/windows",
-        "redistributables": [
-          "directx_june_2010"
-        ]
-      }
+  "label": "my-awesome-game/windows",
+  "platforms": ["win32", "win64"],
+  "locales": [],
+  "local_root": "./game-files/windows",
+  "redistributables": [
+    "directx_june_2010"
   ]
 }
 ```
@@ -105,42 +101,38 @@ This is the top level of the config file. It has an `application` object at the 
 
 ```js
 {
-  "manifests": [
-    {
-      "file_rules": {
-        "mappings": [
-          {
-            "local_path": ".",
-            "install_path": "."
-          },
-          {
-            "local_path": "./languages/en-US/no-but-the-data-is-really-in-here/"
-            "install_path": "./english"
-          }
-        ],
-        "properties": [
-          {
-            "install_path": "save/*",
-            "attributes": ["user_data"]
-          }
-        ],
-        "exclusions": [
-          {
-            "local_path": "**/*.pdb"
-          },
-          {
-            "local_path": "server_distribution/linux/*"
-          },
-          {
-            "local_path": "client_distribution/linux/*"
-          },
-          {
-            "local_path": "client_distribution/osx/*"
-          }
-        ]
+  "file_rules": {
+    "mappings": [
+      {
+        "local_path": ".",
+        "install_path": "."
+      },
+      {
+        "local_path": "./languages/en-US/no-but-the-data-is-really-in-here/"
+        "install_path": "./english"
       }
-    }
-  ]
+    ],
+    "properties": [
+      {
+        "install_path": "save/*",
+        "attributes": ["user_data"]
+      }
+    ],
+    "exclusions": [
+      {
+        "local_path": "**/*.pdb"
+      },
+      {
+        "local_path": "server_distribution/linux/*"
+      },
+      {
+        "local_path": "client_distribution/linux/*"
+      },
+      {
+        "local_path": "client_distribution/osx/*"
+      }
+    ]
+  }
 }
 ```
 
@@ -157,20 +149,16 @@ This is another subset of a manifest object, `file_rules`. `file_rules` allows y
 
 ```js
 {
-  "manifests": [
-    {
-      "launch_commands": {
-        "win32": {
-          "executable": "client_distribution/win32/starbound.exe",
-          "arguments": []
-        },
-        "win64": {
-          "executable": "client_distribution/win64/starbound.exe",
-          "arguments": []
-        }
-      }
+  "launch_commands": {
+    "win32": {
+      "executable": "client_distribution/win32/starbound.exe",
+      "arguments": []
+    },
+    "win64": {
+      "executable": "client_distribution/win64/starbound.exe",
+      "arguments": []
     }
-  ]
+  }
 }
 ```
 
