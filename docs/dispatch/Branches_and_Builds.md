@@ -78,13 +78,12 @@ Let's break an example `config.json` file down into pieces, and then put it toge
 {
   "application": {
     "id": 467102538279999224,
-    "drm": false,
     "manifests": []
   }
 }
 ```
 
-This is the top level of the config file. It has an `application` object at the top. `id` is your application id. `drm` is a boolean that tells us whether or not to wrap your executables (listed out later) in Discord's DRM or not. `manifests` are the heart of this file, and offer a lot of customization for tagging and uploading data for the build. Let's jump into that now.
+This is the top level of the config file. It has an `application` object at the top. `id` is your application id. `manifests` are the heart of this file, and offer a lot of customization for tagging and uploading data for the build. Let's jump into that now.
 
 ```js
 {
