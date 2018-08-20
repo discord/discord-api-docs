@@ -9,151 +9,231 @@ For more detailed information and documentation around the Rich Presence feature
 
 ### Data Models
 
-```cs
-struct Activity
-{
-  ActivityType Type;
+###### User Struct
 
-  // ApplicationId is a read-only field
-  // It's used by Discord to help filter users playing the same game in the RelationshipsManager
-  // Setting it in an UpdateActivity() call does nothing. It will succeed, but this field will not change
-  Int64 ApplicationId;
-  string Name;
-  string State;
-  string Details;
-  ActivityTimestamps Timestamps;
-  ActivityAssets Assets;
-  ActivityParty Party;
-  ActivitySecrets Secrets;
-  bool Instance;
-};
+| name          | type   | description                   |
+| ------------- | ------ | ----------------------------- |
+| Id            | Int32  | the user's id                 |
+| Username      | string | their name                    |
+| Discriminator | string | the user's unique discrim     |
+| Avatar        | string | the hash of the user's avatar |
+| Bot           | bool   | if the user is a bot user     |
 
-enum ActivityType
-{
-  Playing,
-  Streaming,
-  Listening,
-  Watching
-};
+###### Activity Struct
 
-struct ActivityTimestamps
-{
-  Int64 Start;
-  Int64 End;
-};
+| name          | type               | description                                                     |
+| ------------- | ------------------ | --------------------------------------------------------------- |
+| ApplicationId | Int64              | your application id - this is a read-only field                 |
+| Name          | string             | name of the application - this is a read-only field             |
+| State         | string             | the player's current party status                               |
+| Details       | string             | what the player is currently doing                              |
+| Timestamps    | ActivityTimestamps | helps create elapsed/remaining timestamps on a player's profile |
+| Assets        | ActivityAssets     | assets to display on the player's profile                       |
+| Party         | ActivityParty      | information about the player's party                            |
+| Secrets       | ActivitySecrets    | secret passwords for joining and spectating the player's game   |
+| Instance      | bool               | whether this activity is an instanced context, like a match     |
 
-struct ActivityAssets
-{
-  string LargeImage;
-  string LargeText;
-  string SmallImage;
-  string SmallText;
-};
+###### ActivityTimestamps Struct
 
-struct ActivityParty
-{
-  string Id;
-  PartySize size;
-};
+| name  | type  | description                                            |
+| ----- | ----- | ------------------------------------------------------ |
+| Start | Int64 | unix timestamp - send this to have an "elapsed" timer  |
+| End   | Int64 | unix timestamp - send this to have a "remaining" timer |
 
-struct PartySize
-{
-  Int32 CurrentSize;
-  Int32 MaxSize;
-}
+###### ActivityAssets Struct
 
-struct ActivitySecrets
-{
-  string Match;
-  string Join;
-  string Spectate;
-};
+| name       | type   | description                    |
+| ---------- | ------ | ------------------------------ |
+| LargeImage | string | keyname of an asset to display |
+| LargeText  | string | hover text for the large image |
+| SmallImage | string | keyname of an asset to display |
+| SmallText  | string | hover text for the small image |
 
-struct User
-{
-  Int32 Id;
-  string Username;
-  string Discriminator;
-  string Avatar;
-  bool Bot;
-};
+###### ActivityParty Struct
 
-enum ActivityJoinRequestReply
-{
-  No,
-  Yes,
-  Ignore,
-};
+| name | type      | description                        |
+| ---- | --------- | ---------------------------------- |
+| Id   | string    | a unique identifier for this party |
+| Size | PartySize | info about the size of the party   |
 
-enum ActivityActionType
-{
-  Join = 1,
-  Spectate
-};
-```
+###### PartySize Struct
+
+| name        | type  | description                        |
+| ----------- | ----- | ---------------------------------- |
+| CurrentSize | Int32 | the current size of the party      |
+| MaxSize     | Int32 | the max possible size of the party |
+
+###### ActivitySecrets Struct
+
+| name     | type   | description                                  |
+| -------- | ------ | -------------------------------------------- |
+| Match    | string | unique hash for the given match context      |
+| Join     | string | unique hash for chat invites and Ask to Join |
+| Spectate | string | unique hash for Spectate button              |
+
+###### ActivityType Enum
+
+| name      | Value |
+| --------- | ----- |
+| Playing   | 0     |
+| Streaming | 1     |
+| Listening | 2     |
+| Watching  | 3     |
+
+###### ActivityJoinRequestReply Enum
+
+| name   | value |
+| ------ | ----- |
+| No     | 0     |
+| Yes    | 1     |
+| Ignore | 2     |
+
+###### ActivityActionType Enum
+
+| name     | value |
+| -------- | ----- |
+| Join     | 1     |
+| Spectate | 2     |
 
 ### Methods
 
-```cs
-void Register(string command);
-// Registers a command by which Discord can launch your game
-// Example: register("my-amazing_game://run/12345 --full-screen --all-the-hacks");
+`Register()`
 
-void RegisterSteam(UInt32 steamId);
-// Same as above, but takes a game's steamId
-// Registers it to `steam://rungameid://<id>`
-// Example: register_steam("9912378");
+Registers a command by which Discord can launch your game. This might be a custom protocol, like `my-awesome-game://`, or a path to an executable. It also supports any lauch parameters that may be needed, like `game.exe --full-screen --no-hax`. Returns `void`.
 
-void UpdateActivity(Activity activity, (Discord.Result result) =>
-{
-  // Sets a user's presence to some newer, richer presence of your choosing
-});
+###### Parameters
 
-void ClearActivity((Discord.Result result) =>
-{
-  // Clears a user's presence
-});
+| name    | type   | description             |
+| ------- | ------ | ----------------------- |
+| command | string | the command to register |
 
-void Respond(Int64 userId, ActivityJoinRequestReply reply, (Discord.Result result) =>
-{
-  // Responds to an Ask to Join request
-});
+`RegisterSteam()`
 
-void InviteUser(Int64 userId, ActivityActionType type, string content, (Discord.Result result) =>
-{
-  // Invites a user to join you to play or spectate with an optional message
-});
+Used if you are distributing this SDK on Steam. Registers your game's Steam app id for the protocol `steam://run-game-id/<id>`. Returns `void`.
 
-void AcceptInvite(Int64 userId, (Discord.Result result) =>
-{
-  // Accepts an invitation from a given userId
-});
-```
+###### Parameters
+
+| name    | type   | description              |
+| ------- | ------ | ------------------------ |
+| steamId | UInt32 | your game's Steam app id |
+
+`UpdateActivity()`
+
+Set's a user's presence in Discord to a new activity. Returns a `Discord.Result` via callback.
+
+###### Parameters
+
+| name     | type     | description                   |
+| -------- | -------- | ----------------------------- |
+| activity | Activity | the new activity for the user |
+
+###### Possible Results
+
+| error          | description                            |
+| -------------- | -------------------------------------- |
+| OK             | success                                |
+| InvalidPayload | data was malformed                     |
+| InvalidSecret  | secrets must be unique from each other |
+| NotInstalled   | Discord is not installed               |
+| NotRunning     | Discord is not running                 |
+
+`ClearActivity()`
+
+Clear's a user's presence in Discord to make it show nothing. Results a `Discord.Result` via callback.
+
+###### Parameters
+
+None
+
+###### Possible Results
+
+| error        | description              |
+| ------------ | ------------------------ |
+| OK           | success                  |
+| NotInstalled | Discord is not installed |
+| NotRunning   | Discord is not running   |
+
+`InviteUser()`
+
+Sends a game invite to a given user. Returns a `Discord.Result` via callback.
+
+###### Parameters
+
+| name    | type               | description                                           |
+| ------- | ------------------ | ----------------------------------------------------- |
+| userId  | Int64              | the id of the user to invite                          |
+| type    | ActivityActionType | marks the invite as an invitation to join or spectate |
+| content | string             | a message to send along with the invite               |
+
+###### Possible Results
+
+| error        | description              |
+| ------------ | ------------------------ |
+| OK           | success                  |
+| NotInstalled | Discord is not installed |
+| NotRunning   | Discord is not running   |
+
+`AcceptInvite()`
+
+Accepts a game invitation from a given userId. Returns a `Discord.Result` via callback.
+
+###### Parameters
+
+| name   | type  | description                        |
+| ------ | ----- | ---------------------------------- |
+| userId | Int64 | the id of the user who invited you |
+
+###### Possible Results
+
+| error        | description              |
+| ------------ | ------------------------ |
+| OK           | success                  |
+| NotInstalled | Discord is not installed |
+| NotRunning   | Discord is not running   |
 
 ### Callbacks
 
-```cs
-OnActivityJoin += (string joinSecret) =>
-{
-  // Fires when a user completes an Ask to Join flow
-  // Or joins via a chat invite
-};
+`OnActivityJoin`
 
-OnActivitySpectate =+ (string spectateSecret) =>
-{
-  // Same as above, but with spectate
-};
+Fires when a user accepts a game chat invite or receives confirmation from Asking to Join.
 
-OnActivityJoinRequest += (User user) =>
-{
-  // Fires when you receive an Ask to Join request from a user
-};
+###### Parameters
 
-OnActivityInvite += (ActivityActionType type, User user, Activity activity) =>
-{
-  // Fires when you receive a game invitation from another user
-};
-```
+| name       | type   | description                        |
+| ---------- | ------ | ---------------------------------- |
+| joinSecret | string | the secret to join the user's game |
+
+`OnActivitySpectate`
+
+Fires when a user accepts a spectate chat invite or clicks the Spectate button on a user's profile.
+
+###### Parameters
+
+| name           | type   | description                                       |
+| -------------- | ------ | ------------------------------------------------- |
+| spectateSecret | string | the secret to join the user's game as a spectator |
+
+`OnActivityJoinRequest`
+
+Fires when a user asks to join the current user's game.
+
+###### Parameters
+
+| name | type | description             |
+| ---- | ---- | ----------------------- |
+| user | User | the user asking to join |
+
+`OnActivityInvite`
+
+Fires when the user receives a join or spectate invite.
+
+###### Parameters
+
+| name     | type               | description                                |
+| -------- | ------------------ | ------------------------------------------ |
+| type     | ActivityActiontype | whether this invite is to join or spectate |
+| user     | User               | the user sending the invite                |
+| activity | Activity           | the inviting user's current activity       |
 
 ### Example: Inviting a User to a Game
 
