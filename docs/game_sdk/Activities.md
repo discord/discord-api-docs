@@ -7,7 +7,7 @@ Looking to integrate Rich Presence into your game? No need to manage multiple SD
 
 For more detailed information and documentation around the Rich Presence feature set and integration tips, check out our [Rich Presence Documentation](https://discordapp.com/developers/docs/rich-presence/how-to).
 
-### Data Models
+## Data Models
 
 ###### User Struct
 
@@ -95,11 +95,11 @@ For more detailed information and documentation around the Rich Presence feature
 | Join     | 1     |
 | Spectate | 2     |
 
-### Methods
+## Register
 
-`Register()`
+Registers a command by which Discord can launch your game. This might be a custom protocol, like `my-awesome-game://`, or a path to an executable. It also supports any lauch parameters that may be needed, like `game.exe --full-screen --no-hax`.
 
-Registers a command by which Discord can launch your game. This might be a custom protocol, like `my-awesome-game://`, or a path to an executable. It also supports any lauch parameters that may be needed, like `game.exe --full-screen --no-hax`. Returns `void`.
+Returns `void`.
 
 ###### Parameters
 
@@ -107,9 +107,17 @@ Registers a command by which Discord can launch your game. This might be a custo
 | ------- | ------ | ----------------------- |
 | command | string | the command to register |
 
-`RegisterSteam()`
+###### Example
 
-Used if you are distributing this SDK on Steam. Registers your game's Steam app id for the protocol `steam://run-game-id/<id>`. Returns `void`.
+```cs
+activitiesManager.Register("my-awesome-game://run --full-screen");
+```
+
+## RegisterSteam
+
+Used if you are distributing this SDK on Steam. Registers your game's Steam app id for the protocol `steam://run-game-id/<id>`.
+
+Returns `void`.
 
 ###### Parameters
 
@@ -117,9 +125,17 @@ Used if you are distributing this SDK on Steam. Registers your game's Steam app 
 | ------- | ------ | ------------------------ |
 | steamId | UInt32 | your game's Steam app id |
 
-`UpdateActivity()`
+###### Example
 
-Set's a user's presence in Discord to a new activity. Returns a `Discord.Result` via callback.
+```cs
+activitiesManager.RegisterSteam(1938123);
+```
+
+## UpdateActivity
+
+Set's a user's presence in Discord to a new activity.
+
+Returns a `Discord.Result` via callback.
 
 ###### Parameters
 
@@ -137,9 +153,30 @@ Set's a user's presence in Discord to a new activity. Returns a `Discord.Result`
 | NotInstalled   | Discord is not installed               |
 | NotRunning     | Discord is not running                 |
 
-`ClearActivity()`
+###### Example
 
-Clear's a user's presence in Discord to make it show nothing. Results a `Discord.Result` via callback.
+```cs
+var activity = new Discord.Activity();
+activity.State = "Hello!";
+activity.Details = "In Game";
+activity.Party.Size = 1;
+activity.Party.Max = 4;
+
+activitiesManager.UpdateActivity(activity, Discord.Result result => {
+    if (result == Discord.Result.OK) {
+        Console.WriteLine("Success!");
+    }
+    else {
+        Console.WriteLine("Failed");
+    }
+});
+```
+
+## ClearActivity
+
+Clear's a user's presence in Discord to make it show nothing.
+
+Results a `Discord.Result` via callback.
 
 ###### Parameters
 
@@ -153,9 +190,24 @@ None
 | NotInstalled | Discord is not installed |
 | NotRunning   | Discord is not running   |
 
-`InviteUser()`
+###### Example
 
-Sends a game invite to a given user. Returns a `Discord.Result` via callback.
+```cs
+activitiesManager.ClearActivity(Discord.Result result => {
+    if (result == Discord.Result.OK) {
+        Console.WriteLine("Success!");
+    }
+    else {
+        Console.WriteLine("Failed");
+    }
+});
+```
+
+## InviteUser
+
+Sends a game invite to a given user.
+
+Returns a `Discord.Result` via callback.
 
 ###### Parameters
 
@@ -173,9 +225,24 @@ Sends a game invite to a given user. Returns a `Discord.Result` via callback.
 | NotInstalled | Discord is not installed |
 | NotRunning   | Discord is not running   |
 
-`AcceptInvite()`
+###### Example
 
-Accepts a game invitation from a given userId. Returns a `Discord.Result` via callback.
+```cs
+activityManager.InviteUser(53908232506183689, Discord.ActivityActionType.Join, "Come play!", Discord.Result result => {
+    if (result == Discord.Result.OK) {
+        Console.WriteLine("Success!");
+    }
+    else {
+        Console.WriteLine("Failed");
+    }
+});
+```
+
+## AcceptInvite
+
+Accepts a game invitation from a given userId.
+
+Returns a `Discord.Result` via callback.
 
 ###### Parameters
 
@@ -191,9 +258,20 @@ Accepts a game invitation from a given userId. Returns a `Discord.Result` via ca
 | NotInstalled | Discord is not installed |
 | NotRunning   | Discord is not running   |
 
-### Callbacks
+###### Example
 
-`OnActivityJoin`
+```cs
+activityManager.AcceptInvite(290926444748734466, Discord.Result result => {
+    if (result == Discord.Result.OK) {
+        Console.WriteLine("Success!");
+    }
+    else {
+        Console.WriteLine("Failed");
+    }
+});
+```
+
+## OnActivityJoin
 
 Fires when a user accepts a game chat invite or receives confirmation from Asking to Join.
 
@@ -203,7 +281,7 @@ Fires when a user accepts a game chat invite or receives confirmation from Askin
 | ---------- | ------ | ---------------------------------- |
 | joinSecret | string | the secret to join the user's game |
 
-`OnActivitySpectate`
+## OnActivitySpectate
 
 Fires when a user accepts a spectate chat invite or clicks the Spectate button on a user's profile.
 
@@ -213,7 +291,7 @@ Fires when a user accepts a spectate chat invite or clicks the Spectate button o
 | -------------- | ------ | ------------------------------------------------- |
 | spectateSecret | string | the secret to join the user's game as a spectator |
 
-`OnActivityJoinRequest`
+## OnActivityJoinRequest
 
 Fires when a user asks to join the current user's game.
 
@@ -223,7 +301,7 @@ Fires when a user asks to join the current user's game.
 | ---- | ---- | ----------------------- |
 | user | User | the user asking to join |
 
-`OnActivityInvite`
+## OnActivityInvite
 
 Fires when the user receives a join or spectate invite.
 
@@ -235,7 +313,7 @@ Fires when the user receives a join or spectate invite.
 | user     | User               | the user sending the invite                |
 | activity | Activity           | the inviting user's current activity       |
 
-### Example: Inviting a User to a Game
+## Example: Inviting a User to a Game
 
 ```cs
 var discord = new Discord.Discord(clientId, Discord.CreateFlags.Default);
