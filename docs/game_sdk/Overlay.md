@@ -9,46 +9,109 @@ Discord comes with an awesome built-in overlay, and you may want to make use of 
   - Locked, enabled, unlocked, open, closed, etc.
 - Allows you to change that state
 
-### Data Models
+## Data Models
+
+###### ActivityActionType Enum
+
+| value    |
+| -------- |
+| Join     |
+| Spectate |
+
+## Methods
+
+## IsEnabled
+
+Check whether the user has the overlay enabled or disabled. You probably want to make this check before attempting to interact with the overlay.
+
+Returns a `bool`.
+
+###### Parameters
+
+None
+
+###### Example
 
 ```cs
-enum ActivityActionType
-{
-  Join = 1,
-  Spectate
-};
+if (!overlaymanager.IsEnabled()) {
+  Console.WriteLine("Could not complete operation. Please enable the overlay and relaunch the game.");
+}
+
+else {
+  DoTheThing();
+}
 ```
 
-### Methods
+## IsLocked
+
+Check if the overlay is currently locked or unlocked
+
+###### Parameters
+
+None
+
+###### Example
 
 ```cs
-bool IsEnabled();
-// Returns if the user currently has the overlay enabled or disabled
+if (overlayManager.IsLocked()) {
+  overlayManager.SetLocked(false);
+}
+```
 
-bool IsLocked();
-// Returns if the overlay is currently locked or unlocked
+## SetLocked
 
-void SetLocked(bool locked);
-// Toggles the overlay to be locked (true) or unlocked (false)
+Locks or unlocks the overlay.
 
-void OpenActivityInvite(ActivityActionType type, (Discord.Result result) =>
+Returns `void`.
+
+###### Parameters
+
+| name   | type | description                |
+| ------ | ---- | -------------------------- |
+| locked | bool | lock or unlock the overlay |
+
+###### Example
+
+```cs
+if (overlayManager.IsLocked()) {
+  overlayManager.SetLocked(false);
+}
+```
+
+## OpenActivityInvite
+
+Opens the overlay modal for sending game invitations to users, channels, and servers.
+
+Returns a `Discord.Result` via callback.
+
+###### Parameters
+
+| name | type               | description                 |
+| ---- | ------------------ | --------------------------- |
+| type | ActivityActionType | what type of invite to send |
+
+###### Example
+
+```cs
+overlayManager.OpenActivityInvite(Discord.ActivityActionType.Join, (Discord.Result result) =>
 {
-  // Opens the overlay modal for game invitations
-  // Invite users to Join to Spectate your game based on the action type
-  // The user receiving the invite will receive an `ActivityManager.OnActivityInvite` callback
+  if (result == Discord.Result.OK) {
+    Console.WriteLine("User is now inviting others to play!");
+  }
 });
 ```
 
-### Callbacks
+## OnOverlayLocked
 
-```cs
-OnOverlayLocked += (bool locked) =>
-{
-  // Fires when the overlay is locked/unlocked
-};
-```
+Fires when the overlay is locked or unlocked
 
-### Example: Unlock the Overlay
+###### Parameters
+
+| name   | type | description                           |
+| ------ | ---- | ------------------------------------- |
+| locked | bool | is the overlay now locked or unlocked |
+
+## Example: Unlock the Overlay
 
 ```cs
 var discord = new Discord.Discord(clientId, Discord.CreateFlags.Default);
@@ -61,7 +124,7 @@ overlayManager.OnOverlayLocked += locked => {
 overlayManager.SetLocked(false);
 ```
 
-### Example: Activate Overlay Invite Modal
+## Example: Activate Overlay Invite Modal
 
 ```cs
 var discord = new Discord.Discord(clientId, Discord.CreateFlags.Default);
