@@ -967,13 +967,34 @@ Returns an object with a single valid WSS URL, which the client can use for [Con
 > warn
 > This endpoint requires authentication using a valid bot token.
 
-Returns an object with the same information as [Get Gateway](#DOCS_TOPICS_GATEWAY/get-gateway), plus a `shards` key, containing the recommended number of [shards](#DOCS_TOPICS_GATEWAY/sharding) to connect with (as an integer). Bots that want to dynamically/automatically spawn shard processes should use this endpoint to determine the number of processes to run. This route should be called once when starting up numerous shards, with the response being cached and passed to all sub-shards/processes. Unlike the [Get Gateway](#DOCS_TOPICS_GATEWAY/get-gateway), this route should not be cached for extended periods of time as the value is not guaranteed to be the same per-call, and changes as the bot joins/leaves guilds.
+Returns an object based on the information in [Get Gateway](#DOCS_TOPICS_GATEWAY/get-gateway), plus additional metadata that can help during the operation of large or [sharded](#DOCS_TOPIC_GATEWAY/sharding) bots. Unlike the [Get Gateway](#DOCS_TOPICS_GATEWAY/get-gateway), this route should not be cached for extended periods of time as the value is not guaranteed to be the same per-call, and changes as the bot joins/leaves guilds.
+
+###### JSON Response
+
+| Field      | Type      | Description       |
+| ---------- | --------- | ----------------- |
+| url | string | The WSS URL that can be used for connecting to the gateway |
+| shards | integer | The recommended number of [shards](#DOCS_TOPIC_GATEWAY/sharding) to use when connecting |
+| session\_start\_limit | [session\_start\_limit](#DOCS_TOPIC_GATEWAY/session-start-limit-object) object | Information on the current session start limit |
 
 ###### Example Response
 
 ```json
 {
   "url": "wss://gateway.discord.gg/",
-  "shards": 9
+  "shards": 9,
+  "session_start_limit": {
+    "total": 1000,
+    "remaining": 999,
+    "reset_after": 14400000
+  }
 }
 ```
+
+## Session Start Limit Object
+
+| Field | Type | Description |
+|-------|------|-------------|
+| total | integer | The total number of session starts the current user is allowed |
+| remaining | integer | The remaining number of session starts the current user is allowed |
+| reset\_after | integer | The number of milliseconds after which the limit resets |
