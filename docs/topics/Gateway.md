@@ -971,11 +971,11 @@ Returns an object based on the information in [Get Gateway](#DOCS_TOPICS_GATEWAY
 
 ###### JSON Response
 
-| Field               | Type                                                                         | Description                                                                             |
-| ------------------- | ---------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
-| url                 | string                                                                       | The WSS URL that can be used for connecting to the gateway                              |
-| shards              | integer                                                                      | The recommended number of [shards](#DOCS_TOPIC_GATEWAY/sharding) to use when connecting |
-| session_start_limit | [session_start_limit](#DOCS_TOPIC_GATEWAY/session-start-limit-object) object | Information on the current session start limit                                          |
+| Field               | Type                                                                          | Description                                                                             |
+| ------------------- | ----------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
+| url                 | string                                                                        | The WSS URL that can be used for connecting to the gateway                              |
+| shards              | integer                                                                       | The recommended number of [shards](#DOCS_TOPIC_GATEWAY/sharding) to use when connecting |
+| session_start_limit | [session_start_limit](#DOCS_TOPICS_GATEWAY/session-start-limit-object) object | Information on the current session start limit                                          |
 
 ###### Example Response
 
