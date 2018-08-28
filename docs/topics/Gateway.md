@@ -564,23 +564,25 @@ Sent when a guild becomes unavailable during a guild outage, or when the user le
 
 #### Guild Ban Add
 
-Sent when a user is banned from a guild. The inner payload is a [user](#DOCS_RESOURCES_USER/user-object) object, with an extra `guild_id` key.
+Sent when a user is banned from a guild.
 
-###### Guild Ban Add Extra Fields
+###### Guild Ban Add Event Fields
 
 | Field    | Type      | Description     |
 | -------- | --------- | --------------- |
 | guild_id | snowflake | id of the guild |
+| user | a [user](#DOCS_RESOURCES_USER/user-object) object | the banned user |
 
 #### Guild Ban Remove
 
-Sent when a user is unbanned from a guild. The inner payload is a [user](#DOCS_RESOURCES_USER/user-object) object, with an extra `guild_id` key.
+Sent when a user is unbanned from a guild.
 
-###### Guild Ban Remove Extra Fields
+###### Guild Ban Remove Event Fields
 
 | Field    | Type      | Description     |
 | -------- | --------- | --------------- |
 | guild_id | snowflake | id of the guild |
+| user | a [user](#DOCS_RESOURCES_USER/user-object) object | the unbanned user |
 
 #### Guild Emojis Update
 
