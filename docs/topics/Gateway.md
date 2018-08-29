@@ -368,15 +368,15 @@ Used to maintain an active gateway connection. Must be sent every `heartbeat_int
 
 #### Request Guild Members
 
-Used to request offline members for a guild. When initially connecting, the gateway will only send offline members if a guild has less than the `large_threshold` members (value in the [Gateway Identify](#DOCS_TOPICS_GATEWAY/identify)). If a client wishes to receive additional members, they need to explicitly request them via this operation. The server will send [Guild Members Chunk](#DOCS_TOPICS_GATEWAY/guild-members-chunk) events in response with up to 1000 members per chunk until all members that match the request have been sent.
+Used to request offline members for a guild or a list of guilds. When initially connecting, the gateway will only send offline members if a guild has less than the `large_threshold` members (value in the [Gateway Identify](#DOCS_TOPICS_GATEWAY/identify)). If a client wishes to receive additional members, they need to explicitly request them via this operation. The server will send [Guild Members Chunk](#DOCS_TOPICS_GATEWAY/guild-members-chunk) events in response with up to 1000 members per chunk until all members that match the request have been sent.
 
 ###### Guild Request Members Structure
 
-| Field    | Type      | Description                                                                |
-| -------- | --------- | -------------------------------------------------------------------------- |
-| guild_id | snowflake | id of the guild to get offline members for                                 |
-| query    | string    | string that username starts with, or an empty string to return all members |
-| limit    | integer   | maximum number of members to send or 0 to request all members matched      |
+| Field    | Type                             | Description                                                                |
+| -------- | -------------------------------- | -------------------------------------------------------------------------- |
+| guild_id | snowflake or array of snowflakes | id of the guild(s) to get offline members for                              |
+| query    | string                           | string that username starts with, or an empty string to return all members |
+| limit    | integer                          | maximum number of members to send or 0 to request all members matched      |
 
 ###### Guild Request Members
 
