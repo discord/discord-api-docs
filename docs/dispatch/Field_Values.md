@@ -27,7 +27,7 @@
 | ru     | Russian                 |
 | es-ES  | Spanish (Spain)         |
 | sv-SE  | Swedish                 |
-| tr     | Turkisk                 |
+| tr     | Turkish                 |
 | bg     | Bulgarian               |
 | uk     | Ukranian                |
 | fi     | Finnish                 |

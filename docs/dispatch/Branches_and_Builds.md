@@ -17,9 +17,12 @@ Bust out those \*nix skills.
 
 - Open your choice of terminal
 - Stick dispatch in a folder that will be added to your PATH. If you don't have a good spot for this stuff already, you can `mkdir ~/bin/` and call that Dispatch's new home (as well as any other executables you might want to access in the future)
+- In that folder, run `chmod u+x dispatch-macos` so that Dispatch can be used as an executable
+  - Feel free to also rename `dispatch-macos` to just `dispatch` if you don't feel like typing so much
 - Add that ~/bin directory to your path in a permanent way. I have `export PATH=$PATH:~/bin` at the bottom of my `~/.zshrc`, or `~/.bashrc`
 - Restart your terminal
 - `echo $PATH` and make sure you see the directory in the output
+- Run `dispatch --help` to make sure it works
 
 You're good! You can now call the dispatch command from anywhere!
 
@@ -27,12 +30,14 @@ You're good! You can now call the dispatch command from anywhere!
 
 Not as 1337 as some scripting skillz, but the Windows GUI will do just fine
 
-- Stick dispatch in a folder that will be added to your PATH
+- Stick `dispatch-x64` or `dispatch-x86`, depending on your OS, in a folder that will be added to your PATH
+  - Feel free to rename it to just `dispatch` if you don't feel like typing so much
 - Hit that Windows key and start typing "Environment Variables"
 - Select "Edit the system environment variables"
 - Hit the "Environment Variables" button in the bottom right
 - Edit the PATH entry for either the system or the current user, adding dispatch's directory
 - Restart your command line
+- Run `dispatch --help` to make sure it works
 
 You're good! You can now call the dispatch command from anywhere!
 
