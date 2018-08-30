@@ -182,14 +182,6 @@ Results a `Discord.Result` via callback.
 
 None
 
-###### Possible Results
-
-| error        | description              |
-| ------------ | ------------------------ |
-| OK           | success                  |
-| NotInstalled | Discord is not installed |
-| NotRunning   | Discord is not running   |
-
 ###### Example
 
 ```cs
@@ -217,14 +209,6 @@ Returns a `Discord.Result` via callback.
 | type    | ActivityActionType | marks the invite as an invitation to join or spectate |
 | content | string             | a message to send along with the invite               |
 
-###### Possible Results
-
-| error        | description              |
-| ------------ | ------------------------ |
-| OK           | success                  |
-| NotInstalled | Discord is not installed |
-| NotRunning   | Discord is not running   |
-
 ###### Example
 
 ```cs
@@ -249,14 +233,6 @@ Returns a `Discord.Result` via callback.
 | name   | type  | description                        |
 | ------ | ----- | ---------------------------------- |
 | userId | Int64 | the id of the user who invited you |
-
-###### Possible Results
-
-| error        | description              |
-| ------------ | ------------------------ |
-| OK           | success                  |
-| NotInstalled | Discord is not installed |
-| NotRunning   | Discord is not running   |
 
 ###### Example
 

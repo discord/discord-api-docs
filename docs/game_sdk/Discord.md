@@ -71,41 +71,42 @@ SetLogHook(LogLevel level, LogProblemsFunction callback);
 
 You should begin your integration by setting up this callback to help you debug. Helpfully, if you put a breakpoint inside the callback function you register here, you'll be able to see the stack trace for errors you run into (as long as they fail synchronously). Take the guess work out of debugging, or hey, ignore any and all logging by setting a callback that does nothing. We're not here to judge.
 
-### Data Models
+## Models
+
+####### Result Enum
+
+| Value               | Description                                                                    |
+| ------------------- | ------------------------------------------------------------------------------ |
+| Ok                  | everything is good                                                             |
+| ServiceUnavailable  | Discord isn't working                                                          |
+| InvalidVersion      | the SDK version may be outdated                                                |
+| LockFailed          | an internal error on transactional operations                                  |
+| InternalError       | something on our side went wrong                                               |
+| InvalidPayload      | the data you sent didn't match what we expect                                  |
+| InvalidCommand      | that's not a thing you can do                                                  |
+| InvalidPermissions  | you aren't authorized to do that                                               |
+| NotFetched          | couldn't fetch what you wanted                                                 |
+| NotFound            | what you're looking for doesn't exist                                          |
+| Conflict            | ?                                                                              |
+| InvalidSecret       | activity secrets must be unique                                                |
+| InvalidJoinSecret   | the secret you're using to connect is wrong                                    |
+| NoEligibleActivity  | ?                                                                              |
+| InvalidInvite       | your game invite is no longer valid                                            |
+| NotAuthenticated    | the internal auth call failed for the user, and you can't do this              |
+| InvalidAccessToken  | the user's bearer token is invalid                                             |
+| ApplicationMismatch | ?                                                                              |
+| InvalidDataUrl      | ?                                                                              |
+| InvalidBase64       | ?                                                                              |
+| NotFiltered         | you're trying to access the list before creating a stable list with `Filter()` |
+| LobbyFull           | the lobby is full                                                              |
+| InvalidLobbySecret  | the secret you're using to connect is wrong                                    |
+| InvalidFilename     | ?                                                                              |
+| InvalidFileSize     | ?                                                                              |
+| InvalidEntitlement  | the user does not have the right entitlement for this game                     |
+| NotInstalled        | Discord is not installed                                                       |
+| NotRunning          | Discord is not running                                                         |
 
 ```cs
-enum Result
-{
-  Ok,
-  ServiceUnavailable,
-  InvalidVersion,
-  LockFailed,
-  InternalError,
-  InvalidPaylaod,
-  InvalidCommand,
-  InvalidPermissions,
-  NotFetched,
-  NotFound,
-  Conflict,
-  InvalidSecret,
-  InvalidJoinSecret,
-  NoEligibleActivity,
-  InvalidInvite,
-  NotAuthenticated,
-  InvalidAccessToken,
-  ApplicationMismatch,
-  InvalidDataUrl,
-  InvalidBase64,
-  NotFiltered,
-  LobbyFull,
-  InvalidLobbySecret,
-  InvalidFilename,
-  InvalidFileSize,
-  InvalidEntitlement,
-  NotInstalled,
-  NotRunning
-};
-
 enum LogLevel
 {
   Error = 1,
