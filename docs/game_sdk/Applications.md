@@ -103,7 +103,7 @@ void ValidateOrExit((Discord.Result result) =>
 
 ```cs
 var discord = new Discord.Discord(clientId, Discord.CreateFlags.Default);
-var appManager = new discord.CreateApplicationsManager();
+var appManager = new discord.CreateApplicationManager();
 
 // Retrieve the token
 appManager.GetOAuth2Token((OAuth2Token token) =>

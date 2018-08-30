@@ -11,28 +11,28 @@ OK, cool, so how's it work?
 
 At a high level, the Discord GameSDK has a class, `Discord`. This class is in charge of the creation of a few "manager" sub-classes. They are:
 
-- `ActivitiesManager` - for Rich Presence and game invites
-- `RelationshipsManager` - for users' social relationships across Discord, including friends list
-- `ImagesManager` - for getting data about images on Discord, like user avatars or chat images
-- `UsersManager` - for fetching user data for a given id and the current user
-- `LobbiesManager` - for multiplayer lobbies
+- `ActivityManager` - for Rich Presence and game invites
+- `RelationshipManager` - for users' social relationships across Discord, including friends list
+- `ImageManager` - for getting data about images on Discord, like user avatars or chat images
+- `UserManager` - for fetching user data for a given id and the current user
+- `LobbyManager` - for multiplayer lobbies
 - `NetworkManager` - for all your networking layer needs
 - `ApplicationManager` - for retrieving a user's OAuth2 bearer token, locale, and current game branch
 - `StorageManager` - for saving game data to the disk and the cloud
 - `OverlayManager` - for interacting with Discord's built-in overlay
 
-Each one of these managers contain a number of methods and events used to interact with Discord in the context of the manager. For example, `RelationshipsManager` has a function called `filter()`, which lets you pare down a user's inter-Discord relationships based on a boolean condition, like being friends!
+Each one of these managers contain a number of methods and events used to interact with Discord in the context of the manager. For example, `RelationshipManager` has a function called `filter()`, which lets you pare down a user's inter-Discord relationships based on a boolean condition, like being friends!
 
 ## Functions in the SDK
 
 Most functions in the Discord GameSDK, uh, _function_ in a similar way. They take whatever parameters are required for the function to do its job—a user id, the requested size for an image, etc.—and a callback by means of a function pointer. That callback is fired when the function completes its work, letting you handle events without worrying about piping asynchronously-returned data to the right context.
 
-Some functions behave with a normal return behavior; e.g. `RelationshipsManager.Count()` just returns the number directly. Don't worry, it's outlined in the docs.
+Some functions behave with a normal return behavior; e.g. `RelationshipManager.Count()` just returns the number directly. Don't worry, it's outlined in the docs.
 
 A quick example with our C# binding:
 
 ```c#
-var userManager = Discord.CreateUsersManager();
+var userManager = Discord.CreateUserManager();
 userManager.GetCurrentUser((Discord.Result result, ref Discord.User currentUser) =>
 {
  Console.WriteLine(currentUser.username);
@@ -155,14 +155,14 @@ void RunCallbacks();
 There are also methods to create managers, which control the data that pertain to their respective names. For brevity's sake, these managers all have a `Destroy()` (`Dispose()` in C# land) function that kills the instance. Now I won't have to repeat myself:
 
 ```cs
-var ActivitiesManager = Discord.CreateActivitiesManager();
-var RelationshipsManager = Discord.CreateRelationshipsManager();
-var ImagesManager = Discord.CreateImagesManager();
-var UsersManager = Discord.CreateUsersManager();
-var LobbiesManager = Discord.CreateLobbiesManager();
+var ActivityManager = Discord.CreateActivityManager();
+var RelationshipManager = Discord.CreateRelationshipManager();
+var ImageManager = Discord.CreateImageManager();
+var UserManager = Discord.CreateUserManager();
+var LobbyManager = Discord.CreateLobbyManager();
 var NetworkManager = Discord.CreateNetworkManager();
 var OverlayManager = Discord.CreateOverlayManager();
-var ApplicationsManager = Discord.CreateApplicationsManager();
+var ApplicationManager = Discord.CreateApplicationManager();
 var StorageManager = Discord.CreateStorageMaager();
 ```
 

@@ -327,14 +327,14 @@ var activity = new Discord.Activity
   Instance = true,
 };
 
-activitiesManager.UpdateActivity(activity, result =>
+ActivityManager.UpdateActivity(activity, result =>
 {
   Console.WriteLine("Update Activity {0}", result);
 
   // Send an invite to another user for this activity.
   // Receiver should see an invite in their DM.
   // Use a relationship user's ID for this.
-  activitiesManager
+  ActivityManager
     .InviteUser(
         364843917537050999,
         Discord.ActivityActionType.Join,

@@ -9,7 +9,7 @@ Looking to integrate multiplayer into your game? Lobbies are a great way to orga
 - Matchmaking users based on lobby metadata, like ELO
 - Getting and setting arbitrary metadata on lobbies and lobby members
 
-Lobbies in Discord work in one of two ways. By using calls from the SDK, lobbies are effectively "owned" by the user who's client creates the lobby. Someone boots up the game, hits your "Create Lobby" button, and their game client calls `lobbiesManager.CreateLobby()` from the Discord SDK.
+Lobbies in Discord work in one of two ways. By using calls from the SDK, lobbies are effectively "owned" by the user who's client creates the lobby. Someone boots up the game, hits your "Create Lobby" button, and their game client calls `LobbyManager.CreateLobby()` from the Discord SDK.
 
 There is also another way to create and "own" lobbies with which the source of truth can be your own server. These SDK functions calls map to API endpoints that are exposed in Discord's HTTP API. In lieu of creating and managing lobbies in the SDK, you can call those endpoints directly with a token for your application and take care of it all on some far-away, totally secure server. Let's go over the SDK first.
 
@@ -22,10 +22,10 @@ To update a user or a lobby, create or get a transaction for that resource, call
 ### Example: Creating a Lobby
 
 ```cs
-var lobbiesManager = Discord.CreateLobbiesManager();
+var LobbyManager = Discord.CreateLobbyManager();
 
 // Create the transaction
-var txn = lobbiesManager.CreateLobbyTransaction();
+var txn = LobbyManager.CreateLobbyTransaction();
 
 // Set lobby information
 txn.SetCapacity(6);
@@ -33,16 +33,16 @@ txn.SetType(Discord.LobbyType.Public);
 txn.SetMetadata("a", "123");
 
 // Create it!
-lobbiesManager.CreateLobby(txn, (Discord.Result result, ref Discord.Lobby lobby) =>
+LobbyManager.CreateLobby(txn, (Discord.Result result, ref Discord.Lobby lobby) =>
 {
   Console.WriteLine("lobby {0} created with secret {1}", lobby.Id, lobby.Secret);
 
   // We want to update the capacity of the lobby
   // So we get a new transaction for the lobby
-  var newTxn = lobbiesManager.GetLobbyTransaction(lobby.id);
+  var newTxn = LobbyManager.GetLobbyTransaction(lobby.id);
   newTxn.SetCapacity(5);
 
-  lobbiesManager.UpdateLobby(lobby.id, newTxn, (Discord.Result result, ref Discord.Lobby newLobby) =>
+  LobbyManager.UpdateLobby(lobby.id, newTxn, (Discord.Result result, ref Discord.Lobby newLobby) =>
   {
     Console.WriteLine("lobby {0} updated", newLobby.Id);
   });
@@ -118,7 +118,7 @@ struct LobbySearch
   // If you are filtering based on metadata, make sure you prepend your key with "metadata."
   // For example, filtering on matchmaking rating would be "metadata.matchmaking_rating"
   // Example:
-  // var query = LobbiesManager.create_lobby_search();
+  // var query = LobbyManager.create_lobby_search();
   // query.LobbySearchFilter("metadata.matchmaking_rating", LobbySearchComparison.GreaterThan, LobbySearchCast.Number, "455");
 
   void Sort(string key, LobbySearchCast cast, string value);
@@ -303,18 +303,18 @@ If you are creating lobbies for users in the game client, and not on a backend s
 
 ```cs
 var discord = new Discord.Discord(clientId, Discord.CreateFlags.Default);
-var lobbiesManager = Discord.CreateLobbiesManager();
-var activitiesManager = Discord.CreateActivitiesManager();
+var LobbyManager = Discord.CreateLobbyManager();
+var ActivityManager = Discord.CreateActivityManager();
 
 // Create a lobby
-var txn = lobbiesManager.CreateLobbyTransaction();
+var txn = LobbyManager.CreateLobbyTransaction();
 txn.SetCapacity(5);
 txn.SetType(Discord.LobbyType.Private);
 
-lobbiesManager.CreateLobby(txn, (result, lobby) =>
+LobbyManager.CreateLobby(txn, (result, lobby) =>
 {
   // Get the sepcial activity secret
-  var secret = lobbiesManager.GetLobbyActivitySecret(lobby.id);
+  var secret = LobbyManager.GetLobbyActivitySecret(lobby.id);
 
   // Create a new activity
   // Set the party id to the lobby id, so everyone in the lobby has the same value
@@ -333,11 +333,11 @@ lobbiesManager.CreateLobby(txn, (result, lobby) =>
     }
   };
 
-  activitiesManager.UpdateActivity(activity, result =<
+  ActivityManager.UpdateActivity(activity, result =<
   {
     // Now, you can send chat invites, or others can ask to join
     // When other clients receive the OnActivityJoin() event, they'll receive the special activity secret
-    // They can then directly call lobbiesManager.ConnectWithActivitySecret() and be put into the lobby together
+    // They can then directly call LobbyManager.ConnectWithActivitySecret() and be put into the lobby together
   })
 });
 ```
@@ -350,7 +350,7 @@ If you are creating lobbies with your own backend system (see the section below)
 var discord = new Discord.Discord(clientId, Discord.CreateFlags.Default);
 
 // Search lobbies.
-var query = lobbiesManager.CreateLobbySearch();
+var query = LobbyManager.CreateLobbySearch();
 
 // Filter by a metadata value.
 query.Filter("metadata.ELO", Discord.LobbySearchComparison.EqualTo, Discord.LobbySearchCast.Number, "1337");
@@ -358,18 +358,18 @@ query.Filter("metadata.ELO", Discord.LobbySearchComparison.EqualTo, Discord.Lobb
 // Only return 1 result max.
 query.Limit(1);
 
-lobbiesManager.Search(query, (_) =>
+LobbyManager.Search(query, (_) =>
 {
-  Console.WriteLine("search returned {0} lobbies", lobbiesManager.GetLobbyCount());
+  Console.WriteLine("search returned {0} lobbies", LobbyManager.GetLobbyCount());
 
-  if (lobbiesManager.GetLobbyCount() == 1)
+  if (LobbyManager.GetLobbyCount() == 1)
   {
-    Console.WriteLine("first lobby: {0}", lobbiesManager.GetLobbyId(0));
+    Console.WriteLine("first lobby: {0}", LobbyManager.GetLobbyId(0));
   }
 
   // Get the id of the lobby, and connect to voice
-  var id = lobbiesManager.GetLobbyId(0);
-  lobbiesManager.VoiceConnect(id, (_) =>
+  var id = LobbyManager.GetLobbyId(0);
+  LobbyManager.VoiceConnect(id, (_) =>
   {
     Console.WriteLine("Connected to voice!");
   });

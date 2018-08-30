@@ -51,16 +51,16 @@ void GetData(ImageHandle handle, (Discord.Result result, byte[] data) =>
 var discord = new Discord.Discord(clientId, Discord.CreateFlags.Default);
 
 // Request user's avatar data. Sizes can be powers of 2 between 16 and 2048
-static void FetchAvatar(Discord.ImagesManager imagesManager, Int64 userID)
+static void FetchAvatar(Discord.ImageManager ImageManager, Int64 userID)
 {
-  imagesManager.Fetch(Discord.ImageHandle.User(userID), (result, handle) =>
+  ImageManager.Fetch(Discord.ImageHandle.User(userID), (result, handle) =>
   {
     {
       if (result == Discord.Result.Ok)
       {
         // You can also use GetTexture2D within Unity.
         // These return raw RGBA.
-        var data = imagesManager.GetData(handle);
+        var data = ImageManager.GetData(handle);
         Console.WriteLine("image updated {0} {1}", handle.Id, data.Length);
       }
       else

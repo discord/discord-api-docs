@@ -71,8 +71,8 @@ Fires when the `User` struct of the currently connected user changes. They may h
 ```cs
 var discord = new Discord.Discord(clientId, Discord.CreateFlags.Default);
 
-var usersManager = discord.CreateUsersManager();
-usersManager.Fetch(450795363658366976, (Discord.Result result, ref Discord.User user) =>
+var UserManager = discord.CreateUserManager();
+UserManager.Fetch(450795363658366976, (Discord.Result result, ref Discord.User user) =>
 {
   if (result == Discord.Result.Ok)
   {
@@ -80,7 +80,7 @@ usersManager.Fetch(450795363658366976, (Discord.Result result, ref Discord.User 
 
     // Request users's avatar data.
     // This can only be done after a user is successfully fetched.
-    FetchAvatar(imagesManager, user.Id);
+    FetchAvatar(ImageManager, user.Id);
   }
   else
   {
