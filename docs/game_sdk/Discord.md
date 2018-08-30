@@ -106,71 +106,265 @@ You should begin your integration by setting up this callback to help you debug.
 | NotInstalled        | Discord is not installed                                                       |
 | NotRunning          | Discord is not running                                                         |
 
-```cs
-enum LogLevel
-{
-  Error = 1,
-  Warning,
-  Info,
-  Debug
-};
+###### LogLevel Enum
 
-// CreateFlags are a set of flags that tell Discord to do different things on initialization
-// Each flag below has been documented with what it tells Discord to do
-enum CreateFlags
-{
-  // Keep it simple and default. Default values:
-  // DRM: Require Discord to be running to play. SDK will close the game, open Discord, and then relaunch the game
-  Default = 0,
+| Value   | Description                    |
+| ------- | ------------------------------ |
+| Error   | Log only errors                |
+| Warning | Log warnings and errors        |
+| Info    | Log info, warnings, and errors |
+| Debug   | Log _all_ the things!          |
 
-  // Tells the SDK not to close the game if Discord is not running
-  // You probably want to ship with this flag on other platforms
-  NoRequireDiscord
-};
+###### CreateFlags Enum
+
+| Value            | Description                                                         |
+| ---------------- | ------------------------------------------------------------------- |
+| Default          | Requires Discord to be running to play the game                     |
+| NoRequireDiscord | Does not require Discord to be running, use this on other platforms |
+
+## Create
+
+Creates an instance of Discord to initialize the SDK. This is the overlord of all things Discord. We like to call her Nelly.
+
+Returns a new `Discord`.
+
+###### Parameters
+
+| name     | type        | description                                         |
+| -------- | ----------- | --------------------------------------------------- |
+| clientId | Int64       | your application's client id                        |
+| flags    | CreateFlags | the creation parameters for the SDK, outlined above |
+
+###### Example
+
+```cpp
+Discord.Core core;
+core->Create(53908232506183680, Discord.CreateFlags.Default, &core);
 ```
 
-### Methods
-
 ```cs
-Discord.Core Create(Int64 clientId, CreateFlags flags);
-// Creates an instance of Discord with your client id
-// This is the overlord of all things Discord. We like to call her Nelly
-// In C# land, you can just `new` up an instance of the Discord class with these parameters
-
-void Destroy();
-// Destroys the instance. Wave goodbye, Nelly!
-// You monster.
-// Called Dispose() in C# land
-
-void SetLogHook(LogLevel level, MyCallbackFunction callback);
-// Registers a logging callback function with a minimum level of message to receive
-// The callback function has a signature of void MyCallbackFunction(LogLevel level, string message)
-
-void RunCallbacks();
-// Runs all pending callbacks
-// Put this in your game's main event loop, like Update() in Unity
-// That way the first thing your game does is check for any new info from Discord
+var discord = new Discord(53908232506183680, Discord.CreateFlags.Default);
 ```
 
-There are also methods to create managers, which control the data that pertain to their respective names. For brevity's sake, these managers all have a `Destroy()` (`Dispose()` in C# land) function that kills the instance. Now I won't have to repeat myself:
+## Destroy
 
-```cs
-var ActivityManager = Discord.CreateActivityManager();
-var RelationshipManager = Discord.CreateRelationshipManager();
-var ImageManager = Discord.CreateImageManager();
-var UserManager = Discord.CreateUserManager();
-var LobbyManager = Discord.CreateLobbyManager();
-var NetworkManager = Discord.CreateNetworkManager();
-var OverlayManager = Discord.CreateOverlayManager();
-var ApplicationManager = Discord.CreateApplicationManager();
-var StorageManager = Discord.CreateStorageMaager();
+Destroys the instance. Wave goodbye, Nelly! You monster. In C# land, this is `Dispose()`.
+
+Returns `void`.
+
+###### Parameters
+
+None
+
+###### Example
+
+```cpp
+core->Destroy();
 ```
 
-### Callbacks
+```cs
+discord.Dispose();
+```
+
+## SetLogHook
+
+Registers a logging callback function with the minimum level of message to receive. The callback function should have a signature of:
+
+```
+MyCallbackFunction(LogLevel level, string message);
+```
+
+Returns `void`.
+
+###### Parameters
+
+| name     | type     | description                                 |
+| -------- | -------- | ------------------------------------------- |
+| level    | LogLevel | the minimum level of event to log           |
+| callback | function | the callback function to catch the messages |
+
+###### Example
+
+```cs
+public void LogProblemsFunction(LogLevel level, string message);
+SetLogHook(LogLevel level, LogProblemsFunction callback);
+```
+
+## RunCallbacks
+
+Runs all pending SDK callbacks. Put this in your game's main event loop, like `Update()` in Unity. That way, the first thing your game does is check for any new info from Discord.
+
+Returns `void`.
+
+###### Parameters
+
+None
+
+###### Example
+
+```cs
+void Update() {
+  discord.RunCallbacks();
+}
+```
+
+## CreateActivityManager
+
+Creates the manager for interfacing with activities in the SDK.
+
+Returns an `ActivityManager`.
+
+###### Parameters
+
+None
+
+###### Example
+
+```cs
+var activityManager = Discord.CreateActivityManager();
+```
+
+## CreateRelationshipManager
+
+Creates the manager for interfacing with relationships in the SDK.
+
+Returns a `RelationshipManager`.
+
+###### Parameters
+
+None
+
+###### Example
+
+```cs
+var relationshipManager = Discord.CreateRelationshipManager();
+```
+
+## CreateImageManager
+
+Creates the manager for interfacing with images in the SDK.
+
+Returns an `ImageManager`.
+
+###### Parameters
+
+None
+
+###### Example
+
+```cs
+var imageManager = Discord.CreateImageManager();
+```
+
+## CreateUserManager
+
+Creates the manager for interfacing with users in the SDK.
+
+Returns an `UserManager`.
+
+###### Parameters
+
+None
+
+###### Example
+
+```cs
+var userManager = Discord.CreateUserManager();
+```
+
+## CreateLobbyManager
+
+Creates the manager for interfacing with lobbies in the SDK.
+
+Returns a `LobbyManager`.
+
+###### Parameters
+
+None
+
+###### Example
+
+```cs
+var lobbyManager = Discord.CreateLobbyManager();
+```
+
+## CreateNetworkManager
+
+Creates the manager for interfacing with networking in the SDK.
+
+Returns an `NetworkManager`.
+
+###### Parameters
+
+None
+
+###### Example
+
+```cs
+var networkManager = Discord.CreateNetworkManager();
+```
+
+## CreateOverlayManager
+
+Creates the manager for interfacing with the overlay in the SDK.
+
+Returns an `OverlayManager`.
+
+###### Parameters
+
+None
+
+###### Example
+
+```cs
+var overlayManager = Discord.CreateOverlayManager();
+```
+
+## CreateApplicationManager
+
+Creates the manager for interfacing with applications in the SDK.
+
+Returns an `ApplicationManager`.
+
+###### Parameters
+
+None
+
+###### Example
+
+```cs
+var applicationManager = Discord.CreateApplicationManager();
+```
+
+## CreateStorageManager
+
+Creates the manager for interfacing with storage in the SDK.
+
+Returns an `StorageManager`.
+
+###### Parameters
+
+None
+
+###### Example
+
+```cs
+var storageManager = Discord.CreateStorageManager();
+```
+
+## OnReady
+
+Fires when Discord is connected and ready to roll!
+
+###### Parameters
+
+None
+
+###### Example
 
 ```cs
 OnReady += () =>
 {
-  // Fires when Discord is connected and ready to roll!
+  Console.WriteLine("Let's do this!");
 };
 ```
