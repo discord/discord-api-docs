@@ -64,7 +64,7 @@ And now you know, and knowing is half the battle.
 
 ## Step 1 - Get the Thing
 
-I know you're already convinced, so let's begin. First, get the SDK. Right now, the SDK is not publically available. If you are one of our developer partners, you'll have access to it; if not, feel free to keep reading for the sake of learning! And hey, if you've got an awesome game, and _want_ to be one of our developer partners, [drop us a message](https://dis.gdi/devstoreform).
+I know you're already convinced, so let's begin. First, get the SDK. Right now, the SDK is not publically available. If you are one of our developer partners, you'll have access to it; if not, feel free to keep reading for the sake of learning! And hey, if you've got an awesome game, and _want_ to be one of our developer partners, [drop us a message](https://dis.gd/devstoreform).
 
 There's a few things in there, but let's quickly talk about what the SDK actually _is_. Inside the `lib/` folder, you'll see `x86/` and `x86_64/` that have some `.lib`, `.bundle`, and `.dll` files. You'll also notice that those files are _really_ small, just a couple hundred kilobytes. What these are are stubs for the Discord SDK. These are the things you want to distribute with your game. When you initialize the SDK, these stubs will call back to the locally installed Discord app to actually do the things your game needs. That means that the SDK will launch Discord if it's not already launched, or give you an error if Discord is not installed.
 

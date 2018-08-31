@@ -48,7 +48,8 @@ None
 
 ```cs
 var branch = applicationManager.GetCurrentBranch();
-if (branch !== MyBranches.Stable) {
+if (branch !== MyBranches.Stable)
+{
   Console.WriteLine("You are on a beta branch; expect bugs!");
 }
 ```
@@ -66,9 +67,10 @@ None
 ###### Example
 
 ```cs
-applicationManager.GetOAuth2Token((Discord.Result result, OAuth2Token token) =>
+applicationManager.GetOAuth2Token((result, token) =>
 {
-  if (result == Discord.Result.OK) {
+  if (result == Discord.Result.OK)
+  {
     Console.WriteLine("Token for the user: {0}. Expires in {1}", token.AccessToken, token.Expires);
     // You may now use this token against Discord's HTTP API
   }
@@ -88,13 +90,15 @@ None
 ###### Example
 
 ```cs
-void ValidateOrExit((Discord.Result result) =>
+void ValidateOrExit((result) =>
 {
-  if (result !== Discord.Result.OK) {
-    Console.WriteLine("Something went wrong!");
+  if (result == Discord.Result.OK)
+  {
+    // Game keeps running
   }
-  if (result == Discord.Result.OK) {
-    // Game continues running
+  else
+  {
+    Console.WriteLine("Oops! Something went wrong, closing game...");
   }
 });
 ```
@@ -106,7 +110,7 @@ var discord = new Discord.Discord(clientId, Discord.CreateFlags.Default);
 var appManager = discord.GetApplicationManager();
 
 // Retrieve the token
-appManager.GetOAuth2Token((OAuth2Token token) =>
+appManager.GetOAuth2Token((token) =>
 {
   Console.WriteLine(token.AccessToken);
 

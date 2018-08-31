@@ -51,7 +51,7 @@ Returns a `Discord.Result` and a `byte[]` containing the data via callback.
 ###### Example
 
 ```cs
-storeManager.ReadAsync("high_score", (Discord.Result result, byte[] data) =>
+storeManager.ReadAsync("high_score", (result, data) =>
 {
   if (result == Discord.Result.OK) {
     LoadHighScore(data);
@@ -76,7 +76,7 @@ Returns a `Discord.Result` and `byte[]` containing the data via callback.
 ###### Example
 
 ```cs
-storeManager.ReadAsyncPartial("high_score", 10, 8, (Discord.Result result, byte[] data) =>
+storeManager.ReadAsyncPartial("high_score", 10, 8, (result, data) =>
 {
   if (result == Discord.Result.OK) {
     LoadHighScore(data);
@@ -117,8 +117,10 @@ Writes data asynchronously to disk under the given keyname.
 ###### Example
 
 ```cs
-storageManager.WriteAsync("high_score", Encoding.UTF8.GetBytes("9999"), Discord.Result result => {
-  if (result == Discord.Result.OK) {
+storageManager.WriteAsync("high_score", Encoding.UTF8.GetBytes("9999"), (result) =>
+{
+  if (result == Discord.Result.OK)
+  {
     Console.WriteLine("Wrote data");
   }
 });
@@ -159,7 +161,8 @@ Returns `bool`.
 
 ```cs
 var highScore = storageManager.Exists("high_score");
-if (!highScore) {
+if (!highScore)
+{
   Console.WriteLine("Couldn't find any highscore for you. Did you cheat? Jerk.");
 }
 ```
@@ -197,7 +200,8 @@ None
 
 ```cs
 var numFiles = storageManager.Count();
-for (int i = 0; i < numFiles; i++) {
+for (int i = 0; i < numFiles; i++)
+{
   Console.WriteLine("We're at file {0}", i);
 }
 ```
@@ -218,7 +222,8 @@ Returns a `FileStat`.
 
 ```cs
 var numFiles = storageManager.Count();
-for (int i = 0; i < numFiles; i++) {
+for (int i = 0; i < numFiles; i++)
+{
   var file = storageManager.StatIndex(i);
   Console.WriteLine("File is {0}", file.Name);
 }

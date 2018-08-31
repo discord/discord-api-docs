@@ -33,7 +33,7 @@ txn.SetType(Discord.LobbyType.Public);
 txn.SetMetadata("a", "123");
 
 // Create it!
-LobbyManager.CreateLobby(txn, (Discord.Result result, ref Discord.Lobby lobby) =>
+LobbyManager.CreateLobby(txn, (result, lobby) =>
 {
   Console.WriteLine("lobby {0} created with secret {1}", lobby.Id, lobby.Secret);
 
@@ -42,7 +42,7 @@ LobbyManager.CreateLobby(txn, (Discord.Result result, ref Discord.Lobby lobby) =
   var newTxn = LobbyManager.GetLobbyTransaction(lobby.id);
   newTxn.SetCapacity(5);
 
-  LobbyManager.UpdateLobby(lobby.id, newTxn, (Discord.Result result, ref Discord.Lobby newLobby) =>
+  LobbyManager.UpdateLobby(lobby.id, newTxn, (result, newLobby) =>
   {
     Console.WriteLine("lobby {0} updated", newLobby.Id);
   });
@@ -361,9 +361,10 @@ Returns `Discord.Result` and `ref Lobby` via callback.
 ###### Example
 
 ```cs
-lobbyManager.CreateLobby(txn, (Discord.Result result, Lobby lobby) =>
+lobbyManager.CreateLobby(txn, (result, lobby) =>
 {
-  if (result == Discord.Result.OK) {
+  if (result == Discord.Result.OK)
+  {
     Console.WriteLine("Created lobby {0}", lobby.Id);
   }
 });
@@ -387,7 +388,8 @@ Returns `Discord.Result` via callback.
 ```cs
 lobbymanager.UpdateLobby(290926798626357250, transaction, (result) =>
 {
-  if (result == Discord.Result.OK) {
+  if (result == Discord.Result.OK)
+  {
     Console.WriteLine("Lobby updated!");
   }
 });
@@ -410,7 +412,8 @@ Returns `Discord.Result` via callback.
 ```cs
 lobbymanager.DeleteLobby(290926798626357250, (result) =>
 {
-  if (result == Discord.Result.OK) {
+  if (result == Discord.Result.OK)
+  {
     Console.WriteLine("Lobby deleted!");
   }
 });
@@ -434,7 +437,8 @@ Returns `Discord.Result` and `ref Discord.Lobby` via callback.
 ```cs
 lobbyManager.Connect(290926798626357250, "363446008341987328:123123", (result, lobby) =>
 {
-  if (result == Discord.Result.OK) {
+  if (result == Discord.Result.OK)
+  {
     Console.WriteLine("Connected to lobby {0}!", lobby.Id);
   }
 });
@@ -457,7 +461,8 @@ Returns `Discord.Result` and `ref Discord.Lobby` via callback.
 ```cs
 lobbyManager.ConnectWithActivitySecret("363446008341987328:123123", (result, lobby) =>
 {
-  if (result == Discord.Result.OK) {
+  if (result == Discord.Result.OK)
+  {
     Console.WriteLine("Connected to lobby {0}!", lobby.Id);
   }
 });
@@ -496,7 +501,7 @@ var activity = new Discord.Activity
   Instance = true,
 };
 
-ActivityManager.UpdateActivity(activity, result =>
+ActivityManager.UpdateActivity(activity, (result) =>
 {
   Console.WriteLine("Update Activity {0}", result);
 });
@@ -517,9 +522,10 @@ Returns `Discord.Result`.
 ###### Example
 
 ```cs
-lobbyManager.Disconnect(290926798626357250, result) =>
+lobbyManager.Disconnect(290926798626357250, (result) =>
 {
-  if (result == Discord.Result.OK) {
+  if (result == Discord.Result.OK)
+  {
     Console.WriteLine("Left lobby!");
   }
 });
@@ -559,7 +565,8 @@ Returns `Int32`.
 
 ```cs
 var count = lobbyManger.GetLobbyMetadataCount(290926798626357250);
-for (int i = 0; i < count; i++) {
+for (int i = 0; i < count; i++)
+{
   var value = lobbyManager.GetLobbyMetadataKey(290926798626357250, i);
 }
 ```
@@ -581,7 +588,8 @@ Returns `string`.
 
 ```cs
 var count = lobbyManger.GetLobbyMetadataCount(290926798626357250);
-for (int i = 0; i < count; i++) {
+for (int i = 0; i < count; i++)
+{
   var value = lobbyManager.GetLobbyMetadataKey(290926798626357250, i);
 }
 ```
@@ -619,7 +627,8 @@ Returns `Int32`.
 
 ```cs
 var count = lobbyManager.GetMemberCount(290926798626357250);
-for (int i = 0; i < count; i++) {
+for (int i = 0; i < count; i++)
+{
   var id = lobbyManager.GetMemberUserId(290926798626357250, i);
 }
 ```
@@ -641,7 +650,8 @@ Returns `Int64`.
 
 ```cs
 var count = lobbyManager.GetMemberCount(290926798626357250);
-for (int i = 0; i < count; i++) {
+for (int i = 0; i < count; i++)
+{
   var id = lobbyManager.GetMemberUserId(290926798626357250, i);
 }
 ```
@@ -663,7 +673,8 @@ Returns `Discord.User`.
 
 ```cs
 var count = lobbyManager.GetMemberCount(290926798626357250);
-for (int i = 0; i < count; i++) {
+for (int i = 0; i < count; i++)
+{
   var id = lobbyManager.GetMemberUserId(290926798626357250, i);
   var user = lobbyManager.GetMemberUser(290926798626357250, id);
   Console.WriteLine("Got user {0}", user.Id);
@@ -687,7 +698,8 @@ Returns `Int32`.
 
 ```cs
 var count = lobbyManager.GetMemberMetadataCount(290926798626357250, 53908232506183680);
-for (int i = 0; i < count; i++) {
+for (int i = 0; i < count; i++)
+{
   var key = lobbyManager.GetMemberMetadataKey(290926798626357250, 53908232506183680, i);
 }
 ```
@@ -710,7 +722,8 @@ Returns `string`.
 
 ```cs
 var count = lobbyManager.GetMemberMetadataCount(290926798626357250, 53908232506183680);
-for (int i = 0; i < count; i++) {
+for (int i = 0; i < count; i++)
+{
   var key = lobbyManager.GetMemberMetadataKey(290926798626357250, 53908232506183680, i);
 }
 ```
@@ -733,7 +746,8 @@ Returns `string`.
 
 ```cs
 var count = lobbyManager.GetMemberMetadataCount(290926798626357250, 53908232506183680);
-for (int i = 0; i < count; i++) {
+for (int i = 0; i < count; i++)
+{
   var key = lobbyManager.GetMemberMetadataKey(290926798626357250, 53908232506183680, i);
   var value = lobbyManager.GetMemberMetadataValue(290926798626357250, 53908232506183680, key);
   Console.WriteLine("Value: {0}", value);
@@ -759,8 +773,10 @@ Returns `Discord.Result` via callback.
 ```cs
 var txn = lobbyManager.GetLobbyMemberTransaction(290926798626357250, 53908232506183680);
 txn.SetMetadata("my_mmr", "9999");
-lobbyManager.UpdateMember(290926798626357250, 53908232506183680, txn, (result) => {
-  if (result == Discord.Result.OK) {
+lobbyManager.UpdateMember(290926798626357250, 53908232506183680, txn, (result) =>
+{
+  if (result == Discord.Result.OK)
+  {
     Console.WriteLine("Lobby member updated!");
   }
 });
@@ -820,7 +836,8 @@ var search = lobbyManger.CreateLobbySearch();
 search.Filter("metadata.matchmaking_rating", LobbySearchComparison.GreaterThan, LobbySearchCast.Number, "455");
 search.Sort("metadata.matchmaking_rating", LobbySearchCast.Number, "456");
 search.Limit(10);
-lobbyManger.Search(search, () => {
+lobbyManger.Search(search, () =>
+{
   var count = lobbyManager.GetLobbyCount();
   Console.WriteLine("There are {0} lobbies that match your search criteria", count);
 });
@@ -839,7 +856,8 @@ None
 ###### Example
 
 ```cs
-lobbyManger.Search(search, () => {
+lobbyManger.Search(search, () =>
+{
   var count = lobbyManager.GetLobbyCount();
   Console.WriteLine("There are {0} lobbies that match your search criteria", count);
 });
@@ -860,9 +878,11 @@ Returns `Int64`.
 ###### Example
 
 ```cs
-lobbyManger.Search(search, () => {
+lobbyManger.Search(search, () =>
+{
   var count = lobbyManager.GetLobbyCount();
-  for (int i = 0; i < count; i++) {
+  for (int i = 0; i < count; i++)
+  {
     var id = lobbyManager.GetLobbyId(i);
     Console.WriteLine("Found lobby {0}", id);
   }
@@ -886,7 +906,8 @@ Returns `Discord.Result` via callback.
 ```cs
 lobbyManager.VoiceConnect(290926798626357250, (result) =>
 {
-  if (result == Discord.Result.OK) {
+  if (result == Discord.Result.OK)
+  {
     Console.WriteLine("Voice connected!");
   }
 });
@@ -907,7 +928,8 @@ Disconnects from the voice channel of a given lobby.
 ```cs
 lobbyManager.VoiceDisconnect(290926798626357250, (result) =>
 {
-  if (result == Discord.Result.OK) {
+  if (result == Discord.Result.OK)
+  {
     Console.WriteLine("Voice disconnected!");
   }
 });
@@ -1017,19 +1039,21 @@ LobbyManager.CreateLobby(txn, (result, lobby) =>
   // Set the join secret to the special activity secret
   var activity = new Discord.Activity
   {
-    Party = {
+    Party =
+    {
       Id = lobby.id,
       Size = {
         CurrentSize = 1,
         MaxSize = 5
       }
     },
-    Secrets = {
+    Secrets =
+    {
       Join = secret
     }
   };
 
-  ActivityManager.UpdateActivity(activity, result =<
+  ActivityManager.UpdateActivity(activity, (result) =>
   {
     // Now, you can send chat invites, or others can ask to join
     // When other clients receive the OnActivityJoin() event, they'll receive the special activity secret
@@ -1054,7 +1078,7 @@ query.Filter("metadata.ELO", Discord.LobbySearchComparison.EqualTo, Discord.Lobb
 // Only return 1 result max.
 query.Limit(1);
 
-LobbyManager.Search(query, (_) =>
+LobbyManager.Search(query, () =>
 {
   Console.WriteLine("search returned {0} lobbies", LobbyManager.GetLobbyCount());
 
@@ -1065,7 +1089,7 @@ LobbyManager.Search(query, (_) =>
 
   // Get the id of the lobby, and connect to voice
   var id = LobbyManager.GetLobbyId(0);
-  LobbyManager.VoiceConnect(id, (_) =>
+  LobbyManager.VoiceConnect(id, (result) =>
   {
     Console.WriteLine("Connected to voice!");
   });

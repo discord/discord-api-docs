@@ -35,8 +35,8 @@ A quick example with our C# binding:
 var userManager = discord.GetUserManager();
 userManager.GetCurrentUser((result, currentUser) =>
 {
- Console.WriteLine(currentUser.username);
- Console.WriteLine(currentUser.ID);
+  Console.WriteLine(currentUser.username);
+  Console.WriteLine(currentUser.ID);
 });
 ```
 
@@ -87,21 +87,21 @@ You should begin your integration by setting up this callback to help you debug.
 | InvalidPermissions  | you aren't authorized to do that                                               |
 | NotFetched          | couldn't fetch what you wanted                                                 |
 | NotFound            | what you're looking for doesn't exist                                          |
-| Conflict            | ?                                                                              |
-| InvalidSecret       | activity secrets must be unique                                                |
-| InvalidJoinSecret   | the secret you're using to connect is wrong                                    |
-| NoEligibleActivity  | ?                                                                              |
+| Conflict            | user already has a network connection open on that channel                     |
+| InvalidSecret       | activity secrets must be unique and not match party id                         |
+| InvalidJoinRequest  | join request for that user does not exist                                      |
+| NoEligibleActivity  | you accidentally set an `ApplicationId` in your `UpdateActivity()` payload     |
 | InvalidInvite       | your game invite is no longer valid                                            |
 | NotAuthenticated    | the internal auth call failed for the user, and you can't do this              |
 | InvalidAccessToken  | the user's bearer token is invalid                                             |
-| ApplicationMismatch | ?                                                                              |
-| InvalidDataUrl      | ?                                                                              |
-| InvalidBase64       | ?                                                                              |
+| ApplicationMismatch | access token belongs to another application                                    |
+| InvalidDataUrl      | something internally went wrong fetching image data                            |
+| InvalidBase64       | not valid Base64 data                                                          |
 | NotFiltered         | you're trying to access the list before creating a stable list with `Filter()` |
 | LobbyFull           | the lobby is full                                                              |
 | InvalidLobbySecret  | the secret you're using to connect is wrong                                    |
-| InvalidFilename     | ?                                                                              |
-| InvalidFileSize     | ?                                                                              |
+| InvalidFilename     | file name is too long                                                          |
+| InvalidFileSize     | file is too large                                                              |
 | InvalidEntitlement  | the user does not have the right entitlement for this game                     |
 | NotInstalled        | Discord is not installed                                                       |
 | NotRunning          | Discord is not running                                                         |
@@ -138,8 +138,8 @@ Returns a new `Discord`.
 ###### Example
 
 ```cpp
-Discord.Core core;
-core->Create(53908232506183680, Discord.CreateFlags.Default, &core);
+discord::Core* core{};
+discord::Core::Create(53908232506183680, DiscordCreateFlags_Default, &core);
 ```
 
 ```cs
@@ -159,7 +159,7 @@ None
 ###### Example
 
 ```cpp
-core->Destroy();
+discord::Core::Destroy();
 ```
 
 ```cs
@@ -203,7 +203,8 @@ None
 ###### Example
 
 ```cs
-void Update() {
+void Update()
+{
   discord.RunCallbacks();
 }
 ```

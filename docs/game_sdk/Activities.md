@@ -162,11 +162,14 @@ activity.Details = "In Game";
 activity.Party.Size = 1;
 activity.Party.Max = 4;
 
-activitiesManager.UpdateActivity(activity, Discord.Result result => {
-    if (result == Discord.Result.OK) {
+activitiesManager.UpdateActivity(activity, (result) =>
+{
+    if (result == Discord.Result.OK)
+    {
         Console.WriteLine("Success!");
     }
-    else {
+    else
+    {
         Console.WriteLine("Failed");
     }
 });
@@ -185,11 +188,14 @@ None
 ###### Example
 
 ```cs
-activitiesManager.ClearActivity(Discord.Result result => {
-    if (result == Discord.Result.OK) {
+activitiesManager.ClearActivity((result) =>
+{
+    if (result == Discord.Result.OK)
+    {
         Console.WriteLine("Success!");
     }
-    else {
+    else
+    {
         Console.WriteLine("Failed");
     }
 });
@@ -212,11 +218,14 @@ Returns a `Discord.Result` via callback.
 ###### Example
 
 ```cs
-activityManager.InviteUser(53908232506183689, Discord.ActivityActionType.Join, "Come play!", Discord.Result result => {
-    if (result == Discord.Result.OK) {
+activityManager.InviteUser(53908232506183689, Discord.ActivityActionType.Join, "Come play!", (result) =>
+{
+    if (result == Discord.Result.OK)
+    {
         Console.WriteLine("Success!");
     }
-    else {
+    else
+    {
         Console.WriteLine("Failed");
     }
 });
@@ -237,11 +246,14 @@ Returns a `Discord.Result` via callback.
 ###### Example
 
 ```cs
-activityManager.AcceptInvite(290926444748734466, Discord.Result result => {
-    if (result == Discord.Result.OK) {
+activityManager.AcceptInvite(290926444748734466, (result) =>
+{
+    if (result == Discord.Result.OK)
+    {
         Console.WriteLine("Success!");
     }
-    else {
+    else
+    {
         Console.WriteLine("Failed");
     }
 });
@@ -312,14 +324,16 @@ var activity = new Discord.Activity
       SmallImage = "foo smallImageKey",
       SmallText = "foo smallImageText",
   },
-  Party = {
+  Party =
+  {
       Id = "foo partyID",
       Size = {
           CurrentSize = 1,
           MaxSize = 4,
       },
   },
-  Secrets = {
+  Secrets =
+  {
       Match = "foo matchSecret",
       Join = "foo joinSecret",
       Spectate = "foo spectateSecret",
@@ -327,22 +341,16 @@ var activity = new Discord.Activity
   Instance = true,
 };
 
-ActivityManager.UpdateActivity(activity, result =>
+ActivityManager.UpdateActivity(activity, (result) =>
 {
-  Console.WriteLine("Update Activity {0}", result);
+    Console.WriteLine("Update Activity {0}", result);
 
-  // Send an invite to another user for this activity.
-  // Receiver should see an invite in their DM.
-  // Use a relationship user's ID for this.
-  ActivityManager
-    .InviteUser(
-        364843917537050999,
-        Discord.ActivityActionType.Join,
-        "",
-        inviteUserResult =>
-        {
-            Console.WriteLine("Invite User {0}", inviteUserResult);
-        }
-    );
+    // Send an invite to another user for this activity.
+    // Receiver should see an invite in their DM.
+    // Use a relationship user's ID for this.
+    ActivityManager.InviteUser(364843917537050999, Discord.ActivityActionType.Join, "", (inviteUserResult) =>
+    {
+        Console.WriteLine("Invite User {0}", inviteUserResult);
+    });
 });
 ```

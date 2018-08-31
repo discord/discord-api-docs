@@ -44,16 +44,19 @@ Returns a `Discord.Result` and `ImageHandle` via callback.
 ###### Example
 
 ```cs
-var handle = new Discord.ImageHandle() {
+var handle = new Discord.ImageHandle()
+{
   Id = 53908232506183680,
   Size = 1024
 };
 
-imageManager.Fetch(ImageHandle handle, bool refresh (Discord.Result result, ImageHandle handle) =>
+imageManager.Fetch(handle, false, (result, handle) =>
 {
-  if (result == Discord.Result.OK) {
-    imageManager.GetData(handle, (Discord.Result result, byte[] data) => {
-      // Do stuff with the byte[]
+  if (result == Discord.Result.OK)
+  {
+    imageManager.GetData(handle, (result, data) =>
+    {
+      // Do stuff with the byte[] data
     });
   }
 });
@@ -74,11 +77,12 @@ Returns `ImageDimensions`.
 ###### Example
 
 ```cs
-var handle = new Discord.ImageHandle() {
+var handle = new Discord.ImageHandle()
+{
   Id = 53908232506183680,
   Size = 1024
 };
-var dimensions =  imageManager.GetDimentions(ImageHandle handle);
+var dimensions =  imageManager.GetDimentions(handle);
 ```
 
 ## GetData
@@ -96,16 +100,19 @@ Returns `Discord.Result` and `byte[]` via callback.
 ###### Example
 
 ```cs
-var handle = new Discord.ImageHandle() {
+var handle = new Discord.ImageHandle()
+{
   Id = 53908232506183680,
   Size = 1024
 };
 
-imageManager.Fetch(ImageHandle handle, bool refresh (Discord.Result result, ImageHandle handle) =>
+imageManager.Fetch(handle, false, (result, handle) =>
 {
-  if (result == Discord.Result.OK) {
-    imageManager.GetData(handle, (Discord.Result result, byte[] data) => {
-      // Do stuff with the byte[]
+  if (result == Discord.Result.OK)
+  {
+    imageManager.GetData(handle, (result, data) =>
+    {
+      // Do stuff with the byte[] data
     });
   }
 });
@@ -126,7 +133,8 @@ static void FetchAvatar(Discord.ImageManager ImageManager, Int64 userID)
       {
         // You can also use GetTexture2D within Unity.
         // These return raw RGBA.
-        ImageManager.GetData(handle, (result2, data) => {
+        ImageManager.GetData(handle, (result2, data) =>
+        {
           Console.WriteLine("image updated {0} {1}", handle.Id, data.Length);
         });
       }

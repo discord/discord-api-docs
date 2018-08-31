@@ -49,7 +49,7 @@ Returns a `Discord.Result` and `User` via callback.
 ###### Example
 
 ```cs
-void Fetch(Int64 userId, (Discord.Result result, User user) =>
+void Fetch(Int64 userId, (result, user) =>
 {
   if (result == Discord.Result.OK) {
     Console.WriteLine("User {0} is {1}", user.Id, user.Username);
@@ -73,7 +73,7 @@ Fires when the `User` struct of the currently connected user changes. They may h
 var discord = new Discord.Discord(clientId, Discord.CreateFlags.Default);
 
 var UserManager = discord.GetUserManager();
-UserManager.Fetch(450795363658366976, (Discord.Result result, ref Discord.User user) =>
+UserManager.Fetch(450795363658366976, (result, user) =>
 {
   if (result == Discord.Result.Ok)
   {

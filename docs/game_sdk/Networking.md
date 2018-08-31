@@ -43,7 +43,8 @@ None
 ###### Example
 
 ```cs
-OnLateUpdate() {
+OnLateUpdate()
+{
   networkManager.Flush();
 }
 ```
@@ -151,7 +152,7 @@ Fires when you receive data from another user. This callback will only fire if y
 ###### Example
 
 ```cs
-OnMessage += (UInt64 senderSessionId, byte channel, byte[] data) =>
+OnMessage += (senderSessionId, channel, data) =>
 {
   var stringData = Encoding.UTF8.GetString(data);
   Console.WriteLine("Message from {0}: {1}", senderSessionId, stringData)
@@ -186,12 +187,12 @@ var metadata = new OpenChannel()
 };
 
 // Set the lobby metadata to note that B has an open channel to A
-txn.SetMetadata("openChannels", JSON.stringify(metadata), Discord.Result result =>
+txn.SetMetadata("openChannels", JSON.stringify(metadata), (result) =>
 {
   Debug.Log(result);
 });
 
-lobbyManager.UpdateLobby(lobby.id, txn, Discord.Result result =>
+lobbyManager.UpdateLobby(lobby.id, txn, (result) =>
 {
   Debug.Log(result);
 })
@@ -221,19 +222,19 @@ var me;
 var otherUserSessionId;
 
 // Get yourself
-userManager.GetCurrentUser((User user) =>
+userManager.GetCurrentUser((user) =>
 {
   me = user;
 });
 
 // Connect to lobby with an id of 12345 and a secret of "password"
-lobbyManager.Connect(12345, "password", (Lobby lobby) =>
+lobbyManager.Connect(12345, "password", (lobby) =>
 {
   // Add our own session id to our lobby member metadata
   // So other users can get it to connect to us
   var txn = lobbyManager.CreateMemberTransaction();
   txn.SetMetadataString("sessionId", networkManager.GetSessionId());
-  lobbyManager.UpdateMember(lobby.id, me.id, txn, (Discord.Result result) =>
+  lobbyManager.UpdateMember(lobby.id, me.id, txn, (result) =>
   {
     // Who needs error handling anyway
     Console.WriteLine(result);

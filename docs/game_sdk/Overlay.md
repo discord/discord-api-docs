@@ -33,7 +33,8 @@ None
 ###### Example
 
 ```cs
-if (!overlaymanager.IsEnabled()) {
+if (!overlaymanager.IsEnabled())
+{
   Console.WriteLine("Could not complete operation. Please enable the overlay and relaunch the game.");
 }
 
@@ -53,7 +54,8 @@ None
 ###### Example
 
 ```cs
-if (overlayManager.IsLocked()) {
+if (overlayManager.IsLocked())
+{
   overlayManager.SetLocked(false);
 }
 ```
@@ -73,7 +75,8 @@ Returns `void`.
 ###### Example
 
 ```cs
-if (overlayManager.IsLocked()) {
+if (overlayManager.IsLocked())
+{
   overlayManager.SetLocked(false);
 }
 ```
@@ -93,9 +96,10 @@ Returns a `Discord.Result` via callback.
 ###### Example
 
 ```cs
-overlayManager.OpenActivityInvite(Discord.ActivityActionType.Join, (Discord.Result result) =>
+overlayManager.OpenActivityInvite(Discord.ActivityActionType.Join, (result) =>
 {
-  if (result == Discord.Result.OK) {
+  if (result == Discord.Result.OK)
+  {
     Console.WriteLine("User is now inviting others to play!");
   }
 });
@@ -118,7 +122,8 @@ var discord = new Discord.Discord(clientId, Discord.CreateFlags.Default);
 
 var overlayManager = discord.GetOverlayManager();
 
-overlayManager.OnLocked += locked => {
+overlayManager.OnLocked += locked =>
+{
   Console.WriteLine("Overlay Locked: {0}", locked);
 };
 overlayManager.SetLocked(false);
@@ -131,7 +136,8 @@ var discord = new Discord.Discord(clientId, Discord.CreateFlags.Default);
 var overlayManager = discord.GetOverlayManager();
 
 // Invite users to join your game
-overlayManager.OpenActivityInvite(ActivityActionType.Join, result => {
+overlayManager.OpenActivityInvite(ActivityActionType.Join, (result) =>
+{
   Console.WriteLine("Overlay is now open!");
 })
 ```

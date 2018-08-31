@@ -59,7 +59,7 @@ A function that takes a `Relationship` parameter.
 ###### Example
 
 ```cs
-relationshipsManager.Filter(Relationship relationship =>
+relationshipsManager.Filter(relationship =>
 {
   relationship.Presence.Status == Discord.Status.Online;
 });
@@ -99,7 +99,8 @@ Returns a `Relationship`.
 ###### Example
 
 ```cs
-for (int i = 0; i < relationshipsManager.Count(); i++) {
+for (int i = 0; i < relationshipsManager.Count(); i++)
+{
   var r = relationshipsManager.At(i);
   Console.WriteLine("This person is {0}", r.User.Username);
 }
@@ -118,7 +119,8 @@ None
 ###### Example
 
 ```cs
-for (int i = 0; i < relationshipsManager.Count(); i++) {
+for (int i = 0; i < relationshipsManager.Count(); i++)
+{
   var r = relationshipsManager.At(i);
   Console.WriteLine("This person is {0}", r.User.Username);
 }
@@ -145,7 +147,7 @@ Fires when a relationship in the filtered list changes, like an updated presence
 ###### Example
 
 ```cs
-OnUpdate += (Relationship relationship) =>
+OnUpdate += relationship =>
 {
   Console.WriteLine("Who changed? {0}", relationship.User.Id);
 };
@@ -162,7 +164,7 @@ var RelationshipManager = discord.GetRelationshipManager();
 RelationshipManager.OnUpdateAll += () =>
 {
   // Filter a user's relationship list to be just friends
-  RelationshipManager.Filter((ref Discord.Relationship relationship) =>
+  RelationshipManager.Filter((relationship) =>
   {
     return relationship.Type == Discord.RelationshipType.Friend;
   });
@@ -189,7 +191,7 @@ var discord = new Discord.Discord(clientId, Discord.CreateFlags.Default);
 var RelationshipManager = discord.GetRelationshipManager();
 var ActivityManager = discord.GetActivityManager();
 
-RelationshipManager.Filter((ref Discord.Relationship relationship) =>
+RelationshipManager.Filter((relationship) =>
 {
   // Filter for users who are playing the same game as the current user
   // Is their activity application id the same as my client id?
@@ -203,7 +205,7 @@ for (var i = 0; i < Math.Min(RelationshipManager.Count(); i++)
     Console.WriteLine("relationships: {0} {1}", r.Type, r.User.Username);
 
     // Send them a game invite!
-    ActivityManager.InviteUser(r.User.Id, Discord.ActivityActionType.Join, "Come play with me!", result =>
+    ActivityManager.InviteUser(r.User.Id, Discord.ActivityActionType.Join, "Come play with me!", (result) =>
     {
       Console.WriteLine("Invited user {0} to play with you", r.User.Username);
     });
