@@ -122,9 +122,9 @@ That command will spit out a list of manifest labels for your application and th
     "default": "This is a test.",
     "en-GB": "adadad"
   },
+  "price_tier": 1999,
   "price": {
-    "usd": 1999,
-    "cad": 1999
+    "aud": 1499
   }
 }
 ```
@@ -141,6 +141,10 @@ Next come the important, top-level parts of your store listing—art, descriptio
   - Image: `asset://<local_path_to_asset>`
 
 > Assets should be either .jpg or .png format, and 1920x1080 resolution.
+
+`price_tier` is how Discord manages prices. Rather than setting an arbitrary default value for USD, you choose a price tier at which to price your game in USD; from there, you can override prices in other locales if you feel you need to. `price_tier` is a mandatory field for any game not in Discord's Nitro Subscription service; if your game is free, the price tier would be `0`. For a full list of prices tiers, see [here](#DOCS_DISPATCH_FIELD_VALUES/price-tiers).
+
+If you really feel the need to, you _can_ override the base USD price. If you do so, it must be higher than the next lowest price tier. That means that if you want to set the `usd` override at `1124`, your `price_tier` should be `1099`. But, in reality, you should not need to override the base USD price. Just pick the best tier! To see a list of supported currencies for overriding, look [here](#DOCS_DISPATCH_FIELD_VALUES/supported-third-party-currencies).
 
 You'll notice that `name,` `summary`, and `price` are mappings between locales/currencies and localized values. This is how Discord currently supports localization, much like the longer markdown description files mentioned earlier. `name` is the name of your game, and `summary` is a short, one-line blurb that will appear just under the image carousel. Save your predisposition for prolific prose for the description; keep this short! `price` is, of course, the price; note that `1999` is equivalent to $19.99.
 
@@ -299,9 +303,9 @@ Here's what a completed config file looks like all put together. How does yours 
     }
   },
   "features": ["discord_game_invites", "single_player", "online_multiplayer", "cloud_saves", "rich_presence"],
+  "price_tier": 1999,
   "price": {
-    "usd": 1999,
-    "cad": 1999
+    "aud": 1499
   },
   "locales": ["ru", "fr", "ko", "en-US", "tr", "it", "zh-CN", "pt-BR", "ro", "es-ES", "ja"]
 }
