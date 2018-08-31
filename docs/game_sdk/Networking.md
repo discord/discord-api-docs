@@ -215,13 +215,13 @@ var discord = new Discord.Discord(clientId, Discord.CreateFlags.Default);
 
 var networkManager = discord.GetNetworkManager();
 var lobbyManager = discord.GetLobbyManager();
-var authManager = discord.GetAuthManager();
+var userManager = discord.GetUserManager();
 
 var me;
 var otherUserSessionId;
 
 // Get yourself
-authManager.GetCurrentUser((User user) =>
+userManager.GetCurrentUser((User user) =>
 {
   me = user;
 });
