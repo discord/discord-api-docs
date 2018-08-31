@@ -32,7 +32,7 @@ Some functions behave with a normal return behavior; e.g. `RelationshipManager.C
 A quick example with our C# binding:
 
 ```c#
-var userManager = Discord.GetUserManager();
+var userManager = discord.GetUserManager();
 userManager.GetCurrentUser((result, currentUser) =>
 {
  Console.WriteLine(currentUser.username);
@@ -40,9 +40,9 @@ userManager.GetCurrentUser((result, currentUser) =>
 });
 ```
 
-## Discord
+## Core
 
-Discord is the interface through which your game talks to...Discord...obfuscating all the hard stuff and getting you to what you want quickly and easily.
+The Discord core is the interface through which your game talks to...Discord...obfuscating all the hard stuff and getting you to what you want quickly and easily.
 
 ## Error Handling
 
@@ -221,7 +221,7 @@ None
 ###### Example
 
 ```cs
-var activityManager = Discord.GetActivityManager();
+var activityManager = discord.GetActivityManager();
 ```
 
 ## GetRelationshipManager
@@ -237,7 +237,7 @@ None
 ###### Example
 
 ```cs
-var relationshipManager = Discord.GetRelationshipManager();
+var relationshipManager = discord.GetRelationshipManager();
 ```
 
 ## GetImageManager
@@ -253,7 +253,7 @@ None
 ###### Example
 
 ```cs
-var imageManager = Discord.GetImageManager();
+var imageManager = discord.GetImageManager();
 ```
 
 ## GetUserManager
@@ -269,7 +269,7 @@ None
 ###### Example
 
 ```cs
-var userManager = Discord.GetUserManager();
+var userManager = discord.GetUserManager();
 ```
 
 ## GetLobbyManager
@@ -285,7 +285,7 @@ None
 ###### Example
 
 ```cs
-var lobbyManager = Discord.GetLobbyManager();
+var lobbyManager = discord.GetLobbyManager();
 ```
 
 ## GetNetworkManager
@@ -301,7 +301,7 @@ None
 ###### Example
 
 ```cs
-var networkManager = Discord.GetNetworkManager();
+var networkManager = discord.GetNetworkManager();
 ```
 
 ## GetOverlayManager
@@ -317,7 +317,7 @@ None
 ###### Example
 
 ```cs
-var overlayManager = Discord.GetOverlayManager();
+var overlayManager = discord.GetOverlayManager();
 ```
 
 ## GetApplicationManager
@@ -333,7 +333,7 @@ None
 ###### Example
 
 ```cs
-var applicationManager = Discord.GetApplicationManager();
+var applicationManager = discord.GetApplicationManager();
 ```
 
 ## GetStorageManager
@@ -349,7 +349,7 @@ None
 ###### Example
 
 ```cs
-var storageManager = Discord.GetStorageManager();
+var storageManager = discord.GetStorageManager();
 ```
 
 ## OnReady

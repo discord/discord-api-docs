@@ -60,13 +60,13 @@ LobbyManager.CreateLobby(txn, (Discord.Result result, ref Discord.Lobby lobby) =
 
 ###### Lobby Struct
 
-| name     | type             | description                       |
-| -------- | ---------------- | --------------------------------- |
-| Id       | Int64            | the unique id of the lobby        |
-| Type     | LobbyType        | if the lobby is public or private |
-| OwnerId  | Int64            | the userId of the lobby owner     |
-| Secret   | string (128 len) | the password to the lobby         |
-| Capacity | UInt32           | the max capacity of the lobby     |
+| name     | type      | description                       |
+| -------- | --------- | --------------------------------- |
+| Id       | Int64     | the unique id of the lobby        |
+| Type     | LobbyType | if the lobby is public or private |
+| OwnerId  | Int64     | the userId of the lobby owner     |
+| Secret   | string    | the password to the lobby         |
+| Capacity | UInt32    | the max capacity of the lobby     |
 
 ###### LobbySearchComparison Enum
 
@@ -161,10 +161,10 @@ Returns `void`.
 
 ###### Parameters
 
-| name  | type             | description      |
-| ----- | ---------------- | ---------------- |
-| key   | string (128 len) | key for the data |
-| value | string (128 len) | data value       |
+| name  | type   | description      |
+| ----- | ------ | ---------------- |
+| key   | string | key for the data |
+| value | string | data value       |
 
 ###### Example
 
@@ -181,9 +181,9 @@ Returns `void`.
 
 ###### Parameters
 
-| name | type             | description      |
-| ---- | ---------------- | ---------------- |
-| key  | string (128 len) | key for the data |
+| name | type   | description      |
+| ---- | ------ | ---------------- |
+| key  | string | key for the data |
 
 ###### Example
 
@@ -200,10 +200,10 @@ Returns `void`.
 
 ###### Parameters
 
-| name  | type             | description      |
-| ----- | ---------------- | ---------------- |
-| key   | string (128 len) | key for the data |
-| value | string (128 len) | data value       |
+| name  | type   | description      |
+| ----- | ------ | ---------------- |
+| key   | string | key for the data |
+| value | string | data value       |
 
 ###### Example
 
@@ -220,9 +220,9 @@ Returns `void`.
 
 ###### Parameters
 
-| name | type             | description      |
-| ---- | ---------------- | ---------------- |
-| key  | string (128 len) | key for the data |
+| name | type   | description      |
+| ---- | ------ | ---------------- |
+| key  | string | key for the data |
 
 ###### Example
 
@@ -241,10 +241,10 @@ Returns `void`.
 
 | name  | type                  | description                                                                |
 | ----- | --------------------- | -------------------------------------------------------------------------- |
-| key   | string (128 len)      | key to search for filter data                                              |
+| key   | string                | key to search for filter data                                              |
 | comp  | LobbySearchComparison | how the value on the lobby metadata should be compared to the search value |
 | cast  | LobbySearchCast       | should the search value be cast as a string or a number                    |
-| value | string (128 len)      | the value to filter against                                                |
+| value | string                | the value to filter against                                                |
 
 ###### Example
 
@@ -261,11 +261,11 @@ Returns `void`.
 
 ###### Parameters
 
-| name  | type             | description                                             |
-| ----- | ---------------- | ------------------------------------------------------- |
-| key   | string (128 len) | key for the data                                        |
-| cast  | LobbySearchCast  | should the search value be cast as a string or a number |
-| value | string (128 len) | the value to sort by                                    |
+| name  | type            | description                                             |
+| ----- | --------------- | ------------------------------------------------------- |
+| key   | string          | key for the data                                        |
+| cast  | LobbySearchCast | should the search value be cast as a string or a number |
+| value | string          | the value to sort by                                    |
 
 ###### Example
 
@@ -424,10 +424,10 @@ Returns `Discord.Result` and `ref Discord.Lobby` via callback.
 
 ###### Parameters
 
-| name        | type                                       | description                      |
-| ----------- | ------------------------------------------ | -------------------------------- |
-| lobbyId     | Int64                                      | the lobby you want to connect to |
-| lobbySecret | string(128 len) the password for the lobby |
+| name        | type                             | description                      |
+| ----------- | -------------------------------- | -------------------------------- |
+| lobbyId     | Int64                            | the lobby you want to connect to |
+| lobbySecret | stringthe password for the lobby |
 
 ###### Example
 
@@ -592,10 +592,10 @@ Returns lobby metadata value for a given key and id. Can be used with iteration,
 
 ###### Parameters
 
-| name    | type             | description                            |
-| ------- | ---------------- | -------------------------------------- |
-| lobbyId | Int64            | the lobby you want to get metadata for |
-| key     | string (128 len) | the key name to access                 |
+| name    | type   | description                            |
+| ------- | ------ | -------------------------------------- |
+| lobbyId | Int64  | the lobby you want to get metadata for |
+| key     | string | the key name to access                 |
 
 ####### Example
 
@@ -723,11 +723,11 @@ Returns `string`.
 
 ####### Parameters
 
-| name    | type             | description                            |
-| ------- | ---------------- | -------------------------------------- |
-| lobbyId | Int64            | the lobby the member belongs to        |
-| userId  | Int64            | the id of the user to get metadata for |
-| key     | string (128 len) | the metadata key to access             |
+| name    | type   | description                            |
+| ------- | ------ | -------------------------------------- |
+| lobbyId | Int64  | the lobby the member belongs to        |
+| userId  | Int64  | the id of the user to get metadata for |
+| key     | string | the metadata key to access             |
 
 ###### Example
 

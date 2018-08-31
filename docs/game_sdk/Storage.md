@@ -17,11 +17,11 @@ Creating this manager will also spawn an IO thread for async reads and writes, s
 
 ###### FileStat Struct
 
-| name         | type             | description                                  |
-| ------------ | ---------------- | -------------------------------------------- |
-| Filename     | string (260 len) | the name of the file                         |
-| Size         | UInt64           | the size of the file                         |
-| LastModified | UInt64           | timestamp of when the file was last modified |
+| name         | type   | description                                  |
+| ------------ | ------ | -------------------------------------------- |
+| Filename     | string | the name of the file                         |
+| Size         | UInt64 | the size of the file                         |
+| LastModified | UInt64 | timestamp of when the file was last modified |
 
 ## Read
 
