@@ -22,7 +22,7 @@ To update a user or a lobby, create or get a transaction for that resource, call
 ### Example: Creating a Lobby
 
 ```cs
-var LobbyManager = Discord.GetLobbyManager();
+var LobbyManager = discord.GetLobbyManager();
 
 // Create the transaction
 var txn = LobbyManager.CreateLobbyTransaction();
@@ -999,8 +999,8 @@ If you are creating lobbies for users in the game client, and not on a backend s
 
 ```cs
 var discord = new Discord.Discord(clientId, Discord.CreateFlags.Default);
-var LobbyManager = Discord.GetLobbyManager();
-var ActivityManager = Discord.GetActivityManager();
+var LobbyManager = discord.GetLobbyManager();
+var ActivityManager = discord.GetActivityManager();
 
 // Create a lobby
 var txn = LobbyManager.CreateLobbyTransaction();

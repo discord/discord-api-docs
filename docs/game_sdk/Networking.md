@@ -213,9 +213,9 @@ var discord = new Discord.Discord(clientId, Discord.CreateFlags.Default);
 // Join a lobby with another user in it
 // Get their session id, and connect to them
 
-var networkManager = Discord.GetNetworkManager();
-var lobbyManager = Discord.GetLobbyManager();
-var authManager = Discord.GetAuthManager();
+var networkManager = discord.GetNetworkManager();
+var lobbyManager = discord.GetLobbyManager();
+var authManager = discord.GetAuthManager();
 
 var me;
 var otherUserSessionId;
