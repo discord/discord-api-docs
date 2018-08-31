@@ -48,7 +48,7 @@ None
 
 ```cs
 var branch = applicationManager.GetCurrentBranch();
-if (branch !== MyBranches.Stable)
+if (branch != MyBranches.Stable)
 {
   Console.WriteLine("You are on a beta branch; expect bugs!");
 }
