@@ -64,7 +64,7 @@ And now you know, and knowing is half the battle.
 
 ## Step 1 - Get the Thing
 
-I know you're already convinced, so let's begin. First, get the SDK. The latest version can always be found in the `#resources` channel of our server.
+I know you're already convinced, so let's begin. First, get the SDK. Right now, the SDK is not publically available. If you are one of our developer partners, you'll have access to it; if not, feel free to keep reading for the sake of learning! And hey, if you've got an awesome game, and _want_ to be one of our developer partners, [drop us a message](https://dis.gdi/devstoreform).
 
 There's a few things in there, but let's quickly talk about what the SDK actually _is_. Inside the `lib/` folder, you'll see `x86/` and `x86_64/` that have some `.lib`, `.bundle`, and `.dll` files. You'll also notice that those files are _really_ small, just a couple hundred kilobytes. What these are are stubs for the Discord SDK. These are the things you want to distribute with your game. When you initialize the SDK, these stubs will call back to the locally installed Discord app to actually do the things your game needs. That means that the SDK will launch Discord if it's not already launched, or give you an error if Discord is not installed.
 
@@ -76,8 +76,6 @@ You'll also notice that there is a `runtime/` folder. Inside that folder are _ac
 - **macOS/Linux**: `~/.discord_game_sdk/`
 
 The SDK will prioritize these DLLs instead of using the stub to call out to the Discord client. That way, if we've got a new build of the SDK you want to test locally, or we gave you a debug build for debugging help, you can stick it in those folders and use it temporarily.
-
-> For the beginning of Discord's Store Beta Test period, you will need to have these DLLs in the above folders for local testing. We will let you know when you no longer need to rely on them.
 
 ## Get Set Up
 

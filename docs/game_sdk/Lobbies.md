@@ -9,7 +9,7 @@ Looking to integrate multiplayer into your game? Lobbies are a great way to orga
 - Matchmaking users based on lobby metadata, like ELO
 - Getting and setting arbitrary metadata on lobbies and lobby members
 
-Lobbies in Discord work in one of two ways. By using calls from the SDK, lobbies are effectively "owned" by the user who's client creates the lobby. Someone boots up the game, hits your "Create Lobby" button, and their game client calls `lobbiesManager.CreateLobby()` from the Discord SDK.
+Lobbies in Discord work in one of two ways. By using calls from the SDK, lobbies are effectively "owned" by the user who's client creates the lobby. Someone boots up the game, hits your "Create Lobby" button, and their game client calls `LobbyManager.CreateLobby()` from the Discord SDK.
 
 There is also another way to create and "own" lobbies with which the source of truth can be your own server. These SDK functions calls map to API endpoints that are exposed in Discord's HTTP API. In lieu of creating and managing lobbies in the SDK, you can call those endpoints directly with a token for your application and take care of it all on some far-away, totally secure server. Let's go over the SDK first.
 
@@ -22,10 +22,10 @@ To update a user or a lobby, create or get a transaction for that resource, call
 ### Example: Creating a Lobby
 
 ```cs
-var lobbiesManager = Discord.CreateLobbiesManager();
+var LobbyManager = discord.GetLobbyManager();
 
 // Create the transaction
-var txn = lobbiesManager.CreateLobbyTransaction();
+var txn = LobbyManager.CreateLobbyTransaction();
 
 // Set lobby information
 txn.SetCapacity(6);
@@ -33,269 +33,965 @@ txn.SetType(Discord.LobbyType.Public);
 txn.SetMetadata("a", "123");
 
 // Create it!
-lobbiesManager.CreateLobby(txn, (Discord.Result result, ref Discord.Lobby lobby) =>
+LobbyManager.CreateLobby(txn, (Discord.Result result, ref Discord.Lobby lobby) =>
 {
   Console.WriteLine("lobby {0} created with secret {1}", lobby.Id, lobby.Secret);
 
   // We want to update the capacity of the lobby
   // So we get a new transaction for the lobby
-  var newTxn = lobbiesManager.GetLobbyTransaction(lobby.id);
+  var newTxn = LobbyManager.GetLobbyTransaction(lobby.id);
   newTxn.SetCapacity(5);
 
-  lobbiesManager.UpdateLobby(lobby.id, newTxn, (Discord.Result result, ref Discord.Lobby newLobby) =>
+  LobbyManager.UpdateLobby(lobby.id, newTxn, (Discord.Result result, ref Discord.Lobby newLobby) =>
   {
     Console.WriteLine("lobby {0} updated", newLobby.Id);
   });
 });
 ```
 
-### Data Models
+## Models
+
+###### LobbyType Enum
+
+| name    | value |
+| ------- | ----- |
+| Private | 1     |
+| Public  | 2     |
+
+###### Lobby Struct
+
+| name     | type      | description                       |
+| -------- | --------- | --------------------------------- |
+| Id       | Int64     | the unique id of the lobby        |
+| Type     | LobbyType | if the lobby is public or private |
+| OwnerId  | Int64     | the userId of the lobby owner     |
+| Secret   | string    | the password to the lobby         |
+| Capacity | UInt32    | the max capacity of the lobby     |
+
+###### LobbySearchComparison Enum
+
+| name               | value |
+| ------------------ | ----- |
+| LessThanOrEqual    | -2    |
+| LessThan           | -1    |
+| Equal              | 0     |
+| GreaterThan        | 1     |
+| GreaterThanOrEqual | 2     |
+| NotEqual           | 3     |
+
+###### LobbySearchCast Enum
+
+| name   | value |
+| ------ | ----- |
+| String | 1     |
+| Number | 2     |
+
+###### LobbyTransaction Struct
+
+Has no values, but has member functions, outlined later.
+
+###### LobbyMemberTransaction Struct
+
+Has no values, but has member functions, outlined later.
+
+###### LobbySearch Struct
+
+Has no values, but has member functions, outlined later.
+
+## LobbyTransaction.SetType
+
+Marks a lobby as private or public
+
+###### Parameters
+
+| name | type      | description       |
+| ---- | --------- | ----------------- |
+| type | LobbyType | private or public |
+
+###### Example
 
 ```cs
-enum LobbyType
+var txn = new Discord.LobbyTransaction();
+txn.SetType(Discord.LobbyType.Public);
+```
+
+## LobbyTransaction.SetOwner
+
+Sets a new owner for the lobby.
+
+Returns `void`;
+
+###### Parameters
+
+| name   | type  | description             |
+| ------ | ----- | ----------------------- |
+| userId | Int64 | the new owner's user id |
+
+###### Example
+
+```cs
+var txn = new Discord.LobbyTransaction();
+txn.SetOwner(53908232506183680);
+```
+
+## LobbyTransaction.SetCapacity
+
+Sets a new capacity for the lobby.
+
+Returns `void`.
+
+###### Parameters
+
+| name     | type   | description            |
+| -------- | ------ | ---------------------- |
+| capacity | UInt32 | the new max lobby size |
+
+###### Example
+
+```cs
+var txn = new Discord.LobbyTransaction();
+txn.SetCapacity(10);
+```
+
+## LobbyTransaction.SetMetadata
+
+Sets metadata value under a given key name for the lobby.
+
+Returns `void`.
+
+###### Parameters
+
+| name  | type   | description      |
+| ----- | ------ | ---------------- |
+| key   | string | key for the data |
+| value | string | data value       |
+
+###### Example
+
+```cs
+var txn = new Discord.LobbyTransaction();
+txn.SetMetadata("average_mmr", "4500");
+```
+
+## LobbyTransaction.DeleteMetadata
+
+Delete's the lobby metadata for a key.
+
+Returns `void`.
+
+###### Parameters
+
+| name | type   | description      |
+| ---- | ------ | ---------------- |
+| key  | string | key for the data |
+
+###### Example
+
+```cs
+var txn = new Discord.LobbyTransaction();
+txn.DeleteMetadata("average_mmr");
+```
+
+## LobbyMemberTransaction.SetMetadata
+
+Sets metadata value under a given key name for the current user.
+
+Returns `void`.
+
+###### Parameters
+
+| name  | type   | description      |
+| ----- | ------ | ---------------- |
+| key   | string | key for the data |
+| value | string | data value       |
+
+###### Example
+
+```cs
+var txn = new Discord.LobbyTransaction();
+txn.SetMetadata("current_mmr", "4267");
+```
+
+## LobbyMemberTransaction.DeleteMetadata
+
+Sets metadata value under a given key name for the current user.
+
+Returns `void`.
+
+###### Parameters
+
+| name | type   | description      |
+| ---- | ------ | ---------------- |
+| key  | string | key for the data |
+
+###### Example
+
+```cs
+var txn = new Discord.LobbyTransaction();
+txn.DeleteMetadata("current_mmr");
+```
+
+## LobbySearch.Filter
+
+Filters lobbies based on metadata comparison. Available filter values are `owner_id`, `capacity`, `slots`, and `metadata`. If you are filtering based on metadata, make sure you prepend your key with `"metadata."` For example, filtering on matchmaking rating would be `"metadata.matchmaking_rating"`.
+
+Returns `void`.
+
+###### Parameters
+
+| name  | type                  | description                                                                |
+| ----- | --------------------- | -------------------------------------------------------------------------- |
+| key   | string                | key to search for filter data                                              |
+| comp  | LobbySearchComparison | how the value on the lobby metadata should be compared to the search value |
+| cast  | LobbySearchCast       | should the search value be cast as a string or a number                    |
+| value | string                | the value to filter against                                                |
+
+###### Example
+
+```cs
+var query = new LobbyManager.CreateLobbySearch();
+query.LobbySearchFilter("metadata.matchmaking_rating", LobbySearchComparison.GreaterThan, LobbySearchCast.Number, "455");
+```
+
+## LobbySearch.Sort
+
+Sorts the filtered lobbies based on "near-ness" to a given value.
+
+Returns `void`.
+
+###### Parameters
+
+| name  | type            | description                                             |
+| ----- | --------------- | ------------------------------------------------------- |
+| key   | string          | key for the data                                        |
+| cast  | LobbySearchCast | should the search value be cast as a string or a number |
+| value | string          | the value to sort by                                    |
+
+###### Example
+
+```cs
+var query = new LobbyManager.CreateLobbySearch();
+query.LobbySearchSort("metadata.ELO", LobbySearchCast.Number, "1337");
+```
+
+## LobbySearch.Limit
+
+Limits the number of lobbies returned in a search.
+
+Returns `void`.
+
+###### Parameters
+
+| name  | type   | description                            |
+| ----- | ------ | -------------------------------------- |
+| limit | UInt32 | the number of lobbies to return at max |
+
+###### Example
+
+```cs
+var query = new LobbyManager.CreateLobbySearch();
+query.Limit(10);
+```
+
+## CreateLobbyTransaction
+
+Creates a new lobby transaction; used when creating a new lobby.
+
+Returns a `Discord.LobbyTransaction`.
+
+###### Parameters
+
+None
+
+###### Example
+
+```cs
+var txn = lobbyManager.CreateLobbyTransaction();
+```
+
+## GetLobbyTransaction
+
+Gets a new lobby transaction for an existing lobby.
+
+Returns a `Discord.LobbyTransaction`.
+
+###### Parameters
+
+| name    | type  | description                  |
+| ------- | ----- | ---------------------------- |
+| lobbyId | Int64 | the lobby you want to change |
+
+###### Example
+
+```cs
+var txn = lobbyManager.GetLobbyTransaction(290926798626357250);
+```
+
+## GetMemberTransaction
+
+Gets a new member transaction for a lobby member in a given lobby.
+
+Returns a `Discord.LobbyMemberTransaction`.
+
+###### Parameters
+
+| name    | type  | description                  |
+| ------- | ----- | ---------------------------- |
+| lobbyId | Int64 | the lobby you want to change |
+| userId  | Int64 | the user you wish to change  |
+
+###### Example
+
+```cs
+var txn = lobbyManager.GetMemberTransaction(290926798626357250, 53908232506183680);
+```
+
+## CreateLobby
+
+Creates a lobby. Creating a lobby auto-joins the connected user to it. **Do not call `SetOwner()` in the transaction for this method.**
+
+Returns `Discord.Result` and `ref Lobby` via callback.
+
+###### Parameters
+
+| name        | type             | description                                           |
+| ----------- | ---------------- | ----------------------------------------------------- |
+| transaction | LobbyTransaction | a lobby transaction with set properties like capacity |
+
+###### Example
+
+```cs
+lobbyManager.CreateLobby(txn, (Discord.Result result, Lobby lobby) =>
 {
-  Private = 1,
-  Public = 2,
+  if (result == Discord.Result.OK) {
+    Console.WriteLine("Created lobby {0}", lobby.Id);
+  }
+});
+```
+
+## UpdateLobby
+
+Updates a lobby with data from the given transaction. You _can_ call `SetOwner()` in this transaction.
+
+Returns `Discord.Result` via callback.
+
+###### Parameters
+
+| name        | type             | description                         |
+| ----------- | ---------------- | ----------------------------------- |
+| lobbyId     | Int64            | the lobby you want to change        |
+| transaction | LobbyTransaction | the transaction with wanted changes |
+
+###### Example
+
+```cs
+lobbymanager.UpdateLobby(290926798626357250, transaction, (result) =>
+{
+  if (result == Discord.Result.OK) {
+    Console.WriteLine("Lobby updated!");
+  }
+});
+```
+
+## DeleteLobby
+
+Deletes a given lobby.
+
+Returns `Discord.Result` via callback.
+
+###### Parameters
+
+| name    | type  | description                  |
+| ------- | ----- | ---------------------------- |
+| lobbyId | Int64 | the lobby you want to delete |
+
+###### Example
+
+```cs
+lobbymanager.DeleteLobby(290926798626357250, (result) =>
+{
+  if (result == Discord.Result.OK) {
+    Console.WriteLine("Lobby deleted!");
+  }
+});
+```
+
+## Connect
+
+Connects the current user to a given lobby. You can be connected to up to five lobbies at a time.
+
+Returns `Discord.Result` and `ref Discord.Lobby` via callback.
+
+###### Parameters
+
+| name        | type                             | description                      |
+| ----------- | -------------------------------- | -------------------------------- |
+| lobbyId     | Int64                            | the lobby you want to connect to |
+| lobbySecret | stringthe password for the lobby |
+
+###### Example
+
+```cs
+lobbyManager.Connect(290926798626357250, "363446008341987328:123123", (result, lobby) =>
+{
+  if (result == Discord.Result.OK) {
+    Console.WriteLine("Connected to lobby {0}!", lobby.Id);
+  }
+});
+```
+
+## ConnectWithActivitySecret
+
+Connects the current user to a lobby; requires the special activity secret from the lobby which is a concatenated lobbyId and secret.
+
+Returns `Discord.Result` and `ref Discord.Lobby` via callback.
+
+###### Parameters
+
+| name           | type   | description                               |
+| -------------- | ------ | ----------------------------------------- |
+| activitySecret | string | the special activity secret for the lobby |
+
+###### Example
+
+```cs
+lobbyManager.ConnectWithActivitySecret("363446008341987328:123123", (result, lobby) =>
+{
+  if (result == Discord.Result.OK) {
+    Console.WriteLine("Connected to lobby {0}!", lobby.Id);
+  }
+});
+```
+
+## GetLobbyActivitySecret
+
+Gets the special activity secret for a given lobby. If you are creating lobbies from game clients, use this to easily interact with Rich Presence invites. Set the returned secret to your activity's `JoinSecret`.
+
+Returns `string`.
+
+###### Parameters
+
+| name    | type  | description                              |
+| ------- | ----- | ---------------------------------------- |
+| lobbyId | Int64 | the lobby you want to get the secret for |
+
+###### Example
+
+```cs
+var activitySecret = lobbyManager.GetLobbyActivitySecret(290926798626357250);
+var activity = new Discord.Activity
+{
+  State = "olleh",
+  Details = "foo details",
+    Party = {
+      Id = "foo partyID",
+      Size = {
+          CurrentSize = 1,
+          MaxSize = 4,
+      },
+  },
+  Secrets = {
+      Join = activitySecret,
+  },
+  Instance = true,
 };
 
-struct Lobby
+ActivityManager.UpdateActivity(activity, result =>
 {
-  Int64 Id;
-  LobbyType Type;
-  Int64 OwnerId;
-  string Secret;
-  UInt32 Capacity;
-};
+  Console.WriteLine("Update Activity {0}", result);
+});
+```
 
-enum LobbySearchComparison
+## Disconnect
+
+Disconnects the current user from a lobby.
+
+Returns `Discord.Result`.
+
+###### Parameters
+
+| name    | type  | description                 |
+| ------- | ----- | --------------------------- |
+| lobbyId | Int64 | the lobby you want to leave |
+
+###### Example
+
+```cs
+lobbyManager.Disconnect(290926798626357250, result) =>
 {
-  LessThanOrEqual = -2,
-  LessThan = -1,
-  Equal = 0,
-  GreaterThan = 1,
-  GreaterThanOrEqual = 2,
-  NotEqual = 3
-};
+  if (result == Discord.Result.OK) {
+    Console.WriteLine("Left lobby!");
+  }
+});
+```
 
-enum LobbySearchCast
-{
-  String = 1,
-  Number
-};
+## GetLobby
 
-struct LobbyTransaction
-{
-  void SetType(LobbyType type);
-  // Marks a lobby private or public
+Gets the lobby object for a given lobby id.
 
-  void SetOwner(Int64 userId);
-  // Marks a new user as the lobby owner
+Returns a `Discord.Lobby`.
 
-  void SetCapacity(UInt32 capacity);
-  // Sets the maximum lobby size
+###### Parameters
 
-  void SetMetadata(string key, string value);
-  // Sets arbitrary metadata on the lobby
+| name    | type  | description               |
+| ------- | ----- | ------------------------- |
+| lobbyId | Int64 | the lobby you want to get |
 
-  void DeleteMetadata(string key);
-  // Deletes lobby metadata by key
-};
+###### Example
 
-struct LobbyMemberTransaction
-{
-  void SetMetadata(string key, string value);
-  // Sets arbitrary metadata on a user
+```cs
+var lobby = lobbyManager.GetLobby(Int64 lobbyId);
+```
 
-  void DeleteMetadata(string key);
-  // Deletes user metadata by key
-};
+## GetLobbyMetadataCount
 
-struct LobbySearch
-{
-  void Filter(string key, LobbySearchComparison comp, LobbySearchCast cast, string value);
-  // Filters lobbies based on metadata comparison
-  // Available filter values are owner_id, capacity, slots, and metadata
-  // If you are filtering based on metadata, make sure you prepend your key with "metadata."
-  // For example, filtering on matchmaking rating would be "metadata.matchmaking_rating"
-  // Example:
-  // var query = LobbiesManager.create_lobby_search();
-  // query.LobbySearchFilter("metadata.matchmaking_rating", LobbySearchComparison.GreaterThan, LobbySearchCast.Number, "455");
+Returns the number of metadata key/value pairs on a given lobby. Used for accessing metadata by iterating over the list.
 
-  void Sort(string key, LobbySearchCast cast, string value);
-  // Sorts available lobbies based on metadata "near-ness" to a given value
-  // Example: query.LobbySearchSort("metadata.ELO", LobbySearchCast.Number, "1337");
+Returns `Int32`.
 
-  void Limit(UInt32 limit);
-  // Limits the number of lobbies returned in a search
+###### Parameters
+
+| name    | type  | description                            |
+| ------- | ----- | -------------------------------------- |
+| lobbyId | Int64 | the lobby you want to get metadata for |
+
+###### Example
+
+```cs
+var count = lobbyManger.GetLobbyMetadataCount(290926798626357250);
+for (int i = 0; i < count; i++) {
+  var value = lobbyManager.GetLobbyMetadataKey(290926798626357250, i);
 }
 ```
 
-### Methods
+## GetLobbyMetadataKey
+
+Returns the key for the lobby metadata at the given index.
+
+Returns `string`.
+
+###### Parameters
+
+| name    | type  | description                            |
+| ------- | ----- | -------------------------------------- |
+| lobbyId | Int64 | the lobby you want to get metadata for |
+| index   | Int32 | the index of lobby metadata to access  |
+
+###### Example
 
 ```cs
-LobbyTransaction CreateLobbyTransaction();
-// Returns a new lobby transaction
+var count = lobbyManger.GetLobbyMetadataCount(290926798626357250);
+for (int i = 0; i < count; i++) {
+  var value = lobbyManager.GetLobbyMetadataKey(290926798626357250, i);
+}
+```
 
-LobbyTransaction GetLobbyTransaction(int lobbyId);
-// Returns the transaction for a given lobby
+## GetLobbyMetadataValue
 
-LobbyMemberTransaction GetMemberTransaction(Int64 lobbyId, Int64 userId);
-// Returns a new member transaction for a user
+Returns lobby metadata value for a given key and id. Can be used with iteration, or direct access by keyname.
 
-void CreateLobby(LobbyTransaction transaction, (Discord.Result result, Lobby lobby) =>
-{
-  // Creates a lobby
-  // Note that creating a lobby auto-joins the connected member to it
-  // Remember - no SetOwner in this transaction!
-});
+###### Parameters
 
-void UpdateLobby(Int64 lobbyId, LobbyTransaction transaction, (Discord.Result result) =>
-{
-  // Updates a lobby
-  // You can safely SetOwner in here, though
-});
+| name    | type   | description                            |
+| ------- | ------ | -------------------------------------- |
+| lobbyId | Int64  | the lobby you want to get metadata for |
+| key     | string | the key name to access                 |
 
-void DeleteLobby(int lobbyId, (Discord.Result result) =>
-{
-  // Deletes a lobby
-});
+####### Example
 
-void Connect(Int64 lobbyId, string lobbySecret, (Discord.Result result, Lobby lobby) =>
-{
-  // Connects the current user to a lobby
-  // Requires both the secret and the lobby ID
-  // You can be connected to up to 5 lobbies at a time
-});
+```cs
+var averageMmr = lobbyManger.GetLobbyMetadataValue(290926798626357250, "metadata.average_mmr");
+```
 
-void ConnectWithActivitySecret(string activitySecret, (Discord.Result result, ref Lobby Lobby) =>
-{
-  // Connects the current user to a lobby
-  // Requires the special activity secret
-  // Retrieved from GetLobbyActivitySecret()
-});
+## GetMemberCount
 
-string GetLobbyActivitySecret(Int64 lobbyId);
-// Returns a unique secret for the given lobby concatenated with the lobby id
-// If you are creating lobbies from game clients, use this to easily interact with Rich Presence invites
-// Set the returned secret to your activity's JoinSecret
+Get the number of members in a lobby.
 
-void Disconnect(Int64 lobbyId, (Discord.Result result) =>
-{
-  // Disconnects the current user from a lobby
-});
+Returns `Int32`.
 
-Lobby GetLobby(Int64 lobbyId);
-// Returns the lobby object for the given id
+####### Parameters
 
-Int32 GetLobbyMetadataCount(Int64 lobbyid);
-// Returns the number of metadata pairs on the given lobby
-// Used for accessing metadata by iterating over a list
+| name    | type  | description                           |
+| ------- | ----- | ------------------------------------- |
+| lobbyId | Int64 | the lobby you want to get members for |
 
-string GetLobbyMetadataKey(Int64 lobbyId, Int32 index);
-// Returns the key for the lobby metadata at the given index
+###### Example
 
-string GetLobbyMetadataValue(Int64 lobbyId, string key);
-// Returns lobby metadata value for a key
-// Can be used in conjunction with the count and get key functions if you're iterating over metadata
-// Or you can access the metadata directly by keyname
+```cs
+var count = lobbyManager.GetMemberCount(290926798626357250);
+for (int i = 0; i < count; i++) {
+  var id = lobbyManager.GetMemberUserId(290926798626357250, i);
+}
+```
 
-Int32 GetMemberCount(Int64 lobbyId);
-// Returns the number of members in a lobby
+## GetMemberUserId
 
-Int64 GetMemberUserId(Int64 lobbyId, Int32 index);
-// Returns the userId for a member at the index
+Gets the user id of the lobby member at the given index.
 
-User GetMemberUser(Int64 lobbyId, Int64 userId);
-// Returns the user info for a userId
+Returns `Int64`.
 
-Int32 GetMemberMetadataCount(Int64 lobbyid, Int64 userId);
-// Returns the number of metadata pairs on the given lobby member
-// Used for accessing metadata by iterating over a list
+###### Parameters
 
-string GetMemberMetadataKey(Int64 lobbyId, Int64 userId Int32 index);
-// Returns the key for the lobby metadata at the given index
+| name    | type  | description                           |
+| ------- | ----- | ------------------------------------- |
+| lobbyId | Int64 | the lobby you want to get members for |
+| index   | Int32 | the index of lobby member to access   |
 
-string GetMemberMetadataValue(Int64 lobbyId, Int64 userId, string key);
-// Returns user metadata for a given key
-// Can be used in conjunction with the count and get key functions if you're iterating over metadata
-// Or you can access the metadata directly by keyname
+###### Example
 
-void UpdateMember(Int64 lobbyId, Int64 userId, MemberTransaction transaction, (Discord.Result result) =>
-{
-  // Updates info for a lobby member
-});
+```cs
+var count = lobbyManager.GetMemberCount(290926798626357250);
+for (int i = 0; i < count; i++) {
+  var id = lobbyManager.GetMemberUserId(290926798626357250, i);
+}
+```
 
-void Send(int lobbyId, byte[] data);
-// Sends a message to the lobby on behalf of the current user
-// You must be connected to the lobby you are sending a message to
+## GetMemberUser
 
-LobbySearch CreateLobbySearch();
-// Creates a search object to search available lobbies
+Gets the user object for a given user id.
 
-void Search(LobbySearch search, () =>
-{
-  // Searches available lobbies based on the search criteria
-  // Lobbies that meet criteria are available within the context of the callback
-});
+Returns `Discord.User`.
 
-Int32 GetLobbyCount();
-// Returns the number of lobbies that match the search
+###### Parameters
 
-Int64 GetLobbyId(Int32 index);
-// Returns the id for the lobby at the given index
+| name    | type  | description                           |
+| ------- | ----- | ------------------------------------- |
+| lobbyId | Int64 | the lobby you want to get members for |
+| userId  | Int64 | the user's userId                     |
 
-void VoiceConnect(Int64 lobbyId, (Discord.Result result) =>
-{
-  // Connect to the voice channel of the current lobby
-});
+###### Example
 
-void VoiceDisconnect(Int64 lobbyId, (Discord.Result result) =>
-{
-  // Disconnect from the voice channel of the current lobby
+```cs
+var count = lobbyManager.GetMemberCount(290926798626357250);
+for (int i = 0; i < count; i++) {
+  var id = lobbyManager.GetMemberUserId(290926798626357250, i);
+  var user = lobbyManager.GetMemberUser(290926798626357250, id);
+  Console.WriteLine("Got user {0}", user.Id);
+}
+```
+
+## GetMemberMetadataCount
+
+Gets the number of metadata key/value pairs for the given lobby member. Used for accessing metadata by iterating over a list.
+
+Returns `Int32`.
+
+###### Parameters
+
+| name    | type  | description                            |
+| ------- | ----- | -------------------------------------- |
+| lobbyId | Int64 | the lobby the member belongs to        |
+| userId  | Int64 | the id of the user to get metadata for |
+
+###### Example
+
+```cs
+var count = lobbyManager.GetMemberMetadataCount(290926798626357250, 53908232506183680);
+for (int i = 0; i < count; i++) {
+  var key = lobbyManager.GetMemberMetadataKey(290926798626357250, 53908232506183680, i);
+}
+```
+
+## GetMemberMetadataKey
+
+Gets the key for the lobby metadata at the given index on a lobby member.
+
+Returns `string`.
+
+####### Parameters
+
+| name    | type  | description                            |
+| ------- | ----- | -------------------------------------- |
+| lobbyId | Int64 | the lobby the member belongs to        |
+| userId  | Int64 | the id of the user to get metadata for |
+| index   | Int32 | the index of metadata to access        |
+
+###### Example
+
+```cs
+var count = lobbyManager.GetMemberMetadataCount(290926798626357250, 53908232506183680);
+for (int i = 0; i < count; i++) {
+  var key = lobbyManager.GetMemberMetadataKey(290926798626357250, 53908232506183680, i);
+}
+```
+
+## GetMemberMetadataValue
+
+Returns user metadata for a given key. Can be used in conjunction with the count and get key functions if you're iterating over metadata. Or you can access the metadata directly by keyname
+
+Returns `string`.
+
+####### Parameters
+
+| name    | type   | description                            |
+| ------- | ------ | -------------------------------------- |
+| lobbyId | Int64  | the lobby the member belongs to        |
+| userId  | Int64  | the id of the user to get metadata for |
+| key     | string | the metadata key to access             |
+
+###### Example
+
+```cs
+var count = lobbyManager.GetMemberMetadataCount(290926798626357250, 53908232506183680);
+for (int i = 0; i < count; i++) {
+  var key = lobbyManager.GetMemberMetadataKey(290926798626357250, 53908232506183680, i);
+  var value = lobbyManager.GetMemberMetadataValue(290926798626357250, 53908232506183680, key);
+  Console.WriteLine("Value: {0}", value);
+}
+```
+
+## UpdateMember
+
+Updates lobby member info for a given member of the lobby.
+
+Returns `Discord.Result` via callback.
+
+###### Parameters
+
+| name        | type                   | description                       |
+| ----------- | ---------------------- | --------------------------------- |
+| lobbyId     | Int64                  | lobby the member belongs to       |
+| userId      | Int64                  | id of the user                    |
+| transaction | LobbyMemberTransaction | transaction with the changed data |
+
+###### Example
+
+```cs
+var txn = lobbyManager.GetLobbyMemberTransaction(290926798626357250, 53908232506183680);
+txn.SetMetadata("my_mmr", "9999");
+lobbyManager.UpdateMember(290926798626357250, 53908232506183680, txn, (result) => {
+  if (result == Discord.Result.OK) {
+    Console.WriteLine("Lobby member updated!");
+  }
 });
 ```
 
-### Callbacks
+## SendMessage
+
+Sends a message to the lobby on behalf of the current user. You must be connected to the lobby you are messaging.
+
+Returns `void`.
+
+###### Parameters
+
+| name    | type   | description                 |
+| ------- | ------ | --------------------------- |
+| lobbyId | Int64  | lobby the member belongs to |
+| data    | byte[] | the data to send            |
+
+###### Example
 
 ```cs
-OnLobbyUpdate+= (Int64 lobbyId) =>
-{
-  // Fired when the lobby is updated
-};
-
-OnLobbyDelete+= (Int64 lobbyId, string reason) =>
-{
-  // Fired when the lobby is deleted
-};
-
-OnLobbyMemberJoin+= (Int64 lobbyId, int userId) =>
-{
-  // Fires when a new member joins the lobby
-};
-
-OnLobbyMemberUpdate += (Int64 lobbyId, Int64 userId) =>
-{
-  // Fires when data for a lobby member is updated
-};
-
-OnLobbyMemberDisconnect += (Int64 lobbyId, Int64 userId) =>
-{
-  // Fires when a member leaves the lobby
-};
-
-OnLobbyMessage += (Int64 lobbyId, Int64 userId, byte[] data) =>
-{
-  // Fires when a message is sent to the lobby
-  // Turn back into a string with something like Encoding.UTF8.GetString(data);
-};
-
-OnLobbySpeaking += (Int64 lobbyId, Int64 userId, bool speaking) =>
-{
-  // Fires when a user connected to voice starts speaking (true) or stops (false)
-};
+lobbyManager.SendMessage(290926798626357250, Encoding.UTF8.GetBytes("hey."));
 ```
 
-### Connecting to Lobbies
+## CreateLobbySearch
+
+Creates a search object to search available lobbies.
+
+Returns `Discord.LobbySearch`.
+
+###### Parameters
+
+None
+
+###### Example
+
+```cs
+var search = lobbyManager.CreateLobbySearch();
+```
+
+## Search
+
+Searches available lobbies based on the search criteria chosen in the `Discord.LobbySearch` member functions. Lobbies that meet the criteria are available within the context of the callback.
+
+Returns `void`, and a parameter-less function callback.
+
+###### Parameters
+
+| name   | type        | description         |
+| ------ | ----------- | ------------------- |
+| search | LobbySearch | the search criteria |
+
+###### Example
+
+```cs
+var search = lobbyManger.CreateLobbySearch();
+search.Filter("metadata.matchmaking_rating", LobbySearchComparison.GreaterThan, LobbySearchCast.Number, "455");
+search.Sort("metadata.matchmaking_rating", LobbySearchCast.Number, "456");
+search.Limit(10);
+lobbyManger.Search(search, () => {
+  var count = lobbyManager.GetLobbyCount();
+  Console.WriteLine("There are {0} lobbies that match your search criteria", count);
+});
+```
+
+## GetLobbyCount
+
+Get the number of lobbies that match the search.
+
+Returns `Int32`.
+
+###### Parameters
+
+None
+
+###### Example
+
+```cs
+lobbyManger.Search(search, () => {
+  var count = lobbyManager.GetLobbyCount();
+  Console.WriteLine("There are {0} lobbies that match your search criteria", count);
+});
+```
+
+## GetLobbyId
+
+Returns the id for the lobby at the given index.
+
+Returns `Int64`.
+
+###### Parameters
+
+| name  | type  | description                                      |
+| ----- | ----- | ------------------------------------------------ |
+| index | Int32 | the index at which to access the list of lobbies |
+
+###### Example
+
+```cs
+lobbyManger.Search(search, () => {
+  var count = lobbyManager.GetLobbyCount();
+  for (int i = 0; i < count; i++) {
+    var id = lobbyManager.GetLobbyId(i);
+    Console.WriteLine("Found lobby {0}", id);
+  }
+});
+```
+
+## VoiceConnect
+
+Connects to the voice channel of the current lobby.
+
+Returns `Discord.Result` via callback.
+
+###### Parameters
+
+| name    | type  | description               |
+| ------- | ----- | ------------------------- |
+| lobbyId | Int64 | lobby to voice connect to |
+
+###### Example
+
+```cs
+lobbyManager.VoiceConnect(290926798626357250, (result) =>
+{
+  if (result == Discord.Result.OK) {
+    Console.WriteLine("Voice connected!");
+  }
+});
+```
+
+## VoiceDisconnect
+
+Disconnects from the voice channel of a given lobby.
+
+###### Parameters
+
+| name    | type  | description                    |
+| ------- | ----- | ------------------------------ |
+| lobbyId | Int64 | lobby to voice disconnect from |
+
+###### Example
+
+```cs
+lobbyManager.VoiceDisconnect(290926798626357250, (result) =>
+{
+  if (result == Discord.Result.OK) {
+    Console.WriteLine("Voice disconnected!");
+  }
+});
+```
+
+## OnUpdate
+
+Fires when a lobby is updated.
+
+###### Parameters
+
+| name    | type  | description        |
+| ------- | ----- | ------------------ |
+| lobbyId | Int64 | lobby that updated |
+
+## OnDelete
+
+Fired when a lobby is deleted.
+
+###### Parameters
+
+| name    | type   | description                                    |
+| ------- | ------ | ---------------------------------------------- |
+| lobbyId | Int64  | lobby that was deleted                         |
+| reason  | string | reason for deletion - this is a system message |
+
+## OnMemberConnect
+
+Fires when a new member joins the lobby.
+
+###### Parameters
+
+| name    | type  | description           |
+| ------- | ----- | --------------------- |
+| lobbyId | Int64 | lobby the user joined |
+| userId  | Int64 | user that joined      |
+
+## OnMemberUpdate
+
+Fires when data for a lobby member is updated.
+
+###### Parameters
+
+| name    | type  | description                   |
+| ------- | ----- | ----------------------------- |
+| lobbyId | Int64 | lobby the user is a member of |
+| userId  | Int64 | user that was updated         |
+
+## OnMemberDisconnect
+
+Fires when a member leaves the lobby.
+
+###### Parameters
+
+| name    | type  | description                    |
+| ------- | ----- | ------------------------------ |
+| lobbyId | Int64 | lobby the user was a member of |
+| userId  | Int64 | user that left                 |
+
+## OnMessage
+
+Fires when a message is sent to the lobby.
+
+###### Parameters
+
+| name    | type   | description                  |
+| ------- | ------ | ---------------------------- |
+| lobbyId | Int64  | lobby the message is sent to |
+| userId  | Int64  | user that sent the message   |
+| data    | byte[] | the message contents         |
+
+## OnSpeaking
+
+Fires when a user connected to voice starts or stops speaking.
+
+###### Parameters
+
+| name     | type  | description                                             |
+| -------- | ----- | ------------------------------------------------------- |
+| lobbyId  | Int64 | lobby the user is connceted to                          |
+| userId   | Int64 | user in voice                                           |
+| speaking | bool  | `true` == started speaking, `false` == stopped speaking |
+
+## Connecting to Lobbies
 
 In the preceding section, you probably noticed there are a couple different methods for connecting to a lobby: `Connect()` and `ConnectWithActivitySecret()`. Lobbies in Discord are even more useful when hooked together with Activities/Rich Presence functionality; they give you everything you need to create an awesome game invite system.
 
@@ -303,18 +999,18 @@ If you are creating lobbies for users in the game client, and not on a backend s
 
 ```cs
 var discord = new Discord.Discord(clientId, Discord.CreateFlags.Default);
-var lobbiesManager = Discord.CreateLobbiesManager();
-var activitiesManager = Discord.CreateActivitiesManager();
+var LobbyManager = discord.GetLobbyManager();
+var ActivityManager = discord.GetActivityManager();
 
 // Create a lobby
-var txn = lobbiesManager.CreateLobbyTransaction();
+var txn = LobbyManager.CreateLobbyTransaction();
 txn.SetCapacity(5);
 txn.SetType(Discord.LobbyType.Private);
 
-lobbiesManager.CreateLobby(txn, (result, lobby) =>
+LobbyManager.CreateLobby(txn, (result, lobby) =>
 {
   // Get the sepcial activity secret
-  var secret = lobbiesManager.GetLobbyActivitySecret(lobby.id);
+  var secret = LobbyManager.GetLobbyActivitySecret(lobby.id);
 
   // Create a new activity
   // Set the party id to the lobby id, so everyone in the lobby has the same value
@@ -333,11 +1029,11 @@ lobbiesManager.CreateLobby(txn, (result, lobby) =>
     }
   };
 
-  activitiesManager.UpdateActivity(activity, result =<
+  ActivityManager.UpdateActivity(activity, result =<
   {
     // Now, you can send chat invites, or others can ask to join
     // When other clients receive the OnActivityJoin() event, they'll receive the special activity secret
-    // They can then directly call lobbiesManager.ConnectWithActivitySecret() and be put into the lobby together
+    // They can then directly call LobbyManager.ConnectWithActivitySecret() and be put into the lobby together
   })
 });
 ```
@@ -350,7 +1046,7 @@ If you are creating lobbies with your own backend system (see the section below)
 var discord = new Discord.Discord(clientId, Discord.CreateFlags.Default);
 
 // Search lobbies.
-var query = lobbiesManager.CreateLobbySearch();
+var query = LobbyManager.CreateLobbySearch();
 
 // Filter by a metadata value.
 query.Filter("metadata.ELO", Discord.LobbySearchComparison.EqualTo, Discord.LobbySearchCast.Number, "1337");
@@ -358,27 +1054,27 @@ query.Filter("metadata.ELO", Discord.LobbySearchComparison.EqualTo, Discord.Lobb
 // Only return 1 result max.
 query.Limit(1);
 
-lobbiesManager.Search(query, (_) =>
+LobbyManager.Search(query, (_) =>
 {
-  Console.WriteLine("search returned {0} lobbies", lobbiesManager.GetLobbyCount());
+  Console.WriteLine("search returned {0} lobbies", LobbyManager.GetLobbyCount());
 
-  if (lobbiesManager.GetLobbyCount() == 1)
+  if (LobbyManager.GetLobbyCount() == 1)
   {
-    Console.WriteLine("first lobby: {0}", lobbiesManager.GetLobbyId(0));
+    Console.WriteLine("first lobby: {0}", LobbyManager.GetLobbyId(0));
   }
 
   // Get the id of the lobby, and connect to voice
-  var id = lobbiesManager.GetLobbyId(0);
-  lobbiesManager.VoiceConnect(id, (_) =>
+  var id = LobbyManager.GetLobbyId(0);
+  LobbyManager.VoiceConnect(id, (_) =>
   {
     Console.WriteLine("Connected to voice!");
   });
 });
 ```
 
-### Example: Crossplay? In my SDK!?
+## Example: Crossplayish
 
-It's more likely than you think. So, an explanation. Because the DLL that you ship with your game is a stub that calls out to the local Discord client for actual operations, the SDK does not necessarily care if the game was launched from Discord. As long as the player launching the game:
+So, an explanation. Because the DLL that you ship with your game is a stub that calls out to the local Discord client for actual operations, the SDK does not necessarily care if the game was launched from Discord. As long as the player launching the game:
 
 1.  Has Discord installed
 2.  Has a Discord account

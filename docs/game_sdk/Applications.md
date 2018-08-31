@@ -11,47 +11,99 @@ These bearer tokens are good for seven days, after which they will expire. When 
 
 This manager also includes a couple useful helper functions, like getting the locale in which the user has chosen to use their Discord client, and knowing which game branch the game is running on. More about branches in the Dispatch CLI tool section of the documentation.
 
-### Models
+## OAuth2Token Struct
+
+| name        | type   | description                                                                                     |
+| ----------- | ------ | ----------------------------------------------------------------------------------------------- |
+| AccessToken | string | a bearer token for the current user                                                             |
+| Scopes      | string | a list of oauth2 scopes as a single string, delineated by spaces like `"identify rpc gdm.join"` |
+| Expires     | Int64  | the timestamp at which the token expires                                                        |
+
+## GetCurrentLocale
+
+Get's the locale the current user has Discord set to.
+
+Returns a `string`.
+
+###### Parameters
+
+None
+
+###### Example
 
 ```cs
-struct OAuth2Token
-{
-  string AccessToken;
-  string Scopes;
-  Int64 Expires;
+var locale = applicationManager.GetCurrentLocale();
+Console.WriteLine("This user's language is {0}", locale);
+```
+
+## GetCurrentBranch
+
+Get the name of pushed branch on which the game is running. These are branches that you created and pushed using Dispatch.
+
+###### Parameters
+
+None
+
+###### Example
+
+```cs
+var branch = applicationManager.GetCurrentBranch();
+if (branch !== MyBranches.Stable) {
+  Console.WriteLine("You are on a beta branch; expect bugs!");
 }
 ```
 
-### Methods
+## GetOAuth2Token
+
+Retrieve an oauth2 beare token for the current user. If your game was launched from Discord and you call this function, you will automatically receive the token. If the game was _not_ launched from Discord and this method is called, Discord will focus itself and prompt the user for authorization.
+
+Returns a `Discord.Result` and an `OAuth2Token` via callback.
+
+###### Parameters
+
+None
+
+###### Example
 
 ```cs
-string GetCurrentLocale();
-// Returns the locale the user chose in Discord as a string
-// See our Dispatch documentation for a list of valid values
-
-string GetCurrentBranch();
-// Returns the name as a string of your pushed branch the game is running on
-
-void GetOAuth2Token((Discord.Result result, OAuth2Token token) =>
+applicationManager.GetOAuth2Token((Discord.Result result, OAuth2Token token) =>
 {
-  // Returns the access token for the current user
-  // If call this function, and the game did was _not_ launched from Discord
-  // Discord will focus itself and pop an authorization modal for your application, and then return the token on accept
-  // If the game was launched from Discord, it will bypass the modal and return the token
-});
-
-void ValidateOrExit((Discord.Result result) =>
-{
-  // Entitlements check - does the user have the entitlement for this application?
-  // If so, good to go. If not, exit game
+  if (result == Discord.Result.OK) {
+    Console.WriteLine("Token for the user: {0}. Expires in {1}", token.AccessToken, token.Expires);
+    // You may now use this token against Discord's HTTP API
+  }
 });
 ```
 
-### Example: Get OAuth2 Token
+## ValidateOrExit
+
+Checks if the current user has the entitlement to run this game.
+
+Returns `void`.
+
+###### Parameters
+
+None
+
+###### Example
+
+```cs
+void ValidateOrExit((Discord.Result result) =>
+{
+  if (result !== Discord.Result.OK) {
+    Console.WriteLine("Something went wrong!");
+  }
+  if (result == Discord.Result.OK) {
+    // Game continues running
+  }
+});
+```
+
+## Example: Get OAuth2 Token
 
 ```cs
 var discord = new Discord.Discord(clientId, Discord.CreateFlags.Default);
-var appManager = new discord.CreateApplicationsManager();
+var appManager = discord.GetApplicationManager();
 
 // Retrieve the token
 appManager.GetOAuth2Token((OAuth2Token token) =>
