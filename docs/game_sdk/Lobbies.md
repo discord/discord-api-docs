@@ -740,83 +740,258 @@ for (int i = 0; i < count; i++) {
 }
 ```
 
+## UpdateMember
+
+Updates lobby member info for a given member of the lobby.
+
+Returns `Discord.Result` via callback.
+
+###### Parameters
+
+| name        | type                   | description                       |
+| ----------- | ---------------------- | --------------------------------- |
+| lobbyId     | Int64                  | lobby the member belongs to       |
+| userId      | Int64                  | id of the user                    |
+| transaction | LobbyMemberTransaction | transaction with the changed data |
+
+###### Example
+
 ```cs
-void UpdateMember(Int64 lobbyId, Int64 userId, MemberTransaction transaction, (Discord.Result result) =>
-{
-  // Updates info for a lobby member
-});
-
-void Send(int lobbyId, byte[] data);
-// Sends a message to the lobby on behalf of the current user
-// You must be connected to the lobby you are sending a message to
-
-LobbySearch CreateLobbySearch();
-// Creates a search object to search available lobbies
-
-void Search(LobbySearch search, () =>
-{
-  // Searches available lobbies based on the search criteria
-  // Lobbies that meet criteria are available within the context of the callback
-});
-
-Int32 GetLobbyCount();
-// Returns the number of lobbies that match the search
-
-Int64 GetLobbyId(Int32 index);
-// Returns the id for the lobby at the given index
-
-void VoiceConnect(Int64 lobbyId, (Discord.Result result) =>
-{
-  // Connect to the voice channel of the current lobby
-});
-
-void VoiceDisconnect(Int64 lobbyId, (Discord.Result result) =>
-{
-  // Disconnect from the voice channel of the current lobby
+var txn = lobbyManager.GetLobbyMemberTransaction(290926798626357250, 53908232506183680);
+txn.SetMetadata("my_mmr", "9999");
+lobbyManager.UpdateMember(290926798626357250, 53908232506183680, txn, (result) => {
+  if (result == Discord.Result.OK) {
+    Console.WriteLine("Lobby member updated!");
+  }
 });
 ```
 
-### Callbacks
+## Send
+
+Sends a message to the lobby on behalf of the current user. You must be connected to the lobby you are messaging.
+
+Returns `void`.
+
+###### Parameters
+
+| name    | type   | description                 |
+| ------- | ------ | --------------------------- |
+| lobbyId | Int64  | lobby the member belongs to |
+| data    | byte[] | the data to send            |
+
+###### Example
 
 ```cs
-OnLobbyUpdate+= (Int64 lobbyId) =>
-{
-  // Fired when the lobby is updated
-};
-
-OnLobbyDelete+= (Int64 lobbyId, string reason) =>
-{
-  // Fired when the lobby is deleted
-};
-
-OnLobbyMemberJoin+= (Int64 lobbyId, int userId) =>
-{
-  // Fires when a new member joins the lobby
-};
-
-OnLobbyMemberUpdate += (Int64 lobbyId, Int64 userId) =>
-{
-  // Fires when data for a lobby member is updated
-};
-
-OnLobbyMemberDisconnect += (Int64 lobbyId, Int64 userId) =>
-{
-  // Fires when a member leaves the lobby
-};
-
-OnLobbyMessage += (Int64 lobbyId, Int64 userId, byte[] data) =>
-{
-  // Fires when a message is sent to the lobby
-  // Turn back into a string with something like Encoding.UTF8.GetString(data);
-};
-
-OnLobbySpeaking += (Int64 lobbyId, Int64 userId, bool speaking) =>
-{
-  // Fires when a user connected to voice starts speaking (true) or stops (false)
-};
+lobbyManager.Send(290926798626357250, Encoding.UTF8.GetBytes("hey."));
 ```
 
-### Connecting to Lobbies
+## CreateLobbySearch
+
+Creates a search object to search available lobbies.
+
+Returns `Discord.LobbySearch`.
+
+###### Parameters
+
+None
+
+###### Example
+
+```cs
+var search = lobbyManager.CreateLobbySearch();
+```
+
+## Search
+
+Searches available lobbies based on the search criteria chosen in the `Discord.LobbySearch` member functions. Lobbies that meet the criteria are available within the context of the callback.
+
+Returns `void`, and a parameter-less function callback.
+
+###### Parameters
+
+| name   | type        | description         |
+| ------ | ----------- | ------------------- |
+| search | LobbySearch | the search criteria |
+
+###### Example
+
+```cs
+var search = lobbyManger.CreateLobbySearch();
+search.Filter("metadata.matchmaking_rating", LobbySearchComparison.GreaterThan, LobbySearchCast.Number, "455");
+search.Sort("metadata.matchmaking_rating", LobbySearchCast.Number, "456");
+search.Limit(10);
+lobbyManger.Search(search, () => {
+  var count = lobbyManager.GetLobbyCount();
+  Console.WriteLine("There are {0} lobbies that match your search criteria", count);
+});
+```
+
+## GetLobbyCount
+
+Get the number of lobbies that match the search.
+
+Returns `Int32`.
+
+###### Parameters
+
+None
+
+###### Example
+
+```cs
+lobbyManger.Search(search, () => {
+  var count = lobbyManager.GetLobbyCount();
+  Console.WriteLine("There are {0} lobbies that match your search criteria", count);
+});
+```
+
+## GetLobbyId
+
+Returns the id for the lobby at the given index.
+
+Returns `Int64`.
+
+###### Parameters
+
+| name  | type  | description                                      |
+| ----- | ----- | ------------------------------------------------ |
+| index | Int32 | the index at which to access the list of lobbies |
+
+###### Example
+
+```cs
+lobbyManger.Search(search, () => {
+  var count = lobbyManager.GetLobbyCount();
+  for (int i = 0; i < count; i++) {
+    var id = lobbyManager.GetLobbyId(i);
+    Console.WriteLine("Found lobby {0}", id);
+  }
+});
+```
+
+## VoiceConnect
+
+Connects to the voice channel of the current lobby.
+
+Returns `Discord.Result` via callback.
+
+###### Parameters
+
+| name    | type  | description               |
+| ------- | ----- | ------------------------- |
+| lobbyId | Int64 | lobby to voice connect to |
+
+###### Example
+
+```cs
+lobbyManager.VoiceConnect(290926798626357250, (result) =>
+{
+  if (result == Discord.Result.OK) {
+    Console.WriteLine("Voice connected!");
+  }
+});
+```
+
+## VoiceDisconnect
+
+Disconnects from the voice channel of a given lobby.
+
+###### Parameters
+
+| name    | type  | description                    |
+| ------- | ----- | ------------------------------ |
+| lobbyId | Int64 | lobby to voice disconnect from |
+
+###### Example
+
+```cs
+lobbyManager.VoiceDisconnect(290926798626357250, (result) =>
+{
+  if (result == Discord.Result.OK) {
+    Console.WriteLine("Voice disconnected!");
+  }
+});
+```
+
+## OnLobbyUpdate
+
+Fires when a lobby is updated.
+
+###### Parameters
+
+| name    | type  | description        |
+| ------- | ----- | ------------------ |
+| lobbyId | Int64 | lobby that updated |
+
+## OnLobbyDelete
+
+Fired when a lobby is deleted.
+
+###### Parameters
+
+| name    | type   | description                                    |
+| ------- | ------ | ---------------------------------------------- |
+| lobbyId | Int64  | lobby that was deleted                         |
+| reason  | string | reason for deletion - this is a system message |
+
+## OnLobbyMemberJoin
+
+Fires when a new member joins the lobby.
+
+###### Parameters
+
+| name    | type  | description           |
+| ------- | ----- | --------------------- |
+| lobbyId | Int64 | lobby the user joined |
+| userId  | Int64 | user that joined      |
+
+## OnLobbyMemberUpdate
+
+Fires when data for a lobby member is updated.
+
+###### Parameters
+
+| name    | type  | description                   |
+| ------- | ----- | ----------------------------- |
+| lobbyId | Int64 | lobby the user is a member of |
+| userId  | Int64 | user that was updated         |
+
+## OnLobbyMemberDisconnect
+
+Fires when a member leaves the lobby.
+
+###### Parameters
+
+| name    | type  | description                    |
+| ------- | ----- | ------------------------------ |
+| lobbyId | Int64 | lobby the user was a member of |
+| userId  | Int64 | user that left                 |
+
+## OnLobbyMessage
+
+Fires when a message is sent to the lobby.
+
+###### Parameters
+
+| name    | type   | description                  |
+| ------- | ------ | ---------------------------- |
+| lobbyId | Int64  | lobby the message is sent to |
+| userId  | Int64  | user that sent the message   |
+| data    | byte[] | the message contents         |
+
+## OnLobbySpeaking
+
+Fires when a user connected to voice starts or stops speaking.
+
+###### Parameters
+
+| name     | type  | description                                             |
+| -------- | ----- | ------------------------------------------------------- |
+| lobbyId  | Int64 | lobby the user is connceted to                          |
+| userId   | Int64 | user in voice                                           |
+| speaking | bool  | `true` == started speaking, `false` == stopped speaking |
+
+## Connecting to Lobbies
 
 In the preceding section, you probably noticed there are a couple different methods for connecting to a lobby: `Connect()` and `ConnectWithActivitySecret()`. Lobbies in Discord are even more useful when hooked together with Activities/Rich Presence functionality; they give you everything you need to create an awesome game invite system.
 
