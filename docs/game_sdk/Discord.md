@@ -21,7 +21,7 @@ At a high level, the Discord GameSDK has a class, `Discord`. This class is in ch
 - `StorageManager` - for saving game data to the disk and the cloud
 - `OverlayManager` - for interacting with Discord's built-in overlay
 
-Each one of these managers contain a number of methods and events used to interact with Discord in the context of the manager. For example, `RelationshipManager` has a function called `filter()`, which lets you pare down a user's inter-Discord relationships based on a boolean condition, like being friends!
+Each one of these managers contain a number of methods and events used to interact with Discord in the context of the manager. For example, `RelationshipManager` has a function called `Filter()`, which lets you pare down a user's inter-Discord relationships based on a boolean condition, like being friends!
 
 ## Functions in the SDK
 
@@ -32,8 +32,8 @@ Some functions behave with a normal return behavior; e.g. `RelationshipManager.C
 A quick example with our C# binding:
 
 ```c#
-var userManager = Discord.CreateUserManager();
-userManager.GetCurrentUser((Discord.Result result, ref Discord.User currentUser) =>
+var userManager = Discord.GetUserManager();
+userManager.GetCurrentUser((result, currentUser) =>
 {
  Console.WriteLine(currentUser.username);
  Console.WriteLine(currentUser.ID);
@@ -208,9 +208,9 @@ void Update() {
 }
 ```
 
-## CreateActivityManager
+## GetActivityManager
 
-Creates the manager for interfacing with activities in the SDK.
+Fetches an instance of the manager for interfacing with activities in the SDK.
 
 Returns an `ActivityManager`.
 
@@ -221,12 +221,12 @@ None
 ###### Example
 
 ```cs
-var activityManager = Discord.CreateActivityManager();
+var activityManager = Discord.GetActivityManager();
 ```
 
-## CreateRelationshipManager
+## GetRelationshipManager
 
-Creates the manager for interfacing with relationships in the SDK.
+Fetches an instance of the manager for interfacing with relationships in the SDK.
 
 Returns a `RelationshipManager`.
 
@@ -237,12 +237,12 @@ None
 ###### Example
 
 ```cs
-var relationshipManager = Discord.CreateRelationshipManager();
+var relationshipManager = Discord.GetRelationshipManager();
 ```
 
-## CreateImageManager
+## GetImageManager
 
-Creates the manager for interfacing with images in the SDK.
+Fetches an instance of the manager for interfacing with images in the SDK.
 
 Returns an `ImageManager`.
 
@@ -253,12 +253,12 @@ None
 ###### Example
 
 ```cs
-var imageManager = Discord.CreateImageManager();
+var imageManager = Discord.GetImageManager();
 ```
 
-## CreateUserManager
+## GetUserManager
 
-Creates the manager for interfacing with users in the SDK.
+Fetches an instance of the manager for interfacing with users in the SDK.
 
 Returns an `UserManager`.
 
@@ -269,12 +269,12 @@ None
 ###### Example
 
 ```cs
-var userManager = Discord.CreateUserManager();
+var userManager = Discord.GetUserManager();
 ```
 
-## CreateLobbyManager
+## GetLobbyManager
 
-Creates the manager for interfacing with lobbies in the SDK.
+Fetches an instance of the manager for interfacing with lobbies in the SDK.
 
 Returns a `LobbyManager`.
 
@@ -285,12 +285,12 @@ None
 ###### Example
 
 ```cs
-var lobbyManager = Discord.CreateLobbyManager();
+var lobbyManager = Discord.GetLobbyManager();
 ```
 
-## CreateNetworkManager
+## GetNetworkManager
 
-Creates the manager for interfacing with networking in the SDK.
+Fetches an instance of the manager for interfacing with networking in the SDK.
 
 Returns an `NetworkManager`.
 
@@ -301,12 +301,12 @@ None
 ###### Example
 
 ```cs
-var networkManager = Discord.CreateNetworkManager();
+var networkManager = Discord.GetNetworkManager();
 ```
 
-## CreateOverlayManager
+## GetOverlayManager
 
-Creates the manager for interfacing with the overlay in the SDK.
+Fetches an instance of the manager for interfacing with the overlay in the SDK.
 
 Returns an `OverlayManager`.
 
@@ -317,12 +317,12 @@ None
 ###### Example
 
 ```cs
-var overlayManager = Discord.CreateOverlayManager();
+var overlayManager = Discord.GetOverlayManager();
 ```
 
-## CreateApplicationManager
+## GetApplicationManager
 
-Creates the manager for interfacing with applications in the SDK.
+Fetches an instance of the manager for interfacing with applications in the SDK.
 
 Returns an `ApplicationManager`.
 
@@ -333,12 +333,12 @@ None
 ###### Example
 
 ```cs
-var applicationManager = Discord.CreateApplicationManager();
+var applicationManager = Discord.GetApplicationManager();
 ```
 
-## CreateStorageManager
+## GetStorageManager
 
-Creates the manager for interfacing with storage in the SDK.
+Fetches an instance of the manager for interfacing with storage in the SDK.
 
 Returns an `StorageManager`.
 
@@ -349,7 +349,7 @@ None
 ###### Example
 
 ```cs
-var storageManager = Discord.CreateStorageManager();
+var storageManager = Discord.GetStorageManager();
 ```
 
 ## OnReady

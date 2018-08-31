@@ -101,7 +101,7 @@ overlayManager.OpenActivityInvite(Discord.ActivityActionType.Join, (Discord.Resu
 });
 ```
 
-## OnOverlayLocked
+## OnLocked
 
 Fires when the overlay is locked or unlocked
 
@@ -116,9 +116,9 @@ Fires when the overlay is locked or unlocked
 ```cs
 var discord = new Discord.Discord(clientId, Discord.CreateFlags.Default);
 
-var overlayManager = discord.CreateOverlayManager();
+var overlayManager = discord.GetOverlayManager();
 
-overlayManager.OnOverlayLocked += locked => {
+overlayManager.OnLocked += locked => {
   Console.WriteLine("Overlay Locked: {0}", locked);
 };
 overlayManager.SetLocked(false);
@@ -128,7 +128,7 @@ overlayManager.SetLocked(false);
 
 ```cs
 var discord = new Discord.Discord(clientId, Discord.CreateFlags.Default);
-var overlayManager = discord.CreateOverlayManager();
+var overlayManager = discord.GetOverlayManager();
 
 // Invite users to join your game
 overlayManager.OpenActivityInvite(ActivityActionType.Join, result => {

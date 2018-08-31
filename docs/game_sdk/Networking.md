@@ -90,7 +90,7 @@ var playerARemoteSessionId = 1234;
 networkManager.OpenReliableChannel(playerARemoteSessionId, 1);
 ```
 
-## Send
+## SendMessage
 
 Sends data to a given sessionid through the given channel.
 
@@ -111,7 +111,7 @@ Returns `void`.
 var playerARemoteSessionId = 1234;
 
 byte[] lootDrops = GameEngine.GetLootData();
-networkManager.Send(playerARemoteSessionId, 1, lootDrops);
+networkManager.SendMessage(playerARemoteSessionId, 1, lootDrops);
 ```
 
 ## CloseChannel
@@ -160,7 +160,7 @@ OnMessage += (UInt64 senderSessionId, byte channel, byte[] data) =>
 
 ## Connecting to Each Other
 
-This manager is built around the concept of channels between players. Player A opens a channel to Player B, and then Player B does the same to Player A. These two users can now send data back and forth to each other with `Send()` and receive it with `OnMessage`.
+This manager is built around the concept of channels between players. Player A opens a channel to Player B, and then Player B does the same to Player A. These two users can now send data back and forth to each other with `SendMessage()` and receive it with `OnMessage`.
 
 In order to properly send and receive data between A and B, both users need to have **the same type of channel** open to each other **on the same channel number**. If A has Reliable Channel 4 open to B, B also needs Reliable Channel 4 open to A. There are many ways to keep track of this; utilizing metadata on the lobby is one great way.
 
@@ -213,9 +213,9 @@ var discord = new Discord.Discord(clientId, Discord.CreateFlags.Default);
 // Join a lobby with another user in it
 // Get their session id, and connect to them
 
-var networkManager = Discord.CreateNetworkManager();
-var lobbyManager = Discord.CreateLobbyManager();
-var authManager = Discord.CreateAuthManager();
+var networkManager = Discord.GetNetworkManager();
+var lobbyManager = Discord.GetLobbyManager();
+var authManager = Discord.GetAuthManager();
 
 var me;
 var otherUserSessionId;
@@ -258,13 +258,13 @@ if (isDataAboutPlayerLootDrops(data))
 {
   // This is important and has to get there
   // Send over reliable channel
-  networkManager.Send(otherUserSessionId, 1, data);
+  networkManager.SendMessage(otherUserSessionId, 1, data);
 }
 else
 {
     // This is eventually consistent data, like the player's position in the world
     // It can be sent over the unreliable channel
-    networkManager.Send(otherUserSessionId, 0, data);
+    networkManager.SendMessage(otherUserSessionId, 0, data);
 }
 
 // Done; ship it!

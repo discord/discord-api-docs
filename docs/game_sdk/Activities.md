@@ -11,13 +11,13 @@ For more detailed information and documentation around the Rich Presence feature
 
 ###### User Struct
 
-| name          | type   | description                   |
-| ------------- | ------ | ----------------------------- |
-| Id            | Int32  | the user's id                 |
-| Username      | string | their name                    |
-| Discriminator | string | the user's unique discrim     |
-| Avatar        | string | the hash of the user's avatar |
-| Bot           | bool   | if the user is a bot user     |
+| name          | type             | description                   |
+| ------------- | ---------------- | ----------------------------- |
+| Id            | Int64            | the user's id                 |
+| Username      | string (256 len) | their name                    |
+| Discriminator | string (8 len)   | the user's unique discrim     |
+| Avatar        | string (128 len) | the hash of the user's avatar |
+| Bot           | bool             | if the user is a bot user     |
 
 ###### Activity Struct
 
@@ -42,19 +42,19 @@ For more detailed information and documentation around the Rich Presence feature
 
 ###### ActivityAssets Struct
 
-| name       | type   | description                    |
-| ---------- | ------ | ------------------------------ |
-| LargeImage | string | keyname of an asset to display |
-| LargeText  | string | hover text for the large image |
-| SmallImage | string | keyname of an asset to display |
-| SmallText  | string | hover text for the small image |
+| name       | type             | description                    |
+| ---------- | ---------------- | ------------------------------ |
+| LargeImage | string (128 len) | keyname of an asset to display |
+| LargeText  | string (128 len) | hover text for the large image |
+| SmallImage | string (128 len) | keyname of an asset to display |
+| SmallText  | string (128 len) | hover text for the small image |
 
 ###### ActivityParty Struct
 
-| name | type      | description                        |
-| ---- | --------- | ---------------------------------- |
-| Id   | string    | a unique identifier for this party |
-| Size | PartySize | info about the size of the party   |
+| name | type             | description                        |
+| ---- | ---------------- | ---------------------------------- |
+| Id   | string (128 len) | a unique identifier for this party |
+| Size | PartySize        | info about the size of the party   |
 
 ###### PartySize Struct
 
@@ -65,11 +65,11 @@ For more detailed information and documentation around the Rich Presence feature
 
 ###### ActivitySecrets Struct
 
-| name     | type   | description                                  |
-| -------- | ------ | -------------------------------------------- |
-| Match    | string | unique hash for the given match context      |
-| Join     | string | unique hash for chat invites and Ask to Join |
-| Spectate | string | unique hash for Spectate button              |
+| name     | type             | description                                  |
+| -------- | ---------------- | -------------------------------------------- |
+| Match    | string (128 len) | unique hash for the given match context      |
+| Join     | string (128 len) | unique hash for chat invites and Ask to Join |
+| Spectate | string (128 len) | unique hash for Spectate button              |
 
 ###### ActivityType Enum
 
@@ -247,7 +247,7 @@ activityManager.AcceptInvite(290926444748734466, Discord.Result result => {
 });
 ```
 
-## OnActivityJoin
+## OnJoin
 
 Fires when a user accepts a game chat invite or receives confirmation from Asking to Join.
 
@@ -257,7 +257,7 @@ Fires when a user accepts a game chat invite or receives confirmation from Askin
 | ---------- | ------ | ---------------------------------- |
 | joinSecret | string | the secret to join the user's game |
 
-## OnActivitySpectate
+## OnSpectate
 
 Fires when a user accepts a spectate chat invite or clicks the Spectate button on a user's profile.
 
@@ -267,7 +267,7 @@ Fires when a user accepts a spectate chat invite or clicks the Spectate button o
 | -------------- | ------ | ------------------------------------------------- |
 | spectateSecret | string | the secret to join the user's game as a spectator |
 
-## OnActivityJoinRequest
+## OnJoinRequest
 
 Fires when a user asks to join the current user's game.
 
@@ -277,7 +277,7 @@ Fires when a user asks to join the current user's game.
 | ---- | ---- | ----------------------- |
 | user | User | the user asking to join |
 
-## OnActivityInvite
+## OnInvite
 
 Fires when the user receives a join or spectate invite.
 

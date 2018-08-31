@@ -13,11 +13,11 @@ This manager also includes a couple useful helper functions, like getting the lo
 
 ## OAuth2Token Struct
 
-| name        | type   | description                                                                                     |
-| ----------- | ------ | ----------------------------------------------------------------------------------------------- |
-| AccessToken | string | a bearer token for the current user                                                             |
-| Scopes      | string | a list of oauth2 scopes as a single string, delineated by spaces like `"identify rpc gdm.join"` |
-| Expires     | Int64  | the timestamp at which the token expires                                                        |
+| name        | type              | description                                                                                     |
+| ----------- | ----------------- | ----------------------------------------------------------------------------------------------- |
+| AccessToken | string (128 len)  | a bearer token for the current user                                                             |
+| Scopes      | string (1024 len) | a list of oauth2 scopes as a single string, delineated by spaces like `"identify rpc gdm.join"` |
+| Expires     | Int64             | the timestamp at which the token expires                                                        |
 
 ## GetCurrentLocale
 
@@ -103,7 +103,7 @@ void ValidateOrExit((Discord.Result result) =>
 
 ```cs
 var discord = new Discord.Discord(clientId, Discord.CreateFlags.Default);
-var appManager = new discord.CreateApplicationManager();
+var appManager = new discord.GetApplicationManager();
 
 // Retrieve the token
 appManager.GetOAuth2Token((OAuth2Token token) =>

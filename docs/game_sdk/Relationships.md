@@ -39,12 +39,12 @@ This manager helps you access the relationships your players have made on Discor
 
 ###### Status Enum
 
-| value        |
-| ------------ |
-| Offline      |
-| Online       |
-| Idle         |
-| DoNotDisturn |
+| name         | value |
+| ------------ | ----- |
+| Offline      | 0     |
+| Online       | 1     |
+| Idle         | 2     |
+| DoNotDisturn | 4     |
 
 ## Filter
 
@@ -124,7 +124,7 @@ for (int i = 0; i < relationshipsManager.Count(); i++) {
 }
 ```
 
-## OnRelationshipsUpdate
+## OnUpdateAll
 
 Fires in response to `Filter()` when relationships have been filtered and the list is stable and ready for access.
 
@@ -132,7 +132,7 @@ Fires in response to `Filter()` when relationships have been filtered and the li
 
 None
 
-## OnRelationshipUpdate
+## OnUpdate
 
 Fires when a relationship in the filtered list changes, like an updated presence or user attribute.
 
@@ -145,7 +145,7 @@ Fires when a relationship in the filtered list changes, like an updated presence
 ###### Example
 
 ```cs
-OnRelationshipUpdate += (Relationship relationship) =>
+OnUpdate += (Relationship relationship) =>
 {
   Console.WriteLine("Who changed? {0}", relationship.User.Id);
 };
@@ -155,11 +155,11 @@ OnRelationshipUpdate += (Relationship relationship) =>
 
 ```cs
 var discord = new Discord.Discord(clientId, Discord.CreateFlags.Default);
-var RelationshipManager = discord.CreateRelationshipManager();
+var RelationshipManager = discord.GetRelationshipManager();
 
 // Assign this handle right away to get the initial relationships update.
 // This callback will only be fired when the whole list is initially loaded or was reset
-RelationshipManager.OnRelationshipsUpdate += () =>
+RelationshipManager.OnUpdateAll += () =>
 {
   // Filter a user's relationship list to be just friends
   RelationshipManager.Filter((ref Discord.Relationship relationship) =>
@@ -186,8 +186,8 @@ RelationshipManager.OnRelationshipsUpdate += () =>
 
 ```cs
 var discord = new Discord.Discord(clientId, Discord.CreateFlags.Default);
-var RelationshipManager = discord.CreateRelationshipManager();
-var ActivityManager = discord.CreateActivityManager();
+var RelationshipManager = discord.GetRelationshipManager();
+var ActivityManager = discord.GetActivityManager();
 
 RelationshipManager.Filter((ref Discord.Relationship relationship) =>
 {

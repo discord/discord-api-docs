@@ -22,7 +22,7 @@ To update a user or a lobby, create or get a transaction for that resource, call
 ### Example: Creating a Lobby
 
 ```cs
-var LobbyManager = Discord.CreateLobbyManager();
+var LobbyManager = Discord.GetLobbyManager();
 
 // Create the transaction
 var txn = LobbyManager.CreateLobbyTransaction();
@@ -53,20 +53,20 @@ LobbyManager.CreateLobby(txn, (Discord.Result result, ref Discord.Lobby lobby) =
 
 ###### LobbyType Enum
 
-| value   |
-| ------- |
-| Private |
-| Public  |
+| name    | value |
+| ------- | ----- |
+| Private | 1     |
+| Public  | 2     |
 
 ###### Lobby Struct
 
-| name     | type      | description                       |
-| -------- | --------- | --------------------------------- |
-| Id       | Int64     | the unique id of the lobby        |
-| Type     | LobbyType | if the lobby is public or private |
-| OwnerId  | Int64     | the userId of the lobby owner     |
-| Secret   | string    | the password to the lobby         |
-| Capacity | UInt32    | the max capacity of the lobby     |
+| name     | type             | description                       |
+| -------- | ---------------- | --------------------------------- |
+| Id       | Int64            | the unique id of the lobby        |
+| Type     | LobbyType        | if the lobby is public or private |
+| OwnerId  | Int64            | the userId of the lobby owner     |
+| Secret   | string (128 len) | the password to the lobby         |
+| Capacity | UInt32           | the max capacity of the lobby     |
 
 ###### LobbySearchComparison Enum
 
@@ -161,10 +161,10 @@ Returns `void`.
 
 ###### Parameters
 
-| name  | type   | description      |
-| ----- | ------ | ---------------- |
-| key   | string | key for the data |
-| value | string | data value       |
+| name  | type             | description      |
+| ----- | ---------------- | ---------------- |
+| key   | string (128 len) | key for the data |
+| value | string (128 len) | data value       |
 
 ###### Example
 
@@ -181,9 +181,9 @@ Returns `void`.
 
 ###### Parameters
 
-| name | type   | description      |
-| ---- | ------ | ---------------- |
-| key  | string | key for the data |
+| name | type             | description      |
+| ---- | ---------------- | ---------------- |
+| key  | string (128 len) | key for the data |
 
 ###### Example
 
@@ -200,10 +200,10 @@ Returns `void`.
 
 ###### Parameters
 
-| name  | type   | description      |
-| ----- | ------ | ---------------- |
-| key   | string | key for the data |
-| value | string | data value       |
+| name  | type             | description      |
+| ----- | ---------------- | ---------------- |
+| key   | string (128 len) | key for the data |
+| value | string (128 len) | data value       |
 
 ###### Example
 
@@ -220,9 +220,9 @@ Returns `void`.
 
 ###### Parameters
 
-| name | type   | description      |
-| ---- | ------ | ---------------- |
-| key  | string | key for the data |
+| name | type             | description      |
+| ---- | ---------------- | ---------------- |
+| key  | string (128 len) | key for the data |
 
 ###### Example
 
@@ -241,10 +241,10 @@ Returns `void`.
 
 | name  | type                  | description                                                                |
 | ----- | --------------------- | -------------------------------------------------------------------------- |
-| key   | string                | key to search for filter data                                              |
+| key   | string (128 len)      | key to search for filter data                                              |
 | comp  | LobbySearchComparison | how the value on the lobby metadata should be compared to the search value |
 | cast  | LobbySearchCast       | should the search value be cast as a string or a number                    |
-| value | string                | the value to filter against                                                |
+| value | string (128 len)      | the value to filter against                                                |
 
 ###### Example
 
@@ -261,11 +261,11 @@ Returns `void`.
 
 ###### Parameters
 
-| name  | type            | description                                             |
-| ----- | --------------- | ------------------------------------------------------- |
-| key   | string          | key for the data                                        |
-| cast  | LobbySearchCast | should the search value be cast as a string or a number |
-| value | string          | the value to sort by                                    |
+| name  | type             | description                                             |
+| ----- | ---------------- | ------------------------------------------------------- |
+| key   | string (128 len) | key for the data                                        |
+| cast  | LobbySearchCast  | should the search value be cast as a string or a number |
+| value | string (128 len) | the value to sort by                                    |
 
 ###### Example
 
@@ -424,10 +424,10 @@ Returns `Discord.Result` and `ref Discord.Lobby` via callback.
 
 ###### Parameters
 
-| name        | type   | description                      |
-| ----------- | ------ | -------------------------------- |
-| lobbyId     | Int64  | the lobby you want to connect to |
-| lobbySecret | string | the password for the lobby       |
+| name        | type                                       | description                      |
+| ----------- | ------------------------------------------ | -------------------------------- |
+| lobbyId     | Int64                                      | the lobby you want to connect to |
+| lobbySecret | string(128 len) the password for the lobby |
 
 ###### Example
 
@@ -592,10 +592,10 @@ Returns lobby metadata value for a given key and id. Can be used with iteration,
 
 ###### Parameters
 
-| name    | type   | description                            |
-| ------- | ------ | -------------------------------------- |
-| lobbyId | Int64  | the lobby you want to get metadata for |
-| key     | string | the key name to access                 |
+| name    | type             | description                            |
+| ------- | ---------------- | -------------------------------------- |
+| lobbyId | Int64            | the lobby you want to get metadata for |
+| key     | string (128 len) | the key name to access                 |
 
 ####### Example
 
@@ -723,11 +723,11 @@ Returns `string`.
 
 ####### Parameters
 
-| name    | type   | description                            |
-| ------- | ------ | -------------------------------------- |
-| lobbyId | Int64  | the lobby the member belongs to        |
-| userId  | Int64  | the id of the user to get metadata for |
-| key     | string | the metadata key to access             |
+| name    | type             | description                            |
+| ------- | ---------------- | -------------------------------------- |
+| lobbyId | Int64            | the lobby the member belongs to        |
+| userId  | Int64            | the id of the user to get metadata for |
+| key     | string (128 len) | the metadata key to access             |
 
 ###### Example
 
@@ -766,7 +766,7 @@ lobbyManager.UpdateMember(290926798626357250, 53908232506183680, txn, (result) =
 });
 ```
 
-## Send
+## SendMessage
 
 Sends a message to the lobby on behalf of the current user. You must be connected to the lobby you are messaging.
 
@@ -782,7 +782,7 @@ Returns `void`.
 ###### Example
 
 ```cs
-lobbyManager.Send(290926798626357250, Encoding.UTF8.GetBytes("hey."));
+lobbyManager.SendMessage(290926798626357250, Encoding.UTF8.GetBytes("hey."));
 ```
 
 ## CreateLobbySearch
@@ -913,7 +913,7 @@ lobbyManager.VoiceDisconnect(290926798626357250, (result) =>
 });
 ```
 
-## OnLobbyUpdate
+## OnUpdate
 
 Fires when a lobby is updated.
 
@@ -923,7 +923,7 @@ Fires when a lobby is updated.
 | ------- | ----- | ------------------ |
 | lobbyId | Int64 | lobby that updated |
 
-## OnLobbyDelete
+## OnDelete
 
 Fired when a lobby is deleted.
 
@@ -934,7 +934,7 @@ Fired when a lobby is deleted.
 | lobbyId | Int64  | lobby that was deleted                         |
 | reason  | string | reason for deletion - this is a system message |
 
-## OnLobbyMemberJoin
+## OnMemberConnect
 
 Fires when a new member joins the lobby.
 
@@ -945,7 +945,7 @@ Fires when a new member joins the lobby.
 | lobbyId | Int64 | lobby the user joined |
 | userId  | Int64 | user that joined      |
 
-## OnLobbyMemberUpdate
+## OnMemberUpdate
 
 Fires when data for a lobby member is updated.
 
@@ -956,7 +956,7 @@ Fires when data for a lobby member is updated.
 | lobbyId | Int64 | lobby the user is a member of |
 | userId  | Int64 | user that was updated         |
 
-## OnLobbyMemberDisconnect
+## OnMemberDisconnect
 
 Fires when a member leaves the lobby.
 
@@ -967,7 +967,7 @@ Fires when a member leaves the lobby.
 | lobbyId | Int64 | lobby the user was a member of |
 | userId  | Int64 | user that left                 |
 
-## OnLobbyMessage
+## OnMessage
 
 Fires when a message is sent to the lobby.
 
@@ -979,7 +979,7 @@ Fires when a message is sent to the lobby.
 | userId  | Int64  | user that sent the message   |
 | data    | byte[] | the message contents         |
 
-## OnLobbySpeaking
+## OnSpeaking
 
 Fires when a user connected to voice starts or stops speaking.
 
@@ -999,8 +999,8 @@ If you are creating lobbies for users in the game client, and not on a backend s
 
 ```cs
 var discord = new Discord.Discord(clientId, Discord.CreateFlags.Default);
-var LobbyManager = Discord.CreateLobbyManager();
-var ActivityManager = Discord.CreateActivityManager();
+var LobbyManager = Discord.GetLobbyManager();
+var ActivityManager = Discord.GetActivityManager();
 
 // Create a lobby
 var txn = LobbyManager.CreateLobbyTransaction();

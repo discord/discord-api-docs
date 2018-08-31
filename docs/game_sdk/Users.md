@@ -9,12 +9,13 @@ This manager helps retrieve basic user information for any user on Discord.
 
 ###### User Struct
 
-| name          | type   | description                        |
-| ------------- | ------ | ---------------------------------- |
-| Id            | Int64  | unique Discord id                  |
-| Username      | string | user's name                        |
-| Discriminator | string | the four digits after the username |
-| Avatar        | string | hash of user's avatar              |
+| name          | type             | description                   |
+| ------------- | ---------------- | ----------------------------- |
+| Id            | Int64            | the user's id                 |
+| Username      | string (256 len) | their name                    |
+| Discriminator | string (8 len)   | the user's unique discrim     |
+| Avatar        | string (128 len) | the hash of the user's avatar |
+| Bot           | bool             | if the user is a bot user     |
 
 ## GetCurrentUser
 
@@ -71,7 +72,7 @@ Fires when the `User` struct of the currently connected user changes. They may h
 ```cs
 var discord = new Discord.Discord(clientId, Discord.CreateFlags.Default);
 
-var UserManager = discord.CreateUserManager();
+var UserManager = discord.GetUserManager();
 UserManager.Fetch(450795363658366976, (Discord.Result result, ref Discord.User user) =>
 {
   if (result == Discord.Result.Ok)
