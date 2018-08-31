@@ -5,7 +5,7 @@
 
 Discord is like a book; it's better with pictures. The image manager helps you fetch image data for images in Discord, including user's avatars. They worked hard to pick out those photos and gifs. Show them you care, too.
 
-## Models
+## Data Models
 
 ###### ImageDimensions Struct
 

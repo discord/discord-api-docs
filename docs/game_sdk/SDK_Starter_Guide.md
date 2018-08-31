@@ -93,17 +93,17 @@ Now we're gonna start coding. Didn't think we'd get three so fast, did ya? _Thin
 
 ## Code Primer - Unity (C#)
 
-1.  Open up that SDK zip that you downloaded.
-2.  Copy the contents of the `lib/` folder to `Assets/Plugins` in your Unity project
-3.  Copy the contents of the `csharp/` folder to `Assets/Plugins/DiscordGameSDK`
-4.  It's dangerous to go alone—take this small code block with you (to start)!
+- Open up that SDK zip that you downloaded.
+- Copy the contents of the `lib/` folder to `Assets/Plugins` in your Unity project
+- Copy the contents of the `csharp/` folder to `Assets/Plugins/DiscordGameSDK`
+- It's dangerous to go alone—take this small code block with you (to start)!
 
 ```cs
 // Grab that Client ID from earlier
 var discord = new Discord.Discord(CLIENT_ID, Discord.CreateFlags.Default);
 ```
 
-5.  Make sure to call `discord.RunCallbacks()` in your main game loop; for Unity, that's your `Update()` function.
+- Make sure to call `discord.RunCallbacks()` in your main game loop; for Unity, that's your `Update()` function.
 
 During development, Discord will focus itself to ask for permission when you initialize the SDK. This will happen once a week (the duration of our OAuth2 tokens) for now, but will not happen at all in production.
 
@@ -111,12 +111,13 @@ You're ready to go! Check out the rest of the documentation for more info on how
 
 ## Code Primer - Unreal Engine 4 (C)
 
+> info
 > An Unreal plugin is planned, however, you can use either the C or C++ bindings with Unreal today.
 
-1.  Open up that SDK zip that you downloaded.
-2.  Copy the contents of the `lib/` folder to the best location within your project for DLLs.
-3.  Copy the contents of the `c/` folder to your source directory
-4.  It's dangerous to go alone—take this small code block with you (to start)!
+- Open up that SDK zip that you downloaded.
+- Copy the contents of the `lib/` folder to the best location within your project for DLLs.
+- Copy the contents of the `c/` folder to your source directory
+- It's dangerous to go alone—take this small code block with you (to start)!
 
 ```c
 struct Application {
@@ -140,7 +141,7 @@ params.event_data = &app;
 DiscordCreate(0, &params, &app.core);
 ```
 
-5.  Make sure to call `core->run_callbacks(core, 0)` in your game loop.
+- Make sure to call `core->run_callbacks(core, 0)` in your game loop.
 
 During development, Discord will focus itself to ask for permission when you initialize the SDK. This will happen once a week (the duration of our OAuth2 tokens) for now, but will not happen at all in production.
 
@@ -150,10 +151,10 @@ You're ready to go! Check out the rest of the documentation for more info on how
 
 > The C++ API shape is still in flux. Expect future revisions to not return discord::Result for every method and a shift from out parameters to return values.
 
-1.  Open up that SDK zip that you downloaded.
-2.  Copy the contents of the `lib/` folder to the best location within your project for DLLs.
-3.  Copy the contents of the `cpp/` folder to your source directory
-4.  It's dangerous to go alone—take this small code block with you (to start)!
+- Open up that SDK zip that you downloaded.
+- Copy the contents of the `lib/` folder to the best location within your project for DLLs.
+- Copy the contents of the `cpp/` folder to your source directory
+- It's dangerous to go alone—take this small code block with you (to start)!
 
 ```cpp
 // Don't forget to memset or otherwise initialize your classes!
@@ -161,7 +162,7 @@ discord::Core* core{};
 auto result = discord::Core::Create(CLIENT_ID, DiscordCreateFlags_Default, &core);
 ```
 
-5.  Make sure to call `core->RunCallbacks()` in your game loop
+- Make sure to call `core->RunCallbacks()` in your game loop
 
 During development, Discord will focus itself to ask for permission when you initialize the SDK. This will happen once a week (the duration of our OAuth2 tokens) for now, but will not happen at all in production.
 

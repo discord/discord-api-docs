@@ -18,8 +18,6 @@ Discord comes with an awesome built-in overlay, and you may want to make use of 
 | Join     |
 | Spectate |
 
-## Methods
-
 ## IsEnabled
 
 Check whether the user has the overlay enabled or disabled. You probably want to make this check before attempting to interact with the overlay.

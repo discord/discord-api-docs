@@ -71,9 +71,9 @@ SetLogHook(LogLevel level, LogProblemsFunction callback);
 
 You should begin your integration by setting up this callback to help you debug. Helpfully, if you put a breakpoint inside the callback function you register here, you'll be able to see the stack trace for errors you run into (as long as they fail synchronously). Take the guess work out of debugging, or hey, ignore any and all logging by setting a callback that does nothing. We're not here to judge.
 
-## Models
+## Data Models
 
-####### Result Enum
+###### Result Enum
 
 | Value               | Description                                                                    |
 | ------------------- | ------------------------------------------------------------------------------ |

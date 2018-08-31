@@ -49,7 +49,7 @@ LobbyManager.CreateLobby(txn, (result, lobby) =>
 });
 ```
 
-## Models
+## Data Models
 
 ###### LobbyType Enum
 

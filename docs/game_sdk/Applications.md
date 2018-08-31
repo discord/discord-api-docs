@@ -11,7 +11,9 @@ These bearer tokens are good for seven days, after which they will expire. When 
 
 This manager also includes a couple useful helper functions, like getting the locale in which the user has chosen to use their Discord client, and knowing which game branch the game is running on. More about branches in the Dispatch CLI tool section of the documentation.
 
-## OAuth2Token Struct
+## Data Models
+
+###### OAuth2Token Struct
 
 | name        | type   | description                                                                                     |
 | ----------- | ------ | ----------------------------------------------------------------------------------------------- |
@@ -90,7 +92,7 @@ None
 ###### Example
 
 ```cs
-void ValidateOrExit((result) =>
+applicationManager.ValidateOrExit((result) =>
 {
   if (result == Discord.Result.OK)
   {
