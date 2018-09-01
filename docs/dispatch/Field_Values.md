@@ -169,7 +169,9 @@
 | controller_support   | has controller support                      |
 | cloud_saves          | offers cloud saves                          |
 
-## Price Tiers
+## Pricing
+
+###### Price Tiers
 
 | Tier   | USD Value |
 | ------ | --------- |
@@ -214,7 +216,7 @@
 | 14999  | $149.99   |
 | 19999  | $199.99   |
 
-## Supported Third Party Currencies
+###### Supported Third Party Currencies
 
 | Currency Code | Currency          |
 | ------------- | ----------------- |
