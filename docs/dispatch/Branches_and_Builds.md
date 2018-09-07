@@ -271,6 +271,24 @@ dispatch branch list <application_id>
 
 And look for a `LIVE_BUILD_ID` under your application!
 
+## Downloading a Build for Testing
+
+Now that you've got a build pushed and published, we should make sure that what you've sent out into the world works as intended. You can download your published build on a given branch to your local machine with the command:
+
+```
+dispatch build update <application_id> <branch_id> <install_path> <install_path>/MANIFEST --platform <value> --locale <value>
+```
+
+`install_path` is any filepath on your local machine; this is where the files will be downloaded to. `install_path/MANIFEST` means to append `/MANIFEST` (or `\MANIFEST` in Windows land) to the install path; this is where the config file from the server will be downloaded. `--platform` and `--locale` are whatever values you set as valid platforms and locales in your config file for a given build. The default probably looks something like `win64` and `en-US`.
+
+Here's an example of the command with our info:
+
+```
+dispatch build update 467102538279999224 456889899375659999 C:\my-game C:\my-game\MANIFEST --platform win64 --locale en-US
+```
+
+Now you can run the executable for your game in that directory and make sure it works!
+
 ## Patching
 
 If you need to push out a patch or a new build, no problem! Just repeat the process:
