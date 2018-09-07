@@ -47,7 +47,7 @@ Publishes a given build from a given branch
 `dispatch build push <application_id> <branch_id> <path_to_config>`  
 Pushes as build to branch with the given manifests
 
-`dispatch build update <application_id> <branch_id> <install_path> <install_path>/MANIFEST --platform <value> --locale <value>`  
+`dispatch build update <application_id> <branch_id> <install_path> --platform <value> --locale <value>`  
 Downloads the build for the given application id and branch id to the given install path, for the given platform and locale. `install_path` can be any file path on your machine to download the build to
 
 `dispatch build verify`  
