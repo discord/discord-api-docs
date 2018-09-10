@@ -34,9 +34,9 @@ var user = userManager.GetCurrentUser();
 Console.WriteLine("Connected to user {0}", user.Id);
 ```
 
-## Fetch
+## GetUser
 
-Fetch user information for a given id.
+Get user information for a given id.
 
 Returns a `Discord.Result` and `User` via callback.
 
@@ -49,9 +49,10 @@ Returns a `Discord.Result` and `User` via callback.
 ###### Example
 
 ```cs
-void Fetch(Int64 userId, (result, user) =>
+userManager.GetUser(userId, (result, user) =>
 {
-  if (result == Discord.Result.OK) {
+  if (result == Discord.Result.OK)
+  {
     Console.WriteLine("User {0} is {1}", user.Id, user.Username);
   }
 });
@@ -73,7 +74,7 @@ Fires when the `User` struct of the currently connected user changes. They may h
 var discord = new Discord.Discord(clientId, Discord.CreateFlags.Default);
 
 var UserManager = discord.GetUserManager();
-UserManager.Fetch(450795363658366976, (result, user) =>
+UserManager.GetUser(450795363658366976, (result, user) =>
 {
   if (result == Discord.Result.Ok)
   {

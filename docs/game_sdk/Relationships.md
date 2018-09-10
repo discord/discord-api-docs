@@ -84,7 +84,7 @@ var friend = relationshipsManager.Get(53908232506183680);
 Console.WriteLine("This is my friend, {0}", friend.User.Username);
 ```
 
-## At
+## GetAt
 
 Get the relationship at a given index when iterating over a list of relationships.
 
@@ -101,7 +101,7 @@ Returns a `Relationship`.
 ```cs
 for (int i = 0; i < relationshipsManager.Count(); i++)
 {
-  var r = relationshipsManager.At(i);
+  var r = relationshipsManager.GetAt(i);
   Console.WriteLine("This person is {0}", r.User.Username);
 }
 ```
@@ -126,15 +126,15 @@ for (int i = 0; i < relationshipsManager.Count(); i++)
 }
 ```
 
-## OnUpdateAll
+## OnRefresh
 
-Fires in response to `Filter()` when relationships have been filtered and the list is stable and ready for access.
+Fires when the filtered relationship list has been reset to default, usually because of a reconnection to Discord.
 
 ###### Parameters
 
 None
 
-## OnUpdate
+## OnRelationshipUpdate
 
 Fires when a relationship in the filtered list changes, like an updated presence or user attribute.
 
@@ -147,7 +147,7 @@ Fires when a relationship in the filtered list changes, like an updated presence
 ###### Example
 
 ```cs
-OnUpdate += relationship =>
+OnRelationshipUpdate += relationship =>
 {
   Console.WriteLine("Who changed? {0}", relationship.User.Id);
 };
@@ -161,27 +161,25 @@ var RelationshipManager = discord.GetRelationshipManager();
 
 // Assign this handle right away to get the initial relationships update.
 // This callback will only be fired when the whole list is initially loaded or was reset
-RelationshipManager.OnUpdateAll += () =>
+
+// Filter a user's relationship list to be just friends
+RelationshipManager.Filter((relationship) =>
 {
-  // Filter a user's relationship list to be just friends
-  RelationshipManager.Filter((relationship) =>
-  {
-    return relationship.Type == Discord.RelationshipType.Friend;
-  });
+  return relationship.Type == Discord.RelationshipType.Friend;
+});
 
-  // Loop over all friends a user has.
-  Console.WriteLine("relationships updated: {0}", RelationshipManager.Count());
+// Loop over all friends a user has.
+Console.WriteLine("relationships updated: {0}", RelationshipManager.Count());
 
-  for (var i = 0; i < Math.Min(RelationshipManager.Count(), 10); i++)
-  {
-      // Get an individual relationship from the list
-      var r = RelationshipManager.At((uint)i);
-      Console.WriteLine("relationships: {0} {1}", r.Type, r.User.Username);
+for (var i = 0; i < Math.Min(RelationshipManager.Count(), 10); i++)
+{
+    // Get an individual relationship from the list
+    var r = RelationshipManager.At((uint)i);
+    Console.WriteLine("relationships: {0} {1}", r.Type, r.User.Username);
 
-      // Request relationship's avatar data.
-      FetchAvatar(ImageManager, r.User.Id);
-  }
-};
+    // Request relationship's avatar data.
+    FetchAvatar(ImageManager, r.User.Id);
+}
 ```
 
 ## Example: Invite Users Who Are Playing the Same Game

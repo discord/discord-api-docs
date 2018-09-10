@@ -206,7 +206,7 @@ for (int i = 0; i < numFiles; i++)
 }
 ```
 
-## StatIndex
+## StatAt
 
 Returns file info for the given index when iterating over files.
 
@@ -224,7 +224,7 @@ Returns a `FileStat`.
 var numFiles = storageManager.Count();
 for (int i = 0; i < numFiles; i++)
 {
-  var file = storageManager.StatIndex(i);
+  var file = storageManager.StatAt(i);
   Console.WriteLine("File is {0}", file.Name);
 }
 ```
@@ -246,7 +246,7 @@ storageManager.WriteAsync("foo", contents, res =>
     // Get our list of files and iterate over it
     for (int i = 0; i < storageManager.Count(); i++)
     {
-        var file = storageManager.StatIndex(i);
+        var file = storageManager.StatAt(i);
         Console.WriteLine("file: {0} size: {1} last_modified: {2}", file.Filename, file.Size, file.LastModified);
     }
 

@@ -103,9 +103,9 @@ overlayManager.OpenActivityInvite(Discord.ActivityActionType.Join, (result) =>
 });
 ```
 
-## OnLocked
+## OnToggle
 
-Fires when the overlay is locked or unlocked
+Fires when the overlay is locked or unlocked (a.k.a. opened or closed)
 
 ###### Parameters
 

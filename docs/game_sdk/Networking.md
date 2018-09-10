@@ -27,7 +27,7 @@ None
 ###### Example
 
 ```cs
-var sid = networkManager.GetSessionId();
+var sid = networkManager.GetPeerId();
 ```
 
 ## Flush
@@ -73,7 +73,7 @@ var playerAPeerId = 1234;
 networkManager.OpenChannel(playerAPeerId, 0, false);
 ```
 
-## ConnectPeer
+## OpenPeer
 
 Opens a network connection to another Discord user.
 
@@ -89,7 +89,7 @@ Returns `void`.
 ###### Example
 
 ```cs
-networkManager.OpenRemote(1, 2222);
+networkManager.OpenPeer(1, 2222);
 ```
 
 ## UpdatePeer
@@ -117,17 +117,17 @@ networkManager.OnRouteUpdate += (route) =>
 
 ## SendMessage
 
-Sends data to a given sessionid through the given channel.
+Sends data to a given peer id through the given channel.
 
 Returns `void`.
 
 ###### Parameters
 
-| name            | type   | description                     |
-| --------------- | ------ | ------------------------------- |
-| remoteSessionId | UInt64 | the session id to connect to    |
-| channelId       | byte   | the channel on which to connect |
-| data            | byte[] | the data to send                |
+| name      | type   | description                     |
+| --------- | ------ | ------------------------------- |
+| peerId    | UInt64 | the peer id to connect to       |
+| channelId | byte   | the channel on which to connect |
+| data      | byte[] | the data to send                |
 
 ###### Example
 
@@ -161,7 +161,7 @@ networkManager.CloseChannel(playerAPeerId, 0);
 Console.WriteLine("Connection to {0} closed", playerAPeerId);
 ```
 
-## DisconnectPeer
+## ClosePeer
 
 Disconnects the network session to another Discord user.
 
@@ -179,7 +179,7 @@ Returns `void`.
 ```cs
 // In reality, you'd fetch this from their lobby metadata
 var playerAPeerId = 1234;
-networkManager.DisconnectPeer(playerAPeerId, 0);
+networkManager.ClosePeer(playerAPeerId, 0);
 ```
 
 ## OnMessage
@@ -188,19 +188,19 @@ Fires when you receive data from another user. This callback will only fire if y
 
 ###### Parameters
 
-| name            | type   | description                  |
-| --------------- | ------ | ---------------------------- |
-| senderSessionId | UInt64 | the session id of the sender |
-| channel         | byte   | the channel it was sent on   |
-| data            | byte[] | the data sent                |
+| name      | type   | description                |
+| --------- | ------ | -------------------------- |
+| peerId    | UInt64 | the peer id of the sender  |
+| channelId | byte   | the channel it was sent on |
+| data      | byte[] | the data sent              |
 
 ###### Example
 
 ```cs
-OnMessage += (senderSessionId, channel, data) =>
+OnMessage += (peerId, channel, data) =>
 {
   var stringData = Encoding.UTF8.GetString(data);
-  Console.WriteLine("Message from {0}: {1}", senderSessionId, stringData)
+  Console.WriteLine("Message from {0}: {1}", peerId, stringData)
 }
 ```
 
@@ -219,7 +219,7 @@ Fires when the networking route to the user has changed. You should then call `U
 ```cs
 OnRouteUpdate+= (route) =>
 {
-  networkManager.UpdateRoute(1, route);
+  networkManager.UpdatePeer(1, route);
 }
 ```
 

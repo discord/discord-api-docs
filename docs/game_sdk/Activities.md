@@ -95,7 +95,7 @@ For more detailed information and documentation around the Rich Presence feature
 | Join     | 1     |
 | Spectate | 2     |
 
-## Register
+## RegisterCommand
 
 Registers a command by which Discord can launch your game. This might be a custom protocol, like `my-awesome-game://`, or a path to an executable. It also supports any lauch parameters that may be needed, like `game.exe --full-screen --no-hax`.
 
@@ -110,7 +110,7 @@ Returns `void`.
 ###### Example
 
 ```cs
-activitiesManager.Register("my-awesome-game://run --full-screen");
+activitiesManager.RegisterCommand("my-awesome-game://run --full-screen");
 ```
 
 ## RegisterSteam
@@ -201,7 +201,30 @@ activitiesManager.ClearActivity((result) =>
 });
 ```
 
-## InviteUser
+## SendRequestReply
+
+Sends a reply to an Ask to Join request.
+
+Returns a `Discord.Result` via callback.
+
+###### Paramerters
+
+| name   | type                     | description                                 |
+| ------ | ------------------------ | ------------------------------------------- |
+| userId | Int64                    | the user id of the person who asked to join |
+| reply  | ActivityJoinRequestReply | No, Yes, or Ignore                          |
+
+###### Example
+
+```cs
+UserManager.OnActivityJoinRequest += user =>
+{
+    Console.WriteLine("Join request from: {0}", user.Id);
+    UserManager.SendRequestReply(user.Id, Discord.ActivityJoinRequestReply.Yes);
+}
+```
+
+## SendInvite
 
 Sends a game invite to a given user.
 
@@ -259,7 +282,7 @@ activityManager.AcceptInvite(290926444748734466, (result) =>
 });
 ```
 
-## OnJoin
+## OnActivityJoin
 
 Fires when a user accepts a game chat invite or receives confirmation from Asking to Join.
 
@@ -269,7 +292,7 @@ Fires when a user accepts a game chat invite or receives confirmation from Askin
 | ---------- | ------ | ---------------------------------- |
 | joinSecret | string | the secret to join the user's game |
 
-## OnSpectate
+## OnActivitySpectate
 
 Fires when a user accepts a spectate chat invite or clicks the Spectate button on a user's profile.
 
@@ -279,7 +302,7 @@ Fires when a user accepts a spectate chat invite or clicks the Spectate button o
 | -------------- | ------ | ------------------------------------------------- |
 | spectateSecret | string | the secret to join the user's game as a spectator |
 
-## OnJoinRequest
+## OnActivityJoinRequest
 
 Fires when a user asks to join the current user's game.
 
@@ -289,7 +312,7 @@ Fires when a user asks to join the current user's game.
 | ---- | ---- | ----------------------- |
 | user | User | the user asking to join |
 
-## OnInvite
+## OnActivityInvite
 
 Fires when the user receives a join or spectate invite.
 
