@@ -95,9 +95,11 @@ For more detailed information and documentation around the Rich Presence feature
 | Join     | 1     |
 | Spectate | 2     |
 
-## Register
+## RegisterCommand
 
 Registers a command by which Discord can launch your game. This might be a custom protocol, like `my-awesome-game://`, or a path to an executable. It also supports any lauch parameters that may be needed, like `game.exe --full-screen --no-hax`.
+
+On macOS, due to the way Discord registers executables, your game needs to be bundled for this command to work. That means it should be a `.app`.
 
 Returns `void`.
 
@@ -110,7 +112,7 @@ Returns `void`.
 ###### Example
 
 ```cs
-activitiesManager.Register("my-awesome-game://run --full-screen");
+activityManager.RegisterCommand("my-awesome-game://run --full-screen");
 ```
 
 ## RegisterSteam
@@ -128,7 +130,7 @@ Returns `void`.
 ###### Example
 
 ```cs
-activitiesManager.RegisterSteam(1938123);
+activityManager.RegisterSteam(1938123);
 ```
 
 ## UpdateActivity
@@ -143,16 +145,6 @@ Returns a `Discord.Result` via callback.
 | -------- | -------- | ----------------------------- |
 | activity | Activity | the new activity for the user |
 
-###### Possible Results
-
-| error          | description                            |
-| -------------- | -------------------------------------- |
-| OK             | success                                |
-| InvalidPayload | data was malformed                     |
-| InvalidSecret  | secrets must be unique from each other |
-| NotInstalled   | Discord is not installed               |
-| NotRunning     | Discord is not running                 |
-
 ###### Example
 
 ```cs
@@ -162,7 +154,7 @@ activity.Details = "In Game";
 activity.Party.Size = 1;
 activity.Party.Max = 4;
 
-activitiesManager.UpdateActivity(activity, (result) =>
+activityManager.UpdateActivity(activity, (result) =>
 {
     if (result == Discord.Result.OK)
     {
@@ -188,7 +180,7 @@ None
 ###### Example
 
 ```cs
-activitiesManager.ClearActivity((result) =>
+activityManager.ClearActivity((result) =>
 {
     if (result == Discord.Result.OK)
     {
@@ -201,7 +193,30 @@ activitiesManager.ClearActivity((result) =>
 });
 ```
 
-## InviteUser
+## SendRequestReply
+
+Sends a reply to an Ask to Join request.
+
+Returns a `Discord.Result` via callback.
+
+###### Paramerters
+
+| name   | type                     | description                                 |
+| ------ | ------------------------ | ------------------------------------------- |
+| userId | Int64                    | the user id of the person who asked to join |
+| reply  | ActivityJoinRequestReply | No, Yes, or Ignore                          |
+
+###### Example
+
+```cs
+activityManager.OnActivityJoinRequest += user =>
+{
+    Console.WriteLine("Join request from: {0}", user.Id);
+    activityManager.SendRequestReply(user.Id, Discord.ActivityJoinRequestReply.Yes);
+}
+```
+
+## SendInvite
 
 Sends a game invite to a given user.
 
@@ -259,7 +274,7 @@ activityManager.AcceptInvite(290926444748734466, (result) =>
 });
 ```
 
-## OnJoin
+## OnActivityJoin
 
 Fires when a user accepts a game chat invite or receives confirmation from Asking to Join.
 
@@ -269,7 +284,7 @@ Fires when a user accepts a game chat invite or receives confirmation from Askin
 | ---------- | ------ | ---------------------------------- |
 | joinSecret | string | the secret to join the user's game |
 
-## OnSpectate
+## OnActivitySpectate
 
 Fires when a user accepts a spectate chat invite or clicks the Spectate button on a user's profile.
 
@@ -279,7 +294,7 @@ Fires when a user accepts a spectate chat invite or clicks the Spectate button o
 | -------------- | ------ | ------------------------------------------------- |
 | spectateSecret | string | the secret to join the user's game as a spectator |
 
-## OnJoinRequest
+## OnActivityJoinRequest
 
 Fires when a user asks to join the current user's game.
 
@@ -289,7 +304,7 @@ Fires when a user asks to join the current user's game.
 | ---- | ---- | ----------------------- |
 | user | User | the user asking to join |
 
-## OnInvite
+## OnActivityInvite
 
 Fires when the user receives a join or spectate invite.
 
@@ -341,14 +356,14 @@ var activity = new Discord.Activity
   Instance = true,
 };
 
-ActivityManager.UpdateActivity(activity, (result) =>
+activityManager.UpdateActivity(activity, (result) =>
 {
     Console.WriteLine("Update Activity {0}", result);
 
     // Send an invite to another user for this activity.
     // Receiver should see an invite in their DM.
     // Use a relationship user's ID for this.
-    ActivityManager.InviteUser(364843917537050999, Discord.ActivityActionType.Join, "", (inviteUserResult) =>
+    activityManager.InviteUser(364843917537050999, Discord.ActivityActionType.Join, "", (inviteUserResult) =>
     {
         Console.WriteLine("Invite User {0}", inviteUserResult);
     });

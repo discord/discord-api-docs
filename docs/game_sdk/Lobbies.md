@@ -22,7 +22,7 @@ To update a user or a lobby, create or get a transaction for that resource, call
 ### Example: Creating a Lobby
 
 ```cs
-var LobbyManager = discord.GetLobbyManager();
+var lobbyManager = discord.GetLobbyManager();
 
 // Create the transaction
 var txn = LobbyManager.CreateLobbyTransaction();
@@ -33,16 +33,16 @@ txn.SetType(Discord.LobbyType.Public);
 txn.SetMetadata("a", "123");
 
 // Create it!
-LobbyManager.CreateLobby(txn, (result, lobby) =>
+lobbyManager.CreateLobby(txn, (result, lobby) =>
 {
   Console.WriteLine("lobby {0} created with secret {1}", lobby.Id, lobby.Secret);
 
   // We want to update the capacity of the lobby
   // So we get a new transaction for the lobby
-  var newTxn = LobbyManager.GetLobbyTransaction(lobby.id);
+  var newTxn = lobbyManager.GetLobbyUpdateTransaction(lobby.id);
   newTxn.SetCapacity(5);
 
-  LobbyManager.UpdateLobby(lobby.id, newTxn, (result, newLobby) =>
+  lobbyManager.UpdateLobby(lobby.id, newTxn, (result, newLobby) =>
   {
     Console.WriteLine("lobby {0} updated", newLobby.Id);
   });
@@ -94,7 +94,7 @@ Has no values, but has member functions, outlined later.
 
 Has no values, but has member functions, outlined later.
 
-###### LobbySearch Struct
+###### LobbySearchQuery Struct
 
 Has no values, but has member functions, outlined later.
 
@@ -249,7 +249,7 @@ Returns `void`.
 ###### Example
 
 ```cs
-var query = new LobbyManager.CreateLobbySearch();
+var query = lobbyManager.GetSearchQuery();
 query.LobbySearchFilter("metadata.matchmaking_rating", LobbySearchComparison.GreaterThan, LobbySearchCast.Number, "455");
 ```
 
@@ -270,7 +270,7 @@ Returns `void`.
 ###### Example
 
 ```cs
-var query = new LobbyManager.CreateLobbySearch();
+var query = lobbyManager.GetSearchQuery();
 query.LobbySearchSort("metadata.ELO", LobbySearchCast.Number, "1337");
 ```
 
@@ -289,13 +289,13 @@ Returns `void`.
 ###### Example
 
 ```cs
-var query = new LobbyManager.CreateLobbySearch();
+var query = lobbyManager.GetSearchQuery();
 query.Limit(10);
 ```
 
-## CreateLobbyTransaction
+## GetLobbyCreateTransaction
 
-Creates a new lobby transaction; used when creating a new lobby.
+Gets a Lobby transaction used for creating a new lobby
 
 Returns a `Discord.LobbyTransaction`.
 
@@ -306,12 +306,12 @@ None
 ###### Example
 
 ```cs
-var txn = lobbyManager.CreateLobbyTransaction();
+var txn = lobbyManager.GetLobbyCreateTransaction();
 ```
 
-## GetLobbyTransaction
+## GetLobbyUpdateTransaction
 
-Gets a new lobby transaction for an existing lobby.
+Gets a lobby transaction used for updating an existing lobby.
 
 Returns a `Discord.LobbyTransaction`.
 
@@ -324,10 +324,10 @@ Returns a `Discord.LobbyTransaction`.
 ###### Example
 
 ```cs
-var txn = lobbyManager.GetLobbyTransaction(290926798626357250);
+var txn = lobbyManager.GetLobbyUpdateTransaction(290926798626357250);
 ```
 
-## GetMemberTransaction
+## GetMemberUpdateTransaction
 
 Gets a new member transaction for a lobby member in a given lobby.
 
@@ -343,7 +343,7 @@ Returns a `Discord.LobbyMemberTransaction`.
 ###### Example
 
 ```cs
-var txn = lobbyManager.GetMemberTransaction(290926798626357250, 53908232506183680);
+var txn = lobbyManager.GetMemberUpdateTransaction(290926798626357250, 53908232506183680);
 ```
 
 ## CreateLobby
@@ -419,7 +419,7 @@ lobbymanager.DeleteLobby(290926798626357250, (result) =>
 });
 ```
 
-## Connect
+## ConnectLobby
 
 Connects the current user to a given lobby. You can be connected to up to five lobbies at a time.
 
@@ -435,7 +435,7 @@ Returns `Discord.Result` and `ref Discord.Lobby` via callback.
 ###### Example
 
 ```cs
-lobbyManager.Connect(290926798626357250, "363446008341987328:123123", (result, lobby) =>
+lobbyManager.ConnectLobby(290926798626357250, "363446008341987328:123123", (result, lobby) =>
 {
   if (result == Discord.Result.OK)
   {
@@ -444,7 +444,7 @@ lobbyManager.Connect(290926798626357250, "363446008341987328:123123", (result, l
 });
 ```
 
-## ConnectWithActivitySecret
+## ConnectLobbyWithActivitySecret
 
 Connects the current user to a lobby; requires the special activity secret from the lobby which is a concatenated lobbyId and secret.
 
@@ -459,7 +459,7 @@ Returns `Discord.Result` and `ref Discord.Lobby` via callback.
 ###### Example
 
 ```cs
-lobbyManager.ConnectWithActivitySecret("363446008341987328:123123", (result, lobby) =>
+lobbyManager.ConnectLobbyWithActivitySecret("363446008341987328:123123", (result, lobby) =>
 {
   if (result == Discord.Result.OK)
   {
@@ -507,7 +507,7 @@ ActivityManager.UpdateActivity(activity, (result) =>
 });
 ```
 
-## Disconnect
+## DisconnectLobby
 
 Disconnects the current user from a lobby.
 
@@ -522,7 +522,7 @@ Returns `Discord.Result`.
 ###### Example
 
 ```cs
-lobbyManager.Disconnect(290926798626357250, (result) =>
+lobbyManager.DisconnectLobby(290926798626357250, (result) =>
 {
   if (result == Discord.Result.OK)
   {
@@ -549,7 +549,7 @@ Returns a `Discord.Lobby`.
 var lobby = lobbyManager.GetLobby(Int64 lobbyId);
 ```
 
-## GetLobbyMetadataCount
+## LobbyMetadataCount
 
 Returns the number of metadata key/value pairs on a given lobby. Used for accessing metadata by iterating over the list.
 
@@ -564,7 +564,7 @@ Returns `Int32`.
 ###### Example
 
 ```cs
-var count = lobbyManger.GetLobbyMetadataCount(290926798626357250);
+var count = lobbyManger.LobbyMetadataCount(290926798626357250);
 for (int i = 0; i < count; i++)
 {
   var value = lobbyManager.GetLobbyMetadataKey(290926798626357250, i);
@@ -611,7 +611,7 @@ Returns lobby metadata value for a given key and id. Can be used with iteration,
 var averageMmr = lobbyManger.GetLobbyMetadataValue(290926798626357250, "metadata.average_mmr");
 ```
 
-## GetMemberCount
+## MemberCount
 
 Get the number of members in a lobby.
 
@@ -626,7 +626,7 @@ Returns `Int32`.
 ###### Example
 
 ```cs
-var count = lobbyManager.GetMemberCount(290926798626357250);
+var count = lobbyManager.MemberCount(290926798626357250);
 for (int i = 0; i < count; i++)
 {
   var id = lobbyManager.GetMemberUserId(290926798626357250, i);
@@ -649,7 +649,7 @@ Returns `Int64`.
 ###### Example
 
 ```cs
-var count = lobbyManager.GetMemberCount(290926798626357250);
+var count = lobbyManager.MemberCount(290926798626357250);
 for (int i = 0; i < count; i++)
 {
   var id = lobbyManager.GetMemberUserId(290926798626357250, i);
@@ -672,7 +672,7 @@ Returns `Discord.User`.
 ###### Example
 
 ```cs
-var count = lobbyManager.GetMemberCount(290926798626357250);
+var count = lobbyManager.MemberCount(290926798626357250);
 for (int i = 0; i < count; i++)
 {
   var id = lobbyManager.GetMemberUserId(290926798626357250, i);
@@ -681,7 +681,7 @@ for (int i = 0; i < count; i++)
 }
 ```
 
-## GetMemberMetadataCount
+## MemberMetadataCount
 
 Gets the number of metadata key/value pairs for the given lobby member. Used for accessing metadata by iterating over a list.
 
@@ -697,7 +697,7 @@ Returns `Int32`.
 ###### Example
 
 ```cs
-var count = lobbyManager.GetMemberMetadataCount(290926798626357250, 53908232506183680);
+var count = lobbyManager.MemberMetadataCount(290926798626357250, 53908232506183680);
 for (int i = 0; i < count; i++)
 {
   var key = lobbyManager.GetMemberMetadataKey(290926798626357250, 53908232506183680, i);
@@ -721,7 +721,7 @@ Returns `string`.
 ###### Example
 
 ```cs
-var count = lobbyManager.GetMemberMetadataCount(290926798626357250, 53908232506183680);
+var count = lobbyManager.MemberMetadataCount(290926798626357250, 53908232506183680);
 for (int i = 0; i < count; i++)
 {
   var key = lobbyManager.GetMemberMetadataKey(290926798626357250, 53908232506183680, i);
@@ -745,7 +745,7 @@ Returns `string`.
 ###### Example
 
 ```cs
-var count = lobbyManager.GetMemberMetadataCount(290926798626357250, 53908232506183680);
+var count = lobbyManager.MemberMetadataCount(290926798626357250, 53908232506183680);
 for (int i = 0; i < count; i++)
 {
   var key = lobbyManager.GetMemberMetadataKey(290926798626357250, 53908232506183680, i);
@@ -801,11 +801,11 @@ Returns `void`.
 lobbyManager.SendMessage(290926798626357250, Encoding.UTF8.GetBytes("hey."));
 ```
 
-## CreateLobbySearch
+## GetSearchQuery
 
 Creates a search object to search available lobbies.
 
-Returns `Discord.LobbySearch`.
+Returns `Discord.LobbySearchQuery`.
 
 ###### Parameters
 
@@ -814,7 +814,7 @@ None
 ###### Example
 
 ```cs
-var search = lobbyManager.CreateLobbySearch();
+var search = lobbyManager.GetSearchQuery();
 ```
 
 ## Search
@@ -832,18 +832,18 @@ Returns `void`, and a parameter-less function callback.
 ###### Example
 
 ```cs
-var search = lobbyManger.CreateLobbySearch();
+var search = lobbyManger.GetSearchQuery();
 search.Filter("metadata.matchmaking_rating", LobbySearchComparison.GreaterThan, LobbySearchCast.Number, "455");
 search.Sort("metadata.matchmaking_rating", LobbySearchCast.Number, "456");
 search.Limit(10);
 lobbyManger.Search(search, () =>
 {
-  var count = lobbyManager.GetLobbyCount();
+  var count = lobbyManager.LobbyCount();
   Console.WriteLine("There are {0} lobbies that match your search criteria", count);
 });
 ```
 
-## GetLobbyCount
+## LobbyCount
 
 Get the number of lobbies that match the search.
 
@@ -858,7 +858,7 @@ None
 ```cs
 lobbyManger.Search(search, () =>
 {
-  var count = lobbyManager.GetLobbyCount();
+  var count = lobbyManager.LobbyCount();
   Console.WriteLine("There are {0} lobbies that match your search criteria", count);
 });
 ```
@@ -880,7 +880,7 @@ Returns `Int64`.
 ```cs
 lobbyManger.Search(search, () =>
 {
-  var count = lobbyManager.GetLobbyCount();
+  var count = lobbyManager.LobbyCount();
   for (int i = 0; i < count; i++)
   {
     var id = lobbyManager.GetLobbyId(i);
@@ -889,7 +889,7 @@ lobbyManger.Search(search, () =>
 });
 ```
 
-## VoiceConnect
+## ConnectVoice
 
 Connects to the voice channel of the current lobby.
 
@@ -904,7 +904,7 @@ Returns `Discord.Result` via callback.
 ###### Example
 
 ```cs
-lobbyManager.VoiceConnect(290926798626357250, (result) =>
+lobbyManager.ConnectVoice(290926798626357250, (result) =>
 {
   if (result == Discord.Result.OK)
   {
@@ -913,7 +913,7 @@ lobbyManager.VoiceConnect(290926798626357250, (result) =>
 });
 ```
 
-## VoiceDisconnect
+## DisconnectVoice
 
 Disconnects from the voice channel of a given lobby.
 
@@ -926,7 +926,7 @@ Disconnects from the voice channel of a given lobby.
 ###### Example
 
 ```cs
-lobbyManager.VoiceDisconnect(290926798626357250, (result) =>
+lobbyManager.DisconnectVoiceLobby(290926798626357250, (result) =>
 {
   if (result == Discord.Result.OK)
   {
@@ -935,7 +935,7 @@ lobbyManager.VoiceDisconnect(290926798626357250, (result) =>
 });
 ```
 
-## OnUpdate
+## OnLobbyUpdate
 
 Fires when a lobby is updated.
 
@@ -945,7 +945,7 @@ Fires when a lobby is updated.
 | ------- | ----- | ------------------ |
 | lobbyId | Int64 | lobby that updated |
 
-## OnDelete
+## OnLobbyDelete
 
 Fired when a lobby is deleted.
 
@@ -1021,18 +1021,18 @@ If you are creating lobbies for users in the game client, and not on a backend s
 
 ```cs
 var discord = new Discord.Discord(clientId, Discord.CreateFlags.Default);
-var LobbyManager = discord.GetLobbyManager();
-var ActivityManager = discord.GetActivityManager();
+var lobbyManager = discord.GetLobbyManager();
+var activityManager = discord.GetActivityManager();
 
 // Create a lobby
-var txn = LobbyManager.CreateLobbyTransaction();
+var txn = lobbyManager.GetLobbyCreateTransaction();
 txn.SetCapacity(5);
 txn.SetType(Discord.LobbyType.Private);
 
-LobbyManager.CreateLobby(txn, (result, lobby) =>
+lobbyManager.CreateLobby(txn, (result, lobby) =>
 {
   // Get the sepcial activity secret
-  var secret = LobbyManager.GetLobbyActivitySecret(lobby.id);
+  var secret = lobbyManager.GetLobbyActivitySecret(lobby.id);
 
   // Create a new activity
   // Set the party id to the lobby id, so everyone in the lobby has the same value
@@ -1053,11 +1053,11 @@ LobbyManager.CreateLobby(txn, (result, lobby) =>
     }
   };
 
-  ActivityManager.UpdateActivity(activity, (result) =>
+  activityManager.UpdateActivity(activity, (result) =>
   {
     // Now, you can send chat invites, or others can ask to join
     // When other clients receive the OnActivityJoin() event, they'll receive the special activity secret
-    // They can then directly call LobbyManager.ConnectWithActivitySecret() and be put into the lobby together
+    // They can then directly call lobbyManager.ConnectLobbyWithActivitySecret() and be put into the lobby together
   })
 });
 ```
@@ -1070,7 +1070,7 @@ If you are creating lobbies with your own backend system (see the section below)
 var discord = new Discord.Discord(clientId, Discord.CreateFlags.Default);
 
 // Search lobbies.
-var query = LobbyManager.CreateLobbySearch();
+var query = lobbyManager.GetSearchQuery();
 
 // Filter by a metadata value.
 query.Filter("metadata.ELO", Discord.LobbySearchComparison.EqualTo, Discord.LobbySearchCast.Number, "1337");
@@ -1078,18 +1078,18 @@ query.Filter("metadata.ELO", Discord.LobbySearchComparison.EqualTo, Discord.Lobb
 // Only return 1 result max.
 query.Limit(1);
 
-LobbyManager.Search(query, () =>
+lobbyManager.Search(query, () =>
 {
-  Console.WriteLine("search returned {0} lobbies", LobbyManager.GetLobbyCount());
+  Console.WriteLine("search returned {0} lobbies", lobbyManager.LobbyCount());
 
-  if (LobbyManager.GetLobbyCount() == 1)
+  if (lobbyManager.LobbyCount() == 1)
   {
-    Console.WriteLine("first lobby: {0}", LobbyManager.GetLobbyId(0));
+    Console.WriteLine("first lobby: {0}", lobbyManager.GetLobbyId(0));
   }
 
   // Get the id of the lobby, and connect to voice
-  var id = LobbyManager.GetLobbyId(0);
-  LobbyManager.VoiceConnect(id, (result) =>
+  var id = lobbyManager.GetLobbyId(0);
+  lobbyManager.ConnectVoice(id, (result) =>
   {
     Console.WriteLine("Connected to voice!");
   });
