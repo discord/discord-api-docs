@@ -99,6 +99,8 @@ For more detailed information and documentation around the Rich Presence feature
 
 Registers a command by which Discord can launch your game. This might be a custom protocol, like `my-awesome-game://`, or a path to an executable. It also supports any lauch parameters that may be needed, like `game.exe --full-screen --no-hax`.
 
+On macOS, due to the way Discord registers executables, your game needs to be bundled for this command to work. That means it should be a `.app`.
+
 Returns `void`.
 
 ###### Parameters

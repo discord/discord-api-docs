@@ -16,7 +16,7 @@ An important note to make here is that our networking layer **is not peer-to-pee
 
 ## GetPeerId
 
-Get the networking peer ID for the current user, allowing other users to connect to them.
+Get the networking peer ID for the current user, allowing other users to send packets to them.
 
 Returns a `UInt64`.
 

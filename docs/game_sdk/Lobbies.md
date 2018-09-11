@@ -39,7 +39,7 @@ lobbyManager.CreateLobby(txn, (result, lobby) =>
 
   // We want to update the capacity of the lobby
   // So we get a new transaction for the lobby
-  var newTxn = lobbyManager.GetLobbyTransaction(lobby.id);
+  var newTxn = lobbyManager.GetLobbyUpdateTransaction(lobby.id);
   newTxn.SetCapacity(5);
 
   lobbyManager.UpdateLobby(lobby.id, newTxn, (result, newLobby) =>
