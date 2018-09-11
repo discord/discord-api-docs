@@ -110,7 +110,7 @@ Returns `void`.
 ###### Example
 
 ```cs
-activitiesManager.RegisterCommand("my-awesome-game://run --full-screen");
+activityManager.RegisterCommand("my-awesome-game://run --full-screen");
 ```
 
 ## RegisterSteam
@@ -128,7 +128,7 @@ Returns `void`.
 ###### Example
 
 ```cs
-activitiesManager.RegisterSteam(1938123);
+activityManager.RegisterSteam(1938123);
 ```
 
 ## UpdateActivity
@@ -143,16 +143,6 @@ Returns a `Discord.Result` via callback.
 | -------- | -------- | ----------------------------- |
 | activity | Activity | the new activity for the user |
 
-###### Possible Results
-
-| error          | description                            |
-| -------------- | -------------------------------------- |
-| OK             | success                                |
-| InvalidPayload | data was malformed                     |
-| InvalidSecret  | secrets must be unique from each other |
-| NotInstalled   | Discord is not installed               |
-| NotRunning     | Discord is not running                 |
-
 ###### Example
 
 ```cs
@@ -162,7 +152,7 @@ activity.Details = "In Game";
 activity.Party.Size = 1;
 activity.Party.Max = 4;
 
-activitiesManager.UpdateActivity(activity, (result) =>
+activityManager.UpdateActivity(activity, (result) =>
 {
     if (result == Discord.Result.OK)
     {
@@ -188,7 +178,7 @@ None
 ###### Example
 
 ```cs
-activitiesManager.ClearActivity((result) =>
+activityManager.ClearActivity((result) =>
 {
     if (result == Discord.Result.OK)
     {
@@ -217,10 +207,10 @@ Returns a `Discord.Result` via callback.
 ###### Example
 
 ```cs
-UserManager.OnActivityJoinRequest += user =>
+activityManager.OnActivityJoinRequest += user =>
 {
     Console.WriteLine("Join request from: {0}", user.Id);
-    UserManager.SendRequestReply(user.Id, Discord.ActivityJoinRequestReply.Yes);
+    activityManager.SendRequestReply(user.Id, Discord.ActivityJoinRequestReply.Yes);
 }
 ```
 
@@ -364,14 +354,14 @@ var activity = new Discord.Activity
   Instance = true,
 };
 
-ActivityManager.UpdateActivity(activity, (result) =>
+activityManager.UpdateActivity(activity, (result) =>
 {
     Console.WriteLine("Update Activity {0}", result);
 
     // Send an invite to another user for this activity.
     // Receiver should see an invite in their DM.
     // Use a relationship user's ID for this.
-    ActivityManager.InviteUser(364843917537050999, Discord.ActivityActionType.Join, "", (inviteUserResult) =>
+    activityManager.InviteUser(364843917537050999, Discord.ActivityActionType.Join, "", (inviteUserResult) =>
     {
         Console.WriteLine("Invite User {0}", inviteUserResult);
     });

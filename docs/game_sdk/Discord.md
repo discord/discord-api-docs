@@ -35,38 +35,25 @@ A quick example with our C# binding:
 var userManager = discord.GetUserManager();
 userManager.GetCurrentUser((result, currentUser) =>
 {
-  Console.WriteLine(currentUser.username);
-  Console.WriteLine(currentUser.ID);
+  if (result == Discord.Result.OK)
+  {
+    Console.WriteLine(currentUser.username);
+    Console.WriteLine(currentUser.ID);
+  }
 });
 ```
-
-## Core
-
-The Discord core is the interface through which your game talks to...Discord...obfuscating all the hard stuff and getting you to what you want quickly and easily.
 
 ## Error Handling
 
 Debugging is a pain, so before we get into the meat of the SDK, we want to make sure you're prepared for when things go awry. Within the Discord core is a function called `SetLogHook()`. It takes a `level`, which is minimum level of log message you want to listen to, and a callback function:
 
 ```cs
-enum LogLevel
+public void LogProblemsFunction(LogLevel level, string message)
 {
-  // Tell me what crashed
-  Error = 1,
+  Console.WriteLine("Discord:{0} - {1}", level, message);
+}
 
-  // Tell me when I might be doing something bad
-  Warning,
-
-  // Tell me the details of each call I make
-  Info,
-
-  // Tell me ALL the things
-  Debug
-};
-
-public void LogProblemsFunction(LogLevel level, string message);
-
-SetLogHook(LogLevel level, LogProblemsFunction callback);
+discord.SetLogHook(Discord.LogLevel.Debug, LogProblemFunctions);
 ```
 
 You should begin your integration by setting up this callback to help you debug. Helpfully, if you put a breakpoint inside the callback function you register here, you'll be able to see the stack trace for errors you run into (as long as they fail synchronously). Take the guess work out of debugging, or hey, ignore any and all logging by setting a callback that does nothing. We're not here to judge.
@@ -75,7 +62,7 @@ You should begin your integration by setting up this callback to help you debug.
 
 ###### Result Enum
 
-| Value               | Description                                                                    |
+| value               | description                                                                    |
 | ------------------- | ------------------------------------------------------------------------------ |
 | Ok                  | everything is good                                                             |
 | ServiceUnavailable  | Discord isn't working                                                          |
@@ -108,7 +95,7 @@ You should begin your integration by setting up this callback to help you debug.
 
 ###### LogLevel Enum
 
-| Value   | Description                    |
+| value   | description                    |
 | ------- | ------------------------------ |
 | Error   | Log only errors                |
 | Warning | Log warnings and errors        |
@@ -117,7 +104,7 @@ You should begin your integration by setting up this callback to help you debug.
 
 ###### CreateFlags Enum
 
-| Value            | Description                                                         |
+| value            | description                                                         |
 | ---------------- | ------------------------------------------------------------------- |
 | Default          | Requires Discord to be running to play the game                     |
 | NoRequireDiscord | Does not require Discord to be running, use this on other platforms |
@@ -137,12 +124,12 @@ Returns a new `Discord`.
 
 ###### Example
 
-```cpp
+```
+// c++ land
 discord::Core* core{};
 discord::Core::Create(53908232506183680, DiscordCreateFlags_Default, &core);
-```
 
-```cs
+// c# land
 var discord = new Discord(53908232506183680, Discord.CreateFlags.Default);
 ```
 
@@ -158,11 +145,11 @@ None
 
 ###### Example
 
-```cpp
-discord::Core::Destroy();
 ```
+// c++ land
+discord::Core::Destroy();
 
-```cs
+// c# land
 discord.Dispose();
 ```
 
@@ -186,8 +173,12 @@ Returns `void`.
 ###### Example
 
 ```cs
-public void LogProblemsFunction(LogLevel level, string message);
-SetLogHook(LogLevel level, LogProblemsFunction callback);
+public void LogProblemsFunction(LogLevel level, string message)
+{
+  Console.WriteLine("Discord:{0} - {1}", level, message);
+}
+
+discord.SetLogHook(Discord.LogLevel.Debug, LogProblemFunctions);
 ```
 
 ## RunCallbacks

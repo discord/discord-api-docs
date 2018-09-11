@@ -157,28 +157,25 @@ OnRelationshipUpdate += relationship =>
 
 ```cs
 var discord = new Discord.Discord(clientId, Discord.CreateFlags.Default);
-var RelationshipManager = discord.GetRelationshipManager();
+var relationshipManager = discord.GetRelationshipManager();
 
 // Assign this handle right away to get the initial relationships update.
 // This callback will only be fired when the whole list is initially loaded or was reset
 
 // Filter a user's relationship list to be just friends
-RelationshipManager.Filter((relationship) =>
+relationshipManager.Filter((relationship) =>
 {
   return relationship.Type == Discord.RelationshipType.Friend;
 });
 
 // Loop over all friends a user has.
-Console.WriteLine("relationships updated: {0}", RelationshipManager.Count());
+Console.WriteLine("relationships updated: {0}", relationshipManager.Count());
 
-for (var i = 0; i < Math.Min(RelationshipManager.Count(), 10); i++)
+for (var i = 0; i < Math.Min(relationshipManager.Count(), 10); i++)
 {
     // Get an individual relationship from the list
-    var r = RelationshipManager.At((uint)i);
+    var r = relationshipManager.At((uint)i);
     Console.WriteLine("relationships: {0} {1}", r.Type, r.User.Username);
-
-    // Request relationship's avatar data.
-    FetchAvatar(ImageManager, r.User.Id);
 }
 ```
 
@@ -186,24 +183,24 @@ for (var i = 0; i < Math.Min(RelationshipManager.Count(), 10); i++)
 
 ```cs
 var discord = new Discord.Discord(clientId, Discord.CreateFlags.Default);
-var RelationshipManager = discord.GetRelationshipManager();
-var ActivityManager = discord.GetActivityManager();
+var relationshipManager = discord.GetRelationshipManager();
+var activityManager = discord.GetActivityManager();
 
-RelationshipManager.Filter((relationship) =>
+relationshipManager.Filter((relationship) =>
 {
   // Filter for users who are playing the same game as the current user
   // Is their activity application id the same as my client id?
   return relationship.Presence.Activity.ApplicationId == clientId;
 });
 
-for (var i = 0; i < Math.Min(RelationshipManager.Count(); i++)
+for (var i = 0; i < Math.Min(relationshipManager.Count(); i++)
 {
     // Get an individual relationship from the list
-    var r = RelationshipManager.At((uint)i);
+    var r = relationshipManager.At((uint)i);
     Console.WriteLine("relationships: {0} {1}", r.Type, r.User.Username);
 
     // Send them a game invite!
-    ActivityManager.InviteUser(r.User.Id, Discord.ActivityActionType.Join, "Come play with me!", (result) =>
+    activityManager.InviteUser(r.User.Id, Discord.ActivityActionType.Join, "Come play with me!", (result) =>
     {
       Console.WriteLine("Invited user {0} to play with you", r.User.Username);
     });

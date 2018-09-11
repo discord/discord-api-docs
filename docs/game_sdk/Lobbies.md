@@ -22,7 +22,7 @@ To update a user or a lobby, create or get a transaction for that resource, call
 ### Example: Creating a Lobby
 
 ```cs
-var LobbyManager = discord.GetLobbyManager();
+var lobbyManager = discord.GetLobbyManager();
 
 // Create the transaction
 var txn = LobbyManager.CreateLobbyTransaction();
@@ -33,16 +33,16 @@ txn.SetType(Discord.LobbyType.Public);
 txn.SetMetadata("a", "123");
 
 // Create it!
-LobbyManager.CreateLobby(txn, (result, lobby) =>
+lobbyManager.CreateLobby(txn, (result, lobby) =>
 {
   Console.WriteLine("lobby {0} created with secret {1}", lobby.Id, lobby.Secret);
 
   // We want to update the capacity of the lobby
   // So we get a new transaction for the lobby
-  var newTxn = LobbyManager.GetLobbyTransaction(lobby.id);
+  var newTxn = lobbyManager.GetLobbyTransaction(lobby.id);
   newTxn.SetCapacity(5);
 
-  LobbyManager.UpdateLobby(lobby.id, newTxn, (result, newLobby) =>
+  lobbyManager.UpdateLobby(lobby.id, newTxn, (result, newLobby) =>
   {
     Console.WriteLine("lobby {0} updated", newLobby.Id);
   });
@@ -249,7 +249,7 @@ Returns `void`.
 ###### Example
 
 ```cs
-var query = new LobbyManager.GetSearchQuery();
+var query = lobbyManager.GetSearchQuery();
 query.LobbySearchFilter("metadata.matchmaking_rating", LobbySearchComparison.GreaterThan, LobbySearchCast.Number, "455");
 ```
 
@@ -270,7 +270,7 @@ Returns `void`.
 ###### Example
 
 ```cs
-var query = new LobbyManager.GetSearchQuery();
+var query = lobbyManager.GetSearchQuery();
 query.LobbySearchSort("metadata.ELO", LobbySearchCast.Number, "1337");
 ```
 
@@ -289,7 +289,7 @@ Returns `void`.
 ###### Example
 
 ```cs
-var query = new LobbyManager.GetSearchQuery();
+var query = lobbyManager.GetSearchQuery();
 query.Limit(10);
 ```
 
@@ -1021,18 +1021,18 @@ If you are creating lobbies for users in the game client, and not on a backend s
 
 ```cs
 var discord = new Discord.Discord(clientId, Discord.CreateFlags.Default);
-var LobbyManager = discord.GetLobbyManager();
-var ActivityManager = discord.GetActivityManager();
+var lobbyManager = discord.GetLobbyManager();
+var activityManager = discord.GetActivityManager();
 
 // Create a lobby
-var txn = LobbyManager.CreateLobbyTransaction();
+var txn = lobbyManager.GetLobbyCreateTransaction();
 txn.SetCapacity(5);
 txn.SetType(Discord.LobbyType.Private);
 
-LobbyManager.CreateLobby(txn, (result, lobby) =>
+lobbyManager.CreateLobby(txn, (result, lobby) =>
 {
   // Get the sepcial activity secret
-  var secret = LobbyManager.GetLobbyActivitySecret(lobby.id);
+  var secret = lobbyManager.GetLobbyActivitySecret(lobby.id);
 
   // Create a new activity
   // Set the party id to the lobby id, so everyone in the lobby has the same value
@@ -1053,11 +1053,11 @@ LobbyManager.CreateLobby(txn, (result, lobby) =>
     }
   };
 
-  ActivityManager.UpdateActivity(activity, (result) =>
+  activityManager.UpdateActivity(activity, (result) =>
   {
     // Now, you can send chat invites, or others can ask to join
     // When other clients receive the OnActivityJoin() event, they'll receive the special activity secret
-    // They can then directly call LobbyManager.ConnectLobbyWithActivitySecret() and be put into the lobby together
+    // They can then directly call lobbyManager.ConnectLobbyWithActivitySecret() and be put into the lobby together
   })
 });
 ```
@@ -1070,7 +1070,7 @@ If you are creating lobbies with your own backend system (see the section below)
 var discord = new Discord.Discord(clientId, Discord.CreateFlags.Default);
 
 // Search lobbies.
-var query = LobbyManager.GetSearchQuery();
+var query = lobbyManager.GetSearchQuery();
 
 // Filter by a metadata value.
 query.Filter("metadata.ELO", Discord.LobbySearchComparison.EqualTo, Discord.LobbySearchCast.Number, "1337");
@@ -1078,18 +1078,18 @@ query.Filter("metadata.ELO", Discord.LobbySearchComparison.EqualTo, Discord.Lobb
 // Only return 1 result max.
 query.Limit(1);
 
-LobbyManager.Search(query, () =>
+lobbyManager.Search(query, () =>
 {
-  Console.WriteLine("search returned {0} lobbies", LobbyManager.LobbyCount());
+  Console.WriteLine("search returned {0} lobbies", lobbyManager.LobbyCount());
 
-  if (LobbyManager.LobbyCount() == 1)
+  if (lobbyManager.LobbyCount() == 1)
   {
-    Console.WriteLine("first lobby: {0}", LobbyManager.GetLobbyId(0));
+    Console.WriteLine("first lobby: {0}", lobbyManager.GetLobbyId(0));
   }
 
   // Get the id of the lobby, and connect to voice
-  var id = LobbyManager.GetLobbyId(0);
-  LobbyManager.ConnectVoice(id, (result) =>
+  var id = lobbyManager.GetLobbyId(0);
+  lobbyManager.ConnectVoice(id, (result) =>
   {
     Console.WriteLine("Connected to voice!");
   });

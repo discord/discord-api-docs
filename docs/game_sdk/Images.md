@@ -118,31 +118,28 @@ imageManager.Fetch(handle, false, (result, handle) =>
 });
 ```
 
-## Example: A Helper Method for Getting a User's Avatar Data
+## Example: User's Avatar Data
 
 ```cs
 var discord = new Discord.Discord(clientId, Discord.CreateFlags.Default);
 
 // Request user's avatar data. Sizes can be powers of 2 between 16 and 2048
-static void FetchAvatar(Discord.ImageManager ImageManager, Int64 userID)
+imageManager.Fetch(Discord.ImageHandle.User(53908232506183680), (result, handle) =>
 {
-  ImageManager.Fetch(Discord.ImageHandle.User(userID), (result, handle) =>
   {
+    if (result == Discord.Result.Ok)
     {
-      if (result == Discord.Result.Ok)
+      // You can also use GetTexture2D within Unity.
+      // These return raw RGBA.
+      imageManager.GetData(handle, (result2, data) =>
       {
-        // You can also use GetTexture2D within Unity.
-        // These return raw RGBA.
-        ImageManager.GetData(handle, (result2, data) =>
-        {
-          Console.WriteLine("image updated {0} {1}", handle.Id, data.Length);
-        });
-      }
-      else
-      {
-        Console.WriteLine("image error {0}", handle.Id);
-      }
+        Console.WriteLine("image updated {0} {1}", handle.Id, data.Length);
+      });
     }
-  });
+    else
+    {
+      Console.WriteLine("image error {0}", handle.Id);
+    }
+  }
 };
 ```
