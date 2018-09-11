@@ -86,7 +86,7 @@ Returns `void`.
 | name   | type   | description                                  |
 | ------ | ------ | -------------------------------------------- |
 | peerId | UInt64 | the peerId of the user to connect to         |
-| route  | byte[] | the route the user is currently broadcasting |
+| route  | string | the route the user is currently broadcasting |
 
 ###### Example
 
@@ -110,7 +110,7 @@ Returns `void`.
 | name   | type   | description                |
 | ------ | ------ | -------------------------- |
 | peerId | UInt64 | the user's peerId          |
-| route  | byte[] | the new route for the user |
+| route  | string | the new route for the user |
 
 ###### Example
 
@@ -225,7 +225,7 @@ Fires when your networking route has changed. You should broadcast to other user
 
 | name  | type   | description               |
 | ----- | ------ | ------------------------- |
-| route | byte[] | the new route to the user |
+| route | string | the new route to the user |
 
 ###### Example
 
