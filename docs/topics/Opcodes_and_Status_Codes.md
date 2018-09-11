@@ -13,7 +13,7 @@ All gateway events in Discord are tagged with an opcode that denotes the payload
 | 2 | Identify | Send | used for client handshake |
 | 3 | Status Update | Send | used to update the client status |
 | 4 | Voice State Update | Send | used to join/move/leave voice channels |
-| 5 | Voice Server Ping | Send | used for voice ping checking |
+| 5 | Voice Server Ping | Send | used for voice ping checking (should not be sent by bots) |
 | 6 | Resume | Send | used to resume a closed connection |
 | 7 | Reconnect | Receive | used to tell clients to reconnect to the gateway |
 | 8 | Request Guild Members | Send | used to request guild members |
