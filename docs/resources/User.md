@@ -20,9 +20,12 @@ Discord enforces the following restrictions for usernames and nicknames:
 
 1.  Names can contain most valid unicode characters. We limit some zero-width and non-rendering characters.
 2.  Names must be between 2 and 32 characters long.
-3.  Names cannot contain the following substrings: '@', '#', ':', '\```'.
-4.  Names cannot be: 'discordtag', 'everyone', 'here'.
-5.  Names are sanitized and trimmed of leading, trailing, and excessive internal whitespace.
+3.  Names are sanitized and trimmed of leading, trailing, and excessive internal whitespace.
+
+The following restrictions are additionally enforced for usernames:
+
+1.  Names cannot contain the following substrings: '@', '#', ':', '\```'.
+2.  Names cannot be: 'discordtag', 'everyone', 'here'.
 
 There are other rules and restrictions not shared here for the sake of spam and abuse mitigation, but the majority of users won't encounter them. It's important to properly handle all error messages returned by Discord when editing or updating names.
 
