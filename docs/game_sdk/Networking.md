@@ -16,7 +16,7 @@ An important note to make here is that our networking layer **is not peer-to-pee
 
 ## GetPeerId
 
-Get the unique networking peerId for the current user. Each user has a unique id for that session, used for connecting to that user.
+Get the networking peer ID for the current user, allowing other users to connect to them.
 
 Returns a `UInt64`.
 
@@ -27,7 +27,7 @@ None
 ###### Example
 
 ```cs
-var sid = networkManager.GetPeerId();
+var myPeerId = networkManager.GetPeerId();
 ```
 
 ## Flush
@@ -51,7 +51,7 @@ OnLateUpdate()
 
 ## OpenChannel
 
-Opens a channel to a user with their given peer on the given channel number.
+Opens a channel to a user with their given peer ID on the given channel number.
 
 Unreliable channels—`reliable = false`—should be used for loss-tolerant data, like player positioning in the world. Reliable channels—`reliable = true`—should be used for data that _must_ get to the user, like loot drops!
 
@@ -68,9 +68,11 @@ Returns `void`.
 ###### Example
 
 ```cs
-// In reality, you'd fetch this from their lobby metadata
-var playerAPeerId = 1234;
-networkManager.OpenChannel(playerAPeerId, 0, false);
+var userId = 53908232506183680;
+var lobbyId = 290926798626357250;
+
+var peerId = lobbyManager.GetMemberMetadataValue(lobbyId, userId, "metadata.peer_id");
+networkManager.OpenChannel(peerId, 0, false);
 ```
 
 ## OpenPeer
@@ -89,12 +91,17 @@ Returns `void`.
 ###### Example
 
 ```cs
-networkManager.OpenPeer(1, 2222);
+var userId = 53908232506183680;
+var lobbyId = 290926798626357250;
+
+var peerId = lobbyManager.GetMemberMetadataValue(lobbyId, userId, "metadata.peer_id");
+var route = lobbyManager.GetMemberMetadataValue(lobbyId, userId, "metadata.route");
+networkManager.OpenPeer(peerId, route);
 ```
 
 ## UpdatePeer
 
-Updates the network connection to another Discord user. This should be called after an `OnRouteChange` event so that your connection to a user is updated to reflect the new route.
+Updates the network connection to another Discord user. You'll want to call this when notified that the route for a user to which you are connected has changed, most likely from a lobby member update event.
 
 Returns `void`.
 
@@ -108,16 +115,17 @@ Returns `void`.
 ###### Example
 
 ```cs
-networkManager.OnRouteUpdate += (route) =>
+lobbyManager.OnMemberUpdate += (lobbyId, userId) =>
 {
-  // Should I have user info here?
-  networkManager.UpdateRoute(, route);
+  var peerId = lobbyManager.GetMemberMetadataValue(lobbyId, userId, "metadata.peer_id");
+  var newRoute = lobbyManager.GetMemberMetadataValue(lobbyId, userId, "metadata.route");
+  networkManger.UpdatePeer(peerId, newRoute);
 }
 ```
 
 ## SendMessage
 
-Sends data to a given peer id through the given channel.
+Sends data to a given peer ID through the given channel.
 
 Returns `void`.
 
@@ -132,11 +140,12 @@ Returns `void`.
 ###### Example
 
 ```cs
-// In reality, you'd fetch this from their lobby metadata
-var playerAPeerId = 1234;
+var userId = 53908232506183680;
+var lobbyId = 290926798626357250;
+var peerId = lobbyManager.GetMemberMetadataValue(lobbyId, userId, "metadata.peer_id");
 
 byte[] lootDrops = GameEngine.GetLootData();
-networkManager.SendMessage(playerAPeerId, 1, lootDrops);
+networkManager.SendMessage(peerId, 1, lootDrops);
 ```
 
 ## CloseChannel
@@ -155,10 +164,12 @@ Returns `void`.
 ###### Example
 
 ```cs
-// In reality, you'd fetch this from their lobby metadata
-var playerAPeerId = 1234;
-networkManager.CloseChannel(playerAPeerId, 0);
-Console.WriteLine("Connection to {0} closed", playerAPeerId);
+var userId = 53908232506183680;
+var lobbyId = 290926798626357250;
+
+var peerId = lobbyManager.GetMemberMetadataValue(lobbyId, userId, "metadata.peer_id");
+networkManager.CloseChannel(peerId, 0);
+Console.WriteLine("Channel {0} to {1} closed", 0, peerId);
 ```
 
 ## ClosePeer
@@ -169,17 +180,19 @@ Returns `void`.
 
 ###### Parameters
 
-| name      | type   | description       |
-| --------- | ------ | ----------------- |
-| peerId    | UInt64 | the user's peerId |
-| channelId | byte   | the cu            |
+| name   | type   | description       |
+| ------ | ------ | ----------------- |
+| peerId | UInt64 | the user's peerId |
 
 ###### Example
 
 ```cs
-// In reality, you'd fetch this from their lobby metadata
-var playerAPeerId = 1234;
-networkManager.ClosePeer(playerAPeerId, 0);
+var userId = 53908232506183680;
+var lobbyId = 290926798626357250;
+
+var peerId = lobbyManager.GetMemberMetadataValue(lobbyId, userId, "metadata.peer_id");
+networkManager.ClosePeer(peerId);
+Console.WriteLine("Connection to {0} closed", peerId);
 ```
 
 ## OnMessage
@@ -197,7 +210,7 @@ Fires when you receive data from another user. This callback will only fire if y
 ###### Example
 
 ```cs
-OnMessage += (peerId, channel, data) =>
+networkManager.OnMessage += (peerId, channel, data) =>
 {
   var stringData = Encoding.UTF8.GetString(data);
   Console.WriteLine("Message from {0}: {1}", peerId, stringData)
@@ -206,7 +219,7 @@ OnMessage += (peerId, channel, data) =>
 
 ## OnRouteUpdate
 
-Fires when the networking route to the user has changed. You should then call `UpdateRoute()` for that user.
+Fires when your networking route has changed. You should broadcast to other users to whom you are connected that this has changed, probably by updating your lobby member metadata for others to receive.
 
 ###### Parameters
 
@@ -217,9 +230,18 @@ Fires when the networking route to the user has changed. You should then call `U
 ###### Example
 
 ```cs
-OnRouteUpdate+= (route) =>
+networkManager.OnRouteUpdate += route =>
 {
-  networkManager.UpdatePeer(1, route);
+  var me = userManager.GetCurrentUser();
+  var lobbyId = 290926798626357250;
+
+  var txn = lobbyManager.GetMemberUpdateTransaction(lobbyId, me.Id);
+  txn.SetMetadata("route", route);
+  lobbyManager.UpdateMember(lobbyId, me.Id, txn, (result) =>
+  {
+    // Who needs error handling anyway
+    Console.WriteLine(result);
+  });
 }
 ```
 
@@ -231,11 +253,11 @@ A quick note here may be helpful for the two functions that should be called con
 
 ## Connecting to Each Other
 
-This manager is built around the concept of routes between players, and then channels on those routes. Player A opens a route to Player B. This route will often change as our scaled networking system works to find the best networking path between those players. As that route changes, the player will receive `OnRouteUpdate` events. They should then alert other lobby members that their route has changed by updating their lobbymetadata. Other lobby members will see those updates from the `OnLobbyMemberUpdate` event, and can call `UpdateRoute()` accordingly. A user's route could change frequently, so architect your system anticipating frequent route changes and updates.
+This manager is built around the concept of routes between players, and then channels on those routes. Player A opens a route to Player B. This route will change, most commonly if the user's external IP address changes. As that route changes, the player will receive `OnRouteUpdate` events. They should then alert other lobby members that their route has changed by updating their lobbymetadata. Other lobby members will see those updates from the `OnLobbyMemberUpdate` event, and can call `UpdateRoute()` accordingly. A user's route could change frequently, so architect your system anticipating frequent route changes and updates.
 
 Once Player A has a route open to Player B, Player A then opens a channel to Player B, and Player B does the same to Player A. Channels are the pipes down which data is actually sent. These two users can now send data back and forth to each other with `SendMessage()` and receive it with `OnMessage`.
 
-In order to properly send and receive data between A and B, both users need to have **the same type of channel** open to each other **on the same channel number**. If A has Reliable Channel 4 open to B, B also needs Reliable Channel 4 open to A. There are many ways to keep track of this; utilizing metadata on the lobby is one great way.
+In order to properly send and receive data between A and B, both users need to have **the same type of channel** open to each other **on the same channel number**. If A has Reliable Channel 4 open to B, B also needs Reliable Channel 4 open to A.
 
 ## Example: Connecting to Another Player in a Lobby
 
@@ -263,8 +285,8 @@ userManager.GetCurrentUser((user) =>
 // Telling you which route is yours
 networkManager.OnRouteUpdate += route =>
 {
-  var txn = lobbyManager.GetMemberTransaction();
-  txn.SetMetadataString("route", route);
+  var txn = lobbyManager.GetMemberUpdateTransaction();
+  txn.SetMetadata("route", route);
   lobbyManager.UpdateMember(lobbyId, me.Id, txn, (result =>
   {
     // Who needs error handling anyway
@@ -276,9 +298,9 @@ networkManager.OnRouteUpdate += route =>
 // Fetch it and update their route
 lobbyManager.OnMemberUpdate += (lobbyId, userId) =>
 {
-  var peerId = lobbyManager.GetMemberMetadata(lobbyId, userId, "peer_id");
-  var newRoute = lobbyManager.GetMemberMetadata(lobbyId, userId, "route");
-  lobbyManger.UpdateRoute(peerId, newRoute);
+  var peerId = lobbyManager.GetMemberMetadataValue(lobbyId, userId, "peer_id");
+  var newRoute = lobbyManager.GetMemberMetadataValue(lobbyId, userId, "route");
+  lobbyManger.UpdatePeer(peerId, newRoute);
 }
 
 // Connect to lobby with an id of 12345 and a secret of "password"
@@ -288,20 +310,20 @@ lobbyManager.Connect(12345, "password", (lobby) =>
 
   // Add our own peer id to our lobby member metadata
   // So other users can get it to connect to us
-  var txn = lobbyManager.CreateMemberTransaction();
-  txn.SetMetadataString("peer_id", networkManager.GetPeerId());
+  var txn = lobbyManager.CreateMemberUpdateTransaction();
+  txn.SetMetadata("peer_id", networkManager.GetPeerId());
   lobbyManager.UpdateMember(lobby.Id, me.Id, txn, (result) =>
   {
     // Who needs error handling anyway
     Console.WriteLine(result);
-  }
+  });
 
   // Get the first member in the lobby, assuming someone is already there
   var member = lobbyManager.GetMemberUserId(lobby.Id, 0);
 
   // Get their peer id and route from their metadata, added previously
-  otherUserPeerId = lobbyManager.GetMemberMetadata(lobby.Id, member.Id, "peer_id");
-  var otherRoute = lobbyManager.GetMemberMetadata(lobby.Id, member.Id, "route");
+  otherUserPeerId = lobbyManager.GetMemberMetadataValue(lobby.Id, member.Id, "peer_id");
+  var otherRoute = lobbyManager.GetMemberMetadataValue(lobby.Id, member.Id, "route");
 
   // Connect to them
   lobbyManager.OpenRoute(otherUserPeerId, otherRoute);
