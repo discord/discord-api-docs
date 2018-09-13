@@ -3,19 +3,18 @@
 > danger
 > The Discord Store is still in a beta period. All documentation and functionality can and will change.
 
-If your game has DLC or offers in-app purchases, this manager is for you! The StoreManager allows you to fetch a user's entitlements, as well as being notified when a user is granted an entitlement.
+If your game has DLC or offers in-app purchases, this manager is for you! The Store Manager allows you to fetch a users' entitlements, as well as being notified when a user is granted an entitlement from a purchase flow for your game.
 
 ## Data Models
 
-######
+###### SKU Struct
 
-###### EntitlementType Enum
-
-| name                | value | description                                                        |
-| ------------------- | ----- | ------------------------------------------------------------------ |
-| Purchase            | 1     | the user has purchased this entitlement                            |
-| PremiumSubscription | 2     | the user has this entitlement for being a Discord Nitro subscriber |
-| DeveloperGift       | 3     | the user has this entitlement because it was gifted by a developer |
+| name  | type     | description              |
+| ----- | -------- | ------------------------ |
+| Id    | Int64    | the unique ID of the SKU |
+| Type  | SkuType  | what sort of SKU it is   |
+| Name  | string   | the name of the SKU      |
+| Price | SkuPrice | the price of the SKU     |
 
 ###### SkuType Enum
 
@@ -26,9 +25,32 @@ If your game has DLC or offers in-app purchases, this manager is for you! The St
 | Consumable  | 3     | SKU is a consumable (in-app purchase)          |
 | Bundle      | 4     | SKU is a bundle (comprising the other 3 types) |
 
+###### SkuPrice Struct
+
+| name     | type   | description                       |
+| -------- | ------ | --------------------------------- |
+| Amount   | UInt32 | the amount of money the SKU costs |
+| Currency | string | the currency the amount is in     |
+
+###### Entitlement Struct
+
+| name  | type            | description                                     |
+| ----- | --------------- | ----------------------------------------------- |
+| Id    | Int64           | the unique ID of the entitlement                |
+| Type  | EntitlementType | the kind of entitlement it is                   |
+| SkuId | Int64           | the ID of the SKU to which the user is entitled |
+
+###### EntitlementType Enum
+
+| name                | value | description                                                        |
+| ------------------- | ----- | ------------------------------------------------------------------ |
+| Purchase            | 1     | the user has purchased this entitlement                            |
+| PremiumSubscription | 2     | the user has this entitlement for being a Discord Nitro subscriber |
+| DeveloperGift       | 3     | the user has this entitlement because it was gifted by a developer |
+
 ## FetchSkus
 
-Fetches the list of SKUs for the connected application.
+Fetches the list of SKUs for the connected application, readying them for iteration.
 
 Returns `Discord.Result` via callback.
 
@@ -43,14 +65,14 @@ storeManager.FetchSkus((result) =>
 {
   if (result == Discord.Result.OK)
   {
-    Console.WriteLine("Got skus!");
+    Console.WriteLine("Got skus! Now I can iterate over them!");
   }
 });
 ```
 
 ## CountSkus
 
-Get the number of SKUs returned by `FetchSkus()`.
+Get the number of SKUs readied by `FetchSkus()`.
 
 Returns `Int32`.
 
@@ -70,7 +92,7 @@ for (int i = 0; i < storeManager.CountSkus(); i++)
 
 ## GetSku
 
-Gets a SKU by it's ID.
+Gets a SKU by its ID.
 
 Returns `Discord.Sku`.
 
@@ -111,7 +133,7 @@ for (int i = 0; i < storeManager.CountSkus(); i++)
 
 ## FetchEntitlements
 
-Fetches a list of entitlements to which the user is entitled. Applications, DLC, and Bundles will always be returned. Consumables will be returned until they are consumed by the application via the endpoint.
+Fetches a list of entitlements to which the user is entitled. Applications, DLC, and Bundles will always be returned. Consumables will be returned until they are consumed by the application via the HTTP endpoint.
 
 Returns `Discord.Result` via callback.
 
@@ -133,7 +155,7 @@ storeManager.FetchEntitlements((result) =>
 
 ## CountEntitlements
 
-Get the number of entitlements returned by `FetchEntitlements()`.
+Get the number of entitlements readied by `FetchEntitlements()`.
 
 Returns `Int32`.
 
@@ -268,18 +290,154 @@ Fires when the connected user loses an entitlement, either by expiration, revoca
 | ----------- | ------------------- | --------------------------------- |
 | entitlement | Discord.Entitlement | the entitlement the user has lost |
 
+## HTTP APIs
+
+The following are HTTP requests, and should be handled by your game server, rather than a client. They require a Bearer token for an authorization header. This token should be a token of a developer who is authorized to use Dispatch for your application. To get this token, your backend service should go through the [Client Credentials OAuth2 Grant](#DOCS_TOPICS_OAUTH2/client-credentials-grant) and request the scope `applications.entitlements`.
+
+## Get Entitlements % GET /applications/{application.id#DOCS_GAME_SDK_SDK_STARTER_GUIDE/get-set-up}/entitlements/
+
+Gets a entitlements for a given user. You can use this on your game backend to check entitlements of an arbitrary user, or perhaps in an administrative panel for your support team.
+
+###### Query Parameters
+
+| name    | type                        | description                                           |
+| ------- | --------------------------- | ----------------------------------------------------- |
+| user_id | int                         | the user id to look up entitlements for               |
+| sku_ids | comma-separated list of int | (optional) the list SKU ids to check entitlements for |
+
+###### Example
+
+```
+curl https://discordapp.com/api/v6/applications/461618159171141643/entitlements?user_id=53908232506183680 \
+-H "Authorization: Bearer <token>" \
+-H "Accept: application/json"
+
+// Returns
+
+{
+  [
+    {
+      "user_id": "53908232506183680",
+      "sku_id": "53908232599983680",
+      "application_id": "461618159171141643",
+      "id": "53908232506183999",
+      "type": 3
+    }
+  ]
+}
+```
+
+## Get Entitlement % GET /applications/{application.id#DOCS_GAME_SDK_SDK_STARTER_GUIDE/get-set-up}/entitlements/{entitlement.id#DOCS_GAME_SDK_STORE/data-models-entitlement-struct}
+
+Fetch an entitlement by its ID. This may be useful in confirming that a user has a given entitlement that another call or the SDK says they do.
+
+```
+curl https://discordapp.com/api/v6/applications/461618159171141643/entitlements/53908232506183999 \
+-H "Authorization: Bearer <token>" \
+-H "Accept: application/json"
+
+// Returns
+
+{
+  "user_id": "53908232506183680",
+  "sku_id": "53908232599983680",
+  "application_id": "461618159171141643",
+  "id": "53908232506183999",
+  "type": 3
+}
+```
+
+## Get SKUs % GET /store/applications/{application.id#DOCS_GAME_SDK_SDK_STARTER_GUIDE/get-set-up}/skus
+
+Get published SKUs for the given application id. You can filter the type of SKUs returned via the optional query parameter.
+
+###### Query Parameters
+
+| name      | value           | description                   |
+| --------- | --------------- | ----------------------------- |
+| sku_types | Discord.SkuType | the type of SKU to filter for |
+
+###### Example
+
+```
+curl https://discordapp.com/api/v6/store/applications/461618159171141643/skus?sku_types=1 \
+-H "Authorization: Bearer <token>" \
+-H "Accept: application/json"
+
+// Returns
+
+{
+  [
+    {
+      "id": "53908232599983680",
+      "type": 1,
+      "dependent_sku_id": null,
+      "application_id": "461618159171141643",
+      "manifest_labels": ["461618159171111111"],
+      "name": "My Awesome Test Game",
+      "access_type": 1,
+      "features": [1, 2, 3],
+      "system_requirements": {},
+      "content_ratings": {},
+      "release_date": "1999-01-01",
+      "legal_notice": {},
+      "price_tier": 1099,
+      "price": {},
+      "premium": false,
+      "locales": ["en-US"],
+      "bundled_skus": null
+    }
+  ]
+}
+```
+
 ## Consume SKU % POST /store/applications/{application.id#DOCS_GAME_SDK_SDK_STARTER_GUIDE/get-set-up}/entitlements/{entitlement.id#DOCS_GAME_SDK_STORE/data-models-entitlement-struct}/consume
 
+Marks a given entitlement for the user as consumed, meaning it will no longer be returned in an entitlements check. **Ensure the user was granted whatever items the entitlement was for before consuming it!**
+
+###### Example
+
+```
+curl -X POST https://discordapp.com/api/v6/applications/461618159171141643/entitlements/53908232506183999/consume \
+-H "Authorization: Bearer <token>" \
+-H "Accept: application/json"
+
+// Returns
+
+{
+  "code": 0,
+  "message": "200: OK"
+}
+```
+
+## Get User Entitlements % GET /users/@me/applications/{application.id#DOCS_GAME_SDK_SDK_STARTER_GUIDE/get-set-up}/entitlements
+
 > warn
-> This is an HTTP request, and should be handled by your game server, rather than a client.
+> This endpoint falls under the `/users/@me` route schema, which means that it takes the OAuth2 bearer token of a player. This can be retrieved via the Application Manager in the SDK
 
-Marks a given entitlement for the user as consumed, meaning it will no longer be returned in an entitlements check.
+Returns the entitlements a user has for your application.
 
-###### JSON Body Parameters
+###### Example
 
-| name | type | description |
-| ---- | ---- | ----------- |
+```
+curl https://discordapp.com/api/v6/users/@me/applications/461618159171141643/entitlements \
+-H "Authorization: Bearer <token>" \
+-H "Accept: application/json"
 
+// Returns
+
+{
+  [
+    {
+      "user_id": "53908232506183680",
+      "sku_id": "53908232599983680",
+      "application_id": "461618159171141643",
+      "id": "53908232506183999",
+      "type": 3
+    }
+  ]
+}
+```
 
 ## Checking DLC Entitlements
 
