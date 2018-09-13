@@ -5,6 +5,35 @@
 
 If your game has DLC or offers in-app purchases, this manager is for you! The Store Manager allows you to fetch a users' entitlements, as well as being notified when a user is granted an entitlement from a purchase flow for your game.
 
+## Application Test Mode
+
+With this new Store Manager comes a new fun toggle in the Discord app itself: Application Test Mode! You can find this toggle in your Discord user settings -> Appearance -> allllll the way at the bottom. If it's not there, make sure you have "Developer Mode" toggled on as well.
+
+So what's it do? Glad you asked! When enabled, Discord will prompt you to enter an application ID. This should be the application ID of your game. After doing so and exiting the settings, you'll see an orange banner across the top of your application. This means it worked!
+
+While in application test mode, you can freely make "purchases" of SKUs tied to your application. That means you can test buying your game, buying DLC, or going through an IAP flow without any credit card charges. It will also allow you to "purchase" unpublished SKUs, which are just SKUs that Discord has not yet included in the store directory.
+
+So, do that, go to the store listing for your game, and try it out! If for some reason the "Purchase/Install" button is greyed out, please check the following:
+
+1. Do you have a `LIVE_BUILD_ID` on the master branch for this SKU? Check with `dispatch branch list <application_id>`.
+2. Do you have a price tier set for this SKU? If not, pick one!
+
+Once those two conditions are met, you should be good to go! Entitlements "purchased" with this mode enabled can be revoked with the `DELETE /entitlements` HTTP endpoint, documented below.
+
+## Checking DLC Entitlements
+
+If your game has DLC, and a user has purchased that DLC, you may want to check what they should have access to when the game launches. DLC entitlements will always be returned in a `FetchEntitlements()` call, so your game can check on each startup whether or not a user should have access to a certain new zone, raid, map, etc. based on their entitlements for DLC.
+
+## Checking Consumable Entitlements
+
+The `Discord.SkuType.Consumable` type is used for entitlements that may be "consumed" by a game's own server infrastructure. That is to say that if you have in-app purchases like gem bundles, skins, etc., they will be a `Consumable` SKU type.
+
+What that means is that your game is expected to consume these entitlements and then tell Discord that they've been consumed. Your game should handle these granted consumable entitlements in whatever manner is appropriate: incrementing the coins a player has, flipping the flag for a certain skin, etc.
+
+Entitlements to consumable SKUs are intended to be for SKUs that they signal to your game's server/service/database that the user should get something new and should be incremented as such, and that the entitlement should be consumed afterwards.
+
+The same consumable SKU _can_ be purchased multiple times, even before consuming any of them. Non-consumable SKUs can only be purchased once.
+
 ## Data Models
 
 ###### SKU Struct
@@ -418,17 +447,3 @@ curl -X DELETE https://discordapp.com/api/v6/applications/461618159171141643/ent
 
 // Returns 204 No Content
 ```
-
-## Checking DLC Entitlements
-
-If your game has DLC, and a user has purchased that DLC, you may want to check what they should have access to when the game launches. DLC entitlements will always be returned in a `FetchEntitlements()` call, so your game can check on each startup whether or not a user should have access to a certain new zone, raid, map, etc. based on their entitlements for DLC.
-
-## Checking Consumable Entitlements
-
-The `Discord.SkuType.Consumable` type is used for entitlements that may be "consumed" by a game's own server infrastructure. That is to say that if you have in-app purchases like gem bundles, skins, etc., they will be a `Consumable` SKU type.
-
-What that means is that your game is expected to consume these entitlements and then tell Discord that they've been consumed. Your game should handle these granted consumable entitlements in whatever manner is appropriate: incrementing the coins a player has, flipping the flag for a certain skin, etc.
-
-Entitlements to consumable SKUs are intended to be for SKUs that they signal to your game's server/service/database that the user should get something new and should be incremented as such, and that the entitlement should be consumed afterwards.
-
-The same consumable SKU _can_ be purchased multiple times, even before consuming any of them. Non-consumable SKUs can only be purchased once.
