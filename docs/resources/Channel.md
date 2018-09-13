@@ -140,13 +140,15 @@ Represents a message sent in a channel within Discord.
 |-------|------|-------------|
 | id | snowflake | id of the message |
 | channel\_id | snowflake | id of the channel the message was sent in |
+| guild\_id? | snowflake | id of the guild the message was sent in |
 | author* | [user](#DOCS_RESOURCES_USER/user-object) object | the author of this message (not guaranteed to be a valid user, see below) |
+| member? | partial [member object](#DOCS_RESOURCES_GUILD/member-object) | member properties for this message's author |
 | content | string | contents of the message |
 | timestamp | ISO8601 timestamp | when this message was sent |
 | edited\_timestamp | ?ISO8601 timestamp | when this message was edited (or null if never) |
 | tts | bool | whether this was a TTS message |
 | mention\_everyone | bool | whether this message mentions everyone |
-| mentions | array of [user](#DOCS_RESOURCES_USER/user-object) objects | users specifically mentioned in the message |
+| mentions | array of [user](#DOCS_RESOURCES_USER/user-object) objects, with an additional partial [member](#DOCS_RESOURCES_GUILD/member-object) field | users specifically mentioned in the message |
 | mention\_roles | array of [role](#DOCS_TOPICS_PERMISSIONS/role-object) object ids | roles specifically mentioned in this message |
 | attachments | array of [attachment](#DOCS_RESOURCES_CHANNEL/attachment-object) objects | any attached files |
 | embeds | array of [embed](#DOCS_RESOURCES_CHANNEL/embed-object) objects | any embedded content |
