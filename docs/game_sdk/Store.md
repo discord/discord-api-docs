@@ -294,7 +294,7 @@ Fires when the connected user loses an entitlement, either by expiration, revoca
 
 The following are HTTP requests, and should be handled by your game server, rather than a client. They require a Bearer token for an authorization header. This token should be a token of a developer who is authorized to use Dispatch for your application. To get this token, your backend service should go through the [Client Credentials OAuth2 Grant](#DOCS_TOPICS_OAUTH2/client-credentials-grant) and request the scope `applications.entitlements`.
 
-## Get Entitlements % GET /applications/{application.id#DOCS_GAME_SDK_SDK_STARTER_GUIDE/get-set-up}/entitlements/
+## Get Entitlements % GET /applications/{application.id#DOCS_GAME_SDK_SDK_STARTER_GUIDE/get-set-up}/entitlements
 
 Gets a entitlements for a given user. You can use this on your game backend to check entitlements of an arbitrary user, or perhaps in an administrative panel for your support team.
 
@@ -347,9 +347,9 @@ curl https://discordapp.com/api/v6/applications/461618159171141643/entitlements/
 }
 ```
 
-## Get SKUs % GET /store/applications/{application.id#DOCS_GAME_SDK_SDK_STARTER_GUIDE/get-set-up}/skus
+## Get SKUs % GET /applications/{application.id#DOCS_GAME_SDK_SDK_STARTER_GUIDE/get-set-up}/skus
 
-Get published SKUs for the given application id. You can filter the type of SKUs returned via the optional query parameter.
+Get all SKUs for an application. You can filter the type of SKUs returned via the optional query parameter.
 
 ###### Query Parameters
 
@@ -391,7 +391,7 @@ curl https://discordapp.com/api/v6/store/applications/461618159171141643/skus?sk
 }
 ```
 
-## Consume SKU % POST /store/applications/{application.id#DOCS_GAME_SDK_SDK_STARTER_GUIDE/get-set-up}/entitlements/{entitlement.id#DOCS_GAME_SDK_STORE/data-models-entitlement-struct}/consume
+## Consume SKU % POST /applications/{application.id#DOCS_GAME_SDK_SDK_STARTER_GUIDE/get-set-up}/entitlements/{entitlement.id#DOCS_GAME_SDK_STORE/data-models-entitlement-struct}/consume
 
 Marks a given entitlement for the user as consumed, meaning it will no longer be returned in an entitlements check. **Ensure the user was granted whatever items the entitlement was for before consuming it!**
 
@@ -402,48 +402,26 @@ curl -X POST https://discordapp.com/api/v6/applications/461618159171141643/entit
 -H "Authorization: Bearer <token>" \
 -H "Accept: application/json"
 
-// Returns
-
-{
-  "code": 0,
-  "message": "200: OK"
-}
+// Returns 204 No Content
 ```
 
-## Get User Entitlements % GET /users/@me/applications/{application.id#DOCS_GAME_SDK_SDK_STARTER_GUIDE/get-set-up}/entitlements
+## Delete Test Entitlement % DELETE /applications/{application.id#DOCS_GAME_SDK_SDK_STARTER_GUIDE/get-set-up}/entitlements/{entitlement.id#DOCS_GAME_SDK_STORE/data-models-entitlement-struct}/
 
-> warn
-> This endpoint falls under the `/users/@me` route schema, which means that it takes the OAuth2 bearer token of a player. This can be retrieved via the Application Manager in the SDK
-
-Returns the entitlements a user has for your application.
+Deletes a test entitlement for an application. You can only delete entitlements that were "purchased" in developer test mode. You cannot use this route to delete arbitrary entitlements that users actually purchased.
 
 ###### Example
 
 ```
-curl https://discordapp.com/api/v6/users/@me/applications/461618159171141643/entitlements \
+curl -X DELETE https://discordapp.com/api/v6/applications/461618159171141643/entitlements/53908232506183999 \
 -H "Authorization: Bearer <token>" \
 -H "Accept: application/json"
 
-// Returns
-
-{
-  [
-    {
-      "user_id": "53908232506183680",
-      "sku_id": "53908232599983680",
-      "application_id": "461618159171141643",
-      "id": "53908232506183999",
-      "type": 3
-    }
-  ]
-}
+// Returns 204 No Content
 ```
 
 ## Checking DLC Entitlements
 
 If your game has DLC, and a user has purchased that DLC, you may want to check what they should have access to when the game launches. DLC entitlements will always be returned in a `FetchEntitlements()` call, so your game can check on each startup whether or not a user should have access to a certain new zone, raid, map, etc. based on their entitlements for DLC.
-
-Entitlements to DLCs are intended to be for SKUs that will download additional data onto a user's hard drive, like an expansion pack for a game.
 
 ## Checking Consumable Entitlements
 
@@ -451,4 +429,6 @@ The `Discord.SkuType.Consumable` type is used for entitlements that may be "cons
 
 What that means is that your game is expected to consume these entitlements and then tell Discord that they've been consumed. Your game should handle these granted consumable entitlements in whatever manner is appropriate: incrementing the coins a player has, flipping the flag for a certain skin, etc.
 
-Entitlements to consumable SKUs are intended to be for SKUs that do not download additional content to a user's machine; rather, they signal to your game's server/service/database that the user should get something new and should be incremented as such.
+Entitlements to consumable SKUs are intended to be for SKUs that they signal to your game's server/service/database that the user should get something new and should be incremented as such, and that the entitlement should be consumed afterwards.
+
+The same consumable SKU _can_ be purchased multiple times, even before consuming any of them. Non-consumable SKUs can only be purchased once.
