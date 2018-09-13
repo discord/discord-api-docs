@@ -706,6 +706,7 @@ Sent when a message is deleted.
 | ---------- | --------- | --------------------- |
 | id         | snowflake | the id of the message |
 | channel_id | snowflake | the id of the channel |
+| guild_id?  | snowflake | the id of the guild   |
 
 #### Message Delete Bulk
 
@@ -717,6 +718,7 @@ Sent when multiple messages are deleted at once.
 | ---------- | ------------------- | ----------------------- |
 | ids        | array of snowflakes | the ids of the messages |
 | channel_id | snowflake           | the id of the channel   |
+| guild_id?  | snowflake           | the id of the guild     |
 
 #### Message Reaction Add
 
@@ -729,6 +731,7 @@ Sent when a user adds a reaction to a message.
 | user_id    | snowflake                                                    | the id of the user                                                                                              |
 | channel_id | snowflake                                                    | the id of the channel                                                                                           |
 | message_id | snowflake                                                    | the id of the message                                                                                           |
+| guild_id?  | snowflake                                                    | the id of the guild                                                                                             |
 | emoji      | a partial [emoji](#DOCS_RESOURCES_EMOJI/emoji-object) object | the emoji used to react - [example](#DOCS_RESOURCES_EMOJI/emoji-object-gateway-reaction-standard-emoji-example) |
 
 #### Message Reaction Remove
@@ -742,6 +745,7 @@ Sent when a user removes a reaction from a message.
 | user_id    | snowflake                                                    | the id of the user                                                                                              |
 | channel_id | snowflake                                                    | the id of the channel                                                                                           |
 | message_id | snowflake                                                    | the id of the message                                                                                           |
+| guild_id?  | snowflake                                                    | the id of the guild                                                                                             |
 | emoji      | a partial [emoji](#DOCS_RESOURCES_EMOJI/emoji-object) object | the emoji used to react - [example](#DOCS_RESOURCES_EMOJI/emoji-object-gateway-reaction-standard-emoji-example) |
 
 #### Message Reaction Remove All
@@ -754,6 +758,7 @@ Sent when a user explicitly removes all reactions from a message.
 | ---------- | --------- | --------------------- |
 | channel_id | snowflake | the id of the channel |
 | message_id | snowflake | the id of the message |
+| guild_id?  | snowflake | the id of the guild   |
 
 ### Presence
 
@@ -901,6 +906,7 @@ Sent when a user starts typing in a channel.
 | Field      | Type      | Description                                            |
 | ---------- | --------- | ------------------------------------------------------ |
 | channel_id | snowflake | id of the channel                                      |
+| guild_id?  | snowflake | id of the guild                                        |
 | user_id    | snowflake | id of the user                                         |
 | timestamp  | integer   | unix time (in seconds) of when the user started typing |
 
