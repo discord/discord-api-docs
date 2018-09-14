@@ -9,9 +9,14 @@ If your game has DLC or offers in-app purchases, this manager is for you! The St
 
 With this new Store Manager comes a new fun toggle in the Discord app itself: Application Test Mode! You can find this toggle in your Discord user settings -> Appearance -> allllll the way at the bottom. If it's not there, make sure you have "Developer Mode" toggled on as well.
 
-So what's it do? Glad you asked! When enabled, Discord will prompt you to enter an application ID. This should be the application ID of your game. After doing so and exiting the settings, you'll see an orange banner across the top of your application. This means it worked!
+So what's it do? Glad you asked! When enabled, Discord will prompt you to enter an application ID. This should be the application ID of your game. After doing so, you'll see an orange banner across the top of your application (or web page, if you did this on the web). This means it worked!
 
-While in application test mode, you can freely make "purchases" of SKUs tied to your application. That means you can test buying your game, buying DLC, or going through an IAP flow without any credit card charges. It will also allow you to "purchase" unpublished SKUs, which are just SKUs that Discord has not yet included in the store directory.
+While in Application Test Mode, you can freely make "purchases" of SKUs tied to your application. That means you can test buying your game, buying DLC, or going through an IAP flow without any credit card charges.
+
+> info
+> You still need to have a valid payment method on file to "purchase" SKUs in Application Test Mode; it just won't be charged at checkout.
+
+Application Test Mode also allows you to "purchase" unpublished SKUs for your application, which are SKUs that Discord does not show to users who are not in Application Test Mode for your app.
 
 So, do that, go to the store listing for your game, and try it out! If for some reason the "Purchase/Install" button is greyed out, please check the following:
 
@@ -28,9 +33,9 @@ If your game has DLC, and a user has purchased that DLC, you may want to check w
 
 The `Discord.SkuType.Consumable` type is used for entitlements that may be "consumed" by a game's own server infrastructure. That is to say that if you have in-app purchases like gem bundles, skins, etc., they will be a `Consumable` SKU type.
 
-What that means is that your game is expected to consume these entitlements and then tell Discord that they've been consumed. Your game should handle these granted consumable entitlements in whatever manner is appropriate: incrementing the coins a player has, flipping the flag for a certain skin, etc.
+What that means is that your game is expected to "consume" these entitlements by doing something on your game server—giving the player a level, more coins, a skin, etc.—and then telling Discord that's been done by calling the `POST /entitlements/<id>/consume`, documented below. Then, Discord will remove that entitlement, as the player has been given whatever they purchased.
 
-Entitlements to consumable SKUs are intended to be for SKUs that they signal to your game's server/service/database that the user should get something new and should be incremented as such, and that the entitlement should be consumed afterwards.
+Entitlements to consumable SKUs are intended to signal your game's server/service/database that the user should get something in-game, and that the entitlement should be removed afterwards.
 
 The same consumable SKU _can_ be purchased multiple times, even before consuming any of them. Non-consumable SKUs can only be purchased once.
 
@@ -327,7 +332,7 @@ The following are HTTP requests, and should be handled by your game server, rath
 
 ## Get Entitlements % GET /applications/{application.id#DOCS_GAME_SDK_SDK_STARTER_GUIDE/get-set-up}/entitlements
 
-Gets a entitlements for a given user. You can use this on your game backend to check entitlements of an arbitrary user, or perhaps in an administrative panel for your support team.
+Gets entitlements for a given user. You can use this on your game backend to check entitlements of an arbitrary user, or perhaps in an administrative panel for your support team.
 
 ###### Query Parameters
 
@@ -380,7 +385,7 @@ curl https://discordapp.com/api/v6/applications/461618159171141643/entitlements/
 
 ## Get SKUs % GET /applications/{application.id#DOCS_GAME_SDK_SDK_STARTER_GUIDE/get-set-up}/skus
 
-Get all SKUs for an application. You can filter the type of SKUs returned via the optional query parameter.
+Get all SKUs for an application.
 
 ###### Example
 
@@ -432,7 +437,7 @@ curl -X POST https://discordapp.com/api/v6/applications/461618159171141643/entit
 
 ## Delete Test Entitlement % DELETE /applications/{application.id#DOCS_GAME_SDK_SDK_STARTER_GUIDE/get-set-up}/entitlements/{entitlement.id#DOCS_GAME_SDK_STORE/data-models-entitlement-struct}/
 
-Deletes a test entitlement for an application. You can only delete entitlements that were "purchased" in developer test mode. You cannot use this route to delete arbitrary entitlements that users actually purchased.
+Deletes a test entitlement for an application. You can only delete entitlements that were "purchased" in developer test mode; these are entitlements of `type == TestModePurchase`. You cannot use this route to delete arbitrary entitlements that users actually purchased.
 
 ###### Example
 
