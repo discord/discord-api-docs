@@ -71,11 +71,13 @@ The same consumable SKU _can_ be purchased multiple times, even before consuming
 
 ###### EntitlementType Enum
 
-| name                | value | description                                                        |
-| ------------------- | ----- | ------------------------------------------------------------------ |
-| Purchase            | 1     | the user has purchased this entitlement                            |
-| PremiumSubscription | 2     | the user has this entitlement for being a Discord Nitro subscriber |
-| DeveloperGift       | 3     | the user has this entitlement because it was gifted by a developer |
+| name                | value | description                                                 |
+| ------------------- | ----- | ----------------------------------------------------------- |
+| Purchase            | 1     | entitlement was purchased                                   |
+| PremiumSubscription | 2     | entitlement for being a Discord Nitro subscriber            |
+| DeveloperGift       | 3     | entitlement was gifted by a developer                       |
+| TestModePurchase    | 4     | entitlement was purchased by a dev in application test mode |
+| FreePurchase        | 5     | entitlement was granted when the SKU was free               |
 
 ## FetchSkus
 
@@ -380,16 +382,10 @@ curl https://discordapp.com/api/v6/applications/461618159171141643/entitlements/
 
 Get all SKUs for an application. You can filter the type of SKUs returned via the optional query parameter.
 
-###### Query Parameters
-
-| name      | value           | description                   |
-| --------- | --------------- | ----------------------------- |
-| sku_types | Discord.SkuType | the type of SKU to filter for |
-
 ###### Example
 
 ```
-curl https://discordapp.com/api/v6/store/applications/461618159171141643/skus?sku_types=1 \
+curl https://discordapp.com/api/v6/applications/461618159171141643/skus \
 -H "Authorization: Bearer <token>" \
 -H "Accept: application/json"
 
