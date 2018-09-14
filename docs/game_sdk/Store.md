@@ -367,6 +367,8 @@ curl https://discordapp.com/api/v6/applications/461618159171141643/entitlements?
 
 Fetch an entitlement by its ID. This may be useful in confirming that a user has a given entitlement that another call or the SDK says they do.
 
+###### Example
+
 ```
 curl https://discordapp.com/api/v6/applications/461618159171141643/entitlements/53908232506183999 \
 -H "Authorization: Bearer <token>" \
