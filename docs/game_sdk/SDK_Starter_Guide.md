@@ -91,7 +91,7 @@ Finally, copy the **Client ID** at the top of the page. This id, also referred t
 
 Now we're gonna start coding. Didn't think we'd get three so fast, did ya? _Think again!_ The next sections are code primers for the main languages of the SDK: C#, C, and C++. They'll get you up and running with the most basic examples, and then you're off to the races.
 
-## Code Primer - Unity (C#)
+## Code Primer - Unity (Csharp)
 
 - Open up that SDK zip that you downloaded.
 - Copy the contents of the `lib/` folder to `Assets/Plugins` in your Unity project
@@ -147,7 +147,7 @@ During development, Discord will focus itself to ask for permission when you ini
 
 You're ready to go! Check out the rest of the documentation for more info on how to use the other pieces of the SDK. See an example of everything it can do in `examples/c/main.c` in the SDK zip file.
 
-## Code Primer - Unreal Engine 4 (C++)
+## Code Primer - Unreal Engine 4 (Cpp)
 
 > The C++ API shape is still in flux. Expect future revisions to not return discord::Result for every method and a shift from out parameters to return values.
 
@@ -167,6 +167,40 @@ auto result = discord::Core::Create(CLIENT_ID, DiscordCreateFlags_Default, &core
 During development, Discord will focus itself to ask for permission when you initialize the SDK. This will happen once a week (the duration of our OAuth2 tokens) for now, but will not happen at all in production.
 
 You're ready to go! Check out the rest of the documentation for more info on how to use the other pieces of the SDK. See an example of everything it can do in `examples/cpp/main.cpp` in the SDK zip file.
+
+## Testing Locally with Two Clients
+
+While integrating the Discord GameSDK, you will probably find yourself wanting to test functionality between two game clients locally, be it for networking, Rich Presence, etc.
+
+We also know that getting a test build of a game on two separate machines can be both difficult and cumbersome. So, we've got a solution for you! By using system environment variables, you can tell the SDK in a certain game client to connect to a specific Discord client. Here's how it works
+
+1. Open up two Discord clients. We recommend you develop against Discord Canary, so you can use PTB or Stable for your test account
+
+- Windows: [Canary](https://discordapp.com/api/download/canary?platform=win), [PTB](https://discordapp.com/api/download/ptb?platform=win), [Stable](https://discordapp.com/api/download?platform=win)
+- Mac: [Canary](https://discordapp.com/api/download/canary?platform=osx), [PTB](https://discordapp.com/api/download/ptb?platform=osx), [Stable](https://discordapp.com/api/download?platform=osx)
+
+2. Fire up the two accounts, and log in with two separate users. Make sure any test account is added to the application's App Whitelist in the portal!
+
+Now, in your game code, you can tell the SDK which client to connect to via the environment variable `DISCORD_INSTANCE_ID` **before initializing the SDK**. The value of the variable corresponds to the order in which you opened the clients, so `0` would connect to the first opened client, `1` the second, etc.
+
+As a brief example:
+
+```cs
+// This machine opened Discord Canary first, and Discord PTB second
+
+// This makes the SDK connect to Canary
+System.Environment.SetEnvironmentVariable("DISCORD_INSTANCE_ID", "0");
+var discord = new Discord(applicationId, Discord.CreateFlags.Default);
+
+// This makes the SDK connect to PTB
+System.Environment.SetEnvironmentVariable("DISCORD_INSTANCE_ID", "1");
+var discord = new Discord(applicationId, Discord.CreateFlags.Default);
+```
+
+This will set the environment variable only within the context of the running process, so don't worry about messing up global stuff.
+
+> danger
+> If you test with this, make sure to remove this code before pushing a production build. It will interfere with the way that Discord launches games for users.
 
 ## Section Checklist
 
@@ -195,3 +229,7 @@ Oh, yeah. Pseudo Table of Contents:
 - [Storage](#DOCS_GAME_SDK_STORAGE/)
 - [Applications](#DOCS_GAME_SDK_APPLICATIONS/)
 - [Overlay](#DOCS_GAME_SDK_OVERLAY/)
+
+```
+
+```
