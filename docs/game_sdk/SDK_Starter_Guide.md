@@ -172,18 +172,16 @@ You're ready to go! Check out the rest of the documentation for more info on how
 
 While integrating the Discord GameSDK, you will probably find yourself wanting to test functionality between two game clients locally, be it for networking, Rich Presence, etc.
 
-We also know that getting a test build of a game on two separate machines can be both difficult and cumbersome. So, we've got a solution for you! By using system environment variables, you can tell the SDK in a certain game client to connect to a specific Discord client. Here's how it works
+We also know that getting a test build of a game on two separate machines can be both difficult and cumbersome. So, we've got a solution for you! By using system environment variables, you can tell the SDK in a certain game client to connect to a specific Discord client. Here's how it works:
 
-1. Open up two Discord clients. We recommend you develop against Discord Canary, so you can use PTB or Stable for your test account
-
-- Windows: [Canary](https://discordapp.com/api/download/canary?platform=win), [PTB](https://discordapp.com/api/download/ptb?platform=win), [Stable](https://discordapp.com/api/download?platform=win)
-- Mac: [Canary](https://discordapp.com/api/download/canary?platform=osx), [PTB](https://discordapp.com/api/download/ptb?platform=osx), [Stable](https://discordapp.com/api/download?platform=osx)
-
-2. Fire up the two accounts, and log in with two separate users. Make sure any test account is added to the application's App Whitelist in the portal!
+1. Download Discord Canary. This is our most updated build, and is good to develop against: [Windows](https://discordapp.com/api/download/canary?platform=win) - [Mac](https://discordapp.com/api/download/canary?platform=osx)
+2. Download a second Discord Build. Here's our Public Test Build: [Windows](https://discordapp.com/api/download/ptb?platform=win) - [Mac](https://discordapp.com/api/download/ptb?platform=osx)
+3. Open up two Discord clients. We recommend you develop against Discord Canary, so you can use PTB or Stable for your test account
+4. Log in with two separate users. Make sure any test account is added to the application's App Whitelist in the portal!
 
 Now, in your game code, you can tell the SDK which client to connect to via the environment variable `DISCORD_INSTANCE_ID` **before initializing the SDK**. The value of the variable corresponds to the order in which you opened the clients, so `0` would connect to the first opened client, `1` the second, etc.
 
-As a brief example:
+###### Environment Variable Example
 
 ```cs
 // This machine opened Discord Canary first, and Discord PTB second
