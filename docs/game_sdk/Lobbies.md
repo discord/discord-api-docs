@@ -511,7 +511,7 @@ ActivityManager.UpdateActivity(activity, (result) =>
 
 Disconnects the current user from a lobby.
 
-Returns `Discord.Result`.
+Returns `Discord.Result` via callback.
 
 ###### Parameters
 
