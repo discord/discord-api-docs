@@ -46,7 +46,7 @@ Create a new webhook. Requires the 'MANAGE_WEBHOOKS' permission. Returns a [webh
 | Field | Type | Description |
 |-------|------|-------------|
 | name | string | name of the webhook (2-32 characters) |
-| avatar | [avatar data](#DOCS_RESOURCES_USER/avatar-data) string | image for the default webhook avatar |
+| avatar | ?[avatar data](#DOCS_RESOURCES_USER/avatar-data) string | image for the default webhook avatar |
 
 ## Get Channel Webhooks % GET /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/webhooks
 
