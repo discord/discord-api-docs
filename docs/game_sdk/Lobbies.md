@@ -19,7 +19,7 @@ In order to ensure that Discord lobbies are consistent for all players, this man
 
 To update a user or a lobby, create or get a transaction for that resource, call the needed methods on it, and then pass it to the `Create()` or `Update()` methods. When passed to a `Create()` or `Update()` method, the transaction objected is consumed. So, if you want to do another `Create()` or `Update()`, you need to get a new transaction.
 
-### Example: Creating a Lobby
+###### Example: Creating a Lobby
 
 ```cs
 var lobbyManager = discord.GetLobbyManager();
@@ -605,7 +605,7 @@ Returns lobby metadata value for a given key and id. Can be used with iteration,
 | lobbyId | Int64  | the lobby you want to get metadata for |
 | key     | string | the key name to access                 |
 
-####### Example
+###### Example
 
 ```cs
 var averageMmr = lobbyManger.GetLobbyMetadataValue(290926798626357250, "metadata.average_mmr");
@@ -617,7 +617,7 @@ Get the number of members in a lobby.
 
 Returns `Int32`.
 
-####### Parameters
+###### Parameters
 
 | name    | type  | description                           |
 | ------- | ----- | ------------------------------------- |
@@ -710,7 +710,7 @@ Gets the key for the lobby metadata at the given index on a lobby member.
 
 Returns `string`.
 
-####### Parameters
+###### Parameters
 
 | name    | type  | description                            |
 | ------- | ----- | -------------------------------------- |
@@ -734,7 +734,7 @@ Returns user metadata for a given key. Can be used in conjunction with the count
 
 Returns `string`.
 
-####### Parameters
+###### Parameters
 
 | name    | type   | description                            |
 | ------- | ------ | -------------------------------------- |

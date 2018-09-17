@@ -510,7 +510,7 @@ Used to change voice settings of users in voice channels
 >to that app's configured voice settings and lock voice settings again. This is a temporary situation that will
 >be changed in the future.
 
-####### Pan Object
+###### Pan Object
 
 | Field | Type | Description |
 |-------|------|-------------|
