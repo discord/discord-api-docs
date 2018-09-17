@@ -819,9 +819,11 @@ var search = lobbyManager.GetSearchQuery();
 
 ## Search
 
-Searches available lobbies based on the search criteria chosen in the `Discord.LobbySearch` member functions. Lobbies that meet the criteria are available within the context of the callback.
+Searches available lobbies based on the search criteria chosen in the `Discord.LobbySearch` member functions. Lobbies that meet the criteria are then globally filtered, and can be accessed via iteration with `LobbyCount()` and `GetLobbyId()`. The callback fires when the list of lobbies is stable and ready for iteration.
 
-Returns `void`, and a parameter-less function callback.
+You do not necessarily need to access the filtered lobbies within the context of the result callback, but it may make it easier for the sake of asynchronous timing.
+
+Returns `Discord.Result` via callback.
 
 ###### Parameters
 
@@ -836,10 +838,13 @@ var search = lobbyManger.GetSearchQuery();
 search.Filter("metadata.matchmaking_rating", LobbySearchComparison.GreaterThan, LobbySearchCast.Number, "455");
 search.Sort("metadata.matchmaking_rating", LobbySearchCast.Number, "456");
 search.Limit(10);
-lobbyManger.Search(search, () =>
+lobbyManger.Search(search, (result) =>
 {
-  var count = lobbyManager.LobbyCount();
-  Console.WriteLine("There are {0} lobbies that match your search criteria", count);
+  if (result == Discord.Result.OK)
+  {
+    var count = lobbyManager.LobbyCount();
+    Console.WriteLine("There are {0} lobbies that match your search criteria", count);
+  }
 });
 ```
 

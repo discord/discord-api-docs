@@ -5,73 +5,273 @@
 
 Some people don't like to read full pages of documentation. Personally, I think those people are missing out. But we want to make sure that we cater to everyone, so here's a list of every Dispatch command and what it does. No frills, no jokes. Okay, maybe some jokes.
 
-## Application
+## branch create
 
-`dispatch application get <application_id>`  
-Gets the game's metadata
+Creates a new branch. If you have not yet made a master branch, this command will also automatically create a master branch.
 
-`dispatch application update <application_id> <path_to_config>`  
-Updates the game's metadata
+###### Arguments
 
-## Branch
+| name           | values | description                   |
+| -------------- | ------ | ----------------------------- |
+| application_id | int    | your application ID/client ID |
+| branch_name    | string | the name for your new branch  |
 
-`dispatch branch create <application_id> <branch_name>`  
-Creates a new branch
+###### Example
 
-`dispatch branch delete <application_id> <branch_id>`  
-Deletes a branch
+```
+-> dispatch branch create 290926444748734465 "test"
+Branch created with id 491362538965958686
+```
 
-`dispatch branch list <application_id>`  
-Lists your branches
+## branch delete
 
-`dispatch branch promote <application_id> <branch_id> <target_branch_id>`  
-Promotes the live build of one branch to another
+Deletes a branch.
 
-## Builds
+###### Arguments
 
-`dispatch build corrupt <application_id> <build_id>`  
-Marks a build as corrupted
+| name           | values | description                    |
+| -------------- | ------ | ------------------------------ |
+| application_id | int    | your application ID/client ID  |
+| branch_id      | int    | the id of the branch to delete |
 
-`dispatch build delete <application_id> <build_id>`  
-Deletes a build
+###### Example
 
-`dispatch build drm-wrap <application_id> <path_to_executable>`  
-Wraps your executable in Discord DRM
+```
+-> dispatch branch delete 290926444748734465 491362538965958686
+```
 
-`dispatch build list <application_id> <branch_id>`  
-Lists the builds available on the branch
+## branch list
 
-`dispatch build publish <application_id> <branch_id> <build_id>`  
-Publishes a given build from a given branch
+Lists all branches for an application.
 
-`dispatch build push <application_id> <branch_id> <path_to_config>`  
-Pushes as build to branch with the given manifests
+###### Arguments
 
-`dispatch build update <application_id> <branch_id> <install_path> --platform <value> --locale <value>`  
-Downloads the build for the given application id and branch id to the given install path, for the given platform and locale. `install_path` can be any file path on your machine to download the build to
+| name           | values | description                   |
+| -------------- | ------ | ----------------------------- |
+| application_id | int    | your application ID/client ID |
 
-`dispatch build verify`  
-Verifies the build, returning any hashes and locations that are corrupted
+###### Example
 
-## Completions
+```
+-> dispatch branch list 290926444748734465
+|    APPLICATION ID    |      BRANCH ID       |         NAME         |    LIVE_BUILD_ID     |           CREATED AT           |
+| -------------------- | -------------------- | -------------------- | -------------------- | ------------------------------ |
+|  290926444748734465  |  471164707759996234  |  master              |                      |  2018-07-24 04:00:20.146588Z   |
+```
 
-`dispatch completions generate <shell>`  
-Generations shell command completions for `BASH`, `BASH`(macOS/Homebrew) `FISH`, `ZSH`. We also support completions for Powershell or other custom shells; run `dispatch completions --help` for more info.
+## branch promote
 
-## Manifest Labels
+Promotes the live build of one branch to another.
 
-`dispatch manifest_label list <application_id>`  
-List created manifest labels
+###### Arguments
 
-## Store
+| name             | values | description                       |
+| ---------------- | ------ | --------------------------------- |
+| application_id   | int    | your application ID/client ID     |
+| branch_id        | int    | the id of the branch to promote   |
+| target_branch_id | int    | the id of the branch to overwrite |
 
-`dispatch store listing create <directory> <name> <application_id>`  
-Creates a store listing at the given directory
+###### Example
 
-`dispatch store listing update <directory>`  
-Updates the store listing for the given directory
+```
+-> dispatch branch promote 290926444748734465 471164707759996234 491362538965958686
+```
 
-## Miscellaneous
+## build delete
 
-`dispatch login`  
+Deletes a build from a branch.
+
+###### Arguments
+
+| name           | values | description                   |
+| -------------- | ------ | ----------------------------- |
+| application_id | int    | your application ID/client ID |
+| build_id       | int    | the id of the build to delete |
+
+###### Example
+
+```
+-> dispatch build delete 290926444748734465 491362538965958686
+```
+
+## build drm-wrap
+
+Wraps your executable in Discord's DRM.
+
+> danger
+> This action is destructive and overwrites the executable. Make sure you've got a backup handy if needed!
+
+###### Arguments
+
+| name               | values    | description                                                                        |
+| ------------------ | --------- | ---------------------------------------------------------------------------------- |
+| application_id     | int       | your application ID/client ID                                                      |
+| path_to_executable | file path | the path to the executable, either explicit or relative to the dispatch executable |
+
+###### Example
+
+```
+-> dispatch build drm-wrap 290926444748734465 C:\my-game\my-game.exe
+```
+
+## build list
+
+Lists the builds available on the given branch.
+
+###### Arguments
+
+| name           | values | description                   |
+| -------------- | ------ | ----------------------------- |
+| application_id | int    | your application ID/client ID |
+| branch_id      | int    | the id of the branch to check |
+
+###### Example
+
+```
+-> dispatch build list 290926444748734465 491362538965958686
+|    APPLICATION ID    |       BUILD ID       |        STATUS        |   CREATION BRANCH    |           CREATED AT           |
+| -------------------- | -------------------- | -------------------- | -------------------- | ------------------------------ |
+|  290926444748734465  |  489230031839821824  |        READY         |        master        |  2018-09-12 00:25:29.045554Z   |
+|  290926444748734465  |  479469321974841354  |        READY         |        master        |  2018-08-16 01:59:54.481336Z   |
+```
+
+## build publish
+
+Marks a given build as the live build for a given branch.
+
+###### Arguments
+
+| name           | values | description                    |
+| -------------- | ------ | ------------------------------ |
+| application_id | int    | your application ID/client ID  |
+| branch_id      | int    | the id of the branch to check  |
+| build_id       | int    | the id of the build to publish |
+
+###### Example
+
+```
+-> dispatch build publish 290926444748734465 491362538965958686 489230031839821824
+```
+
+## build push
+
+Pushes a new build to the given branch. The JSON config file tells Dispatch how to organize the files and which to push relative to the `application_root`.
+
+###### Arguments
+
+| name             | values    | description                                                                                           |
+| ---------------- | --------- | ----------------------------------------------------------------------------------------------------- |
+| application_id   | int       | your application ID/client ID                                                                         |
+| branch_id        | int       | the id of the branch to check                                                                         |
+| config_file      | filename  | the [JSON config file](#DOCS_DISPATCH_BRANCHES_AND_BUILDS/setting-up-our-first-build) for the build   |
+| application_root | file path | the directory that dispatch will treat as the local root for operations—`.` for the current directory |
+| -c               | flag      | forces a re-chunk of files even if the edited file timestamp hasn't changed                           |
+| -p               | flag      | automatically publishes the build if push is successful                                               |
+
+###### Example
+
+```
+-> dispatch build push 290926444748734465 491362538965958686 config.json . -c -p
+```
+
+## build update
+
+Downloads the build for the given application id and branch id to the given install path, for the given platform and locale.
+
+`install_path` can be any file path on your machine to download the build to.
+
+###### Arguments
+
+| name           | values                                                                        | description                    |
+| -------------- | ----------------------------------------------------------------------------- | ------------------------------ |
+| application_id | int                                                                           | your application ID/client ID  |
+| branch_id      | int                                                                           | the id of the branch to check  |
+| install_path   | file path                                                                     | the path to install to         |
+| --platform     | [platform](#DOCS_DISPATCH_FIELD_VALUES/manifest-platform-values)              | the build platform to download |
+| --locale       | [locale](#DOCS_DISPATCH_FIELD_VALES/predefined-field-values-accepted-locales) | the build locale to download   |
+
+###### Example
+
+```
+-> dispatch build update 290926444748734465 491362538965958686 C:\my-game --platform win64 --locale en-US
+```
+
+## completions generate
+
+Generations shell command completions; run `dispatch completions --help` for more info, as it varies by shell
+
+###### Example
+
+```
+-> dispatch completions generate --help
+```
+
+## manifest-label list
+
+Lists created manifest labels. These labels are created from the JSON config file when pushing builds.
+
+###### Arguments
+
+| name           | values | description                   |
+| -------------- | ------ | ----------------------------- |
+| application_id | int    | your application ID/client ID |
+
+###### Example
+
+```
+-> dispatch manifest-label list 290926444748734465
+|    APPLICATION ID    |          ID          |         NAME         |
+| -------------------- | -------------------- | -------------------- |
+|  290926444748734465  |  471165178650999608  |        my-game       |
+|  290926444748734465  |  471169990397324288  |      my-game-dlc     |
+```
+
+## store listing create
+
+Creates a SKU for the application. The files to manage the store page will be created at the given directory. Do not create multiple game SKUs per application.
+
+###### Arguments
+
+| name           | values                                                        | description                                                     |
+| -------------- | ------------------------------------------------------------- | --------------------------------------------------------------- |
+| directory      | file path                                                     | the file path at which to create store listing data for the SKU |
+| name           | string                                                        | the name of the SKU                                             |
+| application_id | int                                                           | your application ID/client ID                                   |
+| --sku-type     | [SKU type](#DOCS_DISPATCH_FIELD_VALUES/store-pages-sku-types) | the type of SKU to create, default is `game`                    |
+
+###### Example
+
+```
+-> dispatch store listing create . "100 Gem Bundle" 290926444748734465 --sku-type consumable
+```
+
+## store listing update
+
+Updates the store listing at the given directory.
+
+###### Arguments
+
+| name      | values    | description                                               |
+| --------- | --------- | --------------------------------------------------------- |
+| directory | file path | the file path at which to push updated store listing data |
+
+###### Example
+
+```
+-> dispatch store listing update ./100-gem-bundle
+```
+
+## login
+
 Authorizes you to do these things! Maybe we should've put this at the top...
+
+###### Arguments
+
+None
+
+###### Example
+
+```
+-> dispatch login
+[2018-09-17][15:26:15][INFO] Already logged in
+```

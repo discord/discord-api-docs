@@ -67,11 +67,12 @@
 
 ###### SKU Types
 
-| Type | Description                                         |
-| ---- | --------------------------------------------------- |
-| game | marks the SKU as the base game—one per application! |
-| dlc  | this SKU is DLC, like an expansion                  |
-| iap  | this SKU is an in-app purchase, like a skin         |
+| Type       | Description                                 |
+| ---------- | ------------------------------------------- |
+| game       | the base game—one per application!          |
+| dlc        | this SKU is DLC, like an expansion          |
+| consumable | this SKU is an in-app purchase, like a skin |
+| bundle     | this SKU is a bundle                        |
 
 ###### Access Type
 
