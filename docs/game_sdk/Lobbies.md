@@ -782,9 +782,9 @@ lobbyManager.UpdateMember(290926798626357250, 53908232506183680, txn, (result) =
 });
 ```
 
-## SendMessage
+## SendLobbyMessage
 
-Sends a message to the lobby on behalf of the current user. You must be connected to the lobby you are messaging.
+Sends a message to the lobby on behalf of the current user. You must be connected to the lobby you are messaging. You should use this function for message sending if you are _not_ using the built in networking layer for the lobby. If you are, you should use [SendNetworkMessage](#DOCS_GAME_SDK_LOBBIES/sendnetworkmessage) instead.
 
 Returns `void`.
 
@@ -798,7 +798,7 @@ Returns `void`.
 ###### Example
 
 ```cs
-lobbyManager.SendMessage(290926798626357250, Encoding.UTF8.GetBytes("hey."));
+lobbyManager.SendLobbyMessage(290926798626357250, Encoding.UTF8.GetBytes("hey."));
 ```
 
 ## GetSearchQuery
@@ -1253,3 +1253,176 @@ This endpoints accepts a UTF8 string. If your message is already a string, you'r
 | name | type   | description                                 |
 | ---- | ------ | ------------------------------------------- |
 | data | string | a message to be sent to other lobby members |
+
+## Integrated Networking
+
+Discord lobbies have the option of being used with a wrapped networking layer, allowing you to start sending packets quickly and easily without needing to do state management around routes, peer IDs, member metadata, and the like.
+
+This layer allows you to easily connect to the network and open channels to all lobby members with one function call. You can then send network messages to users by their user ID, easily retrieved via lobby methods.
+
+We take care of all the route updating for you, so you can get up and running quickly and easily. If you'd like to see how the lower level networking functionality works, or want to try it yourself so you can tweak it to your liking, check out [Networking](#DOCS_GAME_SDK_NETWORKING/);
+
+## ConnectNetwork
+
+Connects to the networking layer for the given lobby ID. Call this when connecting to the lobby.
+
+Returns `void`.
+
+###### Parameters
+
+| name    | type  | description                    |
+| ------- | ----- | ------------------------------ |
+| lobbyId | Int64 | the ID of the lobby you are in |
+
+###### Example
+
+```cs
+lobbyManager.ConnectLobby(lobbyId, (result, lobby) =>
+{
+  lobbyManager.ConnectNetwork(lobby.Id);
+});
+```
+
+## DisconnectNetwork
+
+Disconnects from the networking layer for the given lobby ID.
+
+Returns `void`.
+
+###### Parameters
+
+| name    | type  | description                    |
+| ------- | ----- | ------------------------------ |
+| lobbyId | Int64 | the ID of the lobby you are in |
+
+###### Example
+
+```cs
+lobbyManager.DisconnectNetwork(lobby.Id);
+```
+
+## FlushNetwork
+
+Flushes the network. Call this when you're done sending messages. In Unity, this should be in `LateUpdate()`.
+
+Returns `void`.
+
+###### Parameters
+
+None
+
+###### Example
+
+```cs
+void LateUpdate()
+{
+  var lobbyManager = discord.GetLobbyManager();
+  lobbyManager.FlushNetwork();
+}
+```
+
+## OpenNetworkChannel
+
+Opens a network channel to all users in a lobby on the given channel number. No need to iterate over everyone!
+
+Returns `void`.
+
+###### Parameters
+
+| name      | type  | description                                          |
+| --------- | ----- | ---------------------------------------------------- |
+| lobbyId   | Int64 | the ID of the lobby you are in                       |
+| channelId | byte  | the channel on which to connect                      |
+| reliable  | bool  | whether the channel should be unreliable or reliable |
+
+###### Example
+
+```cs
+var lobbyManager = discord.GetLobbyManager();
+lobbyManager.ConnectLobby(lobbyId, (result, lobby) =>
+{
+  lobbyManager.ConnectNetwork(lobby.Id);
+  lobbyManager.OpenNetworkChannel(lobby.Id, 0, true);
+});
+```
+
+## SendNetworkMessage
+
+Sends a network message to the given user ID that is a member of the given lobby ID over the given channel ID.
+
+Returns `void`.
+
+## Parameters
+
+| name      | type   | description                             |
+| --------- | ------ | --------------------------------------- |
+| lobbyId   | Int64  | the ID of the lobby you are in          |
+| userId    | Int64  | the ID of the user to send a message to |
+| channelId | byte   | the channel on which to connect         |
+| data      | byte[] | the message to send                     |
+
+## Example
+
+```cs
+var lobbyManager = discord.GetLobbyManager();
+lobbyManager.ConnectLobby(lobbyId, (result, lobby) =>
+{
+  lobbyManager.ConnectNetwork(lobby.Id);
+  lobbyManager.OpenNetworkChannel(lobby.Id, 0, true);
+  for (int i = 0; i < lobbyManager.MemberCount(); i++)
+  {
+    var userId = lobbyManager.GetMemberUserId(i);
+    lobbyManager.SendNetworkMessage(lobby.Id, userId, 0, System.Text.Encoding.UTF8.GetBytes("Hello!"));
+  }
+});
+```
+
+## OnNetworkMessage
+
+Fires when the user receives a message from the lobby's networking layer.
+
+###### Parameters
+
+| name      | type   | description                             |
+| --------- | ------ | --------------------------------------- |
+| lobbyId   | Int64  | the ID of the lobby you are in          |
+| userId    | Int64  | the ID of the user who sent the message |
+| channelId | byte   | the channel the message was sent on     |
+| data      | byte[] | the message                             |
+
+## Example: Networking the Easy Way
+
+```cs
+// We can create a helper method to easily connect to the networking layer of the lobby
+public void InitNetworking(Int64 lobbyId)
+{
+  // First, connect to the lobby network layer
+  var lobbyManager = discord.GetLobbyManager();
+  lobbyManager.ConnectNetwork(lobbyId);
+
+  // Next, deterministically open our channels
+  // Reliable on 0, unreliable on 1
+  lobbyManager.OpenNetworkChannel(lobbyId, 0, true);
+  lobbyManager.OpenNetworkChannel(lobbyId, 1, false);
+
+  // We're ready to go!
+}
+
+// Let's say we got a game invite from Rich Presence
+activityManager.OnActivityJoin += secret =>
+{
+  var lobbyManager = discord.GetLobbyManager();
+  lobbyManager.ConnectLobbyWithActivitySecret(secret, (result, lobby) =>
+  {
+    // Connect to networking
+    InitNetworking(lobby.Id);
+
+    // Say hello!
+    for (int i = 0; i < lobbyManager.MemberCount(); i++)
+    {
+      var userId = lobbyManager.GetMemberUserId(i);
+      lobbyManager.SendNetworkMessage(lobby.Id, userId, 0, System.Text.Encoding.UTF8.GetBytes("Hello!"));
+    }
+  });
+}
+```
