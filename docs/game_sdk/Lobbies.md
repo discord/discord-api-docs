@@ -1357,7 +1357,7 @@ Sends a network message to the given user ID that is a member of the given lobby
 
 Returns `void`.
 
-## Parameters
+###### Parameters
 
 | name      | type   | description                             |
 | --------- | ------ | --------------------------------------- |
@@ -1366,7 +1366,7 @@ Returns `void`.
 | channelId | byte   | the channel on which to connect         |
 | data      | byte[] | the message to send                     |
 
-## Example
+###### Example
 
 ```cs
 var lobbyManager = discord.GetLobbyManager();
