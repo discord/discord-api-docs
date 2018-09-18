@@ -95,6 +95,28 @@ For more detailed information and documentation around the Rich Presence feature
 | Join     | 1     |
 | Spectate | 2     |
 
+## Activity Action Field Requirements
+
+If you want to hook up joining and spectating for your games, there are certain fields in the activity payload that need to be sent. Refer to the following handy table for what needs to be set for certain actions.
+
+###### Requirements
+
+| Field                          | Custom Artwork | Spectate | Join | Ask to Join |
+| ------------------------------ | :------------: | :------: | :--: | :---------: |
+| State                          |                |          |      |             |
+| Details                        |                |          |      |             |
+| ActivityTimestamps.Start       |                |          |      |             |
+| ActivityTimestamps.End         |                |          |      |             |
+| ActivityAssets.LargeImage      |       x        |          |      |             |
+| ActivityAssets.SmallImage      |       x        |          |      |             |
+| ActivityAssets.LargeText       |       x        |          |      |             |
+| ActivityAssets.SmallTest       |       x        |          |      |             |
+| ActivityParty.Id               |                |          |  x   |      x      |
+| ActivityParty.Size.CurrentSize |                |          |  x   |      x      |
+| ActivityParty.Size.MaxSize     |                |          |  x   |      x      |
+| ActivitySecrets.Join           |                |          |  x   |      x      |
+| ActivitySecrets.Spectate       |                |    x     |      |             |
+
 ## RegisterCommand
 
 Registers a command by which Discord can launch your game. This might be a custom protocol, like `my-awesome-game://`, or a path to an executable. It also supports any lauch parameters that may be needed, like `game.exe --full-screen --no-hax`.
