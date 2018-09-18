@@ -7,23 +7,29 @@ If your game has DLC or offers in-app purchases, this manager is for you! The St
 
 ## Application Test Mode
 
-With this new Store Manager comes a new fun toggle in the Discord app itself: Application Test Mode! You can find this toggle in your Discord user settings -> Appearance -> allllll the way at the bottom. If it's not there, make sure you have "Developer Mode" toggled on as well.
-
-So what's it do? Glad you asked! When enabled, Discord will prompt you to enter an application ID. This should be the application ID of your game. After doing so, you'll see an orange banner across the top of your application (or web page, if you did this on the web). This means it worked!
-
-While in Application Test Mode, you can freely make "purchases" of SKUs tied to your application. That means you can test buying your game, buying DLC, or going through an IAP flow without any credit card charges.
+With this new Store Manager comes a new fun toggle in the Discord app itself: Application Test Mode! While in Application Test Mode, you can freely make "purchases" of SKUs tied to your application. That means you can test buying your game, buying DLC, or going through an IAP flow without any credit card charges.
 
 > info
 > You still need to have a valid payment method on file to "purchase" SKUs in Application Test Mode; it just won't be charged at checkout.
 
-Application Test Mode also allows you to "purchase" unpublished SKUs for your application, which are SKUs that Discord does not show to users who are not in Application Test Mode for your app.
+To enable it, first make sure you have a payment method on file in User Settings -> Billing. Then:
 
-So, do that, go to the store listing for your game, and try it out! If for some reason the "Purchase/Install" button is greyed out, please check the following:
+1. Go to your store page in a web browser
+2. Click on the settings cog in the bottom left corner
+3. Go to Appearance -> allll the way at the bottom
+4. Toggle "Developer Mode" **on** and "Application Test Mode" **on**, and enter your application ID
+5. Exit user settings
+
+You should now see an orange bar across the top of your screen; this means it worked! You should be able to "purchase" the game from the store page that you currently have open.
+
+If for some reason the "Purchase/Install" button is greyed out, please check the following:
 
 1. Do you have a `LIVE_BUILD_ID` on the master branch for this SKU? Check with `dispatch branch list <application_id>`.
 2. Do you have a price tier set for this SKU? If not, pick one!
 
 Once those two conditions are met, you should be good to go! Entitlements "purchased" with this mode enabled can be revoked with the `DELETE /entitlements` HTTP endpoint, documented below.
+
+If you are testing IAP flows, you'll want to instead follow the instructions to enable Application Developer Mode in your Discord desktop client.
 
 ## Checking DLC Entitlements
 
