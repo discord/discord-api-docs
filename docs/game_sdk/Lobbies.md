@@ -384,6 +384,12 @@ Filters lobby results to within certain regions relative to the user's location.
 
 Returns `void`.
 
+###### Parameters
+
+| name     | type                        | description                                     |
+| -------- | --------------------------- | ----------------------------------------------- |
+| distance | Discord.LobbySearchDistance | the distance within which to search for lobbies |
+
 ###### Example
 
 ```cs
