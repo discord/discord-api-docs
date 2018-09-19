@@ -102,7 +102,31 @@ This is the top level of the config file. It has an `application` object at the 
 }
 ```
 
-`manifests` is an array of objects that denote file bundles; part of that object is listed here. `label` is the name you want to give an individual manifest/bundle of files. `platforms` are the platforms for which it is valid. `locales` is an array of locales for which the manifest is valid; leaving it empty denotes it's valid for all locales. `local_root` is the relative path from this file to the directory that contains the raw game files to upload. `redistributables` is an array of any redistributable packages your game may need to function, like a certain install of DirectX, or a Microsoft C++ redistributable. A list of valid values can be found in [Field Values](#DOCS_DISPATCH_FIELD_VALUES/).
+`manifests` is an array of objects that denote file bundles; part of that object is listed here. `label` is the name you want to give an individual manifest/bundle of files. `platforms` are the platforms for which it is valid. `locales` is an array of locales for which the manifest is valid; leaving it empty denotes it's valid for all locales. `local_root` is the relative path to the directory that contains the raw game files to upload for this manifest. This may be particularly useful if you have multiple manifests with different relative root directories, like:
+
+```json
+// Imaginary directory structure:
+// C:\game\binary
+// C:\game\langs\en-US
+// C:\game\langes\fr
+
+"manifests": [
+  {
+    "label": "game-files",
+    "local_root": "binary",
+  },
+  {
+    "label": "english-language-pack",
+    "local_root": "en-US",
+  },
+  {
+    "label": "french-language-pack",
+    "local_root": "fr",
+  }
+]
+```
+
+`redistributables` is an array of any redistributable packages your game may need to function, like a certain install of DirectX, or a Microsoft C++ redistributable. A list of valid values can be found in [Field Values](#DOCS_DISPATCH_FIELD_VALUES/).
 
 ```js
 {

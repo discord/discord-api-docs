@@ -60,13 +60,14 @@ lobbyManager.CreateLobby(txn, (result, lobby) =>
 
 ###### Lobby Struct
 
-| name     | type      | description                       |
-| -------- | --------- | --------------------------------- |
-| Id       | Int64     | the unique id of the lobby        |
-| Type     | LobbyType | if the lobby is public or private |
-| OwnerId  | Int64     | the userId of the lobby owner     |
-| Secret   | string    | the password to the lobby         |
-| Capacity | UInt32    | the max capacity of the lobby     |
+| name     | type      | description                            |
+| -------- | --------- | -------------------------------------- |
+| Id       | Int64     | the unique id of the lobby             |
+| Type     | LobbyType | if the lobby is public or private      |
+| OwnerId  | Int64     | the userId of the lobby owner          |
+| Secret   | string    | the password to the lobby              |
+| Capacity | UInt32    | the max capacity of the lobby          |
+| Locked   | bool      | whether or not the lobby can be joined |
 
 ###### LobbySearchComparison Enum
 
@@ -85,6 +86,15 @@ lobbyManager.CreateLobby(txn, (result, lobby) =>
 | ------ | ----- |
 | String | 1     |
 | Number | 2     |
+
+###### LobbySearchDistance Enum
+
+| name     | value | description                          |
+| -------- | ----- | ------------------------------------ |
+| Local    | 0     | within the same region               |
+| Default  | 1     | within the same and adjacent regions |
+| Extended | 2     | far distances, like US to EU         |
+| Global   | 3     | all regions                          |
 
 ###### LobbyTransaction Struct
 
@@ -111,8 +121,15 @@ Marks a lobby as private or public
 ###### Example
 
 ```cs
-var txn = new Discord.LobbyTransaction();
+var txn = lobbyManager.GetLobbyUpdateTransaction();
 txn.SetType(Discord.LobbyType.Public);
+lobbyManager.UpdateLobby(lobbyId, txn, (result, lobby) =>
+{
+  if (result == Discord.Result.OK)
+  {
+    Console.WriteLine("Lobby updated!");
+  }
+});
 ```
 
 ## LobbyTransaction.SetOwner
@@ -130,8 +147,15 @@ Returns `void`;
 ###### Example
 
 ```cs
-var txn = new Discord.LobbyTransaction();
+var txn = lobbyManager.GetLobbyUpdateTransaction();
 txn.SetOwner(53908232506183680);
+lobbyManager.UpdateLobby(lobbyId, txn, (result, lobby) =>
+{
+  if (result == Discord.Result.OK)
+  {
+    Console.WriteLine("Lobby updated!");
+  }
+});
 ```
 
 ## LobbyTransaction.SetCapacity
@@ -149,8 +173,15 @@ Returns `void`.
 ###### Example
 
 ```cs
-var txn = new Discord.LobbyTransaction();
+var txn = lobbyManager.GetLobbyUpdateTransaction();
 txn.SetCapacity(10);
+lobbyManager.UpdateLobby(lobbyId, txn, (result, lobby) =>
+{
+  if (result == Discord.Result.OK)
+  {
+    Console.WriteLine("Lobby updated!");
+  }
+});
 ```
 
 ## LobbyTransaction.SetMetadata
@@ -169,8 +200,15 @@ Returns `void`.
 ###### Example
 
 ```cs
-var txn = new Discord.LobbyTransaction();
+var txn = lobbyManager.GetLobbyUpdateTransaction();
 txn.SetMetadata("average_mmr", "4500");
+lobbyManager.UpdateLobby(lobbyId, txn, (result, lobby) =>
+{
+  if (result == Discord.Result.OK)
+  {
+    Console.WriteLine("Lobby updated!");
+  }
+});
 ```
 
 ## LobbyTransaction.DeleteMetadata
@@ -188,8 +226,41 @@ Returns `void`.
 ###### Example
 
 ```cs
-var txn = new Discord.LobbyTransaction();
+var txn = lobbyManager.GetLobbyUpdateTransaction();
 txn.DeleteMetadata("average_mmr");
+lobbyManager.UpdateLobby(lobbyId, txn, (result, lobby) =>
+{
+  if (result == Discord.Result.OK)
+  {
+    Console.WriteLine("Lobby updated!");
+  }
+});
+```
+
+## LobbyTransaction.SetLocked
+
+Sets the lobby to locked or unlocked. When locked, new users cannot join the lobby.
+
+Returns `void`.
+
+###### Parameters
+
+| name   | type | description                         |
+| ------ | ---- | ----------------------------------- |
+| locked | bool | whether to lock or unlock the lobby |
+
+###### Example
+
+````cs
+var txn = lobbyManager.GetLobbyUpdateTransaction();
+txn.SetLocked(true);
+lobbyManager.UpdateLobby(lobbyId, txn, (result, lobby) =>
+{
+  if (result == Discord.Result.OK)
+  {
+    Console.WriteLine("Lobby updated!");
+  }
+});
 ```
 
 ## LobbyMemberTransaction.SetMetadata
@@ -208,9 +279,16 @@ Returns `void`.
 ###### Example
 
 ```cs
-var txn = new Discord.LobbyTransaction();
+var txn = lobbyManager.GetMemberUpdateTransaction();
 txn.SetMetadata("current_mmr", "4267");
-```
+lobbyManager.UpdateMember(lobbyId, memberId, txn, (result, lobby) =>
+{
+  if (result == Discord.Result.OK)
+  {
+    Console.WriteLine("Member updated!");
+  }
+});
+````
 
 ## LobbyMemberTransaction.DeleteMetadata
 
@@ -227,8 +305,15 @@ Returns `void`.
 ###### Example
 
 ```cs
-var txn = new Discord.LobbyTransaction();
+var txn = lobbyManager.GetMemberUpdateTransaction();
 txn.DeleteMetadata("current_mmr");
+lobbyManager.UpdateMember(lobbyId, memberId, txn, (result, lobby) =>
+{
+  if (result == Discord.Result.OK)
+  {
+    Console.WriteLine("Member updated!");
+  }
+});
 ```
 
 ## LobbySearch.Filter
@@ -293,6 +378,19 @@ var query = lobbyManager.GetSearchQuery();
 query.Limit(10);
 ```
 
+## LobbySearch.Distance
+
+Filters lobby results to within certain regions relative to the user's location.
+
+Returns `void`.
+
+###### Example
+
+````cs
+var query = lobbyManager.GetSearchQuery();
+query.Distance(Discord.LobbySearchDistance.Local);
+```
+
 ## GetLobbyCreateTransaction
 
 Gets a Lobby transaction used for creating a new lobby
@@ -307,7 +405,7 @@ None
 
 ```cs
 var txn = lobbyManager.GetLobbyCreateTransaction();
-```
+````
 
 ## GetLobbyUpdateTransaction
 

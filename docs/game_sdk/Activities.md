@@ -115,7 +115,7 @@ If you want to hook up joining and spectating for your games, there are certain 
 | ActivityParty.Size.CurrentSize |                |          |  x   |      x      |
 | ActivityParty.Size.MaxSize     |                |          |  x   |      x      |
 | ActivitySecrets.Join           |                |          |  x   |      x      |
-| ActivitySecrets.Spectate       |                |    x     |      |             |
+| ActivitySecrets.Spectate       |                |    x     |      |             |  |
 
 ## RegisterCommand
 
