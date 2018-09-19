@@ -251,7 +251,7 @@ Returns `void`.
 
 ###### Example
 
-````cs
+```cs
 var txn = lobbyManager.GetLobbyUpdateTransaction();
 txn.SetLocked(true);
 lobbyManager.UpdateLobby(lobbyId, txn, (result, lobby) =>
@@ -288,7 +288,7 @@ lobbyManager.UpdateMember(lobbyId, memberId, txn, (result, lobby) =>
     Console.WriteLine("Member updated!");
   }
 });
-````
+```
 
 ## LobbyMemberTransaction.DeleteMetadata
 
