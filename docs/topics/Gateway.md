@@ -272,7 +272,7 @@ Events are payloads sent over the socket to a client that correspond events in D
 | [Message Reaction Add](#DOCS_TOPICS_GATEWAY/message-reaction-add)               | user reacted to a message                                                                                                        |
 | [Message Reaction Remove](#DOCS_TOPICS_GATEWAY/message-reaction-remove)         | user removed a reaction from a message                                                                                           |
 | [Message Reaction Remove All](#DOCS_TOPICS_GATEWAY/message-reaction-remove-all) | all reactions were explicitly removed from a message                                                                             |
-| [Presence Update](#DOCS_TOPICS_GATEWAY/presence-update)                         | user's presence was updated in a guild                                                                                           |
+| [Presence Update](#DOCS_TOPICS_GATEWAY/presence-update)                         | user was updated                                                                                          |
 | [Typing Start](#DOCS_TOPICS_GATEWAY/typing-start)                               | user started typing in a channel                                                                                                 |
 | [User Update](#DOCS_TOPICS_GATEWAY/user-update)                                 | properties about a user changed                                                                                                  |
 | [Voice State Update](#DOCS_TOPICS_GATEWAY/voice-state-update)                   | someone joined, left, or moved a voice channel                                                                                   |
@@ -764,8 +764,7 @@ Sent when a user explicitly removes all reactions from a message.
 
 #### Presence Update
 
-A user's presence is their current state on a guild. This event is sent when a user's presence is updated for a guild.
-
+A user's presence is their current state on a guild. This event is sent when a user's presence or info, such as name or avatar, is updated.
 > warn
 > The user object within this event can be partial, the only field which must be sent is the `id` field, everything else is optional. Along with this limitation, no fields are required, and the types of the fields are **not** validated. Your client should expect any combination of fields and types within this event.
 
