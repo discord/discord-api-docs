@@ -386,7 +386,7 @@ Returns `void`.
 
 ###### Example
 
-````cs
+```cs
 var query = lobbyManager.GetSearchQuery();
 query.Distance(Discord.LobbySearchDistance.Local);
 ```
@@ -405,7 +405,7 @@ None
 
 ```cs
 var txn = lobbyManager.GetLobbyCreateTransaction();
-````
+```
 
 ## GetLobbyUpdateTransaction
 
