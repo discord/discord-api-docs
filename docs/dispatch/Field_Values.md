@@ -51,6 +51,7 @@
 | Redistributable            |
 | -------------------------- |
 | directx_june_2010          |
+| vcredist_2005_x86          |
 | vcredist_2008_sp1_x86      |
 | vcredist_2010_x64          |
 | vcredist_2010_x86          |
