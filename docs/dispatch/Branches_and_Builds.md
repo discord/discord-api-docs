@@ -190,7 +190,6 @@ Let's see what one looks like all together!
 {
   "application": {
     "id": 467102538279999224,
-    "drm": true,
     "manifests": [
       {
         "label": "my-awesome-game/windows",
