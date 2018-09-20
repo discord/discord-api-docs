@@ -150,15 +150,6 @@ This is the top level of the config file. It has an `application` object at the 
     "exclusions": [
       {
         "local_path": "**/*.pdb"
-      },
-      {
-        "local_path": "server_distribution/linux/*"
-      },
-      {
-        "local_path": "client_distribution/linux/*"
-      },
-      {
-        "local_path": "client_distribution/osx/*"
       }
     ]
   }
@@ -180,11 +171,11 @@ This is another subset of a manifest object, `file_rules`. `file_rules` allows y
 {
   "launch_commands": {
     "win32": {
-      "executable": "client_distribution/win32/starbound.exe",
+      "executable": "my-awesome-game-32.exe",
       "arguments": []
     },
     "win64": {
-      "executable": "client_distribution/win64/starbound.exe",
+      "executable": "my-awesome-game-64.exe",
       "arguments": []
     }
   }
@@ -216,25 +207,16 @@ Let's see what one looks like all together!
           "exclusions": [
             {
               "local_path": "**/*.pdb"
-            },
-            {
-              "local_path": "server_distribution/linux/*"
-            },
-            {
-              "local_path": "client_distribution/linux/*"
-            },
-            {
-              "local_path": "client_distribution/osx/*"
             }
           ]
         },
         "launch_commands": {
           "win32": {
-            "executable": "client_distribution/win32/starbound.exe",
+            "executable": "my-awesome-game-32.exe",
             "arguments": []
           },
           "win64": {
-            "executable": "client_distribution/win64/starbound.exe",
+            "executable": "my-awesome-game-64.exe",
             "arguments": []
           }
         }
@@ -325,7 +307,3 @@ If you need to push out a patch or a new build, no problem! Just repeat the proc
 Discord will do some magic in the background to diff your files, ensuring that your players only have to download the changes they need and letting them do it quickly so they can get back in the game. Or, really, without them even needing to know there _was_ a patch! Your players will automatically download your latest and greatest stuff, and quickly!
 
 Now that you've got a game in the system, let's [create a store page](#DOCS_DISPATCH_MANAGING_STORE_LISTINGS) for it!
-
-```
-
-```
