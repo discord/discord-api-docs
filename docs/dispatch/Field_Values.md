@@ -63,6 +63,7 @@
 | vcredist_2015_x86          |
 | vcredist_2017_x64          |
 | vcredist_2017_x86          |
+| xnafx_40                   |
 
 ## Store Pages
 
