@@ -243,7 +243,7 @@ dispatch build drm-wrap <application_id> <path_to_executable_to_wrap>
 We've got all our files ready for processing; let's ship this baby!
 
 ```
-dispatch build push <branch_id> <path_to_config> <path_to_files_to_upload>
+dispatch build push <application_id> <branch_id> <path_to_config> <path_to_files_to_upload>
 ```
 
 You'll see a bunch of request logging as it gets sent up to Discord—when it's done, you're greeted with a friendly completion message:
