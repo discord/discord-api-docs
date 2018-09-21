@@ -161,7 +161,6 @@ Pushes a new build to the given branch. The JSON config file tells Dispatch how 
 
 | name             | values    | description                                                                                           |
 | ---------------- | --------- | ----------------------------------------------------------------------------------------------------- |
-| application_id   | int       | your application ID/client ID                                                                         |
 | branch_id        | int       | the id of the branch to check                                                                         |
 | config_file      | filename  | the [JSON config file](#DOCS_DISPATCH_BRANCHES_AND_BUILDS/setting-up-our-first-build) for the build   |
 | application_root | file path | the directory that dispatch will treat as the local root for operations—`.` for the current directory |
@@ -171,7 +170,7 @@ Pushes a new build to the given branch. The JSON config file tells Dispatch how 
 ###### Example
 
 ```
--> dispatch build push 290926444748734465 491362538965958686 config.json . -c -p
+-> dispatch build push 491362538965958686 config.json . -c -p
 ```
 
 ## build update
