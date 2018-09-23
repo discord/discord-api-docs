@@ -89,7 +89,7 @@ Next, enabled Rich Presence for your application (it's a big button near the bot
 
 Finally, copy the **Client ID** at the top of the page. This id, also referred to as an "application id", is your game's unique identifier across Discord. Keep it handy!
 
-Now we're gonna start coding. Didn't think we'd get three so fast, did ya? _Think again!_ The next sections are code primers for the main languages of the SDK: C#, C, and C++. They'll get you up and running with the most basic examples, and then you're off to the races.
+Now we're gonna start coding. Didn't think we'd get there so fast, did ya? _Think again!_ The next sections are code primers for the main languages of the SDK: C#, C, and C++. They'll get you up and running with the most basic examples, and then you're off to the races.
 
 ## Code Primer - Unity (Csharp)
 
