@@ -65,6 +65,19 @@
 | vcredist_2017_x86          |
 | xnafx_40                   |
 
+###### Cloud Save Path Replacements
+
+| value         | Windows path                                                                        | macOS path                    | linux path         |
+| ------------- | ----------------------------------------------------------------------------------- | ----------------------------- | ------------------ |
+| ${HOME}       | %USERPROFILE%                                                                       | ~/                            | ~/                 |
+| ${DOCUMENTS}  | %USERPROFILE%\Documents                                                             | ~/Documents                   | $XDG_DOCUMENTS_DIR |
+| ${DATA}       | %USERPROFILE%\AppData\Roaming                                                       | ~/Library/Application Support | $XDG_DATA_HOME     |
+| ${DATALOCAL}  | %USERPROFILE%\AppData\Local                                                         | ~/Library/Application Support | $XDG_DATA_HOME     |
+| ${SAVEDGAMES} | %USERPROFILE%\Saved Games                                                           | ~/Saved Games                 | ~/Saved Games      |
+| ${INSTALLDIR} | the game's install directory                                                        | (same)                        | (same)             |
+| ${USERID}     | the user's id - use within a path to define saves for multiple users                | (same)                        | (same)             |
+| ${BRANCHID}   | the id of the game branch - use within a path to define saves for multiple branches | (same)                        | (same)             |
+
 ## Store Pages
 
 ###### SKU Types

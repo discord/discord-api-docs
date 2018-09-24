@@ -7,11 +7,24 @@ We've been told that people playing games want to save their progress as they go
 
 Yeah, roguelikes. Even you.
 
-If you need to save some data to some disks on your players' computers (and eventually some disks on those **BIG COMPUTERS** in the cloud), look no further! We've got the manager for you.
-
-Discord's storage manager lets you save data mapped to a key for easy reading, writing, and deleting both synchronously and asynchronously. It's saved to a super special directory, the Holy Grail of file mappings, that's unique per Discord user—need to worry about your little brother overwriting your save file. In the future, Discord will keep _really_ close eyes on that directory and sync any changes to the data to cloud storage.
+Discord's storage manager lets you save data mapped to a key for easy reading, writing, and deleting both synchronously and asynchronously. It's saved to a super special directory, the Holy Grail of file mappings, that's unique per Discord user—need to worry about your little brother overwriting your save file.
 
 Creating this manager will also spawn an IO thread for async reads and writes, so unless you really want to be blocking, you don't need to be!
+
+## Cloud Saves
+
+If you want to take that save data on your players' computers and save it to those **BIG COMPUTERS** in the cloud, look no further! All you need to do is head over to your manifest config file and set the following property:
+
+```js
+{
+  "storage": {
+    "sync": true,
+    "roots": []
+  }
+}
+```
+
+Yup, that's it! Don't know what this file is? Go read [Branches and Builds](#DOCS_DISPATCH_BRANCHES_AND_BUIDLS/).
 
 ## Data Models
 

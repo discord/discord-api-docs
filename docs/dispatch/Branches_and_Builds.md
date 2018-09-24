@@ -169,6 +169,34 @@ This is another subset of a manifest object, `file_rules`. `file_rules` allows y
 
 ```js
 {
+  "storage": {
+    "sync": true,
+    "roots": [
+      {
+        "id": "my-save-files",
+        "paths": [
+          {
+            "platform": "win32",
+            "path": "${DOCUMENTS}/My Games/My Awesome Game/Saves"}
+          },
+          {
+            "platform": "osx",
+            "path": "${DOCUMENTS}/Games/My Awesome Game/Saves"
+          },
+          "patterns": ["**/*"]
+        ]
+      }
+    ]
+  }
+}
+```
+
+This piece of the manifest, `storage`, helps Discord support cloud saves for your game. When `sync` is set to `true`, the files that match the pattern in the given filepaths will be synced to the cloud, so a user can continue their game on another machine without losing progerss. If you are **not** using our [Storage Manager](#DOCS_GAME_SDK_STORAGE/) to manage your game's save files, make sure to outline your save paths and file glob patterns here. If you **are** using the GameSDK for this feature, just set `sync` to `true` and leave `roots` as an empty array.
+
+We support a number of filepath replacements/shorteners like `{$DOCUMENTS}`; for the full list, see [Cloud Save Path Replacements](#DOCS_DISPATCH_FIELD_VALUES/manifests-cloud-save-path-replacements).
+
+```js
+{
   "launch_commands": {
     "win32": {
       "executable": "my-awesome-game-32.exe",
@@ -206,6 +234,25 @@ Let's see what one looks like all together!
           "exclusions": [
             {
               "local_path": "**/*.pdb"
+            }
+          ]
+        },
+        "storage": {
+          "sync": true,
+          "roots": [
+            {
+              "id": "my-save-files",
+              "paths": [
+                {
+                  "platform": "win32",
+                  "path": "${DOCUMENTS}/My Games/My Awesome Game/Saves"}
+                },
+                {
+                  "platform": "osx",
+                  "path": "${DOCUMENTS}/Games/My Awesome Game/Saves"
+                },
+                "patterns": ["**/*"]
+              ]
             }
           ]
         },
