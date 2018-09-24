@@ -193,6 +193,9 @@ This is another subset of a manifest object, `file_rules`. `file_rules` allows y
 
 This piece of the manifest, `storage`, helps Discord support cloud saves for your game. When `sync` is set to `true`, the files that match the pattern in the given filepaths will be synced to the cloud, so a user can continue their game on another machine without losing progerss. If you are **not** using our [Storage Manager](#DOCS_GAME_SDK_STORAGE/) to manage your game's save files, make sure to outline your save paths and file glob patterns here. If you **are** using the GameSDK for this feature, just set `sync` to `true` and leave `roots` as an empty array.
 
+> danger
+> `id` must be a constant, immutable value once set. You can pick whatever you'd like when first set, but ensure it does not change afterwards. Otherwise, Discord may incorrectly overwrite and/or delete users' save data.
+
 We support a number of filepath replacements/shorteners like `{$DOCUMENTS}`; for the full list, see [Cloud Save Path Replacements](#DOCS_DISPATCH_FIELD_VALUES/manifests-cloud-save-path-replacements).
 
 ```js
