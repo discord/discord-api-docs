@@ -79,6 +79,8 @@ In order for Discord to understand what you're sending, you need to set up a con
 
 Let's break an example `config.json` file down into pieces, and then put it together at the end.
 
+## Basic Information
+
 ```js
 {
   "application": {
@@ -89,6 +91,8 @@ Let's break an example `config.json` file down into pieces, and then put it toge
 ```
 
 This is the top level of the config file. It has an `application` object at the top. `id` is your application id. `manifests` are the heart of this file, and offer a lot of customization for tagging and uploading data for the build. Let's jump into that now.
+
+## Labels, Platforms, and Local Roots
 
 ```js
 {
@@ -102,7 +106,13 @@ This is the top level of the config file. It has an `application` object at the 
 }
 ```
 
-`manifests` is an array of objects that denote file bundles; part of that object is listed here. `label` is the name you want to give an individual manifest/bundle of files. `platforms` are the platforms for which it is valid. `locales` is an array of locales for which the manifest is valid; leaving it empty denotes it's valid for all locales. `local_root` is the relative path to the directory that contains the raw game files to upload for this manifest. This may be particularly useful if you have multiple manifests with different relative root directories, like:
+We're in the heart of a manifest now! `label` is the name you want to give an individual manifest/bundle of files. Make these easily identifiable so you can reference them later in your store page creation.
+
+`platforms` are the platforms for which the manifest is valid. Most simple configs, like our example, will use the same manifest for `win32` and `win64`, and then make other manifests for `osx` and `linux`. However, some older games may need specific configurations for 32bit and 64bit systems, and therefore need separate manifests.
+
+`locales` is an array of locales for which the manifest is valid; leaving it empty denotes it's valid for all locales. For example, your base game files will probably have an empty `locales` array, but you may other manifests for things like language packs defined for `es-ES` or `fr` or other locales.
+
+`local_root` is the relative path to the directory that contains the raw game files to upload for this manifest. This may be particularly useful if you have multiple manifests with different relative root directories, like:
 
 ```json
 // Imaginary directory structure:
@@ -126,7 +136,11 @@ This is the top level of the config file. It has an `application` object at the 
 ]
 ```
 
+That way, you can `dispatch build push` from your actual root directory, but dispatch will be smart enough to separate the files properly.
+
 `redistributables` is an array of any redistributable packages your game may need to function, like a certain install of DirectX, or a Microsoft C++ redistributable. A list of valid values can be found in [Field Values](#DOCS_DISPATCH_FIELD_VALUES/).
+
+## File Rules
 
 ```js
 {
@@ -156,16 +170,22 @@ This is the top level of the config file. It has an `application` object at the 
 }
 ```
 
-This is another subset of a manifest object, `file_rules`. `file_rules` allows you to mark certain globs of files with certain tags, so Dispatch can handle them specially.
+File rules is a special, and somewhat confusing, part of the manifest, but we'll get through it together! The `file_rules` object lets you:
 
-`mappings` lets you tell Dispatch to download files to a certain place in the install directory on a user's machine, letting you create the folder structure you need.
+1. Specify the way in which files get installed on a user's computer
+2. Mark files as protected, so they don't get overwritten
+3. Exclude certain files from being uploaded
 
-`properties` allows you to mark properties on globs of files. In this case, marking a glob of files as `"user_data"` tells Dispatch not to touch these files in any way if it sees them; don't want that save data overwritten!
+`mappings` lets you tell Dispatch to download files to a certain place in the install directory on a user's machine, letting you create the folder structure you need. Your game build files may be tucked deep in a subdirectory on your machine, because who ever cleans up folder structures, but you can make sure it looks nice and clean for your players.
 
-`exclusions` also allow you to mark off globs of files. Files globs here will not be uploaded by Dispatch on a build push. In the above example, debug files that match the `*.pdb` pattern in any directory will be ignored. We also explicitly ignore linux and osx server and client distributables, since this manifest is for Windows.
+`properties` allows you to mark properties on globs of files. In this case, marking a glob of files as `user_data` tells Dispatch not to touch these files in any way if it sees them; don't want that save data overwritten!
+
+`exclusions` also allow you to mark off globs of files. File globs here will not be uploaded by Dispatch on a build push. In the above example, debug files that match the `*.pdb` pattern in any directory will be ignored.
 
 > warn
 > Dispatch supports [Rust globbing patterns](https://docs.rs/glob/0.2.11/glob/struct.Pattern.html).
+
+## Cloud Storage
 
 ```js
 {
@@ -191,12 +211,107 @@ This is another subset of a manifest object, `file_rules`. `file_rules` allows y
 }
 ```
 
-This piece of the manifest, `storage`, helps Discord support cloud saves for your game. When `sync` is set to `true`, the files that match the pattern in the given filepaths will be synced to the cloud, so a user can continue their game on another machine without losing progerss. If you are **not** using our [Storage Manager](#DOCS_GAME_SDK_STORAGE/) to manage your game's save files, make sure to outline your save paths and file glob patterns here. If you **are** using the GameSDK for this feature, just set `sync` to `true` and leave `roots` as an empty array.
+Discord supports cloud saves! Let's learn how to use it! This piece of the manifest, `storage`, helps Discord support cloud saves for your game. When `sync` is set to `true`, Discord will look in the `paths` provided here for any files that match one of the `patterns`. If it finds any, it will sync them to the cloud, so your user will have access to them across machines.
+
+If you are **not** using our [Storage Manager](#DOCS_GAME_SDK_STORAGE/) to manage your game's save files, make sure to outline your save paths and file glob patterns here.
+
+If you **are** using the Storage Manager in the GameSDK, just set `sync` to `true` and leave `roots` as an empty array.
 
 > danger
 > `id` must be a constant, immutable value once set. You can pick whatever you'd like when first set, but ensure it does not change afterwards. Otherwise, Discord may incorrectly overwrite and/or delete users' save data.
 
-We support a number of filepath replacements/shorteners like `{$DOCUMENTS}`; for the full list, see [Cloud Save Path Replacements](#DOCS_DISPATCH_FIELD_VALUES/manifests-cloud-save-path-replacements).
+We support a number of filepath replacements/shorteners like `{$DOCUMENTS}`, so you can have something like `${SAVEDGAMES}/My Awesome Game/${USERID}` and create user-specific save files. No longer will you need to worry about your little brother overwriting your save file! For the full list of path replacements, see [Cloud Save Path Replacements](#DOCS_DISPATCH_FIELD_VALUES/manifests-cloud-save-path-replacements).
+
+As a side note, there may be a case where you might have multiple manifests that each have storage information defined. In the case that the two manifests define the same storage path but have _conflicting_ data, the source of truth will be the manifest that appears **later** in the array in the config file. So, if you have:
+
+```js
+{
+  "manifests": [
+    {
+      "label": "one",
+      "storage": {
+        "sync": true,
+        "roots": [
+          "id": "one",
+          "paths": [
+            {
+              "platform": "win32",
+              "path": "${HOME}"
+            },
+            "patterns": ["**/*"]
+          ]
+        ]
+      }
+    },
+    {
+      "label": "two",
+      "storage": {
+        "sync": true,
+        "roots": [
+          "id": "two",
+          "paths": [
+            {
+              "platform": "win32",
+              "path": "${HOME}"
+            },
+            "patterns": ["**/*"]
+          ]
+        ]
+      }
+    }
+  ]
+}
+```
+
+Then, manifest `two` would be the source of truth in a data conflict. Wew, ok, good work. On to the next part!
+
+## Registry Keys and Install Scripts
+
+```js
+{
+  "post_install_scripts": {
+    "win32": [
+      {
+        "name": "SDB Compatibility",
+        "executable": "Install.bat",
+        "arguments": ["/silent"],
+        "requires_elevation": true
+      },
+    ],
+    "win64": [
+      {
+        "name": "SDB Compatibility",
+        "executable": "Install.bat",
+        "arguments": ["/silent"],
+        "requires_elevation": true
+      }
+    ]
+  },
+  "registry_keys": [
+    {
+      "key": "Software\\My Game Company\\My Awesome Game\\FixAspctRatio",
+      "value": "1"
+    }
+  ]
+}
+```
+
+Some games may need specific registry keys set after installation, or might have some installation scripts that need to be run. If so, those can be set here!
+
+For installation scripts, `name` is a user friendly name that Discord will surface to users when explaining what's happening during the installation process. `executable` is the name of the script that needs to be run. `arguments` is an array that takes any arguments that may need to be passed to the script. `requires_elevation`, when marked `true`, will run the install scripts with elevated privileges; for some Windows users, this may force a User Access Control security popup.
+
+`registry_keys` is a simple array of key/value pairs that will be written to the user's computer's registry. By default, Discord will create these keys in `HKEY_CURRENT_USER`. If your game requires registrty keys in `HKEY_LOCAL_MACHINE`, they can be specified like:
+
+```js
+{
+  "key": "HKEY_LOCAL_MACHINE\\SOFTWARE\\My Game Company\\My Awesome Game\\MagicFix",
+  "value": "1"
+}
+```
+
+Don't forget to the notice the double forward slashes in the path name!
+
+## Launch Commands
 
 ```js
 {
@@ -213,7 +328,9 @@ We support a number of filepath replacements/shorteners like `{$DOCUMENTS}`; for
 }
 ```
 
-The last bit of the config file is the launch commands for your game. Here, you should specify the executables for the platforms for this manifest (if there are any) and any arguments they require.
+The last bit of the config file is the launch commands for your game. Here, you should specify the executables for the platforms for this manifest (if there are any) and any arguments they require. This one's easy!
+
+## All Togther Now
 
 Let's see what one looks like all together!
 
@@ -228,6 +345,12 @@ Let's see what one looks like all together!
         "locales": [],
         "local_root": "./",
         "file_rules": {
+          "mappings": [
+            {
+              "local_path": ".",
+              "install_path": "."
+            }
+          ],
           "properties": [
             {
               "install_path": "save/*",
@@ -259,6 +382,30 @@ Let's see what one looks like all together!
             }
           ]
         },
+        "post_install_scripts": {
+          "win32": [
+            {
+              "name": "SDB Compatibility",
+              "executable": "Install.bat",
+              "arguments": ["/silent"],
+              "requires_elevation": true
+            },
+          ],
+          "win64": [
+            {
+              "name": "SDB Compatibility",
+              "executable": "Install.bat",
+              "arguments": ["/silent"],
+              "requires_elevation": true
+            }
+          ]
+        },
+        "registry_keys": [
+          {
+            "key": "Software\\My Game Company\\My Awesome Game\\FixAspctRatio",
+            "value": "1"
+          }
+        ],
         "launch_commands": {
           "win32": {
             "executable": "my-awesome-game-32.exe",
@@ -274,6 +421,8 @@ Let's see what one looks like all together!
   }
 }
 ```
+
+It seems like a lot of lines to parse, but now you know what they all mean!
 
 ## DRM
 
