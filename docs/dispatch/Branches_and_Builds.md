@@ -196,11 +196,11 @@ File rules is a special, and somewhat confusing, part of the manifest, but we'll
         "id": "my-save-files",
         "paths": [
           {
-            "platform": "win32",
+            "platform": "windows",
             "path": "${DOCUMENTS}/My Games/My Awesome Game/Saves"}
           },
           {
-            "platform": "osx",
+            "platform": "macos",
             "path": "${DOCUMENTS}/Games/My Awesome Game/Saves"
           },
           "patterns": ["**/*"]
@@ -215,7 +215,7 @@ Discord supports cloud saves! Let's learn how to use it! This piece of the manif
 
 If you are **not** using our [Storage Manager](#DOCS_GAME_SDK_STORAGE/) to manage your game's save files, make sure to outline your save paths and file glob patterns here.
 
-If you **are** using the Storage Manager in the GameSDK, just set `sync` to `true` and leave `roots` as an empty array.
+If you **are** using the Storage Manager in the GameSDK, just set `sync` to `true` and omit the `roots` key.
 
 > danger
 > `id` must be a constant, immutable value once set. You can pick whatever you'd like when first set, but ensure it does not change afterwards. Otherwise, Discord may incorrectly overwrite and/or delete users' save data.
@@ -370,11 +370,11 @@ Let's see what one looks like all together!
               "id": "my-save-files",
               "paths": [
                 {
-                  "platform": "win32",
+                  "platform": "windows",
                   "path": "${DOCUMENTS}/My Games/My Awesome Game/Saves"}
                 },
                 {
-                  "platform": "osx",
+                  "platform": "macos",
                   "path": "${DOCUMENTS}/Games/My Awesome Game/Saves"
                 },
                 "patterns": ["**/*"]

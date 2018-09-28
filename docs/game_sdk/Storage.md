@@ -18,8 +18,7 @@ If you want to take that save data on your players' computers and save it to tho
 ```js
 {
   "storage": {
-    "sync": true,
-    "roots": []
+    "sync": true
   }
 }
 ```
