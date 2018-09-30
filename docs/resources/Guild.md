@@ -544,3 +544,23 @@ Returns a partial [invite](#DOCS_RESOURCES_INVITE/invite-object) object for guil
 	"code": "abc"
 }
 ```
+
+## Get Guild Widget Image % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/widget.png
+
+Returns a PNG image widget for the guild. Requires no permissions or authentication.
+
+###### Query String Params
+
+| Field | Type | Description |
+|-------|------|-------------|
+| style | string | style of the widget image returned (see below) |
+
+###### Widget Style Options
+
+| Value | Description | Example |
+|-------|-------------|---------|
+| shield | shield style widget with Discord icon and online count | [Example](https://discordapp.com/api/guilds/41771983423143937/widget.png?style=shield) |
+| banner1 | large image with server icon, name and online count. "POWERED BY DISCORD" as the footer of the widget | [Example](https://discordapp.com/api/guilds/41771983423143937/widget.png?style=banner1) |
+| banner2 | smaller widget style with server icon, name and online count. Split on the right with Discord logo | [Example](https://discordapp.com/api/guilds/41771983423143937/widget.png?style=banner2) |
+| banner3 | large image with serer icon, name and online count. In the footer, Discord logo on the left and "Chat Now" on the right | [Example](https://discordapp.com/api/guilds/41771983423143937/widget.png?style=banner3) |
+| banner4 | large Discord logo at the top of the widget. Server icon, name and online count in the middle portion of the widget and a "JOIN MY SERVER" button at the bottom | [Example](https://discordapp.com/api/guilds/41771983423143937/widget.png?style=banner4) |
