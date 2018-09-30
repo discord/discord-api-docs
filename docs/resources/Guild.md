@@ -548,6 +548,7 @@ Returns a partial [invite](#DOCS_RESOURCES_INVITE/invite-object) object for guil
 ## Get Guild Widget Image % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/widget.png
 
 Returns a PNG image widget for the guild. Requires no permissions or authentication.
+The same documentation also applies to `embed.png`.
 
 ###### Query String Params
 
