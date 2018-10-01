@@ -142,7 +142,7 @@ Represents a message sent in a channel within Discord.
 | channel\_id | snowflake | id of the channel the message was sent in |
 | guild\_id? | snowflake | id of the guild the message was sent in |
 | author* | [user](#DOCS_RESOURCES_USER/user-object) object | the author of this message (not guaranteed to be a valid user, see below) |
-| member? | partial [member](#DOCS_RESOURCES_GUILD/member-object) object | member properties for this message's author |
+| member? | partial [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) object | member properties for this message's author |
 | content | string | contents of the message |
 | timestamp | ISO8601 timestamp | when this message was sent |
 | edited\_timestamp | ?ISO8601 timestamp | when this message was edited (or null if never) |

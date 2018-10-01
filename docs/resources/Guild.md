@@ -36,7 +36,7 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 | unavailable? \* | boolean | is this guild unavailable |
 | member\_count? \* | integer | total number of members in this guild |
 | voice\_states? \* | array of partial [voice state](#DOCS_RESOURCES_VOICE/voice-state-object) objects |  (without the `guild_id` key) |
-| members? \* | array of [member](#DOCS_RESOURCES_GUILD/guild-member-object) objects | users in the guild |
+| members? \* | array of [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) objects | users in the guild |
 | channels? \* | array of [channel](#DOCS_RESOURCES_CHANNEL/channel-object) objects | channels in the guild |
 | presences? \* | array of partial [presence update](#DOCS_TOPICS_GATEWAY/presence-update) objects | presences of the users in the guild |
 

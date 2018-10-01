@@ -334,7 +334,7 @@ Used to get a guild the client is in.
 | id | string | guild id |
 | name | string | guild name |
 | icon_url | string | guild icon url |
-| members | array of [member](#DOCS_RESOURCES_GUILD/guild-member-object) objects | members of the guild (deprecated; always empty array) |
+| members | array of [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) objects | members of the guild (deprecated; always empty array) |
 
 ###### Example Get Guild Command Payload
 
