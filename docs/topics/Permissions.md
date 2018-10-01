@@ -148,11 +148,11 @@ Roles represent a set of permissions attached to a group of users. Roles have un
 | id | snowflake | role id |
 | name | string | role name |
 | color | integer | integer representation of hexadecimal color code |
-| hoist | bool | if this role is pinned in the user listing |
+| hoist | boolean | if this role is pinned in the user listing |
 | position | integer | position of this role |
 | permissions | integer | permission bit set |
-| managed | bool | whether this role is managed by an integration |
-| mentionable | bool | whether this role is mentionable |
+| managed | boolean | whether this role is managed by an integration |
+| mentionable | boolean | whether this role is mentionable |
 
 Roles without colors (`color == 0`) do not count towards the final computed color in the user list.
 

@@ -13,9 +13,9 @@
 | name | string | emoji name |
 | roles? | array of [role](#DOCS_TOPICS_PERMISSIONS/role-object) object ids | roles this emoji is whitelisted to |
 | user? | [user](#DOCS_RESOURCES_USER/user-object) object | user that created this emoji |
-| require\_colons? | bool | whether this emoji must be wrapped in colons |
-| managed? | bool | whether this emoji is managed |
-| animated? | bool | whether this emoji is animated |
+| require\_colons? | boolean | whether this emoji must be wrapped in colons |
+| managed? | boolean | whether this emoji is managed |
+| animated? | boolean | whether this emoji is animated |
 
 ###### Emoji Example
 

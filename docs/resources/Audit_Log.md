@@ -100,18 +100,18 @@ Whenever an admin action is performed on the API, an entry is added to the respe
 | $add | [guild](#DOCS_RESOURCES_GUILD/guild-object) | array of [role](#DOCS_TOPICS_PERMISSIONS/role-object) objects | new role added |
 | $remove | [guild](#DOCS_RESOURCES_GUILD/guild-object) | array of [role](#DOCS_TOPICS_PERMISSIONS/role-object) objects | role removed |
 | prune_delete_days | [guild](#DOCS_RESOURCES_GUILD/guild-object) | integer | change in number of days after which inactive and role-unassigned members are kicked |
-| widget_enabled | [guild](#DOCS_RESOURCES_GUILD/guild-object) | bool | server widget enabled/disable |
+| widget_enabled | [guild](#DOCS_RESOURCES_GUILD/guild-object) | boolean | server widget enabled/disable |
 | widget_channel_id | [guild](#DOCS_RESOURCES_GUILD/guild-object) | snowflake | channel id of the server widget changed |
 | position | [channel](#DOCS_RESOURCES_CHANNEL/channel-object) | integer | text or voice channel position changed |
 | topic | [channel](#DOCS_RESOURCES_CHANNEL/channel-object) | string | text channel topic changed |
 | bitrate | [channel](#DOCS_RESOURCES_CHANNEL/channel-object) | integer | voice channel bitrate changed |
 | permission_overwrites | [channel](#DOCS_RESOURCES_CHANNEL/channel-object) | array of [channel overwrite](#DOCS_RESOURCES_CHANNEL/overwrite-object) objects| permissions on a channel changed |
-| nsfw | [channel](#DOCS_RESOURCES_CHANNEL/channel-object) | bool | channel nsfw restriction changed |
+| nsfw | [channel](#DOCS_RESOURCES_CHANNEL/channel-object) | boolean | channel nsfw restriction changed |
 | application_id | [channel](#DOCS_RESOURCES_CHANNEL/channel-object)| snowflake | application id of the added or removed webhook or bot |
 | permissions | [role](#DOCS_RESOURCES_GUILD/role-object)| integer | [permissions](#DOCS_TOPICS_PERMISSIONS/permissions-bitwise-permission-flags) for a role changed |
 | color | [role](#DOCS_TOPICS_PERMISSIONS/role-object) | integer | role color changed |
-| hoist | [role](#DOCS_TOPICS_PERMISSIONS/role-object) | bool | role is now displayed/no longer displayed separate from online users |
-| mentionable | [role](#DOCS_TOPICS_PERMISSIONS/role-object) | bool | role is now mentionable/unmentionable |
+| hoist | [role](#DOCS_TOPICS_PERMISSIONS/role-object) | boolean | role is now displayed/no longer displayed separate from online users |
+| mentionable | [role](#DOCS_TOPICS_PERMISSIONS/role-object) | boolean | role is now mentionable/unmentionable |
 | allow | [role](#DOCS_TOPICS_PERMISSIONS/role-object) | integer | a permission on a text or voice channel was allowed for a role |
 | deny | [role](#DOCS_TOPICS_PERMISSIONS/role-object) | integer | a permission on a text or voice channel was denied for a role |
 | code | [invite](#DOCS_RESOURCES_INVITE/invite-object) | string | invite code changed |
@@ -120,9 +120,9 @@ Whenever an admin action is performed on the API, an entry is added to the respe
 | max_uses | [invite](#DOCS_RESOURCES_INVITE/invite-metadata-object) | integer | change to max number of times invite code can be used |
 | uses | [invite](#DOCS_RESOURCES_INVITE/invite-metadata-object) | integer | number of times invite code used changed |
 | max_age | [invite](#DOCS_RESOURCES_INVITE/invite-metadata-object) | integer | how long invite code lasts changed |
-| temporary | [invite](#DOCS_RESOURCES_INVITE/invite-metadata-object) | bool | invite code is temporary/never expires |
-| deaf | [user](#DOCS_RESOURCES_USER/user-object) | bool | user server deafened/undeafened |
-| mute | [user](#DOCS_RESOURCES_USER/user-object) | bool | user server muted/unmuteds |
+| temporary | [invite](#DOCS_RESOURCES_INVITE/invite-metadata-object) | boolean | invite code is temporary/never expires |
+| deaf | [user](#DOCS_RESOURCES_USER/user-object) | boolean | user server deafened/undeafened |
+| mute | [user](#DOCS_RESOURCES_USER/user-object) | boolean | user server muted/unmuteds |
 | nick | [user](#DOCS_RESOURCES_USER/user-object) | string | user nickname changed |
 | avatar_hash | [user](#DOCS_RESOURCES_USER/user-object) | string | user avatar changed |
 | id | any | snowflake | the id of the changed entity - sometimes used in conjunction with other keys |

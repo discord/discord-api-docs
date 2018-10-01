@@ -293,7 +293,7 @@ Used to trigger the initial handshake with the gateway.
 | ---------------- | ---------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ | ------- |
 | token            | string                                                     | authentication token                                                                                                           | -       |
 | properties       | object                                                     | [connection properties](#DOCS_TOPICS_GATEWAY/identify-identify-connection-properties)                                          | -       |
-| compress?        | bool                                                       | whether this connection supports compression of packets                                                                        | false   |
+| compress?        | boolean                                                      | whether this connection supports compression of packets                                                                        | false   |
 | large_threshold? | integer                                                    | value between 50 and 250, total number of members where the gateway will stop sending offline members in the guild member list | 50      |
 | shard?           | array of two integers (shard_id, num_shards)               | used for [Guild Sharding](#DOCS_TOPICS_GATEWAY/sharding)                                                                       | -       |
 | presence?        | [update status](#DOCS_TOPICS_GATEWAY/update-status) object | presence structure for initial presence information                                                                            | -       |
@@ -398,8 +398,8 @@ Sent when a client wants to join, move, or disconnect from a voice channel.
 | ---------- | ---------- | -------------------------------------------------------------------- |
 | guild_id   | snowflake  | id of the guild                                                      |
 | channel_id | ?snowflake | id of the voice channel client wants to join (null if disconnecting) |
-| self_mute  | bool       | is the client muted                                                  |
-| self_deaf  | bool       | is the client deafened                                               |
+| self_mute  | boolean       | is the client muted                                                  |
+| self_deaf  | boolean    | is the client deafened                                               |
 
 ###### Example Gateway Voice State Update
 
@@ -423,7 +423,7 @@ Sent by the client to indicate a presence or status update.
 | since  | ?integer                                                 | unix time (in milliseconds) of when the client went idle, or null if the client is not idle |
 | game   | ?[activity](#DOCS_TOPICS_GATEWAY/activity-object) object | null, or the user's new activity                                                            |
 | status | string                                                   | the user's new [status](#DOCS_TOPICS_GATEWAY/update-status-status-types)                    |
-| afk    | bool                                                     | whether or not the client is afk                                                            |
+| afk    | boolean                                                    | whether or not the client is afk                                                            |
 
 ###### Status Types
 

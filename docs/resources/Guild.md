@@ -12,13 +12,13 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 | name | string | guild name (2-100 characters) |
 | icon | ?string | [icon hash](#DOCS_REFERENCE/image-formatting) |
 | splash | ?string | [splash hash](#DOCS_REFERENCE/image-formatting) |
-| owner? | bool | whether or not [the user](#DOCS_RESOURCES_USER/get-current-user-guilds) is the owner of the guild |
+| owner? | boolean | whether or not [the user](#DOCS_RESOURCES_USER/get-current-user-guilds) is the owner of the guild |
 | owner\_id | snowflake | id of owner |
 | permissions? | integer | total permissions for [the user](#DOCS_RESOURCES_USER/get-current-user-guilds) in the guild (does not include channel overrides) |
 | region | string | [voice region](#DOCS_RESOURCES_VOICE/voice-region) id for the guild |
 | afk\_channel\_id | ?snowflake | id of afk channel |
 | afk\_timeout | integer | afk timeout in seconds |
-| embed\_enabled? | bool | is this guild embeddable (e.g. widget) |
+| embed\_enabled? | boolean | is this guild embeddable (e.g. widget) |
 | embed\_channel\_id? | snowflake | if not null, the channel id that the widget will generate an invite to |
 | verification\_level | integer | [verification level](#DOCS_RESOURCES_GUILD/guild-object-verification-level) required for the guild |
 | default\_message\_notifications | integer | default [message notifications level](#DOCS_RESOURCES_GUILD/guild-object-default-message-notification-level) |
@@ -28,12 +28,12 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 | features | array of strings | enabled guild features |
 | mfa\_level | integer | required [MFA level](#DOCS_RESOURCES_GUILD/guild-object-mfa-level) for the guild |
 | application_id | ?snowflake | application id of the guild creator if it is bot-created |
-| widget_enabled? | bool | whether or not the server widget is enabled |
+| widget_enabled? | boolean | whether or not the server widget is enabled |
 | widget_channel_id? | snowflake | the channel id for the server widget |
 | system\_channel\_id | ?snowflake | the id of the channel to which system messages are sent |
 | joined\_at? \* | ISO8601 timestamp | when this guild was joined at |
-| large? \* | bool | whether this is considered a large guild |
-| unavailable? \* | bool | is this guild unavailable |
+| large? \* | boolean | whether this is considered a large guild |
+| unavailable? \* | boolean | is this guild unavailable |
 | member\_count? \* | integer | total number of members in this guild |
 | voice\_states? \* | array of partial [voice state](#DOCS_RESOURCES_VOICE/voice-state-object) objects |  (without the `guild_id` key) |
 | members? \* | array of [member](#DOCS_RESOURCES_GUILD/guild-member-object) objects | users in the guild |
@@ -121,7 +121,7 @@ A partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object. Represents an Offl
 
 | Field | Type | Description |
 |-------|------|-------------|
-| enabled | bool | if the embed is enabled |
+| enabled | boolean | if the embed is enabled |
 | channel_id | ?snowflake | the embed channel id |
 
 ###### Example Guild Embed
@@ -143,8 +143,8 @@ A partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object. Represents an Offl
 | nick? | string | this users guild nickname (if one is set) |
 | roles | array of snowflakes | array of [role](#DOCS_TOPICS_PERMISSIONS/role-object) object ids |
 | joined_at | ISO8601 timestamp | when the user joined the guild |
-| deaf | bool | if the user is deafened |
-| mute | bool | if the user is muted |
+| deaf | boolean | if the user is deafened |
+| mute | boolean | if the user is muted |
 
 ###### Example Guild Member
 
@@ -168,8 +168,8 @@ A partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object. Represents an Offl
 | id | snowflake | integration id |
 | name | string | integration name |
 | type | string | integration type (twitch, youtube, etc) |
-| enabled | bool | is this integration enabled |
-| syncing | bool | is this integration syncing |
+| enabled | boolean | is this integration enabled |
+| syncing | boolean | is this integration syncing |
 | role_id | snowflake | id that this integration uses for "subscribers" |
 | expire_behavior | integer | the behavior of expiring subscribers |
 | expire_grace_period | integer | the grace period before expiring subscribers |
@@ -297,7 +297,7 @@ Create a new [channel](#DOCS_RESOURCES_CHANNEL/channel-object) object for the gu
 | user_limit | integer | the user limit of the voice channel (voice only) |
 | permission_overwrites | array of [overwrite](#DOCS_RESOURCES_CHANNEL/overwrite-object) objects | the channel's permission overwrites |
 | parent_id | snowflake | id of the parent category for a channel |
-| nsfw | bool | if the channel is nsfw |
+| nsfw | boolean | if the channel is nsfw |
 
 ## Modify Guild Channel Positions % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/channels
 
@@ -347,8 +347,8 @@ Adds a user to the guild, provided you have a valid oauth2 access token for the 
 | access_token | string | an oauth2 access token granted with the `guilds.join` to the bot's application for the user you want to add to the guild | |
 | nick | string | value to set users nickname to | MANAGE_NICKNAMES |
 | roles | array of snowflakes | array of role ids the member is assigned | MANAGE_ROLES |
-| mute | bool | if the user is muted | MUTE_MEMBERS |
-| deaf | bool | if the user is deafened | DEAFEN_MEMBERS |
+| mute | boolean | if the user is muted | MUTE_MEMBERS |
+| deaf | boolean | if the user is deafened | DEAFEN_MEMBERS |
 
 ## Modify Guild Member % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/members/{user.id#DOCS_RESOURCES_USER/user-object}
 
@@ -364,8 +364,8 @@ Modify attributes of a [guild member](#DOCS_RESOURCES_GUILD/guild-member-object)
 |-------|------|-------------|------------|
 | nick | string | value to set users nickname to | MANAGE_NICKNAMES |
 | roles | array of snowflakes | array of role ids the member is assigned | MANAGE_ROLES |
-| mute | bool | if the user is muted | MUTE_MEMBERS |
-| deaf | bool | if the user is deafened | DEAFEN_MEMBERS |
+| mute | boolean | if the user is muted | MUTE_MEMBERS |
+| deaf | boolean | if the user is deafened | DEAFEN_MEMBERS |
 | channel_id | snowflake | id of channel to move user to (if they are connected to voice) | MOVE_MEMBERS |
 
 ## Modify Current User Nick % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/members/@me/nick
@@ -428,8 +428,8 @@ Create a new [role](#DOCS_TOPICS_PERMISSIONS/role-object) for the guild. Require
 | name | string | name of the role | "new role" |
 | permissions | integer | bitwise of the enabled/disabled permissions | @everyone permissions in guild |
 | color | integer | RGB color value | 0 |
-| hoist | bool | whether the role should be displayed separately in the sidebar | false |
-| mentionable | bool | whether the role should be mentionable | false |
+| hoist | boolean | whether the role should be displayed separately in the sidebar | false |
+| mentionable | boolean | whether the role should be mentionable | false |
 
 ## Modify Guild Role Positions % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/roles
 
@@ -455,8 +455,8 @@ Modify a guild role. Requires the 'MANAGE_ROLES' permission. Returns the updated
 | name | string | name of the role |
 | permissions | integer | bitwise of the enabled/disabled permissions |
 | color | integer | RGB color value |
-| hoist | bool | whether the role should be displayed separately in the sidebar |
-| mentionable | bool | whether the role should be mentionable |
+| hoist | boolean | whether the role should be displayed separately in the sidebar |
+| mentionable | boolean | whether the role should be mentionable |
 
 ## Delete Guild Role % DELETE /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/roles/{role.id#DOCS_TOPICS_PERMISSIONS/role-object}
 
@@ -515,7 +515,7 @@ Modify the behavior and settings of a [integration](#DOCS_RESOURCES_GUILD/integr
 |-------|------|-------------|
 | expire_behavior | integer | the behavior when an integration subscription lapses (see the [integration](#DOCS_RESOURCES_GUILD/integration-object) object documentation) |
 | expire\_grace\_period | integer | period (in seconds) where the integration will ignore lapsed subscriptions |
-| enable_emoticons | bool | whether emoticons should be synced for this integration (twitch only currently) |
+| enable_emoticons | boolean | whether emoticons should be synced for this integration (twitch only currently) |
 
 ## Delete Guild Integration % DELETE /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/integrations/{integration.id#DOCS_RESOURCES_GUILD/integration-object}
 

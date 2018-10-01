@@ -39,10 +39,10 @@ There are other rules and restrictions not shared here for the sake of spam and 
 | username      | string    | the user's username, not unique across the platform        | identify              |
 | discriminator | string    | the user's 4-digit discord-tag                             | identify              |
 | avatar        | ?string   | the user's [avatar hash](#DOCS_REFERENCE/image-formatting) | identify              |
-| bot?          | bool      | whether the user belongs to an OAuth2 application          | identify              |
-| mfa_enabled?  | bool      | whether the user has two factor enabled on their account   | identify              |
+| bot?          | boolean   | whether the user belongs to an OAuth2 application          | identify              |
+| mfa_enabled?  | boolean   | whether the user has two factor enabled on their account   | identify              |
 | locale?       | string    | the user's chosen language option                          | identify              |
-| verified?     | bool      | whether the email on this account has been verified        | email                 |
+| verified?     | boolean   | whether the email on this account has been verified        | email                 |
 | email?        | string    | the user's email                                           | email                 |
 
 ###### Example User
@@ -69,7 +69,7 @@ The connection object that the user has attached.
 | id           | string | id of the connection account                                                        |
 | name         | string | the username of the connection account                                              |
 | type         | string | the service of the connection (twitch, youtube)                                     |
-| revoked      | bool   | whether the connection is revoked                                                   |
+| revoked      | boolean | whether the connection is revoked                                                   |
 | integrations | array  | an array of partial [server integrations](#DOCS_RESOURCES_GUILD/integration-object) |
 
 ## Get Current User % GET /users/@me
