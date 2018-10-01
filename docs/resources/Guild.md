@@ -139,7 +139,7 @@ A partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object. Represents an Offl
 
 | Field | Type | Description |
 |-------|------|-------------|
-| user | object | [user](#DOCS_RESOURCES_USER/user-object) object |
+| user | [user](#DOCS_RESOURCES_USER/user-object) object | the user this guild member represents |
 | nick? | string | this users guild nickname (if one is set) |
 | roles | array of snowflakes | array of [role](#DOCS_TOPICS_PERMISSIONS/role-object) object ids |
 | joined_at | ISO8601 timestamp | when the user joined the guild |
@@ -295,7 +295,7 @@ Create a new [channel](#DOCS_RESOURCES_CHANNEL/channel-object) object for the gu
 | topic | string | channel topic (0-1024 characters) |
 | bitrate | integer | the bitrate (in bits) of the voice channel (voice only) |
 | user_limit | integer | the user limit of the voice channel (voice only) |
-| permission_overwrites | an array of [overwrite](#DOCS_RESOURCES_CHANNEL/overwrite-object) objects | the channel's permission overwrites |
+| permission_overwrites | array of [overwrite](#DOCS_RESOURCES_CHANNEL/overwrite-object) objects | the channel's permission overwrites |
 | parent_id | snowflake | id of the parent category for a channel |
 | nsfw | bool | if the channel is nsfw |
 

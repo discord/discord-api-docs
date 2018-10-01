@@ -240,7 +240,7 @@ Used to authenticate an existing client with your app.
 | description | string | application description |
 | icon | string | hash of the icon |
 | id | snowflake | application client id |
-| rpc_origins | array of strings | array of rpc origin url strings |
+| rpc_origins | array of strings | array of rpc origin urls |
 | name | string | application name
 
 ###### Example Authenticate Command Payload
@@ -334,7 +334,7 @@ Used to get a guild the client is in.
 | id | string | guild id |
 | name | string | guild name |
 | icon_url | string | guild icon url |
-| members | array of [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) objects | members of the guild (deprecated; always empty array) |
+| members | array of [member](#DOCS_RESOURCES_GUILD/guild-member-object) objects | members of the guild (deprecated; always empty array) |
 
 ###### Example Get Guild Command Payload
 
@@ -643,7 +643,7 @@ Used to join and leave text channels, group dms, or dms. Returns the [Get Channe
 | Field | Type | Description |
 |-------|------|-------------|
 | input | [voice settings input](#DOCS_TOPICS_RPC/get-voice-settings-voice-settings-input-object) object | input settings |
-| output | [voice settings ouput](#DOCS_TOPICS_RPC/get-voice-settings-voice-settings-output-object) object | output settings |
+| output | [voice settings output](#DOCS_TOPICS_RPC/get-voice-settings-voice-settings-output-object) object | output settings |
 | mode | [voice settings mode](#DOCS_TOPICS_RPC/get-voice-settings-voice-settings-mode-object) object | voice mode settings |
 | automatic_gain_control | bool | state of automatic gain control |
 | echo_cancellation | bool | state of echo cancellation |
@@ -667,7 +667,7 @@ Used to join and leave text channels, group dms, or dms. Returns the [Get Channe
 |-------|------|-------------|
 | device_id | string | device id |
 | volume | float | output voice level (min: 0, max: 200) |
-| available_devices | array | array of *read-only* device objects containing `id` and `name` string keys |
+| available_devices | array of objects | array of *read-only* device objects containing `id` and `name` string keys |
 
 ###### Voice Settings Mode Object
 

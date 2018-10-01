@@ -648,7 +648,7 @@ Sent in response to [Guild Request Members](#DOCS_TOPICS_GATEWAY/request-guild-m
 | Field    | Type                                                                | Description          |
 | -------- | ------------------------------------------------------------------- | -------------------- |
 | guild_id | snowflake                                                           | the id of the guild  |
-| members  | array of [member](#DOCS_RESOURCES_GUILD/guild-member-object) objects | set of guild members |
+| members  | array of [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) objects | set of guild members |
 
 #### Guild Role Create
 
