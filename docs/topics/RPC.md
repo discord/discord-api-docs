@@ -676,7 +676,7 @@ Used to join and leave text channels, group dms, or dms. Returns the [Get Channe
 | type | string | voice setting mode type (can be `PUSH_TO_TALK` or `VOICE_ACTIVITY`) |
 | auto_threshold | boolean | voice activity threshold automatically sets its threshold |
 | threshold | float | threshold for voice activity (in dB) (min: -100, max: 0) |
-| shortcut | [shortcut key combo](#DOCS_TOPICS_RPC/get-voice-settings-shortcut-key-combo-object) object | shortcut key combos for PTT |
+| shortcut | [shortcut key combo](#DOCS_TOPICS_RPC/shortcut-key-combo-object) object | shortcut key combos for PTT |
 | delay | float | the PTT release delay (in ms) (min: 0, max: 2000) |
 
 ###### Shortcut Key Combo Object
@@ -760,7 +760,7 @@ When setting voice settings, all fields are optional. Only passed fields are upd
 | Field | Type | Description |
 |-------|------|-------------|
 | input | [voice settings input](#DOCS_TOPICS_RPC/get-voice-settings-voice-settings-input-object) object | input settings |
-| output | [voice settings ouput](#DOCS_TOPICS_RPC/get-voice-settings-voice-settings-output-object) | output settings |
+| output | [voice settings output](#DOCS_TOPICS_RPC/get-voice-settings-voice-settings-output-object) object | output settings |
 | mode | [voice settings mode](#DOCS_TOPICS_RPC/get-voice-settings-voice-settings-mode-object) object | voice mode settings |
 | automatic_gain_control | boolean | state of automatic gain control |
 | echo_cancellation | boolean | state of echo cancellation |
