@@ -197,14 +197,14 @@ File rules is a special, and somewhat confusing, part of the manifest, but we'll
         "paths": [
           {
             "platform": "windows",
-            "path": "${DOCUMENTS}/My Games/My Awesome Game/Saves"}
+            "path": "${DOCUMENTS}/My Games/My Awesome Game/Saves"
           },
           {
             "platform": "macos",
             "path": "${DOCUMENTS}/Games/My Awesome Game/Saves"
-          },
-          "patterns": ["**/*"]
-        ]
+          }
+        ],
+        "patterns": ["**/*"]
       }
     ]
   }
