@@ -19,6 +19,7 @@ Represents a guild or DM channel within Discord.
 | last\_message\_id? | ?snowflake | the id of the last message sent in this channel (may not point to an existing or valid message) |
 | bitrate? | integer | the bitrate (in bits) of the voice channel |
 | user\_limit? | integer | the user limit of the voice channel |
+| rate\_limit\_per\_user? | integer | amount of seconds a user has to wait before sending another message (0-120); bots, as well as users with the permission `manage_messages` or `manage_channel`, are unaffected |
 | recipients? | array of [user](#DOCS_RESOURCES_USER/user-object) objects | the recipients of the DM |
 | icon? | ?string | icon hash |
 | owner_id? | snowflake | id of the DM creator |
@@ -46,6 +47,7 @@ Represents a guild or DM channel within Discord.
 	"type": 0,
 	"position": 6,
 	"permission_overwrites": [],
+	"rate_limit_per_user": 2,
 	"nsfw": true,
 	"topic": "24/7 chat about how to gank Mike #2",
 	"last_message_id": "155117677105512449",
@@ -384,6 +386,7 @@ Update a channels settings. Requires the 'MANAGE_CHANNELS' permission for the gu
 | position | integer | the position of the channel in the left-hand listing | All |
 | topic | string | 0-1024 character channel topic | Text |
 | nsfw | bool | if the channel is nsfw | Text |
+| rate\_limit\_per\_user | integer | amount of seconds a user has to wait before sending another message (0-120); bots, as well as users with the permission `manage_messages` or `manage_channel`, are unaffected | Text |
 | bitrate | integer | the bitrate (in bits) of the voice channel; 8000 to 96000 (128000 for VIP servers) | Voice |
 | user_limit | integer | the user limit of the voice channel; 0 refers to no limit, 1 to 99 refers to a user limit | Voice |
 | permission_overwrites | array of [overwrite](#DOCS_RESOURCES_CHANNEL/overwrite-object) objects | channel or category-specific permissions | All |
