@@ -311,26 +311,37 @@ For installation scripts, `name` is a user friendly name that Discord will surfa
 
 Don't forget to the notice the double forward slashes in the path name!
 
-## Launch Commands
+## Launch Options
 
 ```js
 {
-  "launch_commands": {
-    "win32": {
-      "executable": "my-awesome-game-32.exe",
-      "arguments": []
+  "launch_options": [
+    {
+      "name": "My Awesome Game",
+      "executable": "my-awesome-game.exe",
+      "arguments": [],
+      "platforms": ["win32", "win64"]
     },
-    "win64": {
-      "executable": "my-awesome-game-64.exe",
-      "arguments": []
+    {
+      "name": "My Awesome Map Editor",
+      "executable": "my-awesome-map-editor.exe",
+      "arguments": [],
+      "platforms": ["win32", "win64"]
     }
-  }
+  ]
 }
 ```
 
-The last bit of the config file is the launch commands for your game. Here, you should specify the executables for the platforms for this manifest (if there are any) and any arguments they require. This one's easy!
+The last bit of the config file is the launch options for your game. This is where you should tell Discord which executables your game can launch. In most cases, you'll just have one object, which is the main executable for your game. However, in the case that your game may have multiple executables that users can launch, you can specify all of them here.
 
-## All Togther Now
+> danger
+> The `name` field _must_ be unique for each launch option.
+
+When launching the game from their Game Library, players will be able to choose which executable is being launched, with the first option in the list as the default. So, for example, if your game comes with the game and a map editor, they'll have access to both without needing multiple entries in their library. Discord will smartly remember their choice for the future, but they'll always have the option to swap to a different one if they want.
+
+You can also specify any arguments that need to be passed to your game on launch, like `--fullscreen` or `--console` or `--360-no-scope`.
+
+## All Together Now
 
 Let's see what one looks like all together!
 
@@ -406,16 +417,20 @@ Let's see what one looks like all together!
             "value": "1"
           }
         ],
-        "launch_commands": {
-          "win32": {
-            "executable": "my-awesome-game-32.exe",
-            "arguments": []
+        "launch_options": [
+          {
+            "name": "My Awesome Game",
+            "executable": "my-awesome-game.exe",
+            "arguments": [],
+            "platforms": ["win32", "win64"]
           },
-          "win64": {
-            "executable": "my-awesome-game-64.exe",
-            "arguments": []
+          {
+            "name": "My Awesome Map Editor",
+            "executable": "my-awesome-map-editor.exe",
+            "arguments": [],
+            "platforms": ["win32", "win64"]
           }
-        }
+        ]
       }
     ]
   }
