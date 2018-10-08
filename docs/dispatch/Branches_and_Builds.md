@@ -237,9 +237,9 @@ As a side note, there may be a case where you might have multiple manifests that
             {
               "platform": "win32",
               "path": "${HOME}"
-            },
-            "patterns": ["**/*"]
-          ]
+            }
+          ],
+          "patterns": ["**/*"]
         ]
       }
     },
@@ -253,9 +253,9 @@ As a side note, there may be a case where you might have multiple manifests that
             {
               "platform": "win32",
               "path": "${HOME}"
-            },
-            "patterns": ["**/*"]
-          ]
+            }
+          ],
+          "patterns": ["**/*"]
         ]
       }
     }
@@ -387,9 +387,9 @@ Let's see what one looks like all together!
                 {
                   "platform": "macos",
                   "path": "${DOCUMENTS}/Games/My Awesome Game/Saves"
-                },
-                "patterns": ["**/*"]
-              ]
+                }
+              ],
+              "patterns": ["**/*"]
             }
           ]
         },
