@@ -525,7 +525,7 @@ Sent when a new channel is created, relevant to the current user. The inner payl
 
 #### Channel Update
 
-Sent when a channel is updated. The inner payload is a [channel](#DOCS_RESOURCES_CHANNEL/channel-object) object.
+Sent when a channel is updated. The inner payload is a [channel](#DOCS_RESOURCES_CHANNEL/channel-object) object. This is not sent when the field `last_message_id` is altered. To keep track of the last_message_id changes, you must listen for [Message Create](#DOCS_TOPICS_GATEWAY/message-create) events.
 
 #### Channel Delete
 
