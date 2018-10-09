@@ -27,7 +27,7 @@ dispatch store listing create awesome-game "My Awesome Game" 425442952562462720
 
 > <game_name> is limited to 256 characters
 
-This will generate a SKU and a store listing for the live build of the given application id. You can visit the store page at [https://discordapp.com/store/applications/<application_id>/<sku_id>](https://discordapp.com/store/applications/<application_id>/<sku_id>).
+This will generate a SKU and a store listing for the live build of the given application id. You can visit the store page at [https://discordapp.com/store/skus/<sku_id>?store_listing_id=<store_listing_id>](https://discordapp.com/store/skus/<sku_id>?store_listing_id=<store_listing_id>).
 
 This command will also spit out the URL for the store page for this SKU. Since we've already given Discord the secret password to see the store via that link earlier, you can navigate to this URL and see your store page in all it's glory. OK, well, it's not glorious _yet_, but it will be!
 
