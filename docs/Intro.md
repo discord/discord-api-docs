@@ -36,11 +36,11 @@ Rich Presence is free, open-sourced, and self-serve, so check out [the How To gu
 
 Those looking to test out the waters before jumping into the deep end with a technical integration should check out our [Verified Servers](https://discordapp.com/verification) program. Being a game developer and owning and operating your game's Discord server makes you eligible for special perks like:
 
-- A vanity url—no more `discord.gg/V913Lkm`
+- A vanity URL—no more `discord.gg/V913Lkm`
 - Custom invite splash art
 - Access to VIP voice server regions
 - A verified check mark to show that you're legit
 
 We can't wait to work with you and see what you make!
 
--- Discord Dev Team
+— Discord Dev Team
