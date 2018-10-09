@@ -240,7 +240,7 @@ Used to authenticate an existing client with your app.
 | description | string | application description |
 | icon | string | hash of the icon |
 | id | snowflake | application client id |
-| rpc_origins | array | array of strings - |
+| rpc_origins | array of strings | array of rpc origin urls |
 | name | string | application name
 
 ###### Example Authenticate Command Payload
@@ -500,7 +500,7 @@ Used to change voice settings of users in voice channels
 | user_id | string | user id |
 | pan? | [pan](#DOCS_TOPICS_RPC/set-user-voice-settings-pan-object) object | set the pan of the user |
 | volume? | integer | set the volume of user (defaults to 100, min 0, max 200)|
-| mute? | bool | set the mute state of the user |
+| mute? | boolean | set the mute state of the user |
 
 >info
 >In the current release, we only support a single modifier of voice settings at a time over RPC.
@@ -563,7 +563,7 @@ Used to join and leave voice channels, group dms, or dms. Returns the [Get Chann
 |-------|------|-------------|
 | channel_id | string | channel id to join (or `null` to leave) |
 | timeout | integer | asyncronously join channel with time to wait before timing out |
-| force | bool | forces a user to join a voice channel |
+| force | boolean | forces a user to join a voice channel |
 
 >warn
 >When trying to join the user to a voice channel, you will receive a `5003` error coded response if the user is already in a voice channel. The `force` parameter should only be specified in response to the case where a user is already in a voice channel and they have **approved** to be moved by your app to a new voice channel.
@@ -643,15 +643,15 @@ Used to join and leave text channels, group dms, or dms. Returns the [Get Channe
 | Field | Type | Description |
 |-------|------|-------------|
 | input | [voice settings input](#DOCS_TOPICS_RPC/get-voice-settings-voice-settings-input-object) object | input settings |
-| output | [voice settings ouput](#DOCS_TOPICS_RPC/get-voice-settings-voice-settings-output-object) | output settings |
+| output | [voice settings output](#DOCS_TOPICS_RPC/get-voice-settings-voice-settings-output-object) object | output settings |
 | mode | [voice settings mode](#DOCS_TOPICS_RPC/get-voice-settings-voice-settings-mode-object) object | voice mode settings |
-| automatic_gain_control | bool | state of automatic gain control |
-| echo_cancellation | bool | state of echo cancellation |
-| noise_suppression | bool | state of noise suppression |
-| qos | bool | state of voice quality of service |
-| silence_warning | bool | state of silence warning notice |
-| deaf | bool | state of self-deafen |
-| mute | bool | state of self-mute |
+| automatic_gain_control | boolean | state of automatic gain control |
+| echo_cancellation | boolean | state of echo cancellation |
+| noise_suppression | boolean | state of noise suppression |
+| qos | boolean | state of voice quality of service |
+| silence_warning | boolean | state of silence warning notice |
+| deaf | boolean | state of self-deafen |
+| mute | boolean | state of self-mute |
 
 ###### Voice Settings Input Object
 
@@ -659,7 +659,7 @@ Used to join and leave text channels, group dms, or dms. Returns the [Get Channe
 |-------|------|-------------|
 | device_id | string | device id |
 | volume | float | input voice level (min: 0, max: 100) |
-| available_devices | array | array of *read-only* device objects containing `id` and `name` string keys |
+| available_devices | array of objects | array of *read-only* device objects containing `id` and `name` string keys |
 
 ###### Voice Settings Output Object
 
@@ -667,16 +667,16 @@ Used to join and leave text channels, group dms, or dms. Returns the [Get Channe
 |-------|------|-------------|
 | device_id | string | device id |
 | volume | float | output voice level (min: 0, max: 200) |
-| available_devices | array | array of *read-only* device objects containing `id` and `name` string keys |
+| available_devices | array of objects | array of *read-only* device objects containing `id` and `name` string keys |
 
 ###### Voice Settings Mode Object
 
 | Field | Type | Description |
 |-------|------|-------------|
 | type | string | voice setting mode type (can be `PUSH_TO_TALK` or `VOICE_ACTIVITY`) |
-| auto_threshold | bool | voice activity threshold automatically sets its threshold |
+| auto_threshold | boolean | voice activity threshold automatically sets its threshold |
 | threshold | float | threshold for voice activity (in dB) (min: -100, max: 0) |
-| shortcut | [shortcut key combo](#DOCS_TOPICS_RPC/get-voice-settings-shortcut-key-combo-object) object | shortcut key combos for PTT |
+| shortcut | [shortcut key combo](#DOCS_TOPICS_RPC/shortcut-key-combo-object) object | shortcut key combos for PTT |
 | delay | float | the PTT release delay (in ms) (min: 0, max: 2000) |
 
 ###### Shortcut Key Combo Object
@@ -760,15 +760,15 @@ When setting voice settings, all fields are optional. Only passed fields are upd
 | Field | Type | Description |
 |-------|------|-------------|
 | input | [voice settings input](#DOCS_TOPICS_RPC/get-voice-settings-voice-settings-input-object) object | input settings |
-| output | [voice settings ouput](#DOCS_TOPICS_RPC/get-voice-settings-voice-settings-output-object) | output settings |
+| output | [voice settings output](#DOCS_TOPICS_RPC/get-voice-settings-voice-settings-output-object) object | output settings |
 | mode | [voice settings mode](#DOCS_TOPICS_RPC/get-voice-settings-voice-settings-mode-object) object | voice mode settings |
-| automatic_gain_control | bool | state of automatic gain control |
-| echo_cancellation | bool | state of echo cancellation |
-| noise_suppression | bool | state of noise suppression |
-| qos | bool | state of voice quality of service |
-| silence_warning | bool | state of silence warning notice |
-| deaf | bool | state of self-deafen |
-| mute | bool | state of self-mute |
+| automatic_gain_control | boolean | state of automatic gain control |
+| echo_cancellation | boolean | state of echo cancellation |
+| noise_suppression | boolean | state of noise suppression |
+| qos | boolean | state of voice quality of service |
+| silence_warning | boolean | state of silence warning notice |
+| deaf | boolean | state of self-deafen |
+| mute | boolean | state of self-mute |
 
 ###### Example Set Voice Settings Command Payload
 
@@ -966,10 +966,10 @@ Used by hardware manufacturers to send information about the current state of th
 | vendor                   | [vendor](#DOCS_TOPICS_RPC/set-certified-devices-vendor-object) object | the hardware vendor                                      |
 | model                    | [model](#DOCS_TOPICS_RPC/set-certified-devices-model-object) object   | the model of the product                                 |
 | related                  | array of strings                                                      | UUIDs of related devices                                 |
-| echo_cancellation?*      | bool                                                                  | if the device's native echo cancellation is enabled      |
-| noise_suppression?*      | bool                                                                  | if the device's native noise suppression is enabled      |
-| automatic_gain_control?* | bool                                                                  | if the device's native automatic gain control is enabled |
-| hardware_mute?*          | bool                                                                  | if the device is hardware muted                          |
+| echo_cancellation?*      | boolean                                                                 | if the device's native echo cancellation is enabled      |
+| noise_suppression?*      | boolean                                                               | if the device's native noise suppression is enabled      |
+| automatic_gain_control?* | boolean                                                                  | if the device's native automatic gain control is enabled |
+| hardware_mute?*          | boolean                                                               | if the device is hardware muted                          |
 
 *These fields are only applicable for `AUDIO_INPUT` device types
 
@@ -1205,7 +1205,7 @@ Used to reject an Ask to Join request.
 
 | Field | Type | Description |
 |-------|------|-------------|
-| guild | partial [guild](#DOCS_RESOURCES_GUILD/guild-object) | guild with requested id |
+| guild | partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object | guild with requested id |
 | online | integer | number of online users in guild (deprecated; always 0) |
 
 ###### Example Guild Status Dispatch Payload

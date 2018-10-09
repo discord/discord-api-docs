@@ -11,13 +11,13 @@ Used to represent a user's voice connection status.
 | guild_id? | snowflake | the guild id this voice state is for |
 | channel_id | ?snowflake | the channel id this user is connected to |
 | user_id | snowflake | the user id this voice state is for |
-| member? | [member object](#DOCS_RESOURCES_GUILD/member-object) | the guild member this voice state is for |
+| member? | [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) object | the guild member this voice state is for |
 | session_id | string | the session id for this voice state |
-| deaf | bool | whether this user is deafened by the server |
-| mute | bool | whether this user is muted by the server |
-| self_deaf | bool | whether this user is locally deafened |
-| self_mute | bool | whether this user is locally muted |
-| suppress | bool | whether this user is muted by the current user |
+| deaf | boolean | whether this user is deafened by the server |
+| mute | boolean | whether this user is muted by the server |
+| self_deaf | boolean | whether this user is locally deafened |
+| self_mute | boolean | whether this user is locally muted |
+| suppress | boolean | whether this user is muted by the current user |
 
 ###### Example Voice State
 
@@ -42,10 +42,10 @@ Used to represent a user's voice connection status.
 |-------|------|-------------|
 | id | string | unique ID for the region |
 | name | string | name of the region |
-| vip | bool | true if this is a vip-only server |
-| optimal | bool | true for a single server that is closest to the current user's client |
-| deprecated | bool | whether this is a deprecated voice region (avoid switching to these) |
-| custom | bool | whether this is a custom voice region (used for events/etc) |
+| vip | boolean | true if this is a vip-only server |
+| optimal | boolean | true for a single server that is closest to the current user's client |
+| deprecated | boolean | whether this is a deprecated voice region (avoid switching to these) |
+| custom | boolean | whether this is a custom voice region (used for events/etc) |
 
 ## List Voice Regions % GET /voice/regions
 

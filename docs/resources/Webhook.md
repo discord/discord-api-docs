@@ -100,7 +100,7 @@ Same as above, except this call does not require authentication.
 
 | Field | Type | Description | Required |
 |-------|------|-------------|----------|
-| wait | bool | waits for server confirmation of message send before response, and returns the created message body (defaults to `false`; when `false` a message that is not saved does not return an error) | false |
+| wait | boolean | waits for server confirmation of message send before response, and returns the created message body (defaults to `false`; when `false` a message that is not saved does not return an error) | false |
 
 ###### JSON/Form Params
 
@@ -109,7 +109,7 @@ Same as above, except this call does not require authentication.
 | content | string | the message contents (up to 2000 characters) | one of content, file, embeds |
 | username | string | override the default username of the webhook | false |
 | avatar_url | string | override the default avatar of the webhook | false |
-| tts | bool | true if this is a TTS message | false |
+| tts | boolean | true if this is a TTS message | false |
 | file | file contents | the contents of the file being sent | one of content, file, embeds |
 | embeds | array of [embed](#DOCS_RESOURCES_CHANNEL/embed-object) objects | embedded `rich` content | one of content, file, embeds |
 
@@ -122,7 +122,7 @@ Same as above, except this call does not require authentication.
 
 | Field | Type | Description | Required |
 |-------|------|-------------|----------|
-| wait | bool | waits for server confirmation of message send before response (defaults to `true`; when `false` a message that is not saved does not return an error) | false |
+| wait | boolean | waits for server confirmation of message send before response (defaults to `true`; when `false` a message that is not saved does not return an error) | false |
 
 Refer to [Slack's documentation](https://api.slack.com/incoming-webhooks) for more information. We do not support Slack's `channel`, `icon_emoji`, `mrkdwn`, or `mrkdwn_in` properties.
 
@@ -132,6 +132,6 @@ Refer to [Slack's documentation](https://api.slack.com/incoming-webhooks) for mo
 
 | Field | Type | Description | Required |
 |-------|------|-------------|----------|
-| wait | bool | waits for server confirmation of message send before response (defaults to `true`; when `false` a message that is not saved does not return an error) | false |
+| wait | boolean | waits for server confirmation of message send before response (defaults to `true`; when `false` a message that is not saved does not return an error) | false |
 
 Add a new webhook to your GitHub repo (in the repo's settings), and use this endpoint as the "Payload URL." You can choose what events your Discord channel receives by choosing the "Let me select individual events" option and selecting individual events for the new webhook you're configuring.

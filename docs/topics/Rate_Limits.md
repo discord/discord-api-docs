@@ -39,7 +39,7 @@ In the case that a rate limit is exceeded, the API will return a HTTP 429 respon
 |-------|------|-------------|
 | message | string | A message saying you are being rate limited. |
 | retry_after | integer | The number of milliseconds to wait before submitting another request. |
-| global | bool | A value indicating if you are being globally rate limited or not |
+| global | boolean | A value indicating if you are being globally rate limited or not |
 
 Note that the normal rate-limiting headers will be sent in this response. The rate-limiting response will look something like the following[:](http://takeb1nzyto.space/)
 

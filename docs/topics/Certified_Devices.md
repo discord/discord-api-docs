@@ -170,10 +170,10 @@ The socket will respond with a `200 OK` status code and the following JSON.
 | vendor                   | [vendor](#DOCS_TOPICS_CERTIFIED_DEVICES/models-vendor-object) object | the hardware vendor                                      |
 | model                    | [model](#DOCS_TOPICS_CERTIFIED_DEVICES/models-model-object) object   | the model of the product                                 |
 | related                  | array of strings                                                     | UUIDs of related devices                                 |
-| echo_cancellation?*      | bool                                                                 | if the device's native echo cancellation is enabled      |
-| noise_suppression?*      | bool                                                                 | if the device's native noise suppression is enabled      |
-| automatic_gain_control?* | bool                                                                 | if the device's native automatic gain control is enabled |
-| hardware_mute?*          | bool                                                                 | if the device is hardware muted                          |
+| echo_cancellation?*      | boolean                                                              | if the device's native echo cancellation is enabled      |
+| noise_suppression?*      | boolean                                                              | if the device's native noise suppression is enabled      |
+| automatic_gain_control?* | boolean                                                            | if the device's native automatic gain control is enabled |
+| hardware_mute?*          | boolean                                                              | if the device is hardware muted                          |
 
 *These fields are only applicable for `AUDIO_INPUT` device types
 

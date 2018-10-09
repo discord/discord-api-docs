@@ -11,8 +11,8 @@ Represents a code that when used, adds a user to a guild or group DM channel.
 | code | string | the invite code (unique ID) |
 | guild? | partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object | the guild this invite is for |
 | channel | partial [channel](#DOCS_RESOURCES_CHANNEL/channel-object) object | the channel this invite is for |
-| approximate_presence_count? | int | approximate count of online members |
-| approximate_member_count? | int | approximate count of total members |
+| approximate_presence_count? | integer | approximate count of online members |
+| approximate_member_count? | integer | approximate count of total members |
 
 ###### Example Invite Object
 
@@ -39,13 +39,13 @@ Represents a code that when used, adds a user to a guild or group DM channel.
 
 | Field | Type | Description |
 |-------|------|-------------|
-| inviter | a [user](#DOCS_RESOURCES_USER/user-object) object | user who created the invite |
+| inviter | [user](#DOCS_RESOURCES_USER/user-object) object | user who created the invite |
 | uses | integer | number of times this invite has been used |
 | max_uses | integer | max number of times this invite can be used |
 | max_age | integer | duration (in seconds) after which the invite expires |
-| temporary | bool | whether this invite only grants temporary membership |
+| temporary | boolean | whether this invite only grants temporary membership |
 | created_at | ISO8601 timestamp | when this invite was created |
-| revoked | bool | whether this invite is revoked |
+| revoked | boolean | whether this invite is revoked |
 
 ###### Example Invite Metadata
 
