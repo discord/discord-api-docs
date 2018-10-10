@@ -444,6 +444,8 @@ The maximum request size when sending a message is 8MB.
 
 >info
 >For the embed object, you can set every field except `type` (it will be `rich` regardless of if you try to set it), `provider`, `video`, and any `height`, `width`, or `proxy_url` values for images.
+
+>info
 >`payload_json` must be of the format `{ embed: [embed](#DOCS_RESOURCES_CHANNEL/embed-object) }`, not simply the embed object.
 
 ###### Using Attachments within Embeds
