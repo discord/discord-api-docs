@@ -438,7 +438,7 @@ The maximum request size when sending a message is 8MB.
 | content | string | the message contents (up to 2000 characters) | true |
 | nonce | snowflake | a nonce that can be used for optimistic message sending | false |
 | tts | boolean | true if this is a TTS message | false |
-| file | file contents | the contents of the file being sent | when sending `multipart/form-data` one of content, file, embeds must be present. |
+| file | file contents | the contents of the file being sent | when sending `multipart/form-data` at least one of content, file, embeds must be present. |
 | embed | [embed](#DOCS_RESOURCES_CHANNEL/embed-object) object | embedded `rich` content | false |
 | payload_json | string | JSON encoded body used in place of the `embed` field | `multipart/form-data` only
 
