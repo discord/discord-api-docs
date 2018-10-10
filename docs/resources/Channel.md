@@ -438,12 +438,13 @@ The maximum request size when sending a message is 8MB.
 | content | string | the message contents (up to 2000 characters) | true |
 | nonce | snowflake | a nonce that can be used for optimistic message sending | false |
 | tts | boolean | true if this is a TTS message | false |
-| file | file contents | the contents of the file being sent | one of content, file, embeds (`multipart/form-data` only) |
+| file | file contents | the contents of the file being sent | when sending `multipart/form-data` one of content, file, embeds must be present. |
 | embed | [embed](#DOCS_RESOURCES_CHANNEL/embed-object) object | embedded `rich` content | false |
-| payload_json | string | url-encoded JSON body used in place of the `embed` field | `multipart/form-data` only
+| payload_json | string | JSON encoded body used in place of the `embed` field | `multipart/form-data` only
 
 >info
 >For the embed object, you can set every field except `type` (it will be `rich` regardless of if you try to set it), `provider`, `video`, and any `height`, `width`, or `proxy_url` values for images.
+>`payload_json` must be of the format `{ embed: [embed](#DOCS_RESOURCES_CHANNEL/embed-object) }`, not simply the embed object.
 
 ###### Using Attachments within Embeds
 
