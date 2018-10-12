@@ -551,7 +551,7 @@ Returns a PNG image widget for the guild. Requires no permissions or authenticat
 The same documentation also applies to `embed.png`.
 
 >info
->All parameters to this endpoint are optional
+>All parameters for this endpoint are optional.
 
 ###### Query String Params
 
