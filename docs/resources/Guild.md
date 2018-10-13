@@ -78,27 +78,32 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 
 ```json
 {
-	"id": "41771983423143937",
-	"application_id": null,
-	"name": "Discord Developers",
-	"icon": "86e39f7ae3307e811784e2ffd11a7310",
-	"splash": null,
-	"owner_id": "80351110224678912",
-	"region": "us-east",
-	"afk_channel_id": "42072017402331136",
-	"afk_timeout": 300,
-	"embed_enabled": true,
-	"embed_channel_id": "41771983444115456",
-	"verification_level": 1,
-	"default_message_notifications": 0,
-	"explicit_content_filter": 0,
-	"mfa_level": 0,
-	"widget_enabled": false,
-	"widget_channel_id": "41771983423143937",
-	"roles": [],
-	"emojis": [],
-	"features": ["INVITE_SPLASH"],
-	"unavailable": false
+    "application_id": null,
+    "features": [
+        "VIP_REGIONS",
+        "VANITY_URL",
+        "INVITE_SPLASH"
+    ],
+    "afk_timeout": 3600,
+    "default_message_notifications": 1,
+    "afk_channel_id": null,
+    "explicit_content_filter": 1,
+    "max_presences": 25000,
+    "id": "81384788765712384",
+    "verification_level": 3,
+    "widget_channel_id": null,
+    "embed_channel_id": null,
+    "splash": null,
+    "emojis": [],
+    "embed_enabled": true,
+    "owner_id": "80088516616269824",
+    "mfa_level": 1,
+    "system_channel_id": null,
+    "widget_enabled": true,
+    "icon": "9b4e388133f7199806daac41441a9403",
+    "name": "Discord API",
+    "roles": [],
+    "region": "vip-us-east"
 }
 ```
 
@@ -110,7 +115,7 @@ A partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object. Represents an Offl
 
 ```json
 {
-	"id": "41771983423143937",
+	"id": "86004744966914048",
 	"unavailable": true
 }
 ```
@@ -129,7 +134,7 @@ A partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object. Represents an Offl
 ```json
 {
 	"enabled": true,
-	"channel_id": "41771983444115456"
+	"channel_id": "381898062269775883"
 }
 ```
 

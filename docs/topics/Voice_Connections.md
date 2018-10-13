@@ -26,8 +26,8 @@ The first step in connecting to a voice server (and in turn, a guild's voice cha
 {
 	"op": 4,
 	"d": {
-		"guild_id": "41771983423143937",
-		"channel_id": "127121515262115840",
+		"guild_id": "81384788765712384",
+		"channel_id": "85482585546833920",
 		"self_mute": false,
 		"self_deaf": false
 	}
@@ -45,7 +45,7 @@ If our request succeeded, the gateway will respond with _two_ events—a [Voice 
 	"op": 0,
 	"d": {
 		"token": "my_token",
-		"guild_id": "41771983423143937",
+		"guild_id": "81384788765712384",
 		"endpoint": "smart.loyal.discord.gg"
 	}
 }
@@ -63,7 +63,7 @@ Once we retrieve a session\_id, token, and endpoint information, we can connect 
 {
 	"op": 0,
 	"d": {
-		"server_id": "41771983423143937",
+		"server_id": "81384788765712384",
 		"user_id": "104694319306248192",
 		"session_id": "my_session_id",
 		"token": "my_token"
@@ -228,7 +228,7 @@ When your client detects that its connection has been severed, it should open a 
 {
 	"op": 7,
 	"d": {
-		"server_id": "41771983423143937",
+		"server_id": "81384788765712384",
 		"session_id": "my_session_id",
 		"token": "my_token"
 	}

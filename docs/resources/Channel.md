@@ -41,17 +41,17 @@ Represents a guild or DM channel within Discord.
 
 ```json
 {
-	"id": "41771983423143937",
-	"guild_id": "41771983423143937",
-	"name": "general",
-	"type": 0,
-	"position": 6,
-	"permission_overwrites": [],
-	"rate_limit_per_user": 2,
-	"nsfw": true,
-	"topic": "24/7 chat about how to gank Mike #2",
-	"last_message_id": "155117677105512449",
-	"parent_id": "399942396007890945"
+    "guild_id": "81384788765712384",
+    "name": "rules",
+    "permission_overwrites": [],
+    "topic": null,
+    "parent_id": "356505375207456768",
+    "nsfw": false,
+    "position": 0,
+    "rate_limit_per_user": 0,
+    "last_message_id": "381898139189116930",
+    "type": 0,
+    "id": "381898062269775883"
 }
 ```
 
@@ -59,16 +59,16 @@ Represents a guild or DM channel within Discord.
 
 ```json
 {
-	"id": "155101607195836416",
-	"guild_id": "41771983423143937",
-	"name": "ROCKET CHEESE",
-	"type": 2,
-	"nsfw": false,
-	"position": 5,
-	"permission_overwrites": [],
-	"bitrate": 64000,
-	"user_limit": 0,
-	"parent_id": null
+    "permission_overwrites": [],
+    "name": "Testing",
+    "user_limit": 23,
+    "type": 2,
+    "parent_id": "356503376785309697",
+    "nsfw": false,
+    "position": 3,
+    "guild_id": "81384788765712384",
+    "bitrate": 96000,
+    "id": "85482585546833920"
 }
 ```
 
@@ -122,13 +122,13 @@ Represents a guild or DM channel within Discord.
 ```json
 {
     "permission_overwrites": [],
-    "name": "Test",
+    "name": "Information",
     "parent_id": null,
     "nsfw": false,
     "position": 0,
-    "guild_id": "290926798629997250",
+    "guild_id": "81384788765712384",
     "type": 4,
-    "id": "399942396007890945"
+    "id": "356505375207456768"
 }
 ```
 
@@ -210,30 +210,31 @@ Represents a message sent in a channel within Discord.
     "reactions": [
         {
             "count": 1,
-            "me": false,
+            "me": true,
             "emoji": {
-                "id": null,
-                "name": "🔥"
+                "animated": false,
+                "id": "358805857925857280",
+                "name": "blobhypersweatthink"
             }
         }
     ],
     "attachments": [],
     "tts": false,
     "embeds": [],
-    "timestamp": "2017-07-11T17:27:07.299000+00:00",
+    "timestamp": "2018-04-04T23:26:55.845000+00:00",
     "mention_everyone": false,
-    "id": "334385199974967042",
+    "id": "431233237915009044",
     "pinned": false,
     "edited_timestamp": null,
     "author": {
-        "username": "Mason",
-        "discriminator": "9999",
-        "id": "53908099506183680",
-        "avatar": "a_bab14f271d565501444b2ca3be944b25"
+        "username": "b1nzy",
+        "discriminator": "0852",
+        "id": "80351110224678912",
+        "avatar": "a_311bd5b25a77bab2bd554516c3dea864"
     },
     "mention_roles": [],
-    "content": "Supa Hot",
-    "channel_id": "290926798999357250",
+    "content": "lol",
+    "channel_id": "381870553235193857",
     "mentions": [],
     "type": 0
 }

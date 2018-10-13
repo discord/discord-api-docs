@@ -405,8 +405,8 @@ Sent when a client wants to join, move, or disconnect from a voice channel.
 
 ```json
 {
-  "guild_id": "41771983423143937",
-  "channel_id": "127121515262115840",
+  "guild_id": "81384788765712384",
+  "channel_id": "85482585546833920",
   "self_mute": false,
   "self_deaf": false
 }
@@ -936,7 +936,7 @@ Sent when a guild's voice server is updated. This is sent when initially connect
 ```json
 {
   "token": "my_token",
-  "guild_id": "41771983423143937",
+  "guild_id": "81384788765712384",
   "endpoint": "smart.loyal.discord.gg"
 }
 ```
