@@ -90,11 +90,11 @@ def on_websocket_message(msg):
 
 ###### Gateway URL Params
 
-| Field     | Type    | Description            |
-| --------- | ------- | ---------------------- |
-| v         | integer | Gateway Version to use |
-| encoding  | string  | 'json' or 'etf'        |
-| compress? | string  | 'zlib-stream'          |
+| Field     | Type    | Description            				| Example Value   |
+| --------- | ------- | ----------------------------------------------- | -------------   |
+| v         | integer | Gateway Version to use 				| 6		  |
+| encoding  | string  | The encoding of recieved gateway packets 	| 'json' or 'etf' |
+| compress? | string  | The (optional) compression of gateway packets 	| 'zlib-stream'	  |
 
 The first step in establishing connectivity to the gateway is requesting a valid websocket endpoint from the API. This can be done through either the [Get Gateway](#DOCS_TOPICS_GATEWAY/get-gateway) or the [Get Gateway Bot](#DOCS_TOPICS_GATEWAY/get-gateway-bot) endpoint.
 
