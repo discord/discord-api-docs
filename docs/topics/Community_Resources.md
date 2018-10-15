@@ -25,6 +25,7 @@ The Discord team curates the following list of officially vetted libraries that 
 | [Yasmin](https://github.com/CharlotteDunois/Yasmin) | PHP |
 | [discord.py](https://github.com/Rapptz/discord.py) | Python |
 | [disco](https://github.com/b1naryth1ef/disco) | Python |
+| [Shitcord](https://github.com/itsVale/Shitcord) | Python |
 | [discordrb](https://github.com/meew0/discordrb) | Ruby |
 | [discord-rs](https://github.com/SpaceManiac/discord-rs) | Rust |
 | [Sword](https://github.com/Azoy/Sword) | Swift |
