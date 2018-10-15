@@ -29,6 +29,7 @@ The Discord team curates the following list of officially vetted libraries that 
 | [discordrb](https://github.com/meew0/discordrb) | Ruby |
 | [discord-rs](https://github.com/SpaceManiac/discord-rs) | Rust |
 | [serenity](https://github.com/serenity-rs/serenity) | Rust |
+| [SwiftDiscord](https://github.com/nuclearace/SwiftDiscord) | Swift |
 | [Sword](https://github.com/Azoy/Sword) | Swift |
 
 ## Permission Calculators
