@@ -427,7 +427,7 @@ Create a new [role](#DOCS_TOPICS_PERMISSIONS/role-object) for the guild. Require
 | Field | Type | Description | Default |
 |-------|------|-------------|---------|
 | name | string | name of the role | "new role" |
-| permissions | integer | bitwise of the enabled/disabled permissions | @everyone permissions in guild |
+| permissions | integer | bitwise value of the enabled/disabled permissions | @everyone permissions in guild |
 | color | integer | RGB color value | 0 |
 | hoist | boolean | whether the role should be displayed separately in the sidebar | false |
 | mentionable | boolean | whether the role should be mentionable | false |
@@ -454,7 +454,7 @@ Modify a guild role. Requires the 'MANAGE_ROLES' permission. Returns the updated
 | Field | Type | Description |
 |-------|------|-------------|
 | name | string | name of the role |
-| permissions | integer | bitwise of the enabled/disabled permissions |
+| permissions | integer | bitwise value of the enabled/disabled permissions |
 | color | integer | RGB color value |
 | hoist | boolean | whether the role should be displayed separately in the sidebar |
 | mentionable | boolean | whether the role should be mentionable |
