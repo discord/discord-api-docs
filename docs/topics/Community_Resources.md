@@ -14,6 +14,9 @@ The Discord team curates the following list of officially vetted libraries that 
 | [Discord.Net](https://github.com/RogueException/Discord.Net) | C# |
 | [DSharpPlus](https://github.com/NaamloosDT/DSharpPlus) | C# |
 | [dscord](https://github.com/b1naryth1ef/dscord) | D |
+| [Nyxx](https://github.com/l7ssha/nyxx) | Dart |
+| [coxir](https://github.com/satom99/coxir) | Elixir |
+| [Nostrum](https://github.com/Kraigie/nostrum) | Elixir |
 | [DiscordGo](https://github.com/bwmarrin/discordgo) | Go |
 | [Discord4j](https://github.com/austinv11/Discord4J) | Java |
 | [Javacord](https://github.com/Javacord/Javacord) | Java |
@@ -27,6 +30,8 @@ The Discord team curates the following list of officially vetted libraries that 
 | [disco](https://github.com/b1naryth1ef/disco) | Python |
 | [discordrb](https://github.com/meew0/discordrb) | Ruby |
 | [discord-rs](https://github.com/SpaceManiac/discord-rs) | Rust |
+| [serenity](https://github.com/serenity-rs/serenity) | Rust |
+| [SwiftDiscord](https://github.com/nuclearace/SwiftDiscord) | Swift |
 | [Sword](https://github.com/Azoy/Sword) | Swift |
 
 ## Permission Calculators
