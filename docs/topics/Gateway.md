@@ -92,7 +92,7 @@ def on_websocket_message(msg):
 
 | Field     | Type    | Description                                   | Accepted Values                                                            |
 | --------- | ------- | ----------------------------------------------| --------------------------------------------------------------------------|
-| v         | integer | Gateway Version to use                        | 6 (see [Gateway versions](#DOCS_TOPIC_GATEWAY/gateway-versions)) |
+| v         | integer | Gateway Version to use                        | 6 (see [Gateway versions](#DOCS_TOPICS_GATEWAY/gateway-versions)) |
 | encoding  | string  | The encoding of recieved gateway packets      | 'json' or 'etf'                                                            |
 | compress? | string  | The (optional) compression of gateway packets | 'zlib-stream'                                                              |
 
