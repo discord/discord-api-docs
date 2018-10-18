@@ -117,7 +117,7 @@ Returns a `Discord.Result` via callback. Note that a successful `Discord.Result`
 
 ###### Example
 
-````cs
+```cs
 overlayManager.OpenGuildInvite("rjEeUJq", (result) =>
 {
   if (result == Discord.Result.Ok)
@@ -125,6 +125,7 @@ overlayManager.OpenGuildInvite("rjEeUJq", (result) =>
     Console.WriteLine("Invite was valid and overlay is open");
   }
 });
+```
 
 ## OnToggle
 
@@ -148,7 +149,7 @@ overlayManager.OnLocked += locked =>
   Console.WriteLine("Overlay Locked: {0}", locked);
 };
 overlayManager.SetLocked(false);
-````
+```
 
 ## Example: Activate Overlay Invite Modal
 
