@@ -107,7 +107,7 @@ overlayManager.OpenActivityInvite(Discord.ActivityActionType.Join, (result) =>
 
 Opens the overlay modal for joining a Discord guild, given its invite code. An invite code for a server may look something like `fortnite` for a verified server—the full invite being `discord.gg/fortnite`—or something like `rjEeUJq` for a non-verified server, the full invite being `discord.gg/rjEeUJq`.
 
-Returns a `Discord.Result` via callback.
+Returns a `Discord.Result` via callback. Note that a successful `Discord.Result` response does not necessarily mean that the user has joined the guild. If you want more granular control over and knowledge about users joining your guild, you may want to look into implementing the [`guilds.join` OAuth2 scope in an authorization code grant](#DOCS_TOPICS_OAUTH2/authorization-code-grant) in conjunction with the [Add Guild Members](#DOCS_RESOURCES_GUILD/add-guild-member) endpoint.
 
 ###### Parameters
 
@@ -122,7 +122,7 @@ overlayManager.OpenGuildInvite("rjEeUJq", (result) =>
 {
   if (result == Discord.Result.Ok)
   {
-    Console.WriteLine("User is joining your guild!");
+    Console.WriteLine("Invite was valid and overlay is open");
   }
 });
 
