@@ -137,6 +137,9 @@ var discord = new Discord(53908232506183680, Discord.CreateFlags.Default);
 
 Destroys the instance. Wave goodbye, Nelly! You monster. In C# land, this is `Dispose()`.
 
+> info
+> The C++ binding does not include a `destroy()` method, as the destructor for the Core does the work for you.
+
 Returns `void`.
 
 ###### Parameters
@@ -145,11 +148,7 @@ None
 
 ###### Example
 
-```
-// c++ land
-discord::Core::Destroy();
-
-// c# land
+```cs
 discord.Dispose();
 ```
 
