@@ -480,6 +480,9 @@ Updates a lobby with data from the given transaction. You _can_ call `SetOwner()
 
 Returns `Discord.Result` via callback.
 
+> warn
+> This call has a rate limit of 10 updates per 5 seconds. If you fear you might hit that, it may be a good idea to batch your lobby updates into transactions.
+
 ###### Parameters
 
 | name        | type             | description                         |
