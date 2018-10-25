@@ -121,7 +121,7 @@ A partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object. Represents an Offl
 
 | Field | Type | Description |
 |-------|------|-------------|
-| enabled | boolean | if the embed is enabled |
+| enabled | boolean | whether the embed is enabled |
 | channel_id | ?snowflake | the embed channel id |
 
 ###### Example Guild Embed
@@ -143,8 +143,8 @@ A partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object. Represents an Offl
 | nick? | string | this users guild nickname (if one is set) |
 | roles | array of snowflakes | array of [role](#DOCS_TOPICS_PERMISSIONS/role-object) object ids |
 | joined_at | ISO8601 timestamp | when the user joined the guild |
-| deaf | boolean | if the user is deafened |
-| mute | boolean | if the user is muted |
+| deaf | boolean | whether the user is deafened |
+| mute | boolean | whether the user is muted |
 
 ###### Example Guild Member
 
@@ -298,7 +298,7 @@ Create a new [channel](#DOCS_RESOURCES_CHANNEL/channel-object) object for the gu
 | rate\_limit\_per\_user | integer | amount of seconds a user has to wait before sending another message (0-120); bots, as well as users with the permission `manage_messages` or `manage_channel`, are unaffected |
 | permission_overwrites | array of [overwrite](#DOCS_RESOURCES_CHANNEL/overwrite-object) objects | the channel's permission overwrites |
 | parent_id | snowflake | id of the parent category for a channel |
-| nsfw | boolean | if the channel is nsfw |
+| nsfw | boolean | whether the channel is nsfw |
 
 ## Modify Guild Channel Positions % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/channels
 
@@ -348,8 +348,8 @@ Adds a user to the guild, provided you have a valid oauth2 access token for the 
 | access_token | string | an oauth2 access token granted with the `guilds.join` to the bot's application for the user you want to add to the guild | |
 | nick | string | value to set users nickname to | MANAGE_NICKNAMES |
 | roles | array of snowflakes | array of role ids the member is assigned | MANAGE_ROLES |
-| mute | boolean | if the user is muted | MUTE_MEMBERS |
-| deaf | boolean | if the user is deafened | DEAFEN_MEMBERS |
+| mute | boolean | whether the user is muted | MUTE_MEMBERS |
+| deaf | boolean | whether the user is deafened | DEAFEN_MEMBERS |
 
 ## Modify Guild Member % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/members/{user.id#DOCS_RESOURCES_USER/user-object}
 
@@ -365,8 +365,8 @@ Modify attributes of a [guild member](#DOCS_RESOURCES_GUILD/guild-member-object)
 |-------|------|-------------|------------|
 | nick | string | value to set users nickname to | MANAGE_NICKNAMES |
 | roles | array of snowflakes | array of role ids the member is assigned | MANAGE_ROLES |
-| mute | boolean | if the user is muted | MUTE_MEMBERS |
-| deaf | boolean | if the user is deafened | DEAFEN_MEMBERS |
+| mute | boolean | whether the user is muted | MUTE_MEMBERS |
+| deaf | boolean | whether the user is deafened | DEAFEN_MEMBERS |
 | channel_id | snowflake | id of channel to move user to (if they are connected to voice) | MOVE_MEMBERS |
 
 ## Modify Current User Nick % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/members/@me/nick
