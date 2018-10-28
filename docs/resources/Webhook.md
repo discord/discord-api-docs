@@ -112,6 +112,7 @@ Same as above, except this call does not require authentication.
 | tts | boolean | true if this is a TTS message | false |
 | file | file contents | the contents of the file being sent | one of content, file, embeds |
 | embeds | array of [embed](#DOCS_RESOURCES_CHANNEL/embed-object) objects | embedded `rich` content | one of content, file, embeds |
+| payload_json | string | See [message create](#DOCS_RESOURCES_CHANNEL/create-message) | `multipart/form-data` only |
 
 >info
 >For the webhook embed objects, you can set every field except `type` (it will be `rich` regardless of if you try to set it), `provider`, `video`, and any `height`, `width`, or `proxy_url` values for images.
