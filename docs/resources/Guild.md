@@ -555,11 +555,9 @@ The same documentation also applies to `embed.png`.
 
 ###### Query String Params
 
-| Field | Type | Description |
-|-------|------|-------------|
-| style? * | string | style of the widget image returned (see below) |
-
-\* The default value for `style` if not set is `shield`.
+| Field | Type | Description | Default |
+|-------|------|-------------|---------|
+| style | string | style of the widget image returned (see below) | shield |
 
 ###### Widget Style Options
 
