@@ -428,7 +428,7 @@ Post a message to a guild text or DM channel. If operating on a guild channel, t
 
 The maximum request size when sending a message is 8MB.
 
-This endpoint supports requests with `Content-Type`s of both `application/json` and `multipart/form-data`. You must however use `multipart/form-data` when uploading files. Note that when sending `multipart/form-data` requests the `embed` field cannot be used, however you can pass a JSON encoded body as form value for `payload_json`, where additional request parameters such as `embed` can be set. 
+This endpoint supports requests with `Content-Type`s of both `application/json` and `multipart/form-data`. You must however use `multipart/form-data` when uploading files. Note that when sending `multipart/form-data` requests the `embed` field cannot be used, however you can pass a JSON encoded body as form value for `payload_json`, where additional request parameters such as `embed` can be set.
 
 >info
 >Note that when sending `application/json` you must send at least one of `content` or `embed`, and when sending `multipart/form-data`, you must send at least one of `content`, `embed` or `file`.
@@ -471,8 +471,10 @@ This endpoint supports requests with `Content-Type`s of both `application/json` 
 |------------|------------|
 | content | Hello, World! |
 | tts | false |
-| payload_json | `"embed": { "title": "Hello, Embed!", "description": "This is an embedded message." }` |
 | file | file contents |
+
+>warn
+>When sending `payload_json` in multipart requests, fields except for `file` are ignored.
 
 ###### Using Attachments within Embeds
 
