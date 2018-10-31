@@ -428,22 +428,53 @@ Post a message to a guild text or DM channel. If operating on a guild channel, t
 
 The maximum request size when sending a message is 8MB.
 
->warn
->This endpoint supports both JSON and form data bodies. It does require multipart/form-data requests instead of the normal JSON request type when uploading files. Make sure you set your `Content-Type` to `multipart/form-data` if you're doing that. Note that in that case, the `embed` field cannot be used, but you can pass an url-encoded JSON body as a form value for `payload_json`.
+This endpoint supports requests with `Content-Type`s of both `application/json` and `multipart/form-data`. You must however use `multipart/form-data` when uploading files. Note that when sending `multipart/form-data` requests the `embed` field cannot be used, however you can pass a JSON encoded body as form value for `payload_json`, where additional request parameters such as `embed` can be set.
+
+>info
+>Note that when sending `application/json` you must send at least one of `content` or `embed`, and when sending `multipart/form-data`, you must send at least one of `content`, `embed` or `file`.
 
 ###### Params
 
-| Field | Type | Description | Required |
-|-------|------|-------------|----------|
-| content | string | the message contents (up to 2000 characters) | true |
-| nonce | snowflake | a nonce that can be used for optimistic message sending | false |
-| tts | boolean | true if this is a TTS message | false |
-| file | file contents | the contents of the file being sent | one of content, file, embeds (`multipart/form-data` only) |
-| embed | [embed](#DOCS_RESOURCES_CHANNEL/embed-object) object | embedded `rich` content | false |
-| payload_json | string | url-encoded JSON body used in place of the `embed` field | `multipart/form-data` only
+| Field | Type | Description |
+|-------|------|-------------|
+| content | string | the message contents (up to 2000 characters) |
+| nonce | snowflake | a nonce that can be used for optimistic message sending |
+| tts | boolean | true if this is a TTS message |
+| file | file contents | the contents of the file being sent |
+| embed | [embed](#DOCS_RESOURCES_CHANNEL/embed-object) object | embedded `rich` content |
+| payload_json | string | JSON encoded body of any additional request fields. |
 
 >info
 >For the embed object, you can set every field except `type` (it will be `rich` regardless of if you try to set it), `provider`, `video`, and any `height`, `width`, or `proxy_url` values for images.
+
+###### Example Request Body (application/json)
+
+```json
+{
+  "content": "Hello, World!",
+  "tts": false,
+  "embed": {
+    "title": "Hello, Embed!",
+    "description": "This is an embedded message."
+  }
+}
+```
+
+###### Example Request Bodies (multipart/form-data) 
+
+| Field Name | Form Value |
+|------------|------------|
+| payload_json | `"content": "Hello, World!", "tts": false, "embed": { "title": "Hello, Embed!", "description": "This is an embedded message." }` |
+| file | file contents |
+
+| Field Name | Form Value |
+|------------|------------|
+| content | Hello, World! |
+| tts | false |
+| file | file contents |
+
+>warn
+>When sending `payload_json` in multipart requests, fields except for `file` are ignored.
 
 ###### Using Attachments within Embeds
 
