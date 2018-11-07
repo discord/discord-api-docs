@@ -21,7 +21,9 @@ Make sure you applied for approval! If you want these buttons on your players' p
 
 #### Q: What happens if someone has more than one game running that supports Rich Presence?
 
-Discord will show presence for whichever game is currently focused or was most recently focused.
+Due to recent changes in our infrastructure for support of multi-activities, the behavior of multiple connected Rich Presence apps has changed from what it was before. Previously, whichever application was focused would be the presence that was shown. With the recent changes, the application that connected _first_ is now displayed.
+
+However, ivnite functionality across multiple connected applications now works no matter which app is display on a user's profile. For example, if you are hosting a Spotify listening party, playing Game A that allows you to send Join invites, and playing Game B that allows you to send Spectate invites, you'll be able to send invites to all three simultaneously!
 
 #### Q: What if someone looking at my profile or an invite doesn't own the game?
 
@@ -33,7 +35,7 @@ Currently, the SDK does not support this. Party slot information is determined b
 
 #### Q: Can I send images via the payload rather than uploading them to my Developer Dashboard?
 
-Unfortunately, the SDK does not support this feature right now.  However, we hear your desires! We know that a lot of games, like customization-heavy RPGs, would benefit greatly from being able to programmatically upload assets. It may be something we tackle in the future.
+Unfortunately, the SDK does not support this feature right now. However, we hear your desires! We know that a lot of games, like customization-heavy RPGs, would benefit greatly from being able to programmatically upload assets. It may be something we tackle in the future.
 
 #### Q: Can I change something in the SDK for my own purposes?
 
