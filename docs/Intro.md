@@ -26,9 +26,9 @@ Games are what Discord is all about. Everything we do is built around the idea o
 
 If you haven’t yet noticed, Discord has a [game store](https://blog.discordapp.com/discord-store-global-beta-is-live-38bfd044d648)! That means that we’ve got a whole suite of tools to help bring your game to life on Discord. Need networking? Have [networking](#DOCS_GAME_SDK_NETWORKING/)! Want a friends list? Take [relationships](#DOCS_GAME_SDK_RELATIONSHIPS/) too!
 
-We are proud to be working with a number of indie developers to help bring their games to life with our [First on Discord](https://blog.discordapp.com/the-first-first-on-discord-games-73525dab4fd5) program. If you have an unreleased game that you think might be a good fit, [drop us a line](https://docs.google.com/forms/d/e/1FAIpQLSfU08co2bG7ihXGlALMDIIJZViD20bnyy-Qu-84Xc_dxef5uQ/viewform).
+We are proud to be working with a number of indie developers to help bring their games to life with our [First on Discord](https://blog.discordapp.com/the-first-first-on-discord-games-73525dab4fd5) program, along with other developers to create an awesome choice of games for players on the Discord Store.
 
-If you’ve already published a game and want to know how you can be a part of the Discord store, hold tight! We’ve got more cool stuff coming in the future.
+If you want to know how you can be a part of the Discord Store, hold tight! We’ve got more cool stuff coming in the future. Be sure to sign up for our [newsletter](https://discordapp.com/dev-newsletter) to stay in the loop!
 
 #### Rich Presence
 
