@@ -7,7 +7,12 @@ In order for other people to download your game from Discord's servers, you need
 
 ## Getting Set Up
 
-First, get Dispatch. If you don't already have it, ask us for access!
+First, get Dispatch for your operating system.
+
+* [Windows 64](https://dl-dispatch.discordapp.net/download/win64)
+* [Windows 32](https://dl-dispatch.discordapp.net/download/win32)
+* [Mac](https://dl-dispatch.discordapp.net/download/macos)
+* [Linux](https://dl-dispatch.discordapp.net/download/linux)
 
 You'll want to be able to use Dispatch across your projects, so let's handle that now by adding it to our PATH.
 
