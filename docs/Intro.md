@@ -39,7 +39,7 @@ No matter where your game lives, it should have a first-class experience in Disc
 - Ask to Join and Spectate their friends' games
 - Spend more time playing together and less time setting up
 
-It’s free, easy, open-source, and self-serve, so check out [the How To guide](#DOCS_RICH_PRESENCE_HOW_TO/) and get started!
+It’s free, easy, open-source, and self-serve, so check out [the How To guide](https://github.com/discordapp/discord-api-docs/blob/master/docs/rich_presence/How_To.md) and get started!
 
 ## Go Make Cool Stuff!
 
