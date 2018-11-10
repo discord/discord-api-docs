@@ -15,6 +15,7 @@ The Discord team curates the following list of officially vetted libraries that 
 | [DSharpPlus](https://github.com/NaamloosDT/DSharpPlus) | C# |
 | [dscord](https://github.com/b1naryth1ef/dscord) | D |
 | [DiscordGo](https://github.com/bwmarrin/discordgo) | Go |
+| [DisGord](https://github.com/andersfylling/disgord) | Go |
 | [Discord4j](https://github.com/austinv11/Discord4J) | Java |
 | [Javacord](https://github.com/Javacord/Javacord) | Java |
 | [JDA](https://github.com/DV8FromTheWorld/JDA) | Java |
