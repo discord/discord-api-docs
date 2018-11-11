@@ -49,9 +49,9 @@ Note that these internal permission names may be referred to differently by the 
 How permissions apply may at first seem intuitive, but there are some hidden restrictions that prevent bots from performing certain inappropriate actions based on a bot's highest role compared to its target's highest role. A bot's or user's highest role is its role that has the greatest position value in the guild, with the default @everyone role starting at 0. Permissions follow a hierarchy with the following rules:
 
 * A bot can grant roles to other users that are of a lower position than their highest role.
-* A bot can edit roles of a lower position than their highest role, but they can only grant permissions they have to those roles.
-* Bots can only sort roles lower than their highest role.
-* Bots can only kick/ban users whose highest role is lower than the bot's highest role.
+* A bot can edit roles of a lower position than its highest role, but it can only grant permissions it has to those roles.
+* A bot can only sort roles lower than its highest role.
+* A bot can only kick/ban users whose highest role is lower than the bot's highest role.
 
 Otherwise, permissions do not obey the role hierarchy. For example, a user has two roles: A and B. A denies the `VIEW_CHANNEL` permission on a #coolstuff channel. B allows the `VIEW_CHANNEL` permission on the same #coolstuff channel. The user would ultimately be able to view the #coolstuff channel, regardless of the role positions.
 
