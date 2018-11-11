@@ -305,7 +305,7 @@ Some games may need specific registry keys set after installation, or might have
 
 For installation scripts, `name` is a user friendly name that Discord will surface to users when explaining what's happening during the installation process. `executable` is the name of the script that needs to be run. `arguments` is an array that takes any arguments that may need to be passed to the script. `requires_elevation`, when marked `true`, will run the install scripts with elevated privileges; for some Windows users, this may force a User Access Control security popup.
 
-`registry_keys` is a simple array of key/value pairs that will be written to the user's computer's registry. By default, Discord will create these keys in `HKEY_CURRENT_USER`. If your game requires registrty keys in `HKEY_LOCAL_MACHINE`, they can be specified like:
+`registry_keys` is a simple array of key/value pairs that will be written to the user's computer's registry. By default, Discord will create these keys in `HKEY_CURRENT_USER`. If your game requires registry keys in `HKEY_LOCAL_MACHINE`, they can be specified like:
 
 ```js
 {
