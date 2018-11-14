@@ -508,7 +508,7 @@ dispatch build update <application_id> <branch_id> <install_path> --platform <va
 Here's an example of the command with our info:
 
 ```
-dispatch build update 467102538279999224 456889899375659999 C:\my-game C:\my-game\MANIFEST --platform win64 --locale en-US
+dispatch build update 467102538279999224 456889899375659999 C:\my-game --platform win64 --locale en-US
 ```
 
 Now you can run the executable for your game in that directory and make sure it works!
