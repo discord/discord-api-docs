@@ -296,6 +296,7 @@ Create a new [channel](#DOCS_RESOURCES_CHANNEL/channel-object) object for the gu
 | bitrate | integer | the bitrate (in bits) of the voice channel (voice only) |
 | user_limit | integer | the user limit of the voice channel (voice only) |
 | rate\_limit\_per\_user | integer | amount of seconds a user has to wait before sending another message (0-120); bots, as well as users with the permission `manage_messages` or `manage_channel`, are unaffected |
+| position | integer | sorting position of the channel |
 | permission_overwrites | array of [overwrite](#DOCS_RESOURCES_CHANNEL/overwrite-object) objects | the channel's permission overwrites |
 | parent_id | snowflake | id of the parent category for a channel |
 | nsfw | boolean | whether the channel is nsfw |
