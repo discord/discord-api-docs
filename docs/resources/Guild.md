@@ -536,7 +536,7 @@ Modify a [guild embed](#DOCS_RESOURCES_GUILD/guild-embed-object) object for the 
 
 ## Get Guild Vanity URL % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/vanity-url
 
-Returns a partial [invite](#DOCS_RESOURCES_INVITE/invite-object) object for guilds with that feature enabled. Requires the 'MANAGE_GUILD' permission.
+Returns a partial [invite](#DOCS_RESOURCES_INVITE/invite-object) object for guilds with that feature enabled. Requires the 'MANAGE_GUILD' permission. `code` will be null if a vanity url for the guild is not set
 
 ###### Example Partial Invite Object
 
