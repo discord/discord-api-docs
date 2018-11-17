@@ -129,11 +129,11 @@ overlayManager.OpenGuildInvite("rjEeUJq", (result) =>
 
 ## OpenVoiceSettings
 
-Opens the overlay modal for voice settings for the currently connected application. These settings are unique to each user within the context of your application. That means that a user can have different favorite voice settings for each of their games!
+Opens the overlay widget for voice settings for the currently connected application. These settings are unique to each user within the context of your application. That means that a user can have different favorite voice settings for each of their games!
 
 ![](https://user-images.githubusercontent.com/167844/48321255-f4a44080-e5d5-11e8-930c-044a1b76d76f.png)
 
-Also, when connected to a lobby's voice channel, the overlay will show a modal that allows users to locally mute, deafen, and adjust the volume of others.
+Also, when connected to a lobby's voice channel, the overlay will show a widget that allows users to locally mute, deafen, and adjust the volume of others.
 
 ![](https://user-images.githubusercontent.com/167844/48321253-f2da7d00-e5d5-11e8-94f5-c6a5314b8a07.png)
 
