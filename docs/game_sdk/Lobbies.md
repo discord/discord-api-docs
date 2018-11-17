@@ -1003,7 +1003,11 @@ lobbyManger.Search(search, () =>
 
 ## ConnectVoice
 
-Connects to the voice channel of the current lobby.
+Connects to the voice channel of the current lobby. When connected to voice, the user can open their Discord overlay to see a list of other users with whom they are in voice, allowing them to mute/deafen themselves as well as mute/adjust the volume of other lobby members.
+
+You can also allow users to adjust voice settings for your game with [Overlay OpenVoiceSettings](#DOCS_GAME_SDK_OVERLAY/openvoicesettings).
+
+When integrating lobby voice into your game, be thoughtful about the user's experience. Auto-joining to voice can be jarring for users who may not be expecting it. We recommend voice always being opt-in, or at least that you provide an option for a player to choose whether or not to auto-join the voice channel of lobbies they join.
 
 Returns `Discord.Result` via callback.
 
