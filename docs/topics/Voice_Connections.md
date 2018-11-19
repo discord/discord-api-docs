@@ -53,6 +53,11 @@ If our request succeeded, the gateway will respond with _two_ events—a [Voice 
 
 With this information, we can move on to establishing a voice websocket connection.
 
+> info
+> Bot users respect the voice channel's user limit, if set. When the voice channel is full, you will not receive
+> the Voice State Update or Voice Server Update events in response to your own Voice State Update. Having `MANAGE_CHANNELS`
+> permission bypasses this limit and allows you to join regardless of the channel being full or not.
+
 ## Establishing a Voice Websocket Connection
 
 Once we retrieve a session\_id, token, and endpoint information, we can connect and handshake with the voice server over another secure websocket. Unlike the gateway endpoint we receive in an HTTP [Get Gateway](#DOCS_TOPICS_GATEWAY/get-gateway) request, the endpoint received from our [Voice Server Update](#DOCS_TOPICS_GATEWAY/voice-server-update) payload does not contain a URL protocol, so some libraries may require manually prepending it with "wss://" before connecting. Once connected to the voice websocket endpoint, we can send an [Opcode 0 Identify](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice-opcodes) payload with our server\_id, user\_id, session\_id, and token:
