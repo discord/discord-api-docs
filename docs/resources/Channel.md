@@ -385,7 +385,7 @@ Update a channels settings. Requires the 'MANAGE_CHANNELS' permission for the gu
 | name | string | 2-100 character channel name | All |
 | position | integer | the position of the channel in the left-hand listing | All |
 | topic | string | 0-1024 character channel topic | Text |
-| nsfw | boolean | whether the channel is nsfw | Text |
+| nsfw | boolean | whether the channel is nsfw | All |
 | rate\_limit\_per\_user | integer | amount of seconds a user has to wait before sending another message (0-120); bots, as well as users with the permission `manage_messages` or `manage_channel`, are unaffected | Text |
 | bitrate | integer | the bitrate (in bits) of the voice channel; 8000 to 96000 (128000 for VIP servers) | Voice |
 | user_limit | integer | the user limit of the voice channel; 0 refers to no limit, 1 to 99 refers to a user limit | Voice |
