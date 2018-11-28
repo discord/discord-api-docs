@@ -459,7 +459,7 @@ curl -X DELETE https://discordapp.com/api/v6/applications/461618159171141643/ent
 
 ## Create Purchase Discount % PUT /store/skus/{sku.id#DOCS_GAME_SDK_STORE/data-models-sku-struct}/discounts/{user.id#DOCS_RESOURCES_USER/user-object}/
 
-Creates a discount for the given user on their next purchase of the given SKU. You should call this endpoint from your backend server just before calling [StartPurchase](#DOCS_GAME_SDK_STORE/start-purchase) for the SKU you wish to discount. The user will then see a discounted price for that SKU at time of payment. The discount is automatically consumed after purchase.
+Creates a discount for the given user on their next purchase of the given SKU. You should call this endpoint from your backend server just before calling [StartPurchase](#DOCS_GAME_SDK_STORE/start-purchase) for the SKU you wish to discount. The user will then see a discounted price for that SKU at time of payment. The discount is automatically consumed after successful purchase or if the TTL expires.
 
 ###### Parameters
 
