@@ -33,17 +33,19 @@ There are other rules and restrictions not shared here for the sake of spam and 
 
 ###### User Structure
 
-| Field         | Type      | Description                                                | Required OAuth2 Scope |
-| ------------- | --------- | ---------------------------------------------------------- | --------------------- |
-| id            | snowflake | the user's id                                              | identify              |
-| username      | string    | the user's username, not unique across the platform        | identify              |
-| discriminator | string    | the user's 4-digit discord-tag                             | identify              |
-| avatar        | ?string   | the user's [avatar hash](#DOCS_REFERENCE/image-formatting) | identify              |
-| bot?          | boolean   | whether the user belongs to an OAuth2 application          | identify              |
-| mfa_enabled?  | boolean   | whether the user has two factor enabled on their account   | identify              |
-| locale?       | string    | the user's chosen language option                          | identify              |
-| verified?     | boolean   | whether the email on this account has been verified        | email                 |
-| email?        | string    | the user's email                                           | email                 |
+| Field         | Type      | Description                                                                              | Required OAuth2 Scope |
+| ------------- | --------- | ---------------------------------------------------------------------------------------- | --------------------- |
+| id            | snowflake | the user's id                                                                            | identify              |
+| username      | string    | the user's username, not unique across the platform                                      | identify              |
+| discriminator | string    | the user's 4-digit discord-tag                                                           | identify              |
+| avatar        | ?string   | the user's [avatar hash](#DOCS_REFERENCE/image-formatting)                               | identify              |
+| bot?          | boolean   | whether the user belongs to an OAuth2 application                                        | identify              |
+| mfa_enabled?  | boolean   | whether the user has two factor enabled on their account                                 | identify              |
+| locale?       | string    | the user's chosen language option                                                        | identify              |
+| verified?     | boolean   | whether the email on this account has been verified                                      | email                 |
+| email?        | string    | the user's email                                                                         | email                 |
+| flags         | integer   | the [flags](#DOCS_RESOURCES_USER/user-flags) on a user's account                         | identify              |
+| premium_type? | integer   | the [type of Nitro subscription](#DOCS_RESOURCES_USER/premium-types) on a user's account | identify              |
 
 ###### Example User
 
@@ -54,9 +56,28 @@ There are other rules and restrictions not shared here for the sake of spam and 
   "discriminator": "1337",
   "avatar": "8342729096ea3675442027381ff50dfe",
   "verified": true,
-  "email": "nelly@discordapp.com"
+  "email": "nelly@discordapp.com",
+  "flags": 64,
+  "premium_type": 1
 }
 ```
+
+### User Flags
+
+| Value  | Description      |
+| ------ | ---------------- |
+| 0      | None             |
+| 1 << 2 | HypeSquad Events |
+| 1 << 6 | House Bravery    |
+| 1 << 7 | House Brilliance |
+| 1 << 8 | House Balance    |
+
+### Premium Types
+
+| Value | Name          | Description                                                        |
+| ----- | ------------- | ------------------------------------------------------------------ |
+| 1     | Nitro Classic | includes app perks like animated emojis and avatars, but not games |
+| 2     | Nitro         | includes app perks as well as the games subscription service       |
 
 ### Connection Object
 
@@ -64,13 +85,13 @@ The connection object that the user has attached.
 
 ###### Connection Structure
 
-| Field        | Type   | Description                                                                         |
-| ------------ | ------ | ----------------------------------------------------------------------------------- |
-| id           | string | id of the connection account                                                        |
-| name         | string | the username of the connection account                                              |
-| type         | string | the service of the connection (twitch, youtube)                                     |
+| Field        | Type    | Description                                                                         |
+| ------------ | ------- | ----------------------------------------------------------------------------------- |
+| id           | string  | id of the connection account                                                        |
+| name         | string  | the username of the connection account                                              |
+| type         | string  | the service of the connection (twitch, youtube)                                     |
 | revoked      | boolean | whether the connection is revoked                                                   |
-| integrations | array  | an array of partial [server integrations](#DOCS_RESOURCES_GUILD/integration-object) |
+| integrations | array   | an array of partial [server integrations](#DOCS_RESOURCES_GUILD/integration-object) |
 
 ## Get Current User % GET /users/@me
 
