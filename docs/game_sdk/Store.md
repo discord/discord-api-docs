@@ -456,3 +456,40 @@ curl -X DELETE https://discordapp.com/api/v6/applications/461618159171141643/ent
 
 // Returns 204 No Content
 ```
+
+## Create Purchase Discount % PUT /skus/{sku.id#DOCS_GAME_SDK_STORE/data-models-sku-struct}/discounts/{user.id#DOCS_RESOURCES_USER/user-object}/
+
+Creates a discount for the given user on their next purchase of the given SKU. You should call this endpoint from your backend server just before calling [StartPurchase](#DOCS_GAME_SDK_STORE/start-purchase) for the SKU you wish to discount. The user will then see a discounted price for that SKU at time of payment. The discount is automatically consumed after purchase.
+
+###### Parameters
+
+| name        | type | description                                                                            |
+| ----------- | ---- | -------------------------------------------------------------------------------------- |
+| percent_off | int  | the percentage to discount                                                             |
+| ttl         | int  | the time to live for the discount, in seconds - max of 3600, min of 60, default of 600 |
+
+###### Example
+
+```
+curl -X PUT https://discordapp.com/api/v6/skus/461618229171141643/discounts/53908232522183999 \
+-H "Authorization: Bearer <token>" \
+-H "Accept: application/json" \
+-H "Content-type: application/json" \
+-d '{"percent_off": 10, "ttl": 600}'
+
+// Returns 200 OK
+```
+
+## Delete Purchase Discount % DELETE /skus/{sku.id#DOCS_GAME_SDK_STORE/data-models-sku-struct}/discounts/{user.id#DOCS_RESOURCES_USER/user-object}/
+
+Deletes the currently active discount on the given SKU for the given user. You **do not need** to call this after a user has made a discounted purchase; successful discounted purchases will automatically remove the discount for that user for subsequent purchases.
+
+###### Example
+
+```
+curl -X DELETE https://discordapp.com/api/v6/skus/461618229171141643/discounts/53908232522183999 \
+-H "Authorization: Bearer <token>" \
+-H "Accept: application/json"
+
+// Returns 204 No Content
+```
