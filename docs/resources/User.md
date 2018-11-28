@@ -74,10 +74,10 @@ There are other rules and restrictions not shared here for the sake of spam and 
 
 ### Premium Types
 
-| Value | Description   |
-| ----- | ------------- |
-| 1     | Nitro Classic |
-| 2     | Nitro         |
+| Value | Name          | Description                                                        |
+| ----- | ------------- | ------------------------------------------------------------------ |
+| 1     | Nitro Classic | includes app perks like animated emojis and avatars, but not games |
+| 2     | Nitro         | includes app perks as well as the games subscription service       |
 
 ### Connection Object
 
