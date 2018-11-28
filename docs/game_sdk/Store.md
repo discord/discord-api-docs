@@ -471,7 +471,7 @@ Creates a discount for the given user on their next purchase of the given SKU. Y
 ###### Example
 
 ```
-curl -X PUT https://discordapp.com/api/v6/skus/461618229171141643/discounts/53908232522183999 \
+curl -X PUT https://discordapp.com/api/v6/store/skus/461618229171141643/discounts/53908232522183999 \
 -H "Authorization: Bearer <token>" \
 -H "Accept: application/json" \
 -H "Content-type: application/json" \
@@ -487,7 +487,7 @@ Deletes the currently active discount on the given SKU for the given user. You *
 ###### Example
 
 ```
-curl -X DELETE https://discordapp.com/api/v6/skus/461618229171141643/discounts/53908232522183999 \
+curl -X DELETE https://discordapp.com/api/v6/store/skus/461618229171141643/discounts/53908232522183999 \
 -H "Authorization: Bearer <token>" \
 -H "Accept: application/json"
 
