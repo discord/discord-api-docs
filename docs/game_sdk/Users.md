@@ -19,7 +19,7 @@ This manager helps retrieve basic user information for any user on Discord.
 
 ## GetCurrentUser
 
-Fetch information about the currently connected user account.
+Fetch information about the currently connected user account. If you're interested in getting more detailed information about a user—for example, their HypeSquad house, or if they have Nitro—check out our [GetCurrentUser](#DOCS_RESROUCES_USER/get-current-user) API endpoint. You'll want to call this with an authorization header of `Bearer <token>`, where `<token>` is the token retreived from the SDK function [GetOAuth2Token](#DOCS_GAME_SDK_APPLICATIONS/getoauth2token).
 
 Returns a `User`.
 
