@@ -23,7 +23,7 @@ If you want to take that save data on your players' computers and save it to tho
 }
 ```
 
-Yup, that's it! Don't know what this file is? Go read [Branches and Builds](#DOCS_DISPATCH_BRANCHES_AND_BUIDLS/).
+Yup, that's it! Don't know what this file is? Go read [Branches and Builds](#DOCS_DISPATCH_BRANCHES_AND_BUILDS/).
 
 ## Data Models
 
@@ -34,6 +34,21 @@ Yup, that's it! Don't know what this file is? Go read [Branches and Builds](#DOC
 | Filename     | string | the name of the file                         |
 | Size         | UInt64 | the size of the file                         |
 | LastModified | UInt64 | timestamp of when the file was last modified |
+
+## GetPath
+
+Returns the filepath to which Discord saves files if you were to use the SDK's storage manager. Discord has branch-specific, user-specific saves, so you and your little brother will never overwrite each others' save files. If your game already has save file writing logic, you can use this method to get that user-specific path and help users protect their save files.
+
+###### Parameters
+
+None
+
+###### Example
+
+```cs
+var savePath = storageManager.GetPath();
+Console.WriteLine("You should write your save files to {0}", savePath);
+```
 
 ## Read
 
