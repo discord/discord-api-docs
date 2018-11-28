@@ -67,7 +67,7 @@ There are other rules and restrictions not shared here for the sake of spam and 
 | Value  | Description      |
 | ------ | ---------------- |
 | 0      | None             |
-| 1 << 2 | Hypesquad Events |
+| 1 << 2 | HypeSquad Events |
 | 1 << 6 | House Bravery    |
 | 1 << 7 | House Brilliance |
 | 1 << 8 | House Balance    |
