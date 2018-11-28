@@ -465,7 +465,7 @@ Creates a discount for the given user on their next purchase of the given SKU. Y
 
 | name        | type | description                                                                            |
 | ----------- | ---- | -------------------------------------------------------------------------------------- |
-| percent_off | int  | the percentage to discount                                                             |
+| percent_off | int  | the percentage to discount - max of 100, min of 1                                      |
 | ttl         | int  | the time to live for the discount, in seconds - max of 3600, min of 60, default of 600 |
 
 ###### Example
