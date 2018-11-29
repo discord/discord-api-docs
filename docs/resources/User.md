@@ -33,19 +33,19 @@ There are other rules and restrictions not shared here for the sake of spam and 
 
 ###### User Structure
 
-| Field         | Type      | Description                                                                              | Required OAuth2 Scope |
-| ------------- | --------- | ---------------------------------------------------------------------------------------- | --------------------- |
-| id            | snowflake | the user's id                                                                            | identify              |
-| username      | string    | the user's username, not unique across the platform                                      | identify              |
-| discriminator | string    | the user's 4-digit discord-tag                                                           | identify              |
-| avatar        | ?string   | the user's [avatar hash](#DOCS_REFERENCE/image-formatting)                               | identify              |
-| bot?          | boolean   | whether the user belongs to an OAuth2 application                                        | identify              |
-| mfa_enabled?  | boolean   | whether the user has two factor enabled on their account                                 | identify              |
-| locale?       | string    | the user's chosen language option                                                        | identify              |
-| verified?     | boolean   | whether the email on this account has been verified                                      | email                 |
-| email?        | string    | the user's email                                                                         | email                 |
-| flags         | integer   | the [flags](#DOCS_RESOURCES_USER/user-flags) on a user's account                         | identify              |
-| premium_type? | integer   | the [type of Nitro subscription](#DOCS_RESOURCES_USER/premium-types) on a user's account | identify              |
+| Field         | Type      | Description                                                                                          | Required OAuth2 Scope |
+| ------------- | --------- | ---------------------------------------------------------------------------------------------------- | --------------------- |
+| id            | snowflake | the user's id                                                                                        | identify              |
+| username      | string    | the user's username, not unique across the platform                                                  | identify              |
+| discriminator | string    | the user's 4-digit discord-tag                                                                       | identify              |
+| avatar        | ?string   | the user's [avatar hash](#DOCS_REFERENCE/image-formatting)                                           | identify              |
+| bot?          | boolean   | whether the user belongs to an OAuth2 application                                                    | identify              |
+| mfa_enabled?  | boolean   | whether the user has two factor enabled on their account                                             | identify              |
+| locale?       | string    | the user's chosen language option                                                                    | identify              |
+| verified?     | boolean   | whether the email on this account has been verified                                                  | email                 |
+| email?        | string    | the user's email                                                                                     | email                 |
+| flags         | integer   | the [flags](#DOCS_RESOURCES_USER/user-object-user-flags) on a user's account                         | identify              |
+| premium_type? | integer   | the [type of Nitro subscription](#DOCS_RESOURCES_USER/user-object-premium-types) on a user's account | identify              |
 
 ###### Example User
 
@@ -62,7 +62,7 @@ There are other rules and restrictions not shared here for the sake of spam and 
 }
 ```
 
-### User Flags
+###### User Flags
 
 | Value  | Description      |
 | ------ | ---------------- |
@@ -72,7 +72,7 @@ There are other rules and restrictions not shared here for the sake of spam and 
 | 1 << 7 | House Brilliance |
 | 1 << 8 | House Balance    |
 
-### Premium Types
+###### Premium Types
 
 | Value | Name          | Description                                                        |
 | ----- | ------------- | ------------------------------------------------------------------ |
