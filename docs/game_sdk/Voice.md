@@ -43,7 +43,7 @@ Console.WriteLine("The current input mode is {0}. The current PTT hotkey is set 
 
 ## SetInputMode
 
-Sets a new voice input mode for the user.
+Sets a new voice input mode for the user. The shortcut can be retrieved dynamically in your code, or a mapping can be kept. For examples, see [this table](https://www.cambiaresearch.com/articles/15/javascript-char-codes-key-codes) or play with [this tool](https://keycode.info/)!
 
 Returns a `Discord.Result` via callback.
 
@@ -60,7 +60,7 @@ var voiceManager = discord.GetVoiceManager();
 var newMode = new Discord.InputMode()
 {
   Type = Discord.InputModeType.PushToTalk,
-  Shortcut = "25"
+  Shortcut = "17"
 };
 voiceManager.SetInputMode(newMode, (res) =>
 {
@@ -231,10 +231,10 @@ Returns `void`.
 
 ###### Parameters
 
-| name   | type   | description                         |
-| ------ | ------ | ----------------------------------- |
-| userId | Int64  | the id of the user to change        |
-| byte   | volume | the volume at which to set the user |
+| name   | type   | description                                       |
+| ------ | ------ | ------------------------------------------------- |
+| userId | Int64  | the id of the user to change                      |
+| byte   | volume | the volume at which to set the user, `0` to `100` |
 
 ###### Example
 
