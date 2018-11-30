@@ -225,16 +225,16 @@ Console.WriteLine("User is at volume level {0}", volume);
 
 ## SetLocalVolume
 
-Sets the local volume for a given user. This is the volume level at which the currently connected users hears the given user speak.
+Sets the local volume for a given user. This is the volume level at which the currently connected users hears the given user speak. Valid volume values are from `0` to `200`, with `100` being the default. Lower than `100` will be a reduced volume level from default, whereas over `100` will be a boosted volume level from default.
 
 Returns `void`.
 
 ###### Parameters
 
-| name   | type   | description                                       |
-| ------ | ------ | ------------------------------------------------- |
-| userId | Int64  | the id of the user to change                      |
-| byte   | volume | the volume at which to set the user, `0` to `100` |
+| name   | type  | description                                       |
+| ------ | ----- | ------------------------------------------------- |
+| userId | Int64 | the id of the user to change                      |
+| volume | byte  | the volume at which to set the user, `0` to `200` |
 
 ###### Example
 
