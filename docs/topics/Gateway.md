@@ -60,7 +60,7 @@ Currently the only available transport compression option is `zlib-stream`. You 
 
 ```python
 # Z_SYNC_FLUSH suffix
-ZLIB_SUFFIX = '\x00\x00\xff\xff'
+ZLIB_SUFFIX = b'\x00\x00\xff\xff'
 # initialize a buffer to store chunks
 buffer = bytearray()
 # create a zlib inflation context to run chunks through
