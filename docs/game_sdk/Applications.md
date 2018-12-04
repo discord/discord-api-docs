@@ -21,6 +21,15 @@ This manager also includes a couple useful helper functions, like getting the lo
 | Scopes      | string | a list of oauth2 scopes as a single string, delineated by spaces like `"identify rpc gdm.join"` |
 | Expires     | Int64  | the timestamp at which the token expires                                                        |
 
+###### DecryptedAppTicket Struct
+
+| name          | type                                                                        | description                                              |
+| ------------- | --------------------------------------------------------------------------- | -------------------------------------------------------- |
+| ApplicationId | Int64                                                                       | the application id for the ticket                        |
+| User          | [User](#DOCS_GAME_SDK_USER/data-models-user-struct)                         | the user for the ticket                                  |
+| Entitlements  | list of [Entitlements](#DOCS_GAME_SDK_STORE/data-models-entitlement-struct) | the list of the user's entitlements for this application |
+| Timestamp     | integer                                                                     | the ISO timestamp for the ticket                         |
+
 ## GetCurrentLocale
 
 Get's the locale the current user has Discord set to.
@@ -101,6 +110,41 @@ applicationManager.ValidateOrExit((result) =>
   else
   {
     Console.WriteLine("Oops! Something went wrong, closing game...");
+  }
+});
+```
+
+## GetTicket
+
+Get the encrypted app ticket for the current user. This is a base64 encoded string which contains:
+
+- the application id tied to the ticket
+- the user's user id
+- a timestamp for the ticket
+- the list of the user's [entitlements](#DOCS_GAME_SDK_STORE/data-models-entitlement-struct) for the application id
+
+These values can be accessed by decrypting the ticket with your application's private key and transforming the string into a [DecryptedAppTicket](#DOCS_GAME_SDK_APPLICATIONS/data-models-decryptedappticket-struct). The ticket is encrypted using [libsodium](https://github.com/jedisct1/libsodium) which should be available for any programming language.
+
+Returns a base64 encoded `string` via callback.
+
+###### Parameters
+
+None
+
+###### Example
+
+```cs
+// This example is using the libsodium-net library
+// https://github.com/adamcaudill/libsodium-net
+// But functions similarly with other libraries in other languages
+var appManager = discord.GetApplicationManager();
+appManager.GetTicket((res, data)
+{
+  var decrypted = PublicKeyBox.Open(data, nonce, MY_PRIVATE_KEY, APPLICATION_PUBLIC_KEY);
+  var ticket = new DecryptedAppTicket(decrypted);
+  if (ticket.Entitlements.find(x => x.SkuId == MY_SKU_ID))
+  {
+    Console.WriteLine("User has entitlement to your game");
   }
 });
 ```
