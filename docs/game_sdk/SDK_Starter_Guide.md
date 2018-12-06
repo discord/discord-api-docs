@@ -138,7 +138,7 @@ params.flags = DiscordCreateFlags_Default;
 params.events = &events;
 params.event_data = &app;
 
-DiscordCreate(0, &params, &app.core);
+DiscordCreate(DISCORD_VERSION, &params, &app.core);
 ```
 
 - Make sure to call `core->run_callbacks(core, 0)` in your game loop.
