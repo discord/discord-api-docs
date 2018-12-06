@@ -21,14 +21,14 @@ This manager also includes a couple useful helper functions, like getting the lo
 | Scopes      | string | a list of oauth2 scopes as a single string, delineated by spaces like `"identify rpc gdm.join"` |
 | Expires     | Int64  | the timestamp at which the token expires                                                        |
 
-###### DecryptedAppTicket Struct
+###### SignedAppTicket Struct
 
-| name          | type                                                                        | description                                              |
-| ------------- | --------------------------------------------------------------------------- | -------------------------------------------------------- |
-| ApplicationId | Int64                                                                       | the application id for the ticket                        |
-| User          | [User](#DOCS_GAME_SDK_USER/data-models-user-struct)                         | the user for the ticket                                  |
-| Entitlements  | list of [Entitlements](#DOCS_GAME_SDK_STORE/data-models-entitlement-struct) | the list of the user's entitlements for this application |
-| Timestamp     | integer                                                                     | the ISO timestamp for the ticket                         |
+| name           | type                                                                                                                     | description                                              |
+| -------------- | ------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------- |
+| application_id | Int64                                                                                                                    | the application id for the ticket                        |
+| user           | [User](#DOCS_GAME_SDK_USER/data-models-user-struct)                                                                      | the user for the ticket                                  |
+| entitlements   | list of partial [Entitlements](#DOCS_GAME_SDK_STORE/data-models-entitlement-struct) structs that contain just the SKU id | the list of the user's entitlements for this application |
+| timestamp      | integer                                                                                                                  | the ISO timestamp for the ticket                         |
 
 ## GetCurrentLocale
 
@@ -116,14 +116,14 @@ applicationManager.ValidateOrExit((result) =>
 
 ## GetTicket
 
-Get the encrypted app ticket for the current user. This is a base64 encoded string which contains:
+Get the signed app ticket for the current user. The structure of the ticket is: `version.signature.base64encodedjson`, so you should split the string by the `.` character. Ensure that the `version` is `2`. The `signature` is used to verify the ticket, and the `base64encodedjson` is what you can transform after verification. It contains:
 
 - the application id tied to the ticket
 - the user's user id
 - a timestamp for the ticket
 - the list of the user's [entitlements](#DOCS_GAME_SDK_STORE/data-models-entitlement-struct) for the application id
 
-These values can be accessed by decrypting the ticket with your application's private key and transforming the string into a [DecryptedAppTicket](#DOCS_GAME_SDK_APPLICATIONS/data-models-decryptedappticket-struct). The ticket is encrypted using [libsodium](https://github.com/jedisct1/libsodium) which should be available for any programming language.
+These values can be accessed by transforming the string into a [SignedAppTicket](#DOCS_GAME_SDK_APPLICATIONS/data-models-signedappticket-struct) with your application's private key. The ticket is signed using [libsodium](https://github.com/jedisct1/libsodium) which should be available for any programming language. Here's a [list of available libraries](https://download.libsodium.org/doc/bindings_for_other_languages).
 
 Returns a base64 encoded `string` via callback.
 
@@ -136,15 +136,34 @@ None
 ```cs
 // This example is using the libsodium-net library
 // https://github.com/adamcaudill/libsodium-net
-// But functions similarly with other libraries in other languages
 var appManager = discord.GetApplicationManager();
-appManager.GetTicket((res, data)
+
+// Get the ticket
+appManager.GetTicket((res, ticket)
 {
-  var decrypted = PublicKeyBox.Open(data, nonce, MY_PRIVATE_KEY, APPLICATION_PUBLIC_KEY);
-  var ticket = new DecryptedAppTicket(decrypted);
-  if (ticket.Entitlements.find(x => x.SkuId == MY_SKU_ID))
+  // Split the ticket into its parts
+  var parts = ticket.Split('.');
+
+  // Ensure the version matches
+  if(parts[0] == '2')
   {
-    Console.WriteLine("User has entitlement to your game");
+    // Verify the signature
+    // Your public key will be given to you by Discord
+    if (Sodium.PublicKeyAuth.VerifyDetached(System.Text.Encoding.UTF8.GetBytes(parts[1]), parts[2], MY_PUBLIC_KEY))
+    {
+      // If valid, decode the string
+      var byteData = Convert.FromBase64String(parts[2]);
+      var json = Encoding.UTF8.GetString(byteData);
+
+      // Deserialize it into the ticket object
+      var myTicket = Newtonsoft.Json.JsonConvert.DeserializeObject<Discord.SignedAppTicket>(json);
+
+      // Check for entitlement to the SKU!
+      if (ticket.entitlements.find(x => x.SkuId == MY_SKU_ID))
+      {
+        Console.WriteLine("User has entitlement to your game");
+      }
+    }
   }
 });
 ```
