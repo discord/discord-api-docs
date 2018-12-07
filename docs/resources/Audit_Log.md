@@ -12,7 +12,7 @@ Whenever an admin action is performed on the API, an entry is added to the respe
 |-------|------|-------------|
 | webhooks | array of [webhook](#DOCS_RESOURCES_WEBHOOK/webhook-object) objects | list of webhooks found in the audit log |
 | users | array of [user](#DOCS_RESOURCES_USER/user-object) objects | list of users found in the audit log |
-| audit_log_entries | array of [audit log entry](#DOCS_AUDIT_LOG/audit-log-entry-object) objects | list of audit log entires |
+| audit_log_entries | array of [audit log entry](#DOCS_AUDIT_LOG/audit-log-entry-object) objects | list of audit log entries |
 
 ### Audit Log Entry Object
 
