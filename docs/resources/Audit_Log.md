@@ -12,7 +12,7 @@ Whenever an admin action is performed on the API, an entry is added to the respe
 |-------|------|-------------|
 | webhooks | array of [webhook](#DOCS_RESOURCES_WEBHOOK/webhook-object) objects | list of webhooks found in the audit log |
 | users | array of [user](#DOCS_RESOURCES_USER/user-object) objects | list of users found in the audit log |
-| audit_log_entries | array of [audit log entry](#DOCS_AUDIT_LOG/audit-log-entry-object) objects | list of audit log entires |
+| audit_log_entries | array of [audit log entry](#DOCS_RESOURCES_AUDIT_LOG/audit-log-entry-object) objects | list of audit log entires |
 
 ### Audit Log Entry Object
 
@@ -21,11 +21,11 @@ Whenever an admin action is performed on the API, an entry is added to the respe
 | Field | Type | Description |
 |-------|------|-------------|
 | target_id | ?string | id of the affected entity (webhook, user, role, etc.) |
-| changes? | array of [audit log change](#DOCS_AUDIT_LOG/audit-log-change-object) objects | changes made to the target_id |
+| changes? | array of [audit log change](#DOCS_RESOURCES_AUDIT_LOG/audit-log-change-object) objects | changes made to the target_id |
 | user_id | snowflake | the user who made the changes
 | id | snowflake | id of the entry
-| action_type | [audit log event](#DOCS_AUDIT_LOG/audit-log-entry-object-audit-log-events) | type of action that occured |
-| options? | [optional audit entry info](#DOCS_AUDIT_LOG/audit-log-entry-object-optional-audit-entry-info) |  additional info for certain action types |
+| action_type | [audit log event](#DOCS_RESOURCES_AUDIT_LOG/audit-log-entry-object-audit-log-events) | type of action that occured |
+| options? | [optional audit entry info](#DOCS_RESOURCES_AUDIT_LOG/audit-log-entry-object-optional-audit-entry-info) |  additional info for certain action types |
 | reason? | string | the reason for the change |
 
 ###### Audit Log Events
@@ -77,9 +77,9 @@ Whenever an admin action is performed on the API, an entry is added to the respe
 
 | Field | Type | Description |
 |-------|------|-------------|
-| new_value? | [mixed](#DOCS_AUDIT_LOG/audit-log-change-object-audit-log-change-key) | new value of the key |
-| old_value? | [mixed](#DOCS_AUDIT_LOG/audit-log-change-object-audit-log-change-key) | old value of the key |
-| key | string | type of audit log [change key](#DOCS_AUDIT_LOG/audit-log-change-object-audit-log-change-key) |
+| new_value? | [mixed](#DOCS_RESOURCES_AUDIT_LOG/audit-log-change-object-audit-log-change-key) | new value of the key |
+| old_value? | [mixed](#DOCS_RESOURCES_AUDIT_LOG/audit-log-change-object-audit-log-change-key) | old value of the key |
+| key | string | type of audit log [change key](#DOCS_RESOURCES_AUDIT_LOG/audit-log-change-object-audit-log-change-key) |
 
 ###### Audit Log Change Key
 
@@ -130,13 +130,13 @@ Whenever an admin action is performed on the API, an entry is added to the respe
 
 ## Get Guild Audit Log % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/audit-logs
 
-Returns an [audit log](#DOCS_AUDIT_LOG/audit-log-object) object for the guild. Requires the 'VIEW_AUDIT_LOG' permission.
+Returns an [audit log](#DOCS_RESOURCES_AUDIT_LOG/audit-log-object) object for the guild. Requires the 'VIEW_AUDIT_LOG' permission.
 
 ###### Query String Parameters
 
 |Field | Type | Description |
 | ---- | ----- | ---------- |
 | user_id | snowflake | filter the log for a user id |
-| action_type | int  | the type of [audit log event](#DOCS_AUDIT_LOG/audit-log-entry-object-audit-log-events) |
+| action_type | int  | the type of [audit log event](#DOCS_RESOURCES_AUDIT_LOG/audit-log-entry-object-audit-log-events) |
 | before | snowflake | filter the log before a certain entry id |
 | limit | integer | how many entries are returned (default 50, minimum 1, maximum 100) |
