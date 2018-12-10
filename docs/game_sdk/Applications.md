@@ -147,10 +147,10 @@ None
 [Serializable]
 public class SignedAppTicket
 {
-    public long application_id;
-    public Discord.User user;
-    public List<Discord.Entitlement> entitlements;
-    public string timestamp;
+  public long application_id;
+  public Discord.User user;
+  public List<Discord.Entitlement> entitlements;
+  public string timestamp;
 }
 
 public void DoTheThing()
