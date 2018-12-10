@@ -28,7 +28,7 @@ This manager also includes a couple useful helper functions, like getting the lo
 | application_id | Int64                                                                                                                    | the application id for the ticket                        |
 | user           | [User](#DOCS_GAME_SDK_USER/data-models-user-struct)                                                                      | the user for the ticket                                  |
 | entitlements   | list of partial [Entitlements](#DOCS_GAME_SDK_STORE/data-models-entitlement-struct) structs that contain just the SKU id | the list of the user's entitlements for this application |
-| timestamp      | string                                                                                                                   | the ISO timestamp for the ticket                         |
+| timestamp      | string                                                                                                                   | the ISO 8601 timestamp for the ticket                    |
 
 ## GetCurrentLocale
 
@@ -133,7 +133,7 @@ These values can be accessed by transforming the string into a [SignedAppTicket]
 
 Note that both the public key you receive from Discord and the signature within the app ticket from the SDK are both in hex, and will need to be converted to `byte[]` before use with libsodium.
 
-Returns a `string` via callback.
+Returns a `ref string` via callback.
 
 ###### Parameters
 
@@ -142,38 +142,68 @@ None
 ###### Example
 
 ```cs
-// This example is using the libsodium-net library
-// https://github.com/adamcaudill/libsodium-net
-var appManager = discord.GetApplicationManager();
-
-// Get the ticket
-appManager.GetTicket((res, ticket) =>
+// Handle serialization however works best for you
+// This is just an easy example
+[Serializable]
+public class SignedAppTicket
 {
-  // Split the ticket into its parts
-  var parts = ticket.Split('.');
+    public long application_id;
+    public Discord.User user;
+    public List<Discord.Entitlement> entitlements;
+    public string timestamp;
+}
 
-  // Ensure the version matches
-  if(parts[0] == '2')
+public void DoTheThing()
+{
+  // This example is using the libsodium-net library
+  // https://github.com/adamcaudill/libsodium-net
+  var appManager = discord.GetApplicationManager();
+  var MY_PUBLIC_KEY = "460cab5f2237b71e3c2c06bzze217f4f68d55db16dae672bdfb6618235589999";
+  var MY_SKU_ID = "492432195219099999";
+
+  // Get the ticket
+  appManager.GetTicket((Discord.Result res, ref string ticket) =>
   {
-    // Verify the signature
-    // Your public key will be given to you by Discord
-    if (Sodium.PublicKeyAuth.VerifyDetached(System.Text.Encoding.UTF8.GetBytes(parts[1]), parts[2], MY_PUBLIC_KEY))
+    // Split the ticket into its parts
+    var parts = ticket.Split('.');
+
+    // Ensure the version matches
+    if(parts[0] == "2")
     {
-      // If valid, decode the string
-      var byteData = Convert.FromBase64String(parts[2]);
-      var json = System.Text.Encoding.UTF8.GetString(byteData);
-
-      // Deserialize it into the ticket object
-      var myTicket = Newtonsoft.Json.JsonConvert.DeserializeObject<Discord.SignedAppTicket>(json);
-
-      // Check for entitlement to the SKU!
-      if (ticket.entitlements.find(x => x.SkuId == MY_SKU_ID))
+      // Verify the signature
+      // Your public key will be given to you by Discord
+      if (Sodium.PublicKeyAuth.VerifyDetached(HexToByte(parts[1]), System.Text.Encoding.UTF8.GetBytes(parts[2]), HexToByte(MY_PUBLIC_KEY)))
       {
-        Console.WriteLine("User has entitlement to your game");
+        // If valid, decode the string
+        var byteData = Convert.FromBase64String(parts[2]);
+        var json = System.Text.Encoding.UTF8.GetString(byteData);
+
+        // Deserialize it into the ticket object
+        var myTicket = Newtonsoft.Json.JsonConvert.DeserializeObject<SignedAppTicket>(json);
+
+        // Check for entitlement to the SKU!
+        if (myTicket.entitlements.Any(x => x.SkuId == MY_SKU_ID))
+        {
+          Console.WriteLine("User has entitlement to your game");
+        }
+        else
+        {
+          Console.WriteLine("Not entitled");
+        }
       }
     }
+  });
+}
+
+public byte[] HexToByte(string hex)
+{
+  byte[] data = new byte[hex.Length / 2];
+  for (int i = 0; i < hex.Length; i +=2)
+  {
+    data[i / 2] = Convert.ToByte(hex.Substring(i, 2), 16);
   }
-});
+  return data;
+}
 ```
 
 ## Example: Get OAuth2 Token
