@@ -28,7 +28,7 @@ This manager also includes a couple useful helper functions, like getting the lo
 | application_id | Int64                                                                                                                    | the application id for the ticket                        |
 | user           | [User](#DOCS_GAME_SDK_USER/data-models-user-struct)                                                                      | the user for the ticket                                  |
 | entitlements   | list of partial [Entitlements](#DOCS_GAME_SDK_STORE/data-models-entitlement-struct) structs that contain just the SKU id | the list of the user's entitlements for this application |
-| timestamp      | integer                                                                                                                  | the ISO timestamp for the ticket                         |
+| timestamp      | string                                                                                                                   | the ISO timestamp for the ticket                         |
 
 ## GetCurrentLocale
 
@@ -116,7 +116,13 @@ applicationManager.ValidateOrExit((result) =>
 
 ## GetTicket
 
-Get the signed app ticket for the current user. The structure of the ticket is: `version.signature.base64encodedjson`, so you should split the string by the `.` character. Ensure that the `version` is `2`. The `signature` is used to verify the ticket, and the `base64encodedjson` is what you can transform after verification. It contains:
+###### Current Version
+
+| version | status  |
+| ------- | ------- |
+| 2       | current |
+
+Get the signed app ticket for the current user. The structure of the ticket is: `version.signature.base64encodedjson`, so you should split the string by the `.` character. Ensure that the `version` matches the current version. The `signature` is used to verify the ticket using the libsodium library of your choice, and the `base64encodedjson` is what you can transform after verification. It contains:
 
 - the application id tied to the ticket
 - the user's user id
@@ -125,7 +131,9 @@ Get the signed app ticket for the current user. The structure of the ticket is: 
 
 These values can be accessed by transforming the string into a [SignedAppTicket](#DOCS_GAME_SDK_APPLICATIONS/data-models-signedappticket-struct) with your application's private key. The ticket is signed using [libsodium](https://github.com/jedisct1/libsodium) which should be available for any programming language. Here's a [list of available libraries](https://download.libsodium.org/doc/bindings_for_other_languages).
 
-Returns a base64 encoded `string` via callback.
+Note that both the public key you receive from Discord and the signature within the app ticket from the SDK are both in hex, and will need to be converted to `byte[]` before use with libsodium.
+
+Returns a `string` via callback.
 
 ###### Parameters
 
@@ -139,7 +147,7 @@ None
 var appManager = discord.GetApplicationManager();
 
 // Get the ticket
-appManager.GetTicket((res, ticket)
+appManager.GetTicket((res, ticket) =>
 {
   // Split the ticket into its parts
   var parts = ticket.Split('.');
@@ -153,7 +161,7 @@ appManager.GetTicket((res, ticket)
     {
       // If valid, decode the string
       var byteData = Convert.FromBase64String(parts[2]);
-      var json = Encoding.UTF8.GetString(byteData);
+      var json = System.Text.Encoding.UTF8.GetString(byteData);
 
       // Deserialize it into the ticket object
       var myTicket = Newtonsoft.Json.JsonConvert.DeserializeObject<Discord.SignedAppTicket>(json);
