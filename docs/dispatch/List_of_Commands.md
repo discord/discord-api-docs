@@ -225,41 +225,6 @@ Lists created manifest labels. These labels are created from the JSON config fil
 |  290926444748734465  |  471169990397324288  |      my-game-dlc     |
 ```
 
-## store listing create
-
-Creates a SKU for the application. The files to manage the store page will be created at the given directory. Do not create multiple game SKUs per application.
-
-###### Arguments
-
-| name           | values                                                        | description                                                     |
-| -------------- | ------------------------------------------------------------- | --------------------------------------------------------------- |
-| directory      | file path                                                     | the file path at which to create store listing data for the SKU |
-| name           | string                                                        | the name of the SKU                                             |
-| application_id | int                                                           | your application ID/client ID                                   |
-| --sku-type     | [SKU type](#DOCS_DISPATCH_FIELD_VALUES/store-pages-sku-types) | the type of SKU to create, default is `game`                    |
-
-###### Example
-
-```
--> dispatch store listing create . "100 Gem Bundle" 290926444748734465 --sku-type consumable
-```
-
-## store listing update
-
-Updates the store listing at the given directory.
-
-###### Arguments
-
-| name      | values    | description                                               |
-| --------- | --------- | --------------------------------------------------------- |
-| directory | file path | the file path at which to push updated store listing data |
-
-###### Example
-
-```
--> dispatch store listing update ./100-gem-bundle
-```
-
 ## login
 
 Authorizes you to do these things! Maybe we should've put this at the top...
