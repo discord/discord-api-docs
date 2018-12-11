@@ -1,5 +1,17 @@
 # Change Log
 
+## Documentation: Dispatch Store Listings
+
+#### December 11, 2018
+
+Dispatch documentation around store listings has been removed. Store pages for the Discord Store are now managed entirely within the [Developer Portal](https://discordapp.com/developers).
+
+## Enhancement: User Object
+
+#### November 30, 2018
+
+The [User object](#DOCS_RESOURCES_USER/user-object) now includes two new additional fields, `premium_type` and `flags`. These can be used to know the Nitro status of a user, or determine which HypeSquad house a user is in.
+
 ## Documentation Fix: List of Open DMS in Certain Payloads
 
 #### June 19, 2018
