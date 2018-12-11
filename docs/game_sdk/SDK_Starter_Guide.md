@@ -5,52 +5,6 @@
 
 Welcome to the Store SDK! We're glad you made it. This SDK is here to solve all your problems, if your problems include finding an awesome SDK to help develop your game. Our SDK is like Clippy, if Clippy were built on a modern tech stack, talked less, and was an awesome game development SDK.
 
-So, what's it do?
-
-## Features
-
-- Native C++ and C# bindings
-  - Feel right at home in our code
-- Authentication
-  - Information about the current player
-  - OAuth2 token for current player, to use against Discord's HTTP API
-- Activities (a.k.a Rich Presence)
-  - Spectate
-  - Request to Join
-  - Direct game invites
-  - Rich profile data
-- Relationships (Friends)
-  - Getting a user's Discord relationships, even implicit ones
-    - Users with whom they interact a lot, but aren't officially friends
-  - Filtering relationships to build a friends list
-  - Getting basic information about any Discord user (by id)
-  - Getting the current activity of a user relationship
-- Images
-  - Getting image data for a user's avatar for in-game display
-- Lobbies
-  - Creating, updating, deleting, joining, and leaving multiplayer lobbies
-  - Getting and setting metadata on lobbies and lobby members
-  - Sending and receiving chat messages between lobby members
-- Networking
-  - TCP-like API, but messsage-oriented UDP infrastructure
-    - "Reliable" channels for must-receive data, like loot drops!
-    - "Unreliable" channels for eventually consistent data, like players' positions
-  - P2P-like connections, routed through Discord's servers — No IP leaks!
-  - Encrypted
-- Overlay Interactions
-  - Open, lock, and unlock the Discord overlay
-  - Bring up an invite modal in the overlay for your players to invite their friends to play together
-- File Storage
-  - Save game data to a special local filepath
-  - We sync that to the _C L O U D_
-- DRM
-  - Built into our amazing build tool, Dispatch!
-  - Or, do your own entitlement checking!
-
-**Coming Real Soon**
-
-- In-app Purchase Support
-
 ## Step 0 - Some Notes
 
 Before we get off to the races, a couple notes on the SDK:
@@ -64,7 +18,7 @@ And now you know, and knowing is half the battle.
 
 ## Step 1 - Get the Thing
 
-I know you're already convinced, so let's begin. First, get the SDK. Right now, the SDK is not publicly available. If you are one of our developer partners, you'll have access to it; if not, feel free to keep reading for the sake of learning! And hey, if you've got an awesome game, and _want_ to be one of our developer partners, [drop us a message](https://dis.gd/devstoreform).
+I know you're already convinced, so let's begin. First, get the SDK. Right now, the SDK is not publicly available. If you are one of our developer partners, you'll have access to it; if not, feel free to keep reading for the sake of learning! And hey, if you've got an awesome game, and _want_ to be one of our developer partners, well, the program isn't open quite yet. But hold tight!
 
 There's a few things in there, but let's quickly talk about what the SDK actually _is_. Inside the `lib/` folder, you'll see `x86/` and `x86_64/` that have some `.lib`, `.bundle`, and `.dll` files. You'll also notice that those files are _really_ small, just a couple hundred kilobytes. What these are are stubs for the Discord SDK. These are the things you want to distribute with your game. When you initialize the SDK, these stubs will call back to the locally installed Discord app to actually do the things your game needs. That means that the SDK will launch Discord if it's not already launched, or give you an error if Discord is not installed.
 
@@ -109,10 +63,17 @@ During development, Discord will focus itself to ask for permission when you ini
 
 You're ready to go! Check out the rest of the documentation for more info on how to use the other pieces of the SDK. See an example of everything it can do in `examples/Program.cs` in the SDK zip file.
 
-## Code Primer - Unreal Engine 4 (C)
+## Code Primer - Unreal Engine (C)
 
-> info
-> An Unreal plugin is planned, however, you can use either the C or C++ bindings with Unreal today.
+Before jumping into the C binding, a word of caution. If you are using Unreal Engine 3, or need to support an older version of Visual Studio, you may at first see some unexpected crashes due to compile configurations. The way to fix this is to wrap the include statement for the Discord GameSDK header file like so:
+
+```c
+#pragma pack(push, 8)
+#include "discord_game_sdk.h"
+#pragma pack(pop)
+```
+
+This should let you use the SDK without any further crashes. Now, on with the show!
 
 - Open up that SDK zip that you downloaded.
 - Copy the contents of the `lib/` folder to the best location within your project for DLLs.
@@ -148,8 +109,6 @@ During development, Discord will focus itself to ask for permission when you ini
 You're ready to go! Check out the rest of the documentation for more info on how to use the other pieces of the SDK. See an example of everything it can do in `examples/c/main.c` in the SDK zip file.
 
 ## Code Primer - Unreal Engine 4 (Cpp)
-
-> The C++ API shape is still in flux. Expect future revisions to not return discord::Result for every method and a shift from out parameters to return values.
 
 - Open up that SDK zip that you downloaded.
 - Copy the contents of the `lib/` folder to the best location within your project for DLLs.
@@ -227,7 +186,5 @@ Oh, yeah. Pseudo Table of Contents:
 - [Storage](#DOCS_GAME_SDK_STORAGE/)
 - [Applications](#DOCS_GAME_SDK_APPLICATIONS/)
 - [Overlay](#DOCS_GAME_SDK_OVERLAY/)
-
-```
-
-```
+- [Store](#DOCS_GAME_SDK_STORE/)
+- [Voice](#DOCS_GAME_SDK_VOICE/)
