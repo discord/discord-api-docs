@@ -331,7 +331,7 @@ var applicationManager = discord.GetApplicationManager();
 
 Fetches an instance of the manager for interfacing with storage in the SDK.
 
-Returns an `StorageManager`.
+Returns a `StorageManager`.
 
 ###### Parameters
 
@@ -343,9 +343,11 @@ None
 var storageManager = discord.GetStorageManager();
 ```
 
-## OnReady
+## GetStoreManager
 
-Fires when Discord is connected and ready to roll!
+Fetches an instance of the manager for interfacing with SKUs and Entitlements in the SDK.
+
+Returns a `StoreManager`.
 
 ###### Parameters
 
@@ -354,8 +356,21 @@ None
 ###### Example
 
 ```cs
-OnReady += () =>
-{
-  Console.WriteLine("Let's do this!");
-};
+var storeManager = discord.GetStoreManager();
+```
+
+## GetVoiceManager
+
+Fetches an instance of the manager for interfacing with voice chat in the SDK.
+
+Returns a `VoiceManager`.
+
+###### Parameters
+
+None
+
+###### Example
+
+```cs
+var voiceManager = discord.GetVoiceManager();
 ```
