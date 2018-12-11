@@ -21,6 +21,15 @@ This manager also includes a couple useful helper functions, like getting the lo
 | Scopes      | string | a list of oauth2 scopes as a single string, delineated by spaces like `"identify rpc gdm.join"` |
 | Expires     | Int64  | the timestamp at which the token expires                                                        |
 
+###### SignedAppTicket Struct
+
+| name           | type                                                                                                                     | description                                              |
+| -------------- | ------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------- |
+| application_id | Int64                                                                                                                    | the application id for the ticket                        |
+| user           | [User](#DOCS_GAME_SDK_USER/data-models-user-struct)                                                                      | the user for the ticket                                  |
+| entitlements   | list of partial [Entitlements](#DOCS_GAME_SDK_STORE/data-models-entitlement-struct) structs that contain just the SKU id | the list of the user's entitlements for this application |
+| timestamp      | string                                                                                                                   | the ISO 8601 timestamp for the ticket                    |
+
 ## GetCurrentLocale
 
 Get's the locale the current user has Discord set to.
@@ -103,6 +112,98 @@ applicationManager.ValidateOrExit((result) =>
     Console.WriteLine("Oops! Something went wrong, closing game...");
   }
 });
+```
+
+## GetTicket
+
+###### Current Version
+
+| version | status  |
+| ------- | ------- |
+| 2       | current |
+
+Get the signed app ticket for the current user. The structure of the ticket is: `version.signature.base64encodedjson`, so you should split the string by the `.` character. Ensure that the `version` matches the current version. The `signature` is used to verify the ticket using the libsodium library of your choice, and the `base64encodedjson` is what you can transform after verification. It contains:
+
+- the application id tied to the ticket
+- the user's user id
+- a timestamp for the ticket
+- the list of the user's [entitlements](#DOCS_GAME_SDK_STORE/data-models-entitlement-struct) for the application id
+
+These values can be accessed by transforming the string into a [SignedAppTicket](#DOCS_GAME_SDK_APPLICATIONS/data-models-signedappticket-struct) with your application's private key. The ticket is signed using [libsodium](https://github.com/jedisct1/libsodium) which should be available for any programming language. Here's a [list of available libraries](https://download.libsodium.org/doc/bindings_for_other_languages).
+
+Note that both the public key you receive from Discord and the signature within the app ticket from the SDK are both in hex, and will need to be converted to `byte[]` before use with libsodium.
+
+Returns a `ref string` via callback.
+
+###### Parameters
+
+None
+
+###### Example
+
+```cs
+// Handle serialization however works best for you
+// This is just an easy example
+[Serializable]
+public class SignedAppTicket
+{
+  public long application_id;
+  public Discord.User user;
+  public List<Discord.Entitlement> entitlements;
+  public string timestamp;
+}
+
+public void DoTheThing()
+{
+  // This example is using the libsodium-net library
+  // https://github.com/adamcaudill/libsodium-net
+  var appManager = discord.GetApplicationManager();
+  var MY_PUBLIC_KEY = "460cab5f2237b71e3c2c06bzze217f4f68d55db16dae672bdfb6618235589999";
+  var MY_SKU_ID = "492432195219099999";
+
+  // Get the ticket
+  appManager.GetTicket((Discord.Result res, ref string ticket) =>
+  {
+    // Split the ticket into its parts
+    var parts = ticket.Split('.');
+
+    // Ensure the version matches
+    if(parts[0] == "2")
+    {
+      // Verify the signature
+      // Your public key will be given to you by Discord
+      if (Sodium.PublicKeyAuth.VerifyDetached(HexToByte(parts[1]), System.Text.Encoding.UTF8.GetBytes(parts[2]), HexToByte(MY_PUBLIC_KEY)))
+      {
+        // If valid, decode the string
+        var byteData = Convert.FromBase64String(parts[2]);
+        var json = System.Text.Encoding.UTF8.GetString(byteData);
+
+        // Deserialize it into the ticket object
+        var myTicket = Newtonsoft.Json.JsonConvert.DeserializeObject<SignedAppTicket>(json);
+
+        // Check for entitlement to the SKU!
+        if (myTicket.entitlements.Any(x => x.SkuId == MY_SKU_ID))
+        {
+          Console.WriteLine("User has entitlement to your game");
+        }
+        else
+        {
+          Console.WriteLine("Not entitled");
+        }
+      }
+    }
+  });
+}
+
+public byte[] HexToByte(string hex)
+{
+  byte[] data = new byte[hex.Length / 2];
+  for (int i = 0; i < hex.Length; i +=2)
+  {
+    data[i / 2] = Convert.ToByte(hex.Substring(i, 2), 16);
+  }
+  return data;
+}
 ```
 
 ## Example: Get OAuth2 Token
