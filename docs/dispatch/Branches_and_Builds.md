@@ -524,4 +524,14 @@ If you need to push out a patch or a new build, no problem! Just repeat the proc
 
 Discord will do some magic in the background to diff your files, ensuring that your players only have to download the changes they need and letting them do it quickly so they can get back in the game. Or, really, without them even needing to know there _was_ a patch! Your players will automatically download your latest and greatest stuff, and quickly!
 
+If you have your own patcher and do not want Discord to handle patching, set `"should_patch": false` in the application configuration. If `should_patch` is false, Discord will install the game and never patch, even if you update your game. On uninstall, Discord will delete the entire directory, including saves and user data.
+
+```js
+{
+  "application": {
+    "id": 467102538279999224,
+    "should_patch": false,
+  }
+```
+
 Now that you've got a game in the system, let's [create a store page](#DOCS_DISPATCH_MANAGING_STORE_LISTINGS) for it!
