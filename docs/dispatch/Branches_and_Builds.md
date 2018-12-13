@@ -280,7 +280,15 @@ Then, manifest `two` would be the source of truth in a data conflict. Wew, ok, g
         "name": "SDB Compatibility",
         "executable": "Install.bat",
         "arguments": ["/silent"],
-        "requires_elevation": true
+        "requires_elevation": true,
+        "completion_conditions": {
+          "registry_keys": [
+            {
+              "key": "Software\\My Game Company\\InstallScripts\\SDB-win32",
+              "value": 1
+            }
+          ]
+        }
       },
     ],
     "win64": [
@@ -288,7 +296,15 @@ Then, manifest `two` would be the source of truth in a data conflict. Wew, ok, g
         "name": "SDB Compatibility",
         "executable": "Install.bat",
         "arguments": ["/silent"],
-        "requires_elevation": true
+        "requires_elevation": true,
+        "completion_conditions": {
+          "registry_keys": [
+            {
+              "key": "Software\\My Game Company\\InstallScripts\\SDB-win64",
+              "value": 1
+            }
+          ]
+        }
       }
     ]
   },
