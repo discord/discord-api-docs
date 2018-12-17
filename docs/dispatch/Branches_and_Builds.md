@@ -280,7 +280,7 @@ Then, manifest `two` would be the source of truth in a data conflict. Wew, ok, g
         "name": "SDB Compatibility",
         "executable": "Install.bat",
         "arguments": ["/silent"],
-        "requires_elevation": true,
+        "requires_admin": true,
         "completion_conditions": {
           "registry_keys": [
             {
@@ -296,7 +296,7 @@ Then, manifest `two` would be the source of truth in a data conflict. Wew, ok, g
         "name": "SDB Compatibility",
         "executable": "Install.bat",
         "arguments": ["/silent"],
-        "requires_elevation": true,
+        "requires_admin": true,
         "completion_conditions": {
           "registry_keys": [
             {
