@@ -168,6 +168,7 @@ Discord uses ids and hashes to render images in the client. These hashes can be 
 | Default User Avatar | embed/avatars/[user_discriminator](#DOCS_RESOURCES_USER/user-object).png * | PNG |
 | User Avatar | avatars/[user_id](#DOCS_RESOURCES_USER/user-object)/[user_avatar](#DOCS_RESOURCES_USER/user-object).png \*\* | PNG, JPEG, WebP, GIF |
 | Application Icon | app-icons/[application_id](#MY_APPLICATIONS/top)/[icon](#DOCS_TOPICS_OAUTH2/get-current-application-information).png | PNG, JPEG, WebP |
+| Application Asset | app-assets/[application_id](#MY_APPLICATIONS/top)/[asset_id](#DOCS_TOPICS_GATEWAY/activity-object-activity-assets).png | PNG, JPEG, WebP |
 
 \* In the case of the Default User Avatar endpoint, the value for `user_discriminator` in the path should be the user's discriminator modulo 5—Test#1337 would be `1337 % 5`, which evaluates to 2.
 
