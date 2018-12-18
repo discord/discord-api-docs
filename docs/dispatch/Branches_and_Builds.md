@@ -280,7 +280,7 @@ Then, manifest `two` would be the source of truth in a data conflict. Wew, ok, g
         "name": "SDB Compatibility",
         "executable": "Install.bat",
         "arguments": ["/silent"],
-        "requires_elevation": true,
+        "requires_admin": true,
         "completion_conditions": {
           "registry_keys": [
             {
@@ -296,7 +296,7 @@ Then, manifest `two` would be the source of truth in a data conflict. Wew, ok, g
         "name": "SDB Compatibility",
         "executable": "Install.bat",
         "arguments": ["/silent"],
-        "requires_elevation": true,
+        "requires_admin": true,
         "completion_conditions": {
           "registry_keys": [
             {
@@ -319,7 +319,7 @@ Then, manifest `two` would be the source of truth in a data conflict. Wew, ok, g
 
 Some games may need specific registry keys set after installation, or might have some installation scripts that need to be run. If so, those can be set here!
 
-For installation scripts, `name` is a user friendly name that Discord will surface to users when explaining what's happening during the installation process. `executable` is the name of the script that needs to be run. `arguments` is an array that takes any arguments that may need to be passed to the script. `requires_elevation`, when marked `true`, will run the install scripts with elevated privileges; for some Windows users, this may force a User Access Control security popup. You can also tell Discord the `completion_conditions` of the scripts, so that we know not to try and run the script again if the given registry keys are found on the user's machine.
+For installation scripts, `name` is a user friendly name that Discord will surface to users when explaining what's happening during the installation process. `executable` is the name of the script that needs to be run. `arguments` is an array that takes any arguments that may need to be passed to the script. `requires_admin`, when marked `true`, will run the install scripts with admin privileges; for some Windows users, this may force a User Access Control security popup. You can also tell Discord the `completion_conditions` of the scripts, so that we know not to try and run the script again if the given registry keys are found on the user's machine.
 
 `registry_keys` is a simple array of key/value pairs that will be written to the user's computer's registry. By default, Discord will create these keys in `HKEY_CURRENT_USER`. If your game requires registry keys in `HKEY_LOCAL_MACHINE`, they can be specified like:
 
@@ -420,7 +420,7 @@ Let's see what one looks like all together!
               "name": "SDB Compatibility",
               "executable": "Install.bat",
               "arguments": ["/silent"],
-              "requires_elevation": true
+              "requires_admin": true
             },
           ],
           "win64": [
@@ -428,7 +428,7 @@ Let's see what one looks like all together!
               "name": "SDB Compatibility",
               "executable": "Install.bat",
               "arguments": ["/silent"],
-              "requires_elevation": true
+              "requires_admin": true
             }
           ]
         },
