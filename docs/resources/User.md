@@ -72,7 +72,7 @@ There are other rules and restrictions not shared here for the sake of spam and 
 | 1 << 7 | House Brilliance |
 | 1 << 8 | House Balance    |
 
-To check whether an User has a certain flag or not, you can use the following formula:
+To check whether a User has a certain flag or not, you can use the following formula:
 ```python
 user_flags & (flag_value) == flag_value
 ```
