@@ -67,10 +67,14 @@ There are other rules and restrictions not shared here for the sake of spam and 
 | Value  | Description      |
 | ------ | ---------------- |
 | 0      | None             |
+| 1 << 0 | Discord Staff     |
+| 1 << 1 | Discord Partner  |
 | 1 << 2 | HypeSquad Events |
+| 1 << 3 | Bug Hunter       |
 | 1 << 6 | House Bravery    |
 | 1 << 7 | House Brilliance |
 | 1 << 8 | House Balance    |
+| 1 << 9 | Early Supporter  |
 
 ###### Premium Types
 
