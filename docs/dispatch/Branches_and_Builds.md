@@ -421,7 +421,7 @@ Let's see what one looks like all together!
               "executable": "Install.bat",
               "arguments": ["/silent"],
               "requires_admin": true
-            },
+            }
           ],
           "win64": [
             {
