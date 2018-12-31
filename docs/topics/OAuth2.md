@@ -8,34 +8,34 @@ The first step in implementing OAuth2 is [registering a developer application](#
 
 ###### OAuth2 URLs
 
-| URL | Description |
-|-----|-------------|
-| https://discordapp.com/api/oauth2/authorize | Base authorization URL |
-| https://discordapp.com/api/oauth2/token | Token URL |
-| https://discordapp.com/api/oauth2/token/revoke | Revocation URL |
+| URL                                            | Description            |
+| ---------------------------------------------- | ---------------------- |
+| https://discordapp.com/api/oauth2/authorize    | Base authorization URL |
+| https://discordapp.com/api/oauth2/token        | Token URL              |
+| https://discordapp.com/api/oauth2/token/revoke | Revocation URL         |
 
->warn
->In accordance with [RFC 6749](https://tools.ietf.org/html/rfc6749), the [token URL](#DOCS_TOPICS_OAUTH2/shared-resources-oauth2-urls) **only** accepts a content type of `x-www-form-urlencoded`. JSON content is not permitted and will return an error.
+> warn
+> In accordance with [RFC 6749](https://tools.ietf.org/html/rfc6749), the [token URL](#DOCS_TOPICS_OAUTH2/shared-resources-oauth2-urls) **only** accepts a content type of `x-www-form-urlencoded`. JSON content is not permitted and will return an error.
 
 ###### OAuth2 Scopes
 
-| Name | Description |
-|------|-------------|
-| bot | for oauth2 bots, this puts the bot in the user's selected guild by default |
-| connections | allows [/users/@me/connections](#DOCS_RESOURCES_USER/get-user-connections) to return linked third-party accounts |
-| email | enables [/users/@me](#DOCS_RESOURCES_USER/get-current-user) to return an `email` |
-| identify | allows [/users/@me](#DOCS_RESOURCES_USER/get-current-user) without `email` |
-| guilds | allows [/users/@me/guilds](#DOCS_RESOURCES_USER/get-current-user-guilds) to return basic information about all of a user's guilds |
-| guilds.join | allows [/guilds/{guild.id}/members/{user.id}](#DOCS_RESOURCES_GUILD/add-guild-member) to be used for joining users to a guild |
-| gdm.join | allows your app to [join users to a group dm](#DOCS_RESOURCES_CHANNEL/group-dm-add-recipient) |
-| messages.read | for local rpc server api access, this allows you to read messages from all client channels (otherwise restricted to channels/guilds your app creates) |
-| rpc | for local rpc server access, this allows you to control a user's local Discord client |
-| rpc.api | for local rpc server api access, this allows you to access the API as the local user |
-| rpc.notifications.read | for local rpc server api access, this allows you to receive notifications pushed out to the user |
-| webhook.incoming | this generates a webhook that is returned in the oauth token response for authorization code grants |
+| Name                   | Description                                                                                                                                           |
+| ---------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
+| bot                    | for oauth2 bots, this puts the bot in the user's selected guild by default                                                                            |
+| connections            | allows [/users/@me/connections](#DOCS_RESOURCES_USER/get-user-connections) to return linked third-party accounts                                      |
+| email                  | enables [/users/@me](#DOCS_RESOURCES_USER/get-current-user) to return an `email`                                                                      |
+| identify               | allows [/users/@me](#DOCS_RESOURCES_USER/get-current-user) without `email`                                                                            |
+| guilds                 | allows [/users/@me/guilds](#DOCS_RESOURCES_USER/get-current-user-guilds) to return basic information about all of a user's guilds                     |
+| guilds.join            | allows [/guilds/{guild.id}/members/{user.id}](#DOCS_RESOURCES_GUILD/add-guild-member) to be used for joining users to a guild                         |
+| gdm.join               | allows your app to [join users to a group dm](#DOCS_RESOURCES_CHANNEL/group-dm-add-recipient)                                                         |
+| messages.read          | for local rpc server api access, this allows you to read messages from all client channels (otherwise restricted to channels/guilds your app creates) |
+| rpc                    | for local rpc server access, this allows you to control a user's local Discord client                                                                 |
+| rpc.api                | for local rpc server api access, this allows you to access the API as the local user                                                                  |
+| rpc.notifications.read | for local rpc server api access, this allows you to receive notifications pushed out to the user                                                      |
+| webhook.incoming       | this generates a webhook that is returned in the oauth token response for authorization code grants                                                   |
 
->info
->`guilds.join` and `bot` require you to have a bot account linked to your application. Also, in order to add a user to a guild, your bot has to already belong to that guild.
+> info
+> `guilds.join` and `bot` require you to have a bot account linked to your application. Also, in order to add a user to a guild, your bot has to already belong to that guild.
 
 ## State and Security
 
@@ -105,11 +105,11 @@ You can also pass your `client_id` and `client_secret` as basic authentication w
 
 ```json
 {
-    "access_token": "6qrZcUqja7812RVdnEKjpzOL4CvHBFG",
-    "token_type": "Bearer",
-    "expires_in": 604800,
-    "refresh_token": "D43f5y0ahjqew82jZ4NViEr2YafMKhue",
-    "scope": "identify"
+  "access_token": "6qrZcUqja7812RVdnEKjpzOL4CvHBFG",
+  "token_type": "Bearer",
+  "expires_in": 604800,
+  "refresh_token": "D43f5y0ahjqew82jZ4NViEr2YafMKhue",
+  "scope": "identify"
 }
 ```
 
@@ -203,10 +203,10 @@ In return, you will receive an access token (without a refresh token):
 
 ```json
 {
-    "access_token": "6qrZcUqja7812RVdnEKjpzOL4CvHBFG",
-    "token_type": "Bearer",
-    "expires_in": 604800,
-    "scope": "identify connections"
+  "access_token": "6qrZcUqja7812RVdnEKjpzOL4CvHBFG",
+  "token_type": "Bearer",
+  "expires_in": 604800,
+  "scope": "identify connections"
 }
 ```
 
@@ -251,45 +251,45 @@ When receiving the access code on redirect, there will be additional querystring
 
 ```json
 {
-    "token_type": "Bearer",
-    "guild": {
-        "mfa_level": 0,
-        "emojis": [],
-        "application_id": null,
-        "name": "SomeTest",
-        "roles": [
-            {
-                "hoist": false,
-                "name": "@everyone",
-                "mentionable": false,
-                "color": 0,
-                "position": 0,
-                "id": "290926798626357250",
-                "managed": false,
-                "permissions": 49794241
-            }
-        ],
-        "afk_timeout": 300,
-        "system_channel_id": null,
-        "widget_channel_id": null,
-        "region": "us-east",
-        "default_message_notifications": 1,
-        "embed_channel_id": null,
-        "explicit_content_filter": 0,
-        "splash": null,
-        "features": [],
-        "afk_channel_id": null,
-        "widget_enabled": false,
-        "verification_level": 0,
-        "owner_id": "53908232999183680",
-        "embed_enabled": false,
-        "id": "2909267986347357250",
-        "icon": null
-    },
-    "access_token": "zMndOe7jFLXGawdlxMOdNvXjjOce5X",
-    "scope": "bot",
-    "expires_in": 604800,
-    "refresh_token": "mgp8qnvBwJcmadwgCYKyYD5CAzGAX4"
+  "token_type": "Bearer",
+  "guild": {
+    "mfa_level": 0,
+    "emojis": [],
+    "application_id": null,
+    "name": "SomeTest",
+    "roles": [
+      {
+        "hoist": false,
+        "name": "@everyone",
+        "mentionable": false,
+        "color": 0,
+        "position": 0,
+        "id": "290926798626357250",
+        "managed": false,
+        "permissions": 49794241
+      }
+    ],
+    "afk_timeout": 300,
+    "system_channel_id": null,
+    "widget_channel_id": null,
+    "region": "us-east",
+    "default_message_notifications": 1,
+    "embed_channel_id": null,
+    "explicit_content_filter": 0,
+    "splash": null,
+    "features": [],
+    "afk_channel_id": null,
+    "widget_enabled": false,
+    "verification_level": 0,
+    "owner_id": "53908232999183680",
+    "embed_enabled": false,
+    "id": "2909267986347357250",
+    "icon": null
+  },
+  "access_token": "zMndOe7jFLXGawdlxMOdNvXjjOce5X",
+  "scope": "bot",
+  "expires_in": 604800,
+  "refresh_token": "mgp8qnvBwJcmadwgCYKyYD5CAzGAX4"
 }
 ```
 
@@ -307,26 +307,31 @@ Discord's webhook flow is a specialized version of an [authorization code](#DOCS
 https://discordapp.com/api/oauth2/authorize?response_type=code&client_id=157730590492196864&scope=webhook.incoming&state=15773059ghq9183habn&redirect_uri=https%3A%2F%2Fnicememe.website
 ```
 
-When the user navigates to this URL, they will be prompted to select a channel in which to allow the webhook. When the webhook is [executed](#DOCS_RESOURCES_WEBHOOK/execute-webhook), it will post its message into this channel. On acceptance, the user will be redirected to your `redirect_uri`. The URL will contain the `code` querystring parameter which should be [exchanged for an access token](#DOCS_TOPICS_OAUTH2/authorization-code-grant-access-token-exchange-example). In return, you will receive a slightly modified token response:
+When the user navigates to this URL, they will be prompted to select a channel in which to allow the webhook. When the webhook is [executed](#DOCS_RESOURCES_WEBHOOK/execute-webhook), it will post its message into this channel. On acceptance, the user will be redirected to your `redirect_uri`. The URL will contain the `code` querystring parameter which should be [exchanged for an access token](#DOCS_TOPICS_OAUTH2/authorization-code-grant-access-token-exchange-example), but with a `grant_type` of `client_credentials`.
+
+> warn
+> When exchanging the code in a webhook flow for an access token, ensure that your `grant_type` is set to `client_credentials`, and **not** `authorization_code`.
+
+In return, you will receive a slightly modified token response:
 
 ###### Webhook Token Response Example
 
 ```json
 {
-    "token_type": "Bearer",
-    "access_token": "GNaVzEtATqdh173tNHEXY9ZYAuhiYxvy",
-    "scope": "webhook.incoming",
-    "expires_in": 604800,
-    "refresh_token": "PvPL7ELyMDc1836457XCDh1Y8jPbRm",
-    "webhook": {
-        "name": "testwebhook",
-        "url": "https://discordapp.com/api/webhooks/347114750880120863/kKDdjXa1g9tKNs0-_yOwLyALC9gydEWP6gr9sHabuK1vuofjhQDDnlOclJeRIvYK-pj_",
-        "channel_id": "345626669224982402",
-        "token": "kKDdjXa1g9tKNs0-_yOwLyALC9gydEWP6gr9sHabuK1vuofjhQDDnlOclJeRIvYK-pj_",
-        "avatar": null,
-        "guild_id": "290926792226357250",
-        "id": "347114750880120863"
-    }
+  "token_type": "Bearer",
+  "access_token": "GNaVzEtATqdh173tNHEXY9ZYAuhiYxvy",
+  "scope": "webhook.incoming",
+  "expires_in": 604800,
+  "refresh_token": "PvPL7ELyMDc1836457XCDh1Y8jPbRm",
+  "webhook": {
+    "name": "testwebhook",
+    "url": "https://discordapp.com/api/webhooks/347114750880120863/kKDdjXa1g9tKNs0-_yOwLyALC9gydEWP6gr9sHabuK1vuofjhQDDnlOclJeRIvYK-pj_",
+    "channel_id": "345626669224982402",
+    "token": "kKDdjXa1g9tKNs0-_yOwLyALC9gydEWP6gr9sHabuK1vuofjhQDDnlOclJeRIvYK-pj_",
+    "avatar": null,
+    "guild_id": "290926792226357250",
+    "id": "347114750880120863"
+  }
 }
 ```
 
@@ -346,32 +351,32 @@ Returns the bot's OAuth2 application info.
 
 ###### Response Structure
 
-| Field | Type | Description |
-|-------|------|-------------|
-| id | snowflake | the id of the app |
-| name | string | the name of the app |
-| icon? | string | the icon hash of the app |
-| description? | string | the description of the app |
-| rpc_origins? | array of strings | an array of rpc origin urls, if rpc is enabled |
-| bot_public | boolean | when false only app owner can join the app's bot to guilds |
-| bot_require_code_grant | boolean | when true the app's bot will only join upon completion of the full oauth2 code grant flow |
-| owner | partial [user](#DOCS_RESOURCES_USER/user-object) object | partial user object containing info on the owner of the application |
+| Field                  | Type                                                    | Description                                                                               |
+| ---------------------- | ------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
+| id                     | snowflake                                               | the id of the app                                                                         |
+| name                   | string                                                  | the name of the app                                                                       |
+| icon?                  | string                                                  | the icon hash of the app                                                                  |
+| description?           | string                                                  | the description of the app                                                                |
+| rpc_origins?           | array of strings                                        | an array of rpc origin urls, if rpc is enabled                                            |
+| bot_public             | boolean                                                 | when false only app owner can join the app's bot to guilds                                |
+| bot_require_code_grant | boolean                                                 | when true the app's bot will only join upon completion of the full oauth2 code grant flow |
+| owner                  | partial [user](#DOCS_RESOURCES_USER/user-object) object | partial user object containing info on the owner of the application                       |
 
 ###### Example Application Information
 
 ```json
 {
-	"description": "Test",
-	"icon": null,
-	"id": "172150183260323840",
-	"name": "Baba O-Riley",
-	"bot_public": true,
-	"bot_require_code_grant": false,
-	"owner": {
-		"username": "i own a bot",
-		"discriminator": "1738",
-		"id": "172150183260323840",
-		"avatar": null
-	}
+  "description": "Test",
+  "icon": null,
+  "id": "172150183260323840",
+  "name": "Baba O-Riley",
+  "bot_public": true,
+  "bot_require_code_grant": false,
+  "owner": {
+    "username": "i own a bot",
+    "discriminator": "1738",
+    "id": "172150183260323840",
+    "avatar": null
+  }
 }
 ```
