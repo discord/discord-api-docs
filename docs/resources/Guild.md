@@ -450,6 +450,9 @@ This endpoint takes a JSON array of parameters in the following format:
 
 Modify a guild role. Requires the 'MANAGE_ROLES' permission. Returns the updated [role](#DOCS_TOPICS_PERMISSIONS/role-object) on success. Fires a [Guild Role Update](#DOCS_TOPICS_GATEWAY/guild-role-update) Gateway event.
 
+>info
+>All parameters to this endpoint are optional.
+
 ###### JSON Params
 
 | Field | Type | Description |
