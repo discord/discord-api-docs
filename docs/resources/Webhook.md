@@ -39,7 +39,7 @@ Used to represent a webhook.
 
 ## Create Webhook % POST /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/webhooks
 
-Create a new webhook. Requires the 'MANAGE_WEBHOOKS' permission. Returns a [webhook](#DOCS_RESOURCES_WEBHOOK/webhook-object) object on success.
+Create a new webhook. Requires the `MANAGE_WEBHOOKS` permission. Returns a [webhook](#DOCS_RESOURCES_WEBHOOK/webhook-object) object on success.
 
 ###### JSON Params
 
@@ -50,11 +50,11 @@ Create a new webhook. Requires the 'MANAGE_WEBHOOKS' permission. Returns a [webh
 
 ## Get Channel Webhooks % GET /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/webhooks
 
-Returns a list of channel [webhook](#DOCS_RESOURCES_WEBHOOK/webhook-object) objects. Requires the 'MANAGE_WEBHOOKS' permission.
+Returns a list of channel [webhook](#DOCS_RESOURCES_WEBHOOK/webhook-object) objects. Requires the `MANAGE_WEBHOOKS` permission.
 
 ## Get Guild Webhooks % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/webhooks
 
-Returns a list of guild [webhook](#DOCS_RESOURCES_WEBHOOK/webhook-object) objects. Requires the 'MANAGE_WEBHOOKS' permission.
+Returns a list of guild [webhook](#DOCS_RESOURCES_WEBHOOK/webhook-object) objects. Requires the `MANAGE_WEBHOOKS` permission.
 
 ## Get Webhook % GET /webhooks/{webhook.id#DOCS_RESOURCES_WEBHOOK/webhook-object}
 
@@ -66,7 +66,7 @@ Same as above, except this call does not require authentication and returns no u
 
 ## Modify Webhook % PATCH /webhooks/{webhook.id#DOCS_RESOURCES_WEBHOOK/webhook-object}
 
-Modify a webhook. Requires the 'MANAGE_WEBHOOKS' permission. Returns the updated [webhook](#DOCS_RESOURCES_WEBHOOK/webhook-object) object on success.
+Modify a webhook. Requires the `MANAGE_WEBHOOKS` permission. Returns the updated [webhook](#DOCS_RESOURCES_WEBHOOK/webhook-object) object on success.
 
 >info
 >All parameters to this endpoint are optional
