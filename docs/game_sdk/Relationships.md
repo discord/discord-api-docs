@@ -44,7 +44,7 @@ This manager helps you access the relationships your players have made on Discor
 | Offline      | 0     |
 | Online       | 1     |
 | Idle         | 2     |
-| DoNotDisturn | 4     |
+| DoNotDisturb | 4     |
 
 ## Filter
 
