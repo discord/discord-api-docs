@@ -90,11 +90,11 @@ def on_websocket_message(msg):
 
 ###### Gateway URL Params
 
-| Field     | Type    | Description                                   | Accepted Values                                                            |
-| --------- | ------- | ----------------------------------------------| --------------------------------------------------------------------------|
+| Field     | Type    | Description                                   | Accepted Values                                                   |
+| --------- | ------- | --------------------------------------------- | ----------------------------------------------------------------- |
 | v         | integer | Gateway Version to use                        | 6 (see [Gateway versions](#DOCS_TOPICS_GATEWAY/gateway-versions)) |
-| encoding  | string  | The encoding of recieved gateway packets      | 'json' or 'etf'                                                            |
-| compress? | string  | The (optional) compression of gateway packets | 'zlib-stream'                                                              |
+| encoding  | string  | The encoding of recieved gateway packets      | 'json' or 'etf'                                                   |
+| compress? | string  | The (optional) compression of gateway packets | 'zlib-stream'                                                     |
 
 The first step in establishing connectivity to the gateway is requesting a valid websocket endpoint from the API. This can be done through either the [Get Gateway](#DOCS_TOPICS_GATEWAY/get-gateway) or the [Get Gateway Bot](#DOCS_TOPICS_GATEWAY/get-gateway-bot) endpoint.
 
@@ -272,9 +272,9 @@ Events are payloads sent over the socket to a client that correspond events in D
 | [Message Reaction Add](#DOCS_TOPICS_GATEWAY/message-reaction-add)               | user reacted to a message                                                                                                        |
 | [Message Reaction Remove](#DOCS_TOPICS_GATEWAY/message-reaction-remove)         | user removed a reaction from a message                                                                                           |
 | [Message Reaction Remove All](#DOCS_TOPICS_GATEWAY/message-reaction-remove-all) | all reactions were explicitly removed from a message                                                                             |
-| [Presence Update](#DOCS_TOPICS_GATEWAY/presence-update)                         | user was updated                                                                                          |
+| [Presence Update](#DOCS_TOPICS_GATEWAY/presence-update)                         | user was updated                                                                                                                 |
 | [Typing Start](#DOCS_TOPICS_GATEWAY/typing-start)                               | user started typing in a channel                                                                                                 |
-| [User Update](#DOCS_TOPICS_GATEWAY/user-update)                                 | properties about the user changed                                                                                                  |
+| [User Update](#DOCS_TOPICS_GATEWAY/user-update)                                 | properties about the user changed                                                                                                |
 | [Voice State Update](#DOCS_TOPICS_GATEWAY/voice-state-update)                   | someone joined, left, or moved a voice channel                                                                                   |
 | [Voice Server Update](#DOCS_TOPICS_GATEWAY/voice-server-update)                 | guild's voice server was updated                                                                                                 |
 | [Webhooks Update](#DOCS_TOPICS_GATEWAY/webhooks-update)                         | guild channel webhook was created, update, or deleted                                                                            |
@@ -293,18 +293,18 @@ Used to trigger the initial handshake with the gateway.
 | ---------------- | ---------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ | ------- |
 | token            | string                                                     | authentication token                                                                                                           | -       |
 | properties       | object                                                     | [connection properties](#DOCS_TOPICS_GATEWAY/identify-identify-connection-properties)                                          | -       |
-| compress?        | boolean                                                      | whether this connection supports compression of packets                                                                        | false   |
+| compress?        | boolean                                                    | whether this connection supports compression of packets                                                                        | false   |
 | large_threshold? | integer                                                    | value between 50 and 250, total number of members where the gateway will stop sending offline members in the guild member list | 50      |
 | shard?           | array of two integers (shard_id, num_shards)               | used for [Guild Sharding](#DOCS_TOPICS_GATEWAY/sharding)                                                                       | -       |
 | presence?        | [update status](#DOCS_TOPICS_GATEWAY/update-status) object | presence structure for initial presence information                                                                            | -       |
 
 ###### Identify Connection Properties
 
-| Field    | Type   | Description           |
-| -------- | ------ | --------------------- |
-| $os      | string | your operating system |
-| $browser | string | your library name     |
-| $device  | string | your library name     |
+| Field     | Type   | Description           |
+| --------- | ------ | --------------------- |
+| \$os      | string | your operating system |
+| \$browser | string | your library name     |
+| \$device  | string | your library name     |
 
 ###### Example Identify
 
@@ -398,7 +398,7 @@ Sent when a client wants to join, move, or disconnect from a voice channel.
 | ---------- | ---------- | -------------------------------------------------------------------- |
 | guild_id   | snowflake  | id of the guild                                                      |
 | channel_id | ?snowflake | id of the voice channel client wants to join (null if disconnecting) |
-| self_mute  | boolean       | is the client muted                                                  |
+| self_mute  | boolean    | is the client muted                                                  |
 | self_deaf  | boolean    | is the client deafened                                               |
 
 ###### Example Gateway Voice State Update
@@ -423,7 +423,7 @@ Sent by the client to indicate a presence or status update.
 | since  | ?integer                                                 | unix time (in milliseconds) of when the client went idle, or null if the client is not idle |
 | game   | ?[activity](#DOCS_TOPICS_GATEWAY/activity-object) object | null, or the user's new activity                                                            |
 | status | string                                                   | the user's new [status](#DOCS_TOPICS_GATEWAY/update-status-status-types)                    |
-| afk    | boolean                                                    | whether or not the client is afk                                                            |
+| afk    | boolean                                                  | whether or not the client is afk                                                            |
 
 ###### Status Types
 
@@ -568,10 +568,10 @@ Sent when a user is banned from a guild.
 
 ###### Guild Ban Add Event Fields
 
-| Field    | Type      | Description     |
-| -------- | --------- | --------------- |
-| guild_id | snowflake | id of the guild |
-| user | a [user](#DOCS_RESOURCES_USER/user-object) object | the banned user |
+| Field    | Type                                              | Description     |
+| -------- | ------------------------------------------------- | --------------- |
+| guild_id | snowflake                                         | id of the guild |
+| user     | a [user](#DOCS_RESOURCES_USER/user-object) object | the banned user |
 
 #### Guild Ban Remove
 
@@ -579,10 +579,10 @@ Sent when a user is unbanned from a guild.
 
 ###### Guild Ban Remove Event Fields
 
-| Field    | Type      | Description     |
-| -------- | --------- | --------------- |
-| guild_id | snowflake | id of the guild |
-| user | a [user](#DOCS_RESOURCES_USER/user-object) object | the unbanned user |
+| Field    | Type                                              | Description       |
+| -------- | ------------------------------------------------- | ----------------- |
+| guild_id | snowflake                                         | id of the guild   |
+| user     | a [user](#DOCS_RESOURCES_USER/user-object) object | the unbanned user |
 
 #### Guild Emojis Update
 
@@ -645,9 +645,9 @@ Sent in response to [Guild Request Members](#DOCS_TOPICS_GATEWAY/request-guild-m
 
 ###### Guild Members Chunk Event Fields
 
-| Field    | Type                                                                | Description          |
-| -------- | ------------------------------------------------------------------- | -------------------- |
-| guild_id | snowflake                                                           | the id of the guild  |
+| Field    | Type                                                                       | Description          |
+| -------- | -------------------------------------------------------------------------- | -------------------- |
+| guild_id | snowflake                                                                  | the id of the guild  |
 | members  | array of [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) objects | set of guild members |
 
 #### Guild Role Create
@@ -765,6 +765,7 @@ Sent when a user explicitly removes all reactions from a message.
 #### Presence Update
 
 A user's presence is their current state on a guild. This event is sent when a user's presence or info, such as name or avatar, is updated.
+
 > warn
 > The user object within this event can be partial, the only field which must be sent is the `id` field, everything else is optional. Along with this limitation, no fields are required, and the types of the fields are **not** validated. Your client should expect any combination of fields and types within this event.
 
