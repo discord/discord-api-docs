@@ -1,5 +1,13 @@
 # Change Log
 
+## Ask to Join & Rich Presence SDK
+
+#### January 14, 2019
+
+Ask to Join no longer requires approval or whitelisting to use. You are welcome to create in-game UI, but all Ask to Join requests are also now handled by the Discord overlay.
+
+There have also been some small additions to the Rich Presence SDK. This includes the addition of the `pipe` parameter to the `Initialize()` function, which allows you to specify the Discord client to connect to if multiple clients are running locally. The previously undocumented `UpdateHandlers()` function has also been documented.
+
 ## Documentation: Dispatch Store Listings
 
 #### December 11, 2018

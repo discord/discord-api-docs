@@ -15,9 +15,9 @@ There's a couple things that could be going on:
 
 Throughout development, make sure you have your `errored()` and `disconnected()` callbacks hooked up for debugging. You can open up the console in Discord and look for errors pertaining to `SET_ACTIVITY` for more information as well.
 
-#### Q: I'm not seeing Spectate or Ask to Join buttons on my profile.
+#### Q: I'm not seeing Spectate buttons on my profile.
 
-Make sure you applied for approval! If you want these buttons on your players' profiles, we require your integration to go through an approval process. If you have applied and have been approved and still don't see the buttons, check your Discord console for errors.
+Make sure you applied for approval! If you want the Spectate button on your players' profiles, we require your integration to go through an approval process. If you have applied and have been approved and still don't see the buttons, check your Discord console for errors.
 
 #### Q: What happens if someone has more than one game running that supports Rich Presence?
 

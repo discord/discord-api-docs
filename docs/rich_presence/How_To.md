@@ -56,8 +56,8 @@ void InitDiscord()
     handlers.spectateGame = handleDiscordSpectateGame;
     handlers.joinRequest = handleDiscordJoinRequest;
 
-    // Discord_Initialize(const char* applicationId, DiscordEventHandlers* handlers, int autoRegister, const char* optionalSteamId)
-    Discord_Initialize("418562325121990661", &handlers, 1, "1234");
+    // Discord_Initialize(const char* applicationId, DiscordEventHandlers* handlers, int autoRegister, const char* optionalSteamId, int pipe)
+    Discord_Initialize("418562325121990661", &handlers, 1, "1234", 0);
 }
 ```
 
@@ -67,6 +67,7 @@ A quick breakdown on the `Discord_Initialize()` function:
 - `handlers`: the callback functions you registered for each Discord event
 - `autoRegister`: whether or not to register an application protocol for your game on the player's computer—necessary to launch games from Discord
 - `optionalSteamId`: your game's Steam application id, if your game is distributed on Steam
+- `pipe`: the instance of the Discord client, starting at 0, you want to connect to. Useful if you have multiple Discord clients running
 
 When you are ready to publish your integration, we recommend digging into the source code of the SDK and copying `discord_register.h`, `discord_register_win.cpp`, `discord_register_osx.m`, and `discord_register_linux.cpp` into your installation and update process. By registering your application protocols on installation and update, your players won't need to run the game before being able to interact with invites, Ask to Join, and spectating in Discord.
 
@@ -74,6 +75,8 @@ When you are ready to publish your integration, we recommend digging into the so
 > **Shutting Down**
 
 > Don't leave so soon! But when you _do_ shut down your application, don't forget to call `Discord_Shutdown()`. This properly terminates the thread and allows your application to shut down cleanly.
+
+If you don't want to register all your event handlers at initialization, you can do so dynamically with `Discord_UpdateHandlers()`; this will allow you to register a new set of event handlers. Be mindful that this will delete old handlers if they are not explicitly bound to your handlers struct when calling this function.
 
 ## Updating Presence
 
@@ -173,11 +176,6 @@ When you send the relevant payload data in the `Discord_UpdatePresence()` call, 
 Other Discord users can click "Join" on the invitation. Their game will then launch, and the `joinGame()` callback will fire in their client with the inviting player's `joinSecret`. The client should reverse hash or otherwise unencrypt this secret and match the players together.
 
 ### Ask to Join
-
-> warn
-> Requires Approval
-
-To enable the Ask to Join button on your players' profiles, you'll need to be approved by us. Submit your integration for approval on your [app's developer dashboard](https://discordapp.com/developers/applications/me). While there, you can also whitelist individual accounts for testing. Those accounts will have the Ask to Join button enabled on their profiles. For an in-depth explanation of what we look for during approval, see [Getting Approved](#DOCS_RICH_PRESENCE_GETTING_APPROVED/).
 
 When Player B clicks the Ask to Join button on Player A's profile, the `joinRequest()` callback fires for Player A, sending the following data:
 
