@@ -26,7 +26,7 @@ Whenever an admin action is performed on the API, an entry is added to the respe
 | id | snowflake | id of the entry
 | action_type | [audit log event](#DOCS_RESOURCES_AUDIT_LOG/audit-log-entry-object-audit-log-events) | type of action that occured |
 | options? | [optional audit entry info](#DOCS_RESOURCES_AUDIT_LOG/audit-log-entry-object-optional-audit-entry-info) |  additional info for certain action types |
-| reason? | string | the reason for the change |
+| reason? | string | the reason for the change (0-512 characters) |
 
 ###### Audit Log Events
 
