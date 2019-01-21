@@ -403,7 +403,7 @@ Let's see what one looks like all together!
               "paths": [
                 {
                   "platform": "windows",
-                  "path": "${DOCUMENTS}/My Games/My Awesome Game/Saves"}
+                  "path": "${DOCUMENTS}/My Games/My Awesome Game/Saves"
                 },
                 {
                   "platform": "macos",
