@@ -60,7 +60,7 @@ if (overlayManager.IsLocked())
 
 ## SetLocked
 
-Locks or unlocks the overlay.
+Locks or unlocks the overlay. Calling `SetLocked(true);` will also close any modals in the overlay or in-app from things like IAP purchase flows.
 
 Returns `void`.
 
