@@ -60,7 +60,8 @@ ONWARDS!
 
 ## Creating Branches
 
-> During development time, we ask that you DO NOT create your own OAuth2 application. When you are ready to begin development, let someone on the Discord team know, and we will create an application for you and assign it to your account. We have some special flags that we need to enable on your behalf.
+> warn
+> If you have not yet set up a Team and an application, please follow the steps in [Get Set Up](#DOCS_GAME_SDK_SDK_STARTER_GUIDE/get-set-up)
 
 Now that we're set up to use the tool, let's make some branches! Branches, builds, and everything in between in Discord are tied to an application. To get one for your game, ask a Discord team member to hook you up!
 
@@ -125,20 +126,22 @@ We're in the heart of a manifest now! `label` is the name you want to give an in
 // C:\game\langs\en-US
 // C:\game\langes\fr
 
-"manifests": [
-  {
-    "label": "game-files",
-    "local_root": "binary",
-  },
-  {
-    "label": "english-language-pack",
-    "local_root": "en-US",
-  },
-  {
-    "label": "french-language-pack",
-    "local_root": "fr",
-  }
-]
+{
+  "manifests": [
+    {
+      "label": "game-files",
+      "local_root": "binary"
+    },
+    {
+      "label": "english-language-pack",
+      "local_root": "en-US"
+    },
+    {
+      "label": "french-language-pack",
+      "local_root": "fr"
+    }
+  ]
+}
 ```
 
 That way, you can `dispatch build push` from your actual root directory, but dispatch will be smart enough to separate the files properly.
@@ -156,7 +159,7 @@ That way, you can `dispatch build push` from your actual root directory, but dis
         "install_path": "."
       },
       {
-        "local_path": "./languages/en-US/no-but-the-data-is-really-in-here/"
+        "local_path": "./languages/en-US/no-but-the-data-is-really-in-here/",
         "install_path": "./english"
       }
     ],
@@ -237,14 +240,16 @@ As a side note, there may be a case where you might have multiple manifests that
       "storage": {
         "sync": true,
         "roots": [
-          "id": "one",
-          "paths": [
-            {
-              "platform": "win32",
-              "path": "${HOME}"
-            }
-          ],
-          "patterns": ["**/*"]
+          {
+            "id": "one",
+            "paths": [
+              {
+                "platform": "win32",
+                "path": "${HOME}"
+              }
+            ],
+            "patterns": ["**/*"]
+          }
         ]
       }
     },
@@ -253,14 +258,16 @@ As a side note, there may be a case where you might have multiple manifests that
       "storage": {
         "sync": true,
         "roots": [
-          "id": "two",
-          "paths": [
-            {
-              "platform": "win32",
-              "path": "${HOME}"
-            }
-          ],
-          "patterns": ["**/*"]
+          {
+            "id": "two",
+            "paths": [
+              {
+                "platform": "win32",
+                "path": "${HOME}"
+              }
+            ],
+            "patterns": ["**/*"]
+          }
         ]
       }
     }
@@ -289,7 +296,7 @@ Then, manifest `two` would be the source of truth in a data conflict. Wew, ok, g
             }
           ]
         }
-      },
+      }
     ],
     "win64": [
       {

@@ -184,7 +184,7 @@ discord.SetLogHook(Discord.LogLevel.Debug, LogProblemFunctions);
 
 Runs all pending SDK callbacks. Put this in your game's main event loop, like `Update()` in Unity. That way, the first thing your game does is check for any new info from Discord.
 
-Returns `void`.
+Returns `Discord.Result`.
 
 ###### Parameters
 

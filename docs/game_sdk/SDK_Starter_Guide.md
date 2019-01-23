@@ -33,9 +33,11 @@ The SDK will prioritize these DLLs instead of using the stub to call out to the 
 
 ## Get Set Up
 
-> During the Beta period, we ask that you DO NOT create your own OAuth2 application. When you are ready to begin development, let someone on the Discord team know, and we will create an application for you and assign it to your account. We have some special flags that we need to enable on your behalf.
+Next, we need to set up the application for your game. An application is the base "entity" in Discord for your game; it's what all the builds, branches, SKUs, store pages, assets, etc. will be filed under.
 
-Next, we need to set up the application for your game. An application is the base "entity" in Discord for your game; it's what all the builds, branches, SKUs, store pages, assets, etc. will be filed under. Ask a Discord team member to get an application created for you. Once that's done, head on over to our [developer site](https://discordapp.com/developers/) and click into the application created for you. Now, make it your own by changing it's name and giving it a new icon! There, all pretty.
+Head over to our [developer site](https://discordapp.com/developers/) and create an account/log in if you haven't yet. The first thing we're going to do is create a Team. Teams are groups of developers working together on applications; you should create a team for your organization at [https://discordapp.com/developers/teams](https://discordapp.com/developers/teams). You can invite other users to join your team and work on applications together with you.
+
+Now that your team is created, you'll want to make an application. To do so, click on "Applications" at the top of the page and create an application. Make sure you pick your newly-created team in the `Team` dropdown. You want your team to own the application; this unlocks store functionality! Now that your app is made, let's dive into some more setup.
 
 First, we'll need to set an OAuth2 redirect URL. You can add `http://127.0.0.1` in there for now; this powers some behind-the-scenes stuff you don't need to worry about.
 
