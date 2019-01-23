@@ -184,7 +184,9 @@ discord.SetLogHook(Discord.LogLevel.Debug, LogProblemFunctions);
 
 Runs all pending SDK callbacks. Put this in your game's main event loop, like `Update()` in Unity. That way, the first thing your game does is check for any new info from Discord.
 
-Returns `Discord.Result`.
+This function also serves as a way to know that the local Discord client is still connected. If the user closes Discord while playing your game, `RunCallbacks()` will return/throw `Discord.Result.NotRunning`.
+
+In C and C++, this function returns `Discord.Result`. In C#, it returns `void` and will throw `Discord.Result` error if something went wrong.
 
 ###### Parameters
 
