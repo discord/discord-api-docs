@@ -346,7 +346,7 @@ You can also specify any arguments that need to be passed to your game on launch
 If your game needs to have a specific working directly, you can also specify that here. Otherwise we'll default to the `content/` folder in the install directory.
 
 > danger
-> Currently, `executable` and `working_dir` are relative to the _install path_ on a user's machine, not your local path. This path is `${INSTALLDIR}/content/` unless otherwise specified in [File Rules](#DOCS_DISPATCH_BRANCHES_AND_BUILDS/file-rules).
+> Currently, `executable` and `working_dir` are relative to the _install path_ on a user's machine, not your local root. This path is `${INSTALLDIR}/content/` unless otherwise specified in [File Rules](#DOCS_DISPATCH_BRANCHES_AND_BUILDS/file-rules).
 
 ## All Together Now
 
