@@ -383,11 +383,11 @@ curl https://discordapp.com/api/v6/applications/461618159171141643/entitlements?
       "id": "53908232506183999",
       "type": 3,
       "payment": {
-      "id": "538491076055400999",
-      "currency": "usd",
-      "amount": 999,
-      "tax": 0,
-      "tax_inclusive": false
+        "id": "538491076055400999",
+        "currency": "usd",
+        "amount": 999,
+        "tax": 0,
+        "tax_inclusive": false
       }
     }
   ]
