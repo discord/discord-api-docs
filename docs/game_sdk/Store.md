@@ -336,21 +336,39 @@ Fires when the connected user loses an entitlement, either by expiration, revoca
 
 The following are HTTP requests, and should be handled by your game server, rather than a client. They require a Bearer token for an authorization header. This token should be a token of a developer who is authorized to use Dispatch for your application. To get this token, your backend service should go through the [Client Credentials OAuth2 Grant](#DOCS_TOPICS_OAUTH2/client-credentials-grant) and request the scope `applications.entitlements`.
 
+Note that parameters with a `?` after the name denote optional fields. Parameters with a `?` before their type denote nullable fields.
+
+## HTTP-Specific Data Models
+
+###### Limited Payment Data Object
+
+| name          | type   | description                          |
+| ------------- | ------ | ------------------------------------ |
+| id            | string | unique ID of the payment             |
+| currency      | string | the currency the payment was made in |
+| amount        | int    | the amount paid                      |
+| tax           | int    | the amount of tax                    |
+| tax_inclusive | bool   | whether the payment is tax-inclusive |
+
 ## Get Entitlements % GET /applications/{application.id#DOCS_GAME_SDK_SDK_STARTER_GUIDE/get-set-up}/entitlements
 
 Gets entitlements for a given user. You can use this on your game backend to check entitlements of an arbitrary user, or perhaps in an administrative panel for your support team.
 
 ###### Query Parameters
 
-| name    | type                        | description                                           |
-| ------- | --------------------------- | ----------------------------------------------------- |
-| user_id | int                         | the user id to look up entitlements for               |
-| sku_ids | comma-separated list of int | (optional) the list SKU ids to check entitlements for |
+| name           | type                        | description                                                                                         |
+| -------------- | --------------------------- | --------------------------------------------------------------------------------------------------- |
+| user_id?       | int                         | the user id to look up entitlements for                                                             |
+| sku_ids        | comma-separated list of int | (optional) the list SKU ids to check entitlements for                                               |
+| with_payments? | bool                        | returns [limited payment data](#DOCS_GAME_SDK_STORE/http-specific-data-models) for each entitlement |
+| before?        | snowflake                   | retrieve entitlements before this time                                                              |
+| after?         | snowflake                   | retrieve entitlements after this time                                                               |
+| limit          | int                         | number of entitlements to return, 1-100, default 100                                                |
 
 ###### Example
 
 ```
-curl https://discordapp.com/api/v6/applications/461618159171141643/entitlements?user_id=53908232506183680 \
+curl https://discordapp.com/api/v6/applications/461618159171141643/entitlements?user_id=53908232506183680&sku_ids=53908232599983680&with_payments=true&limit=1 \
 -H "Authorization: Bearer <token>" \
 -H "Accept: application/json"
 
@@ -363,7 +381,14 @@ curl https://discordapp.com/api/v6/applications/461618159171141643/entitlements?
       "sku_id": "53908232599983680",
       "application_id": "461618159171141643",
       "id": "53908232506183999",
-      "type": 3
+      "type": 3,
+      "payment": {
+      "id": "538491076055400999",
+      "currency": "usd",
+      "amount": 999,
+      "tax": 0,
+      "tax_inclusive": false
+      }
     }
   ]
 }
@@ -373,10 +398,16 @@ curl https://discordapp.com/api/v6/applications/461618159171141643/entitlements?
 
 Fetch an entitlement by its ID. This may be useful in confirming that a user has a given entitlement that another call or the SDK says they do.
 
+###### Query Parameters
+
+| name           | type | description                                                                                         |
+| -------------- | ---- | --------------------------------------------------------------------------------------------------- |
+| with_payments? | bool | returns [limited payment data](#DOCS_GAME_SDK_STORE/http-specific-data-models) for each entitlement |
+
 ###### Example
 
 ```
-curl https://discordapp.com/api/v6/applications/461618159171141643/entitlements/53908232506183999 \
+curl https://discordapp.com/api/v6/applications/461618159171141643/entitlements/53908232506183999?with_payments=true \
 -H "Authorization: Bearer <token>" \
 -H "Accept: application/json"
 
@@ -387,7 +418,14 @@ curl https://discordapp.com/api/v6/applications/461618159171141643/entitlements/
   "sku_id": "53908232599983680",
   "application_id": "461618159171141643",
   "id": "53908232506183999",
-  "type": 3
+  "type": 3,
+  "payment": {
+    "id": "538491076055400999",
+    "currency": "usd",
+    "amount": 999,
+    "tax": 0,
+    "tax_inclusive": false
+  }
 }
 ```
 
