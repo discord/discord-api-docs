@@ -479,15 +479,15 @@ The ready event is dispatched when a client has completed the initial handshake 
 
 ###### Ready Event Fields
 
-| Field            | Type                                                                                 | Description                                                                |
-| ---------------- | ------------------------------------------------------------------------------------ | -------------------------------------------------------------------------- |
-| v                | integer                                                                              | [gateway protocol version](#DOCS_TOPICS_GATEWAY/gateway-protocol-versions) |
-| user             | [user](#DOCS_RESOURCES_USER/user-object) object                                      | information about the user including email                                 |
-| private_channels | array                                                                                | empty array                                                                |
-| guilds           | array of [Unavailable Guild](#DOCS_RESOURCES_GUILD/unavailable-guild-object) objects | the guilds the user is in                                                  |
-| session_id       | string                                                                               | used for resuming connections                                              |
-| \_trace          | array of strings                                                                     | used for debugging - the guilds the user is in                             |
-| shard?           | array of two integers (shard_id, num_shards)	                                      | used for [Guild Sharding]((#DOCS_TOPICS_GATEWAY/sharding))                 |
+| Field            | Type                                                                                 | Description                                                                                                   |
+| ---------------- | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------- |
+| v                | integer                                                                              | [gateway protocol version](#DOCS_TOPICS_GATEWAY/gateway-protocol-versions)                                    |
+| user             | [user](#DOCS_RESOURCES_USER/user-object) object                                      | information about the user including email                                                                    |
+| private_channels | array                                                                                | empty array                                                                                                   |
+| guilds           | array of [Unavailable Guild](#DOCS_RESOURCES_GUILD/unavailable-guild-object) objects | the guilds the user is in                                                                                     |
+| session_id       | string                                                                               | used for resuming connections                                                                                 |
+| \_trace          | array of strings                                                                     | used for debugging - the guilds the user is in                                                                |
+| shard?           | array of two integers (shard_id, num_shards)	                                      | the [shard information](#DOCS_TOPICS_GATEWAY/sharding) associated with this session, if sent when identifying |
 
 #### Resumed
 
