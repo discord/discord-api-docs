@@ -487,6 +487,7 @@ The ready event is dispatched when a client has completed the initial handshake 
 | guilds           | array of [Unavailable Guild](#DOCS_RESOURCES_GUILD/unavailable-guild-object) objects | the guilds the user is in                                                  |
 | session_id       | string                                                                               | used for resuming connections                                              |
 | \_trace          | array of strings                                                                     | used for debugging - the guilds the user is in                             |
+| shard?           | array of two integers (shard_id, num_shards)	                                      | used for [Guild Sharding]((#DOCS_TOPICS_GATEWAY/sharding))                 |
 
 #### Resumed
 
