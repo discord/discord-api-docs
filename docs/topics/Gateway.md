@@ -784,7 +784,7 @@ A user's presence is their current state on a guild. This event is sent when a u
 
 #### Client Status Object
 
-All status strings are those that are documented in the original presence update status field; that is, "idle", "dnd", "online", or "offline".
+Active sessions are indicated with an "online", "idle", or "dnd" string per platform. If a user is offline or invisible, the corresponding field is not present.
 
 | Field   | Type    |                                                                               |
 | --------| ------- | ----------------------------------------------------------------------------- |
