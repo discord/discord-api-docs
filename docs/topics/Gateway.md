@@ -786,11 +786,11 @@ A user's presence is their current state on a guild. This event is sent when a u
 
 Active sessions are indicated with an "online", "idle", or "dnd" string per platform. If a user is offline or invisible, the corresponding field is not present.
 
-| Field   | Type    |                                                                               |
-| --------| ------- | ----------------------------------------------------------------------------- |
-| desktop | ?string | the user's status set by an active desktop application session                |
-| mobile  | ?string | the user's status set by an active mobile (iOS / Android) application session |
-| web     | ?string | the user's status set by an active web (browser) application session          |
+| Field    | Type   | Description                                                                           |
+| -------- | ------ | ------------------------------------------------------------------------------------- |
+| desktop? | string | the user's status set for an active desktop (Windows, Linux, Mac) application session |
+| mobile?  | string | the user's status set for an active mobile (iOS, Android) application session         |
+| web?     | string | the user's status set for an active web (browser, bot account) application session    |
 
 #### Activity Object
 
