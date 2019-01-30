@@ -320,13 +320,15 @@ Don't forget to the notice the double forward slashes in the path name!
       "name": "My Awesome Game",
       "executable": "my-awesome-game.exe",
       "arguments": [],
-      "platforms": ["win32", "win64"]
+      "platforms": ["win32", "win64"],
+      "working_dir": "important-files-here/"
     },
     {
       "name": "My Awesome Map Editor",
       "executable": "my-awesome-map-editor.exe",
       "arguments": [],
-      "platforms": ["win32", "win64"]
+      "platforms": ["win32", "win64"],
+      "working_dir": "important-files-here/"
     }
   ]
 }
@@ -334,12 +336,17 @@ Don't forget to the notice the double forward slashes in the path name!
 
 The last bit of the config file is the launch options for your game. This is where you should tell Discord which executables your game can launch. In most cases, you'll just have one object, which is the main executable for your game. However, in the case that your game may have multiple executables that users can launch, you can specify all of them here.
 
-> danger
+> warn
 > The `name` field _must_ be unique for each launch option.
 
 When launching the game from their Game Library, players will be able to choose which executable is being launched, with the first option in the list as the default. So, for example, if your game comes with the game and a map editor, they'll have access to both without needing multiple entries in their library. Discord will smartly remember their choice for the future, but they'll always have the option to swap to a different one if they want.
 
 You can also specify any arguments that need to be passed to your game on launch, like `--fullscreen` or `--console` or `--360-no-scope`.
+
+If your game needs to have a specific working directly, you can also specify that here. Otherwise we'll default to the `content/` folder in the install directory.
+
+> danger
+> Currently, `executable` and `working_dir` are relative to the _install path_ on a user's machine, not your local root. This path is `${INSTALLDIR}/content/` unless otherwise specified in [File Rules](#DOCS_DISPATCH_BRANCHES_AND_BUILDS/file-rules).
 
 ## All Together Now
 
@@ -417,13 +424,15 @@ Let's see what one looks like all together!
             "name": "My Awesome Game",
             "executable": "my-awesome-game.exe",
             "arguments": [],
-            "platforms": ["win32", "win64"]
+            "platforms": ["win32", "win64"],
+            "working_dir": "important-files-in-here/"
           },
           {
             "name": "My Awesome Map Editor",
             "executable": "my-awesome-map-editor.exe",
             "arguments": [],
-            "platforms": ["win32", "win64"]
+            "platforms": ["win32", "win64"],
+            "working_dir": "important-files-in-here/"
           }
         ]
       }
