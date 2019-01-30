@@ -348,22 +348,25 @@ Note that parameters with a `?` after the name denote optional fields. Parameter
 | currency      | string | the currency the payment was made in |
 | amount        | int    | the amount paid                      |
 | tax           | int    | the amount of tax                    |
-| tax_inclusive | bool   | whether the payment is tax-inclusive |
+| tax_inclusive | bool   | whether the amount is tax-inclusive  |
 
 ## Get Entitlements % GET /applications/{application.id#DOCS_GAME_SDK_SDK_STARTER_GUIDE/get-set-up}/entitlements
 
 Gets entitlements for a given user. You can use this on your game backend to check entitlements of an arbitrary user, or perhaps in an administrative panel for your support team.
 
+> danger
+> The previous behavior on this endpoint was that not specifying a user_id or limit would return an unlimited amount of entitlements. That behavior is now deprecated and will be removed on March 1, 2019.
+
 ###### Query Parameters
 
-| name           | type                        | description                                                                                         |
-| -------------- | --------------------------- | --------------------------------------------------------------------------------------------------- |
-| user_id?       | int                         | the user id to look up entitlements for                                                             |
-| sku_ids        | comma-separated list of int | (optional) the list SKU ids to check entitlements for                                               |
-| with_payments? | bool                        | returns [limited payment data](#DOCS_GAME_SDK_STORE/http-specific-data-models) for each entitlement |
-| before?        | snowflake                   | retrieve entitlements before this time                                                              |
-| after?         | snowflake                   | retrieve entitlements after this time                                                               |
-| limit          | int                         | number of entitlements to return, 1-100, default 100                                                |
+| name           | type                              | description                                                                                         |
+| -------------- | --------------------------------- | --------------------------------------------------------------------------------------------------- |
+| user_id?       | snowflake                         | the user id to look up entitlements for                                                             |
+| sku_ids?       | comma-delimited set of snowflakes | (optional) the list SKU ids to check entitlements for                                               |
+| with_payments? | bool                              | returns [limited payment data](#DOCS_GAME_SDK_STORE/http-specific-data-models) for each entitlement |
+| before?        | snowflake                         | retrieve entitlements before this time                                                              |
+| after?         | snowflake                         | retrieve entitlements after this time                                                               |
+| limit?         | int                               | number of entitlements to return, 1-100, default 100                                                |
 
 ###### Example
 
@@ -400,14 +403,14 @@ Fetch an entitlement by its ID. This may be useful in confirming that a user has
 
 ###### Query Parameters
 
-| name           | type | description                                                                                         |
-| -------------- | ---- | --------------------------------------------------------------------------------------------------- |
-| with_payments? | bool | returns [limited payment data](#DOCS_GAME_SDK_STORE/http-specific-data-models) for each entitlement |
+| name          | type | description                                                                                         |
+| ------------- | ---- | --------------------------------------------------------------------------------------------------- |
+| with_payment? | bool | returns [limited payment data](#DOCS_GAME_SDK_STORE/http-specific-data-models) for each entitlement |
 
 ###### Example
 
 ```
-curl https://discordapp.com/api/v6/applications/461618159171141643/entitlements/53908232506183999?with_payments=true \
+curl https://discordapp.com/api/v6/applications/461618159171141643/entitlements/53908232506183999?with_payment=true \
 -H "Authorization: Bearer <token>" \
 -H "Accept: application/json"
 
@@ -504,7 +507,7 @@ Creates a discount for the given user on their next purchase of the given SKU. Y
 | name        | type | description                                                                            |
 | ----------- | ---- | -------------------------------------------------------------------------------------- |
 | percent_off | int  | the percentage to discount - max of 100, min of 1                                      |
-| ttl         | int  | the time to live for the discount, in seconds - max of 3600, min of 60, default of 600 |
+| ttl?        | int  | the time to live for the discount, in seconds - max of 3600, min of 60, default of 600 |
 
 ###### Example
 
