@@ -163,6 +163,8 @@ Create a new group DM channel with multiple users. Returns a [DM channel](#DOCS_
 
 > warn
 > This endpoint is limited to 10 active group DMs.
+> warn
+> This endpoint is meant to be used with the GameSDK. Created group DM channels will not show up in the Discord Clients. 
 
 ###### JSON Params
 
