@@ -143,8 +143,8 @@ A partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object. Represents an Offl
 | nick? | string | this users guild nickname (if one is set) |
 | roles | array of snowflakes | array of [role](#DOCS_TOPICS_PERMISSIONS/role-object) object ids |
 | joined_at | ISO8601 timestamp | when the user joined the guild |
-| deaf | boolean | whether the user is deafened |
-| mute | boolean | whether the user is muted |
+| deaf | boolean | whether the user is deafened in voice channels |
+| mute | boolean | whether the user is muted in voice channels |
 
 ###### Example Guild Member
 
@@ -349,8 +349,8 @@ Adds a user to the guild, provided you have a valid oauth2 access token for the 
 | access_token | string | an oauth2 access token granted with the `guilds.join` to the bot's application for the user you want to add to the guild | |
 | nick | string | value to set users nickname to | MANAGE_NICKNAMES |
 | roles | array of snowflakes | array of role ids the member is assigned | MANAGE_ROLES |
-| mute | boolean | whether the user is muted | MUTE_MEMBERS |
-| deaf | boolean | whether the user is deafened | DEAFEN_MEMBERS |
+| mute | boolean | whether the user is muted in voice channels | MUTE_MEMBERS |
+| deaf | boolean | whether the user is deafened in voice channels | DEAFEN_MEMBERS |
 
 ## Modify Guild Member % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/members/{user.id#DOCS_RESOURCES_USER/user-object}
 
@@ -366,8 +366,8 @@ Modify attributes of a [guild member](#DOCS_RESOURCES_GUILD/guild-member-object)
 |-------|------|-------------|------------|
 | nick | string | value to set users nickname to | MANAGE_NICKNAMES |
 | roles | array of snowflakes | array of role ids the member is assigned | MANAGE_ROLES |
-| mute | boolean | whether the user is muted | MUTE_MEMBERS |
-| deaf | boolean | whether the user is deafened | DEAFEN_MEMBERS |
+| mute | boolean | whether the user is muted in voice channels | MUTE_MEMBERS |
+| deaf | boolean | whether the user is deafened in voice channels | DEAFEN_MEMBERS |
 | channel_id | snowflake | id of channel to move user to (if they are connected to voice) | MOVE_MEMBERS |
 
 ## Modify Current User Nick % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/members/@me/nick
