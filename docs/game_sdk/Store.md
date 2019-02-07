@@ -359,14 +359,14 @@ Gets entitlements for a given user. You can use this on your game backend to che
 
 ###### Query Parameters
 
-| name           | type                              | description                                                                                         |
-| -------------- | --------------------------------- | --------------------------------------------------------------------------------------------------- |
-| user_id?       | snowflake                         | the user id to look up entitlements for                                                             |
-| sku_ids?       | comma-delimited set of snowflakes | (optional) the list SKU ids to check entitlements for                                               |
-| with_payments? | bool                              | returns [limited payment data](#DOCS_GAME_SDK_STORE/http-specific-data-models) for each entitlement |
-| before?        | snowflake                         | retrieve entitlements before this time                                                              |
-| after?         | snowflake                         | retrieve entitlements after this time                                                               |
-| limit?         | int                               | number of entitlements to return, 1-100, default 100                                                |
+| name           | type                              | description                                                                                                                    |
+| -------------- | --------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| user_id?       | snowflake                         | the user id to look up entitlements for                                                                                        |
+| sku_ids?       | comma-delimited set of snowflakes | (optional) the list SKU ids to check entitlements for                                                                          |
+| with_payments? | bool                              | returns [limited payment data](#DOCS_GAME_SDK_STORE/httpspecific-data-models-limited-payment-data-object) for each entitlement |
+| before?        | snowflake                         | retrieve entitlements before this time                                                                                         |
+| after?         | snowflake                         | retrieve entitlements after this time                                                                                          |
+| limit?         | int                               | number of entitlements to return, 1-100, default 100                                                                           |
 
 ###### Example
 
@@ -403,9 +403,9 @@ Fetch an entitlement by its ID. This may be useful in confirming that a user has
 
 ###### Query Parameters
 
-| name          | type | description                                                                                         |
-| ------------- | ---- | --------------------------------------------------------------------------------------------------- |
-| with_payment? | bool | returns [limited payment data](#DOCS_GAME_SDK_STORE/http-specific-data-models) for each entitlement |
+| name          | type | description                                                                                                                    |
+| ------------- | ---- | ------------------------------------------------------------------------------------------------------------------------------ |
+| with_payment? | bool | returns [limited payment data](#DOCS_GAME_SDK_STORE/httpspecific-data-models-limited-payment-data-object) for each entitlement |
 
 ###### Example
 
