@@ -233,7 +233,7 @@ Commands are requests made to the gateway socket by a client.
 | [Identify](#DOCS_TOPICS_GATEWAY/identify)                           | triggers the initial handshake with the gateway              |
 | [Resume](#DOCS_TOPICS_GATEWAY/resume)                               | resumes a dropped gateway connection                         |
 | [Heartbeat](#DOCS_TOPICS_GATEWAY/heartbeat)                         | maintains an active gateway connection                       |
-| [Request Guild Members](#DOCS_TOPICS_GATEWAY/request-guild-members) | requests offline members for a guild                         |
+| [Request Guild Members](#DOCS_TOPICS_GATEWAY/request-guild-members) | requests members for a guild                                 |
 | [Update Voice State](#DOCS_TOPICS_GATEWAY/update-voice-state)       | joins, moves, or disconnects the client from a voice channel |
 | [Update Status](#DOCS_TOPICS_GATEWAY/update-status)                 | updates a client's presence                                  |
 
@@ -368,13 +368,13 @@ Used to maintain an active gateway connection. Must be sent every `heartbeat_int
 
 #### Request Guild Members
 
-Used to request offline members for a guild or a list of guilds. When initially connecting, the gateway will only send offline members if a guild has less than the `large_threshold` members (value in the [Gateway Identify](#DOCS_TOPICS_GATEWAY/identify)). If a client wishes to receive additional members, they need to explicitly request them via this operation. The server will send [Guild Members Chunk](#DOCS_TOPICS_GATEWAY/guild-members-chunk) events in response with up to 1000 members per chunk until all members that match the request have been sent.
+Used to request all members for a guild or a list of guilds. When initially connecting, the gateway will only send online members if a guild has less than the `large_threshold` members (value in the [Gateway Identify](#DOCS_TOPICS_GATEWAY/identify)). If a client wishes to receive additional members, they need to explicitly request them via this operation. The server will send [Guild Members Chunk](#DOCS_TOPICS_GATEWAY/guild-members-chunk) events in response with up to 1000 members per chunk until all members that match the request have been sent.
 
 ###### Guild Request Members Structure
 
 | Field    | Type                             | Description                                                                |
 | -------- | -------------------------------- | -------------------------------------------------------------------------- |
-| guild_id | snowflake or array of snowflakes | id of the guild(s) to get offline members for                              |
+| guild_id | snowflake or array of snowflakes | id of the guild(s) to get members for                                      |
 | query    | string                           | string that username starts with, or an empty string to return all members |
 | limit    | integer                          | maximum number of members to send or 0 to request all members matched      |
 
