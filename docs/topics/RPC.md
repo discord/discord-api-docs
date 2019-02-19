@@ -138,7 +138,7 @@ Commands are requests made to the RPC socket by a client.
 | [SEND_ACTIVITY_JOIN_INVITE](#DOCS_TOPICS_RPC/sendactivityjoininvite) | used to consent to a Rich Presence Ask to Join request |
 | [CLOSE_ACTIVITY_REQUEST](#DOCS_TOPICS_RPC/closeactivityrequest) | used to reject a Rich Presence Ask to Join request |
 
-Events are payloads sent over the socket to a client that correspond events in Discord.
+Events are payloads sent over the socket to a client that correspond to events in Discord.
 
 ###### RPC Events
 

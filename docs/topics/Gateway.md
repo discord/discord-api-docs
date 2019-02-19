@@ -237,7 +237,7 @@ Commands are requests made to the gateway socket by a client.
 | [Update Voice State](#DOCS_TOPICS_GATEWAY/update-voice-state)       | joins, moves, or disconnects the client from a voice channel |
 | [Update Status](#DOCS_TOPICS_GATEWAY/update-status)                 | updates a client's presence                                  |
 
-Events are payloads sent over the socket to a client that correspond events in Discord.
+Events are payloads sent over the socket to a client that correspond to events in Discord.
 
 ###### Gateway Events
 
