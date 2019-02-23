@@ -101,7 +101,7 @@ The voice server should respond with an [Opcode 2 Ready](#DOCS_TOPICS_OPCODES_AN
 
 In order to maintain your websocket connection, you need to continuously send heartbeats at the interval determined in [Opcode 8 Hello](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice-opcodes):
 
-###### Example Hello Payload Below V3
+###### Example Hello Payload Below below V3
 
 ```json
 {
@@ -109,7 +109,7 @@ In order to maintain your websocket connection, you need to continuously send he
 }
 ```
 
-###### Example Hello Payload V3
+###### Example Hello Payload since V3
 
 ```json
 {
@@ -120,10 +120,7 @@ In order to maintain your websocket connection, you need to continuously send he
 }
 ```
 
->danger
->There is currently a bug in the Hello payload heartbeat interval. Until it is fixed, please take your heartbeat interval as `heartbeat_interval` * .75. This warning will be removed and a changelog published when the bug is fixed.
-
-This is sent at the start of the connection. Be warned that the [Opcode 8 Hello](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice-opcodes) structure differs by gateway version as shown in the above examples. Versions below v3 do not have an opcode or a data field denoted by `d`. V3 is updated to be structured like other payloads. Be sure to expect this different format based on your version.
+This is sent at the start of the connection. Be warned that the [Opcode 8 Hello](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice-opcodes) structure differs by gateway version as shown in the above examples. Versions below v3 do not have an opcode or a data field denoted by `d`. V3 and above was updated to be structured like other payloads. Be sure to expect this different format based on your version.
 
 After receiving [Opcode 8 Hello](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice-opcodes), you should send [Opcode 3 Heartbeat](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice-opcodes)—which contains an integer nonce—every elapsed interval:
 
@@ -150,9 +147,6 @@ In return, you will be sent back an [Opcode 6 Heartbeat ACK](#DOCS_TOPICS_OPCODE
 ## Establishing a Voice UDP Connection
 
 Once we receive the properties of a UDP voice server from our [Opcode 2 Ready](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice-opcodes) payload, we can proceed to the final step of voice connections, which entails establishing and handshaking a UDP connection for voice data. First, we open a UDP connection to the IP and port provided in the Ready payload. If required, we can now perform an [IP Discovery](#DOCS_RESOURCES_VOICE_CONNECTIONS/ip-discovery) using this connection. Once we've fully discovered our external IP and UDP port, we can then tell the voice websocket what it is, and start receiving/sending data. We do this using [Opcode 1 Select Protocol](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice-opcodes):
-
->warn
->The plain mode is no longer supported. All data should be sent using a supported encryption method, right now only `xsalsa20_poly1305`.
 
 ###### Example Select Protocol Payload
 
