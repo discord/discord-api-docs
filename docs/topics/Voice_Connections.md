@@ -4,14 +4,14 @@ Voice connections operate in a similar fashion to the [Gateway](#DOCS_TOPICS_GAT
 
 ## Voice Gateway Versioning
 
-To ensure that you have the most up-to-date information, please use [version 3](#DOCS_RESOURCES_VOICE_CONNECTIONS/voice-gateway-versioning-gateway-versions). Otherwise, we cannot guarantee that the [Opcodes](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice-opcodes) documented here will reflect what you receive over the socket.
+To ensure that you have the most up-to-date information, please use [version 4](#DOCS_RESOURCES_VOICE_CONNECTIONS/voice-gateway-versioning-gateway-versions). Otherwise, we cannot guarantee that the [Opcodes](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice-opcodes) documented here will reflect what you receive over the socket.
 
 ###### Gateway Versions
 
 | Version | Status | WebSocket URL Append |
 | ------- | ------ | -------------------- |
-| 4 | available | ?v=4 |
-| 3 | recommended | ?v=3 |
+| 4 | recommended | ?v=4 |
+| 3 | available | ?v=3 |
 | 2 | available | ?v=2 |
 | 1 | default | ?v=1 or omit |
 
