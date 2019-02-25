@@ -7,7 +7,7 @@ We've been told that people playing games want to save their progress as they go
 
 Yeah, roguelikes. Even you.
 
-Discord's storage manager lets you save data mapped to a key for easy reading, writing, and deleting both synchronously and asynchronously. It's saved to a super special directory, the Holy Grail of file mappings, that's unique per Discord user—need to worry about your little brother overwriting your save file.
+Discord's storage manager lets you save data mapped to a key for easy reading, writing, and deleting both synchronously and asynchronously. It's saved to a super special directory, the Holy Grail of file mappings, that's unique per Discord user — no need to worry about your little brother overwriting your save file.
 
 Creating this manager will also spawn an IO thread for async reads and writes, so unless you really want to be blocking, you don't need to be!
 
