@@ -39,6 +39,9 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 | members? \* | array of [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) objects | users in the guild |
 | channels? \* | array of [channel](#DOCS_RESOURCES_CHANNEL/channel-object) objects | channels in the guild |
 | presences? \* | array of partial [presence update](#DOCS_TOPICS_GATEWAY/presence-update) objects | presences of the users in the guild |
+| max\_presences | ?integer | the maximum amount of presences for the guild |
+| max\_members | integer | the maximum amount of members for the guild |
+| vanity\_url\_code | ?string | the vanity url code for the guild |
 
 ** \* These fields are only sent within the [GUILD_CREATE](#DOCS_TOPICS_GATEWAY/guild-create) event **
 
