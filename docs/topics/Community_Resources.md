@@ -10,6 +10,7 @@ The Discord team curates the following list of officially vetted libraries that 
 
 | Name | Language |
 |------|----------|
+| [discljord](https://github.com/igjoshua/discljord) | Clojure |
 | [discordcr](https://github.com/meew0/discordcr) | Crystal |
 | [Discord.Net](https://github.com/RogueException/Discord.Net) | C# |
 | [DSharpPlus](https://github.com/NaamloosDT/DSharpPlus) | C# |
