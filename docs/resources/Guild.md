@@ -40,7 +40,7 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 | members? \* | array of [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) objects | users in the guild |
 | channels? \* | array of [channel](#DOCS_RESOURCES_CHANNEL/channel-object) objects | channels in the guild |
 | presences? \* | array of partial [presence update](#DOCS_TOPICS_GATEWAY/presence-update) objects | presences of the users in the guild |
-
+ 
 ** \* These fields are only sent within the [GUILD_CREATE](#DOCS_TOPICS_GATEWAY/guild-create) event **
 
 ###### Default Message Notification Level
