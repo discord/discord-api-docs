@@ -22,6 +22,7 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 | embed\_channel\_id? | snowflake | if not null, the channel id that the widget will generate an invite to |
 | verification\_level | integer | [verification level](#DOCS_RESOURCES_GUILD/guild-object-verification-level) required for the guild |
 | default\_message\_notifications | integer | default [message notifications level](#DOCS_RESOURCES_GUILD/guild-object-default-message-notification-level) |
+
 | explicit\_content\_filter | integer | [explicit content filter level](#DOCS_RESOURCES_GUILD/guild-object-explicit-content-filter-level) |
 | roles | array of [role](#DOCS_TOPICS_PERMISSIONS/role-object) objects | roles in the guild |
 | emojis | array of [emoji](#DOCS_RESOURCES_EMOJI/emoji-object) objects | custom guild emojis |
@@ -409,7 +410,7 @@ Create a guild ban, and optionally delete previous messages sent by the banned u
 | Field | Type | Description |
 |-------|------|-------------|
 | delete-message-days | integer | number of days to delete messages for (0-7) |
-| reason | string | reason for the ban |
+| reason | string? | reason for the ban |
 
 ## Remove Guild Ban % DELETE /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/bans/{user.id#DOCS_RESOURCES_USER/user-object}
 
