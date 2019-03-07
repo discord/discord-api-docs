@@ -22,7 +22,6 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 | embed\_channel\_id? | snowflake | if not null, the channel id that the widget will generate an invite to |
 | verification\_level | integer | [verification level](#DOCS_RESOURCES_GUILD/guild-object-verification-level) required for the guild |
 | default\_message\_notifications | integer | default [message notifications level](#DOCS_RESOURCES_GUILD/guild-object-default-message-notification-level) |
-
 | explicit\_content\_filter | integer | [explicit content filter level](#DOCS_RESOURCES_GUILD/guild-object-explicit-content-filter-level) |
 | roles | array of [role](#DOCS_TOPICS_PERMISSIONS/role-object) objects | roles in the guild |
 | emojis | array of [emoji](#DOCS_RESOURCES_EMOJI/emoji-object) objects | custom guild emojis |
