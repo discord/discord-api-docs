@@ -66,7 +66,6 @@ Represents a guild or DM channel within Discord.
 	"type": 5,
 	"position": 6,
 	"permission_overwrites": [],
-	"rate_limit_per_user": 2,
 	"nsfw": true,
 	"topic": "Rumors about Half Life 3",
 	"last_message_id": "155117677105512449",
