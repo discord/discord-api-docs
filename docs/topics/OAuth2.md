@@ -69,7 +69,7 @@ https://nicememe.website/?code=NhhvTDYsFcdgNLnnLijcl7Ku7bEEeee&state=15773059ghq
 
 - `client_id` - your application's client id
 - `client_secret` - your application's client secret
-- `grant_type` - must be set to `authorization_code`
+- `grant_type` - must be set to `client_credentials`
 - `code` - the code from the querystring
 - `redirect_uri` - your `redirect_uri`
 - `scope` - the scopes requested in your authorization url, space-delimited
@@ -86,7 +86,7 @@ def exchange_code(code):
   data = {
     'client_id': CLIENT_ID,
     'client_secret': CLIENT_SECRET,
-    'grant_type': 'authorization_code',
+    'grant_type': 'client_credentials',
     'code': code,
     'redirect_uri': REDIRECT_URI,
     'scope': 'identify email connections'
