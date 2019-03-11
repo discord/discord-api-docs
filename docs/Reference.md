@@ -165,6 +165,7 @@ Discord uses ids and hashes to render images in the client. These hashes can be 
 | Custom Emoji | emojis/[emoji_id](#DOCS_RESOURCES_EMOJI/emoji-object).png | PNG, GIF |
 | Guild Icon | icons/[guild_id](#DOCS_RESOURCES_GUILD/guild-object)/[guild_icon](#DOCS_RESOURCES_GUILD/guild-object).png | PNG, JPEG, WebP |
 | Guild Splash | splashes/[guild_id](#DOCS_RESOURCES_GUILD/guild-object)/[guild_splash](#DOCS_RESOURCES_GUILD/guild-object).png | PNG, JPEG, WebP |
+| Guild Banner | banners/[guild_id](#DOCS_RESOURCES_GUILD/guild-object)/[guild_banner](#DOCS_RESOURCES_GUILD/guild-object).png | PNG, JPEG, WebP |
 | Default User Avatar | embed/avatars/[user_discriminator](#DOCS_RESOURCES_USER/user-object).png * | PNG |
 | User Avatar | avatars/[user_id](#DOCS_RESOURCES_USER/user-object)/[user_avatar](#DOCS_RESOURCES_USER/user-object).png \*\* | PNG, JPEG, WebP, GIF |
 | Application Icon | app-icons/[application_id](#MY_APPLICATIONS/top)/[icon](#DOCS_TOPICS_OAUTH2/get-current-application-information).png | PNG, JPEG, WebP |
