@@ -39,6 +39,11 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 | members? \* | array of [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) objects | users in the guild |
 | channels? \* | array of [channel](#DOCS_RESOURCES_CHANNEL/channel-object) objects | channels in the guild |
 | presences? \* | array of partial [presence update](#DOCS_TOPICS_GATEWAY/presence-update) objects | presences of the users in the guild |
+| max\_presences | ?integer | the maximum amount of presences for the guild |
+| max\_members | integer | the maximum amount of members for the guild |
+| vanity\_url\_code | ?string | the vanity url code for the guild |
+| description | ?string | the description for the guild |
+| banner | ?string | [banner hash](#DOCS_REFERENCE/image-formatting) |
 
 ** \* These fields are only sent within the [GUILD_CREATE](#DOCS_TOPICS_GATEWAY/guild-create) event **
 
@@ -408,8 +413,8 @@ Create a guild ban, and optionally delete previous messages sent by the banned u
 
 | Field | Type | Description |
 |-------|------|-------------|
-| delete-message-days | integer | number of days to delete messages for (0-7) |
-| reason | string | reason for the ban |
+| delete-message-days? | integer | number of days to delete messages for (0-7) |
+| reason? | string | reason for the ban |
 
 ## Remove Guild Ban % DELETE /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/bans/{user.id#DOCS_RESOURCES_USER/user-object}
 

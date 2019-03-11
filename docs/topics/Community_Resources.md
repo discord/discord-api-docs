@@ -18,7 +18,7 @@ The Discord team curates the following list of officially vetted libraries that 
 | [DiscordGo](https://github.com/bwmarrin/discordgo) | Go |
 | [DisGord](https://github.com/andersfylling/disgord) | Go |
 | [catnip](https://github.com/mewna/catnip) | Java |
-| [Discord4j](https://github.com/austinv11/Discord4J) | Java |
+| [Discord4J](https://discord4j.com/) | Java |
 | [Javacord](https://github.com/Javacord/Javacord) | Java |
 | [JDA](https://github.com/DV8FromTheWorld/JDA) | Java |
 | [discord.js](https://github.com/discordjs/discord.js) | JavaScript |
