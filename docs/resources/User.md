@@ -44,7 +44,7 @@ There are other rules and restrictions not shared here for the sake of spam and 
 | locale?       | string    | the user's chosen language option                                                                    | identify              |
 | verified?     | boolean   | whether the email on this account has been verified                                                  | email                 |
 | email?        | string    | the user's email                                                                                     | email                 |
-| flags         | integer   | the [flags](#DOCS_RESOURCES_USER/user-object-user-flags) on a user's account                         | identify              |
+| flags?         | integer   | the [flags](#DOCS_RESOURCES_USER/user-object-user-flags) on a user's account                         | identify              |
 | premium_type? | integer   | the [type of Nitro subscription](#DOCS_RESOURCES_USER/user-object-premium-types) on a user's account | identify              |
 
 ###### Example User
@@ -67,10 +67,14 @@ There are other rules and restrictions not shared here for the sake of spam and 
 | Value  | Description      |
 | ------ | ---------------- |
 | 0      | None             |
+| 1 << 0 | Discord Employee |
+| 1 << 1 | Discord Partner  |
 | 1 << 2 | HypeSquad Events |
+| 1 << 3 | Bug Hunter       |
 | 1 << 6 | House Bravery    |
 | 1 << 7 | House Brilliance |
 | 1 << 8 | House Balance    |
+| 1 << 9 | Early Supporter  |
 
 ###### Premium Types
 
