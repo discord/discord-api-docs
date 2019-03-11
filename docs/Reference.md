@@ -73,6 +73,18 @@ Discord utilizes Twitter's [snowflake](https://github.com/twitter/snowflake/tree
 
 ![snowflake-composition](snowflake.png)
 
+### Snowflake IDs in Pagination
+
+We typically use snowflake IDs in many of our API routes for pagination. The standardized pagination paradigm we utilize is one in which you can specify IDs `before` and `after` in combination with `limit` to retrieve a desired page of results. You will want to refer to the specific endpoint documentation for details.
+
+It is useful to note that snowflake IDs are just numbers with a timestamp, so when dealing with pagination where you want results from the beginning of time (in Discord Epoch, but `0` works here too) or before/after a specific time you can generate a snowflake ID for that time.
+
+###### Generating a snowflake ID from a Timestamp Example
+
+```
+timestamp_ms - DISCORD_EPOCH << 22
+```
+
 ## Nullable and Optional Resource Fields
 
 Resource fields that may contain a `null` value have types that are prefixed with a question mark.
