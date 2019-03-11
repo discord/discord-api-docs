@@ -772,14 +772,25 @@ A user's presence is their current state on a guild. This event is sent when a u
 
 ###### Presence Update Event Fields
 
-| Field      | Type                                                              | Description                                  |
-| ---------- | ----------------------------------------------------------------- | -------------------------------------------- |
-| user       | [user](#DOCS_RESOURCES_USER/user-object) object                   | the user presence is being updated for       |
-| roles      | array of snowflakes                                               | roles this user is in                        |
-| game       | ?[activity](#DOCS_TOPICS_GATEWAY/activity-object) object          | null, or the user's current activity         |
-| guild_id   | snowflake                                                         | id of the guild                              |
-| status     | string                                                            | either "idle", "dnd", "online", or "offline" |
-| activities | array of [activity](#DOCS_TOPICS_GATEWAY/activity-object) objects | user's current activities                    |
+| Field         | Type                                                               | Description                                  |
+| ------------- | ------------------------------------------------------------------ | -------------------------------------------- |
+| user          | [user](#DOCS_RESOURCES_USER/user-object) object                    | the user presence is being updated for       |
+| roles         | array of snowflakes                                                | roles this user is in                        |
+| game          | ?[activity](#DOCS_TOPICS_GATEWAY/activity-object) object           | null, or the user's current activity         |
+| guild_id      | snowflake                                                          | id of the guild                              |
+| status        | string                                                             | either "idle", "dnd", "online", or "offline" |
+| activities    | array of [activity](#DOCS_TOPICS_GATEWAY/activity-object) objects  | user's current activities                    |
+| client_status | [client_status](#DOCS_TOPICS_GATEWAY/client-status-object) object  | user's platform-dependent status             |
+
+#### Client Status Object
+
+Active sessions are indicated with an "online", "idle", or "dnd" string per platform. If a user is offline or invisible, the corresponding field is not present.
+
+| Field    | Type   | Description                                                                           |
+| -------- | ------ | ------------------------------------------------------------------------------------- |
+| desktop? | string | the user's status set for an active desktop (Windows, Linux, Mac) application session |
+| mobile?  | string | the user's status set for an active mobile (iOS, Android) application session         |
+| web?     | string | the user's status set for an active web (browser, bot account) application session    |
 
 #### Activity Object
 
