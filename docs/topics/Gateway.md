@@ -780,7 +780,7 @@ A user's presence is their current state on a guild. This event is sent when a u
 | guild_id      | snowflake                                                          | id of the guild                              |
 | status        | string                                                             | either "idle", "dnd", "online", or "offline" |
 | activities    | array of [activity](#DOCS_TOPICS_GATEWAY/activity-object) objects  | user's current activities                    |
-| client_status | ?[client_status](#DOCS_TOPICS_GATEWAY/client-status-object) object | user's platform-dependent status             |
+| client_status | [client_status](#DOCS_TOPICS_GATEWAY/client-status-object) object | user's platform-dependent status             |
 
 #### Client Status Object
 
