@@ -19,13 +19,19 @@ The first iteration fo the banner background had the title at the bottom of the 
 
 #### Best Practices
 
-1. **Upload an image that's at least 960x540 pixels in a 16:9 aspect ratio.** Have a 1920x1080 image handy? Upload that and we'll automatically resize it for you.
+1. Upload an image that's at least 960x540 pixels in a 16:9 aspect ratio.
 
-2. **Keep the top 48px of the image fairly simple and free of any busy imagery.** We'd suggest uploading an image without a logo or text in it. This way, the title of your server will be easy to read.
+Have a 1920x1080 image handy? Upload that and we'll automatically resize it for you.
+
+2. Keep the top 48px of the image fairly simple and free of any busy imagery.
+
+We'd suggest uploading an image without a logo or text in it. This way, the title of your server will be easy to read.
 
 ![](server-banner-margin-top.png)
 
-3. **Use an image that represents your game or brand.** Key art, stills of a character, or subtle background art work well here. Here's a great example from our good friend Master Chief:
+3. Use an image that represents your game or brand.
+
+Key art, stills of a character, or subtle background art work well here. Here's a great example from our good friend Master Chief:
 
 ![](server-banner-example.png)
 
