@@ -34,13 +34,6 @@ The Discord team curates the following list of officially vetted libraries that 
 | [AckCord](https://github.com/Katrix/AckCord) | Scala |
 | [Sword](https://github.com/Azoy/Sword) | Swift |
 
-## Permission Calculators
-
-[Permissions](#DOCS_TOPICS_PERMISSIONS/permissions) in Discord are tricky. Luckily, we've got really smart people who love us and have made some great permissions calculators. If you're making a bot for others, and you're not sure how to properly calculate permissions or generate your [authorization URL](#DOCS_TOPICS_OAUTH2/bot-authorization-flow), these are great tools:
-
-- [FiniteReality's Permissions Calculator](https://finitereality.github.io/permissions-calculator/?v=0)
-- [abalabahaha's Permissions Calculator](https://discordapi.com/permissions.html#0)
-
 ## Embed Visualizer
 
 Webhooks and embeds might seem like black magic. That's because they are, but let us help you demystify them a bit. This sweet embed visualizer lets you play around with JSON data and see exactly how it will look embedded in Discord. It even includes a webhook mode!
