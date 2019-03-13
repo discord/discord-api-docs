@@ -63,9 +63,9 @@ Once you've completed all the items on your checklist, the `Get Approved` button
 
 - your game, to ensure that it runs properly
 - your store pages, to provide helpful guidance in putting your best foot forward
-- your server, to make sure you're abiding by our [Code of Conduct](LINK NEEDS TO GO HERE)
+- your server, to make sure you're abiding by our [Code of Conduct](https://discordapp.com/guidelines)
 
-If we need to see some changes, you'll receive an email directing you on your steps to success. Otherwise, you'll get **APPROVED!!!!!!!!!!** What's that mean? It means you can start charging for your game and making money. It also means your server will be **VERIFIED** and get that oh-so-elusive checkmark. It _also also_ means you'll show up in [Server Discovery](LINK GOES HERE) so that players can search for your game or community to join you in your server. It _also also ALSO_ means you get server customization features including:
+If we need to see some changes, you'll receive an email directing you on your steps to success. Otherwise, you'll get **APPROVED!!!!!!!!!!** What's that mean? It means you can start charging for your game and making money. It also means your server will be **VERIFIED** and get that oh-so-elusive checkmark. It _also also_ means you'll show up in [Server Discovery](https://support.discordapp.com/hc/en-us/articles/360023968311-Server-Discovery) so that players can search for your game or community to join you in your server. It _also also ALSO_ means you get server customization features including:
 
 - a custom vanity URL
 - custom invite splash art
@@ -77,11 +77,11 @@ All those awesome customization features are located in your server settings, so
 
 ## Make Good Decisions
 
-Your game is off and running, and we couldn't be more proud. As it flourishes and your playerbase grows, keep an eye on your analytics, which you can find within your app. They'll give you important insight like revenue data, acquisitions funnels, and player retention to help you make informed decision about your game's lifecycle. Check out our [Analytics Help Article](LIJNK) to learn more about how to read all those charts.
+Your game is off and running, and we couldn't be more proud. As it flourishes and your playerbase grows, keep an eye on your analytics, which you can find within your app. They'll give you important insight like revenue data, acquisitions funnels, and player retention to help you make informed decision about your game's lifecycle. Check out our [Analytics Help Article](https://support-dev.discordapp.com/hc/en-us/articles/360024852152) to learn more about how to read all those charts, and how to do things like [Conversion Tracking with UTM Links](https://support-dev.discordapp.com/hc/en-us/articles/360025153051-How-to-track-conversions-with-UTM-links).
 
 ## What Comes Next
 
-Your game's success is in your own hands now. Continue to build your community and keep them informed with news. Consider integrating more deeply with Discord to deliver cool features to your players; we recommend [Rich Presence Game Invites](#DOCS_GAME_SDK_ACTIVIIES/). They feel like magic. Drop new content by creating DLC and IAP for your game, run fun tournaments based on [HypeSquad Membership](#DOCS_GAME_SDK_USERS/current-user-has-flag), give something cool to [Discord Nitro Subscribers](#DOCS_GAME_SDK_USERS/get-current-user-premium-status) because they're awesome. Or maybe, just maybe, think about your next upcoming game?
+Your game's success is in your own hands now. Continue to build your community and keep them informed with news. Consider integrating more deeply with Discord to deliver cool features to your players; we recommend [Rich Presence Game Invites](#DOCS_GAME_SDK_ACTIVITIES/). They feel like magic. Drop new content by creating DLC and IAP for your game, run fun tournaments based on [HypeSquad Membership](#DOCS_GAME_SDK_USERS/current-user-has-flag), give something cool to [Discord Nitro Subscribers](#DOCS_GAME_SDK_USERS/get-current-user-premium-status) because they're awesome. Or maybe, just maybe, think about your next upcoming game?
 
 We'd love to help you with that one, too.
 

@@ -34,11 +34,8 @@ This is currently a beta feature and is subject to change based on user feedback
 With great power, come great responsibility - therefore, we've got some guidelines for you to follow:
 
 - PC-only news and updates are preferred (unless your game is console or mobile-only).
-
 - Content must be directly relevant to the game (no cross promotion of other games unless its in the same franchise).
-
 - No excessively sexual or violent content.
-
 - No content that is purely an advertisement, please. This is not the place for it.
 
 All content must also abide by our [Community Guidelines](https://discordapp.com/guidelines).
@@ -48,9 +45,7 @@ All content must also abide by our [Community Guidelines](https://discordapp.com
 In order to create a news channel for your game, you'll need to make sure you've followed [the Walkthrough](#DOCS_GAME_AND_SERVER_MANAGEMENT_HOW_TO_GET_YOUR_GAME_ON_DISCORD/) up to `Getting Approved`. Once you've done that, do the following:
 
 1. If you haven't already, create a channel where you'll post news and announcements in.
-
 2. Hover over the channel name and click on the settings cog icon to go into Channel Settings.
-
 3. Set channel as News Channel.
 
 Tada! Anytime you post an announcement with a link, you can now hover over the message and click "Publish" to publish the news to the Activity Feeds of all users who play your game. Make sure to set permissions properly so that only people who properly represent your game can send messages in that channel. All users who have permission to send messages in the channel will be able to publish news to the Activity Feed.

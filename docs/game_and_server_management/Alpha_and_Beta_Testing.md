@@ -22,14 +22,6 @@ So, you've started getting a bunch of fans into your server. Hundreds, thousands
 
 Store channels in Discord are just like any other channel in that they can have a set of permissions applied to them. What is special about them is that if they are set as a Beta branch, entitlement to that branch is tied to having permissions to view the channel. So, all your testers with a `Beta Tester` role, for example, will be able to get entitlement to the `insider-only-private-beta` branch. And, if they are later removed from that role, entitlement from that branch will be removed.
 
-Explanation in list form, for those of us who prefer bite-sized explanations:
-
-- You create a Beta store channel. Only users with role `Awesome Tester` can view it
-
-- Player A is an `Awesome Tester`. They can view the channel and get entitlement to the beta branch
-
-- Player A becomes inactive; you remove them from the `Awesome Tester` role
-
-- Player A loses entitlement to `insider-only-private-beta`
+A scenario might look like this: you create a Beta store channel. Only users with role `Awesome Tester` can view it. Player A is an `Awesome Tester`. They can view the channel and get entitlement to the beta branch. Player A becomes inactive; you remove them from the `Awesome Tester` role. Player A loses entitlement to `insider-only-private-beta`
 
 Role-based entitlements help keep your beta community active and interactive, while also providing a way to reward your biggest fans with secret access to special things.
