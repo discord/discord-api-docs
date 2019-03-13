@@ -42,7 +42,7 @@ You're now looking at a checklist with a bunch of items and a prompt to select a
 - news channel creation
 - alpha and beta testing
 
-Select the server that you wish to grant these features, confirm to be double-extra-super-sure, and poof! You can now create channels for both news and store pages in your server. To learn more about store page channels, read [Store Channels](#DOCS_GAME_STORE_MANAGEMENT_SPECIAL_CHANNELS/store-channels). To learn more about news channels, read [News Channels](#DOCS_GAME_STORE_MANAGEMENT_SPECIAL_CHANNELS/news-channels). To learn about alpha and beta testing, read [Alpha and Beta Testing](#DOCS_GAME_STORE_MANAGEMENT_ALPHA_AND_BETA_TESTING/)
+Select the server that you wish to grant these features, confirm to be double-extra-super-sure, and poof! You can now create channels for both news and store pages in your server. To learn more about store page channels, read [Store Channels](#DOCS_GAME_AND_SERVER_MANAGEMENT_SPECIAL_CHANNELS/store-channels). To learn more about news channels, read [News Channels](#DOCS_GAME_AND_SERVER_MANAGEMENT_SPECIAL_CHANNELS/news-channels). To learn about alpha and beta testing, read [Alpha and Beta Testing](#DOCS_GAME_AND_SERVER_MANAGEMENT_ALPHA_AND_BETA_TESTING/)
 (you get the gist).
 
 Now, what do you do next? You start building! Build your community, make your game, invite testers into your server to get hype! Now is a great time to get familiar with all the tools at your disposal like:
