@@ -42,11 +42,16 @@ All content must also abide by our [Community Guidelines](https://discordapp.com
 
 ### How to Enable News Channels
 
-In order to create a news channel for your game, you'll need to make sure you've followed [the Walkthrough](#DOCS_GAME_AND_SERVER_MANAGEMENT_HOW_TO_GET_YOUR_GAME_ON_DISCORD/) up to `Getting Approved`. Once you've done that, do the following:
+In order to create a news channel for your game, you'll need to make sure you've followed [the Walkthrough](#DOCS_GAME_AND_SERVER_MANAGEMENT_HOW_TO_GET_YOUR_GAME_ON_DISCORD/) up to `Getting Approved`. If you already have a text channel in which you post game announcements, you can turn it into a news channel by doing the following:
 
-1. If you haven't already, create a channel where you'll post news and announcements in.
-2. Hover over the channel name and click on the settings cog icon to go into Channel Settings.
-3. Set channel as News Channel.
+1. Hover over the channel name and click on the settings cog icon to go into Channel Settings.
+2. Set channel as News Channel.
+
+Otherwise:
+
+1. In the channel list, hover over the channel category where you want your News channel to live and hit the + icon to Create a Channel.
+2. Select News as the channel type, and enter a channel name.
+3. Click Create Channel.
 
 Tada! Anytime you post an announcement with a link, you can now hover over the message and click "Publish" to publish the news to the Activity Feeds of all users who play your game. Make sure to set permissions properly so that only people who properly represent your game can send messages in that channel. All users who have permission to send messages in the channel will be able to publish news to the Activity Feed.
 
