@@ -63,7 +63,7 @@ Once you've completed all the items on your checklist, the `Get Approved` button
 
 - your game, to ensure that it runs properly
 - your store pages, to provide helpful guidance in putting your best foot forward
-- your server, to make sure you're abiding by our [Code of Conduct](https://discordapp.com/guidelines)
+- your server, to make sure you're abiding by our [Community Guidelines](https://discordapp.com/guidelines)
 
 If we need to see some changes, you'll receive an email directing you on your steps to success. Otherwise, you'll get **APPROVED!!!!!!!!!!** What's that mean? It means you can start charging for your game and making money. It also means your server will be **VERIFIED** and get that oh-so-elusive checkmark. It _also also_ means you'll show up in [Server Discovery](https://support.discordapp.com/hc/en-us/articles/360023968311-Server-Discovery) so that players can search for your game or community to join you in your server. It _also also ALSO_ means you get server customization features including:
 
