@@ -37,6 +37,7 @@ Represents a guild or DM channel within Discord.
 | GROUP_DM | 3 |
 | GUILD_CATEGORY | 4 |
 | GUILD_NEWS | 5 |
+| GUILD_STORE | 6 |
 
 ###### Example Guild Text Channel
 
@@ -149,6 +150,22 @@ Represents a guild or DM channel within Discord.
     "id": "399942396007890945"
 }
 ```
+
+###### Example Store Channel
+
+```json
+{
+	"id": "41771983423143937",	
+	"guild_id": "41771983423143937",
+	"name": "buy dota-2",
+	"type": 6,
+	"position": 0,
+	"permission_overwrites": [],
+	"nsfw": false,
+	"parent_id": null
+}
+```
+
 
 ### Message Object
 
