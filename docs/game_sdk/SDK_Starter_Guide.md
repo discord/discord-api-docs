@@ -43,7 +43,7 @@ Now that your team is created, you'll want to make an application. To do so, cli
 
 First, we'll need to set an OAuth2 redirect URL. You can add `http://127.0.0.1` in there for now; this powers some behind-the-scenes stuff you don't need to worry about.
 
-Next, enabled Rich Presence for your application (it's a big button near the bottom of the page). This gives you access to a whitelist of users that you can set and invite to test your SDK. When you're ready to test with users **that are not the direct owner of the application**, you'll need to add them to this list.
+Next, enable Rich Presence for your application (it's a big button near the bottom of the page). This gives you access to a whitelist of users that you can set and invite to test your SDK. When you're ready to test with users **that are not the direct owner of the application**, you'll need to add them to this list.
 
 Finally, copy the **Client ID** at the top of the page. This id, also referred to as an "application id", is your game's unique identifier across Discord. Keep it handy!
 
