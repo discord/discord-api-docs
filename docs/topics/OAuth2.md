@@ -340,7 +340,7 @@ https://discordapp.com/api/webhooks/WEBHOOK_ID/WEBHOOK_TOKEN
 
 Any user that wishes to add your webhook to their channel will need to go through the full OAuth2 flow. A new webhook is created each time, so you will need to save the token and id. If you wish to send a message to all your webhooks, you'll need to iterate over each stored id:token combination and make `POST` requests to each one. Be mindful of our [Rate Limits](#DOCS_TOPICS_RATE_LIMITS/rate-limits)!
 
-### Get Current Application Information % GET /oauth2/applications/@me
+## Get Current Application Information % GET /oauth2/applications/@me
 
 Returns the bot's OAuth2 application info.
 
