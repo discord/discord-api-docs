@@ -146,7 +146,7 @@ Next, the client is expected to send an [Opcode 2 Identify](#DOCS_TOPICS_GATEWAY
   },
   "compress": true,
   "large_threshold": 250,
-  "shard": [1, 10],
+  "shard": [0, 1],
   "presence": {
     "game": {
       "name": "Cards Against Humanity",
@@ -318,7 +318,7 @@ Used to trigger the initial handshake with the gateway.
   },
   "compress": true,
   "large_threshold": 250,
-  "shard": [1, 10],
+  "shard": [0, 1],
   "presence": {
     "game": {
       "name": "Cards Against Humanity",
