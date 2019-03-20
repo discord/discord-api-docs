@@ -51,7 +51,7 @@ Now, what do you do next? You start building! Build your community, make your ga
 - [The Discord Game SDK](#DOCS_GAME_SDK_SDK_STARTER_GUIDE/), a spellbook full of useful game dev incantations including Discord's crystal-clear voice chat
 - [Dispatch](#DOCS_DISPATCH_DISPATCH_AND_YOU/), Discord's game patcher and downloader that's so fast, you'll swear it's magic
 
-To guide you through this process to sucess, you can follow that handy checklist. It'll tell you the steps you need to complete, show you where and how to do them, and give you a blissful sense of satisfaction as the green check marks pile up.
+To guide you through this process to success, you can follow that handy checklist. It'll tell you the steps you need to complete, show you where and how to do them, and give you a blissful sense of satisfaction as the green check marks pile up.
 
 The next and final step in your on-boarding journey is getting approved. Once approved, you'll be able to start making money, and you'll unlock a ton of cool server customization features to make your kingdom cozy for your players.
 
