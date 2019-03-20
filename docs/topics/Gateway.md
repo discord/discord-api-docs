@@ -143,8 +143,8 @@ This is a minimal `IDENTIFY` payload. `IDENTIFY` supports additional optional fi
   "token": "my_token",
   "properties": {
     "$os": "linux",
-    "$browser": "disco",
-    "$device": "disco"
+    "$browser": "my_library",
+    "$device": "my_library"
   }
 }
 ```
