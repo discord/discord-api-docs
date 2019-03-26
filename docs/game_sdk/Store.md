@@ -82,13 +82,15 @@ The same consumable SKU _can_ be purchased multiple times, even before consuming
 
 ###### EntitlementType Enum
 
-| name                | value | description                                                 |
-| ------------------- | ----- | ----------------------------------------------------------- |
-| Purchase            | 1     | entitlement was purchased                                   |
-| PremiumSubscription | 2     | entitlement for being a Discord Nitro subscriber            |
-| DeveloperGift       | 3     | entitlement was gifted by a developer                       |
-| TestModePurchase    | 4     | entitlement was purchased by a dev in application test mode |
-| FreePurchase        | 5     | entitlement was granted when the SKU was free               |
+| name                | value | description                                                    |
+| ------------------- | ----- | -------------------------------------------------------------- |
+| Purchase            | 1     | entitlement was purchased                                      |
+| PremiumSubscription | 2     | entitlement for a Discord Nitro subscription                   |
+| DeveloperGift       | 3     | entitlement was gifted by a developer                          |
+| TestModePurchase    | 4     | entitlement was purchased by a dev in application test mode    |
+| FreePurchase        | 5     | entitlement was granted when the SKU was free                  |
+| UserGift            | 6     | entitlement was gifted by another user                         |
+| PremiumPurchase     | 7     | entitlement was claimed by user for free as a Nitro Subscriber |
 
 ## FetchSkus
 
