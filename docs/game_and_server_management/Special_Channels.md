@@ -56,3 +56,14 @@ Otherwise:
 Tada! Anytime you post an announcement with a link, you can now hover over the message and click "Publish" to publish the news to the Activity Feeds of all users who play your game. Make sure to set permissions properly so that only people who properly represent your game can send messages in that channel. All users who have permission to send messages in the channel will be able to publish news to the Activity Feed.
 
 You can now publish all the exciting updates about your game directly to the Activity Feed of your players!
+
+## Special Channels and Lurker Mode
+
+These two types of special Discord channels have another special property that we call `lurkability`. "Lurker Mode" is a feature that we've been experimenting with throughout Discord; it allows users to read public channels in a server without _actually_ joining the server. It also allows users to look at these channels without being logged in to Discord.
+
+> info
+> Users viewing channels in Lurker Mode will not be able to send messages in those channels. They'll be prompted to log in and join the server if they want to chat.
+
+Lurker Mode is automatically enabled for news and store channels in your server. When someone accepts a server invite that links to a news or store channel, they'll be viewing in "Lurker Mode".
+
+We know that your server and community are at the heart of your game's success on Discord. Having Discord users see your news and store pages in the context of your server will help drive more members to your community and help you grow that awesome fanbase for your game.
