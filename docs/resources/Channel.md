@@ -226,7 +226,7 @@ Represents a message sent in a channel within Discord.
 | id | snowflake | id of the application |
 | cover_image? | string | id of the embed's image asset |
 | description | string | application's description |
-| icon | string | id of the application's icon |
+| icon | ?string | id of the application's icon |
 | name | string | name of the application |
 
 ###### Message Activity Types
