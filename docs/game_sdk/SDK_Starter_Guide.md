@@ -58,7 +58,7 @@ Now we're gonna start coding. Didn't think we'd get there so fast, did ya? _Thin
 
 ```cs
 // Grab that Client ID from earlier
-var discord = new Discord.Discord(CLIENT_ID, Discord.CreateFlags.Default);
+var discord = new Discord.Discord(CLIENT_ID, (UInt64)Discord.CreateFlags.Default);
 ```
 
 - Make sure to call `discord.RunCallbacks()` in your main game loop; for Unity, that's your `Update()` function.
