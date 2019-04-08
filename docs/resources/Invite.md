@@ -73,4 +73,4 @@ Returns an [invite](#DOCS_RESOURCES_INVITE/invite-object) object for the given c
 
 ## Delete Invite % DELETE /invites/{invite.code#DOCS_RESOURCES_INVITE/invite-object}
 
-Delete an invite. Requires the `MANAGE_CHANNELS` permission. Returns an [invite](#DOCS_RESOURCES_INVITE/invite-object) object on success.
+Delete an invite. Requires the `MANAGE_CHANNELS` permission on the channel this invite belongs to, or `MANAGE_GUILD` to remove any invite across the guild. Returns an [invite](#DOCS_RESOURCES_INVITE/invite-object) object on success.
