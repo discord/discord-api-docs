@@ -1,6 +1,6 @@
 # How to Get Your Game on Discord
 
-Welcome, adventurer! If you're here, you want to find out how to get your game up and running on Discord and learn about our awesome Verified Server features. You've come to the right place, so let's get started.
+Welcome, adventurer! If you're here, you want to find out how to get your game up and running on Discord and learn about our awesome Server Commerce features. You've come to the right place, so let's get started.
 
 ## Get the Band Back Together
 
@@ -30,7 +30,7 @@ From here on forward, we'll be managing settings that tie directly to your game 
 - make store pages for your game directly in your server
 - create a news channel, in which you can publish announce to all players of your game on Discord
 - run alpha and beta tests for your game, using the magic of channel permissions to create role-based page access
-- apply for verification, letting you start making money and giving you a whole suite of server customization features including a server banner and vanity URL
+- apply for approval, letting you start making money and giving you a whole suite of server customization features including a vanity URL
 
 Now that we've weeded out the trolls, let's get your server up and running with some fancy new features!
 
@@ -65,15 +65,19 @@ Once you've completed all the items on your checklist, the `Get Approved` button
 - your store pages, to provide helpful guidance in putting your best foot forward
 - your server, to make sure you're abiding by our [Community Guidelines](https://discordapp.com/guidelines)
 
-If we need to see some changes, you'll receive an email directing you on your steps to success. Otherwise, you'll get **APPROVED!!!!!!!!!!** What's that mean? It means you can start charging for your game and making money. It also means your server will be **VERIFIED** and get that oh-so-elusive checkmark. It _also also_ means you'll show up in [Server Discovery](https://support.discordapp.com/hc/en-us/articles/360023968311-Server-Discovery) so that players can search for your game or community to join you in your server. It _also also ALSO_ means you get server customization features including:
+If we need to see some changes, you'll receive an email directing you on your steps to success. Otherwise, you'll get **APPROVED!!!!!!!!!!** What's that mean? It means you can start charging for your game and making money. It _also_ means you get server customization features including:
 
 - a custom vanity URL
 - custom invite splash art
-- a custom server banner to fly prominently over your kingdom
 - VIP voice regions
-- did we mention the sweet, sweet checkmark?
 
 All those awesome customization features are located in your server settings, so head back to Discord proper and make yourself look fly.
+
+## Getting Verified and Discovered
+
+Apart from being approved, you can also get your server Verified. Getting verified means your server will get that oh-so-exclusive checkmark, to let people know you're the legit home for your game. It also means you'll show up in [Server Discovery](https://support.discordapp.com/hc/en-us/articles/360023968311-Server-Discovery) so that players can search for your game or community to join you in your server. It _also also_ unlocks a sweet customizable [Server Banner](#DOCS_GAME_AND_SERVER_MANAGEMENT_VANITY_PERKS/server-banner-background) to fly over your kingdom.
+
+To get verified, head on over to our [Verification page](https://discordapp.com/verification) and fill out the form at the bottom.
 
 ## Make Good Decisions
 
