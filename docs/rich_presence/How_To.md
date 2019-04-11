@@ -56,8 +56,8 @@ void InitDiscord()
     handlers.spectateGame = handleDiscordSpectateGame;
     handlers.joinRequest = handleDiscordJoinRequest;
 
-    // Discord_Initialize(const char* applicationId, DiscordEventHandlers* handlers, int autoRegister, const char* optionalSteamId, int pipe)
-    Discord_Initialize("418562325121990661", &handlers, 1, "1234", 0);
+    // Discord_Initialize(const char* applicationId, DiscordEventHandlers* handlers, int autoRegister, const char* optionalSteamId)
+    Discord_Initialize("418562325121990661", &handlers, 1, "1234");
 }
 ```
 
@@ -67,7 +67,6 @@ A quick breakdown on the `Discord_Initialize()` function:
 - `handlers`: the callback functions you registered for each Discord event
 - `autoRegister`: whether or not to register an application protocol for your game on the player's computer—necessary to launch games from Discord
 - `optionalSteamId`: your game's Steam application id, if your game is distributed on Steam
-- `pipe`: the instance of the Discord client, starting at 0, you want to connect to. Useful if you have multiple Discord clients running
 
 When you are ready to publish your integration, we recommend digging into the source code of the SDK and copying `discord_register.h`, `discord_register_win.cpp`, `discord_register_osx.m`, and `discord_register_linux.cpp` into your installation and update process. By registering your application protocols on installation and update, your players won't need to run the game before being able to interact with invites, Ask to Join, and spectating in Discord.
 
