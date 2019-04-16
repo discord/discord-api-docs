@@ -25,3 +25,22 @@ Store channels in Discord are just like any other channel in that they can have 
 A scenario might look like this: you create a Beta store channel. Only users with role `Awesome Tester` can view it. Player A is an `Awesome Tester`. They can view the channel and get entitlement to the beta branch. Player A becomes inactive; you remove them from the `Awesome Tester` role. Player A loses entitlement to `insider-only-private-beta`
 
 Role-based entitlements help keep your beta community active and interactive, while also providing a way to reward your biggest fans with secret access to special things.
+
+## Gift Codes
+
+If you want to push out access to your game at scasle, rather than inviting people into your server and giving them a role, you can create gift codes in the Developer Portal! Gift codes are like game keys on other platforms that you might be familiar with, with an added bonus: optional timestamps for when the code starts being valid, and when it stops being valid. That means that you can create codes for your game to give to everyone, but they won't be able to claim it until the `VALID FROM` date. Similarly, you can set a `VALID UNTIL` date on all your gift codes if you want them to expire after a certain time.
+
+Note that the `VALID UNTIL` date will not remove entitlement from users who already claimed the gift; it prevents new users from claiming with an expired code.
+
+Up to 10,000 gift codes can be created at a time. When you go to create gift codes, you'll notice there are a few fields for you to fill out. Here's what they mean:
+
+![](gift-code-creation.PNG)
+
+- SKU: the SKU that you want the user to get
+- Branch: the branch of your game you want the user to get
+- Valid From: the date at which users can start using the gift coes
+- Valid Until: the date at which the gift codes expire
+- Amount: the number of codes you want to create (up to 10,000 per batch)
+- Description: a short description of why you made the codes, so you remember!
+
+Once you've made your codes, you can download the `.csv` that has them all in it, and distribute them however you'd like!

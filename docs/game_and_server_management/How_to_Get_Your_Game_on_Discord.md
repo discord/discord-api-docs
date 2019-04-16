@@ -73,6 +73,23 @@ If we need to see some changes, you'll receive an email directing you on your st
 
 All those awesome customization features are located in your server settings, so head back to Discord proper and make yourself look fly.
 
+## Available vs Store Page Published
+
+Now that you've been approved, there's a couple new toggles to flip in the Developer Portal: `Available`, and `Store Page Published`.
+
+![](available-published.PNG)
+
+`Available` means that your game is now available for normal purchase/distribution; your non-beta store channel will no longer say `Coming soon!` when this is toggled, and users will be able to get your game.
+
+> danger
+> Toggling your SKU as `Available` will make it available for purchase; make sure your price is set properly!
+
+If you no longer wish to make your SKU available for sale, you can again mark it unavailable. This will not remove it from users' libraries; it just stops new users from purchasing it.
+
+`Store Page Published` will do...well, what it says! Though your store page is always visible from within the channel in your server, there are other things that require you to explicitly mark your page viewable from outside that context, like gift code embeds for your game.
+
+TL;DR - When you're ready to distribute your game after getting approved, turn those two toggles on.
+
 ## Getting Verified and Discovered
 
 Apart from being approved, you can also get your server Verified. Getting verified means your server will get that oh-so-exclusive checkmark, to let people know you're the legit home for your game. It also means you'll show up in [Server Discovery](https://support.discordapp.com/hc/en-us/articles/360023968311-Server-Discovery) so that players can search for your game or community to join you in your server. It _also also_ unlocks a sweet customizable [Server Banner](#DOCS_GAME_AND_SERVER_MANAGEMENT_VANITY_PERKS/server-banner-background) to fly over your kingdom.
