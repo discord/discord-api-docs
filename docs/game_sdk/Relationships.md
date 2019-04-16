@@ -1,8 +1,5 @@
 # Relationships
 
-> danger
-> The Discord Store is still in a beta period. All documentation and functionality can and will change.
-
 This manager helps you access the relationships your players have made on Discord. Unfortunately, it won't help them make relationships IRL. They're on their own for that. It lets you:
 
 - Access a user's relationships

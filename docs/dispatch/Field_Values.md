@@ -1,8 +1,5 @@
 # Predefined Field Values
 
-> danger
-> The Discord Store is still in a beta period. All documentation and functionality can and will change.
-
 ###### Accepted Locales
 
 | Locale | Language Name           |

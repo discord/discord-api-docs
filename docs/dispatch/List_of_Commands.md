@@ -1,8 +1,5 @@
 # List of Commands
 
-> danger
-> The Discord Store is still in a beta period. All documentation and functionality can and will change.
-
 Some people don't like to read full pages of documentation. Personally, I think those people are missing out. But we want to make sure that we cater to everyone, so here's a list of every Dispatch command and what it does. No frills, no jokes. Okay, maybe some jokes.
 
 ## branch create

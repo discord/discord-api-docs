@@ -1,8 +1,5 @@
 # Activities
 
-> danger
-> The Discord Store is still in a beta period. All documentation and functionality can and will change.
-
 Looking to integrate Rich Presence into your game? No need to manage multiple SDKs—this one does all that awesome stuff, too!. Delight your players with the ability to post game invites in chat and party up directly from Discord. Surface interesting live game data in their profile and on the Games Tab for their friends, encouraging them to group up and play together.
 
 For more detailed information and documentation around the Rich Presence feature set and integration tips, check out our [Rich Presence Documentation](https://discordapp.com/developers/docs/rich-presence/how-to).

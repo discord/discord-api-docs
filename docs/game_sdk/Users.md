@@ -1,8 +1,5 @@
 # Users
 
-> danger
-> The Discord Store is still in a beta period. All documentation and functionality can and will change.
-
 This manager helps retrieve basic user information for any user on Discord.
 
 ## Data Models

@@ -1,8 +1,5 @@
 # Storage
 
-> danger
-> The Discord Store is still in a beta period. All documentation and functionality can and will change.
-
 We've been told that people playing games want to save their progress as they go, allowing them to come back where they left off and continue their epic journey of power.
 
 Yeah, roguelikes. Even you.

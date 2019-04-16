@@ -1,8 +1,5 @@
 # SDK Starter Guide
 
-> danger
-> The Discord Store is still in a beta period. All documentation and functionality can and will change.
-
 Welcome to the Store SDK! We're glad you made it. This SDK is here to solve all your problems, if your problems include finding an awesome SDK to help develop your game. Our SDK is like Clippy, if Clippy were built on a modern tech stack, talked less, and was an awesome game development SDK.
 
 ## Step 0 - Some Notes

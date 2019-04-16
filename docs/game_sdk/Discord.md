@@ -1,8 +1,5 @@
 # Discord
 
-> danger
-> The Discord Store is still in a beta period. All documentation and functionality can and will change.
-
 Making a game? Need a whole bunch of fancy APIs to help make it great and your players' lives a breeze? Look no further! The Discord GameSDK is an easy drop-in SDK to help you manage all the hard things that come with making a game. Well, all the hards things about coding it at least. Interpersonal communication skills are on you (have you heard of this cool chat app called Discord?).
 
 OK, cool, so how's it work?

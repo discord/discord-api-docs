@@ -1,8 +1,5 @@
 # Overlay
 
-> danger
-> The Discord Store is still in a beta period. All documentation and functionality can and will change.
-
 Discord comes with an awesome built-in overlay, and you may want to make use of it for your game. This manager will help you do just that! It:
 
 - Gives you the current state of the overlay for the user

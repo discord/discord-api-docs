@@ -1,8 +1,5 @@
 # Branches and Builds
 
-> danger
-> The Discord Store is still in a beta period. All documentation and functionality can and will change.
-
 In order for other people to download your game from Discord's servers, you need to _upload_ your game to Discord's servers. Let's learn how to do that!
 
 ## Getting Set Up

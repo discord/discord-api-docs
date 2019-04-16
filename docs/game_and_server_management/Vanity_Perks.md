@@ -15,7 +15,7 @@ We like to continually improve and polish the features we release and have decid
 
 The first iteration fo the banner background had the title at the bottom of the image. In the newest version of the design, we’ve moved the name of the server back to the top. In order to help with this change, we had the design team put together some guidelines for best results.
 
-![](previous-new-server-banner.png)
+![](previous-new-server-background.png)
 
 #### Best Practices
 

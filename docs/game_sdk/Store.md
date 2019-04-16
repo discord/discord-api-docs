@@ -1,8 +1,5 @@
 # Store
 
-> danger
-> The Discord Store is still in a beta period. All documentation and functionality can and will change.
-
 If your game has DLC or offers in-app purchases, this manager is for you! The Store Manager allows you to fetch a users' entitlements, as well as being notified when a user is granted an entitlement from a purchase flow for your game.
 
 ## Application Test Mode
