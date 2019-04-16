@@ -77,7 +77,7 @@ All those awesome customization features are located in your server settings, so
 
 Now that you've been approved, there's a couple new toggles to flip in the Developer Portal: `Available`, and `Store Page Published`.
 
-![](available-published.PNG)
+![](available-published.png)
 
 `Available` means that your game is now available for normal purchase/distribution; your non-beta store channel will no longer say `Coming soon!` when this is toggled, and users will be able to get your game.
 

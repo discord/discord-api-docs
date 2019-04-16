@@ -34,7 +34,7 @@ Note that the `VALID UNTIL` date will not remove entitlement from users who alre
 
 Up to 10,000 gift codes can be created at a time. When you go to create gift codes, you'll notice there are a few fields for you to fill out. Here's what they mean:
 
-![](gift-code-creation.PNG)
+![](gift-code-creation.png)
 
 - SKU: the SKU that you want the user to get
 - Branch: the branch of your game you want the user to get
