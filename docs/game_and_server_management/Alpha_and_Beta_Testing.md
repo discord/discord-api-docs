@@ -28,7 +28,7 @@ Role-based entitlements help keep your beta community active and interactive, wh
 
 ## Gift Codes
 
-If you want to push out access to your game at scasle, rather than inviting people into your server and giving them a role, you can create gift codes in the Developer Portal! Gift codes are like game keys on other platforms that you might be familiar with, with an added bonus: optional timestamps for when the code starts being valid, and when it stops being valid. That means that you can create codes for your game to give to everyone, but they won't be able to claim it until the `VALID FROM` date. Similarly, you can set a `VALID UNTIL` date on all your gift codes if you want them to expire after a certain time.
+If you want to push out access to your game at scale, rather than inviting people into your server and giving them a role, you can create gift codes in the Developer Portal! Gift codes are like game keys on other platforms that you might be familiar with, with an added bonus: optional timestamps for when the code starts being valid, and when it stops being valid. That means that you can create codes for your game to give to everyone, but they won't be able to claim it until the `VALID FROM` date. Similarly, you can set a `VALID UNTIL` date on all your gift codes if you want them to expire after a certain time.
 
 Note that the `VALID UNTIL` date will not remove entitlement from users who already claimed the gift; it prevents new users from claiming with an expired code.
 
