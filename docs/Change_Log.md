@@ -1,5 +1,11 @@
 # Change Log
 
+## New Invite Object Fields
+
+#### April 18, 2019
+
+The [Invite Object](#DOCS_RESOURCES_INVITE/invite-object) now includes two additional fields, `target_user` and `target_user_type`.
+
 ## Ask to Join & Rich Presence SDK
 
 #### January 14, 2019
