@@ -482,6 +482,9 @@ This endpoint supports requests with `Content-Type`s of both `application/json` 
 >info
 >For the embed object, you can set every field except `type` (it will be `rich` regardless of if you try to set it), `provider`, `video`, and any `height`, `width`, or `proxy_url` values for images.
 
+>info
+>For a `file` attachment, the `Content-Disposition` subpart header MUST contain a `filename` parameter.
+
 ###### Example Request Body (application/json)
 
 ```json
