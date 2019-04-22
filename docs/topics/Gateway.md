@@ -136,25 +136,15 @@ Next, the client is expected to send an [Opcode 2 Identify](#DOCS_TOPICS_GATEWAY
 
 ###### Example Gateway Identify
 
+This is a minimal `IDENTIFY` payload. `IDENTIFY` supports additional optional fields for other session properties, such as payload compression, or an initial presence state. See [Example Identify](#DOCS_GATEWAY/identify-example-identify) for a more complete example.
+
 ```json
 {
   "token": "my_token",
   "properties": {
     "$os": "linux",
-    "$browser": "disco",
-    "$device": "disco"
-  },
-  "compress": true,
-  "large_threshold": 250,
-  "shard": [1, 10],
-  "presence": {
-    "game": {
-      "name": "Cards Against Humanity",
-      "type": 0
-    },
-    "status": "dnd",
-    "since": 91879201,
-    "afk": false
+    "$browser": "my_library",
+    "$device": "my_library"
   }
 }
 ```
@@ -318,7 +308,7 @@ Used to trigger the initial handshake with the gateway.
   },
   "compress": true,
   "large_threshold": 250,
-  "shard": [1, 10],
+  "shard": [0, 1],
   "presence": {
     "game": {
       "name": "Cards Against Humanity",
