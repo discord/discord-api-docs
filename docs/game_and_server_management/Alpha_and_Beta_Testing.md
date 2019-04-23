@@ -25,7 +25,7 @@ Store channels in Discord are just like any other channel in that they can have 
 A scenario might look like this: you create a Beta store channel. Only users with role `Awesome Tester` can view it. Player A is an `Awesome Tester`. They can view the channel and get entitlement to the beta branch. Player A becomes inactive; you remove them from the `Awesome Tester` role. Player A loses entitlement to `insider-only-private-beta`
 
 > danger
-> Role-based entitlement will only work if you use Discord's DRM, which is a simple entitlement check. You can do that with the Dispatch command [`dispatch build drm-wrap`](#DOCS_DISPATCH_LIST_OF_COMMANDS/build-drm-wrap) or by calling [`ApplicationManager.ValidateOrExit()`](#DOCS_GAME_SDK_APPLICATIONS/validate-or-exit). Otherwise, Discord will not check the user's entitlement when the game starts.
+> Role-based entitlement will only work if you use Discord's DRM, which is a simple entitlement check. You can do that with the Dispatch command [`dispatch build drm-wrap`](#DOCS_DISPATCH_LIST_OF_COMMANDS/build-drmwrap) or by calling [`ApplicationManager.ValidateOrExit()`](#DOCS_GAME_SDK_APPLICATIONS/validateorexit). Otherwise, Discord will not check the user's entitlement when the game starts.
 
 Role-based entitlements help keep your beta community active and interactive, while also providing a way to reward your biggest fans with secret access to special things.
 
