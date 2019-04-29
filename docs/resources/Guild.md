@@ -342,7 +342,7 @@ Returns a list of [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) obje
 
 ## Add Guild Member % PUT /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/members/{user.id#DOCS_RESOURCES_USER/user-object}
 
-Adds a user to the guild, provided you have a valid oauth2 access token for the user with the `guilds.join` scope. Returns a 201 Created with the [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) as the body, or 204 No Content if the user is already a member of the guild. Fires a [Guild Member Add](#DOCS_TOPICS_GATEWAY/guild-member-add) Gateway event. Requires the bot to have the `CREATE_INSTANT_INVITE` permission.
+Adds a user to the guild, provided you have a valid oauth2 access token for the user with the `guilds.join` scope. Returns a 201 Created with the [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) 1 body, or 204 No Content if the user is already a member of the guild. Fires a [Guild Member Add](#DOCS_TOPICS_GATEWAY/guild-member-add) Gateway event. Requires the bot to have the `CREATE_INSTANT_INVITE` permission.
 
 >info
 >All parameters to this endpoint except for `access_token` are optional.
@@ -374,7 +374,8 @@ Modify attributes of a [guild member](#DOCS_RESOURCES_GUILD/guild-member-object)
 >Both `mute` and `deafen` require the target user to be connected to voice in order to set, as
 >otherwise, we would not have a channel to compute the `MUTE_MEMBERS` and `DEAFEN_MEMBERS` permission
 >on. However, if the API user has `ADMINISTRATOR` permissions, the `mute` and `defen` fields do not
->require the target user to be connected to voice, as the that would be checked is implied.
+>require the target user to be connected to voice, as the `ADMINISTRATOR` permission implies all 
+>permissions in every context.
 
 ###### JSON Params
 
