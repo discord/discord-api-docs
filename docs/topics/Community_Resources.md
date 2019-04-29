@@ -27,7 +27,6 @@ The Discord team curates the following list of officially vetted libraries that 
 | [Discordia](https://github.com/SinisterRectus/Discordia) | Lua |
 | [discordnim](https://github.com/Krognol/discordnim) | Nim |
 | [RestCord](https://www.restcord.com/) | PHP |
-| [Yasmin](https://github.com/CharlotteDunois/Yasmin) | PHP |
 | [discord.py](https://github.com/Rapptz/discord.py) | Python |
 | [disco](https://github.com/b1naryth1ef/disco) | Python |
 | [discordrb](https://github.com/meew0/discordrb) | Ruby |
