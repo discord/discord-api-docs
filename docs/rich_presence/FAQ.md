@@ -2,10 +2,6 @@
 
 Below are answers to some common questions about integrating Rich Presence with your game. If you don't see your question answered here, feel free to reach out to [gamedevs@discordapp.com](mailto:gamedevs@discordapp.com) for more help.
 
-#### Q: I don't see any playing status for my game.
-
-Discord is most likely not automatically detecting the test build for your game because it's running from a directory we aren't looking for. In order to add your test build, go to your user settings in Discord, then to the "Games" subsection, click "Add it!", and select your process from the drop-down list.
-
 #### Q: I see "Playing MyGame", but no Rich Presence data.
 
 There's a couple things that could be going on:

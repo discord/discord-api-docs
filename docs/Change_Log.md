@@ -1,5 +1,11 @@
 # Change Log
 
+## Deprecation of Discord-RPC Rich Presence SDK
+
+#### April 29, 2019
+
+The [Discord-RPC](https://github.com/discordapp/discord-rpc) implementation of Rich Presence has been deprecated in favor of Discord's new GameSDK. If you're interested in using Rich Presence, please read our [SDK Starter Guide](#DOCS_GAME_SDK_SDK_STARTER_GUIDE/) and check out the relevant functions in the [Activity Manager](#DOCS_GAME_SDK_ACTIVITIES/).
+
 ## New Invite Object Fields
 
 #### April 18, 2019

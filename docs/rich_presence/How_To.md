@@ -1,5 +1,8 @@
 # Introducing Rich Presence
 
+> danger
+> The SDK that this documentation references, [Discord-RPC](https://github.com/discordapp/discord-rpc), has been deprecated in favor of our new [Discord GameSDK](#DOCS_GAME_SDK_SDK_STARTER_GUIDE/). Replacement functionality for the Rich Presence SDK can be found in the [Activity Manager](#DOCS_GAME_SDK_ACTIVITIES/) of that SDK. This documentation can be referenced for education but does not entirely reflect the new SDK.
+
 How easy is it for people to play your game together? With Rich Presence from Discord, it just got so easy, a ~~caveman~~ Junior Dev could do it.
 
 If you are testing a game integration with Rich Presence, other users will be able to see it. Please create a private test account and do not join any public servers while testing your integration.
@@ -13,11 +16,8 @@ Rich Presence allows you to leverage the totally overhauled "Now Playing" sectio
 
 ## Step 0: Get the SDK
 
-You've decided you want to integrate with Rich Presence. Of course you did! It's awesome—just ask us. You can get the SDK from our [GitHub repository](https://github.com/discordapp/discord-rpc). Grab a release build or use our build scripts, and check out the examples while you're there! We support C, C++, Unity, and Unreal Engine out of the box. If we don't have a release type that fits your development needs, roll your own! It's all open-source.
-
-A quick note: our static pre-compiled library—the `.lib` file in the Windows release download—relies on the [Visual C++ Redistributable for Visual Studio 2015](https://www.microsoft.com/en-us/download/details.aspx?id=48145). If you distribute your game on Steam, make sure to check that box in your common redistributable settings.
-
-If you want to use the dynamic library—`.dll`—you do not need the redistributable.
+> warn
+> Please use our new Discord GameSDK. Read the documentation and get it [here](#DOCS_GAME_SDK_SDK_STARTER_GUIDE/).
 
 ## So, how does it work?
 
@@ -70,14 +70,16 @@ A quick breakdown on the `Discord_Initialize()` function:
 
 When you are ready to publish your integration, we recommend digging into the source code of the SDK and copying `discord_register.h`, `discord_register_win.cpp`, `discord_register_osx.m`, and `discord_register_linux.cpp` into your installation and update process. By registering your application protocols on installation and update, your players won't need to run the game before being able to interact with invites, Ask to Join, and spectating in Discord.
 
-> danger
-> **Shutting Down**
+## Shutting Down
 
-> Don't leave so soon! But when you _do_ shut down your application, don't forget to call `Discord_Shutdown()`. This properly terminates the thread and allows your application to shut down cleanly.
+Don't leave so soon! But when you _do_ shut down your application, don't forget to call `Discord_Shutdown()`. This properly terminates the thread and allows your application to shut down cleanly.
 
 If you don't want to register all your event handlers at initialization, you can do so dynamically with `Discord_UpdateHandlers()`; this will allow you to register a new set of event handlers. Be mindful that this will delete old handlers if they are not explicitly bound to your handlers struct when calling this function.
 
 ## Updating Presence
+
+> warn
+> Deprecated in favor of [Discord GameSDK ActivityManager.UpdateActivity()](#DOCS_GAME_SDK_ACTIVITIES/update-activity)
 
 The core of Discord's Rich Presence SDK is the `Discord_UpdatePresence()` function. This is what sends your game data up to Discord to be seen and used by others. You should call `Discord_UpdatePresence()` any time something important in the presence payload changes.
 
@@ -158,6 +160,9 @@ Here's a handy image to see how these fields are actually displayed on a profile
 
 ## Joining
 
+> warn
+> Deprecated in favor of [Discord GameSDK ActivityManager.OnActivityJoin](#DOCS_GAME_SDK_ACTIVITIES/on-activity-join) and [Discord GameSDK ActivityManager.OnActivityJoinRequest](#DOCS_GAME_SDK_ACTIVITIES/on-activity-join-request)
+
 #### Relevant Callbacks:
 
 `joinGame()`
@@ -219,7 +224,7 @@ The Ask to Join request persists for 30 seconds after the request is received, r
 ## Spectating
 
 > warn
-> Requires Approval
+> Deprecated in favor of [Discord GameSDK ActivityManager.OnActivitySpectate](#DOCS_GAME_SDK_ACTIVITIES/on-activity-spectate)
 
 To enable the Spectate button on your players' profiles, you'll need to be approved by us. Submit your integration for approval on your [app's developer dashboard](https://discordapp.com/developers/applications/me). While there, you can also whitelist individual accounts for testing. Those accounts will have the Spectate button enabled on their profiles. For an in-depth explanation of what we look for during approval, see [Getting Approved](#DOCS_RICH_PRESENCE_GETTING_APPROVED/).
 
@@ -278,11 +283,7 @@ OK, well, not entirely. But! Discord _will_ host any and all artwork that you ne
 
 ## A note on testing and Game Detection
 
-In order to test your Rich Presence integration locally, you and your testers will need to make sure that your game client is detected by Discord. If your game is not automatically detected, presence data will not be shown. To detect your game, go to User Settings -> Games -> Add it! and select your application from the dropdown list. Every user working with your local development build will need to follow these steps in order for Discord to detect their presence.
-
-If you don't see Rich Presence data in your profile while testing, make sure you have the correct process selected for Game Detection. Also make sure you don't have multiple instances of Discord running—if you do, your presence might be changing in one of those!
-
-If you are having issues with your release build not being detected, send us an email at [gamedevs@discordapp.com](mailto:gamedevs@discordapp.com) and we'll add it to our database for you. If you distribute your game via Steam, Discord will auto-detect your game if it is marked as released and running from Steam. Local testing clients and un-released games may still need to be manually added.
+If you don't see Rich Presence data in your profile while testing, make sure you don't have multiple instances of Discord running—if you do, your presence might be changing in one of those!
 
 If you're testing on your own, we recommend [downloading two separate release channels](https://discordapp.com/download) of the Discord desktop client. You can log into the stable, public test, and canary builds with separate credentials, making testing easier for a single developer.
 
