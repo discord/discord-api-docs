@@ -366,16 +366,9 @@ Modify attributes of a [guild member](#DOCS_RESOURCES_GUILD/guild-member-object)
 >_must_ have permissions to both connect to the channel and have the `MOVE_MEMBERS` permission.
 
 >info
->If the `channel_id` is set to null, this will force the user to be disconnected from voice.
->The API user _must_ have `MOVE_MEMBERS` permission in the user's current channel in order to
+>If the `channel_id` is set to null, this will force the target user to be disconnected from voice.
+>The API user _must_ have `MOVE_MEMBERS` permission in the target user's current channel in order to
 >execute this operation.
-
->info
->Both `mute` and `deafen` require the target user to be connected to voice in order to set, as
->otherwise, we would not have a channel to compute the `MUTE_MEMBERS` and `DEAFEN_MEMBERS` permission
->on. However, if the API user has `ADMINISTRATOR` permissions, the `mute` and `defen` fields do not
->require the target user to be connected to voice, as the `ADMINISTRATOR` permission implies all 
->permissions in every context.
 
 ###### JSON Params
 
