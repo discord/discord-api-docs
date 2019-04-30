@@ -531,10 +531,10 @@ Returns `Discord.Result` and `ref Discord.Lobby` via callback.
 
 ###### Parameters
 
-| name        | type                             | description                      |
-| ----------- | -------------------------------- | -------------------------------- |
-| lobbyId     | Int64                            | the lobby you want to connect to |
-| lobbySecret | stringthe password for the lobby |
+| name        | type   | description                      |
+| ----------- | ------ | -------------------------------- |
+| lobbyId     | Int64  | the lobby you want to connect to |
+| lobbySecret | string | the password for the lobby       |
 
 ###### Example
 
