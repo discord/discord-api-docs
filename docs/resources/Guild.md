@@ -365,6 +365,11 @@ Modify attributes of a [guild member](#DOCS_RESOURCES_GUILD/guild-member-object)
 >All parameters to this endpoint are optional. When moving members to channels, the API user
 >_must_ have permissions to both connect to the channel and have the `MOVE_MEMBERS` permission.
 
+>info
+>If the `channel_id` is set to null, this will force the target user to be disconnected from voice.
+>The API user _must_ have `MOVE_MEMBERS` permission in the target user's current channel in order to
+>execute this operation.
+
 ###### JSON Params
 
 | Field | Type | Description | Permission |
@@ -373,7 +378,7 @@ Modify attributes of a [guild member](#DOCS_RESOURCES_GUILD/guild-member-object)
 | roles | array of snowflakes | array of role ids the member is assigned | MANAGE_ROLES |
 | mute | boolean | whether the user is muted in voice channels | MUTE_MEMBERS |
 | deaf | boolean | whether the user is deafened in voice channels | DEAFEN_MEMBERS |
-| channel_id | snowflake | id of channel to move user to (if they are connected to voice) | MOVE_MEMBERS |
+| channel_id | ?snowflake | id of channel to move user to (if they are connected to voice) | MOVE_MEMBERS |
 
 ## Modify Current User Nick % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/members/@me/nick
 
