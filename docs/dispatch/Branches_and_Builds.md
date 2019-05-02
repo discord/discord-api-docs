@@ -241,7 +241,7 @@ As a side note, there may be a case where you might have multiple manifests that
             "id": "one",
             "paths": [
               {
-                "platform": "win32",
+                "platform": "windows",
                 "path": "${HOME}"
               }
             ],
@@ -259,7 +259,7 @@ As a side note, there may be a case where you might have multiple manifests that
             "id": "two",
             "paths": [
               {
-                "platform": "win32",
+                "platform": "windows",
                 "path": "${HOME}"
               }
             ],
