@@ -23,13 +23,6 @@ There's a few things in there, but let's quickly talk about what the SDK actuall
 
 We designed the SDK this way with two things in mind. First, it allows you as a developer to distribute the Discord SDK on other platforms. As long as the player has Discord running, the SDK will work no matter where the game is launched from. Secondly, it lets you get the latest updates without having to actually download and ship a new SDK version—all the updates will happen in the actual Discord client!
 
-You'll also notice that there is a `runtime/` folder. Inside that folder are _actual_ full SDKs, not stubs. If you place these in certain root directories:
-
-- **Windows**: `%USERPROFILE%\.discord_game_sdk\`
-- **macOS/Linux**: `~/.discord_game_sdk/`
-
-The SDK will prioritize these DLLs instead of using the stub to call out to the Discord client. That way, if we've got a new build of the SDK you want to test locally, or we gave you a debug build for debugging help, you can stick it in those folders and use it temporarily.
-
 ## Get Set Up
 
 Next, we need to set up the application for your game. An application is the base "entity" in Discord for your game; it's what all the builds, branches, SKUs, store pages, assets, etc. will be filed under.
