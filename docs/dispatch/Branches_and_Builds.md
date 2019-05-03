@@ -313,7 +313,7 @@ For installation scripts, `name` is a user friendly name that Discord will surfa
 }
 ```
 
-Don't forget to the notice the double forward slashes in the path name!
+Don't forget to the notice the double backward slashes in the path name!
 
 ## Launch Options
 
