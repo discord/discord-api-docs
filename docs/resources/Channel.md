@@ -476,7 +476,7 @@ This endpoint supports requests with `Content-Type`s of both `application/json` 
 | nonce | snowflake | a nonce that can be used for optimistic message sending |
 | tts | boolean | true if this is a TTS message |
 | file | file contents | the contents of the file being sent |
-| embed | [embed](#DOCS_RESOURCES_CHANNEL/embed-object) object | embedded `rich` content |
+| embeds | [embeds](#DOCS_RESOURCES_CHANNEL/embed-object) object | embedded `rich` content |
 | payload_json | string | JSON encoded body of any additional request fields. |
 
 >info
@@ -488,10 +488,12 @@ This endpoint supports requests with `Content-Type`s of both `application/json` 
 {
   "content": "Hello, World!",
   "tts": false,
-  "embed": {
-    "title": "Hello, Embed!",
-    "description": "This is an embedded message."
-  }
+  "embeds": [
+    {
+      "title": "Hello, Embed!",
+      "description": "This is an embedded message."
+    }
+  ]
 }
 ```
 
