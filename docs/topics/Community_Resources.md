@@ -14,7 +14,6 @@ The Discord team curates the following list of officially vetted libraries that 
 | [discordcr](https://github.com/meew0/discordcr) | Crystal |
 | [Discord.Net](https://github.com/RogueException/Discord.Net) | C# |
 | [DSharpPlus](https://github.com/NaamloosDT/DSharpPlus) | C# |
-| [dscord](https://github.com/b1naryth1ef/dscord) | D |
 | [DiscordGo](https://github.com/bwmarrin/discordgo) | Go |
 | [DisGord](https://github.com/andersfylling/disgord) | Go |
 | [catnip](https://github.com/mewna/catnip) | Java |
