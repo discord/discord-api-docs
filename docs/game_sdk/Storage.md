@@ -34,6 +34,9 @@ Yup, that's it! Don't know what this file is? Go read [Branches and Builds](#DOC
 
 ## GetPath
 
+> info
+> Value from environment variable `DISCORD_STORAGE_PATH`
+
 Returns the filepath to which Discord saves files if you were to use the SDK's storage manager. Discord has branch-specific, user-specific saves, so you and your little brother will never overwrite each others' save files. If your game already has save file writing logic, you can use this method to get that user-specific path and help users protect their save files.
 
 ###### Parameters

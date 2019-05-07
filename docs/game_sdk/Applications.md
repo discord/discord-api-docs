@@ -29,6 +29,9 @@ This manager also includes a couple useful helper functions, like getting the lo
 
 ## GetCurrentLocale
 
+> info
+> Value from environment variable `DISCORD_CURRENT_LOCALE`
+
 Get's the locale the current user has Discord set to.
 
 Returns a `string`.
@@ -45,6 +48,9 @@ Console.WriteLine("This user's language is {0}", locale);
 ```
 
 ## GetCurrentBranch
+
+> info
+> Value from environment variable `DISCORD_CURRENT_BRANCH`
 
 Get the name of pushed branch on which the game is running. These are branches that you created and pushed using Dispatch.
 
@@ -63,6 +69,9 @@ if (branch != MyBranches.Stable)
 ```
 
 ## GetOAuth2Token
+
+> info
+> value from environment variable `DISCORD_ACCESS_TOKEN`
 
 Retrieve an oauth2 beare token for the current user. If your game was launched from Discord and you call this function, you will automatically receive the token. If the game was _not_ launched from Discord and this method is called, Discord will focus itself and prompt the user for authorization.
 

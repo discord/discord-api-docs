@@ -40,6 +40,20 @@ userManager.GetCurrentUser((result, currentUser) =>
 });
 ```
 
+## Environment Variables
+
+Discord passes a number of environment variables down to the SDK. These are accessed by various methods in the SDK and can be changed for local testing by changing the value in your local environment.
+
+###### SDK Environment Variables
+
+| name                   | method                                                                                  | description                                                                                                          |
+| ---------------------- | --------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
+| DISCORD_INSTANCE_ID    | [Local Testing](#DOCS_GAME_SDK_SDK_STARTER_GUIDE/testing-with-two-clients)              | the locally running instance of Discord to connect to; allows you to choose between multiple locally running clients |
+| DISCORD_ACCESS_TOKEN   | [ApplicationManager.GetOAuth2Token()](#DOCS_GAME_SDK_APPLICATIONS/get-oauth2-token)     | the connected user's bearer token                                                                                    |
+| DISCORD_CURRENT_LOCALE | [ApplicationManager.GetCurrentLocale](#DOCS_GAME_SDK_APPLICATIONS/get-current-locale)   | the language that Discord is in for the connected user                                                               |
+| DISCORD_CURRENT_BRANCH | [ApplicationManager.GetCurrentBranch()](#DOCS_GAME_SDK_APPLICATIONS/get-current-branch) | the branch of the running application that the user has launched                                                     |
+| DISCORD_STORAGE_PATH   | [StorageManager.GetPath()](#DOCS_GAME_SDK_STORAGE/get-path)                             | the path to which Discord will save files if you're using the StorageManager                                         |
+
 ## Error Handling
 
 Debugging is a pain, so before we get into the meat of the SDK, we want to make sure you're prepared for when things go awry. Within the Discord core is a function called `SetLogHook()`. It takes a `level`, which is minimum level of log message you want to listen to, and a callback function:

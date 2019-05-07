@@ -123,6 +123,9 @@ You're ready to go! Check out the rest of the documentation for more info on how
 
 ## Testing Locally with Two Clients
 
+> info
+> Value from environment variable `DISCORD_INSTANCE_ID`
+
 While integrating the Discord GameSDK, you will probably find yourself wanting to test functionality between two game clients locally, be it for networking, Rich Presence, etc.
 
 We also know that getting a test build of a game on two separate machines can be both difficult and cumbersome. So, we've got a solution for you! By using system environment variables, you can tell the SDK in a certain game client to connect to a specific Discord client. Here's how it works:
