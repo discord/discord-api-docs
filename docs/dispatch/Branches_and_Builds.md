@@ -169,6 +169,9 @@ That way, you can `dispatch build push` from your actual root directory, but dis
     "exclusions": [
       {
         "local_path": "**/*.pdb"
+      },
+      {
+        "local_path": "**/*.verycoolfile"
       }
     ]
   }
@@ -185,7 +188,7 @@ File rules is a special, and somewhat confusing, part of the manifest, but we'll
 
 `properties` allows you to mark properties on globs of files. In this case, marking a glob of files as `user_data` tells Dispatch not to touch these files in any way if it sees them; don't want that save data overwritten!
 
-`exclusions` also allow you to mark off globs of files. File globs here will not be uploaded by Dispatch on a build push. In the above example, debug files that match the `*.pdb` pattern in any directory will be ignored.
+`exclusions` also allow you to mark off globs of files. File globs here will not be uploaded by Dispatch on a build push. In the above example, debug files that match the `*.pdb` or `*.verycoolfile` patterns in any directory will be ignored.
 
 > warn
 > Dispatch supports [Rust globbing patterns](https://docs.rs/glob/0.2.11/glob/struct.Pattern.html).
@@ -382,6 +385,9 @@ Let's see what one looks like all together!
           "exclusions": [
             {
               "local_path": "**/*.pdb"
+            },
+            {
+              "local_path": "**/*.verycoolfile"
             }
           ]
         },
