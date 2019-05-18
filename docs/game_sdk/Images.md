@@ -79,7 +79,7 @@ var handle = new Discord.ImageHandle()
   Id = 53908232506183680,
   Size = 1024
 };
-var dimensions =  imageManager.GetDimentions(handle);
+var dimensions =  imageManager.GetDimensions(handle);
 ```
 
 ## GetData
