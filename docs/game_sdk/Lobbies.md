@@ -1242,6 +1242,7 @@ Below are the API endpoints and the parameters they accept. If you choose to int
 curl -x POST -h "Authorization: Bot <your token>" https://discordapp.com/api/some-route/that-does-a-thing
 ```
 
+> info
 > Make sure to preprend your token with "Bot"!
 
 Here are the routes; they all expect JSON bodies. Also, hey, while you're here. You've got a bot token. You're looking at our API. You should check out all the other [awesome stuff](https://discordapp.com/developers/docs/intro) you can do with it!
