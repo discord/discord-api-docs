@@ -1,5 +1,8 @@
 # Applications
 
+> info
+> Need help with the SDK? Talk to us at [dis.gd/devsupport](https://dis.gd/devsupport)
+
 Many games run their own backend servers for things like user authentication. If one of those many games is yours, then we've got something for you! This manager gives you access to a bearer token for the currently connected Discord user, which you can send off to your server to do user authentication.
 
 This token is also useful for retrieving information about the connected user's account. Check out our [OAuth2 documentation](https://discordapp.com/developers/docs/topics/oauth2) for more information.

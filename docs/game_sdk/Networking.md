@@ -1,5 +1,8 @@
 # Networking
 
+> info
+> Need help with the SDK? Talk to us at [dis.gd/devsupport](https://dis.gd/devsupport)
+
 A note before starting: this documentation covers the "low layer" networking level of the Discord GameSDK. What that means is that using the network manager directly affords you the flexbility to update routes, open channels, and handle events directly emitted by the SDK. If you're looking for something a bit easier and faster to integrate, we recommend that you check out the networking wrapper around our lobby documentation: [Integrated Networking](#DOCS_GAME_SDK_LOBBIES/integrated-networking)
 
 Need a networking layer? Have a networking layer! This manager handles all things packets so you can get data from player to player and make your multiplayer...work. It:

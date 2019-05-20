@@ -1,5 +1,8 @@
 # Lobbies
 
+> info
+> Need help with the SDK? Talk to us at [dis.gd/devsupport](https://dis.gd/devsupport)
+
 Looking to integrate multiplayer into your game? Lobbies are a great way to organize players into contexts to play together. This manager works hand in hand with the networking layer of our SDK to make multiplayer integrations a breeze by:
 
 - Creating, managing, and joining lobbies

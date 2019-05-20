@@ -1,5 +1,8 @@
 # Store
 
+> info
+> Need help with the SDK? Talk to us at [dis.gd/devsupport](https://dis.gd/devsupport)
+
 If your game has DLC or offers in-app purchases, this manager is for you! The Store Manager allows you to fetch a users' entitlements, as well as being notified when a user is granted an entitlement from a purchase flow for your game.
 
 ## Application Test Mode

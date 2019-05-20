@@ -1,5 +1,8 @@
 # Overlay
 
+> info
+> Need help with the SDK? Talk to us at [dis.gd/devsupport](https://dis.gd/devsupport)
+
 Discord comes with an awesome built-in overlay, and you may want to make use of it for your game. This manager will help you do just that! It:
 
 - Gives you the current state of the overlay for the user

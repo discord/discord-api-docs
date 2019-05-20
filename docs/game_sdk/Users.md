@@ -1,5 +1,8 @@
 # Users
 
+> info
+> Need help with the SDK? Talk to us at [dis.gd/devsupport](https://dis.gd/devsupport)
+
 This manager helps retrieve basic user information for any user on Discord.
 
 ## Data Models
