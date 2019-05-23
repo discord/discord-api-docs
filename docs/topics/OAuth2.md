@@ -94,7 +94,7 @@ def exchange_code(code):
   headers = {
     'Content-Type': 'application/x-www-form-urlencoded'
   }
-  r = requests.post('%s/oauth2/token' % API_ENDPOINT, data, headers)
+  r = requests.post('%s/oauth2/token' % API_ENDPOINT, data=data, headers=headers)
   r.raise_for_status()
   return r.json()
 ```
@@ -142,7 +142,7 @@ def refresh_token(refresh_token):
   headers = {
     'Content-Type': 'application/x-www-form-urlencoded'
   }
-  r = requests.post('%s/oauth2/token' % API_ENDPOINT, data, headers)
+  r = requests.post('%s/oauth2/token' % API_ENDPOINT, data=data, headers=headers)
   r.raise_for_status()
   return r.json()
 ```
@@ -192,7 +192,7 @@ def get_token():
   headers = {
     'Content-Type': 'application/x-www-form-urlencoded'
   }
-  r = requests.post('%s/oauth2/token' % API_ENDPOINT, data, headers, auth=(CLIENT_ID, CLIENT_SECRET))
+  r = requests.post('%s/oauth2/token' % API_ENDPOINT, data=data, headers=headers, auth=(CLIENT_ID, CLIENT_SECRET))
   r.raise_for_status()
   return r.json()
 ```
