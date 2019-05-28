@@ -33,14 +33,20 @@ A quick example with our C# binding:
 
 ```c#
 var userManager = discord.GetUserManager();
-userManager.GetCurrentUser((result, currentUser) =>
+
+// Return via callback
+userManager.GetUser(290926444748734465, (Discord.Result result, ref Discord.User otherUser) =>
 {
-  if (result == Discord.Result.OK)
+  if (result == Discord.Result.Ok)
   {
-    Console.WriteLine(currentUser.username);
-    Console.WriteLine(currentUser.ID);
+    Console.WriteLine(otherUser.Username);
+    Console.WriteLine(otherUser.Id);
   }
 });
+
+// Return normally
+var currentUser = userManager.GetCurrentUser();
+Console.WriteLine(currentUser.Id);
 ```
 
 ## Environment Variables
