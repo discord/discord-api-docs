@@ -107,7 +107,20 @@ Once connected, the client should immediately receive an [Opcode 10 Hello](#DOCS
 ```json
 {
   "heartbeat_interval": 45000,
-  "_trace": ["discord-gateway-prd-1-99"]
+  "_trace": [
+      "discord-gateway-prd-1-99",
+      {
+          "micros": 1003,
+          "calls": [
+              "discord-sessions-prd-1-99", {
+                  "micros": 800
+              },
+              "discord-api-prd-1-99", {
+                  "micros": 500
+              }
+          ]
+      }
+  ]
 }
 ```
 
@@ -450,7 +463,7 @@ Sent on connection to the websocket. Defines the heartbeat interval that the cli
 | Field              | Type             | Description                                                     |
 | ------------------ | ---------------- | --------------------------------------------------------------- |
 | heartbeat_interval | integer          | the interval (in milliseconds) the client should heartbeat with |
-| \_trace            | array of strings | used for debugging, array of servers connected to               |
+| \_trace            | unspecified      | used for debugging, this is internal data and may change format |
 
 ###### Example Hello
 
