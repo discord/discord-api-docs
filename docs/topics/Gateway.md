@@ -4,6 +4,8 @@ Gateways are Discord's form of real-time communication over secure websockets. C
 
 The Discord Gateway has a versioning system which is separate from the core APIs. The documentation herein is only for the latest version in the following table, unless otherwise specified.
 
+Important note: Not all event fields are documented, in particular, fields prefixed with an underscore are considered _internal fields_ and should not be relied on. We may change the format at any time.
+
 ###### Gateway Versions
 
 | Version | Status       |
