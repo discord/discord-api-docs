@@ -107,20 +107,6 @@ Once connected, the client should immediately receive an [Opcode 10 Hello](#DOCS
 ```json
 {
   "heartbeat_interval": 45000,
-  "_trace": [
-      "discord-gateway-prd-1-99",
-      {
-          "micros": 1003,
-          "calls": [
-              "discord-sessions-prd-1-99", {
-                  "micros": 800
-              },
-              "discord-api-prd-1-99", {
-                  "micros": 500
-              }
-          ]
-      }
-  ]
 }
 ```
 
@@ -463,14 +449,12 @@ Sent on connection to the websocket. Defines the heartbeat interval that the cli
 | Field              | Type             | Description                                                     |
 | ------------------ | ---------------- | --------------------------------------------------------------- |
 | heartbeat_interval | integer          | the interval (in milliseconds) the client should heartbeat with |
-| \_trace            | unspecified      | used for debugging, this is internal data and may change format |
 
 ###### Example Hello
 
 ```json
 {
-  "heartbeat_interval": 45000,
-  "_trace": ["discord-gateway-prd-1-99"]
+  "heartbeat_interval": 45000
 }
 ```
 
@@ -489,7 +473,6 @@ The ready event is dispatched when a client has completed the initial handshake 
 | private_channels | array                                                                                | empty array                                                                                                   |
 | guilds           | array of [Unavailable Guild](#DOCS_RESOURCES_GUILD/unavailable-guild-object) objects | the guilds the user is in                                                                                     |
 | session_id       | string                                                                               | used for resuming connections                                                                                 |
-| \_trace          | array of strings                                                                     | used for debugging - the guilds the user is in                                                                |
 | shard?           | array of two integers (shard_id, num_shards)	                                      | the [shard information](#DOCS_TOPICS_GATEWAY/sharding) associated with this session, if sent when identifying |
 
 #### Resumed
@@ -500,7 +483,6 @@ The resumed event is dispatched when a client has sent a [resume payload](#DOCS_
 
 | Field   | Type             | Description                                    |
 | ------- | ---------------- | ---------------------------------------------- |
-| \_trace | array of strings | used for debugging - the guilds the user is in |
 
 #### Invalid Session
 
