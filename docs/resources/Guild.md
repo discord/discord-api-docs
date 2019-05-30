@@ -44,6 +44,8 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 | vanity\_url\_code | ?string | the vanity url code for the guild |
 | description | ?string | the description for the guild |
 | banner | ?string | [banner hash](#DOCS_REFERENCE/image-formatting) |
+| premium_tier | integer | [premium tier](#DOCS_REFERENCE/guild-object-premium-tier) |
+| premium_subscription_count? | integer | the total number of users currently boosting this server |
 
 ** \* These fields are only sent within the [GUILD_CREATE](#DOCS_TOPICS_GATEWAY/guild-create) event **
 
@@ -78,6 +80,15 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 | MEDIUM | 2 | must be registered on Discord for longer than 5 minutes |
 | HIGH | 3 |  (╯°□°）╯︵ ┻━┻ - must be a member of the server for longer than 10 minutes |
 | VERY_HIGH | 4 | ┻━┻ミヽ(ಠ益ಠ)ﾉ彡┻━┻ - must have a verified phone number |
+
+###### Premium Tier
+
+| Level | Integer |
+| ----- | ------- |
+| NONE | 0 |
+| TIER_1 | 1 |
+| TIER_2 | 2 |
+| TIER_3 | 3 |
 
 ###### Example Guild
 
@@ -148,6 +159,7 @@ A partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object. Represents an Offl
 | nick? | string | this users guild nickname (if one is set) |
 | roles | array of snowflakes | array of [role](#DOCS_TOPICS_PERMISSIONS/role-object) object ids |
 | joined_at | ISO8601 timestamp | when the user joined the guild |
+| premium_since | ?ISO8601 timestamp | when the user used their Nitro boost on the server |
 | deaf | boolean | whether the user is deafened in voice channels |
 | mute | boolean | whether the user is muted in voice channels |
 
