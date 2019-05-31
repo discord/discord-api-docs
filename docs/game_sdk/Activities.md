@@ -170,15 +170,41 @@ Returns a `Discord.Result` via callback.
 ###### Example
 
 ```cs
-var activity = new Discord.Activity();
-activity.State = "Hello!";
-activity.Details = "In Game";
-activity.Party.Size = 1;
-activity.Party.Max = 4;
+var activity = new Discord.Activity
+{
+  State = "olleh",
+  Details = "foo details",
+  Timestamps =
+  {
+      Start = 5,
+  },
+  Assets =
+  {
+      LargeImage = "foo largeImageKey", // Larger Image Asset Key
+      LargeText = "foo largeImageText", // Large Image Tooltip
+      SmallImage = "foo smallImageKey", // Small Image TAsset key
+      SmallText = "foo smallImageText", // Small Image Tooltip
+  },
+  Party =
+  {
+      Id = "foo partyID", 
+      Size = {
+          CurrentSize = 1,
+          MaxSize = 4,
+      },
+  },
+  Secrets =
+  {
+      Match = "foo matchSecret",
+      Join = "foo joinSecret",
+      Spectate = "foo spectateSecret",
+  },
+  Instance = true,
+};
 
 activityManager.UpdateActivity(activity, (result) =>
 {
-    if (result == Discord.Result.OK)
+    if (result == Discord.Result.Ok)
     {
         Console.WriteLine("Success!");
     }
@@ -204,7 +230,7 @@ None
 ```cs
 activityManager.ClearActivity((result) =>
 {
-    if (result == Discord.Result.OK)
+    if (result == Discord.Result.Ok)
     {
         Console.WriteLine("Success!");
     }
@@ -257,7 +283,7 @@ Returns a `Discord.Result` via callback.
 ```cs
 activityManager.InviteUser(53908232506183689, Discord.ActivityActionType.Join, "Come play!", (result) =>
 {
-    if (result == Discord.Result.OK)
+    if (result == Discord.Result.Ok)
     {
         Console.WriteLine("Success!");
     }
@@ -285,7 +311,7 @@ Returns a `Discord.Result` via callback.
 ```cs
 activityManager.AcceptInvite(290926444748734466, (result) =>
 {
-    if (result == Discord.Result.OK)
+    if (result == Discord.Result.Ok)
     {
         Console.WriteLine("Success!");
     }
