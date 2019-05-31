@@ -172,8 +172,8 @@ Returns a `Discord.Result` via callback.
 ```cs
 var activity = new Discord.Activity
 {
-  State = "olleh",
-  Details = "foo details",
+  State = "In Play Mode",
+  Details = "Playing the Trumpet!",
   Timestamps =
   {
       Start = 5,
@@ -182,7 +182,7 @@ var activity = new Discord.Activity
   {
       LargeImage = "foo largeImageKey", // Larger Image Asset Key
       LargeText = "foo largeImageText", // Large Image Tooltip
-      SmallImage = "foo smallImageKey", // Small Image TAsset key
+      SmallImage = "foo smallImageKey", // Small Image Asset Key
       SmallText = "foo smallImageText", // Small Image Tooltip
   },
   Party =
