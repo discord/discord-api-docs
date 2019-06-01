@@ -187,7 +187,7 @@ var activity = new Discord.Activity
   },
   Party =
   {
-      Id = "foo partyID", 
+      Id = "foo partyID",
       Size = {
           CurrentSize = 1,
           MaxSize = 4,
@@ -260,7 +260,13 @@ Returns a `Discord.Result` via callback.
 activityManager.OnActivityJoinRequest += user =>
 {
     Console.WriteLine("Join request from: {0}", user.Id);
-    activityManager.SendRequestReply(user.Id, Discord.ActivityJoinRequestReply.Yes);
+    activityManager.SendRequestReply(user.Id, Discord.ActivityJoinRequestReply.Yes, (res) =>
+    {
+      if (res == Discord.Result.Ok)
+      {
+        Console.WriteLine("Responded successfully");
+      }
+    });
 }
 ```
 
