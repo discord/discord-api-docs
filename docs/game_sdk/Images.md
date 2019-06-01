@@ -11,8 +11,8 @@ Discord is like a book; it's better with pictures. The image manager helps you f
 
 | name   | type   | description             |
 | ------ | ------ | ----------------------- |
-| Height | UInt32 | the height of the image |
 | Width  | UInt32 | the width of the image  |
+| Height | UInt32 | the height of the image |
 
 ###### ImageType Enum
 
@@ -32,7 +32,7 @@ Discord is like a book; it's better with pictures. The image manager helps you f
 
 Prepare's an image to later retrieve data about it.
 
-Returns a `Discord.Result` and `ImageHandle` via callback.
+Returns a `Discord.Result` and `Discord.ImageHandle` via callback.
 
 ###### Parameters
 
@@ -50,11 +50,11 @@ var handle = new Discord.ImageHandle()
   Size = 1024
 };
 
-imageManager.Fetch(handle, false, (result, handle) =>
+imageManager.Fetch(handle, false, (result, returnedHandle) =>
 {
-  if (result == Discord.Result.OK)
+  if (result == Discord.Result.Ok)
   {
-    imageManager.GetData(handle, (result, data) =>
+    imageManager.GetData(returnedHandle, (result, data) =>
     {
       // Do stuff with the byte[] data
     });
@@ -66,7 +66,7 @@ imageManager.Fetch(handle, false, (result, handle) =>
 
 Get's the dimensions for the given user's avatar's source image.
 
-Returns `ImageDimensions`.
+Returns `Discord.ImageDimensions`.
 
 ###### Parameters
 
@@ -87,15 +87,15 @@ var dimensions =  imageManager.GetDimensions(handle);
 
 ## GetData
 
-Gets the image data for a given user's avatar.
-
-Returns `Discord.Result` and `byte[]` via callback.
+Gets the image data for a given user's avatar. In C#, this is overloaded by a helper function that will directly return a `byte[]` with the image data in it. In C++/C, this function reads image data into a passed pointer of defined size.
 
 ###### Parameters
 
-| name   | type        | description                                  |
-| ------ | ----------- | -------------------------------------------- |
-| handle | ImageHandle | the image handle from the `Fetch()` callback |
+| name   | type        | description                                   |
+| ------ | ----------- | --------------------------------------------- |
+| handle | ImageHandle | the image handle from the `Fetch()` callback  |
+| data   | uint8_t\*   | a buffer to read image data into (C++/C only) |
+| size   | uint        | the size of the buffer (C++/C only)           |
 
 ###### Example
 
@@ -108,14 +108,32 @@ var handle = new Discord.ImageHandle()
 
 imageManager.Fetch(handle, false, (result, handle) =>
 {
-  if (result == Discord.Result.OK)
+  if (result == Discord.Result.Ok)
   {
-    imageManager.GetData(handle, (result, data) =>
-    {
-      // Do stuff with the byte[] data
-    });
+    var data = imageManager.GetData(handle);
+    // Do stuff with data now
   }
 });
+```
+
+###### Example Cpp
+
+```cpp
+core->ImageManager().Fetch(
+    handle, true, [&state](discord::Result res, discord::ImageHandle handle) {
+        if (res == discord::Result::Ok) {
+            discord::ImageDimensions dims{};
+            state.core->ImageManager().GetDimensions(handle, &dims);
+            std::cout << "Fetched " << dims.GetWidth() << "x" << dims.GetHeight()
+                      << " avatar!\n";
+
+            std::vector<uint8_t> data;
+            data.reserve(dims.GetWidth() * dims.GetHeight() * 4);
+            uint8_t* d = data.data();
+            state.core->ImageManager().GetData(handle, d, data.size());
+        }
+    }
+);
 ```
 
 ## Example: User's Avatar Data
@@ -124,17 +142,14 @@ imageManager.Fetch(handle, false, (result, handle) =>
 var discord = new Discord.Discord(clientId, Discord.CreateFlags.Default);
 
 // Request user's avatar data. Sizes can be powers of 2 between 16 and 2048
-imageManager.Fetch(Discord.ImageHandle.User(53908232506183680), (result, handle) =>
+imageManager.Fetch(Discord.ImageHandle.User(53908232506183680, 128), (result, handle) =>
 {
   {
     if (result == Discord.Result.Ok)
     {
       // You can also use GetTexture2D within Unity.
       // These return raw RGBA.
-      imageManager.GetData(handle, (result2, data) =>
-      {
-        Console.WriteLine("image updated {0} {1}", handle.Id, data.Length);
-      });
+      var data = imageManager.GetData(handle);
     }
     else
     {
