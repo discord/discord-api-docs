@@ -110,7 +110,9 @@ Has no values, but has member functions, outlined later.
 
 ## LobbyTransaction.SetType
 
-Marks a lobby as private or public
+Marks a lobby as private or public.
+
+Returns `void`.
 
 ###### Parameters
 
@@ -123,11 +125,11 @@ Marks a lobby as private or public
 ```cs
 var txn = lobbyManager.GetLobbyUpdateTransaction();
 txn.SetType(Discord.LobbyType.Public);
-lobbyManager.UpdateLobby(lobbyId, txn, (result, lobby) =>
+lobbyManager.UpdateLobby(lobbyId, txn, (Discord.Result result, ref Discord.Lobby lobby) =>
 {
-  if (result == Discord.Result.OK)
+  if (result == Discord.Result.Ok)
   {
-    Console.WriteLine("Lobby updated!");
+    Console.WriteLine("Lobby type updated!");
   }
 });
 ```
@@ -136,7 +138,7 @@ lobbyManager.UpdateLobby(lobbyId, txn, (result, lobby) =>
 
 Sets a new owner for the lobby.
 
-Returns `void`;
+Returns `void`.
 
 ###### Parameters
 
@@ -149,11 +151,11 @@ Returns `void`;
 ```cs
 var txn = lobbyManager.GetLobbyUpdateTransaction();
 txn.SetOwner(53908232506183680);
-lobbyManager.UpdateLobby(lobbyId, txn, (result, lobby) =>
+lobbyManager.UpdateLobby(lobbyId, txn, (Discord.Result result, ref Discord.Lobby lobby) =>
 {
-  if (result == Discord.Result.OK)
+  if (result == Discord.Result.Ok)
   {
-    Console.WriteLine("Lobby updated!");
+    Console.WriteLine("Lobby owner updated!");
   }
 });
 ```
@@ -175,11 +177,11 @@ Returns `void`.
 ```cs
 var txn = lobbyManager.GetLobbyUpdateTransaction();
 txn.SetCapacity(10);
-lobbyManager.UpdateLobby(lobbyId, txn, (result, lobby) =>
+lobbyManager.UpdateLobby(lobbyId, txn, (Discord.Result result, ref Discord.Lobby lobby) =>
 {
-  if (result == Discord.Result.OK)
+  if (result == Discord.Result.Ok)
   {
-    Console.WriteLine("Lobby updated!");
+    Console.WriteLine("Lobby capacity updated!");
   }
 });
 ```
@@ -202,11 +204,11 @@ Returns `void`.
 ```cs
 var txn = lobbyManager.GetLobbyUpdateTransaction();
 txn.SetMetadata("average_mmr", "4500");
-lobbyManager.UpdateLobby(lobbyId, txn, (result, lobby) =>
+lobbyManager.UpdateLobby(lobbyId, txn, (Discord.Result result, ref Discord.Lobby lobby) =>
 {
-  if (result == Discord.Result.OK)
+  if (result == Discord.Result.Ok)
   {
-    Console.WriteLine("Lobby updated!");
+    Console.WriteLine("Lobby metadata updated!");
   }
 });
 ```
@@ -228,11 +230,11 @@ Returns `void`.
 ```cs
 var txn = lobbyManager.GetLobbyUpdateTransaction();
 txn.DeleteMetadata("average_mmr");
-lobbyManager.UpdateLobby(lobbyId, txn, (result, lobby) =>
+lobbyManager.UpdateLobby(lobbyId, txn, (Discord.Result result, ref Discord.Lobby lobby) =>
 {
-  if (result == Discord.Result.OK)
+  if (result == Discord.Result.Ok)
   {
-    Console.WriteLine("Lobby updated!");
+    Console.WriteLine("Lobby metadata updated!");
   }
 });
 ```
@@ -254,11 +256,11 @@ Returns `void`.
 ```cs
 var txn = lobbyManager.GetLobbyUpdateTransaction();
 txn.SetLocked(true);
-lobbyManager.UpdateLobby(lobbyId, txn, (result, lobby) =>
+lobbyManager.UpdateLobby(lobbyId, txn, (Discord.Result result, ref Discord.Lobby lobby) =>
 {
-  if (result == Discord.Result.OK)
+  if (result == Discord.Result.Ok)
   {
-    Console.WriteLine("Lobby updated!");
+    Console.WriteLine("Lobby type updated!");
   }
 });
 ```
@@ -281,11 +283,11 @@ Returns `void`.
 ```cs
 var txn = lobbyManager.GetMemberUpdateTransaction();
 txn.SetMetadata("current_mmr", "4267");
-lobbyManager.UpdateMember(lobbyId, memberId, txn, (result, lobby) =>
+lobbyManager.UpdateMember(lobbyId, memberId, txn, (result) =>
 {
-  if (result == Discord.Result.OK)
+  if (result == Discord.Result.Ok)
   {
-    Console.WriteLine("Member updated!");
+    Console.WriteLine("Member metadata updated!");
   }
 });
 ```
@@ -307,11 +309,11 @@ Returns `void`.
 ```cs
 var txn = lobbyManager.GetMemberUpdateTransaction();
 txn.DeleteMetadata("current_mmr");
-lobbyManager.UpdateMember(lobbyId, memberId, txn, (result, lobby) =>
+lobbyManager.UpdateMember(lobbyId, memberId, txn, (result) =>
 {
-  if (result == Discord.Result.OK)
+  if (result == Discord.Result.Ok)
   {
-    Console.WriteLine("Member updated!");
+    Console.WriteLine("Member metadata updated!");
   }
 });
 ```
@@ -465,9 +467,9 @@ Returns `Discord.Result` and `ref Lobby` via callback.
 ###### Example
 
 ```cs
-lobbyManager.CreateLobby(txn, (result, lobby) =>
+lobbyManager.CreateLobby(txn, (Discord.Result result, ref Discord.Lobby lobby) =>
 {
-  if (result == Discord.Result.OK)
+  if (result == Discord.Result.Ok)
   {
     Console.WriteLine("Created lobby {0}", lobby.Id);
   }
@@ -495,7 +497,7 @@ Returns `Discord.Result` via callback.
 ```cs
 lobbymanager.UpdateLobby(290926798626357250, transaction, (result) =>
 {
-  if (result == Discord.Result.OK)
+  if (result == Discord.Result.Ok)
   {
     Console.WriteLine("Lobby updated!");
   }
@@ -519,7 +521,7 @@ Returns `Discord.Result` via callback.
 ```cs
 lobbymanager.DeleteLobby(290926798626357250, (result) =>
 {
-  if (result == Discord.Result.OK)
+  if (result == Discord.Result.Ok)
   {
     Console.WriteLine("Lobby deleted!");
   }
@@ -542,9 +544,9 @@ Returns `Discord.Result` and `ref Discord.Lobby` via callback.
 ###### Example
 
 ```cs
-lobbyManager.ConnectLobby(290926798626357250, "363446008341987328:123123", (result, lobby) =>
+lobbyManager.ConnectLobby(290926798626357250, "363446008341987328:123123", (Discord.Result result, ref Discord.Lobby lobby) =>
 {
-  if (result == Discord.Result.OK)
+  if (result == Discord.Result.Ok)
   {
     Console.WriteLine("Connected to lobby {0}!", lobby.Id);
   }
@@ -566,9 +568,9 @@ Returns `Discord.Result` and `ref Discord.Lobby` via callback.
 ###### Example
 
 ```cs
-lobbyManager.ConnectLobbyWithActivitySecret("363446008341987328:123123", (result, lobby) =>
+lobbyManager.ConnectLobbyWithActivitySecret("363446008341987328:123123", (Discord.Result result, ref Discord.Lobby lobby) =>
 {
-  if (result == Discord.Result.OK)
+  if (result == Discord.Result.Ok)
   {
     Console.WriteLine("Connected to lobby {0}!", lobby.Id);
   }
@@ -631,7 +633,7 @@ Returns `Discord.Result` via callback.
 ```cs
 lobbyManager.DisconnectLobby(290926798626357250, (result) =>
 {
-  if (result == Discord.Result.OK)
+  if (result == Discord.Result.Ok)
   {
     Console.WriteLine("Left lobby!");
   }
@@ -882,7 +884,7 @@ var txn = lobbyManager.GetLobbyMemberTransaction(290926798626357250, 53908232506
 txn.SetMetadata("my_mmr", "9999");
 lobbyManager.UpdateMember(290926798626357250, 53908232506183680, txn, (result) =>
 {
-  if (result == Discord.Result.OK)
+  if (result == Discord.Result.Ok)
   {
     Console.WriteLine("Lobby member updated!");
   }
@@ -893,7 +895,7 @@ lobbyManager.UpdateMember(290926798626357250, 53908232506183680, txn, (result) =
 
 Sends a message to the lobby on behalf of the current user. You must be connected to the lobby you are messaging. You should use this function for message sending if you are _not_ using the built in networking layer for the lobby. If you are, you should use [SendNetworkMessage](#DOCS_GAME_SDK_LOBBIES/sendnetworkmessage) instead.
 
-Returns `void`.
+Returns a `Discord.Result` via callback.
 
 ###### Parameters
 
@@ -905,7 +907,13 @@ Returns `void`.
 ###### Example
 
 ```cs
-lobbyManager.SendLobbyMessage(290926798626357250, Encoding.UTF8.GetBytes("hey."));
+lobbyManager.SendLobbyMessage(290926798626357250, Encoding.UTF8.GetBytes("hey."), (result) =>
+{
+  if (result == Discord.Result.Ok)
+  {
+    Console.WriteLine("Message sent successfully");
+  }
+});
 ```
 
 ## GetSearchQuery
@@ -947,7 +955,7 @@ search.Sort("metadata.matchmaking_rating", LobbySearchCast.Number, "456");
 search.Limit(10);
 lobbyManger.Search(search, (result) =>
 {
-  if (result == Discord.Result.OK)
+  if (result == Discord.Result.Ok)
   {
     var count = lobbyManager.LobbyCount();
     Console.WriteLine("There are {0} lobbies that match your search criteria", count);
@@ -1022,7 +1030,7 @@ Returns `Discord.Result` via callback.
 ```cs
 lobbyManager.ConnectVoice(290926798626357250, (result) =>
 {
-  if (result == Discord.Result.OK)
+  if (result == Discord.Result.Ok)
   {
     Console.WriteLine("Voice connected!");
   }
@@ -1044,7 +1052,7 @@ Disconnects from the voice channel of a given lobby.
 ```cs
 lobbyManager.DisconnectVoiceLobby(290926798626357250, (result) =>
 {
-  if (result == Discord.Result.OK)
+  if (result == Discord.Result.Ok)
   {
     Console.WriteLine("Voice disconnected!");
   }
@@ -1528,7 +1536,7 @@ public void InitNetworking(Int64 lobbyId)
 activityManager.OnActivityJoin += secret =>
 {
   var lobbyManager = discord.GetLobbyManager();
-  lobbyManager.ConnectLobbyWithActivitySecret(secret, (result, lobby) =>
+  lobbyManager.ConnectLobbyWithActivitySecret(secret, (Discord.Result result, ref Discord.Lobby lobby) =>
   {
     // Connect to networking
     InitNetworking(lobby.Id);
@@ -1537,7 +1545,13 @@ activityManager.OnActivityJoin += secret =>
     for (int i = 0; i < lobbyManager.MemberCount(); i++)
     {
       var userId = lobbyManager.GetMemberUserId(i);
-      lobbyManager.SendNetworkMessage(lobby.Id, userId, 0, System.Text.Encoding.UTF8.GetBytes("Hello!"));
+      lobbyManager.SendNetworkMessage(lobby.Id, userId, 0, System.Text.Encoding.UTF8.GetBytes("Hello!"), (networkMessageResult) =>
+      {
+        if (networkMessageResult == Discord.Result.Ok)
+        {
+          Console.WriteLine("Message successfully sent");
+        }
+      });
     }
   });
 }
