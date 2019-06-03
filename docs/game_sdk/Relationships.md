@@ -9,6 +9,14 @@ This manager helps you access the relationships your players have made on Discor
 - Filter those relationships based on a given criteria
 - Build a user's friends list
 
+## First Notes
+
+Relationships on Discord change often; people start and stop playing games, go online, offline, invisible, or otherwise change state. Therefore, there are some important factors to remember when working with this manager. When you are first getting a list of a user's relationships, before you can `Filter()`, you need to wait for the `OnRefresh` callback to fire. This is your indicator that Discord has successfully taken a snapshot of the state of all your relationships at a given moment. Now that you have this snapshot, you can `Filter()` it to build the list that you want, and then interate over that list to do whatever your game needs to do. Use this to build your initial social graph for a user.
+
+As relationships change, the `OnRelationshipUpdate` event will fire. You can use this to update the user's social graph, changing the status of the other Discord users that you chose to filter, e.g. someone is now online, or now playing the game, or no longer playing.
+
+An example of how to do this properly is at the end of this documentation page.
+
 ## Data Models
 
 ###### Relationship Struct
@@ -61,7 +69,7 @@ A function that takes a `Relationship` parameter.
 ```cs
 relationshipsManager.Filter(relationship =>
 {
-  relationship.Presence.Status == Discord.Status.Online;
+  return relationship.Presence.Status == Discord.Status.Online;
 });
 ```
 
@@ -128,7 +136,7 @@ for (int i = 0; i < relationshipsManager.Count(); i++)
 
 ## OnRefresh
 
-Fires when the filtered relationship list has been reset to default, usually because of a reconnection to Discord.
+Fires at initialization when Discord has cached a snapshot of the current status of all your relationships. Wait for this to fire before calling `Filter` within its callback.
 
 ###### Parameters
 
@@ -140,20 +148,20 @@ Fires when a relationship in the filtered list changes, like an updated presence
 
 ###### Parameters
 
-| name         | type         | description                   |
-| ------------ | ------------ | ----------------------------- |
-| relationship | Relationship | the relationship that changed |
+| name         | type             | description                   |
+| ------------ | ---------------- | ----------------------------- |
+| relationship | ref Relationship | the relationship that changed |
 
 ###### Example
 
 ```cs
-OnRelationshipUpdate += relationship =>
+OnRelationshipUpdate += (ref Discord.Relationship relationship) =>
 {
   Console.WriteLine("Who changed? {0}", relationship.User.Id);
 };
 ```
 
-## Example: Accessing a User's Friends List
+## Example: Creating a Friends List
 
 ```cs
 var discord = new Discord.Discord(clientId, Discord.CreateFlags.Default);
@@ -162,20 +170,32 @@ var relationshipManager = discord.GetRelationshipManager();
 // Assign this handle right away to get the initial relationships update.
 // This callback will only be fired when the whole list is initially loaded or was reset
 
+// Wait for OnRefresh to fire to access a stable list
 // Filter a user's relationship list to be just friends
-relationshipManager.Filter((relationship) =>
+// Use this list as your base
+relationshipManager.OnRefresh += () =>
 {
-  return relationship.Type == Discord.RelationshipType.Friend;
-});
+  relationshipManager.Filter((relationship) =>
+  {
+    return relationship.Type == Discord.RelationshipType.Friend;
+  });
 
-// Loop over all friends a user has.
-Console.WriteLine("relationships updated: {0}", relationshipManager.Count());
+  // Loop over all friends a user has.
+  Console.WriteLine("relationships updated: {0}", relationshipManager.Count());
 
-for (var i = 0; i < Math.Min(relationshipManager.Count(), 10); i++)
+  for (var i = 0; i < relationshipManager.Count(); i++)
+  {
+      // Get an individual relationship from the list
+      var r = relationshipManager.GetAt((uint)i);
+      Console.WriteLine("relationships: {0} {1}", r.Type, r.User.Username);
+      // Save r off to a list of user's relationships
+  }
+}
+
+relationshipManager.OnRelationshipUpdate += (ref Discord.Relationship relationship) =>
 {
-    // Get an individual relationship from the list
-    var r = relationshipManager.At((uint)i);
-    Console.WriteLine("relationships: {0} {1}", r.Type, r.User.Username);
+  Console.WriteLine("User is {0}", relationship.User.Username);
+  // Update the matching user in your previously created list
 }
 ```
 
@@ -186,23 +206,26 @@ var discord = new Discord.Discord(clientId, Discord.CreateFlags.Default);
 var relationshipManager = discord.GetRelationshipManager();
 var activityManager = discord.GetActivityManager();
 
-relationshipManager.Filter((relationship) =>
+relationshipManager.OnRefresh += () =>
 {
-  // Filter for users who are playing the same game as the current user
-  // Is their activity application id the same as my client id?
-  return relationship.Presence.Activity.ApplicationId == clientId;
-});
+  relationshipManager.Filter((relationship) =>
+  {
+    // Filter for users who are playing the same game as the current user
+    // Is their activity application id the same as my client id?
+    return relationship.Presence.Activity.ApplicationId == clientId;
+  });
 
-for (var i = 0; i < Math.Min(relationshipManager.Count(); i++)
-{
-    // Get an individual relationship from the list
-    var r = relationshipManager.At((uint)i);
-    Console.WriteLine("relationships: {0} {1}", r.Type, r.User.Username);
+  for (var i = 0; i < relationshipManager.Count(); i++)
+  {
+      // Get an individual relationship from the list
+      var r = relationshipManager.GetAt((uint)i);
+      Console.WriteLine("relationships: {0} {1}", r.Type, r.User.Username);
 
-    // Send them a game invite!
-    activityManager.InviteUser(r.User.Id, Discord.ActivityActionType.Join, "Come play with me!", (result) =>
-    {
-      Console.WriteLine("Invited user {0} to play with you", r.User.Username);
-    });
-};
+      // Send them a game invite!
+      activityManager.InviteUser(r.User.Id, Discord.ActivityActionType.Join, "Come play with me!", (result) =>
+      {
+        Console.WriteLine("Invited user {0} to play with you", r.User.Username);
+      });
+  };
+}
 ```
