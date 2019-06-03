@@ -23,11 +23,53 @@ If you want people playing your game to be able to talk with each other, this Vo
 | Type     | InputModeType | set either VAD or PTT as the voice input mode |
 | Shortcut | string        | the PTT hotkey for the user                   |
 
+###### Shortcut Keys
+
+Keys can be mapped as a combination by adding a "+" between values, such as `"shift + 4"` or `"ctrl + v"`.
+
+| key type      | value                                                     |
+| ------------- | --------------------------------------------------------- |
+| Alphabetical  | "a", "b", "c", etc.                                       |
+| Numerical     | "1", "2", "3", etc.                                       |
+| Symbols       | "-", "+", ".", "/", etc.                                  |
+| Function Keys | "f1", "f2", "f3", etc.                                    |
+| Gamepads      | standard XInput api values - "GAMEPAD0", "GAMEPAD1", etc. |
+| Enter         | "enter"                                                   |
+| Tab           | "tab"                                                     |
+| Spacebar      | "space"                                                   |
+| Backspace     | "backspace"                                               |
+| Escape        | "esc"                                                     |
+| Meta          | "meta"                                                    |
+| Shift         | "shift"                                                   |
+| Caps Lock     | "caps lock"                                               |
+| Alt           | "alt"                                                     |
+| Control       | "ctrl"                                                    |
+| Right Shift   | "right shift"                                             |
+| Right Alt     | "right alt"                                               |
+| Right Control | "right ctrl"                                              |
+| Right Meta    | "right meta"                                              |
+| Page Up       | "page up"                                                 |
+| Page Down     | "page down"                                               |
+| Scroll Lock   | "scroll lock"                                             |
+| Print Screen  | "print screen"                                            |
+| Rewind        | "rewind"                                                  |
+| Play          | "play"                                                    |
+| Fast Forward  | "fast forward"                                            |
+| Delete        | "del"                                                     |
+| End           | "end"                                                     |
+| Insert        | "insert"                                                  |
+| Break         | "break"                                                   |
+| Home          | "home"                                                    |
+| Up Arrow      | "up"                                                      |
+| Down Arrow    | "down"                                                    |
+| Left Arrow    | "left"                                                    |
+| Right Arrow   | "right"                                                   |
+
 ## GetInputMode
 
 Get the current voice input mode for the user.
 
-Returns an `InputMode`.
+Returns a `Discord.InputMode`.
 
 ###### Parameters
 
@@ -43,7 +85,7 @@ Console.WriteLine("The current input mode is {0}. The current PTT hotkey is set 
 
 ## SetInputMode
 
-Sets a new voice input mode for the user. The shortcut can be retrieved dynamically in your code, or a mapping can be kept. For examples, see [this table](https://www.cambiaresearch.com/articles/15/javascript-char-codes-key-codes) or play with [this tool](https://keycode.info/)!
+Sets a new voice input mode for the user. Refer to [Shortcut Keys](#DOCS_GAME_SDK_VOICE/data-models-shortcut-keys) for a table of valid values for shortcuts.
 
 Returns a `Discord.Result` via callback.
 
@@ -60,7 +102,7 @@ var voiceManager = discord.GetVoiceManager();
 var newMode = new Discord.InputMode()
 {
   Type = Discord.InputModeType.PushToTalk,
-  Shortcut = "17"
+  Shortcut = "ctrl"
 };
 voiceManager.SetInputMode(newMode, (res) =>
 {
@@ -190,7 +232,7 @@ Returns `void`.
 | name   | type  | description                     |
 | ------ | ----- | ------------------------------- |
 | userId | Int64 | the id of the user to mute      |
-| deaf   | bool  | true for mute, false for unmute |
+| mute   | bool  | true for mute, false for unmute |
 
 ###### Example
 
