@@ -40,9 +40,9 @@ This manager helps retrieve basic user information for any user on Discord.
 > info
 > Before calling this function, you'll need to wait for the [OnCurrentUserUpdate](#DOCS_GAME_SDK_USERS/on-current-user-update) callback to fire after instantiating the User manager.
 
-Fetch information about the currently connected user account. If you're interested in getting more detailed information about a user—for example, their HypeSquad house, or if they have Nitro—check out our [GetCurrentUser](#DOCS_RESROUCES_USER/get-current-user) API endpoint. You'll want to call this with an authorization header of `Bearer <token>`, where `<token>` is the token retreived from the SDK function [GetOAuth2Token](#DOCS_GAME_SDK_APPLICATIONS/getoauth2token).
+Fetch information about the currently connected user account. If you're interested in getting more detailed information about a user—for example, their email—check out our [GetCurrentUser](#DOCS_RESROUCES_USER/get-current-user) API endpoint. You'll want to call this with an authorization header of `Bearer <token>`, where `<token>` is the token retreived from a standard [OAuth2 Authorization Code Grant](#DOCS_TOPICS_OAUTH2/authorization-code-grant) flow.
 
-Returns a `User`.
+Returns a `Discord.User`.
 
 ###### Parameters
 
@@ -59,7 +59,7 @@ Console.WriteLine("Connected to user {0}", user.Id);
 
 Get user information for a given id.
 
-Returns a `Discord.Result` and `User` via callback.
+Returns a `Discord.Result` and `ref Discord.User` via callback.
 
 ###### Parameters
 
@@ -70,9 +70,9 @@ Returns a `Discord.Result` and `User` via callback.
 ###### Example
 
 ```cs
-userManager.GetUser(userId, (result, user) =>
+userManager.GetUser(userId, (Discord.Result result, ref Discord.User user) =>
 {
-  if (result == Discord.Result.OK)
+  if (result == Discord.Result.Ok)
   {
     Console.WriteLine("User {0} is {1}", user.Id, user.Username);
   }
@@ -83,7 +83,7 @@ userManager.GetUser(userId, (result, user) =>
 
 Get the [PremiumType](#DOCS_GAME_SDK_USER/data-models-premiumtype-enum) for the currently connected user.
 
-Returns `PremiumType`.
+Returns `Discord.PremiumType`.
 
 ###### Parameters
 
@@ -148,7 +148,7 @@ Fires when the `User` struct of the currently connected user changes. They may h
 var discord = new Discord.Discord(clientId, Discord.CreateFlags.Default);
 
 var userManager = discord.GetUserManager();
-userManager.GetUser(450795363658366976, (result, user) =>
+userManager.GetUser(450795363658366976, (Discord.Result result, ref Discord.User user) =>
 {
   if (result == Discord.Result.Ok)
   {
