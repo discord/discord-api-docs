@@ -149,6 +149,16 @@ achievementManager.FetchUserAchievements((res) =>
 });
 ```
 
+## OnUserAchievementUpdate
+
+Fires when an achievement is updated for the currently connected user
+
+###### Parameters
+
+| name        | type                | description                      |
+| ----------- | ------------------- | -------------------------------- |
+| achievement | ref UserAchievement | the achievement that was updated |
+
 ## The API Way
 
 Below are the API endpoints and the parameters they accept. If you choose to interface directly with the Discord API, you will need a token. This is a special authorization token with which your application can access Discord's HTTP API. You can retrieve it using the [Client Credentials OAuth2 Grant](#DOCS_TOPICS_OAUTH2/client-credentials/grant) by requesting the `applications.store.update` scope.
