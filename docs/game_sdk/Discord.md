@@ -11,15 +11,18 @@ OK, cool, so how's it work?
 
 At a high level, the Discord GameSDK has a class, `Discord`. This class is in charge of the creation of a few "manager" sub-classes. They are:
 
+- `AchievementManager` - for achievements!
 - `ActivityManager` - for Rich Presence and game invites
-- `RelationshipManager` - for users' social relationships across Discord, including friends list
+- `ApplicationManager` - for retrieving a user's OAuth2 bearer token, locale, and current game branch
 - `ImageManager` - for getting data about images on Discord, like user avatars or chat images
-- `UserManager` - for fetching user data for a given id and the current user
 - `LobbyManager` - for multiplayer lobbies
 - `NetworkManager` - for all your networking layer needs
-- `ApplicationManager` - for retrieving a user's OAuth2 bearer token, locale, and current game branch
-- `StorageManager` - for saving game data to the disk and the cloud
 - `OverlayManager` - for interacting with Discord's built-in overlay
+- `RelationshipManager` - for users' social relationships across Discord, including friends list
+- `StorageManager` - for saving game data to the disk and the cloud
+- `StoreManager` - for all things entitlements and SKUs, including IAP functionality
+- `UserManager` - for fetching user data for a given id and the current user
+- `VoiceManager` - to make use of Discord's awesome voice chat
 
 Each one of these managers contain a number of methods and events used to interact with Discord in the context of the manager. For example, `RelationshipManager` has a function called `Filter()`, which lets you pare down a user's inter-Discord relationships based on a boolean condition, like being friends!
 
@@ -55,20 +58,20 @@ Discord passes a number of environment variables down to the SDK. These are acce
 
 ###### SDK Environment Variables
 
-| name                   | method                                                                                  | description                                                                                                          |
-| ---------------------- | --------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
-| DISCORD_INSTANCE_ID    | [Local Testing](#DOCS_GAME_SDK_SDK_STARTER_GUIDE/testing-with-two-clients)              | the locally running instance of Discord to connect to; allows you to choose between multiple locally running clients |
-| DISCORD_ACCESS_TOKEN   | [ApplicationManager.GetOAuth2Token()](#DOCS_GAME_SDK_APPLICATIONS/get-oauth2-token)     | the connected user's bearer token                                                                                    |
-| DISCORD_CURRENT_LOCALE | [ApplicationManager.GetCurrentLocale](#DOCS_GAME_SDK_APPLICATIONS/get-current-locale)   | the language that Discord is in for the connected user                                                               |
-| DISCORD_CURRENT_BRANCH | [ApplicationManager.GetCurrentBranch()](#DOCS_GAME_SDK_APPLICATIONS/get-current-branch) | the branch of the running application that the user has launched                                                     |
-| DISCORD_STORAGE_PATH   | [StorageManager.GetPath()](#DOCS_GAME_SDK_STORAGE/get-path)                             | the path to which Discord will save files if you're using the StorageManager                                         |
+| name                   | method                                                                                  | description                                                                                                  |
+| ---------------------- | --------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------ |
+| DISCORD_INSTANCE_ID    | [Local Testing](#DOCS_GAME_SDK_SDK_STARTER_GUIDE/testing-with-two-clients)              | the locally running instance of Discord to connect to; allows you to choose between multiple running clients |
+| DISCORD_ACCESS_TOKEN   | [ApplicationManager.GetOAuth2Token()](#DOCS_GAME_SDK_APPLICATIONS/get-oauth2-token)     | the connected user's bearer token                                                                            |
+| DISCORD_CURRENT_LOCALE | [ApplicationManager.GetCurrentLocale](#DOCS_GAME_SDK_APPLICATIONS/get-current-locale)   | the language that Discord is in for the connected user                                                       |
+| DISCORD_CURRENT_BRANCH | [ApplicationManager.GetCurrentBranch()](#DOCS_GAME_SDK_APPLICATIONS/get-current-branch) | the branch of the running application that the user has launched                                             |
+| DISCORD_STORAGE_PATH   | [StorageManager.GetPath()](#DOCS_GAME_SDK_STORAGE/get-path)                             | the path to which Discord will save files if you're using the StorageManager                                 |
 
 ## Error Handling
 
 Debugging is a pain, so before we get into the meat of the SDK, we want to make sure you're prepared for when things go awry. Within the Discord core is a function called `SetLogHook()`. It takes a `level`, which is minimum level of log message you want to listen to, and a callback function:
 
 ```cs
-public void LogProblemsFunction(LogLevel level, string message)
+public void LogProblemsFunction(Discord.LogLevel level, string message)
 {
   Console.WriteLine("Discord:{0} - {1}", level, message);
 }
@@ -192,7 +195,7 @@ Returns `void`.
 ###### Example
 
 ```cs
-public void LogProblemsFunction(LogLevel level, string message)
+public void LogProblemsFunction(Discord.LogLevel level, string message)
 {
   Console.WriteLine("Discord:{0} - {1}", level, message);
 }
