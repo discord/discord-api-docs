@@ -44,7 +44,7 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 | vanity\_url\_code | ?string | the vanity url code for the guild |
 | description | ?string | the description for the guild |
 | banner | ?string | [banner hash](#DOCS_REFERENCE/image-formatting) |
-| premium_tier | integer | [premium tier](#DOCS_REFERENCE/guild-object-premium-tier) |
+| premium_tier | integer | [premium tier](#DOCS_RESOURCES_GUILD/guild-object-premium-tier) |
 | premium_subscription_count? | integer | the total number of users currently boosting this server |
 
 ** \* These fields are only sent within the [GUILD_CREATE](#DOCS_TOPICS_GATEWAY/guild-create) event **
