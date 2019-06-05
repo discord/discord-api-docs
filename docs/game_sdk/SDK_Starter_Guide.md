@@ -184,4 +184,4 @@ Oh, yeah. Pseudo Table of Contents:
 - [Applications](#DOCS_GAME_SDK_APPLICATIONS/)
 - [Overlay](#DOCS_GAME_SDK_OVERLAY/)
 - [Store](#DOCS_GAME_SDK_STORE/)
-- [Voice](#DOCS_GAME_SDK_VOICE/)
+- [Voice](#DOCS_GAME_SDK_DISCORD_VOICE/)
