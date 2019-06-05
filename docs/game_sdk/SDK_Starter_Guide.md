@@ -185,3 +185,4 @@ Oh, yeah. Pseudo Table of Contents:
 - [Overlay](#DOCS_GAME_SDK_OVERLAY/)
 - [Store](#DOCS_GAME_SDK_STORE/)
 - [Voice](#DOCS_GAME_SDK_VOICE/)
+- [Achievements](#DOCS_GAME_SDK_ACHIEVEMENTS/)
