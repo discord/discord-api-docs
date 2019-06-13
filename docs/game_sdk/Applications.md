@@ -76,7 +76,7 @@ if (branch != MyBranches.Stable)
 > info
 > value from environment variable `DISCORD_ACCESS_TOKEN`
 
-Retrieve an oauth2 beare token for the current user. If your game was launched from Discord and you call this function, you will automatically receive the token. If the game was _not_ launched from Discord and this method is called, Discord will focus itself and prompt the user for authorization.
+Retrieve an oauth2 bearer token for the current user. If your game was launched from Discord and you call this function, you will automatically receive the token. If the game was _not_ launched from Discord and this method is called, Discord will focus itself and prompt the user for authorization.
 
 Returns a `Discord.Result` and a `ref Discord.OAuth2Token` via callback.
 
