@@ -151,6 +151,7 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 50036 | An invite was accepted to a guild the application's bot is not in |
 | 50041 | Invalid API version |
 | 90001 | Reaction blocked |
+| 130000 | Resource overloaded |
 
 ###### Example JSON Error Response
 
