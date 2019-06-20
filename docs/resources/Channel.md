@@ -646,6 +646,9 @@ Returns all pinned messages in the channel as an array of [message](#DOCS_RESOUR
 
 Pin a message in a channel. Requires the `MANAGE_MESSAGES` permission. Returns a 204 empty response on success.
 
+>warn
+>The max pinned messages is 50.
+
 ## Delete Pinned Channel Message % DELETE /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/pins/{message.id#DOCS_RESOURCES_CHANNEL/message-object}
 
 Delete a pinned message in a channel. Requires the `MANAGE_MESSAGES` permission. Returns a 204 empty response on success.
