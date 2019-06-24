@@ -371,16 +371,10 @@ Adds a user to the guild, provided you have a valid oauth2 access token for the 
 
 ## Modify Guild Member % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/members/{user.id#DOCS_RESOURCES_USER/user-object}
 
-Modify attributes of a [guild member](#DOCS_RESOURCES_GUILD/guild-member-object). Returns a 204 empty response on success. Fires a [Guild Member Update](#DOCS_TOPICS_GATEWAY/guild-member-update) Gateway event.
+Modify attributes of a [guild member](#DOCS_RESOURCES_GUILD/guild-member-object). Returns a 204 empty response on success. Fires a [Guild Member Update](#DOCS_TOPICS_GATEWAY/guild-member-update) Gateway event. If the `channel_id` is set to null, this will force the target user to be disconnected from voice.
 
 >info
->All parameters to this endpoint are optional. When moving members to channels, the API user
->_must_ have permissions to both connect to the channel and have the `MOVE_MEMBERS` permission.
-
->info
->If the `channel_id` is set to null, this will force the target user to be disconnected from voice.
->The API user _must_ have `MOVE_MEMBERS` permission in the target user's current channel in order to
->execute this operation.
+>All parameters to this endpoint are optional. When moving members to channels, the API user _must_ have permissions to both connect to the channel and have the `MOVE_MEMBERS` permission.
 
 ###### JSON Params
 
@@ -388,8 +382,8 @@ Modify attributes of a [guild member](#DOCS_RESOURCES_GUILD/guild-member-object)
 |-------|------|-------------|------------|
 | nick | string | value to set users nickname to | MANAGE_NICKNAMES |
 | roles | array of snowflakes | array of role ids the member is assigned | MANAGE_ROLES |
-| mute | boolean | whether the user is muted in voice channels | MUTE_MEMBERS |
-| deaf | boolean | whether the user is deafened in voice channels | DEAFEN_MEMBERS |
+| mute | boolean | whether the user is muted in voice channels. Will throw a 400 if the user is not in a voice channel | MUTE_MEMBERS |
+| deaf | boolean | whether the user is deafened in voice channels. Will throw a 400 if the user is not in a voice channel | DEAFEN_MEMBERS |
 | channel_id | ?snowflake | id of channel to move user to (if they are connected to voice) | MOVE_MEMBERS |
 
 ## Modify Current User Nick % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/members/@me/nick
