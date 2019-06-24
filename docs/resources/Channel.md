@@ -472,7 +472,7 @@ The maximum request size when sending a message is 8MB.
 This endpoint supports requests with `Content-Type`s of both `application/json` and `multipart/form-data`. You must however use `multipart/form-data` when uploading files. Note that when sending `multipart/form-data` requests the `embed` field cannot be used, however you can pass a JSON encoded body as form value for `payload_json`, where additional request parameters such as `embed` can be set.
 
 >info
->Note that when sending `application/json` you must send at least one of `content` or `embed`, and when sending `multipart/form-data`, you must send at least one of `content`, `embed` or `file`.
+>Note that when sending `application/json` you must send at least one of `content` or `embed`, and when sending `multipart/form-data`, you must send at least one of `content`, `embed` or `file`. For a `file` attachment, the `Content-Disposition` subpart header MUST contain a `filename` parameter.
 
 ###### Params
 
