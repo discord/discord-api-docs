@@ -480,7 +480,6 @@ The ready event is dispatched when a client has completed the initial handshake 
 #### Resumed
 
 The resumed event is dispatched when a client has sent a [resume payload](#DOCS_TOPICS_GATEWAY/resume) to the gateway (for resuming existing sessions).
-It has no special fields.
 
 #### Invalid Session
 
