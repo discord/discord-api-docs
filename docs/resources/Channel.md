@@ -588,7 +588,7 @@ Edit a previously sent message. You can only edit messages that have been sent b
 | content | string | the new message contents (up to 2000 characters) |
 | embed | [embed](#DOCS_RESOURCES_CHANNEL/embed-object) object | embedded `rich` content |
 
-## Suppress Embed(s) on a Message % POST /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}/suppress-embeds
+## Suppress Message Embeds % POST /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}/suppress-embeds
 
 Enables/Disables suppression of Embed(s) on a Message. This endpoint requires the 'MANAGE\_MESSAGES' permission to be present on the current user.
 Returns a 204 empty response on success. Fires a [Message Update](#DOCS_TOPICS_GATEWAY/message-update) Gateway event.
