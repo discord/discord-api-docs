@@ -187,17 +187,18 @@ Finally, the voice server will respond with a [Opcode 4 Session Description](#DO
 
 ## Encrypting and Sending Voice
 
-Voice data sent to discord should be encoded with [Opus](https://www.opus-codec.org/), using two channels (stereo) and a sample rate of 48kHz. Voice Data is sent using a [RTP Header](http://www.rfcreader.com/#rfc3550_line548), followed by encrypted Opus audio data. Voice encryption uses the key passed in [Opcode 4 Session Description](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice-opcodes) combined with the 24 byte header (used as a nonce, appended with 12 null bytes), encrypted with [libsodium](https://download.libsodium.org/doc/):
+Voice data sent to discord should be encoded with [Opus](https://www.opus-codec.org/), using two channels (stereo) and a sample rate of 48kHz. Voice Data is sent using a [RTP Header](http://www.rfcreader.com/#rfc3550_line548), followed by encrypted Opus audio data. Voice encryption uses the key passed in [Opcode 4 Session Description](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice-opcodes) and the nonce formed with the 12 byte header appended with 12 null bytes to achive the 24 required by xsalsa20_poly1305. Discord encrypts with the [libsodium](https://download.libsodium.org/doc/) encryption library.
 
-###### Encrypted Voice Packet Header Structure
+###### Voice Packet Structure
 
 | Field | Type | Size |
 |--------|--------|--------|
 | Type | Single byte value of `0x80` | 1 byte |
 | Version | Single byte value of `0x78` | 1 byte |
-| Sequence | unsigned short (big endian) | 2 bytes |
-| Timestamp | unsigned integer (big endian) | 4 bytes |
-| SSRC | unsigned integer (big endian) | 4 bytes |
+| Sequence | Unsigned short (big endian) | 2 bytes |
+| Timestamp | Unsigned integer (big endian) | 4 bytes |
+| SSRC | Unsigned integer (big endian) | 4 bytes |
+| Encrypted audio | Binary data | n bytes |
 
 ## Speaking
 
