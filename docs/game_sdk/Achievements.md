@@ -22,6 +22,13 @@ You can also mark achievements as `secret` and `secure`. "Secret" achievements w
 | PercentComplete | Int64  | how far along the user is to completing the achievement (0-100)                            |
 | UnlockedAt      | string | the timestamp at which the user completed the achievement (PercentComplete was set to 100) |
 
+###### Achievement Locale Object
+
+| Name           | Description                                                                                                                     |
+| -------------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| default        | the default locale for the achievement                                                                                          |
+| localizations? | object of [accepted locales](#DOCS_DISPATCH_FIELD_VALUES/predefined-field-values-accepted-locales) as the key and achievement translations as the value          |
+
 ## SetUserAchievement
 
 Updates the current user's status for a given achievement.
@@ -223,38 +230,94 @@ Creates a new achievement for your application. Applications can have a maximum 
 
 | name        | type          | description                             |
 | ----------- | ------------- | --------------------------------------- |
-| name        | string        | the name of the achievement             |
-| description | string        | the user-facing achievement description |
+| name        | object        | the name of the achievement             |
+| description | object        | the user-facing achievement description |
 | secret      | bool          | if the achievement is secret            |
 | secure      | bool          | if the achievement is secure            |
 | icon        | ImageType (?) | the icon for the achievement            |
 
+###### Example: Creating an Achievement
+
+```json
+{
+  "name": {
+    "default": "Find the Secret"
+  },
+  "description": {
+    "default": "You found it!"
+  },
+  "secret": true,
+  "secure": false,
+  "data": "data:image/png;base64,base64_data_here"
+}
+```
+
 ###### Return Object
 
 ```json
-{}
+{
+  "application_id": "461618159171141643",
+  "name": {
+    "default": "Find the Secret"
+  },
+  "description": {
+    "default": "You found it!"
+  },
+  "secret": true,
+  "icon_hash": "52c1636444f64ad7cb5368b158847def",
+  "id": "597763781871861018",
+  "secure": false
+}
 ```
 
 ## Update Achievement
 
 `PATCH https://discordapp.com/api/v6/applications/<application_id>/achievements/<achievement_id>`
 
-Updates the achievement for **\_ALL USERS\_\_**. This is **NOT** to update a single user's achievement progress; this is to edit the UserAchievement itself. This endpoint has a rate limit of 5 requests per 5 seconds per application.
+Updates the achievement for **\_\_ALL USERS\_\_**. This is **NOT** to update a single user's achievement progress; this is to edit the UserAchievement itself. This endpoint has a rate limit of 5 requests per 5 seconds per application.
 
 ###### Parameters
 
 | name        | type          | description                             |
 | ----------- | ------------- | --------------------------------------- |
-| name        | string        | the name of the achievement             |
-| description | string        | the user-facing achievement description |
+| name        | object        | the name of the achievement             |
+| description | object        | the user-facing achievement description |
 | secret      | bool          | if the achievement is secret            |
 | secure      | bool          | if the achievement is secure            |
 | icon        | ImageType (?) | the icon for the achievement            |
 
+###### Example: Updating an Achievement
+
+```json
+{
+  "name": {
+    "default": "How do methods break up?"
+  },
+  "description": {
+    "default": "They stop calling each other!"
+  },
+  "secret": false,
+  "secure": false,
+  "data": "data:image/png;base64,base64_data_here"
+}
+```
+
 ###### Return Object
 
 ```json
-{}
+{
+  "application_id": "461618159171141643",
+  "name": {
+    "default": "How do methods break up?"
+  },
+  "description": {
+    "default": "They stop calling each other!"
+  },
+  "secret": false,
+  "icon_hash": "7d698b594c691e3d28c92e226b28293c",
+  "id": "597638720379682816",
+  "secure": false
+}
 ```
 
 ## Delete Achievement
