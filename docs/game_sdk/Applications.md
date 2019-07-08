@@ -28,7 +28,7 @@ This manager also includes a couple useful helper functions, like getting the lo
 | application_id | Int64                                                                                                                    | the application id for the ticket                        |
 | user           | [User](#DOCS_GAME_SDK_USER/data-models-user-struct)                                                                      | the user for the ticket                                  |
 | entitlements   | list of partial [Entitlements](#DOCS_GAME_SDK_STORE/data-models-entitlement-struct) structs that contain just the SKU id | the list of the user's entitlements for this application |
-| timestamp      | string
+| timestamp      | string                                                                                                                   | the ISO 8601 timestamp for the ticket                    |
 
 ###### Locales
 
@@ -60,7 +60,7 @@ This manager also includes a couple useful helper functions, like getting the lo
 | fi     | Finnish                 |
 | hr     | Croatian                |
 | ro     | Romanian                |
-| lt     | Lithuanian              |                                                                                                                  | the ISO 8601 timestamp for the ticket                    |
+| lt     | Lithuanian              |  
 
 ## GetCurrentLocale
 
