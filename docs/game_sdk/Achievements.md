@@ -27,7 +27,7 @@ You can also mark achievements as `secret` and `secure`. "Secret" achievements w
 | Name           | Description                                                                                                                     |
 | -------------- | ------------------------------------------------------------------------------------------------------------------------------- |
 | default        | the default locale for the achievement                                                                                          |
-| localizations? | object of [accepted locales](#DOCS_GAME_SDK_APPLICATIONS/locales) as the key and achievement translations as the value          |
+| localizations? | object of [accepted locales](#DOCS_DISPATCH_FIELD_VALUES/predefined-field-values-accepted-locales) as the key and achievement translations as the value          |
 
 ## SetUserAchievement
 

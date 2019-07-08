@@ -30,38 +30,6 @@ This manager also includes a couple useful helper functions, like getting the lo
 | entitlements   | list of partial [Entitlements](#DOCS_GAME_SDK_STORE/data-models-entitlement-struct) structs that contain just the SKU id | the list of the user's entitlements for this application |
 | timestamp      | string                                                                                                                   | the ISO 8601 timestamp for the ticket                    |
 
-###### Locales
-
-| Locale | Language Name           |
-| ------ | ----------------------- |
-| en-US  | English (United States) |
-| en-GB  | English (Great Britain) |
-| zh-CN  | Chinese (China)         |
-| zh-TW  | Chinese (Taiwan)        |
-| cs     | Czech                   |
-| da     | Danish                  |
-| nl     | Dutch                   |
-| fr     | French                  |
-| de     | German                  |
-| el     | Greek                   |
-| hu     | Hungarian               |
-| it     | Italian                 |
-| ja     | Japanese                |
-| ko     | Korean                  |
-| no     | Norwegian               |
-| pl     | Polish                  |
-| pt-BR  | Portuguese (Brazil)     |
-| ru     | Russian                 |
-| es-ES  | Spanish (Spain)         |
-| sv-SE  | Swedish                 |
-| tr     | Turkish                 |
-| bg     | Bulgarian               |
-| uk     | Ukranian                |
-| fi     | Finnish                 |
-| hr     | Croatian                |
-| ro     | Romanian                |
-| lt     | Lithuanian              |  
-
 ## GetCurrentLocale
 
 > info
