@@ -399,3 +399,19 @@ None
 ```cs
 var voiceManager = discord.GetVoiceManager();
 ```
+
+## GetAchievementManager
+
+Fetches an instance of the manager for interfacing with achievements in the SDK.
+
+Returns an `AchievementManager`.
+
+###### Parameters
+
+None
+
+###### Example
+
+```cs
+var achievementManager = discord.GetAchievementManager();
+```
