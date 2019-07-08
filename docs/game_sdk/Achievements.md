@@ -221,13 +221,13 @@ Creates a new achievement for your application. Applications can have a maximum 
 
 ###### Parameters
 
-| name       | type          | description                             |
-| ---------- | ------------- | --------------------------------------- |
-| name       | string        | the name of the achievement             |
-| descrition | string        | the user-facing achievement description |
-| secret     | bool          | if the achievement is secret            |
-| secure     | bool          | if the achievement is secure            |
-| icon       | ImageType (?) | the icon for the achievement            |
+| name        | type          | description                             |
+| ----------- | ------------- | --------------------------------------- |
+| name        | string        | the name of the achievement             |
+| description | string        | the user-facing achievement description |
+| secret      | bool          | if the achievement is secret            |
+| secure      | bool          | if the achievement is secure            |
+| icon        | ImageType (?) | the icon for the achievement            |
 
 ###### Return Object
 
@@ -243,13 +243,13 @@ Updates the achievement for **\_ALL USERS\_\_**. This is **NOT** to update a sin
 
 ###### Parameters
 
-| name       | type          | description                             |
-| ---------- | ------------- | --------------------------------------- |
-| name       | string        | the name of the achievement             |
-| descrition | string        | the user-facing achievement description |
-| secret     | bool          | if the achievement is secret            |
-| secure     | bool          | if the achievement is secure            |
-| icon       | ImageType (?) | the icon for the achievement            |
+| name        | type          | description                             |
+| ----------- | ------------- | --------------------------------------- |
+| name        | string        | the name of the achievement             |
+| description | string        | the user-facing achievement description |
+| secret      | bool          | if the achievement is secret            |
+| secure      | bool          | if the achievement is secure            |
+| icon        | ImageType (?) | the icon for the achievement            |
 
 ###### Return Object
 
