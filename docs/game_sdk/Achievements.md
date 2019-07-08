@@ -170,8 +170,6 @@ curl -x POST -h "Authorization: Bot <your token>" https://discordapp.com/api/som
 > info
 > Make sure to prepend your token with "Bot"!
 
-Here are the routes; they all expect JSON bodies. Also, hey, while you're here. You've got a bot token. You're looking at our API. You should check out all the other [awesome stuff](https://discordapp.com/developers/docs/intro) you can do with it!
-
 ## Get Achievements
 
 `GET https://discordapp.com/api/v6/applications/<application_id>/achievements`
