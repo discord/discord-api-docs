@@ -15,12 +15,12 @@ You can also mark achievements as `secret` and `secure`. "Secret" achievements w
 
 ###### User Achievement Struct
 
-| name            | type   | description                                                     |
-| --------------- | ------ | --------------------------------------------------------------- |
-| UserId          | Int64  | the unique id of the user working on the achievement            |
-| AchievementId   | Int64  | the unique id of the achievement                                |
-| PercentComplete | Int64  | how far along the user is to completing the achievement (0-100) |
-| UnlockedAt      | string | ?                                                               |
+| name            | type   | description                                                                                |
+| --------------- | ------ | ------------------------------------------------------------------------------------------ |
+| UserId          | Int64  | the unique id of the user working on the achievement                                       |
+| AchievementId   | Int64  | the unique id of the achievement                                                           |
+| PercentComplete | Int64  | how far along the user is to completing the achievement (0-100)                            |
+| UnlockedAt      | string | the timestamp at which the user completed the achievement (PercentComplete was set to 100) |
 
 ###### Achievement Locale Object
 
@@ -169,8 +169,6 @@ Fires when an achievement is updated for the currently connected user
 ## The API Way
 
 Below are the API endpoints and the parameters they accept. If you choose to interface directly with the Discord API, you will need a token. This is a special authorization token with which your application can access Discord's HTTP API. You can retrieve it using the [Client Credentials OAuth2 Grant](#DOCS_TOPICS_OAUTH2/client-credentials/grant) by requesting the `applications.store.update` scope.
-
-Here are the routes; they all expect JSON bodies. Also, hey, while you're here. You've got a bot token. You're looking at our API. You should check out all the other [awesome stuff](https://discordapp.com/developers/docs/intro) you can do with it!
 
 ## Get Achievements
 
