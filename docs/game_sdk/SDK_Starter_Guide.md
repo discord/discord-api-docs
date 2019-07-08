@@ -1,6 +1,6 @@
 # SDK Starter Guide
 
-Welcome to the Store SDK! We're glad you made it. This SDK is here to solve all your problems, if your problems include finding an awesome SDK to help develop your game. Our SDK is like Clippy, if Clippy were built on a modern tech stack, talked less, and was an awesome game development SDK.
+Welcome to the Discord GameSDK! We're glad you made it. This SDK is here to solve all your problems, if your problems include finding an awesome SDK to help develop your game. Our SDK is like Clippy, if Clippy were built on a modern tech stack, talked less, and was an awesome game development SDK.
 
 ## Step 0 - Some Notes
 
@@ -11,7 +11,7 @@ Before we get off to the races, a couple notes on the SDK:
 - The SDK is **_NOT_** threadsafe!
   - Being callback-based, we thought that'd be confusing and inconsistent
 
-And now you know, and knowing is half the battle.
+Now you know, and knowing is half the battle.
 
 ## Step 1 - Get the Thing
 
@@ -19,9 +19,9 @@ I know you're already convinced, so let's begin. First, get the SDK. Here it is:
 
 - [Discord Game SDK](https://dl-game-sdk.discordapp.net/latest/discord_game_sdk.zip)
 
-There's a few things in there, but let's quickly talk about what the SDK actually _is_. Inside the `lib/` folder, you'll see `x86/` and `x86_64/` that have some `.lib`, `.bundle`, and `.dll` files. You'll also notice that those files are _really_ small, just a couple hundred kilobytes. What these are are stubs for the Discord SDK. These are the things you want to distribute with your game. When you initialize the SDK, these stubs will call back to the locally installed Discord app to actually do the things your game needs. That means that the SDK will launch Discord if it's not already launched, or give you an error if Discord is not installed.
+There's a few things in there, but let's quickly talk about what the SDK actually _is_. Inside the `lib/` folder, you'll see `x86/` and `x86_64/` that have some `.lib`, `.bundle`, and `.dll` files. These are the things you want to distribute with your game.
 
-We designed the SDK this way with two things in mind. First, it allows you as a developer to distribute the Discord SDK on other platforms. As long as the player has Discord running, the SDK will work no matter where the game is launched from. Secondly, it lets you get the latest updates without having to actually download and ship a new SDK version—all the updates will happen in the actual Discord client!
+These files are comprised of two parts: a "stub", and fallback modules. What that means is that when everything is running smoothly, the DLLs will just call back to the local running Discord client to do the heavy lifting. If, however, something is wrong, like a breaking change, the files also include "fallback" modules that reflect the native SDK modules in Discord at the time that version of the SDK was published. TLDR - you don't need to worry about breaking changes.
 
 ## Get Set Up
 
@@ -31,11 +31,12 @@ Head over to our [developer site](https://discordapp.com/developers/) and create
 
 Now that your team is created, you'll want to make an application. To do so, click on "Applications" at the top of the page and create an application. Make sure you pick your newly-created team in the `Team` dropdown. You want your team to own the application; this unlocks store functionality! Now that your app is made, let's dive into some more setup.
 
+> warn
+> If you're integrated our SDK into an already-released game, there's a good chance that we may _already have_ an application in our database for your game! Reach out to our [Dev Support](https://discord.gg/devsupport) to learn more
+
 First, we'll need to set an OAuth2 redirect URL. You can add `http://127.0.0.1` in there for now; this powers some behind-the-scenes stuff you don't need to worry about.
 
-Next, enable Rich Presence for your application (it's a big button near the bottom of the page). This gives you access to a whitelist of users that you can set and invite to test your SDK. When you're ready to test with users **that are not the direct owner of the application**, you'll need to add them to this list.
-
-Finally, copy the **Client ID** at the top of the page. This id, also referred to as an "application id", is your game's unique identifier across Discord. Keep it handy!
+Next, copy the **Client ID** at the top of the page. This id, also referred to as an "application id", is your game's unique identifier across Discord. Keep it handy!
 
 Now we're gonna start coding. Didn't think we'd get there so fast, did ya? _Think again!_ The next sections are code primers for the main languages of the SDK: C#, C, and C++. They'll get you up and running with the most basic examples, and then you're off to the races.
 
@@ -52,8 +53,6 @@ var discord = new Discord.Discord(CLIENT_ID, (UInt64)Discord.CreateFlags.Default
 ```
 
 - Make sure to call `discord.RunCallbacks()` in your main game loop; for Unity, that's your `Update()` function.
-
-During development, Discord will focus itself to ask for permission when you initialize the SDK. This will happen once a week (the duration of our OAuth2 tokens) for now, but will not happen at all in production.
 
 You're ready to go! Check out the rest of the documentation for more info on how to use the other pieces of the SDK. See an example of everything it can do in `examples/Program.cs` in the SDK zip file.
 
@@ -98,8 +97,6 @@ DiscordCreate(DISCORD_VERSION, &params, &app.core);
 
 - Make sure to call `core->run_callbacks(core, 0)` in your game loop.
 
-During development, Discord will focus itself to ask for permission when you initialize the SDK. This will happen once a week (the duration of our OAuth2 tokens) for now, but will not happen at all in production.
-
 You're ready to go! Check out the rest of the documentation for more info on how to use the other pieces of the SDK. See an example of everything it can do in `examples/c/main.c` in the SDK zip file.
 
 ## Code Primer - Unreal Engine 4 (Cpp)
@@ -116,8 +113,6 @@ auto result = discord::Core::Create(CLIENT_ID, DiscordCreateFlags_Default, &core
 ```
 
 - Make sure to call `core->RunCallbacks()` in your game loop
-
-During development, Discord will focus itself to ask for permission when you initialize the SDK. This will happen once a week (the duration of our OAuth2 tokens) for now, but will not happen at all in production.
 
 You're ready to go! Check out the rest of the documentation for more info on how to use the other pieces of the SDK. See an example of everything it can do in `examples/cpp/main.cpp` in the SDK zip file.
 
@@ -168,6 +163,8 @@ Think of these like those end of section review pages from your history textbook
 - A working SDK, via the small code snippets above
 
 If you can check all those boxes, you are doing great! You're well-equipped to venture forth into the rest of the SDK and make full use of it's myriad of functionality. So, onwards, to game development!
+
+If you ever need help during the process, you can always reach out to us at our [Dev Support](https://dis.gd/devsupport). If you have feedback on things you'd like to see added to the SDK, drop us at a line at our [Dev Feedback](https://dis.gd/devfeedback).
 
 ## Where...do I go...
 

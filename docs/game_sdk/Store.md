@@ -20,16 +20,14 @@ To enable it, first make sure you have a payment method on file in User Settings
 4.  Toggle "Developer Mode" **on** and "Application Test Mode" **on**, and enter your application ID
 5.  Exit user settings
 
-You should now see an orange bar across the top of your screen; this means it worked! The dropdown in the orange bar will show you all the available SKUs for that application; you can select one of them to go to its store page.
+You should now see an orange bar across the top of your screen; this means it worked! The dropdown in the orange bar will show you all the available SKUs for that application; you can select one of them to go to its store page. You can also view your Library and see all the branches of your game automagically there waiting for you!
 
-If for some reason the "Purchase/Install" button is greyed out, please check the following:
+If for some reason the "Install" button is greyed out, please check the following:
 
-1.  Do you have a `LIVE_BUILD_ID` on the master branch for this SKU? Check with `dispatch branch list <application_id>`.
+1.  Do you have a `LIVE_BUILD_ID` on that branch for this SKU? Check with `dispatch branch list <application_id>`.
 2.  Do you have a price tier set for this SKU? If not, pick one!
 
 Once those two conditions are met, you should be good to go! Entitlements "purchased" with this mode enabled can be revoked with the `DELETE /entitlements` HTTP endpoint, documented below.
-
-If you are testing IAP flows, you'll want to instead follow the instructions to enable Application Developer Mode in your Discord desktop client.
 
 ## Checking DLC Entitlements
 
@@ -39,11 +37,13 @@ If your game has DLC, and a user has purchased that DLC, you may want to check w
 
 The `Discord.SkuType.Consumable` type is used for entitlements that may be "consumed" by a game's own server infrastructure. That is to say that if you have in-app purchases like gem bundles, skins, etc., they will be a `Consumable` SKU type.
 
-What that means is that your game is expected to "consume" these entitlements by doing something on your game server—giving the player a level, more coins, a skin, etc.—and then telling Discord that's been done by calling the `POST /entitlements/<id>/consume`, documented below. Then, Discord will remove that entitlement, as the player has been given whatever they purchased.
+What that means is that your game is expected to "consume" these entitlements by doing something on your game server—giving the player a level, more coins, a skin, etc.—and then telling Discord that's been done by calling the `POST /entitlements/<id>/consume`, documented below. Then, Discord will mark that entitlement as `consumed` (the `consumed` field in the returned object will be set to `true`).
 
-Entitlements to consumable SKUs are intended to signal your game's server/service/database that the user should get something in-game, and that the entitlement should be removed afterwards.
+Entitlements to consumable SKUs are intended to signal your game's server/service/database that the user should get something in-game, and that the entitlement should be invalidated afterwards.
 
-The same consumable SKU _can_ be purchased multiple times, even before consuming any of them. Non-consumable SKUs can only be purchased once.
+The same consumable SKU _can_ be purchased multiple times, but we have some safeguards in place to protect against possible abuse. If you purchase a consumable SKU, you cannot purchase a second one until the first one has been consumed; in the context of normal IAP transactions, your game will be auto-consuming entitlements as soon as they're created. If some malicious folks are somehow able to generate entitlements to your SKUs, they will not be able to consume them without your token, so you'll be safe!
+
+Non-consumable SKUs can only be purchased once.
 
 ## Data Models
 
@@ -107,7 +107,7 @@ None
 ```cs
 storeManager.FetchSkus((result) =>
 {
-  if (result == Discord.Result.OK)
+  if (result == Discord.Result.Ok)
   {
     Console.WriteLine("Got skus! Now I can iterate over them!");
   }
@@ -136,7 +136,7 @@ for (int i = 0; i < storeManager.CountSkus(); i++)
 
 ## GetSku
 
-Gets a SKU by its ID.
+Gets a SKU by its ID. You must call `FetchSkus()` first before being able to access SKUs in this way.
 
 Returns `Discord.Sku`.
 
@@ -149,13 +149,14 @@ Returns `Discord.Sku`.
 ###### Example
 
 ```cs
+storeManager.FetchSkus((_) => {});
 var sku = storeManager.GetSku(276467180839763999);
 Console.WriteLine("Sku is {0}", sku.Name);
 ```
 
 ## GetSkuAt
 
-Gets a SKU by index when iterating over SKUs.
+Gets a SKU by index when iterating over SKUs. You must call `FetchSkus()` first before being able to access SKUs in this way.
 
 Returns `Discord.Sku`.
 
@@ -168,11 +169,14 @@ Returns `Discord.Sku`.
 ###### Example
 
 ```cs
-for (int i = 0; i < storeManager.CountSkus(); i++)
+storeManager.FetchSkus((result) =>
 {
-  var sku = storeManager.GetSkuAt(i);
-  Console.WriteLine("Sku is {0}", sku.Name);
+  for (int i = 0; i < storeManager.CountSkus(); i++)
+  {
+    var sku = storeManager.GetSkuAt(i);
+    Console.WriteLine("Sku is {0}", sku.Name);
 }
+});
 ```
 
 ## FetchEntitlements
@@ -190,7 +194,7 @@ None
 ```cs
 storeManager.FetchEntitlements((result) =>
 {
-  if (result == Discord.Result.OK)
+  if (result == Discord.Result.Ok)
   {
     Console.WriteLine("Got entitlements!");
   }
@@ -199,7 +203,7 @@ storeManager.FetchEntitlements((result) =>
 
 ## CountEntitlements
 
-Get the number of entitlements readied by `FetchEntitlements()`.
+Get the number of entitlements readied by `FetchEntitlements()`. You must call `FetchEntitlements()` first before being able to access SKUs in this way.
 
 Returns `Int32`.
 
@@ -210,16 +214,19 @@ None
 ###### Example
 
 ```cs
-for (int i = 0; i < storeManager.CountEntitlements(); i++)
+storeManager.FetchEntitlements((result) =>
 {
-  var entitlement = storeManager.GetEntitlementAt(i);
-  Console.WriteLine("Entitlement is {0}", entitlement.Name);
-}
+  for (int i = 0; i < storeManager.CountEntitlements(); i++)
+  {
+    var entitlement = storeManager.GetEntitlementAt(i);
+    Console.WriteLine("Entitlement is {0}", entitlement.Name);
+  }
+});
 ```
 
 ## GetEntitlement
 
-Gets an entitlement by it's ID.
+Gets an entitlement by its id. You must call `FetchEntitlements()` first before being able to access SKUs in this way.
 
 Returns `Discord.Entitlement`.
 
@@ -232,13 +239,16 @@ Returns `Discord.Entitlement`.
 ###### Example
 
 ```cs
-var entitlement = storeManager.GetEntitlement(276467180839763999);
-Console.WriteLine("Entitlement is {0}", entitlement.Name);
+storeManager.FetchEntitlements((result) =>
+{
+  var entitlement = storeManager.GetEntitlement(276467180839763999);
+  Console.WriteLine("Entitlement is {0}", entitlement.Name);
+});
 ```
 
 ## GetEntitlementAt
 
-Gets an entitlement by index when iterating over a user's entitlements.
+Gets an entitlement by index when iterating over a user's entitlements. You must call `FetchEntitlements()` first before being able to access SKUs in this way.
 
 Returns `Discord.Entitlement`.
 
@@ -251,16 +261,19 @@ Returns `Discord.Entitlement`.
 ###### Example
 
 ```cs
-for (int i = 0; i < storeManager.CountEntitlements(); i++)
+storeManager.FetchEntitlements((result) =>
 {
-  var entitlement = storeManager.GetEntitlementAt(i);
-  Console.WriteLine("Entitlement is {0}", entitlement.Name);
-}
+  for (int i = 0; i < storeManager.CountEntitlements(); i++)
+  {
+    var entitlement = storeManager.GetEntitlementAt(i);
+    Console.WriteLine("Entitlement is {0}", entitlement.Name);
+  }
+});
 ```
 
 ## HasSkuEntitlement
 
-Returns whether or not the user is entitled to the given SKU ID.
+Returns whether or not the user is entitled to the given SKU ID. You must call `FetchEntitlements()` first before being able to access SKUs in this way.
 
 Returns `bool`.
 
@@ -273,19 +286,22 @@ Returns `bool`.
 ###### Example
 
 ```cs
-if (storeManager.HasSkuEntitlement(276467180839763999))
+storeManager.FetchEntitlements((result) =>
 {
-  Console.WriteLine("User has entitlement to this SKU");
-}
-else
-{
-  Console.WriteLine("How are you even running this right now...");
-}
+  if (storeManager.HasSkuEntitlement(276467180839763999))
+  {
+    Console.WriteLine("User has entitlement to this SKU");
+  }
+  else
+  {
+    Console.WriteLine("How are you even running this right now...");
+  }
+});
 ```
 
 ## StartPurchase
 
-Opens the overlay to begin the in-app purchase dialogue for the given SKU ID. The user must have the overlay enabled, which you can check first with `overlayManager.IsEnabled()`.
+Opens the overlay to begin the in-app purchase dialogue for the given SKU ID. You must call `FetchSkus()` first before being able to access SKUs in this way. If the user has enabled the overlay for your game, a purchase modal will appear in the overlay. Otherwise, the Discord client will be auto-focused with a purchase modal.
 
 Returns `Discord.Result` via callback.
 
@@ -298,20 +314,16 @@ Returns `Discord.Result` via callback.
 ###### Example
 
 ```cs
-if (overlayManager.IsEnabled())
+storeManager.FetchSkus((result) =>
 {
   storeManager.StartPurchase(276467180839763999, (result) =>
   {
-    if (result == Discord.Result.OK)
+    if (result == Discord.Result.Ok)
     {
-      Console.WriteLine("Overlay is open and user is in the flow!");
+      Console.WriteLine("User is in the flow!");
     }
   });
-}
-else
-{
-  Console.WriteLine("Please enable the Discord overlay to complete this transaction.");
-}
+});
 ```
 
 ## OnEntitlementCreate

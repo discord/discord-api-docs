@@ -31,6 +31,7 @@ The Discord team curates the following list of officially vetted libraries that 
 | [disco](https://github.com/b1naryth1ef/disco) | Python |
 | [discordrb](https://github.com/meew0/discordrb) | Ruby |
 | [discord-rs](https://github.com/SpaceManiac/discord-rs) | Rust |
+| [Serenity](https://github.com/serenity-rs/serenity) | Rust |
 | [AckCord](https://github.com/Katrix/AckCord) | Scala |
 | [Sword](https://github.com/Azoy/Sword) | Swift |
 

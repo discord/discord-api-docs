@@ -75,6 +75,7 @@ There are other rules and restrictions not shared here for the sake of spam and 
 | 1 << 7 | House Brilliance |
 | 1 << 8 | House Balance    |
 | 1 << 9 | Early Supporter  |
+| 1 << 10 | Team User       |
 
 ###### Premium Types
 

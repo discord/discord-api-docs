@@ -13,14 +13,14 @@ Discord comes with an awesome built-in overlay, and you may want to make use of 
 
 ###### ActivityActionType Enum
 
-| value    |
-| -------- |
-| Join     |
-| Spectate |
+| name     | value |
+| -------- | ----- |
+| Join     | 1     |
+| Spectate | 2     |
 
 ## IsEnabled
 
-Check whether the user has the overlay enabled or disabled. You probably want to make this check before attempting to interact with the overlay.
+Check whether the user has the overlay enabled or disabled. If the overlay is disabled, all the functionality in this manager will still work. The calls will instead focus the Discord client and show the modal there instead.
 
 Returns a `bool`.
 
@@ -33,11 +33,7 @@ None
 ```cs
 if (!overlaymanager.IsEnabled())
 {
-  Console.WriteLine("Could not complete operation. Please enable the overlay and relaunch the game.");
-}
-
-else {
-  DoTheThing();
+  Console.WriteLine("Overlay is not enabled. Modals will be shown in the Discord client instead");
 }
 ```
 
@@ -54,15 +50,18 @@ None
 ```cs
 if (overlayManager.IsLocked())
 {
-  overlayManager.SetLocked(false);
+  overlayManager.SetLocked(true, (res) =>
+  {
+    Console.WriteLine("Input in the overlay is now accessible again");
+  });
 }
 ```
 
 ## SetLocked
 
-Locks or unlocks the overlay. Calling `SetLocked(true);` will also close any modals in the overlay or in-app from things like IAP purchase flows.
+Locks or unlocks input in the overlay. Calling `SetLocked(true);` will also close any modals in the overlay or in-app from things like IAP purchase flows and disallow input.
 
-Returns `void`.
+Returns `Discord.Result` via callback.
 
 ###### Parameters
 
@@ -73,10 +72,10 @@ Returns `void`.
 ###### Example
 
 ```cs
-if (overlayManager.IsLocked())
+overlayManager.SetLocked(true, (res) =>
 {
-  overlayManager.SetLocked(false);
-}
+  Console.WriteLine("Overlay has been locked and modals have been closed");
+});
 ```
 
 ## OpenActivityInvite
@@ -96,7 +95,7 @@ Returns a `Discord.Result` via callback.
 ```cs
 overlayManager.OpenActivityInvite(Discord.ActivityActionType.Join, (result) =>
 {
-  if (result == Discord.Result.OK)
+  if (result == Discord.Result.Ok)
   {
     Console.WriteLine("User is now inviting others to play!");
   }
@@ -122,7 +121,7 @@ overlayManager.OpenGuildInvite("rjEeUJq", (result) =>
 {
   if (result == Discord.Result.Ok)
   {
-    Console.WriteLine("Invite was valid and overlay is open");
+    Console.WriteLine("Invite was valid.");
   }
 });
 ```
@@ -164,20 +163,6 @@ Fires when the overlay is locked or unlocked (a.k.a. opened or closed)
 | name   | type | description                           |
 | ------ | ---- | ------------------------------------- |
 | locked | bool | is the overlay now locked or unlocked |
-
-## Example: Unlock the Overlay
-
-```cs
-var discord = new Discord.Discord(clientId, Discord.CreateFlags.Default);
-
-var overlayManager = discord.GetOverlayManager();
-
-overlayManager.OnLocked += locked =>
-{
-  Console.WriteLine("Overlay Locked: {0}", locked);
-};
-overlayManager.SetLocked(false);
-```
 
 ## Example: Activate Overlay Invite Modal
 

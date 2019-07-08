@@ -39,11 +39,13 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 | members? \* | array of [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) objects | users in the guild |
 | channels? \* | array of [channel](#DOCS_RESOURCES_CHANNEL/channel-object) objects | channels in the guild |
 | presences? \* | array of partial [presence update](#DOCS_TOPICS_GATEWAY/presence-update) objects | presences of the users in the guild |
-| max\_presences | ?integer | the maximum amount of presences for the guild (the default value, currently 5000, is in effect when null is returned) |
-| max\_members | integer | the maximum amount of members for the guild |
+| max\_presences? | ?integer | the maximum amount of presences for the guild (the default value, currently 5000, is in effect when null is returned) |
+| max\_members? | integer | the maximum amount of members for the guild |
 | vanity\_url\_code | ?string | the vanity url code for the guild |
 | description | ?string | the description for the guild |
 | banner | ?string | [banner hash](#DOCS_REFERENCE/image-formatting) |
+| premium_tier | integer | [premium tier](#DOCS_RESOURCES_GUILD/guild-object-premium-tier) |
+| premium_subscription_count? | integer | the total number of users currently boosting this server |
 
 ** \* These fields are only sent within the [GUILD_CREATE](#DOCS_TOPICS_GATEWAY/guild-create) event **
 
@@ -78,6 +80,15 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 | MEDIUM | 2 | must be registered on Discord for longer than 5 minutes |
 | HIGH | 3 |  (╯°□°）╯︵ ┻━┻ - must be a member of the server for longer than 10 minutes |
 | VERY_HIGH | 4 | ┻━┻ミヽ(ಠ益ಠ)ﾉ彡┻━┻ - must have a verified phone number |
+
+###### Premium Tier
+
+| Level | Integer |
+| ----- | ------- |
+| NONE | 0 |
+| TIER_1 | 1 |
+| TIER_2 | 2 |
+| TIER_3 | 3 |
 
 ###### Example Guild
 
@@ -148,6 +159,7 @@ A partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object. Represents an Offl
 | nick? | string | this users guild nickname (if one is set) |
 | roles | array of snowflakes | array of [role](#DOCS_TOPICS_PERMISSIONS/role-object) object ids |
 | joined_at | ISO8601 timestamp | when the user joined the guild |
+| premium_since | ?ISO8601 timestamp | when the user used their Nitro boost on the server |
 | deaf | boolean | whether the user is deafened in voice channels |
 | mute | boolean | whether the user is muted in voice channels |
 
@@ -219,7 +231,7 @@ A partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object. Represents an Offl
 Create a new guild. Returns a [guild](#DOCS_RESOURCES_GUILD/guild-object) object on success. Fires a [Guild Create](#DOCS_TOPICS_GATEWAY/guild-create) Gateway event.
 
 >warn
->This endpoint can be used only by bots in less than 10 guilds. Creating channel categories from this endpoint is not supported.
+>This endpoint can be used only by bots in less than 10 guilds. Assigning a channel to a channel category is not supported by this endpoint, i.e. a channel can't have the `parent_id` field.
 
 ###### JSON Params
 
@@ -359,16 +371,10 @@ Adds a user to the guild, provided you have a valid oauth2 access token for the 
 
 ## Modify Guild Member % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/members/{user.id#DOCS_RESOURCES_USER/user-object}
 
-Modify attributes of a [guild member](#DOCS_RESOURCES_GUILD/guild-member-object). Returns a 204 empty response on success. Fires a [Guild Member Update](#DOCS_TOPICS_GATEWAY/guild-member-update) Gateway event.
+Modify attributes of a [guild member](#DOCS_RESOURCES_GUILD/guild-member-object). Returns a 204 empty response on success. Fires a [Guild Member Update](#DOCS_TOPICS_GATEWAY/guild-member-update) Gateway event. If the `channel_id` is set to null, this will force the target user to be disconnected from voice.
 
 >info
->All parameters to this endpoint are optional. When moving members to channels, the API user
->_must_ have permissions to both connect to the channel and have the `MOVE_MEMBERS` permission.
-
->info
->If the `channel_id` is set to null, this will force the target user to be disconnected from voice.
->The API user _must_ have `MOVE_MEMBERS` permission in the target user's current channel in order to
->execute this operation.
+>All parameters to this endpoint are optional. When moving members to channels, the API user _must_ have permissions to both connect to the channel and have the `MOVE_MEMBERS` permission.
 
 ###### JSON Params
 
@@ -376,8 +382,8 @@ Modify attributes of a [guild member](#DOCS_RESOURCES_GUILD/guild-member-object)
 |-------|------|-------------|------------|
 | nick | string | value to set users nickname to | MANAGE_NICKNAMES |
 | roles | array of snowflakes | array of role ids the member is assigned | MANAGE_ROLES |
-| mute | boolean | whether the user is muted in voice channels | MUTE_MEMBERS |
-| deaf | boolean | whether the user is deafened in voice channels | DEAFEN_MEMBERS |
+| mute | boolean | whether the user is muted in voice channels. Will throw a 400 if the user is not in a voice channel | MUTE_MEMBERS |
+| deaf | boolean | whether the user is deafened in voice channels. Will throw a 400 if the user is not in a voice channel | DEAFEN_MEMBERS |
 | channel_id | ?snowflake | id of channel to move user to (if they are connected to voice) | MOVE_MEMBERS |
 
 ## Modify Current User Nick % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/members/@me/nick

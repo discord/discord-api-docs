@@ -278,10 +278,7 @@ var otherUserPeerId;
 var lobbyId;
 
 // Get yourself
-userManager.GetCurrentUser((user) =>
-{
-  me = user;
-});
+me = userManager.GetCurrentUser();
 
 // This will fire once you connect to the lobby
 // Telling you which route is yours
@@ -306,7 +303,7 @@ lobbyManager.OnMemberUpdate += (lobbyId, userId) =>
 }
 
 // Connect to lobby with an id of 12345 and a secret of "password"
-lobbyManager.Connect(12345, "password", (lobby) =>
+lobbyManager.ConnectLobby(12345, "password", (Discord.Result x, ref Discord.Lobby lobby) =>
 {
   lobbyId = lobby.Id;
 
