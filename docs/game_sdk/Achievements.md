@@ -54,7 +54,7 @@ You can also mark achievements as `secret` and `secure`. "Secret" achievements w
 | ro     | Romanian                |
 | lt     | Lithuanian              |
 
-###### Achievement Locale Dict
+###### Achievement Locale Object
 
 | Name           | Description                                                                   |
 | -------------- | ----------------------------------------------------------------------------- |
@@ -264,8 +264,8 @@ Creates a new achievement for your application. Applications can have a maximum 
 
 | name        | type          | description                             |
 | ----------- | ------------- | --------------------------------------- |
-| name        | dict          | the name of the achievement             |
-| description | dict          | the user-facing achievement description |
+| name        | object        | the name of the achievement             |
+| description | object        | the user-facing achievement description |
 | secret      | bool          | if the achievement is secret            |
 | secure      | bool          | if the achievement is secure            |
 | icon        | ImageType (?) | the icon for the achievement            |
@@ -314,8 +314,8 @@ Updates the achievement for **\_\_ALL USERS\_\_**. This is **NOT** to update a s
 
 | name        | type          | description                             |
 | ----------- | ------------- | --------------------------------------- |
-| name        | dict          | the name of the achievement             |
-| description | dict          | the user-facing achievement description |
+| name        | object        | the name of the achievement             |
+| description | object        | the user-facing achievement description |
 | secret      | bool          | if the achievement is secret            |
 | secure      | bool          | if the achievement is secure            |
 | icon        | ImageType (?) | the icon for the achievement            |
