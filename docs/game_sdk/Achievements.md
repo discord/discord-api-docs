@@ -22,44 +22,12 @@ You can also mark achievements as `secret` and `secure`. "Secret" achievements w
 | PercentComplete | Int64  | how far along the user is to completing the achievement (0-100) |
 | UnlockedAt      | string | ?                                                               |
 
-###### Accepted Locales
-
-| Locale | Language Name           |
-| ------ | ----------------------- |
-| en-US  | English (United States) |
-| en-GB  | English (Great Britain) |
-| zh-CN  | Chinese (China)         |
-| zh-TW  | Chinese (Taiwan)        |
-| cs     | Czech                   |
-| da     | Danish                  |
-| nl     | Dutch                   |
-| fr     | French                  |
-| de     | German                  |
-| el     | Greek                   |
-| hu     | Hungarian               |
-| it     | Italian                 |
-| ja     | Japanese                |
-| ko     | Korean                  |
-| no     | Norwegian               |
-| pl     | Polish                  |
-| pt-BR  | Portuguese (Brazil)     |
-| ru     | Russian                 |
-| es-ES  | Spanish (Spain)         |
-| sv-SE  | Swedish                 |
-| tr     | Turkish                 |
-| bg     | Bulgarian               |
-| uk     | Ukranian                |
-| fi     | Finnish                 |
-| hr     | Croatian                |
-| ro     | Romanian                |
-| lt     | Lithuanian              |
-
 ###### Achievement Locale Object
 
-| Name           | Description                                                                     |
-| -------------- | ------------------------------------------------------------------------------- |
-| default        | the default locale for the achievement                                          |
-| localizations? | object of accepted locales as the key and achievement translations as the value |
+| Name           | Description                                                                                                                     |
+| -------------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| default        | the default locale for the achievement                                                                                          |
+| localizations? | object of [accepted locales](#DOCS_GAME_SDK_APPLICATIONS/locales) as the key and achievement translations as the value          |
 
 ## SetUserAchievement
 
