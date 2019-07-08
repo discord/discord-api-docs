@@ -56,10 +56,10 @@ You can also mark achievements as `secret` and `secure`. "Secret" achievements w
 
 ###### Achievement Locale Object
 
-| Name           | Description                                                                   |
-| -------------- | ----------------------------------------------------------------------------- |
-| default        | the default locale for the achievement                                        |
-| localizations? | dict of accepted locales as the key and achievement translations as the value |
+| Name           | Description                                                                     |
+| -------------- | ------------------------------------------------------------------------------- |
+| default        | the default locale for the achievement                                          |
+| localizations? | object of accepted locales as the key and achievement translations as the value |
 
 ## SetUserAchievement
 
