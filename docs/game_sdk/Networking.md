@@ -73,7 +73,9 @@ Returns `void`.
 var userId = 53908232506183680;
 var lobbyId = 290926798626357250;
 
-var peerId = lobbyManager.GetMemberMetadataValue(lobbyId, userId, "metadata.peer_id");
+var rawPeerId = lobbyManager.GetMemberMetadataValue(lobbyId, userId, "metadata.peer_id");
+// Metadata is stored as a string, so we need to make it an integer for OpenChannel
+var peerId = System.Convert.ToUInt64(rawPeerId);
 networkManager.OpenChannel(peerId, 0, false);
 ```
 
@@ -96,7 +98,9 @@ Returns `void`.
 var userId = 53908232506183680;
 var lobbyId = 290926798626357250;
 
-var peerId = lobbyManager.GetMemberMetadataValue(lobbyId, userId, "metadata.peer_id");
+var rawPeerId = lobbyManager.GetMemberMetadataValue(lobbyId, userId, "metadata.peer_id");
+// Metadata is stored as a string, so we need to make it an integer for OpenChannel
+var peerId = System.Convert.ToUInt64(rawPeerId);
 var route = lobbyManager.GetMemberMetadataValue(lobbyId, userId, "metadata.route");
 networkManager.OpenPeer(peerId, route);
 ```
@@ -119,7 +123,9 @@ Returns `void`.
 ```cs
 lobbyManager.OnMemberUpdate += (lobbyId, userId) =>
 {
-  var peerId = lobbyManager.GetMemberMetadataValue(lobbyId, userId, "metadata.peer_id");
+  var rawPeerId = lobbyManager.GetMemberMetadataValue(lobbyId, userId, "metadata.peer_id");
+  // Metadata is stored as a string, so we need to make it an integer for OpenChannel
+  var peerId = System.Convert.ToUInt64(rawPeerId);
   var newRoute = lobbyManager.GetMemberMetadataValue(lobbyId, userId, "metadata.route");
   networkManger.UpdatePeer(peerId, newRoute);
 }
@@ -144,7 +150,9 @@ Returns `void`.
 ```cs
 var userId = 53908232506183680;
 var lobbyId = 290926798626357250;
-var peerId = lobbyManager.GetMemberMetadataValue(lobbyId, userId, "metadata.peer_id");
+var rawPeerId = lobbyManager.GetMemberMetadataValue(lobbyId, userId, "metadata.peer_id");
+// Metadata is stored as a string, so we need to make it an integer for OpenChannel
+var peerId = System.Convert.ToUInt64(rawPeerId);
 
 byte[] lootDrops = GameEngine.GetLootData();
 networkManager.SendMessage(peerId, 1, lootDrops);
@@ -169,7 +177,9 @@ Returns `void`.
 var userId = 53908232506183680;
 var lobbyId = 290926798626357250;
 
-var peerId = lobbyManager.GetMemberMetadataValue(lobbyId, userId, "metadata.peer_id");
+var rawPeerId = lobbyManager.GetMemberMetadataValue(lobbyId, userId, "metadata.peer_id");
+// Metadata is stored as a string, so we need to make it an integer for OpenChannel
+var peerId = System.Convert.ToUInt64(rawPeerId);
 networkManager.CloseChannel(peerId, 0);
 Console.WriteLine("Channel {0} to {1} closed", 0, peerId);
 ```
@@ -192,7 +202,9 @@ Returns `void`.
 var userId = 53908232506183680;
 var lobbyId = 290926798626357250;
 
-var peerId = lobbyManager.GetMemberMetadataValue(lobbyId, userId, "metadata.peer_id");
+var rawPeerId = lobbyManager.GetMemberMetadataValue(lobbyId, userId, "metadata.peer_id");
+// Metadata is stored as a string, so we need to make it an integer for OpenChannel
+var peerId = System.Convert.ToUInt64(rawPeerId);
 networkManager.ClosePeer(peerId);
 Console.WriteLine("Connection to {0} closed", peerId);
 ```
@@ -297,8 +309,10 @@ networkManager.OnRouteUpdate += route =>
 // Fetch it and update their route
 lobbyManager.OnMemberUpdate += (lobbyId, userId) =>
 {
-  var peerId = lobbyManager.GetMemberMetadataValue(lobbyId, userId, "peer_id");
-  var newRoute = lobbyManager.GetMemberMetadataValue(lobbyId, userId, "route");
+  var rawPeerId = lobbyManager.GetMemberMetadataValue(lobbyId, userId, "metadata.peer_id");
+  // Metadata is stored as a string, so we need to make it an integer for OpenChannel
+  var peerId = System.Convert.ToUInt64(rawPeerId);
+  var newRoute = lobbyManager.GetMemberMetadataValue(lobbyId, userId, "metadata.route");
   lobbyManger.UpdatePeer(peerId, newRoute);
 }
 
@@ -321,7 +335,9 @@ lobbyManager.ConnectLobby(12345, "password", (Discord.Result x, ref Discord.Lobb
   var member = lobbyManager.GetMemberUserId(lobby.Id, 0);
 
   // Get their peer id and route from their metadata, added previously
-  otherUserPeerId = lobbyManager.GetMemberMetadataValue(lobby.Id, member.Id, "peer_id");
+  var rawPeerId = lobbyManager.GetMemberMetadataValue(lobbyId, userId, "metadata.peer_id");
+  // Metadata is stored as a string, so we need to make it an integer for OpenChannel
+  otherUserPeerId = System.Convert.ToUInt64(rawPeerId);
   var otherRoute = lobbyManager.GetMemberMetadataValue(lobby.Id, member.Id, "route");
 
   // Connect to them
