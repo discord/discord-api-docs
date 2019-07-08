@@ -22,6 +22,45 @@ You can also mark achievements as `secret` and `secure`. "Secret" achievements w
 | PercentComplete | Int64  | how far along the user is to completing the achievement (0-100) |
 | UnlockedAt      | string | ?                                                               |
 
+###### Accepted Locales
+
+| Locale | Language Name           |
+| ------ | ----------------------- |
+| en-US  | English (United States) |
+| en-GB  | English (Great Britain) |
+| zh-CN  | Chinese (China)         |
+| zh-TW  | Chinese (Taiwan)        |
+| cs     | Czech                   |
+| da     | Danish                  |
+| nl     | Dutch                   |
+| fr     | French                  |
+| de     | German                  |
+| el     | Greek                   |
+| hu     | Hungarian               |
+| it     | Italian                 |
+| ja     | Japanese                |
+| ko     | Korean                  |
+| no     | Norwegian               |
+| pl     | Polish                  |
+| pt-BR  | Portuguese (Brazil)     |
+| ru     | Russian                 |
+| es-ES  | Spanish (Spain)         |
+| sv-SE  | Swedish                 |
+| tr     | Turkish                 |
+| bg     | Bulgarian               |
+| uk     | Ukranian                |
+| fi     | Finnish                 |
+| hr     | Croatian                |
+| ro     | Romanian                |
+| lt     | Lithuanian              |
+
+###### Achievement Locale Dict
+
+| Name           | Description                                                                   |
+| -------------- | ----------------------------------------------------------------------------- |
+| default        | the default locale for the achievement                                        |
+| localizations? | dict of accepted locales as the key and achievement translations as the value |
+
 ## SetUserAchievement
 
 Updates the current user's status for a given achievement.
@@ -223,40 +262,96 @@ Creates a new achievement for your application. Applications can have a maximum 
 
 ###### Parameters
 
-| name       | type          | description                             |
-| ---------- | ------------- | --------------------------------------- |
-| name       | string        | the name of the achievement             |
-| descrition | string        | the user-facing achievement description |
-| secret     | bool          | if the achievement is secret            |
-| secure     | bool          | if the achievement is secure            |
-| icon       | ImageType (?) | the icon for the achievement            |
+| name        | type          | description                             |
+| ----------- | ------------- | --------------------------------------- |
+| name        | dict          | the name of the achievement             |
+| description | dict          | the user-facing achievement description |
+| secret      | bool          | if the achievement is secret            |
+| secure      | bool          | if the achievement is secure            |
+| icon        | ImageType (?) | the icon for the achievement            |
+
+###### Example: Creating an Achievement
+
+```json
+{
+  "name": {
+    "default": "Find the Secret"
+  },
+  "description": {
+    "default": "You found it!"
+  },
+  "secret": true,
+  "secure": false,
+  "data": "data:image/png;base64,base64_data_here"
+}
+```
 
 ###### Return Object
 
 ```json
-{}
+{
+  "application_id": "461618159171141643",
+  "name": {
+    "default": "Find the Secret"
+  },
+  "description": {
+    "default": "You found it!"
+  },
+  "secret": true,
+  "icon_hash": "52c1636444f64ad7cb5368b158847def",
+  "id": "597763781871861018",
+  "secure": false
+}
 ```
 
 ## Update Achievement
 
 `PATCH https://discordapp.com/api/v6/applications/<application_id>/achievements/<achievement_id>`
 
-Updates the achievement for **\_ALL USERS\_\_**. This is **NOT** to update a single user's achievement progress; this is to edit the UserAchievement itself. This endpoint has a rate limit of 5 requests per 5 seconds per application.
+Updates the achievement for **\_\_ALL USERS\_\_**. This is **NOT** to update a single user's achievement progress; this is to edit the UserAchievement itself. This endpoint has a rate limit of 5 requests per 5 seconds per application.
 
 ###### Parameters
 
-| name       | type          | description                             |
-| ---------- | ------------- | --------------------------------------- |
-| name       | string        | the name of the achievement             |
-| descrition | string        | the user-facing achievement description |
-| secret     | bool          | if the achievement is secret            |
-| secure     | bool          | if the achievement is secure            |
-| icon       | ImageType (?) | the icon for the achievement            |
+| name        | type          | description                             |
+| ----------- | ------------- | --------------------------------------- |
+| name        | dict          | the name of the achievement             |
+| description | dict          | the user-facing achievement description |
+| secret      | bool          | if the achievement is secret            |
+| secure      | bool          | if the achievement is secure            |
+| icon        | ImageType (?) | the icon for the achievement            |
+
+###### Example: Updating an Achievement
+
+```json
+{
+  "name": {
+    "default": "How do methods break up?"
+  },
+  "description": {
+    "default": "They stop calling each other!"
+  },
+  "secret": false,
+  "secure": false,
+  "data": "data:image/png;base64,base64_data_here"
+}
+```
 
 ###### Return Object
 
 ```json
-{}
+{
+  "application_id": "461618159171141643",
+  "name": {
+    "default": "How do methods break up?"
+  },
+  "description": {
+    "default": "They stop calling each other!"
+  },
+  "secret": false,
+  "icon_hash": "7d698b594c691e3d28c92e226b28293c",
+  "id": "597638720379682816",
+  "secure": false
+}
 ```
 
 ## Delete Achievement
