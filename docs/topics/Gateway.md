@@ -290,6 +290,7 @@ Used to trigger the initial handshake with the gateway.
 | large_threshold? | integer                                                    | value between 50 and 250, total number of members where the gateway will stop sending offline members in the guild member list | 50      |
 | shard?           | array of two integers (shard_id, num_shards)               | used for [Guild Sharding](#DOCS_TOPICS_GATEWAY/sharding)                                                                       | -       |
 | presence?        | [update status](#DOCS_TOPICS_GATEWAY/update-status) object | presence structure for initial presence information                                                                            | -       |
+| guild_subscriptions? | boolean | enables dispatching of guild subscription events (presence and typing events) | true |
 
 ###### Identify Connection Properties
 
@@ -311,6 +312,7 @@ Used to trigger the initial handshake with the gateway.
   },
   "compress": true,
   "large_threshold": 250,
+  "guild_subscriptions": false,
   "shard": [0, 1],
   "presence": {
     "game": {
