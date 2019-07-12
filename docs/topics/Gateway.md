@@ -137,7 +137,7 @@ Next, the client is expected to send an [Opcode 2 Identify](#DOCS_TOPICS_GATEWAY
 
 ###### Example Gateway Identify
 
-This is a minimal `IDENTIFY` payload. `IDENTIFY` supports additional optional fields for other session properties, such as payload compression, or an initial presence state. See [Example Identify](#DOCS_GATEWAY/identify-example-identify) for a more complete example.
+This is a minimal `IDENTIFY` payload. `IDENTIFY` supports additional optional fields for other session properties, such as payload compression, or an initial presence state. See the [Identify Structure](#DOCS_TOPICS_GATEWAY/identify) for a more complete example of all options you can pass in.
 
 ```json
 {
