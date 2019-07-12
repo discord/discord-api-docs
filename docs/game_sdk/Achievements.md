@@ -239,13 +239,13 @@ Creates a new achievement for your application. Applications can have a maximum 
 
 ###### Parameters
 
-| name        | type          | description                             |
-| ----------- | ------------- | --------------------------------------- |
-| name        | object        | the name of the achievement as an [achievement locale object](#DOCS_GAME_SDK_ACHIEVEMENTS/achievement-locale-object)            |
-| description | object        | the user-facing achievement description as an [achievement locale object](#DOCS_GAME_SDK_ACHIEVEMENTS/achievement-locale-object)|
-| secret      | bool          | if the achievement is secret            |
-| secure      | bool          | if the achievement is secure            |
-| icon        | ImageType (?) | the icon for the achievement            |
+| name        | type              | description                             |
+| ----------- | ----------------- | --------------------------------------- |
+| name        | object            | the name of the achievement as an [achievement locale object](#DOCS_GAME_SDK_ACHIEVEMENTS/achievement-locale-object)            |
+| description | object            | the user-facing achievement description as an [achievement locale object](#DOCS_GAME_SDK_ACHIEVEMENTS/achievement-locale-object)|
+| secret      | boolean           | if the achievement is secret            |
+| secure      | boolean           | if the achievement is secure            |
+| icon        | ImageType (?)     | the icon for the achievement            |
 
 ###### Example: Creating an Achievement
 
@@ -289,13 +289,13 @@ Updates the achievement for **\_\_ALL USERS\_\_**. This is **NOT** to update a s
 
 ###### Parameters
 
-| name        | type          | description                             |
-| ----------- | ------------- | --------------------------------------- |
-| name        | object        | the name of the achievement             |
-| description | object        | the user-facing achievement description |
-| secret      | bool          | if the achievement is secret            |
-| secure      | bool          | if the achievement is secure            |
-| icon        | ImageType (?) | the icon for the achievement            |
+| name        | type             | description                             |
+| ----------- | ---------------- | --------------------------------------- |
+| name        | object           | the name of the achievement             |
+| description | object           | the user-facing achievement description |
+| secret      | boolean          | if the achievement is secret            |
+| secure      | boolean          | if the achievement is secure            |
+| icon        | ImageType (?)    | the icon for the achievement            |
 
 ###### Example: Updating an Achievement
 
