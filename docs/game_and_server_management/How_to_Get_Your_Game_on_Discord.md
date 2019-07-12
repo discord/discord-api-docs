@@ -30,7 +30,7 @@ From here on forward, we'll be managing settings that tie directly to your game 
 - make store pages for your game directly in your server
 - create a news channel, in which you can publish announce to all players of your game on Discord
 - run alpha and beta tests for your game, using the magic of channel permissions to create role-based page access
-- apply for approval, letting you start making money and giving you a whole suite of server customization features including a vanity URL
+- apply for approval, letting you start making money
 
 Now that we've weeded out the trolls, let's get your server up and running with some fancy new features!
 
@@ -55,6 +55,12 @@ To guide you through this process to success, you can follow that handy checklis
 
 The next and final step in your on-boarding journey is getting approved. Once approved, you'll be able to start making money, and you'll unlock a ton of cool server customization features to make your kingdom cozy for your players.
 
+## Testing Your Game
+
+As you go through the process of building your game and getting it ready for release on Discord, you'll want to be able to test it! One way to do so is to utilize Beta Store channels, which you can learn more about here: [Alpha and Beta Testing](#DOCS_GAME_AND_SERVER_MANAGEMENT_ALPHA_AND_BETA_TESTING/).
+
+If you are on the Team that owns the game, you can also use another special system for testing that we call Application Test Mode. Test Mode allows you to purchase unavailable, unlisted SKUs for free, making it helpful for testing IAP flows. It also automatically makes every branch of your game show up in your Library when Test Mode is turned on. You can read more here: [Application Test Mode](#DOCS_GAME_SDK_STORE/application-test-mode).
+
 ## Getting Approved
 
 Your game looks wonderful. You've got a beautiful store page, and awesome game, and an eager community. It's time to get approved and plant your flag. Note that if your game is in an alpha or beta state, or you're interesting in Early Access, you are welcome to apply for approval whenever you are ready. Your game doesn't need to be the finished 1.0 version; give us something you'd feel comfortable giving to your players.
@@ -65,13 +71,7 @@ Once you've completed all the items on your checklist, the `Get Approved` button
 - your store pages, to provide helpful guidance in putting your best foot forward
 - your server, to make sure you're abiding by our [Community Guidelines](https://discordapp.com/guidelines)
 
-If we need to see some changes, you'll receive an email directing you on your steps to success. Otherwise, you'll get **APPROVED!!!!!!!!!!** What's that mean? It means you can start charging for your game and making money. It _also_ means you get server customization features including:
-
-- a custom vanity URL
-- custom invite splash art
-- VIP voice regions
-
-All those awesome customization features are located in your server settings, so head back to Discord proper and make yourself look fly.
+If we need to see some changes, you'll receive an email directing you on your steps to success. Otherwise, you'll get **APPROVED!!!!!!!!!!** What's that mean? It means you can start charging for your game and making money! Don't spend it all in one place. Or do. Treat yourself.
 
 ## Available vs Store Page Published
 

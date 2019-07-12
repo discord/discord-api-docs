@@ -1,8 +1,10 @@
 # Rate Limits
 
-Discord's API rate limits requests in order to prevent abuse and overload of our services. Rate limits are applied on a per-route basis (meaning they can be different for each route called), with the exception of an additional global rate limit spanning across the entire API. Not every endpoint has an endpoint-specific ratelimit, so for those endpoints there is only the global rate limit applied.
+Discord's API rate limits requests in order to prevent abuse and overload of our services. Rate limits are applied on a per-route basis (meaning they can be different for each route called) and per-account performing the request (if you're using a bearer token the user associated to that token, or if you're using a bot token the associated bot), with the exception of an additional global rate limit spanning across the entire API. Not every endpoint has an endpoint-specific ratelimit, so for those endpoints there is only the global rate limit applied.
 
 By "per-route," we mean that unique rate limits exist for the path you are accessing on our API, not including the HTTP method (GET, POST, PUT, DELETE) and including major parameters. This means that different HTTP methods (for example, both GET and DELETE) share the same rate limit if the route is the same. Additionally, rate limits take into account major parameters in the URL. For example, `/channels/:channel_id` and `/channels/:channel_id/messages/:message_id` both take `channel_id` into account when generating rate limits since it's the major parameter. Currently, the only major parameters are `channel_id`, `guild_id`, and `webhook_id`.
+
+"Per-route" rate limits *may* be shared across multiple, similar-use routes. We expose a header called `X-RateLimit-Bucket` which will allow you to group up these similar limits as you discover them.
 
 >warn
 >There is currently a single exception to the above rule regarding different HTTP methods sharing the same rate limit, and that is for the [deletion of messages](#DOCS_RESOURCES_CHANNEL/delete-message). Deleting messages falls under a separate, higher rate limit so that bots are able to more quickly delete content from channels (which is useful for moderation bots).
@@ -22,12 +24,14 @@ For every API request made, we return optional HTTP response headers containing 
 X-RateLimit-Limit: 5
 X-RateLimit-Remaining: 0
 X-RateLimit-Reset: 1470173023
+X-RateLimit-Bucket: abcd1234
 ```
 
 * **X-RateLimit-Global** - Returned only on a HTTP 429 response if the rate limit headers returned are of the global rate limit (not per-route)
 * **X-RateLimit-Limit** - The number of requests that can be made
 * **X-RateLimit-Remaining** - The number of remaining requests that can be made
 * **X-RateLimit-Reset** - Epoch time (seconds since 00:00:00 UTC on January 1, 1970) at which the rate limit resets
+* **X-RateLimit-Bucket** - A unique string denoting the rate limit being encountered (non-inclusive of major parameters in the route path)
 
 ## Exceeding A Rate Limit
 
@@ -52,6 +56,7 @@ Note that the normal rate-limiting headers will be sent in this response. The ra
 < X-RateLimit-Limit: 10
 < X-RateLimit-Remaining: 0
 < X-RateLimit-Reset: 1470173023
+< X-RateLimit-Bucket: abcd1234
 {
   "message": "You are being rate limited.",
   "retry_after": 6457,

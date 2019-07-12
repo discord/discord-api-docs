@@ -4,6 +4,8 @@ Gateways are Discord's form of real-time communication over secure websockets. C
 
 The Discord Gateway has a versioning system which is separate from the core APIs. The documentation herein is only for the latest version in the following table, unless otherwise specified.
 
+Important note: Not all event fields are documented, in particular, fields prefixed with an underscore are considered _internal fields_ and should not be relied on. We may change the format at any time.
+
 ###### Gateway Versions
 
 | Version | Status       |
@@ -107,7 +109,6 @@ Once connected, the client should immediately receive an [Opcode 10 Hello](#DOCS
 ```json
 {
   "heartbeat_interval": 45000,
-  "_trace": ["discord-gateway-prd-1-99"]
 }
 ```
 
@@ -450,14 +451,12 @@ Sent on connection to the websocket. Defines the heartbeat interval that the cli
 | Field              | Type             | Description                                                     |
 | ------------------ | ---------------- | --------------------------------------------------------------- |
 | heartbeat_interval | integer          | the interval (in milliseconds) the client should heartbeat with |
-| \_trace            | array of strings | used for debugging, array of servers connected to               |
 
 ###### Example Hello
 
 ```json
 {
-  "heartbeat_interval": 45000,
-  "_trace": ["discord-gateway-prd-1-99"]
+  "heartbeat_interval": 45000
 }
 ```
 
@@ -476,18 +475,11 @@ The ready event is dispatched when a client has completed the initial handshake 
 | private_channels | array                                                                                | empty array                                                                                                   |
 | guilds           | array of [Unavailable Guild](#DOCS_RESOURCES_GUILD/unavailable-guild-object) objects | the guilds the user is in                                                                                     |
 | session_id       | string                                                                               | used for resuming connections                                                                                 |
-| \_trace          | array of strings                                                                     | used for debugging - the guilds the user is in                                                                |
 | shard?           | array of two integers (shard_id, num_shards)	                                      | the [shard information](#DOCS_TOPICS_GATEWAY/sharding) associated with this session, if sent when identifying |
 
 #### Resumed
 
 The resumed event is dispatched when a client has sent a [resume payload](#DOCS_TOPICS_GATEWAY/resume) to the gateway (for resuming existing sessions).
-
-###### Resumed Event Fields
-
-| Field   | Type             | Description                                    |
-| ------- | ---------------- | ---------------------------------------------- |
-| \_trace | array of strings | used for debugging - the guilds the user is in |
 
 #### Invalid Session
 

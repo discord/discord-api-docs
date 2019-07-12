@@ -76,9 +76,9 @@ if (branch != MyBranches.Stable)
 > info
 > value from environment variable `DISCORD_ACCESS_TOKEN`
 
-Retrieve an oauth2 beare token for the current user. If your game was launched from Discord and you call this function, you will automatically receive the token. If the game was _not_ launched from Discord and this method is called, Discord will focus itself and prompt the user for authorization.
+Retrieve an oauth2 bearer token for the current user. If your game was launched from Discord and you call this function, you will automatically receive the token. If the game was _not_ launched from Discord and this method is called, Discord will focus itself and prompt the user for authorization.
 
-Returns a `Discord.Result` and an `OAuth2Token` via callback.
+Returns a `Discord.Result` and a `ref Discord.OAuth2Token` via callback.
 
 ###### Parameters
 
@@ -87,9 +87,9 @@ None
 ###### Example
 
 ```cs
-applicationManager.GetOAuth2Token((result, token) =>
+applicationManager.GetOAuth2Token((Discord.Result result, ref Discord.OAuth2Token token) =>
 {
-  if (result == Discord.Result.OK)
+  if (result == Discord.Result.Ok)
   {
     Console.WriteLine("Token for the user: {0}. Expires in {1}", token.AccessToken, token.Expires);
     // You may now use this token against Discord's HTTP API
@@ -101,7 +101,7 @@ applicationManager.GetOAuth2Token((result, token) =>
 
 Checks if the current user has the entitlement to run this game.
 
-Returns `void`.
+Returns a `Discord.Result` via callback.
 
 ###### Parameters
 
@@ -112,7 +112,7 @@ None
 ```cs
 applicationManager.ValidateOrExit((result) =>
 {
-  if (result == Discord.Result.OK)
+  if (result == Discord.Result.Ok)
   {
     // Game keeps running
   }
@@ -142,7 +142,7 @@ These values can be accessed by transforming the string into a [SignedAppTicket]
 
 Note that both the public key you receive from Discord and the signature within the app ticket from the SDK are both in hex, and will need to be converted to `byte[]` before use with libsodium.
 
-Returns a `ref string` via callback.
+Returns a `Discord.Result` and `ref string` via callback.
 
 ###### Parameters
 
@@ -222,7 +222,7 @@ var discord = new Discord.Discord(clientId, Discord.CreateFlags.Default);
 var appManager = discord.GetApplicationManager();
 
 // Retrieve the token
-appManager.GetOAuth2Token((token) =>
+appManager.GetOAuth2Token((Discord.Result result, ref Discord.OAuth2Token token) =>
 {
   Console.WriteLine(token.AccessToken);
 

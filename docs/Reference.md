@@ -175,14 +175,16 @@ Discord uses ids and hashes to render images in the client. These hashes can be 
 | Type | Path | Supports |
 | ---- | --- | -------- |
 | Custom Emoji | emojis/[emoji_id](#DOCS_RESOURCES_EMOJI/emoji-object).png | PNG, GIF |
-| Guild Icon | icons/[guild_id](#DOCS_RESOURCES_GUILD/guild-object)/[guild_icon](#DOCS_RESOURCES_GUILD/guild-object).png | PNG, JPEG, WebP |
+| Guild Icon | icons/[guild_id](#DOCS_RESOURCES_GUILD/guild-object)/[guild_icon](#DOCS_RESOURCES_GUILD/guild-object).png | PNG, JPEG, WebP, GIF |
 | Guild Splash | splashes/[guild_id](#DOCS_RESOURCES_GUILD/guild-object)/[guild_splash](#DOCS_RESOURCES_GUILD/guild-object).png | PNG, JPEG, WebP |
 | Guild Banner | banners/[guild_id](#DOCS_RESOURCES_GUILD/guild-object)/[guild_banner](#DOCS_RESOURCES_GUILD/guild-object).png | PNG, JPEG, WebP |
 | Default User Avatar | embed/avatars/[user_discriminator](#DOCS_RESOURCES_USER/user-object).png * | PNG |
 | User Avatar | avatars/[user_id](#DOCS_RESOURCES_USER/user-object)/[user_avatar](#DOCS_RESOURCES_USER/user-object).png \*\* | PNG, JPEG, WebP, GIF |
 | Application Icon | app-icons/[application_id](#MY_APPLICATIONS/top)/[icon](#DOCS_TOPICS_OAUTH2/get-current-application-information).png | PNG, JPEG, WebP |
 | Application Asset | app-assets/[application_id](#MY_APPLICATIONS/top)/[asset_id](#DOCS_TOPICS_GATEWAY/activity-object-activity-assets).png | PNG, JPEG, WebP |
+| Achievement Icon | app-assets/[application_id](#MY_APPLICATIONS/top)/achievements/[achievement_id](#DOCS_GAME_SDK_ACHIEVEMENTS/data-models-user-achievement-struct)/icons/[icon_hash](#DOCS_GAME_SDK_ACHIEVEMENTS/data-models-user-achievement-struct).png | PNG, JPEG, WebP |
+| Team Icon | team-icons/[team_id](#DOCS_TOPICS_TEAMS/team-object)/[team_icon](#DOCS_TOPICS_TEAMS/team-object).png | PNG, JPEG, WebP |
 
 \* In the case of the Default User Avatar endpoint, the value for `user_discriminator` in the path should be the user's discriminator modulo 5—Test#1337 would be `1337 % 5`, which evaluates to 2.
 
-\*\* In the case of the User Avatar endpoint, the value of `user_avatar` will begin with `a_` if it is available in GIF format. (example: `a_1269e74af4df7417b13759eae50c83dc`)
+\*\* In the case of endpoints that support GIFs, the hash will begin with `a_` if it is available in GIF format. (example: `a_1269e74af4df7417b13759eae50c83dc`)

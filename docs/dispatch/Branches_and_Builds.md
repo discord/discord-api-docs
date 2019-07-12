@@ -56,6 +56,31 @@ Run `dispatch login`, which will open a web browser and prompt you to authorize 
 
 Yup, that's it.
 
+Small thing to note - the default `login` method works via an OAuth2 bearer token with special scopes. That means that if you run `dispatch login` on another machine—like a CI setup—it will invalidate your other tokens. If you want to set up build machines for your game, you'll want to use an alternate method of authorization.
+
+First, find the `credentials.json` file at:
+
+- Windows: `C:\User\<you>\.dispatch\credentials.json`
+- macOS: `~/.dispatch/config.json`
+
+Inside that, we can use our Bot token for our application that will _not_ be invalidated across different machines.
+
+> info
+> Note that this token is only good for its owning application, so if you want to make one build machine deploy multiple applications, you'll need to edit this file per game.
+
+You can get your bot token by going to your app in the Dev Portal --> `Bot` --> `Add Bot` --> copy the token. In our credentials file, make a json object like:
+
+```json
+{
+  "BotCredentials": {
+    "application_id": "my_application_id",
+    "token": "my_token"
+  }
+}
+```
+
+Voila! You can now use dispatch for that application with this token.
+
 ONWARDS!
 
 ## Creating Branches

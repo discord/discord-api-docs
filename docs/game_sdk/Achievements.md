@@ -13,14 +13,16 @@ You can also mark achievements as `secret` and `secure`. "Secret" achievements w
 
 ## Data Models
 
-###### User Achievement Struct
-
-| name            | type   | description                                                     |
-| --------------- | ------ | --------------------------------------------------------------- |
-| UserId          | Int64  | the unique id of the user working on the achievement            |
-| AchievementId   | Int64  | the unique id of the achievement                                |
-| PercentComplete | Int64  | how far along the user is to completing the achievement (0-100) |
-| UnlockedAt      | string | ?                                                               |
+###### Achievement Struct
+| name            | type 
+| --------------- | ---------
+| application_id  | Int64           | the unique id of the application                                                                                                 |
+| name            | object          | the name of the achievement as an [achievement locale object](#DOCS_GAME_SDK_ACHIEVEMENTS/achievement-locale-object)             |
+| description     | object          | the user-facing achievement description as an [achievement locale object](#DOCS_GAME_SDK_ACHIEVEMENTS/achievement-locale-object) |
+| secret          | boolean         | if the achievement is secret                                                                                                     |
+| secure          | boolean         | if the achievement is secure                                                                                                     |
+| id              | Int64           | the unique id of the achievement                                                                                                 |
+| icon_hash       | string          | [the hash of the icon](#DOCS_REFERENCE/image-formatting)                                                                         |
 
 ###### Achievement Locale Object
 
@@ -28,6 +30,15 @@ You can also mark achievements as `secret` and `secure`. "Secret" achievements w
 | -------------- | ------------------------------------------------------------------------------------------------------------------------------- |
 | default        | the default locale for the achievement                                                                                          |
 | localizations? | object of [accepted locales](#DOCS_DISPATCH_FIELD_VALUES/predefined-field-values-accepted-locales) as the key and achievement translations as the value          |
+
+###### User Achievement Struct
+
+| name            | type   | description                                                                                |
+| --------------- | ------ | ------------------------------------------------------------------------------------------ |
+| UserId          | Int64  | the unique id of the user working on the achievement                                       |
+| AchievementId   | Int64  | the unique id of the achievement                                                           |
+| PercentComplete | Int64  | how far along the user is to completing the achievement (0-100)                            |
+| UnlockedAt      | string | the timestamp at which the user completed the achievement (PercentComplete was set to 100) |
 
 ## SetUserAchievement
 
@@ -170,8 +181,6 @@ Fires when an achievement is updated for the currently connected user
 
 Below are the API endpoints and the parameters they accept. If you choose to interface directly with the Discord API, you will need a token. This is a special authorization token with which your application can access Discord's HTTP API. You can retrieve it using the [Client Credentials OAuth2 Grant](#DOCS_TOPICS_OAUTH2/client-credentials/grant) by requesting the `applications.store.update` scope.
 
-Here are the routes; they all expect JSON bodies. Also, hey, while you're here. You've got a bot token. You're looking at our API. You should check out all the other [awesome stuff](https://discordapp.com/developers/docs/intro) you can do with it!
-
 ## Get Achievements
 
 `GET https://discordapp.com/api/v6/applications/<application_id>/achievements`
@@ -232,8 +241,8 @@ Creates a new achievement for your application. Applications can have a maximum 
 
 | name        | type          | description                             |
 | ----------- | ------------- | --------------------------------------- |
-| name        | object        | the name of the achievement             |
-| description | object        | the user-facing achievement description |
+| name        | object        | the name of the achievement as an [achievement locale object](#DOCS_GAME_SDK_ACHIEVEMENTS/achievement-locale-object)            |
+| description | object        | the user-facing achievement description as an [achievement locale object](#DOCS_GAME_SDK_ACHIEVEMENTS/achievement-locale-object)|
 | secret      | bool          | if the achievement is secret            |
 | secure      | bool          | if the achievement is secure            |
 | icon        | ImageType (?) | the icon for the achievement            |
@@ -250,7 +259,7 @@ Creates a new achievement for your application. Applications can have a maximum 
   },
   "secret": true,
   "secure": false,
-  "data": "data:image/png;base64,base64_data_here"
+  "icon": "data:image/png;base64,base64_data_here"
 }
 ```
 
@@ -300,7 +309,7 @@ Updates the achievement for **\_\_ALL USERS\_\_**. This is **NOT** to update a s
   },
   "secret": false,
   "secure": false,
-  "data": "data:image/png;base64,base64_data_here"
+  "icon": "data:image/png;base64,base64_data_here"
 }
 ```
 
