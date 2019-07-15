@@ -1187,7 +1187,7 @@ Fires when a user connected to voice starts or stops speaking.
 
 | name     | type  | description                                             |
 | -------- | ----- | ------------------------------------------------------- |
-| lobbyId  | Int64 | lobby the user is connceted to                          |
+| lobbyId  | Int64 | lobby the user is connected to                          |
 | userId   | Int64 | user in voice                                           |
 | speaking | bool  | `true` == started speaking, `false` == stopped speaking |
 
