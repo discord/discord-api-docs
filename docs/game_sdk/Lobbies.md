@@ -1114,7 +1114,7 @@ Fires when a new member joins the lobby.
 ```cs
 lobbyManager.OnMemberConnect += (lobbyID, userID) =>
 {
-  Console.WriteLine("user {1} connected to lobby: {0}", lobbyID, userID);
+  Console.WriteLine("user {0} connected to lobby: {1}", userID, lobbyID);
 };
 ```
 
@@ -1134,7 +1134,7 @@ Fires when data for a lobby member is updated.
 ```cs
 lobbyManager.OnMemberUpdate += (lobbyID, userID) =>
 {
-  Console.WriteLine("user {1} got updated in lobby: {0}", lobbyID, userID);
+  Console.WriteLine("user {0} got updated in lobby: {1}", userID, lobbyID);
 };
 ```
 
@@ -1154,7 +1154,7 @@ Fires when a member leaves the lobby.
 ```cs
 lobbyManager.OnMemberDisconnect += (lobbyID, userID) =>
 {
-  Console.WriteLine("user {1} disconnected from lobby: {0}", lobbyID, userID);
+  Console.WriteLine("user {0} disconnected from lobby: {1}", userID, lobbyID);
 };
 ```
 
@@ -1175,7 +1175,7 @@ Fires when a message is sent to the lobby.
 ```cs
 lobbyManager.OnLobbyMessage += (lobbyID, userID, data) =>
 {
-  Console.WriteLine("lobby message: {0}, user who sent the message: {1}, Containing: {3}", lobbyID, userID, Encoding.UTF8.GetString(data));
+  Console.WriteLine("lobby message: {0}, user who sent the message: {1}, Containing: {2}", lobbyID, userID, Encoding.UTF8.GetString(data));
 };
 ```
 
