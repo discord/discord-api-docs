@@ -519,7 +519,7 @@ Returns `Discord.Result` via callback.
 ###### Example
 
 ```cs
-lobbymanager.DeleteLobby(290926798626357250, (result) =>
+lobbyManager.DeleteLobby(290926798626357250, (result) =>
 {
   if (result == Discord.Result.Ok)
   {
@@ -673,7 +673,7 @@ Returns `Int32`.
 ###### Example
 
 ```cs
-var count = lobbyManger.LobbyMetadataCount(290926798626357250);
+var count = lobbyManager.LobbyMetadataCount(290926798626357250);
 for (int i = 0; i < count; i++)
 {
   var value = lobbyManager.GetLobbyMetadataKey(290926798626357250, i);
@@ -696,7 +696,7 @@ Returns `string`.
 ###### Example
 
 ```cs
-var count = lobbyManger.GetLobbyMetadataCount(290926798626357250);
+var count = lobbyManager.GetLobbyMetadataCount(290926798626357250);
 for (int i = 0; i < count; i++)
 {
   var value = lobbyManager.GetLobbyMetadataKey(290926798626357250, i);
@@ -717,7 +717,7 @@ Returns lobby metadata value for a given key and id. Can be used with iteration,
 ###### Example
 
 ```cs
-var averageMmr = lobbyManger.GetLobbyMetadataValue(290926798626357250, "metadata.average_mmr");
+var averageMmr = lobbyManager.GetLobbyMetadataValue(290926798626357250, "metadata.average_mmr");
 ```
 
 ## MemberCount
@@ -953,7 +953,7 @@ var search = lobbyManger.GetSearchQuery();
 search.Filter("metadata.matchmaking_rating", LobbySearchComparison.GreaterThan, LobbySearchCast.Number, "455");
 search.Sort("metadata.matchmaking_rating", LobbySearchCast.Number, "456");
 search.Limit(10);
-lobbyManger.Search(search, (result) =>
+lobbyManager.Search(search, (result) =>
 {
   if (result == Discord.Result.Ok)
   {
@@ -976,7 +976,7 @@ None
 ###### Example
 
 ```cs
-lobbyManger.Search(search, () =>
+lobbyManager.Search(search, () =>
 {
   var count = lobbyManager.LobbyCount();
   Console.WriteLine("There are {0} lobbies that match your search criteria", count);
@@ -998,7 +998,7 @@ Returns `Int64`.
 ###### Example
 
 ```cs
-lobbyManger.Search(search, () =>
+lobbyManager.Search(search, () =>
 {
   var count = lobbyManager.LobbyCount();
   for (int i = 0; i < count; i++)
@@ -1050,7 +1050,7 @@ Disconnects from the voice channel of a given lobby.
 ###### Example
 
 ```cs
-lobbyManager.DisconnectVoiceLobby(290926798626357250, (result) =>
+lobbyManager.DisconnectVoice(290926798626357250, (result) =>
 {
   if (result == Discord.Result.Ok)
   {
@@ -1069,6 +1069,15 @@ Fires when a lobby is updated.
 | ------- | ----- | ------------------ |
 | lobbyId | Int64 | lobby that updated |
 
+###### Example
+
+```cs
+lobbyManager.OnLobbyUpdate += (lobbyID) => 
+{
+  Console.WriteLine("lobby succesfully updated: {0}", lobbyID);
+};
+```
+
 ## OnLobbyDelete
 
 Fired when a lobby is deleted.
@@ -1079,6 +1088,15 @@ Fired when a lobby is deleted.
 | ------- | ------ | ---------------------------------------------- |
 | lobbyId | Int64  | lobby that was deleted                         |
 | reason  | string | reason for deletion - this is a system message |
+
+###### Example
+
+```cs
+lobbyManager.OnLobbyDelete += (lobbyID, reason) =>
+{
+  Console.WriteLine("lobby successfully deleted: {0} with reason: {1}", lobbyID, reason);
+};
+```
 
 ## OnMemberConnect
 
@@ -1091,6 +1109,15 @@ Fires when a new member joins the lobby.
 | lobbyId | Int64 | lobby the user joined |
 | userId  | Int64 | user that joined      |
 
+###### Example
+
+```cs
+lobbyManager.OnMemberConnect += (lobbyID, userID) =>
+{
+  Console.WriteLine("user {1} connected to lobby: {0}", lobbyID, userID);
+};
+```
+
 ## OnMemberUpdate
 
 Fires when data for a lobby member is updated.
@@ -1101,6 +1128,15 @@ Fires when data for a lobby member is updated.
 | ------- | ----- | ----------------------------- |
 | lobbyId | Int64 | lobby the user is a member of |
 | userId  | Int64 | user that was updated         |
+
+###### Example 
+
+```cs
+lobbyManager.OnMemberUpdate += (lobbyID, userID) =>
+{
+  Console.WriteLine("user {1} got updated in lobby: {0}", lobbyID, userID);
+};
+```
 
 ## OnMemberDisconnect
 
@@ -1113,7 +1149,16 @@ Fires when a member leaves the lobby.
 | lobbyId | Int64 | lobby the user was a member of |
 | userId  | Int64 | user that left                 |
 
-## OnMessage
+###### Example
+
+```cs
+lobbyManager.OnMemberDisconnect += (lobbyID, userID) =>
+{
+  Console.WriteLine("user {1} disconnected from lobby: {0}", lobbyID, userID);
+};
+```
+
+## OnLobbyMessage
 
 Fires when a message is sent to the lobby.
 
@@ -1124,6 +1169,15 @@ Fires when a message is sent to the lobby.
 | lobbyId | Int64  | lobby the message is sent to |
 | userId  | Int64  | user that sent the message   |
 | data    | byte[] | the message contents         |
+
+###### Example
+
+```cs
+lobbyManager.OnLobbyMessage += (lobbyID, userID, data) =>
+{
+  Console.WriteLine("lobby message: {0}, {1}", lobbyID, Encoding.UTF8.GetString(data));
+};
+```
 
 ## OnSpeaking
 
@@ -1136,6 +1190,15 @@ Fires when a user connected to voice starts or stops speaking.
 | lobbyId  | Int64 | lobby the user is connceted to                          |
 | userId   | Int64 | user in voice                                           |
 | speaking | bool  | `true` == started speaking, `false` == stopped speaking |
+
+###### Example
+
+```cs
+lobbyManager.OnSpeaking += (lobbyID, userID, speaking) =>
+{
+  Console.WriteLine("lobby speaking: {0} {1} {2}", lobbyID, userID, speaking);
+};
+```
 
 ## Connecting to Lobbies
 
