@@ -1175,7 +1175,7 @@ Fires when a message is sent to the lobby.
 ```cs
 lobbyManager.OnLobbyMessage += (lobbyID, userID, data) =>
 {
-  Console.WriteLine("lobby message: {0}, {1}", lobbyID, Encoding.UTF8.GetString(data));
+  Console.WriteLine("lobby message: {0}, user who sent the message: {1}, Containing: {3}", lobbyID, userID, Encoding.UTF8.GetString(data));
 };
 ```
 
