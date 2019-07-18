@@ -1,5 +1,11 @@
 # Change Log
 
+## Bot Tokens for Achievements
+
+#### July 18, 2019
+
+You can now use Bot tokens for authorization headers against the HTTP API for [Achievements](#DOCS_GAME_SDK_ACHIEVEMENTS/the-api-way).
+
 ## Additional Team Information
 
 #### June 19, 2019
