@@ -1,5 +1,11 @@
 # Change Log
 
+## "Channel with Guild" Mention Format
+
+#### July 19, 2019
+
+Channel mentions can now reference channels in other guilds using a new [Channel with Guild format](#DOCS_REFERENCE/message-formatting). This format is intended for (but not limited to) crossposted messages via Channel Following and for linking to Lurkable guilds. Normal channel mentions (`<#CHANNEL_ID>`) will continue to work as expected, this is simply an additional format to support new behavior. Like normal channel mentions, Users must be able to see (or be able to lurk in) the target channel to mention it.
+
 ## Bot Tokens for Achievements
 
 #### July 18, 2019
