@@ -145,6 +145,7 @@ Discord utilizes a subset of markdown for rendering message content on its clien
 | User | <@USER_ID> | <@80351110224678912> |
 | User (Nickname) | <@!USER_ID> | <@!80351110224678912> |
 | Channel | <#CHANNEL_ID> | <#103735883630395392> |
+| Channel with Guild | <#CHANNEL_ID-GUILD_ID-CHANNEL_NAME> | <#103735883630395392-11771983423143937-general> |
 | Role | <@&ROLE_ID> | <@&165511591545143296> |
 | Custom Emoji | <:NAME:ID> | <:mmLol:216154654256398347> |
 | Custom Emoji (Animated) | <a:NAME:ID> | <a:b1nzy:392938283556143104> |
