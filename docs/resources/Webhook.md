@@ -16,7 +16,9 @@ Used to represent a webhook.
 | user? | [user](#DOCS_RESOURCES_USER/user-object) object | the user this webhook was created by (not returned when getting a webhook with its token) |
 | name | ?string | the default name of the webhook |
 | avatar | ?string | the default avatar of the webhook |
-| token | string | the secure token of the webhook |
+| token?* | string | the secure token of the webhook |
+
+* The token is not received if the webhook object is used to crosspost messages.
 
 ###### Example Webhook
 
