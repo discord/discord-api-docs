@@ -26,7 +26,7 @@
 | sv-SE  | Swedish                 |
 | tr     | Turkish                 |
 | bg     | Bulgarian               |
-| uk     | Ukranian                |
+| uk     | Ukrainian               |
 | fi     | Finnish                 |
 | hr     | Croatian                |
 | ro     | Romanian                |

@@ -187,7 +187,7 @@ Finally, the voice server will respond with a [Opcode 4 Session Description](#DO
 
 ## Encrypting and Sending Voice
 
-Voice data sent to discord should be encoded with [Opus](https://www.opus-codec.org/), using two channels (stereo) and a sample rate of 48kHz. Voice Data is sent using a [RTP Header](http://www.rfcreader.com/#rfc3550_line548), followed by encrypted Opus audio data. Voice encryption uses the key passed in [Opcode 4 Session Description](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice-opcodes) and the nonce formed with the 12 byte header appended with 12 null bytes to achive the 24 required by xsalsa20_poly1305. Discord encrypts with the [libsodium](https://download.libsodium.org/doc/) encryption library.
+Voice data sent to discord should be encoded with [Opus](https://www.opus-codec.org/), using two channels (stereo) and a sample rate of 48kHz. Voice Data is sent using a [RTP Header](http://www.rfcreader.com/#rfc3550_line548), followed by encrypted Opus audio data. Voice encryption uses the key passed in [Opcode 4 Session Description](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice-opcodes) and the nonce formed with the 12 byte header appended with 12 null bytes to achieve the 24 required by xsalsa20_poly1305. Discord encrypts with the [libsodium](https://download.libsodium.org/doc/) encryption library.
 
 ###### Voice Packet Structure
 

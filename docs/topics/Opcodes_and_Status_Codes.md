@@ -182,8 +182,8 @@ RPC is the [local Discord server](#DOCS_TOPICS_RPC/) running on localhost. Acces
 | 4009 | Invalid Token | sent when an invalid OAuth2 token is used to authorize or authenticate with |
 | 4010 | Invalid User | sent when the user id specified is invalid |
 | 5000 | OAuth2 Error | sent when a standard OAuth2 error occurred; check the data object for the OAuth 2 error information |
-| 5001 | Select Channel Timed Out | sent when an asyncronous SELECT_TEXT_CHANNEL/SELECT_VOICE_CHANNEL command times out |
-| 5002 | Get Guild Timed Out | sent when an asyncronous GET_GUILD command times out |
+| 5001 | Select Channel Timed Out | sent when an asynchronous SELECT_TEXT_CHANNEL/SELECT_VOICE_CHANNEL command times out |
+| 5002 | Get Guild Timed Out | sent when an asynchronous GET_GUILD command times out |
 | 5003 | Select Voice Force Required | sent when you try to join a user to a voice channel but the user is already in one |
 | 5004 | Capture Shortcut Already Listening | sent when you try to capture a shortcut key when already capturing one |
 
