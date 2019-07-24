@@ -1074,7 +1074,7 @@ Fires when a lobby is updated.
 ```cs
 lobbyManager.OnLobbyUpdate += (lobbyID) => 
 {
-  Console.WriteLine("lobby succesfully updated: {0}", lobbyID);
+  Console.WriteLine("lobby successfully updated: {0}", lobbyID);
 };
 ```
 
