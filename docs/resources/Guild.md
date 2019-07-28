@@ -489,9 +489,9 @@ Returns an object with one 'pruned' key indicating the number of members that wo
 
 ###### Query String Params
 
-| Field | Type | Description |
-|-------|------|-------------|
-| days | integer | number of days to count prune for (1 or more) |
+| Field | Type | Description | Default |
+|-------|------|-------------|---------|
+| days | integer | number of days to count prune for (1 or more) | 7 |
 
 ## Begin Guild Prune % POST /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/prune
 
@@ -499,10 +499,10 @@ Begin a prune operation. Requires the `KICK_MEMBERS` permission. Returns an obje
 
 ###### Query String Params
 
-| Field | Type | Description |
-|-------|------|-------------|
-| days | integer | number of days to prune (1 or more) |
-| compute_prune_count | boolean | whether 'pruned' is returned, discouraged for large guilds |
+| Field | Type | Description | Default |
+|-------|------|-------------|---------|
+| days | integer | number of days to prune (1 or more) | 7 |
+| compute_prune_count | boolean | whether 'pruned' is returned, discouraged for large guilds | true |
 
 ## Get Guild Voice Regions % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/regions
 
