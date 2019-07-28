@@ -489,7 +489,7 @@ Returns an object with one 'pruned' key indicating the number of members that wo
 
 ###### Query String Params
 
-| Field | Type | Description | default |
+| Field | Type | Description | Default |
 |-------|------|-------------|---------|
 | days | integer | number of days to count prune for (1 or more) | 7 |
 
