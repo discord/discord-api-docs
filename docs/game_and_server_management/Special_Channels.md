@@ -53,7 +53,7 @@ Otherwise:
 2. Select News as the channel type, and enter a channel name.
 3. Click Create Channel.
 
-Tada! Anytime you post an announcement with a link, you can now hover over the message and click "Publish" to publish the news to the Activity Feeds of all users who play your game. Make sure to set permissions properly so that only people who properly represent your game can send messages in that channel. All users who have permission to send messages in the channel will be able to publish news to the Activity Feed.
+Tada! Anytime you post an announcement with a link, you can now hover over the message, click the context menu icon (the three dots on the right), and click "Post to Activity" to publish the news to the Activity Feeds of all users who play your game. Make sure to set permissions properly so that only people who properly represent your game can send messages in that channel. All users who have permission to send messages in the channel will be able to publish news to the Activity Feed.
 
 You can now publish all the exciting updates about your game directly to the Activity Feed of your players!
 
