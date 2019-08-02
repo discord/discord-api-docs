@@ -16,7 +16,7 @@ Represents a code that when used, adds a user to a guild or group DM channel.
 | approximate_presence_count? | integer                                                          | approximate count of online members (only present when target_user is set) |
 | approximate_member_count?   | integer                                                          | approximate count of total members                                         |
 
-##### Target User Type
+###### Target User Type
 
 | Type   | Value |
 | ------ | ----- |
