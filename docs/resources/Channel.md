@@ -419,7 +419,7 @@ Get a channel by ID. Returns a [channel](#DOCS_RESOURCES_CHANNEL/channel-object)
 
 ## Modify Channel % PUT/PATCH /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}
 
-Update a channels settings. Requires the `MANAGE_CHANNELS` permission for the guild. Returns a [channel](#DOCS_RESOURCES_CHANNEL/channel-object) on success, and a 400 BAD REQUEST on invalid parameters. Fires a [Channel Update](#DOCS_TOPICS_GATEWAY/channel-update) Gateway event. If modifying a category, individual [Channel Update](#DOCS_TOPICS_GATEWAY/channel-update) events will fire for each child channel that also changes. For the **PATCH** method, all the JSON Params are optional.
+Update a channel's settings. Requires the `MANAGE_CHANNELS` permission for the guild. Returns a [channel](#DOCS_RESOURCES_CHANNEL/channel-object) on success, and a 400 BAD REQUEST on invalid parameters. Fires a [Channel Update](#DOCS_TOPICS_GATEWAY/channel-update) Gateway event. If modifying a category, individual [Channel Update](#DOCS_TOPICS_GATEWAY/channel-update) events will fire for each child channel that also changes. For the **PATCH** method, all the JSON Params are optional.
 
 ###### JSON Params
 
