@@ -206,7 +206,7 @@ Represents a message sent in a channel within Discord.
 
 \*\*\* The user objects in the mentions array will only have the partial `member` field present in [MESSAGE_CREATE](#DOCS_TOPICS_GATEWAY/message-create) and [MESSAGE_UPDATE](#DOCS_TOPICS_GATEWAY/message-update) events from text-based guild channels.
 
-\*\*\*\* Only some channel mentions will be included in this array. Specifically, only crossposted messages (via Channel Following) will include this array. The mentioned channel must be a textual channel in a guild, visible to everyone in that guild, and the guild must be lurkable. If no mentions in the message meet these requirements, this array will not be sent.
+\*\*\*\* Not all channel mentions in a message will appear in `mention_channels`. Only textual channels that are visible to everyone in a lurkable guild will ever be included. Only crossposted messages (via Channel Following) currently include `mention_channels` at all. If no mentions in the message meet these requirements, this field will not be sent.
 
 ###### Message Types
 
