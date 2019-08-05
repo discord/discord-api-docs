@@ -35,7 +35,7 @@ If you want to push out access to your game at scale, rather than inviting peopl
 
 Note that the `VALID UNTIL` date will not remove the game from the user's library, but they will no longer be able to launch it.
 
-Up to 10,000 gift codes can be created at a time. When you go to create gift codes, you'll notice there are a few fields for you to fill out. Here's what they mean:
+Up to 25,000 gift codes can be created at a time. When you go to create gift codes, you'll notice there are a few fields for you to fill out. Here's what they mean:
 
 ![](gift-code-creation.png)
 
@@ -43,7 +43,7 @@ Up to 10,000 gift codes can be created at a time. When you go to create gift cod
 - Branch: the branch of your game you want the user to get
 - Valid From: the start date at which the entitlement is valid
 - Valid Until: the date at which the entitlement is no longer valid
-- Amount: the number of codes you want to create (up to 10,000 per batch)
+- Amount: the number of codes you want to create (up to 25,000 per batch)
 - Description: a short description of why you made the codes, so you remember!
 
 Once you've made your codes, you can download the `.csv` that has them all in it, and distribute them however you'd like!
