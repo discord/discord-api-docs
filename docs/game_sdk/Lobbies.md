@@ -1072,7 +1072,7 @@ Fires when a lobby is updated.
 ###### Example
 
 ```cs
-lobbyManager.OnLobbyUpdate += (lobbyID) => 
+lobbyManager.OnLobbyUpdate += (lobbyID) =>
 {
   Console.WriteLine("lobby successfully updated: {0}", lobbyID);
 };
@@ -1129,7 +1129,7 @@ Fires when data for a lobby member is updated.
 | lobbyId | Int64 | lobby the user is a member of |
 | userId  | Int64 | user that was updated         |
 
-###### Example 
+###### Example
 
 ```cs
 lobbyManager.OnMemberUpdate += (lobbyID, userID) =>

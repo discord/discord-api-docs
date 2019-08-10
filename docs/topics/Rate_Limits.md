@@ -4,15 +4,15 @@ Discord's API rate limits requests in order to prevent abuse and overload of our
 
 By "per-route," we mean that unique rate limits exist for the path you are accessing on our API, not including the HTTP method (GET, POST, PUT, DELETE) and including major parameters. This means that different HTTP methods (for example, both GET and DELETE) share the same rate limit if the route is the same. Additionally, rate limits take into account major parameters in the URL. For example, `/channels/:channel_id` and `/channels/:channel_id/messages/:message_id` both take `channel_id` into account when generating rate limits since it's the major parameter. Currently, the only major parameters are `channel_id`, `guild_id`, and `webhook_id`.
 
-"Per-route" rate limits *may* be shared across multiple, similar-use routes. We expose a header called `X-RateLimit-Bucket` which will allow you to group up these similar limits as you discover them.
+"Per-route" rate limits _may_ be shared across multiple, similar-use routes. We expose a header called `X-RateLimit-Bucket` which will allow you to group up these similar limits as you discover them.
 
->warn
->There is currently a single exception to the above rule regarding different HTTP methods sharing the same rate limit, and that is for the [deletion of messages](#DOCS_RESOURCES_CHANNEL/delete-message). Deleting messages falls under a separate, higher rate limit so that bots are able to more quickly delete content from channels (which is useful for moderation bots).
+> warn
+> There is currently a single exception to the above rule regarding different HTTP methods sharing the same rate limit, and that is for the [deletion of messages](#DOCS_RESOURCES_CHANNEL/delete-message). Deleting messages falls under a separate, higher rate limit so that bots are able to more quickly delete content from channels (which is useful for moderation bots).
 
-Because we may change rate limits at any time and rate limits can be different per application, *rate limits should not be hard coded into your bot/application*. In order to properly support our dynamic rate limits, your bot/application should parse for our rate limits in response headers and locally prevent exceeding of the limits as they change.
+Because we may change rate limits at any time and rate limits can be different per application, _rate limits should not be hard coded into your bot/application_. In order to properly support our dynamic rate limits, your bot/application should parse for our rate limits in response headers and locally prevent exceeding of the limits as they change.
 
->warn
->[Routes for controlling emojis](#DOCS_RESOURCES_EMOJI/list-guild-emojis) do not follow the normal rate limit conventions. These routes are specifically limited on a per-guild basis to prevent abuse. This means that the quota returned by our APIs may be inaccurate, and you may encounter 429s.
+> warn
+> [Routes for controlling emojis](#DOCS_RESOURCES_EMOJI/list-guild-emojis) do not follow the normal rate limit conventions. These routes are specifically limited on a per-guild basis to prevent abuse. This means that the quota returned by our APIs may be inaccurate, and you may encounter 429s.
 
 ## Header Format
 
@@ -27,11 +27,11 @@ X-RateLimit-Reset: 1470173023
 X-RateLimit-Bucket: abcd1234
 ```
 
-* **X-RateLimit-Global** - Returned only on a HTTP 429 response if the rate limit headers returned are of the global rate limit (not per-route)
-* **X-RateLimit-Limit** - The number of requests that can be made
-* **X-RateLimit-Remaining** - The number of remaining requests that can be made
-* **X-RateLimit-Reset** - Epoch time (seconds since 00:00:00 UTC on January 1, 1970) at which the rate limit resets
-* **X-RateLimit-Bucket** - A unique string denoting the rate limit being encountered (non-inclusive of major parameters in the route path)
+- **X-RateLimit-Global** - Returned only on a HTTP 429 response if the rate limit headers returned are of the global rate limit (not per-route)
+- **X-RateLimit-Limit** - The number of requests that can be made
+- **X-RateLimit-Remaining** - The number of remaining requests that can be made
+- **X-RateLimit-Reset** - Epoch time (seconds since 00:00:00 UTC on January 1, 1970) at which the rate limit resets
+- **X-RateLimit-Bucket** - A unique string denoting the rate limit being encountered (non-inclusive of major parameters in the route path)
 
 ## Exceeding A Rate Limit
 
@@ -39,11 +39,11 @@ In the case that a rate limit is exceeded, the API will return a HTTP 429 respon
 
 ###### Rate Limit Response Structure
 
-| Field | Type | Description |
-|-------|------|-------------|
-| message | string | A message saying you are being rate limited. |
+| Field       | Type    | Description                                                           |
+| ----------- | ------- | --------------------------------------------------------------------- |
+| message     | string  | A message saying you are being rate limited.                          |
 | retry_after | integer | The number of milliseconds to wait before submitting another request. |
-| global | boolean | A value indicating if you are being globally rate limited or not |
+| global      | boolean | A value indicating if you are being globally rate limited or not      |
 
 Note that the normal rate-limiting headers will be sent in this response. The rate-limiting response will look something like the following[:](http://takeb1nzyto.space/)
 
