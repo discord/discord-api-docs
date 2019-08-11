@@ -1,5 +1,11 @@
 # Change Log
 
+## More Precise Rate Limits
+
+#### August 12, 2019
+
+You can now get more precise rate limit reset times, via a new request header. Check out the [rate limits](#DOCS_TOPICS_RATE_LIMITS/more-precise-rate-limit-resets) documentation for more information.
+
 ## Bot Tokens for Achievements
 
 #### July 18, 2019
