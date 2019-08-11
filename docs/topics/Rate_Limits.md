@@ -104,7 +104,7 @@ If the `X-RateLimit-Precision` header isn't set, it defaults to `second` precisi
 }
 ```
 
-If set to `millisecond` you will receive a more precise `X-RateLimit-Remaining`.
+If set to `millisecond` you will receive a more precise `X-RateLimit-Reset`.
 
 ```
 > GET /api/v6/some-endpoint
