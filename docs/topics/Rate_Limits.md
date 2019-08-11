@@ -123,3 +123,23 @@ If set to `millisecond` you will receive a more precise `X-RateLimit-Remaining`.
   "global": false
 }
 ```
+
+Setting it to an invalid value, will net you a special error message contained in `X-RateLimit-Reset`.
+
+```
+> GET /api/v6/some-endpoint
+> X-RateLimit-Precision: garbage
+
+< HTTP/1.1 429 TOO MANY REQUESTS
+< Content-Type: application/json
+< Retry-After: 6457
+< X-RateLimit-Limit: 10
+< X-RateLimit-Remaining: 0
+< X-RateLimit-Reset: Invalid X-RateLimit-Precision, valid options are (second, millisecond)
+< X-RateLimit-Bucket: abcd1234
+{
+  "message": "You are being rate limited.",
+  "retry_after": 6457,
+  "global": false
+}
+```
