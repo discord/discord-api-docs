@@ -77,3 +77,69 @@ Note that the normal rate-limiting headers will be sent in this response. The ra
   "global": true
 }
 ```
+
+## More Precise Rate Limit Resets
+
+By default, the `X-RateLimit-Reset` header returns the time the rate limit will reset, rounded up to the nearest second. However, for more precise rate limit handling, you can now request `millisecond` level precision by using sending the `X-RateLimit-Precision` header and setting it to `millisecond`. This means that you will get a more precise response, rounded to the nearest millisecond.
+
+###### Example Responses
+
+If the `X-RateLimit-Precision` header isn't set, it defaults to `second` precision.
+
+```
+> GET /api/v6/some-endpoint
+> X-RateLimit-Precision: second
+
+< HTTP/1.1 429 TOO MANY REQUESTS
+< Content-Type: application/json
+< Retry-After: 6457
+< X-RateLimit-Limit: 10
+< X-RateLimit-Remaining: 0
+< X-RateLimit-Reset: 1470173023
+< X-RateLimit-Bucket: abcd1234
+{
+  "message": "You are being rate limited.",
+  "retry_after": 6457,
+  "global": false
+}
+```
+
+If set to `millisecond` you will receive a more precise `X-RateLimit-Reset`.
+
+```
+> GET /api/v6/some-endpoint
+> X-RateLimit-Precision: millisecond
+
+< HTTP/1.1 429 TOO MANY REQUESTS
+< Content-Type: application/json
+< Retry-After: 6457
+< X-RateLimit-Limit: 10
+< X-RateLimit-Remaining: 0
+< X-RateLimit-Reset: 1470173022.420
+< X-RateLimit-Bucket: abcd1234
+{
+  "message": "You are being rate limited.",
+  "retry_after": 6457,
+  "global": false
+}
+```
+
+Setting it to an invalid value, will net you a special error message contained in `X-RateLimit-Reset`.
+
+```
+> GET /api/v6/some-endpoint
+> X-RateLimit-Precision: garbage
+
+< HTTP/1.1 429 TOO MANY REQUESTS
+< Content-Type: application/json
+< Retry-After: 6457
+< X-RateLimit-Limit: 10
+< X-RateLimit-Remaining: 0
+< X-RateLimit-Reset: Invalid X-RateLimit-Precision, valid options are (second, millisecond)
+< X-RateLimit-Bucket: abcd1234
+{
+  "message": "You are being rate limited.",
+  "retry_after": 6457,
+  "global": false
+}
+```
