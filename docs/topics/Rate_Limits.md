@@ -31,6 +31,7 @@ X-RateLimit-Bucket: abcd1234
 - **X-RateLimit-Limit** - The number of requests that can be made
 - **X-RateLimit-Remaining** - The number of remaining requests that can be made
 - **X-RateLimit-Reset** - Epoch time (seconds since 00:00:00 UTC on January 1, 1970) at which the rate limit resets
+- **X-RateLimit-Reset-After** - Total time (in seconds) of when the current rate limit bucket will reset.
 - **X-RateLimit-Bucket** - A unique string denoting the rate limit being encountered (non-inclusive of major parameters in the route path)
 
 ## Exceeding A Rate Limit
@@ -56,6 +57,7 @@ Note that the normal rate-limiting headers will be sent in this response. The ra
 < X-RateLimit-Limit: 10
 < X-RateLimit-Remaining: 0
 < X-RateLimit-Reset: 1470173023
+< X-RateLimit-Reset-After: 7
 < X-RateLimit-Bucket: abcd1234
 {
   "message": "You are being rate limited.",
@@ -80,7 +82,7 @@ Note that the normal rate-limiting headers will be sent in this response. The ra
 
 ## More Precise Rate Limit Resets
 
-By default, the `X-RateLimit-Reset` header returns the time the rate limit will reset, rounded up to the nearest second. However, for more precise rate limit handling, you can now request `millisecond` level precision by using sending the `X-RateLimit-Precision` header and setting it to `millisecond`. This means that you will get a more precise response, rounded to the nearest millisecond.
+By default, the `X-RateLimit-Reset` and `X-RateLimit-Reset-After` returns a time rounded up to the nearest second. However, for more precise rate limit handling, you can now request `millisecond` level precision by using sending the `X-RateLimit-Precision` header and setting it to `millisecond`. This means that you will get a more precise response, rounded to the nearest millisecond.
 
 ###### Example Responses
 
@@ -96,6 +98,7 @@ If the `X-RateLimit-Precision` header isn't set, it defaults to `second` precisi
 < X-RateLimit-Limit: 10
 < X-RateLimit-Remaining: 0
 < X-RateLimit-Reset: 1470173023
+< X-RateLimit-Reset-After: 7
 < X-RateLimit-Bucket: abcd1234
 {
   "message": "You are being rate limited.",
@@ -104,7 +107,7 @@ If the `X-RateLimit-Precision` header isn't set, it defaults to `second` precisi
 }
 ```
 
-If set to `millisecond` you will receive a more precise `X-RateLimit-Reset`.
+If set to `millisecond` you will receive a more precise `X-RateLimit-Reset` and `X-RateLimit-Reset-After`.
 
 ```
 > GET /api/v6/some-endpoint
@@ -116,6 +119,7 @@ If set to `millisecond` you will receive a more precise `X-RateLimit-Reset`.
 < X-RateLimit-Limit: 10
 < X-RateLimit-Remaining: 0
 < X-RateLimit-Reset: 1470173022.420
+< X-RateLimit-Reset-After: 6.457
 < X-RateLimit-Bucket: abcd1234
 {
   "message": "You are being rate limited.",
@@ -124,7 +128,7 @@ If set to `millisecond` you will receive a more precise `X-RateLimit-Reset`.
 }
 ```
 
-Setting it to an invalid value, will net you a special error message contained in `X-RateLimit-Reset`.
+Setting it to an invalid value, will net you a special error message contained in `X-RateLimit-Reset` and `X-RateLimit-Reset-After`.
 
 ```
 > GET /api/v6/some-endpoint
@@ -136,6 +140,7 @@ Setting it to an invalid value, will net you a special error message contained i
 < X-RateLimit-Limit: 10
 < X-RateLimit-Remaining: 0
 < X-RateLimit-Reset: Invalid X-RateLimit-Precision, valid options are (second, millisecond)
+< X-RateLimit-Reset-After: Invalid X-RateLimit-Precision, valid options are (second, millisecond)
 < X-RateLimit-Bucket: abcd1234
 {
   "message": "You are being rate limited.",
