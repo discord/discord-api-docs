@@ -222,12 +222,7 @@ Represents a message sent in a channel within Discord.
 | USER_PREMIUM_GUILD_SUBSCRIPTION_TIER_1 | 9     |
 | USER_PREMIUM_GUILD_SUBSCRIPTION_TIER_2 | 10    |
 | USER_PREMIUM_GUILD_SUBSCRIPTION_TIER_3 | 11    |
-
-<<<<<<< HEAD
-| CHANNEL_FOLLOW_ADD | 12 |
-=======
-
-> > > > > > > 732b1a9aa00d5bbea1a5df7bebcad35a36178efa
+| CHANNEL_FOLLOW_ADD                     | 12    |
 
 ###### Message Activity Structure
 
@@ -246,8 +241,6 @@ Represents a message sent in a channel within Discord.
 | icon         | ?string   | id of the application's icon  |
 | name         | string    | name of the application       |
 
-<<<<<<< HEAD
-
 ###### Message Reference Structure
 
 | Field       | Type      | Description                             |
@@ -255,10 +248,6 @@ Represents a message sent in a channel within Discord.
 | message_id? | snowflake | id of the originating message           |
 | channel_id  | snowflake | id of the originating message's channel |
 | guild_id?   | snowflake | id of the originating message's guild   |
-
-=======
-
-> > > > > > > 732b1a9aa00d5bbea1a5df7bebcad35a36178efa
 
 ###### Message Activity Types
 
@@ -269,8 +258,6 @@ Represents a message sent in a channel within Discord.
 | LISTEN       | 3     |
 | JOIN_REQUEST | 5     |
 
-<<<<<<< HEAD
-
 ###### Message Flags
 
 | Flag            | Value  | Description                                                                       |
@@ -278,10 +265,6 @@ Represents a message sent in a channel within Discord.
 | CROSSPOSTED     | 1 << 0 | this message has been published to subscribed channels (via Channel Following)    |
 | IS_CROSSPOST    | 1 << 1 | this message originated from a message in another channel (via Channel Following) |
 | SUPPRESS_EMBEDS | 1 << 2 | do not include any embeds when serializing this message                           |
-
-=======
-
-> > > > > > > 732b1a9aa00d5bbea1a5df7bebcad35a36178efa
 
 ###### Example Message
 
@@ -316,7 +299,6 @@ Represents a message sent in a channel within Discord.
   "channel_id": "290926798999357250",
   "mentions": [],
   "type": 0
-<<<<<<< HEAD
 }
 ```
 
@@ -367,8 +349,6 @@ Represents a message sent in a channel within Discord.
     "guild_id": "278325129692446720",
     "message_id": "306588351130107906"
   }
-=======
->>>>>>> 732b1a9aa00d5bbea1a5df7bebcad35a36178efa
 }
 ```
 
