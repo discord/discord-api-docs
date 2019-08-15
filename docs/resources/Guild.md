@@ -2,6 +2,9 @@
 
 Guilds in Discord represent an isolated collection of users and channels, and are often referred to as "servers" in the UI.
 
+> warn
+> The route for role creation does not follow the normal rate limit conventions. This route is specifically limited on a per-guild basis to prevent abuse. This means that the quota returned by our APIs may be inaccurate, and you may encounter 429s.
+
 ### Guild Object
 
 ###### Guild Structure

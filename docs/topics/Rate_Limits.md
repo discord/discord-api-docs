@@ -12,7 +12,7 @@ By "per-route," we mean that unique rate limits exist for the path you are acces
 Because we may change rate limits at any time and rate limits can be different per application, _rate limits should not be hard coded into your bot/application_. In order to properly support our dynamic rate limits, your bot/application should parse for our rate limits in response headers and locally prevent exceeding of the limits as they change.
 
 > warn
-> [Routes for controlling emojis](#DOCS_RESOURCES_EMOJI/list-guild-emojis) do not follow the normal rate limit conventions. These routes are specifically limited on a per-guild basis to prevent abuse. This means that the quota returned by our APIs may be inaccurate, and you may encounter 429s.
+> [Routes for controlling emojis](#DOCS_RESOURCES_EMOJI/list-guild-emojis) and [create role](#DOCS_RESOURCES_GUILD/create-guild-role) do not follow the normal rate limit conventions. These routes are specifically limited on a per-guild basis to prevent abuse. This means that the quota returned by our APIs may be inaccurate, and you may encounter 429s.
 
 ## Header Format
 
