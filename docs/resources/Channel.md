@@ -485,8 +485,6 @@ Represents a message sent in a channel within Discord.
 | height    | ?integer  | height of file (if image) |
 | width     | ?integer  | width of file (if image)  |
 
-<<<<<<< HEAD
-
 ### Channel Mention Object
 
 ###### Channel Mention Structure
@@ -499,8 +497,6 @@ Represents a message sent in a channel within Discord.
 | name     | string    | the name of the channel                                                     |
 
 =======
-
-> > > > > > > 732b1a9aa00d5bbea1a5df7bebcad35a36178efa
 
 ## Embed Limits
 
