@@ -20,17 +20,17 @@ bound by it.**
 
 ### 1\. API AND SDK
 
-1.1 __API and SDK.__ The API and SDK consists of specific programmatic application
+1.1 **API and SDK.** The API and SDK consists of specific programmatic application
 programming interfaces, interface definitions, generated code libraries and associated tools. The
 API is an interface that facilitates interaction with the Platform’s servers. The SDK is software
 code that is designed to be integrated into and to ship bundle with your applications
 (“Applications”).
 
-1.2 __API or SDK Modifications.__ Discord reserves the right to modify the API or SDK, and to
+1.2 **API or SDK Modifications.** Discord reserves the right to modify the API or SDK, and to
 release subsequent versions. You may be required to use the most recent version of the API or
 SDK in order to obtain certain functionality.
 
-1.3 __Support.__ Discord has no obligation to provide you or any users of your Applications with
+1.3 **Support.** Discord has no obligation to provide you or any users of your Applications with
 support, software upgrades, enhancements or modifications to the API or SDK. If Discord makes
 available updated versions of the API or SDK, you will use reasonable efforts to use only the
 then-current version as soon as possible and will use only the then-current version within 30 days
@@ -40,13 +40,13 @@ Applications and other products and/or services.
 
 ### 2\. LICENSE, ACCOUNTS AND RESTRICTIONS
 
-2.1 __API or SDK License.__ Subject to the terms and conditions of this Agreement, Discord grants
+2.1 **API or SDK License.** Subject to the terms and conditions of this Agreement, Discord grants
 you a limited, non-exclusive, revocable, non-transferable license to access and use the API or
 SDK solely to as necessary to (i) develop, test, display and execute your Applications with the
 API or SDK functionality included; and (ii) distribute to third parties, or permit third parties to
 access, the API or SDK as integrated into your Applications.
 
-2.2 __Restrictions.__ You shall not, and shall not permit any person, directly or indirectly, to (i)
+2.2 **Restrictions.** You shall not, and shall not permit any person, directly or indirectly, to (i)
 reverse engineer, disassemble, reconstruct, decompile, translate, modify or copy the API or SDK,
 other than as explicitly permitted hereunder (except to the extent the foregoing restriction is
 expressly prohibited by applicable law notwithstanding this limitation), (ii) create derivative
@@ -59,7 +59,7 @@ do so); or (vi) include any advertisements or other promotions within the functi
 by the API or SDK. Except as expressly set forth in this Agreement, Discord reserves all rights
 in or the API and SDK.
 
-2.3 __Trademark License and Branding.__ Subject to the terms of this Agreement, Discord grants you
+2.3 **Trademark License and Branding.** Subject to the terms of this Agreement, Discord grants you
 a limited, non-exclusive, revocable, non-transferable license to display the Discord trademark
 solely for the purpose of attributing the source of the API or SDK and indicating that you used
 the API or SDK in creating your Applications. In doing so, you shall adhere to Discord’s brand
@@ -74,7 +74,7 @@ the Discord trademark. You shall include in your Applications, website and other
 locations a disclaimer stating that your Applications, website or any services is or are not
 endorsed or created by Discord.
 
-2.4 __End User Data.__ “End User Data” means all data associated with the content within the
+2.4 **End User Data.** “End User Data” means all data associated with the content within the
 functionality enabled by the API or SDK, including but not limited to message content, message metadata,
 voice data and voice metadata. You acknowledge and agree that Discord and its end users, as applicable,
 retain all worldwide right, title and interest in and to the End User Data. If you have access to
@@ -93,7 +93,7 @@ necessary for the operation of your Applications. Discord’s offering of an API
 you to reproduce or display End User message content is not an express or implied license to such
 content from Discord.
 
-2.5 __End Users.__ Without limiting any other provision of this Agreement, you agree to the
+2.5 **End Users.** Without limiting any other provision of this Agreement, you agree to the
 following with respect to End Users and their accounts:
 
 (a) You shall not modify an End User's account state except in response to such End User
@@ -127,7 +127,7 @@ but not limited to encryption, and that you take reasonable steps to secure End 
 circumstance; you shall use only Discord’s designated approval methods for obtaining
 access to or permission to access End User Data.
 
-2.6 __Developer Accounts.__ You will need to create an account to have access to the SDK and/or
+2.6 **Developer Accounts.** You will need to create an account to have access to the SDK and/or
 API (the “Developer Account”). In conjunction with your Developer Account, you will: (a)
 provide true, accurate, current and complete information about yourself, your Applications and
 your business (such information being the "Registration Data") and (b) maintain and promptly
@@ -146,7 +146,7 @@ passwords or other credentials (collectively, “Keys”). All activities that o
 are your responsibility. You are not permitted to disclose, sell, transfer, or sublicense them to
 anyone.
 
-2.7 __Rate Limits.__ You will not attempt to exceed or circumvent limitations on access to and use of
+2.7 **Rate Limits.** You will not attempt to exceed or circumvent limitations on access to and use of
 the SDK or API, exceed or circumvent any limitation on the API calls you may make, or
 otherwise use the SDK or API in a manner that exceeds reasonable request volume, or
 constitutes excessive or abusive usage (“Rate Limits”). If Discord, in its sole discretion,
@@ -154,7 +154,7 @@ determines that you have attempted to exceed or circumvent Rate Limits, or other
 limit use of the SDK or API, then your ability to use the SDK or API may be temporarily
 suspended or permanently blocked.
 
-2.8 __Security Measures.__ Your network, operating system and the software of your web servers,
+2.8 **Security Measures.** Your network, operating system and the software of your web servers,
 databases, and computer systems must be properly configured to securely operate and store your
 Applications. Your Applications must use industry standard security measures to protect against
 and prevent security breaches and any unauthorized disclosure of the personal information of
@@ -163,7 +163,7 @@ security, confidentiality and integrity of the personal information of your End 
 promptly report any security deficiencies in, or intrusions to, your Applications or systems that
 you discover.
 
-2.9 __Audit and Monitoring.__ You agree to provide us with access to your
+2.9 **Audit and Monitoring.** You agree to provide us with access to your
 Applications and/or other materials related to your use of the API and SDK as may be requested
 by us to verify your compliance with this Agreement, to audit your use, display and storage of
 the API and SDK. You agree that we may crawl or otherwise remotely monitor such items
@@ -240,7 +240,7 @@ THE POSSIBILITY OF SUCH DAMAGES. IN ANY EVENT, THE DISCORD PARTIES’
 TOTAL AGGREGATE LIABILITY TO YOU FOR ALL DAMAGES OF ANY KIND AND
 TYPE (REGARDLESS OF WHETHER BASED IN CONTRACT OR TORT) SHALL NOT
 EXCEED THE GREATER OF (A) THE LICENSE FEE (IF ANY) PAID BY YOU FOR THE
-API OR SDK OR (B) $100. THE LIMITATIONS AND DISCLAIMERS IN THIS
+API OR SDK OR (B) \$100. THE LIMITATIONS AND DISCLAIMERS IN THIS
 AGREEMENT DO NOT PURPORT TO LIMIT LIABILITY OR ALTER RIGHTS THAT
 CANNOT BE EXCLUDED UNDER APPLICABLE LAW. Some jurisdictions do not allow the
 exclusion of implied warranties or limitation of liability for incidental or consequential damages,

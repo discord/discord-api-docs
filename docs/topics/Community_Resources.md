@@ -8,33 +8,33 @@ The Discord team curates the following list of officially vetted libraries that 
 
 ###### Discord Libraries
 
-| Name | Language |
-|------|----------|
-| [discljord](https://github.com/igjoshua/discljord) | Clojure |
-| [aegis.cpp](https://github.com/zeroxs/aegis.cpp) | C++ |
-| [discordcr](https://github.com/meew0/discordcr) | Crystal |
-| [Discord.Net](https://github.com/RogueException/Discord.Net) | C# |
-| [DSharpPlus](https://github.com/DSharpPlus/DSharpPlus) | C# |
-| [dscord](https://github.com/b1naryth1ef/dscord) | D |
-| [DiscordGo](https://github.com/bwmarrin/discordgo) | Go |
-| [DisGord](https://github.com/andersfylling/disgord) | Go |
-| [catnip](https://github.com/mewna/catnip) | Java |
-| [Discord4J](https://discord4j.com/) | Java |
-| [Javacord](https://github.com/Javacord/Javacord) | Java |
-| [JDA](https://github.com/DV8FromTheWorld/JDA) | Java |
-| [discord.js](https://github.com/discordjs/discord.js) | JavaScript |
-| [Eris](https://github.com/abalabahaha/eris) | JavaScript |
-| [Discord.jl](https://github.com/Xh4H/Discord.jl) | Julia |
-| [Discordia](https://github.com/SinisterRectus/Discordia) | Lua |
-| [discordnim](https://github.com/Krognol/discordnim) | Nim |
-| [RestCord](https://www.restcord.com/) | PHP |
-| [discord.py](https://github.com/Rapptz/discord.py) | Python |
-| [disco](https://github.com/b1naryth1ef/disco) | Python |
-| [discordrb](https://github.com/meew0/discordrb) | Ruby |
-| [discord-rs](https://github.com/SpaceManiac/discord-rs) | Rust |
-| [Serenity](https://github.com/serenity-rs/serenity) | Rust |
-| [AckCord](https://github.com/Katrix/AckCord) | Scala |
-| [Sword](https://github.com/Azoy/Sword) | Swift |
+| Name                                                         | Language   |
+| ------------------------------------------------------------ | ---------- |
+| [discljord](https://github.com/igjoshua/discljord)           | Clojure    |
+| [aegis.cpp](https://github.com/zeroxs/aegis.cpp)             | C++        |
+| [discordcr](https://github.com/meew0/discordcr)              | Crystal    |
+| [Discord.Net](https://github.com/RogueException/Discord.Net) | C#         |
+| [DSharpPlus](https://github.com/DSharpPlus/DSharpPlus)       | C#         |
+| [dscord](https://github.com/b1naryth1ef/dscord)              | D          |
+| [DiscordGo](https://github.com/bwmarrin/discordgo)           | Go         |
+| [DisGord](https://github.com/andersfylling/disgord)          | Go         |
+| [catnip](https://github.com/mewna/catnip)                    | Java       |
+| [Discord4J](https://discord4j.com/)                          | Java       |
+| [Javacord](https://github.com/Javacord/Javacord)             | Java       |
+| [JDA](https://github.com/DV8FromTheWorld/JDA)                | Java       |
+| [discord.js](https://github.com/discordjs/discord.js)        | JavaScript |
+| [Eris](https://github.com/abalabahaha/eris)                  | JavaScript |
+| [Discord.jl](https://github.com/Xh4H/Discord.jl)             | Julia      |
+| [Discordia](https://github.com/SinisterRectus/Discordia)     | Lua        |
+| [discordnim](https://github.com/Krognol/discordnim)          | Nim        |
+| [RestCord](https://www.restcord.com/)                        | PHP        |
+| [discord.py](https://github.com/Rapptz/discord.py)           | Python     |
+| [disco](https://github.com/b1naryth1ef/disco)                | Python     |
+| [discordrb](https://github.com/meew0/discordrb)              | Ruby       |
+| [discord-rs](https://github.com/SpaceManiac/discord-rs)      | Rust       |
+| [Serenity](https://github.com/serenity-rs/serenity)          | Rust       |
+| [AckCord](https://github.com/Katrix/AckCord)                 | Scala      |
+| [Sword](https://github.com/Azoy/Sword)                       | Swift      |
 
 ## Permission Calculators
 
