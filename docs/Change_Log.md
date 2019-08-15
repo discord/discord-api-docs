@@ -1,10 +1,16 @@
 # Change Log
 
+## Create Role Rate Limit
+
+#### August 15, 2019
+
+There is now a rate limit on [create guild role](#DOCS_RESOURCES_GUILD/create-guild-role) that is applied on a per-guild basis.
+
 ## Changes to Special Channels
 
 #### August 15, 2019
 
-News channels are being moved from the Commerce program and into Verified and Partner program. 
+News channels are being moved from the Commerce program and into Verified and Partner program.
 
 ## More Precise Rate Limits
 
