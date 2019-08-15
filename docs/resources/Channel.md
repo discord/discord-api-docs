@@ -172,34 +172,33 @@ Represents a message sent in a channel within Discord.
 
 ###### Message Structure
 
-| Field                     | Type                                                                                                                                      | Description                                                                                                                   |
-| ------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
-| id                        | snowflake                                                                                                                                 | id of the message                                                                                                             |
-| channel_id                | snowflake                                                                                                                                 | id of the channel the message was sent in                                                                                     |
-| guild_id?                 | snowflake                                                                                                                                 | id of the guild the message was sent in                                                                                       |
-| author\*                  | [user](#DOCS_RESOURCES_USER/user-object) object                                                                                           | the author of this message (not guaranteed to be a valid user, see below)                                                     |
-| member?\*\*               | partial [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) object                                                                  | member properties for this message's author                                                                                   |
-| content                   | string                                                                                                                                    | contents of the message                                                                                                       |
-| timestamp                 | ISO8601 timestamp                                                                                                                         | when this message was sent                                                                                                    |
-| edited_timestamp          | ?ISO8601 timestamp                                                                                                                        | when this message was edited (or null if never)                                                                               |
-| tts                       | boolean                                                                                                                                   | whether this was a TTS message                                                                                                |
-| mention_everyone          | boolean                                                                                                                                   | whether this message mentions everyone                                                                                        |
-| mentions\*\*\*            | array of [user](#DOCS_RESOURCES_USER/user-object) objects, with an additional partial [member](#DOCS_RESOURCES_GUILD/member-object) field | users specifically mentioned in the message                                                                                   |
-| mention_roles             | array of [role](#DOCS_TOPICS_PERMISSIONS/role-object) object ids                                                                          | roles specifically mentioned in this message                                                                                  |
-| mention_channels?\*\*\*\* | array of [channel mention](#DOCS_RESOURCES_CHANNEL/channel-mention-object) objects                                                        | channels specifically mentioned in this message                                                                               |
-| attachments               | array of [attachment](#DOCS_RESOURCES_CHANNEL/attachment-object) objects                                                                  | any attached files                                                                                                            |
-| embeds                    | array of [embed](#DOCS_RESOURCES_CHANNEL/embed-object) objects                                                                            | any embedded content                                                                                                          |
-| reactions?                | array of [reaction](#DOCS_RESOURCES_CHANNEL/reaction-object) objects                                                                      | reactions to the message                                                                                                      |
-| nonce?                    | ?snowflake                                                                                                                                | used for validating a message was sent                                                                                        |
-| pinned                    | boolean                                                                                                                                   | whether this message is pinned                                                                                                |
-| webhook_id?               | snowflake                                                                                                                                 | if the message is generated by a webhook, this is the webhook's id                                                            |
-| type                      | integer                                                                                                                                   | [type of message](#DOCS_RESOURCES_CHANNEL/message-object-message-types)                                                       |
-| activity?                 | [message activity](#DOCS_RESOURCES_CHANNEL/message-object-message-activity-structure) object                                              | sent with Rich Presence-related chat embeds                                                                                   |
-| application?              | [message application](#DOCS_RESOURCES_CHANNEL/message-object-message-application-structure) object                                        | sent with Rich Presence-related chat embeds                                                                                   |
-| message_reference?        | [message_reference](#DOCS_RESOURCES_CHANNEL/message-object-message-reference-structure) object                                            | reference data sent with crossposted messages                                                                                 |
-| flags?                    | integer                                                                                                                                   | [message flags](#DOCS_RESOURCES_CHANNEL/message-object-message-flags) `OR`d together, describes extra features of the message |
+| Field              | Type                                                                                                                                      | Description                                                                                                                   |
+| ------------------ | ----------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| id                 | snowflake                                                                                                                                 | id of the message                                                                                                             |
+| channel_id         | snowflake                                                                                                                                 | id of the channel the message was sent in                                                                                     |
+| guild_id?          | snowflake                                                                                                                                 | id of the guild the message was sent in                                                                                       |
+| author\*           | [user](#DOCS_RESOURCES_USER/user-object) object                                                                                           | the author of this message (not guaranteed to be a valid user, see below)                                                     |
+| member?\*\*        | partial [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) object                                                                  | member properties for this message's author                                                                                   |
+| content            | string                                                                                                                                    | contents of the message                                                                                                       |
+| timestamp          | ISO8601 timestamp                                                                                                                         | when this message was sent                                                                                                    |
+| edited_timestamp   | ?ISO8601 timestamp                                                                                                                        | when this message was edited (or null if never)                                                                               |
+| tts                | boolean                                                                                                                                   | whether this was a TTS message                                                                                                |
+| mention_everyone   | boolean                                                                                                                                   | whether this message mentions everyone                                                                                        |
+| mentions\*\*\*     | array of [user](#DOCS_RESOURCES_USER/user-object) objects, with an additional partial [member](#DOCS_RESOURCES_GUILD/member-object) field | users specifically mentioned in the message                                                                                   |
+| mention_roles      | array of [role](#DOCS_TOPICS_PERMISSIONS/role-object) object ids                                                                          | roles specifically mentioned in this message                                                                                  |
+| attachments        | array of [attachment](#DOCS_RESOURCES_CHANNEL/attachment-object) objects                                                                  | any attached files                                                                                                            |
+| embeds             | array of [embed](#DOCS_RESOURCES_CHANNEL/embed-object) objects                                                                            | any embedded content                                                                                                          |
+| reactions?         | array of [reaction](#DOCS_RESOURCES_CHANNEL/reaction-object) objects                                                                      | reactions to the message                                                                                                      |
+| nonce?             | ?snowflake                                                                                                                                | used for validating a message was sent                                                                                        |
+| pinned             | boolean                                                                                                                                   | whether this message is pinned                                                                                                |
+| webhook_id?        | snowflake                                                                                                                                 | if the message is generated by a webhook, this is the webhook's id                                                            |
+| type               | integer                                                                                                                                   | [type of message](#DOCS_RESOURCES_CHANNEL/message-object-message-types)                                                       |
+| activity?          | [message activity](#DOCS_RESOURCES_CHANNEL/message-object-message-activity-structure) object                                              | sent with Rich Presence-related chat embeds                                                                                   |
+| application?       | [message application](#DOCS_RESOURCES_CHANNEL/message-object-message-application-structure) object                                        | sent with Rich Presence-related chat embeds                                                                                   |
+| message_reference? | [message_reference](#DOCS_RESOURCES_CHANNEL/message-object-message-reference-structure) object                                            | reference data sent with crossposted messages                                                                                 |
+| flags?             | integer                                                                                                                                   | [message flags](#DOCS_RESOURCES_CHANNEL/message-object-message-flags) `OR`d together, describes extra features of the message |
 
-\* The author object follows the structure of the user object, but is only a valid user in the case where the message is generated by a user or bot user. If the message is generated by a webhook, the author object corresponds to the webhook's id, username, and avatar. You can tell if a message is generated by a webhook by checking for the `webhook_id` on the message object.
+- The author object follows the structure of the user object, but is only a valid user in the case where the message is generated by a user or bot user. If the message is generated by a webhook, the author object corresponds to the webhook's id, username, and avatar. You can tell if a message is generated by a webhook by checking for the `webhook_id` on the message object.
 
 \*\* The member object exists in [MESSAGE_CREATE](#DOCS_TOPICS_GATEWAY/message-create) and [MESSAGE_UPDATE](#DOCS_TOPICS_GATEWAY/message-update) events from text-based guild channels. This allows bots to obtain real-time member data without requiring bots to store member state in memory.
 
@@ -223,7 +222,12 @@ Represents a message sent in a channel within Discord.
 | USER_PREMIUM_GUILD_SUBSCRIPTION_TIER_1 | 9     |
 | USER_PREMIUM_GUILD_SUBSCRIPTION_TIER_2 | 10    |
 | USER_PREMIUM_GUILD_SUBSCRIPTION_TIER_3 | 11    |
-| CHANNEL_FOLLOW_ADD                     | 12    |
+
+<<<<<<< HEAD
+| CHANNEL_FOLLOW_ADD | 12 |
+=======
+
+> > > > > > > 732b1a9aa00d5bbea1a5df7bebcad35a36178efa
 
 ###### Message Activity Structure
 
@@ -242,6 +246,8 @@ Represents a message sent in a channel within Discord.
 | icon         | ?string   | id of the application's icon  |
 | name         | string    | name of the application       |
 
+<<<<<<< HEAD
+
 ###### Message Reference Structure
 
 | Field       | Type      | Description                             |
@@ -249,6 +255,10 @@ Represents a message sent in a channel within Discord.
 | message_id? | snowflake | id of the originating message           |
 | channel_id  | snowflake | id of the originating message's channel |
 | guild_id?   | snowflake | id of the originating message's guild   |
+
+=======
+
+> > > > > > > 732b1a9aa00d5bbea1a5df7bebcad35a36178efa
 
 ###### Message Activity Types
 
@@ -259,6 +269,8 @@ Represents a message sent in a channel within Discord.
 | LISTEN       | 3     |
 | JOIN_REQUEST | 5     |
 
+<<<<<<< HEAD
+
 ###### Message Flags
 
 | Flag            | Value  | Description                                                                       |
@@ -266,6 +278,10 @@ Represents a message sent in a channel within Discord.
 | CROSSPOSTED     | 1 << 0 | this message has been published to subscribed channels (via Channel Following)    |
 | IS_CROSSPOST    | 1 << 1 | this message originated from a message in another channel (via Channel Following) |
 | SUPPRESS_EMBEDS | 1 << 2 | do not include any embeds when serializing this message                           |
+
+=======
+
+> > > > > > > 732b1a9aa00d5bbea1a5df7bebcad35a36178efa
 
 ###### Example Message
 
@@ -300,6 +316,7 @@ Represents a message sent in a channel within Discord.
   "channel_id": "290926798999357250",
   "mentions": [],
   "type": 0
+<<<<<<< HEAD
 }
 ```
 
@@ -350,6 +367,8 @@ Represents a message sent in a channel within Discord.
     "guild_id": "278325129692446720",
     "message_id": "306588351130107906"
   }
+=======
+>>>>>>> 732b1a9aa00d5bbea1a5df7bebcad35a36178efa
 }
 ```
 
@@ -466,6 +485,8 @@ Represents a message sent in a channel within Discord.
 | height    | ?integer  | height of file (if image) |
 | width     | ?integer  | width of file (if image)  |
 
+<<<<<<< HEAD
+
 ### Channel Mention Object
 
 ###### Channel Mention Structure
@@ -476,6 +497,10 @@ Represents a message sent in a channel within Discord.
 | guild_id | snowflake | id of the guild containing the channel                                      |
 | type     | integer   | the [type of channel](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types) |
 | name     | string    | the name of the channel                                                     |
+
+=======
+
+> > > > > > > 732b1a9aa00d5bbea1a5df7bebcad35a36178efa
 
 ## Embed Limits
 

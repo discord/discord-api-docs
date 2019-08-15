@@ -93,7 +93,7 @@ Deletes a build from a branch.
 
 ## build drm-wrap
 
-Wraps your executable in Discord's DRM.
+Wraps your executable in Discord's DRM. This only works for Windows executables. If you want to DRM wrap a unix executable, you'll need to instead use [ValidateOrExit](#DOCS_GAME_SDK_APPLICATIONS/validate-or-exit).
 
 > danger
 > This action is destructive and overwrites the executable. Make sure you've got a backup handy if needed!
