@@ -1,5 +1,11 @@
 # Change Log
 
+## Changes to Special Channels
+
+#### August 15, 2019
+
+News channels are being moved from the Commerce program and into Verified and Partner program. 
+
 ## More Precise Rate Limits
 
 #### August 12, 2019
