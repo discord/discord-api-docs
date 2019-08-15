@@ -136,6 +136,40 @@ core->ImageManager().Fetch(
 );
 ```
 
+## GetTexture
+
+> warn
+> This is only exposed in Unity
+
+Gets the `Texture2D` for a given user's avatar for use within a Unity environment.
+
+Returns a `Texture2D`.
+
+###### Parameters
+
+| name   | type        | description                                  |
+| ------ | ----------- | -------------------------------------------- |
+| handle | ImageHandle | the image handle from the `Fetch()` callback |
+
+###### Example
+
+```cs
+var handle = new Discord.ImageHandle()
+{
+  Id = 53908232506183680,
+  Size = 1024
+};
+
+imageManager.Fetch(handle, false, (result, handle) =>
+{
+  if (result == Discord.Result.Ok)
+  {
+    var texture = imageManager.GetTexture(handle);
+    // Do stuff with texture now
+  }
+});
+```
+
 ## Example: User's Avatar Data
 
 ```cs
@@ -147,7 +181,8 @@ imageManager.Fetch(Discord.ImageHandle.User(53908232506183680, 128), (result, ha
   {
     if (result == Discord.Result.Ok)
     {
-      // You can also use GetTexture2D within Unity.
+      // If you are working in Unity, you can also use GetTexture()
+      // Which is only exposed for Unity builds
       // These return raw RGBA.
       var data = imageManager.GetData(handle);
     }
