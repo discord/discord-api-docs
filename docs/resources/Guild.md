@@ -46,7 +46,7 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 | banner                        | ?string                                                                          | [banner hash](#DOCS_REFERENCE/image-formatting)                                                                                  |
 | premium_tier                  | integer                                                                          | [premium tier](#DOCS_RESOURCES_GUILD/guild-object-premium-tier)                                                                  |
 | premium_subscription_count?   | integer                                                                          | the total number of users currently boosting this server                                                                         |
-| preferred_locale              | string                                                                           | the preferred locale of this guild                                                                                               |
+| preferred_locale              | string                                                                           | the preferred locale of this guild only set if guild has the "DISCOVERABLE" feature, defaults to en-US                           |
 
 ** \* These fields are only sent within the [GUILD_CREATE](#DOCS_TOPICS_GATEWAY/guild-create) event **
 
