@@ -46,6 +46,9 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 | banner                        | ?string                                                                          | [banner hash](#DOCS_REFERENCE/image-formatting)                                                                                  |
 | premium_tier                  | integer                                                                          | [premium tier](#DOCS_RESOURCES_GUILD/guild-object-premium-tier)                                                                  |
 | premium_subscription_count?   | integer                                                                          | the total number of users currently boosting this server                                                                         |
+| lfg                           |                                                                                  |                                                                                                                                  |
+| lazy                          | boolean                                                                          | if this guild has lazy loading enabled                                                                                           |
+| preferred_locale              | string                                                                           | the preferred locale of this guild                                                                                               |
 
 ** \* These fields are only sent within the [GUILD_CREATE](#DOCS_TOPICS_GATEWAY/guild-create) event **
 
