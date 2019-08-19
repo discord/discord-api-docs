@@ -25,7 +25,7 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 | explicit_content_filter       | integer                                                                          | [explicit content filter level](#DOCS_RESOURCES_GUILD/guild-object-explicit-content-filter-level)                                |
 | roles                         | array of [role](#DOCS_TOPICS_PERMISSIONS/role-object) objects                    | roles in the guild                                                                                                               |
 | emojis                        | array of [emoji](#DOCS_RESOURCES_EMOJI/emoji-object) objects                     | custom guild emojis                                                                                                              |
-| features                      | array of strings                                                                 | enabled guild features                                                                                                           |
+| features                      | array of [guild feature](#DOCS_RESOURCES_GUILD/guild-object-guild-features) strings                                                                 | enabled guild features                                                                                                           |
 | mfa_level                     | integer                                                                          | required [MFA level](#DOCS_RESOURCES_GUILD/guild-object-mfa-level) for the guild                                                 |
 | application_id                | ?snowflake                                                                       | application id of the guild creator if it is bot-created                                                                         |
 | widget_enabled?               | boolean                                                                          | whether or not the server widget is enabled                                                                                      |
@@ -89,6 +89,23 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 | TIER_1 | 1       |
 | TIER_2 | 2       |
 | TIER_3 | 3       |
+
+###### Guild Features
+
+| Feature       | Description                                                                     |
+| ------------- | ------------------------------------------------------------------------------- |
+| INVITE_SPLASH | guild has access to set an invite splash background                             |
+| VIP_REGIONS   | guild has access to set 320kbps bitrate in voice (previously VIP voice servers) |
+| VANITY_URL    | guild has access to set a vanity URL                                            |
+| VERIFIED      | guild is verified                                                               |
+| PARTNERED     | guild is partnered                                                              |
+| LURKABLE      | guild is lurkable                                                               |
+| COMMERCE      | guild has access to use commerce features (i.e. create store channels)          |
+| NEWS          | guild has access to create news channels                                        |
+| DISCOVERABLE  | guild is able to be discovered in the directory                                 |
+| FEATURABLE    | guild is able to be featured in the directory                                   |
+| ANIMATED_ICON | guild has access to set an animated guild icon                                  |
+| BANNER        | guild has access to set a guild banner image                                    |
 
 ###### Example Guild
 
