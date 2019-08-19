@@ -22,7 +22,7 @@ Discord exposes different versions of our API. You can specify version by includ
 | 6       | Available    | ✓       |
 | 5       | Discontinued |         |
 | 4       | Discontinued |         |
-| 3       | Discontinued |         |  |
+| 3       | Discontinued |         |
 
 ## Authentication
 
