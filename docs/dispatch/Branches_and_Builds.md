@@ -573,5 +573,3 @@ If you have your own patcher and do not want Discord to handle patching, set `"s
   }
 }
 ```
-
-Now that you've got a game in the system, let's [create a store page](#DOCS_DISPATCH_MANAGING_STORE_LISTINGS) for it!
