@@ -80,6 +80,8 @@ For more detailed information and documentation around the Rich Presence feature
 | Listening | 2     |
 | Watching  | 3     |
 
+`ActivityType` is strictly for the purpose of handling events that you receive from Discord; though the SDK/our API will not reject a payload with an `ActivityType` sent, it will be discarded and will not change anything in the client.
+
 ###### ActivityJoinRequestReply Enum
 
 | name   | value |
