@@ -35,7 +35,7 @@ Represents a guild or DM channel within Discord.
 | DM             | 1   | a direct message between users                                                                                                                             |
 | GUILD_VOICE    | 2   | a voice channel within a server                                                                                                                            |
 | GROUP_DM       | 3   | a direct message between multiple users                                                                                                                    |
-| GUILD_CATEGORY | 4   | an [organizational category](https://support.discordapp.com/hc/en-us/articles/115001580171-Channel-Categories-101) that contains chanenls                  |  |
+| GUILD_CATEGORY | 4   | an [organizational category](https://support.discordapp.com/hc/en-us/articles/115001580171-Channel-Categories-101) that contains channels                  |  |
 | GUILD_NEWS     | 5   | a channel that [users can follow and crosspost into their own server](https://support.discordapp.com/hc/en-us/articles/360028384531-Channel-Following-FAQ) |
 | GUILD_STORE    | 6   | a channel in which game developers can [sell their game on Discord](https://discordapp.com/developers/docs/game-and-server-management/special-channels)    |
 
