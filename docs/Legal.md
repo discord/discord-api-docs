@@ -10,7 +10,7 @@ Development Kit (“SDK”) in connection with our Discord online and mobile cha
 “Platform”). By using the API, SDK and/or its accompanying instructions, manuals, guidelines,
 samples and examples (the “Documentation”), you agree to be bound by this Agreement. End
 users using the Platform in connection with Licensee’s Applications (“End Users”) must be
-bound by the Discord Terms of Service, currently located at [https://discordapp.com/tos](https://discordapp.com/tos) (the
+bound by the Discord Terms of Service, currently located at [https://discordapp.com/terms](https://discordapp.com/terms) (the
 “TOS”). Please note that the TOS includes Discord’s Privacy Policy, currently located at
 [https://discordapp.com/privacy](https://discordapp.com/privacy) (“Privacy Policy”).
 
