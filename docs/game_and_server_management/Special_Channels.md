@@ -24,3 +24,11 @@ Store channels also have a special property that we call `lurkability`. "Lurker 
 Lurker Mode is automatically enabled for store channels in your server. When someone accepts a server invite that links to a store channel, they'll be viewing in "Lurker Mode".
 
 We know that your server and community are at the heart of your game's success on Discord. Having Discord users see your store pages in the context of your server will help drive more members to your community and help you grow that awesome fanbase for your game.
+
+# Announcement Channels
+
+As part of our ongoing effort to help you build your game community, Developer License owners (along with Verified and Partner server owners) also have the ability to create Annoucement Channels!
+
+Unlike a regular text channel, Announcement Channels comes with a “Follow” button that allows your players to hook and connect your channel into their own personal servers. Now, select messages in your Announcement Channels can be "published" in your server member's, friend's, community's, or dog's servers as regular messages, allowing them to get the latest updates of their favorite game in the places they hang out most. 
+
+[Learn more here.](https://support.discordapp.com/hc/en-us/articles/360032008192).

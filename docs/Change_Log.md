@@ -2,9 +2,9 @@
 
 ## Changes to Special Channels
 
-#### August 15, 2019
+#### August 22, 2019
 
-News channels are being moved from the Commerce program and into Verified and Partner program. 
+News Channels are now changed to [Announcement Channels](#DOCS_GAME_AND_SERVER_MANAGEMENT_SPECIAL_CHANNELS/announcement-channels). Developer License owners will continue to get access to them (both existing and new). Underlying channel type (GUILD_NEWS = 5) remains the same. 
 
 ## More Precise Rate Limits
 
