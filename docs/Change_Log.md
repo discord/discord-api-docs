@@ -28,7 +28,7 @@ Additional information around Teams has been added to both the API and the docum
 
 #### May 29, 2019
 
-Additional information has been documented to support [Server Nitro Boosting](https://support.discordapp.com/hc/en-us/articles/360028038352-Server-Boosting). This includes the addition of a few [message types](#DOCS_RESOURCES_CHANNEL/message-object-message-types), as well as some [new fields on guilds.](#DOCS_RESOURCES_GUILD/guild-object-premium-tier). Please note that this feature is currently under experimentation, and these fields may be subject to change.
+Additional information has been documented to support [Server Nitro Boosting](https://support.discordapp.com/hc/en-us/articles/360028038352-Server-Boosting). This includes the addition of a few [message types](#DOCS_RESOURCES_CHANNEL/message-object-message-types), as well as some [new fields on guilds](#DOCS_RESOURCES_GUILD/guild-object-premium-tier). Please note that this feature is currently under experimentation, and these fields may be subject to change.
 
 ## Deprecation of Discord-RPC Rich Presence SDK
 
