@@ -494,7 +494,7 @@ If you understand and agree to the above, run the following command on each of t
 dispatch build drm-wrap <application_id> <path_to_executable_to_wrap>
 ```
 
-This function will only work with Windows executables. If you want to wrap a unix executable, you'll need to instead use [ValidateOrExit](#DOCS_GAME_SDK_APPLICATIONS/validate-or-exit).
+This function will only work with Windows executables. If you want to wrap a unix executable, you'll need to instead use [ValidateOrExit](#DOCS_GAME_SDK_APPLICATIONS/validateorexit).
 
 ## Pushing Our First Build
 
