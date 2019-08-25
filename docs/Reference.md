@@ -87,7 +87,7 @@ timestamp_ms - DISCORD_EPOCH << 22
 
 ## ID Serialization
 
-There are some cases in which our API and Gateway may return IDs in an unexpected format. Internally, Discord stores IDs as integer snowflakes. When we seralize IDs to JSON, we transforms `bigints` into strings. Given that all Discord IDs are snowflakes, you should always expect a string.
+There are some cases in which our API and Gateway may return IDs in an unexpected format. Internally, Discord stores IDs as integer snowflakes. When we seralize IDs to JSON, we transform `bigints` into strings. Given that all Discord IDs are snowflakes, you should always expect a string.
 
 However, there are cases in which your passing something to our API will instead return you IDs serialized as an integer; this is the case when you send our API or Gateway a value in an `id` field that is not `bigint` size. For example, when requesting `GUILD_MEMBERS_CHUNK` from our gateway:
 
@@ -222,7 +222,3 @@ Discord uses ids and hashes to render images in the client. These hashes can be 
 \* In the case of the Default User Avatar endpoint, the value for `user_discriminator` in the path should be the user's discriminator modulo 5—Test#1337 would be `1337 % 5`, which evaluates to 2.
 
 \*\* In the case of endpoints that support GIFs, the hash will begin with `a_` if it is available in GIF format. (example: `a_1269e74af4df7417b13759eae50c83dc`)
-
-```
-
-```
