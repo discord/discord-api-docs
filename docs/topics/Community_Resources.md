@@ -6,6 +6,8 @@ Discord has the best online community. At least, we like to think so, and this i
 
 The Discord team curates the following list of officially vetted libraries that conform to our APIs standards around authentication and rate limiting. Using custom implementations or non-compliant libraries which abuse the API or cause excessive rate limits may result in a **permanent** ban.
 
+Many of these libraries are represented in the [unofficial, community-driven Discord server for developers](https://discord.gg/discord-api). There you'll find community members who can help answer questions about our API, community libraries, bot creation, and other development questions.
+
 ###### Discord Libraries
 
 | Name                                                         | Language   |
