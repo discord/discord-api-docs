@@ -89,7 +89,7 @@ timestamp_ms - DISCORD_EPOCH << 22
 
 There are some cases in which our API and Gateway may return IDs in an unexpected format. Internally, Discord stores IDs as integer snowflakes. When we seralize IDs to JSON, we transform `bigints` into strings. Given that all Discord IDs are snowflakes, you should always expect a string.
 
-However, there are cases in which your passing something to our API will instead return you IDs serialized as an integer; this is the case when you send our API or Gateway a value in an `id` field that is not `bigint` size. For example, when requesting `GUILD_MEMBERS_CHUNK` from our gateway:
+However, there are cases in which passing something to our API will instead return you IDs serialized as an integer; this is the case when you send our API or Gateway a value in an `id` field that is not `bigint` size. For example, when requesting `GUILD_MEMBERS_CHUNK` from our gateway:
 
 ```
 // Send
