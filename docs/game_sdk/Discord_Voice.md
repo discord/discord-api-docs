@@ -1,7 +1,7 @@
 # Voice
 
 > info
-> Need help with the SDK? Talk to us at [dis.gd/devsupport](https://dis.gd/devsupport)
+> Need help with the SDK? Talk to us in the [Discord GameSDK Server](https://discord.gg/discord-gamesdk)!
 
 Discord's pride and joy is its voice chat. Well, ok, also its memes, but mostly the voice chat. Text and video chat are pretty great, too. And have you seen that store? Anyway.
 

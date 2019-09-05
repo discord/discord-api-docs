@@ -1,7 +1,7 @@
 # Relationships
 
 > info
-> Need help with the SDK? Talk to us at [dis.gd/devsupport](https://dis.gd/devsupport)
+> Need help with the SDK? Talk to us in the [Discord GameSDK Server](https://discord.gg/discord-gamesdk)!
 
 This manager helps you access the relationships your players have made on Discord. Unfortunately, it won't help them make relationships IRL. They're on their own for that. It lets you:
 

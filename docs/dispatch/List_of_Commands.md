@@ -1,5 +1,8 @@
 # List of Commands
 
+> info
+> Need help with Dispatch? Talk to us in the [Discord GameSDK Server](https://discord.gg/discord-gamesdk)!
+
 Some people don't like to read full pages of documentation. Personally, I think those people are missing out. But we want to make sure that we cater to everyone, so here's a list of every Dispatch command and what it does. No frills, no jokes. Okay, maybe some jokes.
 
 ## branch create

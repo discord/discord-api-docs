@@ -1,7 +1,7 @@
 # Achievements
 
 > info
-> Need help with the SDK? Talk to us at [dis.gd/devsupport](https://dis.gd/devsupport)
+> Need help with the SDK? Talk to us in the [Discord GameSDK Server](https://discord.gg/discord-gamesdk)!
 
 There's no feeling quite like accomplishing a goal that you've set out to achieve. Is killing 1000 zombies in a game as great an achievement as climbing Mt. Everest? Of course it is, and I didn't even have to leave my house. So get off my back, society.
 
