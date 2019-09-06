@@ -13,6 +13,25 @@ You can also mark achievements as `secret` and `secure`. "Secret" achievements w
 
 ## Data Models
 
+###### Achievement Struct
+
+| name           | type    | description                                                                                                                      |
+| -------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| application_id | Int64   | the unique id of the application                                                                                                 |
+| name           | object  | the name of the achievement as an [achievement locale object](#DOCS_GAME_SDK_ACHIEVEMENTS/achievement-locale-object)             |
+| description    | object  | the user-facing achievement description as an [achievement locale object](#DOCS_GAME_SDK_ACHIEVEMENTS/achievement-locale-object) |
+| secret         | boolean | if the achievement is secret                                                                                                     |
+| secure         | boolean | if the achievement is secure                                                                                                     |
+| id             | Int64   | the unique id of the achievement                                                                                                 |
+| icon_hash      | string  | [the hash of the icon](#DOCS_REFERENCE/image-formatting)                                                                         |
+
+###### Achievement Locale Object
+
+| Name           | Description                                                                                                                                             |
+| -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| default        | the default locale for the achievement                                                                                                                  |
+| localizations? | object of [accepted locales](#DOCS_DISPATCH_FIELD_VALUES/predefined-field-values-accepted-locales) as the key and achievement translations as the value |
+
 ###### User Achievement Struct
 
 | name            | type   | description                                                                                |
@@ -21,6 +40,13 @@ You can also mark achievements as `secret` and `secure`. "Secret" achievements w
 | AchievementId   | Int64  | the unique id of the achievement                                                           |
 | PercentComplete | Int64  | how far along the user is to completing the achievement (0-100)                            |
 | UnlockedAt      | string | the timestamp at which the user completed the achievement (PercentComplete was set to 100) |
+
+###### Achievement Locale Object
+
+| Name           | Description                                                                                                                                             |
+| -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| default        | the default locale for the achievement                                                                                                                  |
+| localizations? | object of [accepted locales](#DOCS_DISPATCH_FIELD_VALUES/predefined-field-values-accepted-locales) as the key and achievement translations as the value |
 
 ## SetUserAchievement
 
@@ -170,8 +196,6 @@ curl -x POST -h "Authorization: Bot <your token>" https://discordapp.com/api/som
 > info
 > Make sure to prepend your token with "Bot"!
 
-Here are the routes; they all expect JSON bodies. Also, hey, while you're here. You've got a bot token. You're looking at our API. You should check out all the other [awesome stuff](https://discordapp.com/developers/docs/intro) you can do with it!
-
 ## Get Achievements
 
 `GET https://discordapp.com/api/v6/applications/<application_id>/achievements`
@@ -230,40 +254,96 @@ Creates a new achievement for your application. Applications can have a maximum 
 
 ###### Parameters
 
-| name        | type          | description                             |
-| ----------- | ------------- | --------------------------------------- |
-| name        | string        | the name of the achievement             |
-| description | string        | the user-facing achievement description |
-| secret      | bool          | if the achievement is secret            |
-| secure      | bool          | if the achievement is secure            |
-| icon        | ImageType (?) | the icon for the achievement            |
+| name        | type      | description                             |
+| ----------- | --------- | --------------------------------------- |
+| name        | string    | the name of the achievement             |
+| description | string    | the user-facing achievement description |
+| secret      | bool      | if the achievement is secret            |
+| secure      | bool      | if the achievement is secure            |
+| icon        | ImageType | the icon for the achievement            |
+
+###### Example: Creating an Achievement
+
+```json
+{
+  "name": {
+    "default": "Find the Secret"
+  },
+  "description": {
+    "default": "You found it!"
+  },
+  "secret": true,
+  "secure": false,
+  "icon": "data:image/png;base64,base64_data_here"
+}
+```
 
 ###### Return Object
 
 ```json
-{}
+{
+  "application_id": "461618159171141643",
+  "name": {
+    "default": "Find the Secret"
+  },
+  "description": {
+    "default": "You found it!"
+  },
+  "secret": true,
+  "icon_hash": "52c1636444f64ad7cb5368b158847def",
+  "id": "597763781871861018",
+  "secure": false
+}
 ```
 
 ## Update Achievement
 
 `PATCH https://discordapp.com/api/v6/applications/<application_id>/achievements/<achievement_id>`
 
-Updates the achievement for **\_ALL USERS\_\_**. This is **NOT** to update a single user's achievement progress; this is to edit the UserAchievement itself. This endpoint has a rate limit of 5 requests per 5 seconds per application.
+Updates the achievement for **\_\_ALL USERS\_\_**. This is **NOT** to update a single user's achievement progress; this is to edit the UserAchievement itself. This endpoint has a rate limit of 5 requests per 5 seconds per application.
 
 ###### Parameters
 
-| name        | type          | description                             |
-| ----------- | ------------- | --------------------------------------- |
-| name        | string        | the name of the achievement             |
-| description | string        | the user-facing achievement description |
-| secret      | bool          | if the achievement is secret            |
-| secure      | bool          | if the achievement is secure            |
-| icon        | ImageType (?) | the icon for the achievement            |
+| name       | type      | description                             |
+| ---------- | --------- | --------------------------------------- |
+| name       | string    | the name of the achievement             |
+| descrition | string    | the user-facing achievement description |
+| secret     | bool      | if the achievement is secret            |
+| secure     | bool      | if the achievement is secure            |
+| icon       | ImageType | the icon for the achievement            |
+
+###### Example: Updating an Achievement
+
+```json
+{
+  "name": {
+    "default": "How do methods break up?"
+  },
+  "description": {
+    "default": "They stop calling each other!"
+  },
+  "secret": false,
+  "secure": false,
+  "icon": "data:image/png;base64,base64_data_here"
+}
+```
 
 ###### Return Object
 
 ```json
-{}
+{
+  "application_id": "461618159171141643",
+  "name": {
+    "default": "How do methods break up?"
+  },
+  "description": {
+    "default": "They stop calling each other!"
+  },
+  "secret": false,
+  "icon_hash": "7d698b594c691e3d28c92e226b28293c",
+  "id": "597638720379682816",
+  "secure": false
+}
 ```
 
 ## Delete Achievement
