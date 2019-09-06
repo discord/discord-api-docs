@@ -376,6 +376,7 @@ Used to request all members for a guild or a list of guilds. When initially conn
 | guild_id | snowflake or array of snowflakes | id of the guild(s) to get members for                                      |
 | query    | string                           | string that username starts with, or an empty string to return all members |
 | limit    | integer                          | maximum number of members to send or 0 to request all members matched      |
+| user_ids | snowflake or array of snowflakes | used to specify which users you wish to fetch                              |
 
 ###### Guild Request Members
 
@@ -637,10 +638,11 @@ Sent in response to [Guild Request Members](#DOCS_TOPICS_GATEWAY/request-guild-m
 
 ###### Guild Members Chunk Event Fields
 
-| Field    | Type                                                                       | Description          |
-| -------- | -------------------------------------------------------------------------- | -------------------- |
-| guild_id | snowflake                                                                  | the id of the guild  |
-| members  | array of [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) objects | set of guild members |
+| Field      | Type                                                                       | Description                                                                   |
+| ---------- | -------------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
+| guild_id   | snowflake                                                                  | the id of the guild                                                           |
+| members    | array of [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) objects | set of guild members                                                          |
+| not_found? | array                                                                      | if passing an invalid id to `REQUEST_GUILD_MEMBERS`, it will be returned here |
 
 #### Guild Role Create
 

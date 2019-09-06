@@ -85,6 +85,37 @@ It is useful to note that snowflake IDs are just numbers with a timestamp, so wh
 timestamp_ms - DISCORD_EPOCH << 22
 ```
 
+## ID Serialization
+
+There are some cases in which our API and Gateway may return IDs in an unexpected format. Internally, Discord stores IDs as integer snowflakes. When we seralize IDs to JSON, we transform `bigints` into strings. Given that all Discord IDs are snowflakes, you should always expect a string.
+
+However, there are cases in which passing something to our API will instead return you IDs serialized as an integer; this is the case when you send our API or Gateway a value in an `id` field that is not `bigint` size. For example, when requesting `GUILD_MEMBERS_CHUNK` from our gateway:
+
+```
+// Send
+{
+  op: 8,
+  d: {
+    guild_id: '308994132968210433',
+    user_ids: [ '123123' ]
+  }
+}
+
+// Receive
+{
+  t: 'GUILD_MEMBERS_CHUNK',
+  s: 3,
+  op: 0,
+  d: {
+    not_found: [ 123123 ],
+    members: [],
+    guild_id: '308994132968210433'
+  }
+}
+```
+
+You can see in this case that the sent `user_id` is not a `bigint`; therefore, when it is serialized back to JSON by Discord, it is not transformed into a string. **This will never happen with IDs that come from Discord.** But, this can happen if you send malformed data in your requests.
+
 ## Nullable and Optional Resource Fields
 
 Resource fields that may contain a `null` value have types that are prefixed with a question mark.
@@ -117,7 +148,9 @@ Clients using the HTTP API must provide a valid [User Agent](https://www.w3.org/
 ###### User Agent Example
 
 ```
+
 User-Agent: DiscordBot ($url, $versionNumber)
+
 ```
 
 Clients may append more information and metadata to the _end_ of this string as they wish.
@@ -156,7 +189,9 @@ Using the markdown for either users, roles, or channels will mention the target(
 ###### Image Base Url
 
 ```
+
 https://cdn.discordapp.com/
+
 ```
 
 Discord uses ids and hashes to render images in the client. These hashes can be retrieved through various API requests, like [Get User](#DOCS_RESOURCES_USER/get-user). Below are the formats, size limitations, and CDN endpoints for images in Discord. The returned format can be changed by changing the [extension name](#DOCS_REFERENCE/image-formatting-image-formats) at the end of the URL. The returned size can be changed by appending a querystring of `?size=desired_size` to the URL. Image size can be any power of two between 16 and 2048.
