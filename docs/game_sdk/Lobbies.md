@@ -642,7 +642,7 @@ lobbyManager.DisconnectLobby(290926798626357250, (result) =>
 
 ## GetLobby
 
-Gets the lobby object for a given lobby id.
+Gets the lobby object for a given lobby id. Because of the way that the SDK is architected, you must first call [`Search()`](#DOCS_GAME_SDK_LOBBIES/search) to build a stable list of lobbies. This function will then query those lobbies for ones with a matching id.
 
 Returns a `Discord.Lobby`.
 
@@ -655,7 +655,20 @@ Returns a `Discord.Lobby`.
 ###### Example
 
 ```cs
-var lobby = lobbyManager.GetLobby(Int64 lobbyId);
+var lobbyId = 12345;
+
+var query = lobbyManager.GetSearchQuery();
+lobbyManager.Search(query, (res) =>
+{
+  if (res == Discord.Result.Ok)
+  {
+    // This will return you a lobby
+    var lobby = lobbyManager.GetLobby(lobbyId);
+  }
+});
+
+// This will return NotFound
+var lobby_2 = lobbyManager.GetLobby(lobbyId);
 ```
 
 ## LobbyMetadataCount
