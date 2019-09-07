@@ -1,7 +1,7 @@
 # Activities
 
 > info
-> Need help with the SDK? Talk to us at [dis.gd/devsupport](https://dis.gd/devsupport)
+> Need help with the SDK? Talk to us in the [Discord GameSDK Server](https://discord.gg/discord-gamesdk)!
 
 Looking to integrate Rich Presence into your game? No need to manage multiple SDKs—this one does all that awesome stuff, too!. Delight your players with the ability to post game invites in chat and party up directly from Discord. Surface interesting live game data in their profile and on the Games Tab for their friends, encouraging them to group up and play together.
 
@@ -80,6 +80,8 @@ For more detailed information and documentation around the Rich Presence feature
 | Listening | 2     |
 | Watching  | 3     |
 
+`ActivityType` is strictly for the purpose of handling events that you receive from Discord; though the SDK/our API will not reject a payload with an `ActivityType` sent, it will be discarded and will not change anything in the client.
+
 ###### ActivityJoinRequestReply Enum
 
 | name   | value |
@@ -115,7 +117,7 @@ If you want to hook up joining and spectating for your games, there are certain 
 | ActivityParty.Size.CurrentSize |                |          |  x   |      x      |
 | ActivityParty.Size.MaxSize     |                |          |  x   |      x      |
 | ActivitySecrets.Join           |                |          |  x   |      x      |
-| ActivitySecrets.Spectate       |                |    x     |      |             |  |
+| ActivitySecrets.Spectate       |                |    x     |      |             |
 
 ## RegisterCommand
 

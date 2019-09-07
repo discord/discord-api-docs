@@ -241,6 +241,9 @@ In the case of bots, the `scope` parameter should be set to `bot`. There's also 
 
 When the user navigates to this page, they'll be prompted to add the bot to a guild in which they have proper permissions. On acceptance, the bot will be added. Super easy!
 
+If you happen to already know the ID of the guild the user will add your bot to, you can provide this ID in the URL as a `guild_id=GUILD_ID` parameter.
+When the authorization page loads, that guild will be preselected in the dialog if that user has permissions to add the bot to that guild.
+
 If your bot is super specific to your private clubhouse, or you just don't like sharing, you can leave the `Public Bot` option unchecked in your application's settings. If unchecked, only you can add the bot to guilds. If marked as public, anyone with your bot's URL can add it to guilds in which they have proper permissions.
 
 ### Advanced Bot Authorization

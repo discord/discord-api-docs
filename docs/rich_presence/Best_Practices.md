@@ -4,8 +4,8 @@ Rich Presence is a new feature from Discord that allows you to surface unique, i
 
 If you take away one thing from this guide, let it be this:
 
->warn
->Rich Presence data should give others a clear understanding of what someone is doing so they can decide if they want to play together or not.
+> warn
+> Rich Presence data should give others a clear understanding of what someone is doing so they can decide if they want to play together or not.
 
 ## Who should use Rich Presence?
 
@@ -39,9 +39,9 @@ For a great real world example, check out [Holodrive](https://store.steampowered
 
 ###### Examples
 
-| Bad | Good |
-|:-----:|:----: |
-| ![](rp-long-strings.png) | ![](rp-short-strings.png) |
+|                                       Bad                                       |                       Good                       |
+| :-----------------------------------------------------------------------------: | :----------------------------------------------: |
+|                            ![](rp-long-strings.png)                             |            ![](rp-short-strings.png)             |
 | The data wraps onto multiple lines. It’s repetitive, slower to read, and messy. | The data all fits on one line per string. Clean! |
 
 ### Make it Actionable!
@@ -52,9 +52,9 @@ For a great real world example, check out [Holodrive](https://store.steampowered
 
 ###### Examples
 
-| Bad | Good |
-|:-----:|:----: |
-| ![](rp-non-actionable.png) | ![](rp-actionable.png) |
+|                                           Bad                                            |                                          Good                                           |
+| :--------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------: |
+|                                ![](rp-non-actionable.png)                                |                                 ![](rp-actionable.png)                                  |
 | While Rank 9999 is impressive, it doesn’t present any actionable data for their friends. | This player is in queue for something I want to play. Let's ask to join that open spot! |
 
 ### Use ALL of the fields (where applicable)!
@@ -65,9 +65,9 @@ For a great real world example, check out [Holodrive](https://store.steampowered
 
 ###### Examples
 
-| Bad | Good |
-|:-----:|:----: |
-| ![](rp-not-all-fields.png) | ![](rp-all-fields.png) |
+|                                          Bad                                          |                                                Good                                                |
+| :-----------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------: |
+|                              ![](rp-not-all-fields.png)                               |                                       ![](rp-all-fields.png)                                       |
 | The map name takes up space and makes the player's status harder to read at a glance. | Moving the name of the map to the tooltip makes the data cleaner and frees up space for the score. |
 
 ### Have interesting, expressive art!
@@ -79,7 +79,7 @@ For a great real world example, check out [Holodrive](https://store.steampowered
 
 ###### Examples
 
-| Bad | Good |
-|:-----:|:----: |
-| ![](rp-bad-art.png) | ![](rp-good-art.png)|
+|                                     Bad                                     |                           Good                            |
+| :-------------------------------------------------------------------------: | :-------------------------------------------------------: |
+|                             ![](rp-bad-art.png)                             |                   ![](rp-good-art.png)                    |
 | The image is dark and unfocused. Highly-detailed images can be hard to see. | This image is bright and matches the details. Let's help! |

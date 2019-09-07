@@ -1,7 +1,7 @@
 # Users
 
 > info
-> Need help with the SDK? Talk to us at [dis.gd/devsupport](https://dis.gd/devsupport)
+> Need help with the SDK? Talk to us in the [Discord GameSDK Server](https://discord.gg/discord-gamesdk)!
 
 This manager helps retrieve basic user information for any user on Discord.
 

@@ -11,12 +11,12 @@ Represents a code that when used, adds a user to a guild or group DM channel.
 | code                        | string                                                           | the invite code (unique ID)                                                |
 | guild?                      | partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object       | the guild this invite is for                                               |
 | channel                     | partial [channel](#DOCS_RESOURCES_CHANNEL/channel-object) object | the channel this invite is for                                             |
-| target_user                 | partial [user](#DOCS_RESOURCES_USER/user-object) object          | the target user for this invite                                            |
+| target_user?                | partial [user](#DOCS_RESOURCES_USER/user-object) object          | the target user for this invite                                            |
 | target_user_type?           | integer                                                          | the type of target user for this invite                                    |
 | approximate_presence_count? | integer                                                          | approximate count of online members (only present when target_user is set) |
 | approximate_member_count?   | integer                                                          | approximate count of total members                                         |
 
-##### Target User Type
+###### Target User Type
 
 | Type   | Value |
 | ------ | ----- |
