@@ -1,7 +1,7 @@
 # Store
 
 > info
-> Need help with the SDK? Talk to us at [dis.gd/devsupport](https://dis.gd/devsupport)
+> Need help with the SDK? Talk to us in the [Discord GameSDK Server](https://discord.gg/discord-gamesdk)!
 
 If your game has DLC or offers in-app purchases, this manager is for you! The Store Manager allows you to fetch a users' entitlements, as well as being notified when a user is granted an entitlement from a purchase flow for your game.
 
@@ -95,6 +95,9 @@ Non-consumable SKUs can only be purchased once.
 ## FetchSkus
 
 Fetches the list of SKUs for the connected application, readying them for iteration.
+
+> warn
+> Only SKUs that have a price set will be fetched. If you aren't seeing any SKUs being returned, make sure they have a price set!
 
 Returns `Discord.Result` via callback.
 

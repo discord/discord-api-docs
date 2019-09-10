@@ -1,5 +1,23 @@
 # Change Log
 
+## Changes to Special Channels
+
+#### August 22, 2019
+
+News Channels are now changed to [Announcement Channels](#DOCS_GAME_AND_SERVER_MANAGEMENT_SPECIAL_CHANNELS/announcement-channels). Developer License owners will continue to get access to them (both existing and new). Underlying channel type (GUILD_NEWS = 5) remains the same. 
+
+## More Precise Rate Limits
+
+#### August 12, 2019
+
+You can now get more precise rate limit reset times, via a new request header. Check out the [rate limits](#DOCS_TOPICS_RATE_LIMITS/more-precise-rate-limit-resets) documentation for more information.
+
+## Bot Tokens for Achievements
+
+#### July 18, 2019
+
+You can now use Bot tokens for authorization headers against the HTTP API for [Achievements](#DOCS_GAME_SDK_ACHIEVEMENTS/the-api-way).
+
 ## Additional Team Information
 
 #### June 19, 2019
@@ -10,7 +28,7 @@ Additional information around Teams has been added to both the API and the docum
 
 #### May 29, 2019
 
-Additional information has been documented to support [Server Nitro Boosting](https://support.discordapp.com/hc/en-us/articles/360028038352-Server-Boosting). This includes the addition of a few [message types](#DOCS_RESOURCES_CHANNEL/message-object-message-types), as well as some [new fields on guilds.](#DOCS_RESOURCES_GUILD/guild-object-premium-tier). Please note that this feature is currently under experimentation, and these fields may be subject to change.
+Additional information has been documented to support [Server Nitro Boosting](https://support.discordapp.com/hc/en-us/articles/360028038352-Server-Boosting). This includes the addition of a few [message types](#DOCS_RESOURCES_CHANNEL/message-object-message-types), as well as some [new fields on guilds](#DOCS_RESOURCES_GUILD/guild-object-premium-tier). Please note that this feature is currently under experimentation, and these fields may be subject to change.
 
 ## Deprecation of Discord-RPC Rich Presence SDK
 

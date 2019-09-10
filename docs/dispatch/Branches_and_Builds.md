@@ -1,7 +1,7 @@
 # Branches and Builds
 
 > info
-> Need help with Dispatch? Talk to us at [dis.gd/devsupport](https://dis.gd/devsupport)
+> Need help with Dispatch? Talk to us in the [Discord GameSDK Server](https://discord.gg/discord-gamesdk)!
 
 In order for other people to download your game from Discord's servers, you need to _upload_ your game to Discord's servers. Let's learn how to do that!
 
@@ -494,6 +494,8 @@ If you understand and agree to the above, run the following command on each of t
 dispatch build drm-wrap <application_id> <path_to_executable_to_wrap>
 ```
 
+This function will only work with Windows executables. If you want to wrap a unix executable, you'll need to instead use [ValidateOrExit](#DOCS_GAME_SDK_APPLICATIONS/validateorexit).
+
 ## Pushing Our First Build
 
 We've got all our files ready for processing; let's ship this baby!
@@ -571,5 +573,3 @@ If you have your own patcher and do not want Discord to handle patching, set `"s
   }
 }
 ```
-
-Now that you've got a game in the system, let's [create a store page](#DOCS_DISPATCH_MANAGING_STORE_LISTINGS) for it!

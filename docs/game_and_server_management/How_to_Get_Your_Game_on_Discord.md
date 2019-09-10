@@ -28,7 +28,6 @@ You're now looking at a blank slate of creativity. Give your game a pretty icon 
 From here on forward, we'll be managing settings that tie directly to your game and its presence on Discord. We want to make sure that we're laser-focused on making the best experience possible for game developers, so we ask that you pay our Application License Fee in order to get access to our store tools, which let you:
 
 - make store pages for your game directly in your server
-- create a news channel, in which you can publish announce to all players of your game on Discord
 - run alpha and beta tests for your game, using the magic of channel permissions to create role-based page access
 - apply for approval, letting you start making money
 
@@ -39,10 +38,9 @@ Now that we've weeded out the trolls, let's get your server up and running with 
 You're now looking at a checklist with a bunch of items and a prompt to select a server. Your Application License Fee entitles you to the following features in your server:
 
 - store channel creation
-- news channel creation
 - alpha and beta testing
 
-Select the server that you wish to grant these features, confirm to be double-extra-super-sure, and poof! You can now create channels for both news and store pages in your server. To learn more about store page channels, read [Store Channels](#DOCS_GAME_AND_SERVER_MANAGEMENT_SPECIAL_CHANNELS/store-channels). To learn more about news channels, read [News Channels](#DOCS_GAME_AND_SERVER_MANAGEMENT_SPECIAL_CHANNELS/news-channels). To learn about alpha and beta testing, read [Alpha and Beta Testing](#DOCS_GAME_AND_SERVER_MANAGEMENT_ALPHA_AND_BETA_TESTING/)
+Select the server that you wish to grant these features, confirm to be double-extra-super-sure, and poof! You can now create channels for both news and store pages in your server. To learn more about store page channels, read [Store Channels](#DOCS_GAME_AND_SERVER_MANAGEMENT_SPECIAL_CHANNELS/store-channels). To learn more about Announcement Channels, read [Announcement Channels](#DOCS_GAME_AND_SERVER_MANAGEMENT_SPECIAL_CHANNELS/announcement-channels). To learn about alpha and beta testing, read [Alpha and Beta Testing](#DOCS_GAME_AND_SERVER_MANAGEMENT_ALPHA_AND_BETA_TESTING/)
 (you get the gist).
 
 Now, what do you do next? You start building! Build your community, make your game, invite testers into your server to get hype! Now is a great time to get familiar with all the tools at your disposal like:
@@ -102,7 +100,7 @@ Your game is off and running, and we couldn't be more proud. As it flourishes an
 
 ## What Comes Next
 
-Your game's success is in your own hands now. Continue to build your community and keep them informed with news. Consider integrating more deeply with Discord to deliver cool features to your players; we recommend [Rich Presence Game Invites](#DOCS_GAME_SDK_ACTIVITIES/). They feel like magic. Drop new content by creating DLC and IAP for your game, run fun tournaments based on [HypeSquad Membership](#DOCS_GAME_SDK_USERS/current-user-has-flag), give something cool to [Discord Nitro Subscribers](#DOCS_GAME_SDK_USERS/get-current-user-premium-status) because they're awesome. Or maybe, just maybe, think about your next upcoming game?
+Your game's success is in your own hands now. Continue to build your community and keep them informed with updates. Consider integrating more deeply with Discord to deliver cool features to your players; we recommend [Rich Presence Game Invites](#DOCS_GAME_SDK_ACTIVITIES/). They feel like magic. Drop new content by creating DLC and IAP for your game, run fun tournaments based on [HypeSquad Membership](#DOCS_GAME_SDK_USERS/current-user-has-flag), give something cool to [Discord Nitro Subscribers](#DOCS_GAME_SDK_USERS/get-current-user-premium-status) because they're awesome. Or maybe, just maybe, think about your next upcoming game?
 
 We'd love to help you with that one, too.
 

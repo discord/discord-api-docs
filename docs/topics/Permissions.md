@@ -22,37 +22,38 @@ Below is a table of all current permissions, their integer values in hexadecimal
 
 ###### Bitwise Permission Flags
 
-| Permission | Value | Description | Channel Type |
-|------------|-------|-------------|--------------|
-| CREATE\_INSTANT\_INVITE | `0x00000001` | Allows creation of instant invites | T, V |
-| KICK\_MEMBERS * | `0x00000002` | Allows kicking members | |
-| BAN\_MEMBERS * | `0x00000004` | Allows banning members | |
-| ADMINISTRATOR * | `0x00000008` | Allows all permissions and bypasses channel permission overwrites | |
-| MANAGE\_CHANNELS * | `0x00000010` | Allows management and editing of channels | T, V |
-| MANAGE\_GUILD * | `0x00000020` | Allows management and editing of the guild | |
-| ADD\_REACTIONS | `0x00000040` | Allows for the addition of reactions to messages | T |
-| VIEW\_AUDIT\_LOG | `0x00000080` | Allows for viewing of audit logs | |
-| VIEW\_CHANNEL | `0x00000400` | Allows guild members to view a channel, which includes reading messages in text channels | T, V |
-| SEND\_MESSAGES | `0x00000800` | Allows for sending messages in a channel | T |
-| SEND\_TTS\_MESSAGES | `0x00001000` | Allows for sending of `/tts` messages | T |
-| MANAGE\_MESSAGES *  | `0x00002000` | Allows for deletion of other users messages | T |
-| EMBED\_LINKS | `0x00004000` | Links sent by users with this permission will be auto-embedded | T |
-| ATTACH\_FILES | `0x00008000` | Allows for uploading images and files | T |
-| READ\_MESSAGE\_HISTORY | `0x00010000` | Allows for reading of message history | T |
-| MENTION\_EVERYONE | `0x00020000` | Allows for using the `@everyone` tag to notify all users in a channel, and the `@here` tag to notify all online users in a channel | T |
-| USE\_EXTERNAL\_EMOJIS | `0x00040000` | Allows the usage of custom emojis from other servers | T |
-| CONNECT | `0x00100000` | Allows for joining of a voice channel | V |
-| SPEAK | `0x00200000` | Allows for speaking in a voice channel | V |
-| MUTE\_MEMBERS | `0x00400000` | Allows for muting members in a voice channel | V |
-| DEAFEN\_MEMBERS | `0x00800000` | Allows for deafening of members in a voice channel | V |
-| MOVE\_MEMBERS | `0x01000000` | Allows for moving of members between voice channels | V |
-| USE\_VAD | `0x02000000` | Allows for using voice-activity-detection in a voice channel | V |
-| PRIORITY\_SPEAKER | `0x00000100` | Allows for using priority speaker in a voice channel | V |
-| CHANGE\_NICKNAME | `0x04000000` | Allows for modification of own nickname | |
-| MANAGE\_NICKNAMES | `0x08000000` | Allows for modification of other users nicknames | |
-| MANAGE\_ROLES * | `0x10000000` | Allows management and editing of roles | T, V |
-| MANAGE\_WEBHOOKS * | `0x20000000` | Allows management and editing of webhooks | T, V |
-| MANAGE\_EMOJIS * | `0x40000000` | Allows management and editing of emojis | | |
+| Permission            | Value        | Description                                                                                                                        | Channel Type |
+| --------------------- | ------------ | ---------------------------------------------------------------------------------------------------------------------------------- | ------------ |
+| CREATE_INSTANT_INVITE | `0x00000001` | Allows creation of instant invites                                                                                                 | T, V         |
+| KICK_MEMBERS \*       | `0x00000002` | Allows kicking members                                                                                                             |              |
+| BAN_MEMBERS \*        | `0x00000004` | Allows banning members                                                                                                             |              |
+| ADMINISTRATOR \*      | `0x00000008` | Allows all permissions and bypasses channel permission overwrites                                                                  |              |
+| MANAGE_CHANNELS \*    | `0x00000010` | Allows management and editing of channels                                                                                          | T, V         |
+| MANAGE_GUILD \*       | `0x00000020` | Allows management and editing of the guild                                                                                         |              |
+| ADD_REACTIONS         | `0x00000040` | Allows for the addition of reactions to messages                                                                                   | T            |
+| VIEW_AUDIT_LOG        | `0x00000080` | Allows for viewing of audit logs                                                                                                   |              |
+| VIEW_CHANNEL          | `0x00000400` | Allows guild members to view a channel, which includes reading messages in text channels                                           | T, V         |
+| SEND_MESSAGES         | `0x00000800` | Allows for sending messages in a channel                                                                                           | T            |
+| SEND_TTS_MESSAGES     | `0x00001000` | Allows for sending of `/tts` messages                                                                                              | T            |
+| MANAGE_MESSAGES \*    | `0x00002000` | Allows for deletion of other users messages                                                                                        | T            |
+| EMBED_LINKS           | `0x00004000` | Links sent by users with this permission will be auto-embedded                                                                     | T            |
+| ATTACH_FILES          | `0x00008000` | Allows for uploading images and files                                                                                              | T            |
+| READ_MESSAGE_HISTORY  | `0x00010000` | Allows for reading of message history                                                                                              | T            |
+| MENTION_EVERYONE      | `0x00020000` | Allows for using the `@everyone` tag to notify all users in a channel, and the `@here` tag to notify all online users in a channel | T            |
+| USE_EXTERNAL_EMOJIS   | `0x00040000` | Allows the usage of custom emojis from other servers                                                                               | T            |
+| CONNECT               | `0x00100000` | Allows for joining of a voice channel                                                                                              | V            |
+| SPEAK                 | `0x00200000` | Allows for speaking in a voice channel                                                                                             | V            |
+| MUTE_MEMBERS          | `0x00400000` | Allows for muting members in a voice channel                                                                                       | V            |
+| DEAFEN_MEMBERS        | `0x00800000` | Allows for deafening of members in a voice channel                                                                                 | V            |
+| MOVE_MEMBERS          | `0x01000000` | Allows for moving of members between voice channels                                                                                | V            |
+| USE_VAD               | `0x02000000` | Allows for using voice-activity-detection in a voice channel                                                                       | V            |
+| PRIORITY_SPEAKER      | `0x00000100` | Allows for using priority speaker in a voice channel                                                                               | V            |
+| STREAM                | `0x00000200` | Allows the user to go live                                                                                                         | V            |
+| CHANGE_NICKNAME       | `0x04000000` | Allows for modification of own nickname                                                                                            |              |
+| MANAGE_NICKNAMES      | `0x08000000` | Allows for modification of other users nicknames                                                                                   |              |
+| MANAGE_ROLES \*       | `0x10000000` | Allows management and editing of roles                                                                                             | T, V         |
+| MANAGE_WEBHOOKS \*    | `0x20000000` | Allows management and editing of webhooks                                                                                          | T, V         |
+| MANAGE_EMOJIS \*      | `0x40000000` | Allows management and editing of emojis                                                                                            |              |
 
 **\* These permissions require the owner account to use [two-factor authentication](#DOCS_TOPICS_OAUTH2/twofactor-authentication-requirement) when used on a guild that has server-wide 2FA enabled.**
 
@@ -62,10 +63,10 @@ Note that these internal permission names may be referred to differently by the 
 
 How permissions apply may at first seem intuitive, but there are some hidden restrictions that prevent bots from performing certain inappropriate actions based on a bot's highest role compared to its target's highest role. A bot's or user's highest role is its role that has the greatest position value in the guild, with the default @everyone role starting at 0. Permissions follow a hierarchy with the following rules:
 
-* A bot can grant roles to other users that are of a lower position than their highest role.
-* A bot can edit roles of a lower position than its highest role, but it can only grant permissions it has to those roles.
-* A bot can only sort roles lower than its highest role.
-* A bot can only kick/ban users whose highest role is lower than the bot's highest role.
+- A bot can grant roles to other users that are of a lower position than its own highest role.
+- A bot can edit roles of a lower position than its highest role, but it can only grant permissions it has to those roles.
+- A bot can only sort roles lower than its highest role.
+- A bot can only kick/ban users whose highest role is lower than the bot's highest role.
 
 Otherwise, permissions do not obey the role hierarchy. For example, a user has two roles: A and B. A denies the `VIEW_CHANNEL` permission on a #coolstuff channel. B allows the `VIEW_CHANNEL` permission on the same #coolstuff channel. The user would ultimately be able to view the #coolstuff channel, regardless of the role positions.
 
@@ -157,16 +158,16 @@ Roles represent a set of permissions attached to a group of users. Roles have un
 
 ###### Role Structure
 
-| Field | Type | Description |
-|-------|------|-------------|
-| id | snowflake | role id |
-| name | string | role name |
-| color | integer | integer representation of hexadecimal color code |
-| hoist | boolean | if this role is pinned in the user listing |
-| position | integer | position of this role |
-| permissions | integer | permission bit set |
-| managed | boolean | whether this role is managed by an integration |
-| mentionable | boolean | whether this role is mentionable |
+| Field       | Type      | Description                                      |
+| ----------- | --------- | ------------------------------------------------ |
+| id          | snowflake | role id                                          |
+| name        | string    | role name                                        |
+| color       | integer   | integer representation of hexadecimal color code |
+| hoist       | boolean   | if this role is pinned in the user listing       |
+| position    | integer   | position of this role                            |
+| permissions | integer   | permission bit set                               |
+| managed     | boolean   | whether this role is managed by an integration   |
+| mentionable | boolean   | whether this role is mentionable                 |
 
 Roles without colors (`color == 0`) do not count towards the final computed color in the user list.
 
@@ -174,13 +175,13 @@ Roles without colors (`color == 0`) do not count towards the final computed colo
 
 ```json
 {
-	"id": "41771983423143936",
-	"name": "WE DEM BOYZZ!!!!!!",
-	"color": 3447003,
-	"hoist": true,
-	"position": 1,
-	"permissions": 66321471,
-	"managed": false,
-	"mentionable": false
+  "id": "41771983423143936",
+  "name": "WE DEM BOYZZ!!!!!!",
+  "color": 3447003,
+  "hoist": true,
+  "position": 1,
+  "permissions": 66321471,
+  "managed": false,
+  "mentionable": false
 }
 ```

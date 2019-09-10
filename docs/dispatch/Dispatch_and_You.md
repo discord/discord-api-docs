@@ -1,5 +1,8 @@
 # Dispatch and You
 
+> info
+> Need help with Dispatch? Talk to us in the [Discord GameSDK Server](https://discord.gg/discord-gamesdk)!
+
 If you're distributing a game on Discord, you'll need to send us the files! We quickly learned that email has a file size limit, and we ran out of carrier pigeons. Don't ask. Very touchy subject.
 
 In light of those learnings, we built Dispatch! Great name, isn't it? _Dis_-patch? Anyway, Dispatch is your all-in-one uploader tool to get your builds, artwork, patches, DLC, and anything else onto Discord's servers. It's fast, easy to use, and I've been assured by our engineers that it's made of 100% farm-raised, cage-free, grass-fed code.

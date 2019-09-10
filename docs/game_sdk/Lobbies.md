@@ -1,7 +1,7 @@
 # Lobbies
 
 > info
-> Need help with the SDK? Talk to us at [dis.gd/devsupport](https://dis.gd/devsupport)
+> Need help with the SDK? Talk to us in the [Discord GameSDK Server](https://discord.gg/discord-gamesdk)!
 
 Looking to integrate multiplayer into your game? Lobbies are a great way to organize players into contexts to play together. This manager works hand in hand with the networking layer of our SDK to make multiplayer integrations a breeze by:
 
@@ -642,7 +642,7 @@ lobbyManager.DisconnectLobby(290926798626357250, (result) =>
 
 ## GetLobby
 
-Gets the lobby object for a given lobby id.
+Gets the lobby object for a given lobby id. Because of the way that the SDK is architected, you must first call [`Search()`](#DOCS_GAME_SDK_LOBBIES/search) to build a stable list of lobbies. This function will then query those lobbies for ones with a matching id.
 
 Returns a `Discord.Lobby`.
 
@@ -655,7 +655,20 @@ Returns a `Discord.Lobby`.
 ###### Example
 
 ```cs
-var lobby = lobbyManager.GetLobby(Int64 lobbyId);
+var lobbyId = 12345;
+
+var query = lobbyManager.GetSearchQuery();
+lobbyManager.Search(query, (res) =>
+{
+  if (res == Discord.Result.Ok)
+  {
+    // This will return you a lobby
+    var lobby = lobbyManager.GetLobby(lobbyId);
+  }
+});
+
+// This will return NotFound
+var lobby_2 = lobbyManager.GetLobby(lobbyId);
 ```
 
 ## LobbyMetadataCount
@@ -1072,9 +1085,9 @@ Fires when a lobby is updated.
 ###### Example
 
 ```cs
-lobbyManager.OnLobbyUpdate += (lobbyID) => 
+lobbyManager.OnLobbyUpdate += (lobbyID) =>
 {
-  Console.WriteLine("lobby succesfully updated: {0}", lobbyID);
+  Console.WriteLine("lobby successfully updated: {0}", lobbyID);
 };
 ```
 
@@ -1129,7 +1142,7 @@ Fires when data for a lobby member is updated.
 | lobbyId | Int64 | lobby the user is a member of |
 | userId  | Int64 | user that was updated         |
 
-###### Example 
+###### Example
 
 ```cs
 lobbyManager.OnMemberUpdate += (lobbyID, userID) =>

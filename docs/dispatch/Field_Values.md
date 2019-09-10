@@ -1,5 +1,8 @@
 # Predefined Field Values
 
+> info
+> Need help with Dispatch? Talk to us in the [Discord GameSDK Server](https://discord.gg/discord-gamesdk)!
+
 ###### Accepted Locales
 
 | Locale | Language Name           |
@@ -26,7 +29,7 @@
 | sv-SE  | Swedish                 |
 | tr     | Turkish                 |
 | bg     | Bulgarian               |
-| uk     | Ukranian                |
+| uk     | Ukrainian               |
 | fi     | Finnish                 |
 | hr     | Croatian                |
 | ro     | Romanian                |
@@ -70,7 +73,7 @@
 | \${DOCUMENTS}    | %USERPROFILE%\Documents                                                             | ~/Documents                   | \$XDG_DOCUMENTS_DIR |
 | \${DATA}         | %USERPROFILE%\AppData\Roaming                                                       | ~/Library/Application Support | \$XDG_DATA_HOME     |
 | \${DATALOCAL}    | %USERPROFILE%\AppData\Local                                                         | ~/Library/Application Support | \$XDG_DATA_HOME     |
-| \${DATALOCALLOW} | %USERPROFILE%\AppData\Local (for older operating systems)                           | ~/Library/Application Support | \$XDG_DATA_HOME     |
+| \${DATALOCALLOW} | %USERPROFILE%\AppData\LocalLow                                                      | ~/Library/Application Support | \$XDG_DATA_HOME     |
 | \${SAVEDGAMES}   | %USERPROFILE%\Saved Games                                                           | (not supported)               | (not supported)     |
 | \${INSTALLDIR}   | the game's install directory                                                        | (same)                        | (same)              |
 | \${USERID}       | the user's id - use within a path to define saves for multiple users                | (same)                        | (same)              |

@@ -2,8 +2,8 @@
 
 Ready to launch a Rich Presence integration for your game? Did you read our [Best Practices](#DOCS_RICH_PRESENCE_BEST_PRACTICES/) guide? If so, we recommend looking over this checklist one last time to ensure that your integration is as great as it can be!
 
->warn
->Our precompiled libraries depend on the [Visual C++ Redistributable for Visual Studio 2015](https://www.microsoft.com/en-us/download/details.aspx?id=48145). If you distribute your game on Steam, make sure to check that box in your common redistributable settings.
+> warn
+> Our precompiled libraries depend on the [Visual C++ Redistributable for Visual Studio 2015](https://www.microsoft.com/en-us/download/details.aspx?id=48145). If you distribute your game on Steam, make sure to check that box in your common redistributable settings.
 
 #### Profile Strings
 
@@ -25,9 +25,6 @@ Ready to launch a Rich Presence integration for your game? Did you read our [Bes
 
 #### Joining
 
->warn
->If you want the Ask to Join button on users' profiles, check out [Getting Approved](#DOCS_RICH_PRESENCE_GETTING_APPROVED/) for more information!
-
 - Have you successfully implemented join invites for your game if applicable?
 - Does the state of the invite properly represent the party/group in-game with regards to:
   - Size?
@@ -39,8 +36,8 @@ Ready to launch a Rich Presence integration for your game? Did you read our [Bes
 
 #### Spectating
 
->warn
->If you want the Spectate button on users' profiles, check out [Getting Approved](#DOCS_RICH_PRESENCE_GETTING_APPROVED/) for more information!
+> warn
+> If you want the Spectate button on users' profiles, check out [Getting Approved](#DOCS_RICH_PRESENCE_GETTING_APPROVED/) for more information!
 
 - Have you successfully implemented spectate invites for your game if applicable?
 - Is your game's spectate mode true spectating?
