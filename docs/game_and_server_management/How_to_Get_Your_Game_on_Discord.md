@@ -29,7 +29,7 @@ From here on forward, we'll be managing settings that tie directly to your game 
 
 - make store pages for your game directly in your server
 - run alpha and beta tests for your game, using the magic of channel permissions to create role-based page access
-- apply for approval, letting you start making money
+- apply for approval, letting you start making money (if you want to)
 
 Now that we've weeded out the trolls, let's get your server up and running with some fancy new features!
 
@@ -51,7 +51,7 @@ Now, what do you do next? You start building! Build your community, make your ga
 
 To guide you through this process to success, you can follow that handy checklist. It'll tell you the steps you need to complete, show you where and how to do them, and give you a blissful sense of satisfaction as the green check marks pile up.
 
-The next and final step in your on-boarding journey is getting approved. Once approved, you'll be able to start making money, and you'll unlock a ton of cool server customization features to make your kingdom cozy for your players.
+The next and final step in your on-boarding journey is getting approved. Once approved, you'll be able to start making money (or karma), and you'll unlock a ton of cool server customization features to make your kingdom cozy for your players.
 
 ## Testing Your Game
 
@@ -69,7 +69,7 @@ Once you've completed all the items on your checklist, the `Get Approved` button
 - your store pages, to provide helpful guidance in putting your best foot forward
 - your server, to make sure you're abiding by our [Community Guidelines](https://discordapp.com/guidelines)
 
-If we need to see some changes, you'll receive an email directing you on your steps to success. Otherwise, you'll get **APPROVED!!!!!!!!!!** What's that mean? It means you can start charging for your game and making money! Don't spend it all in one place. Or do. Treat yourself.
+If we need to see some changes, you'll receive an email directing you on your steps to success. Otherwise, you'll get **APPROVED!!!!!!!!!!** What's that mean? It means you can start charging for your game and making money! Don't spend it all in one place. Or do. Treat yourself. Or maybe you want your game to be **free!** Live your best life. We support you!
 
 ## Available vs Store Page Published
 
