@@ -17,6 +17,7 @@ Used to represent a user's voice connection status.
 | mute       | boolean                                                          | whether this user is muted by the server       |
 | self_deaf  | boolean                                                          | whether this user is locally deafened          |
 | self_mute  | boolean                                                          | whether this user is locally muted             |
+| self_stream| boolean                                                          | whether this user is streaming using "Go Live" |
 | suppress   | boolean                                                          | whether this user is muted by the current user |
 
 ###### Example Voice State
@@ -30,6 +31,7 @@ Used to represent a user's voice connection status.
   "mute": false,
   "self_deaf": false,
   "self_mute": true,
+  "self_stream": false,
   "suppress": false
 }
 ```
