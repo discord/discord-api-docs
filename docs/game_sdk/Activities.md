@@ -345,7 +345,6 @@ Fires when a user accepts a game chat invite or receives confirmation from Askin
 ###### Example
 
 ```cs
-
 // Received when someone accepts a request to join or invite.
 // Use secrets to receive back the information needed to add the user to the group/party/match
 {
