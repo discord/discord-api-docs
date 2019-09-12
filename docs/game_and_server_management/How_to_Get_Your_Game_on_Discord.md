@@ -69,7 +69,10 @@ Once you've completed all the items on your checklist, the `Get Approved` button
 - your store pages, to provide helpful guidance in putting your best foot forward
 - your server, to make sure you're abiding by our [Community Guidelines](https://discordapp.com/guidelines)
 
-If we need to see some changes, you'll receive an email directing you on your steps to success. Otherwise, you'll get **APPROVED!!!!!!!!!!** What's that mean? It means you can start charging for your game and making money! Don't spend it all in one place. Or do. Treat yourself.
+If we need to see some changes, you'll receive an email directing you on your steps to success. Otherwise, you'll get **APPROVED!!!!!!!!!!** What's that mean? It now allows for you to put your game up for Full Access! 'Coming Soon!' on your master branch will now be replaced with the beautiful 'Download' or 'Buy' Options! Allowing you to now have the freedom to distribute your game for free, or you can now unleash the fury of selling your game for a given price to have that sweeeet cashflow start spinning! Just make sure after having that Full Access master branch not set as 'Free' anymore if you ready to set a price you feel is the right one! Keep that cash in check! Or... not.. Let them cash birds fly!...
+
+
+ Don't spend it all in one place. Or do. Treat yourself.
 
 ## Available vs Store Page Published
 
