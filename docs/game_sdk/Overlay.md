@@ -80,7 +80,7 @@ overlayManager.SetLocked(true, (res) =>
 
 ## OpenActivityInvite
 
-Opens the overlay modal for sending game invitations to users, channels, and servers. In order for this to function, you must have the proper activity fields set on the local client before attempting to use this feature. To know what you need for Spectate and Join invites, refer to [Activity Action Field Requirements](#DOCS_GAME_SDK_ACTIVITIES/activity-action-field-requirements).
+Opens the overlay modal for sending game invitations to users, channels, and servers. If you do not have a valid activity with all the required fields, this call will error. See [Activity Action Field Requirements](#DOCS_GAME_SDK_ACTIVITIES/activity-action-field-requirements) for the fields required to have join and spectate invites function properly.
 
 Returns a `Discord.Result` via callback.
 

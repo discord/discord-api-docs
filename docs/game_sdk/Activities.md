@@ -274,7 +274,7 @@ activityManager.OnActivityJoinRequest += user =>
 
 ## SendInvite
 
-Sends a game invite to a given user.
+Sends a game invite to a given user. If you do not have a valid activity with all the required fields, this call will error. See [Activity Action Field Requirements](#DOCS_GAME_SDK_ACTIVITIES/activity-action-field-requirements) for the fields required to have join and spectate invites function properly.
 
 Returns a `Discord.Result` via callback.
 
