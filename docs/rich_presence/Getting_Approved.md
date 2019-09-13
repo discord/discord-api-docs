@@ -1,7 +1,7 @@
 # Getting Approved for Spectate
 
-> info
-> Ask to Join no longer requires whitelisting or approval. Everyone has access to it, and Ask to Join requests are now automatically handled within the Discord overlay. Enjoy!
+> danger
+> The SDK that this documentation references, [Discord-RPC](https://github.com/discordapp/discord-rpc), has been deprecated in favor of our new [Discord GameSDK](#DOCS_GAME_SDK_SDK_STARTER_GUIDE/). Replacement functionality for the Rich Presence SDK can be found in the [Activity Manager](#DOCS_GAME_SDK_ACTIVITIES/) of that SDK. This documentation can be referenced for education but does not entirely reflect the new SDK.
 
 For the majority of Rich Presence, we do not require any sort of approval or whitelisting. You are free to update presence data and create join and spectate chat invites without us looking it over. However, if you want to add the “Spectate” button on your players’ profiles, we want to take a look first and ensure that you get any support you might need.
 
