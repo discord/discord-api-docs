@@ -71,7 +71,7 @@ Once you've completed all the items on your checklist, the `Get Approved` button
 
 If we need to see some changes, you'll receive an email directing you on your steps to success. Otherwise, you'll get **APPROVED!!!!!!!!!!** What's that mean? It means you can start charging for your game and making money! Don't spend it all in one place. Or do. Treat yourself. Or maybe you want your game to be **free!** Live your best life. We support you!
 
- After that sweet succession in being **Approved**, celebrating with your community in this grand accomplishment. After you feel that *Open Beta* is over on your master branch you swap from Early Access to now Full Access! Show off your game to the world freely or with a slap-on-the-wrist add that price tag to let those know you have finally evolved! Unleash your next round of attacks at the final boss with the confort of your game in Full Access and the best it can be!  
+ After that sweet success in being **Approved**, take a moment to celebrate with your community in this grand accomplishment. Now that you feel that *Open Beta* is over on your master branch you can swap from Early Access to now Full Access, not required to be **Approved** mind you! Show off your game to the world freely or with the addition of a price tag to accompany your masterpiece to let those know you have finally evolved! Unleash your next round of attacks at the final boss with the confort of your game in Full Access and the best it can be!  
 
 ## Available vs Store Page Published
 
