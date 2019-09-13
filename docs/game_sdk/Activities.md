@@ -347,12 +347,12 @@ Fires when a user accepts a game chat invite or receives confirmation from Askin
 ```cs
 // Received when someone accepts a request to join or invite.
 // Use secrets to receive back the information needed to add the user to the group/party/match
-{
+activityManager.OnActivityJoin += secret => {
     Console.WriteLine("OnJoin {0}", secret);
     lobbyManager.ConnectLobbyWithActivitySecret(secret, (Discord.Result result, ref Discord.Lobby lobby) =>
     {
         Console.WriteLine("Connected to lobby: {0}", lobby.Id);
-        // Connect to voice chat.
+        // Connect to voice chat, used in this case to actually know in overlay if your successful in connecting.
         lobbyManager.ConnectVoice(lobby.Id, (Discord.Result voiceResult) => {
 
             if (voiceResult == Discord.Result.Ok)
@@ -364,13 +364,16 @@ Fires when a user accepts a game chat invite or receives confirmation from Askin
                 Console.WriteLine("Failed with Result: {0}", voiceResult);
             };
         });
+		//Connect to given lobby with lobby Id
         lobbyManager.ConnectNetwork(lobby.Id);
         lobbyManager.OpenNetworkChannel(lobby.Id, 0, true);
         foreach (var user in lobbyManager.GetMemberUsers(lobby.Id))
         {
+			//Send a hello message to everyone in the lobby
             lobbyManager.SendNetworkMessage(lobby.Id, user.Id, 0,
                 Encoding.UTF8.GetBytes(String.Format("Hello, {0}!", user.Username)));
         }
+		//Sends this off to a Activity callback named here as 'UpdateActivity' passing in the discord instance details and lobby details
         UpdateActivity(discord, lobby);
     });
 };

@@ -65,11 +65,13 @@ Your game looks wonderful. You've got a beautiful store page, and awesome game, 
 
 Once you've completed all the items on your checklist, the `Get Approved` button will unlock. Once you submit for approval, Discord will take a look at the following things:
 
-- your game, to ensure that it runs properly
+- your game, to ensure that it runs properly and follows our [Game Submission Guidelines](https://support-dev.discordapp.com/hc/en-us/articles/360025028592-Game-Submission-Guidelines)
 - your store pages, to provide helpful guidance in putting your best foot forward
 - your server, to make sure you're abiding by our [Community Guidelines](https://discordapp.com/guidelines)
 
 If we need to see some changes, you'll receive an email directing you on your steps to success. Otherwise, you'll get **APPROVED!!!!!!!!!!** What's that mean? It means you can start charging for your game and making money! Don't spend it all in one place. Or do. Treat yourself. Or maybe you want your game to be **free!** Live your best life. We support you!
+
+ After that sweet succession in being **Approved**, celebrating with your community in this grand accomplishment. After you feel that *Open Beta* is over on your master branch you swap from Early Access to now Full Access! Show off your game to the world freely or with a slap-on-the-wrist add that price tag to let those know you have finally evolved! Unleash your next round of attacks at the final boss with the confort of your game in Full Access and the best it can be!  
 
 ## Available vs Store Page Published
 
@@ -84,7 +86,7 @@ Now that you've been approved, there's a couple new toggles to flip in the Devel
 
 If you no longer wish to make your SKU available for sale, you can again mark it unavailable. This will not remove it from users' libraries; it just stops new users from purchasing it.
 
-`Store Page Published` will do...well, what it says! Though your store page is always visible from within the channel in your server, there are other things that require you to explicitly mark your page viewable from outside that context, like gift code embeds for your game.
+`Store Page Published` will do...well, what it says! Though your store page is always visible from within the channel in your server, there are other things that require you to explicitly mark your page viewable from outside that context, like gift code embeds for your game, or from in-game store fronts!
 
 TL;DR - When you're ready to distribute your game after getting approved, turn those two toggles on.
 
