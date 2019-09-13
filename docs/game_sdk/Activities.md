@@ -377,6 +377,58 @@ activityManager.OnActivityJoin += secret => {
         UpdateActivity(discord, lobby);
     });
 };
+
+void UpdateActivity(Discord.Discord discord, Discord.Lobby lobby)
+    {
+    	//Creates a Static String for Spectate Secret.
+        string discordSpectateSecret = "wdn3kvj320r8vk3"; 
+        spectateActivitySecret = discordSpectateSecret;
+        var activity = new Discord.Activity
+        {
+            State = "Playing Co-Op",
+            Details = "In a Multiplayer Match!",
+            Timestamps =
+            {
+                Start = startTimeStamp,
+            },
+            Assets =
+            {
+                LargeImage = "matchimage1",
+                LargeText = "Inside the Arena!",
+            },
+            Party = {
+                Id = lobby.Id.ToString(),
+                Size = {
+                    CurrentSize = lobbyManager.MemberCount(lobby.Id),
+                    MaxSize = (int)lobby.Capacity,
+                },
+            },
+            Secrets = {
+                Spectate = spectateActivitySecret,
+                Join = joinActivitySecret,
+            },
+            Instance = true,
+        };
+
+        activityManager.UpdateActivity(activity, result =>
+        {
+            Debug.LogFormat("Updated to Multiplayer Activity: {0}", result);
+
+            // Send an invite to another user for this activity.
+            // Receiver should see an invite in their DM.
+            // Use a relationship user's ID for this.
+            // activityManager
+            //   .SendInvite(
+            //       364843917537050624,
+            //       Discord.ActivityActionType.Join,
+            //       "",
+            //       inviteResult =>
+            //       {
+            //           Console.WriteLine("Invite {0}", inviteResult);
+            //       }
+            //   );
+        });
+    }
 ```
 
 ## OnActivitySpectate
