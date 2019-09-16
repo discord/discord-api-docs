@@ -318,7 +318,7 @@ lobbyManager.UpdateMember(lobbyId, memberId, txn, (result) =>
 });
 ```
 
-## LobbySearch.Filter
+## LobbySearchQuery.Filter
 
 Filters lobbies based on metadata comparison. Available filter values are `owner_id`, `capacity`, `slots`, and `metadata`. If you are filtering based on metadata, make sure you prepend your key with `"metadata."` For example, filtering on matchmaking rating would be `"metadata.matchmaking_rating"`.
 
@@ -337,10 +337,10 @@ Returns `void`.
 
 ```cs
 var query = lobbyManager.GetSearchQuery();
-query.LobbySearchFilter("metadata.matchmaking_rating", LobbySearchComparison.GreaterThan, LobbySearchCast.Number, "455");
+query.Filter("metadata.matchmaking_rating", LobbySearchComparison.GreaterThan, LobbySearchCast.Number, "455");
 ```
 
-## LobbySearch.Sort
+## LobbySearchQuery.Sort
 
 Sorts the filtered lobbies based on "near-ness" to a given value.
 
@@ -358,10 +358,10 @@ Returns `void`.
 
 ```cs
 var query = lobbyManager.GetSearchQuery();
-query.LobbySearchSort("metadata.ELO", LobbySearchCast.Number, "1337");
+query.Sort("metadata.ELO", LobbySearchCast.Number, "1337");
 ```
 
-## LobbySearch.Limit
+## LobbySearchQuery.Limit
 
 Limits the number of lobbies returned in a search.
 
@@ -380,7 +380,7 @@ var query = lobbyManager.GetSearchQuery();
 query.Limit(10);
 ```
 
-## LobbySearch.Distance
+## LobbySearchQuery.Distance
 
 Filters lobby results to within certain regions relative to the user's location.
 
@@ -396,7 +396,7 @@ Returns `void`.
 
 ```cs
 var query = lobbyManager.GetSearchQuery();
-query.Distance(Discord.LobbySearchDistance.Local);
+query.Distance(LobbySearchDistance.Local);
 ```
 
 ## GetLobbyCreateTransaction
