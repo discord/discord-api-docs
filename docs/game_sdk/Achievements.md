@@ -41,13 +41,6 @@ You can also mark achievements as `secret` and `secure`. "Secret" achievements w
 | PercentComplete | Int64  | how far along the user is to completing the achievement (0-100)                            |
 | UnlockedAt      | string | the timestamp at which the user completed the achievement (PercentComplete was set to 100) |
 
-###### Achievement Locale Object
-
-| Name           | Description                                                                                                                                             |
-| -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| default        | the default locale for the achievement                                                                                                                  |
-| localizations? | object of [accepted locales](#DOCS_DISPATCH_FIELD_VALUES/predefined-field-values-accepted-locales) as the key and achievement translations as the value |
-
 ## SetUserAchievement
 
 Updates the current user's status for a given achievement.
