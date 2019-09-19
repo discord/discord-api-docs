@@ -371,12 +371,13 @@ Used to request all members for a guild or a list of guilds. When initially conn
 
 ###### Guild Request Members Structure
 
-| Field    | Type                             | Description                                                                |
-| -------- | -------------------------------- | -------------------------------------------------------------------------- |
-| guild_id | snowflake or array of snowflakes | id of the guild(s) to get members for                                      |
-| query    | string                           | string that username starts with, or an empty string to return all members |
-| limit    | integer                          | maximum number of members to send or 0 to request all members matched      |
-| user_ids | snowflake or array of snowflakes | used to specify which users you wish to fetch                              |
+| Field      | Type                             | Description                                                                | Required                 |
+| ---------- | -------------------------------- | -------------------------------------------------------------------------- | ------------------------ |
+| guild_id   | snowflake or array of snowflakes | id of the guild(s) to get members for                                      | true                     |
+| query?     | string                           | string that username starts with, or an empty string to return all members | one of query or user_ids |
+| limit      | integer                          | maximum number of members to send or 0 to request all members matched      | true                     |
+| presences? | boolean                          | used to specify if we want the presences of the matched members            | false                    |
+| user_ids?  | snowflake or array of snowflakes | used to specify which users you wish to fetch                              | one of query or user_ids |
 
 ###### Guild Request Members
 
@@ -638,11 +639,12 @@ Sent in response to [Guild Request Members](#DOCS_TOPICS_GATEWAY/request-guild-m
 
 ###### Guild Members Chunk Event Fields
 
-| Field      | Type                                                                       | Description                                                                   |
-| ---------- | -------------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
-| guild_id   | snowflake                                                                  | the id of the guild                                                           |
-| members    | array of [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) objects | set of guild members                                                          |
-| not_found? | array                                                                      | if passing an invalid id to `REQUEST_GUILD_MEMBERS`, it will be returned here |
+| Field      | Type                                                                       | Description                                                                                |
+| ---------- | -------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------ |
+| guild_id   | snowflake                                                                  | the id of the guild                                                                        |
+| members    | array of [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) objects | set of guild members                                                                       |
+| not_found? | array                                                                      | if passing an invalid id to `REQUEST_GUILD_MEMBERS`, it will be returned here              |
+| presences? | array of [presence](#DOCS_TOPICS_GATEWAY/presence) objects                 | if passing true to `REQUEST_GUILD_MEMBERS`, presences of the returned members will be here |
 
 #### Guild Role Create
 
