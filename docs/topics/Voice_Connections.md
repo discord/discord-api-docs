@@ -193,8 +193,8 @@ Voice data sent to discord should be encoded with [Opus](https://www.opus-codec.
 
 | Field           | Type                          | Size    |
 | --------------- | ----------------------------- | ------- |
-| Type            | Single byte value of `0x80`   | 1 byte  |
-| Version         | Single byte value of `0x78`   | 1 byte  |
+| Version + Flags | Single byte value of `0x80`   | 1 byte  |
+| Payload Type    | Single byte value of `0x78`   | 1 byte  |
 | Sequence        | Unsigned short (big endian)   | 2 bytes |
 | Timestamp       | Unsigned integer (big endian) | 4 bytes |
 | SSRC            | Unsigned integer (big endian) | 4 bytes |
