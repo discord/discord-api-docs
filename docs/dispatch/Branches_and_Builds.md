@@ -68,7 +68,7 @@ Inside that, we can use our Bot token for our application that will _not_ be inv
 > info
 > Note that this token is only good for its owning application, so if you want to make one build machine deploy multiple applications, you'll need to edit this file per game.
 
-You can get your bot token by going to your app in the Dev Portal --> `Bot` --> `Add Bot` --> copy the token. In our credentials file, make a json object like:
+You can get your bot token by going to your app in the Dev Portal --> `Bot` --> `Add Bot` --> copy the token. In our credentials file, replace the JSON with:
 
 ```json
 {
