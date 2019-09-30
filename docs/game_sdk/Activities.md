@@ -404,8 +404,7 @@ void UpdateActivity(Discord.Discord discord, Discord.Lobby lobby)
             Secrets = {
                 Spectate = spectateActivitySecret,
                 Join = joinActivitySecret,
-            },
-            Instance = true,
+            }
         };
 
         activityManager.UpdateActivity(activity, result =>
