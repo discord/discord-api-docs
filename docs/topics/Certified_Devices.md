@@ -46,10 +46,10 @@ Each time you update, send a full array of `devices`, sorted by your preffered p
 
 ## Getting Device UUID
 
-For each device in the `SET_CERTIFIED_DEVICES` payload, there is an `id` field. This `id` should be the Window's device UUID, retrieved through the native Windows API. You'll get back something that looks like `{0.0.1.00000000}.{6cff2b76-44a8-46b9-b528-262ad8609d9f}`.
+For each device in the `SET_CERTIFIED_DEVICES` payload, there is an `id` field. This `id` should be the Windows device's UUID, retrieved through the native Windows API. You'll get back something that looks like `{0.0.1.00000000}.{6cff2b76-44a8-46b9-b528-262ad8609d9f}`.
 
->info
->On macOS, the `id` will be the name of the device.
+> info
+> On macOS, the `id` will be the name of the device.
 
 ###### Microphone Id Example
 
@@ -163,19 +163,19 @@ The socket will respond with a `200 OK` status code and the following JSON.
 
 ###### Device Object
 
-| Field                    | Type                                                                 | Description                                              |
-| ------------------------ | -------------------------------------------------------------------- | -------------------------------------------------------- |
-| type                     | [device type](#DOCS_TOPICS_CERTIFIED_DEVICES/models-device-type)     | the type of device                                       |
-| id                       | string                                                               | the device's Windows UUID                                |
-| vendor                   | [vendor](#DOCS_TOPICS_CERTIFIED_DEVICES/models-vendor-object) object | the hardware vendor                                      |
-| model                    | [model](#DOCS_TOPICS_CERTIFIED_DEVICES/models-model-object) object   | the model of the product                                 |
-| related                  | array of strings                                                     | UUIDs of related devices                                 |
-| echo_cancellation?*      | boolean                                                              | if the device's native echo cancellation is enabled      |
-| noise_suppression?*      | boolean                                                              | if the device's native noise suppression is enabled      |
-| automatic_gain_control?* | boolean                                                            | if the device's native automatic gain control is enabled |
-| hardware_mute?*          | boolean                                                              | if the device is hardware muted                          |
+| Field                     | Type                                                                 | Description                                              |
+| ------------------------- | -------------------------------------------------------------------- | -------------------------------------------------------- |
+| type                      | [device type](#DOCS_TOPICS_CERTIFIED_DEVICES/models-device-type)     | the type of device                                       |
+| id                        | string                                                               | the device's Windows UUID                                |
+| vendor                    | [vendor](#DOCS_TOPICS_CERTIFIED_DEVICES/models-vendor-object) object | the hardware vendor                                      |
+| model                     | [model](#DOCS_TOPICS_CERTIFIED_DEVICES/models-model-object) object   | the model of the product                                 |
+| related                   | array of strings                                                     | UUIDs of related devices                                 |
+| echo_cancellation?\*      | boolean                                                              | if the device's native echo cancellation is enabled      |
+| noise_suppression?\*      | boolean                                                              | if the device's native noise suppression is enabled      |
+| automatic_gain_control?\* | boolean                                                              | if the device's native automatic gain control is enabled |
+| hardware_mute?\*          | boolean                                                              | if the device is hardware muted                          |
 
-*These fields are only applicable for `AUDIO_INPUT` device types
+\*These fields are only applicable for `AUDIO_INPUT` device types
 
 ###### Vendor Object
 
@@ -198,4 +198,3 @@ The socket will respond with a `200 OK` status code and the following JSON.
 | AUDIO_INPUT  | "audioinput"  |
 | AUDIO_OUTPUT | "audiooutput" |
 | VIDEO_INPUT  | "videoinput"  |
-

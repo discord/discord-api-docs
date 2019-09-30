@@ -1,11 +1,18 @@
 # Branches and Builds
 
-> danger
-> The Discord Store is still in a beta period. All documentation and functionality can and will change.
+> info
+> Need help with Dispatch? Talk to us in the [Discord GameSDK Server](https://discord.gg/discord-gamesdk)!
 
 In order for other people to download your game from Discord's servers, you need to _upload_ your game to Discord's servers. Let's learn how to do that!
 
 ## Getting Set Up
+
+First, get Dispatch for your operating system.
+
+- [Windows 64](https://dl-dispatch.discordapp.net/download/win64)
+- [Windows 32](https://dl-dispatch.discordapp.net/download/win32)
+- [Mac](https://dl-dispatch.discordapp.net/download/macos)
+- [Linux](https://dl-dispatch.discordapp.net/download/linux)
 
 You'll want to be able to use Dispatch across your projects, so let's handle that now by adding it to our PATH.
 
@@ -48,6 +55,31 @@ You're good! You can now call the dispatch command from anywhere!
 Run `dispatch login`, which will open a web browser and prompt you to authorize your Discord account with Dispatch.
 
 Yup, that's it.
+
+Small thing to note - the default `login` method works via an OAuth2 bearer token with special scopes. That means that if you run `dispatch login` on another machine—like a CI setup—it will invalidate your other tokens. If you want to set up build machines for your game, you'll want to use an alternate method of authorization.
+
+First, find the `credentials.json` file at:
+
+- Windows: `C:\User\<you>\.dispatch\credentials.json`
+- macOS: `~/.dispatch/config.json`
+
+Inside that, we can use our Bot token for our application that will _not_ be invalidated across different machines.
+
+> info
+> Note that this token is only good for its owning application, so if you want to make one build machine deploy multiple applications, you'll need to edit this file per game.
+
+You can get your bot token by going to your app in the Dev Portal --> `Bot` --> `Add Bot` --> copy the token. In our credentials file, replace the JSON with:
+
+```json
+{
+  "BotCredentials": {
+    "application_id": "my_application_id",
+    "token": "my_token"
+  }
+}
+```
+
+Voila! You can now use dispatch for that application with this token.
 
 ONWARDS!
 
@@ -165,6 +197,9 @@ That way, you can `dispatch build push` from your actual root directory, but dis
     "exclusions": [
       {
         "local_path": "**/*.pdb"
+      },
+      {
+        "local_path": "**/*.verycoolfile"
       }
     ]
   }
@@ -181,7 +216,7 @@ File rules is a special, and somewhat confusing, part of the manifest, but we'll
 
 `properties` allows you to mark properties on globs of files. In this case, marking a glob of files as `user_data` tells Dispatch not to touch these files in any way if it sees them; don't want that save data overwritten!
 
-`exclusions` also allow you to mark off globs of files. File globs here will not be uploaded by Dispatch on a build push. In the above example, debug files that match the `*.pdb` pattern in any directory will be ignored.
+`exclusions` also allow you to mark off globs of files. File globs here will not be uploaded by Dispatch on a build push. In the above example, debug files that match the `*.pdb` or `*.verycoolfile` patterns in any directory will be ignored.
 
 > warn
 > Dispatch supports [Rust globbing patterns](https://docs.rs/glob/0.2.11/glob/struct.Pattern.html).
@@ -237,7 +272,7 @@ As a side note, there may be a case where you might have multiple manifests that
             "id": "one",
             "paths": [
               {
-                "platform": "win32",
+                "platform": "windows",
                 "path": "${HOME}"
               }
             ],
@@ -255,7 +290,7 @@ As a side note, there may be a case where you might have multiple manifests that
             "id": "two",
             "paths": [
               {
-                "platform": "win32",
+                "platform": "windows",
                 "path": "${HOME}"
               }
             ],
@@ -309,7 +344,7 @@ For installation scripts, `name` is a user friendly name that Discord will surfa
 }
 ```
 
-Don't forget to the notice the double forward slashes in the path name!
+Don't forget to the notice the double backward slashes in the path name!
 
 ## Launch Options
 
@@ -378,6 +413,9 @@ Let's see what one looks like all together!
           "exclusions": [
             {
               "local_path": "**/*.pdb"
+            },
+            {
+              "local_path": "**/*.verycoolfile"
             }
           ]
         },
@@ -443,6 +481,85 @@ Let's see what one looks like all together!
 
 It seems like a lot of lines to parse, but now you know what they all mean!
 
+## Multiple Manifests and DLC Content
+
+If you're publishing a game with additional DLC content, this section is for you! Oftentimes in newer games, a user purchasing DLC content does not necessarily mean them downloading additional files to their computer, like expansion packs of ye olden days. A game will see that a user is entitled to a new thing, some flag in the code will flip, and presto! They can now explore the new area.
+
+However, some games do rely on downloading additional files for DLC content. If that is the case with your game, let's see how Dispatch can help. What's gonna help here is making use of multiple manifests. When you create a `config.json` file to upload your game, you've got something that looks sort of like this:
+
+```json
+// A much smaller config example than the behemoth just above
+{
+  "application": {
+    "id": 1234567890,
+    "manifests": [
+      {
+        // a bunch of stuff
+      }
+    ]
+  }
+}
+```
+
+"manifests" is an array, which means it can contain multiple items. What you'll want to do is create two manifests: one for your base game, and one for your DLC. Depending on how your build folder is set up, you can exclude the DLC files from being uploaded when you upload the base game. Let's pretend your build folder—the one on your local computer that you're uploading from—looks like this:
+
+```
+game/
+|_ config.json
+|_ build/
+   |_ game_data
+      |_ Assets/
+          |_ AssetBundles/
+             |_ Base/
+             |_ DLC/
+```
+
+Your manifest would look something like this:
+
+```
+{
+  "application": {
+    "id": your_app_id,
+    "manifests": [
+      {
+        "label": "base-game",
+        "local_root": "build",
+        "file_rules": {
+          "mappings": [
+            {
+              "local_path": ".",      // This makes the files appear in the base content/ directory, trust me :D
+              "install_path": "."
+            }
+          ],
+          "exclusions": [
+            {
+              "local_path": "./game_data/Assets/AssetBundles/DLC"    // This manifest will NOT include the DLC
+            }
+          ]
+        },
+        // The rest of the config with launch options, etc.
+      },
+      {
+        "label": "dlc", // Now we have a second manifest for the DLC files
+        "local_root": "build/game_data/Assets/AssetBundles/DLC", // Uploading files from the DLC folder
+        "file_rules": {
+          "mappings": [
+            {
+              "local_path": ".",
+              "install_Path": "./game_data/Assets/AssetBundles/DLC" // Puts the DLC in the proper folder structure
+            }
+          ]
+        }
+      }
+    ]
+  }
+}
+```
+
+So, what we've done is defined two manifests—or bundles of files—in one config. Now, how do we make 'em work?
+
+When you create SKUs in the dev portal, you assign manifests to SKUs. You'll want to assign `base-game`​ to your base game SKU, and `dlc` ​to your DLC. Now, when players buy your base game, they'll get entitlement to the `base-game` manifest, and Discord will only download that one. Once they purchase `dlc`, they'll become entitled to that manifest, and Discord will patch the game with the new content they received.
+
 ## DRM
 
 You can choose to add DRM to your game. Dispatch will wrap your executables and prevent a user from launching the game if they are not logged into Discord.
@@ -455,6 +572,8 @@ If you understand and agree to the above, run the following command on each of t
 ```
 dispatch build drm-wrap <application_id> <path_to_executable_to_wrap>
 ```
+
+This function will only work with Windows executables. If you want to wrap a unix executable, you'll need to instead use [ValidateOrExit](#DOCS_GAME_SDK_APPLICATIONS/validateorexit).
 
 ## Pushing Our First Build
 
@@ -533,5 +652,3 @@ If you have your own patcher and do not want Discord to handle patching, set `"s
   }
 }
 ```
-
-Now that you've got a game in the system, let's [create a store page](#DOCS_DISPATCH_MANAGING_STORE_LISTINGS) for it!

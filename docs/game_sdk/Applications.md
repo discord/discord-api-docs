@@ -1,7 +1,7 @@
 # Applications
 
-> danger
-> The Discord Store is still in a beta period. All documentation and functionality can and will change.
+> info
+> Need help with the SDK? Talk to us in the [Discord GameSDK Server](https://discord.gg/discord-gamesdk)!
 
 Many games run their own backend servers for things like user authentication. If one of those many games is yours, then we've got something for you! This manager gives you access to a bearer token for the currently connected Discord user, which you can send off to your server to do user authentication.
 
@@ -32,6 +32,9 @@ This manager also includes a couple useful helper functions, like getting the lo
 
 ## GetCurrentLocale
 
+> info
+> Value from environment variable `DISCORD_CURRENT_LOCALE`
+
 Get's the locale the current user has Discord set to.
 
 Returns a `string`.
@@ -48,6 +51,9 @@ Console.WriteLine("This user's language is {0}", locale);
 ```
 
 ## GetCurrentBranch
+
+> info
+> Value from environment variable `DISCORD_CURRENT_BRANCH`
 
 Get the name of pushed branch on which the game is running. These are branches that you created and pushed using Dispatch.
 
@@ -67,9 +73,12 @@ if (branch != MyBranches.Stable)
 
 ## GetOAuth2Token
 
-Retrieve an oauth2 beare token for the current user. If your game was launched from Discord and you call this function, you will automatically receive the token. If the game was _not_ launched from Discord and this method is called, Discord will focus itself and prompt the user for authorization.
+> info
+> value from environment variable `DISCORD_ACCESS_TOKEN`
 
-Returns a `Discord.Result` and an `OAuth2Token` via callback.
+Retrieve an oauth2 bearer token for the current user. If your game was launched from Discord and you call this function, you will automatically receive the token. If the game was _not_ launched from Discord and this method is called, Discord will focus itself and prompt the user for authorization.
+
+Returns a `Discord.Result` and a `ref Discord.OAuth2Token` via callback.
 
 ###### Parameters
 
@@ -78,9 +87,9 @@ None
 ###### Example
 
 ```cs
-applicationManager.GetOAuth2Token((result, token) =>
+applicationManager.GetOAuth2Token((Discord.Result result, ref Discord.OAuth2Token token) =>
 {
-  if (result == Discord.Result.OK)
+  if (result == Discord.Result.Ok)
   {
     Console.WriteLine("Token for the user: {0}. Expires in {1}", token.AccessToken, token.Expires);
     // You may now use this token against Discord's HTTP API
@@ -92,7 +101,7 @@ applicationManager.GetOAuth2Token((result, token) =>
 
 Checks if the current user has the entitlement to run this game.
 
-Returns `void`.
+Returns a `Discord.Result` via callback.
 
 ###### Parameters
 
@@ -103,7 +112,7 @@ None
 ```cs
 applicationManager.ValidateOrExit((result) =>
 {
-  if (result == Discord.Result.OK)
+  if (result == Discord.Result.Ok)
   {
     // Game keeps running
   }
@@ -133,7 +142,7 @@ These values can be accessed by transforming the string into a [SignedAppTicket]
 
 Note that both the public key you receive from Discord and the signature within the app ticket from the SDK are both in hex, and will need to be converted to `byte[]` before use with libsodium.
 
-Returns a `ref string` via callback.
+Returns a `Discord.Result` and `ref string` via callback.
 
 ###### Parameters
 
@@ -213,7 +222,7 @@ var discord = new Discord.Discord(clientId, Discord.CreateFlags.Default);
 var appManager = discord.GetApplicationManager();
 
 // Retrieve the token
-appManager.GetOAuth2Token((token) =>
+appManager.GetOAuth2Token((Discord.Result result, ref Discord.OAuth2Token token) =>
 {
   Console.WriteLine(token.AccessToken);
 

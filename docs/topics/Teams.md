@@ -50,3 +50,32 @@ We've got a lot of awesome features planned for teams in the future, so stay tun
 - More cat pictures
 
 Go team!
+
+## API Stuff
+
+## Data Models
+
+###### Team Object
+
+| field         | type                                                                              | description                            |
+| ------------- | --------------------------------------------------------------------------------- | -------------------------------------- |
+| icon          | ?string                                                                           | a hash of the image of the team's icon |
+| id            | snowflake                                                                         | the unique id of the team              |
+| members       | array of [team member](#DOCS_TOPICS_TEAMS/data-models-team-member-object) objects | the members of the team                |
+| owner_user_id | snowflake                                                                         | the user id of the current team owner  |
+
+###### Team Members Object
+
+| field            | type                                                    | description                                                                                     |
+| ---------------- | ------------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
+| membership_state | int                                                     | the user's [membership state](#DOCS_TOPICS_TEAMS/data-models-membership-state-enum) on the team |
+| permissions      | array of strings                                        | will always be `["*"]`                                                                          |
+| team_id          | snowflake                                               | the id of the parent team of which they are a member                                            |
+| user             | partial [user](#DOCS_RESOURCES_USER/user-object) object | the avatar, discriminator, id, and username of the user                                         |
+
+###### Membership State Enum
+
+| name     | value |
+| -------- | ----- |
+| INVITED  | 1     |
+| ACCEPTED | 2     |

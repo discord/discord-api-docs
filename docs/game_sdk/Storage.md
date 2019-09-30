@@ -1,13 +1,13 @@
 # Storage
 
-> danger
-> The Discord Store is still in a beta period. All documentation and functionality can and will change.
+> info
+> Need help with the SDK? Talk to us in the [Discord GameSDK Server](https://discord.gg/discord-gamesdk)!
 
 We've been told that people playing games want to save their progress as they go, allowing them to come back where they left off and continue their epic journey of power.
 
 Yeah, roguelikes. Even you.
 
-Discord's storage manager lets you save data mapped to a key for easy reading, writing, and deleting both synchronously and asynchronously. It's saved to a super special directory, the Holy Grail of file mappings, that's unique per Discord user—need to worry about your little brother overwriting your save file.
+Discord's storage manager lets you save data mapped to a key for easy reading, writing, and deleting both synchronously and asynchronously. It's saved to a super special directory, the Holy Grail of file mappings, that's unique per Discord user — no need to worry about your little brother overwriting your save file.
 
 Creating this manager will also spawn an IO thread for async reads and writes, so unless you really want to be blocking, you don't need to be!
 
@@ -36,6 +36,9 @@ Yup, that's it! Don't know what this file is? Go read [Branches and Builds](#DOC
 | LastModified | UInt64 | timestamp of when the file was last modified |
 
 ## GetPath
+
+> info
+> Value from environment variable `DISCORD_STORAGE_PATH`
 
 Returns the filepath to which Discord saves files if you were to use the SDK's storage manager. Discord has branch-specific, user-specific saves, so you and your little brother will never overwrite each others' save files. If your game already has save file writing logic, you can use this method to get that user-specific path and help users protect their save files.
 

@@ -1,12 +1,54 @@
 # Change Log
 
+## Changes to Special Channels
+
+#### August 22, 2019
+
+News Channels are now changed to [Announcement Channels](#DOCS_GAME_AND_SERVER_MANAGEMENT_SPECIAL_CHANNELS/announcement-channels). Developer License owners will continue to get access to them (both existing and new). Underlying channel type (GUILD_NEWS = 5) remains the same. 
+
+## More Precise Rate Limits
+
+#### August 12, 2019
+
+You can now get more precise rate limit reset times, via a new request header. Check out the [rate limits](#DOCS_TOPICS_RATE_LIMITS/more-precise-rate-limit-resets) documentation for more information.
+
+## Bot Tokens for Achievements
+
+#### July 18, 2019
+
+You can now use Bot tokens for authorization headers against the HTTP API for [Achievements](#DOCS_GAME_SDK_ACHIEVEMENTS/the-api-way).
+
+## Additional Team Information
+
+#### June 19, 2019
+
+Additional information around Teams has been added to both the API and the documentation. The [Teams](#DOCS_TOPICS_TEAMS/api-stuff) page now includes information about the team and team member objects. Additionally, the [Get Current Application Information](#DOCS_TOPICS_OAUTH2/get-current-application-information) endpoint now returns a `team` object if that application belongs to a team. That documentation has also been updated to includes fields that were missing for applications that are games sold on Discord.
+
+## Added Info Around Nitro Boosting Experiment
+
+#### May 29, 2019
+
+Additional information has been documented to support [Server Nitro Boosting](https://support.discordapp.com/hc/en-us/articles/360028038352-Server-Boosting). This includes the addition of a few [message types](#DOCS_RESOURCES_CHANNEL/message-object-message-types), as well as some [new fields on guilds](#DOCS_RESOURCES_GUILD/guild-object-premium-tier). Please note that this feature is currently under experimentation, and these fields may be subject to change.
+
+## Deprecation of Discord-RPC Rich Presence SDK
+
+#### April 29, 2019
+
+The [Discord-RPC](https://github.com/discordapp/discord-rpc) implementation of Rich Presence has been deprecated in favor of Discord's new GameSDK. If you're interested in using Rich Presence, please read our [SDK Starter Guide](#DOCS_GAME_SDK_SDK_STARTER_GUIDE/) and check out the relevant functions in the [Activity Manager](#DOCS_GAME_SDK_ACTIVITIES/).
+
+## New Invite Object Fields
+
+#### April 18, 2019
+
+The [Invite Object](#DOCS_RESOURCES_INVITE/invite-object) now includes two additional fields, `target_user` and `target_user_type`.
+
 ## Ask to Join & Rich Presence SDK
 
 #### January 14, 2019
 
 Ask to Join no longer requires approval or whitelisting to use. You are welcome to create in-game UI, but all Ask to Join requests are also now handled by the Discord overlay.
 
-There have also been some small additions to the Rich Presence SDK. This includes the addition of the `pipe` parameter to the `Initialize()` function, which allows you to specify the Discord client to connect to if multiple clients are running locally. The previously undocumented `UpdateHandlers()` function has also been documented.
+There have also been some small additions to the Rich Presence SDK. The previously undocumented `UpdateHandlers()` function is now documented.
 
 ## Documentation: Dispatch Store Listings
 

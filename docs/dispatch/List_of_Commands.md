@@ -1,7 +1,7 @@
 # List of Commands
 
-> danger
-> The Discord Store is still in a beta period. All documentation and functionality can and will change.
+> info
+> Need help with Dispatch? Talk to us in the [Discord GameSDK Server](https://discord.gg/discord-gamesdk)!
 
 Some people don't like to read full pages of documentation. Personally, I think those people are missing out. But we want to make sure that we cater to everyone, so here's a list of every Dispatch command and what it does. No frills, no jokes. Okay, maybe some jokes.
 
@@ -96,7 +96,7 @@ Deletes a build from a branch.
 
 ## build drm-wrap
 
-Wraps your executable in Discord's DRM.
+Wraps your executable in Discord's DRM. This only works for Windows executables. If you want to DRM wrap a unix executable, you'll need to instead use [ValidateOrExit](#DOCS_GAME_SDK_APPLICATIONS/validateorexit).
 
 > danger
 > This action is destructive and overwrites the executable. Make sure you've got a backup handy if needed!

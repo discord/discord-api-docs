@@ -44,7 +44,7 @@ There are other rules and restrictions not shared here for the sake of spam and 
 | locale?       | string    | the user's chosen language option                                                                    | identify              |
 | verified?     | boolean   | whether the email on this account has been verified                                                  | email                 |
 | email?        | string    | the user's email                                                                                     | email                 |
-| flags         | integer   | the [flags](#DOCS_RESOURCES_USER/user-object-user-flags) on a user's account                         | identify              |
+| flags?        | integer   | the [flags](#DOCS_RESOURCES_USER/user-object-user-flags) on a user's account                         | identify              |
 | premium_type? | integer   | the [type of Nitro subscription](#DOCS_RESOURCES_USER/user-object-premium-types) on a user's account | identify              |
 
 ###### Example User
@@ -64,20 +64,25 @@ There are other rules and restrictions not shared here for the sake of spam and 
 
 ###### User Flags
 
-| Value  | Description      |
-| ------ | ---------------- |
-| 0      | None             |
-| 1 << 2 | HypeSquad Events |
-| 1 << 6 | House Bravery    |
-| 1 << 7 | House Brilliance |
-| 1 << 8 | House Balance    |
+| Value   | Description      |
+| ------- | ---------------- |
+| 0       | None             |
+| 1 << 0  | Discord Employee |
+| 1 << 1  | Discord Partner  |
+| 1 << 2  | HypeSquad Events |
+| 1 << 3  | Bug Hunter       |
+| 1 << 6  | House Bravery    |
+| 1 << 7  | House Brilliance |
+| 1 << 8  | House Balance    |
+| 1 << 9  | Early Supporter  |
+| 1 << 10 | Team User        |
 
 ###### Premium Types
 
-| Value | Name          | Description                                                        |
-| ----- | ------------- | ------------------------------------------------------------------ |
-| 1     | Nitro Classic | includes app perks like animated emojis and avatars, but not games |
-| 2     | Nitro         | includes app perks as well as the games subscription service       |
+| Value | Name          | Description                                                                           |
+| ----- | ------------- | ------------------------------------------------------------------------------------- |
+| 1     | Nitro Classic | includes app perks like animated emojis and avatars, but not games or server boosting |
+| 2     | Nitro         | includes app perks as well as the games subscription service and server boosting      |
 
 ### Connection Object
 
@@ -85,13 +90,24 @@ The connection object that the user has attached.
 
 ###### Connection Structure
 
-| Field        | Type    | Description                                                                         |
-| ------------ | ------- | ----------------------------------------------------------------------------------- |
-| id           | string  | id of the connection account                                                        |
-| name         | string  | the username of the connection account                                              |
-| type         | string  | the service of the connection (twitch, youtube)                                     |
-| revoked      | boolean | whether the connection is revoked                                                   |
-| integrations | array   | an array of partial [server integrations](#DOCS_RESOURCES_GUILD/integration-object) |
+| Field         | Type    | Description                                                                         |
+| ------------- | ------- | ----------------------------------------------------------------------------------- |
+| id            | string  | id of the connection account                                                        |
+| name          | string  | the username of the connection account                                              |
+| type          | string  | the service of the connection (twitch, youtube)                                     |
+| revoked       | boolean | whether the connection is revoked                                                   |
+| integrations  | array   | an array of partial [server integrations](#DOCS_RESOURCES_GUILD/integration-object) |
+| verified      | boolean | whether the connection is verified                                                  |
+| friend_sync   | boolean | whether friend sync is enabled for this connection                                  |
+| show_activity | boolean | whether activities related to this connection will be shown in presence updates     |
+| visibility    | integer | [visibility](#DOCS_RESOURCES_USER/user-object-visibility-types) of this connection  |
+
+###### Visibility Types
+
+| Value | Name     | Description                                      |
+| ----- | -------- | ------------------------------------------------ |
+| 0     | None     | invisible to everyone except the user themselves |
+| 1     | Everyone | visible to everyone                              |
 
 ## Get Current User % GET /users/@me
 
