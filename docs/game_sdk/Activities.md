@@ -31,7 +31,7 @@ For more detailed information and documentation around the Rich Presence feature
 | Assets        | ActivityAssets     | assets to display on the player's profile                       |
 | Party         | ActivityParty      | information about the player's party                            |
 | Secrets       | ActivitySecrets    | secret passwords for joining and spectating the player's game   |
-| Instance      | bool               | whether this activity is an instanced context, like a match     |
+| Instance      | bool               | [deprecated Notify Me feature, may be re-used in future]        |
 
 ###### ActivityTimestamps Struct
 
@@ -65,11 +65,11 @@ For more detailed information and documentation around the Rich Presence feature
 
 ###### ActivitySecrets Struct
 
-| name     | type   | description                                  |
-| -------- | ------ | -------------------------------------------- |
-| Match    | string | unique hash for the given match context      |
-| Join     | string | unique hash for chat invites and Ask to Join |
-| Spectate | string | unique hash for Spectate button              |
+| name     | type   | description                                                   |
+| -------- | ------ | ------------------------------------------------------------- |
+| Match    | string | [deprecated Notify Me feature, may be re-used in future]      |
+| Join     | string | unique hash for chat invites and Ask to Join                  |
+| Spectate | string | unique hash for Spectate button                               |
 
 ###### ActivityType Enum
 
@@ -197,11 +197,9 @@ var activity = new Discord.Activity
   },
   Secrets =
   {
-      Match = "foo matchSecret",
       Join = "foo joinSecret",
       Spectate = "foo spectateSecret",
-  },
-  Instance = true,
+  }
 };
 
 activityManager.UpdateActivity(activity, (result) =>
@@ -449,6 +447,7 @@ Fires when a user accepts a spectate chat invite or clicks the Spectate button o
 activityManager.OnActivitySpectate += secret =>
 {
     Console.WriteLine("OnSpectate {0}", secret);
+    //Do Spectate Flow Code here!
 };
 ```
 
@@ -507,7 +506,7 @@ var discord = new Discord.Discord(clientId, Discord.CreateFlags.Default);
 // Party and secrets are vital.
 var activity = new Discord.Activity
 {
-  State = "olleh",
+  State = "foo State",
   Details = "foo details",
   Timestamps =
   {
@@ -531,11 +530,9 @@ var activity = new Discord.Activity
   },
   Secrets =
   {
-      Match = "foo matchSecret",
       Join = "foo joinSecret",
       Spectate = "foo spectateSecret",
-  },
-  Instance = true,
+  }
 };
 
 activityManager.UpdateActivity(activity, (result) =>
