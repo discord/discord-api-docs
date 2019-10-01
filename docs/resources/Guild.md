@@ -301,9 +301,10 @@ Modify a guild's settings. Requires the `MANAGE_GUILD` permission. Returns the u
 | explicit_content_filter       | integer   | [explicit content filter level](#DOCS_RESOURCES_GUILD/guild-object-explicit-content-filter-level)           |
 | afk_channel_id                | snowflake | id for afk channel                                                                                          |
 | afk_timeout                   | integer   | afk timeout in seconds                                                                                      |
-| icon                          | string    | base64 128x128 jpeg image for the guild icon                                                                |
+| icon                          | string    | base64 1024x1024 png/jpeg/gif image for the guild icon (can be animated gif when the server has `ANIMATED_ICON` feature)                                                               |
 | owner_id                      | snowflake | user id to transfer guild ownership to (must be owner)                                                      |
-| splash                        | string    | base64 128x128 jpeg image for the guild splash (VIP only)                                                   |
+| splash                        | string    | base64 16:9 png/jpeg image for the guild splash (when the server has `INVITE_SPLASH` feature)                                                   |
+| banner                        | string    | base64 16:9 png/jpeg image for the guild banner (when the server has `BANNER` feature)                                                   |
 | system_channel_id             | snowflake | the id of the channel to which system messages are sent                                                     |
 
 ## Delete Guild % DELETE /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}
