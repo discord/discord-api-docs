@@ -60,7 +60,6 @@ Represents a code that when used, adds a user to a guild or group DM channel.
 | max_age    | integer                                         | duration (in seconds) after which the invite expires |
 | temporary  | boolean                                         | whether this invite only grants temporary membership |
 | created_at | ISO8601 timestamp                               | when this invite was created                         |
-| revoked?   | boolean                                         | whether this invite is revoked                       |
 
 ###### Example Invite Metadata
 
@@ -71,8 +70,7 @@ Represents a code that when used, adds a user to a guild or group DM channel.
   "max_uses": 0,
   "max_age": 0,
   "temporary": false,
-  "created_at": "2016-03-31T19:15:39.954000+00:00",
-  "revoked": false
+  "created_at": "2016-03-31T19:15:39.954000+00:00"
 }
 ```
 
