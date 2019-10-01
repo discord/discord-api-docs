@@ -177,7 +177,7 @@ A partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object. Represents an Offl
 | nick?         | string                                          | this users guild nickname (if one is set)                        |
 | roles         | array of snowflakes                             | array of [role](#DOCS_TOPICS_PERMISSIONS/role-object) object ids |
 | joined_at     | ISO8601 timestamp                               | when the user joined the guild                                   |
-| premium_since | ?ISO8601 timestamp                              | when the user used their Nitro boost on the server               |
+| premium_since? | ?ISO8601 timestamp                              | when the user used their Nitro boost on the server               |
 | deaf          | boolean                                         | whether the user is deafened in voice channels                   |
 | mute          | boolean                                         | whether the user is muted in voice channels                      |
 
