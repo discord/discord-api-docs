@@ -146,10 +146,10 @@ typedef struct DiscordRichPresence {
 | partyId        | char\*   | id of the player's party, lobby, or group                                  | "ae488379-351d-4a4f-ad32-2b9b01c91657"                     |
 | partySize      | int      | current size of the player's party, lobby, or group                        | 1                                                          |
 | partyMax       | int      | maximum size of the player's party, lobby, or group                        | 5                                                          |
-| matchSecret    | char\*   | [deprecated Notify Me feature, may be re-used in future]                   | MmhuZToxMjMxMjM6cWl3amR3MWlqZA==                           |
+| matchSecret    | char\*   | (for future use) unique hashed string for a player's match                 | MmhuZToxMjMxMjM6cWl3amR3MWlqZA==                           |
 | spectateSecret | char\*   | unique hashed string for Spectate button                                   | MTIzNDV8MTIzNDV8MTMyNDU0                                   |
 | joinSecret     | char\*   | unique hashed string for chat invitations and Ask to Join                  | MTI4NzM0OjFpMmhuZToxMjMxMjM=                               |
-| instance       | int8_t   | [deprecated Notify Me feature, may be re-used in future]                   | 1                                                          |
+| instance       | int8_t   | (for future use) integer representing a boolean for if the player is in an instance (an in-progress match) | 1                                                          |
 
 > info
 > Sending `endTimestamp` will **always** have the time displayed as "remaining" until the given time. Sending `startTimestamp` will show "elapsed" as long as there is no `endTimestamp` sent.
