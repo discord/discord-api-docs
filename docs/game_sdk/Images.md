@@ -30,7 +30,7 @@ Discord is like a book; it's better with pictures. The image manager helps you f
 
 ## Fetch
 
-Prepare's an image to later retrieve data about it.
+Prepares an image to later retrieve data about it.
 
 Returns a `Discord.Result` and `Discord.ImageHandle` via callback.
 
