@@ -96,11 +96,11 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 | Feature       | Description                                                                     |
 | ------------- | ------------------------------------------------------------------------------- |
 | INVITE_SPLASH | guild has access to set an invite splash background                             |
-| VIP_REGIONS   | guild has access to set 320kbps bitrate in voice (previously VIP voice servers) |
+| VIP_REGIONS   | guild has access to set 384kbps bitrate in voice (previously VIP voice servers) |
 | VANITY_URL    | guild has access to set a vanity URL                                            |
 | VERIFIED      | guild is verified                                                               |
 | PARTNERED     | guild is partnered                                                              |
-| LURKABLE      | guild is lurkable                                                               |
+| PUBLIC        | guild is public                                                               |
 | COMMERCE      | guild has access to use commerce features (i.e. create store channels)          |
 | NEWS          | guild has access to create news channels                                        |
 | DISCOVERABLE  | guild is able to be discovered in the directory                                 |
@@ -177,7 +177,7 @@ A partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object. Represents an Offl
 | nick?         | string                                          | this users guild nickname (if one is set)                        |
 | roles         | array of snowflakes                             | array of [role](#DOCS_TOPICS_PERMISSIONS/role-object) object ids |
 | joined_at     | ISO8601 timestamp                               | when the user joined the guild                                   |
-| premium_since | ?ISO8601 timestamp                              | when the user used their Nitro boost on the server               |
+| premium_since? | ?ISO8601 timestamp                              | when the user used their Nitro boost on the server               |
 | deaf          | boolean                                         | whether the user is deafened in voice channels                   |
 | mute          | boolean                                         | whether the user is muted in voice channels                      |
 
@@ -301,9 +301,10 @@ Modify a guild's settings. Requires the `MANAGE_GUILD` permission. Returns the u
 | explicit_content_filter       | integer   | [explicit content filter level](#DOCS_RESOURCES_GUILD/guild-object-explicit-content-filter-level)           |
 | afk_channel_id                | snowflake | id for afk channel                                                                                          |
 | afk_timeout                   | integer   | afk timeout in seconds                                                                                      |
-| icon                          | string    | base64 128x128 jpeg image for the guild icon                                                                |
+| icon                          | string    | base64 1024x1024 png/jpeg/gif image for the guild icon (can be animated gif when the server has `ANIMATED_ICON` feature)                                                               |
 | owner_id                      | snowflake | user id to transfer guild ownership to (must be owner)                                                      |
-| splash                        | string    | base64 128x128 jpeg image for the guild splash (VIP only)                                                   |
+| splash                        | string    | base64 16:9 png/jpeg image for the guild splash (when the server has `INVITE_SPLASH` feature)                                                   |
+| banner                        | string    | base64 16:9 png/jpeg image for the guild banner (when the server has `BANNER` feature)                                                   |
 | system_channel_id             | snowflake | the id of the channel to which system messages are sent                                                     |
 
 ## Delete Guild % DELETE /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}

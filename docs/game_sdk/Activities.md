@@ -289,7 +289,8 @@ Returns a `Discord.Result` via callback.
 ###### Example
 
 ```cs
-activityManager.InviteUser(53908232506183689, Discord.ActivityActionType.Join, "Come play!", (result) =>
+var userId = 53908232506183680;
+activityManager.SendInvite(userId, Discord.ActivityActionType.Join, "Come play!", (result) =>
 {
     if (result == Discord.Result.Ok)
     {
@@ -340,6 +341,96 @@ Fires when a user accepts a game chat invite or receives confirmation from Askin
 | ---------- | ------ | ---------------------------------- |
 | joinSecret | string | the secret to join the user's game |
 
+
+###### Example
+
+```cs
+// Received when someone accepts a request to join or invite.
+// Use secrets to receive back the information needed to add the user to the group/party/match
+activityManager.OnActivityJoin += secret => {
+    Console.WriteLine("OnJoin {0}", secret);
+    lobbyManager.ConnectLobbyWithActivitySecret(secret, (Discord.Result result, ref Discord.Lobby lobby) =>
+    {
+        Console.WriteLine("Connected to lobby: {0}", lobby.Id);
+        // Connect to voice chat, used in this case to actually know in overlay if your successful in connecting.
+        lobbyManager.ConnectVoice(lobby.Id, (Discord.Result voiceResult) => {
+
+            if (voiceResult == Discord.Result.Ok)
+            {
+                Console.WriteLine("New User Connected to Voice! Say Hello! Result: {0}", voiceResult);
+            }
+            else
+            {
+                Console.WriteLine("Failed with Result: {0}", voiceResult);
+            };
+        });
+		//Connect to given lobby with lobby Id
+        lobbyManager.ConnectNetwork(lobby.Id);
+        lobbyManager.OpenNetworkChannel(lobby.Id, 0, true);
+        foreach (var user in lobbyManager.GetMemberUsers(lobby.Id))
+        {
+			//Send a hello message to everyone in the lobby
+            lobbyManager.SendNetworkMessage(lobby.Id, user.Id, 0,
+                Encoding.UTF8.GetBytes(String.Format("Hello, {0}!", user.Username)));
+        }
+		//Sends this off to a Activity callback named here as 'UpdateActivity' passing in the discord instance details and lobby details
+        UpdateActivity(discord, lobby);
+    });
+};
+
+void UpdateActivity(Discord.Discord discord, Discord.Lobby lobby)
+    {
+    	//Creates a Static String for Spectate Secret.
+        string discordSpectateSecret = "wdn3kvj320r8vk3"; 
+        spectateActivitySecret = discordSpectateSecret;
+        var activity = new Discord.Activity
+        {
+            State = "Playing Co-Op",
+            Details = "In a Multiplayer Match!",
+            Timestamps =
+            {
+                Start = startTimeStamp,
+            },
+            Assets =
+            {
+                LargeImage = "matchimage1",
+                LargeText = "Inside the Arena!",
+            },
+            Party = {
+                Id = lobby.Id.ToString(),
+                Size = {
+                    CurrentSize = lobbyManager.MemberCount(lobby.Id),
+                    MaxSize = (int)lobby.Capacity,
+                },
+            },
+            Secrets = {
+                Spectate = spectateActivitySecret,
+                Join = joinActivitySecret,
+            },
+            Instance = true,
+        };
+
+        activityManager.UpdateActivity(activity, result =>
+        {
+            Debug.LogFormat("Updated to Multiplayer Activity: {0}", result);
+
+            // Send an invite to another user for this activity.
+            // Receiver should see an invite in their DM.
+            // Use a relationship user's ID for this.
+            // activityManager
+            //   .SendInvite(
+            //       364843917537050624,
+            //       Discord.ActivityActionType.Join,
+            //       "",
+            //       inviteResult =>
+            //       {
+            //           Console.WriteLine("Invite {0}", inviteResult);
+            //       }
+            //   );
+        });
+    }
+```
+
 ## OnActivitySpectate
 
 Fires when a user accepts a spectate chat invite or clicks the Spectate button on a user's profile.
@@ -350,6 +441,17 @@ Fires when a user accepts a spectate chat invite or clicks the Spectate button o
 | -------------- | ------ | ------------------------------------------------- |
 | spectateSecret | string | the secret to join the user's game as a spectator |
 
+
+###### Example
+
+```cs
+// Received when someone accepts a request to spectate
+activityManager.OnActivitySpectate += secret =>
+{
+    Console.WriteLine("OnSpectate {0}", secret);
+};
+```
+
 ## OnActivityJoinRequest
 
 Fires when a user asks to join the current user's game.
@@ -359,6 +461,16 @@ Fires when a user asks to join the current user's game.
 | name | type | description             |
 | ---- | ---- | ----------------------- |
 | user | User | the user asking to join |
+
+###### Example
+
+```cs
+// A join request has been received. Render the request on the UI.
+activityManager.OnActivityJoinRequest += (ref Discord.User user) =>
+{
+    Console.WriteLine("OnJoinRequest {0} {1}", user.Username, user.Id);
+};
+```
 
 ## OnActivityInvite
 
@@ -371,6 +483,20 @@ Fires when the user receives a join or spectate invite.
 | type     | ActivityActiontype | whether this invite is to join or spectate |
 | user     | User               | the user sending the invite                |
 | activity | Activity           | the inviting user's current activity       |
+
+###### Example
+
+```cs
+// An invite has been received. Consider rendering the user / activity on the UI.
+activityManager.OnActivityInvite += (Discord.ActivityActionType Type, ref Discord.User user, ref Discord.Activity activity2) =>
+{
+      Console.WriteLine("Recieved Invite Type: {0}, from User: {1}, with Activity Name: {2}", Type, user.Username, activity2.Name);
+      // activityManager.AcceptInvite(user.Id, result =>
+      // {
+      //     Console.WriteLine("AcceptInvite {0}", result);
+      // });
+};
+```
 
 ## Example: Inviting a User to a Game
 
@@ -419,7 +545,7 @@ activityManager.UpdateActivity(activity, (result) =>
     // Send an invite to another user for this activity.
     // Receiver should see an invite in their DM.
     // Use a relationship user's ID for this.
-    activityManager.InviteUser(364843917537050999, Discord.ActivityActionType.Join, "", (inviteUserResult) =>
+    activityManager.SendInvite(364843917537050999, Discord.ActivityActionType.Join, "", (inviteUserResult) =>
     {
         Console.WriteLine("Invite User {0}", inviteUserResult);
     });
