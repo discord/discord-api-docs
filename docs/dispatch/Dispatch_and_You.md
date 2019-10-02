@@ -20,6 +20,6 @@ Let's get you pointed in the right direction; follow this little Table of Conten
 
 ## Community Resources
 
-| name                                                                  |
-| --------------------------------------------------------------------- |
-| [Droop's Dispatch](https://github.com/JohnyTheCarrot/droops-dispatch) |
+| name                                                                  | description |
+| --------------------------------------------------------------------- | ----------- |
+| [Droop's Dispatch](https://github.com/JohnyTheCarrot/droops-dispatch) | An open-source CLI to simplify Dispatch commands and fire webhooks upon updating the game.
