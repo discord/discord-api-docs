@@ -214,10 +214,10 @@ The following flags can be used as a bitwise mask. For example `0x5` would be pr
 
 | Flag       | Meaning                                                        | Binary |
 | ---------- | -------------------------------------------------------------- | ------ |
-| Voice      | Normal transmittion of audio                                   | 0x1    |
+| Voice      | Normal transmission of audio                                   | 0x1    |
 | Soundshare | Transmittion of context audio for video, no speaking indicator | 0x2    |
 | Priority   | Priority speaker, lowering audio of other speakers             | 0x4    |
-| Off        | No audio transmittion                                          | 0x0    |
+| Off        | No audio transmission                                          | 0x0    |
 
 ###### Example Speaking Payload
 
