@@ -121,7 +121,7 @@ If you want to hook up joining and spectating for your games, there are certain 
 
 ## RegisterCommand
 
-Registers a command by which Discord can launch your game. This might be a custom protocol, like `my-awesome-game://`, or a path to an executable. It also supports any lauch parameters that may be needed, like `game.exe --full-screen --no-hax`.
+Registers a command by which Discord can launch your game. This might be a custom protocol, like `my-awesome-game://`, or a path to an executable. It also supports any launch parameters that may be needed, like `game.exe --full-screen --no-hax`.
 
 On macOS, due to the way Discord registers executables, your game needs to be bundled for this command to work. That means it should be a `.app`.
 
@@ -249,7 +249,7 @@ Sends a reply to an Ask to Join request.
 
 Returns a `Discord.Result` via callback.
 
-###### Paramerters
+###### Parameters
 
 | name   | type                     | description                                 |
 | ------ | ------------------------ | ------------------------------------------- |
@@ -381,7 +381,7 @@ activityManager.OnActivityJoin += secret => {
 void UpdateActivity(Discord.Discord discord, Discord.Lobby lobby)
     {
     	//Creates a Static String for Spectate Secret.
-        string discordSpectateSecret = "wdn3kvj320r8vk3"; 
+        string discordSpectateSecret = "wdn3kvj320r8vk3";
         spectateActivitySecret = discordSpectateSecret;
         var activity = new Discord.Activity
         {

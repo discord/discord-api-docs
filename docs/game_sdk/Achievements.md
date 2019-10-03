@@ -300,7 +300,7 @@ Updates the achievement for **\_\_ALL USERS\_\_**. This is **NOT** to update a s
 | name       | type      | description                             |
 | ---------- | --------- | --------------------------------------- |
 | name       | string    | the name of the achievement             |
-| descrition | string    | the user-facing achievement description |
+| description| string    | the user-facing achievement description |
 | secret     | bool      | if the achievement is secret            |
 | secure     | bool      | if the achievement is secure            |
 | icon       | ImageType | the icon for the achievement            |
