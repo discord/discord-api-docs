@@ -127,7 +127,7 @@ lobbyManager.OnMemberUpdate += (lobbyId, userId) =>
   // Metadata is stored as a string, so we need to make it an integer for OpenChannel
   var peerId = System.Convert.ToUInt64(rawPeerId);
   var newRoute = lobbyManager.GetMemberMetadataValue(lobbyId, userId, "metadata.route");
-  networkManger.UpdatePeer(peerId, newRoute);
+  networkManager.UpdatePeer(peerId, newRoute);
 }
 ```
 
@@ -313,7 +313,7 @@ lobbyManager.OnMemberUpdate += (lobbyId, userId) =>
   // Metadata is stored as a string, so we need to make it an integer for OpenChannel
   var peerId = System.Convert.ToUInt64(rawPeerId);
   var newRoute = lobbyManager.GetMemberMetadataValue(lobbyId, userId, "metadata.route");
-  lobbyManger.UpdatePeer(peerId, newRoute);
+  lobbyManager.UpdatePeer(peerId, newRoute);
 }
 
 // Connect to lobby with an id of 12345 and a secret of "password"
