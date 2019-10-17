@@ -1,8 +1,8 @@
 # Gateways
 
-Gateways are Discord's form of real-time communication over secure websockets. Clients will receive events and data over the gateway they are connected to and send data over the REST API. The API for interacting with Gateways is complex and fairly unforgiving, therefore it's highly recommended you read _all_ of the following documentation before writing a custom implementation.
+Gateways are Discord's form of real-time communication over secure WebSockets. Clients will receive events and data over the gateway they are connected to and send data over the REST API. The API for interacting with Gateways is complex and fairly unforgiving, therefore it's highly recommended you read _all_ of the following documentation before writing a custom implementation.
 
-The Discord Gateway has a versioning system which is separate from the core APIs. The documentation herein is only for the latest version in the following table, unless otherwise specified.
+The Discord Gateway has a versioning system that is separate from the core APIs. The documentation herein is only for the latest version in the following table, unless otherwise specified.
 
 Important note: Not all event fields are documented, in particular, fields prefixed with an underscore are considered _internal fields_ and should not be relied on. We may change the format at any time.
 
@@ -195,7 +195,7 @@ Presence and typing events get dispatched from guilds that your bot is a member 
 
 ## Guild Availability
 
-When connecting to the gateway as a bot user, guilds that the bot is a part of start out as unavailable. Don't fret! The gateway will automatically attempt to reconnect on your behalf. As guilds become available to you, you will receive [Guild Create](#DOCS_TOPICS_GATEWAY/guild-create) events.
+When connecting to the gateway as a bot user, guilds that the bot is a part of will start out as unavailable. Don't fret! The gateway will automatically attempt to reconnect on your behalf. As guilds become available to you, you will receive [Guild Create](#DOCS_TOPICS_GATEWAY/guild-create) events.
 
 ## Sharding
 
@@ -278,7 +278,7 @@ Events are payloads sent over the socket to a client that correspond to events i
 
 ### Event Names
 
-Event names are in standard constant form, fully upper-cased and replacing all spaces with underscores. For instance, [Channel Create](#DOCS_TOPICS_GATEWAY/channel-create) would be `CHANNEL_CREATE` and [Voice State Update](#DOCS_TOPICS_GATEWAY/voice-state-update) would be `VOICE_STATE_UPDATE`. Within the following documentation they have been left in standard English form to aid in readability.
+Event names are in standard constant form, fully upper-cased and replacing all spaces with underscores. For instance, [Channel Create](#DOCS_TOPICS_GATEWAY/channel-create) would be `CHANNEL_CREATE` and [Voice State Update](#DOCS_TOPICS_GATEWAY/voice-state-update) would be `VOICE_STATE_UPDATE`. Within the following documentation, they have been left in standard English form to aid in readability.
 
 #### Identify
 
