@@ -2,7 +2,7 @@
 
 Gateways are Discord's form of real-time communication over secure WebSockets. Clients will receive events and data over the gateway they are connected to and send data over the REST API. The API for interacting with Gateways is complex and fairly unforgiving, therefore it's highly recommended you read _all_ of the following documentation before writing a custom implementation.
 
-The Discord Gateway has a versioning system that is separate from the core APIs. The documentation herein is only for the latest version in the following table, unless otherwise specified.
+The Discord Gateway has a versioning system separate from that which the HTTP API uses. The documentation herein is only for the latest version in the following table, unless otherwise specified.
 
 Important note: Not all event fields are documented, in particular, fields prefixed with an underscore are considered _internal fields_ and should not be relied on. We may change the format at any time.
 
