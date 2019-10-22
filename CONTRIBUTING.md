@@ -11,4 +11,4 @@
 2. Modifications to the overall structure and format of the API docs.
 3. Additions that replicate or needlessly restructure current documentation.
 
-By submitting pull requests to this repository, you waive any rights or ownership of the included contents to Discord. Contributions to this repository must conform to the [Discord App TOS](https://discordapp.com/tos).
+By submitting pull requests to this repository, you waive any rights or ownership of the included contents to Discord. Contributions to this repository must conform to the [Discord App TOS](https://discordapp.com/terms).
