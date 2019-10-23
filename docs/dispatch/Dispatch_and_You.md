@@ -17,9 +17,5 @@ Let's get you pointed in the right direction; follow this little Table of Conten
 > info
 > To use Dispatch, you will need an application id for your game. You should have gotten this id when you set yourself up to use the Discord GameSDK, but if not, ask a Discord team member to create an application for you and get you the id.
 
-
-## Community Resources
-
-| name                                                                  | description |
-| --------------------------------------------------------------------- | ----------- |
-| [Droop's Dispatch](https://github.com/JohnyTheCarrot/droops-dispatch) | An open-source CLI to simplify Dispatch commands and fire webhooks upon updating the game.
+> info
+> Hey, some cool community folks have made unofficial tools around dispatch, check them out [here](#DOCS_TOPICS_COMMUNITY_RESOURCES).
