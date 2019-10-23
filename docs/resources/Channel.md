@@ -481,8 +481,6 @@ Represents a message sent in a channel within Discord.
 | type     | integer   | the [type of channel](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types) |
 | name     | string    | the name of the channel                                                     |
 
-=======
-
 ## Embed Limits
 
 To facilitate showing rich content, rich embeds do not follow the traditional limits of message content. However, some limits are still in place to prevent excessively large embeds. The following table describes the limits:

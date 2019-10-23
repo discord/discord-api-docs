@@ -215,7 +215,7 @@ lobbyManager.UpdateLobby(lobbyId, txn, (Discord.Result result, ref Discord.Lobby
 
 ## LobbyTransaction.DeleteMetadata
 
-Delete's the lobby metadata for a key.
+Deletes the lobby metadata for a key.
 
 Returns `void`.
 
@@ -1312,14 +1312,14 @@ OK so this wasn't really a code example, but I think you get how this works.
 
 ## The API Way
 
-Below are the API endpoints and the parameters they accept. If you choose to interface directly with the Discord API, you will need a "Bot token". This is a special authorization token with which your application can access Discord's HTTP API. Head on over to [your app's dashboard](https://discordapp.com/developers/), and hit the big "Add a Bot User" button. From there, mutter _abra kadabra_ and reaveal the token. This token is used as an authorization header against our API like so:
+Below are the API endpoints and the parameters they accept. If you choose to interface directly with the Discord API, you will need a "Bot token". This is a special authorization token with which your application can access Discord's HTTP API. Head on over to [your app's dashboard](https://discordapp.com/developers/), and hit the big "Add a Bot User" button. From there, mutter _abra kadabra_ and reveal the token. This token is used as an authorization header against our API like so:
 
 ```
 curl -x POST -h "Authorization: Bot <your token>" https://discordapp.com/api/some-route/that-does-a-thing
 ```
 
 > info
-> Make sure to preprend your token with "Bot"!
+> Make sure to prepend your token with "Bot"!
 
 Here are the routes; they all expect JSON bodies. Also, hey, while you're here. You've got a bot token. You're looking at our API. You should check out all the other [awesome stuff](https://discordapp.com/developers/docs/intro) you can do with it!
 

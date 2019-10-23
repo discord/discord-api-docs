@@ -3,7 +3,7 @@
 > info
 > Need help with the SDK? Talk to us in the [Discord GameSDK Server](https://discord.gg/discord-gamesdk)!
 
-A note before starting: this documentation covers the "low layer" networking level of the Discord GameSDK. What that means is that using the network manager directly affords you the flexbility to update routes, open channels, and handle events directly emitted by the SDK. If you're looking for something a bit easier and faster to integrate, we recommend that you check out the networking wrapper around our lobby documentation: [Integrated Networking](#DOCS_GAME_SDK_LOBBIES/integrated-networking)
+A note before starting: this documentation covers the "low layer" networking level of the Discord GameSDK. What that means is that using the network manager directly affords you the flexibility to update routes, open channels, and handle events directly emitted by the SDK. If you're looking for something a bit easier and faster to integrate, we recommend that you check out the networking wrapper around our lobby documentation: [Integrated Networking](#DOCS_GAME_SDK_LOBBIES/integrated-networking)
 
 Need a networking layer? Have a networking layer! This manager handles all things packets so you can get data from player to player and make your multiplayer...work. It:
 
@@ -127,7 +127,7 @@ lobbyManager.OnMemberUpdate += (lobbyId, userId) =>
   // Metadata is stored as a string, so we need to make it an integer for OpenChannel
   var peerId = System.Convert.ToUInt64(rawPeerId);
   var newRoute = lobbyManager.GetMemberMetadataValue(lobbyId, userId, "metadata.route");
-  networkManger.UpdatePeer(peerId, newRoute);
+  networkManager.UpdatePeer(peerId, newRoute);
 }
 ```
 
@@ -313,7 +313,7 @@ lobbyManager.OnMemberUpdate += (lobbyId, userId) =>
   // Metadata is stored as a string, so we need to make it an integer for OpenChannel
   var peerId = System.Convert.ToUInt64(rawPeerId);
   var newRoute = lobbyManager.GetMemberMetadataValue(lobbyId, userId, "metadata.route");
-  lobbyManger.UpdatePeer(peerId, newRoute);
+  lobbyManager.UpdatePeer(peerId, newRoute);
 }
 
 // Connect to lobby with an id of 12345 and a secret of "password"
