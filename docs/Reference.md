@@ -1,6 +1,6 @@
 # API Reference
 
-Discord's API is based around two core layers, a HTTPS/REST API for general operations, and persistent secure websocket based connection for sending and subscribing to real-time events. The most common use case of the Discord API will be providing a service, or access to a platform through the [OAuth2](http://oauth.net/2/) API.
+Discord's API is based around two core layers, a HTTPS/REST API for general operations, and persistent secure WebSocket based connection for sending and subscribing to real-time events. The most common use case of the Discord API will be providing a service, or access to a platform through the [OAuth2](http://oauth.net/2/) API.
 
 ###### Base URL
 
@@ -13,7 +13,7 @@ https://discordapp.com/api
 > danger
 > Some API and Gateway versions are now non-functioning, and are labeled as discontinued in the table below for posterity. Trying to use these versions will fail and return 400 Bad Request.
 
-Discord exposes different versions of our API. You can specify version by including it in the request path like `https://discordapp.com/api/v{version_number}`. Omitting the version number from the route will route requests to the current default version (marked below accordingly). You can find the change log for the newest API version [here](https://discordapp.com/developers/docs/change-log).
+Discord exposes different versions of our API. You can specify which version to use by including it in the request path like `https://discordapp.com/api/v{version_number}`. Omitting the version number from the route will route requests to the current default version (marked below accordingly). You can find the change log for the newest API version [here](https://discordapp.com/developers/docs/change-log).
 
 ###### API Versions
 
@@ -47,7 +47,7 @@ Authorization: Bearer CZhtkLDpNYXgPH9Ml6shqh2OwykChw
 
 ## Encryption
 
-All HTTP-layer services and protocols (e.g. http, websocket) within the Discord API use TLS 1.2.
+All HTTP-layer services and protocols (e.g. HTTP, WebSocket) within the Discord API are using TLS 1.2.
 
 ## Snowflakes
 
@@ -89,7 +89,7 @@ timestamp_ms - DISCORD_EPOCH << 22
 
 There are some cases in which our API and Gateway may return IDs in an unexpected format. Internally, Discord stores IDs as integer snowflakes. When we serialize IDs to JSON, we transform `bigints` into strings. Given that all Discord IDs are snowflakes, you should always expect a string.
 
-However, there are cases in which passing something to our API will instead return you IDs serialized as an integer; this is the case when you send our API or Gateway a value in an `id` field that is not `bigint` size. For example, when requesting `GUILD_MEMBERS_CHUNK` from our gateway:
+However, there are cases in which passing something to our API will instead return IDs serialized as an integer; this is the case when you send our API or Gateway a value in an `id` field that is not `bigint` size. For example, when requesting `GUILD_MEMBERS_CHUNK` from our gateway:
 
 ```
 // Send
@@ -137,7 +137,7 @@ Discord operates at a scale where true consistency is impossible. Because of thi
 - Be sent _exactly_ one time to the client
 - Be sent up to N times per client
 
-Clients should operate on events and results from the API in as much of a idempotent behavior as possible.
+Clients should operate on events and results from the API in as much of an idempotent behavior as possible.
 
 ## HTTP API
 
