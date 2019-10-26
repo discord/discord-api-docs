@@ -799,7 +799,8 @@ Active sessions are indicated with an "online", "idle", or "dnd" string per plat
 | timestamps?     | [timestamps](#DOCS_TOPICS_GATEWAY/activity-object-activity-timestamps) object | unix timestamps for start and/or end of the game                                                                          |
 | application_id? | snowflake                                                                     | application id for the game                                                                                               |
 | details?        | ?string                                                                       | what the player is currently doing                                                                                        |
-| state?          | ?string                                                                       | the user's current party status                                                                                           |
+| state?          | ?string                                                                       | the user's current party status or custom status text                                                                     |
+| emoji?          | ?[emoji]#DOCS_TOPIC_GATEWAY/activity-object-activity-emoji) object            | the emoji used for a custom status                                                                                        |
 | party?          | [party](#DOCS_TOPICS_GATEWAY/activity-object-activity-party) object           | information for the current party of the player                                                                           |
 | assets?         | [assets](#DOCS_TOPICS_GATEWAY/activity-object-activity-assets) object         | images for the presence and their hover texts                                                                             |
 | secrets?        | [secrets](#DOCS_TOPICS_GATEWAY/activity-object-activity-secrets) object       | secrets for Rich Presence joining and spectating                                                                          |
@@ -816,6 +817,7 @@ Active sessions are indicated with an "online", "idle", or "dnd" string per plat
 | 0   | Game      | Playing {name}      | "Playing Rocket League"   |
 | 1   | Streaming | Streaming {name}    | "Streaming Rocket League" |
 | 2   | Listening | Listening to {name} | "Listening to Spotify"    |
+| 4   | Custom    | {emoji} {state}     | ":smiley: I am cool"      |
 
 > info
 > The streaming type currently only supports Twitch. Only `https://twitch.tv/` urls will work.
@@ -826,6 +828,14 @@ Active sessions are indicated with an "online", "idle", or "dnd" string per plat
 | ------ | ---- | -------------------------------------------------------- |
 | start? | int  | unix time (in milliseconds) of when the activity started |
 | end?   | int  | unix time (in milliseconds) of when the activity ends    |
+
+###### Activity Emoji
+
+| Field     | Type      | Descirption                    |
+| --------- | --------- | ------------------------------ |
+| name      | string    | the name of the emoji          |
+| id?       | snowflake | the id of the emoji            |
+| animated? | boolean   | whether this emoji is animated |
 
 ###### Activity Party
 
