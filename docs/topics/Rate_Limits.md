@@ -82,7 +82,7 @@ Note that the normal rate-limiting headers will be sent in this response. The ra
 
 ## More Precise Rate Limit Resets
 
-By default, the `X-RateLimit-Reset` and `X-RateLimit-Reset-After` returns a time rounded up to the nearest second. However, for more precise rate limit handling, you can now request `millisecond` level precision by using sending the `X-RateLimit-Precision` header and setting it to `millisecond`. This means that you will get a more precise response, rounded to the nearest millisecond.
+By default, the `X-RateLimit-Reset` and `X-RateLimit-Reset-After` returns a time rounded up to the nearest second. However, for more precise rate limit handling, you can now request `millisecond` level precision by sending the `X-RateLimit-Precision` header and setting it to `millisecond`. This means that you will get a more precise response, rounded to the nearest millisecond.
 
 ###### Example Responses
 
