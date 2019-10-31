@@ -831,7 +831,7 @@ Active sessions are indicated with an "online", "idle", or "dnd" string per plat
 
 ###### Activity Emoji
 
-| Field     | Type      | Descirption                    |
+| Field     | Type      | Description                    |
 | --------- | --------- | ------------------------------ |
 | name      | string    | the name of the emoji          |
 | id?       | snowflake | the id of the emoji            |
