@@ -210,14 +210,13 @@ Voice data sent to discord should be encoded with [Opus](https://www.opus-codec.
 
 To notify clients that you are speaking or have stopped speaking, send an [Opcode 5 Speaking](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice-opcodes) payload:
 
-The following flags can be used as a bitwise mask. For example `0x5` would be priority and voice.
+The following flags can be used as a bitwise mask. For example `5` would be priority and voice.
 
-| Flag       | Meaning                                                        | Binary |
+| Flag       | Meaning                                                        | Value  |
 | ---------- | -------------------------------------------------------------- | ------ |
-| Voice      | Normal transmission of audio                                   | 0x1    |
-| Soundshare | Transmission of context audio for video, no speaking indicator | 0x2    |
-| Priority   | Priority speaker, lowering audio of other speakers             | 0x4    |
-| Off        | No audio transmission                                          | 0x0    |
+| Microphone | Normal transmission of voice audio                             | 1 << 0 |
+| Soundshare | Transmission of context audio for video, no speaking indicator | 1 << 1 |
+| Priority   | Priority speaker, lowering audio of other speakers             | 1 << 2 |
 
 ###### Example Speaking Payload
 
