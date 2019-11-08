@@ -4,13 +4,14 @@ Voice connections operate in a similar fashion to the [Gateway](#DOCS_TOPICS_GAT
 
 ## Voice Gateway Versioning
 
-To ensure that you have the most up-to-date information, please use [version 3](#DOCS_RESOURCES_VOICE_CONNECTIONS/voice-gateway-versioning-gateway-versions). Otherwise, we cannot guarantee that the [Opcodes](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice-opcodes) documented here will reflect what you receive over the socket.
+To ensure that you have the most up-to-date information, please use [version 4](#DOCS_RESOURCES_VOICE_CONNECTIONS/voice-gateway-versioning-gateway-versions). Otherwise, we cannot guarantee that the [Opcodes](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice-opcodes) documented here will reflect what you receive over the socket.
 
 ###### Gateway Versions
 
 | Version | Status      | WebSocket URL Append |
 | ------- | ----------- | -------------------- |
-| 3       | recommended | ?v=3                 |
+| 4       | recommended | ?v=4                 |
+| 3       | available   | ?v=3                 |
 | 2       | available   | ?v=2                 |
 | 1       | default     | ?v=1 or omit         |
 
@@ -82,25 +83,25 @@ The voice server should respond with an [Opcode 2 Ready](#DOCS_TOPICS_OPCODES_AN
 
 ```json
 {
-  "op": 2,
-  "d": {
-    "ssrc": 1,
-    "ip": "127.0.0.1",
-    "port": 1234,
-    "modes": ["plain", "xsalsa20_poly1305"],
-    "heartbeat_interval": 1
-  }
+    "op": 2,
+    "d": {
+        "ssrc": 1,
+        "ip": "127.0.0.1",
+        "port": 1234,
+        "modes": ["xsalsa20_poly1305", "xsalsa20_poly1305_suffix", "xsalsa20_poly1305_lite"],
+        "heartbeat_interval": 1
+    }
 }
 ```
 
 > danger
-> `heartbeat_interval` here is an erroneous field and should be ignored. The correct heartbeat_interval value comes from the Hello payload.
+> `heartbeat_interval` here is an erroneous field and should be ignored. The correct `heartbeat_interval` value comes from the Hello payload.
 
 ## Heartbeating
 
 In order to maintain your websocket connection, you need to continuously send heartbeats at the interval determined in [Opcode 8 Hello](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice-opcodes):
 
-###### Example Hello Payload Below V3
+###### Example Hello Payload below V3
 
 ```json
 {
@@ -108,7 +109,7 @@ In order to maintain your websocket connection, you need to continuously send he
 }
 ```
 
-###### Example Hello Payload V3
+###### Example Hello Payload since V3
 
 ```json
 {
@@ -119,10 +120,7 @@ In order to maintain your websocket connection, you need to continuously send he
 }
 ```
 
-> danger
-> There is currently a bug in the Hello payload heartbeat interval. Until it is fixed, please take your heartbeat interval as `heartbeat_interval` \* .75. This warning will be removed and a changelog published when the bug is fixed.
-
-This is sent at the start of the connection. Be warned that the [Opcode 8 Hello](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice-opcodes) structure differs by gateway version as shown in the above examples. Versions below v3 do not have an opcode or a data field denoted by `d`. V3 is updated to be structured like other payloads. Be sure to expect this different format based on your version.
+This is sent at the start of the connection. Be warned that the [Opcode 8 Hello](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice-opcodes) structure differs by gateway version as shown in the above examples. Versions below v3 do not have an opcode or a data field denoted by `d`. V3 and above was updated to be structured like other payloads. Be sure to expect this different format based on your version.
 
 After receiving [Opcode 8 Hello](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice-opcodes), you should send [Opcode 3 Heartbeat](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice-opcodes)—which contains an integer nonce—every elapsed interval:
 
@@ -150,24 +148,32 @@ In return, you will be sent back an [Opcode 6 Heartbeat ACK](#DOCS_TOPICS_OPCODE
 
 Once we receive the properties of a UDP voice server from our [Opcode 2 Ready](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice-opcodes) payload, we can proceed to the final step of voice connections, which entails establishing and handshaking a UDP connection for voice data. First, we open a UDP connection to the IP and port provided in the Ready payload. If required, we can now perform an [IP Discovery](#DOCS_RESOURCES_VOICE_CONNECTIONS/ip-discovery) using this connection. Once we've fully discovered our external IP and UDP port, we can then tell the voice websocket what it is, and start receiving/sending data. We do this using [Opcode 1 Select Protocol](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice-opcodes):
 
-> warn
-> The plain mode is no longer supported. All data should be sent using a supported encryption method, right now only `xsalsa20_poly1305`.
-
 ###### Example Select Protocol Payload
 
 ```json
 {
-  "op": 1,
-  "d": {
-    "protocol": "udp",
-    "data": {
-      "address": "127.0.0.1",
-      "port": 1337,
-      "mode": "xsalsa20_poly1305"
+    "op": 1,
+    "d": {
+        "protocol": "udp",
+        "data": {
+            "address": "127.0.0.1",
+            "port": 1337,
+            "mode": "xsalsa20_poly1305_lite"
+        }
     }
-  }
 }
 ```
+
+###### Encryption Modes
+
+| Mode   | Key                      | Nonce Bytes                                                            | Generating Nonce                      |
+|--------|--------------------------|------------------------------------------------------------------------|---------------------------------------|
+| Normal | xsalsa20_poly1305        | The nonce bytes are the RTP header                                     | Copy the RTP header                   |
+| Suffix | xsalsa20_poly1305_suffix | The nonce bytes are 24 bytes appended to the payload of the RTP packet | Generate 24 random bytes              |
+| Lite   | xsalsa20_poly1305_lite   | The nonce bytes are 4 bytes appended to the payload of the RTP packet  | Incremental 4 bytes (32bit) int value |
+
+>warn
+>The nonce has to be stripped from the payload before encrypting and before decrypting the audio data
 
 Finally, the voice server will respond with a [Opcode 4 Session Description](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice-opcodes) that includes the `mode` and `secret_key`, a 32 byte array used for [encrypting and sending](#DOCS_RESOURCES_VOICE_CONNECTIONS/encrypting-and-sending-voice) voice data:
 
@@ -175,11 +181,11 @@ Finally, the voice server will respond with a [Opcode 4 Session Description](#DO
 
 ```json
 {
-	"op": 4,
-	"d": {
-		"mode": "xsalsa20_poly1305",
-		"secret_key": [ ...251, 100, 11...]
-	}
+    "op": 4,
+    "d": {
+        "mode": "xsalsa20_poly1305_lite",
+        "secret_key": [ ...251, 100, 11...]
+    }
 }
 ```
 
@@ -204,16 +210,24 @@ Voice data sent to discord should be encoded with [Opus](https://www.opus-codec.
 
 To notify clients that you are speaking or have stopped speaking, send an [Opcode 5 Speaking](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice-opcodes) payload:
 
+The following flags can be used as a bitwise mask. For example `5` would be priority and voice.
+
+| Flag       | Meaning                                                        | Value  |
+| ---------- | -------------------------------------------------------------- | ------ |
+| Microphone | Normal transmission of voice audio                             | 1 << 0 |
+| Soundshare | Transmission of context audio for video, no speaking indicator | 1 << 1 |
+| Priority   | Priority speaker, lowering audio of other speakers             | 1 << 2 |
+
 ###### Example Speaking Payload
 
 ```json
 {
-  "op": 5,
-  "d": {
-    "speaking": true,
-    "delay": 0,
-    "ssrc": 1
-  }
+    "op": 5,
+    "d": {
+        "speaking": 5,
+        "delay": 0,
+        "ssrc": 1
+    }
 }
 ```
 
