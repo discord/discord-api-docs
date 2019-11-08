@@ -166,11 +166,11 @@ Once we receive the properties of a UDP voice server from our [Opcode 2 Ready](#
 
 ###### Encryption Modes
 
-| Mode | Key | Nonce Bytes | Generating Nonce |
-|------|-----|-------------|------------------|
-| Normal | xsalsa20_poly1305 | The nonce bytes are the RTP header | Copy the RTP header |
-| Suffix | xsalsa20_poly1305_suffix | The nonce bytes are 24 bytes appended to the payload of the RTP packet | Generate 24 random bytes |
-| Lite | xsalsa20_poly1305_lite | The nonce bytes are 4 bytes appended to the payload of the RTP packet | Incremental 4 bytes (32bit) int value |
+| Mode   | Key                      | Nonce Bytes                                                            | Generating Nonce                      |
+|--------|--------------------------|------------------------------------------------------------------------|---------------------------------------|
+| Normal | xsalsa20_poly1305        | The nonce bytes are the RTP header                                     | Copy the RTP header                   |
+| Suffix | xsalsa20_poly1305_suffix | The nonce bytes are 24 bytes appended to the payload of the RTP packet | Generate 24 random bytes              |
+| Lite   | xsalsa20_poly1305_lite   | The nonce bytes are 4 bytes appended to the payload of the RTP packet  | Incremental 4 bytes (32bit) int value |
 
 >warn
 >The nonce has to be stripped from the payload before encrypting and before decrypting the audio data
