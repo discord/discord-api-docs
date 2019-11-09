@@ -582,7 +582,8 @@ Returns a partial [invite](#DOCS_RESOURCES_INVITE/invite-object) object for guil
 
 ```json
 {
-  "code": "abc"
+  "code": "abc",
+  "uses": 12
 }
 ```
 
