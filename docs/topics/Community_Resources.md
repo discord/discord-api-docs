@@ -41,6 +41,7 @@ Many of these libraries are represented in the [unofficial, community-driven Dis
 ## Dispatch Tools
 
 Using Discord's [Dispatch](#DOCS_DISPATCH_DISPATCH_AND_YOU) tool for game developers publishing on Discord can sometimes involve using the same long commands multiple times. The following open-source tool helps shorten these commands for you. It will also provide webhook support for when you're pushing an update.
+
 - [JohnyTheCarrot's Dispatch CLI](https://github.com/JohnyTheCarrot/droops-dispatch)
 
 ## Permission Calculators
