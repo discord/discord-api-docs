@@ -814,7 +814,7 @@ Active sessions are indicated with an "online", "idle", or "dnd" string per plat
 | ID  | Name      | Format              | Example                   |
 | --- | --------- | ------------------- | ------------------------- |
 | 0   | Game      | Playing {name}      | "Playing Rocket League"   |
-| 1   | Streaming | Streaming {name}    | "Streaming Rocket League" |
+| 1   | Streaming | Streaming {details} | "Streaming Rocket League" |
 | 2   | Listening | Listening to {name} | "Listening to Spotify"    |
 
 > info
