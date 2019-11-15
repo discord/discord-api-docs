@@ -38,6 +38,12 @@ Many of these libraries are represented in the [unofficial, community-driven Dis
 | [AckCord](https://github.com/Katrix/AckCord)                 | Scala      |
 | [Sword](https://github.com/Azoy/Sword)                       | Swift      |
 
+## Game SDK Tools
+
+Discord Game SDK's lobby and networking layer shares similarities with other gaming platforms (i.e. Valve's Steamworks SDK). The following open source library provides developers a uniform interface for these shared features and can simplify developing for multiple platforms. Note: this library is tailored for Unity3D development.
+
+- [HouraiNetworking](https://github.com/HouraiTeahouse/HouraiNetworking)
+
 ## Dispatch Tools
 
 Using Discord's [Dispatch](#DOCS_DISPATCH_DISPATCH_AND_YOU) tool for game developers publishing on Discord can sometimes involve using the same long commands multiple times. The following open-source tool helps shorten these commands for you. It will also provide webhook support for when you're pushing an update.
