@@ -10,7 +10,7 @@
 | Field           | Type                                                             | Description                                  |
 | --------------- | ---------------------------------------------------------------- | -------------------------------------------- |
 | id              | ?snowflake                                                       | [emoji id](#DOCS_REFERENCE/image-formatting) |
-| name            | string                                                           | emoji name                                   |
+| name            | ?string (can be null only in reaction emoji objects)             | emoji name                                   |
 | roles?          | array of [role](#DOCS_TOPICS_PERMISSIONS/role-object) object ids | roles this emoji is whitelisted to           |
 | user?           | [user](#DOCS_RESOURCES_USER/user-object) object                  | user that created this emoji                 |
 | require_colons? | boolean                                                          | whether this emoji must be wrapped in colons |
@@ -45,12 +45,26 @@
 }
 ```
 
-###### Gateway Reaction Custom Emoji Example
+###### Gateway Reaction Custom Emoji Examples
+
+>info
+>In `MESSAGE_REACTION_ADD` gateway events `animated` will be returned for animated emoji.
+
+>info
+>In `MESSAGE_REACTION_ADD` and `MESSAGE_REACTION_REMOVE` gateway events `name` may be `null` when custom emoji data is not available (for example, if it was deleted from the guild).
 
 ```json
 {
   "id": "41771983429993937",
-  "name": "LUL"
+  "name": "LUL",
+  "animated": true
+}
+```
+
+```json
+{
+  "id": "41771983429993937",
+  "name": null
 }
 ```
 
