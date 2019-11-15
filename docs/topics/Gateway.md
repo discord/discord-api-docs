@@ -818,7 +818,7 @@ Active sessions are indicated with an "online", "idle", or "dnd" string per plat
 | 2   | Listening | Listening to {name} | "Listening to Spotify"    |
 
 > info
-> The streaming type currently only supports Twitch. Only `https://twitch.tv/` urls will work.
+> The streaming type currently only supports Twitch and YouTube. Only `https://twitch.tv/` and `https://youtube.com/` urls will work.
 
 ###### Activity Timestamps
 
@@ -866,9 +866,11 @@ Active sessions are indicated with an "online", "idle", or "dnd" string per plat
 
 ```json
 {
-  "name": "Rocket League",
+  "details": "24H RL Stream for Charity",
+  "state": "Rocket League",
+  "name": "Twitch",
   "type": 1,
-  "url": "https://www.twitch.tv/123"
+  "url": "https://www.twitch.tv/discordapp"
 }
 ```
 
