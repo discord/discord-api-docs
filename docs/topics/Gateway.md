@@ -371,13 +371,13 @@ Used to request all members for a guild or a list of guilds. When initially conn
 
 ###### Guild Request Members Structure
 
-| Field      | Type                             | Description                                                                | Required                 |
-| ---------- | -------------------------------- | -------------------------------------------------------------------------- | ------------------------ |
-| guild_id   | snowflake or array of snowflakes | id of the guild(s) to get members for                                      | true                     |
-| query?     | string                           | string that username starts with, or an empty string to return all members | one of query or user_ids |
-| limit      | integer                          | maximum number of members to send or 0 to request all members matched      | true                     |
-| presences? | boolean                          | used to specify if we want the presences of the matched members            | false                    |
-| user_ids?  | snowflake or array of snowflakes | used to specify which users you wish to fetch                              | one of query or user_ids |
+| Field      | Type                             | Description                                                                                                                           | Required                   |
+| ---------- | -------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- | -------------------------- |
+| guild_id   | snowflake or array of snowflakes | id of the guild(s) to get members for                                                                                                 | true                       |
+| query?     | string                           | string that username starts with, or an empty string to return all members                                                            | one of query or user_ids   |
+| limit      | integer                          | maximum number of members to send matching the `query`; a limit of `0` can be used with an empty string `query` to return all members | true when specifying query |
+| presences? | boolean                          | used to specify if we want the presences of the matched members                                                                       | false                      |
+| user_ids?  | snowflake or array of snowflakes | used to specify which users you wish to fetch                                                                                         | one of query or user_ids   |
 
 ###### Guild Request Members
 
