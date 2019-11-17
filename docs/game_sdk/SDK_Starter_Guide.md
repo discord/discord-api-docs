@@ -1,5 +1,8 @@
 # SDK Starter Guide
 
+> info
+> Need help with the SDK? Talk to us in the [Discord GameSDK Server](https://discord.gg/discord-gamesdk)!
+
 Welcome to the Discord GameSDK! We're glad you made it. This SDK is here to solve all your problems, if your problems include finding an awesome SDK to help develop your game. Our SDK is like Clippy, if Clippy were built on a modern tech stack, talked less, and was an awesome game development SDK.
 
 ## Step 0 - Some Notes
@@ -32,7 +35,7 @@ Head over to our [developer site](https://discordapp.com/developers/) and create
 Now that your team is created, you'll want to make an application. To do so, click on "Applications" at the top of the page and create an application. Make sure you pick your newly-created team in the `Team` dropdown. You want your team to own the application; this unlocks store functionality! Now that your app is made, let's dive into some more setup.
 
 > warn
-> If you're integrated our SDK into an already-released game, there's a good chance that we may _already have_ an application in our database for your game! Reach out to our [Dev Support](https://discord.gg/devsupport) to learn more
+> If you're integrating our SDK into an already-released game, there's a good chance that we may _already have_ an application in our database for your game! Reach out to our [Dev Support](https://dis.gd/devsupport) to learn more
 
 First, we'll need to set an OAuth2 redirect URL. You can add `http://127.0.0.1` in there for now; this powers some behind-the-scenes stuff you don't need to worry about.
 
@@ -45,14 +48,24 @@ Now we're gonna start coding. Didn't think we'd get there so fast, did ya? _Thin
 - Open up that SDK zip that you downloaded.
 - Copy the contents of the `lib/` folder to `Assets/Plugins` in your Unity project
 - Copy the contents of the `csharp/` folder to `Assets/Plugins/DiscordGameSDK`
-- It's dangerous to go alone—take this small code block with you (to start)!
+
+From there, you'll be able to reference functions in the DLL within your scripts. A basic example of a script can be found [in this example repo](https://github.com/msciotti/discord-game-sdk-test-apps/tree/master/cs-examples/unity-examples/Assets). In this example, we attach our `DiscordController.cs` script to the Main Camera object of the default created scene. We then instantiate the SDK with:
 
 ```cs
-// Grab that Client ID from earlier
+/*
+    Grab that Client ID from earlier
+    Discord.CreateFlags.Default will require Discord to be running for the game to work
+    If Discord is not running, it will:
+    1. Close your game
+    2. Open Discord
+    3. Attempt to re-open your game
+    Step 3 will fail when running directly from the Unity editor
+    Therefore, always keep Discord running during tests, or use Discord.CreateFlags.NoRequireDiscord
+*/
 var discord = new Discord.Discord(CLIENT_ID, (UInt64)Discord.CreateFlags.Default);
 ```
 
-- Make sure to call `discord.RunCallbacks()` in your main game loop; for Unity, that's your `Update()` function.
+You're now free to use other functionality in the SDK! Make sure to call `discord.RunCallbacks()` in your main game loop; that's your `Update()` function.
 
 You're ready to go! Check out the rest of the documentation for more info on how to use the other pieces of the SDK. See an example of everything it can do in `examples/Program.cs` in the SDK zip file.
 
@@ -101,18 +114,86 @@ You're ready to go! Check out the rest of the documentation for more info on how
 
 ## Code Primer - Unreal Engine 4 (Cpp)
 
-- Open up that SDK zip that you downloaded.
-- Copy the contents of the `lib/` folder to the best location within your project for DLLs.
-- Copy the contents of the `cpp/` folder to your source directory
-- It's dangerous to go alone—take this small code block with you (to start)!
+Open up that SDK zip that you downloaded. There's a couple things in there that we care about. The first is the contents of the `cpp/` folder. These are our source files, including headers and `.cpp` file, that we'll need to reference in our build script. Second is the contents of the `lib/` folder. In this walkthrough we'll assume that we only care about win64, for ease of use.
+
+First, you'll want to copy the header files and `.cpp` files to a folder somewhere in your project directory. For ease of a quickstart example, you can put them right inside your `Source/your-project-name` folder; I'd put them in a containing folder called something like `discord-files/`.
+
+Second, you'll want to copy the `.dll` and `.lib` files from the `lib/x86_64` folder of the downloaded zip. These files should be put in `your-project-name/Binaries/Win64/`. For win32, take the files from `x86/` and put them, in `your-project-name/Binaries/Win32`.
+
+Next, we need to link these files within our project so that we can reference them. If you open up your project's `.sln` file in Visual Studio, you'll find a file called `your-project-name.Build.cs`. We're going to add the following lines of code to that file:
 
 ```cpp
-// Don't forget to memset or otherwise initialize your classes!
-discord::Core* core{};
-auto result = discord::Core::Create(CLIENT_ID, DiscordCreateFlags_Default, &core);
+/*
+    ABSOLUTE_PATH_TO_DISCORD_FILES_DIRECTORY will look something like:
+
+    "H:\\Unreal Projects\\gamesdktest\\Source\\gamesdktest\\discord-files\\"
+
+    You should get this value programatically
+*/
+PublicIncludePaths.Add(ABSOLUTE_PATH_TO_DISCORD_FILES_DIRECTORY)
+
+/*
+    ABSOLUTE_PATH_TO_LIB_FILE will look something like:
+
+    "H:\\Unreal Projects\\gamesdktest\\Binaries\\Win64\\discord_game_sdk.dll.lib"
+
+    You should get this value programatically
+*/
+PublicAdditionalLibraries.Add(ABSOLUTE_PATH_TO_LIB_FILE)
 ```
 
-- Make sure to call `core->RunCallbacks()` in your game loop
+Now that we've got our new dependencies properly linked, we can reference them in our code. In this example, we're going to make a new `Pawn` class called `MyPawn`. It will look something like this:
+
+```cpp
+#include "MyPawn.h"
+#include "discord-files/discord.h"
+
+discord::Core* core{};
+
+AMyPawn::AMyPawn()
+{
+ 	// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+	PrimaryActorTick.bCanEverTick = true;
+}
+
+// Called when the game starts or when spawned
+void AMyPawn::BeginPlay()
+{
+	Super::BeginPlay();
+    /*
+        Grab that Client ID from earlier
+        Discord.CreateFlags.Default will require Discord to be running for the game to work
+        If Discord is not running, it will:
+        1. Close your game
+        2. Open Discord
+        3. Attempt to re-open your game
+        Step 3 will fail when running directly from the Unity editor
+        Therefore, always keep Discord running during tests, or use Discord.CreateFlags.NoRequireDiscord
+    */
+	auto result = discord::Core::Create(461618159171141643, DiscordCreateFlags_Default, &core);
+	discord::Activity activity{};
+	activity.SetState("Testing");
+	activity.SetDetails("Fruit Loops");
+	core->ActivityManager().UpdateActivity(activity, [](discord::Result result) {
+
+    });
+}
+
+// Called every frame
+void AMyPawn::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+	::core->RunCallbacks();
+}
+
+// Called to bind functionality to input
+void AMyPawn::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
+{
+	Super::SetupPlayerInputComponent(PlayerInputComponent);
+}
+```
+
+Make sure you've got `core->RunCallbacks()` going every frame!
 
 You're ready to go! Check out the rest of the documentation for more info on how to use the other pieces of the SDK. See an example of everything it can do in `examples/cpp/main.cpp` in the SDK zip file.
 
@@ -181,4 +262,5 @@ Oh, yeah. Pseudo Table of Contents:
 - [Applications](#DOCS_GAME_SDK_APPLICATIONS/)
 - [Overlay](#DOCS_GAME_SDK_OVERLAY/)
 - [Store](#DOCS_GAME_SDK_STORE/)
-- [Voice](#DOCS_GAME_SDK_DISCORD_VOICE/)
+- [Discord Voice](#DOCS_GAME_SDK_DISCORD_VOICE/)
+- [Achievements](#DOCS_GAME_SDK_ACHIEVEMENTS/)

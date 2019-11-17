@@ -142,14 +142,14 @@ typedef struct DiscordRichPresence {
 | largeImageKey  | char\*   | name of the uploaded image for the large profile artwork                   | "default"                                                  |
 | largeImageText | char\*   | tooltip for the largeImageKey                                              | "Blade's Edge Arena", "Numbani", "Danger Zone"             |
 | smallImageKey  | char\*   | name of the uploaded image for the small profile artwork                   | "rogue"                                                    |
-| smallImageText | char\*   | tootltip for the smallImageKey                                             | "Rogue - Level 100"                                        |
+| smallImageText | char\*   | tooltip for the smallImageKey                                              | "Rogue - Level 100"                                        |
 | partyId        | char\*   | id of the player's party, lobby, or group                                  | "ae488379-351d-4a4f-ad32-2b9b01c91657"                     |
 | partySize      | int      | current size of the player's party, lobby, or group                        | 1                                                          |
 | partyMax       | int      | maximum size of the player's party, lobby, or group                        | 5                                                          |
-| matchSecret    | char\*   | [deprecated Notify Me feature, may be re-used in future]                   | MmhuZToxMjMxMjM6cWl3amR3MWlqZA==                           |
+| matchSecret    | char\*   | (for future use) unique hashed string for a player's match                 | MmhuZToxMjMxMjM6cWl3amR3MWlqZA==                           |
 | spectateSecret | char\*   | unique hashed string for Spectate button                                   | MTIzNDV8MTIzNDV8MTMyNDU0                                   |
 | joinSecret     | char\*   | unique hashed string for chat invitations and Ask to Join                  | MTI4NzM0OjFpMmhuZToxMjMxMjM=                               |
-| instance       | int8_t   | [deprecated Notify Me feature, may be re-used in future]                   | 1                                                          |
+| instance       | int8_t   | (for future use) integer representing a boolean for if the player is in an instance (an in-progress match) | 1                                                          |
 
 > info
 > Sending `endTimestamp` will **always** have the time displayed as "remaining" until the given time. Sending `startTimestamp` will show "elapsed" as long as there is no `endTimestamp` sent.
@@ -276,7 +276,7 @@ All fields in the `DiscordRichPresence` object are entirely optional. Anything y
 
 Included with the launch of Rich Presence is an overhaul of Discord's Developer Dashboard. We want to make Rich Presence as easy as possible to use. Our first step is helping you ditch your CDN. You're welcome.
 
-OK, well, not entirely. But! Discord _will_ host any and all artwork that you need to have the very richest of presences. Upload an image, tag it with a key—preferrably one you can remember—and **bam**. It's ready for Rich Presence use. Head over to your [applications page](#MY_APPLICATIONS/top) to check it out!
+OK, well, not entirely. But! Discord _will_ host any and all artwork that you need to have the very richest of presences. Upload an image, tag it with a key—preferably one you can remember—and **bam**. It's ready for Rich Presence use. Head over to your [applications page](#MY_APPLICATIONS/top) to check it out!
 
 > warn
 > **Asset keys are automatically normalized to lowercase**. Be mindful of this when referring to them in your code.

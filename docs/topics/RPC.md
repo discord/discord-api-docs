@@ -743,7 +743,7 @@ Used to join and leave text channels, group dms, or dms. Returns the [Get Channe
       "type": "VOICE_ACTIVITY",
       "auto_threshold": true,
       "threshold": -46.92622950819673,
-      "shortcut": [{"type": 0, "code": 12, "name": "i"}],
+      "shortcut": [{ "type": 0, "code": 12, "name": "i" }],
       "delay": 98.36065573770492
     },
     "automatic_gain_control": false,
@@ -837,7 +837,7 @@ When setting voice settings, all fields are optional. Only passed fields are upd
       "type": "VOICE_ACTIVITY",
       "auto_threshold": true,
       "threshold": -46.92622950819673,
-      "shortcut": [{"type": 0, "code": 12, "name": "i"}],
+      "shortcut": [{ "type": 0, "code": 12, "name": "i" }],
       "delay": 98.36065573770492
     },
     "automatic_gain_control": false,
@@ -962,7 +962,7 @@ Note: The `START` call will return the captured shortcut in its `data` object, w
 {
   "cmd": "CAPTURE_SHORTCUT",
   "data": {
-    "shortcut": [{"type": 0, "code": 12, "name": "i"}]
+    "shortcut": [{ "type": 0, "code": 12, "name": "i" }]
   },
   "nonce": "9b4e9711-97f3-4f35-b047-32c82a51978e"
 }
@@ -1362,7 +1362,7 @@ No arguments. Dispatches the [Get Voice Settings](#DOCS_TOPICS_RPC/get-voice-set
       "type": "VOICE_ACTIVITY",
       "auto_threshold": true,
       "threshold": -46.92622950819673,
-      "shortcut": [{"type": 0, "code": 12, "name": "i"}],
+      "shortcut": [{ "type": 0, "code": 12, "name": "i" }],
       "delay": 98.36065573770492
     },
     "automatic_gain_control": false,
@@ -1614,7 +1614,7 @@ No arguments
   "cmd": "DISPATCH",
   "evt": "CAPTURE_SHORTCUT_CHANGE",
   "data": {
-    "shortcut": [{"type": 0, "code": 12, "name": "i"}]
+    "shortcut": [{ "type": 0, "code": 12, "name": "i" }]
   }
 }
 ```

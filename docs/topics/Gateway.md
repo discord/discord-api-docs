@@ -1,8 +1,8 @@
 # Gateways
 
-Gateways are Discord's form of real-time communication over secure websockets. Clients will receive events and data over the gateway they are connected to and send data over the REST API. The API for interacting with Gateways is complex and fairly unforgiving, therefore it's highly recommended you read _all_ of the following documentation before writing a custom implementation.
+Gateways are Discord's form of real-time communication over secure WebSockets. Clients will receive events and data over the gateway they are connected to and send data over the REST API. The API for interacting with Gateways is complex and fairly unforgiving, therefore it's highly recommended you read _all_ of the following documentation before writing a custom implementation.
 
-The Discord Gateway has a versioning system which is separate from the core APIs. The documentation herein is only for the latest version in the following table, unless otherwise specified.
+The Discord Gateway has a versioning system separate from the HTTP APIs. The documentation herein is only for the latest version in the following table, unless otherwise specified.
 
 Important note: Not all event fields are documented, in particular, fields prefixed with an underscore are considered _internal fields_ and should not be relied on. We may change the format at any time.
 
@@ -95,7 +95,7 @@ def on_websocket_message(msg):
 | Field     | Type    | Description                                   | Accepted Values                                                   |
 | --------- | ------- | --------------------------------------------- | ----------------------------------------------------------------- |
 | v         | integer | Gateway Version to use                        | 6 (see [Gateway versions](#DOCS_TOPICS_GATEWAY/gateway-versions)) |
-| encoding  | string  | The encoding of recieved gateway packets      | 'json' or 'etf'                                                   |
+| encoding  | string  | The encoding of received gateway packets      | 'json' or 'etf'                                                   |
 | compress? | string  | The (optional) compression of gateway packets | 'zlib-stream'                                                     |
 
 The first step in establishing connectivity to the gateway is requesting a valid websocket endpoint from the API. This can be done through either the [Get Gateway](#DOCS_TOPICS_GATEWAY/get-gateway) or the [Get Gateway Bot](#DOCS_TOPICS_GATEWAY/get-gateway-bot) endpoint.
@@ -108,7 +108,7 @@ Once connected, the client should immediately receive an [Opcode 10 Hello](#DOCS
 
 ```json
 {
-  "heartbeat_interval": 45000,
+  "heartbeat_interval": 45000
 }
 ```
 
@@ -137,7 +137,7 @@ Next, the client is expected to send an [Opcode 2 Identify](#DOCS_TOPICS_GATEWAY
 
 ###### Example Gateway Identify
 
-This is a minimal `IDENTIFY` payload. `IDENTIFY` supports additional optional fields for other session properties, such as payload compression, or an initial presence state. See [Example Identify](#DOCS_GATEWAY/identify-example-identify) for a more complete example.
+This is a minimal `IDENTIFY` payload. `IDENTIFY` supports additional optional fields for other session properties, such as payload compression, or an initial presence state. See the [Identify Structure](#DOCS_TOPICS_GATEWAY/identify) for a more complete example of all options you can pass in.
 
 ```json
 {
@@ -183,13 +183,19 @@ Clients are allowed 120 events every 60 seconds, meaning you can send on average
 
 ## Tracking State
 
-Most of a client's state is provided during the initial [Ready](#DOCS_TOPICS_GATEWAY/ready) event and the [Guild Create](#DOCS_TOPICS_GATEWAY/guild-create) events that immediately follow. As objects are further created/updated/deleted, other events are sent to notify the client of these changes and to provide the new or updated data. To avoid excessive API calls, Discord expects clients to locally cache as many object states as possible, and to update them as gateway events are received.
+Most of a client's state is provided during the initial [Ready](#DOCS_TOPICS_GATEWAY/ready) event and the [Guild Create](#DOCS_TOPICS_GATEWAY/guild-create) events that immediately follow. As objects are further created/updated/deleted, other events are sent to notify the client of these changes and to provide the new or updated data. To avoid excessive API calls, Discord expects clients to locally cache as many _relevant_ object states as possible, and to update them as gateway events are received.
 
 An example of state tracking can be found with member status caching. When initially connecting to the gateway, the client receives information regarding the online status of guild members (online, idle, dnd, offline). To keep this state updated, a client must track and parse [Presence Update](#DOCS_TOPICS_GATEWAY/presence-update) events as they are received, and apply the provided data to the cached member objects.
 
+For larger bots, client state can grow to be quite large. We recommend only storing objects in memory that are needed for a bot's operation. Many bots, for example, just respond to user input through chat commands. These bots may only need to keep guild information (like guild/channel roles and permissions) in memory, since [MESSAGE_CREATE](#DOCS_TOPICS_GATEWAY/message-create) and [MESSAGE_UPDATE](#DOCS_TOPICS_GATEWAY/message-update) events have the full member object available.
+
+## Guild Subscriptions
+
+Presence and typing events get dispatched from guilds that your bot is a member of. For many bots, these events are not useful and can be frequent and expensive to process at scale. Because of this, we allow bots to opt out of guild subscriptions by setting `guild_subscriptions` to `false` when [Identify](#DOCS_TOPICS_GATEWAY/identify)ing.
+
 ## Guild Availability
 
-When connecting to the gateway as a bot user, guilds that the bot is a part of start out as unavailable. Don't fret! The gateway will automatically attempt to reconnect on your behalf. As guilds become available to you, you will receive [Guild Create](#DOCS_TOPICS_GATEWAY/guild-create) events.
+When connecting to the gateway as a bot user, guilds that the bot is a part of will start out as unavailable. Don't fret! The gateway will automatically attempt to reconnect on your behalf. As guilds become available to you, you will receive [Guild Create](#DOCS_TOPICS_GATEWAY/guild-create) events.
 
 ## Sharding
 
@@ -237,6 +243,7 @@ Events are payloads sent over the socket to a client that correspond to events i
 | [Hello](#DOCS_TOPICS_GATEWAY/hello)                                             | defines the heartbeat interval                                                                                                   |
 | [Ready](#DOCS_TOPICS_GATEWAY/ready)                                             | contains the initial state information                                                                                           |
 | [Resumed](#DOCS_TOPICS_GATEWAY/resumed)                                         | response to [Resume](#DOCS_TOPICS_GATEWAY/resume)                                                                                |
+| [Reconnect](#DOCS_TOPICS_GATEWAY/reconnect)                                     | server is going away, client should reconnect to gateway and resume                                                              |
 | [Invalid Session](#DOCS_TOPICS_GATEWAY/invalid-session)                         | failure response to [Identify](#DOCS_TOPICS_GATEWAY/identify) or [Resume](#DOCS_TOPICS_GATEWAY/resume) or invalid active session |
 | [Channel Create](#DOCS_TOPICS_GATEWAY/channel-create)                           | new channel created                                                                                                              |
 | [Channel Update](#DOCS_TOPICS_GATEWAY/channel-update)                           | channel was updated                                                                                                              |
@@ -272,7 +279,7 @@ Events are payloads sent over the socket to a client that correspond to events i
 
 ### Event Names
 
-Event names are in standard constant form, fully upper-cased and replacing all spaces with underscores. For instance, [Channel Create](#DOCS_TOPICS_GATEWAY/channel-create) would be `CHANNEL_CREATE` and [Voice State Update](#DOCS_TOPICS_GATEWAY/voice-state-update) would be `VOICE_STATE_UPDATE`. Within the following documentation they have been left in standard English form to aid in readability.
+Event names are in standard constant form, fully upper-cased and replacing all spaces with underscores. For instance, [Channel Create](#DOCS_TOPICS_GATEWAY/channel-create) would be `CHANNEL_CREATE` and [Voice State Update](#DOCS_TOPICS_GATEWAY/voice-state-update) would be `VOICE_STATE_UPDATE`. Within the following documentation, they have been left in standard English form to aid in readability.
 
 #### Identify
 
@@ -280,14 +287,15 @@ Used to trigger the initial handshake with the gateway.
 
 ###### Identify Structure
 
-| Field            | Type                                                       | Description                                                                                                                    | Default |
-| ---------------- | ---------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ | ------- |
-| token            | string                                                     | authentication token                                                                                                           | -       |
-| properties       | object                                                     | [connection properties](#DOCS_TOPICS_GATEWAY/identify-identify-connection-properties)                                          | -       |
-| compress?        | boolean                                                    | whether this connection supports compression of packets                                                                        | false   |
-| large_threshold? | integer                                                    | value between 50 and 250, total number of members where the gateway will stop sending offline members in the guild member list | 50      |
-| shard?           | array of two integers (shard_id, num_shards)               | used for [Guild Sharding](#DOCS_TOPICS_GATEWAY/sharding)                                                                       | -       |
-| presence?        | [update status](#DOCS_TOPICS_GATEWAY/update-status) object | presence structure for initial presence information                                                                            | -       |
+| Field                | Type                                                       | Description                                                                                                                    | Default |
+| -------------------- | ---------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ | ------- |
+| token                | string                                                     | authentication token                                                                                                           | -       |
+| properties           | object                                                     | [connection properties](#DOCS_TOPICS_GATEWAY/identify-identify-connection-properties)                                          | -       |
+| compress?            | boolean                                                    | whether this connection supports compression of packets                                                                        | false   |
+| large_threshold?     | integer                                                    | value between 50 and 250, total number of members where the gateway will stop sending offline members in the guild member list | 50      |
+| shard?               | array of two integers (shard_id, num_shards)               | used for [Guild Sharding](#DOCS_TOPICS_GATEWAY/sharding)                                                                       | -       |
+| presence?            | [update status](#DOCS_TOPICS_GATEWAY/update-status) object | presence structure for initial presence information                                                                            | -       |
+| guild_subscriptions? | boolean                                                    | enables dispatching of guild subscription events (presence and typing events)                                                  | true    |
 
 ###### Identify Connection Properties
 
@@ -309,6 +317,7 @@ Used to trigger the initial handshake with the gateway.
   },
   "compress": true,
   "large_threshold": 250,
+  "guild_subscriptions": false,
   "shard": [0, 1],
   "presence": {
     "game": {
@@ -363,11 +372,13 @@ Used to request all members for a guild or a list of guilds. When initially conn
 
 ###### Guild Request Members Structure
 
-| Field    | Type                             | Description                                                                |
-| -------- | -------------------------------- | -------------------------------------------------------------------------- |
-| guild_id | snowflake or array of snowflakes | id of the guild(s) to get members for                                      |
-| query    | string                           | string that username starts with, or an empty string to return all members |
-| limit    | integer                          | maximum number of members to send or 0 to request all members matched      |
+| Field      | Type                             | Description                                                                                                                           | Required                   |
+| ---------- | -------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- | -------------------------- |
+| guild_id   | snowflake or array of snowflakes | id of the guild(s) to get members for                                                                                                 | true                       |
+| query?     | string                           | string that username starts with, or an empty string to return all members                                                            | one of query or user_ids   |
+| limit      | integer                          | maximum number of members to send matching the `query`; a limit of `0` can be used with an empty string `query` to return all members | true when specifying query |
+| presences? | boolean                          | used to specify if we want the presences of the matched members                                                                       | false                      |
+| user_ids?  | snowflake or array of snowflakes | used to specify which users you wish to fetch                                                                                         | one of query or user_ids   |
 
 ###### Guild Request Members
 
@@ -448,9 +459,9 @@ Sent on connection to the websocket. Defines the heartbeat interval that the cli
 
 ###### Hello Structure
 
-| Field              | Type             | Description                                                     |
-| ------------------ | ---------------- | --------------------------------------------------------------- |
-| heartbeat_interval | integer          | the interval (in milliseconds) the client should heartbeat with |
+| Field              | Type    | Description                                                     |
+| ------------------ | ------- | --------------------------------------------------------------- |
+| heartbeat_interval | integer | the interval (in milliseconds) the client should heartbeat with |
 
 ###### Example Hello
 
@@ -475,11 +486,15 @@ The ready event is dispatched when a client has completed the initial handshake 
 | private_channels | array                                                                                | empty array                                                                                                   |
 | guilds           | array of [Unavailable Guild](#DOCS_RESOURCES_GUILD/unavailable-guild-object) objects | the guilds the user is in                                                                                     |
 | session_id       | string                                                                               | used for resuming connections                                                                                 |
-| shard?           | array of two integers (shard_id, num_shards)	                                      | the [shard information](#DOCS_TOPICS_GATEWAY/sharding) associated with this session, if sent when identifying |
+| shard?           | array of two integers (shard_id, num_shards)                                         | the [shard information](#DOCS_TOPICS_GATEWAY/sharding) associated with this session, if sent when identifying |
 
 #### Resumed
 
 The resumed event is dispatched when a client has sent a [resume payload](#DOCS_TOPICS_GATEWAY/resume) to the gateway (for resuming existing sessions).
+
+#### Reconnect
+
+The reconnect event is dispatched when a client should reconnect to the gateway (and resume their existing session, if they have one). This event usually occurs during deploys to migrate sessions gracefully off old hosts.
 
 #### Invalid Session
 
@@ -629,10 +644,12 @@ Sent in response to [Guild Request Members](#DOCS_TOPICS_GATEWAY/request-guild-m
 
 ###### Guild Members Chunk Event Fields
 
-| Field    | Type                                                                       | Description          |
-| -------- | -------------------------------------------------------------------------- | -------------------- |
-| guild_id | snowflake                                                                  | the id of the guild  |
-| members  | array of [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) objects | set of guild members |
+| Field      | Type                                                                       | Description                                                                                |
+| ---------- | -------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------ |
+| guild_id   | snowflake                                                                  | the id of the guild                                                                        |
+| members    | array of [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) objects | set of guild members                                                                       |
+| not_found? | array                                                                      | if passing an invalid id to `REQUEST_GUILD_MEMBERS`, it will be returned here              |
+| presences? | array of [presence](#DOCS_TOPICS_GATEWAY/presence) objects                 | if passing true to `REQUEST_GUILD_MEMBERS`, presences of the returned members will be here |
 
 #### Guild Role Create
 
@@ -755,15 +772,15 @@ A user's presence is their current state on a guild. This event is sent when a u
 
 ###### Presence Update Event Fields
 
-| Field         | Type                                                               | Description                                  |
-| ------------- | ------------------------------------------------------------------ | -------------------------------------------- |
-| user          | [user](#DOCS_RESOURCES_USER/user-object) object                    | the user presence is being updated for       |
-| roles         | array of snowflakes                                                | roles this user is in                        |
-| game          | ?[activity](#DOCS_TOPICS_GATEWAY/activity-object) object           | null, or the user's current activity         |
-| guild_id      | snowflake                                                          | id of the guild                              |
-| status        | string                                                             | either "idle", "dnd", "online", or "offline" |
-| activities    | array of [activity](#DOCS_TOPICS_GATEWAY/activity-object) objects  | user's current activities                    |
-| client_status | [client_status](#DOCS_TOPICS_GATEWAY/client-status-object) object  | user's platform-dependent status             |
+| Field         | Type                                                              | Description                                  |
+| ------------- | ----------------------------------------------------------------- | -------------------------------------------- |
+| user          | [user](#DOCS_RESOURCES_USER/user-object) object                   | the user presence is being updated for       |
+| roles         | array of snowflakes                                               | roles this user is in                        |
+| game          | ?[activity](#DOCS_TOPICS_GATEWAY/activity-object) object          | null, or the user's current activity         |
+| guild_id      | snowflake                                                         | id of the guild                              |
+| status        | string                                                            | either "idle", "dnd", "online", or "offline" |
+| activities    | array of [activity](#DOCS_TOPICS_GATEWAY/activity-object) objects | user's current activities                    |
+| client_status | [client_status](#DOCS_TOPICS_GATEWAY/client-status-object) object | user's platform-dependent status             |
 
 #### Client Status Object
 
@@ -788,6 +805,7 @@ Active sessions are indicated with an "online", "idle", or "dnd" string per plat
 | application_id? | snowflake                                                                     | application id for the game                                                                                               |
 | details?        | ?string                                                                       | what the player is currently doing                                                                                        |
 | state?          | ?string                                                                       | the user's current party status                                                                                           |
+| emoji?          | ?[emoji](#DOCS_TOPIC_GATEWAY/activity-object-activity-emoji) object           | the emoji used for a custom status                                                                                        |
 | party?          | [party](#DOCS_TOPICS_GATEWAY/activity-object-activity-party) object           | information for the current party of the player                                                                           |
 | assets?         | [assets](#DOCS_TOPICS_GATEWAY/activity-object-activity-assets) object         | images for the presence and their hover texts                                                                             |
 | secrets?        | [secrets](#DOCS_TOPICS_GATEWAY/activity-object-activity-secrets) object       | secrets for Rich Presence joining and spectating                                                                          |
@@ -802,11 +820,12 @@ Active sessions are indicated with an "online", "idle", or "dnd" string per plat
 | ID  | Name      | Format              | Example                   |
 | --- | --------- | ------------------- | ------------------------- |
 | 0   | Game      | Playing {name}      | "Playing Rocket League"   |
-| 1   | Streaming | Streaming {name}    | "Streaming Rocket League" |
+| 1   | Streaming | Streaming {details} | "Streaming Rocket League" |
 | 2   | Listening | Listening to {name} | "Listening to Spotify"    |
+| 4   | Custom    | {emoji} {name}      | ":smiley: I am cool"      |
 
 > info
-> The streaming type currently only supports Twitch. Only `https://twitch.tv/` urls will work.
+> The streaming type currently only supports Twitch and YouTube. Only `https://twitch.tv/` and `https://youtube.com/` urls will work.
 
 ###### Activity Timestamps
 
@@ -814,6 +833,14 @@ Active sessions are indicated with an "online", "idle", or "dnd" string per plat
 | ------ | ---- | -------------------------------------------------------- |
 | start? | int  | unix time (in milliseconds) of when the activity started |
 | end?   | int  | unix time (in milliseconds) of when the activity ends    |
+
+###### Activity Emoji
+
+| Field     | Type      | Description                    |
+| --------- | --------- | ------------------------------ |
+| name      | string    | the name of the emoji          |
+| id?       | snowflake | the id of the emoji            |
+| animated? | boolean   | whether this emoji is animated |
 
 ###### Activity Party
 
@@ -854,9 +881,11 @@ Active sessions are indicated with an "online", "idle", or "dnd" string per plat
 
 ```json
 {
-  "name": "Rocket League",
+  "details": "24H RL Stream for Charity",
+  "state": "Rocket League",
+  "name": "Twitch",
   "type": 1,
-  "url": "https://www.twitch.tv/123"
+  "url": "https://www.twitch.tv/discordapp"
 }
 ```
 

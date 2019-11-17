@@ -4,11 +4,9 @@ You’ve found the Discord Developer Documentation! These pages are dedicated to
 
 All of our [documentation is on GitHub](https://github.com/discordapp/discord-api-docs) and we <3 corrections and improvements!
 
-## Getting Help
+## Bugs
 
 If you believe you're experiencing a bug with our API or want to report incorrect documentation, open an issue on our [issue tracker](https://github.com/discordapp/discord-api-docs/issues).
-
-For a more real-time avenue of communication, check out the [unofficial, community-driven Discord server for developers](https://discord.gg/discord-api). There you'll find community members who can help answer questions about our API, community libraries, bot creation, and other development questions.
 
 ## Bots and Apps
 

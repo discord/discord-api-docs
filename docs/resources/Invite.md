@@ -11,12 +11,12 @@ Represents a code that when used, adds a user to a guild or group DM channel.
 | code                        | string                                                           | the invite code (unique ID)                                                |
 | guild?                      | partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object       | the guild this invite is for                                               |
 | channel                     | partial [channel](#DOCS_RESOURCES_CHANNEL/channel-object) object | the channel this invite is for                                             |
-| target_user                 | partial [user](#DOCS_RESOURCES_USER/user-object) object          | the target user for this invite                                            |
+| target_user?                | partial [user](#DOCS_RESOURCES_USER/user-object) object          | the target user for this invite                                            |
 | target_user_type?           | integer                                                          | the type of target user for this invite                                    |
 | approximate_presence_count? | integer                                                          | approximate count of online members (only present when target_user is set) |
 | approximate_member_count?   | integer                                                          | approximate count of total members                                         |
 
-##### Target User Type
+###### Target User Type
 
 | Type   | Value |
 | ------ | ----- |
@@ -60,7 +60,6 @@ Represents a code that when used, adds a user to a guild or group DM channel.
 | max_age    | integer                                         | duration (in seconds) after which the invite expires |
 | temporary  | boolean                                         | whether this invite only grants temporary membership |
 | created_at | ISO8601 timestamp                               | when this invite was created                         |
-| revoked    | boolean                                         | whether this invite is revoked                       |
 
 ###### Example Invite Metadata
 
@@ -71,8 +70,7 @@ Represents a code that when used, adds a user to a guild or group DM channel.
   "max_uses": 0,
   "max_age": 0,
   "temporary": false,
-  "created_at": "2016-03-31T19:15:39.954000+00:00",
-  "revoked": false
+  "created_at": "2016-03-31T19:15:39.954000+00:00"
 }
 ```
 

@@ -1,7 +1,7 @@
 # Branches and Builds
 
 > info
-> Need help with Dispatch? Talk to us at [dis.gd/devsupport](https://dis.gd/devsupport)
+> Need help with Dispatch? Talk to us in the [Discord GameSDK Server](https://discord.gg/discord-gamesdk)!
 
 In order for other people to download your game from Discord's servers, you need to _upload_ your game to Discord's servers. Let's learn how to do that!
 
@@ -68,7 +68,7 @@ Inside that, we can use our Bot token for our application that will _not_ be inv
 > info
 > Note that this token is only good for its owning application, so if you want to make one build machine deploy multiple applications, you'll need to edit this file per game.
 
-You can get your bot token by going to your app in the Dev Portal --> `Bot` --> `Add Bot` --> copy the token. In our credentials file, make a json object like:
+You can get your bot token by going to your app in the Dev Portal --> `Bot` --> `Add Bot` --> copy the token. In our credentials file, replace the JSON with:
 
 ```json
 {
@@ -481,6 +481,85 @@ Let's see what one looks like all together!
 
 It seems like a lot of lines to parse, but now you know what they all mean!
 
+## Multiple Manifests and DLC Content
+
+If you're publishing a game with additional DLC content, this section is for you! Oftentimes in newer games, a user purchasing DLC content does not necessarily mean them downloading additional files to their computer, like expansion packs of ye olden days. A game will see that a user is entitled to a new thing, some flag in the code will flip, and presto! They can now explore the new area.
+
+However, some games do rely on downloading additional files for DLC content. If that is the case with your game, let's see how Dispatch can help. What's gonna help here is making use of multiple manifests. When you create a `config.json` file to upload your game, you've got something that looks sort of like this:
+
+```json
+// A much smaller config example than the behemoth just above
+{
+  "application": {
+    "id": 1234567890,
+    "manifests": [
+      {
+        // a bunch of stuff
+      }
+    ]
+  }
+}
+```
+
+"manifests" is an array, which means it can contain multiple items. What you'll want to do is create two manifests: one for your base game, and one for your DLC. Depending on how your build folder is set up, you can exclude the DLC files from being uploaded when you upload the base game. Let's pretend your build folder—the one on your local computer that you're uploading from—looks like this:
+
+```
+game/
+|_ config.json
+|_ build/
+   |_ game_data
+      |_ Assets/
+          |_ AssetBundles/
+             |_ Base/
+             |_ DLC/
+```
+
+Your manifest would look something like this:
+
+```
+{
+  "application": {
+    "id": your_app_id,
+    "manifests": [
+      {
+        "label": "base-game",
+        "local_root": "build",
+        "file_rules": {
+          "mappings": [
+            {
+              "local_path": ".",      // This makes the files appear in the base content/ directory, trust me :D
+              "install_path": "."
+            }
+          ],
+          "exclusions": [
+            {
+              "local_path": "./game_data/Assets/AssetBundles/DLC"    // This manifest will NOT include the DLC
+            }
+          ]
+        },
+        // The rest of the config with launch options, etc.
+      },
+      {
+        "label": "dlc", // Now we have a second manifest for the DLC files
+        "local_root": "build/game_data/Assets/AssetBundles/DLC", // Uploading files from the DLC folder
+        "file_rules": {
+          "mappings": [
+            {
+              "local_path": ".",
+              "install_Path": "./game_data/Assets/AssetBundles/DLC" // Puts the DLC in the proper folder structure
+            }
+          ]
+        }
+      }
+    ]
+  }
+}
+```
+
+So, what we've done is defined two manifests—or bundles of files—in one config. Now, how do we make 'em work?
+
+When you create SKUs in the dev portal, you assign manifests to SKUs. You'll want to assign `base-game`​ to your base game SKU, and `dlc` ​to your DLC. Now, when players buy your base game, they'll get entitlement to the `base-game` manifest, and Discord will only download that one. Once they purchase `dlc`, they'll become entitled to that manifest, and Discord will patch the game with the new content they received.
+
 ## DRM
 
 You can choose to add DRM to your game. Dispatch will wrap your executables and prevent a user from launching the game if they are not logged into Discord.
@@ -493,6 +572,8 @@ If you understand and agree to the above, run the following command on each of t
 ```
 dispatch build drm-wrap <application_id> <path_to_executable_to_wrap>
 ```
+
+This function will only work with Windows executables. If you want to wrap a unix executable, you'll need to instead use [ValidateOrExit](#DOCS_GAME_SDK_APPLICATIONS/validateorexit).
 
 ## Pushing Our First Build
 
@@ -571,5 +652,3 @@ If you have your own patcher and do not want Discord to handle patching, set `"s
   }
 }
 ```
-
-Now that you've got a game in the system, let's [create a store page](#DOCS_DISPATCH_MANAGING_STORE_LISTINGS) for it!

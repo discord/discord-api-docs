@@ -1,7 +1,7 @@
 # Activities
 
 > info
-> Need help with the SDK? Talk to us at [dis.gd/devsupport](https://dis.gd/devsupport)
+> Need help with the SDK? Talk to us in the [Discord GameSDK Server](https://discord.gg/discord-gamesdk)!
 
 Looking to integrate Rich Presence into your game? No need to manage multiple SDKs—this one does all that awesome stuff, too!. Delight your players with the ability to post game invites in chat and party up directly from Discord. Surface interesting live game data in their profile and on the Games Tab for their friends, encouraging them to group up and play together.
 
@@ -80,6 +80,8 @@ For more detailed information and documentation around the Rich Presence feature
 | Listening | 2     |
 | Watching  | 3     |
 
+`ActivityType` is strictly for the purpose of handling events that you receive from Discord; though the SDK/our API will not reject a payload with an `ActivityType` sent, it will be discarded and will not change anything in the client.
+
 ###### ActivityJoinRequestReply Enum
 
 | name   | value |
@@ -115,11 +117,11 @@ If you want to hook up joining and spectating for your games, there are certain 
 | ActivityParty.Size.CurrentSize |                |          |  x   |      x      |
 | ActivityParty.Size.MaxSize     |                |          |  x   |      x      |
 | ActivitySecrets.Join           |                |          |  x   |      x      |
-| ActivitySecrets.Spectate       |                |    x     |      |             |  |
+| ActivitySecrets.Spectate       |                |    x     |      |             |
 
 ## RegisterCommand
 
-Registers a command by which Discord can launch your game. This might be a custom protocol, like `my-awesome-game://`, or a path to an executable. It also supports any lauch parameters that may be needed, like `game.exe --full-screen --no-hax`.
+Registers a command by which Discord can launch your game. This might be a custom protocol, like `my-awesome-game://`, or a path to an executable. It also supports any launch parameters that may be needed, like `game.exe --full-screen --no-hax`.
 
 On macOS, due to the way Discord registers executables, your game needs to be bundled for this command to work. That means it should be a `.app`.
 
@@ -247,7 +249,7 @@ Sends a reply to an Ask to Join request.
 
 Returns a `Discord.Result` via callback.
 
-###### Paramerters
+###### Parameters
 
 | name   | type                     | description                                 |
 | ------ | ------------------------ | ------------------------------------------- |
@@ -272,7 +274,7 @@ activityManager.OnActivityJoinRequest += user =>
 
 ## SendInvite
 
-Sends a game invite to a given user.
+Sends a game invite to a given user. If you do not have a valid activity with all the required fields, this call will error. See [Activity Action Field Requirements](#DOCS_GAME_SDK_ACTIVITIES/activity-action-field-requirements) for the fields required to have join and spectate invites function properly.
 
 Returns a `Discord.Result` via callback.
 
@@ -287,7 +289,8 @@ Returns a `Discord.Result` via callback.
 ###### Example
 
 ```cs
-activityManager.InviteUser(53908232506183689, Discord.ActivityActionType.Join, "Come play!", (result) =>
+var userId = 53908232506183680;
+activityManager.SendInvite(userId, Discord.ActivityActionType.Join, "Come play!", (result) =>
 {
     if (result == Discord.Result.Ok)
     {
@@ -338,6 +341,96 @@ Fires when a user accepts a game chat invite or receives confirmation from Askin
 | ---------- | ------ | ---------------------------------- |
 | joinSecret | string | the secret to join the user's game |
 
+
+###### Example
+
+```cs
+// Received when someone accepts a request to join or invite.
+// Use secrets to receive back the information needed to add the user to the group/party/match
+activityManager.OnActivityJoin += secret => {
+    Console.WriteLine("OnJoin {0}", secret);
+    lobbyManager.ConnectLobbyWithActivitySecret(secret, (Discord.Result result, ref Discord.Lobby lobby) =>
+    {
+        Console.WriteLine("Connected to lobby: {0}", lobby.Id);
+        // Connect to voice chat, used in this case to actually know in overlay if your successful in connecting.
+        lobbyManager.ConnectVoice(lobby.Id, (Discord.Result voiceResult) => {
+
+            if (voiceResult == Discord.Result.Ok)
+            {
+                Console.WriteLine("New User Connected to Voice! Say Hello! Result: {0}", voiceResult);
+            }
+            else
+            {
+                Console.WriteLine("Failed with Result: {0}", voiceResult);
+            };
+        });
+		//Connect to given lobby with lobby Id
+        lobbyManager.ConnectNetwork(lobby.Id);
+        lobbyManager.OpenNetworkChannel(lobby.Id, 0, true);
+        foreach (var user in lobbyManager.GetMemberUsers(lobby.Id))
+        {
+			//Send a hello message to everyone in the lobby
+            lobbyManager.SendNetworkMessage(lobby.Id, user.Id, 0,
+                Encoding.UTF8.GetBytes(String.Format("Hello, {0}!", user.Username)));
+        }
+		//Sends this off to a Activity callback named here as 'UpdateActivity' passing in the discord instance details and lobby details
+        UpdateActivity(discord, lobby);
+    });
+};
+
+void UpdateActivity(Discord.Discord discord, Discord.Lobby lobby)
+    {
+    	//Creates a Static String for Spectate Secret.
+        string discordSpectateSecret = "wdn3kvj320r8vk3";
+        spectateActivitySecret = discordSpectateSecret;
+        var activity = new Discord.Activity
+        {
+            State = "Playing Co-Op",
+            Details = "In a Multiplayer Match!",
+            Timestamps =
+            {
+                Start = startTimeStamp,
+            },
+            Assets =
+            {
+                LargeImage = "matchimage1",
+                LargeText = "Inside the Arena!",
+            },
+            Party = {
+                Id = lobby.Id.ToString(),
+                Size = {
+                    CurrentSize = lobbyManager.MemberCount(lobby.Id),
+                    MaxSize = (int)lobby.Capacity,
+                },
+            },
+            Secrets = {
+                Spectate = spectateActivitySecret,
+                Join = joinActivitySecret,
+            },
+            Instance = true,
+        };
+
+        activityManager.UpdateActivity(activity, result =>
+        {
+            Debug.LogFormat("Updated to Multiplayer Activity: {0}", result);
+
+            // Send an invite to another user for this activity.
+            // Receiver should see an invite in their DM.
+            // Use a relationship user's ID for this.
+            // activityManager
+            //   .SendInvite(
+            //       364843917537050624,
+            //       Discord.ActivityActionType.Join,
+            //       "",
+            //       inviteResult =>
+            //       {
+            //           Console.WriteLine("Invite {0}", inviteResult);
+            //       }
+            //   );
+        });
+    }
+```
+
 ## OnActivitySpectate
 
 Fires when a user accepts a spectate chat invite or clicks the Spectate button on a user's profile.
@@ -348,6 +441,17 @@ Fires when a user accepts a spectate chat invite or clicks the Spectate button o
 | -------------- | ------ | ------------------------------------------------- |
 | spectateSecret | string | the secret to join the user's game as a spectator |
 
+
+###### Example
+
+```cs
+// Received when someone accepts a request to spectate
+activityManager.OnActivitySpectate += secret =>
+{
+    Console.WriteLine("OnSpectate {0}", secret);
+};
+```
+
 ## OnActivityJoinRequest
 
 Fires when a user asks to join the current user's game.
@@ -357,6 +461,16 @@ Fires when a user asks to join the current user's game.
 | name | type | description             |
 | ---- | ---- | ----------------------- |
 | user | User | the user asking to join |
+
+###### Example
+
+```cs
+// A join request has been received. Render the request on the UI.
+activityManager.OnActivityJoinRequest += (ref Discord.User user) =>
+{
+    Console.WriteLine("OnJoinRequest {0} {1}", user.Username, user.Id);
+};
+```
 
 ## OnActivityInvite
 
@@ -369,6 +483,20 @@ Fires when the user receives a join or spectate invite.
 | type     | ActivityActiontype | whether this invite is to join or spectate |
 | user     | User               | the user sending the invite                |
 | activity | Activity           | the inviting user's current activity       |
+
+###### Example
+
+```cs
+// An invite has been received. Consider rendering the user / activity on the UI.
+activityManager.OnActivityInvite += (Discord.ActivityActionType Type, ref Discord.User user, ref Discord.Activity activity2) =>
+{
+      Console.WriteLine("Recieved Invite Type: {0}, from User: {1}, with Activity Name: {2}", Type, user.Username, activity2.Name);
+      // activityManager.AcceptInvite(user.Id, result =>
+      // {
+      //     Console.WriteLine("AcceptInvite {0}", result);
+      // });
+};
+```
 
 ## Example: Inviting a User to a Game
 
@@ -417,7 +545,7 @@ activityManager.UpdateActivity(activity, (result) =>
     // Send an invite to another user for this activity.
     // Receiver should see an invite in their DM.
     // Use a relationship user's ID for this.
-    activityManager.InviteUser(364843917537050999, Discord.ActivityActionType.Join, "", (inviteUserResult) =>
+    activityManager.SendInvite(364843917537050999, Discord.ActivityActionType.Join, "", (inviteUserResult) =>
     {
         Console.WriteLine("Invite User {0}", inviteUserResult);
     });

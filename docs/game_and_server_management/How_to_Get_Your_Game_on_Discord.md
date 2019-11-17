@@ -28,9 +28,8 @@ You're now looking at a blank slate of creativity. Give your game a pretty icon 
 From here on forward, we'll be managing settings that tie directly to your game and its presence on Discord. We want to make sure that we're laser-focused on making the best experience possible for game developers, so we ask that you pay our Application License Fee in order to get access to our store tools, which let you:
 
 - make store pages for your game directly in your server
-- create a news channel, in which you can publish announce to all players of your game on Discord
 - run alpha and beta tests for your game, using the magic of channel permissions to create role-based page access
-- apply for approval, letting you start making money
+- apply for approval, letting you start making money (if you want to)
 
 Now that we've weeded out the trolls, let's get your server up and running with some fancy new features!
 
@@ -39,10 +38,9 @@ Now that we've weeded out the trolls, let's get your server up and running with 
 You're now looking at a checklist with a bunch of items and a prompt to select a server. Your Application License Fee entitles you to the following features in your server:
 
 - store channel creation
-- news channel creation
 - alpha and beta testing
 
-Select the server that you wish to grant these features, confirm to be double-extra-super-sure, and poof! You can now create channels for both news and store pages in your server. To learn more about store page channels, read [Store Channels](#DOCS_GAME_AND_SERVER_MANAGEMENT_SPECIAL_CHANNELS/store-channels). To learn more about news channels, read [News Channels](#DOCS_GAME_AND_SERVER_MANAGEMENT_SPECIAL_CHANNELS/news-channels). To learn about alpha and beta testing, read [Alpha and Beta Testing](#DOCS_GAME_AND_SERVER_MANAGEMENT_ALPHA_AND_BETA_TESTING/)
+Select the server that you wish to grant these features, confirm to be double-extra-super-sure, and poof! You can now create channels for both news and store pages in your server. To learn more about store page channels, read [Store Channels](#DOCS_GAME_AND_SERVER_MANAGEMENT_SPECIAL_CHANNELS/store-channels). To learn more about Announcement Channels, read [Announcement Channels](#DOCS_GAME_AND_SERVER_MANAGEMENT_SPECIAL_CHANNELS/announcement-channels). To learn about alpha and beta testing, read [Alpha and Beta Testing](#DOCS_GAME_AND_SERVER_MANAGEMENT_ALPHA_AND_BETA_TESTING/)
 (you get the gist).
 
 Now, what do you do next? You start building! Build your community, make your game, invite testers into your server to get hype! Now is a great time to get familiar with all the tools at your disposal like:
@@ -53,7 +51,7 @@ Now, what do you do next? You start building! Build your community, make your ga
 
 To guide you through this process to success, you can follow that handy checklist. It'll tell you the steps you need to complete, show you where and how to do them, and give you a blissful sense of satisfaction as the green check marks pile up.
 
-The next and final step in your on-boarding journey is getting approved. Once approved, you'll be able to start making money, and you'll unlock a ton of cool server customization features to make your kingdom cozy for your players.
+The next and final step in your on-boarding journey is getting approved. Once approved, you'll be able to start making money (or karma), and you'll unlock a ton of cool server customization features to make your kingdom cozy for your players.
 
 ## Testing Your Game
 
@@ -67,11 +65,11 @@ Your game looks wonderful. You've got a beautiful store page, and awesome game, 
 
 Once you've completed all the items on your checklist, the `Get Approved` button will unlock. Once you submit for approval, Discord will take a look at the following things:
 
-- your game, to ensure that it runs properly
+- your game, to ensure that it runs properly and follows our [Game Submission Guidelines](https://support-dev.discordapp.com/hc/en-us/articles/360025028592-Game-Submission-Guidelines)
 - your store pages, to provide helpful guidance in putting your best foot forward
 - your server, to make sure you're abiding by our [Community Guidelines](https://discordapp.com/guidelines)
 
-If we need to see some changes, you'll receive an email directing you on your steps to success. Otherwise, you'll get **APPROVED!!!!!!!!!!** What's that mean? It means you can start charging for your game and making money! Don't spend it all in one place. Or do. Treat yourself.
+If we need to see some changes, you'll receive an email directing you on your steps to success. Otherwise, you'll get **APPROVED!!!!!!!!!!** What's that mean? It means you can start charging for your game and making money! Don't spend it all in one place. Or do. Treat yourself. Or maybe you want your game to be **free!** Live your best life. We support you!
 
 ## Available vs Store Page Published
 
@@ -86,7 +84,7 @@ Now that you've been approved, there's a couple new toggles to flip in the Devel
 
 If you no longer wish to make your SKU available for sale, you can again mark it unavailable. This will not remove it from users' libraries; it just stops new users from purchasing it.
 
-`Store Page Published` will do...well, what it says! Though your store page is always visible from within the channel in your server, there are other things that require you to explicitly mark your page viewable from outside that context, like gift code embeds for your game.
+`Store Page Published` will do...well, what it says! Though your store page is always visible from within the channel in your server, there are other things that require you to explicitly mark your page viewable from outside that context, like gift code embeds for your game, or from in-game store fronts!
 
 TL;DR - When you're ready to distribute your game after getting approved, turn those two toggles on.
 
@@ -102,7 +100,7 @@ Your game is off and running, and we couldn't be more proud. As it flourishes an
 
 ## What Comes Next
 
-Your game's success is in your own hands now. Continue to build your community and keep them informed with news. Consider integrating more deeply with Discord to deliver cool features to your players; we recommend [Rich Presence Game Invites](#DOCS_GAME_SDK_ACTIVITIES/). They feel like magic. Drop new content by creating DLC and IAP for your game, run fun tournaments based on [HypeSquad Membership](#DOCS_GAME_SDK_USERS/current-user-has-flag), give something cool to [Discord Nitro Subscribers](#DOCS_GAME_SDK_USERS/get-current-user-premium-status) because they're awesome. Or maybe, just maybe, think about your next upcoming game?
+Your game's success is in your own hands now. Continue to build your community and keep them informed with updates. Consider integrating more deeply with Discord to deliver cool features to your players; we recommend [Rich Presence Game Invites](#DOCS_GAME_SDK_ACTIVITIES/). They feel like magic. Drop new content by creating DLC and IAP for your game, run fun tournaments based on [HypeSquad Membership](#DOCS_GAME_SDK_USERS/current-user-has-flag), give something cool to [Discord Nitro Subscribers](#DOCS_GAME_SDK_USERS/get-current-user-premium-status) because they're awesome. Or maybe, just maybe, think about your next upcoming game?
 
 We'd love to help you with that one, too.
 

@@ -6,7 +6,7 @@ Alphas and betas are a critical part of a game's development lifecycle. We under
 
 As you develop your game, you'll constantly be making improvements. You want real-time feedback from players, and there's no better place for that than Discord. In the past, players would need to dig through menus to find out how to unlock test branches, as well as remembering secret passwords _and_ typing them in correctly. Was that an `I` or an `l`? `O` or `0`?
 
-One of the cool features of [Store Channels](#DOCS_GAME_AND_SERVER_MANAGEMENT_SPECIAL_CHANNELS/store-channels) is their ability to grant a Beta Entitlement for your game. That means that while you keep your master branch safe and sound, users can test on `beta-branch-please-ignore-bugs` in an isolated test environment.
+One of the cool features of [Store Channels](#DOCS_GAME_AND_SERVER_MANAGEMENT_SPECIAL_CHANNELS/) is their ability to grant a Beta Entitlement for your game. That means that while you keep your master branch safe and sound, users can test on `beta-branch-please-ignore-bugs` in an isolated test environment.
 
 > info
 > To learn more about creating branches, start with [Dispatch and You](#DOCS_DISPATCH_DISPATCH_AND_YOU/).
@@ -35,7 +35,7 @@ If you want to push out access to your game at scale, rather than inviting peopl
 
 Note that the `VALID UNTIL` date will not remove the game from the user's library, but they will no longer be able to launch it.
 
-Up to 10,000 gift codes can be created at a time. When you go to create gift codes, you'll notice there are a few fields for you to fill out. Here's what they mean:
+Up to 25,000 gift codes can be created at a time. When you go to create gift codes, you'll notice there are a few fields for you to fill out. Here's what they mean:
 
 ![](gift-code-creation.png)
 
@@ -43,7 +43,7 @@ Up to 10,000 gift codes can be created at a time. When you go to create gift cod
 - Branch: the branch of your game you want the user to get
 - Valid From: the start date at which the entitlement is valid
 - Valid Until: the date at which the entitlement is no longer valid
-- Amount: the number of codes you want to create (up to 10,000 per batch)
+- Amount: the number of codes you want to create (up to 25,000 per batch)
 - Description: a short description of why you made the codes, so you remember!
 
 Once you've made your codes, you can download the `.csv` that has them all in it, and distribute them however you'd like!
