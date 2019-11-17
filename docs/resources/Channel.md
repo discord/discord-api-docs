@@ -271,13 +271,6 @@ Represents a message sent in a channel within Discord.
 | IS_CROSSPOST    | 1 << 1 | this message originated from a message in another channel (via Channel Following) |
 | SUPPRESS_EMBEDS | 1 << 2 | do not include any embeds when serializing this message                           |
 
-###### Message Flags
-
-| Value  | Description             |
-| ------ | ----------------------- |
-| 0      | None                    |
-| 1 << 2 | Embed(s) are suppressed |
-
 ###### Example Message
 
 ```json
