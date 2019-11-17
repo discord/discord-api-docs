@@ -243,6 +243,7 @@ Events are payloads sent over the socket to a client that correspond to events i
 | [Hello](#DOCS_TOPICS_GATEWAY/hello)                                             | defines the heartbeat interval                                                                                                   |
 | [Ready](#DOCS_TOPICS_GATEWAY/ready)                                             | contains the initial state information                                                                                           |
 | [Resumed](#DOCS_TOPICS_GATEWAY/resumed)                                         | response to [Resume](#DOCS_TOPICS_GATEWAY/resume)                                                                                |
+| [Reconnect](#DOCS_TOPICS_GATEWAY/reconnect)                                     | server is going away, client should reconnect to gateway                                                                         |
 | [Invalid Session](#DOCS_TOPICS_GATEWAY/invalid-session)                         | failure response to [Identify](#DOCS_TOPICS_GATEWAY/identify) or [Resume](#DOCS_TOPICS_GATEWAY/resume) or invalid active session |
 | [Channel Create](#DOCS_TOPICS_GATEWAY/channel-create)                           | new channel created                                                                                                              |
 | [Channel Update](#DOCS_TOPICS_GATEWAY/channel-update)                           | channel was updated                                                                                                              |
@@ -490,6 +491,10 @@ The ready event is dispatched when a client has completed the initial handshake 
 #### Resumed
 
 The resumed event is dispatched when a client has sent a [resume payload](#DOCS_TOPICS_GATEWAY/resume) to the gateway (for resuming existing sessions).
+
+#### Reconnect
+
+The reconnect event is dispatched when a client should reconnect to the gateway (and resume their existing session, if they have one). This event usually occurs during deploys to migrate sessions gracefully off old hosts.
 
 #### Invalid Session
 
