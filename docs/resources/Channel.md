@@ -567,7 +567,7 @@ This endpoint supports requests with `Content-Type`s of both `application/json` 
 | Field        | Type                                                 | Description                                             |
 | ------------ | ---------------------------------------------------- | ------------------------------------------------------- |
 | content      | string                                               | the message contents (up to 2000 characters)            |
-| nonce        | integer or string                                            | a nonce that can be used for optimistic message sending |
+| nonce        | integer or string                                    | a nonce that can be used for optimistic message sending |
 | tts          | boolean                                              | true if this is a TTS message                           |
 | file         | file contents                                        | the contents of the file being sent                     |
 | embed        | [embed](#DOCS_RESOURCES_CHANNEL/embed-object) object | embedded `rich` content                                 |
