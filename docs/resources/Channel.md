@@ -656,17 +656,18 @@ Deletes all reactions on a message. This endpoint requires the 'MANAGE_MESSAGES'
 
 ## Edit Message % PATCH /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}
 
-Edit a previously sent message. You can only edit messages that have been sent by the current user. Returns a [message](#DOCS_RESOURCES_CHANNEL/message-object) object. Fires a [Message Update](#DOCS_TOPICS_GATEWAY/message-update) Gateway event.
+Edit a previously sent message. You can edit message `content`, `embed`, and `flags` if `author` is current user. Otherwise only `flags` can be edited with `MANAGE_MESSAGES` permission in the channel. Returns a [message](#DOCS_RESOURCES_CHANNEL/message-object) object. Fires a [Message Update](#DOCS_TOPICS_GATEWAY/message-update) Gateway event.
 
 > info
 > All parameters to this endpoint are optional.
 
 ###### JSON Params
 
-| Field   | Type                                                 | Description                                      |
-| ------- | ---------------------------------------------------- | ------------------------------------------------ |
-| content | string                                               | the new message contents (up to 2000 characters) |
-| embed   | [embed](#DOCS_RESOURCES_CHANNEL/embed-object) object | embedded `rich` content                          |
+| Field   | Type                                                 | Description                                                                                                                             |
+| ------- | ---------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
+| content | string                                               | the new message contents (up to 2000 characters)                                                                                        |
+| embed   | [embed](#DOCS_RESOURCES_CHANNEL/embed-object) object | embedded `rich` content                                                                                                                 |
+| flags   | integer                                              | edit the [flags](#DOCS_RESOURCES_CHANNEL/message-object-message-flags) of a message (only `SUPPRESS_EMBEDS` can currently be set/unset) |
 
 ## Delete Message % DELETE /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}
 
