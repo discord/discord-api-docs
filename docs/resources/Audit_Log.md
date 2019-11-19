@@ -64,9 +64,9 @@ Whenever an admin action is performed on the API, an entry is added to the respe
 | MESSAGE_BLUK_DELETE      | 73    |
 | MESSAGE_PIN              | 74    |
 | MESSAGE_UNPIN            | 75    |
-| INTEGRATION_CREATE       | 76    |
-| INTEGRATION_UPDATE       | 77    |
-| INTEGRATION_DELETE       | 78    |
+| INTEGRATION_CREATE       | 80    |
+| INTEGRATION_UPDATE       | 81    |
+| INTEGRATION_DELETE       | 82    |
 
 
 ###### Optional Audit Entry Info
