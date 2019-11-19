@@ -45,6 +45,9 @@ Whenever an admin action is performed on the API, an entry is added to the respe
 | MEMBER_BAN_REMOVE        | 23    |
 | MEMBER_UPDATE            | 24    |
 | MEMBER_ROLE_UPDATE       | 25    |
+| MEMBER_MOVE              | 26    |
+| MEMBER_DISCONNECT        | 27    |
+| BOT_ADD                  | 28    |
 | ROLE_CREATE              | 30    |
 | ROLE_UPDATE              | 31    |
 | ROLE_DELETE              | 32    |
@@ -58,6 +61,13 @@ Whenever an admin action is performed on the API, an entry is added to the respe
 | EMOJI_UPDATE             | 61    |
 | EMOJI_DELETE             | 62    |
 | MESSAGE_DELETE           | 72    |
+| MESSAGE_BLUK_DELETE      | 73    |
+| MESSAGE_PIN              | 74    |
+| MESSAGE_UNPIN            | 75    |
+| INTEGRATION_CREATE       | 76    |
+| INTEGRATION_UPDATE       | 77    |
+| INTEGRATION_DELETE       | 78    |
+
 
 ###### Optional Audit Entry Info
 
