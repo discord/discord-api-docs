@@ -61,7 +61,7 @@ Whenever an admin action is performed on the API, an entry is added to the respe
 | EMOJI_UPDATE             | 61    |
 | EMOJI_DELETE             | 62    |
 | MESSAGE_DELETE           | 72    |
-| MESSAGE_BLUK_DELETE      | 73    |
+| MESSAGE_BULK_DELETE      | 73    |
 | MESSAGE_PIN              | 74    |
 | MESSAGE_UNPIN            | 75    |
 | INTEGRATION_CREATE       | 80    |
