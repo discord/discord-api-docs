@@ -107,8 +107,8 @@ Whenever an admin action is performed on the API, an entry is added to the respe
 | explicit_content_filter       | [guild](#DOCS_RESOURCES_GUILD/guild-object)             | integer                                                                                  | change in [whose messages](#DOCS_RESOURCES_GUILD/guild-object-explicit-content-filter-level) are scanned and deleted for explicit content in the server |
 | default_message_notifications | [guild](#DOCS_RESOURCES_GUILD/guild-object)             | integer                                                                                  | default [message notification level](#DOCS_RESOURCES_GUILD/guild-object-default-message-notification-level) changed                                     |
 | vanity_url_code               | [guild](#DOCS_RESOURCES_GUILD/guild-object)             | string                                                                                   | guild invite vanity url changed                                                                                                                         |
-| \$add                         | [guild](#DOCS_RESOURCES_GUILD/guild-object)             | array of [role](#DOCS_TOPICS_PERMISSIONS/role-object) objects                            | new role added                                                                                                                                          |
-| \$remove                      | [guild](#DOCS_RESOURCES_GUILD/guild-object)             | array of [role](#DOCS_TOPICS_PERMISSIONS/role-object) objects                            | role removed                                                                                                                                            |
+| \$add                         | [guild](#DOCS_RESOURCES_GUILD/guild-object)             | array of partial [role](#DOCS_TOPICS_PERMISSIONS/role-object) objects                    | new role added                                                                                                                                          |
+| \$remove                      | [guild](#DOCS_RESOURCES_GUILD/guild-object)             | array of partial [role](#DOCS_TOPICS_PERMISSIONS/role-object) objects                    | role removed                                                                                                                                            |
 | prune_delete_days             | [guild](#DOCS_RESOURCES_GUILD/guild-object)             | integer                                                                                  | change in number of days after which inactive and role-unassigned members are kicked                                                                    |
 | widget_enabled                | [guild](#DOCS_RESOURCES_GUILD/guild-object)             | boolean                                                                                  | server widget enabled/disable                                                                                                                           |
 | widget_channel_id             | [guild](#DOCS_RESOURCES_GUILD/guild-object)             | snowflake                                                                                | channel id of the server widget changed                                                                                                                 |
@@ -137,6 +137,15 @@ Whenever an admin action is performed on the API, an entry is added to the respe
 | avatar_hash                   | [user](#DOCS_RESOURCES_USER/user-object)                | string                                                                                   | user avatar changed                                                                                                                                     |
 | id                            | any                                                     | snowflake                                                                                | the id of the changed entity - sometimes used in conjunction with other keys                                                                            |
 | type                          | any                                                     | integer ([channel type](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types)) or string | type of entity created                                                                                                                                  |
+
+###### Example Partial Channel Object
+
+```json
+{
+  "name": "I am a role",
+  "id": 584120723283509258
+}
+```
 
 ## Get Guild Audit Log % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/audit-logs
 
