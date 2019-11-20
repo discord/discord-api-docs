@@ -1,10 +1,18 @@
 # Change Log
 
+## GameSDK Version 2.5.5
+
+#### November 14, 2019
+
+We've shipped some updates to the GameSDK, including support for Linux as well as the IL2CPP backend system for Unity. These changes also fixed a bug in the [`SetUserAchievement()`](#DOCS_GAME_SDK_ACHIEVEMENTS/set-user-achievement) method.
+
+Get the latest at the top of the [Getting Started](#DOCS_GAME_SDK_SDK_STARTER_GUIDE/step-1-get-the-thing) documentation. If you're looking for help interacting with the GameSDK or want to report a bug, join us on the [official Discord](https://discord.gg/discord-gamesdk).
+
 ## Changes to Special Channels
 
 #### August 22, 2019
 
-News Channels are now changed to [Announcement Channels](#DOCS_GAME_AND_SERVER_MANAGEMENT_SPECIAL_CHANNELS/announcement-channels). Developer License owners will continue to get access to them (both existing and new). Underlying channel type (GUILD_NEWS = 5) remains the same. 
+News Channels are now changed to [Announcement Channels](#DOCS_GAME_AND_SERVER_MANAGEMENT_SPECIAL_CHANNELS/announcement-channels). Developer License owners will continue to get access to them (both existing and new). Underlying channel type (GUILD_NEWS = 5) remains the same.
 
 ## More Precise Rate Limits
 

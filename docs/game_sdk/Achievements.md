@@ -43,7 +43,7 @@ You can also mark achievements as `secret` and `secure`. "Secret" achievements w
 
 ## SetUserAchievement
 
-Updates the current user's status for a given achievement.
+Updates the current user's status for a given achievement. If `percentComplete` is set to `100`, the `UnlockedAt` field will be automatically updated with the current timestamp.
 
 Returns `Discord.Result` via callback.
 
@@ -297,13 +297,13 @@ Updates the achievement for **\_\_ALL USERS\_\_**. This is **NOT** to update a s
 
 ###### Parameters
 
-| name       | type      | description                             |
-| ---------- | --------- | --------------------------------------- |
-| name       | string    | the name of the achievement             |
-| description| string    | the user-facing achievement description |
-| secret     | bool      | if the achievement is secret            |
-| secure     | bool      | if the achievement is secure            |
-| icon       | ImageType | the icon for the achievement            |
+| name        | type      | description                             |
+| ----------- | --------- | --------------------------------------- |
+| name        | string    | the name of the achievement             |
+| description | string    | the user-facing achievement description |
+| secret      | bool      | if the achievement is secret            |
+| secure      | bool      | if the achievement is secure            |
+| icon        | ImageType | the icon for the achievement            |
 
 ###### Example: Updating an Achievement
 
