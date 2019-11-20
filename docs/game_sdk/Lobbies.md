@@ -908,6 +908,8 @@ lobbyManager.UpdateMember(290926798626357250, 53908232506183680, txn, (result) =
 
 Sends a message to the lobby on behalf of the current user. You must be connected to the lobby you are messaging. You should use this function for message sending if you are _not_ using the built in networking layer for the lobby. If you are, you should use [SendNetworkMessage](#DOCS_GAME_SDK_LOBBIES/sendnetworkmessage) instead.
 
+This method has a rate limit of 10 messages per 5 seconds.
+
 Returns a `Discord.Result` via callback.
 
 ###### Parameters
