@@ -138,7 +138,7 @@ Whenever an admin action is performed on the API, an entry is added to the respe
 | id                            | any                                                     | snowflake                                                                                | the id of the changed entity - sometimes used in conjunction with other keys                                                                            |
 | type                          | any                                                     | integer ([channel type](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types)) or string | type of entity created                                                                                                                                  |
 
-###### Example Partial Channel Object
+###### Example Partial Role Object
 
 ```json
 {
