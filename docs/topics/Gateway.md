@@ -733,6 +733,7 @@ Sent when a user adds a reaction to a message.
 | channel_id | snowflake                                                    | the id of the channel                                                                                           |
 | message_id | snowflake                                                    | the id of the message                                                                                           |
 | guild_id?  | snowflake                                                    | the id of the guild                                                                                             |
+| member?    | [member](#DOCS_RESOURCES_GUILD/guild-member-object) object   | the member who reacted if this happened in a guild                                                              |
 | emoji      | a partial [emoji](#DOCS_RESOURCES_EMOJI/emoji-object) object | the emoji used to react - [example](#DOCS_RESOURCES_EMOJI/emoji-object-gateway-reaction-standard-emoji-example) |
 
 #### Message Reaction Remove
