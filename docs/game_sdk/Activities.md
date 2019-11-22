@@ -160,6 +160,7 @@ activityManager.RegisterSteam(1938123);
 ## UpdateActivity
 
 Sets a user's presence in Discord to a new activity. This has a rate limit of 5 updates per 20 seconds.
+Bear in mind that it's possible for users to hide their currently played game (User Settings -> Game Activity).
 
 Returns a `Discord.Result` via callback.
 
