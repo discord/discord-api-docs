@@ -120,7 +120,7 @@ Same as above, except this call does not require authentication.
 | avatar_url   | string                                                         | override the default avatar of the webhook                   | false                        |
 | tts          | boolean                                                        | true if this is a TTS message                                | false                        |
 | file         | file contents                                                  | the contents of the file being sent                          | one of content, file, embeds |
-| embeds       | array of [embed](#DOCS_RESOURCES_CHANNEL/embed-object) objects | embedded `rich` content                                      | one of content, file, embeds |
+| embeds       | array of up to 10 [embed](#DOCS_RESOURCES_CHANNEL/embed-object) objects | embedded `rich` content                                      | one of content, file, embeds |
 | payload_json | string                                                         | See [message create](#DOCS_RESOURCES_CHANNEL/create-message) | `multipart/form-data` only   |
 
 > info
