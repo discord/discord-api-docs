@@ -1624,13 +1624,7 @@ activityManager.OnActivityJoin += secret =>
     for (int i = 0; i < lobbyManager.MemberCount(); i++)
     {
       var userId = lobbyManager.GetMemberUserId(i);
-      lobbyManager.SendNetworkMessage(lobby.Id, userId, 0, System.Text.Encoding.UTF8.GetBytes("Hello!"), (networkMessageResult) =>
-      {
-        if (networkMessageResult == Discord.Result.Ok)
-        {
-          Console.WriteLine("Message successfully sent");
-        }
-      });
+      lobbyManager.SendNetworkMessage(lobby.Id, userId, 0, System.Text.Encoding.UTF8.GetBytes("Hello!"));
     }
   });
 }
