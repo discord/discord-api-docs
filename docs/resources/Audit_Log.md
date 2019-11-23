@@ -71,15 +71,16 @@ Whenever an admin action is performed on the API, an entry is added to the respe
 
 ###### Optional Audit Entry Info
 
-| Field              | Type      | Description                                             | Action Type                                                                    |
-| ------------------ | --------- | ------------------------------------------------------- | ------------------------------------------------------------------------------ |
-| delete_member_days | string    | number of days after which inactive members were kicked | MEMBER_PRUNE                                                                   |
-| members_removed    | string    | number of members removed by the prune                  | MEMBER_PRUNE                                                                   |
-| channel_id         | snowflake | channel in which the messages were deleted              | MESSAGE_DELETE                                                                 |
-| count              | string    | number of deleted messages                              | MESSAGE_DELETE                                                                 |
-| id                 | snowflake | id of the overwritten entity                            | CHANNEL_OVERWRITE_CREATE & CHANNEL_OVERWRITE_UPDATE & CHANNEL_OVERWRITE_DELETE |
-| type               | string    | type of overwritten entity ("member" or "role")         | CHANNEL_OVERWRITE_CREATE & CHANNEL_OVERWRITE_UPDATE & CHANNEL_OVERWRITE_DELETE |
-| role_name          | string    | name of the role if type is "role"                      | CHANNEL_OVERWRITE_CREATE & CHANNEL_OVERWRITE_UPDATE & CHANNEL_OVERWRITE_DELETE |
+| Field              | Type      | Description                                             | Action Type                                                                      |
+| ------------------ | --------- | ------------------------------------------------------- | -------------------------------------------------------------------------------- |
+| delete_member_days | string    | number of days after which inactive members were kicked | MEMBER_PRUNE                                                                     |
+| members_removed    | string    | number of members removed by the prune                  | MEMBER_PRUNE                                                                     |
+| channel_id         | snowflake | channel in which the entities were targeted             | MEMBER_MOVE & MESSAGE_PIN & MESSAGE_UNPIN & MESSAGE_DELETE & MESSAGE_BULK_DELETE |
+| message_id         | snowflake | id of the message that was targeted                     | MESSAGE_PIN & MESSAGE_UNPIN                                                      |
+| count              | string    | number of entities that were targeted                   | MESSAGE_DELETE & MESSAGE_BULK_DELETE & MEMBER_DISCONNECT & MEMBER_MOVE           |
+| id                 | snowflake | id of the overwritten entity                            | CHANNEL_OVERWRITE_CREATE & CHANNEL_OVERWRITE_UPDATE & CHANNEL_OVERWRITE_DELETE   |
+| type               | string    | type of overwritten entity ("member" or "role")         | CHANNEL_OVERWRITE_CREATE & CHANNEL_OVERWRITE_UPDATE & CHANNEL_OVERWRITE_DELETE   |
+| role_name          | string    | name of the role if type is "role"                      | CHANNEL_OVERWRITE_CREATE & CHANNEL_OVERWRITE_UPDATE & CHANNEL_OVERWRITE_DELETE   |
 
 ### Audit Log Change Object
 
