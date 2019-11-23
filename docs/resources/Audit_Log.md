@@ -15,6 +15,17 @@ Whenever an admin action is performed on the API, an entry is added to the respe
 | audit_log_entries | array of [audit log entry](#DOCS_RESOURCES_AUDIT_LOG/audit-log-entry-object) objects | list of audit log entries               |
 | integrations      | array of partial [integration](#DOCS_RESOURCES_GUILD/integration-object) objects     | list of partial integration objects     |
 
+###### Example Partial Integration Object
+
+```json
+{
+  "id": 33590653072239123,
+  "name": "A Name",
+  "type": "twitch"
+}
+```
+
+
 ### Audit Log Entry Object
 
 ###### Audit Log Entry Structure
