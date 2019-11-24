@@ -659,7 +659,9 @@ Deletes all reactions on a message. This endpoint requires the 'MANAGE_MESSAGES'
 
 ## Edit Message % PATCH /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}
 
-Edit a previously sent message. You can edit message `content`, `embed`, and `flags` if `author` is current user. Otherwise only `flags` can be edited with `MANAGE_MESSAGES` permission in the channel. Returns a [message](#DOCS_RESOURCES_CHANNEL/message-object) object. Fires a [Message Update](#DOCS_TOPICS_GATEWAY/message-update) Gateway event.
+Edit a previously sent message. The fields `content`, `embed`, and `flags` can be edited by the original message author. Other users can only edit `flags` and only if they have the `MANAGE_MESSAGES` permission in the corresponding channel. Some bits in `flags` may not be edited directly by any user (only by the server). Attempts to edit these bits are silently ignored. Despite this, it is recommended to send all existing bits up to a full 53-bits to accommodate any bits that may later become functional. In other words, start with the current `flags` value, modify the necessary bits, and send the whole integer.
+
+Returns a [message](#DOCS_RESOURCES_CHANNEL/message-object) object. Fires a [Message Update](#DOCS_TOPICS_GATEWAY/message-update) Gateway event.
 
 > info
 > All parameters to this endpoint are optional.
