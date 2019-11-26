@@ -807,7 +807,7 @@ Active sessions are indicated with an "online", "idle", or "dnd" string per plat
 | application_id? | snowflake                                                                     | application id for the game                                                                                               |
 | details?        | ?string                                                                       | what the player is currently doing                                                                                        |
 | state?          | ?string                                                                       | the user's current party status                                                                                           |
-| emoji?          | ?[emoji](#DOCS_TOPIC_GATEWAY/activity-object-activity-emoji) object           | the emoji used for a custom status                                                                                        |
+| emoji?          | ?[emoji](#DOCS_TOPICS_GATEWAY/activity-object-activity-emoji) object           | the emoji used for a custom status                                                                                        |
 | party?          | [party](#DOCS_TOPICS_GATEWAY/activity-object-activity-party) object           | information for the current party of the player                                                                           |
 | assets?         | [assets](#DOCS_TOPICS_GATEWAY/activity-object-activity-assets) object         | images for the presence and their hover texts                                                                             |
 | secrets?        | [secrets](#DOCS_TOPICS_GATEWAY/activity-object-activity-secrets) object       | secrets for Rich Presence joining and spectating                                                                          |
@@ -1002,14 +1002,14 @@ Returns an object with a single valid WSS URL, which the client can use for [Con
 > warn
 > This endpoint requires authentication using a valid bot token.
 
-Returns an object based on the information in [Get Gateway](#DOCS_TOPICS_GATEWAY/get-gateway), plus additional metadata that can help during the operation of large or [sharded](#DOCS_TOPIC_GATEWAY/sharding) bots. Unlike the [Get Gateway](#DOCS_TOPICS_GATEWAY/get-gateway), this route should not be cached for extended periods of time as the value is not guaranteed to be the same per-call, and changes as the bot joins/leaves guilds.
+Returns an object based on the information in [Get Gateway](#DOCS_TOPICS_GATEWAY/get-gateway), plus additional metadata that can help during the operation of large or [sharded](#DOCS_TOPICS_GATEWAY/sharding) bots. Unlike the [Get Gateway](#DOCS_TOPICS_GATEWAY/get-gateway), this route should not be cached for extended periods of time as the value is not guaranteed to be the same per-call, and changes as the bot joins/leaves guilds.
 
 ###### JSON Response
 
 | Field               | Type                                                                          | Description                                                                             |
 | ------------------- | ----------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
 | url                 | string                                                                        | The WSS URL that can be used for connecting to the gateway                              |
-| shards              | integer                                                                       | The recommended number of [shards](#DOCS_TOPIC_GATEWAY/sharding) to use when connecting |
+| shards              | integer                                                                       | The recommended number of [shards](#DOCS_TOPICS_GATEWAY/sharding) to use when connecting |
 | session_start_limit | [session_start_limit](#DOCS_TOPICS_GATEWAY/session-start-limit-object) object | Information on the current session start limit                                          |
 
 ###### Example Response
