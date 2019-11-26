@@ -13,6 +13,21 @@ Whenever an admin action is performed on the API, an entry is added to the respe
 | webhooks          | array of [webhook](#DOCS_RESOURCES_WEBHOOK/webhook-object) objects                   | list of webhooks found in the audit log |
 | users             | array of [user](#DOCS_RESOURCES_USER/user-object) objects                            | list of users found in the audit log    |
 | audit_log_entries | array of [audit log entry](#DOCS_RESOURCES_AUDIT_LOG/audit-log-entry-object) objects | list of audit log entries               |
+| integrations      | array of partial [integration](#DOCS_RESOURCES_GUILD/integration-object) objects     | list of partial integration objects     |
+
+###### Example Partial Integration Object
+
+```json
+{
+  "id": 33590653072239123,
+  "name": "A Name",
+  "type": "twitch",
+  "account": {
+    "name": "twitchusername",
+    "id": "1234567"
+  }
+}
+```
 
 ### Audit Log Entry Object
 
@@ -140,6 +155,9 @@ Whenever an admin action is performed on the API, an entry is added to the respe
 | avatar_hash                   | [user](#DOCS_RESOURCES_USER/user-object)                | string                                                                                   | user avatar changed                                                                                                                                     |
 | id                            | any                                                     | snowflake                                                                                | the id of the changed entity - sometimes used in conjunction with other keys                                                                            |
 | type                          | any                                                     | integer ([channel type](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types)) or string | type of entity created                                                                                                                                  |
+| enable_emoticons              | [integration](#DOCS_RESOURCES_GUILD/integration-object) | boolean                                                                                  | integration emoticons enabled/disabled                                                                                                                  |
+| expire_behavior               | [integration](#DOCS_RESOURCES_GUILD/integration-object) | integer                                                                                  | integration expiring subscriber behavior changed                                                                                                        |
+| expire_grace_period           | [integration](#DOCS_RESOURCES_GUILD/integration-object) | integer                                                                                  | integration expire grace period changed                                                                                                                 |
 
 ###### Example Partial Role Object
 
