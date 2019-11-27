@@ -40,7 +40,7 @@ There are other rules and restrictions not shared here for the sake of spam and 
 | discriminator | string    | the user's 4-digit discord-tag                                                                       | identify              |
 | avatar        | ?string   | the user's [avatar hash](#DOCS_REFERENCE/image-formatting)                                           | identify              |
 | bot?          | boolean   | whether the user belongs to an OAuth2 application                                                    | identify              |
-| system?       | boolean   | whether the user is officially part of Discord urgent message system                                 | identify              |
+| system?       | boolean   | whether the user is an Official Discord System user (part of the urgent message system)              | identify              |
 | mfa_enabled?  | boolean   | whether the user has two factor enabled on their account                                             | identify              |
 | locale?       | string    | the user's chosen language option                                                                    | identify              |
 | verified?     | boolean   | whether the email on this account has been verified                                                  | email                 |
