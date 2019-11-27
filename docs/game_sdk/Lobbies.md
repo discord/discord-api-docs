@@ -136,6 +136,9 @@ lobbyManager.UpdateLobby(lobbyId, txn, (Discord.Result result, ref Discord.Lobby
 
 ## LobbyTransaction.SetOwner
 
+> warn
+> This method is only valid for `LobbyUpdateTransactions` and may cause issues if you set it on a `LobbyCreateTransaction`.
+
 Sets a new owner for the lobby.
 
 Returns `void`.
