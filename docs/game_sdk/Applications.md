@@ -76,6 +76,9 @@ if (branch != MyBranches.Stable)
 > info
 > value from environment variable `DISCORD_ACCESS_TOKEN`
 
+> warn
+> Ensure that you have `http://127.0.0.1` set as a valid redirect URI for your application in the Developer Portal, or this method will always return an error.
+
 Retrieve an oauth2 bearer token for the current user. If your game was launched from Discord and you call this function, you will automatically receive the token. If the game was _not_ launched from Discord and this method is called, Discord will focus itself and prompt the user for authorization.
 
 Returns a `Discord.Result` and a `ref Discord.OAuth2Token` via callback.
