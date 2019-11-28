@@ -930,13 +930,13 @@ Sent when a user starts typing in a channel.
 
 ###### Typing Start Event Fields
 
-| Field      | Type                                                       | Description                                            |
-| ---------- | ---------------------------------------------------------- | ------------------------------------------------------ |
-| channel_id | snowflake                                                  | id of the channel                                      |
-| guild_id?  | snowflake                                                  | id of the guild                                        |
-| user_id    | snowflake                                                  | id of the user                                         |
-| timestamp  | integer                                                    | unix time (in seconds) of when the user started typing |
-| member     | [member](#DOCS_RESOURCES_GUILD/guild-member-object) object | the member who started typing                          |
+| Field      | Type                                                       | Description                                               |
+| ---------- | ---------------------------------------------------------- | --------------------------------------------------------- |
+| channel_id | snowflake                                                  | id of the channel                                         |
+| guild_id?  | snowflake                                                  | id of the guild                                           |
+| user_id    | snowflake                                                  | id of the user                                            |
+| timestamp  | integer                                                    | unix time (in seconds) of when the user started typing    |
+| member?    | [member](#DOCS_RESOURCES_GUILD/guild-member-object) object | the member who started typing if this happened in a guild |
 
 #### User Update
 
