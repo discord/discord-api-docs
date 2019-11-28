@@ -265,11 +265,13 @@ Represents a message sent in a channel within Discord.
 
 ###### Message Flags
 
-| Flag            | Value  | Description                                                                       |
-| --------------- | ------ | --------------------------------------------------------------------------------- |
-| CROSSPOSTED     | 1 << 0 | this message has been published to subscribed channels (via Channel Following)    |
-| IS_CROSSPOST    | 1 << 1 | this message originated from a message in another channel (via Channel Following) |
-| SUPPRESS_EMBEDS | 1 << 2 | do not include any embeds when serializing this message                           |
+| Flag                   | Value  | Description                                                                       |
+| ---------------------- | ------ | --------------------------------------------------------------------------------- |
+| CROSSPOSTED            | 1 << 0 | this message has been published to subscribed channels (via Channel Following)    |
+| IS_CROSSPOST           | 1 << 1 | this message originated from a message in another channel (via Channel Following) |
+| SUPPRESS_EMBEDS        | 1 << 2 | do not include any embeds when serializing this message                           |
+| SOURCE_MESSAGE_DELETED | 1 << 3 | the source message for this crosspost has been deleted (via Channel Following)    |
+| URGENT                 | 1 << 4 | this message came from the urgent message system                                  |
 
 ###### Example Message
 
