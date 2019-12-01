@@ -83,8 +83,8 @@ There are other rules and restrictions not shared here for the sake of spam and 
 
 | Value | Name          | Description                                                                           |
 | ----- | ------------- | ------------------------------------------------------------------------------------- |
-| 1     | Nitro Classic | includes app perks like animated emojis and avatars, but not games or server boosting |
-| 2     | Nitro         | includes app perks as well as the games subscription service and server boosting      |
+| 1     | Nitro Classic | includes app perks like animated emojis and avatars, but not server boosting          |
+| 2     | Nitro         | includes app perks as well as server boosting                                         |
 
 ### Connection Object
 
