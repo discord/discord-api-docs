@@ -922,7 +922,7 @@ Active sessions are indicated with an "online", "idle", or "dnd" string per plat
 ```
 
 > warn
-> Clients may only update their game status 5 times per minute.
+> Clients may only update their game status 5 times per 20 seconds.
 
 #### Typing Start
 
