@@ -255,7 +255,7 @@ When your client detects that its connection has been severed, it should open a 
 }
 ```
 
-If successful, the Voice server will respond with an [Opcode 9 Resumed](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice-opcodes) and an [Opcode 8 Hello](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice-opcodes) to signal that your client is now reconnected:
+If successful, the Voice server will respond with an [Opcode 9 Resumed](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice-opcodes) to signal that your client is now resumed:
 
 ###### Example Resumed Payload
 
