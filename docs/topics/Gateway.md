@@ -773,15 +773,17 @@ A user's presence is their current state on a guild. This event is sent when a u
 
 ###### Presence Update Event Fields
 
-| Field         | Type                                                              | Description                                  |
-| ------------- | ----------------------------------------------------------------- | -------------------------------------------- |
-| user          | [user](#DOCS_RESOURCES_USER/user-object) object                   | the user presence is being updated for       |
-| roles         | array of snowflakes                                               | roles this user is in                        |
-| game          | ?[activity](#DOCS_TOPICS_GATEWAY/activity-object) object          | null, or the user's current activity         |
-| guild_id      | snowflake                                                         | id of the guild                              |
-| status        | string                                                            | either "idle", "dnd", "online", or "offline" |
-| activities    | array of [activity](#DOCS_TOPICS_GATEWAY/activity-object) objects | user's current activities                    |
-| client_status | [client_status](#DOCS_TOPICS_GATEWAY/client-status-object) object | user's platform-dependent status             |
+| Field          | Type                                                              | Description                                        |
+| -------------- | ----------------------------------------------------------------- | -------------------------------------------------- |
+| user           | [user](#DOCS_RESOURCES_USER/user-object) object                   | the user presence is being updated for             |
+| roles          | array of snowflakes                                               | roles this user is in                              |
+| game           | ?[activity](#DOCS_TOPICS_GATEWAY/activity-object) object          | null, or the user's current activity               |
+| guild_id       | snowflake                                                         | id of the guild                                    |
+| status         | string                                                            | either "idle", "dnd", "online", or "offline"       |
+| activities     | array of [activity](#DOCS_TOPICS_GATEWAY/activity-object) objects | user's current activities                          |
+| client_status  | [client_status](#DOCS_TOPICS_GATEWAY/client-status-object) object | user's platform-dependent status                   |
+| premium_since? | ?ISO8601 timestamp                                                | when the user used their Nitro boost on the server |
+| nick?          | ?string                                                           | this users guild nickname (if one is set)          |
 
 #### Client Status Object
 
