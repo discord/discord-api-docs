@@ -82,10 +82,12 @@ There are other rules and restrictions not shared here for the sake of spam and 
 
 ###### Premium Types
 
-| Value | Name          | Description                                                                           |
-| ----- | ------------- | ------------------------------------------------------------------------------------- |
-| 1     | Nitro Classic | includes app perks like animated emojis and avatars, but not games or server boosting |
-| 2     | Nitro         | includes app perks as well as the games subscription service and server boosting      |
+Premium types denote the level of premium a user has. Visit the [Nitro](https://discordapp.com/nitro) page to learn more about the premium plans we currently offer.
+
+| Value | Name          |
+| ----- | ------------- |
+| 1     | Nitro Classic |
+| 2     | Nitro         |
 
 ### Connection Object
 
