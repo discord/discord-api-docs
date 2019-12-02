@@ -4,16 +4,6 @@ Users in Discord are generally considered the base entity. Users can spawn acros
 guilds, participate in text and voice chat, and much more. Users are separated by a distinction of "bot" vs "normal." Although they are similar, bot users are automated users that are "owned" by another user. Unlike normal users, bot users do
 _not_ have a limitation on the number of Guilds they can be a part of.
 
-## Avatar Data
-
-Avatar data is a [Data URI scheme](https://en.wikipedia.org/wiki/Data_URI_scheme) that supports JPG, GIF, and PNG formats. An example Data URI format is:
-
-```
-data:image/jpeg;base64,BASE64_ENCODED_JPEG_IMAGE_DATA
-```
-
-Ensure you use the proper header type (`image/jpeg`, `image/png`, `image/gif`) that matches the image data being provided.
-
 ## Usernames and Nicknames
 
 Discord enforces the following restrictions for usernames and nicknames:
@@ -131,7 +121,7 @@ Modify the requester's user account settings. Returns a [user](#DOCS_RESOURCES_U
 | Field    | Type                                            | Description                                                                    |
 | -------- | ----------------------------------------------- | ------------------------------------------------------------------------------ |
 | username | string                                          | users username, if changed may cause the users discriminator to be randomized. |
-| avatar   | [avatar data](#DOCS_RESOURCES_USER/avatar-data) | if passed, modifies the user's avatar                                          |
+| avatar   | [image data](#DOCS_REFERENCE/image-data)        | if passed, modifies the user's avatar                                          |
 
 ## Get Current User Guilds % GET /users/@me/guilds
 

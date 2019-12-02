@@ -257,7 +257,7 @@ Create a new guild. Returns a [guild](#DOCS_RESOURCES_GUILD/guild-object) object
 | ----------------------------- | -------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- |
 | name                          | string                                                                     | name of the guild (2-100 characters)                                                                        |
 | region                        | string                                                                     | [voice region](#DOCS_RESOURCES_VOICE/voice-region) id                                                       |
-| icon                          | string                                                                     | base64 128x128 jpeg image for the guild icon                                                                |
+| icon                          | [image data](#DOCS_REFERENCE/image-data)                                   | base64 128x128 image for the guild icon                                                                     |
 | verification_level            | integer                                                                    | [verification level](#DOCS_RESOURCES_GUILD/guild-object-verification-level)                                 |
 | default_message_notifications | integer                                                                    | default [message notification level](#DOCS_RESOURCES_GUILD/guild-object-default-message-notification-level) |
 | explicit_content_filter       | integer                                                                    | [explicit content filter level](#DOCS_RESOURCES_GUILD/guild-object-explicit-content-filter-level)           |
@@ -292,20 +292,20 @@ Modify a guild's settings. Requires the `MANAGE_GUILD` permission. Returns the u
 
 ###### JSON Params
 
-| Field                         | Type      | Description                                                                                                 |
-| ----------------------------- | --------- | ----------------------------------------------------------------------------------------------------------- |
-| name                          | string    | guild name                                                                                                  |
-| region                        | string    | guild [voice region](#DOCS_RESOURCES_VOICE/voice-region) id                                                 |
-| verification_level            | integer   | [verification level](#DOCS_RESOURCES_GUILD/guild-object-verification-level)                                 |
-| default_message_notifications | integer   | default [message notification level](#DOCS_RESOURCES_GUILD/guild-object-default-message-notification-level) |
-| explicit_content_filter       | integer   | [explicit content filter level](#DOCS_RESOURCES_GUILD/guild-object-explicit-content-filter-level)           |
-| afk_channel_id                | snowflake | id for afk channel                                                                                          |
-| afk_timeout                   | integer   | afk timeout in seconds                                                                                      |
-| icon                          | string    | base64 1024x1024 png/jpeg/gif image for the guild icon (can be animated gif when the server has `ANIMATED_ICON` feature)                                                               |
-| owner_id                      | snowflake | user id to transfer guild ownership to (must be owner)                                                      |
-| splash                        | string    | base64 16:9 png/jpeg image for the guild splash (when the server has `INVITE_SPLASH` feature)                                                   |
-| banner                        | string    | base64 16:9 png/jpeg image for the guild banner (when the server has `BANNER` feature)                                                   |
-| system_channel_id             | snowflake | the id of the channel to which system messages are sent                                                     |
+| Field                         | Type                                     | Description                                                                                                 |
+| ----------------------------- | ---------------------------------------- | ----------------------------------------------------------------------------------------------------------- |
+| name                          | string                                   | guild name                                                                                                  |
+| region                        | string                                   | guild [voice region](#DOCS_RESOURCES_VOICE/voice-region) id                                                 |
+| verification_level            | integer                                  | [verification level](#DOCS_RESOURCES_GUILD/guild-object-verification-level)                                 |
+| default_message_notifications | integer                                  | default [message notification level](#DOCS_RESOURCES_GUILD/guild-object-default-message-notification-level) |
+| explicit_content_filter       | integer                                  | [explicit content filter level](#DOCS_RESOURCES_GUILD/guild-object-explicit-content-filter-level)           |
+| afk_channel_id                | snowflake                                | id for afk channel                                                                                          |
+| afk_timeout                   | integer                                  | afk timeout in seconds                                                                                      |
+| icon                          | [image data](#DOCS_REFERENCE/image-data) | base64 1024x1024 png/jpeg/gif image for the guild icon (can be animated gif when the server has `ANIMATED_ICON` feature)                                                               |
+| owner_id                      | snowflake                                | user id to transfer guild ownership to (must be owner)                                                      |
+| splash                        | [image data](#DOCS_REFERENCE/image-data) | base64 16:9 png/jpeg image for the guild splash (when the server has `INVITE_SPLASH` feature)                                                   |
+| banner                        | [image data](#DOCS_REFERENCE/image-data) | base64 16:9 png/jpeg image for the guild banner (when the server has `BANNER` feature)                                                   |
+| system_channel_id             | snowflake                                | the id of the channel to which system messages are sent                                                     |
 
 ## Delete Guild % DELETE /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}
 

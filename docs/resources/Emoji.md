@@ -85,11 +85,11 @@ Create a new emoji for the guild. Requires the `MANAGE_EMOJIS` permission. Retur
 
 ###### JSON Params
 
-| Field | Type                | Description                                    |
-| ----- | ------------------- | ---------------------------------------------- |
-| name  | string              | name of the emoji                              |
-| image | base64 image data   | the 128x128 emoji image                        |
-| roles | array of snowflakes | roles for which this emoji will be whitelisted |
+| Field | Type                                     | Description                                    |
+| ----- | ---------------------------------------- | ---------------------------------------------- |
+| name  | string                                   | name of the emoji                              |
+| image | [image data](#DOCS_REFERENCE/image-data) | the 128x128 emoji image                        |
+| roles | array of snowflakes                      | roles for which this emoji will be whitelisted |
 
 ## Modify Guild Emoji % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/emojis/{emoji.id#DOCS_RESOURCES_EMOJI/emoji-object}
 
