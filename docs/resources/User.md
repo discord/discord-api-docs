@@ -16,7 +16,7 @@ Discord enforces the following restrictions for usernames and nicknames:
 The following restrictions are additionally enforced for usernames:
 
 1.  Names cannot contain the following substrings: '@', '#', ':', '\```'.
-2.  Names cannot be: 'discordtag', 'everyone', 'here', 'clyde'.
+2.  Names cannot be: 'discordtag', 'everyone', 'here'.
 
 There are other rules and restrictions not shared here for the sake of spam and abuse mitigation, but the majority of users won't encounter them. It's important to properly handle all error messages returned by Discord when editing or updating names.
 
@@ -118,10 +118,10 @@ Modify the requester's user account settings. Returns a [user](#DOCS_RESOURCES_U
 
 ###### JSON Params
 
-| Field    | Type                                            | Description                                                                    |
-| -------- | ----------------------------------------------- | ------------------------------------------------------------------------------ |
-| username | string                                          | users username, if changed may cause the users discriminator to be randomized. |
-| avatar   | [image data](#DOCS_REFERENCE/image-data)        | if passed, modifies the user's avatar                                          |
+| Field    | Type                                     | Description                                                                    |
+| -------- | ---------------------------------------- | ------------------------------------------------------------------------------ |
+| username | string                                   | users username, if changed may cause the users discriminator to be randomized. |
+| avatar   | [image data](#DOCS_REFERENCE/image-data) | if passed, modifies the user's avatar                                          |
 
 ## Get Current User Guilds % GET /users/@me/guilds
 

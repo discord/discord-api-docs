@@ -48,7 +48,9 @@ Used to represent a webhook.
 
 ## Create Webhook % POST /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/webhooks
 
-Create a new webhook. Requires the `MANAGE_WEBHOOKS` permission. Returns a [webhook](#DOCS_RESOURCES_WEBHOOK/webhook-object) object on success.
+Create a new webhook. Requires the `MANAGE_WEBHOOKS` permission. Returns a [webhook](#DOCS_RESOURCES_WEBHOOK/webhook-object) object on success. Webhook names follow our naming restrictions that can be found in our [Usernames and Nicknames](#DOCS_RESOURCES_USER/usernames-and-nicknames) documentation, with the following additional stipulations:
+
+- Webhook names cannot be: 'clyde'
 
 ###### JSON Params
 
@@ -113,15 +115,15 @@ Same as above, except this call does not require authentication.
 
 ###### JSON/Form Params
 
-| Field        | Type                                                           | Description                                                  | Required                     |
-| ------------ | -------------------------------------------------------------- | ------------------------------------------------------------ | ---------------------------- |
-| content      | string                                                         | the message contents (up to 2000 characters)                 | one of content, file, embeds |
-| username     | string                                                         | override the default username of the webhook                 | false                        |
-| avatar_url   | string                                                         | override the default avatar of the webhook                   | false                        |
-| tts          | boolean                                                        | true if this is a TTS message                                | false                        |
-| file         | file contents                                                  | the contents of the file being sent                          | one of content, file, embeds |
+| Field        | Type                                                                    | Description                                                  | Required                     |
+| ------------ | ----------------------------------------------------------------------- | ------------------------------------------------------------ | ---------------------------- |
+| content      | string                                                                  | the message contents (up to 2000 characters)                 | one of content, file, embeds |
+| username     | string                                                                  | override the default username of the webhook                 | false                        |
+| avatar_url   | string                                                                  | override the default avatar of the webhook                   | false                        |
+| tts          | boolean                                                                 | true if this is a TTS message                                | false                        |
+| file         | file contents                                                           | the contents of the file being sent                          | one of content, file, embeds |
 | embeds       | array of up to 10 [embed](#DOCS_RESOURCES_CHANNEL/embed-object) objects | embedded `rich` content                                      | one of content, file, embeds |
-| payload_json | string                                                         | See [message create](#DOCS_RESOURCES_CHANNEL/create-message) | `multipart/form-data` only   |
+| payload_json | string                                                                  | See [message create](#DOCS_RESOURCES_CHANNEL/create-message) | `multipart/form-data` only   |
 
 > info
 > For the webhook embed objects, you can set every field except `type` (it will be `rich` regardless of if you try to set it), `provider`, `video`, and any `height`, `width`, or `proxy_url` values for images.
