@@ -19,7 +19,7 @@ Ensure you use the proper header type (`image/jpeg`, `image/png`, `image/gif`) t
 Discord enforces the following restrictions for usernames and nicknames:
 
 1.  Names can contain most valid unicode characters. We limit some zero-width and non-rendering characters.
-2.  Usernames must be between 2 and 32 characters long and nicknames must be between 1 and 32 characters long.
+2.  Usernames must be between 2 and 32 characters long while nicknames must be between 1 and 32 characters long.
 3.  Names are sanitized and trimmed of leading, trailing, and excessive internal whitespace.
 
 The following restrictions are additionally enforced for usernames:
