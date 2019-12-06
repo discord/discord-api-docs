@@ -1,10 +1,10 @@
 # Voice
 
-Voice connections operate in a similar fashion to the [Gateway](#DOCS_TOPICS_GATEWAY/gateways) connection. However, they use a different set of payloads and a separate UDP-based connection for voice data transmission. Because UDP is used for both receiving and transmitting voice data, your client _must_ be able to receive UDP packets, even through a firewall or NAT (see [UDP Hole Punching](https://en.wikipedia.org/wiki/UDP_hole_punching) for more information). The Discord Voice servers implement functionality (see [IP Discovery](#DOCS_RESOURCES_VOICE_CONNECTIONS/ip-discovery)) for discovering the local machines remote UDP IP/Port, which can assist in some network configurations.
+Voice connections operate in a similar fashion to the [Gateway](#DOCS_TOPICS_GATEWAY/gateways) connection. However, they use a different set of payloads and a separate UDP-based connection for voice data transmission. Because UDP is used for both receiving and transmitting voice data, your client _must_ be able to receive UDP packets, even through a firewall or NAT (see [UDP Hole Punching](https://en.wikipedia.org/wiki/UDP_hole_punching) for more information). The Discord Voice servers implement functionality (see [IP Discovery](#DOCS_TOPICS_VOICE_CONNECTIONS/ip-discovery)) for discovering the local machines remote UDP IP/Port, which can assist in some network configurations.
 
 ## Voice Gateway Versioning
 
-To ensure that you have the most up-to-date information, please use [version 4](#DOCS_RESOURCES_VOICE_CONNECTIONS/voice-gateway-versioning-gateway-versions). Otherwise, we cannot guarantee that the [Opcodes](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice-opcodes) documented here will reflect what you receive over the socket.
+To ensure that you have the most up-to-date information, please use [version 4](#DOCS_TOPICS_VOICE_CONNECTIONS/voice-gateway-versioning-gateway-versions). Otherwise, we cannot guarantee that the [Opcodes](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice-opcodes) documented here will reflect what you receive over the socket.
 
 ###### Gateway Versions
 
@@ -52,7 +52,7 @@ If our request succeeded, the gateway will respond with _two_ events—a [Voice 
 }
 ```
 
-With this information, we can move on to establishing a voice websocket connection.
+With this information, we can move on to establishing a voice WebSocket connection.
 
 > info
 > Bot users respect the voice channel's user limit, if set. When the voice channel is full, you will not receive
@@ -61,7 +61,7 @@ With this information, we can move on to establishing a voice websocket connecti
 
 ## Establishing a Voice Websocket Connection
 
-Once we retrieve a session_id, token, and endpoint information, we can connect and handshake with the voice server over another secure websocket. Unlike the gateway endpoint we receive in an HTTP [Get Gateway](#DOCS_TOPICS_GATEWAY/get-gateway) request, the endpoint received from our [Voice Server Update](#DOCS_TOPICS_GATEWAY/voice-server-update) payload does not contain a URL protocol, so some libraries may require manually prepending it with "wss://" before connecting. Once connected to the voice websocket endpoint, we can send an [Opcode 0 Identify](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice-opcodes) payload with our server_id, user_id, session_id, and token:
+Once we retrieve a session_id, token, and endpoint information, we can connect and handshake with the voice server over another secure WebSocket. Unlike the gateway endpoint we receive in an HTTP [Get Gateway](#DOCS_TOPICS_GATEWAY/get-gateway) request, the endpoint received from our [Voice Server Update](#DOCS_TOPICS_GATEWAY/voice-server-update) payload does not contain a URL protocol, so some libraries may require manually prepending it with "wss://" before connecting. Once connected to the voice WebSocket endpoint, we can send an [Opcode 0 Identify](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice-opcodes) payload with our server_id, user_id, session_id, and token:
 
 ###### Example Voice Identify Payload
 
@@ -77,7 +77,7 @@ Once we retrieve a session_id, token, and endpoint information, we can connect a
 }
 ```
 
-The voice server should respond with an [Opcode 2 Ready](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice-opcodes) payload, which informs us of the `ssrc`, UDP IP/port, and supported encryption modes the voice server expects:
+The voice server should respond with an [Opcode 2 Ready](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice-opcodes) payload, which informs us of the `SSRC`, UDP IP/port, and supported encryption modes the voice server expects:
 
 ###### Example Voice Ready Payload
 
@@ -99,7 +99,7 @@ The voice server should respond with an [Opcode 2 Ready](#DOCS_TOPICS_OPCODES_AN
 
 ## Heartbeating
 
-In order to maintain your websocket connection, you need to continuously send heartbeats at the interval determined in [Opcode 8 Hello](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice-opcodes):
+In order to maintain your WebSocket connection, you need to continuously send heartbeats at the interval determined in [Opcode 8 Hello](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice-opcodes):
 
 ###### Example Hello Payload below V3
 
@@ -146,7 +146,7 @@ In return, you will be sent back an [Opcode 6 Heartbeat ACK](#DOCS_TOPICS_OPCODE
 
 ## Establishing a Voice UDP Connection
 
-Once we receive the properties of a UDP voice server from our [Opcode 2 Ready](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice-opcodes) payload, we can proceed to the final step of voice connections, which entails establishing and handshaking a UDP connection for voice data. First, we open a UDP connection to the IP and port provided in the Ready payload. If required, we can now perform an [IP Discovery](#DOCS_RESOURCES_VOICE_CONNECTIONS/ip-discovery) using this connection. Once we've fully discovered our external IP and UDP port, we can then tell the voice websocket what it is, and start receiving/sending data. We do this using [Opcode 1 Select Protocol](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice-opcodes):
+Once we receive the properties of a UDP voice server from our [Opcode 2 Ready](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice-opcodes) payload, we can proceed to the final step of voice connections, which entails establishing and handshaking a UDP connection for voice data. First, we open a UDP connection to the IP and port provided in the Ready payload. If required, we can now perform an [IP Discovery](#DOCS_TOPICS_VOICE_CONNECTIONS/ip-discovery) using this connection. Once we've fully discovered our external IP and UDP port, we can then tell the voice WebSocket what it is, and start receiving/sending data. We do this using [Opcode 1 Select Protocol](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice-opcodes):
 
 ###### Example Select Protocol Payload
 
@@ -175,7 +175,7 @@ Once we receive the properties of a UDP voice server from our [Opcode 2 Ready](#
 >warn
 >The nonce has to be stripped from the payload before encrypting and before decrypting the audio data
 
-Finally, the voice server will respond with a [Opcode 4 Session Description](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice-opcodes) that includes the `mode` and `secret_key`, a 32 byte array used for [encrypting and sending](#DOCS_RESOURCES_VOICE_CONNECTIONS/encrypting-and-sending-voice) voice data:
+Finally, the voice server will respond with a [Opcode 4 Session Description](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice-opcodes) that includes the `mode` and `secret_key`, a 32 byte array used for [encrypting and sending](#DOCS_TOPICS_VOICE_CONNECTIONS/encrypting-and-sending-voice) voice data:
 
 ###### Example Session Description Payload
 
@@ -240,7 +240,7 @@ When there's a break in the sent data, the packet transmission shouldn't simply 
 
 ## Resuming Voice Connection
 
-When your client detects that its connection has been severed, it should open a new websocket connection. Once the new connection has been opened, your client should send an [Opcode 7 Resume](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice-opcodes) payload:
+When your client detects that its connection has been severed, it should open a new WebSocket connection. Once the new connection has been opened, your client should send an [Opcode 7 Resume](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice-opcodes) payload:
 
 ###### Example Resume Connection Payload
 
@@ -266,8 +266,17 @@ If successful, the Voice server will respond with an [Opcode 9 Resumed](#DOCS_TO
 }
 ```
 
-If the resume is unsuccessful—for example, due to an invalid session—the websocket connection will close with the appropriate [close event code](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice-close-event-codes). You should then follow the [Connecting](#DOCS_RESOURCES_VOICE_CONNECTS/connecting-to-voice) flow to reconnect.
+If the resume is unsuccessful—for example, due to an invalid session—the WebSocket connection will close with the appropriate [close event code](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice-close-event-codes). You should then follow the [Connecting](#DOCS_TOPICS_VOICE_CONNECTS/connecting-to-voice) flow to reconnect.
 
 #### IP Discovery
 
-Generally routers on the internet mask or obfuscate UDP ports through a process called NAT. Most users who implement voice will want to utilize IP discovery to find their external IP and port which will then be used for receiving voice communications. To retrieve your external IP and port, send a 70-byte packet with empty data past the 4-byte ssrc. The server will respond back with another 70-byte packet, this time with a NULL-terminated string of the IP, with the port encoded in a **little endian** unsigned short stored in the last two bytes of the packet.
+Generally routers on the Internet mask or obfuscate UDP ports through a process called NAT. Most users who implement voice will want to utilize IP discovery to find their external IP and port which will then be used for receiving voice communications. To retrieve your external IP and port, send the following UDP packet to your voice port (all numeric are big endian):
+
+| Field           | Description                                                    | Size     |
+| --------------- | -------------------------------------------------------------- | -------- |
+| Type            | Values 0x1 and 0x2 indicate request and response, respectively | 2 bytes  |
+| Length          | Message length excluding Type and Length fields (value 70)     | 2 bytes  |
+| SSRC            | Unsigned integer                                               | 4 bytes  |
+| Address         | Null-terminated string in response                             | 64 bytes |
+| Port            | Unsigned short                                                 | 2 bytes  |
+

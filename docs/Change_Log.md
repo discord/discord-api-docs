@@ -1,5 +1,11 @@
 # Change Log
 
+## IP Discovery Updates
+
+#### December 6, 2019
+
+Updated our [IP discovery message](#DOCS_TOPICS_VOICE_CONNECTIONS/ip-discovery). The old message is deprecated and will be removed in the future.
+
 ## GameSDK Version 2.5.6
 
 #### November 27, 2019
@@ -134,7 +140,7 @@ For more information, check out our [Rich Presence site](https://discordapp.com/
 
 #### September 20, 2017
 
-Changes have been made throughout the documentation to reflect the addition of channel categories to Discord. These includes an additional field—`parent_id`—to the base [channel](#DOCS_RESOURCES_CHANNEL/channel-obect) object and a new [channel category example](#DOCS_RESOURCES_CHANNEL/channel-object-example-channel-category).
+Changes have been made throughout the documentation to reflect the addition of channel categories to Discord. These includes an additional field—`parent_id`—to the base [channel](#DOCS_RESOURCES_CHANNEL/channel-object) object and a new [channel category example](#DOCS_RESOURCES_CHANNEL/channel-object-example-channel-category).
 
 ## New Feature: Emoji Endpoints
 
