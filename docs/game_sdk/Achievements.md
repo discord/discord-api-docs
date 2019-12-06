@@ -72,7 +72,7 @@ Loads a stable list of the current user's achievements to iterate over. If the u
 
 Returns `Discord.Result` via callback.
 > info
-> Remember to only iterate when there are multiple results!
+> Remember to only iterate when there are results!
 
 ###### Parameters
 
