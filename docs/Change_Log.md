@@ -4,7 +4,7 @@
 
 #### December 6, 2019
 
-Updated our IP discovery [message](#DOCS_TOPICS_VOICE_CONNECTIONS/ip-discovery). The old message is deprecated and will be removed in the future.
+Updated our [IP discovery message](#DOCS_TOPICS_VOICE_CONNECTIONS/ip-discovery). The old message is deprecated and will be removed in the future.
 
 ## GameSDK Version 2.5.6
 
