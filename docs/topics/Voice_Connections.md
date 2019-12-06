@@ -270,10 +270,10 @@ If the resume is unsuccessful—for example, due to an invalid session—the Web
 
 #### IP Discovery
 
-Generally routers on the Internet mask or obfuscate UDP ports through a process called NAT. Most users who implement voice will want to utilize IP discovery to find their external IP and port which will then be used for receiving voice communications. To retrieve your external IP and port, send the following UDP packet to your voice port (all numeric fields are big endian):
+Generally routers on the Internet mask or obfuscate UDP ports through a process called NAT. Most users who implement voice will want to utilize IP discovery to find their external IP and port which will then be used for receiving voice communications. To retrieve your external IP and port, send the following UDP packet to your voice port (all numeric fields in this message are big endian):
 
 | Field           | Description                                                    | Size     |
-| --------------- | ------------------------i------------------------------------- | -------- |
+| --------------- | -------------------------------------------------------------- | -------- |
 | Type            | Values 0x1 and 0x2 indicate request and response, respectively | 2 bytes  |
 | Length          | Message length excluding Type and Length fields (value 70)     | 2 bytes  |
 | SSRC            | Unsigned integer                                               | 4 bytes  |
