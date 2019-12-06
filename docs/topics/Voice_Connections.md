@@ -280,5 +280,6 @@ Generally routers on the Internet mask or obfuscate UDP ports through a process 
 | Address         | Null-terminated string in response                             | 64 bytes |
 | Port            | Unsigned short                                                 | 2 bytes  |
 
+##### Deprecated Behavior
 
-Earlier and now deprecated version of this message was 70-byte long including `SSRC`, `Address` and `Port` fields. The request should include four-byte SSRC (big endian). The server responds back with another 70-byte packet, four-byte SSRC (little endian) followed with a NULL-terminated string of the IP, with the port encoded in a **big endian** unsigned short stored in the last two bytes of the packet.
+To retrieve your external IP and port, send a 70-byte packet with empty data past the 4-byte SSRC (big endian). The server will respond back with another 70-byte packet, four-byte SSRC (**little endian**) followed with a NULL-terminated string of the IP, with the port encoded in a big endian unsigned short stored in the last two bytes of the packet.
