@@ -71,6 +71,7 @@ achievementManager.SetUserAchievement(580159119969878046, 25, (res) =>
 Loads a stable list of the current user's achievements to iterate over. If the user has any achievements, do your iteration within the callback of this function.
 
 Returns `Discord.Result` via callback.
+
 > info
 > Remember to only iterate when there are results!
 
