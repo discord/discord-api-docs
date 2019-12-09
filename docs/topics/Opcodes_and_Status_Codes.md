@@ -116,6 +116,7 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 10013  | Unknown user                                                                                                    |
 | 10014  | Unknown Emoji                                                                                                   |
 | 10015  | Unknown Webhook                                                                                                 |
+| 10029  | Unknown Entitlement                                                                                             |
 | 20001  | Bots cannot use this endpoint                                                                                   |
 | 20002  | Only bots can use this endpoint                                                                                 |
 | 30001  | Maximum number of guilds reached (100)                                                                          |
