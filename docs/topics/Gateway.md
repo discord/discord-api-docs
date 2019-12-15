@@ -636,7 +636,7 @@ Sent when a guild member is updated.
 | roles         | array of snowflakes                               | user role ids                                      |
 | user          | a [user](#DOCS_RESOURCES_USER/user-object) object | the user                                           |
 | nick          | string                                            | nickname of the user in the guild                  |
-| premium_since | ?ISO8601 timestamp                                | when the user used their Nitro boost on the server |
+| premium_since | ?ISO8601 timestamp                                | when the user used their Nitro boost on the guild |
 
 #### Guild Members Chunk
 
