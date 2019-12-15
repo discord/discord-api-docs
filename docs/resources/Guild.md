@@ -108,7 +108,7 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 | ANIMATED_ICON        | guild has access to set an animated guild icon                                  |
 | BANNER               | guild has access to set a guild banner image                                    |
 | MEMBER_LIST_DISABLED | guild has its member list disabled                                              |
-| PUBLIC_DISABLED      | guild cannot be public
+| PUBLIC_DISABLED      | guild cannot be public                                                          |
 
 ###### Example Guild
 
