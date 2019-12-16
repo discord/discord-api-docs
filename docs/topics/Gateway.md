@@ -630,13 +630,13 @@ Sent when a user is removed from a guild (leave/kick/ban).
 Sent when a guild member is updated.
 
 ###### Guild Member Update Event Fields
-
-| Field    | Type                                              | Description                       |
-| -------- | ------------------------------------------------- | --------------------------------- |
-| guild_id | snowflake                                         | the id of the guild               |
-| roles    | array of snowflakes                               | user role ids                     |
-| user     | a [user](#DOCS_RESOURCES_USER/user-object) object | the user                          |
-| nick     | string                                            | nickname of the user in the guild |
+| Field         | Type                                              | Description                                        |
+| ------------- | ------------------------------------------------- | -------------------------------------------------- |
+| guild_id      | snowflake                                         | the id of the guild                                |
+| roles         | array of snowflakes                               | user role ids                                      |
+| user          | a [user](#DOCS_RESOURCES_USER/user-object) object | the user                                           |
+| nick          | string                                            | nickname of the user in the guild                  |
+| premium_since | ?ISO8601 timestamp                                | when the user used their Nitro boost on the guild |
 
 #### Guild Members Chunk
 
