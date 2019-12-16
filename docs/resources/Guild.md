@@ -32,6 +32,7 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 | widget_enabled?               | boolean                                                                             | whether or not the server widget is enabled                                                                                      |
 | widget_channel_id?            | snowflake                                                                           | the channel id for the server widget                                                                                             |
 | system_channel_id             | ?snowflake                                                                          | the id of the channel to which system messages are sent                                                                          |
+| system_channel_flags          | number                                                                              | [system channel flags](#DOCS_RESOURCES_GUILD/guild-object-system-channel-flags)                                                  |
 | rules_channel_id              | ?snowflake                                                                          | the id of the channel in which a discoverable server's rules should be found                                                     |
 | joined_at? \*                 | ISO8601 timestamp                                                                   | when this guild was joined at                                                                                                    |
 | large? \*                     | boolean                                                                             | whether this is considered a large guild                                                                                         |
@@ -92,6 +93,13 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 | TIER_1 | 1       |
 | TIER_2 | 2       |
 | TIER_3 | 3       |
+
+###### System Channel Flags
+
+| Flag                            | Value  | Description                                                |
+| ------------------------------- | ------ | ---------------------------------------------------------- |
+| SUPPRESS_JOIN_NOTIFICATIONS     | 1 << 0 | Suppress member join notifications                         |
+| SUPPRESS_PREMIUM_SUBSCRIPTIONS  | 1 << 1 | Suppress server boost notifications                        |
 
 ###### Guild Features
 
