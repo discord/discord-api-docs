@@ -228,6 +228,7 @@ Represents a message sent in a channel within Discord.
 | USER_PREMIUM_GUILD_SUBSCRIPTION_TIER_2 | 10    |
 | USER_PREMIUM_GUILD_SUBSCRIPTION_TIER_3 | 11    |
 | CHANNEL_FOLLOW_ADD                     | 12    |
+| GUILD_STREAM                           | 13    |
 
 ###### Message Activity Structure
 
