@@ -57,7 +57,7 @@ Represents a code that when used, adds a user to a guild or group DM channel.
 
 ### Invite Metadata Object
 
-Extra information about an invite, will extend [invite](#DOCS_RESOURCES_INVITE/invite-object).
+Extra information about an invite, will extend the [invite](#DOCS_RESOURCES_INVITE/invite-object) object.
 
 ###### Invite Metadata Structure
 
