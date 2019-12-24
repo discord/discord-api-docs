@@ -61,6 +61,8 @@ Currently the only available transport compression option is `zlib-stream`. You 
 ###### Transport Compression Example
 
 ```python
+import zlib
+
 # Z_SYNC_FLUSH suffix
 ZLIB_SUFFIX = b'\x00\x00\xff\xff'
 # initialize a buffer to store chunks
@@ -70,21 +72,27 @@ inflator = zlib.decompressobj()
 
 # ...
 def on_websocket_message(msg):
-  # always push the message data to your cache
-  buffer.extend(msg)
+    global buffer
+    # always push the message data to your cache
+    buffer.extend(msg)
 
-  # check if the last four bytes are equal to ZLIB_SUFFIX
-  if len(msg) < 4 or msg[-4:] != ZLIB_SUFFIX:
-    return
+    # check if the last four bytes are equal to ZLIB_SUFFIX
+    if len(msg) < 4 or msg[-4:] != ZLIB_SUFFIX:
+        return
 
-  # if the message *does* end with ZLIB_SUFFIX,
-  # get the full message by decompressing the buffers
-  msg = inflator.decompress(buffer).decode('utf-8')
-  buffer = bytearray()
+    # if the message *does* end with ZLIB_SUFFIX,
+    # get the full message by decompressing the buffers
+    msg = inflator.decompress(buffer).decode('utf-8')
+    buffer = bytearray()
 
-  # here you can treat `msg` as either JSON or ETF encoded,
-  # depending on your `encoding` param
+    # here you can treat `msg` as either JSON or ETF encoded,
+    # depending on your `encoding` parameter
 ```
+
+It is worth noting that splitting these payloads up between websocket messages is performed
+at the discretion of the gateway. There is no guarantee of the maximum size of a single
+message that may be received. The previous example works around this by ensuring a fresh
+buffer is used per message.
 
 ## Connecting to the Gateway
 
