@@ -150,10 +150,10 @@ var userManager = discord.GetUserManager();
 userManager.OnCurrentUserUpdate += () =>
 {
 var currentUser = userManager.GetCurrentUser();
-Console.WriteLine(currentUser.Username);
-Console.WriteLine(currentUser.Id);
-Console.WriteLine(currentUser.Discriminator);
-Console.WriteLine(currentUser.Avatar);
+	Console.WriteLine(currentUser.Username);
+	Console.WriteLine(currentUser.Id);
+	Console.WriteLine(currentUser.Discriminator);
+	Console.WriteLine(currentUser.Avatar);
 };
 ```
 

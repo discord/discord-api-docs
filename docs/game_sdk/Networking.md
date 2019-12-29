@@ -316,8 +316,8 @@ lobbyManager.OnMemberUpdate += (lobbyId, userId) =>
   lobbyManager.UpdatePeer(peerId, newRoute);
 }
 
-// Connect to lobby with an id of 12345 and a secret of "password" 
-// This is used when Lobby Searching and a User wants to join remotely through this!
+// Connect to lobby with an id of 12345 and a secret of "password"
+// This may occur in a generated lobby search, when a user needs to input a password to connect
 lobbyManager.ConnectLobby(12345, "password", (Discord.Result x, ref Discord.Lobby lobby) =>
 {
   lobbyId = lobby.Id;
