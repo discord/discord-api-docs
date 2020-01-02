@@ -24,7 +24,7 @@ Represents a guild or DM channel within Discord.
 | icon?                  | ?string                                                                | icon hash                                                                                                                                                                       |
 | owner_id?              | snowflake                                                              | id of the DM creator                                                                                                                                                            |
 | application_id?        | snowflake                                                              | application id of the group DM creator if it is bot-created                                                                                                                     |
-| parent_id?             | ?snowflake                                                             | id of the parent category for a channel                                                                                                                                         |
+| parent_id?             | ?snowflake                                                             | id of the parent category for a channel (each parent category can contain up to 50 channels)                                                                                                                                        |
 | last_pin_timestamp?    | ISO8601 timestamp                                                      | when the last pinned message was pinned                                                                                                                                         |
 
 ###### Channel Types
@@ -35,7 +35,7 @@ Represents a guild or DM channel within Discord.
 | DM             | 1   | a direct message between users                                                                                                                          |
 | GUILD_VOICE    | 2   | a voice channel within a server                                                                                                                         |
 | GROUP_DM       | 3   | a direct message between multiple users                                                                                                                 |
-| GUILD_CATEGORY | 4   | an [organizational category](https://support.discordapp.com/hc/en-us/articles/115001580171-Channel-Categories-101) that contains channels               |
+| GUILD_CATEGORY | 4   | an [organizational category](https://support.discordapp.com/hc/en-us/articles/115001580171-Channel-Categories-101) that contains up to 50 channels               |
 | GUILD_NEWS     | 5   | a channel that [users can follow and crosspost into their own server](https://support.discordapp.com/hc/en-us/articles/360032008192)                    |
 | GUILD_STORE    | 6   | a channel in which game developers can [sell their game on Discord](https://discordapp.com/developers/docs/game-and-server-management/special-channels) |
 
