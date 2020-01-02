@@ -118,9 +118,12 @@ Modify the requester's user account settings. Returns a [user](#DOCS_RESOURCES_U
 
 ###### JSON Params
 
+> info
+> All parameters to this endpoint are optional.
+
 | Field    | Type                                     | Description                                                                    |
 | -------- | ---------------------------------------- | ------------------------------------------------------------------------------ |
-| username | string                                   | users username, if changed may cause the users discriminator to be randomized. |
+| username | string                                   | user's username, if changed may cause the user's discriminator to be randomized. |
 | avatar   | [image data](#DOCS_REFERENCE/image-data) | if passed, modifies the user's avatar                                          |
 
 ## Get Current User Guilds % GET /users/@me/guilds
@@ -140,7 +143,7 @@ Returns a list of partial [guild](#DOCS_RESOURCES_GUILD/guild-object) objects th
 ```
 
 > info
-> This endpoint returns 100 guilds by default, which is the maximum number of guilds a non-bot user can join. Therefore, pagination is **not needed** for integrations that need to get a list of users' guilds.
+> This endpoint returns 100 guilds by default, which is the maximum number of guilds a non-bot user can join. Therefore, pagination is **not needed** for integrations that need to get a list of the users' guilds.
 
 ###### Query String Params
 
