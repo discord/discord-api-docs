@@ -195,6 +195,24 @@ Downloads the build for the given application id and branch id to the given inst
 -> dispatch build update 290926444748734465 491362538965958686 C:\my-game --platform win64 --locale en-US
 ```
 
+## build corrupt
+
+Mark a build as corrupted.
+
+
+###### Arguments
+
+| name           | values | description                   |
+| -------------- | ------ | ----------------------------- |
+| application_id | int    | your application ID/client ID |
+| build_id       | int    | the id of the build to delete |
+
+###### Example
+
+```
+-> dispatch build corrupt 290926444748734465 491362538965958686
+```
+
 ## completions generate
 
 Generations shell command completions; run `dispatch completions --help` for more info, as it varies by shell
