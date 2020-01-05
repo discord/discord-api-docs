@@ -249,7 +249,24 @@ Repairs an application build.
 ###### Example
 
 ```
--> build repair 290926444748734465 491362538965958686 491362538965958686 . --platform win64
+-> build repair 290926444748734465 491362538965958686 489230031839821824 . --platform win64
+```
+
+## build run-launch-setup
+
+Runs the launch setup for an application.
+
+###### Arguments
+
+| name             | values                                                           | description                                                                                           |
+| ---------------- | ---------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
+| application_root | file path                                                        | the directory that dispatch will treat as the local root for operations—`.` for the current directory |
+| --platform       | [platform](#DOCS_DISPATCH_FIELD_VALUES/manifest-platform-values) | the build platform to do the launch setup                                                             |
+
+###### Example
+
+```
+-> build run-launch-setup . --platform win64
 ```
 
 ## completions generate
