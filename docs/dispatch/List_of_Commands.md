@@ -205,12 +205,33 @@ Mark a build as corrupted.
 | name           | values | description                   |
 | -------------- | ------ | ----------------------------- |
 | application_id | int    | your application ID/client ID |
-| build_id       | int    | the id of the build to delete |
+| build_id       | int    | the id of the build to corrupt|
 
 ###### Example
 
 ```
 -> dispatch build corrupt 290926444748734465 491362538965958686
+Corrupted build "491362538965958686"
+```
+
+## build preview-files
+
+Displays a preview of the install paths that a build will put files in, for a given platform/locale. Additionally, will show which files are considered user data.
+
+
+###### Arguments
+
+| name             | values                                                                        | description                                                                                           
+| ---------------- | ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
+| config_file      | filename                                                                      | the [JSON config file](#DOCS_DISPATCH_BRANCHES_AND_BUILDS/setting-up-our-first-build) for the build   |
+| application_root | file path                                                                     | the directory that dispatch will treat as the local root for operations—`.` for the current directory |
+| --locale         | [locale](#DOCS_DISPATCH_FIELD_VALES/predefined-field-values-accepted-locales) | the build locale to preview                                                                           |
+| --platform       | [platform](#DOCS_DISPATCH_FIELD_VALUES/manifest-platform-values)              | the build platform to preview                                                                         |
+
+###### Example
+
+```
+-> build preview-files config.json . --locale en-US --platform win64
 ```
 
 ## completions generate
