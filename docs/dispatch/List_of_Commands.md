@@ -199,7 +199,6 @@ Downloads the build for the given application id and branch id to the given inst
 
 Mark a build as corrupted.
 
-
 ###### Arguments
 
 | name           | values | description                   |
@@ -218,7 +217,6 @@ Corrupted build "491362538965958686"
 
 Displays a preview of the install paths that a build will put files in, for a given platform/locale. Additionally, will show which files are considered user data.
 
-
 ###### Arguments
 
 | name             | values                                                                        | description                                                                                           
@@ -232,6 +230,26 @@ Displays a preview of the install paths that a build will put files in, for a gi
 
 ```
 -> build preview-files config.json . --locale en-US --platform win64
+```
+
+## build repair
+
+Repairs an application build.
+
+###### Arguments
+
+| name             | values                                                           | description                                                                                           |
+| ---------------- | ---------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
+| application_id   | int                                                              | your application ID/client ID                                                                         |
+| branch_id        | int                                                              | the id of the branch to check                                                                         |
+| build_id         | int                                                              | the id of the build to reapir                                                                         |
+| application_root | file path                                                        | the directory that dispatch will treat as the local root for operations—`.` for the current directory |
+| --platform       | [platform](#DOCS_DISPATCH_FIELD_VALUES/manifest-platform-values) | the build platform to reapair                                                                         |
+
+###### Example
+
+```
+-> build repair 290926444748734465 491362538965958686 491362538965958686 . --platform win64
 ```
 
 ## completions generate
