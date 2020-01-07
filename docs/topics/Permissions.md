@@ -85,7 +85,7 @@ When using overwrites, there are cases where permission collisions could occur f
 7. Member-specific overwrites that deny permissions are applied at a channel level
 8. Member-specific overwrites that allow permissions are applied at a channel level
 
-The follow pseudocode demonstrates this process programmatically:
+The following pseudocode demonstrates this process programmatically:
 
 ```python
 def compute_base_permissions(member, guild):
