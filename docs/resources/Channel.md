@@ -687,7 +687,7 @@ Delete multiple messages in a single request. This endpoint can only be used on 
 Any message IDs given that do not exist or are invalid will count towards the minimum and maximum message count (currently 2 and 100 respectively).
 
 > warn
-> This endpoint will not delete messages older than 2 weeks, and will return a 400 BAD REQUEST if any message provided is older than that or if any duplicate message IDs are provided.
+> This endpoint will not delete messages older than 2 weeks, and will fail with a 400 BAD REQUEST if any message provided is older than that or if any duplicate message IDs are provided.
 
 ###### JSON Params
 
