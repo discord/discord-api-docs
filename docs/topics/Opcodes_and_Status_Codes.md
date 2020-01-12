@@ -54,7 +54,7 @@ Our voice gateways have their own set of opcodes and close codes.
 | 7    | Resume              | client            | resume a connection                                                                    |
 | 8    | Hello               | server            | the continuous interval in milliseconds after which the client should send a heartbeat |
 | 9    | Resumed             | server            | acknowledge Resume                                                                     |
-| 12   | Client Connected   | server            | a client has connected to a voice channel                                                 |
+| 12   | Client Connected    | server            | a client has connected to a voice channel                                              |
 | 13   | Client Disconnect   | server            | a client has disconnected from the voice channel                                       |
 
 ###### Voice Close Event Codes
