@@ -66,7 +66,7 @@ How permissions apply may at first seem intuitive, but there are some hidden res
 - A bot can grant roles to other users that are of a lower position than its own highest role.
 - A bot can edit roles of a lower position than its highest role, but it can only grant permissions it has to those roles.
 - A bot can only sort roles lower than its highest role.
-- A bot can only kick/ban users whose highest role is lower than the bot's highest role.
+- A bot can only kick, ban, and edit nicknames for users whose highest role is lower than the bot's highest role.
 
 Otherwise, permissions do not obey the role hierarchy. For example, a user has two roles: A and B. A denies the `VIEW_CHANNEL` permission on a #coolstuff channel. B allows the `VIEW_CHANNEL` permission on the same #coolstuff channel. The user would ultimately be able to view the #coolstuff channel, regardless of the role positions.
 
