@@ -6,9 +6,6 @@ By "per-route," we mean that unique rate limits exist for the path you are acces
 
 "Per-route" rate limits _may_ be shared across multiple, similar-use routes (or even the same route with a different HTTP method). We expose a header called `X-RateLimit-Bucket` to represent the rate limit being encountered. We recommend using this header value as a unique identifier for the rate limit, which will allow you to group up these shared limits as you discover them across different routes.
 
-> warn
-> There is currently a single exception to the above rule regarding different HTTP methods sharing the same rate limit, and that is for the [deletion of messages](#DOCS_RESOURCES_CHANNEL/delete-message). Deleting messages falls under a separate, higher rate limit so that bots are able to more quickly delete content from channels (which is useful for moderation bots).
-
 Because we may change rate limits at any time and rate limits can be different per application, _rate limits should not be hard coded into your bot/application_. In order to properly support our dynamic rate limits, your bot/application should parse for our rate limits in response headers and locally prevent exceeding the limits as they change.
 
 > warn
