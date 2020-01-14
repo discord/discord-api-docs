@@ -18,7 +18,7 @@ So go do it! Go! Go [make an app](https://discordapp.com/developers/applications
 
 ## Games
 
-Games are what Discord is all about. Everything we do is built around the idea of bringing players together around games, and if YOU have a game that you want to supercharge with Discord, then we have just the thing for you.
+We love games, and we love helping game developers. If YOU have a game that you want to supercharge with Discord, then we have just the thing for you.
 
 #### Your Game On Discord
 
@@ -33,7 +33,7 @@ No matter where your game lives, it should have a first-class experience in Disc
 - Ask to Join and Spectate their friends' games
 - Spend more time playing together and less time setting up
 
-It’s free, easy, open-source, and self-serve, so check out [the How To guide](#DOCS_RICH_PRESENCE_HOW_TO/) and get started!
+It’s free, easy, open-source, and self-serve, so check out [the GameSDK Activity Manager](#DOCS_GAME_SDK_ACTIVITIES/) and get started!
 
 ## Go Make Cool Stuff!
 
