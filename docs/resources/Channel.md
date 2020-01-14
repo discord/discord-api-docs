@@ -491,17 +491,17 @@ To facilitate showing rich content, rich embeds do not follow the traditional li
 
 All of the following limits are measured inclusively. Leading and trailing whitespace characters are not included (they are trimmed automatically).
 
-| Field                                                                      | Min-max size                                                                      |
-| -------------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
-| title                                                                      | 0-256 characters                                                                  |
-| description                                                                | 0-2048 characters                                                                 |
-| fields                                                                     | 0-25 [field](#DOCS_RESOURCES_CHANNEL/embed-object-embed-field-structure) objects  |
-| [field.name](#DOCS_RESOURCES_CHANNEL/embed-object-embed-field-structure)   | 1-128 characters                                                                  |
-| [field.value](#DOCS_RESOURCES_CHANNEL/embed-object-embed-field-structure)  | 1-1024 characters                                                                 |
-| [footer.text](#DOCS_RESOURCES_CHANNEL/embed-object-embed-footer-structure) | 1-2048 characters                                                                 |
-| [author.name](#DOCS_RESOURCES_CHANNEL/embed-object-embed-author-structure) | 1-256 characters                                                                  |
+| Field                                                                      | Limit                                                                                |
+| -------------------------------------------------------------------------- | ------------------------------------------------------------------------------------ |
+| title                                                                      | 256 characters                                                                       |
+| description                                                                | 2048 characters                                                                      |
+| fields                                                                     | Up to 25 [field](#DOCS_RESOURCES_CHANNEL/embed-object-embed-field-structure) objects |
+| [field.name](#DOCS_RESOURCES_CHANNEL/embed-object-embed-field-structure)   | 256 characters                                                                       |
+| [field.value](#DOCS_RESOURCES_CHANNEL/embed-object-embed-field-structure)  | 1024 characters                                                                      |
+| [footer.text](#DOCS_RESOURCES_CHANNEL/embed-object-embed-footer-structure) | 2048 characters                                                                      |
+| [author.name](#DOCS_RESOURCES_CHANNEL/embed-object-embed-author-structure) | 256 characters                                                                       |
 
-Additionally, the total number of characters in all `title`, `description`, `field.name`, `field.value`, `footer.text`, and `author.name` fields must not exceed 6000 characters. Violating any of these constraints will result in a `Bad Request` response.
+Additionally, the total number of characters in all `title`, `description`, `field.name`, `field.value`, `footer.text`, and `author.name` fields must not exceed 6000 characters in total. Violating any of these constraints will result in a `Bad Request` response.
 
 ## Get Channel % GET /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}
 
