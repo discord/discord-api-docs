@@ -489,6 +489,8 @@ To facilitate showing rich content, rich embeds do not follow the traditional li
 
 ###### Limits
 
+All of the following limits are measured inclusively. Leading and trailing whitespace characters are not included (they are trimmed automatically).
+
 | Field                                                                      | Limit                                                                                |
 | -------------------------------------------------------------------------- | ------------------------------------------------------------------------------------ |
 | title                                                                      | 256 characters                                                                       |
@@ -499,7 +501,7 @@ To facilitate showing rich content, rich embeds do not follow the traditional li
 | [footer.text](#DOCS_RESOURCES_CHANNEL/embed-object-embed-footer-structure) | 2048 characters                                                                      |
 | [author.name](#DOCS_RESOURCES_CHANNEL/embed-object-embed-author-structure) | 256 characters                                                                       |
 
-In addition to the limits above, the sum of all characters in an embed structure must not exceed 6000 characters.
+Additionally, the characters in all `title`, `description`, `field.name`, `field.value`, `footer.text`, and `author.name` fields must not exceed 6000 characters in total. Violating any of these constraints will result in a `Bad Request` response.
 
 ## Get Channel % GET /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}
 
