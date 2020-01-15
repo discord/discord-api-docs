@@ -250,7 +250,7 @@ networkManager.OnRouteUpdate += route =>
   var lobbyId = 290926798626357250;
 
   var txn = lobbyManager.GetMemberUpdateTransaction(lobbyId, currentUser.Id);
-  txn.SetMetadata("metadata.route", route);
+  txn.SetMetadata("route", route);
   lobbyManager.UpdateMember(lobbyId, currentUser.Id, txn, (result) =>
   {
     // Who needs error handling anyway
@@ -297,7 +297,7 @@ currentUser = userManager.GetCurrentUser();
 networkManager.OnRouteUpdate += route =>
 {
   var txn = lobbyManager.GetMemberUpdateTransaction(lobbyId, currentUser.Id);
-  txn.SetMetadata("metadata.route", route);
+  txn.SetMetadata("route", route);
   lobbyManager.UpdateMember(lobbyId, currentUser.Id, txn, (result =>
   {
     // Who needs error handling anyway
@@ -326,7 +326,7 @@ lobbyManager.ConnectLobby(12345, "password", (Discord.Result x, ref Discord.Lobb
   // So other users can get it to connect to us
   var localPeerId = Convert.ToString(networkManager.GetPeerId());
   var txn = lobbyManager.GetMemberUpdateTransaction(lobby.Id, currentUser.Id);
-  txn.SetMetadata("metadata.peer_id", localPeerId);
+  txn.SetMetadata("peer_id", localPeerId);
   lobbyManager.UpdateMember(lobby.Id, currentUser.Id, txn, (result) =>
   {
     // Who needs error handling anyway
