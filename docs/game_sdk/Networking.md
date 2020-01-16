@@ -276,7 +276,7 @@ In order to properly send and receive data between A and B, both users need to h
 ## Example: Connecting to Another Player in a Lobby
 
 ```cs
-var discord = new Discord.Discord(clientId, Discord.CreateFlags.Default);
+var discord = new Discord.Discord(clientId, (UInt64)Discord.CreateFlags.Default);
 
 // Join a lobby with another user in it
 // Get their peer id, and connect to them
@@ -309,10 +309,10 @@ networkManager.OnRouteUpdate += route =>
 // Fetch it and update their route
 lobbyManager.OnMemberUpdate += (lobbyId, userId) =>
 {
-  var rawPeerId = lobbyManager.GetMemberMetadataValue(lobbyId, userId, "metadata.peer_id");
+  var rawPeerId = lobbyManager.GetMemberMetadataValue(lobbyId, userId, "peer_id");
   // Metadata is stored as a string, so we need to make it an integer for OpenChannel
   var peerId = System.Convert.ToUInt64(rawPeerId);
-  var newRoute = lobbyManager.GetMemberMetadataValue(lobbyId, userId, "metadata.route");
+  var newRoute = lobbyManager.GetMemberMetadataValue(lobbyId, userId, "route");
   lobbyManager.UpdatePeer(peerId, newRoute);
 }
 
@@ -337,10 +337,10 @@ lobbyManager.ConnectLobby(12345, "password", (Discord.Result x, ref Discord.Lobb
   var member = lobbyManager.GetMemberUserId(lobby.Id, 0);
 
   // Get their peer id and route from their metadata, added previously
-  var rawPeerId = lobbyManager.GetMemberMetadataValue(lobbyId, userId, "metadata.peer_id");
+  var rawPeerId = lobbyManager.GetMemberMetadataValue(lobbyId, userId, "peer_id");
   // Metadata is stored as a string, so we need to make it an integer for OpenChannel
   otherUserPeerId = System.Convert.ToUInt64(rawPeerId);
-  var otherRoute = lobbyManager.GetMemberMetadataValue(lobby.Id, member.Id, "metadata.route");
+  var otherRoute = lobbyManager.GetMemberMetadataValue(lobby.Id, member.Id, "route");
 
   // Connect to them
   networkManager.OpenRoute(otherUserPeerId, otherRoute);
