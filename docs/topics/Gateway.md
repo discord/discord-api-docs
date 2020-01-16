@@ -262,7 +262,10 @@ Any [events not defined in an intent](#DOCS_TOPICS_GATEWAY/commands-and-events-g
 
 ### Privileged Intents
 
-> warn
+> danger
+> As of <date>, Gateway Intents are optional in v6 **except for `GUILD_PRESENCES`**. If you wish to get `PRESENCE_UPDATE` events, you **must** declare the intent. Otherwise, you will no longer receive `PRESENCE_UPDATES` events on the v6 gateway after <date>
+
+> warns
 > The current limit for specifying privileged intents without whitelisting is 100 guilds.
 
 Some intents require whitelisting once your bot scales beyond a certain size. Those intents are:
