@@ -403,7 +403,7 @@ Used to trigger the initial handshake with the gateway.
 | shard?               | array of two integers (shard_id, num_shards)               | used for [Guild Sharding](#DOCS_TOPICS_GATEWAY/sharding)                                                                       | -       |
 | presence?            | [update status](#DOCS_TOPICS_GATEWAY/update-status) object | presence structure for initial presence information                                                                            | -       |
 | guild_subscriptions? | boolean                                                    | enables dispatching of guild subscription events (presence and typing events)                                                  | true    |
-| intents?             | integer                                                    | the [Gateway Intents](#DOCS_TOPICS_GATEWAT/gateway-intents) you wish to receive                                                | -       |
+| intents?             | integer                                                    | the [Gateway Intents](#DOCS_TOPICS_GATEWAY/gateway-intents) you wish to receive                                                | -       |
 
 ###### Identify Connection Properties
 
