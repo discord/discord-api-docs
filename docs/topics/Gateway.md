@@ -177,6 +177,107 @@ If successful, the gateway will respond by replaying all missed events in order,
 
 If the gateway ever issues a disconnect to your client, it will provide a close event code that you can use to properly handle the disconnection. A full list of these close codes can be found in the [Response Codes](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/gateway-close-event-codes) documentation.
 
+## Gateway Intents
+
+> info
+> Intents are optionally supported on the v6 gateway. They will become mandatory in a future v7 gateway version.
+
+Maintaing a stateful application can be difficult when it comes to the amount of data you're expected to process, especially at scale. Gateway Intents are a system to help you lower that computational burden.
+
+When [identifying](#DOCS_TOPICS_GATEWAY/identifying) to the gateway, you can specify an `intents` parameter which allows you to conditionally subscribe to pre-defined "intents", groups of events defined by Discord. If you do not specify a certain intent, you will not receive any of the gateway events that are batched into that group. The valid intents are:
+
+### List of Intents
+
+```
+GUILDS (1 <<< 0)
+  - GUILD_CREATE
+  - GUILD_DELETE
+  - GUILD_ROLE_CREATE
+  - GUILD_ROLE_UPDATE
+  - GUILD_ROLE_DELETE
+  - CHANNEL_CREATE
+  - CHANNEL_UPDATE
+  - CHANNEL_DELETE
+  - CHANNEL_PINS_UPDATE
+
+GUILD MEMBERS (1 <<< 1)
+  - GUILD_MEMBER_ADD
+  - GUILD_MEMBER_UPDATE
+  - GUILD_MEMBER_REMOVE
+
+GUILD_BANS (1 <<< 2)
+  - GUILD_BAN_ADD
+  - GUILD_BAN_REMOVE
+
+GUILD_EMOJIS (1 <<< 3)
+  - GUILD_EMOJIS_UPDATE
+
+GUILD_INTEGRATIONS (1 <<< 4)
+  - GUILD_INTEGRATIONS_UPDATE
+
+GUILD_WEBHOOKS (1 <<< 5)
+  - WEBHOOKS_UPDATE
+
+GUILD_INVITES (1 <<< 6)
+  - INVITE_CREATE
+  - INVITE_DELETE
+
+GUILD_VOICE_STATES (1 <<< 7)
+  - VOICE_STATE_UPDATE
+
+GUILD_PRESENCES (1 <<< 8)
+  - PRESENCE_UPDATE
+
+GUILD_MESSAGES (1 <<< 9)
+  - MESSAGE_CREATE
+  - MESSAGE_UPDATE
+  - MESSAGE_DELETE
+
+GUILD_MESSAGE_REACTIONS (1 <<< 10)
+  - MESSAGE_REACTION_ADD
+  - MESSAGE_REACTION_REMOVE
+  - MESSAGE_REACTION_REMOVE_ALL
+  - MESSAGE_REACTION_REMOVE_EMOJI
+
+GUILD_MESSAGE_TYPING (1 <<< 11)
+  - TYPING_START
+
+DIRECT_MESSAGES (1 <<< 12)
+  - CHANNEL_CREATE
+  - MESSAGE_CREATE
+  - MESSAGE_UPDATE
+  - MESSAGE_DELETE
+
+DIRECT_MESSAGE_REACTIONS (1 <<< 13)
+  - MESSAGE_REACTION_ADD
+  - MESSAGE_REACTION_REMOVE
+  - MESSAGE_REACTION_REMOVE_ALL
+  - MESSAGE_REACTION_REMOVE_EMOJI
+
+DIRECT_MESSAGE_TYPING (1 <<< 14)
+  - TYPING_START
+```
+
+Any [events not defined in an intent](#DOCS_TOPICS_GATEWAY/commands-and-events-gateway-events) are considered "passthrough" and will always be sent to you.
+
+### Privileged Intents
+
+> warn
+> The current limit for specifying privileged intents without whitelisting is 100 guilds.
+
+Some intents require whitelisting once your bot scales beyond a certain size. Those intents are:
+
+- `GUILD_PRESENCES`
+
+The current limit for specifying these privileged intents without being whitelisted is 100 guilds. That means you may specify the above intents without restriction until you hit the current limit, at which point your bot will not be able to join any more guilds without either being whitelisted or dropping the privileged intents for which you have not been whitelisted.
+
+In order to specify these intents in your `IDENTIFY` payload, you must first go to your application in the Developer Portal and enable the toggle for the whitelisted intent you wish to use.
+
+> danger
+> **Enabling a privileged intent without being whitelisted will limit your bot to joining 100 total guilds until you are whitelisted.** To get whitelisted, please fill out this form: <form_link_goes_here>
+
+If you no longer wish to use the whitelisted intent, you may uncheck the toggle in the Developer Portal. This will remove the 100 guild limit, and will disallow you from declaring this intent in your `IDENTIFY` payload.
+
 ## Rate Limiting
 
 Clients are allowed 120 events every 60 seconds, meaning you can send on average at a rate of up to 2 events per second. Clients who surpass this limit are immediately disconnected from the Gateway, and similarly to the HTTP API, repeat offenders will have their API access revoked. Clients are also limited to one gateway connection per 5 seconds. If you hit this limit, the Gateway will respond with an [Opcode 9 Invalid Session](#DOCS_TOPICS_GATEWAY/invalid-session).
@@ -190,6 +291,9 @@ An example of state tracking can be found with member status caching. When initi
 For larger bots, client state can grow to be quite large. We recommend only storing objects in memory that are needed for a bot's operation. Many bots, for example, just respond to user input through chat commands. These bots may only need to keep guild information (like guild/channel roles and permissions) in memory, since [MESSAGE_CREATE](#DOCS_TOPICS_GATEWAY/message-create) and [MESSAGE_UPDATE](#DOCS_TOPICS_GATEWAY/message-update) events have the full member object available.
 
 ## Guild Subscriptions
+
+> info
+> While not deprecated, Guild Subscriptions have been superceded by [Gateway Intents](#DOCS_TOPICS_GATEWAY/gateway-intents). You may continue to use guild subscriptions, but we recommend migrating to intents for even better results.
 
 Presence and typing events get dispatched from guilds that your bot is a member of. For many bots, these events are not useful and can be frequent and expensive to process at scale. Because of this, we allow bots to opt out of guild subscriptions by setting `guild_subscriptions` to `false` when [Identify](#DOCS_TOPICS_GATEWAY/identify)ing.
 
@@ -296,6 +400,7 @@ Used to trigger the initial handshake with the gateway.
 | shard?               | array of two integers (shard_id, num_shards)               | used for [Guild Sharding](#DOCS_TOPICS_GATEWAY/sharding)                                                                       | -       |
 | presence?            | [update status](#DOCS_TOPICS_GATEWAY/update-status) object | presence structure for initial presence information                                                                            | -       |
 | guild_subscriptions? | boolean                                                    | enables dispatching of guild subscription events (presence and typing events)                                                  | true    |
+| intents?             | integer                                                    | the [Gateway Intents](#DOCS_TOPICS_GATEWAT/gateway-intents) you wish to receive                                                | -       |
 
 ###### Identify Connection Properties
 
@@ -327,7 +432,10 @@ Used to trigger the initial handshake with the gateway.
     "status": "dnd",
     "since": 91879201,
     "afk": false
-  }
+  },
+  // This intent represents 1 <<< 0 for GUILDS, 1 <<< 1 for GUILD_MEMBERS, and 1 <<< 2 for GUILD_BANS
+  // This connection will only receive the events defined in those three intents
+  "intents": 7
 }
 ```
 
@@ -630,12 +738,13 @@ Sent when a user is removed from a guild (leave/kick/ban).
 Sent when a guild member is updated.
 
 ###### Guild Member Update Event Fields
-| Field         | Type                                              | Description                                        |
-| ------------- | ------------------------------------------------- | -------------------------------------------------- |
-| guild_id      | snowflake                                         | the id of the guild                                |
-| roles         | array of snowflakes                               | user role ids                                      |
-| user          | a [user](#DOCS_RESOURCES_USER/user-object) object | the user                                           |
-| nick          | string                                            | nickname of the user in the guild                  |
+
+| Field         | Type                                              | Description                                       |
+| ------------- | ------------------------------------------------- | ------------------------------------------------- |
+| guild_id      | snowflake                                         | the id of the guild                               |
+| roles         | array of snowflakes                               | user role ids                                     |
+| user          | a [user](#DOCS_RESOURCES_USER/user-object) object | the user                                          |
+| nick          | string                                            | nickname of the user in the guild                 |
 | premium_since | ?ISO8601 timestamp                                | when the user used their Nitro boost on the guild |
 
 #### Guild Members Chunk
@@ -766,6 +875,9 @@ Sent when a user explicitly removes all reactions from a message.
 
 #### Presence Update
 
+> danger
+> With the arrival of the [Gateway Intents](#DOCS_TOPICS_GATEWAY/gateway-intents) system, you _must_ specify the `GUILD_PRESENCES` intent in order to receive Presence Update events on the v6 gateway starting on <date>
+
 A user's presence is their current state on a guild. This event is sent when a user's presence or info, such as name or avatar, is updated.
 
 > warn
@@ -809,7 +921,7 @@ Active sessions are indicated with an "online", "idle", or "dnd" string per plat
 | application_id? | snowflake                                                                     | application id for the game                                                                                               |
 | details?        | ?string                                                                       | what the player is currently doing                                                                                        |
 | state?          | ?string                                                                       | the user's current party status                                                                                           |
-| emoji?          | ?[emoji](#DOCS_TOPICS_GATEWAY/activity-object-activity-emoji) object           | the emoji used for a custom status                                                                                        |
+| emoji?          | ?[emoji](#DOCS_TOPICS_GATEWAY/activity-object-activity-emoji) object          | the emoji used for a custom status                                                                                        |
 | party?          | [party](#DOCS_TOPICS_GATEWAY/activity-object-activity-party) object           | information for the current party of the player                                                                           |
 | assets?         | [assets](#DOCS_TOPICS_GATEWAY/activity-object-activity-assets) object         | images for the presence and their hover texts                                                                             |
 | secrets?        | [secrets](#DOCS_TOPICS_GATEWAY/activity-object-activity-secrets) object       | secrets for Rich Presence joining and spectating                                                                          |
@@ -1009,11 +1121,11 @@ Returns an object based on the information in [Get Gateway](#DOCS_TOPICS_GATEWAY
 
 ###### JSON Response
 
-| Field               | Type                                                                          | Description                                                                             |
-| ------------------- | ----------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
-| url                 | string                                                                        | The WSS URL that can be used for connecting to the gateway                              |
+| Field               | Type                                                                          | Description                                                                              |
+| ------------------- | ----------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
+| url                 | string                                                                        | The WSS URL that can be used for connecting to the gateway                               |
 | shards              | integer                                                                       | The recommended number of [shards](#DOCS_TOPICS_GATEWAY/sharding) to use when connecting |
-| session_start_limit | [session_start_limit](#DOCS_TOPICS_GATEWAY/session-start-limit-object) object | Information on the current session start limit                                          |
+| session_start_limit | [session_start_limit](#DOCS_TOPICS_GATEWAY/session-start-limit-object) object | Information on the current session start limit                                           |
 
 ###### Example Response
 
