@@ -153,7 +153,7 @@ discord::Core* core{};
 discord::Core::Create(53908232506183680, DiscordCreateFlags_Default, &core);
 
 // c# land
-var discord = new Discord(53908232506183680, Discord.CreateFlags.Default);
+var discord = new Discord(53908232506183680, (UInt64)Discord.CreateFlags.Default);
 ```
 
 ## Destroy
