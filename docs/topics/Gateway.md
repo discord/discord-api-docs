@@ -816,6 +816,7 @@ Sent when a bot removes all instances of a given emoji from the reactions of a m
 | Field      | Type                                                                                     | Description                |
 | ---------- | ---------------------------------------------------------------------------------------- | -------------------------- |
 | channel_id | snowflake                                                                                | the id of the channel      |
+| channel_id | snowflake                                                                                | the id of the guild        |
 | message_id | snowflake                                                                                | the id of the message      |
 | emoji      | [partial emoji object](#DOCS_TOPICS_GATEWAY/message-reaction-remove-emoji-partial-emoji) | the emoji that was removed |
 
