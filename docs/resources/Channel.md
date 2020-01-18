@@ -24,7 +24,7 @@ Represents a guild or DM channel within Discord.
 | icon?                  | ?string                                                                | icon hash                                                                                                                                                                       |
 | owner_id?              | snowflake                                                              | id of the DM creator                                                                                                                                                            |
 | application_id?        | snowflake                                                              | application id of the group DM creator if it is bot-created                                                                                                                     |
-| parent_id?             | ?snowflake                                                             | id of the parent category for a channel (each parent category can contain up to 50 channels)                                                                                                                                        |
+| parent_id?             | ?snowflake                                                             | id of the parent category for a channel (each parent category can contain up to 50 channels)                                                                                    |
 | last_pin_timestamp?    | ISO8601 timestamp                                                      | when the last pinned message was pinned                                                                                                                                         |
 
 ###### Channel Types
@@ -35,7 +35,7 @@ Represents a guild or DM channel within Discord.
 | DM             | 1   | a direct message between users                                                                                                                          |
 | GUILD_VOICE    | 2   | a voice channel within a server                                                                                                                         |
 | GROUP_DM       | 3   | a direct message between multiple users                                                                                                                 |
-| GUILD_CATEGORY | 4   | an [organizational category](https://support.discordapp.com/hc/en-us/articles/115001580171-Channel-Categories-101) that contains up to 50 channels               |
+| GUILD_CATEGORY | 4   | an [organizational category](https://support.discordapp.com/hc/en-us/articles/115001580171-Channel-Categories-101) that contains up to 50 channels      |
 | GUILD_NEWS     | 5   | a channel that [users can follow and crosspost into their own server](https://support.discordapp.com/hc/en-us/articles/360032008192)                    |
 | GUILD_STORE    | 6   | a channel in which game developers can [sell their game on Discord](https://discordapp.com/developers/docs/game-and-server-management/special-channels) |
 
@@ -194,7 +194,7 @@ Represents a message sent in a channel within Discord.
 | attachments               | array of [attachment](#DOCS_RESOURCES_CHANNEL/attachment-object) objects                                                                        | any attached files                                                                                                            |
 | embeds                    | array of [embed](#DOCS_RESOURCES_CHANNEL/embed-object) objects                                                                                  | any embedded content                                                                                                          |
 | reactions?                | array of [reaction](#DOCS_RESOURCES_CHANNEL/reaction-object) objects                                                                            | reactions to the message                                                                                                      |
-| nonce?                    | integer or string                                                                                                                                      | used for validating a message was sent                                                                                        |
+| nonce?                    | integer or string                                                                                                                               | used for validating a message was sent                                                                                        |
 | pinned                    | boolean                                                                                                                                         | whether this message is pinned                                                                                                |
 | webhook_id?               | snowflake                                                                                                                                       | if the message is generated by a webhook, this is the webhook's id                                                            |
 | type                      | integer                                                                                                                                         | [type of message](#DOCS_RESOURCES_CHANNEL/message-object-message-types)                                                       |
@@ -680,6 +680,10 @@ The `emoji` must be [URL Encoded](https://en.wikipedia.org/wiki/Percent-encoding
 ## Delete All Reactions % DELETE /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}/reactions
 
 Deletes all reactions on a message. This endpoint requires the 'MANAGE_MESSAGES' permission to be present on the current user.
+
+## Delete All Reactions for Emoji % DELETE /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}/reactions/{emoji.name#DOCS_RESOURCES_EMOJI/emoji-object}:{emoji.id#DOCS_RESOURCES_EMOJI/emoji-object}
+
+Deletes all the reactions for a given emoji on a message. This endpoint requires the `MANAGE_MESSAGES` permission to be present on the current user.
 
 ## Edit Message % PATCH /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}
 
