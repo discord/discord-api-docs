@@ -238,44 +238,47 @@ Events are payloads sent over the socket to a client that correspond to events i
 
 ###### Gateway Events
 
-| name                                                                            | description                                                                                                                      |
-| ------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| [Hello](#DOCS_TOPICS_GATEWAY/hello)                                             | defines the heartbeat interval                                                                                                   |
-| [Ready](#DOCS_TOPICS_GATEWAY/ready)                                             | contains the initial state information                                                                                           |
-| [Resumed](#DOCS_TOPICS_GATEWAY/resumed)                                         | response to [Resume](#DOCS_TOPICS_GATEWAY/resume)                                                                                |
-| [Reconnect](#DOCS_TOPICS_GATEWAY/reconnect)                                     | server is going away, client should reconnect to gateway and resume                                                              |
-| [Invalid Session](#DOCS_TOPICS_GATEWAY/invalid-session)                         | failure response to [Identify](#DOCS_TOPICS_GATEWAY/identify) or [Resume](#DOCS_TOPICS_GATEWAY/resume) or invalid active session |
-| [Channel Create](#DOCS_TOPICS_GATEWAY/channel-create)                           | new channel created                                                                                                              |
-| [Channel Update](#DOCS_TOPICS_GATEWAY/channel-update)                           | channel was updated                                                                                                              |
-| [Channel Delete](#DOCS_TOPICS_GATEWAY/channel-delete)                           | channel was deleted                                                                                                              |
-| [Channel Pins Update](#DOCS_TOPICS_GATEWAY/channel-pins-update)                 | message was pinned or unpinned                                                                                                   |
-| [Guild Create](#DOCS_TOPICS_GATEWAY/guild-create)                               | lazy-load for unavailable guild, guild became available, or user joined a new guild                                              |
-| [Guild Update](#DOCS_TOPICS_GATEWAY/guild-update)                               | guild was updated                                                                                                                |
-| [Guild Delete](#DOCS_TOPICS_GATEWAY/guild-delete)                               | guild became unavailable, or user left/was removed from a guild                                                                  |
-| [Guild Ban Add](#DOCS_TOPICS_GATEWAY/guild-ban-add)                             | user was banned from a guild                                                                                                     |
-| [Guild Ban Remove](#DOCS_TOPICS_GATEWAY/guild-ban-remove)                       | user was unbanned from a guild                                                                                                   |
-| [Guild Emojis Update](#DOCS_TOPICS_GATEWAY/guild-emojis-update)                 | guild emojis were updated                                                                                                        |
-| [Guild Integrations Update](#DOCS_TOPICS_GATEWAY/guild-integrations-update)     | guild integration was updated                                                                                                    |
-| [Guild Member Add](#DOCS_TOPICS_GATEWAY/guild-member-add)                       | new user joined a guild                                                                                                          |
-| [Guild Member Remove](#DOCS_TOPICS_GATEWAY/guild-member-remove)                 | user was removed from a guild                                                                                                    |
-| [Guild Member Update](#DOCS_TOPICS_GATEWAY/guild-member-update)                 | guild member was updated                                                                                                         |
-| [Guild Members Chunk](#DOCS_TOPICS_GATEWAY/guild-members-chunk)                 | response to [Request Guild Members](#DOCS_TOPICS_GATEWAY/request-guild-members)                                                  |
-| [Guild Role Create](#DOCS_TOPICS_GATEWAY/guild-role-create)                     | guild role was created                                                                                                           |
-| [Guild Role Update](#DOCS_TOPICS_GATEWAY/guild-role-update)                     | guild role was updated                                                                                                           |
-| [Guild Role Delete](#DOCS_TOPICS_GATEWAY/guild-role-delete)                     | guild role was deleted                                                                                                           |
-| [Message Create](#DOCS_TOPICS_GATEWAY/message-create)                           | message was created                                                                                                              |
-| [Message Update](#DOCS_TOPICS_GATEWAY/message-update)                           | message was edited                                                                                                               |
-| [Message Delete](#DOCS_TOPICS_GATEWAY/message-delete)                           | message was deleted                                                                                                              |
-| [Message Delete Bulk](#DOCS_TOPICS_GATEWAY/message-delete-bulk)                 | multiple messages were deleted at once                                                                                           |
-| [Message Reaction Add](#DOCS_TOPICS_GATEWAY/message-reaction-add)               | user reacted to a message                                                                                                        |
-| [Message Reaction Remove](#DOCS_TOPICS_GATEWAY/message-reaction-remove)         | user removed a reaction from a message                                                                                           |
-| [Message Reaction Remove All](#DOCS_TOPICS_GATEWAY/message-reaction-remove-all) | all reactions were explicitly removed from a message                                                                             |
-| [Presence Update](#DOCS_TOPICS_GATEWAY/presence-update)                         | user was updated                                                                                                                 |
-| [Typing Start](#DOCS_TOPICS_GATEWAY/typing-start)                               | user started typing in a channel                                                                                                 |
-| [User Update](#DOCS_TOPICS_GATEWAY/user-update)                                 | properties about the user changed                                                                                                |
-| [Voice State Update](#DOCS_TOPICS_GATEWAY/voice-state-update)                   | someone joined, left, or moved a voice channel                                                                                   |
-| [Voice Server Update](#DOCS_TOPICS_GATEWAY/voice-server-update)                 | guild's voice server was updated                                                                                                 |
-| [Webhooks Update](#DOCS_TOPICS_GATEWAY/webhooks-update)                         | guild channel webhook was created, update, or deleted                                                                            |
+| name                                                                                | description                                                                                                                      |
+| ----------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| [Hello](#DOCS_TOPICS_GATEWAY/hello)                                                 | defines the heartbeat interval                                                                                                   |
+| [Ready](#DOCS_TOPICS_GATEWAY/ready)                                                 | contains the initial state information                                                                                           |
+| [Resumed](#DOCS_TOPICS_GATEWAY/resumed)                                             | response to [Resume](#DOCS_TOPICS_GATEWAY/resume)                                                                                |
+| [Reconnect](#DOCS_TOPICS_GATEWAY/reconnect)                                         | server is going away, client should reconnect to gateway and resume                                                              |
+| [Invalid Session](#DOCS_TOPICS_GATEWAY/invalid-session)                             | failure response to [Identify](#DOCS_TOPICS_GATEWAY/identify) or [Resume](#DOCS_TOPICS_GATEWAY/resume) or invalid active session |
+| [Channel Create](#DOCS_TOPICS_GATEWAY/channel-create)                               | new channel created                                                                                                              |
+| [Channel Update](#DOCS_TOPICS_GATEWAY/channel-update)                               | channel was updated                                                                                                              |
+| [Channel Delete](#DOCS_TOPICS_GATEWAY/channel-delete)                               | channel was deleted                                                                                                              |
+| [Channel Pins Update](#DOCS_TOPICS_GATEWAY/channel-pins-update)                     | message was pinned or unpinned                                                                                                   |
+| [Guild Create](#DOCS_TOPICS_GATEWAY/guild-create)                                   | lazy-load for unavailable guild, guild became available, or user joined a new guild                                              |
+| [Guild Update](#DOCS_TOPICS_GATEWAY/guild-update)                                   | guild was updated                                                                                                                |
+| [Guild Delete](#DOCS_TOPICS_GATEWAY/guild-delete)                                   | guild became unavailable, or user left/was removed from a guild                                                                  |
+| [Guild Ban Add](#DOCS_TOPICS_GATEWAY/guild-ban-add)                                 | user was banned from a guild                                                                                                     |
+| [Guild Ban Remove](#DOCS_TOPICS_GATEWAY/guild-ban-remove)                           | user was unbanned from a guild                                                                                                   |
+| [Guild Emojis Update](#DOCS_TOPICS_GATEWAY/guild-emojis-update)                     | guild emojis were updated                                                                                                        |
+| [Guild Integrations Update](#DOCS_TOPICS_GATEWAY/guild-integrations-update)         | guild integration was updated                                                                                                    |
+| [Guild Member Add](#DOCS_TOPICS_GATEWAY/guild-member-add)                           | new user joined a guild                                                                                                          |
+| [Guild Member Remove](#DOCS_TOPICS_GATEWAY/guild-member-remove)                     | user was removed from a guild                                                                                                    |
+| [Guild Member Update](#DOCS_TOPICS_GATEWAY/guild-member-update)                     | guild member was updated                                                                                                         |
+| [Guild Members Chunk](#DOCS_TOPICS_GATEWAY/guild-members-chunk)                     | response to [Request Guild Members](#DOCS_TOPICS_GATEWAY/request-guild-members)                                                  |
+| [Guild Role Create](#DOCS_TOPICS_GATEWAY/guild-role-create)                         | guild role was created                                                                                                           |
+| [Guild Role Update](#DOCS_TOPICS_GATEWAY/guild-role-update)                         | guild role was updated                                                                                                           |
+| [Guild Role Delete](#DOCS_TOPICS_GATEWAY/guild-role-delete)                         | guild role was deleted                                                                                                           |
+| [Invite Create](#DOCS_TOPICS_GATEWAY/invite-create)                                 | invite to a channel was created                                                                                                  |
+| [Invite Delete](#DOCS_TOPICS_GATEWAY/invite-delte)                                  | invite to a channel was deleted                                                                                                  |
+| [Message Create](#DOCS_TOPICS_GATEWAY/message-create)                               | message was created                                                                                                              |
+| [Message Update](#DOCS_TOPICS_GATEWAY/message-update)                               | message was edited                                                                                                               |
+| [Message Delete](#DOCS_TOPICS_GATEWAY/message-delete)                               | message was deleted                                                                                                              |
+| [Message Delete Bulk](#DOCS_TOPICS_GATEWAY/message-delete-bulk)                     | multiple messages were deleted at once                                                                                           |
+| [Message Reaction Add](#DOCS_TOPICS_GATEWAY/message-reaction-add)                   | user reacted to a message                                                                                                        |
+| [Message Reaction Remove](#DOCS_TOPICS_GATEWAY/message-reaction-remove)             | user removed a reaction from a message                                                                                           |
+| [Message Reaction Remove All](#DOCS_TOPICS_GATEWAY/message-reaction-remove-all)     | all reactions were explicitly removed from a message                                                                             |
+| [Message Reaction Remove Emoji](#DOCS_TOPICS_GATEWAY/message-reaction-remove-emoji) | all reactions for a given emoji were explicitly removed from a message                                                           |
+| [Presence Update](#DOCS_TOPICS_GATEWAY/presence-update)                             | user was updated                                                                                                                 |
+| [Typing Start](#DOCS_TOPICS_GATEWAY/typing-start)                                   | user started typing in a channel                                                                                                 |
+| [User Update](#DOCS_TOPICS_GATEWAY/user-update)                                     | properties about the user changed                                                                                                |
+| [Voice State Update](#DOCS_TOPICS_GATEWAY/voice-state-update)                       | someone joined, left, or moved a voice channel                                                                                   |
+| [Voice Server Update](#DOCS_TOPICS_GATEWAY/voice-server-update)                     | guild's voice server was updated                                                                                                 |
+| [Webhooks Update](#DOCS_TOPICS_GATEWAY/webhooks-update)                             | guild channel webhook was created, update, or deleted                                                                            |
 
 ### Event Names
 
@@ -630,12 +633,13 @@ Sent when a user is removed from a guild (leave/kick/ban).
 Sent when a guild member is updated.
 
 ###### Guild Member Update Event Fields
-| Field         | Type                                              | Description                                        |
-| ------------- | ------------------------------------------------- | -------------------------------------------------- |
-| guild_id      | snowflake                                         | the id of the guild                                |
-| roles         | array of snowflakes                               | user role ids                                      |
-| user          | a [user](#DOCS_RESOURCES_USER/user-object) object | the user                                           |
-| nick          | string                                            | nickname of the user in the guild                  |
+
+| Field         | Type                                              | Description                                       |
+| ------------- | ------------------------------------------------- | ------------------------------------------------- |
+| guild_id      | snowflake                                         | the id of the guild                               |
+| roles         | array of snowflakes                               | user role ids                                     |
+| user          | a [user](#DOCS_RESOURCES_USER/user-object) object | the user                                          |
+| nick          | string                                            | nickname of the user in the guild                 |
 | premium_since | ?ISO8601 timestamp                                | when the user used their Nitro boost on the guild |
 
 #### Guild Members Chunk
@@ -683,6 +687,47 @@ Sent when a guild role is deleted.
 | -------- | --------- | --------------- |
 | guild_id | snowflake | id of the guild |
 | role_id  | snowflake | id of the role  |
+
+### Invites
+
+### Invite Create
+
+Send when a new invite to a channel is created.
+
+###### Invite Create Event Fields
+
+| Field      | Type                                                                          | Description                                                                                                        |
+| ---------- | ----------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------ |
+| channel_id | snowflake                                                                     | the channel the invite is for                                                                                      |
+| code       | string                                                                        | the unique invite [code](#DOCS_RESOURCES_INVITE/invite-object)                                                     |
+| created_at | timestamp                                                                     | the time at which the invite was created                                                                           |
+| guild_id   | snowflake                                                                     | the guild of the invite                                                                                            |
+| inviter    | [partial user object](#DOCS_TOPICS_GATEWAY/invite-create-partial-user-object) | the user that created the invite                                                                                   |
+| max_age    | int                                                                           | how long the invite is valid for (in seconds)                                                                      |
+| max_uses   | int                                                                           | the maximum number of times the invite can be used                                                                 |
+| temporary  | boolean                                                                       | whether or not the invite is temporary (invited users will be kicked on disconnect unless they're assigned a role) |
+| uses       | int                                                                           | how many times the invite has been used (always will be 0)                                                         |
+
+###### Invite Create Partial User Object
+
+| Field         | Type      | Description                                             |
+| ------------- | --------- | ------------------------------------------------------- |
+| avatar        | string    | [user avatar](#DOCS_RESOURCES_USERS/user-object)        |
+| discriminator | string    | [user discriminator](#DOCS_RESOURCES_USERS/user-object) |
+| id            | snowflake | [user id](#DOCS_RESOURCES_USERS/user-object)            |
+| username      | string    | [user username](#DOCS_RESOURCES_USERS/user-object)      |
+
+### Invite Delete
+
+Sent when an invite is deleted.
+
+###### Invite Delete Event Fields
+
+| Field      | Type      | Description                                                    |
+| ---------- | --------- | -------------------------------------------------------------- |
+| channel_id | snowflake | the channel of the invite                                      |
+| guild_id   | snowflake | the guild of the invite                                        |
+| code       | string    | the unique invite [code](#DOCS_RESOURCES_INVITE/invite-object) |
 
 ### Messages
 
@@ -762,6 +807,25 @@ Sent when a user explicitly removes all reactions from a message.
 | message_id | snowflake | the id of the message |
 | guild_id?  | snowflake | the id of the guild   |
 
+#### Message Reaction Remove Emoji
+
+Sent when a bot removes all instances of a given emoji from the reactions of a message.
+
+###### Message Reaction Remove Emoji
+
+| Field      | Type                                                                                     | Description                |
+| ---------- | ---------------------------------------------------------------------------------------- | -------------------------- |
+| channel_id | snowflake                                                                                | the id of the channel      |
+| message_id | snowflake                                                                                | the id of the message      |
+| emoji      | [partial emoji object](#DOCS_TOPICS_GATEWAY/message-reaction-remove-emoji-partial-emoji) | the emoji that was removed |
+
+###### Message Reaction Remove Emoji Partial Emoji
+
+| Field | Type       | Description           |
+| ----- | ---------- | --------------------- |
+| id    | ?snowflake | the id of the emoji   |
+| name  | string     | the name of the emoji |
+
 ### Presence
 
 #### Presence Update
@@ -809,7 +873,7 @@ Active sessions are indicated with an "online", "idle", or "dnd" string per plat
 | application_id? | snowflake                                                                     | application id for the game                                                                                               |
 | details?        | ?string                                                                       | what the player is currently doing                                                                                        |
 | state?          | ?string                                                                       | the user's current party status                                                                                           |
-| emoji?          | ?[emoji](#DOCS_TOPICS_GATEWAY/activity-object-activity-emoji) object           | the emoji used for a custom status                                                                                        |
+| emoji?          | ?[emoji](#DOCS_TOPICS_GATEWAY/activity-object-activity-emoji) object          | the emoji used for a custom status                                                                                        |
 | party?          | [party](#DOCS_TOPICS_GATEWAY/activity-object-activity-party) object           | information for the current party of the player                                                                           |
 | assets?         | [assets](#DOCS_TOPICS_GATEWAY/activity-object-activity-assets) object         | images for the presence and their hover texts                                                                             |
 | secrets?        | [secrets](#DOCS_TOPICS_GATEWAY/activity-object-activity-secrets) object       | secrets for Rich Presence joining and spectating                                                                          |
@@ -1009,11 +1073,11 @@ Returns an object based on the information in [Get Gateway](#DOCS_TOPICS_GATEWAY
 
 ###### JSON Response
 
-| Field               | Type                                                                          | Description                                                                             |
-| ------------------- | ----------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
-| url                 | string                                                                        | The WSS URL that can be used for connecting to the gateway                              |
+| Field               | Type                                                                          | Description                                                                              |
+| ------------------- | ----------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
+| url                 | string                                                                        | The WSS URL that can be used for connecting to the gateway                               |
 | shards              | integer                                                                       | The recommended number of [shards](#DOCS_TOPICS_GATEWAY/sharding) to use when connecting |
-| session_start_limit | [session_start_limit](#DOCS_TOPICS_GATEWAY/session-start-limit-object) object | Information on the current session start limit                                          |
+| session_start_limit | [session_start_limit](#DOCS_TOPICS_GATEWAY/session-start-limit-object) object | Information on the current session start limit                                           |
 
 ###### Example Response
 
