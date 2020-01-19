@@ -266,7 +266,7 @@ Create a new guild. Returns a [guild](#DOCS_RESOURCES_GUILD/guild-object) object
 
 | Field                         | Type                                                                        | Description                                                                                                 |
 | ----------------------------- | --------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- |
-| name                          | string?                                                                     | name of the guild (2-100 characters)                                                                        |
+| name                          | string                                                                      | name of the guild (2-100 characters)                                                                        |
 | region                        | string?                                                                     | [voice region](#DOCS_RESOURCES_VOICE/voice-region-object) id                                                |
 | icon                          | [image data](#DOCS_REFERENCE/image-data)?                                   | base64 128x128 image for the guild icon                                                                     |
 | verification_level            | integer?                                                                    | [verification level](#DOCS_RESOURCES_GUILD/guild-object-verification-level)                                 |
