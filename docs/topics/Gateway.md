@@ -264,7 +264,7 @@ Events are payloads sent over the socket to a client that correspond to events i
 | [Guild Role Update](#DOCS_TOPICS_GATEWAY/guild-role-update)                         | guild role was updated                                                                                                           |
 | [Guild Role Delete](#DOCS_TOPICS_GATEWAY/guild-role-delete)                         | guild role was deleted                                                                                                           |
 | [Invite Create](#DOCS_TOPICS_GATEWAY/invite-create)                                 | invite to a channel was created                                                                                                  |
-| [Invite Delete](#DOCS_TOPICS_GATEWAY/invite-delete)                                  | invite to a channel was deleted                                                                                                  |
+| [Invite Delete](#DOCS_TOPICS_GATEWAY/invite-delete)                                 | invite to a channel was deleted                                                                                                  |
 | [Message Create](#DOCS_TOPICS_GATEWAY/message-create)                               | message was created                                                                                                              |
 | [Message Update](#DOCS_TOPICS_GATEWAY/message-update)                               | message was edited                                                                                                               |
 | [Message Delete](#DOCS_TOPICS_GATEWAY/message-delete)                               | message was deleted                                                                                                              |
@@ -692,7 +692,7 @@ Sent when a guild role is deleted.
 
 ### Invite Create
 
-Send when a new invite to a channel is created.
+Sent when a new invite to a channel is created.
 
 ###### Invite Create Event Fields
 
