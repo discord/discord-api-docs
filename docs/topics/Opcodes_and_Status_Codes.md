@@ -22,19 +22,20 @@ All gateway events in Discord are tagged with an opcode that denotes the payload
 
 ###### Gateway Close Event Codes
 
-| Code | Description           | Explanation                                                                                                                                      |
-| ---- | --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
-| 4000 | unknown error         | We're not sure what went wrong. Try reconnecting?                                                                                                |
-| 4001 | unknown opcode        | You sent an invalid [Gateway opcode](#DOCS_TOPICS_GATEWAY/payloads-and-opcodes) or an invalid payload for an opcode. Don't do that!              |
-| 4002 | decode error          | You sent an invalid [payload](#DOCS_TOPICS_GATEWAY/sending-payloads) to us. Don't do that!                                                       |
-| 4003 | not authenticated     | You sent us a payload prior to [identifying](#DOCS_TOPICS_GATEWAY/identify).                                                                     |
-| 4004 | authentication failed | The account token sent with your [identify payload](#DOCS_TOPICS_GATEWAY/identify) is incorrect.                                                 |
-| 4005 | already authenticated | You sent more than one identify payload. Don't do that!                                                                                          |
-| 4007 | invalid seq           | The sequence sent when [resuming](#DOCS_TOPICS_GATEWAY/resume) the session was invalid. Reconnect and start a new session.                       |
-| 4008 | rate limited          | Woah nelly! You're sending payloads to us too quickly. Slow it down!                                                                             |
-| 4009 | session timeout       | Your session timed out. Reconnect and start a new one.                                                                                           |
-| 4010 | invalid shard         | You sent us an invalid [shard when identifying](#DOCS_TOPICS_GATEWAY/sharding).                                                                  |
-| 4011 | sharding required     | The session would have handled too many guilds - you are required to [shard](#DOCS_TOPICS_GATEWAY/sharding) your connection in order to connect. |
+| Code | Description           | Explanation                                                                                                                                                                                                                                                                  |
+| ---- | --------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 4000 | unknown error         | We're not sure what went wrong. Try reconnecting?                                                                                                                                                                                                                            |
+| 4001 | unknown opcode        | You sent an invalid [Gateway opcode](#DOCS_TOPICS_GATEWAY/payloads-and-opcodes) or an invalid payload for an opcode. Don't do that!                                                                                                                                          |
+| 4002 | decode error          | You sent an invalid [payload](#DOCS_TOPICS_GATEWAY/sending-payloads) to us. Don't do that!                                                                                                                                                                                   |
+| 4003 | not authenticated     | You sent us a payload prior to [identifying](#DOCS_TOPICS_GATEWAY/identify).                                                                                                                                                                                                 |
+| 4004 | authentication failed | The account token sent with your [identify payload](#DOCS_TOPICS_GATEWAY/identify) is incorrect.                                                                                                                                                                             |
+| 4005 | already authenticated | You sent more than one identify payload. Don't do that!                                                                                                                                                                                                                      |
+| 4007 | invalid seq           | The sequence sent when [resuming](#DOCS_TOPICS_GATEWAY/resume) the session was invalid. Reconnect and start a new session.                                                                                                                                                   |
+| 4008 | rate limited          | Woah nelly! You're sending payloads to us too quickly. Slow it down!                                                                                                                                                                                                         |
+| 4009 | session timeout       | Your session timed out. Reconnect and start a new one.                                                                                                                                                                                                                       |
+| 4010 | invalid shard         | You sent us an invalid [shard when identifying](#DOCS_TOPICS_GATEWAY/sharding).                                                                                                                                                                                              |
+| 4011 | sharding required     | The session would have handled too many guilds - you are required to [shard](#DOCS_TOPICS_GATEWAY/sharding) your connection in order to connect.                                                                                                                             |
+| 4012 | invalid intents       | You sent an invalid value for a [Gateway Intent](#DOCS_TOPICS_GATEWAY/gateway-intents). You may have incorrectly calculated the bitwise value, or tried to specify an intent that you [have not enabled or are not whitelisted for](#DOCS_TOPICS_GATEWAY/privileged-intents) |
 
 ## Voice
 

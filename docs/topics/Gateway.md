@@ -258,7 +258,11 @@ DIRECT_MESSAGE_TYPING (1 << 14)
   - TYPING_START
 ```
 
-Any [events not defined in an intent](#DOCS_TOPICS_GATEWAY/commands-and-events-gateway-events) are considered "passthrough" and will always be sent to you.
+Any [events not defined in an intent](#DOCS_TOPICS_GATEWAY/commands-and-events-gateway-events) are considered "passthrough" and will always be sent to you. If you specify an `intent` value in your `IDENTIFY` payload that is invalid, the socket will close with a [`4012` close code](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/gateway-gateway-close-event-codes). An invalid intent value can be one of:
+
+- A miscalculated bit flag
+- Specifying a privileged intent for which you have not opted in for your bot
+- Specifying a privileged intent for which you have not been whitelisted, and your bot is in more than the current limit for unwhitelisted access
 
 ### Privileged Intents
 
