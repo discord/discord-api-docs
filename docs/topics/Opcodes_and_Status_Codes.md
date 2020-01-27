@@ -133,6 +133,7 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 30013  | Maximum number of guild channels reached (500)                                                                  |
 | 30016  | Maximum number of invites reached (1000)                                                                        |
 | 40001  | Unauthorized                                                                                                    |
+| 40005  | Request entity too large                                                                                        |
 | 40006  | This feature has been temporarily disabled                                                                      |
 | 40007  | The user is banned from this guild                                                                              |
 | 50001  | Missing access                                                                                                  |
