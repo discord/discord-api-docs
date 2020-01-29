@@ -389,6 +389,9 @@ Adds a user to the guild, provided you have a valid oauth2 access token for the 
 > info
 > All parameters to this endpoint except for `access_token` are optional.
 
+> info
+> The Authorization header must be Bot authorization, with the token belonging to the bot associated with the application.
+
 ###### JSON Params
 
 | Field        | Type                | Description                                                                                                              | Permission       |
