@@ -14,7 +14,7 @@ Many of these libraries are represented in the [unofficial, community-driven Dis
 | ------------------------------------------------------------ | ---------- |
 | [discljord](https://github.com/igjoshua/discljord)           | Clojure    |
 | [aegis.cpp](https://github.com/zeroxs/aegis.cpp)             | C++        |
-| [discordcr](https://github.com/meew0/discordcr)              | Crystal    |
+| [discordcr](https://github.com/discordcr/discordcr)          | Crystal    |
 | [Discord.Net](https://github.com/RogueException/Discord.Net) | C#         |
 | [DSharpPlus](https://github.com/DSharpPlus/DSharpPlus)       | C#         |
 | [dscord](https://github.com/b1naryth1ef/dscord)              | D          |
@@ -32,7 +32,7 @@ Many of these libraries are represented in the [unofficial, community-driven Dis
 | [RestCord](https://www.restcord.com/)                        | PHP        |
 | [discord.py](https://github.com/Rapptz/discord.py)           | Python     |
 | [disco](https://github.com/b1naryth1ef/disco)                | Python     |
-| [discordrb](https://github.com/meew0/discordrb)              | Ruby       |
+| [discordrb](https://github.com/discordrb/discordrb)          | Ruby       |
 | [discord-rs](https://github.com/SpaceManiac/discord-rs)      | Rust       |
 | [Serenity](https://github.com/serenity-rs/serenity)          | Rust       |
 | [AckCord](https://github.com/Katrix/AckCord)                 | Scala      |

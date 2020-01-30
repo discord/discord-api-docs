@@ -136,6 +136,9 @@ lobbyManager.UpdateLobby(lobbyId, txn, (Discord.Result result, ref Discord.Lobby
 
 ## LobbyTransaction.SetOwner
 
+> warn
+> This method is only valid for `LobbyUpdateTransactions` and may cause issues if you set it on a `LobbyCreateTransaction`.
+
 Sets a new owner for the lobby.
 
 Returns `void`.
@@ -1624,13 +1627,7 @@ activityManager.OnActivityJoin += secret =>
     for (int i = 0; i < lobbyManager.MemberCount(); i++)
     {
       var userId = lobbyManager.GetMemberUserId(i);
-      lobbyManager.SendNetworkMessage(lobby.Id, userId, 0, System.Text.Encoding.UTF8.GetBytes("Hello!"), (networkMessageResult) =>
-      {
-        if (networkMessageResult == Discord.Result.Ok)
-        {
-          Console.WriteLine("Message successfully sent");
-        }
-      });
+      lobbyManager.SendNetworkMessage(lobby.Id, userId, 0, System.Text.Encoding.UTF8.GetBytes("Hello!"));
     }
   });
 }

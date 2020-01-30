@@ -18,15 +18,11 @@ So go do it! Go! Go [make an app](https://discordapp.com/developers/applications
 
 ## Games
 
-Games are what Discord is all about. Everything we do is built around the idea of bringing players together around games, and if YOU have a game that you want to supercharge with Discord, then we have just the thing for you.
+We love games, and we love helping game developers. If YOU have a game that you want to supercharge with Discord, then we have just the thing for you.
 
 #### Your Game On Discord
 
-If you haven’t yet noticed, Discord has a [game store](https://blog.discordapp.com/discord-store-global-beta-is-live-38bfd044d648)! That means that we’ve got a whole suite of tools to help bring your game to life on Discord. Need networking? Have [networking](#DOCS_GAME_SDK_NETWORKING/)! Want a friends list? Take [relationships](#DOCS_GAME_SDK_RELATIONSHIPS/) too!
-
-We are proud to be working with a number of indie developers to help bring their games to life with our [First on Discord](https://blog.discordapp.com/the-first-first-on-discord-games-73525dab4fd5) program, along with other developers to create an awesome choice of games for players on the Discord Store.
-
-If you want to know how you can be a part of the Discord Store, hold tight! We’ve got more cool stuff coming in the future. Be sure to sign up for our [newsletter](https://discordapp.com/dev-newsletter) to stay in the loop!
+If you haven’t yet noticed, Discord allows you to [sell your game](https://discordapp.com/sell-your-game) right from Discord servers! We’ve got a whole suite of tools to help bring your game to life on Discord. Need networking? Have [networking](#DOCS_GAME_SDK_NETWORKING/)! Want a friends list? Take [relationships](#DOCS_GAME_SDK_RELATIONSHIPS/) too!
 
 #### Rich Presence
 
@@ -37,7 +33,7 @@ No matter where your game lives, it should have a first-class experience in Disc
 - Ask to Join and Spectate their friends' games
 - Spend more time playing together and less time setting up
 
-It’s free, easy, open-source, and self-serve, so check out [the How To guide](#DOCS_RICH_PRESENCE_HOW_TO/) and get started!
+It’s free, easy, open-source, and self-serve, so check out [the GameSDK Activity Manager](#DOCS_GAME_SDK_ACTIVITIES/) and get started!
 
 ## Go Make Cool Stuff!
 

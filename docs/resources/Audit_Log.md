@@ -13,6 +13,21 @@ Whenever an admin action is performed on the API, an entry is added to the respe
 | webhooks          | array of [webhook](#DOCS_RESOURCES_WEBHOOK/webhook-object) objects                   | list of webhooks found in the audit log |
 | users             | array of [user](#DOCS_RESOURCES_USER/user-object) objects                            | list of users found in the audit log    |
 | audit_log_entries | array of [audit log entry](#DOCS_RESOURCES_AUDIT_LOG/audit-log-entry-object) objects | list of audit log entries               |
+| integrations      | array of partial [integration](#DOCS_RESOURCES_GUILD/integration-object) objects     | list of partial integration objects     |
+
+###### Example Partial Integration Object
+
+```json
+{
+  "id": 33590653072239123,
+  "name": "A Name",
+  "type": "twitch",
+  "account": {
+    "name": "twitchusername",
+    "id": "1234567"
+  }
+}
+```
 
 ### Audit Log Entry Object
 
@@ -71,15 +86,16 @@ Whenever an admin action is performed on the API, an entry is added to the respe
 
 ###### Optional Audit Entry Info
 
-| Field              | Type      | Description                                             | Action Type                                                                    |
-| ------------------ | --------- | ------------------------------------------------------- | ------------------------------------------------------------------------------ |
-| delete_member_days | string    | number of days after which inactive members were kicked | MEMBER_PRUNE                                                                   |
-| members_removed    | string    | number of members removed by the prune                  | MEMBER_PRUNE                                                                   |
-| channel_id         | snowflake | channel in which the messages were deleted              | MESSAGE_DELETE                                                                 |
-| count              | string    | number of deleted messages                              | MESSAGE_DELETE                                                                 |
-| id                 | snowflake | id of the overwritten entity                            | CHANNEL_OVERWRITE_CREATE & CHANNEL_OVERWRITE_UPDATE & CHANNEL_OVERWRITE_DELETE |
-| type               | string    | type of overwritten entity ("member" or "role")         | CHANNEL_OVERWRITE_CREATE & CHANNEL_OVERWRITE_UPDATE & CHANNEL_OVERWRITE_DELETE |
-| role_name          | string    | name of the role if type is "role"                      | CHANNEL_OVERWRITE_CREATE & CHANNEL_OVERWRITE_UPDATE & CHANNEL_OVERWRITE_DELETE |
+| Field              | Type      | Description                                             | Action Type                                                                      |
+| ------------------ | --------- | ------------------------------------------------------- | -------------------------------------------------------------------------------- |
+| delete_member_days | string    | number of days after which inactive members were kicked | MEMBER_PRUNE                                                                     |
+| members_removed    | string    | number of members removed by the prune                  | MEMBER_PRUNE                                                                     |
+| channel_id         | snowflake | channel in which the entities were targeted             | MEMBER_MOVE & MESSAGE_PIN & MESSAGE_UNPIN & MESSAGE_DELETE & MESSAGE_BULK_DELETE |
+| message_id         | snowflake | id of the message that was targeted                     | MESSAGE_PIN & MESSAGE_UNPIN                                                      |
+| count              | string    | number of entities that were targeted                   | MESSAGE_DELETE & MESSAGE_BULK_DELETE & MEMBER_DISCONNECT & MEMBER_MOVE           |
+| id                 | snowflake | id of the overwritten entity                            | CHANNEL_OVERWRITE_CREATE & CHANNEL_OVERWRITE_UPDATE & CHANNEL_OVERWRITE_DELETE   |
+| type               | string    | type of overwritten entity ("member" or "role")         | CHANNEL_OVERWRITE_CREATE & CHANNEL_OVERWRITE_UPDATE & CHANNEL_OVERWRITE_DELETE   |
+| role_name          | string    | name of the role if type is "role"                      | CHANNEL_OVERWRITE_CREATE & CHANNEL_OVERWRITE_UPDATE & CHANNEL_OVERWRITE_DELETE   |
 
 ### Audit Log Change Object
 
@@ -107,17 +123,19 @@ Whenever an admin action is performed on the API, an entry is added to the respe
 | explicit_content_filter       | [guild](#DOCS_RESOURCES_GUILD/guild-object)             | integer                                                                                  | change in [whose messages](#DOCS_RESOURCES_GUILD/guild-object-explicit-content-filter-level) are scanned and deleted for explicit content in the server |
 | default_message_notifications | [guild](#DOCS_RESOURCES_GUILD/guild-object)             | integer                                                                                  | default [message notification level](#DOCS_RESOURCES_GUILD/guild-object-default-message-notification-level) changed                                     |
 | vanity_url_code               | [guild](#DOCS_RESOURCES_GUILD/guild-object)             | string                                                                                   | guild invite vanity url changed                                                                                                                         |
-| \$add                         | [guild](#DOCS_RESOURCES_GUILD/guild-object)             | array of [role](#DOCS_TOPICS_PERMISSIONS/role-object) objects                            | new role added                                                                                                                                          |
-| \$remove                      | [guild](#DOCS_RESOURCES_GUILD/guild-object)             | array of [role](#DOCS_TOPICS_PERMISSIONS/role-object) objects                            | role removed                                                                                                                                            |
+| \$add                         | [guild](#DOCS_RESOURCES_GUILD/guild-object)             | array of partial [role](#DOCS_TOPICS_PERMISSIONS/role-object) objects                    | new role added                                                                                                                                          |
+| \$remove                      | [guild](#DOCS_RESOURCES_GUILD/guild-object)             | array of partial [role](#DOCS_TOPICS_PERMISSIONS/role-object) objects                    | role removed                                                                                                                                            |
 | prune_delete_days             | [guild](#DOCS_RESOURCES_GUILD/guild-object)             | integer                                                                                  | change in number of days after which inactive and role-unassigned members are kicked                                                                    |
 | widget_enabled                | [guild](#DOCS_RESOURCES_GUILD/guild-object)             | boolean                                                                                  | server widget enabled/disable                                                                                                                           |
 | widget_channel_id             | [guild](#DOCS_RESOURCES_GUILD/guild-object)             | snowflake                                                                                | channel id of the server widget changed                                                                                                                 |
+| system_channel_id             | [guild](#DOCS_RESOURCES_GUILD/guild-object)             | snowflake                                                                                | id of the system channel changed                                                                                                                        |
 | position                      | [channel](#DOCS_RESOURCES_CHANNEL/channel-object)       | integer                                                                                  | text or voice channel position changed                                                                                                                  |
 | topic                         | [channel](#DOCS_RESOURCES_CHANNEL/channel-object)       | string                                                                                   | text channel topic changed                                                                                                                              |
 | bitrate                       | [channel](#DOCS_RESOURCES_CHANNEL/channel-object)       | integer                                                                                  | voice channel bitrate changed                                                                                                                           |
 | permission_overwrites         | [channel](#DOCS_RESOURCES_CHANNEL/channel-object)       | array of [channel overwrite](#DOCS_RESOURCES_CHANNEL/overwrite-object) objects           | permissions on a channel changed                                                                                                                        |
 | nsfw                          | [channel](#DOCS_RESOURCES_CHANNEL/channel-object)       | boolean                                                                                  | channel nsfw restriction changed                                                                                                                        |
 | application_id                | [channel](#DOCS_RESOURCES_CHANNEL/channel-object)       | snowflake                                                                                | application id of the added or removed webhook or bot                                                                                                   |
+| rate_limit_per_user           | [channel](#DOCS_RESOURCES_CHANNEL/channel-object)       | integer                                                                                  | amount of seconds a user has to wait before sending another message changed                                                                                                                   |
 | permissions                   | [role](#DOCS_RESOURCES_GUILD/role-object)               | integer                                                                                  | [permissions](#DOCS_TOPICS_PERMISSIONS/permissions-bitwise-permission-flags) for a role changed                                                         |
 | color                         | [role](#DOCS_TOPICS_PERMISSIONS/role-object)            | integer                                                                                  | role color changed                                                                                                                                      |
 | hoist                         | [role](#DOCS_TOPICS_PERMISSIONS/role-object)            | boolean                                                                                  | role is now displayed/no longer displayed separate from online users                                                                                    |
@@ -132,11 +150,23 @@ Whenever an admin action is performed on the API, an entry is added to the respe
 | max_age                       | [invite](#DOCS_RESOURCES_INVITE/invite-metadata-object) | integer                                                                                  | how long invite code lasts changed                                                                                                                      |
 | temporary                     | [invite](#DOCS_RESOURCES_INVITE/invite-metadata-object) | boolean                                                                                  | invite code is temporary/never expires                                                                                                                  |
 | deaf                          | [user](#DOCS_RESOURCES_USER/user-object)                | boolean                                                                                  | user server deafened/undeafened                                                                                                                         |
-| mute                          | [user](#DOCS_RESOURCES_USER/user-object)                | boolean                                                                                  | user server muted/unmuted                                                                                                                              |
+| mute                          | [user](#DOCS_RESOURCES_USER/user-object)                | boolean                                                                                  | user server muted/unmuted                                                                                                                               |
 | nick                          | [user](#DOCS_RESOURCES_USER/user-object)                | string                                                                                   | user nickname changed                                                                                                                                   |
 | avatar_hash                   | [user](#DOCS_RESOURCES_USER/user-object)                | string                                                                                   | user avatar changed                                                                                                                                     |
 | id                            | any                                                     | snowflake                                                                                | the id of the changed entity - sometimes used in conjunction with other keys                                                                            |
 | type                          | any                                                     | integer ([channel type](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types)) or string | type of entity created                                                                                                                                  |
+| enable_emoticons              | [integration](#DOCS_RESOURCES_GUILD/integration-object) | boolean                                                                                  | integration emoticons enabled/disabled                                                                                                                  |
+| expire_behavior               | [integration](#DOCS_RESOURCES_GUILD/integration-object) | integer                                                                                  | integration expiring subscriber behavior changed                                                                                                        |
+| expire_grace_period           | [integration](#DOCS_RESOURCES_GUILD/integration-object) | integer                                                                                  | integration expire grace period changed                                                                                                                 |
+
+###### Example Partial Role Object
+
+```json
+{
+  "name": "I am a role",
+  "id": 584120723283509258
+}
+```
 
 ## Get Guild Audit Log % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/audit-logs
 

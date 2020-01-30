@@ -4,23 +4,14 @@ Users in Discord are generally considered the base entity. Users can spawn acros
 guilds, participate in text and voice chat, and much more. Users are separated by a distinction of "bot" vs "normal." Although they are similar, bot users are automated users that are "owned" by another user. Unlike normal users, bot users do
 _not_ have a limitation on the number of Guilds they can be a part of.
 
-## Avatar Data
-
-Avatar data is a [Data URI scheme](https://en.wikipedia.org/wiki/Data_URI_scheme) that supports JPG, GIF, and PNG formats. An example Data URI format is:
-
-```
-data:image/jpeg;base64,BASE64_ENCODED_JPEG_IMAGE_DATA
-```
-
-Ensure you use the proper header type (`image/jpeg`, `image/png`, `image/gif`) that matches the image data being provided.
-
 ## Usernames and Nicknames
 
 Discord enforces the following restrictions for usernames and nicknames:
 
 1.  Names can contain most valid unicode characters. We limit some zero-width and non-rendering characters.
-2.  Names must be between 2 and 32 characters long.
-3.  Names are sanitized and trimmed of leading, trailing, and excessive internal whitespace.
+2.  Usernames must be between 2 and 32 characters long.
+3.  Nicknames must be between 1 and 32 characters long.
+4.  Names are sanitized and trimmed of leading, trailing, and excessive internal whitespace.
 
 The following restrictions are additionally enforced for usernames:
 
@@ -40,6 +31,7 @@ There are other rules and restrictions not shared here for the sake of spam and 
 | discriminator | string    | the user's 4-digit discord-tag                                                                       | identify              |
 | avatar        | ?string   | the user's [avatar hash](#DOCS_REFERENCE/image-formatting)                                           | identify              |
 | bot?          | boolean   | whether the user belongs to an OAuth2 application                                                    | identify              |
+| system?       | boolean   | whether the user is an Official Discord System user (part of the urgent message system)              | identify              |
 | mfa_enabled?  | boolean   | whether the user has two factor enabled on their account                                             | identify              |
 | locale?       | string    | the user's chosen language option                                                                    | identify              |
 | verified?     | boolean   | whether the email on this account has been verified                                                  | email                 |
@@ -64,25 +56,29 @@ There are other rules and restrictions not shared here for the sake of spam and 
 
 ###### User Flags
 
-| Value   | Description      |
-| ------- | ---------------- |
-| 0       | None             |
-| 1 << 0  | Discord Employee |
-| 1 << 1  | Discord Partner  |
-| 1 << 2  | HypeSquad Events |
-| 1 << 3  | Bug Hunter       |
-| 1 << 6  | House Bravery    |
-| 1 << 7  | House Brilliance |
-| 1 << 8  | House Balance    |
-| 1 << 9  | Early Supporter  |
-| 1 << 10 | Team User        |
+| Value   | Description        |
+| ------- | ------------------ |
+| 0       | None               |
+| 1 << 0  | Discord Employee   |
+| 1 << 1  | Discord Partner    |
+| 1 << 2  | HypeSquad Events   |
+| 1 << 3  | Bug Hunter Level 1 |
+| 1 << 6  | House Bravery      |
+| 1 << 7  | House Brilliance   |
+| 1 << 8  | House Balance      |
+| 1 << 9  | Early Supporter    |
+| 1 << 10 | Team User          |
+| 1 << 12 | System             |
+| 1 << 14 | Bug Hunter Level 2 |
 
 ###### Premium Types
 
-| Value | Name          | Description                                                                           |
-| ----- | ------------- | ------------------------------------------------------------------------------------- |
-| 1     | Nitro Classic | includes app perks like animated emojis and avatars, but not games or server boosting |
-| 2     | Nitro         | includes app perks as well as the games subscription service and server boosting      |
+Premium types denote the level of premium a user has. Visit the [Nitro](https://discordapp.com/nitro) page to learn more about the premium plans we currently offer.
+
+| Value | Name          |
+| ----- | ------------- |
+| 1     | Nitro Classic |
+| 2     | Nitro         |
 
 ### Connection Object
 
@@ -123,10 +119,13 @@ Modify the requester's user account settings. Returns a [user](#DOCS_RESOURCES_U
 
 ###### JSON Params
 
-| Field    | Type                                            | Description                                                                    |
-| -------- | ----------------------------------------------- | ------------------------------------------------------------------------------ |
-| username | string                                          | users username, if changed may cause the users discriminator to be randomized. |
-| avatar   | [avatar data](#DOCS_RESOURCES_USER/avatar-data) | if passed, modifies the user's avatar                                          |
+> info
+> All parameters to this endpoint are optional.
+
+| Field    | Type                                     | Description                                                                    |
+| -------- | ---------------------------------------- | ------------------------------------------------------------------------------ |
+| username | string                                   | user's username, if changed may cause the user's discriminator to be randomized. |
+| avatar   | [image data](#DOCS_REFERENCE/image-data) | if passed, modifies the user's avatar                                          |
 
 ## Get Current User Guilds % GET /users/@me/guilds
 
@@ -145,7 +144,7 @@ Returns a list of partial [guild](#DOCS_RESOURCES_GUILD/guild-object) objects th
 ```
 
 > info
-> This endpoint returns 100 guilds by default, which is the maximum number of guilds a non-bot user can join. Therefore, pagination is **not needed** for integrations that need to get a list of users' guilds.
+> This endpoint returns 100 guilds by default, which is the maximum number of guilds a non-bot user can join. Therefore, pagination is **not needed** for integrations that need to get a list of the users' guilds.
 
 ###### Query String Params
 

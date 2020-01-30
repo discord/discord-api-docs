@@ -24,7 +24,7 @@ Represents a guild or DM channel within Discord.
 | icon?                  | ?string                                                                | icon hash                                                                                                                                                                       |
 | owner_id?              | snowflake                                                              | id of the DM creator                                                                                                                                                            |
 | application_id?        | snowflake                                                              | application id of the group DM creator if it is bot-created                                                                                                                     |
-| parent_id?             | ?snowflake                                                             | id of the parent category for a channel                                                                                                                                         |
+| parent_id?             | ?snowflake                                                             | id of the parent category for a channel (each parent category can contain up to 50 channels)                                                                                                                                        |
 | last_pin_timestamp?    | ISO8601 timestamp                                                      | when the last pinned message was pinned                                                                                                                                         |
 
 ###### Channel Types
@@ -35,7 +35,7 @@ Represents a guild or DM channel within Discord.
 | DM             | 1   | a direct message between users                                                                                                                          |
 | GUILD_VOICE    | 2   | a voice channel within a server                                                                                                                         |
 | GROUP_DM       | 3   | a direct message between multiple users                                                                                                                 |
-| GUILD_CATEGORY | 4   | an [organizational category](https://support.discordapp.com/hc/en-us/articles/115001580171-Channel-Categories-101) that contains channels               |
+| GUILD_CATEGORY | 4   | an [organizational category](https://support.discordapp.com/hc/en-us/articles/115001580171-Channel-Categories-101) that contains up to 50 channels               |
 | GUILD_NEWS     | 5   | a channel that [users can follow and crosspost into their own server](https://support.discordapp.com/hc/en-us/articles/360032008192)                    |
 | GUILD_STORE    | 6   | a channel in which game developers can [sell their game on Discord](https://discordapp.com/developers/docs/game-and-server-management/special-channels) |
 
@@ -265,11 +265,13 @@ Represents a message sent in a channel within Discord.
 
 ###### Message Flags
 
-| Flag            | Value  | Description                                                                       |
-| --------------- | ------ | --------------------------------------------------------------------------------- |
-| CROSSPOSTED     | 1 << 0 | this message has been published to subscribed channels (via Channel Following)    |
-| IS_CROSSPOST    | 1 << 1 | this message originated from a message in another channel (via Channel Following) |
-| SUPPRESS_EMBEDS | 1 << 2 | do not include any embeds when serializing this message                           |
+| Flag                   | Value  | Description                                                                       |
+| ---------------------- | ------ | --------------------------------------------------------------------------------- |
+| CROSSPOSTED            | 1 << 0 | this message has been published to subscribed channels (via Channel Following)    |
+| IS_CROSSPOST           | 1 << 1 | this message originated from a message in another channel (via Channel Following) |
+| SUPPRESS_EMBEDS        | 1 << 2 | do not include any embeds when serializing this message                           |
+| SOURCE_MESSAGE_DELETED | 1 << 3 | the source message for this crosspost has been deleted (via Channel Following)    |
+| URGENT                 | 1 << 4 | this message came from the urgent message system                                  |
 
 ###### Example Message
 
@@ -487,6 +489,8 @@ To facilitate showing rich content, rich embeds do not follow the traditional li
 
 ###### Limits
 
+All of the following limits are measured inclusively. Leading and trailing whitespace characters are not included (they are trimmed automatically).
+
 | Field                                                                      | Limit                                                                                |
 | -------------------------------------------------------------------------- | ------------------------------------------------------------------------------------ |
 | title                                                                      | 256 characters                                                                       |
@@ -497,7 +501,7 @@ To facilitate showing rich content, rich embeds do not follow the traditional li
 | [footer.text](#DOCS_RESOURCES_CHANNEL/embed-object-embed-footer-structure) | 2048 characters                                                                      |
 | [author.name](#DOCS_RESOURCES_CHANNEL/embed-object-embed-author-structure) | 256 characters                                                                       |
 
-In addition to the limits above, the sum of all characters in an embed structure must not exceed 6000 characters.
+Additionally, the characters in all `title`, `description`, `field.name`, `field.value`, `footer.text`, and `author.name` fields must not exceed 6000 characters in total. Violating any of these constraints will result in a `Bad Request` response.
 
 ## Get Channel % GET /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}
 
@@ -659,7 +663,9 @@ Deletes all reactions on a message. This endpoint requires the 'MANAGE_MESSAGES'
 
 ## Edit Message % PATCH /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}
 
-Edit a previously sent message. You can edit message `content`, `embed`, and `flags` if `author` is current user. Otherwise only `flags` can be edited with `MANAGE_MESSAGES` permission in the channel. Returns a [message](#DOCS_RESOURCES_CHANNEL/message-object) object. Fires a [Message Update](#DOCS_TOPICS_GATEWAY/message-update) Gateway event.
+Edit a previously sent message. The fields `content`, `embed`, and `flags` can be edited by the original message author. Other users can only edit `flags` and only if they have the `MANAGE_MESSAGES` permission in the corresponding channel. When specifying flags, ensure to include all previously set flags/bits in addition to ones that you are modifying. Only `flags` documented in the table below may be modified by users (unsupported flag changes are currently ignored without error).
+
+Returns a [message](#DOCS_RESOURCES_CHANNEL/message-object) object. Fires a [Message Update](#DOCS_TOPICS_GATEWAY/message-update) Gateway event.
 
 > info
 > All parameters to this endpoint are optional.
@@ -680,10 +686,10 @@ Delete a message. If operating on a guild channel and trying to delete a message
 
 Delete multiple messages in a single request. This endpoint can only be used on guild channels and requires the `MANAGE_MESSAGES` permission. Returns a 204 empty response on success. Fires a [Message Delete Bulk](#DOCS_TOPICS_GATEWAY/message-delete-bulk) Gateway event.
 
-Any message IDs given that do not exist or are invalid will count towards the minimum and maximum message count (currently 2 and 100 respectively). Additionally, duplicated IDs will only be counted once.
+Any message IDs given that do not exist or are invalid will count towards the minimum and maximum message count (currently 2 and 100 respectively).
 
 > warn
-> This endpoint will not delete messages older than 2 weeks, and will fail if any message provided is older than that.
+> This endpoint will not delete messages older than 2 weeks, and will fail with a 400 BAD REQUEST if any message provided is older than that or if any duplicate message IDs are provided.
 
 ###### JSON Params
 
@@ -717,12 +723,14 @@ Create a new [invite](#DOCS_RESOURCES_INVITE/invite-object) object for the chann
 
 ###### JSON Params
 
-| Field     | Type    | Description                                                                                         | Default          |
-| --------- | ------- | --------------------------------------------------------------------------------------------------- | ---------------- |
-| max_age   | integer | duration of invite in seconds before expiry, or 0 for never                                         | 86400 (24 hours) |
-| max_uses  | integer | max number of uses or 0 for unlimited                                                               | 0                |
-| temporary | boolean | whether this invite only grants temporary membership                                                | false            |
-| unique    | boolean | if true, don't try to reuse a similar invite (useful for creating many unique one time use invites) | false            |
+| Field             | Type    | Description                                                                                         | Default          |
+| ----------------- | ------- | --------------------------------------------------------------------------------------------------- | ---------------- |
+| max_age           | integer | duration of invite in seconds before expiry, or 0 for never                                         | 86400 (24 hours) |
+| max_uses          | integer | max number of uses or 0 for unlimited                                                               | 0                |
+| temporary         | boolean | whether this invite only grants temporary membership                                                | false            |
+| unique            | boolean | if true, don't try to reuse a similar invite (useful for creating many unique one time use invites) | false            |
+| target_user?      | string  | the target user id for this invite                                                                  |                  |
+| target_user_type? | integer | the type of target user for this invite                                                             |                  |
 
 ## Delete Channel Permission % DELETE /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/permissions/{overwrite.id#DOCS_RESOURCES_CHANNEL/overwrite-object}
 

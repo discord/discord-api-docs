@@ -157,7 +157,7 @@ If the payload is valid, the gateway will respond with a [Ready](#DOCS_TOPICS_GA
 
 ## Resuming
 
-The internet is a scary place. Disconnections happen, especially with persistent connections. Due to Discord's architecture, this is a semi-regular event and should be expected and handled. Discord has a process for "resuming" (or reconnecting) a connection that allows the client to replay any lost events from the last sequence number they received in the exact same way they would receive them normally.
+The Internet is a scary place. Disconnections happen, especially with persistent connections. Due to Discord's architecture, this is a semi-regular event and should be expected and handled. Discord has a process for "resuming" (or reconnecting) a connection that allows the client to replay any lost events from the last sequence number they received in the exact same way they would receive them normally.
 
 Your client should store the `session_id` from the [Ready](#DOCS_TOPICS_GATEWAY/ready), and the sequence number of the last event it received. When your client detects that it has been disconnected, it should completely close the connection and open a new one (following the same strategy as [Connecting](#DOCS_TOPICS_GATEWAY/connecting)). Once the new connection has been opened, the client should send a [Gateway Resume](#DOCS_TOPICS_GATEWAY/resume):
 
@@ -213,7 +213,7 @@ As an example, if you wanted to split the connection between three shards, you'd
 
 ## Sharding for Very Large Bots
 
-If you own a bot that is in over 100,000 guilds, there are some additional considerations you must take around sharding. We will contact you if you are required to adhere to these changes.
+If you own a bot that is in over 250,000 guilds, there are some additional considerations you must take around sharding. Please file a support-ticket to get moved to the sharding for big bots, when you reach this amount of servers. You can contact the discord support using [https://dis.gd/contact](https://dis.gd/contact).
 
 The number of shards you run must be a multiple of a fixed number we will determine when reaching out to you. If you attempt to start your bot with an invalid number of shards, your websocket connection will close with a 4010 Invalid Shard opcode. The gateway bot bootstrap endpoint will return the correct amount of shards, so if you're already using this endpoint to determine your number of shards, you shouldn't require any further changes.
 
@@ -630,13 +630,13 @@ Sent when a user is removed from a guild (leave/kick/ban).
 Sent when a guild member is updated.
 
 ###### Guild Member Update Event Fields
-
-| Field    | Type                                              | Description                       |
-| -------- | ------------------------------------------------- | --------------------------------- |
-| guild_id | snowflake                                         | the id of the guild               |
-| roles    | array of snowflakes                               | user role ids                     |
-| user     | a [user](#DOCS_RESOURCES_USER/user-object) object | the user                          |
-| nick     | string                                            | nickname of the user in the guild |
+| Field         | Type                                              | Description                                        |
+| ------------- | ------------------------------------------------- | -------------------------------------------------- |
+| guild_id      | snowflake                                         | the id of the guild                                |
+| roles         | array of snowflakes                               | user role ids                                      |
+| user          | a [user](#DOCS_RESOURCES_USER/user-object) object | the user                                           |
+| nick          | string                                            | nickname of the user in the guild                  |
+| premium_since | ?ISO8601 timestamp                                | when the user used their Nitro boost on the guild |
 
 #### Guild Members Chunk
 
@@ -733,6 +733,7 @@ Sent when a user adds a reaction to a message.
 | channel_id | snowflake                                                    | the id of the channel                                                                                           |
 | message_id | snowflake                                                    | the id of the message                                                                                           |
 | guild_id?  | snowflake                                                    | the id of the guild                                                                                             |
+| member?    | [member](#DOCS_RESOURCES_GUILD/guild-member-object) object   | the member who reacted if this happened in a guild                                                              |
 | emoji      | a partial [emoji](#DOCS_RESOURCES_EMOJI/emoji-object) object | the emoji used to react - [example](#DOCS_RESOURCES_EMOJI/emoji-object-gateway-reaction-standard-emoji-example) |
 
 #### Message Reaction Remove
@@ -772,15 +773,17 @@ A user's presence is their current state on a guild. This event is sent when a u
 
 ###### Presence Update Event Fields
 
-| Field         | Type                                                              | Description                                  |
-| ------------- | ----------------------------------------------------------------- | -------------------------------------------- |
-| user          | [user](#DOCS_RESOURCES_USER/user-object) object                   | the user presence is being updated for       |
-| roles         | array of snowflakes                                               | roles this user is in                        |
-| game          | ?[activity](#DOCS_TOPICS_GATEWAY/activity-object) object          | null, or the user's current activity         |
-| guild_id      | snowflake                                                         | id of the guild                              |
-| status        | string                                                            | either "idle", "dnd", "online", or "offline" |
-| activities    | array of [activity](#DOCS_TOPICS_GATEWAY/activity-object) objects | user's current activities                    |
-| client_status | [client_status](#DOCS_TOPICS_GATEWAY/client-status-object) object | user's platform-dependent status             |
+| Field          | Type                                                              | Description                                        |
+| -------------- | ----------------------------------------------------------------- | -------------------------------------------------- |
+| user           | [user](#DOCS_RESOURCES_USER/user-object) object                   | the user presence is being updated for             |
+| roles          | array of snowflakes                                               | roles this user is in                              |
+| game           | ?[activity](#DOCS_TOPICS_GATEWAY/activity-object) object          | null, or the user's current activity               |
+| guild_id       | snowflake                                                         | id of the guild                                    |
+| status         | string                                                            | either "idle", "dnd", "online", or "offline"       |
+| activities     | array of [activity](#DOCS_TOPICS_GATEWAY/activity-object) objects | user's current activities                          |
+| client_status  | [client_status](#DOCS_TOPICS_GATEWAY/client-status-object) object | user's platform-dependent status                   |
+| premium_since? | ?ISO8601 timestamp                                                | when the user used their Nitro boost on the server |
+| nick?          | ?string                                                           | this users guild nickname (if one is set)          |
 
 #### Client Status Object
 
@@ -801,11 +804,12 @@ Active sessions are indicated with an "online", "idle", or "dnd" string per plat
 | name            | string                                                                        | the activity's name                                                                                                       |
 | type            | integer                                                                       | [activity type](#DOCS_TOPICS_GATEWAY/activity-object-activity-types)                                                      |
 | url?            | ?string                                                                       | stream url, is validated when type is 1                                                                                   |
+| created_at      | int                                                                           | unix timestamp of when the activity was added to the user's session                                                       |
 | timestamps?     | [timestamps](#DOCS_TOPICS_GATEWAY/activity-object-activity-timestamps) object | unix timestamps for start and/or end of the game                                                                          |
 | application_id? | snowflake                                                                     | application id for the game                                                                                               |
 | details?        | ?string                                                                       | what the player is currently doing                                                                                        |
 | state?          | ?string                                                                       | the user's current party status                                                                                           |
-| emoji?          | ?[emoji](#DOCS_TOPIC_GATEWAY/activity-object-activity-emoji) object           | the emoji used for a custom status                                                                                        |
+| emoji?          | ?[emoji](#DOCS_TOPICS_GATEWAY/activity-object-activity-emoji) object           | the emoji used for a custom status                                                                                        |
 | party?          | [party](#DOCS_TOPICS_GATEWAY/activity-object-activity-party) object           | information for the current party of the player                                                                           |
 | assets?         | [assets](#DOCS_TOPICS_GATEWAY/activity-object-activity-assets) object         | images for the presence and their hover texts                                                                             |
 | secrets?        | [secrets](#DOCS_TOPICS_GATEWAY/activity-object-activity-secrets) object       | secrets for Rich Presence joining and spectating                                                                          |
@@ -920,7 +924,7 @@ Active sessions are indicated with an "online", "idle", or "dnd" string per plat
 ```
 
 > warn
-> Clients may only update their game status 5 times per minute.
+> Clients may only update their game status 5 times per 20 seconds.
 
 #### Typing Start
 
@@ -928,12 +932,13 @@ Sent when a user starts typing in a channel.
 
 ###### Typing Start Event Fields
 
-| Field      | Type      | Description                                            |
-| ---------- | --------- | ------------------------------------------------------ |
-| channel_id | snowflake | id of the channel                                      |
-| guild_id?  | snowflake | id of the guild                                        |
-| user_id    | snowflake | id of the user                                         |
-| timestamp  | integer   | unix time (in seconds) of when the user started typing |
+| Field      | Type                                                       | Description                                               |
+| ---------- | ---------------------------------------------------------- | --------------------------------------------------------- |
+| channel_id | snowflake                                                  | id of the channel                                         |
+| guild_id?  | snowflake                                                  | id of the guild                                           |
+| user_id    | snowflake                                                  | id of the user                                            |
+| timestamp  | integer                                                    | unix time (in seconds) of when the user started typing    |
+| member?    | [member](#DOCS_RESOURCES_GUILD/guild-member-object) object | the member who started typing if this happened in a guild |
 
 #### User Update
 
@@ -1000,14 +1005,14 @@ Returns an object with a single valid WSS URL, which the client can use for [Con
 > warn
 > This endpoint requires authentication using a valid bot token.
 
-Returns an object based on the information in [Get Gateway](#DOCS_TOPICS_GATEWAY/get-gateway), plus additional metadata that can help during the operation of large or [sharded](#DOCS_TOPIC_GATEWAY/sharding) bots. Unlike the [Get Gateway](#DOCS_TOPICS_GATEWAY/get-gateway), this route should not be cached for extended periods of time as the value is not guaranteed to be the same per-call, and changes as the bot joins/leaves guilds.
+Returns an object based on the information in [Get Gateway](#DOCS_TOPICS_GATEWAY/get-gateway), plus additional metadata that can help during the operation of large or [sharded](#DOCS_TOPICS_GATEWAY/sharding) bots. Unlike the [Get Gateway](#DOCS_TOPICS_GATEWAY/get-gateway), this route should not be cached for extended periods of time as the value is not guaranteed to be the same per-call, and changes as the bot joins/leaves guilds.
 
 ###### JSON Response
 
 | Field               | Type                                                                          | Description                                                                             |
 | ------------------- | ----------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
 | url                 | string                                                                        | The WSS URL that can be used for connecting to the gateway                              |
-| shards              | integer                                                                       | The recommended number of [shards](#DOCS_TOPIC_GATEWAY/sharding) to use when connecting |
+| shards              | integer                                                                       | The recommended number of [shards](#DOCS_TOPICS_GATEWAY/sharding) to use when connecting |
 | session_start_limit | [session_start_limit](#DOCS_TOPICS_GATEWAY/session-start-limit-object) object | Information on the current session start limit                                          |
 
 ###### Example Response

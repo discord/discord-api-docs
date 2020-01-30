@@ -48,14 +48,16 @@ Used to represent a webhook.
 
 ## Create Webhook % POST /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/webhooks
 
-Create a new webhook. Requires the `MANAGE_WEBHOOKS` permission. Returns a [webhook](#DOCS_RESOURCES_WEBHOOK/webhook-object) object on success.
+Create a new webhook. Requires the `MANAGE_WEBHOOKS` permission. Returns a [webhook](#DOCS_RESOURCES_WEBHOOK/webhook-object) object on success. Webhook names follow our naming restrictions that can be found in our [Usernames and Nicknames](#DOCS_RESOURCES_USER/usernames-and-nicknames) documentation, with the following additional stipulations:
+
+- Webhook names cannot be: 'clyde'
 
 ###### JSON Params
 
-| Field  | Type                                                    | Description                           |
-| ------ | ------------------------------------------------------- | ------------------------------------- |
-| name   | string                                                  | name of the webhook (2-32 characters) |
-| avatar | ?[avatar data](#DOCS_RESOURCES_USER/avatar-data) string | image for the default webhook avatar  |
+| Field  | Type                                      | Description                           |
+| ------ | ----------------------------------------- | ------------------------------------- |
+| name   | string                                    | name of the webhook (1-80 characters) |
+| avatar | ?[image data](#DOCS_REFERENCE/image-data) | image for the default webhook avatar  |
 
 ## Get Channel Webhooks % GET /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/webhooks
 
@@ -82,11 +84,11 @@ Modify a webhook. Requires the `MANAGE_WEBHOOKS` permission. Returns the updated
 
 ###### JSON Params
 
-| Field      | Type                                                   | Description                                        |
-| ---------- | ------------------------------------------------------ | -------------------------------------------------- |
-| name       | string                                                 | the default name of the webhook                    |
-| avatar     | [avatar data](#DOCS_RESOURCES_USER/avatar-data) string | image for the default webhook avatar               |
-| channel_id | snowflake                                              | the new channel id this webhook should be moved to |
+| Field      | Type                                     | Description                                        |
+| ---------- | ---------------------------------------- | -------------------------------------------------- |
+| name       | string                                   | the default name of the webhook                    |
+| avatar     | [image data](#DOCS_REFERENCE/image-data) | image for the default webhook avatar               |
+| channel_id | snowflake                                | the new channel id this webhook should be moved to |
 
 ## Modify Webhook with Token % PATCH /webhooks/{webhook.id#DOCS_RESOURCES_WEBHOOK/webhook-object}/{webhook.token#DOCS_RESOURCES_WEBHOOK/webhook-object}
 
@@ -94,7 +96,7 @@ Same as above, except this call does not require authentication, does not accept
 
 ## Delete Webhook % DELETE /webhooks/{webhook.id#DOCS_RESOURCES_WEBHOOK/webhook-object}
 
-Delete a webhook permanently. User must be owner. Returns a 204 NO CONTENT response on success.
+Delete a webhook permanently. Requires the `MANAGE_WEBHOOKS` permission. Returns a 204 NO CONTENT response on success.
 
 ## Delete Webhook with Token % DELETE /webhooks/{webhook.id#DOCS_RESOURCES_WEBHOOK/webhook-object}/{webhook.token#DOCS_RESOURCES_WEBHOOK/webhook-object}
 
@@ -113,15 +115,15 @@ Same as above, except this call does not require authentication.
 
 ###### JSON/Form Params
 
-| Field        | Type                                                           | Description                                                  | Required                     |
-| ------------ | -------------------------------------------------------------- | ------------------------------------------------------------ | ---------------------------- |
-| content      | string                                                         | the message contents (up to 2000 characters)                 | one of content, file, embeds |
-| username     | string                                                         | override the default username of the webhook                 | false                        |
-| avatar_url   | string                                                         | override the default avatar of the webhook                   | false                        |
-| tts          | boolean                                                        | true if this is a TTS message                                | false                        |
-| file         | file contents                                                  | the contents of the file being sent                          | one of content, file, embeds |
-| embeds       | array of [embed](#DOCS_RESOURCES_CHANNEL/embed-object) objects | embedded `rich` content                                      | one of content, file, embeds |
-| payload_json | string                                                         | See [message create](#DOCS_RESOURCES_CHANNEL/create-message) | `multipart/form-data` only   |
+| Field        | Type                                                                    | Description                                                  | Required                     |
+| ------------ | ----------------------------------------------------------------------- | ------------------------------------------------------------ | ---------------------------- |
+| content      | string                                                                  | the message contents (up to 2000 characters)                 | one of content, file, embeds |
+| username     | string                                                                  | override the default username of the webhook                 | false                        |
+| avatar_url   | string                                                                  | override the default avatar of the webhook                   | false                        |
+| tts          | boolean                                                                 | true if this is a TTS message                                | false                        |
+| file         | file contents                                                           | the contents of the file being sent                          | one of content, file, embeds |
+| embeds       | array of up to 10 [embed](#DOCS_RESOURCES_CHANNEL/embed-object) objects | embedded `rich` content                                      | one of content, file, embeds |
+| payload_json | string                                                                  | See [message create](#DOCS_RESOURCES_CHANNEL/create-message) | `multipart/form-data` only   |
 
 > info
 > For the webhook embed objects, you can set every field except `type` (it will be `rich` regardless of if you try to set it), `provider`, `video`, and any `height`, `width`, or `proxy_url` values for images.

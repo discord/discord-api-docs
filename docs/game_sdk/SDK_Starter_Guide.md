@@ -41,6 +41,8 @@ First, we'll need to set an OAuth2 redirect URL. You can add `http://127.0.0.1` 
 
 Next, copy the **Client ID** at the top of the page. This id, also referred to as an "application id", is your game's unique identifier across Discord. Keep it handy!
 
+While you're here, head to the "OAuth2" section of your application and add `http://127.0.0.1` as a redirect URI for your application. This will allow us to do the OAuth2 token exchange within the Discord client.
+
 Now we're gonna start coding. Didn't think we'd get there so fast, did ya? _Think again!_ The next sections are code primers for the main languages of the SDK: C#, C, and C++. They'll get you up and running with the most basic examples, and then you're off to the races.
 
 ## Code Primer - Unity (Csharp)

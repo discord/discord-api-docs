@@ -246,12 +246,12 @@ Fires when your networking route has changed. You should broadcast to other user
 ```cs
 networkManager.OnRouteUpdate += route =>
 {
-  var me = userManager.GetCurrentUser();
+  var currentUser = userManager.GetCurrentUser();
   var lobbyId = 290926798626357250;
 
-  var txn = lobbyManager.GetMemberUpdateTransaction(lobbyId, me.Id);
+  var txn = lobbyManager.GetMemberUpdateTransaction(lobbyId, currentUser.Id);
   txn.SetMetadata("route", route);
-  lobbyManager.UpdateMember(lobbyId, me.Id, txn, (result) =>
+  lobbyManager.UpdateMember(lobbyId, currentUser.Id, txn, (result) =>
   {
     // Who needs error handling anyway
     Console.WriteLine(result);
@@ -276,7 +276,7 @@ In order to properly send and receive data between A and B, both users need to h
 ## Example: Connecting to Another Player in a Lobby
 
 ```cs
-var discord = new Discord.Discord(clientId, Discord.CreateFlags.Default);
+var discord = new Discord.Discord(clientId, (UInt64)Discord.CreateFlags.Default);
 
 // Join a lobby with another user in it
 // Get their peer id, and connect to them
@@ -285,20 +285,20 @@ var networkManager = discord.GetNetworkManager();
 var lobbyManager = discord.GetLobbyManager();
 var userManager = discord.GetUserManager();
 
-var me;
+Discord.User currentUser;
 var otherUserPeerId;
 var lobbyId;
 
 // Get yourself
-me = userManager.GetCurrentUser();
+currentUser = userManager.GetCurrentUser();
 
 // This will fire once you connect to the lobby
 // Telling you which route is yours
 networkManager.OnRouteUpdate += route =>
 {
-  var txn = lobbyManager.GetMemberUpdateTransaction();
+  var txn = lobbyManager.GetMemberUpdateTransaction(lobbyId, currentUser.Id);
   txn.SetMetadata("route", route);
-  lobbyManager.UpdateMember(lobbyId, me.Id, txn, (result =>
+  lobbyManager.UpdateMember(lobbyId, currentUser.Id, txn, (result =>
   {
     // Who needs error handling anyway
     Console.WriteLine(result);
@@ -309,23 +309,25 @@ networkManager.OnRouteUpdate += route =>
 // Fetch it and update their route
 lobbyManager.OnMemberUpdate += (lobbyId, userId) =>
 {
-  var rawPeerId = lobbyManager.GetMemberMetadataValue(lobbyId, userId, "metadata.peer_id");
+  var rawPeerId = lobbyManager.GetMemberMetadataValue(lobbyId, userId, "peer_id");
   // Metadata is stored as a string, so we need to make it an integer for OpenChannel
   var peerId = System.Convert.ToUInt64(rawPeerId);
-  var newRoute = lobbyManager.GetMemberMetadataValue(lobbyId, userId, "metadata.route");
+  var newRoute = lobbyManager.GetMemberMetadataValue(lobbyId, userId, "route");
   lobbyManager.UpdatePeer(peerId, newRoute);
 }
 
 // Connect to lobby with an id of 12345 and a secret of "password"
+// This may occur in a generated lobby search, when a user needs to input a password to connect
 lobbyManager.ConnectLobby(12345, "password", (Discord.Result x, ref Discord.Lobby lobby) =>
 {
   lobbyId = lobby.Id;
 
   // Add our own peer id to our lobby member metadata
   // So other users can get it to connect to us
-  var txn = lobbyManager.CreateMemberUpdateTransaction();
-  txn.SetMetadata("peer_id", networkManager.GetPeerId());
-  lobbyManager.UpdateMember(lobby.Id, me.Id, txn, (result) =>
+  var localPeerId = Convert.ToString(networkManager.GetPeerId());
+  var txn = lobbyManager.GetMemberUpdateTransaction(lobby.Id, currentUser.Id);
+  txn.SetMetadata("peer_id", localPeerId);
+  lobbyManager.UpdateMember(lobby.Id, currentUser.Id, txn, (result) =>
   {
     // Who needs error handling anyway
     Console.WriteLine(result);
@@ -335,13 +337,13 @@ lobbyManager.ConnectLobby(12345, "password", (Discord.Result x, ref Discord.Lobb
   var member = lobbyManager.GetMemberUserId(lobby.Id, 0);
 
   // Get their peer id and route from their metadata, added previously
-  var rawPeerId = lobbyManager.GetMemberMetadataValue(lobbyId, userId, "metadata.peer_id");
+  var rawPeerId = lobbyManager.GetMemberMetadataValue(lobbyId, userId, "peer_id");
   // Metadata is stored as a string, so we need to make it an integer for OpenChannel
   otherUserPeerId = System.Convert.ToUInt64(rawPeerId);
   var otherRoute = lobbyManager.GetMemberMetadataValue(lobby.Id, member.Id, "route");
 
   // Connect to them
-  lobbyManager.OpenRoute(otherUserPeerId, otherRoute);
+  networkManager.OpenRoute(otherUserPeerId, otherRoute);
 
 }
 
@@ -353,6 +355,7 @@ networkManager.OpenChannel(otherUserPeerId, 1, true);
 // An important data packet from our game engine
 byte[] data = GameEngine.GetImportantData();
 
+// Determine if that data is about Player Loot Drops, if so send it on reliable, if not send it on unreliable 
 if (isDataAboutPlayerLootDrops(data))
 {
   // This is important and has to get there

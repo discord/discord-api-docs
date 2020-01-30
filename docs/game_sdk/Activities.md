@@ -161,6 +161,9 @@ activityManager.RegisterSteam(1938123);
 
 Sets a user's presence in Discord to a new activity. This has a rate limit of 5 updates per 20 seconds.
 
+>info
+>It is possible for users to hide their presence on Discord (User Settings -> Game Activity). Presence set through this SDK may not be visible when this setting is toggled off.
+
 Returns a `Discord.Result` via callback.
 
 ###### Parameters
