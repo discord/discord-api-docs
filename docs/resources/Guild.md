@@ -504,17 +504,17 @@ Adds a user to the guild, provided you have a valid oauth2 access token for the 
 Modify attributes of a [guild member](#DOCS_RESOURCES_GUILD/guild-member-object). Returns a 204 empty response on success. Fires a [Guild Member Update](#DOCS_TOPICS_GATEWAY/guild-member-update) Gateway event. If the `channel_id` is set to null, this will force the target user to be disconnected from voice.
 
 > info
-> All parameters to this endpoint are optional. When moving members to channels, the API user _must_ have permissions to both connect to the channel and have the `MOVE_MEMBERS` permission.
+> All parameters to this endpoint are optional and nullable. When moving members to channels, the API user _must_ have permissions to both connect to the channel and have the `MOVE_MEMBERS` permission.
 
 ###### JSON Params
 
 | Field      | Type                 | Description                                                                                            | Permission       |
 | ---------- | -------------------- | ------------------------------------------------------------------------------------------------------ | ---------------- |
 | nick       | string               | value to set users nickname to                                                                         | MANAGE_NICKNAMES |
-| roles      | ?array of snowflakes | array of role ids the member is assigned                                                               | MANAGE_ROLES     |
-| mute       | ?boolean             | whether the user is muted in voice channels. Will throw a 400 if the user is not in a voice channel    | MUTE_MEMBERS     |
-| deaf       | ?boolean             | whether the user is deafened in voice channels. Will throw a 400 if the user is not in a voice channel | DEAFEN_MEMBERS   |
-| channel_id | ?snowflake           | id of channel to move user to (if they are connected to voice)                                         | MOVE_MEMBERS     |
+| roles      | array of snowflakes | array of role ids the member is assigned                                                               | MANAGE_ROLES     |
+| mute       | boolean             | whether the user is muted in voice channels. Will throw a 400 if the user is not in a voice channel    | MUTE_MEMBERS     |
+| deaf       | boolean             | whether the user is deafened in voice channels. Will throw a 400 if the user is not in a voice channel | DEAFEN_MEMBERS   |
+| channel_id | snowflake           | id of channel to move user to (if they are connected to voice)                                         | MOVE_MEMBERS     |
 
 ## Modify Current User Nick % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/members/@me/nick
 
@@ -587,10 +587,10 @@ This endpoint takes a JSON array of parameters in the following format:
 
 ###### JSON Params
 
-| Field    | Type      | Description                  |
-| -------- | --------- | ---------------------------- |
-| id       | snowflake | role                         |
-| position | integer   | sorting position of the role |
+| Field     | Type      | Description                  |
+| --------- | --------- | ---------------------------- |
+| id        | snowflake | role                         |
+| ?position | ?integer  | sorting position of the role |
 
 ## Modify Guild Role % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/roles/{role.id#DOCS_TOPICS_PERMISSIONS/role-object}
 
@@ -666,11 +666,11 @@ Modify the behavior and settings of an [integration](#DOCS_RESOURCES_GUILD/integ
 
 ###### JSON Params
 
-| Field               | Type    | Description                                                                                                                                                                        |
-| ------------------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| expire_behavior     | integer | the behavior when an integration subscription lapses (see the [integration expire behaviors](#DOCS_RESOURCES_GUILD/integration-object-integration-expire-behaviors) documentation) |
-| expire_grace_period | integer | period (in days) where the integration will ignore lapsed subscriptions                                                                                                            |
-| enable_emoticons    | boolean | whether emoticons should be synced for this integration (twitch only currently)                                                                                                    |
+| Field               | Type     | Description                                                                                                                                                                        |
+| ------------------- | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| expire_behavior     | integer  | the behavior when an integration subscription lapses (see the [integration expire behaviors](#DOCS_RESOURCES_GUILD/integration-object-integration-expire-behaviors) documentation) |
+| expire_grace_period | integer  | period (in days) where the integration will ignore lapsed subscriptions                                                                                                            |
+| enable_emoticons    | ?boolean | whether emoticons should be synced for this integration (twitch only currently)                                                                                                    |
 
 ## Delete Guild Integration % DELETE /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/integrations/{integration.id#DOCS_RESOURCES_GUILD/integration-object}
 
