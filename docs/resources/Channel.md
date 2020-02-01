@@ -629,18 +629,18 @@ Update a channel's settings. Requires the `MANAGE_CHANNELS` permission for the g
 
 ###### JSON Params
 
-| Field                 | Type                                                                   | Description                                                                                                                                                                     | Channel Type              |
-| --------------------- | ---------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------- |
-| name                  | string                                                                 | 2-100 character channel name                                                                                                                                                    | All                       |
+| Field                 | Type                                                                    | Description                                                                                                                                                                     | Channel Type              |
+| --------------------- | ----------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------- |
+| name                  | string                                                                  | 2-100 character channel name                                                                                                                                                    | All                       |
 | type                  | integer                                                                | the [type of channel](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types); only conversion between text and news is supported and only in guilds with the "NEWS" feature      | Text, News                |
-| position              | integer                                                                | the position of the channel in the left-hand listing                                                                                                                            | All                       |
-| topic                 | string                                                                 | 0-1024 character channel topic                                                                                                                                                  | Text, News                |
-| nsfw                  | boolean                                                                | whether the channel is nsfw                                                                                                                                                     | Text, News, Store         |
-| rate_limit_per_user   | integer                                                                | amount of seconds a user has to wait before sending another message (0-21600); bots, as well as users with the permission `manage_messages` or `manage_channel`, are unaffected | Text                      |
-| bitrate               | integer                                                                | the bitrate (in bits) of the voice channel; 8000 to 96000 (128000 for VIP servers)                                                                                              | Voice                     |
-| user_limit            | integer                                                                | the user limit of the voice channel; 0 refers to no limit, 1 to 99 refers to a user limit                                                                                       | Voice                     |
-| permission_overwrites | array of [overwrite](#DOCS_RESOURCES_CHANNEL/overwrite-object) objects | channel or category-specific permissions                                                                                                                                        | All                       |
-| parent_id             | snowflake                                                              | id of the new parent category for a channel                                                                                                                                     | Text, News, Store, Voice  |
+| position              | ?integer                                                                | the position of the channel in the left-hand listing                                                                                                                            | All                       |
+| topic                 | ?string                                                                 | 0-1024 character channel topic                                                                                                                                                  | Text, News                |
+| nsfw                  | ?boolean                                                                | whether the channel is nsfw                                                                                                                                                     | Text, News, Store         |
+| rate_limit_per_user   | ?integer                                                                | amount of seconds a user has to wait before sending another message (0-21600); bots, as well as users with the permission `manage_messages` or `manage_channel`, are unaffected | Text                      |
+| bitrate               | ?integer                                                                | the bitrate (in bits) of the voice channel; 8000 to 96000 (128000 for VIP servers)                                                                                              | Voice                     |
+| user_limit            | ?integer                                                                | the user limit of the voice channel; 0 refers to no limit, 1 to 99 refers to a user limit                                                                                       | Voice                     |
+| permission_overwrites | ?array of [overwrite](#DOCS_RESOURCES_CHANNEL/overwrite-object) objects | channel or category-specific permissions                                                                                                                                        | All                       |
+| parent_id             | ?snowflake                                                              | id of the new parent category for a channel                                                                                                                                     | Text, News, Store, Voice  |
 
 ## Delete/Close Channel % DELETE /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}
 
@@ -801,7 +801,7 @@ Edit a previously sent message. The fields `content`, `embed`, `allowed_mentions
 Returns a [message](#DOCS_RESOURCES_CHANNEL/message-object) object. Fires a [Message Update](#DOCS_TOPICS_GATEWAY/message-update) Gateway event.
 
 > info
-> All parameters to this endpoint are optional.
+> All parameters to this endpoint are optional and nullable.
 
 ###### JSON Params
 
