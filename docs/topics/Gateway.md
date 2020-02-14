@@ -893,8 +893,8 @@ Sent when a user explicitly removes all reactions from a message.
 
 #### Presence Update
 
-> danger
-> With the arrival of the [Gateway Intents](#DOCS_TOPICS_GATEWAY/gateway-intents) system, you _must_ specify the `GUILD_PRESENCES` intent in order to receive Presence Update events on the v6 gateway starting on <date>
+> warn
+> If you are using [Gateway Intents](#DOCS_TOPICS_GATEWAY/gateway-intents), you _must_ specify the `GUILD_PRESENCES` intent in order to receive Presence Update events
 
 A user's presence is their current state on a guild. This event is sent when a user's presence or info, such as name or avatar, is updated.
 
