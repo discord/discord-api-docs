@@ -274,7 +274,7 @@ Some intents are defined as "Privileged" due to the sensitive nature of the data
 
 In order to specify these intents in your `IDENTIFY` payload, you must first go to your application in the Developer Portal and enable the toggle for the Privileged Intents you wish to use.
 
-In the future, access to Privileged Intents will come with restrictions and limitations. [Read more here.](LINK TO GITHUB ISSUE)
+In the future, access to Privileged Intents will come with restrictions and limitations. [Read more here.](https://github.com/discordapp/discord-api-docs/issues/1363)
 
 ## Rate Limiting
 
