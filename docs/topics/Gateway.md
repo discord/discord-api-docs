@@ -180,7 +180,7 @@ If the gateway ever issues a disconnect to your client, it will provide a close 
 ## Gateway Intents
 
 > info
-> Intents are optionally supported on the v6 gateway. They will become mandatory in a future v7 gateway version.
+> Intents are optionally supported on the v6 gateway. They will become mandatory in a future gateway version.
 
 Maintaining a stateful application can be difficult when it comes to the amount of data you're expected to process, especially at scale. Gateway Intents are a system to help you lower that computational burden.
 
