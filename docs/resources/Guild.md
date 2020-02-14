@@ -96,28 +96,28 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 
 ###### System Channel Flags
 
-| Flag                            | Value  | Description                                                |
-| ------------------------------- | ------ | ---------------------------------------------------------- |
-| SUPPRESS_JOIN_NOTIFICATIONS     | 1 << 0 | Suppress member join notifications                         |
-| SUPPRESS_PREMIUM_SUBSCRIPTIONS  | 1 << 1 | Suppress server boost notifications                        |
+| Flag                           | Value  | Description                         |
+| ------------------------------ | ------ | ----------------------------------- |
+| SUPPRESS_JOIN_NOTIFICATIONS    | 1 << 0 | Suppress member join notifications  |
+| SUPPRESS_PREMIUM_SUBSCRIPTIONS | 1 << 1 | Suppress server boost notifications |
 
 ###### Guild Features
 
-| Feature              | Description                                                                     |
-| -------------------- | ------------------------------------------------------------------------------- |
-| INVITE_SPLASH        | guild has access to set an invite splash background                             |
-| VIP_REGIONS          | guild has access to set 384kbps bitrate in voice (previously VIP voice servers) |
-| VANITY_URL           | guild has access to set a vanity URL                                            |
-| VERIFIED             | guild is verified                                                               |
-| PARTNERED            | guild is partnered                                                              |
-| PUBLIC               | guild is public                                                                 |
-| COMMERCE             | guild has access to use commerce features (i.e. create store channels)          |
-| NEWS                 | guild has access to create news channels                                        |
-| DISCOVERABLE         | guild is able to be discovered in the directory                                 |
-| FEATURABLE           | guild is able to be featured in the directory                                   |
-| ANIMATED_ICON        | guild has access to set an animated guild icon                                  |
-| BANNER               | guild has access to set a guild banner image                                    |
-| PUBLIC_DISABLED      | guild cannot be public                                                          |
+| Feature         | Description                                                                     |
+| --------------- | ------------------------------------------------------------------------------- |
+| INVITE_SPLASH   | guild has access to set an invite splash background                             |
+| VIP_REGIONS     | guild has access to set 384kbps bitrate in voice (previously VIP voice servers) |
+| VANITY_URL      | guild has access to set a vanity URL                                            |
+| VERIFIED        | guild is verified                                                               |
+| PARTNERED       | guild is partnered                                                              |
+| PUBLIC          | guild is public                                                                 |
+| COMMERCE        | guild has access to use commerce features (i.e. create store channels)          |
+| NEWS            | guild has access to create news channels                                        |
+| DISCOVERABLE    | guild is able to be discovered in the directory                                 |
+| FEATURABLE      | guild is able to be featured in the directory                                   |
+| ANIMATED_ICON   | guild has access to set an animated guild icon                                  |
+| BANNER          | guild has access to set a guild banner image                                    |
+| PUBLIC_DISABLED | guild cannot be public                                                          |
 
 ###### Example Guild
 
@@ -182,15 +182,15 @@ A partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object. Represents an Offl
 
 ###### Guild Member Structure
 
-| Field         | Type                                            | Description                                                      |
-| ------------- | ----------------------------------------------- | ---------------------------------------------------------------- |
-| user          | [user](#DOCS_RESOURCES_USER/user-object) object | the user this guild member represents                            |
-| nick?         | string                                          | this users guild nickname (if one is set)                        |
-| roles         | array of snowflakes                             | array of [role](#DOCS_TOPICS_PERMISSIONS/role-object) object ids |
-| joined_at     | ISO8601 timestamp                               | when the user joined the guild                                   |
+| Field          | Type                                            | Description                                                      |
+| -------------- | ----------------------------------------------- | ---------------------------------------------------------------- |
+| user           | [user](#DOCS_RESOURCES_USER/user-object) object | the user this guild member represents                            |
+| nick?          | string                                          | this users guild nickname (if one is set)                        |
+| roles          | array of snowflakes                             | array of [role](#DOCS_TOPICS_PERMISSIONS/role-object) object ids |
+| joined_at      | ISO8601 timestamp                               | when the user joined the guild                                   |
 | premium_since? | ?ISO8601 timestamp                              | when the user used their Nitro boost on the server               |
-| deaf          | boolean                                         | whether the user is deafened in voice channels                   |
-| mute          | boolean                                         | whether the user is muted in voice channels                      |
+| deaf           | boolean                                         | whether the user is deafened in voice channels                   |
+| mute           | boolean                                         | whether the user is muted in voice channels                      |
 
 ###### Example Guild Member
 
@@ -303,20 +303,20 @@ Modify a guild's settings. Requires the `MANAGE_GUILD` permission. Returns the u
 
 ###### JSON Params
 
-| Field                         | Type                                     | Description                                                                                                 |
-| ----------------------------- | ---------------------------------------- | ----------------------------------------------------------------------------------------------------------- |
-| name                          | string                                   | guild name                                                                                                  |
-| region                        | string                                   | guild [voice region](#DOCS_RESOURCES_VOICE/voice-region-object) id                                          |
-| verification_level            | integer                                  | [verification level](#DOCS_RESOURCES_GUILD/guild-object-verification-level)                                 |
-| default_message_notifications | integer                                  | default [message notification level](#DOCS_RESOURCES_GUILD/guild-object-default-message-notification-level) |
-| explicit_content_filter       | integer                                  | [explicit content filter level](#DOCS_RESOURCES_GUILD/guild-object-explicit-content-filter-level)           |
-| afk_channel_id                | snowflake                                | id for afk channel                                                                                          |
-| afk_timeout                   | integer                                  | afk timeout in seconds                                                                                      |
-| icon                          | [image data](#DOCS_REFERENCE/image-data) | base64 1024x1024 png/jpeg/gif image for the guild icon (can be animated gif when the server has `ANIMATED_ICON` feature)                                                               |
-| owner_id                      | snowflake                                | user id to transfer guild ownership to (must be owner)                                                      |
-| splash                        | [image data](#DOCS_REFERENCE/image-data) | base64 16:9 png/jpeg image for the guild splash (when the server has `INVITE_SPLASH` feature)                                                   |
-| banner                        | [image data](#DOCS_REFERENCE/image-data) | base64 16:9 png/jpeg image for the guild banner (when the server has `BANNER` feature)                                                   |
-| system_channel_id             | snowflake                                | the id of the channel to which system messages are sent                                                     |
+| Field                         | Type                                     | Description                                                                                                              |
+| ----------------------------- | ---------------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
+| name                          | string                                   | guild name                                                                                                               |
+| region                        | string                                   | guild [voice region](#DOCS_RESOURCES_VOICE/voice-region-object) id                                                       |
+| verification_level            | integer                                  | [verification level](#DOCS_RESOURCES_GUILD/guild-object-verification-level)                                              |
+| default_message_notifications | integer                                  | default [message notification level](#DOCS_RESOURCES_GUILD/guild-object-default-message-notification-level)              |
+| explicit_content_filter       | integer                                  | [explicit content filter level](#DOCS_RESOURCES_GUILD/guild-object-explicit-content-filter-level)                        |
+| afk_channel_id                | snowflake                                | id for afk channel                                                                                                       |
+| afk_timeout                   | integer                                  | afk timeout in seconds                                                                                                   |
+| icon                          | [image data](#DOCS_REFERENCE/image-data) | base64 1024x1024 png/jpeg/gif image for the guild icon (can be animated gif when the server has `ANIMATED_ICON` feature) |
+| owner_id                      | snowflake                                | user id to transfer guild ownership to (must be owner)                                                                   |
+| splash                        | [image data](#DOCS_REFERENCE/image-data) | base64 16:9 png/jpeg image for the guild splash (when the server has `INVITE_SPLASH` feature)                            |
+| banner                        | [image data](#DOCS_REFERENCE/image-data) | base64 16:9 png/jpeg image for the guild banner (when the server has `BANNER` feature)                                   |
+| system_channel_id             | snowflake                                | the id of the channel to which system messages are sent                                                                  |
 
 ## Delete Guild % DELETE /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}
 
@@ -371,6 +371,9 @@ Returns a [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) object for t
 ## List Guild Members % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/members
 
 Returns a list of [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) objects that are members of the guild.
+
+> warn
+> In the future, this endpoint will be restricted in line with our [Privileged Intents](#DOCS_TOPICS_GATEWAY/gateway-intents-privileged-intents)
 
 > info
 > All parameters to this endpoint are optional

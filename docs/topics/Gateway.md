@@ -259,7 +259,7 @@ DIRECT_MESSAGE_TYPING (1 << 14)
   - TYPING_START
 ```
 
-Any [events not defined in an intent](#DOCS_TOPICS_GATEWAY/commands-and-events-gateway-events) are considered "passthrough" and will always be sent to you. If you specify an `intent` value in your `IDENTIFY` payload that is invalid, the socket will close with a [`4012` close code](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/gateway-gateway-close-event-codes). An invalid intent value can be one of:
+Any [events not defined in an intent](#DOCS_TOPICS_GATEWAY/commands-and-events-gateway-events) are considered "passthrough" and will always be sent to you. If you specify an `intent` value in your `IDENTIFY` payload that is invalid, the socket will close with a [`4013` close code](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/gateway-gateway-close-event-codes). An invalid intent value can be one of:
 
 - A miscalculated bit flag
 - Specifying a privileged intent for which you have not opted in for your bot
@@ -267,24 +267,14 @@ Any [events not defined in an intent](#DOCS_TOPICS_GATEWAY/commands-and-events-g
 
 ### Privileged Intents
 
-> danger
-> As of <date>, Gateway Intents are optional in v6 **except for `GUILD_PRESENCES`**. If you wish to get `PRESENCE_UPDATE` events, you **must** declare the intent. Otherwise, you will no longer receive `PRESENCE_UPDATE` events on the v6 gateway after <date>
-
-> warns
-> The current limit for specifying privileged intents without whitelisting is 100 guilds.
-
-Some intents require whitelisting once your bot scales beyond a certain size. Those intents are:
+Some intents are defined as "Privileged" due to the sensitive nature of the data. Those intents are:
 
 - `GUILD_PRESENCES`
+- `GUILD_MEMBERS`
 
-The current limit for specifying these privileged intents without being whitelisted is 100 guilds. That means you may specify the above intents without restriction until you hit the current limit, at which point your bot will not be able to join any more guilds without either being whitelisted or dropping the privileged intents for which you have not been whitelisted.
+In order to specify these intents in your `IDENTIFY` payload, you must first go to your application in the Developer Portal and enable the toggle for the Privileged Intents you wish to use.
 
-In order to specify these intents in your `IDENTIFY` payload, you must first go to your application in the Developer Portal and enable the toggle for the whitelisted intent you wish to use.
-
-> danger
-> **Enabling a privileged intent without being whitelisted will limit your bot to joining 100 total guilds until you are whitelisted.** To get whitelisted, please fill out this form: <form_link_goes_here>
-
-If you no longer wish to use the whitelisted intent, you may uncheck the toggle in the Developer Portal. This will remove the 100 guild limit, and will disallow you from declaring this intent in your `IDENTIFY` payload.
+In the future, access to Privileged Intents will come with restrictions and limitations. [Read more here.](LINK TO GITHUB ISSUE)
 
 ## Rate Limiting
 
@@ -486,6 +476,14 @@ Used to maintain an active gateway connection. Must be sent every `heartbeat_int
 
 Used to request all members for a guild or a list of guilds. When initially connecting, the gateway will only send offline members if a guild has less than the `large_threshold` members (value in the [Gateway Identify](#DOCS_TOPICS_GATEWAY/identify)). If a client wishes to receive additional members, they need to explicitly request them via this operation. The server will send [Guild Members Chunk](#DOCS_TOPICS_GATEWAY/guild-members-chunk) events in response with up to 1000 members per chunk until all members that match the request have been sent.
 
+If you are using [Gateway Intents](#DOCS_TOPICS_GATEWAY/gateway-intents), there are some significant changes to this command to be mindful of:
+
+- `GUILD_PRESENCES` intent is required to set `presences = true`. Otherwise, it will always be false
+- `GUILD_MEMBERS` intent is required to request the entire member list—`(query=‘’, limit=0<=n)`
+- You will be limited to requesting 1 `guild_id`
+- Requesting a prefix will return a maximum of 100 members
+- Rquesting `user_ids` will continue to be limited to returning 100 members
+
 ###### Guild Request Members Structure
 
 | Field      | Type                             | Description                                                                                                                           | Required                   |
@@ -669,6 +667,9 @@ This event can be sent in three different scenarios:
 
 The inner payload is a [guild](#DOCS_RESOURCES_GUILD/guild-object) object, with all the extra fields specified.
 
+> warn
+> If you are using [Gateway Intents](#DOCS_TOPICS_GATEWAY/gateway-intents), members and presences returned in this event will only contain your bot and users in voice channels unless you specify the `GUILD_PRESENCES` intent.
+
 #### Guild Update
 
 Sent when a guild is updated. The inner payload is a [guild](#DOCS_RESOURCES_GUILD/guild-object) object.
@@ -722,6 +723,9 @@ Sent when a guild integration is updated.
 
 #### Guild Member Add
 
+> warn
+> If using [Gateway Intents](#DOCS_TOPICS_GATEWAY/gateway-intents), the `GUILD_MEMBERS` intent will be required to receive this event.
+
 Sent when a new user joins a guild. The inner payload is a [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) object with an extra `guild_id` key:
 
 ###### Guild Member Add Extra Fields
@@ -731,6 +735,9 @@ Sent when a new user joins a guild. The inner payload is a [guild member](#DOCS_
 | guild_id | snowflake | id of the guild |
 
 #### Guild Member Remove
+
+> warn
+> If using [Gateway Intents](#DOCS_TOPICS_GATEWAY/gateway-intents), the `GUILD_MEMBERS` intent will be required to receive this event.
 
 Sent when a user is removed from a guild (leave/kick/ban).
 
@@ -743,7 +750,10 @@ Sent when a user is removed from a guild (leave/kick/ban).
 
 #### Guild Member Update
 
-Sent when a guild member is updated.
+> warn
+> If using [Gateway Intents](#DOCS_TOPICS_GATEWAY/gateway-intents), the `GUILD_MEMBERS` intent will be required to receive this event.
+
+Sent when a guild member is updated. This will also fire when the user object of a guild member changes.
 
 ###### Guild Member Update Event Fields
 
