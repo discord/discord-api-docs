@@ -482,7 +482,7 @@ If you are using [Gateway Intents](#DOCS_TOPICS_GATEWAY/gateway-intents), there 
 - `GUILD_MEMBERS` intent is required to request the entire member list—`(query=‘’, limit=0<=n)`
 - You will be limited to requesting 1 `guild_id`
 - Requesting a prefix will return a maximum of 100 members
-- Rquesting `user_ids` will continue to be limited to returning 100 members
+- Requesting `user_ids` will continue to be limited to returning 100 members
 
 ###### Guild Request Members Structure
 
