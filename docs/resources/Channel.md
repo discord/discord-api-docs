@@ -384,21 +384,33 @@ Represents a message sent in a channel within Discord.
 
 ###### Embed Structure
 
-| Field        | Type                                                                                       | Description                                      |
-| ------------ | ------------------------------------------------------------------------------------------ | ------------------------------------------------ |
-| title?       | string                                                                                     | title of embed                                   |
-| type?        | string                                                                                     | type of embed (always "rich" for webhook embeds) |
-| description? | string                                                                                     | description of embed                             |
-| url?         | string                                                                                     | url of embed                                     |
-| timestamp?   | ISO8601 timestamp                                                                          | timestamp of embed content                       |
-| color?       | integer                                                                                    | color code of the embed                          |
-| footer?      | [embed footer](#DOCS_RESOURCES_CHANNEL/embed-object-embed-footer-structure) object         | footer information                               |
-| image?       | [embed image](#DOCS_RESOURCES_CHANNEL/embed-object-embed-image-structure) object           | image information                                |
-| thumbnail?   | [embed thumbnail](#DOCS_RESOURCES_CHANNEL/embed-object-embed-thumbnail-structure) object   | thumbnail information                            |
-| video?       | [embed video](#DOCS_RESOURCES_CHANNEL/embed-object-embed-video-structure) object           | video information                                |
-| provider?    | [embed provider](#DOCS_RESOURCES_CHANNEL/embed-object-embed-provider-structure) object     | provider information                             |
-| author?      | [embed author](#DOCS_RESOURCES_CHANNEL/embed-object-embed-author-structure) object         | author information                               |
-| fields?      | array of [embed field](#DOCS_RESOURCES_CHANNEL/embed-object-embed-field-structure) objects | fields information                               |
+| Field        | Type                                                                                       | Description                                                                                          |
+| ------------ | ------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------- |
+| title?       | string                                                                                     | title of embed                                                                                       |
+| type?        | string                                                                                     | [type of embed](#DOCS_RESOURCES_CHANNEL/embed-object-embed-types) (always "rich" for webhook embeds) |
+| description? | string                                                                                     | description of embed                                                                                 |
+| url?         | string                                                                                     | url of embed                                                                                         |
+| timestamp?   | ISO8601 timestamp                                                                          | timestamp of embed content                                                                           |
+| color?       | integer                                                                                    | color code of the embed                                                                              |
+| footer?      | [embed footer](#DOCS_RESOURCES_CHANNEL/embed-object-embed-footer-structure) object         | footer information                                                                                   |
+| image?       | [embed image](#DOCS_RESOURCES_CHANNEL/embed-object-embed-image-structure) object           | image information                                                                                    |
+| thumbnail?   | [embed thumbnail](#DOCS_RESOURCES_CHANNEL/embed-object-embed-thumbnail-structure) object   | thumbnail information                                                                                |
+| video?       | [embed video](#DOCS_RESOURCES_CHANNEL/embed-object-embed-video-structure) object           | video information                                                                                    |
+| provider?    | [embed provider](#DOCS_RESOURCES_CHANNEL/embed-object-embed-provider-structure) object     | provider information                                                                                 |
+| author?      | [embed author](#DOCS_RESOURCES_CHANNEL/embed-object-embed-author-structure) object         | author information                                                                                   |
+| fields?      | array of [embed field](#DOCS_RESOURCES_CHANNEL/embed-object-embed-field-structure) objects | fields information                                                                                   |
+
+###### Embed Types
+
+| Type             | Description                                                             |
+| ---------------- | ----------------------------------------------------------------------- |
+| link             | Generic link previews                                                   |
+| rich             | Bot embeds, webhook embeds, and twitter, xkcd, and trello link previews |
+| image            | Image link previews                                                     |
+| video            | YouTube and video file link previews                                    |
+| gifv             | Tenor and Giphy link previews                                           |
+| article          | Discord Store link previews                                             |
+| application_news | Old published news (in announcement channels)                           |
 
 ###### Embed Thumbnail Structure
 
