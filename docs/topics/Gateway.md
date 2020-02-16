@@ -20,10 +20,10 @@ Important note: Not all event fields are documented, in particular, fields prefi
 
 | Field | Type                    | Description                                                                     | Present           |
 | ----- | ----------------------- | ------------------------------------------------------------------------------- | ----------------- |
-| op    | integer                 | [opcode](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/gateway-opcodes) for the payload | Always            |
-| d     | ?mixed (any JSON value) | event data                                                                      | Always            |
-| s     | integer                 | sequence number, used for resuming sessions and heartbeats                      | Only for Opcode 0 |
-| t     | string                  | the event name for this payload                                                 | Only for Opcode 0 |
+| op    | integer                 | [opcode](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/gateway-opcodes) for the payload | Always                 |
+| d     | ?mixed (any JSON value) | event data                                                                      | Always                 |
+| s     | integer                 | sequence number, used for resuming sessions and heartbeats                      | Nonnulled for Opcode 0 |
+| t     | string                  | the event name for this payload                                                 | Nonnulled for Opcode 0 |
 
 ### Sending Payloads
 
