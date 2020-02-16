@@ -47,8 +47,8 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 | vanity_url_code               | ?string                                                                             | the vanity url code for the guild                                                                                                |
 | description                   | ?string                                                                             | the description for the guild                                                                                                    |
 | banner                        | ?string                                                                             | [banner hash](#DOCS_REFERENCE/image-formatting)                                                                                  |
-| premium_tier                  | integer                                                                             | [premium tier](#DOCS_RESOURCES_GUILD/guild-object-premium-tier)                                                                  |
-| premium_subscription_count?   | integer                                                                             | the total number of users currently boosting this server                                                                         |
+| premium_tier                  | integer                                                                             | [premium tier](#DOCS_RESOURCES_GUILD/guild-object-premium-tier) (Server Boost level)                                             |
+| premium_subscription_count?   | integer                                                                             | the number of boosts this server currently has                                                                                   |
 | preferred_locale              | string                                                                              | the preferred locale of this guild only set if guild has the "DISCOVERABLE" feature, defaults to en-US                           |
 
 ** \* These fields are only sent within the [GUILD_CREATE](#DOCS_TOPICS_GATEWAY/guild-create) event **
@@ -188,7 +188,7 @@ A partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object. Represents an Offl
 | nick?          | string                                          | this users guild nickname (if one is set)                        |
 | roles          | array of snowflakes                             | array of [role](#DOCS_TOPICS_PERMISSIONS/role-object) object ids |
 | joined_at      | ISO8601 timestamp                               | when the user joined the guild                                   |
-| premium_since? | ?ISO8601 timestamp                              | when the user used their Nitro boost on the server               |
+| premium_since? | ?ISO8601 timestamp                              | when the user started boosting the server                        |
 | deaf           | boolean                                         | whether the user is deafened in voice channels                   |
 | mute           | boolean                                         | whether the user is muted in voice channels                      |
 
