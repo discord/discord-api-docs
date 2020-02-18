@@ -595,7 +595,7 @@ The ready event is dispatched when a client has completed the initial handshake 
 
 | Field            | Type                                                                                 | Description                                                                                                   |
 | ---------------- | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------- |
-| v                | integer                                                                              | [gateway protocol version](#DOCS_TOPICS_GATEWAY/gateway-protocol-versions)                                    |
+| v                | integer                                                                              | [gateway version](#DOCS_TOPICS_GATEWAY/gateway-versions)                                                      |
 | user             | [user](#DOCS_RESOURCES_USER/user-object) object                                      | information about the user including email                                                                    |
 | private_channels | array                                                                                | empty array                                                                                                   |
 | guilds           | array of [Unavailable Guild](#DOCS_RESOURCES_GUILD/unavailable-guild-object) objects | the guilds the user is in                                                                                     |
