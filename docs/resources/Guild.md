@@ -49,7 +49,7 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 | banner                        | ?string                                                                             | [banner hash](#DOCS_REFERENCE/image-formatting)                                                                                  |
 | premium_tier                  | integer                                                                             | [premium tier](#DOCS_RESOURCES_GUILD/guild-object-premium-tier) (Server Boost level)                                             |
 | premium_subscription_count?   | integer                                                                             | the number of boosts this server currently has                                                                                   |
-| preferred_locale              | string                                                                              | the preferred locale of this guild only set if guild has the "DISCOVERABLE" feature, defaults to en-US                           |
+| preferred_locale              | string                                                                              | the preferred locale of this guild only set if guild has the "PUBLIC" feature, defaults to en-US                                 |
 | public_updates_channel_id     | ?snowflake                                                                          | the channel id of the guild's public updates channel only set if guild has the "PUBLIC" feature                                  |
 
 ** \* These fields are only sent within the [GUILD_CREATE](#DOCS_TOPICS_GATEWAY/guild-create) event **
