@@ -191,6 +191,7 @@ A partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object. Represents an Offl
 | premium_since? | ?ISO8601 timestamp                              | when the user used their Nitro boost on the server               |
 | deaf           | boolean                                         | whether the user is deafened in voice channels                   |
 | mute           | boolean                                         | whether the user is muted in voice channels                      |
+| hoisted_role?  | ?snowflake                                      | the highest displayed role that a member has, nulled if they don't have any |
 
 ###### Example Guild Member
 
