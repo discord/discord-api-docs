@@ -79,7 +79,7 @@ def on_websocket_message(msg):
 
   # if the message *does* end with ZLIB_SUFFIX,
   # get the full message by decompressing the buffers
-  msg = inflator.decompress(buffer).decode('utf-8')
+  msg = inflator.decompress(buffer)
   buffer = bytearray()
 
   # here you can treat `msg` as either JSON or ETF encoded,
