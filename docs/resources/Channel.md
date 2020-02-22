@@ -387,21 +387,34 @@ Represents a message sent in a channel within Discord.
 
 ###### Embed Structure
 
-| Field        | Type                                                                                       | Description                                      |
-| ------------ | ------------------------------------------------------------------------------------------ | ------------------------------------------------ |
-| title?       | string                                                                                     | title of embed                                   |
-| type?        | string                                                                                     | type of embed (always "rich" for webhook embeds) |
-| description? | string                                                                                     | description of embed                             |
-| url?         | string                                                                                     | url of embed                                     |
-| timestamp?   | ISO8601 timestamp                                                                          | timestamp of embed content                       |
-| color?       | integer                                                                                    | color code of the embed                          |
-| footer?      | [embed footer](#DOCS_RESOURCES_CHANNEL/embed-object-embed-footer-structure) object         | footer information                               |
-| image?       | [embed image](#DOCS_RESOURCES_CHANNEL/embed-object-embed-image-structure) object           | image information                                |
-| thumbnail?   | [embed thumbnail](#DOCS_RESOURCES_CHANNEL/embed-object-embed-thumbnail-structure) object   | thumbnail information                            |
-| video?       | [embed video](#DOCS_RESOURCES_CHANNEL/embed-object-embed-video-structure) object           | video information                                |
-| provider?    | [embed provider](#DOCS_RESOURCES_CHANNEL/embed-object-embed-provider-structure) object     | provider information                             |
-| author?      | [embed author](#DOCS_RESOURCES_CHANNEL/embed-object-embed-author-structure) object         | author information                               |
-| fields?      | array of [embed field](#DOCS_RESOURCES_CHANNEL/embed-object-embed-field-structure) objects | fields information                               |
+| Field        | Type                                                                                       | Description                                                                                          |
+| ------------ | ------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------- |
+| title?       | string                                                                                     | title of embed                                                                                       |
+| type?        | string                                                                                     | [type of embed](#DOCS_RESOURCES_CHANNEL/embed-object-embed-types) (always "rich" for webhook embeds) |
+| description? | string                                                                                     | description of embed                                                                                 |
+| url?         | string                                                                                     | url of embed                                                                                         |
+| timestamp?   | ISO8601 timestamp                                                                          | timestamp of embed content                                                                           |
+| color?       | integer                                                                                    | color code of the embed                                                                              |
+| footer?      | [embed footer](#DOCS_RESOURCES_CHANNEL/embed-object-embed-footer-structure) object         | footer information                                                                                   |
+| image?       | [embed image](#DOCS_RESOURCES_CHANNEL/embed-object-embed-image-structure) object           | image information                                                                                    |
+| thumbnail?   | [embed thumbnail](#DOCS_RESOURCES_CHANNEL/embed-object-embed-thumbnail-structure) object   | thumbnail information                                                                                |
+| video?       | [embed video](#DOCS_RESOURCES_CHANNEL/embed-object-embed-video-structure) object           | video information                                                                                    |
+| provider?    | [embed provider](#DOCS_RESOURCES_CHANNEL/embed-object-embed-provider-structure) object     | provider information                                                                                 |
+| author?      | [embed author](#DOCS_RESOURCES_CHANNEL/embed-object-embed-author-structure) object         | author information                                                                                   |
+| fields?      | array of [embed field](#DOCS_RESOURCES_CHANNEL/embed-object-embed-field-structure) objects | fields information                                                                                   |
+
+###### Embed Types
+
+Embed types are "loosely defined" and, for the most part, are not used by our clients for rendering. Embed attributes power what is rendered. Embed types should be considered deprecated and might be removed in a future API version.
+
+| Type             | Description                                        |
+| ---------------- | -------------------------------------------------- |
+| rich             | generic embed rendered from embed attributes       |
+| image            | image embed                                        |
+| video            | video embed                                        |
+| gifv             | animated gif image embed rendered as a video embed |
+| article          | article embed                                      |
+| link             | link embed                                         |
 
 ###### Embed Thumbnail Structure
 
