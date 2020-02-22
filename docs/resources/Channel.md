@@ -402,15 +402,16 @@ Represents a message sent in a channel within Discord.
 
 ###### Embed Types
 
-| Type             | Description                                                             |
-| ---------------- | ----------------------------------------------------------------------- |
-| link             | Generic link previews                                                   |
-| rich             | Bot embeds, webhook embeds, and twitter, xkcd, and trello link previews |
-| image            | Image link previews                                                     |
-| video            | YouTube and video file link previews                                    |
-| gifv             | Tenor and Giphy link previews                                           |
-| article          | Discord Store link previews                                             |
-| application_news | Old published news (in announcement channels)                           |
+Embed types are "loosely defined" and, for the most part, are not used by our clients for rendering. Embed attributes power what is rendered. Embed types should be considered deprecated and might be removed in a future API version.
+
+| Type             | Description                                        |
+| ---------------- | -------------------------------------------------- |
+| rich             | generic embed rendered from embed attributes       |
+| image            | image embed                                        |
+| video            | video embed                                        |
+| gifv             | animated gif image embed rendered as a video embed |
+| article          | article embed                                      |
+| link             | link embed                                         |
 
 ###### Embed Thumbnail Structure
 
