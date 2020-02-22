@@ -92,11 +92,11 @@ def on_websocket_message(msg):
 
 ###### Gateway URL Params
 
-| Field     | Type    | Description                                   | Accepted Values                                                   |
-| --------- | ------- | --------------------------------------------- | ----------------------------------------------------------------- |
-| v         | integer | Gateway Version to use                        | 6 (see [Gateway versions](#DOCS_TOPICS_GATEWAY/gateway-versions)) |
-| encoding  | string  | The encoding of received gateway packets      | 'json' or 'etf'                                                   |
-| compress? | string  | The (optional) compression of gateway packets | 'zlib-stream'                                                     |
+| Field     | Type    | Description                                   | Accepted Values                                                            |
+| --------- | ------- | --------------------------------------------- | -------------------------------------------------------------------------- |
+| v         | integer | Gateway Version to use                        | 6 (see [Gateway versions](#DOCS_TOPICS_GATEWAY/gateways-gateway-versions)) |
+| encoding  | string  | The encoding of received gateway packets      | 'json' or 'etf'                                                            |
+| compress? | string  | The (optional) compression of gateway packets | 'zlib-stream'                                                              |
 
 The first step in establishing connectivity to the gateway is requesting a valid websocket endpoint from the API. This can be done through either the [Get Gateway](#DOCS_TOPICS_GATEWAY/get-gateway) or the [Get Gateway Bot](#DOCS_TOPICS_GATEWAY/get-gateway-bot) endpoint.
 
@@ -593,14 +593,14 @@ The ready event is dispatched when a client has completed the initial handshake 
 
 ###### Ready Event Fields
 
-| Field            | Type                                                                                 | Description                                                                                                   |
-| ---------------- | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------- |
-| v                | integer                                                                              | [gateway protocol version](#DOCS_TOPICS_GATEWAY/gateway-protocol-versions)                                    |
-| user             | [user](#DOCS_RESOURCES_USER/user-object) object                                      | information about the user including email                                                                    |
-| private_channels | array                                                                                | empty array                                                                                                   |
-| guilds           | array of [Unavailable Guild](#DOCS_RESOURCES_GUILD/unavailable-guild-object) objects | the guilds the user is in                                                                                     |
-| session_id       | string                                                                               | used for resuming connections                                                                                 |
-| shard?           | array of two integers (shard_id, num_shards)                                         | the [shard information](#DOCS_TOPICS_GATEWAY/sharding) associated with this session, if sent when identifying |
+| Field            | Type                                                                                 | Description                                                                                                            |
+| ---------------- | ------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------- |
+| v                | integer                                                                              | [gateway version](#DOCS_TOPICS_GATEWAY/gateways-gateway-versions)                                                      |
+| user             | [user](#DOCS_RESOURCES_USER/user-object) object                                      | information about the user including email                                                                             |
+| private_channels | array                                                                                | empty array                                                                                                            |
+| guilds           | array of [Unavailable Guild](#DOCS_RESOURCES_GUILD/unavailable-guild-object) objects | the guilds the user is in                                                                                              |
+| session_id       | string                                                                               | used for resuming connections                                                                                          |
+| shard?           | array of two integers (shard_id, num_shards)                                         | the [shard information](#DOCS_TOPICS_GATEWAY/sharding) associated with this session, if sent when identifying          |
 
 #### Resumed
 
