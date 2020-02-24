@@ -19,13 +19,14 @@ Important note: Not all event fields are documented, in particular, fields prefi
 
 ###### Gateway Payload Structure
 
-| Field | Type                    | Description                                                                     | Nulled           |
-| ----- | ----------------------- | ------------------------------------------------------------------------------- | ----------------- |
-| op    | integer                 | [opcode](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/gateway-opcodes) for the payload | Never               |
-| d     | ?mixed (any JSON value) | event data                                                                      | Never               |
-| s     | ?integer                | sequence number, used for resuming sessions and heartbeats                      | For nonzero Opcodes |
-| t     | ?string                 | the event name for this payload                                                 | For nonzero Opcodes |
+| Field | Type                    | Description                                                                     |
+| ----- | ----------------------- | ------------------------------------------------------------------------------- |
+| op    | integer                 | [opcode](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/gateway-opcodes) for the payload |
+| d     | ?mixed (any JSON value) | event data                                                                      |
+| s     | ?integer \*             | sequence number, used for resuming sessions and heartbeats                      |
+| t     | ?string \*              | the event name for this payload                                                 |
 
+\* `s` and `t` are nulled for every opcode except `0`.
 
 ### Sending Payloads
 
