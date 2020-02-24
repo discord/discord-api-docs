@@ -16,14 +16,16 @@ Important note: Not all event fields are documented, in particular, fields prefi
 
 ## Payloads
 
+
 ###### Gateway Payload Structure
 
-| Field | Type                    | Description                                                                     | Present           |
+| Field | Type                    | Description                                                                     | Nulled           |
 | ----- | ----------------------- | ------------------------------------------------------------------------------- | ----------------- |
-| op    | integer                 | [opcode](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/gateway-opcodes) for the payload | Always                 |
-| d     | ?mixed (any JSON value) | event data                                                                      | Always                 |
-| s     | integer                 | sequence number, used for resuming sessions and heartbeats                      | Nonnulled for Opcode 0 |
-| t     | string                  | the event name for this payload                                                 | Nonnulled for Opcode 0 |
+| op    | integer                 | [opcode](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/gateway-opcodes) for the payload | Never               |
+| d     | ?mixed (any JSON value) | event data                                                                      | Never               |
+| s     | ?integer                | sequence number, used for resuming sessions and heartbeats                      | For nonzero Opcodes |
+| t     | ?string                 | the event name for this payload                                                 | For nonzero Opcodes |
+
 
 ### Sending Payloads
 
@@ -79,6 +81,7 @@ def on_websocket_message(msg):
 
   # if the message *does* end with ZLIB_SUFFIX,
   # get the full message by decompressing the buffers
+  # NOTE: the message is utf-8 encoded.
   msg = inflator.decompress(buffer)
   buffer = bytearray()
 
