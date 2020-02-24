@@ -343,6 +343,9 @@ Modify a guild's settings. Requires the `MANAGE_GUILD` permission. Returns the u
 | splash                        | [image data](#DOCS_REFERENCE/image-data) | base64 16:9 png/jpeg image for the guild splash (when the server has `INVITE_SPLASH` feature)                            |
 | banner                        | [image data](#DOCS_REFERENCE/image-data) | base64 16:9 png/jpeg image for the guild banner (when the server has `BANNER` feature)                                   |
 | system_channel_id             | snowflake                                | the id of the channel where guild notices such as welcome messages and boost events are posted                           |
+| rules_channel_id              | snowflake                                | the id of the channel where "PUBLIC" guilds display rules and/or guidelines                                              |
+| public_updates_channel_id     | snowflake                                | the id of the channel where admins and moderators of "PUBLIC" guilds receive notices from Discord                        |
+| preferred_locale              | string                                   | the preferred locale of a "PUBLIC" guild used in server discovery and notices from Discord; defaults to "en-US"          |
 
 ## Delete Guild % DELETE /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}
 
