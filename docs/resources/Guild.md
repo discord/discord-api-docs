@@ -31,9 +31,9 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 | application_id                | ?snowflake                                                                          | application id of the guild creator if it is bot-created                                                                         |
 | widget_enabled?               | boolean                                                                             | whether or not the server widget is enabled                                                                                      |
 | widget_channel_id?            | ?snowflake                                                                          | the channel id for the server widget                                                                                             |
-| system_channel_id             | ?snowflake                                                                          | the id of the channel to which system messages are sent                                                                          |
+| system_channel_id             | ?snowflake                                                                          | the id of the channel where guild notices such as welcome messages and boost events are posted                                   |
 | system_channel_flags          | number                                                                              | [system channel flags](#DOCS_RESOURCES_GUILD/guild-object-system-channel-flags)                                                  |
-| rules_channel_id              | ?snowflake                                                                          | the id of the channel in which a public server's rules should be found                                                           |
+| rules_channel_id              | ?snowflake                                                                          | the id of the channel where "PUBLIC" guilds display rules and/or guidelines                                                      |
 | joined_at? \*                 | ISO8601 timestamp                                                                   | when this guild was joined at                                                                                                    |
 | large? \*                     | boolean                                                                             | whether this is considered a large guild                                                                                         |
 | unavailable? \*               | boolean                                                                             | whether this guild is unavailable                                                                                                |
@@ -49,8 +49,8 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 | banner                        | ?string                                                                             | [banner hash](#DOCS_REFERENCE/image-formatting)                                                                                  |
 | premium_tier                  | integer                                                                             | [premium tier](#DOCS_RESOURCES_GUILD/guild-object-premium-tier) (Server Boost level)                                             |
 | premium_subscription_count?   | integer                                                                             | the number of boosts this server currently has                                                                                   |
-| preferred_locale              | string                                                                              | the preferred locale of this guild only set if guild has the "PUBLIC" feature, defaults to en-US                                 |
-| public_updates_channel_id     | ?snowflake                                                                          | the channel id of the guild's public updates channel only set if guild has the "PUBLIC" feature                                  |
+| preferred_locale              | string                                                                              | the preferred locale of a "PUBLIC" guild used in server discovery and notices from Discord; defaults to "en-US"                  |
+| public_updates_channel_id     | ?snowflake                                                                          | the id of the channel where admins and moderators of "PUBLIC" guilds receive notices from Discord                                |
 
 ** \* These fields are only sent within the [GUILD_CREATE](#DOCS_TOPICS_GATEWAY/guild-create) event **
 
@@ -277,7 +277,7 @@ Create a new guild. Returns a [guild](#DOCS_RESOURCES_GUILD/guild-object) object
 | channels?                      | array of partial [channel](#DOCS_RESOURCES_CHANNEL/channel-object) objects | new guild's channels                                                                                        |
 | afk_channel_id?                | snowflake                                                                  | id for afk channel                                                                                          |
 | afk_timeout?                   | integer                                                                    | afk timeout in seconds                                                                                      |
-| system_channel_id?             | snowflake                                                                  | the id of the channel to which system messages are sent                                                     |
+| system_channel_id?             | snowflake                                                                  | the id of the channel where guild notices such as welcome messages and boost events are posted              |
 
 > warn
 > When using the `roles` parameter, the first member of the array is used to change properties of the guild's `@everyone` role. If you are trying to bootstrap a guild with additional roles, keep this in mind.
@@ -342,7 +342,7 @@ Modify a guild's settings. Requires the `MANAGE_GUILD` permission. Returns the u
 | owner_id                      | snowflake                                | user id to transfer guild ownership to (must be owner)                                                                   |
 | splash                        | [image data](#DOCS_REFERENCE/image-data) | base64 16:9 png/jpeg image for the guild splash (when the server has `INVITE_SPLASH` feature)                            |
 | banner                        | [image data](#DOCS_REFERENCE/image-data) | base64 16:9 png/jpeg image for the guild banner (when the server has `BANNER` feature)                                   |
-| system_channel_id             | snowflake                                | the id of the channel to which system messages are sent                                                                  |
+| system_channel_id             | snowflake                                | the id of the channel where guild notices such as welcome messages and boost events are posted                           |
 
 ## Delete Guild % DELETE /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}
 
