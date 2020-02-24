@@ -83,7 +83,7 @@ Extra information about an invite, will extend the [invite](#DOCS_RESOURCES_INVI
 
 ## Get Invite % GET /invites/{invite.code#DOCS_RESOURCES_INVITE/invite-object}
 
-Returns an [invite](#DOCS_RESOURCES_INVITE/invite-object) object for the given code. Doesn't require authentication.
+Returns an [invite](#DOCS_RESOURCES_INVITE/invite-object) object for the given code. Doesn't require authorization.
 
 ###### Get Invite URL Parameters
 
