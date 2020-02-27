@@ -1,5 +1,11 @@
 # Change Log
 
+## Rich Presence Spectate Approval
+
+#### February 26, 2020
+
+The [Spectate](#DOCS_GAME_SDK_ACTIVITIES/onactivityspectate) functionality of Rich Presence no longer requires whitelisting or approval.
+
 ## Gateway Intents
 
 #### February 14, 2020

@@ -39,9 +39,6 @@ Ready to launch a Rich Presence integration for your game? Did you read our [Bes
 
 #### Spectating
 
-> warn
-> If you want the Spectate button on users' profiles, check out [Getting Approved](#DOCS_RICH_PRESENCE_GETTING_APPROVED/) for more information!
-
 - Have you successfully implemented spectate invites for your game if applicable?
 - Is your game's spectate mode true spectating?
   - We do _not_ allow using the Spectate button as a pseudo-Join button.

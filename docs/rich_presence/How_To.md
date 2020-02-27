@@ -133,22 +133,22 @@ typedef struct DiscordRichPresence {
 
 ###### Update Presence Payload Fields
 
-| parameter      | type     | description                                                                | example                                                    |
-| -------------- | -------- | -------------------------------------------------------------------------- | ---------------------------------------------------------- |
-| state          | char\*   | the user's current party status                                            | "Looking to Play", "Playing Solo", "In a Group"            |
-| details        | char\*   | what the player is currently doing                                         | "Competitive - Captain's Mode", "In Queue", "Unranked PvP" |
-| startTimestamp | int64_t  | epoch seconds for game start - including will show time as "elapsed"       | 1507665886                                                 |
-| endTimestamp   | int64_t  | epoch seconds for game end - including will show time as "remaining"       | 1507665886                                                 |
-| largeImageKey  | char\*   | name of the uploaded image for the large profile artwork                   | "default"                                                  |
-| largeImageText | char\*   | tooltip for the largeImageKey                                              | "Blade's Edge Arena", "Numbani", "Danger Zone"             |
-| smallImageKey  | char\*   | name of the uploaded image for the small profile artwork                   | "rogue"                                                    |
-| smallImageText | char\*   | tooltip for the smallImageKey                                              | "Rogue - Level 100"                                        |
-| partyId        | char\*   | id of the player's party, lobby, or group                                  | "ae488379-351d-4a4f-ad32-2b9b01c91657"                     |
-| partySize      | int      | current size of the player's party, lobby, or group                        | 1                                                          |
-| partyMax       | int      | maximum size of the player's party, lobby, or group                        | 5                                                          |
-| matchSecret    | char\*   | (for future use) unique hashed string for a player's match                 | MmhuZToxMjMxMjM6cWl3amR3MWlqZA==                           |
-| spectateSecret | char\*   | unique hashed string for Spectate button                                   | MTIzNDV8MTIzNDV8MTMyNDU0                                   |
-| joinSecret     | char\*   | unique hashed string for chat invitations and Ask to Join                  | MTI4NzM0OjFpMmhuZToxMjMxMjM=                               |
+| parameter      | type     | description                                                                                                | example                                                    |
+| -------------- | -------- | ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------- |
+| state          | char\*   | the user's current party status                                                                            | "Looking to Play", "Playing Solo", "In a Group"            |
+| details        | char\*   | what the player is currently doing                                                                         | "Competitive - Captain's Mode", "In Queue", "Unranked PvP" |
+| startTimestamp | int64_t  | epoch seconds for game start - including will show time as "elapsed"                                       | 1507665886                                                 |
+| endTimestamp   | int64_t  | epoch seconds for game end - including will show time as "remaining"                                       | 1507665886                                                 |
+| largeImageKey  | char\*   | name of the uploaded image for the large profile artwork                                                   | "default"                                                  |
+| largeImageText | char\*   | tooltip for the largeImageKey                                                                              | "Blade's Edge Arena", "Numbani", "Danger Zone"             |
+| smallImageKey  | char\*   | name of the uploaded image for the small profile artwork                                                   | "rogue"                                                    |
+| smallImageText | char\*   | tooltip for the smallImageKey                                                                              | "Rogue - Level 100"                                        |
+| partyId        | char\*   | id of the player's party, lobby, or group                                                                  | "ae488379-351d-4a4f-ad32-2b9b01c91657"                     |
+| partySize      | int      | current size of the player's party, lobby, or group                                                        | 1                                                          |
+| partyMax       | int      | maximum size of the player's party, lobby, or group                                                        | 5                                                          |
+| matchSecret    | char\*   | (for future use) unique hashed string for a player's match                                                 | MmhuZToxMjMxMjM6cWl3amR3MWlqZA==                           |
+| spectateSecret | char\*   | unique hashed string for Spectate button                                                                   | MTIzNDV8MTIzNDV8MTMyNDU0                                   |
+| joinSecret     | char\*   | unique hashed string for chat invitations and Ask to Join                                                  | MTI4NzM0OjFpMmhuZToxMjMxMjM=                               |
 | instance       | int8_t   | (for future use) integer representing a boolean for if the player is in an instance (an in-progress match) | 1                                                          |
 
 > info
@@ -225,8 +225,6 @@ The Ask to Join request persists for 30 seconds after the request is received, r
 
 > warn
 > Deprecated in favor of [Discord GameSDK ActivityManager.OnActivitySpectate](#DOCS_GAME_SDK_ACTIVITIES/on-activity-spectate)
-
-To enable the Spectate button on your players' profiles, you'll need to be approved by us. Submit your integration for approval on your [app's developer dashboard](https://discordapp.com/developers/applications/me). While there, you can also whitelist individual accounts for testing. Those accounts will have the Spectate button enabled on their profiles. For an in-depth explanation of what we look for during approval, see [Getting Approved](#DOCS_RICH_PRESENCE_GETTING_APPROVED/).
 
 #### Relevant Callbacks:
 
