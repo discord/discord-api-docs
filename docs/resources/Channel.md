@@ -231,7 +231,6 @@ Represents a message sent in a channel within Discord.
 | GUILD_DISCOVERY_DISQUALIFIED           | 14    |
 | GUILD_DISCOVERY_REQUALIFIED            | 15    |
 
-
 ###### Message Activity Structure
 
 | Field     | Type    | Description                                                                                                        |
@@ -407,14 +406,14 @@ Represents a message sent in a channel within Discord.
 
 Embed types are "loosely defined" and, for the most part, are not used by our clients for rendering. Embed attributes power what is rendered. Embed types should be considered deprecated and might be removed in a future API version.
 
-| Type             | Description                                        |
-| ---------------- | -------------------------------------------------- |
-| rich             | generic embed rendered from embed attributes       |
-| image            | image embed                                        |
-| video            | video embed                                        |
-| gifv             | animated gif image embed rendered as a video embed |
-| article          | article embed                                      |
-| link             | link embed                                         |
+| Type    | Description                                        |
+| ------- | -------------------------------------------------- |
+| rich    | generic embed rendered from embed attributes       |
+| image   | image embed                                        |
+| video   | video embed                                        |
+| gifv    | animated gif image embed rendered as a video embed |
+| article | article embed                                      |
+| link    | link embed                                         |
 
 ###### Embed Thumbnail Structure
 
@@ -649,22 +648,22 @@ For example:
 > warn
 > Only filenames with proper image extensions are supported for the time being.
 
-## Create Reaction % PUT /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}/reactions/{emoji#DOCS_RESOURCES_EMOJI/emoji-object}/@me
+## Create Reaction % PUT /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}/reactions/{emoji.name#DOCS_RESOURCES_EMOJI/emoji-object}:{emoji.id#DOCS_RESOURCES_EMOJI/emoji-object}/@me
 
 Create a reaction for the message. `emoji` takes the form of `name:id` for custom guild emoji, or Unicode characters. This endpoint requires the 'READ_MESSAGE_HISTORY' permission to be present on the current user. Additionally, if nobody else has reacted to the message using this emoji, this endpoint requires the 'ADD_REACTIONS' permission to be present on the current user. Returns a 204 empty response on success.
 The `emoji` must be [URL Encoded](https://en.wikipedia.org/wiki/Percent-encoding) or the request will fail with `10014: Unknown Emoji`.
 
-## Delete Own Reaction % DELETE /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}/reactions/{emoji#DOCS_RESOURCES_EMOJI/emoji-object}/@me
+## Delete Own Reaction % DELETE /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}/reactions/{emoji.name#DOCS_RESOURCES_EMOJI/emoji-object}:{emoji.id#DOCS_RESOURCES_EMOJI/emoji-object}/@me
 
 Delete a reaction the current user has made for the message. Returns a 204 empty response on success.
 The `emoji` must be [URL Encoded](https://en.wikipedia.org/wiki/Percent-encoding) or the request will fail with `10014: Unknown Emoji`.
 
-## Delete User Reaction % DELETE /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}/reactions/{emoji#DOCS_RESOURCES_EMOJI/emoji-object}/{user.id#DOCS_RESOURCES_USER/user-object}
+## Delete User Reaction % DELETE /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}/reactions/{emoji.name#DOCS_RESOURCES_EMOJI/emoji-object}:{emoji.id#DOCS_RESOURCES_EMOJI/emoji-object}/{user.id#DOCS_RESOURCES_USER/user-object}
 
 Deletes another user's reaction. This endpoint requires the 'MANAGE_MESSAGES' permission to be present on the current user. Returns a 204 empty response on success.
 The `emoji` must be [URL Encoded](https://en.wikipedia.org/wiki/Percent-encoding) or the request will fail with `10014: Unknown Emoji`.
 
-## Get Reactions % GET /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}/reactions/{emoji#DOCS_RESOURCES_EMOJI/emoji-object}
+## Get Reactions % GET /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}/reactions/{emoji.name#DOCS_RESOURCES_EMOJI/emoji-object}:{emoji.id#DOCS_RESOURCES_EMOJI/emoji-object}
 
 Get a list of users that reacted with this emoji. Returns an array of [user](#DOCS_RESOURCES_USER/user-object) objects on success.
 The `emoji` must be [URL Encoded](https://en.wikipedia.org/wiki/Percent-encoding) or the request will fail with `10014: Unknown Emoji`.

@@ -1,5 +1,14 @@
 # Change Log
 
+## New Invite Events and Reactions Endpoint
+
+We've added a new endpoint for deleting all reactions of a specific emoji from a message, as well as some new invite and reaction gateway events. Read more:
+
+- [Delete All Reactions for Emoji](#DOCS_RESOURCES_CHANNEL/delete-all-reactions-for-emoji)
+- [Invite Create](#DOCS_TOPICS_GATEWAY/invite-create)
+- [Invite Delete](#DOCS_TOPICS_GATEWAY/invite-delete)
+- [Message Reaction Remove Emoji](#DOCS_TOPICS_GATEWAY/message-reaction-remove-emoji)
+
 ## Rich Presence Spectate Approval
 
 #### February 26, 2020

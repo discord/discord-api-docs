@@ -822,26 +822,17 @@ Sent when a new invite to a channel is created.
 
 ###### Invite Create Event Fields
 
-| Field      | Type                                                                          | Description                                                                                                        |
-| ---------- | ----------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------ |
-| channel_id | snowflake                                                                     | the channel the invite is for                                                                                      |
-| code       | string                                                                        | the unique invite [code](#DOCS_RESOURCES_INVITE/invite-object)                                                     |
-| created_at | timestamp                                                                     | the time at which the invite was created                                                                           |
-| guild_id   | snowflake                                                                     | the guild of the invite                                                                                            |
-| inviter    | [partial user object](#DOCS_TOPICS_GATEWAY/invite-create-partial-user-object) | the user that created the invite                                                                                   |
-| max_age    | int                                                                           | how long the invite is valid for (in seconds)                                                                      |
-| max_uses   | int                                                                           | the maximum number of times the invite can be used                                                                 |
-| temporary  | boolean                                                                       | whether or not the invite is temporary (invited users will be kicked on disconnect unless they're assigned a role) |
-| uses       | int                                                                           | how many times the invite has been used (always will be 0)                                                         |
-
-###### Invite Create Partial User Object
-
-| Field         | Type      | Description                                             |
-| ------------- | --------- | ------------------------------------------------------- |
-| avatar        | string    | [user avatar](#DOCS_RESOURCES_USERS/user-object)        |
-| discriminator | string    | [user discriminator](#DOCS_RESOURCES_USERS/user-object) |
-| id            | snowflake | [user id](#DOCS_RESOURCES_USERS/user-object)            |
-| username      | string    | [user username](#DOCS_RESOURCES_USERS/user-object)      |
+| Field      | Type                                            | Description                                                                                                        |
+| ---------- | ----------------------------------------------- | ------------------------------------------------------------------------------------------------------------------ |
+| channel_id | snowflake                                       | the channel the invite is for                                                                                      |
+| code       | string                                          | the unique invite [code](#DOCS_RESOURCES_INVITE/invite-object)                                                     |
+| created_at | timestamp                                       | the time at which the invite was created                                                                           |
+| guild_id   | snowflake                                       | the guild of the invite                                                                                            |
+| inviter?   | [user object](#DOCS_RESOURCES_USER/user-object) | the user that created the invite                                                                                   |
+| max_age    | int                                             | how long the invite is valid for (in seconds)                                                                      |
+| max_uses   | int                                             | the maximum number of times the invite can be used                                                                 |
+| temporary  | boolean                                         | whether or not the invite is temporary (invited users will be kicked on disconnect unless they're assigned a role) |
+| uses       | int                                             | how many times the invite has been used (always will be 0)                                                         |
 
 ### Invite Delete
 
@@ -939,19 +930,12 @@ Sent when a bot removes all instances of a given emoji from the reactions of a m
 
 ###### Message Reaction Remove Emoji
 
-| Field      | Type                                                                                     | Description                |
-| ---------- | ---------------------------------------------------------------------------------------- | -------------------------- |
-| channel_id | snowflake                                                                                | the id of the channel      |
-| guild_id   | snowflake                                                                                | the id of the guild        |
-| message_id | snowflake                                                                                | the id of the message      |
-| emoji      | [partial emoji object](#DOCS_TOPICS_GATEWAY/message-reaction-remove-emoji-partial-emoji) | the emoji that was removed |
-
-###### Message Reaction Remove Emoji Partial Emoji
-
-| Field | Type       | Description           |
-| ----- | ---------- | --------------------- |
-| id    | ?snowflake | the id of the emoji   |
-| name  | string     | the name of the emoji |
+| Field      | Type                                                       | Description                |
+| ---------- | ---------------------------------------------------------- | -------------------------- |
+| channel_id | snowflake                                                  | the id of the channel      |
+| guild_id   | snowflake                                                  | the id of the guild        |
+| message_id | snowflake                                                  | the id of the message      |
+| emoji      | [partial emoji object](#DOCS_RESOURCES_EMOJI/emoji-object) | the emoji that was removed |
 
 ### Presence
 
