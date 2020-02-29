@@ -61,13 +61,13 @@ Extra information about an invite, will extend the [invite](#DOCS_RESOURCES_INVI
 
 ###### Invite Metadata Structure
 
-| Field      | Type                                            | Description                                          |
-| ---------- | ----------------------------------------------- | ---------------------------------------------------- |
-| uses       | integer                                         | number of times this invite has been used            |
-| max_uses   | integer                                         | max number of times this invite can be used          |
-| max_age    | integer                                         | duration (in seconds) after which the invite expires |
-| temporary  | boolean                                         | whether this invite only grants temporary membership |
-| created_at | ISO8601 timestamp                               | when this invite was created                         |
+| Field      | Type                                                         | Description                                          |
+| ---------- | ------------------------------------------------------------ | ---------------------------------------------------- |
+| uses       | integer                                                      | number of times this invite has been used            |
+| max_uses   | integer                                                      | max number of times this invite can be used          |
+| max_age    | integer                                                      | duration (in seconds) after which the invite expires |
+| temporary  | boolean                                                      | whether this invite only grants temporary membership |
+| created_at | [ISO8601 timestamp](https://www.loc.gov/standards/datetime/iso-tc154-wg5_n0038_iso_wd_8601-1_2016-02-16.pdf) | when this invite was created                         |
 
 ###### Example Invite Metadata
 

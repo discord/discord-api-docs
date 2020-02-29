@@ -653,11 +653,11 @@ Sent when a message is pinned or unpinned in a text channel. This is not sent wh
 
 ###### Channel Pins Update Event Fields
 
-| Field               | Type              | Description                                                 |
-| ------------------- | ----------------- | ----------------------------------------------------------- |
-| guild_id?           | snowflake         | the id of the guild                                         |
-| channel_id          | snowflake         | the id of the channel                                       |
-| last_pin_timestamp? | ISO8601 timestamp | the time at which the most recent pinned message was pinned |
+| Field               | Type                                                         | Description                                                 |
+| ------------------- | ------------------------------------------------------------ | ----------------------------------------------------------- |
+| guild_id?           | snowflake                                                    | the id of the guild                                         |
+| channel_id          | snowflake                                                    | the id of the channel                                       |
+| last_pin_timestamp? | [ISO8601 timestamp](https://www.loc.gov/standards/datetime/iso-tc154-wg5_n0038_iso_wd_8601-1_2016-02-16.pdf) | the time at which the most recent pinned message was pinned |
 
 ### Guilds
 
@@ -761,13 +761,13 @@ Sent when a guild member is updated. This will also fire when the user object of
 
 ###### Guild Member Update Event Fields
 
-| Field         | Type                                              | Description                                       |
-| ------------- | ------------------------------------------------- | ------------------------------------------------- |
-| guild_id      | snowflake                                         | the id of the guild                               |
-| roles         | array of snowflakes                               | user role ids                                     |
-| user          | a [user](#DOCS_RESOURCES_USER/user-object) object | the user                                          |
-| nick          | string                                            | nickname of the user in the guild                 |
-| premium_since | ?ISO8601 timestamp                                | when the user used their Nitro boost on the guild |
+| Field         | Type                                                         | Description                                       |
+| ------------- | ------------------------------------------------------------ | ------------------------------------------------- |
+| guild_id      | snowflake                                                    | the id of the guild                               |
+| roles         | array of snowflakes                                          | user role ids                                     |
+| user          | a [user](#DOCS_RESOURCES_USER/user-object) object            | the user                                          |
+| nick          | string                                                       | nickname of the user in the guild                 |
+| premium_since | ?[ISO8601 timestamp](https://www.loc.gov/standards/datetime/iso-tc154-wg5_n0038_iso_wd_8601-1_2016-02-16.pdf) | when the user used their Nitro boost on the guild |
 
 #### Guild Members Chunk
 
