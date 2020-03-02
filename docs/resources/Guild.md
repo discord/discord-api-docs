@@ -210,19 +210,27 @@ A partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object. Represents an Offl
 
 ###### Integration Structure
 
-| Field               | Type                                                               | Description                                     |
-| ------------------- | ------------------------------------------------------------------ | ----------------------------------------------- |
-| id                  | snowflake                                                          | integration id                                  |
-| name                | string                                                             | integration name                                |
-| type                | string                                                             | integration type (twitch, youtube, etc)         |
-| enabled             | boolean                                                            | is this integration enabled                     |
-| syncing             | boolean                                                            | is this integration syncing                     |
-| role_id             | snowflake                                                          | id that this integration uses for "subscribers" |
-| expire_behavior     | integer                                                            | the behavior of expiring subscribers            |
-| expire_grace_period | integer                                                            | the grace period before expiring subscribers    |
-| user                | [user](#DOCS_RESOURCES_USER/user-object) object                    | user for this integration                       |
-| account             | [account](#DOCS_RESOURCES_GUILD/integration-account-object) object | integration account information                 |
-| synced_at           | ISO8601 timestamp                                                  | when this integration was last synced           |
+| Field               | Type                                                                                                 | Description                                                                     |
+| ------------------- | ---------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
+| id                  | snowflake                                                                                            | integration id                                                                  |
+| name                | string                                                                                               | integration name                                                                |
+| type                | string                                                                                               | integration type (twitch, youtube, etc)                                         |
+| enabled             | boolean                                                                                              | is this integration enabled                                                     |
+| syncing             | boolean                                                                                              | is this integration syncing                                                     |
+| role_id             | snowflake                                                                                            | id that this integration uses for "subscribers"                                 |
+| enable_emoticons?   | boolean                                                                                              | whether emoticons should be synced for this integration (twitch only currently) |
+| expire_behavior     | [integration expire behavior](#DOCS_RESOURCES_GUILD/integration-object-integration-expire-behaviors) | the behavior of expiring subscribers                                            |
+| expire_grace_period | integer                                                                                              | the grace period (in days) before expiring subscribers                          |
+| user                | [user](#DOCS_RESOURCES_USER/user-object) object                                                      | user for this integration                                                       |
+| account             | [account](#DOCS_RESOURCES_GUILD/integration-account-object) object                                   | integration account information                                                 |
+| synced_at           | ISO8601 timestamp                                                                                    | when this integration was last synced                                           |
+
+###### Integration Expire Behaviors
+
+| Value | Name        |
+| ----- | ----------- |
+| 0     | Remove role |
+| 1     | Kick        |
 
 ### Integration Account Object
 
@@ -598,11 +606,11 @@ Modify the behavior and settings of an [integration](#DOCS_RESOURCES_GUILD/integ
 
 ###### JSON Params
 
-| Field               | Type    | Description                                                                                                                                 |
-| ------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
-| expire_behavior     | integer | the behavior when an integration subscription lapses (see the [integration](#DOCS_RESOURCES_GUILD/integration-object) object documentation) |
-| expire_grace_period | integer | period (in seconds) where the integration will ignore lapsed subscriptions                                                                  |
-| enable_emoticons    | boolean | whether emoticons should be synced for this integration (twitch only currently)                                                             |
+| Field               | Type    | Description                                                                                                                                                                        |
+| ------------------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| expire_behavior     | integer | the behavior when an integration subscription lapses (see the [integration expire behaviors](#DOCS_RESOURCES_GUILD/integration-object-integration-expire-behaviors) documentation) |
+| expire_grace_period | integer | period (in days) where the integration will ignore lapsed subscriptions                                                                                                            |
+| enable_emoticons    | boolean | whether emoticons should be synced for this integration (twitch only currently)                                                                                                    |
 
 ## Delete Guild Integration % DELETE /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/integrations/{integration.id#DOCS_RESOURCES_GUILD/integration-object}
 
