@@ -183,15 +183,15 @@ A partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object. Represents an Offl
 
 ###### Guild Member Structure
 
-| Field          | Type                                            | Description                                                      |
-| -------------- | ----------------------------------------------- | ---------------------------------------------------------------- |
-| user           | [user](#DOCS_RESOURCES_USER/user-object) object | the user this guild member represents                            |
-| nick?          | string                                          | this users guild nickname (if one is set)                        |
-| roles          | array of snowflakes                             | array of [role](#DOCS_TOPICS_PERMISSIONS/role-object) object ids |
-| joined_at      | ISO8601 timestamp                               | when the user joined the guild                                   |
-| premium_since? | ?ISO8601 timestamp                              | when the user started boosting the server                        |
-| deaf           | boolean                                         | whether the user is deafened in voice channels                   |
-| mute           | boolean                                         | whether the user is muted in voice channels                      |
+| Field          | Type                                            | Description                                                                                                                |
+| -------------- | ----------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| user           | [user](#DOCS_RESOURCES_USER/user-object) object | the user this guild member represents                                                                                      |
+| nick?          | string                                          | this users guild nickname (if one is set)                                                                                  |
+| roles          | array of snowflakes                             | array of [role](#DOCS_TOPICS_PERMISSIONS/role-object) object ids                                                           |
+| joined_at      | ISO8601 timestamp                               | when the user joined the guild                                                                                             |
+| premium_since? | ?ISO8601 timestamp                              | when the user started [boosting](https://support.discordapp.com/hc/en-us/articles/360028038352-Server-Boosting-) the guild |
+| deaf           | boolean                                         | whether the user is deafened in voice channels                                                                             |
+| mute           | boolean                                         | whether the user is muted in voice channels                                                                                |
 
 ###### Example Guild Member
 

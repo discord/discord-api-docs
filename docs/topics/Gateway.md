@@ -760,13 +760,13 @@ Sent when a guild member is updated. This will also fire when the user object of
 
 ###### Guild Member Update Event Fields
 
-| Field         | Type                                              | Description                                       |
-| ------------- | ------------------------------------------------- | ------------------------------------------------- |
-| guild_id      | snowflake                                         | the id of the guild                               |
-| roles         | array of snowflakes                               | user role ids                                     |
-| user          | a [user](#DOCS_RESOURCES_USER/user-object) object | the user                                          |
-| nick          | string                                            | nickname of the user in the guild                 |
-| premium_since | ?ISO8601 timestamp                                | when the user used their Nitro boost on the guild |
+| Field         | Type                                              | Description                                                                                                                 |
+| ------------- | ------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
+| guild_id      | snowflake                                         | the id of the guild                                                                                                         |
+| roles         | array of snowflakes                               | user role ids                                                                                                               |
+| user          | a [user](#DOCS_RESOURCES_USER/user-object) object | the user                                                                                                                    |
+| nick          | string                                            | nickname of the user in the guild                                                                                           |
+| premium_since | ?ISO8601 timestamp                                | when the user starting [boosting](https://support.discordapp.com/hc/en-us/articles/360028038352-Server-Boosting-) the guild |
 
 #### Guild Members Chunk
 
@@ -951,17 +951,17 @@ A user's presence is their current state on a guild. This event is sent when a u
 
 ###### Presence Update Event Fields
 
-| Field          | Type                                                              | Description                                  |
-| -------------- | ----------------------------------------------------------------- | -------------------------------------------- |
-| user           | [user](#DOCS_RESOURCES_USER/user-object) object                   | the user presence is being updated for       |
-| roles          | array of snowflakes                                               | roles this user is in                        |
-| game           | ?[activity](#DOCS_TOPICS_GATEWAY/activity-object) object          | null, or the user's current activity         |
-| guild_id       | snowflake                                                         | id of the guild                              |
-| status         | string                                                            | either "idle", "dnd", "online", or "offline" |
-| activities     | array of [activity](#DOCS_TOPICS_GATEWAY/activity-object) objects | user's current activities                    |
-| client_status  | [client_status](#DOCS_TOPICS_GATEWAY/client-status-object) object | user's platform-dependent status             |
-| premium_since? | ?ISO8601 timestamp                                                | when the user started boosting the server    |
-| nick?          | ?string                                                           | this users guild nickname (if one is set)    |
+| Field          | Type                                                              | Description                                                                                                                |
+| -------------- | ----------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| user           | [user](#DOCS_RESOURCES_USER/user-object) object                   | the user presence is being updated for                                                                                     |
+| roles          | array of snowflakes                                               | roles this user is in                                                                                                      |
+| game           | ?[activity](#DOCS_TOPICS_GATEWAY/activity-object) object          | null, or the user's current activity                                                                                       |
+| guild_id       | snowflake                                                         | id of the guild                                                                                                            |
+| status         | string                                                            | either "idle", "dnd", "online", or "offline"                                                                               |
+| activities     | array of [activity](#DOCS_TOPICS_GATEWAY/activity-object) objects | user's current activities                                                                                                  |
+| client_status  | [client_status](#DOCS_TOPICS_GATEWAY/client-status-object) object | user's platform-dependent status                                                                                           |
+| premium_since? | ?ISO8601 timestamp                                                | when the user started [boosting](https://support.discordapp.com/hc/en-us/articles/360028038352-Server-Boosting-) the guild |
+| nick?          | ?string                                                           | this users guild nickname (if one is set)                                                                                  |
 
 #### Client Status Object
 
