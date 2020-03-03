@@ -1,5 +1,13 @@
 # Change Log
 
+## New Allowed Mentions Object
+
+#### March 3, 2020
+
+We've added a way to specify mentions in a more granular form. This change also begins the start of a 30 day deprecation cycle on legacy mention behavior. Read more:
+
+- [Allowed mentions object](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object)
+
 ## New Invite Events and Reactions Endpoint
 
 We've added a new endpoint for deleting all reactions of a specific emoji from a message, as well as some new invite and reaction gateway events. Read more:

@@ -498,6 +498,107 @@ Embed types are "loosely defined" and, for the most part, are not used by our cl
 | type     | integer   | the [type of channel](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types) |
 | name     | string    | the name of the channel                                                     |
 
+### Allowed Mentions Object
+
+The allowed mention field allows for more granular control over mentions without various hacks to the message content. This will always validate against message content to avoid phantom pings (e.g. to ping everyone, you must still have `@everyone` in the message content), and check against user/bot permissions.
+
+###### Allowed Mention Types
+
+| Type              | Value      | Description                           |
+| ----------------- | ---------- | ------------------------------------- |
+| Role Mentions     | "roles"    | Controls role mentions                |
+| User Mentions     | "users"    | Controls user mentions                |
+| Everyone Mentions | "everyone" | Controls @everyone and @here mentions |
+
+###### Allowed Mentions Structure
+
+| Field | Type                           | Description                                                                                                   |
+| ----- | ------------------------------ | ------------------------------------------------------------------------------------------------------------- |
+| parse | array of allowed mention types | An array of [allowed mention types](#DOCS_RESOURCES_CHANNEL/allowed-mention-types) to parse from the content. |
+| roles | list of snowflakes             | Array of role_ids to mention (Max size of 100)                                                                |
+| users | list of snowflakes             | Array of user_ids to mention (Max size of 100)                                                                |
+
+###### Allowed Mentions Reference
+
+Due to the complexity of possibilities, we have included a set of examples and behavior for the allowed mentions field.
+
+If `allowed_mentions` is _not_ passed in (i.e. the key does not exist), the mentions will be parsed via the content. This corresponds with existing behavior.
+
+In the example below we would ping @here (and also @role124 and @user123)
+
+```json
+{
+  "content": "@here Hi there from <@123>, cc <@&124>"
+}
+```
+
+To suppress all mentions in a message use:
+
+```json
+{
+  "content": "@everyone hi there, <@&123>",
+  "allowed_mentions": {
+    "parse": []
+  }
+}
+```
+
+This will suppress _all_ mentions in the message (no @everyone or user mention).
+
+The `parse` field is mutually exclusive with the other fields. In the example below, we would ping users `123` and role `124`, but _not_ @everyone. Note that passing a `Falsy` value ([], null) into the "users" field does not trigger a validation error.
+
+```json
+{
+  "content": "@everyone <@123> <@&124>",
+  "allowed_mentions": {
+    "parse": ["users", "roles"],
+    "users": []
+  }
+}
+```
+
+In the next example, we would ping @everyone, (and also users `123` and `124` if they suppressed
+@everyone mentions), but we would not ping any roles.
+
+```json
+{
+  "content": "@everyone <@123> <@124> <@125> <@&200>",
+  "allowed_mentions": {
+    "parse": ["everyone"],
+    "users": ["123", "124"]
+  }
+}
+```
+
+Due to possible ambiguities, not all configurations are valid. An _invalid_ configuration is as follows
+
+```json
+{
+  "content": "@everyone <@123> <@124> <@125> <@&200>",
+  "allowed_mentions": {
+    "parse": ["users"],
+    "users": ["123", "124"]
+  }
+}
+```
+
+Because `parse: ["users"]` and `users: [123, 124]` are both present, we would throw a validation error.
+This is because the conditions cannot be fulfilled simultaneously (they are mutually exclusive).
+
+The ID list fields act as whitelists, and can contain mentions not in the content. These ID's that are not in the
+content will simply be ignored.
+e.g. The following example is valid, and would mention user 123, but _not_ user 125 since there is no mention of
+user 125 in the content.
+
+```json
+{
+    "content": "<@123> Time for some memes.",
+    "allowed_mentions": {
+        "users": ["123", "125"]
+    }
+}
+```
+
 ## Embed Limits
 
 To facilitate showing rich content, rich embeds do not follow the traditional limits of message content. However, some limits are still in place to prevent excessively large embeds. The following table describes the limits:
@@ -586,14 +687,15 @@ This endpoint supports requests with `Content-Type`s of both `application/json` 
 
 ###### Params
 
-| Field        | Type                                                 | Description                                             |
-| ------------ | ---------------------------------------------------- | ------------------------------------------------------- |
-| content      | string                                               | the message contents (up to 2000 characters)            |
-| nonce        | integer or string                                    | a nonce that can be used for optimistic message sending |
-| tts          | boolean                                              | true if this is a TTS message                           |
-| file         | file contents                                        | the contents of the file being sent                     |
-| embed        | [embed](#DOCS_RESOURCES_CHANNEL/embed-object) object | embedded `rich` content                                 |
-| payload_json | string                                               | JSON encoded body of any additional request fields.     |
+| Field            | Type                                                                       | Description                                             |
+| ---------------- | -------------------------------------------------------------------------- | ------------------------------------------------------- |
+| content          | string                                                                     | the message contents (up to 2000 characters)            |
+| nonce            | integer or string                                                          | a nonce that can be used for optimistic message sending |
+| tts              | boolean                                                                    | true if this is a TTS message                           |
+| file             | file contents                                                              | the contents of the file being sent                     |
+| embed            | [embed](#DOCS_RESOURCES_CHANNEL/embed-object) object                       | embedded `rich` content                                 |
+| payload_json     | string                                                                     | JSON encoded body of any additional request fields.     |
+| allowed_mentions | [allowed_mentions](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object) object | allowed mentions for a message                          |
 
 > info
 > For the embed object, you can set every field except `type` (it will be `rich` regardless of if you try to set it), `provider`, `video`, and any `height`, `width`, or `proxy_url` values for images.

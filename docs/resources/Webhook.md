@@ -115,15 +115,16 @@ Same as above, except this call does not require authentication.
 
 ###### JSON/Form Params
 
-| Field        | Type                                                                    | Description                                                  | Required                     |
-| ------------ | ----------------------------------------------------------------------- | ------------------------------------------------------------ | ---------------------------- |
-| content      | string                                                                  | the message contents (up to 2000 characters)                 | one of content, file, embeds |
-| username     | string                                                                  | override the default username of the webhook                 | false                        |
-| avatar_url   | string                                                                  | override the default avatar of the webhook                   | false                        |
-| tts          | boolean                                                                 | true if this is a TTS message                                | false                        |
-| file         | file contents                                                           | the contents of the file being sent                          | one of content, file, embeds |
-| embeds       | array of up to 10 [embed](#DOCS_RESOURCES_CHANNEL/embed-object) objects | embedded `rich` content                                      | one of content, file, embeds |
-| payload_json | string                                                                  | See [message create](#DOCS_RESOURCES_CHANNEL/create-message) | `multipart/form-data` only   |
+| Field            | Type                                                                      | Description                                                  | Required                     |
+| ---------------- | ------------------------------------------------------------------------- | ------------------------------------------------------------ | ---------------------------- |
+| content          | string                                                                    | the message contents (up to 2000 characters)                 | one of content, file, embeds |
+| username         | string                                                                    | override the default username of the webhook                 | false                        |
+| avatar_url       | string                                                                    | override the default avatar of the webhook                   | false                        |
+| tts              | boolean                                                                   | true if this is a TTS message                                | false                        |
+| file             | file contents                                                             | the contents of the file being sent                          | one of content, file, embeds |
+| embeds           | array of up to 10 [embed](#DOCS_RESOURCES_CHANNEL/embed-object) objects   | embedded `rich` content                                      | one of content, file, embeds |
+| payload_json     | string                                                                    | See [message create](#DOCS_RESOURCES_CHANNEL/create-message) | `multipart/form-data` only   |
+| allowed_mentions | [allowed mention object](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object) | allowed mentions for the message                             | false                        |
 
 > info
 > For the webhook embed objects, you can set every field except `type` (it will be `rich` regardless of if you try to set it), `provider`, `video`, and any `height`, `width`, or `proxy_url` values for images.
