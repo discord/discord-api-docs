@@ -827,7 +827,7 @@ Sent when a new invite to a channel is created.
 | channel_id | snowflake                                       | the channel the invite is for                                                                                      |
 | code       | string                                          | the unique invite [code](#DOCS_RESOURCES_INVITE/invite-object)                                                     |
 | created_at | timestamp                                       | the time at which the invite was created                                                                           |
-| guild_id   | snowflake                                       | the guild of the invite                                                                                            |
+| guild_id?  | snowflake                                       | the guild of the invite                                                                                            |
 | inviter?   | [user object](#DOCS_RESOURCES_USER/user-object) | the user that created the invite                                                                                   |
 | max_age    | int                                             | how long the invite is valid for (in seconds)                                                                      |
 | max_uses   | int                                             | the maximum number of times the invite can be used                                                                 |
@@ -843,7 +843,7 @@ Sent when an invite is deleted.
 | Field      | Type      | Description                                                    |
 | ---------- | --------- | -------------------------------------------------------------- |
 | channel_id | snowflake | the channel of the invite                                      |
-| guild_id   | snowflake | the guild of the invite                                        |
+| guild_id?  | snowflake | the guild of the invite                                        |
 | code       | string    | the unique invite [code](#DOCS_RESOURCES_INVITE/invite-object) |
 
 ### Messages
@@ -933,7 +933,7 @@ Sent when a bot removes all instances of a given emoji from the reactions of a m
 | Field      | Type                                                       | Description                |
 | ---------- | ---------------------------------------------------------- | -------------------------- |
 | channel_id | snowflake                                                  | the id of the channel      |
-| guild_id   | snowflake                                                  | the id of the guild        |
+| guild_id?  | snowflake                                                  | the id of the guild        |
 | message_id | snowflake                                                  | the id of the message      |
 | emoji      | [partial emoji object](#DOCS_RESOURCES_EMOJI/emoji-object) | the emoji that was removed |
 
