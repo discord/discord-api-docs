@@ -543,11 +543,9 @@ To suppress all mentions in a message use:
 }
 ```
 
-This will suppress _all_ mentions in the message (no @everyone or user mention)
+This will suppress _all_ mentions in the message (no @everyone or user mention).
 
-The `parse` field is mutually exclusive with the other fields
-e.g. In the example below, we would ping users `123` and role `124`, but _not_ @everyone
-Note that passing a `Falsy` value ([], null) into the "users" field does not trigger a validation error.
+The `parse` field is mutually exclusive with the other fields. In the example below, we would ping users `123` and role `124`, but _not_ @everyone. Note that passing a `Falsy` value ([], null) into the "users" field does not trigger a validation error.
 
 ```json
 {
