@@ -522,24 +522,24 @@ The allowed mention field allows for more granular control over mentions without
 
 Due to the complexity of possibilities, we have included a set of examples and behavior for the allowed mentions field.
 
-If this is _not_ passed in (i.e. the key does not exist), the mentions will be parsed via the content.
+If `allowed_mentions` is _not_ passed in (i.e. the key does not exist), the mentions will be parsed via the content.
 This corresponds with existing behavior
 e.g. In the example below we would ping @here (and also @role124 and @user123)
 
-```
+```json
 {
-    "content": "@here Hi there from <@123>, cc <@&124>"
+  "content": "@here Hi there from <@123>, cc <@&124>"
 }
 ```
 
 To suppress all mentions in a message use:
 
-```
+```json
 {
-    "content": "@everyone hi there, <@&123>",
-    "allowed_mentions": {
-        "parse": []
-    }
+  "content": "@everyone hi there, <@&123>",
+  "allowed_mentions": {
+    "parse": []
+  }
 }
 ```
 
@@ -549,38 +549,38 @@ The `parse` field is mutually exclusive with the other fields
 e.g. In the example below, we would ping users `123` and role `124`, but _not_ @everyone
 Note that passing a `Falsy` value ([], null) into the "users" field does not trigger a validation error.
 
-```
+```json
 {
-    "content": "@everyone <@123> <@&124>",
-    "allowed_mentions": {
-        "parse": ["users", "roles"],
-        "users": [],
-    }
+  "content": "@everyone <@123> <@&124>",
+  "allowed_mentions": {
+    "parse": ["users", "roles"],
+    "users": []
+  }
 }
 ```
 
 In the next example, we would ping @everyone, (and also users `123` and `124` if they suppressed
 @everyone mentions), but we would not ping any roles.
 
-```
+```json
 {
-    "content": "@everyone <@123> <@124> <@125> <@&200>",
-    "allowed_mentions": {
-        "parse": ["everyone"],
-        "users": ["123", "124"],
-    }
+  "content": "@everyone <@123> <@124> <@125> <@&200>",
+  "allowed_mentions": {
+    "parse": ["everyone"],
+    "users": ["123", "124"]
+  }
 }
 ```
 
 Due to possible ambiguities, not all configurations are valid. An _invalid_ configuration is as follows
 
-```
+```json
 {
-    "content": "@everyone <@123> <@124> <@125> <@&200>",
-    "allowed_mentions": {
-        "parse": ["users"],
-        "users": ["123", "124"],
-    }
+  "content": "@everyone <@123> <@124> <@125> <@&200>",
+  "allowed_mentions": {
+    "parse": ["users"],
+    "users": ["123", "124"]
+  }
 }
 ```
 
@@ -592,7 +592,7 @@ content will simply be ignored.
 e.g. The following example is valid, and would mention user 123, but _not_ user 125 since there is no mention of
 user 125 in the content.
 
-```
+```json
 {
     "content": "<@123> Time for some memes."
     "allowed_mentions": {
