@@ -594,7 +594,7 @@ user 125 in the content.
 
 ```json
 {
-    "content": "<@123> Time for some memes."
+    "content": "<@123> Time for some memes.",
     "allowed_mentions": {
         "users": ["123", "125"]
     }
