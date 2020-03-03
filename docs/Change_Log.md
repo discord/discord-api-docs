@@ -1,5 +1,11 @@
 # Change Log
 
+## New Allowed Mentions Object
+
+We've added a way to specify mentions in a more granular form. Read more:
+
+- [Allowed mentions object](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object)
+
 ## New Invite Events and Reactions Endpoint
 
 We've added a new endpoint for deleting all reactions of a specific emoji from a message, as well as some new invite and reaction gateway events. Read more:
