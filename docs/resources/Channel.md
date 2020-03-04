@@ -674,7 +674,7 @@ Returns a specific message in the channel. If operating on a guild channel, this
 > Before using this endpoint, you must connect to and identify with a [gateway](#DOCS_TOPICS_GATEWAY/gateways) at least once.
 
 > warn
-> Discord may strip certain characters from message content, like invalid unicode characters or characters which cause unexpected message formatting. If you are passing user-generated strings into message content, consider sanitizing the data to prevent unexpected behavior. For example, to prevent unexpected mentions you could consider stripping `@` characters or placing a zero-width space (U-200B) after them.
+> Discord may strip certain characters from message content, like invalid unicode characters or characters which cause unexpected message formatting. If you are passing user-generated strings into message content, consider sanitizing the data to prevent unexpected behavior and utilizing `allowed_mentions` to prevent unexpected mentions.
 
 Post a message to a guild text or DM channel. If operating on a guild channel, this endpoint requires the `SEND_MESSAGES` permission to be present on the current user. If the `tts` field is set to `true`, the `SEND_TTS_MESSAGES` permission is required for the message to be spoken. Returns a [message](#DOCS_RESOURCES_CHANNEL/message-object) object. Fires a [Message Create](#DOCS_TOPICS_GATEWAY/message-create) Gateway event. See [message formatting](#DOCS_REFERENCE/message-formatting) for more information on how to properly format messages.
 
