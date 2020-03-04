@@ -103,7 +103,6 @@ Along with the HTTP error code, our API can also return more detailed error code
 ###### JSON Error Codes
 
 | Code   | Meaning                                                                                                         |
-<<<<<<< HEAD
 | ------ | --------------------------------------------------------------------------------------------------------------- |
 | 10001  | Unknown account                                                                                                 |
 | 10002  | Unknown application                                                                                             |
@@ -233,7 +232,6 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 50041  | Invalid API version provided                                                                                                     |
 | 90001  | Reaction was blocked                                                                                                             |
 | 130000 | API resource is currently overloaded. Try again a little later                                                                   |
->>>>>>> pr/15
 
 ###### Example JSON Error Response
 

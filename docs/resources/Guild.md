@@ -273,7 +273,6 @@ Create a new guild. Returns a [guild](#DOCS_RESOURCES_GUILD/guild-object) object
 
 ###### JSON Params
 
-<<<<<<< HEAD
 | Field                         | Type                                                                       | Description                                                                                                 |
 | ----------------------------- | -------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- |
 | name                          | string                                                                     | name of the guild (2-100 characters)                                                                        |
@@ -298,7 +297,6 @@ Create a new guild. Returns a [guild](#DOCS_RESOURCES_GUILD/guild-object) object
 | afk_channel_id?                | snowflake                                                                  | id for afk channel                                                                                          |
 | afk_timeout?                   | integer                                                                    | afk timeout in seconds                                                                                      |
 | system_channel_id?             | snowflake                                                                  | the id of the channel where guild notices such as welcome messages and boost events are posted              |
->>>>>>> pr/15
 
 > warn
 > When using the `roles` parameter, the first member of the array is used to change properties of the guild's `@everyone` role. If you are trying to bootstrap a guild with additional roles, keep this in mind.
