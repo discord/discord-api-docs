@@ -240,6 +240,16 @@ Bot accounts have a few differences in comparison to normal user accounts, namel
 
 Bot authorization is a special server-less and callback-less OAuth2 flow that makes it easy for users to add bots to guilds. The URL you create looks similar to what we use for full stack implementation:
 
+###### Bot Auth Parameters
+
+| name                 | description                                                           |
+| -------------------- | --------------------------------------------------------------------- |
+| client_id            | your app's client id                                                  |
+| scope                | needs to include `bot` for the bot flow                               |
+| permissions          | the [permissions](#DOCS_TOPICS_PERMISSIONS/) you're requesting        |
+| guild_id             | pre-fills the dropdown picker with a guild for the user               |
+| disable_guild_select | `true` or `false`—disallows the user from changing the guild dropdown |
+
 ###### URL Example
 
 ```
@@ -251,7 +261,7 @@ In the case of bots, the `scope` parameter should be set to `bot`. There's also 
 When the user navigates to this page, they'll be prompted to add the bot to a guild in which they have proper permissions. On acceptance, the bot will be added. Super easy!
 
 If you happen to already know the ID of the guild the user will add your bot to, you can provide this ID in the URL as a `guild_id=GUILD_ID` parameter.
-When the authorization page loads, that guild will be preselected in the dialog if that user has permissions to add the bot to that guild.
+When the authorization page loads, that guild will be preselected in the dialog if that user has permissions to add the bot to that guild. You can use this in conjunction with the parameter `disable_guild_select=true` to disallow the user from picking a different guild.
 
 If your bot is super specific to your private clubhouse, or you just don't like sharing, you can leave the `Public Bot` option unchecked in your application's settings. If unchecked, only you can add the bot to guilds. If marked as public, anyone with your bot's URL can add it to guilds in which they have proper permissions.
 

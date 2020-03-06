@@ -6,26 +6,27 @@ Represents a guild or DM channel within Discord.
 
 ###### Channel Structure
 
-| Field                  | Type                                                         | Description                                                  |
-| ---------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| id                     | snowflake                                                    | the id of this channel                                       |
-| type                   | integer                                                      | the [type of channel](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types) |
-| guild_id?              | snowflake                                                    | the id of the guild                                          |
-| position?              | integer                                                      | sorting position of the channel                              |
-| permission_overwrites? | array of [overwrite](#DOCS_RESOURCES_CHANNEL/overwrite-object) objects | explicit permission overwrites for members and roles         |
-| name?                  | string                                                       | the name of the channel (2-100 characters)                   |
-| topic?                 | ?string                                                      | the channel topic (0-1024 characters)                        |
-| nsfw?                  | boolean                                                      | whether the channel is nsfw                                  |
-| last_message_id?       | ?snowflake                                                   | the id of the last message sent in this channel (may not point to an existing or valid message) |
-| bitrate?               | integer                                                      | the bitrate (in bits) of the voice channel                   |
-| user_limit?            | integer                                                      | the user limit of the voice channel                          |
-| rate_limit_per_user?   | integer                                                      | amount of seconds a user has to wait before sending another message (0-21600); bots, as well as users with the permission `manage_messages` or `manage_channel`, are unaffected |
-| recipients?            | array of [user](#DOCS_RESOURCES_USER/user-object) objects    | the recipients of the DM                                     |
-| icon?                  | ?string                                                      | icon hash                                                    |
-| owner_id?              | snowflake                                                    | id of the DM creator                                         |
-| application_id?        | snowflake                                                    | application id of the group DM creator if it is bot-created  |
-| parent_id?             | ?snowflake                                                   | id of the parent category for a channel (each parent category can contain up to 50 channels) |
-| last_pin_timestamp?    | [ISO8601 timestamp](https://www.loc.gov/standards/datetime/iso-tc154-wg5_n0038_iso_wd_8601-1_2016-02-16.pdf) | when the last pinned message was pinned                      |
+| Field                  | Type                                                                                                         | Description                                                                                                                                                                     |
+| ---------------------- | ------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| id                     | snowflake                                                                                                    | the id of this channel                                                                                                                                                          |
+| type                   | integer                                                                                                      | the [type of channel](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types)                                                                                                     |
+| guild_id?              | snowflake                                                                                                    | the id of the guild                                                                                                                                                             |
+| position?              | integer                                                                                                      | sorting position of the channel                                                                                                                                                 |
+| permission_overwrites? | array of [overwrite](#DOCS_RESOURCES_CHANNEL/overwrite-object) objects                                       | explicit permission overwrites for members and roles                                                                                                                            |
+| name?                  | string                                                                                                       | the name of the channel (2-100 characters)                                                                                                                                      |
+| topic?                 | ?string                                                                                                      | the channel topic (0-1024 characters)                                                                                                                                           |
+| nsfw?                  | boolean                                                                                                      | whether the channel is nsfw                                                                                                                                                     |
+| last_message_id?       | ?snowflake                                                                                                   | the id of the last message sent in this channel (may not point to an existing or valid message)                                                                                 |
+| bitrate?               | integer                                                                                                      | the bitrate (in bits) of the voice channel                                                                                                                                      |
+| user_limit?            | integer                                                                                                      | the user limit of the voice channel                                                                                                                                             |
+| rate_limit_per_user?   | integer                                                                                                      | amount of seconds a user has to wait before sending another message (0-21600); bots, as well as users with the permission `manage_messages` or `manage_channel`, are unaffected |
+| recipients?            | array of [user](#DOCS_RESOURCES_USER/user-object) objects                                                    | the recipients of the DM                                                                                                                                                        |
+| icon?                  | ?string                                                                                                      | icon hash                                                                                                                                                                       |
+| owner_id?              | snowflake                                                                                                    | id of the DM creator                                                                                                                                                            |
+| application_id?        | snowflake                                                                                                    | application id of the group DM creator if it is bot-created                                                                                                                     |
+| parent_id?             | ?snowflake                                                                                                   | id of the parent category for a channel (each parent category can contain up to 50 channels)                                                                                    |
+| last_pin_timestamp?    | [ISO8601 timestamp](https://www.loc.gov/standards/datetime/iso-tc154-wg5_n0038_iso_wd_8601-1_2016-02-16.pdf) | when the last pinned message was pinned                                                                                                                                         |
+
 
 ###### Channel Types
 
@@ -35,7 +36,7 @@ Represents a guild or DM channel within Discord.
 | DM             | 1   | a direct message between users                                                                                                                          |
 | GUILD_VOICE    | 2   | a voice channel within a server                                                                                                                         |
 | GROUP_DM       | 3   | a direct message between multiple users                                                                                                                 |
-| GUILD_CATEGORY | 4   | an [organizational category](https://support.discordapp.com/hc/en-us/articles/115001580171-Channel-Categories-101) that contains up to 50 channels               |
+| GUILD_CATEGORY | 4   | an [organizational category](https://support.discordapp.com/hc/en-us/articles/115001580171-Channel-Categories-101) that contains up to 50 channels      |
 | GUILD_NEWS     | 5   | a channel that [users can follow and crosspost into their own server](https://support.discordapp.com/hc/en-us/articles/360032008192)                    |
 | GUILD_STORE    | 6   | a channel in which game developers can [sell their game on Discord](https://discordapp.com/developers/docs/game-and-server-management/special-channels) |
 
@@ -176,32 +177,32 @@ Represents a message sent in a channel within Discord.
 
 ###### Message Structure
 
-| Field                     | Type                                                         | Description                                                  |
-| ------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| id                        | snowflake                                                    | id of the message                                            |
-| channel_id                | snowflake                                                    | id of the channel the message was sent in                    |
-| guild_id?                 | snowflake                                                    | id of the guild the message was sent in                      |
-| author\*                  | [user](#DOCS_RESOURCES_USER/user-object) object              | the author of this message (not guaranteed to be a valid user, see below) |
-| member?\*\*               | partial [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) object | member properties for this message's author                  |
-| content                   | string                                                       | contents of the message                                      |
-| timestamp                 | [ISO8601 timestamp](https://www.loc.gov/standards/datetime/iso-tc154-wg5_n0038_iso_wd_8601-1_2016-02-16.pdf) | when this message was sent                                   |
-| edited_timestamp          | ?[ISO8601 timestamp](https://www.loc.gov/standards/datetime/iso-tc154-wg5_n0038_iso_wd_8601-1_2016-02-16.pdf) | when this message was edited (or null if never)              |
-| tts                       | boolean                                                      | whether this was a TTS message                               |
-| mention_everyone          | boolean                                                      | whether this message mentions everyone                       |
-| mentions\*\*\*            | array of [user](#DOCS_RESOURCES_USER/user-object) objects, with an additional partial [member](#DOCS_RESOURCES_GUILD/guild-member-object) field | users specifically mentioned in the message                  |
-| mention_roles             | array of [role](#DOCS_TOPICS_PERMISSIONS/role-object) object ids | roles specifically mentioned in this message                 |
-| mention_channels?\*\*\*\* | array of [channel mention](#DOCS_RESOURCES_CHANNEL/channel-mention-object) objects | channels specifically mentioned in this message              |
-| attachments               | array of [attachment](#DOCS_RESOURCES_CHANNEL/attachment-object) objects | any attached files                                           |
-| embeds                    | array of [embed](#DOCS_RESOURCES_CHANNEL/embed-object) objects | any embedded content                                         |
-| reactions?                | array of [reaction](#DOCS_RESOURCES_CHANNEL/reaction-object) objects | reactions to the message                                     |
-| nonce?                    | integer or string                                            | used for validating a message was sent                       |
-| pinned                    | boolean                                                      | whether this message is pinned                               |
-| webhook_id?               | snowflake                                                    | if the message is generated by a webhook, this is the webhook's id |
-| type                      | integer                                                      | [type of message](#DOCS_RESOURCES_CHANNEL/message-object-message-types) |
-| activity?                 | [message activity](#DOCS_RESOURCES_CHANNEL/message-object-message-activity-structure) object | sent with Rich Presence-related chat embeds                  |
-| application?              | [message application](#DOCS_RESOURCES_CHANNEL/message-object-message-application-structure) object | sent with Rich Presence-related chat embeds                  |
-| message_reference?        | [message_reference](#DOCS_RESOURCES_CHANNEL/message-object-message-reference-structure) object | reference data sent with crossposted messages                |
-| flags?                    | integer                                                      | [message flags](#DOCS_RESOURCES_CHANNEL/message-object-message-flags) `OR`d together, describes extra features of the message |
+| Field                     | Type                                                                                                                                            | Description                                                                                                                   |
+| ------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| id                        | snowflake                                                                                                                                       | id of the message                                                                                                             |
+| channel_id                | snowflake                                                                                                                                       | id of the channel the message was sent in                                                                                     |
+| guild_id?                 | snowflake                                                                                                                                       | id of the guild the message was sent in                                                                                       |
+| author\*                  | [user](#DOCS_RESOURCES_USER/user-object) object                                                                                                 | the author of this message (not guaranteed to be a valid user, see below)                                                     |
+| member?\*\*               | partial [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) object                                                                        | member properties for this message's author                                                                                   |
+| content                   | string                                                                                                                                          | contents of the message                                                                                                       |
+| timestamp                 | [ISO8601 timestamp](https://www.loc.gov/standards/datetime/iso-tc154-wg5_n0038_iso_wd_8601-1_2016-02-16.pdf)                                    | when this message was sent                                                                                                    |
+| edited_timestamp          | ?[ISO8601 timestamp](https://www.loc.gov/standards/datetime/iso-tc154-wg5_n0038_iso_wd_8601-1_2016-02-16.pdf)                                   | when this message was edited (or null if never)                                                                               |
+| tts                       | boolean                                                                                                                                         | whether this was a TTS message                                                                                                |
+| mention_everyone          | boolean                                                                                                                                         | whether this message mentions everyone                                                                                        |
+| mentions\*\*\*            | array of [user](#DOCS_RESOURCES_USER/user-object) objects, with an additional partial [member](#DOCS_RESOURCES_GUILD/guild-member-object) field | users specifically mentioned in the message                                                                                   |
+| mention_roles             | array of [role](#DOCS_TOPICS_PERMISSIONS/role-object) object ids                                                                                | roles specifically mentioned in this message                                                                                  |
+| mention_channels?\*\*\*\* | array of [channel mention](#DOCS_RESOURCES_CHANNEL/channel-mention-object) objects                                                              | channels specifically mentioned in this message                                                                               |
+| attachments               | array of [attachment](#DOCS_RESOURCES_CHANNEL/attachment-object) objects                                                                        | any attached files                                                                                                            |
+| embeds                    | array of [embed](#DOCS_RESOURCES_CHANNEL/embed-object) objects                                                                                  | any embedded content                                                                                                          |
+| reactions?                | array of [reaction](#DOCS_RESOURCES_CHANNEL/reaction-object) objects                                                                            | reactions to the message                                                                                                      |
+| nonce?                    | integer or string                                                                                                                               | used for validating a message was sent                                                                                        |
+| pinned                    | boolean                                                                                                                                         | whether this message is pinned                                                                                                |
+| webhook_id?               | snowflake                                                                                                                                       | if the message is generated by a webhook, this is the webhook's id                                                            |
+| type                      | integer                                                                                                                                         | [type of message](#DOCS_RESOURCES_CHANNEL/message-object-message-types)                                                       |
+| activity?                 | [message activity](#DOCS_RESOURCES_CHANNEL/message-object-message-activity-structure) object                                                    | sent with Rich Presence-related chat embeds                                                                                   |
+| application?              | [message application](#DOCS_RESOURCES_CHANNEL/message-object-message-application-structure) object                                              | sent with Rich Presence-related chat embeds                                                                                   |
+| message_reference?        | [message_reference](#DOCS_RESOURCES_CHANNEL/message-object-message-reference-structure) object                                                  | reference data sent with crossposted messages                                                                                 |
+| flags?                    | integer                                                                                                                                         | [message flags](#DOCS_RESOURCES_CHANNEL/message-object-message-flags) `OR`d together, describes extra features of the message |
 
 \* The author object follows the structure of the user object, but is only a valid user in the case where the message is generated by a user or bot user. If the message is generated by a webhook, the author object corresponds to the webhook's id, username, and avatar. You can tell if a message is generated by a webhook by checking for the `webhook_id` on the message object.
 
@@ -228,6 +229,8 @@ Represents a message sent in a channel within Discord.
 | USER_PREMIUM_GUILD_SUBSCRIPTION_TIER_2 | 10    |
 | USER_PREMIUM_GUILD_SUBSCRIPTION_TIER_3 | 11    |
 | CHANNEL_FOLLOW_ADD                     | 12    |
+| GUILD_DISCOVERY_DISQUALIFIED           | 14    |
+| GUILD_DISCOVERY_REQUALIFIED            | 15    |
 
 ###### Message Activity Structure
 
@@ -384,21 +387,35 @@ Represents a message sent in a channel within Discord.
 
 ###### Embed Structure
 
-| Field        | Type                                                         | Description                                      |
-| ------------ | ------------------------------------------------------------ | ------------------------------------------------ |
-| title?       | string                                                       | title of embed                                   |
-| type?        | string                                                       | type of embed (always "rich" for webhook embeds) |
-| description? | string                                                       | description of embed                             |
-| url?         | string                                                       | url of embed                                     |
-| timestamp?   | [ISO8601 timestamp](https://www.loc.gov/standards/datetime/iso-tc154-wg5_n0038_iso_wd_8601-1_2016-02-16.pdf) | timestamp of embed content                       |
-| color?       | integer                                                      | color code of the embed                          |
-| footer?      | [embed footer](#DOCS_RESOURCES_CHANNEL/embed-object-embed-footer-structure) object | footer information                               |
-| image?       | [embed image](#DOCS_RESOURCES_CHANNEL/embed-object-embed-image-structure) object | image information                                |
-| thumbnail?   | [embed thumbnail](#DOCS_RESOURCES_CHANNEL/embed-object-embed-thumbnail-structure) object | thumbnail information                            |
-| video?       | [embed video](#DOCS_RESOURCES_CHANNEL/embed-object-embed-video-structure) object | video information                                |
-| provider?    | [embed provider](#DOCS_RESOURCES_CHANNEL/embed-object-embed-provider-structure) object | provider information                             |
-| author?      | [embed author](#DOCS_RESOURCES_CHANNEL/embed-object-embed-author-structure) object | author information                               |
-| fields?      | array of [embed field](#DOCS_RESOURCES_CHANNEL/embed-object-embed-field-structure) objects | fields information                               |
+| Field        | Type                                                                                                         | Description                                                                                          |
+| ------------ | ------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------- |
+| title?       | string                                                                                                       | title of embed                                                                                       |
+| type?        | string                                                                                                       | [type of embed](#DOCS_RESOURCES_CHANNEL/embed-object-embed-types) (always "rich" for webhook embeds) |
+| description? | string                                                                                                       | description of embed                                                                                 |
+| url?         | string                                                                                                       | url of embed                                                                                         |
+| timestamp?   | [ISO8601 timestamp](https://www.loc.gov/standards/datetime/iso-tc154-wg5_n0038_iso_wd_8601-1_2016-02-16.pdf) | timestamp of embed content                                                                           |
+| color?       | integer                                                                                                      | color code of the embed                                                                              |
+| footer?      | [embed footer](#DOCS_RESOURCES_CHANNEL/embed-object-embed-footer-structure) object                           | footer information                                                                                   |
+| image?       | [embed image](#DOCS_RESOURCES_CHANNEL/embed-object-embed-image-structure) object                             | image information                                                                                    |
+| thumbnail?   | [embed thumbnail](#DOCS_RESOURCES_CHANNEL/embed-object-embed-thumbnail-structure) object                     | thumbnail information                                                                                |
+| video?       | [embed video](#DOCS_RESOURCES_CHANNEL/embed-object-embed-video-structure) object                             | video information                                                                                    |
+| provider?    | [embed provider](#DOCS_RESOURCES_CHANNEL/embed-object-embed-provider-structure) object                       | provider information                                                                                 |
+| author?      | [embed author](#DOCS_RESOURCES_CHANNEL/embed-object-embed-author-structure) object                           | author information                                                                                   |
+| fields?      | array of [embed field](#DOCS_RESOURCES_CHANNEL/embed-object-embed-field-structure) objects                   | fields information                                                                                   |
+
+###### Embed Types
+
+Embed types are "loosely defined" and, for the most part, are not used by our clients for rendering. Embed attributes power what is rendered. Embed types should be considered deprecated and might be removed in a future API version.
+
+| Type    | Description                                        |
+| ------- | -------------------------------------------------- |
+| rich    | generic embed rendered from embed attributes       |
+| image   | image embed                                        |
+| video   | video embed                                        |
+| gifv    | animated gif image embed rendered as a video embed |
+| article | article embed                                      |
+| link    | link embed                                         |
+
 
 ###### Embed Thumbnail Structure
 
@@ -483,6 +500,107 @@ Represents a message sent in a channel within Discord.
 | type     | integer   | the [type of channel](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types) |
 | name     | string    | the name of the channel                                                     |
 
+### Allowed Mentions Object
+
+The allowed mention field allows for more granular control over mentions without various hacks to the message content. This will always validate against message content to avoid phantom pings (e.g. to ping everyone, you must still have `@everyone` in the message content), and check against user/bot permissions.
+
+###### Allowed Mention Types
+
+| Type              | Value      | Description                           |
+| ----------------- | ---------- | ------------------------------------- |
+| Role Mentions     | "roles"    | Controls role mentions                |
+| User Mentions     | "users"    | Controls user mentions                |
+| Everyone Mentions | "everyone" | Controls @everyone and @here mentions |
+
+###### Allowed Mentions Structure
+
+| Field | Type                           | Description                                                                                                                           |
+| ----- | ------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------- |
+| parse | array of allowed mention types | An array of [allowed mention types](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object-allowed-mention-types) to parse from the content. |
+| roles | list of snowflakes             | Array of role_ids to mention (Max size of 100)                                                                                        |
+| users | list of snowflakes             | Array of user_ids to mention (Max size of 100)                                                                                        |
+
+###### Allowed Mentions Reference
+
+Due to the complexity of possibilities, we have included a set of examples and behavior for the allowed mentions field.
+
+If `allowed_mentions` is _not_ passed in (i.e. the key does not exist), the mentions will be parsed via the content. This corresponds with existing behavior.
+
+In the example below we would ping @here (and also @role124 and @user123)
+
+```json
+{
+  "content": "@here Hi there from <@123>, cc <@&124>"
+}
+```
+
+To suppress all mentions in a message use:
+
+```json
+{
+  "content": "@everyone hi there, <@&123>",
+  "allowed_mentions": {
+    "parse": []
+  }
+}
+```
+
+This will suppress _all_ mentions in the message (no @everyone or user mention).
+
+The `parse` field is mutually exclusive with the other fields. In the example below, we would ping users `123` and role `124`, but _not_ @everyone. Note that passing a `Falsy` value ([], null) into the "users" field does not trigger a validation error.
+
+```json
+{
+  "content": "@everyone <@123> <@&124>",
+  "allowed_mentions": {
+    "parse": ["users", "roles"],
+    "users": []
+  }
+}
+```
+
+In the next example, we would ping @everyone, (and also users `123` and `124` if they suppressed
+@everyone mentions), but we would not ping any roles.
+
+```json
+{
+  "content": "@everyone <@123> <@124> <@125> <@&200>",
+  "allowed_mentions": {
+    "parse": ["everyone"],
+    "users": ["123", "124"]
+  }
+}
+```
+
+Due to possible ambiguities, not all configurations are valid. An _invalid_ configuration is as follows
+
+```json
+{
+  "content": "@everyone <@123> <@124> <@125> <@&200>",
+  "allowed_mentions": {
+    "parse": ["users"],
+    "users": ["123", "124"]
+  }
+}
+```
+
+Because `parse: ["users"]` and `users: [123, 124]` are both present, we would throw a validation error.
+This is because the conditions cannot be fulfilled simultaneously (they are mutually exclusive).
+
+The ID list fields act as whitelists, and can contain mentions not in the content. These ID's that are not in the
+content will simply be ignored.
+e.g. The following example is valid, and would mention user 123, but _not_ user 125 since there is no mention of
+user 125 in the content.
+
+```json
+{
+    "content": "<@123> Time for some memes.",
+    "allowed_mentions": {
+        "users": ["123", "125"]
+    }
+}
+```
+
 ## Embed Limits
 
 To facilitate showing rich content, rich embeds do not follow the traditional limits of message content. However, some limits are still in place to prevent excessively large embeds. The following table describes the limits:
@@ -558,7 +676,7 @@ Returns a specific message in the channel. If operating on a guild channel, this
 > Before using this endpoint, you must connect to and identify with a [gateway](#DOCS_TOPICS_GATEWAY/gateways) at least once.
 
 > warn
-> Discord may strip certain characters from message content, like invalid unicode characters or characters which cause unexpected message formatting. If you are passing user-generated strings into message content, consider sanitizing the data to prevent unexpected behavior. For example, to prevent unexpected mentions you could consider stripping `@` characters or placing a zero-width space (U-200B) after them.
+> Discord may strip certain characters from message content, like invalid unicode characters or characters which cause unexpected message formatting. If you are passing user-generated strings into message content, consider sanitizing the data to prevent unexpected behavior and utilizing `allowed_mentions` to prevent unexpected mentions.
 
 Post a message to a guild text or DM channel. If operating on a guild channel, this endpoint requires the `SEND_MESSAGES` permission to be present on the current user. If the `tts` field is set to `true`, the `SEND_TTS_MESSAGES` permission is required for the message to be spoken. Returns a [message](#DOCS_RESOURCES_CHANNEL/message-object) object. Fires a [Message Create](#DOCS_TOPICS_GATEWAY/message-create) Gateway event. See [message formatting](#DOCS_REFERENCE/message-formatting) for more information on how to properly format messages.
 
@@ -571,14 +689,15 @@ This endpoint supports requests with `Content-Type`s of both `application/json` 
 
 ###### Params
 
-| Field        | Type                                                 | Description                                             |
-| ------------ | ---------------------------------------------------- | ------------------------------------------------------- |
-| content      | string                                               | the message contents (up to 2000 characters)            |
-| nonce        | integer or string                                    | a nonce that can be used for optimistic message sending |
-| tts          | boolean                                              | true if this is a TTS message                           |
-| file         | file contents                                        | the contents of the file being sent                     |
-| embed        | [embed](#DOCS_RESOURCES_CHANNEL/embed-object) object | embedded `rich` content                                 |
-| payload_json | string                                               | JSON encoded body of any additional request fields.     |
+| Field            | Type                                                                       | Description                                             |
+| ---------------- | -------------------------------------------------------------------------- | ------------------------------------------------------- |
+| content          | string                                                                     | the message contents (up to 2000 characters)            |
+| nonce            | integer or string                                                          | a nonce that can be used for optimistic message sending |
+| tts              | boolean                                                                    | true if this is a TTS message                           |
+| file             | file contents                                                              | the contents of the file being sent                     |
+| embed            | [embed](#DOCS_RESOURCES_CHANNEL/embed-object) object                       | embedded `rich` content                                 |
+| payload_json     | string                                                                     | JSON encoded body of any additional request fields.     |
+| allowed_mentions | [allowed_mentions](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object) object | allowed mentions for a message                          |
 
 > info
 > For the embed object, you can set every field except `type` (it will be `rich` regardless of if you try to set it), `provider`, `video`, and any `height`, `width`, or `proxy_url` values for images.
@@ -633,21 +752,28 @@ For example:
 > warn
 > Only filenames with proper image extensions are supported for the time being.
 
-## Create Reaction % PUT /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}/reactions/{emoji#DOCS_RESOURCES_EMOJI/emoji-object}/@me
+> info
+> The the following endpoints, `emoji` takes the form of `name:id` for custom guild emoji, or Unicode characters.
 
-Create a reaction for the message. `emoji` takes the form of `name:id` for custom guild emoji, or Unicode characters. This endpoint requires the 'READ_MESSAGE_HISTORY' permission to be present on the current user. Additionally, if nobody else has reacted to the message using this emoji, this endpoint requires the 'ADD_REACTIONS' permission to be present on the current user. Returns a 204 empty response on success.
+## Create Reaction % PUT /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}/reactions/{emoji#DOCS_RESOURCES_EMOJI/emoji-object}
+
+Create a reaction for the message. This endpoint requires the 'READ_MESSAGE_HISTORY' permission to be present on the current user. Additionally, if nobody else has reacted to the message using this emoji, this endpoint requires the 'ADD_REACTIONS' permission to be present on the current user. Returns a 204 empty response on success.
+The `emoji` must be [URL Encoded](https://en.wikipedia.org/wiki/Percent-encoding) or the request will fail with `10014: Unknown Emoji`.
 
 ## Delete Own Reaction % DELETE /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}/reactions/{emoji#DOCS_RESOURCES_EMOJI/emoji-object}/@me
 
 Delete a reaction the current user has made for the message. Returns a 204 empty response on success.
+The `emoji` must be [URL Encoded](https://en.wikipedia.org/wiki/Percent-encoding) or the request will fail with `10014: Unknown Emoji`.
 
 ## Delete User Reaction % DELETE /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}/reactions/{emoji#DOCS_RESOURCES_EMOJI/emoji-object}/{user.id#DOCS_RESOURCES_USER/user-object}
 
 Deletes another user's reaction. This endpoint requires the 'MANAGE_MESSAGES' permission to be present on the current user. Returns a 204 empty response on success.
+The `emoji` must be [URL Encoded](https://en.wikipedia.org/wiki/Percent-encoding) or the request will fail with `10014: Unknown Emoji`.
 
 ## Get Reactions % GET /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}/reactions/{emoji#DOCS_RESOURCES_EMOJI/emoji-object}
 
 Get a list of users that reacted with this emoji. Returns an array of [user](#DOCS_RESOURCES_USER/user-object) objects on success.
+The `emoji` must be [URL Encoded](https://en.wikipedia.org/wiki/Percent-encoding) or the request will fail with `10014: Unknown Emoji`.
 
 ###### Query String Params
 
@@ -659,7 +785,12 @@ Get a list of users that reacted with this emoji. Returns an array of [user](#DO
 
 ## Delete All Reactions % DELETE /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}/reactions
 
-Deletes all reactions on a message. This endpoint requires the 'MANAGE_MESSAGES' permission to be present on the current user.
+Deletes all reactions on a message. This endpoint requires the 'MANAGE_MESSAGES' permission to be present on the current user. Fires a [Message Reaction Remove All](#DOCS_TOPICS_GATEWAY/message-reaction-remove-all) Gateway event.
+
+## Delete All Reactions for Emoji % DELETE /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}/reactions/{emoji#DOCS_RESOURCES_EMOJI/emoji-object}
+
+Deletes all the reactions for a given emoji on a message. This endpoint requires the `MANAGE_MESSAGES` permission to be present on the current user. Fires a [Message Reaction Remove Emoji](#DOCS_TOPICS_GATEWAY/message-reaction-remove-emoji) Gateway event.
+The `emoji` must be [URL Encoded](https://en.wikipedia.org/wiki/Percent-encoding) or the request will fail with `10014: Unknown Emoji`.
 
 ## Edit Message % PATCH /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}
 
@@ -719,7 +850,7 @@ Returns a list of [invite](#DOCS_RESOURCES_INVITE/invite-object) objects (with [
 
 ## Create Channel Invite % POST /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/invites
 
-Create a new [invite](#DOCS_RESOURCES_INVITE/invite-object) object for the channel. Only usable for guild channels. Requires the `CREATE_INSTANT_INVITE` permission. All JSON parameters for this route are optional, however the request body is not. If you are not sending any fields, you still have to send an empty JSON object (`{}`). Returns an [invite](#DOCS_RESOURCES_INVITE/invite-object) object.
+Create a new [invite](#DOCS_RESOURCES_INVITE/invite-object) object for the channel. Only usable for guild channels. Requires the `CREATE_INSTANT_INVITE` permission. All JSON parameters for this route are optional, however the request body is not. If you are not sending any fields, you still have to send an empty JSON object (`{}`). Returns an [invite](#DOCS_RESOURCES_INVITE/invite-object) object. Fires a [Invite Create](#DOCS_TOPICS_GATEWAY/invite-create) Gateway event.
 
 ###### JSON Params
 

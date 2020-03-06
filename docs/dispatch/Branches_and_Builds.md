@@ -546,7 +546,7 @@ Your manifest would look something like this:
           "mappings": [
             {
               "local_path": ".",
-              "install_Path": "./game_data/Assets/AssetBundles/DLC" // Puts the DLC in the proper folder structure
+              "install_path": "./game_data/Assets/AssetBundles/DLC" // Puts the DLC in the proper folder structure
             }
           ]
         }

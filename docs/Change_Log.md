@@ -1,5 +1,28 @@
 # Change Log
 
+## New Allowed Mentions Object
+
+#### March 3, 2020
+
+We've added a way to specify mentions in a more granular form. This change also begins the start of a 60 day deprecation cycle on legacy mention behavior. Read more:
+
+- [Allowed mentions object](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object)
+
+## New Invite Events and Reactions Endpoint
+
+We've added a new endpoint for deleting all reactions of a specific emoji from a message, as well as some new invite and reaction gateway events. Read more:
+
+- [Delete All Reactions for Emoji](#DOCS_RESOURCES_CHANNEL/delete-all-reactions-for-emoji)
+- [Invite Create](#DOCS_TOPICS_GATEWAY/invite-create)
+- [Invite Delete](#DOCS_TOPICS_GATEWAY/invite-delete)
+- [Message Reaction Remove Emoji](#DOCS_TOPICS_GATEWAY/message-reaction-remove-emoji)
+
+## Rich Presence Spectate Approval
+
+#### February 26, 2020
+
+The [Spectate](#DOCS_GAME_SDK_ACTIVITIES/onactivityspectate) functionality of Rich Presence no longer requires whitelisting or approval.
+
 ## Gateway Intents
 
 #### February 14, 2020
