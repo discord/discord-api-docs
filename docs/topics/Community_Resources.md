@@ -57,6 +57,12 @@ Using Discord's [Dispatch](#DOCS_DISPATCH_DISPATCH_AND_YOU) tool for game develo
 - [FiniteReality's Permissions Calculator](https://finitereality.github.io/permissions-calculator/?v=0)
 - [abalabahaha's Permissions Calculator](https://discordapi.com/permissions.html#0)
 
+## Intent Calculators
+
+[Gateway Intents](#DOCS_TOPICS_GATEWAY/gateway-intents) are pretty confusing at first. If you're not sure what to send in your [identify payload](#DOCS_TOPICS_GATEWAY/identify), then this tool may be of help:
+
+- [ziad87's Intent Calculator](https://ziad87.me/intents/)
+
 ## Embed Visualizer
 
 Webhooks and embeds might seem like black magic. That's because they are, but let us help you demystify them a bit. This sweet embed visualizer lets you play around with JSON data and see exactly how it will look embedded in Discord. It even includes a webhook mode!
