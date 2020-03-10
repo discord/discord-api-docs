@@ -41,6 +41,7 @@ Below is a table of all current permissions, their integer values in hexadecimal
 | READ_MESSAGE_HISTORY  | `0x00010000` | Allows for reading of message history                                                                                              | T            |
 | MENTION_EVERYONE      | `0x00020000` | Allows for using the `@everyone` tag to notify all users in a channel, and the `@here` tag to notify all online users in a channel | T            |
 | USE_EXTERNAL_EMOJIS   | `0x00040000` | Allows the usage of custom emojis from other servers                                                                               | T            |
+| VIEW_GUILD_INSIGHTS   | `0x00080000` | Allows for viewing guild insights                                                                                                  |              |
 | CONNECT               | `0x00100000` | Allows for joining of a voice channel                                                                                              | V            |
 | SPEAK                 | `0x00200000` | Allows for speaking in a voice channel                                                                                             | V            |
 | MUTE_MEMBERS          | `0x00400000` | Allows for muting members in a voice channel                                                                                       | V            |
