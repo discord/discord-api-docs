@@ -108,7 +108,10 @@ Once connected, the client should immediately receive an [Opcode 10 Hello](#DOCS
 
 ```json
 {
-  "heartbeat_interval": 45000
+  "op": 10,
+  "d": {
+    "heartbeat_interval": 45000
+  }
 }
 ```
 
@@ -141,11 +144,14 @@ This is a minimal `IDENTIFY` payload. `IDENTIFY` supports additional optional fi
 
 ```json
 {
-  "token": "my_token",
-  "properties": {
-    "$os": "linux",
-    "$browser": "my_library",
-    "$device": "my_library"
+  "op": 2,
+  "d": {
+    "token": "my_token",
+    "properties": {
+      "$os": "linux",
+      "$browser": "my_library",
+      "$device": "my_library"
+    }
   }
 }
 ```
@@ -165,9 +171,12 @@ Your client should store the `session_id` from the [Ready](#DOCS_TOPICS_GATEWAY/
 
 ```json
 {
-  "token": "my_token",
-  "session_id": "session_id_i_stored",
-  "seq": 1337
+  "op": 6,
+  "d": {
+    "token": "my_token",
+    "session_id": "session_id_i_stored",
+    "seq": 1337
+  }
 }
 ```
 
@@ -415,28 +424,31 @@ Used to trigger the initial handshake with the gateway.
 
 ```json
 {
-  "token": "my_token",
-  "properties": {
-    "$os": "linux",
-    "$browser": "disco",
-    "$device": "disco"
-  },
-  "compress": true,
-  "large_threshold": 250,
-  "guild_subscriptions": false,
-  "shard": [0, 1],
-  "presence": {
-    "game": {
-      "name": "Cards Against Humanity",
-      "type": 0
+  "op": 2,
+  "d": {
+    "token": "my_token",
+    "properties": {
+      "$os": "linux",
+      "$browser": "disco",
+      "$device": "disco"
     },
-    "status": "dnd",
-    "since": 91879201,
-    "afk": false
-  },
-  // This intent represents 1 << 0 for GUILDS, 1 << 1 for GUILD_MEMBERS, and 1 << 2 for GUILD_BANS
-  // This connection will only receive the events defined in those three intents
-  "intents": 7
+    "compress": true,
+    "large_threshold": 250,
+    "guild_subscriptions": false,
+    "shard": [0, 1],
+    "presence": {
+      "game": {
+        "name": "Cards Against Humanity",
+        "type": 0
+      },
+      "status": "dnd",
+      "since": 91879201,
+      "afk": false
+    },
+    // This intent represents 1 << 0 for GUILDS, 1 << 1 for GUILD_MEMBERS, and 1 << 2 for GUILD_BANS
+    // This connection will only receive the events defined in those three intents
+    "intents": 7
+  }
 }
 ```
 
@@ -456,9 +468,12 @@ Used to replay missed events when a disconnected client resumes.
 
 ```json
 {
-  "token": "randomstring",
-  "session_id": "evenmorerandomstring",
-  "seq": 1337
+  "op": 6,
+  "d": {
+    "token": "randomstring",
+    "session_id": "evenmorerandomstring",
+    "seq": 1337
+  }
 }
 ```
 
@@ -501,9 +516,12 @@ If you are using [Gateway Intents](#DOCS_TOPICS_GATEWAY/gateway-intents), there 
 
 ```json
 {
-  "guild_id": "41771983444115456",
-  "query": "",
-  "limit": 0
+  "op": 8,
+  "d": {
+    "guild_id": "41771983444115456",
+    "query": "",
+    "limit": 0
+  }
 }
 ```
 
@@ -524,10 +542,13 @@ Sent when a client wants to join, move, or disconnect from a voice channel.
 
 ```json
 {
-  "guild_id": "41771983423143937",
-  "channel_id": "127121515262115840",
-  "self_mute": false,
-  "self_deaf": false
+  "op": 4,
+  "d": {
+    "guild_id": "41771983423143937",
+    "channel_id": "127121515262115840",
+    "self_mute": false,
+    "self_deaf": false
+  }
 }
 ```
 
@@ -558,13 +579,16 @@ Sent by the client to indicate a presence or status update.
 
 ```json
 {
-  "since": 91879201,
-  "game": {
-    "name": "Save the Oxford Comma",
-    "type": 0
-  },
-  "status": "online",
-  "afk": false
+  "op": 3,
+  "d": {
+    "since": 91879201,
+    "game": {
+      "name": "Save the Oxford Comma",
+      "type": 0
+    },
+    "status": "online",
+    "afk": false
+  }
 }
 ```
 
@@ -584,7 +608,10 @@ Sent on connection to the websocket. Defines the heartbeat interval that the cli
 
 ```json
 {
-  "heartbeat_interval": 45000
+  "op": 10,
+  "d": {
+    "heartbeat_interval": 45000
+  }
 }
 ```
 
