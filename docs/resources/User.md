@@ -77,6 +77,7 @@ Premium types denote the level of premium a user has. Visit the [Nitro](https://
 
 | Value | Name          |
 | ----- | ------------- |
+| 0     | None          |
 | 1     | Nitro Classic |
 | 2     | Nitro         |
 
