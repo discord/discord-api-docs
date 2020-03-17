@@ -161,6 +161,40 @@ A partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object. Represents an Offl
 }
 ```
 
+### Guild Preview Object
+
+###### Guild Preview Structure
+
+| Field                      | Type                                                                                | Description                                               |
+| -------------------------- | ----------------------------------------------------------------------------------- | --------------------------------------------------------- |
+| id                         | snowflake                                                                           | guild id                                                  |
+| name                       | string                                                                              | guild name (2-100 characters)                             |
+| icon                       | ?string                                                                             | [icon hash](#DOCS_REFERENCE/image-formatting)             |
+| splash                     | ?string                                                                             | [splash hash](#DOCS_REFERENCE/image-formatting)           |
+| discovery_splash           | ?string                                                                             | [discovery splash hash](#DOCS_REFERENCE/image-formatting) |
+| emojis                     | array of [emoji](#DOCS_RESOURCES_EMOJI/emoji-object) objects                        | custom guild emojis                                       |
+| features                   | array of [guild feature](#DOCS_RESOURCES_GUILD/guild-object-guild-features) strings | enabled guild features                                    |
+| approximate_member_count   | integer                                                                             | approximate number of members in this guild               |
+| approximate_presence_count | integer                                                                             | approximate number of online members in this guild        |
+| description                | ?string                                                                             | the description for the guild                             |
+
+###### Example Guild Preview
+
+```json
+{
+  "id": "197038439483310086",
+  "name": "Discord Testers",
+  "icon": "f64c482b807da4f539cff778d174971c",
+  "splash": null,
+  "discovery_splash": null,
+  "emojis": [],
+  "features": ["DISCOVERABLE", "VANITY_URL", "ANIMATED_ICON", "INVITE_SPLASH", "NEWS", "PUBLIC", "BANNER", "VERIFIED", "MORE_EMOJI"],
+  "approximate_member_count": 60814,
+  "approximate_presence_count": 20034,
+  "description": "The official place to report Discord Bugs!"
+}
+```
+
 ### Guild Embed Object
 
 ###### Guild Embed Structure
@@ -327,6 +361,13 @@ Create a new guild. Returns a [guild](#DOCS_RESOURCES_GUILD/guild-object) object
 ## Get Guild % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}
 
 Returns the [guild](#DOCS_RESOURCES_GUILD/guild-object) object for the given id.
+
+## Get Guild Preview % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/preview
+
+Returns the [guild preview](#DOCS_RESOURCES_GUILD/guild-preview-object) object for the given id, even if the user is not in the guild.
+
+> info
+> This endpoint is only for Public guilds
 
 ## Modify Guild % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}
 
