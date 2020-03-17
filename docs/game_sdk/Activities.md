@@ -78,7 +78,9 @@ For more detailed information and documentation around the Rich Presence feature
 | Playing   | 0     |
 | Streaming | 1     |
 | Listening | 2     |
-| Watching  | 3     |
+| Custom    | 4     |
+
+For more details about the activity types, [see Gateway documentation](#DOCS_TOPICS_GATEWAY/activity-object-activity-types).
 
 `ActivityType` is strictly for the purpose of handling events that you receive from Discord; though the SDK/our API will not reject a payload with an `ActivityType` sent, it will be discarded and will not change anything in the client.
 
