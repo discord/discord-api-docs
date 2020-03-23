@@ -792,7 +792,7 @@ Sent when a guild member is updated. This will also fire when the user object of
 | guild_id      | snowflake                                         | the id of the guild                                                                                                         |
 | roles         | array of snowflakes                               | user role ids                                                                                                               |
 | user          | a [user](#DOCS_RESOURCES_USER/user-object) object | the user                                                                                                                    |
-| nick          | ?string                                           | nickname of the user in the guild                                                                                           |
+| nick?         | ?string                                           | nickname of the user in the guild                                                                                           |
 | premium_since | ?ISO8601 timestamp                                | when the user starting [boosting](https://support.discordapp.com/hc/en-us/articles/360028038352-Server-Boosting-) the guild |
 
 #### Guild Members Chunk
