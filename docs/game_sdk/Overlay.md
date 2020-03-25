@@ -3,6 +3,9 @@
 > info
 > Need help with the SDK? Talk to us in the [Discord GameSDK Server](https://discord.gg/discord-gamesdk)!
 
+> warn
+> Game approval submissions are currently paused due to unforeseen circumstances. We apologize for the inconvenience. [Click here for more info.](https://support-dev.discordapp.com/hc/en-us/articles/360041437171)
+
 Discord comes with an awesome built-in overlay, and you may want to make use of it for your game. This manager will help you do just that! It:
 
 - Gives you the current state of the overlay for the user

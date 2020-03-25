@@ -3,6 +3,9 @@
 > info
 > Need help with the SDK? Talk to us in the [Discord GameSDK Server](https://discord.gg/discord-gamesdk)!
 
+> warn
+> Game approval submissions are currently paused due to unforeseen circumstances. We apologize for the inconvenience. [Click here for more info.](https://support-dev.discordapp.com/hc/en-us/articles/360041437171)
+
 We've been told that people playing games want to save their progress as they go, allowing them to come back where they left off and continue their epic journey of power.
 
 Yeah, roguelikes. Even you.

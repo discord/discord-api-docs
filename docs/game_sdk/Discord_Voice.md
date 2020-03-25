@@ -3,6 +3,9 @@
 > info
 > Need help with the SDK? Talk to us in the [Discord GameSDK Server](https://discord.gg/discord-gamesdk)!
 
+> warn
+> Game approval submissions are currently paused due to unforeseen circumstances. We apologize for the inconvenience. [Click here for more info.](https://support-dev.discordapp.com/hc/en-us/articles/360041437171)
+
 Discord's pride and joy is its voice chat. Well, ok, also its memes, but mostly the voice chat. Text and video chat are pretty great, too. And have you seen that store? Anyway.
 
 If you want people playing your game to be able to talk with each other, this Voice manager can help you out! Note that the main functionality for voice in this SDK is not _only_ in this manager. Connecting players to a voice chat happens with [ConnectVoice](#DOCS_GAME_SDK_LOBBIES/connectvoice) in the Lobby manager, and robust voice settings work through [OpenVoiceSettings](#DOCS_GAME_SDK_OVERLAY/openvoicesettings) in the Overlay manager. The Voice manager handles a few fine-grain details like self muting/deafening, swapping between VAD/PTT voice modes, and setting a PTT key. It's a subset of the robust settings from the overlay call for those of you that prefer to build UI and control things from your own game.
