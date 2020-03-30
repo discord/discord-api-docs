@@ -117,7 +117,7 @@ If you want to hook up joining and spectating for your games, there are certain 
 | ActivityAssets.LargeImage      |       x        |          |      |             |
 | ActivityAssets.SmallImage      |       x        |          |      |             |
 | ActivityAssets.LargeText       |       x        |          |      |             |
-| ActivityAssets.SmallTest       |       x        |          |      |             |
+| ActivityAssets.SmallText       |       x        |          |      |             |
 | ActivityParty.Id               |                |          |  x   |      x      |
 | ActivityParty.Size.CurrentSize |                |          |  x   |      x      |
 | ActivityParty.Size.MaxSize     |                |          |  x   |      x      |
