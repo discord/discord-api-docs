@@ -131,17 +131,7 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
   "description": "The official place to report Discord Bugs!",
   "splash": null,
   "discovery_splash": null,
-  "features": [
-    "ANIMATED_ICON",
-    "VERIFIED",
-    "NEWS",
-    "VANITY_URL",
-    "DISCOVERABLE",
-    "MORE_EMOJI",
-    "INVITE_SPLASH",
-    "BANNER",
-    "PUBLIC"
-  ],
+  "features": ["ANIMATED_ICON", "VERIFIED", "NEWS", "VANITY_URL", "DISCOVERABLE", "MORE_EMOJI", "INVITE_SPLASH", "BANNER", "PUBLIC"],
   "emojis": [],
   "banner": "9b6439a7de04f1d26af92f84ac9e1e4a",
   "owner_id": "73193882359173120",
