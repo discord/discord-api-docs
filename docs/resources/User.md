@@ -118,10 +118,10 @@ Returns a [user](#DOCS_RESOURCES_USER/user-object) object for a given user ID.
 
 Modify the requester's user account settings. Returns a [user](#DOCS_RESOURCES_USER/user-object) object on success.
 
-###### JSON Params
-
 > info
 > All parameters to this endpoint are optional.
+
+###### JSON Params
 
 | Field    | Type                                     | Description                                                                    |
 | -------- | ---------------------------------------- | ------------------------------------------------------------------------------ |
