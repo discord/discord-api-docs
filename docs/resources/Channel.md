@@ -755,7 +755,7 @@ For example:
 > Only filenames with proper image extensions are supported for the time being.
 
 > info
-> The the following endpoints, `emoji` takes the form of `name:id` for custom guild emoji, or Unicode characters.
+> For the following endpoints, `emoji` takes the form of `name:id` for custom guild emoji, or Unicode characters.
 
 ## Create Reaction % PUT /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}/reactions/{emoji#DOCS_RESOURCES_EMOJI/emoji-object}/@me
 
