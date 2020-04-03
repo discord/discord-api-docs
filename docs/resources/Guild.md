@@ -646,6 +646,9 @@ Attach an [integration](#DOCS_RESOURCES_GUILD/integration-object) object from th
 
 Modify the behavior and settings of an [integration](#DOCS_RESOURCES_GUILD/integration-object) object for the guild. Requires the `MANAGE_GUILD` permission. Returns a 204 empty response on success. Fires a [Guild Integrations Update](#DOCS_TOPICS_GATEWAY/guild-integrations-update) Gateway event.
 
+> info
+> All parameters to this endpoint are optional
+
 ###### JSON Params
 
 | Field               | Type    | Description                                                                                                                                                                        |
