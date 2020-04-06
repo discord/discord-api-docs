@@ -41,7 +41,7 @@ These are a list of all the OAuth2 scopes that Discord supports. Scopes that are
 | applications.entitlements  | allows your app to read entitlements for a user's applications                                                                                        |
 | relationships.read         | allows your app to know a user's friends and implicit relationships - whitelist only                                                                  |
 | activities.read            | allows your app to fetch data from a user's "Now Playing/Recently Played" list - whitelist only                                                       |
-| activities.write           | allows your app to update a user's activity - whitelist only (NOT REQUIRED FOR [GAMESDK ACTIVITIY MANAGER](#DOCS_GAME_SDK/activities)                 |
+| activities.write           | allows your app to update a user's activity - whitelist only (NOT REQUIRED FOR [GAMESDK ACTIVITIY MANAGER](https://discordapp.com/developers/docs/game-sdk/activities))                 |
 
 > info
 > `guilds.join` and `bot` require you to have a bot account linked to your application. Also, in order to add a user to a guild, your bot has to already belong to that guild.
