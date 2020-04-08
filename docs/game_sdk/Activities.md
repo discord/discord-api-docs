@@ -1,7 +1,7 @@
 # Activities
 
 > info
-> Need help with the SDK? Talk to us in the [Discord GameSDK Server](https://discord.gg/discord-gamesdk)!
+> Need help with the SDK? Talk to us in the [Discord Developers Server](https://discord.gg/discord-developers)!
 
 > warn
 > Game approval submissions are currently paused due to unforeseen circumstances. We apologize for the inconvenience. [Click here for more info.](https://support-dev.discordapp.com/hc/en-us/articles/360041437171)
@@ -166,8 +166,8 @@ activityManager.RegisterSteam(1938123);
 
 Sets a user's presence in Discord to a new activity. This has a rate limit of 5 updates per 20 seconds.
 
->info
->It is possible for users to hide their presence on Discord (User Settings -> Game Activity). Presence set through this SDK may not be visible when this setting is toggled off.
+> info
+> It is possible for users to hide their presence on Discord (User Settings -> Game Activity). Presence set through this SDK may not be visible when this setting is toggled off.
 
 Returns a `Discord.Result` via callback.
 
@@ -349,7 +349,6 @@ Fires when a user accepts a game chat invite or receives confirmation from Askin
 | ---------- | ------ | ---------------------------------- |
 | joinSecret | string | the secret to join the user's game |
 
-
 ###### Example
 
 ```cs
@@ -448,7 +447,6 @@ Fires when a user accepts a spectate chat invite or clicks the Spectate button o
 | name           | type   | description                                       |
 | -------------- | ------ | ------------------------------------------------- |
 | spectateSecret | string | the secret to join the user's game as a spectator |
-
 
 ###### Example
 

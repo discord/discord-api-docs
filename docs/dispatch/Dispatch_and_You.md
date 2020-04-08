@@ -1,7 +1,7 @@
 # Dispatch and You
 
 > info
-> Need help with Dispatch? Talk to us in the [Discord GameSDK Server](https://discord.gg/discord-gamesdk)!
+> Need help with Dispatch? Talk to us in the [Discord Developers Server](https://discord.gg/discord-developers)!
 
 If you're distributing a game on Discord, you'll need to send us the files! We quickly learned that email has a file size limit, and we ran out of carrier pigeons. Don't ask. Very touchy subject.
 
