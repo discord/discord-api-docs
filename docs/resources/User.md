@@ -50,7 +50,7 @@ There are other rules and restrictions not shared here for the sake of spam and 
   "avatar": "8342729096ea3675442027381ff50dfe",
   "verified": true,
   "email": "nelly@discordapp.com",
-  "flags": 80,
+  "flags": 64,
   "premium_type": 1,
   "public_flags": 64
 }
