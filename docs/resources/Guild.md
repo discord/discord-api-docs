@@ -395,7 +395,7 @@ Modify a guild's settings. Requires the `MANAGE_GUILD` permission. Returns the u
 ###### JSON Params
 
 | Field                         | Type                                      | Description                                                                                                               |
-| ----------------------------- | ----------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
+| ----------------------------- | ----------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
 | name                          | string                                    | guild name                                                                                                                |
 | region                        | ?string                                   | guild [voice region](#DOCS_RESOURCES_VOICE/voice-region-object) id                                                        |
 | verification_level            | ?integer                                  | [verification level](#DOCS_RESOURCES_GUILD/guild-object-verification-level)                                               |
@@ -407,10 +407,10 @@ Modify a guild's settings. Requires the `MANAGE_GUILD` permission. Returns the u
 | owner_id                      | snowflake                                 | user id to transfer guild ownership to (must be owner)                                                                    |
 | splash                        | ?[image data](#DOCS_REFERENCE/image-data) | base64 16:9 png/jpeg image for the guild splash (when the server has `INVITE_SPLASH` feature)                             |
 | banner                        | ?[image data](#DOCS_REFERENCE/image-data) | base64 16:9 png/jpeg image for the guild banner (when the server has `BANNER` feature)                                    |
-| system_channel_id             | ?snowflake                                | the id of the channel where guild notices such as welcome messages and boost events are posted                           |
-| rules_channel_id              | snowflake                                | the id of the channel where "PUBLIC" guilds display rules and/or guidelines                                              |
-| public_updates_channel_id     | snowflake                                | the id of the channel where admins and moderators of "PUBLIC" guilds receive notices from Discord                        |
-| preferred_locale              | string                                   | the preferred locale of a "PUBLIC" guild used in server discovery and notices from Discord; defaults to "en-US"                                                                   |
+| system_channel_id             | ?snowflake                                | the id of the channel where guild notices such as welcome messages and boost events are posted                            |
+| rules_channel_id              | ?snowflake                                | the id of the channel where "PUBLIC" guilds display rules and/or guidelines                                               |
+| public_updates_channel_id     | ?snowflake                                | the id of the channel where admins and moderators of "PUBLIC" guilds receive notices from Discord                         |
+| preferred_locale              | ?string                                   | the preferred locale of a "PUBLIC" guild used in server discovery and notices from Discord; defaults to "en-US"           |
 
 ## Delete Guild % DELETE /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}
 
@@ -425,7 +425,7 @@ Returns a list of guild [channel](#DOCS_RESOURCES_CHANNEL/channel-object) object
 Create a new [channel](#DOCS_RESOURCES_CHANNEL/channel-object) object for the guild. Requires the `MANAGE_CHANNELS` permission. Returns the new [channel](#DOCS_RESOURCES_CHANNEL/channel-object) object on success. Fires a [Channel Create](#DOCS_TOPICS_GATEWAY/channel-create) Gateway event.
 
 > info
-> All parameters for this endpoint are optional excluding 'name'
+> All parameters to this endpoint are optional excluding 'name'
 
 ###### JSON Params
 
@@ -511,10 +511,10 @@ Modify attributes of a [guild member](#DOCS_RESOURCES_GUILD/guild-member-object)
 | Field      | Type                 | Description                                                                                            | Permission       |
 | ---------- | -------------------- | ------------------------------------------------------------------------------------------------------ | ---------------- |
 | nick       | string               | value to set users nickname to                                                                         | MANAGE_NICKNAMES |
-| roles      | array of snowflakes | array of role ids the member is assigned                                                               | MANAGE_ROLES     |
-| mute       | boolean             | whether the user is muted in voice channels. Will throw a 400 if the user is not in a voice channel    | MUTE_MEMBERS     |
-| deaf       | boolean             | whether the user is deafened in voice channels. Will throw a 400 if the user is not in a voice channel | DEAFEN_MEMBERS   |
-| channel_id | snowflake           | id of channel to move user to (if they are connected to voice)                                         | MOVE_MEMBERS     |
+| roles      | array of snowflakes | array of role ids the member is assigned                                                                | MANAGE_ROLES     |
+| mute       | boolean             | whether the user is muted in voice channels. Will throw a 400 if the user is not in a voice channel     | MUTE_MEMBERS     |
+| deaf       | boolean             | whether the user is deafened in voice channels. Will throw a 400 if the user is not in a voice channel  | DEAFEN_MEMBERS   |
+| channel_id | snowflake           | id of channel to move user to (if they are connected to voice)                                          | MOVE_MEMBERS     |
 
 ## Modify Current User Nick % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/members/@me/nick
 
@@ -662,12 +662,12 @@ Attach an [integration](#DOCS_RESOURCES_GUILD/integration-object) object from th
 Modify the behavior and settings of an [integration](#DOCS_RESOURCES_GUILD/integration-object) object for the guild. Requires the `MANAGE_GUILD` permission. Returns a 204 empty response on success. Fires a [Guild Integrations Update](#DOCS_TOPICS_GATEWAY/guild-integrations-update) Gateway event.
 
 > info
-> All parameters for this endpoint are optional and nullable.
+> All parameters to this endpoint are optional and nullable.
 
 ###### JSON Params
 
-| Field               | Type     | Description                                                                                                                                                                        |
-| ------------------- | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Field               | Type    | Description                                                                                                                                                                        |
+| ------------------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | expire_behavior     | integer | the behavior when an integration subscription lapses (see the [integration expire behaviors](#DOCS_RESOURCES_GUILD/integration-object-integration-expire-behaviors) documentation) |
 | expire_grace_period | integer | period (in days) where the integration will ignore lapsed subscriptions                                                                                                            |
 | enable_emoticons    | boolean | whether emoticons should be synced for this integration (twitch only currently)                                                                                                    |
@@ -707,7 +707,7 @@ Returns a PNG image widget for the guild. Requires no permissions or authenticat
 The same documentation also applies to `embed.png`.
 
 > info
-> All parameters for this endpoint are optional.
+> All parameters to this endpoint are optional.
 
 ###### Query String Params
 
