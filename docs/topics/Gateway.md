@@ -278,11 +278,9 @@ Any [events not defined in an intent](#DOCS_TOPICS_GATEWAY/commands-and-events-g
 
 [Guild Create](#DOCS_TOPICS_GATEWAY/guild-create) and [Request Guild Members](#DOCS_TOPICS_GATEWAY/request-guild-members) are uniquely affected by intents. See these sections for more information.
 
-If you specify an `intent` value in your `IDENTIFY` payload that is invalid, the socket will close with a [`4013` close code](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/gateway-gateway-close-event-codes). An invalid intent value can be one of:
+If you specify an `intent` value in your `IDENTIFY` payload that is *invalid*, the socket will close with a [`4013` close code](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/gateway-gateway-close-event-codes). An invalid intent is one that is not meaningful and not documented above.
 
-- A miscalculated bit flag
-- Specifying a privileged intent for which you have not opted in for your bot
-- Specifying a privileged intent for which you have not been whitelisted, and your bot is in more than the current limit for unwhitelisted access
+If you specify an `intent` value in your `IDENTIFY` payload that is *disallowed*, the socket will close with a [`4014` close code](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/gateway-gateway-close-event-codes). A disallowed intent is one which you have not enabled for your bot or one that your bot is not whitelisted to use.
 
 ### Privileged Intents
 
