@@ -75,7 +75,7 @@ You're ready to go! Check out the rest of the documentation for more info on how
 
 - Open up that SDK zip that you downloaded.
 - Create a folder in your project directory called `DiscordGameSDK` and copy the contents of the `csharp/` folder to it
-- Build your solution then place the `.dll` in the directory of the `.exe` (either x86 or x86_64 version depending on your Soultion Platform)
+- Build your solution then place the `.dll` in the directory of the `.exe` (either x86 or x86_64 version depending on your compile platform). If you compile for Any CPU you may need to perform additional wrapping around DLL importing (like setting the DLL directory dynamically) to make sure you load the correct DLL.
 
 From there, you'll be able to reference functions in the DLL within your scripts. We then instantiate the SDK with:
 
@@ -87,7 +87,7 @@ From there, you'll be able to reference functions in the DLL within your scripts
     1. Close your game
     2. Open Discord
     3. Attempt to re-open your game
-    Step 3 will fail when running directly from the Unity editor
+    Step 3 may fail when running directly from your editor
     Therefore, always keep Discord running during tests, or use Discord.CreateFlags.NoRequireDiscord
 */
 var discord = new Discord.Discord(CLIENT_ID, (UInt64)Discord.CreateFlags.Default);
