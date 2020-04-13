@@ -19,7 +19,7 @@ Whenever an admin action is performed on the API, an entry is added to the respe
 
 ```json
 {
-  "id": 33590653072239123,
+  "id": "33590653072239123",
   "name": "A Name",
   "type": "twitch",
   "account": {

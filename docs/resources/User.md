@@ -96,8 +96,8 @@ The connection object that the user has attached.
 | id            | string  | id of the connection account                                                        |
 | name          | string  | the username of the connection account                                              |
 | type          | string  | the service of the connection (twitch, youtube)                                     |
-| revoked       | boolean | whether the connection is revoked                                                   |
-| integrations  | array   | an array of partial [server integrations](#DOCS_RESOURCES_GUILD/integration-object) |
+| revoked?      | boolean | whether the connection is revoked                                                   |
+| integrations? | array   | an array of partial [server integrations](#DOCS_RESOURCES_GUILD/integration-object) |
 | verified      | boolean | whether the connection is verified                                                  |
 | friend_sync   | boolean | whether friend sync is enabled for this connection                                  |
 | show_activity | boolean | whether activities related to this connection will be shown in presence updates     |
