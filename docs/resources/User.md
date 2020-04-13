@@ -38,6 +38,7 @@ There are other rules and restrictions not shared here for the sake of spam and 
 | email?        | string    | the user's email                                                                                     | email                 |
 | flags?        | integer   | the [flags](#DOCS_RESOURCES_USER/user-object-user-flags) on a user's account                         | identify              |
 | premium_type? | integer   | the [type of Nitro subscription](#DOCS_RESOURCES_USER/user-object-premium-types) on a user's account | identify              |
+| public_flags? | integer   | the public [flags](#DOCS_RESOURCES_USER/user-object-user-flags) on a user's account                  | identify              |
 
 ###### Example User
 
@@ -50,7 +51,8 @@ There are other rules and restrictions not shared here for the sake of spam and 
   "verified": true,
   "email": "nelly@discordapp.com",
   "flags": 64,
-  "premium_type": 1
+  "premium_type": 1,
+  "public_flags": 64
 }
 ```
 
