@@ -200,6 +200,7 @@ When [identifying](#DOCS_TOPICS_GATEWAY/identifying) to the gateway, you can spe
 ```
 GUILDS (1 << 0)
   - GUILD_CREATE
+  - GUILD_UPDATE
   - GUILD_DELETE
   - GUILD_ROLE_CREATE
   - GUILD_ROLE_UPDATE
@@ -241,6 +242,7 @@ GUILD_MESSAGES (1 << 9)
   - MESSAGE_CREATE
   - MESSAGE_UPDATE
   - MESSAGE_DELETE
+  - MESSAGE_DELETE_BULK
 
 GUILD_MESSAGE_REACTIONS (1 << 10)
   - MESSAGE_REACTION_ADD
@@ -268,11 +270,17 @@ DIRECT_MESSAGE_TYPING (1 << 14)
   - TYPING_START
 ```
 
-Any [events not defined in an intent](#DOCS_TOPICS_GATEWAY/commands-and-events-gateway-events) are considered "passthrough" and will always be sent to you. If you specify an `intent` value in your `IDENTIFY` payload that is invalid, the socket will close with a [`4013` close code](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/gateway-gateway-close-event-codes). An invalid intent value can be one of:
+### Caveats
 
-- A miscalculated bit flag
-- Specifying a privileged intent for which you have not opted in for your bot
-- Specifying a privileged intent for which you have not been whitelisted, and your bot is in more than the current limit for unwhitelisted access
+Any [events not defined in an intent](#DOCS_TOPICS_GATEWAY/commands-and-events-gateway-events) are considered "passthrough" and will always be sent to you.
+
+[Guild Member Update](#DOCS_TOPICS_GATEWAY/guild-member-update) is sent for current-user updates regardless of whether the `GUILD_MEMBERS` intent is set.
+
+[Guild Create](#DOCS_TOPICS_GATEWAY/guild-create) and [Request Guild Members](#DOCS_TOPICS_GATEWAY/request-guild-members) are uniquely affected by intents. See these sections for more information.
+
+If you specify an `intent` value in your `IDENTIFY` payload that is *invalid*, the socket will close with a [`4013` close code](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/gateway-gateway-close-event-codes). An invalid intent is one that is not meaningful and not documented above.
+
+If you specify an `intent` value in your `IDENTIFY` payload that is *disallowed*, the socket will close with a [`4014` close code](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/gateway-gateway-close-event-codes). A disallowed intent is one which you have not enabled for your bot or one that your bot is not whitelisted to use.
 
 ### Privileged Intents
 
