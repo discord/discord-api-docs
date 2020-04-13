@@ -32,6 +32,8 @@ Below is a table of all current permissions, their integer values in hexadecimal
 | MANAGE_GUILD \*       | `0x00000020` | Allows management and editing of the guild                                                                                         |              |
 | ADD_REACTIONS         | `0x00000040` | Allows for the addition of reactions to messages                                                                                   | T            |
 | VIEW_AUDIT_LOG        | `0x00000080` | Allows for viewing of audit logs                                                                                                   |              |
+| PRIORITY_SPEAKER      | `0x00000100` | Allows for using priority speaker in a voice channel                                                                               | V            |
+| STREAM                | `0x00000200` | Allows the user to go live                                                                                                         | V            |
 | VIEW_CHANNEL          | `0x00000400` | Allows guild members to view a channel, which includes reading messages in text channels                                           | T, V         |
 | SEND_MESSAGES         | `0x00000800` | Allows for sending messages in a channel                                                                                           | T            |
 | SEND_TTS_MESSAGES     | `0x00001000` | Allows for sending of `/tts` messages                                                                                              | T            |
@@ -48,8 +50,6 @@ Below is a table of all current permissions, their integer values in hexadecimal
 | DEAFEN_MEMBERS        | `0x00800000` | Allows for deafening of members in a voice channel                                                                                 | V            |
 | MOVE_MEMBERS          | `0x01000000` | Allows for moving of members between voice channels                                                                                | V            |
 | USE_VAD               | `0x02000000` | Allows for using voice-activity-detection in a voice channel                                                                       | V            |
-| PRIORITY_SPEAKER      | `0x00000100` | Allows for using priority speaker in a voice channel                                                                               | V            |
-| STREAM                | `0x00000200` | Allows the user to go live                                                                                                         | V            |
 | CHANGE_NICKNAME       | `0x04000000` | Allows for modification of own nickname                                                                                            |              |
 | MANAGE_NICKNAMES      | `0x08000000` | Allows for modification of other users nicknames                                                                                   |              |
 | MANAGE_ROLES \*       | `0x10000000` | Allows management and editing of roles                                                                                             | T, V         |
