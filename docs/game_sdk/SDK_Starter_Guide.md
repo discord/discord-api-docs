@@ -74,6 +74,32 @@ You're now free to use other functionality in the SDK! Make sure to call `discor
 
 You're ready to go! Check out the rest of the documentation for more info on how to use the other pieces of the SDK. See an example of everything it can do in `examples/Program.cs` in the SDK zip file.
 
+## Code Primer - Non-Unity Projects (Csharp)
+
+- Open up that SDK zip that you downloaded.
+- Create a folder in your project directory called `DiscordGameSDK` and copy the contents of the `csharp/` folder to it
+- Build your solution then place the `.dll` in the directory of the `.exe` (either x86 or x86_64 version depending on your compile platform). If you compile for Any CPU you may need to perform additional wrapping around DLL importing (like setting the DLL directory dynamically) to make sure you load the correct DLL.
+
+From there, you'll be able to reference functions in the DLL within your scripts. We then instantiate the SDK with:
+
+```cs
+/*
+    Grab that Client ID from earlier
+    Discord.CreateFlags.Default will require Discord to be running for the game to work
+    If Discord is not running, it will:
+    1. Close your game
+    2. Open Discord
+    3. Attempt to re-open your game
+    Step 3 may fail when running directly from your editor
+    Therefore, always keep Discord running during tests, or use Discord.CreateFlags.NoRequireDiscord
+*/
+var discord = new Discord.Discord(CLIENT_ID, (UInt64)Discord.CreateFlags.Default);
+```
+
+You're now free to use other functionality in the SDK! Make sure to call `discord.RunCallbacks()` in your main game loop; that's your `Update()` function.
+
+You're ready to go! Check out the rest of the documentation for more info on how to use the other pieces of the SDK. See an example of everything it can do in `examples/Program.cs` in the SDK zip file.
+
 ## Code Primer - Unreal Engine (C)
 
 Before jumping into the C binding, a word of caution. If you are using Unreal Engine 3, or need to support an older version of Visual Studio, you may at first see some unexpected crashes due to compile configurations. The way to fix this is to wrap the include statement for the Discord GameSDK header file like so:
