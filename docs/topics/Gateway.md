@@ -51,7 +51,7 @@ Receiving payloads with the Gateway API is slightly more complex than sending. W
 
 #### ETF/JSON
 
-When initially creating and handshaking connections to the Gateway, a user can choose whether they wish to communicate over plain-text JSON or binary [ETF](http://erlang.org/doc/apps/erts/erl_ext_dist.html). When using ETF, the client must not send compressed messages to the server. Note that Snowflake IDs are transmitted as 64-bit integers over ETF, but are transmitted as strings over JSON. See [erlpack](https://github.com/discordapp/erlpack) for an implementation example.
+When initially creating and handshaking connections to the Gateway, a user can choose whether they wish to communicate over plain-text JSON or binary [ETF](https://erlang.org/doc/apps/erts/erl_ext_dist.html). When using ETF, the client must not send compressed messages to the server. Note that Snowflake IDs are transmitted as 64-bit integers over ETF, but are transmitted as strings over JSON. See [erlpack](https://github.com/discord/erlpack) for an implementation example.
 
 #### Payload Compression
 
@@ -112,7 +112,10 @@ Once connected, the client should immediately receive an [Opcode 10 Hello](#DOCS
 
 ```json
 {
-  "heartbeat_interval": 45000
+  "op": 10,
+  "d": {
+    "heartbeat_interval": 45000
+  }
 }
 ```
 
@@ -145,11 +148,14 @@ This is a minimal `IDENTIFY` payload. `IDENTIFY` supports additional optional fi
 
 ```json
 {
-  "token": "my_token",
-  "properties": {
-    "$os": "linux",
-    "$browser": "my_library",
-    "$device": "my_library"
+  "op": 2,
+  "d": {
+    "token": "my_token",
+    "properties": {
+      "$os": "linux",
+      "$browser": "my_library",
+      "$device": "my_library"
+    }
   }
 }
 ```
@@ -169,9 +175,12 @@ Your client should store the `session_id` from the [Ready](#DOCS_TOPICS_GATEWAY/
 
 ```json
 {
-  "token": "my_token",
-  "session_id": "session_id_i_stored",
-  "seq": 1337
+  "op": 6,
+  "d": {
+    "token": "my_token",
+    "session_id": "session_id_i_stored",
+    "seq": 1337
+  }
 }
 ```
 
@@ -195,6 +204,7 @@ When [identifying](#DOCS_TOPICS_GATEWAY/identifying) to the gateway, you can spe
 ```
 GUILDS (1 << 0)
   - GUILD_CREATE
+  - GUILD_UPDATE
   - GUILD_DELETE
   - GUILD_ROLE_CREATE
   - GUILD_ROLE_UPDATE
@@ -236,6 +246,7 @@ GUILD_MESSAGES (1 << 9)
   - MESSAGE_CREATE
   - MESSAGE_UPDATE
   - MESSAGE_DELETE
+  - MESSAGE_DELETE_BULK
 
 GUILD_MESSAGE_REACTIONS (1 << 10)
   - MESSAGE_REACTION_ADD
@@ -263,11 +274,17 @@ DIRECT_MESSAGE_TYPING (1 << 14)
   - TYPING_START
 ```
 
-Any [events not defined in an intent](#DOCS_TOPICS_GATEWAY/commands-and-events-gateway-events) are considered "passthrough" and will always be sent to you. If you specify an `intent` value in your `IDENTIFY` payload that is invalid, the socket will close with a [`4013` close code](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/gateway-gateway-close-event-codes). An invalid intent value can be one of:
+### Caveats
 
-- A miscalculated bit flag
-- Specifying a privileged intent for which you have not opted in for your bot
-- Specifying a privileged intent for which you have not been whitelisted, and your bot is in more than the current limit for unwhitelisted access
+Any [events not defined in an intent](#DOCS_TOPICS_GATEWAY/commands-and-events-gateway-events) are considered "passthrough" and will always be sent to you.
+
+[Guild Member Update](#DOCS_TOPICS_GATEWAY/guild-member-update) is sent for current-user updates regardless of whether the `GUILD_MEMBERS` intent is set.
+
+[Guild Create](#DOCS_TOPICS_GATEWAY/guild-create) and [Request Guild Members](#DOCS_TOPICS_GATEWAY/request-guild-members) are uniquely affected by intents. See these sections for more information.
+
+If you specify an `intent` value in your `IDENTIFY` payload that is *invalid*, the socket will close with a [`4013` close code](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/gateway-gateway-close-event-codes). An invalid intent is one that is not meaningful and not documented above.
+
+If you specify an `intent` value in your `IDENTIFY` payload that is *disallowed*, the socket will close with a [`4014` close code](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/gateway-gateway-close-event-codes). A disallowed intent is one which you have not enabled for your bot or one that your bot is not whitelisted to use.
 
 ### Privileged Intents
 
@@ -278,7 +295,7 @@ Some intents are defined as "Privileged" due to the sensitive nature of the data
 
 In order to specify these intents in your `IDENTIFY` payload, you must first go to your application in the Developer Portal and enable the toggle for the Privileged Intents you wish to use.
 
-In the future, access to Privileged Intents will come with restrictions and limitations. [Read more here.](https://github.com/discordapp/discord-api-docs/issues/1363)
+In the future, access to Privileged Intents will come with restrictions and limitations. [Read more here.](https://github.com/discord/discord-api-docs/issues/1363)
 
 ## Rate Limiting
 
@@ -419,28 +436,31 @@ Used to trigger the initial handshake with the gateway.
 
 ```json
 {
-  "token": "my_token",
-  "properties": {
-    "$os": "linux",
-    "$browser": "disco",
-    "$device": "disco"
-  },
-  "compress": true,
-  "large_threshold": 250,
-  "guild_subscriptions": false,
-  "shard": [0, 1],
-  "presence": {
-    "game": {
-      "name": "Cards Against Humanity",
-      "type": 0
+  "op": 2,
+  "d": {
+    "token": "my_token",
+    "properties": {
+      "$os": "linux",
+      "$browser": "disco",
+      "$device": "disco"
     },
-    "status": "dnd",
-    "since": 91879201,
-    "afk": false
-  },
-  // This intent represents 1 << 0 for GUILDS, 1 << 1 for GUILD_MEMBERS, and 1 << 2 for GUILD_BANS
-  // This connection will only receive the events defined in those three intents
-  "intents": 7
+    "compress": true,
+    "large_threshold": 250,
+    "guild_subscriptions": false,
+    "shard": [0, 1],
+    "presence": {
+      "game": {
+        "name": "Cards Against Humanity",
+        "type": 0
+      },
+      "status": "dnd",
+      "since": 91879201,
+      "afk": false
+    },
+    // This intent represents 1 << 0 for GUILDS, 1 << 1 for GUILD_MEMBERS, and 1 << 2 for GUILD_BANS
+    // This connection will only receive the events defined in those three intents
+    "intents": 7
+  }
 }
 ```
 
@@ -460,9 +480,12 @@ Used to replay missed events when a disconnected client resumes.
 
 ```json
 {
-  "token": "randomstring",
-  "session_id": "evenmorerandomstring",
-  "seq": 1337
+  "op": 6,
+  "d": {
+    "token": "randomstring",
+    "session_id": "evenmorerandomstring",
+    "seq": 1337
+  }
 }
 ```
 
@@ -505,9 +528,12 @@ If you are using [Gateway Intents](#DOCS_TOPICS_GATEWAY/gateway-intents), there 
 
 ```json
 {
-  "guild_id": "41771983444115456",
-  "query": "",
-  "limit": 0
+  "op": 8,
+  "d": {
+    "guild_id": "41771983444115456",
+    "query": "",
+    "limit": 0
+  }
 }
 ```
 
@@ -528,10 +554,13 @@ Sent when a client wants to join, move, or disconnect from a voice channel.
 
 ```json
 {
-  "guild_id": "41771983423143937",
-  "channel_id": "127121515262115840",
-  "self_mute": false,
-  "self_deaf": false
+  "op": 4,
+  "d": {
+    "guild_id": "41771983423143937",
+    "channel_id": "127121515262115840",
+    "self_mute": false,
+    "self_deaf": false
+  }
 }
 ```
 
@@ -562,13 +591,16 @@ Sent by the client to indicate a presence or status update.
 
 ```json
 {
-  "since": 91879201,
-  "game": {
-    "name": "Save the Oxford Comma",
-    "type": 0
-  },
-  "status": "online",
-  "afk": false
+  "op": 3,
+  "d": {
+    "since": 91879201,
+    "game": {
+      "name": "Save the Oxford Comma",
+      "type": 0
+    },
+    "status": "online",
+    "afk": false
+  }
 }
 ```
 
@@ -588,7 +620,10 @@ Sent on connection to the websocket. Defines the heartbeat interval that the cli
 
 ```json
 {
-  "heartbeat_interval": 45000
+  "op": 10,
+  "d": {
+    "heartbeat_interval": 45000
+  }
 }
 ```
 
@@ -764,13 +799,13 @@ Sent when a guild member is updated. This will also fire when the user object of
 
 ###### Guild Member Update Event Fields
 
-| Field         | Type                                                                                                          | Description                                                                                                                 |
-| ------------- | ------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
-| guild_id      | snowflake                                                                                                     | the id of the guild                                                                                                         |
-| roles         | array of snowflakes                                                                                           | user role ids                                                                                                               |
-| user          | a [user](#DOCS_RESOURCES_USER/user-object) object                                                             | the user                                                                                                                    |
-| nick          | string                                                                                                        | nickname of the user in the guild                                                                                           |
-| premium_since | ?ISO8601 timestamp | when the user starting [boosting](https://support.discordapp.com/hc/en-us/articles/360028038352-Server-Boosting-) the guild |
+| Field          | Type                                              | Description                                                                                                                 |
+| -------------- | ------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
+| guild_id       | snowflake                                         | the id of the guild                                                                                                         |
+| roles          | array of snowflakes                               | user role ids                                                                                                               |
+| user           | a [user](#DOCS_RESOURCES_USER/user-object) object | the user                                                                                                                    |
+| nick?          | ?string                                           | nickname of the user in the guild                                                                                           |
+| premium_since? | ?ISO8601 timestamp                                | when the user starting [boosting](https://support.discordapp.com/hc/en-us/articles/360028038352-Server-Boosting-) the guild |
 
 #### Guild Members Chunk
 
@@ -826,17 +861,19 @@ Sent when a new invite to a channel is created.
 
 ###### Invite Create Event Fields
 
-| Field      | Type                                            | Description                                                                                                        |
-| ---------- | ----------------------------------------------- | ------------------------------------------------------------------------------------------------------------------ |
-| channel_id | snowflake                                       | the channel the invite is for                                                                                      |
-| code       | string                                          | the unique invite [code](#DOCS_RESOURCES_INVITE/invite-object)                                                     |
-| created_at | timestamp                                       | the time at which the invite was created                                                                           |
-| guild_id?  | snowflake                                       | the guild of the invite                                                                                            |
-| inviter?   | [user object](#DOCS_RESOURCES_USER/user-object) | the user that created the invite                                                                                   |
-| max_age    | int                                             | how long the invite is valid for (in seconds)                                                                      |
-| max_uses   | int                                             | the maximum number of times the invite can be used                                                                 |
-| temporary  | boolean                                         | whether or not the invite is temporary (invited users will be kicked on disconnect unless they're assigned a role) |
-| uses       | int                                             | how many times the invite has been used (always will be 0)                                                         |
+| Field             | Type                                                    | Description                                                                                                        |
+| ----------------- | ------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------ |
+| channel_id        | snowflake                                               | the channel the invite is for                                                                                      |
+| code              | string                                                  | the unique invite [code](#DOCS_RESOURCES_INVITE/invite-object)                                                     |
+| created_at        | timestamp                                               | the time at which the invite was created                                                                           |
+| guild_id?         | snowflake                                               | the guild of the invite                                                                                            |
+| inviter?          | [user](#DOCS_RESOURCES_USER/user-object) object         | the user that created the invite                                                                                   |
+| max_age           | int                                                     | how long the invite is valid for (in seconds)                                                                      |
+| max_uses          | int                                                     | the maximum number of times the invite can be used                                                                 |
+| target_user?      | partial [user](#DOCS_RESOURCES_USER/user-object) object | the target user for this invite                                                                                    |
+| target_user_type? | integer                                                 | the [type of user target](#DOCS_RESOURCES_INVITE/invite-object-target-user-types) for this invite                  |
+| temporary         | boolean                                                 | whether or not the invite is temporary (invited users will be kicked on disconnect unless they're assigned a role) |
+| uses              | int                                                     | how many times the invite has been used (always will be 0)                                                         |
 
 ### Invite Delete
 

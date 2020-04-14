@@ -1,7 +1,7 @@
 # Predefined Field Values
 
 > info
-> Need help with Dispatch? Talk to us in the [Discord GameSDK Server](https://discord.gg/discord-gamesdk)!
+> Need help with Dispatch? Talk to us in the [Discord Developers Server](https://discord.gg/discord-developers)!
 
 ###### Accepted Locales
 

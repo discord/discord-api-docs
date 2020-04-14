@@ -35,9 +35,10 @@ There are other rules and restrictions not shared here for the sake of spam and 
 | mfa_enabled?  | boolean   | whether the user has two factor enabled on their account                                             | identify              |
 | locale?       | string    | the user's chosen language option                                                                    | identify              |
 | verified?     | boolean   | whether the email on this account has been verified                                                  | email                 |
-| email?        | string    | the user's email                                                                                     | email                 |
+| email?        | ?string   | the user's email                                                                                     | email                 |
 | flags?        | integer   | the [flags](#DOCS_RESOURCES_USER/user-object-user-flags) on a user's account                         | identify              |
 | premium_type? | integer   | the [type of Nitro subscription](#DOCS_RESOURCES_USER/user-object-premium-types) on a user's account | identify              |
+| public_flags? | integer   | the public [flags](#DOCS_RESOURCES_USER/user-object-user-flags) on a user's account                  | identify              |
 
 ###### Example User
 
@@ -50,26 +51,29 @@ There are other rules and restrictions not shared here for the sake of spam and 
   "verified": true,
   "email": "nelly@discordapp.com",
   "flags": 64,
-  "premium_type": 1
+  "premium_type": 1,
+  "public_flags": 64
 }
 ```
 
 ###### User Flags
 
-| Value   | Description        |
-| ------- | ------------------ |
-| 0       | None               |
-| 1 << 0  | Discord Employee   |
-| 1 << 1  | Discord Partner    |
-| 1 << 2  | HypeSquad Events   |
-| 1 << 3  | Bug Hunter Level 1 |
-| 1 << 6  | House Bravery      |
-| 1 << 7  | House Brilliance   |
-| 1 << 8  | House Balance      |
-| 1 << 9  | Early Supporter    |
-| 1 << 10 | Team User          |
-| 1 << 12 | System             |
-| 1 << 14 | Bug Hunter Level 2 |
+| Value   | Description            |
+| ------- | ------------------     |
+| 0       | None                   |
+| 1 << 0  | Discord Employee       |
+| 1 << 1  | Discord Partner        |
+| 1 << 2  | HypeSquad Events       |
+| 1 << 3  | Bug Hunter Level 1     |
+| 1 << 6  | House Bravery          |
+| 1 << 7  | House Brilliance       |
+| 1 << 8  | House Balance          |
+| 1 << 9  | Early Supporter        |
+| 1 << 10 | Team User              |
+| 1 << 12 | System                 |
+| 1 << 14 | Bug Hunter Level 2     |
+| 1 << 16 | Verified Bot           |
+| 1 << 17 | Verified Bot Developer |
 
 ###### Premium Types
 
@@ -77,6 +81,7 @@ Premium types denote the level of premium a user has. Visit the [Nitro](https://
 
 | Value | Name          |
 | ----- | ------------- |
+| 0     | None          |
 | 1     | Nitro Classic |
 | 2     | Nitro         |
 
@@ -91,8 +96,8 @@ The connection object that the user has attached.
 | id            | string  | id of the connection account                                                        |
 | name          | string  | the username of the connection account                                              |
 | type          | string  | the service of the connection (twitch, youtube)                                     |
-| revoked       | boolean | whether the connection is revoked                                                   |
-| integrations  | array   | an array of partial [server integrations](#DOCS_RESOURCES_GUILD/integration-object) |
+| revoked?      | boolean | whether the connection is revoked                                                   |
+| integrations? | array   | an array of partial [server integrations](#DOCS_RESOURCES_GUILD/integration-object) |
 | verified      | boolean | whether the connection is verified                                                  |
 | friend_sync   | boolean | whether friend sync is enabled for this connection                                  |
 | show_activity | boolean | whether activities related to this connection will be shown in presence updates     |
@@ -117,15 +122,15 @@ Returns a [user](#DOCS_RESOURCES_USER/user-object) object for a given user ID.
 
 Modify the requester's user account settings. Returns a [user](#DOCS_RESOURCES_USER/user-object) object on success.
 
-###### JSON Params
-
 > info
 > All parameters to this endpoint are optional.
 
-| Field    | Type                                     | Description                                                                    |
-| -------- | ---------------------------------------- | ------------------------------------------------------------------------------ |
-| username | string                                   | user's username, if changed may cause the user's discriminator to be randomized. |
-| avatar   | [image data](#DOCS_REFERENCE/image-data) | if passed, modifies the user's avatar                                          |
+###### JSON Params
+
+| Field    | Type                                      | Description                                                                      |
+| -------- | ----------------------------------------- | -------------------------------------------------------------------------------- |
+| username | string                                    | user's username, if changed may cause the user's discriminator to be randomized. |
+| avatar   | ?[image data](#DOCS_REFERENCE/image-data) | if passed, modifies the user's avatar                                            |
 
 ## Get Current User Guilds % GET /users/@me/guilds
 
