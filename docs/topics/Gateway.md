@@ -26,7 +26,7 @@ Important note: Not all event fields are documented, in particular, fields prefi
 | s     | ?integer \*             | sequence number, used for resuming sessions and heartbeats                      |
 | t     | ?string \*              | the event name for this payload                                                 |
 
-\* `s` and `t` are nulled for every opcode except `0`.
+\* `s` and `t` are `null` when `op` is not `0` (Gateway Dispatch Opcode).
 
 ### Sending Payloads
 
@@ -660,7 +660,7 @@ Sent when a message is pinned or unpinned in a text channel. This is not sent wh
 | ------------------- | ------------------------------------------------------------ | ----------------------------------------------------------- |
 | guild_id?           | snowflake                                                    | the id of the guild                                         |
 | channel_id          | snowflake                                                    | the id of the channel                                       |
-| last_pin_timestamp? | [ISO8601 timestamp](https://www.loc.gov/standards/datetime/iso-tc154-wg5_n0038_iso_wd_8601-1_2016-02-16.pdf) | the time at which the most recent pinned message was pinned |
+| last_pin_timestamp? | ISO8601 timestamp | the time at which the most recent pinned message was pinned |
 
 ### Guilds
 
@@ -770,7 +770,7 @@ Sent when a guild member is updated. This will also fire when the user object of
 | roles         | array of snowflakes                                                                                           | user role ids                                                                                                               |
 | user          | a [user](#DOCS_RESOURCES_USER/user-object) object                                                             | the user                                                                                                                    |
 | nick          | string                                                                                                        | nickname of the user in the guild                                                                                           |
-| premium_since | ?[ISO8601 timestamp](https://www.loc.gov/standards/datetime/iso-tc154-wg5_n0038_iso_wd_8601-1_2016-02-16.pdf) | when the user starting [boosting](https://support.discordapp.com/hc/en-us/articles/360028038352-Server-Boosting-) the guild |
+| premium_since | ?ISO8601 timestamp | when the user starting [boosting](https://support.discordapp.com/hc/en-us/articles/360028038352-Server-Boosting-) the guild |
 
 #### Guild Members Chunk
 

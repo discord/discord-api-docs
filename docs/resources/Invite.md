@@ -67,7 +67,7 @@ Extra information about an invite, will extend the [invite](#DOCS_RESOURCES_INVI
 | max_uses   | integer                                                      | max number of times this invite can be used          |
 | max_age    | integer                                                      | duration (in seconds) after which the invite expires |
 | temporary  | boolean                                                      | whether this invite only grants temporary membership |
-| created_at | [ISO8601 timestamp](https://www.loc.gov/standards/datetime/iso-tc154-wg5_n0038_iso_wd_8601-1_2016-02-16.pdf) | when this invite was created                         |
+| created_at | ISO8601 timestamp | when this invite was created                         |
 
 ###### Example Invite Metadata
 
@@ -83,7 +83,7 @@ Extra information about an invite, will extend the [invite](#DOCS_RESOURCES_INVI
 
 ## Get Invite % GET /invites/{invite.code#DOCS_RESOURCES_INVITE/invite-object}
 
-Returns an [invite](#DOCS_RESOURCES_INVITE/invite-object) object for the given code. Doesn't require authorization.
+Returns an [invite](#DOCS_RESOURCES_INVITE/invite-object) object for the given code.
 
 ###### Get Invite URL Parameters
 
