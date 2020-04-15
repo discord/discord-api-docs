@@ -116,6 +116,10 @@ However, there are cases in which passing something to our API will instead retu
 
 You can see in this case that the sent `user_id` is not a `bigint`; therefore, when it is serialized back to JSON by Discord, it is not transformed into a string. **This will never happen with IDs that come from Discord.** But, this can happen if you send malformed data in your requests.
 
+## ISO8601 Date/Time
+
+Discord utilizes the [ISO8601 format](https://www.loc.gov/standards/datetime/iso-tc154-wg5_n0038_iso_wd_8601-1_2016-02-16.pdf) for most Date/Times returned in our models. This format is referred to as type `ISO8601` within tables in this documentation.
+
 ## Nullable and Optional Resource Fields
 
 Resource fields that may contain a `null` value have types that are prefixed with a question mark.
@@ -156,12 +160,6 @@ Clients may append more information and metadata to the _end_ of this string as 
 ### Rate Limiting
 
 The HTTP API implements a process for limiting and preventing excessive requests in accordance with [RFC 6585](https://tools.ietf.org/html/rfc6585#section-4). API users that regularly hit and ignore rate limits will have their API keys revoked, and be blocked from the platform. For more information on rate limiting of requests, please see the [Rate Limits](#DOCS_TOPICS_RATE_LIMITS/rate-limits) section.
-
-### ISO8601 Timestamps
-
-The HTTP API (or anything that uses models) might reference an "ISO8601". This
-refers to the standard method to express a time, see:
-https://www.loc.gov/standards/datetime/iso-tc154-wg5_n0038_iso_wd_8601-1_2016-02-16.pdf
 
 ## Gateway (WebSocket) API
 
