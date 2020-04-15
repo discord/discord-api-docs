@@ -116,6 +116,10 @@ However, there are cases in which passing something to our API will instead retu
 
 You can see in this case that the sent `user_id` is not a `bigint`; therefore, when it is serialized back to JSON by Discord, it is not transformed into a string. **This will never happen with IDs that come from Discord.** But, this can happen if you send malformed data in your requests.
 
+## ISO8601 Date/Time
+
+Discord utilizes the [ISO8601 format](https://www.loc.gov/standards/datetime/iso-tc154-wg5_n0038_iso_wd_8601-1_2016-02-16.pdf) for most Date/Times returned in our models. This format is referred to as type `ISO8601` within tables in this documentation.
+
 ## Nullable and Optional Resource Fields
 
 Resource fields that may contain a `null` value have types that are prefixed with a question mark.

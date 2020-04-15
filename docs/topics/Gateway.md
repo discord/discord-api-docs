@@ -18,12 +18,14 @@ Important note: Not all event fields are documented, in particular, fields prefi
 
 ###### Gateway Payload Structure
 
-| Field | Type                    | Description                                                                     | Present           |
-| ----- | ----------------------- | ------------------------------------------------------------------------------- | ----------------- |
-| op    | integer                 | [opcode](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/gateway-opcodes) for the payload | Always            |
-| d     | ?mixed (any JSON value) | event data                                                                      | Always            |
-| s     | integer                 | sequence number, used for resuming sessions and heartbeats                      | Only for Opcode 0 |
-| t     | string                  | the event name for this payload                                                 | Only for Opcode 0 |
+| Field | Type                    | Description                                                                     |
+| ----- | ----------------------- | ------------------------------------------------------------------------------- |
+| op    | integer                 | [opcode](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/gateway-opcodes) for the payload |
+| d     | ?mixed (any JSON value) | event data                                                                      |
+| s     | ?integer \*             | sequence number, used for resuming sessions and heartbeats                      |
+| t     | ?string \*              | the event name for this payload                                                 |
+
+\* `s` and `t` are `null` when `op` is not `0` (Gateway Dispatch Opcode).
 
 ### Sending Payloads
 
@@ -79,7 +81,8 @@ def on_websocket_message(msg):
 
   # if the message *does* end with ZLIB_SUFFIX,
   # get the full message by decompressing the buffers
-  msg = inflator.decompress(buffer).decode('utf-8')
+  # NOTE: the message is utf-8 encoded.
+  msg = inflator.decompress(buffer)
   buffer = bytearray()
 
   # here you can treat `msg` as either JSON or ETF encoded,
