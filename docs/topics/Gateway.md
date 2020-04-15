@@ -16,7 +16,6 @@ Important note: Not all event fields are documented, in particular, fields prefi
 
 ## Payloads
 
-
 ###### Gateway Payload Structure
 
 | Field | Type                    | Description                                                                     |
@@ -691,10 +690,10 @@ Sent when a message is pinned or unpinned in a text channel. This is not sent wh
 
 ###### Channel Pins Update Event Fields
 
-| Field               | Type                                                         | Description                                                 |
-| ------------------- | ------------------------------------------------------------ | ----------------------------------------------------------- |
-| guild_id?           | snowflake                                                    | the id of the guild                                         |
-| channel_id          | snowflake                                                    | the id of the channel                                       |
+| Field               | Type              | Description                                                 |
+| ------------------- | ----------------- | ----------------------------------------------------------- |
+| guild_id?           | snowflake         | the id of the guild                                         |
+| channel_id          | snowflake         | the id of the channel                                       |
 | last_pin_timestamp? | ISO8601 timestamp | the time at which the most recent pinned message was pinned |
 
 ### Guilds
@@ -800,7 +799,7 @@ Sent when a guild member is updated. This will also fire when the user object of
 ###### Guild Member Update Event Fields
 
 | Field          | Type                                              | Description                                                                                                                 |
-| -------------- | ------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
+| -------------- | ------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
 | guild_id       | snowflake                                         | the id of the guild                                                                                                         |
 | roles          | array of snowflakes                               | user role ids                                                                                                               |
 | user           | a [user](#DOCS_RESOURCES_USER/user-object) object | the user                                                                                                                    |
