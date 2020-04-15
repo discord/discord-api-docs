@@ -136,9 +136,10 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 30007  | Maximum number of webhooks reached (10)                                                                                       |
 | 30010  | Maximum number of reactions reached (20)                                                                                      |
 | 30013  | Maximum number of guild channels reached (500)                                                                                |
-| 30015  | Maximun number of attachments in a message reached (10)                                                                                |
+| 30015  | Maximun number of attachments in a message reached (10)                                                                       |
 | 30016  | Maximum number of invites reached (1000)                                                                                      |
 | 40001  | Unauthorized. Provide a valid token and try again                                                                             |
+| 40002  | You need to verify your account in order to perform this action                                                               |
 | 40005  | Request entity too large. Try sending something smaller in size                                                               |
 | 40006  | This feature has been temporarily disabled server-side                                                                        |
 | 40007  | The user is banned from this guild                                                                                            |
