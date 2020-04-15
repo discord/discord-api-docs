@@ -32,7 +32,7 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 | widget_enabled?               | boolean                                                                             | whether or not the server widget is enabled                                                                                      |
 | widget_channel_id?            | ?snowflake                                                                          | the channel id for the server widget                                                                                             |
 | system_channel_id             | ?snowflake                                                                          | the id of the channel where guild notices such as welcome messages and boost events are posted                                   |
-| system_channel_flags          | integer                                                                             | [system channel flags](#DOCS_RESOURCES_GUILD/guild-object-system-channel-flags)                                                  |
+| system_channel_flags          | integer                                                                              | [system channel flags](#DOCS_RESOURCES_GUILD/guild-object-system-channel-flags)                                                  |
 | rules_channel_id              | ?snowflake                                                                          | the id of the channel where "PUBLIC" guilds display rules and/or guidelines                                                      |
 | joined_at? \*                 | ISO8601 timestamp                                                                   | when this guild was joined at                                                                                                    |
 | large? \*                     | boolean                                                                             | whether this is considered a large guild                                                                                         |
@@ -42,7 +42,7 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 | members? \*                   | array of [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) objects          | users in the guild                                                                                                               |
 | channels? \*                  | array of [channel](#DOCS_RESOURCES_CHANNEL/channel-object) objects                  | channels in the guild                                                                                                            |
 | presences? \*                 | array of partial [presence update](#DOCS_TOPICS_GATEWAY/presence-update) objects    | presences of the users in the guild                                                                                              |
-| max_presences?                | ?integer                                                                            | the maximum amount of presences for the guild (the default value, currently 25000, is in effect when null is returned)           |
+| max_presences?                | ?integer                                                                            | the maximum amount of presences for the guild (the default value, currently 25000, is in effect when null is returned)            |
 | max_members?                  | integer                                                                             | the maximum amount of members for the guild                                                                                      |
 | vanity_url_code               | ?string                                                                             | the vanity url code for the guild                                                                                                |
 | description                   | ?string                                                                             | the description for the guild                                                                                                    |
@@ -232,13 +232,13 @@ A partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object. Represents an Offl
 
 | Field          | Type                                            | Description                                                                                                                |
 | -------------- | ----------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
-| user? | [user](#DOCS_RESOURCES_USER/user-object) object | the user this guild member represents |
-| nick | ?string | this users guild nickname |
-| roles | array of snowflakes | array of [role](#DOCS_TOPICS_PERMISSIONS/role-object) object ids |
-| joined_at | ISO8601 timestamp | when the user joined the guild |
-| premium_since?| ?ISO8601 timestamp | when the user started [boosting](https://support.discordapp.com/hc/en-us/articles/360028038352-Server-Boosting-) the guild |
-| deaf | boolean | whether the user is deafened in voice channels |
-| mute | boolean | whether the user is muted in voice channels |
+| user?          | [user](#DOCS_RESOURCES_USER/user-object) object | the user this guild member represents                            |
+| nick           | ?string                                         | this users guild nickname                                        |
+| roles          | array of snowflakes                             | array of [role](#DOCS_TOPICS_PERMISSIONS/role-object) object ids |
+| joined_at      | ISO8601 timestamp                               | when the user joined the guild                                   |
+| premium_since?| ?ISO8601 timestamp                              | when the user started [boosting](https://support.discordapp.com/hc/en-us/articles/360028038352-Server-Boosting-) the guild              |
+| deaf           | boolean                                         | whether the user is deafened in voice channels                   |
+| mute           | boolean                                         | whether the user is muted in voice channels                      |
 
 >info
 >The field `user` won't be included in the member object attached to `MESSAGE_CREATE` and `MESSAGE_UPDATE` gateway events.
@@ -260,21 +260,20 @@ A partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object. Represents an Offl
 
 ###### Integration Structure
 
-| Field               | Type                                                                                                         | Description                                                                     |
-| ------------------- | ------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------- |
-| id                  | snowflake                                                                                                    | integration id                                                                  |
-| name                | string                                                                                                       | integration name                                                                |
-| type                | string                                                                                                       | integration type (twitch, youtube, etc)                                         |
-| enabled             | boolean                                                                                                      | is this integration enabled                                                     |
-| syncing             | boolean                                                                                                      | is this integration syncing                                                     |
-| role_id             | snowflake                                                                                                    | id that this integration uses for "subscribers"                                 |
-| enable_emoticons?   | boolean                                                                                                      | whether emoticons should be synced for this integration (twitch only currently) |
-| expire_behavior     | [integration expire behavior](#DOCS_RESOURCES_GUILD/integration-object-integration-expire-behaviors)         | the behavior of expiring subscribers                                            |
-| expire_grace_period | integer                                                                                                      | the grace period (in days) before expiring subscribers                          |
-| user                | [user](#DOCS_RESOURCES_USER/user-object) object                                                              | user for this integration                                                       |
-| account             | [account](#DOCS_RESOURCES_GUILD/integration-account-object) object                                           | integration account information                                                 |
-| synced_at           | ISO8601 timestamp | when this integration was last synced                                           |
-
+| Field               | Type                                                                                                 | Description                                                                     |
+| ------------------- | ---------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
+| id                  | snowflake                                                                                            | integration id                                                                  |
+| name                | string                                                                                               | integration name                                                                |
+| type                | string                                                                                               | integration type (twitch, youtube, etc)                                         |
+| enabled             | boolean                                                                                              | is this integration enabled                                                     |
+| syncing             | boolean                                                                                              | is this integration syncing                                                     |
+| role_id             | snowflake                                                                                            | id that this integration uses for "subscribers"                                 |
+| enable_emoticons?   | boolean                                                                                              | whether emoticons should be synced for this integration (twitch only currently) |
+| expire_behavior     | [integration expire behavior](#DOCS_RESOURCES_GUILD/integration-object-integration-expire-behaviors) | the behavior of expiring subscribers                                            |
+| expire_grace_period | integer                                                                                              | the grace period (in days) before expiring subscribers                          |
+| user                | [user](#DOCS_RESOURCES_USER/user-object) object                                                      | user for this integration                                                       |
+| account             | [account](#DOCS_RESOURCES_GUILD/integration-account-object) object                                   | integration account information                                                 |
+| synced_at           | ISO8601 timestamp                                                                                    | when this integration was last synced                                           |
 
 ###### Integration Expire Behaviors
 
