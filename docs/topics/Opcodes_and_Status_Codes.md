@@ -120,6 +120,7 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 10013  | Unknown user                                                                                                                  |
 | 10014  | Unknown emoji                                                                                                                 |
 | 10015  | Unknown webhook                                                                                                               |
+| 10026  | Unknown ban                                                                                                                   |
 | 10027  | Unknown SKU                                                                                                                   |
 | 10028  | Unknown Store Listing                                                                                                         |
 | 10029  | Unknown entitlement                                                                                                           |
