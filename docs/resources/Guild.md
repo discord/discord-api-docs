@@ -239,7 +239,6 @@ A partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object. Represents an Offl
 | premium_since?| ?ISO8601 timestamp | when the user started [boosting](https://support.discordapp.com/hc/en-us/articles/360028038352-Server-Boosting-) the guild |
 | deaf | boolean | whether the user is deafened in voice channels |
 | mute | boolean | whether the user is muted in voice channels |
-| hoisted_role? | ?snowflake | the highest displayed role that a member has, nulled if they don't have any, optional for the REST API |
 
 >info
 >The field `user` won't be included in the member object attached to `MESSAGE_CREATE` and `MESSAGE_UPDATE` gateway events.
