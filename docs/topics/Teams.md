@@ -68,7 +68,7 @@ Go team!
 
 | field            | type                                                    | description                                                                                     |
 | ---------------- | ------------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
-| membership_state | int                                                     | the user's [membership state](#DOCS_TOPICS_TEAMS/data-models-membership-state-enum) on the team |
+| membership_state | integer                                                 | the user's [membership state](#DOCS_TOPICS_TEAMS/data-models-membership-state-enum) on the team |
 | permissions      | array of strings                                        | will always be `["*"]`                                                                          |
 | team_id          | snowflake                                               | the id of the parent team of which they are a member                                            |
 | user             | partial [user](#DOCS_RESOURCES_USER/user-object) object | the avatar, discriminator, id, and username of the user                                         |

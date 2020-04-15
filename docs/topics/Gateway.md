@@ -867,12 +867,12 @@ Sent when a new invite to a channel is created.
 | created_at        | timestamp                                               | the time at which the invite was created                                                                           |
 | guild_id?         | snowflake                                               | the guild of the invite                                                                                            |
 | inviter?          | [user](#DOCS_RESOURCES_USER/user-object) object         | the user that created the invite                                                                                   |
-| max_age           | int                                                     | how long the invite is valid for (in seconds)                                                                      |
-| max_uses          | int                                                     | the maximum number of times the invite can be used                                                                 |
+| max_age           | integer                                                 | how long the invite is valid for (in seconds)                                                                      |
+| max_uses          | integer                                                 | the maximum number of times the invite can be used                                                                 |
 | target_user?      | partial [user](#DOCS_RESOURCES_USER/user-object) object | the target user for this invite                                                                                    |
 | target_user_type? | integer                                                 | the [type of user target](#DOCS_RESOURCES_INVITE/invite-object-target-user-types) for this invite                  |
 | temporary         | boolean                                                 | whether or not the invite is temporary (invited users will be kicked on disconnect unless they're assigned a role) |
-| uses              | int                                                     | how many times the invite has been used (always will be 0)                                                         |
+| uses              | integer                                                 | how many times the invite has been used (always will be 0)                                                         |
 
 ### Invite Delete
 
@@ -1022,7 +1022,7 @@ Active sessions are indicated with an "online", "idle", or "dnd" string per plat
 | name            | string                                                                        | the activity's name                                                                                                       |
 | type            | integer                                                                       | [activity type](#DOCS_TOPICS_GATEWAY/activity-object-activity-types)                                                      |
 | url?            | ?string                                                                       | stream url, is validated when type is 1                                                                                   |
-| created_at      | int                                                                           | unix timestamp of when the activity was added to the user's session                                                       |
+| created_at      | integer                                                                       | unix timestamp of when the activity was added to the user's session                                                       |
 | timestamps?     | [timestamps](#DOCS_TOPICS_GATEWAY/activity-object-activity-timestamps) object | unix timestamps for start and/or end of the game                                                                          |
 | application_id? | snowflake                                                                     | application id for the game                                                                                               |
 | details?        | ?string                                                                       | what the player is currently doing                                                                                        |
@@ -1032,7 +1032,7 @@ Active sessions are indicated with an "online", "idle", or "dnd" string per plat
 | assets?         | [assets](#DOCS_TOPICS_GATEWAY/activity-object-activity-assets) object         | images for the presence and their hover texts                                                                             |
 | secrets?        | [secrets](#DOCS_TOPICS_GATEWAY/activity-object-activity-secrets) object       | secrets for Rich Presence joining and spectating                                                                          |
 | instance?       | boolean                                                                       | whether or not the activity is an instanced game session                                                                  |
-| flags?          | int                                                                           | [activity flags](#DOCS_TOPICS_GATEWAY/activity-object-activity-flags) `OR`d together, describes what the payload includes |
+| flags?          | integer                                                                       | [activity flags](#DOCS_TOPICS_GATEWAY/activity-object-activity-flags) `OR`d together, describes what the payload includes |
 
 > info
 > Bots are only able to send `name`, `type`, and optionally `url`.
@@ -1051,10 +1051,10 @@ Active sessions are indicated with an "online", "idle", or "dnd" string per plat
 
 ###### Activity Timestamps
 
-| Field  | Type | Description                                              |
-| ------ | ---- | -------------------------------------------------------- |
-| start? | int  | unix time (in milliseconds) of when the activity started |
-| end?   | int  | unix time (in milliseconds) of when the activity ends    |
+| Field  | Type    | Description                                              |
+| ------ | ------- | -------------------------------------------------------- |
+| start? | integer | unix time (in milliseconds) of when the activity started |
+| end?   | integer | unix time (in milliseconds) of when the activity ends    |
 
 ###### Activity Emoji
 
