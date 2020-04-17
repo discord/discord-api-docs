@@ -14,7 +14,7 @@ All gateway events in Discord are tagged with an opcode that denotes the payload
 | 3    | Presence Update       | Send          | Update the client's presence.                                                            |
 | 4    | Voice State Update    | Send          | Used to join/leave or move between voice channels.                                      |
 | 6    | Resume                | Send          | Resume a previous session that was disconnected.                                        |
-| 7    | Reconnect             | Receive       | You must reconnect with a new session immediately.                                      |
+| 7    | Reconnect             | Receive       | You should attempt to reconnect and resume immediately.                                  |
 | 8    | Request Guild Members | Send          | Request information about offline guild members in a large guild.                        |
 | 9    | Invalid Session       | Receive       | The session has been invalidated. You should reconnect and identify/resume accordingly. |
 | 10   | Hello                 | Receive       | Sent immediately after connecting, contains the `heartbeat_interval` to use.         |
