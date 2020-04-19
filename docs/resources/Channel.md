@@ -254,7 +254,7 @@ Represents a message sent in a channel within Discord.
 | ----------- | --------- | --------------------------------------- |
 | message_id? | snowflake | id of the originating message           |
 | channel_id  | snowflake | id of the originating message's channel |
-| guild_id?   | snowflake | id of the originating message's guild   |
+| guild_id?   | ?snowflake | id of the originating message's guild   |
 
 ###### Message Activity Types
 
