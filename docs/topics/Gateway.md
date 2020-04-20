@@ -333,6 +333,8 @@ To enable sharding on a connection, the user should send the `shard` array in th
 
 As an example, if you wanted to split the connection between three shards, you'd use the following values for `shard` for each connection: `[0, 3]`, `[1, 3]`, and `[2, 3]`. Note that only the first shard (`[0, 3]`) would receive DMs.
 
+Note that `num_shards` does not relate to, or limit, the total number of potential sessions—it is only used for *routing* traffic. As such, sessions do not have to be identified in an evenly distributed manner when sharding. You can establish multiple sessions with the same `[shard_id, num_shards]`, or sessions with different `num_shards` values. This allows you to create sessions that will handle more or less traffic than others for more fine-tuned load balancing, or orchestrate "zero-downtime" scaling/updating by handing off traffic to a new deployment of sessions with a higher or lower `num_shards` count that are prepared in parallel.
+
 ## Sharding for Very Large Bots
 
 If you own a bot that is in over 250,000 guilds, there are some additional considerations you must take around sharding. Please file a support-ticket to get moved to the sharding for big bots, when you reach this amount of servers. You can contact the discord support using [https://dis.gd/contact](https://dis.gd/contact).
