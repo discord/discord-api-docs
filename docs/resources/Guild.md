@@ -187,8 +187,8 @@ A partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object. Represents an Offl
 | discovery_splash           | ?string                                                                             | [discovery splash hash](#DOCS_REFERENCE/image-formatting) |
 | emojis                     | array of [emoji](#DOCS_RESOURCES_EMOJI/emoji-object) objects                        | custom guild emojis                                       |
 | features                   | array of [guild feature](#DOCS_RESOURCES_GUILD/guild-object-guild-features) strings | enabled guild features                                    |
-| approximate_member_count   | integer                                                                             | approximate number of members in this guild               |
-| approximate_presence_count | integer                                                                             | approximate number of online members in this guild        |
+| approximate_member_count?   | integer                                                                             | approximate number of members in this guild               |
+| approximate_presence_count? | integer                                                                             | approximate number of online members in this guild        |
 | description                | ?string                                                                             | the description for the guild                             |
 
 ###### Example Guild Preview
