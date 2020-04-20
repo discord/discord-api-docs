@@ -382,7 +382,7 @@ Returns the [guild](#DOCS_RESOURCES_GUILD/guild-object) object for the given id.
 
 | Field       | Type    | Description                                                                   | Required | Default |
 |-------------|---------|-------------------------------------------------------------------------------|----------|---------|
-| with_counts | boolean | when `true`, will return approximate member and presence counts for the guild | false    | false   |
+| with_counts? | boolean | when `true`, will return approximate member and presence counts for the guild | false    | false   |
 
 ###### Example Response
 
