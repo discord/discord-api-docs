@@ -51,7 +51,7 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 | premium_subscription_count?   | integer                                                                             | the number of boosts this server currently has                                                                                   |
 | 
 
-mate_member_count?   | integer                                                                             | approximate number of members in this guild               |
+approximate_member_count?   | integer                                                                             | approximate number of members in this guild               |
 | approximate_presence_count? | integer                                                                             | approximate number of online members in this guild        |
 | preferred_locale              | string                                                                              | the preferred locale of a "PUBLIC" guild used in server discovery and notices from Discord; defaults to "en-US"                  |
 | public_updates_channel_id     | ?snowflake                                                                          | the id of the channel where admins and moderators of "PUBLIC" guilds receive notices from Discord                                |
