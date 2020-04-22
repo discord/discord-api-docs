@@ -19,8 +19,8 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 | region                        | string                                                                              | [voice region](#DOCS_RESOURCES_VOICE/voice-region-object) id for the guild                                                       |
 | afk_channel_id                | ?snowflake                                                                          | id of afk channel                                                                                                                |
 | afk_timeout                   | integer                                                                             | afk timeout in seconds                                                                                                           |
-| embed_enabled?                | boolean                                                                             | whether this guild is embeddable (e.g. widget)                                                                                   |
-| embed_channel_id?             | ?snowflake                                                                          | if not null, the channel id that the widget will generate an invite to                                                           |
+| embed_enabled?                | boolean                                                                             | whether or not the server widget is enabled (deprecated, replaced with widget_enabled)                                           |
+| embed_channel_id?             | ?snowflake                                                                          | if not null, the channel id that the widget will generate an invite to (deprecated, replaced with widget_channel_id              |
 | verification_level            | integer                                                                             | [verification level](#DOCS_RESOURCES_GUILD/guild-object-verification-level) required for the guild                               |
 | default_message_notifications | integer                                                                             | default [message notifications level](#DOCS_RESOURCES_GUILD/guild-object-default-message-notification-level)                     |
 | explicit_content_filter       | integer                                                                             | [explicit content filter level](#DOCS_RESOURCES_GUILD/guild-object-explicit-content-filter-level)                                |
@@ -30,9 +30,9 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 | mfa_level                     | integer                                                                             | required [MFA level](#DOCS_RESOURCES_GUILD/guild-object-mfa-level) for the guild                                                 |
 | application_id                | ?snowflake                                                                          | application id of the guild creator if it is bot-created                                                                         |
 | widget_enabled?               | boolean                                                                             | whether or not the server widget is enabled                                                                                      |
-| widget_channel_id?            | ?snowflake                                                                          | the channel id for the server widget                                                                                             |
+| widget_channel_id?            | ?snowflake                                                                          | if not null, the channel id that the widget will generate an invite to                                                           |
 | system_channel_id             | ?snowflake                                                                          | the id of the channel where guild notices such as welcome messages and boost events are posted                                   |
-| system_channel_flags          | integer                                                                              | [system channel flags](#DOCS_RESOURCES_GUILD/guild-object-system-channel-flags)                                                  |
+| system_channel_flags          | integer                                                                             | [system channel flags](#DOCS_RESOURCES_GUILD/guild-object-system-channel-flags)                                                  |
 | rules_channel_id              | ?snowflake                                                                          | the id of the channel where "PUBLIC" guilds display rules and/or guidelines                                                      |
 | joined_at? \*                 | ISO8601 timestamp                                                                   | when this guild was joined at                                                                                                    |
 | large? \*                     | boolean                                                                             | whether this is considered a large guild                                                                                         |
@@ -42,7 +42,7 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 | members? \*                   | array of [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) objects          | users in the guild                                                                                                               |
 | channels? \*                  | array of [channel](#DOCS_RESOURCES_CHANNEL/channel-object) objects                  | channels in the guild                                                                                                            |
 | presences? \*                 | array of partial [presence update](#DOCS_TOPICS_GATEWAY/presence-update) objects    | presences of the users in the guild                                                                                              |
-| max_presences?                | ?integer                                                                            | the maximum amount of presences for the guild (the default value, currently 25000, is in effect when null is returned)            |
+| max_presences?                | ?integer                                                                            | the maximum amount of presences for the guild (the default value, currently 25000, is in effect when null is returned)           |
 | max_members?                  | integer                                                                             | the maximum amount of members for the guild                                                                                      |
 | vanity_url_code               | ?string                                                                             | the vanity url code for the guild                                                                                                |
 | description                   | ?string                                                                             | the description for the guild                                                                                                    |
@@ -208,16 +208,16 @@ A partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object. Represents an Offl
 }
 ```
 
-### Guild Embed Object
+### Guild Widget Object
 
-###### Guild Embed Structure
+###### Guild Widget Structure
 
 | Field      | Type       | Description                  |
 | ---------- | ---------- | ---------------------------- |
-| enabled    | boolean    | whether the embed is enabled |
-| channel_id | ?snowflake | the embed channel id         |
+| enabled    | boolean    | whether the widget is enabled |
+| channel_id | ?snowflake | the widget channel id         |
 
-###### Example Guild Embed
+###### Example Guild Widget
 
 ```json
 {
@@ -680,13 +680,21 @@ Delete the attached [integration](#DOCS_RESOURCES_GUILD/integration-object) obje
 
 Sync an integration. Requires the `MANAGE_GUILD` permission. Returns a 204 empty response on success.
 
+## Get Guild Widget % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/widget
+
+Returns the [guild widget](#DOCS_RESOURCES_GUILD/guild-widget-object) object. Requires the `MANAGE_GUILD` permission.
+
 ## Get Guild Embed % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/embed
 
-Returns the [guild embed](#DOCS_RESOURCES_GUILD/guild-embed-object) object. Requires the `MANAGE_GUILD` permission.
+Same as above, but this endpoint is deprecated.
+
+## Modify Guild Widget % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/widget
+
+Modify a [guild widget](#DOCS_RESOURCES_GUILD/guild-widget-object) object for the guild. All attributes may be passed in with JSON and modified. Requires the `MANAGE_GUILD` permission. Returns the updated [guild widget](#DOCS_RESOURCES_GUILD/guild-widget-object) object.
 
 ## Modify Guild Embed % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/embed
 
-Modify a [guild embed](#DOCS_RESOURCES_GUILD/guild-embed-object) object for the guild. All attributes may be passed in with JSON and modified. Requires the `MANAGE_GUILD` permission. Returns the updated [guild embed](#DOCS_RESOURCES_GUILD/guild-embed-object) object.
+Same as above, but this endpoint is deprecated.
 
 ## Get Guild Vanity URL % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/vanity-url
 
