@@ -452,7 +452,7 @@ Embed types are "loosely defined" and, for the most part, are not used by our cl
 
 | Field           | Type   | Description                                                |
 | --------------- | ------ | ---------------------------------------------------------- |
-| name?           | string | name of author                                             |
+| name?           | string | name of author (required)                                  |
 | url?            | string | url of author                                              |
 | icon_url?       | string | url of author icon (only supports http(s) and attachments) |
 | proxy_icon_url? | string | a proxied url of author icon                               |
