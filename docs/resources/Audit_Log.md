@@ -177,6 +177,6 @@ Returns an [audit log](#DOCS_RESOURCES_AUDIT_LOG/audit-log-object) object for th
 | Field       | Type      | Description                                                                                      |
 | ----------- | --------- | ------------------------------------------------------------------------------------------------ |
 | user_id     | snowflake | filter the log for actions made by a user                                                        |
-| action_type | int       | the type of [audit log event](#DOCS_RESOURCES_AUDIT_LOG/audit-log-entry-object-audit-log-events) |
+| action_type | integer   | the type of [audit log event](#DOCS_RESOURCES_AUDIT_LOG/audit-log-entry-object-audit-log-events) |
 | before      | snowflake | filter the log before a certain entry id                                                         |
 | limit       | integer   | how many entries are returned (default 50, minimum 1, maximum 100)                               |

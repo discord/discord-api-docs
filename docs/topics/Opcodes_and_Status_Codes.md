@@ -14,7 +14,7 @@ All gateway events in Discord are tagged with an opcode that denotes the payload
 | 3    | Presence Update       | Send          | Update the client's presence.                                                            |
 | 4    | Voice State Update    | Send          | Used to join/leave or move between voice channels.                                      |
 | 6    | Resume                | Send          | Resume a previous session that was disconnected.                                        |
-| 7    | Reconnect             | Receive       | You must reconnect with a new session immediately.                                      |
+| 7    | Reconnect             | Receive       | You should attempt to reconnect and resume immediately.                                  |
 | 8    | Request Guild Members | Send          | Request information about offline guild members in a large guild.                        |
 | 9    | Invalid Session       | Receive       | The session has been invalidated. You should reconnect and identify/resume accordingly. |
 | 10   | Hello                 | Receive       | Sent immediately after connecting, contains the `heartbeat_interval` to use.         |
@@ -120,6 +120,7 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 10013  | Unknown user                                                                                                                  |
 | 10014  | Unknown emoji                                                                                                                 |
 | 10015  | Unknown webhook                                                                                                               |
+| 10026  | Unknown ban                                                                                                                   |
 | 10027  | Unknown SKU                                                                                                                   |
 | 10028  | Unknown Store Listing                                                                                                         |
 | 10029  | Unknown entitlement                                                                                                           |
@@ -136,9 +137,10 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 30007  | Maximum number of webhooks reached (10)                                                                                       |
 | 30010  | Maximum number of reactions reached (20)                                                                                      |
 | 30013  | Maximum number of guild channels reached (500)                                                                                |
-| 30015  | Maximun number of attachments in a message reached (10)                                                                                |
+| 30015  | Maximum number of attachments in a message reached (10)                                                                       |
 | 30016  | Maximum number of invites reached (1000)                                                                                      |
 | 40001  | Unauthorized. Provide a valid token and try again                                                                             |
+| 40002  | You need to verify your account in order to perform this action                                                               |
 | 40005  | Request entity too large. Try sending something smaller in size                                                               |
 | 40006  | This feature has been temporarily disabled server-side                                                                        |
 | 40007  | The user is banned from this guild                                                                                            |

@@ -14,7 +14,4 @@ Let's get you pointed in the right direction; follow this little Table of Conten
 1.  [Creating Branches and Upload Builds](#DOCS_DISPATCH_BRANCHES_AND_BUILDS/)
 2.  [Pre-defined Field Values](#DOCS_DISPATCH_FIELD_VALUES/)
 
-> info
-> To use Dispatch, you will need an application id for your game. You should have gotten this id when you set yourself up to use the Discord GameSDK, but if not, ask a Discord team member to create an application for you and get you the id.
-
 Hey, some cool community folks have made unofficial tools around dispatch, check them out [here](#DOCS_TOPICS_COMMUNITY_RESOURCES).
