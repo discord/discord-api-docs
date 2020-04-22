@@ -442,7 +442,7 @@ Returns the [guild](#DOCS_RESOURCES_GUILD/guild-object) object for the given id.
   "verification_level": 0,
   "roles": [
     {
-      "id": "290926798626357250",
+      "id": "2909267986263572999",
       "name": "@everyone",
       "permissions": 49794752,
       "position": 0,
