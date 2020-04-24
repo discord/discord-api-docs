@@ -811,15 +811,18 @@ Sent when a guild member is updated. This will also fire when the user object of
 #### Guild Members Chunk
 
 Sent in response to [Guild Request Members](#DOCS_TOPICS_GATEWAY/request-guild-members).
+You can use the `chunk_index` and `chunk_count` to calculate how many chunks are left for your request.
 
 ###### Guild Members Chunk Event Fields
 
-| Field      | Type                                                                       | Description                                                                                |
-| ---------- | -------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------ |
-| guild_id   | snowflake                                                                  | the id of the guild                                                                        |
-| members    | array of [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) objects | set of guild members                                                                       |
-| not_found? | array                                                                      | if passing an invalid id to `REQUEST_GUILD_MEMBERS`, it will be returned here              |
-| presences? | array of [presence](#DOCS_TOPICS_GATEWAY/presence) objects                 | if passing true to `REQUEST_GUILD_MEMBERS`, presences of the returned members will be here |
+| Field       | Type                                                                       | Description                                                                                       |
+| ----------- | -------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- |
+| guild_id    | snowflake                                                                  | the id of the guild                                                                               |
+| members     | array of [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) objects | set of guild members                                                                              |
+| chunk_index | integer                                                                    | the chunk index in the expected chunks for this response (0 &lt;= chunk\_index &lt; chunk\_count) |
+| chunk_count | integer                                                                    | the total number of expected chunks for this response                                             |
+| not_found?  | array                                                                      | if passing an invalid id to `REQUEST_GUILD_MEMBERS`, it will be returned here                     |
+| presences?  | array of [presence](#DOCS_TOPICS_GATEWAY/presence) objects                 | if passing true to `REQUEST_GUILD_MEMBERS`, presences of the returned members will be here        |
 
 #### Guild Role Create
 
