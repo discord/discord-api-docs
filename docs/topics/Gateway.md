@@ -771,6 +771,7 @@ Sent when a guild member is updated. This will also fire when the user object of
 #### Guild Members Chunk
 
 Sent in response to [Guild Request Members](#DOCS_TOPICS_GATEWAY/request-guild-members).
+You can use the `chunk_index` and `chunk_count` to calculate how many chunks are left for your request.
 
 ###### Guild Members Chunk Event Fields
 
