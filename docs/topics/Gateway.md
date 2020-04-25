@@ -524,6 +524,7 @@ If you are using [Gateway Intents](#DOCS_TOPICS_GATEWAY/gateway-intents), there 
 | limit      | integer                          | maximum number of members to send matching the `query`; a limit of `0` can be used with an empty string `query` to return all members | true when specifying query |
 | presences? | boolean                          | used to specify if we want the presences of the matched members                                                                       | false                      |
 | user_ids?  | snowflake or array of snowflakes | used to specify which users you wish to fetch                                                                                         | one of query or user_ids   |
+| nonce?     | string                           | nonce to identify the [Guild Members Chunk](#DOCS_TOPIC_GATEWAY/guild-members-chunk) response                                         | false                      |
 
 ###### Guild Request Members
 
@@ -823,6 +824,7 @@ You can use the `chunk_index` and `chunk_count` to calculate how many chunks are
 | chunk_count | integer                                                                    | the total number of expected chunks for this response                                             |
 | not_found?  | array                                                                      | if passing an invalid id to `REQUEST_GUILD_MEMBERS`, it will be returned here                     |
 | presences?  | array of [presence](#DOCS_TOPICS_GATEWAY/presence) objects                 | if passing true to `REQUEST_GUILD_MEMBERS`, presences of the returned members will be here        |
+| nonce?      | string                                                                     | the nonce used in the [Guild Members Request](#DOCS_TOPIC_GATEWAY/request-guild-members)          |
 
 #### Guild Role Create
 
