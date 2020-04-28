@@ -129,6 +129,9 @@ Same as above, except this call does not require authentication.
 > info
 > For the webhook embed objects, you can set every field except `type` (it will be `rich` regardless of if you try to set it), `provider`, `video`, and any `height`, `width`, or `proxy_url` values for images.
 
+> info
+> There is no limit to how many files can be uploaded, just the total request limit.
+
 ## Execute Slack-Compatible Webhook % POST /webhooks/{webhook.id#DOCS_RESOURCES_WEBHOOK/webhook-object}/{webhook.token#DOCS_RESOURCES_WEBHOOK/webhook-object}/slack
 
 ###### Querystring Params
