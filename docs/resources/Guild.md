@@ -707,13 +707,16 @@ Delete a guild role. Requires the `MANAGE_ROLES` permission. Returns a 204 empty
 
 ## Get Guild Prune Count % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/prune
 
-Returns an object with one 'pruned' key indicating the number of members that would be removed in a prune operation. Requires the `KICK_MEMBERS` permission.
+Returns an object with one 'pruned' key indicating the number of members that would be removed in a prune operation. Requires the `KICK_MEMBERS` permission. 
+
+By default, prune will not remove users with roles. You can optionally include specific roles in your prune by providing the `include_roles` parameter. Any inactive user that has a subset of the provided role(s) will be counted in the prune and users with additional roles will not.
 
 ###### Query String Params
 
-| Field | Type    | Description                                   | Default |
-| ----- | ------- | --------------------------------------------- | ------- |
-| days  | integer | number of days to count prune for (1 or more) | 7       |
+| Field         | Type                | Description                                   | Default |
+| ------------- | ------------------- | --------------------------------------------- | ------- |
+| days          | integer             | number of days to count prune for (1 or more) | 7       |
+| include_roles | array of snowflakes | role(s) to include                            | none    | 
 
 ## Begin Guild Prune % POST /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/prune
 
