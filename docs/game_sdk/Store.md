@@ -406,7 +406,7 @@ curl https://discordapp.com/api/v6/applications/461618159171141643/entitlements?
       "sku_id": "53908232599983680",
       "application_id": "461618159171141643",
       "id": "53908232506183999",
-      "type": 3,
+      "type": 1,
       "payment": {
         "id": "538491076055400999",
         "currency": "usd",
