@@ -691,15 +691,15 @@ This endpoint supports requests with `Content-Type`s of both `application/json` 
 
 ###### Params
 
-| Field            | Type                                                                       | Description                                             |
-| ---------------- | -------------------------------------------------------------------------- | ------------------------------------------------------- |
-| content          | string                                                                     | the message contents (up to 2000 characters)            |
-| nonce            | integer or string                                                          | a nonce that can be used for optimistic message sending |
-| tts              | boolean                                                                    | true if this is a TTS message                           |
-| file             | file contents                                                              | the contents of the file being sent                     |
-| embed            | [embed](#DOCS_RESOURCES_CHANNEL/embed-object) object                       | embedded `rich` content                                 |
-| payload_json     | string                                                                     | JSON encoded body of any additional request fields.     |
-| allowed_mentions | [allowed_mentions](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object) object | allowed mentions for a message                          |
+| Field            | Type                                                                       | Description                                                                   |
+| ---------------- | -------------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
+| content          | string                                                                     | the message contents (up to 2000 characters)                                  |
+| nonce            | integer or string                                                          | a nonce that can be used for optimistic message sending (up to 25 characters) |
+| tts              | boolean                                                                    | true if this is a TTS message                                                 |
+| file             | file contents                                                              | the contents of the file being sent                                           |
+| embed            | [embed](#DOCS_RESOURCES_CHANNEL/embed-object) object                       | embedded `rich` content                                                       |
+| payload_json     | string                                                                     | JSON encoded body of any additional request fields.                           |
+| allowed_mentions | [allowed_mentions](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object) object | allowed mentions for a message                                                |
 
 > info
 > For the embed object, you can set every field except `type` (it will be `rich` regardless of if you try to set it), `provider`, `video`, and any `height`, `width`, or `proxy_url` values for images.

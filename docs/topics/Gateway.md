@@ -526,6 +526,11 @@ If you are using [Gateway Intents](#DOCS_TOPICS_GATEWAY/gateway-intents), there 
 | user_ids?  | snowflake or array of snowflakes | used to specify which users you wish to fetch                                                                                         | one of query or user_ids   |
 | nonce?     | string                           | nonce to identify the [Guild Members Chunk](#DOCS_TOPIC_GATEWAY/guild-members-chunk) response                                         | false                      |
 
+
+> info
+> Nonce can only be up to 32 bytes. If you send an invalid nonce it will be ignored and the reply member_chunk(s) will not have a nonce set.
+
+
 ###### Guild Request Members
 
 ```json
