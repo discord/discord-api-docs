@@ -50,9 +50,16 @@ userManager.GetUser(290926444748734465, (Discord.Result result, ref Discord.User
   }
 });
 
+
 // Return normally
-var currentUser = userManager.GetCurrentUser();
-Console.WriteLine(currentUser.Id);
+userManager.OnCurrentUserUpdate += () =>
+{
+    var currentUser = userManager.GetCurrentUser();
+        Console.WriteLine(currentUser.Username);
+        Console.WriteLine(currentUser.Discriminator);
+        Console.WriteLine(currentUser.Id);
+    };
+});
 ```
 
 ## Environment Variables

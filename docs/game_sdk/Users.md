@@ -150,13 +150,13 @@ Fires when the `User` struct of the currently connected user changes. They may h
 ```cs
 var userManager = discord.GetUserManager();
 // GetCurrentUser will error until this fires once.
-userManager.OnCurrentUserUpdate += () =>
-{
-var currentUser = userManager.GetCurrentUser();
-	Console.WriteLine(currentUser.Username);
-	Console.WriteLine(currentUser.Id);
-	Console.WriteLine(currentUser.Discriminator);
-	Console.WriteLine(currentUser.Avatar);
+userManager.OnCurrentUserUpdate += () => {
+  var currentUser = userManager.GetCurrentUser();
+
+  Console.WriteLine(currentUser.Username);
+  Console.WriteLine(currentUser.Id);
+  Console.WriteLine(currentUser.Discriminator);
+  Console.WriteLine(currentUser.Avatar);
 };
 ```
 
