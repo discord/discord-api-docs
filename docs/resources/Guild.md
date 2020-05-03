@@ -571,6 +571,20 @@ Returns a list of [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) obje
 | limit | integer   | max number of members to return (1-1000) | 1       |
 | after | snowflake | the highest user id in the previous page | 0       |
 
+## Search Guild Members % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/members/search
+Returns a list of [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) objects whose username or nickname starts with a provided string.
+
+> info
+> All parameters to this endpoint except for `query` are optional
+
+###### Query String Params
+
+| Field | Type    | Description                                                | Default |
+| ----- | ------- | ---------------------------------------------------------- | ------- |
+| query | string  | Query string to match username(s) and nickname(s) against. |         |
+| limit | integer | max number of members to return (1-1000)                   | 1       |
+
+
 ## Add Guild Member % PUT /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/members/{user.id#DOCS_RESOURCES_USER/user-object}
 
 Adds a user to the guild, provided you have a valid oauth2 access token for the user with the `guilds.join` scope. Returns a 201 Created with the [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) as the body, or 204 No Content if the user is already a member of the guild. Fires a [Guild Member Add](#DOCS_TOPICS_GATEWAY/guild-member-add) Gateway event.
