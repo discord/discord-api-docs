@@ -1,6 +1,6 @@
 # API Reference
 
-Discord's API is based around two core layers, a HTTPS/REST API for general operations, and persistent secure WebSocket based connection for sending and subscribing to real-time events. The most common use case of the Discord API will be providing a service, or access to a platform through the [OAuth2](http://oauth.net/2/) API.
+Discord's API is based around two core layers, a HTTPS/REST API for general operations, and persistent secure WebSocket based connection for sending and subscribing to real-time events. The most common use case of the Discord API will be providing a service, or access to a platform through the [OAuth2](https://oauth.net/2/) API.
 
 ###### Base URL
 
@@ -116,6 +116,10 @@ However, there are cases in which passing something to our API will instead retu
 
 You can see in this case that the sent `user_id` is not a `bigint`; therefore, when it is serialized back to JSON by Discord, it is not transformed into a string. **This will never happen with IDs that come from Discord.** But, this can happen if you send malformed data in your requests.
 
+## ISO8601 Date/Time
+
+Discord utilizes the [ISO8601 format](https://www.loc.gov/standards/datetime/iso-tc154-wg5_n0038_iso_wd_8601-1_2016-02-16.pdf) for most Date/Times returned in our models. This format is referred to as type `ISO8601` within tables in this documentation.
+
 ## Nullable and Optional Resource Fields
 
 Resource fields that may contain a `null` value have types that are prefixed with a question mark.
@@ -191,7 +195,7 @@ Using the markdown for either users, roles, or channels will mention the target(
 https://cdn.discordapp.com/
 ```
 
-Discord uses ids and hashes to render images in the client. These hashes can be retrieved through various API requests, like [Get User](#DOCS_RESOURCES_USER/get-user). Below are the formats, size limitations, and CDN endpoints for images in Discord. The returned format can be changed by changing the [extension name](#DOCS_REFERENCE/image-formatting-image-formats) at the end of the URL. The returned size can be changed by appending a querystring of `?size=desired_size` to the URL. Image size can be any power of two between 16 and 2048.
+Discord uses ids and hashes to render images in the client. These hashes can be retrieved through various API requests, like [Get User](#DOCS_RESOURCES_USER/get-user). Below are the formats, size limitations, and CDN endpoints for images in Discord. The returned format can be changed by changing the [extension name](#DOCS_REFERENCE/image-formatting-image-formats) at the end of the URL. The returned size can be changed by appending a querystring of `?size=desired_size` to the URL. Image size can be any power of two between 16 and 4096.
 
 ###### Image Formats
 

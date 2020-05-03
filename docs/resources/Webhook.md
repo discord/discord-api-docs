@@ -84,11 +84,11 @@ Modify a webhook. Requires the `MANAGE_WEBHOOKS` permission. Returns the updated
 
 ###### JSON Params
 
-| Field      | Type                                     | Description                                        |
-| ---------- | ---------------------------------------- | -------------------------------------------------- |
-| name       | string                                   | the default name of the webhook                    |
-| avatar     | [image data](#DOCS_REFERENCE/image-data) | image for the default webhook avatar               |
-| channel_id | snowflake                                | the new channel id this webhook should be moved to |
+| Field      | Type                                      | Description                                        |
+| ---------- | ----------------------------------------- | -------------------------------------------------- |
+| name       | string                                    | the default name of the webhook                    |
+| avatar     | ?[image data](#DOCS_REFERENCE/image-data) | image for the default webhook avatar               |
+| channel_id | snowflake                                 | the new channel id this webhook should be moved to |
 
 ## Modify Webhook with Token % PATCH /webhooks/{webhook.id#DOCS_RESOURCES_WEBHOOK/webhook-object}/{webhook.token#DOCS_RESOURCES_WEBHOOK/webhook-object}
 

@@ -1,7 +1,10 @@
 # Achievements
 
 > info
-> Need help with the SDK? Talk to us in the [Discord GameSDK Server](https://discord.gg/discord-gamesdk)!
+> Need help with the SDK? Talk to us in the [Discord Developers Server](https://discord.gg/discord-developers)!
+
+> warn
+> Game approval submissions are currently paused due to unforeseen circumstances. We apologize for the inconvenience. [Click here for more info.](https://support-dev.discordapp.com/hc/en-us/articles/360041437171)
 
 There's no feeling quite like accomplishing a goal that you've set out to achieve. Is killing 1000 zombies in a game as great an achievement as climbing Mt. Everest? Of course it is, and I didn't even have to leave my house. So get off my back, society.
 
@@ -71,7 +74,6 @@ achievementManager.SetUserAchievement(580159119969878046, 25, (res) =>
 Loads a stable list of the current user's achievements to iterate over. If the user has any achievements, do your iteration within the callback of this function.
 
 Returns `Discord.Result` via callback.
-
 
 > info
 > Remember to only iterate when there are results!

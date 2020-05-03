@@ -19,7 +19,7 @@ Whenever an admin action is performed on the API, an entry is added to the respe
 
 ```json
 {
-  "id": 33590653072239123,
+  "id": "33590653072239123",
   "name": "A Name",
   "type": "twitch",
   "account": {
@@ -90,7 +90,7 @@ Whenever an admin action is performed on the API, an entry is added to the respe
 | ------------------ | --------- | ------------------------------------------------------- | -------------------------------------------------------------------------------- |
 | delete_member_days | string    | number of days after which inactive members were kicked | MEMBER_PRUNE                                                                     |
 | members_removed    | string    | number of members removed by the prune                  | MEMBER_PRUNE                                                                     |
-| channel_id         | snowflake | channel in which the entities were targeted             | MEMBER_MOVE & MESSAGE_PIN & MESSAGE_UNPIN & MESSAGE_DELETE & MESSAGE_BULK_DELETE |
+| channel_id         | snowflake | channel in which the entities were targeted             | MEMBER_MOVE & MESSAGE_PIN & MESSAGE_UNPIN & MESSAGE_DELETE                        |
 | message_id         | snowflake | id of the message that was targeted                     | MESSAGE_PIN & MESSAGE_UNPIN                                                      |
 | count              | string    | number of entities that were targeted                   | MESSAGE_DELETE & MESSAGE_BULK_DELETE & MEMBER_DISCONNECT & MEMBER_MOVE           |
 | id                 | snowflake | id of the overwritten entity                            | CHANNEL_OVERWRITE_CREATE & CHANNEL_OVERWRITE_UPDATE & CHANNEL_OVERWRITE_DELETE   |
@@ -177,6 +177,6 @@ Returns an [audit log](#DOCS_RESOURCES_AUDIT_LOG/audit-log-object) object for th
 | Field       | Type      | Description                                                                                      |
 | ----------- | --------- | ------------------------------------------------------------------------------------------------ |
 | user_id     | snowflake | filter the log for actions made by a user                                                        |
-| action_type | int       | the type of [audit log event](#DOCS_RESOURCES_AUDIT_LOG/audit-log-entry-object-audit-log-events) |
+| action_type | integer   | the type of [audit log event](#DOCS_RESOURCES_AUDIT_LOG/audit-log-entry-object-audit-log-events) |
 | before      | snowflake | filter the log before a certain entry id                                                         |
 | limit       | integer   | how many entries are returned (default 50, minimum 1, maximum 100)                               |

@@ -1,5 +1,8 @@
 # How to Get Your Game on Discord
 
+> warn
+> Game approval submissions are currently paused due to unforeseen circumstances. We apologize for the inconvenience. [Click here for more info.](https://support-dev.discordapp.com/hc/en-us/articles/360041437171)
+
 Welcome, adventurer! If you're here, you want to find out how to get your game up and running on Discord and learn about our awesome Server Commerce features. You've come to the right place, so let's get started.
 
 ## Get the Band Back Together

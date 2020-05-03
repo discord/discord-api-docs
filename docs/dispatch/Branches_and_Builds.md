@@ -1,7 +1,7 @@
 # Branches and Builds
 
 > info
-> Need help with Dispatch? Talk to us in the [Discord GameSDK Server](https://discord.gg/discord-gamesdk)!
+> Need help with Dispatch? Talk to us in the [Discord Developers Server](https://discord.gg/discord-developers)!
 
 In order for other people to download your game from Discord's servers, you need to _upload_ your game to Discord's servers. Let's learn how to do that!
 

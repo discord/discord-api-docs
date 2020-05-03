@@ -1,7 +1,7 @@
 # List of Commands
 
 > info
-> Need help with Dispatch? Talk to us in the [Discord GameSDK Server](https://discord.gg/discord-gamesdk)!
+> Need help with Dispatch? Talk to us in the [Discord Developers Server](https://discord.gg/discord-developers)!
 
 Some people don't like to read full pages of documentation. Personally, I think those people are missing out. But we want to make sure that we cater to everyone, so here's a list of every Dispatch command and what it does. No frills, no jokes. Okay, maybe some jokes.
 
@@ -201,10 +201,10 @@ Mark a build as corrupted.
 
 ###### Arguments
 
-| name           | values | description                   |
-| -------------- | ------ | ----------------------------- |
-| application_id | int    | your application ID/client ID |
-| build_id       | int    | the id of the build to corrupt|
+| name           | values | description                    |
+| -------------- | ------ | ------------------------------ |
+| application_id | int    | your application ID/client ID  |
+| build_id       | int    | the id of the build to corrupt |
 
 ###### Example
 
@@ -219,7 +219,7 @@ Displays a preview of the install paths that a build will put files in, for a gi
 
 ###### Arguments
 
-| name             | values                                                                        | description                                                                                           
+| name             | values                                                                        | description                                                                                           |
 | ---------------- | ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
 | config_file      | filename                                                                      | the [JSON config file](#DOCS_DISPATCH_BRANCHES_AND_BUILDS/setting-up-our-first-build) for the build   |
 | application_root | file path                                                                     | the directory that dispatch will treat as the local root for operations—`.` for the current directory |

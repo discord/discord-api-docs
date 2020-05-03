@@ -1,7 +1,10 @@
 # Store
 
 > info
-> Need help with the SDK? Talk to us in the [Discord GameSDK Server](https://discord.gg/discord-gamesdk)!
+> Need help with the SDK? Talk to us in the [Discord Developers Server](https://discord.gg/discord-developers)!
+
+> warn
+> Game approval submissions are currently paused due to unforeseen circumstances. We apologize for the inconvenience. [Click here for more info.](https://support-dev.discordapp.com/hc/en-us/articles/360041437171)
 
 If your game has DLC or offers in-app purchases, this manager is for you! The Store Manager allows you to fetch a users' entitlements, as well as being notified when a user is granted an entitlement from a purchase flow for your game.
 
@@ -403,7 +406,7 @@ curl https://discordapp.com/api/v6/applications/461618159171141643/entitlements?
       "sku_id": "53908232599983680",
       "application_id": "461618159171141643",
       "id": "53908232506183999",
-      "type": 3,
+      "type": 1,
       "payment": {
         "id": "538491076055400999",
         "currency": "usd",

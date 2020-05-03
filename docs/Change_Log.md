@@ -1,5 +1,11 @@
 # Change Log
 
+## New Properies on Guild Members Chunk event
+
+#### April 24, 2020
+
+The [Guild Members Chunk](#DOCS_TOPICS_GATEWAY/guild-members-chunk) gateway event now contains two properties: `chunk_index` and `chunk_count`. These values can be used to keep track of how many events you have left to receive in respnse to a [Request Guild Members](#DOCS_TOPICS_GATEWAY/request-guild-members) command.
+
 ## New Allowed Mentions Object
 
 #### March 3, 2020
@@ -57,7 +63,7 @@ Fixed a bug from the 2.5.5 release that caused network handshakes to fail, resul
 
 We've shipped some updates to the GameSDK, including support for Linux as well as the IL2CPP backend system for Unity. These changes also fixed a bug in the [`SetUserAchievement()`](#DOCS_GAME_SDK_ACHIEVEMENTS/set-user-achievement) method.
 
-Get the latest at the top of the [Getting Started](#DOCS_GAME_SDK_SDK_STARTER_GUIDE/step-1-get-the-thing) documentation. If you're looking for help interacting with the GameSDK or want to report a bug, join us on the [official Discord](https://discord.gg/discord-gamesdk).
+Get the latest at the top of the [Getting Started](#DOCS_GAME_SDK_SDK_STARTER_GUIDE/step-1-get-the-thing) documentation. If you're looking for help interacting with the GameSDK or want to report a bug, join us on the [official Discord](https://discord.gg/discord-developers).
 
 ## Changes to Special Channels
 
@@ -93,7 +99,7 @@ Additional information has been documented to support [Server Nitro Boosting](ht
 
 #### April 29, 2019
 
-The [Discord-RPC](https://github.com/discordapp/discord-rpc) implementation of Rich Presence has been deprecated in favor of Discord's new GameSDK. If you're interested in using Rich Presence, please read our [SDK Starter Guide](#DOCS_GAME_SDK_SDK_STARTER_GUIDE/) and check out the relevant functions in the [Activity Manager](#DOCS_GAME_SDK_ACTIVITIES/).
+The [Discord-RPC](https://github.com/discord/discord-rpc) implementation of Rich Presence has been deprecated in favor of Discord's new GameSDK. If you're interested in using Rich Presence, please read our [SDK Starter Guide](#DOCS_GAME_SDK_SDK_STARTER_GUIDE/) and check out the relevant functions in the [Activity Manager](#DOCS_GAME_SDK_ACTIVITIES/).
 
 ## New Invite Object Fields
 

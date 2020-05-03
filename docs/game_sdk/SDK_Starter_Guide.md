@@ -1,7 +1,10 @@
 # SDK Starter Guide
 
 > info
-> Need help with the SDK? Talk to us in the [Discord GameSDK Server](https://discord.gg/discord-gamesdk)!
+> Need help with the SDK? Talk to us in the [Discord Developers Server](https://discord.gg/discord-developers)!
+
+> warn
+> Game approval submissions are currently paused due to unforeseen circumstances. We apologize for the inconvenience. [Click here for more info.](https://support-dev.discordapp.com/hc/en-us/articles/360041437171)
 
 Welcome to the Discord GameSDK! We're glad you made it. This SDK is here to solve all your problems, if your problems include finding an awesome SDK to help develop your game. Our SDK is like Clippy, if Clippy were built on a modern tech stack, talked less, and was an awesome game development SDK.
 
@@ -62,6 +65,32 @@ From there, you'll be able to reference functions in the DLL within your scripts
     2. Open Discord
     3. Attempt to re-open your game
     Step 3 will fail when running directly from the Unity editor
+    Therefore, always keep Discord running during tests, or use Discord.CreateFlags.NoRequireDiscord
+*/
+var discord = new Discord.Discord(CLIENT_ID, (UInt64)Discord.CreateFlags.Default);
+```
+
+You're now free to use other functionality in the SDK! Make sure to call `discord.RunCallbacks()` in your main game loop; that's your `Update()` function.
+
+You're ready to go! Check out the rest of the documentation for more info on how to use the other pieces of the SDK. See an example of everything it can do in `examples/Program.cs` in the SDK zip file.
+
+## Code Primer - Non-Unity Projects (Csharp)
+
+- Open up that SDK zip that you downloaded.
+- Create a folder in your project directory called `DiscordGameSDK` and copy the contents of the `csharp/` folder to it
+- Build your solution then place the `.dll` in the directory of the `.exe` (either x86 or x86_64 version depending on your compile platform). If you compile for Any CPU you may need to perform additional wrapping around DLL importing (like setting the DLL directory dynamically) to make sure you load the correct DLL.
+
+From there, you'll be able to reference functions in the DLL within your scripts. We then instantiate the SDK with:
+
+```cs
+/*
+    Grab that Client ID from earlier
+    Discord.CreateFlags.Default will require Discord to be running for the game to work
+    If Discord is not running, it will:
+    1. Close your game
+    2. Open Discord
+    3. Attempt to re-open your game
+    Step 3 may fail when running directly from your editor
     Therefore, always keep Discord running during tests, or use Discord.CreateFlags.NoRequireDiscord
 */
 var discord = new Discord.Discord(CLIENT_ID, (UInt64)Discord.CreateFlags.Default);
