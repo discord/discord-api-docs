@@ -4,7 +4,7 @@
 
 #### April 24, 2020
 
-The [Guild Members Chunk](#DOCS_TOPICS_GATEWAY/guild-members-chunk) gateway event now contains two properties: `chunk_index` and `chunk_count`. These values can be used to keep track of how many events you have left to receive in respnse to a [Request Guild Members](#DOCS_TOPICS_GATEWAY/request-guild-members) command.
+The [Guild Members Chunk](#DOCS_TOPICS_GATEWAY/guild-members-chunk) gateway event now contains two properties: `chunk_index` and `chunk_count`. These values can be used to keep track of how many events you have left to receive in response to a [Request Guild Members](#DOCS_TOPICS_GATEWAY/request-guild-members) command.
 
 ## New Allowed Mentions Object
 
