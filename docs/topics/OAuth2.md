@@ -234,6 +234,7 @@ Bot accounts have a few differences in comparison to normal user accounts, namel
 1. Bots are added to guilds through the OAuth2 API, and cannot accept normal invites.
 2. Bots cannot have friends, nor be added to or join Group DMs.
 3. Bots do not have a maximum number of Guilds (unlike user accounts, which are limited to 100).
+   - On October 7th, only [Verified Bots](https://blog.discordapp.com/the-future-of-bots-on-discord-4e6e050ab52e) will be able to be in more than 100 guilds. Verification is avaliable for bots in 75 or more guilds, and you can see this link for more information on how to verify, and the future of bots on Discord. 
 4. Bots have an entirely separate set of [Rate Limits](#DOCS_TOPICS_RATE_LIMITS/rate-limits).
 
 ### Bot Authorization Flow
