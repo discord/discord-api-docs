@@ -10,9 +10,9 @@ Development Kit (“SDK”) in connection with our Discord online and mobile cha
 “Platform”). By using the API, SDK and/or its accompanying instructions, manuals, guidelines,
 samples and examples (the “Documentation”), you agree to be bound by this Agreement. End
 users using the Platform in connection with Licensee’s Applications (“End Users”) must be
-bound by the Discord Terms of Service, currently located at [https://discordapp.com/terms](https://discordapp.com/terms) (the
+bound by the Discord Terms of Service, currently located at [https://discord.com/terms](https://discord.com/terms) (the
 “TOS”). Please note that the TOS includes Discord’s Privacy Policy, currently located at
-[https://discordapp.com/privacy](https://discordapp.com/privacy) (“Privacy Policy”).
+[https://discord.com/privacy](https://discord.com/privacy) (“Privacy Policy”).
 
 **By downloading, accessing or using the API or SDK or Documentation in any way,
 Licensee affirms that Licensee has read this Agreement, understands it, and agrees to be
@@ -63,7 +63,7 @@ in or the API and SDK.
 a limited, non-exclusive, revocable, non-transferable license to display the Discord trademark
 solely for the purpose of attributing the source of the API or SDK and indicating that you used
 the API or SDK in creating your Applications. In doing so, you shall adhere to Discord’s brand
-guidelines, currently located at [https://discordapp.com/branding](https://discordapp.com/branding). In addition, all use of the SDK
+guidelines, currently located at [https://discord.com/branding](https://discord.com/branding). In addition, all use of the SDK
 must be in compliance with Discord’s in-game brand guidelines. All use by you of the Discord
 trademark (including any goodwill associated therewith) shall inure to the benefit of Discord. At
 no time during or after the term of this Agreement shall you challenge or assist others to

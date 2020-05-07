@@ -64,7 +64,7 @@ The parties acknowledge and agree that their relationship is, and shall be, that
 
 2.3 **Marketing License.** Developer hereby grants to Discord a royalty-free license, during the Term, to copy, perform, display, create derivative works of, use, and distribute (a) the Developer Marks and (b) materials from the Apps (for example, screenshots), marketing material (for example, videos), and ratings information in connection with the promotion, marketing, licensing, sale, and distribution of the Apps and the exercise of Discord’s other rights under this Agreement. The foregoing license shall be non-exclusive and worldwide.
 
-2.4 **Discord Store and Discord Software License.** Discord hereby grants to Developer a non-exclusive, royalty-free, license, during the Term, to use the Discord Store solely as necessary to fulfill Developer’s obligations under this Agreement. Developer’s use of the Discord Software shall be subject to the Discord Developer Terms of Service currently located at https://discordapp.com/developers/docs/legal (the “Developer TOS”).
+2.4 **Discord Store and Discord Software License.** Discord hereby grants to Developer a non-exclusive, royalty-free, license, during the Term, to use the Discord Store solely as necessary to fulfill Developer’s obligations under this Agreement. Developer’s use of the Discord Software shall be subject to the Discord Developer Terms of Service currently located at https://discord.com/developers/docs/legal (the “Developer TOS”).
 
 2.5 **Discord Trademark License.** Subject to Discord’s prior written approval in each case, Discord hereby grants to Developer a non-exclusive, royalty-free, license, during the Term, to publicly display the Discord Marks solely in marketing materials for the Apps. All such use of the Discord Marks must be in accordance with, Discord’s trademark and other brand guidelines made available to Developer.
 
@@ -90,7 +90,7 @@ The parties acknowledge and agree that their relationship is, and shall be, that
 
 3.7 **Ratings Information.** Discord will facilitate Developer’s inclusion of Ratings Information for Apps in the Discord Store. Developer agrees to provide via the Discord Store current and accurate Ratings Information for each App.
 
-3.8 **Privacy and App Sales Data.** Subject to Discord’s privacy policy, the current version of which is located at discordapp.com/privacy, (the “Discord Privacy Policy”) the Discord Store Subscriber Agreement, applicable laws and any other obligations Discord has to a third party or otherwise, Discord will provide Developer with Sales Data for the Apps. The Discord Privacy Policy is hereby incorporated into this Agreement.
+3.8 **Privacy and App Sales Data.** Subject to Discord’s privacy policy, the current version of which is located at discord.com/privacy, (the “Discord Privacy Policy”) the Discord Store Subscriber Agreement, applicable laws and any other obligations Discord has to a third party or otherwise, Discord will provide Developer with Sales Data for the Apps. The Discord Privacy Policy is hereby incorporated into this Agreement.
 
 ### 4\. Marketing and Publicity
 

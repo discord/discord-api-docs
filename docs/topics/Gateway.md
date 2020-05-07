@@ -807,7 +807,7 @@ Sent when a guild member is updated. This will also fire when the user object of
 | roles          | array of snowflakes                               | user role ids                                                                                                               |
 | user           | a [user](#DOCS_RESOURCES_USER/user-object) object | the user                                                                                                                    |
 | nick?          | ?string                                           | nickname of the user in the guild                                                                                           |
-| premium_since? | ?ISO8601 timestamp                                | when the user starting [boosting](https://support.discordapp.com/hc/en-us/articles/360028038352-Server-Boosting-) the guild |
+| premium_since? | ?ISO8601 timestamp                                | when the user starting [boosting](https://support.discord.com/hc/en-us/articles/360028038352-Server-Boosting-) the guild |
 
 #### Guild Members Chunk
 
@@ -1007,7 +1007,7 @@ A user's presence is their current state on a guild. This event is sent when a u
 | status         | string                                                            | either "idle", "dnd", "online", or "offline"                                                                               |
 | activities     | array of [activity](#DOCS_TOPICS_GATEWAY/activity-object) objects | user's current activities                                                                                                  |
 | client_status  | [client_status](#DOCS_TOPICS_GATEWAY/client-status-object) object | user's platform-dependent status                                                                                           |
-| premium_since? | ?ISO8601 timestamp                                                | when the user started [boosting](https://support.discordapp.com/hc/en-us/articles/360028038352-Server-Boosting-) the guild |
+| premium_since? | ?ISO8601 timestamp                                                | when the user started [boosting](https://support.discord.com/hc/en-us/articles/360028038352-Server-Boosting-) the guild |
 | nick?          | ?string                                                           | this users guild nickname (if one is set)                                                                                  |
 
 #### Client Status Object
