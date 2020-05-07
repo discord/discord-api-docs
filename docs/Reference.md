@@ -192,7 +192,7 @@ Using the markdown for either users, roles, or channels will mention the target(
 ###### Image Base Url
 
 ```
-https://cdn.discord.com/
+https://cdn.discordapp.com/
 ```
 
 Discord uses ids and hashes to render images in the client. These hashes can be retrieved through various API requests, like [Get User](#DOCS_RESOURCES_USER/get-user). Below are the formats, size limitations, and CDN endpoints for images in Discord. The returned format can be changed by changing the [extension name](#DOCS_REFERENCE/image-formatting-image-formats) at the end of the URL. The returned size can be changed by appending a querystring of `?size=desired_size` to the URL. Image size can be any power of two between 16 and 4096.
