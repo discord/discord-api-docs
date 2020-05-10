@@ -707,24 +707,30 @@ Delete a guild role. Requires the `MANAGE_ROLES` permission. Returns a 204 empty
 
 ## Get Guild Prune Count % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/prune
 
-Returns an object with one 'pruned' key indicating the number of members that would be removed in a prune operation. Requires the `KICK_MEMBERS` permission.
+Returns an object with one 'pruned' key indicating the number of members that would be removed in a prune operation. Requires the `KICK_MEMBERS` permission. 
+
+By default, prune will not remove users with roles. You can optionally include specific roles in your prune by providing the `include_roles` parameter. Any inactive user that has a subset of the provided role(s) will be counted in the prune and users with additional roles will not.
 
 ###### Query String Params
 
-| Field | Type    | Description                                   | Default |
-| ----- | ------- | --------------------------------------------- | ------- |
-| days  | integer | number of days to count prune for (1 or more) | 7       |
+| Field         | Type                | Description                                   | Default |
+| ------------- | ------------------- | --------------------------------------------- | ------- |
+| days          | integer             | number of days to count prune for (1 or more) | 7       |
+| include_roles | array of snowflakes | role(s) to include                            | none    | 
 
 ## Begin Guild Prune % POST /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/prune
 
 Begin a prune operation. Requires the `KICK_MEMBERS` permission. Returns an object with one 'pruned' key indicating the number of members that were removed in the prune operation. For large guilds it's recommended to set the `compute_prune_count` option to `false`, forcing 'pruned' to `null`. Fires multiple [Guild Member Remove](#DOCS_TOPICS_GATEWAY/guild-member-remove) Gateway events.
 
+By default, prune will not remove users with roles. You can optionally include specific roles in your prune by providing the `include_roles` parameter. Any inactive user that has a subset of the provided role(s) will be included in the prune and users with additional roles will not.
+
 ###### Query String Params
 
-| Field               | Type    | Description                                                | Default |
-| ------------------- | ------- | ---------------------------------------------------------- | ------- |
-| days                | integer | number of days to prune (1 or more)                        | 7       |
-| compute_prune_count | boolean | whether 'pruned' is returned, discouraged for large guilds | true    |
+| Field               | Type                | Description                                                | Default |
+| ------------------- | ------------------- | ---------------------------------------------------------- | ------- |
+| days                | integer             | number of days to prune (1 or more)                        | 7       |
+| compute_prune_count | boolean             | whether 'pruned' is returned, discouraged for large guilds | true    |
+| include_roles       | array of snowflakes | role(s) to include                                         | none    | 
 
 ## Get Guild Voice Regions % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/regions
 
