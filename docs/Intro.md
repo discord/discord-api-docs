@@ -14,7 +14,7 @@ Bots and apps are the lifeblood of the Discord development community. They come 
 
 Discord offers an open API to serve requests for both bots and OAuth2 integrations. So whether you’re making your own `!wumpus` commands or looking to `Log In With Discord`, we’ve got you covered.
 
-So go do it! Go! Go [make an app](https://discordapp.com/developers/applications) and create something awesome.
+So go do it! Go! Go [make an app](https://discord.com/developers/applications) and create something awesome.
 
 ## Games
 
@@ -22,11 +22,11 @@ We love games, and we love helping game developers. If YOU have a game that you 
 
 #### Your Game On Discord
 
-If you haven’t yet noticed, Discord allows you to [sell your game](https://discordapp.com/sell-your-game) right from Discord servers! We’ve got a whole suite of tools to help bring your game to life on Discord. Need networking? Have [networking](#DOCS_GAME_SDK_NETWORKING/)! Want a friends list? Take [relationships](#DOCS_GAME_SDK_RELATIONSHIPS/) too!
+If you haven’t yet noticed, Discord allows you to [sell your game](https://discord.com/sell-your-game) right from Discord servers! We’ve got a whole suite of tools to help bring your game to life on Discord. Need networking? Have [networking](#DOCS_GAME_SDK_NETWORKING/)! Want a friends list? Take [relationships](#DOCS_GAME_SDK_RELATIONSHIPS/) too!
 
 #### Rich Presence
 
-No matter where your game lives, it should have a first-class experience in Discord. [Rich Presence](https://discordapp.com/rich-presence) is the way to make that a reality! We got tired of exchanging usernames, friend codes, and lobby passwords, so we created Rich Presence, an easy-to-use, easy-to-integrate way to get people playing games together that lets you:
+No matter where your game lives, it should have a first-class experience in Discord. [Rich Presence](https://discord.com/rich-presence) is the way to make that a reality! We got tired of exchanging usernames, friend codes, and lobby passwords, so we created Rich Presence, an easy-to-use, easy-to-integrate way to get people playing games together that lets you:
 
 - Display rich game data on your players’ profiles
 - Empower them to send game invites to each other

@@ -5,7 +5,7 @@ Discord's API is based around two core layers, a HTTPS/REST API for general oper
 ###### Base URL
 
 ```
-https://discordapp.com/api
+https://discord.com/api
 ```
 
 ## API Versioning
@@ -13,7 +13,7 @@ https://discordapp.com/api
 > danger
 > Some API and Gateway versions are now non-functioning, and are labeled as discontinued in the table below for posterity. Trying to use these versions will fail and return 400 Bad Request.
 
-Discord exposes different versions of our API. You can specify which version to use by including it in the request path like `https://discordapp.com/api/v{version_number}`. Omitting the version number from the route will route requests to the current default version (marked below accordingly). You can find the change log for the newest API version [here](https://discordapp.com/developers/docs/change-log).
+Discord exposes different versions of our API. You can specify which version to use by including it in the request path like `https://discord.com/api/v{version_number}`. Omitting the version number from the route will route requests to the current default version (marked below accordingly). You can find the change log for the newest API version [here](https://discord.com/developers/docs/change-log).
 
 ###### API Versions
 
