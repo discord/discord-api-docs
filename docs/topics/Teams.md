@@ -9,7 +9,7 @@ Teams allow you and other Discord users to share access to apps. No more sharing
 For game developers, this means that you can get your engineers access to your app for credentials they made need, your marketing folks access to store page management, and your finance people access to sales and performance metrics.
 
 > danger
-> For the initial release, Teams only support one kind of user: Admin. Admins have full access to all parts of an app _except_ for deleting the app. That can only be done by the owner of the Team.
+> For the initial release, Teams only support one kind of user: Admin. Admins have full access to all parts of an app _except_ for deleting the app and adding/removing users. That can only be done by the owner of the Team.
 
 ## How Do I Make One
 
@@ -17,14 +17,14 @@ Making a Team is easy! Head on over to our [Team creation](https://discord.com/d
 
 ![](team-page.png)
 
-Note that to use Discord Teams, you need to have 2FA enabled on your account. Security is of the utmost importance, especially when it comes to shared resources. If you're developing on your own and don't want to use Teams, you do not need 2FA. But, to keep other Team members safe, you'll need to add it to use Teams.
+Note that to use Discord Teams, you need to have 2FA enabled on your account. Security is of the utmost importance, especially when it comes to shared resources. If you're developing on your own and don't want to use Teams, you do not need 2FA. But, in order to keep other Team members safe, you'll need to add it to use Teams.
 
 ![](team-2fa.png)
 
 Once your team is made, you can start inviting other Discord users to join.
 
 > info
-> For the initial release, only the Team owner can invite additional users.
+> For the initial release, only the Team owner can invite or remove additional users.
 
 ## Apps on Teams
 
