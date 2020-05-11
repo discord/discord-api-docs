@@ -261,7 +261,7 @@ A partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object. Represents an Offl
 | premium_since?  | ?ISO8601 timestamp                              | when the user started [boosting](https://support.discord.com/hc/en-us/articles/360028038352-Server-Boosting-) the guild    |
 | deaf            | boolean                                         | whether the user is deafened in voice channels                                                                             |
 | mute            | boolean                                         | whether the user is muted in voice channels                                                                                |
-| hoisted_role?\* | ?string                                         | role id that represents the member's hoisted role in the guild                                                             |
+| hoisted_role?\* | ?snowflake                                      | role id that represents the member's hoisted role in the guild                                                             |
 
 \* The `hoisted_role` property is provided only on the author's member object obtained from [MESSAGE_CREATE](#DOCS_TOPICS_GATEWAY/message-create) and [MESSAGE_UPDATE](#DOCS_TOPICS_GATEWAY/message-update) events.
 It is also present on each member object that is part of a [Message Object's](#DOCS_RESOURCES_CHANNEL/message-object) `mentions` item, provided that it comes from a [MESSAGE_CREATE](#DOCS_TOPICS_GATEWAY/message-create) event.
