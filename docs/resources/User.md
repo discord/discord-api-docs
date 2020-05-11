@@ -49,7 +49,7 @@ There are other rules and restrictions not shared here for the sake of spam and 
   "discriminator": "1337",
   "avatar": "8342729096ea3675442027381ff50dfe",
   "verified": true,
-  "email": "nelly@discordapp.com",
+  "email": "nelly@discord.com",
   "flags": 64,
   "premium_type": 1,
   "public_flags": 64
@@ -77,7 +77,7 @@ There are other rules and restrictions not shared here for the sake of spam and 
 
 ###### Premium Types
 
-Premium types denote the level of premium a user has. Visit the [Nitro](https://discordapp.com/nitro) page to learn more about the premium plans we currently offer.
+Premium types denote the level of premium a user has. Visit the [Nitro](https://discord.com/nitro) page to learn more about the premium plans we currently offer.
 
 | Value | Name          |
 | ----- | ------------- |

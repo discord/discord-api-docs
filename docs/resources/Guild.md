@@ -51,9 +51,9 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 | premium_subscription_count?   | integer                                                                             | the number of boosts this guild currently has                                                                                             |
 | preferred_locale              | string                                                                              | the preferred locale of a guild with the "PUBLIC" feature; used in server discovery and notices from Discord; defaults to "en-US"         |
 | public_updates_channel_id     | ?snowflake                                                                          | the id of the channel where admins and moderators of guilds with the "PUBLIC" feature receive notices from Discord                        |
+| max_video_channel_users?      | integer                                                                             | the maximum amount of users in a video channel                                                                                   |
 | approximate_member_count?     | integer                                                                             | approximate number of members in this guild, returned from the `GET /guild/<id>` endpoint when `with_counts` is `true`                    |
 | approximate_presence_count?   | integer                                                                             | approximate number of non-offline members in this guild, returned from the `GET /guild/<id>` endpoint when `with_counts` is `true`        |
-| max_video_channel_users?      | integer                                                                             | maximum number of members allowed in a video channel together         
 
 ** \* These fields are only sent within the [GUILD_CREATE](#DOCS_TOPICS_GATEWAY/guild-create) event **
 
@@ -259,7 +259,7 @@ A partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object. Represents an Offl
 | nick           | ?string                                         | this users guild nickname                                                                                                  |
 | roles          | array of snowflakes                             | array of [role](#DOCS_TOPICS_PERMISSIONS/role-object) object ids                                                           |
 | joined_at      | ISO8601 timestamp                               | when the user joined the guild                                                                                             |
-| premium_since? | ?ISO8601 timestamp                              | when the user started [boosting](https://support.discordapp.com/hc/en-us/articles/360028038352-Server-Boosting-) the guild |
+| premium_since? | ?ISO8601 timestamp                              | when the user started [boosting](https://support.discord.com/hc/en-us/articles/360028038352-Server-Boosting-) the guild |
 | deaf           | boolean                                         | whether the user is deafened in voice channels                                                                             |
 | mute           | boolean                                         | whether the user is muted in voice channels                                                                                |
 
@@ -346,6 +346,17 @@ Create a new guild. Returns a [guild](#DOCS_RESOURCES_GUILD/guild-object) object
 
 ###### JSON Params
 
+| Field                         | Type                                                                       | Description                                                                                                 |
+| ----------------------------- | -------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- |
+| name                          | string                                                                     | name of the guild (2-100 characters)                                                                        |
+| region                        | string                                                                     | [voice region](#DOCS_RESOURCES_VOICE/voice-region-object) id                                                |
+| icon                          | [image data](#DOCS_REFERENCE/image-data)                                   | base64 128x128 image for the guild icon                                                                     |
+| verification_level            | integer                                                                    | [verification level](#DOCS_RESOURCES_GUILD/guild-object-verification-level)                                 |
+| default_message_notifications | integer                                                                    | default [message notification level](#DOCS_RESOURCES_GUILD/guild-object-default-message-notification-level) |
+| explicit_content_filter       | integer                                                                    | [explicit content filter level](#DOCS_RESOURCES_GUILD/guild-object-explicit-content-filter-level)           |
+| roles                         | array of [role](#DOCS_TOPICS_PERMISSIONS/role-object) objects              | new guild roles                                                                                             |
+| channels                      | array of partial [channel](#DOCS_RESOURCES_CHANNEL/channel-object) objects | new guild's channels                                                                                        |
+=======
 | Field                          | Type                                                                       | Description                                                                                                 |
 | ------------------------------ | -------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- |
 | name                           | string                                                                     | name of the guild (2-100 characters)                                                                        |
@@ -708,24 +719,30 @@ Delete a guild role. Requires the `MANAGE_ROLES` permission. Returns a 204 empty
 
 ## Get Guild Prune Count % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/prune
 
-Returns an object with one 'pruned' key indicating the number of members that would be removed in a prune operation. Requires the `KICK_MEMBERS` permission.
+Returns an object with one 'pruned' key indicating the number of members that would be removed in a prune operation. Requires the `KICK_MEMBERS` permission. 
+
+By default, prune will not remove users with roles. You can optionally include specific roles in your prune by providing the `include_roles` parameter. Any inactive user that has a subset of the provided role(s) will be counted in the prune and users with additional roles will not.
 
 ###### Query String Params
 
-| Field | Type    | Description                                   | Default |
-| ----- | ------- | --------------------------------------------- | ------- |
-| days  | integer | number of days to count prune for (1 or more) | 7       |
+| Field         | Type                | Description                                   | Default |
+| ------------- | ------------------- | --------------------------------------------- | ------- |
+| days          | integer             | number of days to count prune for (1 or more) | 7       |
+| include_roles | array of snowflakes | role(s) to include                            | none    | 
 
 ## Begin Guild Prune % POST /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/prune
 
 Begin a prune operation. Requires the `KICK_MEMBERS` permission. Returns an object with one 'pruned' key indicating the number of members that were removed in the prune operation. For large guilds it's recommended to set the `compute_prune_count` option to `false`, forcing 'pruned' to `null`. Fires multiple [Guild Member Remove](#DOCS_TOPICS_GATEWAY/guild-member-remove) Gateway events.
 
+By default, prune will not remove users with roles. You can optionally include specific roles in your prune by providing the `include_roles` parameter. Any inactive user that has a subset of the provided role(s) will be included in the prune and users with additional roles will not.
+
 ###### Query String Params
 
-| Field               | Type    | Description                                                | Default |
-| ------------------- | ------- | ---------------------------------------------------------- | ------- |
-| days                | integer | number of days to prune (1 or more)                        | 7       |
-| compute_prune_count | boolean | whether 'pruned' is returned, discouraged for large guilds | true    |
+| Field               | Type                | Description                                                | Default |
+| ------------------- | ------------------- | ---------------------------------------------------------- | ------- |
+| days                | integer             | number of days to prune (1 or more)                        | 7       |
+| compute_prune_count | boolean             | whether 'pruned' is returned, discouraged for large guilds | true    |
+| include_roles       | array of snowflakes | role(s) to include                                         | none    | 
 
 ## Get Guild Voice Regions % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/regions
 
@@ -812,8 +829,8 @@ The same documentation also applies to `embed.png`.
 
 | Value   | Description                                                                                                                                                    | Example                                                                                 |
 | ------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
-| shield  | shield style widget with Discord icon and guild members online count                                                                                           | [Example](https://discordapp.com/api/guilds/81384788765712384/widget.png?style=shield)  |
-| banner1 | large image with guild icon, name and online count. "POWERED BY DISCORD" as the footer of the widget                                                           | [Example](https://discordapp.com/api/guilds/81384788765712384/widget.png?style=banner1) |
-| banner2 | smaller widget style with guild icon, name and online count. Split on the right with Discord logo                                                              | [Example](https://discordapp.com/api/guilds/81384788765712384/widget.png?style=banner2) |
-| banner3 | large image with guild icon, name and online count. In the footer, Discord logo on the left and "Chat Now" on the right                                        | [Example](https://discordapp.com/api/guilds/81384788765712384/widget.png?style=banner3) |
-| banner4 | large Discord logo at the top of the widget. Guild icon, name and online count in the middle portion of the widget and a "JOIN MY SERVER" button at the bottom | [Example](https://discordapp.com/api/guilds/81384788765712384/widget.png?style=banner4) |
+| shield  | shield style widget with Discord icon and guild members online count                                                                                           | [Example](https://discord.com/api/guilds/81384788765712384/widget.png?style=shield)  |
+| banner1 | large image with guild icon, name and online count. "POWERED BY DISCORD" as the footer of the widget                                                           | [Example](https://discord.com/api/guilds/81384788765712384/widget.png?style=banner1) |
+| banner2 | smaller widget style with guild icon, name and online count. Split on the right with Discord logo                                                              | [Example](https://discord.com/api/guilds/81384788765712384/widget.png?style=banner2) |
+| banner3 | large image with guild icon, name and online count. In the footer, Discord logo on the left and "Chat Now" on the right                                        | [Example](https://discord.com/api/guilds/81384788765712384/widget.png?style=banner3) |
+| banner4 | large Discord logo at the top of the widget. Guild icon, name and online count in the middle portion of the widget and a "JOIN MY SERVER" button at the bottom | [Example](https://discord.com/api/guilds/81384788765712384/widget.png?style=banner4) |

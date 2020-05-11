@@ -20,7 +20,7 @@ Rich Presence is a powerful way to integrate your game with Discord. To do it mo
 
 We certainly don’t want to stifle creativity, especially for games that can use Rich Presence in an interesting way. However, keep in mind that this sort of gameplay is what it was designed for, and how players will normally interact with it.
 
-If you want to do something creative, wacky, funky, or otherwise out-there with Rich Presence for your players and aren’t sure if you can, feel free to drop us a line at [gamedevs@discordapp.com](mailto:gamedevs@discordapp.com). We’re always happy to help!
+If you want to do something creative, wacky, funky, or otherwise out-there with Rich Presence for your players and aren’t sure if you can, feel free to drop us a line at [gamedevs@discord.com](mailto:gamedevs@discord.com). We’re always happy to help!
 
 ## How should you think about the data you show?
 
