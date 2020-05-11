@@ -8,7 +8,7 @@ How easy is it for people to play your game together? With Rich Presence from Di
 If you are testing a game integration with Rich Presence, other users will be able to see it. Please create a private test account and do not join any public servers while testing your integration.
 
 > info
-> If you want to stay up to date with the latest developer news from Discord and learn about new and exciting ways to work with us, sign up for our [developer newsletter](https://discordapp.com/dev-newsletter).
+> If you want to stay up to date with the latest developer news from Discord and learn about new and exciting ways to work with us, sign up for our [developer newsletter](https://discord.com/dev-newsletter).
 
 ## So, what is it?
 
@@ -38,7 +38,7 @@ The header file also contains the `Discord_RunCallbacks()` function. This invoke
 
 ## Initialization
 
-The first step in implementing Rich Presence is [creating an application](https://discordapp.com/developers/applications/me). Once you've created your application, note and save your `Client ID`. You will need this to initialize the SDK; this value will be referred to throughout this documentation as both `client_id` and `application_id`. Next, scroll down to the bottom of your application's page and hit the button that says "Enable Rich Presence". This will allow you to upload assets to your dashboard for later use.
+The first step in implementing Rich Presence is [creating an application](https://discord.com/developers/applications/me). Once you've created your application, note and save your `Client ID`. You will need this to initialize the SDK; this value will be referred to throughout this documentation as both `client_id` and `application_id`. Next, scroll down to the bottom of your application's page and hit the button that says "Enable Rich Presence". This will allow you to upload assets to your dashboard for later use.
 
 To begin, you'll register your callback functions to the six `DiscordEventHandlers` and then call `Discord_Initialize()` with your `APPLICATION_ID`. If your game is distributed via Steam, you should also pass your application's Steam ID so Discord can launch your game through Steam:
 
@@ -283,7 +283,7 @@ OK, well, not entirely. But! Discord _will_ host any and all artwork that you ne
 
 If you don't see Rich Presence data in your profile while testing, make sure you don't have multiple instances of Discord running—if you do, your presence might be changing in one of those!
 
-If you're testing on your own, we recommend [downloading two separate release channels](https://discordapp.com/download) of the Discord desktop client. You can log into the stable, public test, and canary builds with separate credentials, making testing easier for a single developer.
+If you're testing on your own, we recommend [downloading two separate release channels](https://discord.com/download) of the Discord desktop client. You can log into the stable, public test, and canary builds with separate credentials, making testing easier for a single developer.
 
 ## So, what now?
 

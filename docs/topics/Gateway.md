@@ -524,6 +524,7 @@ If you are using [Gateway Intents](#DOCS_TOPICS_GATEWAY/gateway-intents), there 
 | limit      | integer                          | maximum number of members to send matching the `query`; a limit of `0` can be used with an empty string `query` to return all members | true when specifying query |
 | presences? | boolean                          | used to specify if we want the presences of the matched members                                                                       | false                      |
 | user_ids?  | snowflake or array of snowflakes | used to specify which users you wish to fetch                                                                                         | one of query or user_ids   |
+| nonce?     | string                           | nonce to identify the [Guild Members Chunk](#DOCS_TOPICS_GATEWAY/guild-members-chunk) response                                        | false                      |
 
 ###### Guild Request Members
 
@@ -806,20 +807,24 @@ Sent when a guild member is updated. This will also fire when the user object of
 | roles          | array of snowflakes                               | user role ids                                                                                                               |
 | user           | a [user](#DOCS_RESOURCES_USER/user-object) object | the user                                                                                                                    |
 | nick?          | ?string                                           | nickname of the user in the guild                                                                                           |
-| premium_since? | ?ISO8601 timestamp                                | when the user starting [boosting](https://support.discordapp.com/hc/en-us/articles/360028038352-Server-Boosting-) the guild |
+| premium_since? | ?ISO8601 timestamp                                | when the user starting [boosting](https://support.discord.com/hc/en-us/articles/360028038352-Server-Boosting-) the guild |
 
 #### Guild Members Chunk
 
 Sent in response to [Guild Request Members](#DOCS_TOPICS_GATEWAY/request-guild-members).
+You can use the `chunk_index` and `chunk_count` to calculate how many chunks are left for your request.
 
 ###### Guild Members Chunk Event Fields
 
-| Field      | Type                                                                       | Description                                                                                |
-| ---------- | -------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------ |
-| guild_id   | snowflake                                                                  | the id of the guild                                                                        |
-| members    | array of [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) objects | set of guild members                                                                       |
-| not_found? | array                                                                      | if passing an invalid id to `REQUEST_GUILD_MEMBERS`, it will be returned here              |
-| presences? | array of [presence](#DOCS_TOPICS_GATEWAY/presence) objects                 | if passing true to `REQUEST_GUILD_MEMBERS`, presences of the returned members will be here |
+| Field       | Type                                                                       | Description                                                                                        |
+| ----------- | -------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
+| guild_id    | snowflake                                                                  | the id of the guild                                                                                |
+| members     | array of [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) objects | set of guild members                                                                               |
+| chunk_index | integer                                                                    | the chunk index in the expected chunks for this response (0 &lt;= chunk\_index &lt; chunk\_count)  |
+| chunk_count | integer                                                                    | the total number of expected chunks for this response                                              |
+| not_found?  | array                                                                      | if passing an invalid id to `REQUEST_GUILD_MEMBERS`, it will be returned here                      |
+| presences?  | array of [presence](#DOCS_TOPICS_GATEWAY/presence) objects                 | if passing true to `REQUEST_GUILD_MEMBERS`, presences of the returned members will be here         |
+| nonce?      | string                                                                     | the nonce used in the [Guild Members Request](#DOCS_TOPICS_GATEWAY/request-guild-members)          |
 
 #### Guild Role Create
 
@@ -1002,7 +1007,7 @@ A user's presence is their current state on a guild. This event is sent when a u
 | status         | string                                                            | either "idle", "dnd", "online", or "offline"                                                                               |
 | activities     | array of [activity](#DOCS_TOPICS_GATEWAY/activity-object) objects | user's current activities                                                                                                  |
 | client_status  | [client_status](#DOCS_TOPICS_GATEWAY/client-status-object) object | user's platform-dependent status                                                                                           |
-| premium_since? | ?ISO8601 timestamp                                                | when the user started [boosting](https://support.discordapp.com/hc/en-us/articles/360028038352-Server-Boosting-) the guild |
+| premium_since? | ?ISO8601 timestamp                                                | when the user started [boosting](https://support.discord.com/hc/en-us/articles/360028038352-Server-Boosting-) the guild |
 | nick?          | ?string                                                           | this users guild nickname (if one is set)                                                                                  |
 
 #### Client Status Object

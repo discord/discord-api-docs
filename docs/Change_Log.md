@@ -1,5 +1,11 @@
 # Change Log
 
+## New Properies on Guild Members Chunk event
+
+#### April 24, 2020
+
+The [Guild Members Chunk](#DOCS_TOPICS_GATEWAY/guild-members-chunk) gateway event now contains two properties: `chunk_index` and `chunk_count`. These values can be used to keep track of how many events you have left to receive in response to a [Request Guild Members](#DOCS_TOPICS_GATEWAY/request-guild-members) command.
+
 ## New Allowed Mentions Object
 
 #### March 3, 2020
@@ -87,7 +93,7 @@ Additional information around Teams has been added to both the API and the docum
 
 #### May 29, 2019
 
-Additional information has been documented to support [Server Nitro Boosting](https://support.discordapp.com/hc/en-us/articles/360028038352-Server-Boosting). This includes the addition of a few [message types](#DOCS_RESOURCES_CHANNEL/message-object-message-types), as well as some [new fields on guilds](#DOCS_RESOURCES_GUILD/guild-object-premium-tier). Please note that this feature is currently under experimentation, and these fields may be subject to change.
+Additional information has been documented to support [Server Nitro Boosting](https://support.discord.com/hc/en-us/articles/360028038352-Server-Boosting). This includes the addition of a few [message types](#DOCS_RESOURCES_CHANNEL/message-object-message-types), as well as some [new fields on guilds](#DOCS_RESOURCES_GUILD/guild-object-premium-tier). Please note that this feature is currently under experimentation, and these fields may be subject to change.
 
 ## Deprecation of Discord-RPC Rich Presence SDK
 
@@ -113,7 +119,7 @@ There have also been some small additions to the Rich Presence SDK. The previous
 
 #### December 11, 2018
 
-Dispatch documentation around store listings has been removed. Store pages for the Discord Store are now managed entirely within the [Developer Portal](https://discordapp.com/developers).
+Dispatch documentation around store listings has been removed. Store pages for the Discord Store are now managed entirely within the [Developer Portal](https://discord.com/developers).
 
 ## Enhancement: User Object
 
@@ -137,7 +143,7 @@ We released server changes that allow guilds to represent an incomplete state of
 
 #### February 5, 2018
 
-Additional `activity` and `application` fields—as well as corresponding object documentation—have been added to the [Message](#DOCS_RESOURCES_CHANNEL/message-object) object in support of our newly-released [Spotify integration](https://support.discordapp.com/hc/en-us/articles/360000167212-Discord-Spotify-Connection) and previous Rich Presence enhancements.
+Additional `activity` and `application` fields—as well as corresponding object documentation—have been added to the [Message](#DOCS_RESOURCES_CHANNEL/message-object) object in support of our newly-released [Spotify integration](https://support.discord.com/hc/en-us/articles/360000167212-Discord-Spotify-Connection) and previous Rich Presence enhancements.
 
 ## Enhancement: Get Guild Emoji Endpoint
 
@@ -167,7 +173,7 @@ Rich Presence is now live and available for all developers! Rich Presence allows
 - Allowing users to post invitations to join their party or spectate their game in chat
 - Displaying "Spectate" and "Ask to Join" buttons on users' profiles
 
-For more information, check out our [Rich Presence site](https://discordapp.com/rich-presence). To get started on development, [read the docs](#DOCS_RICH_PRESENCE_HOW_TO/)!
+For more information, check out our [Rich Presence site](https://discord.com/rich-presence). To get started on development, [read the docs](#DOCS_RICH_PRESENCE_HOW_TO/)!
 
 ## Breaking Change: API & Gateway Below v6 Discontinued
 

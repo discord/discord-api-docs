@@ -13,7 +13,7 @@ For game developers, this means that you can get your engineers access to your a
 
 ## How Do I Make One
 
-Making a Team is easy! Head on over to our [Team creation](https://discordapp.com/developers/teams) page and make your own.
+Making a Team is easy! Head on over to our [Team creation](https://discord.com/developers/teams) page and make your own.
 
 ![](team-page.png)
 

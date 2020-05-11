@@ -1,7 +1,7 @@
 # How to Get Your Game on Discord
 
 > warn
-> Game approval submissions are currently paused due to unforeseen circumstances. We apologize for the inconvenience. [Click here for more info.](https://support-dev.discordapp.com/hc/en-us/articles/360041437171)
+> Game approval submissions are currently paused due to unforeseen circumstances. We apologize for the inconvenience. [Click here for more info.](https://support-dev.discord.com/hc/en-us/articles/360041437171)
 
 Welcome, adventurer! If you're here, you want to find out how to get your game up and running on Discord and learn about our awesome Server Commerce features. You've come to the right place, so let's get started.
 
@@ -9,7 +9,7 @@ Welcome, adventurer! If you're here, you want to find out how to get your game u
 
 First things first: it's time to make a Team. Your dream team of artists, writers, engineers, designers, all working on the beautiful creation of Your Game. Build your dream team with these steps:
 
-1. Create a new Team at [https://discordapp.com/developers/teams](https://discordapp.com/developers/teams)
+1. Create a new Team at [https://discord.com/developers/teams](https://discord.com/developers/teams)
 2. Invite people!
 
 You've now passed the first test with flying colors!
@@ -18,7 +18,7 @@ You've now passed the first test with flying colors!
 
 Throughout this process, we'll reference your "app". An app, or application, is an entity on Discord that represents something you've built: a bot, an OAuth2 app, or in this case your game. We need to make an app for your game:
 
-1. Create a new app at [https://discordapp.com/developers/applications](https://discordapp.com/developers/applications)
+1. Create a new app at [https://discord.com/developers/applications](https://discord.com/developers/applications)
 2. When doing so, make sure you select your team from the `Team` dropdown
 
 > info
@@ -48,7 +48,7 @@ Select the server that you wish to grant these features, confirm to be double-ex
 
 Now, what do you do next? You start building! Build your community, make your game, invite testers into your server to get hype! Now is a great time to get familiar with all the tools at your disposal like:
 
-- [Discord's Developer Portal](https://discordapp.com/developers/applications), your one-stop-game-management-shop
+- [Discord's Developer Portal](https://discord.com/developers/applications), your one-stop-game-management-shop
 - [The Discord Game SDK](#DOCS_GAME_SDK_SDK_STARTER_GUIDE/), a spellbook full of useful game dev incantations including Discord's crystal-clear voice chat
 - [Dispatch](#DOCS_DISPATCH_DISPATCH_AND_YOU/), Discord's game patcher and downloader that's so fast, you'll swear it's magic
 
@@ -68,9 +68,9 @@ Your game looks wonderful. You've got a beautiful store page, and awesome game, 
 
 Once you've completed all the items on your checklist, the `Get Approved` button will unlock. Once you submit for approval, Discord will take a look at the following things:
 
-- your game, to ensure that it runs properly and follows our [Game Submission Guidelines](https://support-dev.discordapp.com/hc/en-us/articles/360025028592-Game-Submission-Guidelines)
+- your game, to ensure that it runs properly and follows our [Game Submission Guidelines](https://support-dev.discord.com/hc/en-us/articles/360025028592-Game-Submission-Guidelines)
 - your store pages, to provide helpful guidance in putting your best foot forward
-- your server, to make sure you're abiding by our [Community Guidelines](https://discordapp.com/guidelines)
+- your server, to make sure you're abiding by our [Community Guidelines](https://discord.com/guidelines)
 
 If we need to see some changes, you'll receive an email directing you on your steps to success. Otherwise, you'll get **APPROVED!!!!!!!!!!** What's that mean? It means you can start charging for your game and making money! Don't spend it all in one place. Or do. Treat yourself. Or maybe you want your game to be **free!** Live your best life. We support you!
 
@@ -93,13 +93,13 @@ TL;DR - When you're ready to distribute your game after getting approved, turn t
 
 ## Getting Verified and Discovered
 
-Apart from being approved, you can also get your server Verified. Getting verified means your server will get that oh-so-exclusive checkmark, to let people know you're the legit home for your game. It also means you'll show up in [Server Discovery](https://support.discordapp.com/hc/en-us/articles/360023968311-Server-Discovery) so that players can search for your game or community to join you in your server. It _also also_ unlocks a sweet customizable [Server Banner](#DOCS_GAME_AND_SERVER_MANAGEMENT_VANITY_PERKS/server-banner-background) to fly over your kingdom.
+Apart from being approved, you can also get your server Verified. Getting verified means your server will get that oh-so-exclusive checkmark, to let people know you're the legit home for your game. It also means you'll show up in [Server Discovery](https://support.discord.com/hc/en-us/articles/360023968311-Server-Discovery) so that players can search for your game or community to join you in your server. It _also also_ unlocks a sweet customizable [Server Banner](#DOCS_GAME_AND_SERVER_MANAGEMENT_VANITY_PERKS/server-banner-background) to fly over your kingdom.
 
-To get verified, head on over to our [Verification page](https://discordapp.com/verification) and fill out the form at the bottom.
+To get verified, head on over to our [Verification page](https://discord.com/verification) and fill out the form at the bottom.
 
 ## Make Good Decisions
 
-Your game is off and running, and we couldn't be more proud. As it flourishes and your playerbase grows, keep an eye on your analytics, which you can find within your app. They'll give you important insight like revenue data, acquisitions funnels, and player retention to help you make informed decision about your game's lifecycle. Check out our [Analytics Help Article](https://support-dev.discordapp.com/hc/en-us/articles/360024852152) to learn more about how to read all those charts, and how to do things like [Conversion Tracking with UTM Links](https://support-dev.discordapp.com/hc/en-us/articles/360025153051-How-to-track-conversions-with-UTM-links).
+Your game is off and running, and we couldn't be more proud. As it flourishes and your playerbase grows, keep an eye on your analytics, which you can find within your app. They'll give you important insight like revenue data, acquisitions funnels, and player retention to help you make informed decision about your game's lifecycle. Check out our [Analytics Help Article](https://support-dev.discord.com/hc/en-us/articles/360024852152) to learn more about how to read all those charts, and how to do things like [Conversion Tracking with UTM Links](https://support-dev.discord.com/hc/en-us/articles/360025153051-How-to-track-conversions-with-UTM-links).
 
 ## What Comes Next
 

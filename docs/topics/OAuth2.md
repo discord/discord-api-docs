@@ -10,9 +10,9 @@ The first step in implementing OAuth2 is [registering a developer application](#
 
 | URL                                            | Description            |
 | ---------------------------------------------- | ---------------------- |
-| https://discordapp.com/api/oauth2/authorize    | Base authorization URL |
-| https://discordapp.com/api/oauth2/token        | Token URL              |
-| https://discordapp.com/api/oauth2/token/revoke | Revocation URL         |
+| https://discord.com/api/oauth2/authorize    | Base authorization URL |
+| https://discord.com/api/oauth2/token        | Token URL              |
+| https://discord.com/api/oauth2/token/revoke | Revocation URL         |
 
 > warn
 > In accordance with [RFC 6749](https://tools.ietf.org/html/rfc6749), the [token URL](#DOCS_TOPICS_OAUTH2/shared-resources-oauth2-urls) **only** accepts a content type of `x-www-form-urlencoded`. JSON content is not permitted and will return an error.
@@ -61,7 +61,7 @@ The authorization code grant is what most developers will recognize as "standard
 ###### Authorization URL Example
 
 ```
-https://discordapp.com/api/oauth2/authorize?response_type=code&client_id=157730590492196864&scope=identify%20guilds.join&state=15773059ghq9183habn&redirect_uri=https%3A%2F%2Fnicememe.website&prompt=consent
+https://discord.com/api/oauth2/authorize?response_type=code&client_id=157730590492196864&scope=identify%20guilds.join&state=15773059ghq9183habn&redirect_uri=https%3A%2F%2Fnicememe.website&prompt=consent
 ```
 
 `client_id` is your application's `client_id`. `scope` is a list of [OAuth2 scopes](#DOCS_TOPICS_OAUTH2/shared-resources-oauth2-scopes) separated by url encoded spaces (`%20`). `redirect_uri` is whatever URL you registered when creating your application, url-encoded. `state` is the unique string mentioned in [State and Security](#DOCS_TOPICS_OAUTH2/state-and-security).
@@ -88,7 +88,7 @@ https://nicememe.website/?code=NhhvTDYsFcdgNLnnLijcl7Ku7bEEeee&state=15773059ghq
 ###### Access Token Exchange Example
 
 ```python
-API_ENDPOINT = 'https://discordapp.com/api/v6'
+API_ENDPOINT = 'https://discord.com/api/v6'
 CLIENT_ID = '332269999912132097'
 CLIENT_SECRET = '937it3ow87i4ery69876wqire'
 REDIRECT_URI = 'https://nicememe.website'
@@ -136,7 +136,7 @@ Having the user's access token allows your application to make certain requests 
 ###### Refresh Token Exchange Example
 
 ```python
-API_ENDPOINT = 'https://discordapp.com/api/v6'
+API_ENDPOINT = 'https://discord.com/api/v6'
 CLIENT_ID = '332269999912132097'
 CLIENT_SECRET = '937it3ow87i4ery69876wqire'
 REDIRECT_URI = 'https://nicememe.website'
@@ -167,7 +167,7 @@ The implicit OAuth2 grant is a simplified flow optimized for in-browser clients.
 ###### Authorization URL Example
 
 ```
-https://discordapp.com/api/oauth2/authorize?response_type=token&client_id=290926444748734499&state=15773059ghq9183habn&scope=identify
+https://discord.com/api/oauth2/authorize?response_type=token&client_id=290926444748734499&state=15773059ghq9183habn&scope=identify
 ```
 
 On redirect, your redirect URI will contain additional **URI fragments**: `access_token`, `token_type`, `expires_in`, `scope`, and [`state`](#DOCS_TOPICS_OAUTH2/state-and-security)(if specified). **These are not querystring parameters.** Be mindful of the "#" character:
@@ -191,7 +191,7 @@ You can specify scopes with the `scope` parameter, which is a list of [OAuth2 sc
 ```python
 import base64
 
-API_ENDPOINT = 'https://discordapp.com/api/v6'
+API_ENDPOINT = 'https://discord.com/api/v6'
 CLIENT_ID = '332269999912132097'
 CLIENT_SECRET = '937it3ow87i4ery69876wqire'
 
@@ -253,7 +253,7 @@ Bot authorization is a special server-less and callback-less OAuth2 flow that ma
 ###### URL Example
 
 ```
-https://discordapp.com/api/oauth2/authorize?client_id=157730590492196864&scope=bot&permissions=1
+https://discord.com/api/oauth2/authorize?client_id=157730590492196864&scope=bot&permissions=1
 ```
 
 In the case of bots, the `scope` parameter should be set to `bot`. There's also a new parameter, `permissions`, which is an integer corresponding to the [permission calculations](#DOCS_TOPICS_PERMISSIONS/permissions-bitwise-permission-flags) for the bot. You'll also notice the absence of `response_type` and `redirect_uri`. Bot authorization does not require these parameters because there is no need to retrieve the user's access token.
@@ -328,7 +328,7 @@ Discord's webhook flow is a specialized version of an [authorization code](#DOCS
 ###### URL Example
 
 ```
-https://discordapp.com/api/oauth2/authorize?response_type=code&client_id=157730590492196864&scope=webhook.incoming&state=15773059ghq9183habn&redirect_uri=https%3A%2F%2Fnicememe.website
+https://discord.com/api/oauth2/authorize?response_type=code&client_id=157730590492196864&scope=webhook.incoming&state=15773059ghq9183habn&redirect_uri=https%3A%2F%2Fnicememe.website
 ```
 
 When the user navigates to this URL, they will be prompted to select a channel in which to allow the webhook. When the webhook is [executed](#DOCS_RESOURCES_WEBHOOK/execute-webhook), it will post its message into this channel. On acceptance, the user will be redirected to your `redirect_uri`. The URL will contain the `code` querystring parameter which should be [exchanged for an access token](#DOCS_TOPICS_OAUTH2/authorization-code-grant-access-token-exchange-example). In return, you will receive a slightly modified token response:
@@ -344,7 +344,7 @@ When the user navigates to this URL, they will be prompted to select a channel i
   "refresh_token": "PvPL7ELyMDc1836457XCDh1Y8jPbRm",
   "webhook": {
     "name": "testwebhook",
-    "url": "https://discordapp.com/api/webhooks/347114750880120863/kKDdjXa1g9tKNs0-_yOwLyALC9gydEWP6gr9sHabuK1vuofjhQDDnlOclJeRIvYK-pj_",
+    "url": "https://discord.com/api/webhooks/347114750880120863/kKDdjXa1g9tKNs0-_yOwLyALC9gydEWP6gr9sHabuK1vuofjhQDDnlOclJeRIvYK-pj_",
     "channel_id": "345626669224982402",
     "token": "kKDdjXa1g9tKNs0-_yOwLyALC9gydEWP6gr9sHabuK1vuofjhQDDnlOclJeRIvYK-pj_",
     "avatar": null,
@@ -359,7 +359,7 @@ From this object, you should store the `webhook.token` and `webhook.id`. To exec
 ###### Webhook Execution URL
 
 ```
-https://discordapp.com/api/webhooks/WEBHOOK_ID/WEBHOOK_TOKEN
+https://discord.com/api/webhooks/WEBHOOK_ID/WEBHOOK_TOKEN
 ```
 
 Any user that wishes to add your webhook to their channel will need to go through the full OAuth2 flow. A new webhook is created each time, so you will need to save the token and id. If you wish to send a message to all your webhooks, you'll need to iterate over each stored id:token combination and make `POST` requests to each one. Be mindful of our [Rate Limits](#DOCS_TOPICS_RATE_LIMITS/rate-limits)!
