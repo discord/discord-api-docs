@@ -28,7 +28,7 @@ To update a user or a lobby, create or get a transaction for that resource, call
 var lobbyManager = discord.GetLobbyManager();
 
 // Create the transaction
-var txn = LobbyManager.CreateLobbyTransaction();
+var txn = lobbyManager.GetLobbyCreateTransaction();
 
 // Set lobby information
 txn.SetCapacity(6);

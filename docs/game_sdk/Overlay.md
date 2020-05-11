@@ -167,6 +167,13 @@ Fires when the overlay is locked or unlocked (a.k.a. opened or closed)
 | ------ | ---- | ------------------------------------- |
 | locked | bool | is the overlay now locked or unlocked |
 
+###### Example
+
+overlayManager.OnToggle += overlayLock =>
+{
+    Console.WriteLine("Overlay Locked: {0}", overlayLock);
+};
+
 ## Example: Activate Overlay Invite Modal
 
 ```cs
