@@ -4,7 +4,7 @@
 
 #### May 11, 2020
 
-The legacy mention behavior for bots is now deprecated, and granular control of mentions should use the [Allowed Mentions](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object) API moving forwards.
+The legacy mention behavior for bots is now removed, and granular control of mentions should use the [Allowed Mentions](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object) API moving forwards.
 
 ## New Properties on Guild Members Chunk Event
 
