@@ -61,7 +61,7 @@ Using Discord's [Dispatch](#DOCS_DISPATCH_DISPATCH_AND_YOU) tool for game develo
 
 [Gateway Intents](#DOCS_TOPICS_GATEWAY/gateway-intents) are pretty confusing at first. If you're not sure what to send in your [identify payload](#DOCS_TOPICS_GATEWAY/identify), then this tool may be of help:
 
-- [ziad87's Intent Calculator](https://ziad87.me/intents/)
+- [ziad87's Intent Calculator](https://ziad87.net/intents/)
 
 ## Embed Visualizer
 
