@@ -159,7 +159,7 @@ This is a minimal `IDENTIFY` payload. `IDENTIFY` supports additional optional fi
 }
 ```
 
-If the payload is valid, the gateway will respond with a [Ready](#DOCS_TOPICS_GATEWAY/ready) event. Your client is now considered in a "connected" state. Clients are limited to 1 identify every 5 seconds; if they exceed this limit, the gateway will respond with an [Opcode 9 Invalid Session](#DOCS_TOPICS_GATEWAY/invalid-session). It is important to note that although the ready event contains a large portion of the required initial state, some information (such as guilds and their members) is sent asynchronously (see [Guild Create](#DOCS_TOPICS_GATEWAY/guild-create) event).
+If the payload is valid, the gateway will respond with a [Ready](#DOCS_TOPICS_GATEWAY/ready) event. Your client is now considered in a "connected" state. Clients are limited by [maximum concurrency](#DOCS_TOPICS_GATEWAY/session-start-limit-object) when [Identify](#DOCS_TOPICS_GATEWAY/identify)ing; if they exceed this limit, the gateway will respond with an [Opcode 9 Invalid Session](#DOCS_TOPICS_GATEWAY/invalid-session). It is important to note that although the ready event contains a large portion of the required initial state, some information (such as guilds and their members) is sent asynchronously (see [Guild Create](#DOCS_TOPICS_GATEWAY/guild-create) event).
 
 > warn
 > Clients are limited to 1000 `IDENTIFY` calls to the websocket in a 24-hour period. This limit is global and across all shards, but does not include `RESUME` calls. Upon hitting this limit, all active sessions for the bot will be terminated, the bot's token will be reset, and the owner will receive an email notification. It's up to the owner to update their application with the new token.
@@ -298,7 +298,7 @@ In the future, access to Privileged Intents will come with restrictions and limi
 
 ## Rate Limiting
 
-Clients are allowed 120 events every 60 seconds, meaning you can send on average at a rate of up to 2 events per second. Clients who surpass this limit are immediately disconnected from the Gateway, and similarly to the HTTP API, repeat offenders will have their API access revoked. Clients are also limited to one gateway connection per 5 seconds. If you hit this limit, the Gateway will respond with an [Opcode 9 Invalid Session](#DOCS_TOPICS_GATEWAY/invalid-session).
+Clients are allowed 120 events every 60 seconds, meaning you can send on average at a rate of up to 2 events per second. Clients who surpass this limit are immediately disconnected from the Gateway, and similarly to the HTTP API, repeat offenders will have their API access revoked. Clients also have limit of [concurrent](#DOCS_TOPICS_GATEWAY/session-start-limit-object) [Identify](#DOCS_TOPICS_GATEWAY/identify) requests allowed per 5 seconds. If you hit this limit, the Gateway will respond with an [Opcode 9 Invalid Session](#DOCS_TOPICS_GATEWAY/invalid-session).
 
 ## Tracking State
 
@@ -1249,7 +1249,8 @@ Returns an object based on the information in [Get Gateway](#DOCS_TOPICS_GATEWAY
   "session_start_limit": {
     "total": 1000,
     "remaining": 999,
-    "reset_after": 14400000
+    "reset_after": 14400000,
+    "max_concurrency": 1
   }
 }
 ```
@@ -1258,8 +1259,9 @@ Returns an object based on the information in [Get Gateway](#DOCS_TOPICS_GATEWAY
 
 ###### Session Start Limit Structure
 
-| Field       | Type    | Description                                                        |
-| ----------- | ------- | ------------------------------------------------------------------ |
-| total       | integer | The total number of session starts the current user is allowed     |
-| remaining   | integer | The remaining number of session starts the current user is allowed |
-| reset_after | integer | The number of milliseconds after which the limit resets            |
+| Field           | Type    | Description                                                        |
+| --------------- | ------- | ------------------------------------------------------------------ |
+| total           | integer | The total number of session starts the current user is allowed     |
+| remaining       | integer | The remaining number of session starts the current user is allowed |
+| reset_after     | integer | The number of milliseconds after which the limit resets            |
+| max_concurrency | integer | The number of identify requests allowed per 5 seconds              |
