@@ -54,6 +54,7 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 | max_video_channel_users?      | integer                                                                             | the maximum amount of users in a video channel                                                                                            |
 | approximate_member_count?     | integer                                                                             | approximate number of members in this guild, returned from the `GET /guild/<id>` endpoint when `with_counts` is `true`                    |
 | approximate_presence_count?   | integer                                                                             | approximate number of non-offline members in this guild, returned from the `GET /guild/<id>` endpoint when `with_counts` is `true`        |
+| welcome_screen?               | [welcome screen](#DOCS_RESOURCES_GUILD/welcome-screen-object) object                | the welcome screen of a guild with the "PUBLIC" feature, shown to new members                                                             |
 
 ** \* These fields are only sent within the [GUILD_CREATE](#DOCS_TOPICS_GATEWAY/guild-create) event **
 
@@ -334,6 +335,64 @@ A partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object. Represents an Offl
     "id": "53908099506183680",
     "avatar": "a_bab14f271d565501444b2ca3be944b25"
   }
+}
+```
+
+### Welcome Screen Object
+
+###### Welcome Screen Structure
+
+| Field            | Type                                                                                              | Description                                        |
+| -----------      | ------------------------------------------------------------------------------------------------- | -------------------------------------------------- |
+| description      | ?string                                                                                           | the server description shown in the welcome screen |
+| welcome_channels | array of [welcome screen channel](#DOCS_RESOURCES_GUILD/welcome-screen-channel-structure) objects | the channels shown in the welcome screen, up to 5  |
+
+###### Welcome Screen Channel Structure
+
+| Field       | Type       | Description                                                                               |
+| ----------- | ---------- | ----------------------------------------------------------------------------------------- |
+| channel_id  | snowflake  | the server description shown in the welcome screen                                        |
+| description | string     | the description shown for the channel                                                     |
+| emoji_id    | ?snowflake | the [emoji id](#DOCS_REFERENCE/image-formatting), if the emoji is custom                  |
+| emoji_name  | ?string    | the emoji name if custom, the unicode character if standard, or `null` if no emoji is set |
+
+###### Example Welcome Screen
+
+```json
+{
+  "description": "Discord Developers is a place to learn about Discord's API, bots, and SDKs and integrations. This is NOT a general Discord support server.",
+  "welcome_channels": [
+    {
+      "channel_id": "697138785317814292",
+      "description": "Follow for official Discord API updates",
+      "emoji_id": null,
+      "emoji_name": "📡"
+    },
+    {
+      "channel_id": "697236247739105340",
+      "description": "Get help with Bot Verifications",
+      "emoji_id": null,
+      "emoji_name": "📸"
+    },
+    {
+      "channel_id": "697489244649816084",
+      "description": "Create amazing things with Discord's API",
+      "emoji_id": null,
+      "emoji_name": "🔬"
+    },
+    {
+      "channel_id": "613425918748131338",
+      "description": "Integrate Discord into your game",
+      "emoji_id": null,
+      "emoji_name": "🎮"
+    },
+    {
+      "channel_id": "646517734150242346",
+      "description": "Find more places to help you on your quest",
+      "emoji_id": null,
+      "emoji_name": "🔦"
+    }
+  ]
 }
 ```
 
