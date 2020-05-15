@@ -107,6 +107,9 @@ Same as above, except this call does not require authentication.
 > warn
 > This endpoint supports both JSON and form data bodies. It does require multipart/form-data requests instead of the normal JSON request type when uploading files. Make sure you set your `Content-Type` to `multipart/form-data` if you're doing that. Note that in that case, the `embeds` field cannot be used, but you can pass an url-encoded JSON body as a form value for `payload_json`.
 
+> info
+> This endpoint does not require authentication, but if a bot's authentication header is provided, custom emojis from other guilds the bot is in can be used.
+
 ###### Querystring Params
 
 | Field | Type    | Description                                                                                                                                                                                  | Required |
