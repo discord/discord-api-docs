@@ -163,7 +163,9 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 50019  | A message can only be pinned to the channel it was sent in                                                                    |
 | 50020  | Invite code was either invalid or taken                                                                                       |
 | 50021  | Cannot execute action on a system message                                                                                     |
+| 50024  | Cannot execute action on this channel type                                                                                    |
 | 50025  | Invalid OAuth2 access token provided                                                                                          |
+| 50033  | "Invalid Recipient(s)"                                                                                                        |
 | 50034  | A message provided was too old to bulk delete                                                                                 |
 | 50035  | Invalid form body (returned for both `application/json` and `multipart/form-data` bodies), or invalid `Content-Type` provided |
 | 50036  | An invite was accepted to a guild the application's bot is not in                                                             |
