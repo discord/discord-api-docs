@@ -179,10 +179,13 @@ Create a new DM channel with a user. Returns a [DM channel](#DOCS_RESOURCES_CHAN
 
 ## Create Group DM % POST /users/@me/channels
 
-Create a new group DM channel with multiple users. Returns a [DM channel](#DOCS_RESOURCES_CHANNEL/channel-object) object. This endpoint was intended to be used with the now-deprecated GameBridge SDK. DMs created with this endpoint will not be shown in the Discord client
+Create a new group DM channel with multiple users. Returns a [DM channel](#DOCS_RESOURCES_CHANNEL/channel-object) object. This endpoint was intended to be used with the now-deprecated GameBridge SDK.
 
 > warn
 > This endpoint is limited to 10 active group DMs.
+
+> info
+> Bots are not able to access resources within the group DMs they create (e.g. create or see messages) and can only [get](#DOCS_RESOURCES_CHANNEL/get-channel) and [close](#DOCS_RESOURCES_CHANNEL/deleteclose-channel) them.
 
 ###### JSON Params
 
