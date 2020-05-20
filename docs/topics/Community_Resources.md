@@ -12,7 +12,7 @@ Many of these libraries are represented in the [unofficial, community-driven Dis
 
 | Name                                                         | Language   |
 | ------------------------------------------------------------ | ---------- |
-| [discord++](https://discord.gg/0usP6xmT4sQ4kIDh)             | C++        |
+| [Discord++](https://discord.gg/0usP6xmT4sQ4kIDh)             | C++        |
 | [discljord](https://github.com/igjoshua/discljord)           | Clojure    |
 | [aegis.cpp](https://github.com/zeroxs/aegis.cpp)             | C++        |
 | [discordcr](https://github.com/discordcr/discordcr)          | Crystal    |
