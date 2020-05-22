@@ -37,7 +37,7 @@ Whenever an admin action is performed on the API, an entry is added to the respe
 | ----------- | ------------------------------------------------------------------------------------------------------- | ----------------------------------------------------- |
 | target_id   | ?string                                                                                                 | id of the affected entity (webhook, user, role, etc.) |
 | changes?    | array of [audit log change](#DOCS_RESOURCES_AUDIT_LOG/audit-log-change-object) objects                  | changes made to the target_id                         |
-| user_id     | snowflake                                                                                               | the user who made the changes                         |
+| user_id     | ?snowflake                                                                                              | the user who made the changes                         |
 | id          | snowflake                                                                                               | id of the entry                                       |
 | action_type | [audit log event](#DOCS_RESOURCES_AUDIT_LOG/audit-log-entry-object-audit-log-events)                    | type of action that occurred                          |
 | options?    | [optional audit entry info](#DOCS_RESOURCES_AUDIT_LOG/audit-log-entry-object-optional-audit-entry-info) | additional info for certain action types              |
