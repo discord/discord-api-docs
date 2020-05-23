@@ -151,6 +151,7 @@ Setting it to an invalid value will net you a special error message contained in
 IP addresses that make too many invalid HTTP requests are automatically and temporarily restricted from accessing the Discord API. Currently, this limit is **10,000 per 10 minutes**. An invalid request is one that results in **401**, **403**, or **429** statuses.
 
 All applications should make reasonable attempts to avoid making invalid requests. For example:
+
 - **401** responses are avoided by providing a valid token in the authorization header when required and by stopping further requests after a token becomes invalid
 - **403** responses are avoided by inspecting role or channel permissions and by not making requests that are restricted by such permissions
 - **429** responses are avoided by inspecting the rate limit headers documented above and by not making requests on exhausted buckets until after they have reset
