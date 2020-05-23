@@ -167,7 +167,10 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 50034  | A message provided was too old to bulk delete                                                                                 |
 | 50035  | Invalid form body (returned for both `application/json` and `multipart/form-data` bodies), or invalid `Content-Type` provided |
 | 50036  | An invite was accepted to a guild the application's bot is not in                                                             |
-| 50041  | Invalid API version provided                                                                                                  |
+| 50041  | Invalid API version provided                
+|
+| 60003  | Two factor is required for this operation
+|
 | 90001  | Reaction was blocked                                                                                                          |
 | 130000 | API resource is currently overloaded. Try again a little later                                                                |
 
