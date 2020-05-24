@@ -627,6 +627,8 @@ Get a channel by ID. Returns a [channel](#DOCS_RESOURCES_CHANNEL/channel-object)
 
 Update a channel's settings. Requires the `MANAGE_CHANNELS` permission for the guild. Returns a [channel](#DOCS_RESOURCES_CHANNEL/channel-object) on success, and a 400 BAD REQUEST on invalid parameters. Fires a [Channel Update](#DOCS_TOPICS_GATEWAY/channel-update) Gateway event. If modifying a category, individual [Channel Update](#DOCS_TOPICS_GATEWAY/channel-update) events will fire for each child channel that also changes. All JSON parameters are optional.
 
+
+
 ###### JSON Params
 
 | Field                 | Type                                                                    | Description                                                                                                                                                                     | Channel Type              |
@@ -642,6 +644,10 @@ Update a channel's settings. Requires the `MANAGE_CHANNELS` permission for the g
 | permission_overwrites | ?array of [overwrite](#DOCS_RESOURCES_CHANNEL/overwrite-object) objects | channel or category-specific permissions                                                                                                                                        | All                       |
 | parent_id             | ?snowflake                                                              | id of the new parent category for a channel                                                                                                                                     | Text, News, Store, Voice  |
 
+> info
+> This endpoint supports the optional `X-AuditLog-Reason` header for providing a 
+> justification for the changes in guild audit logs.
+
 ## Delete/Close Channel % DELETE /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}
 
 Delete a channel, or close a private message. Requires the `MANAGE_CHANNELS` permission for the guild. Deleting a category does not delete its child channels; they will have their `parent_id` removed and a [Channel Update](#DOCS_TOPICS_GATEWAY/channel-update) Gateway event will fire for each of them. Returns a [channel](#DOCS_RESOURCES_CHANNEL/channel-object) object on success. Fires a [Channel Delete](#DOCS_TOPICS_GATEWAY/channel-delete) Gateway event.
@@ -651,6 +657,10 @@ Delete a channel, or close a private message. Requires the `MANAGE_CHANNELS` per
 
 > info
 > For Public servers, the set Rules or Guidelines channel and the Moderators-only (Public Server Updates) channel cannot be deleted.
+
+> info
+> This endpoint supports the optional `X-AuditLog-Reason` header for providing a 
+> justification for the changes in guild audit logs.
 
 ## Get Channel Messages % GET /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/messages
 
@@ -846,6 +856,10 @@ Edit the channel permission overwrites for a user or role in a channel. Only usa
 | deny  | integer | the bitwise value of all disallowed permissions |
 | type  | string  | "member" for a user or "role" for a role        |
 
+> info
+> This endpoint supports the optional `X-AuditLog-Reason` header for providing a 
+> justification for the changes in guild audit logs.
+
 ## Get Channel Invites % GET /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/invites
 
 Returns a list of [invite](#DOCS_RESOURCES_INVITE/invite-object) objects (with [invite metadata](#DOCS_RESOURCES_INVITE/invite-metadata-object)) for the channel. Only usable for guild channels. Requires the `MANAGE_CHANNELS` permission.
@@ -853,6 +867,10 @@ Returns a list of [invite](#DOCS_RESOURCES_INVITE/invite-object) objects (with [
 ## Create Channel Invite % POST /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/invites
 
 Create a new [invite](#DOCS_RESOURCES_INVITE/invite-object) object for the channel. Only usable for guild channels. Requires the `CREATE_INSTANT_INVITE` permission. All JSON parameters for this route are optional, however the request body is not. If you are not sending any fields, you still have to send an empty JSON object (`{}`). Returns an [invite](#DOCS_RESOURCES_INVITE/invite-object) object. Fires an [Invite Create](#DOCS_TOPICS_GATEWAY/invite-create) Gateway event.
+
+> info
+> This endpoint supports the optional `X-AuditLog-Reason` header for providing a 
+> justification for the changes in guild audit logs.
 
 ###### JSON Params
 
@@ -865,9 +883,17 @@ Create a new [invite](#DOCS_RESOURCES_INVITE/invite-object) object for the chann
 | target_user?      | string  | the target user id for this invite                                                                  |                  |
 | target_user_type? | integer | the type of target user for this invite                                                             |                  |
 
+> info
+> This endpoint supports the optional `X-AuditLog-Reason` header for providing a 
+> justification for the changes in guild audit logs.
+
 ## Delete Channel Permission % DELETE /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/permissions/{overwrite.id#DOCS_RESOURCES_CHANNEL/overwrite-object}
 
 Delete a channel permission overwrite for a user or role in a channel. Only usable for guild channels. Requires the `MANAGE_ROLES` permission. Returns a 204 empty response on success. For more information about permissions, see [permissions](#DOCS_TOPICS_PERMISSIONS/permissions)
+
+> info
+> This endpoint supports the optional `X-AuditLog-Reason` header for providing a 
+> justification for the changes in guild audit logs.
 
 ## Trigger Typing Indicator % POST /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/typing
 
