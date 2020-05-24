@@ -497,7 +497,7 @@ what is rendered.
 | ------- | ------- | ---------------------------------------------------------------------------------------------------------------- |
 | name    | string  | name of the field                                                                                                |
 | value   | string  | value of the field                                                                                                |
-| inline? | boolean | whether or not this field should display inline. The default is to render this inline if not specified. |
+| inline? | boolean | whether or not this field should display inline. By default, the field will not be rendered inline unless specified. |
 
 ### Attachment Object
 
