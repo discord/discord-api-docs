@@ -185,7 +185,7 @@ Create a new group DM channel with multiple users. Returns a [DM channel](#DOCS_
 > This endpoint is limited to 10 active group DMs.
 
 > info
-> Bots are not able to access resources within the group DMs they create (e.g. create or see messages) and can only [get](#DOCS_RESOURCES_CHANNEL/get-channel) and [close](#DOCS_RESOURCES_CHANNEL/deleteclose-channel) them.
+> Bots are not able to access resources within the group DMs they create (e.g. create or see messages) and will not receive gateway events for them but can [get](#DOCS_RESOURCES_CHANNEL/get-channel), [modify](#DOCS_RESOURCES_CHANNEL/modify-channel) and [close](#DOCS_RESOURCES_CHANNEL/deleteclose-channel) them.
 
 ###### JSON Params
 
