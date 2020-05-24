@@ -13,7 +13,7 @@ Represents a guild or DM channel within Discord.
 | guild_id?              | snowflake                                                              | the id of the guild                                                                                                                                                             |
 | position?              | integer                                                                | sorting position of the channel                                                                                                                                                 |
 | permission_overwrites? | array of [overwrite](#DOCS_RESOURCES_CHANNEL/overwrite-object) objects | explicit permission overwrites for members and roles                                                                                                                            |
-| name?                  | string                                                                 | the name of the channel (2-100 characters)                                                                                                                                      |
+| name?\*                | ?string                                                                | the name of the channel (2-100 characters)                                                                                                                                      |
 | topic?                 | ?string                                                                | the channel topic (0-1024 characters)                                                                                                                                           |
 | nsfw?                  | boolean                                                                | whether the channel is nsfw                                                                                                                                                     |
 | last_message_id?       | ?snowflake                                                             | the id of the last message sent in this channel (may not point to an existing or valid message)                                                                                 |
@@ -27,6 +27,8 @@ Represents a guild or DM channel within Discord.
 | application_id?        | snowflake                                                              | application id of the group DM creator if it is bot-created                                                                                                                     |
 | parent_id?             | ?snowflake                                                             | id of the parent category for a channel (each parent category can contain up to 50 channels)                                                                                    |
 | last_pin_timestamp?    | ISO8601 timestamp                                                      | when the last pinned message was pinned                                                                                                                                         |
+
+\* The `name` field is only nullable for group DM channels.
 
 ###### Channel Types
 
@@ -132,10 +134,12 @@ Bots can post messages into this type of channel if they have the proper permiss
       "avatar": "33ecab261d4681afa4d85a10691c4a01"
     }
   ],
-  "last_message_id": "3343820033257021450",
+  "last_message_id": "3343820033257021450", 
+  "application_id": "115590097100865541",
+  "managed": true,
   "type": 3,
   "id": "319674150115710528",
-  "owner_id": "82198810841029460"
+  "owner_id": "115590097100865541"
 }
 ```
 
@@ -630,23 +634,26 @@ Update a channel's settings. Requires the `MANAGE_CHANNELS` permission for the g
 
 ###### JSON Params
 
-| Field                 | Type                                                                    | Description                                                                                                                                                                     | Channel Type                       |
-| --------------------- | ----------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- |
-| name                  | string                                                                  | 2-100 character channel name                                                                                                                                                    | Text, News, Store, Voice, Category |
-| type                  | integer                                                                 | the [type of channel](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types); only conversion between text and news is supported and only in guilds with the "NEWS" feature      | Text, News                         |
-| position              | ?integer                                                                | the position of the channel in the left-hand listing                                                                                                                            | Text, News, Store, Voice, Category |
-| topic                 | ?string                                                                 | 0-1024 character channel topic                                                                                                                                                  | Text, News                         |
-| nsfw                  | ?boolean                                                                | whether the channel is nsfw                                                                                                                                                     | Text, News, Store                  |
-| rate_limit_per_user   | ?integer                                                                | amount of seconds a user has to wait before sending another message (0-21600); bots, as well as users with the permission `manage_messages` or `manage_channel`, are unaffected | Text                               |
-| bitrate               | ?integer                                                                | the bitrate (in bits) of the voice channel; 8000 to 96000 (128000 for VIP servers)                                                                                              | Voice                              |
-| user_limit            | ?integer                                                                | the user limit of the voice channel; 0 refers to no limit, 1 to 99 refers to a user limit                                                                                       | Voice                              |
-| permission_overwrites | ?array of [overwrite](#DOCS_RESOURCES_CHANNEL/overwrite-object) objects | channel or category-specific permissions                                                                                                                                        | Text, News, Store, Voice, Category |
-| parent_id             | ?snowflake                                                              | id of the new parent category for a channel                                                                                                                                     | Text, News, Store, Voice           |
-| icon                  | ?[image data](#DOCS_REFERENCE/image-data)                               | image for the channel icon                                                                                                                                                      | Group DM                           |
+| Field                 | Type                                                                    | Description                                                                                                                                                                     | Channel Type                                 |
+| --------------------- | ----------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------- |
+| name                  | ?string                                                                 | 2-100 character channel name                                                                                                                                                    | Group DM, Text, News, Store, Voice, Category |
+| type                  | integer                                                                 | the [type of channel](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types); only conversion between text and news is supported and only in guilds with the "NEWS" feature      | Text, News                                   |
+| position              | ?integer                                                                | the position of the channel in the left-hand listing                                                                                                                            | Text, News, Store, Voice, Category           |
+| topic                 | ?string                                                                 | 0-1024 character channel topic                                                                                                                                                  | Text, News                                   |
+| nsfw                  | ?boolean                                                                | whether the channel is nsfw                                                                                                                                                     | Text, News, Store                            |
+| rate_limit_per_user   | ?integer                                                                | amount of seconds a user has to wait before sending another message (0-21600); bots, as well as users with the permission `manage_messages` or `manage_channel`, are unaffected | Text                                         |
+| bitrate               | ?integer                                                                | the bitrate (in bits) of the voice channel; 8000 to 96000 (128000 for VIP servers)                                                                                              | Voice                                        |
+| user_limit            | ?integer                                                                | the user limit of the voice channel; 0 refers to no limit, 1 to 99 refers to a user limit                                                                                       | Voice                                        |
+| permission_overwrites | ?array of [overwrite](#DOCS_RESOURCES_CHANNEL/overwrite-object) objects | channel or category-specific permissions                                                                                                                                        | Text, News, Store, Voice, Category           |
+| parent_id             | ?snowflake                                                              | id of the new parent category for a channel                                                                                                                                     | Text, News, Store, Voice                     |
+| icon                  | ?[image data](#DOCS_REFERENCE/image-data)                               | image for the channel icon                                                                                                                                                      | Group DM                                     |
+
+> warn
+> The `name` field is only nullable for group DM channels and passing it as `null` for any other channel type will result in a 400 BAD REQUEST.
 
 ## Delete/Close Channel % DELETE /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}
 
-Delete a channel, or close a private message. Requires the `MANAGE_CHANNELS` permission for the guild. Deleting a category does not delete its child channels; they will have their `parent_id` removed and a [Channel Update](#DOCS_TOPICS_GATEWAY/channel-update) Gateway event will fire for each of them. Returns a [channel](#DOCS_RESOURCES_CHANNEL/channel-object) object on success. Fires a [Channel Delete](#DOCS_TOPICS_GATEWAY/channel-delete) Gateway event.
+Delete a channel, or close a private message. Requires the `MANAGE_CHANNELS` permission for the guild. Deleting a category does not delete its child channels; they will have their `parent_id` removed and a [Channel Update](#DOCS_TOPICS_GATEWAY/channel-update) Gateway event will fire for each of them. Returns a [channel](#DOCS_RESOURCES_CHANNEL/channel-object) object on success. Fires a [Channel Delete](#DOCS_TOPICS_GATEWAY/channel-delete) Gateway event for all channel types except group DMs.
 
 > warn
 > Deleting a guild channel cannot be undone. Use this with caution, as it is impossible to undo this action when performed on a guild channel. In contrast, when used with a private message, it is possible to undo the action by opening a private message with the recipient again.
