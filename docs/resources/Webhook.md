@@ -52,6 +52,10 @@ Create a new webhook. Requires the `MANAGE_WEBHOOKS` permission. Returns a [webh
 
 - Webhook names cannot be: 'clyde'
 
+> info
+> This endpoint supports the optional `X-Audit-Log-Reason` header for providing a 
+> justification for the changes in guild audit logs.
+
 ###### JSON Params
 
 | Field  | Type                                      | Description                           |
@@ -82,6 +86,10 @@ Modify a webhook. Requires the `MANAGE_WEBHOOKS` permission. Returns the updated
 > info
 > All parameters to this endpoint are optional
 
+> info
+> This endpoint supports the optional `X-Audit-Log-Reason` header for providing a 
+> justification for the changes in guild audit logs.
+
 ###### JSON Params
 
 | Field      | Type                                      | Description                                        |
@@ -94,13 +102,23 @@ Modify a webhook. Requires the `MANAGE_WEBHOOKS` permission. Returns the updated
 
 Same as above, except this call does not require authentication, does not accept a `channel_id` parameter in the body, and does not return a user in the webhook object.
 
+> warn
+> This endpoint does **not** support the `X-Audit-Log-Reason` header.
+
 ## Delete Webhook % DELETE /webhooks/{webhook.id#DOCS_RESOURCES_WEBHOOK/webhook-object}
 
-Delete a webhook permanently. Requires the `MANAGE_WEBHOOKS` permission. Returns a 204 NO CONTENT response on success.
+Delete a webhook permanently. Requires the `MANAGE_WEBHOOKS` permission. Returns a `204 No Content` response on success.
+
+> info
+> This endpoint supports the optional `X-Audit-Log-Reason` header for providing a 
+> justification for the changes in guild audit logs.
 
 ## Delete Webhook with Token % DELETE /webhooks/{webhook.id#DOCS_RESOURCES_WEBHOOK/webhook-object}/{webhook.token#DOCS_RESOURCES_WEBHOOK/webhook-object}
 
-Same as above, except this call does not require authentication.
+Same as above, except this call does not require an `Authentication` header.
+
+> warn
+> This endpoint does **not** support the `X-Audit-Log-Reason` header.
 
 ## Execute Webhook % POST /webhooks/{webhook.id#DOCS_RESOURCES_WEBHOOK/webhook-object}/{webhook.token#DOCS_RESOURCES_WEBHOOK/webhook-object}
 
