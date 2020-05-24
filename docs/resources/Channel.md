@@ -972,7 +972,7 @@ Returns all pinned messages in the channel as an array of [message](#DOCS_RESOUR
 
 ## Add Pinned Channel Message % PUT /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/pins/{message.id#DOCS_RESOURCES_CHANNEL/message-object}
 
-Pin a message in a text channel. Requires the `MANAGE_MESSAGES` permission. Returns a `204 No Content` on success.
+Pin a message in a text or news channel. Requires the `MANAGE_MESSAGES` permission. Returns a `204 No Content` on success.
 
 > info
 > The maximum number of pinned messages per text channel and news channel is currently set to 50.
