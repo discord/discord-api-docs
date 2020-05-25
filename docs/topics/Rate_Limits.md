@@ -50,12 +50,12 @@ Note that the normal rate-limiting headers will be sent in this response. The ra
 ```
 < HTTP/1.1 429 TOO MANY REQUESTS
 < Content-Type: application/json
-< Retry-After: 6457
-< X-RateLimit-Limit: 10
-< X-RateLimit-Remaining: 0
-< X-RateLimit-Reset: 1470173023
-< X-RateLimit-Reset-After: 7
-< X-RateLimit-Bucket: abcd1234
+< retry-after: 6457
+< x-ratelimit-limit: 10
+< x-ratelimit-remaining: 0
+< x-ratelimit-reset: 1470173023
+< x-ratelimit-reset-after: 7
+< x-ratelimit-bucket: abcd1234
 {
   "message": "You are being rate limited.",
   "retry_after": 6457,
@@ -68,8 +68,8 @@ Note that the normal rate-limiting headers will be sent in this response. The ra
 ```
 < HTTP/1.1 429 TOO MANY REQUESTS
 < Content-Type: application/json
-< Retry-After: 6457
-< X-RateLimit-Global: true
+< retry-after: 6457
+< x-ratelimit-global: true
 {
   "message": "You are being rate limited.",
   "retry_after": 6457,
@@ -91,12 +91,12 @@ If the `X-RateLimit-Precision` header isn't set, it defaults to `second` precisi
 
 < HTTP/1.1 429 TOO MANY REQUESTS
 < Content-Type: application/json
-< Retry-After: 6457
-< X-RateLimit-Limit: 10
-< X-RateLimit-Remaining: 0
-< X-RateLimit-Reset: 1470173023
-< X-RateLimit-Reset-After: 7
-< X-RateLimit-Bucket: abcd1234
+< retry-after: 6457
+< x-ratelimit-limit: 10
+< x-ratelimit-remaining: 0
+< x-ratelimit-reset: 1470173023
+< x-ratelimit-reset-after: 7
+< x-ratelimit-bucket: abcd1234
 {
   "message": "You are being rate limited.",
   "retry_after": 6457,
@@ -112,12 +112,12 @@ If set to `millisecond` you will receive a more precise `X-RateLimit-Reset` and 
 
 < HTTP/1.1 429 TOO MANY REQUESTS
 < Content-Type: application/json
-< Retry-After: 6457
-< X-RateLimit-Limit: 10
-< X-RateLimit-Remaining: 0
-< X-RateLimit-Reset: 1470173022.420
-< X-RateLimit-Reset-After: 6.457
-< X-RateLimit-Bucket: abcd1234
+< retry-after: 6457
+< x-ratelimit-limit: 10
+< x-ratelimit-remaining: 0
+< x-ratelimit-reset: 1470173022.420
+< x-ratelimit-reset-after: 6.457
+< x-ratelimit-bucket: abcd1234
 {
   "message": "You are being rate limited.",
   "retry_after": 6457,
@@ -133,12 +133,12 @@ Setting it to an invalid value will net you a special error message contained in
 
 < HTTP/1.1 429 TOO MANY REQUESTS
 < Content-Type: application/json
-< Retry-After: 6457
-< X-RateLimit-Limit: 10
-< X-RateLimit-Remaining: 0
-< X-RateLimit-Reset: Invalid X-RateLimit-Precision, valid options are (second, millisecond)
-< X-RateLimit-Reset-After: Invalid X-RateLimit-Precision, valid options are (second, millisecond)
-< X-RateLimit-Bucket: abcd1234
+< retry-after: 6457
+< x-ratelimit-limit: 10
+< x-ratelimit-remaining: 0
+< x-ratelimit-reset: Invalid X-RateLimit-Precision, valid options are (second, millisecond)
+< x-ratelimit-reset-after: Invalid X-RateLimit-Precision, valid options are (second, millisecond)
+< x-ratelimit-bucket: abcd1234
 {
   "message": "You are being rate limited.",
   "retry_after": 6457,
