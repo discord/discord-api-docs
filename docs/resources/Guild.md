@@ -342,7 +342,7 @@ A partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object. Represents an Offl
 Create a new guild. Returns a [guild](#DOCS_RESOURCES_GUILD/guild-object) object on success. Fires a [Guild Create](#DOCS_TOPICS_GATEWAY/guild-create) Gateway event.
 
 > warn
-> This endpoint can be used only by bots in less than 10 guilds. Assigning a channel to a channel category is not supported by this endpoint, i.e. a channel can't have the `parent_id` field.
+> This endpoint can be used only by bots in less than 10 guilds.
 
 ###### JSON Params
 
