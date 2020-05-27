@@ -361,6 +361,15 @@ Represents a message sent in a channel within Discord.
 }
 ```
 
+### Followed Channel Object
+
+###### Followed Channel Structure
+
+| Field | Type                                                       | Description                                       |
+| ----- | ---------------------------------------------------------- | ------------------------------------------------- |
+| channel_id | string                             | source channel id
+| webhook_id | string                             | created target webhook id
+
 ### Reaction Object
 
 ###### Reaction Structure
@@ -757,6 +766,12 @@ For example:
 > info
 > For the following endpoints, `emoji` takes the form of `name:id` for custom guild emoji, or Unicode characters.
 
+## Crosspost Message % POST /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}/crosspost
+
+Crosspost a message in a News Channel to following channels. This endpoints requires the 'SEND_MESSAGES' permission, if the current user sent the message, or the 'MANAGE_MESSAGES' permission, for all messages, to be present for the current user.
+
+Returns a [message](#DOCS_RESOURCES_CHANNEL/message-object) object.
+
 ## Create Reaction % PUT /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}/reactions/{emoji#DOCS_RESOURCES_EMOJI/emoji-object}/@me
 
 Create a reaction for the message. This endpoint requires the 'READ_MESSAGE_HISTORY' permission to be present on the current user. Additionally, if nobody else has reacted to the message using this emoji, this endpoint requires the 'ADD_REACTIONS' permission to be present on the current user. Returns a 204 empty response on success.
@@ -868,6 +883,16 @@ Create a new [invite](#DOCS_RESOURCES_INVITE/invite-object) object for the chann
 ## Delete Channel Permission % DELETE /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/permissions/{overwrite.id#DOCS_RESOURCES_CHANNEL/overwrite-object}
 
 Delete a channel permission overwrite for a user or role in a channel. Only usable for guild channels. Requires the `MANAGE_ROLES` permission. Returns a 204 empty response on success. For more information about permissions, see [permissions](#DOCS_TOPICS_PERMISSIONS/permissions)
+
+## Follow News Channel % POST /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/followers
+
+Follow a News Channel to send messages to a target channel. Requires the `MANAGE_WEBHOOKS` permission in the target channel. Returns a [followed channel](#DOCS_RESOURCES_CHANNEL/followed-channel-object) object.
+
+###### JSON Params
+
+| Field              | Type   | Description          |
+| ------------------ | ------ | -------------------- |
+| webhook_channel_id | string | id of target channel
 
 ## Trigger Typing Indicator % POST /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/typing
 
