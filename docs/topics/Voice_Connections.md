@@ -47,10 +47,18 @@ If our request succeeded, the gateway will respond with _two_ events—a [Voice 
   "d": {
     "token": "my_token",
     "guild_id": "41771983423143937",
-    "endpoint": "smart.loyal.discord.gg"
+    "endpoint": "eu-central396.discord.media:80"
   }
 }
 ```
+
+> danger
+> The `endpoint` URI **MUST** be modified to make it valid to connect to with a websocket. The 
+> first modification needed is that the "wss://" prefix must be added to the start of the string. The second
+> modification needed is that any port provided should be removed. Generally this will be `:80`, which will 
+> generally result in either an SSL version error or a Cloudflare-generated 403 HTML response to be served
+> instead. In the above example, the URI `eu-central396.discord.media:80` should be transformed to 
+> `wss://eu-central396.discord.media` to make it valid.
 
 With this information, we can move on to establishing a voice WebSocket connection.
 
@@ -61,7 +69,7 @@ With this information, we can move on to establishing a voice WebSocket connecti
 
 ## Establishing a Voice Websocket Connection
 
-Once we retrieve a session_id, token, and endpoint information, we can connect and handshake with the voice server over another secure WebSocket. Unlike the gateway endpoint we receive in an HTTP [Get Gateway](#DOCS_TOPICS_GATEWAY/get-gateway) request, the endpoint received from our [Voice Server Update](#DOCS_TOPICS_GATEWAY/voice-server-update) payload does not contain a URL protocol, so some libraries may require manually prepending it with "wss://" before connecting. Once connected to the voice WebSocket endpoint, we can send an [Opcode 0 Identify](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice) payload with our server_id, user_id, session_id, and token:
+Once we retrieve a session_id, token, and endpoint information, we can connect and handshake with the voice server over another secure WebSocket. Once connected to the voice WebSocket endpoint, we can send an [Opcode 0 Identify](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice) payload with our server_id, user_id, session_id, and token.
 
 ###### Example Voice Identify Payload
 
