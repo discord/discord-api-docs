@@ -365,10 +365,10 @@ Represents a message sent in a channel within Discord.
 
 ###### Followed Channel Structure
 
-| Field | Type                                                       | Description                                       |
-| ----- | ---------------------------------------------------------- | ------------------------------------------------- |
-| channel_id | string                             | source channel id
-| webhook_id | string                             | created target webhook id
+| Field      | Type      | Description               |
+| ---------- | --------- | ------------------------- |
+| channel_id | snowflake | source channel id         |
+| webhook_id | snowflake | created target webhook id |
 
 ### Reaction Object
 
@@ -890,9 +890,9 @@ Follow a News Channel to send messages to a target channel. Requires the `MANAGE
 
 ###### JSON Params
 
-| Field              | Type   | Description          |
-| ------------------ | ------ | -------------------- |
-| webhook_channel_id | string | id of target channel
+| Field              | Type      | Description          |
+| ------------------ | --------- | -------------------- |
+| webhook_channel_id | snowflake | id of target channel |
 
 ## Trigger Typing Indicator % POST /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/typing
 
