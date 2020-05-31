@@ -42,7 +42,8 @@ Used to represent a webhook.
     "username": "test",
     "discriminator": "7479",
     "id": "190320984123768832",
-    "avatar": "b004ec1740a63ca06ae2e14c5cee11f3"
+    "avatar": "b004ec1740a63ca06ae2e14c5cee11f3",
+    "public_flags": 131328
   }
 }
 ```
