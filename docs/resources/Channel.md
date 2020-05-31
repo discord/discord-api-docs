@@ -6,27 +6,28 @@ Represents a guild or DM channel within Discord.
 
 ###### Channel Structure
 
-| Field                  | Type                                                                   | Description                                                                                                                                                                     |
-| ---------------------- | ---------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| id                     | snowflake                                                              | the id of this channel                                                                                                                                                          |
-| type                   | integer                                                                | the [type of channel](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types)                                                                                                     |
-| guild_id?              | snowflake                                                              | the id of the guild                                                                                                                                                             |
-| position?              | integer                                                                | sorting position of the channel                                                                                                                                                 |
-| permission_overwrites? | array of [overwrite](#DOCS_RESOURCES_CHANNEL/overwrite-object) objects | explicit permission overwrites for members and roles                                                                                                                            |
-| name?\*                | ?string                                                                | the name of the channel (2-100 characters)                                                                                                                                      |
-| topic?                 | ?string                                                                | the channel topic (0-1024 characters)                                                                                                                                           |
-| nsfw?                  | boolean                                                                | whether the channel is nsfw                                                                                                                                                     |
-| last_message_id?       | ?snowflake                                                             | the id of the last message sent in this channel (may not point to an existing or valid message)                                                                                 |
-| managed?               | boolean                                                                | whether this group DM channel is managed by an application                                                                                                                      |
-| bitrate?               | integer                                                                | the bitrate (in bits) of the voice channel                                                                                                                                      |
-| user_limit?            | integer                                                                | the user limit of the voice channel                                                                                                                                             |
-| rate_limit_per_user?   | integer                                                                | amount of seconds a user has to wait before sending another message (0-21600); bots, as well as users with the permission `manage_messages` or `manage_channel`, are unaffected |
-| recipients?            | array of [user](#DOCS_RESOURCES_USER/user-object) objects              | the recipients of the DM                                                                                                                                                        |
-| icon?                  | ?string                                                                | icon hash                                                                                                                                                                       |
-| owner_id?              | snowflake                                                              | id of the DM creator                                                                                                                                                            |
-| application_id?        | snowflake                                                              | application id of the group DM creator if it is bot-created                                                                                                                     |
-| parent_id?             | ?snowflake                                                             | id of the parent category for a channel (each parent category can contain up to 50 channels)                                                                                    |
-| last_pin_timestamp?    | ISO8601 timestamp                                                      | when the last pinned message was pinned                                                                                                                                         |
+| Field                  | Type                                                                                                   | Description                                                                                                                                                                     |
+| ---------------------- | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| id                     | snowflake                                                                                              | the id of this channel                                                                                                                                                          |
+| type                   | integer                                                                                                | the [type of channel](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types)                                                                                                     |
+| guild_id?              | snowflake                                                                                              | the id of the guild                                                                                                                                                             |
+| position?              | integer                                                                                                | sorting position of the channel                                                                                                                                                 |
+| permission_overwrites? | array of [overwrite](#DOCS_RESOURCES_CHANNEL/overwrite-object) objects                                 | explicit permission overwrites for members and roles                                                                                                                            |
+| name?\*                | ?string                                                                                                | the name of the channel (2-100 characters)                                                                                                                                      |
+| topic?                 | ?string                                                                                                | the channel topic (0-1024 characters)                                                                                                                                           |
+| nsfw?                  | boolean                                                                                                | whether the channel is nsfw                                                                                                                                                     |
+| last_message_id?       | ?snowflake                                                                                             | the id of the last message sent in this channel (may not point to an existing or valid message)                                                                                 |
+| managed?               | boolean                                                                                                | whether this group DM channel is managed by an application                                                                                                                      |
+| bitrate?               | integer                                                                                                | the bitrate (in bits) of the voice channel                                                                                                                                      |
+| user_limit?            | integer                                                                                                | the user limit of the voice channel                                                                                                                                             |
+| rate_limit_per_user?   | integer                                                                                                | amount of seconds a user has to wait before sending another message (0-21600); bots, as well as users with the permission `manage_messages` or `manage_channel`, are unaffected |
+| recipients?            | array of [user](#DOCS_RESOURCES_USER/user-object) objects                                              | the recipients of the DM                                                                                                                                                        |
+| icon?                  | ?string                                                                                                | icon hash                                                                                                                                                                       |
+| owner_id?              | snowflake                                                                                              | id of the DM creator                                                                                                                                                            |
+| application_id?        | snowflake                                                                                              | application id of the group DM creator if it is bot-created                                                                                                                     |
+| nicks?                 | array of [channel nickname](#DOCS_RESOURCES_CHANNEL/channel-object-channel-nickname-structure) objects | the nicknames that are set for a group DM channel's recipients.                                                                                                                 |
+| parent_id?             | ?snowflake                                                                                             | id of the parent category for a channel (each parent category can contain up to 50 channels)                                                                                    |
+| last_pin_timestamp?    | ISO8601 timestamp                                                                                      | when the last pinned message was pinned                                                                                                                                         |
 
 \* The `name` field is only nullable for group DM channels.
 
@@ -41,6 +42,13 @@ Represents a guild or DM channel within Discord.
 | GUILD_CATEGORY | 4   | an [organizational category](https://support.discord.com/hc/en-us/articles/115001580171-Channel-Categories-101) that contains up to 50 channels      |
 | GUILD_NEWS     | 5   | a channel that [users can follow and crosspost into their own server](https://support.discord.com/hc/en-us/articles/360032008192)                    |
 | GUILD_STORE    | 6   | a channel in which game developers can [sell their game on Discord](https://discord.com/developers/docs/game-and-server-management/special-channels) |
+
+###### Channel Nickname Structure
+
+| Field | Type      | Description                                    |
+| ----- | --------- | ---------------------------------------------- |
+| id    | snowflake | the user's nickname                            |
+| nick  | string    | the id of the user this nickname is applied to |
 
 ###### Example Guild Text Channel
 
@@ -136,6 +144,12 @@ Bots can post messages into this type of channel if they have the proper permiss
   ],
   "last_message_id": "3343820033257021450", 
   "application_id": "115590097100865541",
+  "nicks": [
+    {
+      "id": "82198810841029460",
+      "nick": "nyaa"
+    }
+  ],
   "managed": true,
   "type": 3,
   "id": "319674150115710528",
