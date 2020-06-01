@@ -2,23 +2,23 @@
 
 ### Template Object
 
-Represents a code that when used, creates a new guild duplicated from an existing one.
+Represents a code that when used, creates a guild based on a snapshot of an existing one.
 
 ###### Template Structure
 
-| Field                   | Type                                                             | Description                                  |
-| ----------------------- | ---------------------------------------------------------------- | -------------------------------------------- |
-| code                    | string                                                           | the template code (unique ID)                |
-| name                    | string                                                           | template name                                |
-| description             | string                                                           | the description for the template             |
-| usage_count             | integer                                                          | number of times this template has been used  |
-| creator_id              | snowflake                                                        | the ID of the user who created the template  |
-| creator                 | [user](#DOCS_RESOURCES_USER/user-object) object                  | the user who created the template            |
-| created_at              | ISO8601 timestamp                                                | when this template was created               |
-| updated_at              | ISO8601 timestamp                                                | when this template was last synced           |
-| source_guild_id         | snowflake                                                        | the ID of the guild this template duplicates |
-| serialized_source_guild | partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object       | the guild this template duplicates           |
-| is_dirty                | ?boolean                                                         | whether the template has unsynced changes    |
+| Field                   | Type                                                             | Description                                            |
+| ----------------------- | ---------------------------------------------------------------- | ------------------------------------------------------ |
+| code                    | string                                                           | the template code (unique ID)                          |
+| name                    | string                                                           | template name                                          |
+| description             | string                                                           | the description for the template                       |
+| usage_count             | integer                                                          | number of times this template has been used            |
+| creator_id              | snowflake                                                        | the ID of the user who created the template            |
+| creator                 | [user](#DOCS_RESOURCES_USER/user-object) object                  | the user who created the template                      |
+| created_at              | ISO8601 timestamp                                                | when this template was created                         |
+| updated_at              | ISO8601 timestamp                                                | when this template was last synced to the source guild |
+| source_guild_id         | snowflake                                                        | the ID of the guild this template is based on          |
+| serialized_source_guild | partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object       | the guild snapshot this template contains              |
+| is_dirty                | ?boolean                                                         | whether the template has unsynced changes              |
 
 ###### Example Template Object
 
