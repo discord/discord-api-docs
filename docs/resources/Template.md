@@ -8,7 +8,7 @@ Represents a code that when used, creates a new guild duplicated from an existin
 
 | Field                   | Type                                                             | Description                                  |
 | ----------------------- | ---------------------------------------------------------------- | -------------------------------------------- |
-| code                    | string                                                           | the invite code (unique ID)                  |
+| code                    | string                                                           | the template code (unique ID)                |
 | name                    | string                                                           | template name                                |
 | description             | string                                                           | the description for the template             |
 | usage_count             | integer                                                          | number of times this template has been used  |
