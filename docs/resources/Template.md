@@ -95,11 +95,11 @@ Represents a code that when used, creates a new guild duplicated from an existin
 }
 ```
 
-## Get Template % GET /guilds/templates/{template.id#DOCS_RESOURCES_TEMPLATE/template-object}
+## Get Template % GET /guilds/templates/{template.code#DOCS_RESOURCES_TEMPLATE/template-object}
 
 Returns a [template](#DOCS_RESOURCES_TEMPLATE/template-object) object for the given code.
 
-## Create Guild from Template % POST /guilds/templates/{template.id#DOCS_RESOURCES_TEMPLATE/template-object}
+## Create Guild from Template % POST /guilds/templates/{template.code#DOCS_RESOURCES_TEMPLATE/template-object}
 
 Create a new guild based on a template. Returns a [guild](#DOCS_RESOURCES_GUILD/guild-object) object on success. Fires a [Guild Create](#DOCS_TOPICS_GATEWAY/guild-create) Gateway event.
 
