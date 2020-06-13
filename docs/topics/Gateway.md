@@ -281,9 +281,9 @@ Any [events not defined in an intent](#DOCS_TOPICS_GATEWAY/commands-and-events-g
 
 [Guild Create](#DOCS_TOPICS_GATEWAY/guild-create) and [Request Guild Members](#DOCS_TOPICS_GATEWAY/request-guild-members) are uniquely affected by intents. See these sections for more information.
 
-If you specify an `intent` value in your `IDENTIFY` payload that is _invalid_, the socket will close with a [`4013` close code](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/gateway-gateway-close-event-codes). An invalid intent is one that is not meaningful and not documented above.
+If you specify an `intent` value in your `IDENTIFY` payload that is *invalid*, the socket will close with a [`4013` close code](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/gateway-gateway-close-event-codes). An invalid intent is one that is not meaningful and not documented above.
 
-If you specify an `intent` value in your `IDENTIFY` payload that is _disallowed_, the socket will close with a [`4014` close code](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/gateway-gateway-close-event-codes). A disallowed intent is one which you have not enabled for your bot or one that your bot is not whitelisted to use.
+If you specify an `intent` value in your `IDENTIFY` payload that is *disallowed*, the socket will close with a [`4014` close code](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/gateway-gateway-close-event-codes). A disallowed intent is one which you have not enabled for your bot or one that your bot is not whitelisted to use.
 
 ### Privileged Intents
 
@@ -333,7 +333,7 @@ To enable sharding on a connection, the user should send the `shard` array in th
 
 As an example, if you wanted to split the connection between three shards, you'd use the following values for `shard` for each connection: `[0, 3]`, `[1, 3]`, and `[2, 3]`. Note that only the first shard (`[0, 3]`) would receive DMs.
 
-Note that `num_shards` does not relate to, or limit, the total number of potential sessions—it is only used for _routing_ traffic. As such, sessions do not have to be identified in an evenly distributed manner when sharding. You can establish multiple sessions with the same `[shard_id, num_shards]`, or sessions with different `num_shards` values. This allows you to create sessions that will handle more or less traffic than others for more fine-tuned load balancing, or orchestrate "zero-downtime" scaling/updating by handing off traffic to a new deployment of sessions with a higher or lower `num_shards` count that are prepared in parallel.
+Note that `num_shards` does not relate to, or limit, the total number of potential sessions—it is only used for *routing* traffic. As such, sessions do not have to be identified in an evenly distributed manner when sharding. You can establish multiple sessions with the same `[shard_id, num_shards]`, or sessions with different `num_shards` values. This allows you to create sessions that will handle more or less traffic than others for more fine-tuned load balancing, or orchestrate "zero-downtime" scaling/updating by handing off traffic to a new deployment of sessions with a higher or lower `num_shards` count that are prepared in parallel.
 
 ## Sharding for Very Large Bots
 
@@ -801,12 +801,12 @@ Sent when a guild member is updated. This will also fire when the user object of
 
 ###### Guild Member Update Event Fields
 
-| Field          | Type                                              | Description                                                                                                              |
-| -------------- | ------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
-| guild_id       | snowflake                                         | the id of the guild                                                                                                      |
-| roles          | array of snowflakes                               | user role ids                                                                                                            |
-| user           | a [user](#DOCS_RESOURCES_USER/user-object) object | the user                                                                                                                 |
-| nick?          | ?string                                           | nickname of the user in the guild                                                                                        |
+| Field          | Type                                              | Description                                                                                                                 |
+| -------------- | ------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| guild_id       | snowflake                                         | the id of the guild                                                                                                         |
+| roles          | array of snowflakes                               | user role ids                                                                                                               |
+| user           | a [user](#DOCS_RESOURCES_USER/user-object) object | the user                                                                                                                    |
+| nick?          | ?string                                           | nickname of the user in the guild                                                                                           |
 | premium_since? | ?ISO8601 timestamp                                | when the user starting [boosting](https://support.discord.com/hc/en-us/articles/360028038352-Server-Boosting-) the guild |
 
 #### Guild Members Chunk
@@ -816,15 +816,15 @@ You can use the `chunk_index` and `chunk_count` to calculate how many chunks are
 
 ###### Guild Members Chunk Event Fields
 
-| Field       | Type                                                                       | Description                                                                                |
-| ----------- | -------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------ |
-| guild_id    | snowflake                                                                  | the id of the guild                                                                        |
-| members     | array of [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) objects | set of guild members                                                                       |
-| chunk_index | integer                                                                    | the chunk index in the expected chunks for this response (0 <= chunk_index < chunk_count)  |
-| chunk_count | integer                                                                    | the total number of expected chunks for this response                                      |
-| not_found?  | array                                                                      | if passing an invalid id to `REQUEST_GUILD_MEMBERS`, it will be returned here              |
-| presences?  | array of [presence](#DOCS_TOPICS_GATEWAY/presence) objects                 | if passing true to `REQUEST_GUILD_MEMBERS`, presences of the returned members will be here |
-| nonce?      | string                                                                     | the nonce used in the [Guild Members Request](#DOCS_TOPICS_GATEWAY/request-guild-members)  |
+| Field       | Type                                                                       | Description                                                                                        |
+| ----------- | -------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
+| guild_id    | snowflake                                                                  | the id of the guild                                                                                |
+| members     | array of [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) objects | set of guild members                                                                               |
+| chunk_index | integer                                                                    | the chunk index in the expected chunks for this response (0 <= chunk\_index < chunk\_count)        |
+| chunk_count | integer                                                                    | the total number of expected chunks for this response                                              |
+| not_found?  | array                                                                      | if passing an invalid id to `REQUEST_GUILD_MEMBERS`, it will be returned here                      |
+| presences?  | array of [presence](#DOCS_TOPICS_GATEWAY/presence) objects                 | if passing true to `REQUEST_GUILD_MEMBERS`, presences of the returned members will be here         |
+| nonce?      | string                                                                     | the nonce used in the [Guild Members Request](#DOCS_TOPICS_GATEWAY/request-guild-members)          |
 
 #### Guild Role Create
 
@@ -998,17 +998,17 @@ A user's presence is their current state on a guild. This event is sent when a u
 
 ###### Presence Update Event Fields
 
-| Field          | Type                                                              | Description                                                                                                             |
-| -------------- | ----------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
-| user           | [user](#DOCS_RESOURCES_USER/user-object) object                   | the user presence is being updated for                                                                                  |
-| roles          | array of snowflakes                                               | roles this user is in                                                                                                   |
-| game           | ?[activity](#DOCS_TOPICS_GATEWAY/activity-object) object          | null, or the user's current activity                                                                                    |
-| guild_id       | snowflake                                                         | id of the guild                                                                                                         |
-| status         | string                                                            | either "idle", "dnd", "online", or "offline"                                                                            |
-| activities     | array of [activity](#DOCS_TOPICS_GATEWAY/activity-object) objects | user's current activities                                                                                               |
-| client_status  | [client_status](#DOCS_TOPICS_GATEWAY/client-status-object) object | user's platform-dependent status                                                                                        |
+| Field          | Type                                                              | Description                                                                                                                |
+| -------------- | ----------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| user           | [user](#DOCS_RESOURCES_USER/user-object) object                   | the user presence is being updated for                                                                                     |
+| roles          | array of snowflakes                                               | roles this user is in                                                                                                      |
+| game           | ?[activity](#DOCS_TOPICS_GATEWAY/activity-object) object          | null, or the user's current activity                                                                                       |
+| guild_id       | snowflake                                                         | id of the guild                                                                                                            |
+| status         | string                                                            | either "idle", "dnd", "online", or "offline"                                                                               |
+| activities     | array of [activity](#DOCS_TOPICS_GATEWAY/activity-object) objects | user's current activities                                                                                                  |
+| client_status  | [client_status](#DOCS_TOPICS_GATEWAY/client-status-object) object | user's platform-dependent status                                                                                           |
 | premium_since? | ?ISO8601 timestamp                                                | when the user started [boosting](https://support.discord.com/hc/en-us/articles/360028038352-Server-Boosting-) the guild |
-| nick?          | ?string                                                           | this users guild nickname (if one is set)                                                                               |
+| nick?          | ?string                                                           | this users guild nickname (if one is set)                                                                                  |
 
 #### Client Status Object
 
