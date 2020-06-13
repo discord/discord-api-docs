@@ -1179,13 +1179,16 @@ Sent when someone joins/leaves/moves voice channels. Inner payload is a [voice s
 
 Sent when a guild's voice server is updated. This is sent when initially connecting to voice, and when the current voice instance fails over to a new server.
 
+> warn
+> A null endpoint means that the voice server allocated has gone away and is trying to be reallocated. It should be ignored.
+
 ###### Voice Server Update Event Fields
 
-| Field    | Type      | Description                               |
-| -------- | --------- | ----------------------------------------- |
-| token    | string    | voice connection token                    |
-| guild_id | snowflake | the guild this voice server update is for |
-| endpoint | string    | the voice server host                     |
+| Field    | Type       | Description                               |
+| -------- | ---------- | ----------------------------------------- |
+| token    | string     | voice connection token                    |
+| guild_id | snowflake  | the guild this voice server update is for |
+| endpoint | ?string    | the voice server host                     |
 
 ###### Example Voice Server Update Payload
 
