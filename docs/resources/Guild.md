@@ -643,11 +643,11 @@ Returns a [ban](#DOCS_RESOURCES_GUILD/ban-object) object for the given user or a
 
 Create a guild ban, and optionally delete previous messages sent by the banned user. Requires the `BAN_MEMBERS` permission. Returns a 204 empty response on success. Fires a [Guild Ban Add](#DOCS_TOPICS_GATEWAY/guild-ban-add) Gateway event.
 
-###### Query String Params
+###### JSON Params
 
 | Field                | Type    | Description                                 |
 | -------------------- | ------- | ------------------------------------------- |
-| delete-message-days? | integer | number of days to delete messages for (0-7) |
+| delete_message_days? | integer | number of days to delete messages for (0-7) |
 | reason?              | string  | reason for the ban                          |
 
 ## Remove Guild Ban % DELETE /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/bans/{user.id#DOCS_RESOURCES_USER/user-object}
@@ -714,10 +714,10 @@ By default, prune will not remove users with roles. You can optionally include s
 
 ###### Query String Params
 
-| Field         | Type                | Description                                   | Default |
-| ------------- | ------------------- | --------------------------------------------- | ------- |
-| days          | integer             | number of days to count prune for (1 or more) | 7       |
-| include_roles | array of snowflakes | role(s) to include                            | none    | 
+| Field         | Type                                        | Description                                   | Default |
+| ------------- | ------------------------------------------- | --------------------------------------------- | ------- |
+| days          | integer                                     | number of days to count prune for (1 or more) | 7       |
+| include_roles | string; comma-delimited array of snowflakes | role(s) to include                            | none    | 
 
 ## Begin Guild Prune % POST /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/prune
 
@@ -725,7 +725,7 @@ Begin a prune operation. Requires the `KICK_MEMBERS` permission. Returns an obje
 
 By default, prune will not remove users with roles. You can optionally include specific roles in your prune by providing the `include_roles` parameter. Any inactive user that has a subset of the provided role(s) will be included in the prune and users with additional roles will not.
 
-###### Query String Params
+###### JSON Params
 
 | Field               | Type                | Description                                                | Default |
 | ------------------- | ------------------- | ---------------------------------------------------------- | ------- |
