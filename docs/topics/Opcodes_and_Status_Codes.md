@@ -128,6 +128,7 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 10031  | Unknown lobby                                                                                                                 |
 | 10032  | Unknown branch                                                                                                                |
 | 10036  | Unknown redistributable                                                                                                       |
+| 10059  | Unknown discovery category                                                                                                    |
 | 20001  | Bots cannot use this endpoint                                                                                                 |
 | 20002  | Only bots can use this endpoint                                                                                               |
 | 30001  | Maximum number of guilds reached (100)                                                                                        |
@@ -139,6 +140,7 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 30013  | Maximum number of guild channels reached (500)                                                                                |
 | 30015  | Maximum number of attachments in a message reached (10)                                                                       |
 | 30016  | Maximum number of invites reached (1000)                                                                                      |
+| 30030  | Maximum number of guild discovery subcategories has been reached (5)                                                          |
 | 40001  | Unauthorized. Provide a valid token and try again                                                                             |
 | 40002  | You need to verify your account in order to perform this action                                                               |
 | 40005  | Request entity too large. Try sending something smaller in size                                                               |
