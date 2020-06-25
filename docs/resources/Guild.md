@@ -115,6 +115,7 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 | VERIFIED               | guild is verified                                                               |
 | PARTNERED              | guild is partnered                                                              |
 | PUBLIC                 | guild is public                                                                 |
+| COMMUNITY              | guild is a community                                                            |
 | COMMERCE               | guild has access to use commerce features (i.e. create store channels)          |
 | NEWS                   | guild has access to create news channels                                        |
 | DISCOVERABLE           | guild is able to be discovered in the directory                                 |
