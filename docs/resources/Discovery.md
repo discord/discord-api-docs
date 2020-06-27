@@ -6,13 +6,13 @@ Used to represent a guild's Discovery settings.
 
 ###### Discovery Metadata Structure
 
-| Field                   | Type                                                                                   | Description                                                                |
-| ----------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
-| guild_id                | snowflake                                                                              | the guild id                                                               |
-| primary_category_id     | [discovery category](#DOCS_RESOURCES_DISCOVERY/discovery-category-object) id           | the id of the primary discovery category set for this guild                |
-| keywords                | ?array of strings                                                                      | up to 10 discovery search keywords set for this guild                      |
-| emoji_discovery_enabled | boolean                                                                                | whether guild info is shown when custom emojis from this guild are clicked |
-| category_ids            | array of [discovery category](#DOCS_RESOURCES_DISCOVERY/discovery-category-object) ids | ids of up to 5 discovery subcategories set for this guild                  |
+| Field                         | Type                                                                                   | Description                                                                |
+| ----------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
+| guild_id                      | snowflake                                                                              | the guild id                                                               |
+| primary_category_id           | [discovery category](#DOCS_RESOURCES_DISCOVERY/discovery-category-object) id           | the id of the primary discovery category set for this guild                |
+| keywords                      | ?array of strings                                                                      | up to 10 discovery search keywords set for this guild                      |
+| emoji_discoverability_enabled | boolean                                                                                | whether guild info is shown when custom emojis from this guild are clicked |
+| category_ids                  | array of [discovery category](#DOCS_RESOURCES_DISCOVERY/discovery-category-object) ids | ids of up to 5 discovery subcategories set for this guild                  |
 
 ###### Example Discovery Metadata
 
