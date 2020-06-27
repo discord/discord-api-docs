@@ -128,6 +128,7 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 10031  | Unknown lobby                                                                                                                 |
 | 10032  | Unknown branch                                                                                                                |
 | 10036  | Unknown redistributable                                                                                                       |
+| 10057  | Unknown guild template                                                                                                        |
 | 20001  | Bots cannot use this endpoint                                                                                                 |
 | 20002  | Only bots can use this endpoint                                                                                               |
 | 30001  | Maximum number of guilds reached (100)                                                                                        |
