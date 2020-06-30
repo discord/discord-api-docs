@@ -45,7 +45,7 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 | max_presences?                | ?integer                                                                            | the maximum number of presences for the guild (the default value, currently 25000, is in effect when `null` is returned)                  |
 | max_members?                  | integer                                                                             | the maximum number of members for the guild                                                                                               |
 | vanity_url_code               | ?string                                                                             | the vanity url code for the guild                                                                                                         |
-| description                   | ?string                                                                             | the description for a guild with the "PUBLIC" feature                                                                                     |
+| description                   | ?string                                                                             | description for the guild, if the guild is discoverable                                                                                   |
 | banner                        | ?string                                                                             | [banner hash](#DOCS_REFERENCE/image-formatting)                                                                                           |
 | premium_tier                  | integer                                                                             | [premium tier](#DOCS_RESOURCES_GUILD/guild-object-premium-tier) (Server Boost level)                                                      |
 | premium_subscription_count?   | integer                                                                             | the number of boosts this guild currently has                                                                                             |
@@ -202,7 +202,7 @@ A partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object. Represents an Offl
 | features                   | array of [guild feature](#DOCS_RESOURCES_GUILD/guild-object-guild-features) strings | enabled guild features                                    |
 | approximate_member_count   | integer                                                                             | approximate number of members in this guild               |
 | approximate_presence_count | integer                                                                             | approximate number of online members in this guild        |
-| description                | ?string                                                                             | the description for the guild                             |
+| description                | ?string                                                                             | description for the guild, if the guild is discoverable   |
 
 ###### Example Guild Preview
 
@@ -505,7 +505,7 @@ Modify a guild's settings. Requires the `MANAGE_GUILD` permission. Returns the u
 | public_updates_channel_id     | ?snowflake                                                                          | the id of the channel where admins and moderators of "PUBLIC" guilds receive notices from Discord                            |
 | preferred_locale              | ?string                                                                             | the preferred locale of a "PUBLIC" guild used in server discovery and notices from Discord; defaults to "en-US"              |
 | features                      | array of [guild feature](#DOCS_RESOURCES_GUILD/guild-object-guild-features) strings | enabled guild features                                                                                                       |
-| description                   | ?string                                                                             | the description for a guild (when the server has the `PUBLIC` feature)                                                       |
+| description                   | ?string                                                                             | description for the guild, if the guild is discoverable                                                                      |
 
 ## Delete Guild % DELETE /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}
 
