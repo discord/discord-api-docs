@@ -546,10 +546,11 @@ This endpoint takes a JSON array of parameters in the following format:
 
 ###### JSON Params
 
-| Field    | Type      | Description                     |
-| -------- | --------- | ------------------------------- |
-| id       | snowflake | channel id                      |
-| position | ?integer  | sorting position of the channel |
+| Field            | Type      | Description                                                                      |
+| ---------------- | --------- | -------------------------------------------------------------------------------- |
+| id               | snowflake | channel id                                                                       |
+| position         | ?integer  | sorting position of the channel                                                  |
+| lock_permissions | ?boolean  | syncs the permission overwrites with the new parent, if moving to a new category |
 
 ## Get Guild Member % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/members/{user.id#DOCS_RESOURCES_USER/user-object}
 
