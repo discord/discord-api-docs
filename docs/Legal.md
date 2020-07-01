@@ -54,7 +54,7 @@ We can't determine whether something is being used legally or not without copyri
 
 ## c. Confidential Matters
 
-1. Developer credentials (such as passwords, keys, and client IDs) are intended to be used by you and identify your API Client. You will keep your credentials confidential and make reasonable efforts to prevent and discourage other API Clients from using your credentials. Developer credentials may not be embedded in open source projects.
+1. Developer credentials (such as passwords, keys, and client secrets) are intended to be used by you and identify your API Client. You will keep your credentials confidential and make reasonable efforts to prevent and discourage other API Clients from using your credentials. Developer credentials may not be embedded in open source projects.
 2. Our communications to you and our APIs may contain Discord confidential information. Discord confidential information includes any materials, communications, and information that are marked confidential or that would normally be considered confidential under the circumstances. If you receive any such information, then you will not disclose it to any third party without Discord's prior written consent unless required by law with reasonable prior notice to us (unless a court orders that we not receive notice).
 
 # Section 5: Content
