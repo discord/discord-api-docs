@@ -28,7 +28,7 @@ In order to access certain APIs you may be required to provide certain informati
 
 ## a. Implement Good Privacy Practices.
 
-You will comply with all applicable privacy laws and regulations including those applying to personally identifiable information ("PII"). You will provide and adhere to a privacy policy for your application that uses the API (your “API Client”) that clearly and accurately describes to users of your API Client what user information you collect and how you use and share such information with Discord and third parties.
+You will comply with all applicable privacy laws and regulations including those applying to personally identifiable information ("PII"). You will provide and adhere to a privacy policy for your application that uses the API (your “API Client”) that clearly and accurately describes to users of your API Client, what user information you collect, and how you use and share such information with Discord and third parties.
 
 ## b. Implement Good Security. 
 
