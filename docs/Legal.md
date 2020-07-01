@@ -1,6 +1,6 @@
 # Discord Developer Terms of Service
 
-## Effective date: August 1, 2020 
+## Effective date: August 15, 2020 
 
 ## Posted date: July 1, 2020
  
