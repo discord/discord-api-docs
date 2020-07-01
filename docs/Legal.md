@@ -22,7 +22,7 @@ If you are using the APIs on behalf of an entity, you represent and warrant that
 
 ## b. Registration
 
-In order to access certain APIs you may be required to provide certain information (such as identification or contact details) as part of the registration process for the APIs, or as part of your continued use of the APIs. You must provide accurate and up-to-date registration information at all times. We will use the information you submit in accordance with our [Privacy Policy](https://discordapp.com/privacy).
+In order to access certain APIs you may be required to provide certain information (such as identification or contact details) as part of the registration process for the APIs, or as part of your continued use of the APIs. You must provide accurate and up-to-date registration information at all times. We will use the information you submit in accordance with our [Privacy Policy](https://discord.com/privacy).
 
 # Section 2: User Privacy and Security.
 
@@ -50,7 +50,7 @@ If you provide feedback or suggestions about our APIs, then we (and those we all
 
 ## b. Discord DMCA Policy
 
-We can't determine whether something is being used legally or not without copyright holder’s input. We respond to notices of alleged copyright infringement and terminate accounts of repeat infringers according to the process set out in the U.S. Digital Millennium Copyright Act. If you think somebody is violating your copyrights and want to notify us, you can find information about submitting notices and Discord's policy about responding to notices in our [Terms of Service](https://discordapp.com/terms).
+We can't determine whether something is being used legally or not without copyright holder’s input. We respond to notices of alleged copyright infringement and terminate accounts of repeat infringers according to the process set out in the U.S. Digital Millennium Copyright Act. If you think somebody is violating your copyrights and want to notify us, you can find information about submitting notices and Discord's policy about responding to notices in our [Terms of Service](https://discord.com/terms).
 
 ## c. Confidential Matters
 
