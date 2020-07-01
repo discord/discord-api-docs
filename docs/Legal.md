@@ -55,7 +55,6 @@ We can't determine whether something is being used legally or not without copyri
 ## c. Confidential Matters
 
 1. Developer credentials (such as passwords, keys, and client IDs) are intended to be used by you and identify your API Client. You will keep your credentials confidential and make reasonable efforts to prevent and discourage other API Clients from using your credentials. Developer credentials may not be embedded in open source projects.
-
 2. Our communications to you and our APIs may contain Discord confidential information. Discord confidential information includes any materials, communications, and information that are marked confidential or that would normally be considered confidential under the circumstances. If you receive any such information, then you will not disclose it to any third party without Discord's prior written consent unless required by law with reasonable prior notice to us (unless a court orders that we not receive notice).
 
 # Section 5: Content
@@ -121,11 +120,8 @@ IN ALL CASES, DISCORD, AND ITS SUPPLIERS AND DISTRIBUTORS, WILL NOT BE LIABLE FO
 Unless prohibited by applicable law, you will defend and indemnify Discord, and its affiliates, directors, officers, employees, and users, against all liabilities, damages, losses, costs, fees (including legal fees), and expenses relating to any allegation or third-party legal proceeding to the extent arising from:
 
 1. your actual or alleged misuse or your end users’ misuse of the APIs;
-
 2. your actual or alleged violation or your end users’ violation of the Terms; 
-
 3. your actual or alleged infringement of any third party’s intellectual property rights or rights to privacy or publicity; or
-
 4. any content or data routed into or used with the APIs by you, those acting on your behalf, or your end users.
 
 # Section 9: General Provisions
