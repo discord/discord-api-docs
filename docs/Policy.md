@@ -1,4 +1,5 @@
 # Discord Developer Policy
+
 ## Last updated: July 1, 2020
 
 This Discord Developer Policy is incorporated into the Discord Developer Terms of Service (“Terms”) and applies to all uses of our APIs. All capitalized terms not defined here have the meaning assigned to them in these Terms. Please check back from time to time as these policies are occasionally updated.
@@ -6,13 +7,18 @@ This Discord Developer Policy is incorporated into the Discord Developer Terms o
 **“Discord Data”** means any and all data you obtain through the APIs.
 
 ## Protect Discord users. 
+
 You may not use the APIs in any way to:
+
 - modify a Discord user’s account without explicit permission from the Discord user. For example, you may not add a Discord user to a Discord (also known as a “server”) unless that Discord user expressly approved joining that Discord (such as when using a "group finder" app);
 - post messages, trigger notifications, or play audio on behalf of a Discord user except in response to such Discord user expressly opting-in to each instance of such action;
 - obtain Discord passwords or credentials under any circumstance; or
 - target users with advertisements or marketing.
+
 ## Handle data with care. 
+
 You may not use the APIs in any way to:
+
 - scrape any Discord Data;
 - use Discord Data for any purpose other than as necessary to provide your application;
 - disclose any user’s Discord Data without their specific, informed consent; 
@@ -26,7 +32,9 @@ You may not use the APIs in any way to:
 - access any unpublished portion of the APIs without express written permission from Discord.
 
 ## Don’t Do Anything Illegal, Harmful, or Otherwise Not Cool.
+
 You may not use the APIs in any way:
+
 - to promote or facilitate unlawful online gambling;
 - for any activities where the use or failure of the APIs could lead to death, personal injury, or environmental damage (such as the operation of nuclear facilities, air traffic control, or life support systems);
 - that doesn’t comply with all applicable laws, regulations, and third party rights;
@@ -36,11 +44,14 @@ You may not use the APIs in any way:
 - to defame, abuse, harass, stalk, threaten others, or otherwise violate our [Community Guidelines](https://discordapp.com/guidelines).
 
 ## Don’t abuse the platform. 
+
 You will:
+
 - require your end users to comply with (and not knowingly enable them to violate) applicable law, regulation, and the Discord Terms of Service; and
 - only access (or attempt to access) an API by the means described in the documentation of that API. 
 
 You will not:
+
 - remove, obscure, or alter Discord’s [Terms of Service](https://discordapp.com/terms) or any links to or notices of those terms;
 - encourage or create functionality for your users that violates Discord’s [Terms of Service](https://discordapp.com/terms);
 - sublicense an API for use by a third party;
@@ -52,6 +63,7 @@ You will not:
 - interfere with or disrupt the APIs or the servers or networks providing the APIs.
 
 ## API Limits.
+
 Discord sets and enforces limits on your use of the APIs (for example, by limiting the number of API requests that you may make, the number of servers your application is in, or the number of users you may serve), in our sole discretion. You agree to, and will not attempt to circumvent, such limitations documented with each API. 
 
 If you would like to use any API beyond these limits, you must obtain Discord’s express written consent (and Discord may decline such request or condition acceptance on your agreement to additional terms and/or charges for that use).
@@ -68,4 +80,5 @@ please follow the outlined steps:
     - If you are in over 200,000 guilds, please reach out to support at [https://dis.gd/contact](https://dis.gd/contact) about a higher global rate limit
 
 ## HIPAA Rules.
+
 Discord does not intend use of the APIs to create obligations under the Health Insurance Portability and Accountability Act, as amended ("HIPAA"), and makes no representations that the APIs satisfy HIPAA requirements. If you are (or become) a "covered entity" or "business associate" as defined in HIPAA, you will not use the APIs for any purpose or in any manner involving transmitting protected health information to Discord.
