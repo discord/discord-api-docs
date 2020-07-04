@@ -551,7 +551,7 @@ This endpoint takes a JSON array of parameters in the following format:
 | id               | snowflake  | channel id                                                                       |
 | position         | ?integer   | sorting position of the channel                                                  |
 | lock_permissions | ?boolean   | syncs the permission overwrites with the new parent, if moving to a new category |
-| parent_id        | ?snowflake | The new parent ID for the channel that is moved                                  |
+| parent_id        | ?snowflake | the new parent ID for the channel that is moved                                  |
 
 ## Get Guild Member % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/members/{user.id#DOCS_RESOURCES_USER/user-object}
 
