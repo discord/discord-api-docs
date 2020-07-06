@@ -54,7 +54,7 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 | max_video_channel_users?      | integer                                                                             | the maximum amount of users in a video channel                                                                                            |
 | approximate_member_count?     | integer                                                                             | approximate number of members in this guild, returned from the `GET /guild/<id>` endpoint when `with_counts` is `true`                    |
 | approximate_presence_count?   | integer                                                                             | approximate number of non-offline members in this guild, returned from the `GET /guild/<id>` endpoint when `with_counts` is `true`        |
-| welcome_screen?               | [welcome screen](#DOCS_RESOURCES_GUILD/welcome-screen-object) object                | the welcome screen of a guild with the "PUBLIC" feature, shown to new members                                                             |
+| welcome_screen?               | [welcome screen](#DOCS_RESOURCES_GUILD/welcome-screen-object) object                | the welcome screen of a Community guild, shown to new members                                                                             |
 
 ** \* These fields are only sent within the [GUILD_CREATE](#DOCS_TOPICS_GATEWAY/guild-create) event **
 
