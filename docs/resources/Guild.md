@@ -476,7 +476,35 @@ Returns the [guild](#DOCS_RESOURCES_GUILD/guild-object) object for the given id.
 Returns the [guild preview](#DOCS_RESOURCES_GUILD/guild-preview-object) object for the given id, even if the user is not in the guild.
 
 > info
-> This endpoint is only for Public guilds
+> This endpoint is only for [Discoverable](DOCS_RESOURCES_GUILD/guild-features) guilds.
+> The Authorization header must be a Bot token.
+
+###### Example Response
+
+```json
+{
+  "id": "197038439483310086",
+  "name": "Discord Testers",
+  "icon": "f64c482b807da4f539cff778d174971c",
+  "splash": null,
+  "discovery_splash": null,
+  "emojis": [],
+  "features": [
+    "DISCOVERABLE",
+    "VANITY_URL",
+    "ANIMATED_ICON",
+    "INVITE_SPLASH",
+    "NEWS",
+    "PUBLIC",
+    "BANNER",
+    "VERIFIED",
+    "MORE_EMOJI"
+  ],
+  "approximate_member_count": 60814,
+  "approximate_presence_count": 20034,
+  "description": "The official place to report Discord Bugs!"
+}
+```
 
 ## Modify Guild % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}
 
