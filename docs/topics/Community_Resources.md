@@ -14,6 +14,7 @@ Many of these libraries are represented in the [unofficial, community-driven Dis
 | ------------------------------------------------------------ | ---------- |
 | [discljord](https://github.com/igjoshua/discljord)           | Clojure    |
 | [aegis.cpp](https://github.com/zeroxs/aegis.cpp)             | C++        |
+| [DisC++](https://github.com/DisCPP/DisCPP)                   | C++        |
 | [discordcr](https://github.com/discordcr/discordcr)          | Crystal    |
 | [Discord.Net](https://github.com/RogueException/Discord.Net) | C#         |
 | [DSharpPlus](https://github.com/DSharpPlus/DSharpPlus)       | C#         |
