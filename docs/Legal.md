@@ -14,7 +14,7 @@ Throughout this document, we use the word **_“Terms”_** to refer to the term
 
 ## a. Accepting the Terms
 
-By accessing or using our APIs you are agreeing to comply with the Terms and that the Terms control your relationship with us.. You are also agreeing that (i) you are 13 years of age and the minimum age of digital consent in your country, (ii) if you are the age of majority in your jurisdiction or over, that you have read, understood, and accept to be bound by the Terms, and (iii) if you are between 13 (or the minimum age of digital consent, as applicable) and the age of majority in your jurisdiction, that your legal guardian has reviewed and agrees to these Terms. Please read all the Terms carefully. 
+By accessing or using our APIs you are agreeing to comply with the Terms and that the Terms control your relationship with us. You are also agreeing that (i) you are 13 years of age and the minimum age of digital consent in your country, (ii) if you are the age of majority in your jurisdiction or over, that you have read, understood, and accept to be bound by the Terms, and (iii) if you are between 13 (or the minimum age of digital consent, as applicable) and the age of majority in your jurisdiction, that your legal guardian has reviewed and agrees to these Terms. Please read all the Terms carefully. 
 
 You may not use the APIs and may not accept the Terms if you are a person barred from using or receiving the APIs under the applicable laws of the United States or other countries including the country in which you are resident or from which you use the APIs.
 
