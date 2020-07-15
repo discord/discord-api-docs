@@ -29,7 +29,6 @@ You may not use the APIs in any way to:
 - sell, license or otherwise commercialize any Discord Data; 
 - provide or direct services to children under the age of thirteen (13) in the United States or, outside of the United States, the relevant age of digital consent; 
 - process Discord Data in a way that surprises or violates Discord users’ expectations; or
-- access any unpublished portion of the APIs without express written permission from Discord.
 
 ## Don’t Do Anything Illegal, Harmful, or Otherwise Not Cool.
 
