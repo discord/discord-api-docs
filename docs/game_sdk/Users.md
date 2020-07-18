@@ -141,9 +141,7 @@ Fires when the `User` struct of the currently connected user changes. They may h
 
 ###### Parameters
 
-| name | type | description                            |
-| ---- | ---- | -------------------------------------- |
-| user | User | a new User struct for the current user |
+None
 
 ###### Example
 
