@@ -1062,6 +1062,8 @@ lobbyManager.ConnectVoice(290926798626357250, (result) =>
 
 Disconnects from the voice channel of a given lobby.
 
+Returns `Discord.Result` via callback.
+
 ###### Parameters
 
 | name    | type  | description                    |
