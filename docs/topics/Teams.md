@@ -6,7 +6,7 @@ Teams are groups of developers on Discord who want to collaborate on apps. On ot
 
 Teams allow you and other Discord users to share access to apps. No more sharing login credentials in order to reset the token on a bot that your friend owns but you work on, or other such cases.
 
-For game developers, this means that you can get your engineers access to your app for credentials they made need, your marketing folks access to store page management, and your finance people access to sales and performance metrics.
+For game developers, this means that you can get your engineers access to your app for credentials they may need, your marketing folks access to store page management, and your finance people access to sales and performance metrics.
 
 > danger
 > For the initial release, Teams only support one kind of user: Admin. Admins have full access to all parts of an app _except_ for deleting the app and adding/removing users. That can only be done by the owner of the Team.
