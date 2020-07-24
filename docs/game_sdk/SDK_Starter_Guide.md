@@ -198,7 +198,7 @@ void AMyPawn::BeginPlay()
         1. Close your game
         2. Open Discord
         3. Attempt to re-open your game
-        Step 3 will fail when running directly from the Unity editor
+        Step 3 will fail when running directly from the Unreal Engine editor
         Therefore, always keep Discord running during tests, or use Discord.CreateFlags.NoRequireDiscord
     */
 	auto result = discord::Core::Create(461618159171141643, DiscordCreateFlags_Default, &core);
