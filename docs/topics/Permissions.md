@@ -2,7 +2,9 @@
 
 Permissions in Discord are a way to limit and grant certain abilities to users. A set of base permissions can be configured at the guild level for different roles. When these roles are attached to users, they grant or revoke specific privileges within the guild. Along with the guild-level permissions, Discord also supports permission overwrites that can be assigned to individual guild roles or guild members on a per-channel basis.
 
-Permissions are stored within a 53-bit integer and are calculated using bitwise operations. The total permissions integer can be determined by ORing together each individual value, and flags can be checked using AND operations.
+Permissions are stored within an infinite-length integer serialized into a string, and are calculated using bitwise operations. For example, the permission value `123` will be serialized as `"123"`.We recommend deserializing the permissions using your languages' Big Integer libraries, if necessary. The total permissions integer can be determined by ORing together each individual value, and flags can be checked using AND operations.
+
+For compatibility with existing API v6 clients, the `permissions`, `allow`, and `deny` fields in roles and overwrites are still serialized as a number; however, these numbers shall not grow beyond 31 bits. During the remaining lifetime of API v6, all new permission bits will only be introduced in `permissions_new`, `allow_new` and `deny_new` fields.
 
 ```python
 # Permissions value that can Send Messages (0x800) and Add Reactions (0x40):
@@ -159,16 +161,17 @@ Roles represent a set of permissions attached to a group of users. Roles have un
 
 ###### Role Structure
 
-| Field       | Type      | Description                                      |
-| ----------- | --------- | ------------------------------------------------ |
-| id          | snowflake | role id                                          |
-| name        | string    | role name                                        |
-| color       | integer   | integer representation of hexadecimal color code |
-| hoist       | boolean   | if this role is pinned in the user listing       |
-| position    | integer   | position of this role                            |
-| permissions | integer   | permission bit set                               |
-| managed     | boolean   | whether this role is managed by an integration   |
-| mentionable | boolean   | whether this role is mentionable                 |
+| Field           | Type      | Description                                      |
+| --------------- | --------- | ------------------------------------------------ |
+| id              | snowflake | role id                                          |
+| name            | string    | role name                                        |
+| color           | integer   | integer representation of hexadecimal color code |
+| hoist           | boolean   | if this role is pinned in the user listing       |
+| position        | integer   | position of this role                            |
+| permissions     | integer   | legacy permission bit set                        |
+| permissions_new | string    | permission bit set                               |
+| managed         | boolean   | whether this role is managed by an integration   |
+| mentionable     | boolean   | whether this role is mentionable                 |
 
 Roles without colors (`color == 0`) do not count towards the final computed color in the user list.
 
@@ -182,6 +185,7 @@ Roles without colors (`color == 0`) do not count towards the final computed colo
   "hoist": true,
   "position": 1,
   "permissions": 66321471,
+  "permissions_new": "66321471",
   "managed": false,
   "mentionable": false
 }

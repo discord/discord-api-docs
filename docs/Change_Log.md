@@ -1,5 +1,11 @@
 # Change Log
 
+## New Permission Fields
+
+#### July 28, 2020
+
+Documented `permissions_new`, `allow_new`, and `deny_new` as string-serialized permission bitfields.
+
 ## Legacy Mention Behavior Deprecation
 
 #### May 11, 2020
