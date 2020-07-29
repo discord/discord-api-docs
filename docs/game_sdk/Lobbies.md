@@ -1239,7 +1239,7 @@ txn.SetType(Discord.LobbyType.Private);
 
 lobbyManager.CreateLobby(txn, (result, ref Lobby lobby) =>
 {
-  // Get the sepcial activity secret
+  // Get the special activity secret
   var secret = lobbyManager.GetLobbyActivitySecret(lobby.id);
 
   // Create a new activity
