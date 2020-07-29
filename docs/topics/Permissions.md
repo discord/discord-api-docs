@@ -4,7 +4,7 @@ Permissions in Discord are a way to limit and grant certain abilities to users. 
 
 Permissions are stored within a variable-length integer serialized into a string, and are calculated using bitwise operations. For example, the permission value `123` will be serialized as `"123"`. For long-term stability, we recommend deserializing the permissions using your languages' Big Integer libraries. The total permissions integer can be determined by ORing together each individual value, and flags can be checked using AND operations.
 
-For compatibility with existing API v6 clients, the `permissions`, `allow`, and `deny` fields in roles and overwrites are still serialized as a number; however, these numbers shall not grow beyond 31 bits. During the remaining lifetime of API v6, all new permission bits will only be introduced in `permissions_new`, `allow_new`, and `deny_new`.
+For compatibility with existing API v6 clients, the `permissions`, `allow`, and `deny` fields in roles and overwrites are still serialized as a number; however, these numbers shall not grow beyond 31 bits. During the remaining lifetime of API v6, all new permission bits will only be introduced in `permissions_new`, `allow_new`, and `deny_new`. These `_new` fields are just for response serialization; requests with these fields should continue to use the original `permissions`, `allow`, and `deny` fields, which accept both string or number values.
 
 ```python
 # Permissions value that can Send Messages (0x800) and Add Reactions (0x40):
