@@ -3,7 +3,7 @@
 > danger
 > For now, RPC is in a private beta. We are not currently accepting any new developers into the program at this time.
 
-All Discord clients have an RPC server running on localhost that allows control over local Discord clients.
+All Discord clients have an RPC server running on localhost that allows control over local Discord clients. Note that this library has been deprecated in favor of Discord's GameSDK.
 
 ###### RPC Versions
 
