@@ -36,7 +36,7 @@ txn.SetType(Discord.LobbyType.Public);
 txn.SetMetadata("a", "123");
 
 // Create it!
-lobbyManager.CreateLobby(txn, (result, lobby) =>
+lobbyManager.CreateLobby(txn, (result, ref Lobby lobby) =>
 {
   Console.WriteLine("lobby {0} created with secret {1}", lobby.Id, lobby.Secret);
 
@@ -1237,7 +1237,7 @@ var txn = lobbyManager.GetLobbyCreateTransaction();
 txn.SetCapacity(5);
 txn.SetType(Discord.LobbyType.Private);
 
-lobbyManager.CreateLobby(txn, (result, lobby) =>
+lobbyManager.CreateLobby(txn, (result, ref Lobby lobby) =>
 {
   // Get the sepcial activity secret
   var secret = lobbyManager.GetLobbyActivitySecret(lobby.id);
