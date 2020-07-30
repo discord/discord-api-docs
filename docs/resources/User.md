@@ -59,7 +59,7 @@ There are other rules and restrictions not shared here for the sake of spam and 
 ###### User Flags
 
 | Value   | Description            |
-| ------- | ------------------     |
+| ------- | ---------------------- |
 | 0       | None                   |
 | 1 << 0  | Discord Employee       |
 | 1 << 1  | Discord Partner        |
@@ -144,7 +144,8 @@ Returns a list of partial [guild](#DOCS_RESOURCES_GUILD/guild-object) objects th
   "name": "1337 Krew",
   "icon": "8342729096ea3675442027381ff50dfe",
   "owner": true,
-  "permissions": 36953089
+  "permissions": 36953089,
+  "permissions_new": "36953089"
 }
 ```
 
