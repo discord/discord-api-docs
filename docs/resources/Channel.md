@@ -377,6 +377,8 @@ See [permissions](#DOCS_TOPICS_PERMISSIONS/permissions) for more information abo
 
 ###### Overwrite Structure
 
+Receiving:
+
 | Field     | Type      | Description               |
 | --------- | --------- | ------------------------- |
 | id        | snowflake | role or user id           |
@@ -385,6 +387,15 @@ See [permissions](#DOCS_TOPICS_PERMISSIONS/permissions) for more information abo
 | allow_new | string    | permission bit set        |
 | deny      | integer   | legacy permission bit set |
 | deny_new  | string    | permission bit set        |
+
+Sending:
+
+| Field     | Type              | Description               |
+| --------- | ----------------- | ------------------------- |
+| id        | snowflake         | role or user id           |
+| type      | string            | either "role" or "member" |
+| allow     | integer or string | permission bit set        |
+| deny      | integer or string | permission bit set        |
 
 ### Embed Object
 
