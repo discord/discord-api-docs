@@ -390,12 +390,12 @@ Receiving:
 
 Sending:
 
-| Field     | Type              | Description               |
-| --------- | ----------------- | ------------------------- |
-| id        | snowflake         | role or user id           |
-| type      | string            | either "role" or "member" |
-| allow     | integer or string | permission bit set        |
-| deny      | integer or string | permission bit set        |
+| Field | Type              | Description               |
+| ----- | ----------------- | ------------------------- |
+| id    | snowflake         | role or user id           |
+| type  | string            | either "role" or "member" |
+| allow | integer or string | permission bit set        |
+| deny  | integer or string | permission bit set        |
 
 ### Embed Object
 
