@@ -290,7 +290,8 @@ When receiving the access code on redirect, there will be additional querystring
         "position": 0,
         "id": "290926798626357250",
         "managed": false,
-        "permissions": 49794241
+        "permissions": 49794241,
+        "permissions_new": "49794241"
       }
     ],
     "afk_timeout": 300,
