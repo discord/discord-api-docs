@@ -143,7 +143,7 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
     "MORE_EMOJI",
     "INVITE_SPLASH",
     "BANNER",
-    "PUBLIC"
+    "COMMUNITY"
   ],
   "emojis": [],
   "banner": "9b6439a7de04f1d26af92f84ac9e1e4a",
@@ -220,7 +220,7 @@ A partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object. Represents an Offl
     "ANIMATED_ICON",
     "INVITE_SPLASH",
     "NEWS",
-    "PUBLIC",
+    "COMMUNITY",
     "BANNER",
     "VERIFIED",
     "MORE_EMOJI"
