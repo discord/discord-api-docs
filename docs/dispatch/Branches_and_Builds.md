@@ -60,7 +60,7 @@ Small thing to note - the default `login` method works via an OAuth2 bearer toke
 
 First, find the `credentials.json` file at:
 
-- Windows: `C:\User\<you>\.dispatch\credentials.json`
+- Windows: `C:\Users\<you>\.dispatch\credentials.json`
 - macOS: `~/.dispatch/credentials.json`
 
 Inside that, we can use our Bot token for our application that will _not_ be invalidated across different machines.

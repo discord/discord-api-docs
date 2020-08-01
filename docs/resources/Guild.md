@@ -15,7 +15,8 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 | discovery_splash              | ?string                                                                             | [discovery splash hash](#DOCS_REFERENCE/image-formatting); only present for guilds with the "DISCOVERABLE" feature                       |
 | owner?                        | boolean                                                                             | true if [the user](#DOCS_RESOURCES_USER/get-current-user-guilds) is the owner of the guild                                               |
 | owner_id                      | snowflake                                                                           | id of owner                                                                                                                              |
-| permissions?                  | integer                                                                             | total permissions for [the user](#DOCS_RESOURCES_USER/get-current-user-guilds) in the guild (excludes overrides)                         |
+| permissions?                  | integer                                                                             | legacy total permissions for [the user](#DOCS_RESOURCES_USER/get-current-user-guilds) in the guild (excludes overrides)                  |
+| permissions_new?              | string                                                                              | total permissions for [the user](#DOCS_RESOURCES_USER/get-current-user-guilds) in the guild (excludes overrides)                         |
 | region                        | string                                                                              | [voice region](#DOCS_RESOURCES_VOICE/voice-region-object) id for the guild                                                               |
 | afk_channel_id                | ?snowflake                                                                          | id of afk channel                                                                                                                        |
 | afk_timeout                   | integer                                                                             | afk timeout in seconds                                                                                                                   |
@@ -445,6 +446,7 @@ Returns the [guild](#DOCS_RESOURCES_GUILD/guild-object) object for the given id.
       "id": "2909267986263572999",
       "name": "@everyone",
       "permissions": 49794752,
+      "permissions_new": "49794752",
       "position": 0,
       "color": 0,
       "hoist": false,
@@ -661,13 +663,13 @@ Create a new [role](#DOCS_TOPICS_PERMISSIONS/role-object) for the guild. Require
 
 ###### JSON Params
 
-| Field       | Type    | Description                                                    | Default                        |
-| ----------- | ------- | -------------------------------------------------------------- | ------------------------------ |
-| name        | string  | name of the role                                               | "new role"                     |
-| permissions | integer | bitwise value of the enabled/disabled permissions              | @everyone permissions in guild |
-| color       | integer | RGB color value                                                | 0                              |
-| hoist       | boolean | whether the role should be displayed separately in the sidebar | false                          |
-| mentionable | boolean | whether the role should be mentionable                         | false                          |
+| Field       | Type              | Description                                                    | Default                        |
+| ----------- | ----------------- | -------------------------------------------------------------- | ------------------------------ |
+| name        | string            | name of the role                                               | "new role"                     |
+| permissions | integer or string | bitwise value of the enabled/disabled permissions              | @everyone permissions in guild |
+| color       | integer           | RGB color value                                                | 0                              |
+| hoist       | boolean           | whether the role should be displayed separately in the sidebar | false                          |
+| mentionable | boolean           | whether the role should be mentionable                         | false                          |
 
 ## Modify Guild Role Positions % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/roles
 
@@ -691,13 +693,13 @@ Modify a guild role. Requires the `MANAGE_ROLES` permission. Returns the updated
 
 ###### JSON Params
 
-| Field       | Type    | Description                                                    |
-| ----------- | ------- | -------------------------------------------------------------- |
-| name        | string  | name of the role                                               |
-| permissions | integer | bitwise value of the enabled/disabled permissions              |
-| color       | integer | RGB color value                                                |
-| hoist       | boolean | whether the role should be displayed separately in the sidebar |
-| mentionable | boolean | whether the role should be mentionable                         |
+| Field       | Type              | Description                                                    |
+| ----------- | ----------------- | -------------------------------------------------------------- |
+| name        | string            | name of the role                                               |
+| permissions | integer or string | bitwise value of the enabled/disabled permissions              |
+| color       | integer           | RGB color value                                                |
+| hoist       | boolean           | whether the role should be displayed separately in the sidebar |
+| mentionable | boolean           | whether the role should be mentionable                         |
 
 ## Delete Guild Role % DELETE /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/roles/{role.id#DOCS_TOPICS_PERMISSIONS/role-object}
 

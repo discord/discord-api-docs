@@ -29,12 +29,12 @@ Represents a guild or DM channel within Discord.
 
 ###### Channel Types
 
-| Type           | ID  | Description                                                                                                                                             |
-| -------------- | --- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| GUILD_TEXT     | 0   | a text channel within a server                                                                                                                          |
-| DM             | 1   | a direct message between users                                                                                                                          |
-| GUILD_VOICE    | 2   | a voice channel within a server                                                                                                                         |
-| GROUP_DM       | 3   | a direct message between multiple users                                                                                                                 |
+| Type           | ID  | Description                                                                                                                                          |
+| -------------- | --- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| GUILD_TEXT     | 0   | a text channel within a server                                                                                                                       |
+| DM             | 1   | a direct message between users                                                                                                                       |
+| GUILD_VOICE    | 2   | a voice channel within a server                                                                                                                      |
+| GROUP_DM       | 3   | a direct message between multiple users                                                                                                              |
 | GUILD_CATEGORY | 4   | an [organizational category](https://support.discord.com/hc/en-us/articles/115001580171-Channel-Categories-101) that contains up to 50 channels      |
 | GUILD_NEWS     | 5   | a channel that [users can follow and crosspost into their own server](https://support.discord.com/hc/en-us/articles/360032008192)                    |
 | GUILD_STORE    | 6   | a channel in which game developers can [sell their game on Discord](https://discord.com/developers/docs/game-and-server-management/special-channels) |
@@ -373,14 +373,29 @@ Represents a message sent in a channel within Discord.
 
 ### Overwrite Object
 
+See [permissions](#DOCS_TOPICS_PERMISSIONS/permissions) for more information about the `allow` and `deny` fields.
+
 ###### Overwrite Structure
 
-| Field | Type      | Description               |
-| ----- | --------- | ------------------------- |
-| id    | snowflake | role or user id           |
-| type  | string    | either "role" or "member" |
-| allow | integer   | permission bit set        |
-| deny  | integer   | permission bit set        |
+Receiving:
+
+| Field     | Type      | Description               |
+| --------- | --------- | ------------------------- |
+| id        | snowflake | role or user id           |
+| type      | string    | either "role" or "member" |
+| allow     | integer   | legacy permission bit set |
+| allow_new | string    | permission bit set        |
+| deny      | integer   | legacy permission bit set |
+| deny_new  | string    | permission bit set        |
+
+Sending:
+
+| Field | Type              | Description               |
+| ----- | ----------------- | ------------------------- |
+| id    | snowflake         | role or user id           |
+| type  | string            | either "role" or "member" |
+| allow | integer or string | permission bit set        |
+| deny  | integer or string | permission bit set        |
 
 ### Embed Object
 
@@ -592,10 +607,10 @@ user 125 in the content.
 
 ```json
 {
-    "content": "<@123> Time for some memes.",
-    "allowed_mentions": {
-        "users": ["123", "125"]
-    }
+  "content": "<@123> Time for some memes.",
+  "allowed_mentions": {
+    "users": ["123", "125"]
+  }
 }
 ```
 
@@ -629,18 +644,18 @@ Update a channel's settings. Requires the `MANAGE_CHANNELS` permission for the g
 
 ###### JSON Params
 
-| Field                 | Type                                                                    | Description                                                                                                                                                                     | Channel Type              |
-| --------------------- | ----------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------- |
-| name                  | string                                                                  | 2-100 character channel name                                                                                                                                                    | All                       |
-| type                  | integer                                                                | the [type of channel](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types); only conversion between text and news is supported and only in guilds with the "NEWS" feature      | Text, News                |
-| position              | ?integer                                                                | the position of the channel in the left-hand listing                                                                                                                            | All                       |
-| topic                 | ?string                                                                 | 0-1024 character channel topic                                                                                                                                                  | Text, News                |
-| nsfw                  | ?boolean                                                                | whether the channel is nsfw                                                                                                                                                     | Text, News, Store         |
-| rate_limit_per_user   | ?integer                                                                | amount of seconds a user has to wait before sending another message (0-21600); bots, as well as users with the permission `manage_messages` or `manage_channel`, are unaffected | Text                      |
-| bitrate               | ?integer                                                                | the bitrate (in bits) of the voice channel; 8000 to 96000 (128000 for VIP servers)                                                                                              | Voice                     |
-| user_limit            | ?integer                                                                | the user limit of the voice channel; 0 refers to no limit, 1 to 99 refers to a user limit                                                                                       | Voice                     |
-| permission_overwrites | ?array of [overwrite](#DOCS_RESOURCES_CHANNEL/overwrite-object) objects | channel or category-specific permissions                                                                                                                                        | All                       |
-| parent_id             | ?snowflake                                                              | id of the new parent category for a channel                                                                                                                                     | Text, News, Store, Voice  |
+| Field                 | Type                                                                    | Description                                                                                                                                                                     | Channel Type             |
+| --------------------- | ----------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------ |
+| name                  | string                                                                  | 2-100 character channel name                                                                                                                                                    | All                      |
+| type                  | integer                                                                 | the [type of channel](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types); only conversion between text and news is supported and only in guilds with the "NEWS" feature      | Text, News               |
+| position              | ?integer                                                                | the position of the channel in the left-hand listing                                                                                                                            | All                      |
+| topic                 | ?string                                                                 | 0-1024 character channel topic                                                                                                                                                  | Text, News               |
+| nsfw                  | ?boolean                                                                | whether the channel is nsfw                                                                                                                                                     | Text, News, Store        |
+| rate_limit_per_user   | ?integer                                                                | amount of seconds a user has to wait before sending another message (0-21600); bots, as well as users with the permission `manage_messages` or `manage_channel`, are unaffected | Text                     |
+| bitrate               | ?integer                                                                | the bitrate (in bits) of the voice channel; 8000 to 96000 (128000 for VIP servers)                                                                                              | Voice                    |
+| user_limit            | ?integer                                                                | the user limit of the voice channel; 0 refers to no limit, 1 to 99 refers to a user limit                                                                                       | Voice                    |
+| permission_overwrites | ?array of [overwrite](#DOCS_RESOURCES_CHANNEL/overwrite-object) objects | channel or category-specific permissions                                                                                                                                        | All                      |
+| parent_id             | ?snowflake                                                              | id of the new parent category for a channel                                                                                                                                     | Text, News, Store, Voice |
 
 ## Delete/Close Channel % DELETE /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}
 
@@ -840,11 +855,11 @@ Edit the channel permission overwrites for a user or role in a channel. Only usa
 
 ###### JSON Params
 
-| Field | Type    | Description                                     |
-| ----- | ------- | ----------------------------------------------- |
-| allow | integer | the bitwise value of all allowed permissions    |
-| deny  | integer | the bitwise value of all disallowed permissions |
-| type  | string  | "member" for a user or "role" for a role        |
+| Field | Type              | Description                                     |
+| ----- | ----------------- | ----------------------------------------------- |
+| allow | integer or string | the bitwise value of all allowed permissions    |
+| deny  | integer or string | the bitwise value of all disallowed permissions |
+| type  | string            | "member" for a user or "role" for a role        |
 
 ## Get Channel Invites % GET /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/invites
 
