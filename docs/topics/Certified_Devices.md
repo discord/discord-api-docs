@@ -6,7 +6,7 @@ Baked into Discord is the ability for hardware manufacturers to tell us a little
 
 I'm glad you asked!
 
-1. [Create an application](https://discordapp.com/developers/applications/me) for your hardware vendor—save the Client ID!
+1. [Create an application](https://discord.com/developers/applications/me) for your hardware vendor—save the Client ID!
 2. Talk to Discord via one simple HTTP or WebSocket call
 3. Send us a [`SET_CERTIFIED_DEVICES`](#DOCS_TOPICS_RPC/set-certified-devices) WebSocket payload or equivalent HTTP POST whenever the state of the device changes
 
@@ -44,6 +44,31 @@ To keep your hardware in sync with Discord, send updates any time the hardware m
 
 Each time you update, send a full array of `devices`, sorted by your preffered priority. That means if you want a specific headset to be the default that Discord will attempt to use, put it first in the array.
 
+## Getting Device UUID
+
+For each device in the `SET_CERTIFIED_DEVICES` payload, there is an `id` field. This `id` should be the Windows device's UUID, retrieved through the native Windows API. You'll get back something that looks like `{0.0.1.00000000}.{6cff2b76-44a8-46b9-b528-262ad8609d9f}`.
+
+> info
+> On macOS, the `id` will be the name of the device.
+
+###### Microphone Id Example
+
+```cpp
+id = waveInMessage((HWAVEIN)IntToPtr(index),
+                      DRV_QUERYFUNCTIONINSTANCEID,
+                      (DWORD_PTR)pstrEndpointId,
+                      cbEndpointId);
+```
+
+###### Speaker Id Example
+
+```cpp
+id = waveOutMessage((HWAVEIN)IntToPtr(index),
+                      DRV_QUERYFUNCTIONINSTANCEID,
+                      (DWORD_PTR)pstrEndpointId,
+                      cbEndpointId);
+```
+
 ## HTTP Example
 
 ###### HTTP Request Example
@@ -57,7 +82,7 @@ curl -X POST -H 'Content-Type: application/json' -d '
     "devices": [
       {
         "type": "audioinput",
-        "id": "aafc2003-da0e-42a3-b982-6a17a2812510",
+        "id": "{0.0.1.00000000}.{6cff2b76-44a8-46b9-b528-262ad8609d9f}",
         "vendor": {
           "name": "SteelSeries",
           "url": "https://steelseries.com"
@@ -66,7 +91,7 @@ curl -X POST -H 'Content-Type: application/json' -d '
           "name": "Arctis 7",
           "url": "https://steelseries.com/gaming-headsets/arctis-7"
         },
-        "related": ["aafc2003-da0e-42a3-b982-6a17a2819999"],
+        "related": ["{0.0.1.00000000}.{6cff2b76-44a8-46b9-b528-262ad8609d9f}"],
         "echo_cancellation": true,
         "noise_suppression": true,
         "automatic_gain_control": true,
@@ -103,7 +128,7 @@ The socket will respond with a `200 OK` status code and the following JSON.
     "devices": [
       {
         "type": "audioinput",
-        "id": "aafc2003-da0e-42a3-b982-6a17a2812510",
+        "id": "{0.0.1.00000000}.{6cff2b76-44a8-46b9-b528-262ad8609d9f}",
         "vendor": {
           "name": "SteelSeries",
           "url": "https://steelseries.com"
@@ -112,7 +137,7 @@ The socket will respond with a `200 OK` status code and the following JSON.
           "name": "Arctis 7",
           "url": "https://steelseries.com/gaming-headsets/arctis-7"
         },
-        "related": ["aafc2003-da0e-42a3-b982-6a17a2819999"],
+        "related": ["{0.0.1.00000000}.{6cff2b76-44a8-46b9-b528-262ad8609d9f}"],
         "echo_cancellation": true,
         "noise_suppression": true,
         "automatic_gain_control": true,
@@ -138,19 +163,19 @@ The socket will respond with a `200 OK` status code and the following JSON.
 
 ###### Device Object
 
-| Field                    | Type                                                                 | Description                                              |
-| ------------------------ | -------------------------------------------------------------------- | -------------------------------------------------------- |
-| type                     | [device type](#DOCS_TOPICS_CERTIFIED_DEVICES/models-device-type)     | the type of device                                       |
-| id                       | string                                                               | the device's Windows UUID                                |
-| vendor                   | [vendor](#DOCS_TOPICS_CERTIFIED_DEVICES/models-vendor-object) object | the hardware vendor                                      |
-| model                    | [model](#DOCS_TOPICS_CERTIFIED_DEVICES/models-model-object) object   | the model of the product                                 |
-| related                  | array of strings                                                     | UUIDs of related devices                                 |
-| echo_cancellation?*      | bool                                                                 | if the device's native echo cancellation is enabled      |
-| noise_suppression?*      | bool                                                                 | if the device's native noise suppression is enabled      |
-| automatic_gain_control?* | bool                                                                 | if the device's native automatic gain control is enabled |
-| hardware_mute?*          | bool                                                                 | if the device is hardware muted                          |
+| Field                     | Type                                                                 | Description                                              |
+| ------------------------- | -------------------------------------------------------------------- | -------------------------------------------------------- |
+| type                      | [device type](#DOCS_TOPICS_CERTIFIED_DEVICES/models-device-type)     | the type of device                                       |
+| id                        | string                                                               | the device's Windows UUID                                |
+| vendor                    | [vendor](#DOCS_TOPICS_CERTIFIED_DEVICES/models-vendor-object) object | the hardware vendor                                      |
+| model                     | [model](#DOCS_TOPICS_CERTIFIED_DEVICES/models-model-object) object   | the model of the product                                 |
+| related                   | array of strings                                                     | UUIDs of related devices                                 |
+| echo_cancellation?\*      | boolean                                                              | if the device's native echo cancellation is enabled      |
+| noise_suppression?\*      | boolean                                                              | if the device's native noise suppression is enabled      |
+| automatic_gain_control?\* | boolean                                                              | if the device's native automatic gain control is enabled |
+| hardware_mute?\*          | boolean                                                              | if the device is hardware muted                          |
 
-*These fields are only applicable for `AUDIO_INPUT` device types
+\*These fields are only applicable for `AUDIO_INPUT` device types
 
 ###### Vendor Object
 
@@ -173,4 +198,3 @@ The socket will respond with a `200 OK` status code and the following JSON.
 | AUDIO_INPUT  | "audioinput"  |
 | AUDIO_OUTPUT | "audiooutput" |
 | VIDEO_INPUT  | "videoinput"  |
-

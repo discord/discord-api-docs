@@ -1,48 +1,44 @@
 # Introduction
 
-These developer pages document how to use Discord's API to empower your applications and create awesome bots for your
-communities. All of our [documentation is on GitHub](https://github.com/discordapp/discord-api-docs) and we would
-<3 corrections and improvements!
+You’ve found the Discord Developer Documentation! These pages are dedicated to showing you all the ways that you can use Discord to make cool stuff. Whether you’re looking to create awesome bots for your community, empower your applications with our API, or hook us right into your game with Rich Presence or the GameSDK, Discord has something for you.
 
-![Bot related things](API_center.gif)
+All of our [documentation is on GitHub](https://github.com/discord/discord-api-docs) and we <3 corrections and improvements!
 
-## Getting Help
+## Bugs
 
-If you believe you're experiencing a bug with our API or want to report incorrect documentation, open an issue on our [issue tracker](https://github.com/discordapp/discord-api-docs/issues).
+If you believe you're experiencing a bug with our API or want to report incorrect documentation, open an issue on our [issue tracker](https://github.com/discord/discord-api-docs/issues).
 
-For a more real-time avenue of communication, check out the [unofficial, community-driven Discord server for developers](https://discord.gg/discord-api). There you'll find community members who can help answer questions about our API, community libraries, bot creation, and other development questions.
+## Bots and Apps
 
-## Applications (aka Apps)
+Bots and apps are the lifeblood of the Discord development community. They come in all shapes and sizes, from small hobby projects for your server with friends, to huge projects that live in hundreds of thousands of servers. We love seeing the unique, fun, and sometimes downright strange (in a good way) creations that come from our community.
 
-Making an app on Discord opens up many possibilities for deeper integrations with your other services and platforms.
-Here are some examples to whet your appetite:
+Discord offers an open API to serve requests for both bots and OAuth2 integrations. So whether you’re making your own `!wumpus` commands or looking to `Log In With Discord`, we’ve got you covered.
 
-* Using your Discord account to safely login to your guild's website
-* Display who’s online or in-game on your website or forum
-* Automatically join private Discord servers or gain new roles based on external website permissions
-* Other neat things.
+So go do it! Go! Go [make an app](https://discord.com/developers/applications) and create something awesome.
 
-Head over to our new [applications page](#MY_APPLICATIONS/top) to dive into creating your own custom juice.
+## Games
 
-## Games (aka Games)
+We love games, and we love helping game developers. If YOU have a game that you want to supercharge with Discord, then we have just the thing for you.
 
-Discord is built around the idea of bringing people together through games. As part of that goal, we want to offer ways for game developers to work closely with us and make awesome stuff. [Rich Presence](https://discordapp.com/rich-presence) is a great way to more deeply integrate with Discord! It lets you:
+#### Your Game On Discord
 
-- Show more detailed status information on your players' profiles
-- Allow your players to create invites in Discord for others to play with them
-- Launch into game sessions, parties, and groups directly from Discord
-- Launch into your game's spectate mode directly from Discord
-- Allow your players to ask to join their friends' games
+If you haven’t yet noticed, Discord allows you to [sell your game](https://discord.com/sell-your-game) right from Discord servers! We’ve got a whole suite of tools to help bring your game to life on Discord. Need networking? Have [networking](#DOCS_GAME_SDK_NETWORKING/)! Want a friends list? Take [relationships](#DOCS_GAME_SDK_RELATIONSHIPS/) too!
 
-Rich Presence is free, open-sourced, and self-serve, so check out [the How To guide](#DOCS_RICH_PRESENCE_HOW_TO/) and get started!
+#### Rich Presence
 
-Those looking to test out the waters before jumping into the deep end with a technical integration should check out our [Verified Servers](https://discordapp.com/verification) program. Being a game developer and owning and operating your game's Discord server makes you eligible for special perks like:
+No matter where your game lives, it should have a first-class experience in Discord. [Rich Presence](https://discord.com/rich-presence) is the way to make that a reality! We got tired of exchanging usernames, friend codes, and lobby passwords, so we created Rich Presence, an easy-to-use, easy-to-integrate way to get people playing games together that lets you:
 
-- A vanity url—no more `discord.gg/V913Lkm`
-- Custom invite splash art
-- Access to VIP voice server regions
-- A verified check mark to show that you're legit
+- Display rich game data on your players’ profiles
+- Empower them to send game invites to each other
+- Ask to Join and Spectate their friends' games
+- Spend more time playing together and less time setting up
 
-We can't wait to work with you and see what you make!
+It’s free, easy, open-source, and self-serve, so check out [the GameSDK Activity Manager](#DOCS_GAME_SDK_ACTIVITIES/) and get started!
 
- -- Discord Dev Team
+## Go Make Cool Stuff!
+
+We love our developers, and we plan to keep making practical tools so that YOU can keep making cool stuff. Build a bot, integrate our account system, or put us right in your game; whatever you do, do it with Discord.
+
+We can’t wait to see what you make.
+
+-- Discord

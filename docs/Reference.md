@@ -1,28 +1,28 @@
 # API Reference
 
-Discord's API is based around two core layers, a HTTPS/REST API for general operations, and persistent secure websocket based connection for sending and subscribing to real-time events. The most common use case of the Discord API will be providing a service, or access to a platform through the [OAuth2](http://oauth.net/2/) API.
+Discord's API is based around two core layers, a HTTPS/REST API for general operations, and persistent secure WebSocket based connection for sending and subscribing to real-time events. The most common use case of the Discord API will be providing a service, or access to a platform through the [OAuth2](https://oauth.net/2/) API.
 
 ###### Base URL
 
 ```
-https://discordapp.com/api
+https://discord.com/api
 ```
 
 ## API Versioning
 
->danger
->Some API and Gateway versions are now non-functioning, and are labeled as discontinued in the table below for posterity. Trying to use these versions will fail and return 400 Bad Request.
+> danger
+> Some API and Gateway versions are now non-functioning, and are labeled as discontinued in the table below for posterity. Trying to use these versions will fail and return 400 Bad Request.
 
-Discord exposes different versions of our API. You can specify version by including it in the request path like `https://discordapp.com/api/v{version_number}`. Omitting the version number from the route will route requests to the current default version (marked below accordingly). You can find the change log for the newest API version [here](https://discordapp.com/developers/docs/change-log).
+Discord exposes different versions of our API. You can specify which version to use by including it in the request path like `https://discord.com/api/v{version_number}`. Omitting the version number from the route will route requests to the current default version (marked below accordingly). You can find the change log for the newest API version [here](https://discord.com/developers/docs/change-log).
 
 ###### API Versions
 
-| Version | Status | Default |
-| ------- | ------ | ------- |
-| 6 | Available | ✓ |
-| 5 | Discontinued | |
-| 4 | Discontinued | |
-| 3 | Discontinued | | |
+| Version | Status       | Default |
+| ------- | ------------ | ------- |
+| 6       | Available    | ✓       |
+| 5       | Discontinued |         |
+| 4       | Discontinued |         |
+| 3       | Discontinued |         |
 
 ## Authentication
 
@@ -47,7 +47,7 @@ Authorization: Bearer CZhtkLDpNYXgPH9Ml6shqh2OwykChw
 
 ## Encryption
 
-All HTTP-layer services and protocols (e.g. http, websocket) within the Discord API use TLS 1.2.
+All HTTP-layer services and protocols (e.g. HTTP, WebSocket) within the Discord API are using TLS 1.2.
 
 ## Snowflakes
 
@@ -62,16 +62,63 @@ Discord utilizes Twitter's [snowflake](https://github.com/twitter/snowflake/tree
 
 ###### Snowflake ID Format Structure (Left to Right)
 
-| Field | Bits | Number of bits | Description | Retrieval |
-|-------|------|----------------|-------------|-----------|
-| Timestamp | 63 to 22 | 42 bits | Milliseconds since Discord Epoch, the first second of 2015 or 1420070400000. | ``(snowflake >> 22) + 1420070400000`` |
-| Internal worker ID | 21 to 17 | 5 bits | | ``(snowflake & 0x3E0000) >> 17`` |
-| Internal process ID | 16 to 12 | 5 bits | | ``(snowflake & 0x1F000) >> 12`` |
-| Increment | 11 to 0 | 12 bits | For every ID that is generated on that process, this number is incremented | ``snowflake & 0xFFF`` |
+| Field               | Bits     | Number of bits | Description                                                                  | Retrieval                           |
+| ------------------- | -------- | -------------- | ---------------------------------------------------------------------------- | ----------------------------------- |
+| Timestamp           | 63 to 22 | 42 bits        | Milliseconds since Discord Epoch, the first second of 2015 or 1420070400000. | `(snowflake >> 22) + 1420070400000` |
+| Internal worker ID  | 21 to 17 | 5 bits         |                                                                              | `(snowflake & 0x3E0000) >> 17`      |
+| Internal process ID | 16 to 12 | 5 bits         |                                                                              | `(snowflake & 0x1F000) >> 12`       |
+| Increment           | 11 to 0  | 12 bits        | For every ID that is generated on that process, this number is incremented   | `snowflake & 0xFFF`                 |
 
 ### Convert Snowflake to DateTime
 
 ![snowflake-composition](snowflake.png)
+
+### Snowflake IDs in Pagination
+
+We typically use snowflake IDs in many of our API routes for pagination. The standardized pagination paradigm we utilize is one in which you can specify IDs `before` and `after` in combination with `limit` to retrieve a desired page of results. You will want to refer to the specific endpoint documentation for details.
+
+It is useful to note that snowflake IDs are just numbers with a timestamp, so when dealing with pagination where you want results from the beginning of time (in Discord Epoch, but `0` works here too) or before/after a specific time you can generate a snowflake ID for that time.
+
+###### Generating a snowflake ID from a Timestamp Example
+
+```
+timestamp_ms - DISCORD_EPOCH << 22
+```
+
+## ID Serialization
+
+There are some cases in which our API and Gateway may return IDs in an unexpected format. Internally, Discord stores IDs as integer snowflakes. When we serialize IDs to JSON, we transform `bigints` into strings. Given that all Discord IDs are snowflakes, you should always expect a string.
+
+However, there are cases in which passing something to our API will instead return IDs serialized as an integer; this is the case when you send our API or Gateway a value in an `id` field that is not `bigint` size. For example, when requesting `GUILD_MEMBERS_CHUNK` from our gateway:
+
+```
+// Send
+{
+  op: 8,
+  d: {
+    guild_id: '308994132968210433',
+    user_ids: [ '123123' ]
+  }
+}
+
+// Receive
+{
+  t: 'GUILD_MEMBERS_CHUNK',
+  s: 3,
+  op: 0,
+  d: {
+    not_found: [ 123123 ],
+    members: [],
+    guild_id: '308994132968210433'
+  }
+}
+```
+
+You can see in this case that the sent `user_id` is not a `bigint`; therefore, when it is serialized back to JSON by Discord, it is not transformed into a string. **This will never happen with IDs that come from Discord.** But, this can happen if you send malformed data in your requests.
+
+## ISO8601 Date/Time
+
+Discord utilizes the [ISO8601 format](https://www.loc.gov/standards/datetime/iso-tc154-wg5_n0038_iso_wd_8601-1_2016-02-16.pdf) for most Date/Times returned in our models. This format is referred to as type `ISO8601` within tables in this documentation.
 
 ## Nullable and Optional Resource Fields
 
@@ -80,10 +127,10 @@ Resource fields that are optional have names that are suffixed with a question m
 
 ###### Example Nullable and Optional Fields
 
-| Field | Type |
-| ----- | ---- |
-| optional_field? | string |
-| nullable_field | ?string |
+| Field                        | Type    |
+| ---------------------------- | ------- |
+| optional_field?              | string  |
+| nullable_field               | ?string |
 | optional_and_nullable_field? | ?string |
 
 ## Consistency
@@ -94,7 +141,7 @@ Discord operates at a scale where true consistency is impossible. Because of thi
 - Be sent _exactly_ one time to the client
 - Be sent up to N times per client
 
-Clients should operate on events and results from the API in as much of a idempotent behavior as possible.
+Clients should operate on events and results from the API in as much of an idempotent behavior as possible.
 
 ## HTTP API
 
@@ -118,9 +165,9 @@ The HTTP API implements a process for limiting and preventing excessive requests
 
 Discord's Gateway API is used for maintaining persistent, stateful websocket connections between your client and our servers. These connections are used for sending and receiving real-time events your client can use to track and update local state. The Gateway API uses secure websocket connections as specified in [RFC 6455](https://tools.ietf.org/html/rfc6455). For information on opening Gateway connections, please see the [Gateway API](#DOCS_TOPICS_GATEWAY/gateways) section.
 
->warn
->A bot must connect to and identify with a gateway at least once before it can use the [Create Message](#DOCS_RESOURCES_CHANNEL/create-message) endpoint.
->If your only requirement is to send messages to a channel, consider using a [Webhook](#DOCS_RESOURCES_WEBHOOK) instead.
+> warn
+> A bot must connect to and identify with a gateway at least once before it can use the [Create Message](#DOCS_RESOURCES_CHANNEL/create-message) endpoint.
+> If your only requirement is to send messages to a channel, consider using a [Webhook](#DOCS_RESOURCES_WEBHOOK) instead.
 
 ## Message Formatting
 
@@ -128,16 +175,17 @@ Discord utilizes a subset of markdown for rendering message content on its clien
 
 ###### Formats
 
-| Type | Structure | Example |
-|---------|-------------|-------------|
-| User | <@USER_ID> | <@80351110224678912> |
-| User (Nickname) | <@!USER_ID> | <@!80351110224678912> |
-| Channel | <#CHANNEL_ID> | <#103735883630395392> |
-| Role | <@&ROLE_ID> | <@&165511591545143296> |
-| Custom Emoji | <:NAME:ID> | <:mmLol:216154654256398347> |
-| Custom Emoji (Animated) | <a:NAME:ID> | <a:b1nzy:392938283556143104> |
+| Type                    | Structure          | Example                      |
+| ----------------------- | ------------------ | ---------------------------- |
+| User                    | <@USER_ID>         | <@80351110224678912>         |
+| User (Nickname)         | <@!USER_ID>        | <@!80351110224678912>        |
+| Channel                 | <#CHANNEL_ID>      | <#103735883630395392>        |
+| Role                    | <@&ROLE_ID>        | <@&165511591545143296>       |
+| Standard Emoji          | Unicode Characters | 💯                           |
+| Custom Emoji            | <:NAME:ID>         | <:mmLol:216154654256398347>  |
+| Custom Emoji (Animated) | <a:NAME:ID>        | <a:b1nzy:392938283556143104> |
 
-Using the markdown for either users, roles, or channels will mention the target(s) accordingly.
+Using the markdown for either users, roles, or channels will mention the target(s) accordingly. Standard emoji is currently rendered using [Twemoji](https://twemoji.twitter.com/) for Desktop/Android and Apple's native emoji on iOS.
 
 ## Image Formatting
 
@@ -147,26 +195,43 @@ Using the markdown for either users, roles, or channels will mention the target(
 https://cdn.discordapp.com/
 ```
 
-Discord uses ids and hashes to render images in the client. These hashes can be retrieved through various API requests, like [Get User](#DOCS_RESOURCES_USER/get-user). Below are the formats, size limitations, and CDN endpoints for images in Discord. The returned format can be changed by changing the [extension name](#DOCS_REFERENCE/image-formatting-image-formats) at the end of the URL. The returned size can be changed by appending a querystring of `?size=desired_size` to the URL. Image size can be any power of two between 16 and 2048.
+Discord uses ids and hashes to render images in the client. These hashes can be retrieved through various API requests, like [Get User](#DOCS_RESOURCES_USER/get-user). Below are the formats, size limitations, and CDN endpoints for images in Discord. The returned format can be changed by changing the [extension name](#DOCS_REFERENCE/image-formatting-image-formats) at the end of the URL. The returned size can be changed by appending a querystring of `?size=desired_size` to the URL. Image size can be any power of two between 16 and 4096.
 
 ###### Image Formats
 
-| Name | Extension |
-|-------|------------|
+| Name | Extension   |
+| ---- | ----------- |
 | JPEG | .jpg, .jpeg |
-| PNG | .png |
-| WebP | .webp |
-| GIF | .gif |
+| PNG  | .png        |
+| WebP | .webp       |
+| GIF  | .gif        |
 
 ###### CDN Endpoints
 
-| Type | Path | Supports |
-| ---- | --- | -------- |
-| Custom Emoji | emojis/[emoji_id](#DOCS_RESOURCES_EMOJI/emoji-object).png | PNG, GIF |
-| Guild Icon | icons/[guild_id](#DOCS_RESOURCES_GUILD/guild-object)/[guild_icon](#DOCS_RESOURCES_GUILD/guild-object).png | PNG, JPEG, WebP |
-| Guild Splash | splashes/[guild_id](#DOCS_RESOURCES_GUILD/guild-object)/[guild_splash](#DOCS_RESOURCES_GUILD/guild-object).png | PNG, JPEG, WebP |
-| Default User Avatar | embed/avatars/[user_discriminator](#DOCS_RESOURCES_USER/user-object).png * | PNG |
-| User Avatar | avatars/[user_id](#DOCS_RESOURCES_USER/user-object)/[user_avatar](#DOCS_RESOURCES_USER/user-object).png | PNG, JPEG, WebP, GIF |
-| Application Icon | app-icons/[application_id](#MY_APPLICATIONS/top)/[icon](#DOCS_TOPICS_OAUTH2/get-current-application-information).png | PNG, JPEG, WebP |
+| Type                   | Path                                                                                                                                                                                                                                    | Supports             |
+| ---------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------- |
+| Custom Emoji           | emojis/[emoji_id](#DOCS_RESOURCES_EMOJI/emoji-object).png                                                                                                                                                                               | PNG, GIF             |
+| Guild Icon             | icons/[guild_id](#DOCS_RESOURCES_GUILD/guild-object)/[guild_icon](#DOCS_RESOURCES_GUILD/guild-object).png                                                                                                                               | PNG, JPEG, WebP, GIF |
+| Guild Splash           | splashes/[guild_id](#DOCS_RESOURCES_GUILD/guild-object)/[guild_splash](#DOCS_RESOURCES_GUILD/guild-object).png                                                                                                                          | PNG, JPEG, WebP      |
+| Guild Discovery Splash | discovery-splashes/[guild_id](#DOCS_RESOURCES_GUILD/guild-object)/[guild_discovery_splash](#DOCS_RESOURCES_GUILD/guild-object).png                                                                                                      | PNG, JPEG, WebP      |
+| Guild Banner           | banners/[guild_id](#DOCS_RESOURCES_GUILD/guild-object)/[guild_banner](#DOCS_RESOURCES_GUILD/guild-object).png                                                                                                                           | PNG, JPEG, WebP      |
+| Default User Avatar    | embed/avatars/[user_discriminator](#DOCS_RESOURCES_USER/user-object).png \*                                                                                                                                                             | PNG                  |
+| User Avatar            | avatars/[user_id](#DOCS_RESOURCES_USER/user-object)/[user_avatar](#DOCS_RESOURCES_USER/user-object).png \*\*                                                                                                                            | PNG, JPEG, WebP, GIF |
+| Application Icon       | app-icons/[application_id](#MY_APPLICATIONS/top)/[icon](#DOCS_TOPICS_OAUTH2/get-current-application-information).png                                                                                                                    | PNG, JPEG, WebP      |
+| Application Asset      | app-assets/[application_id](#MY_APPLICATIONS/top)/[asset_id](#DOCS_TOPICS_GATEWAY/activity-object-activity-assets).png                                                                                                                  | PNG, JPEG, WebP      |
+| Achievement Icon       | app-assets/[application_id](#MY_APPLICATIONS/top)/achievements/[achievement_id](#DOCS_GAME_SDK_ACHIEVEMENTS/data-models-user-achievement-struct)/icons/[icon_hash](#DOCS_GAME_SDK_ACHIEVEMENTS/data-models-user-achievement-struct).png | PNG, JPEG, WebP      |
+| Team Icon              | team-icons/[team_id](#DOCS_TOPICS_TEAMS/team-object)/[team_icon](#DOCS_TOPICS_TEAMS/team-object).png                                                                                                                                    | PNG, JPEG, WebP      |
 
 \* In the case of the Default User Avatar endpoint, the value for `user_discriminator` in the path should be the user's discriminator modulo 5—Test#1337 would be `1337 % 5`, which evaluates to 2.
+
+\*\* In the case of endpoints that support GIFs, the hash will begin with `a_` if it is available in GIF format. (example: `a_1269e74af4df7417b13759eae50c83dc`)
+
+## Image Data
+
+Image data is a [Data URI scheme](https://en.wikipedia.org/wiki/Data_URI_scheme) that supports JPG, GIF, and PNG formats. An example Data URI format is:
+
+```
+data:image/jpeg;base64,BASE64_ENCODED_JPEG_IMAGE_DATA
+```
+
+Ensure you use the proper content type (`image/jpeg`, `image/png`, `image/gif`) that matches the image data being provided.

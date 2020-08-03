@@ -1,10 +1,9 @@
 # Rich Presence FAQ
 
-Below are answers to some common questions about integrating Rich Presence with your game. If you don't see your question answered here, feel free to reach out to [gamedevs@discordapp.com](mailto:gamedevs@discordapp.com) for more help.
+> danger
+> The SDK that this documentation references, [Discord-RPC](https://github.com/discord/discord-rpc), has been deprecated in favor of our new [Discord GameSDK](#DOCS_GAME_SDK_SDK_STARTER_GUIDE/). Replacement functionality for the Rich Presence SDK can be found in the [Activity Manager](#DOCS_GAME_SDK_ACTIVITIES/) of that SDK. This documentation can be referenced for education but does not entirely reflect the new SDK.
 
-#### Q: I don't see any playing status for my game.
-
-Discord is most likely not automatically detecting the test build for your game because it's running from a directory we aren't looking for. In order to add your test build, go to your user settings in Discord, then to the "Games" subsection, click "Add it!", and select your process from the drop-down list.
+Below are answers to some common questions about integrating Rich Presence with your game. If you don't see your question answered here, feel free to reach out to [gamedevs@discord.com](mailto:gamedevs@discord.com) for more help.
 
 #### Q: I see "Playing MyGame", but no Rich Presence data.
 
@@ -15,13 +14,15 @@ There's a couple things that could be going on:
 
 Throughout development, make sure you have your `errored()` and `disconnected()` callbacks hooked up for debugging. You can open up the console in Discord and look for errors pertaining to `SET_ACTIVITY` for more information as well.
 
-#### Q: I'm not seeing Spectate or Ask to Join buttons on my profile.
+#### Q: I'm not seeing Spectate buttons on my profile.
 
-Make sure you applied for approval! If you want these buttons on your players' profiles, we require your integration to go through an approval process. If you have applied and have been approved and still don't see the buttons, check your Discord console for errors.
+Make sure you applied for approval! If you want the Spectate button on your players' profiles, we require your integration to go through an approval process. If you have applied and have been approved and still don't see the buttons, check your Discord console for errors.
 
 #### Q: What happens if someone has more than one game running that supports Rich Presence?
 
-Discord will show presence for whichever game is currently focused or was most recently focused.
+Due to recent changes in our infrastructure for support of multi-activities, the behavior of multiple connected Rich Presence apps has changed from what it was before. Previously, whichever application was focused would be the presence that was shown. With the recent changes, the application that connected _first_ is now displayed.
+
+However, invite functionality across multiple connected applications now works no matter which app is display on a user's profile. For example, if you are hosting a Spotify listening party, playing Game A that allows you to send Join invites, and playing Game B that allows you to send Spectate invites, you'll be able to send invites to all three simultaneously!
 
 #### Q: What if someone looking at my profile or an invite doesn't own the game?
 
@@ -33,7 +34,7 @@ Currently, the SDK does not support this. Party slot information is determined b
 
 #### Q: Can I send images via the payload rather than uploading them to my Developer Dashboard?
 
-Unfortunately, the SDK does not support this feature right now.  However, we hear your desires! We know that a lot of games, like customization-heavy RPGs, would benefit greatly from being able to programmatically upload assets. It may be something we tackle in the future.
+Unfortunately, the SDK does not support this feature right now. However, we hear your desires! We know that a lot of games, like customization-heavy RPGs, would benefit greatly from being able to programmatically upload assets. It may be something we tackle in the future.
 
 #### Q: Can I change something in the SDK for my own purposes?
 

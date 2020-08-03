@@ -4,29 +4,51 @@ Discord has the best online community. At least, we like to think so, and this i
 
 ## Libraries
 
-The Discord team curates the following list of officially vetted libraries that conform to our APIs standards around authentication and rate limiting. Using custom implementations or non-compliant libraries which abuse the API or cause excessive rate limits may result in a **permanent** ban.
+The Discord team curates the following list of officially vetted libraries that conform to our APIs standards around authentication and rate limiting. Using custom implementations or non-compliant libraries that abuse the API or cause excessive rate limits may result in a **permanent** ban.
+
+Many of these libraries are represented in the [unofficial, community-driven Discord server for developers](https://discord.gg/discord-api). There you'll find community members who can help answer questions about our API, community libraries, bot creation, and other development questions.
 
 ###### Discord Libraries
 
-| Name | Language |
-|------|----------|
-| [discordcr](https://github.com/meew0/discordcr) | Crystal |
-| [Discord.Net](https://github.com/RogueException/Discord.Net) | C# |
-| [DSharpPlus](https://github.com/NaamloosDT/DSharpPlus) | C# |
-| [dscord](https://github.com/b1naryth1ef/dscord) | D |
-| [DiscordGo](https://github.com/bwmarrin/discordgo) | Go |
-| [Discord4j](https://github.com/austinv11/Discord4J) | Java |
-| [JDA](https://github.com/DV8FromTheWorld/JDA) | Java |
-| [discord.js](https://github.com/discordjs/discord.js) | JavaScript |
-| [Eris](https://github.com/abalabahaha/eris) | JavaScript |
-| [Discordia](https://github.com/SinisterRectus/Discordia) | Lua |
-| [RestCord](https://www.restcord.com/) | PHP |
-| [Yasmin](https://github.com/CharlotteDunois/Yasmin) | PHP |
-| [discord.py](https://github.com/Rapptz/discord.py) | Python |
-| [disco](https://github.com/b1naryth1ef/disco) | Python |
-| [discordrb](https://github.com/meew0/discordrb) | Ruby |
-| [discord-rs](https://github.com/SpaceManiac/discord-rs) | Rust |
-| [Sword](https://github.com/Azoy/Sword) | Swift |
+| Name                                                         | Language   |
+| ------------------------------------------------------------ | ---------- |
+| [discljord](https://github.com/igjoshua/discljord)           | Clojure    |
+| [aegis.cpp](https://github.com/zeroxs/aegis.cpp)             | C++        |
+| [discordcr](https://github.com/discordcr/discordcr)          | Crystal    |
+| [Discord.Net](https://github.com/RogueException/Discord.Net) | C#         |
+| [DSharpPlus](https://github.com/DSharpPlus/DSharpPlus)       | C#         |
+| [dscord](https://github.com/b1naryth1ef/dscord)              | D          |
+| [DiscordGo](https://github.com/bwmarrin/discordgo)           | Go         |
+| [DisGord](https://github.com/andersfylling/disgord)          | Go         |
+| [catnip](https://github.com/mewna/catnip)                    | Java       |
+| [Discord4J](https://discord4j.com/)                          | Java       |
+| [Javacord](https://github.com/Javacord/Javacord)             | Java       |
+| [JDA](https://github.com/DV8FromTheWorld/JDA)                | Java       |
+| [discord.js](https://github.com/discordjs/discord.js)        | JavaScript |
+| [Eris](https://github.com/abalabahaha/eris)                  | JavaScript |
+| [Discord.jl](https://github.com/Xh4H/Discord.jl)             | Julia      |
+| [Discordia](https://github.com/SinisterRectus/Discordia)     | Lua        |
+| [discordnim](https://github.com/Krognol/discordnim)          | Nim        |
+| [RestCord](https://www.restcord.com/)                        | PHP        |
+| [discord.py](https://github.com/Rapptz/discord.py)           | Python     |
+| [disco](https://github.com/b1naryth1ef/disco)                | Python     |
+| [discordrb](https://github.com/discordrb/discordrb)          | Ruby       |
+| [discord-rs](https://github.com/SpaceManiac/discord-rs)      | Rust       |
+| [Serenity](https://github.com/serenity-rs/serenity)          | Rust       |
+| [AckCord](https://github.com/Katrix/AckCord)                 | Scala      |
+| [Sword](https://github.com/Azoy/Sword)                       | Swift      |
+
+## Game SDK Tools
+
+Discord Game SDK's lobby and networking layer shares similarities with other gaming platforms (i.e. Valve's Steamworks SDK). The following open source library provides developers a uniform interface for these shared features and can simplify developing for multiple platforms. Note: this library is tailored for Unity3D development.
+
+- [HouraiNetworking](https://github.com/HouraiTeahouse/HouraiNetworking)
+
+## Dispatch Tools
+
+Using Discord's [Dispatch](#DOCS_DISPATCH_DISPATCH_AND_YOU) tool for game developers publishing on Discord can sometimes involve using the same long commands multiple times. The following open-source tool helps shorten these commands for you. It will also provide webhook support for when you're pushing an update.
+
+- [JohnyTheCarrot's Dispatch CLI](https://github.com/JohnyTheCarrot/droops-dispatch)
 
 ## Permission Calculators
 
@@ -34,6 +56,12 @@ The Discord team curates the following list of officially vetted libraries that 
 
 - [FiniteReality's Permissions Calculator](https://finitereality.github.io/permissions-calculator/?v=0)
 - [abalabahaha's Permissions Calculator](https://discordapi.com/permissions.html#0)
+
+## Intent Calculators
+
+[Gateway Intents](#DOCS_TOPICS_GATEWAY/gateway-intents) are pretty confusing at first. If you're not sure what to send in your [identify payload](#DOCS_TOPICS_GATEWAY/identify), then this tool may be of help:
+
+- [ziad87's Intent Calculator](https://ziad87.net/intents/)
 
 ## Embed Visualizer
 

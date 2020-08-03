@@ -1,11 +1,14 @@
 # Introducing Rich Presence
 
+> danger
+> The SDK that this documentation references, [Discord-RPC](https://github.com/discord/discord-rpc), has been deprecated in favor of our new [Discord GameSDK](#DOCS_GAME_SDK_SDK_STARTER_GUIDE/). Replacement functionality for the Rich Presence SDK can be found in the [Activity Manager](#DOCS_GAME_SDK_ACTIVITIES/) of that SDK. This documentation can be referenced for education but does not entirely reflect the new SDK.
+
 How easy is it for people to play your game together? With Rich Presence from Discord, it just got so easy, a ~~caveman~~ Junior Dev could do it.
 
 If you are testing a game integration with Rich Presence, other users will be able to see it. Please create a private test account and do not join any public servers while testing your integration.
 
->info
->If you want to stay up to date with the latest developer news from Discord and learn about new and exciting ways to work with us, sign up for our [developer newsletter](https://discordapp.com/dev-newsletter).
+> info
+> If you want to stay up to date with the latest developer news from Discord and learn about new and exciting ways to work with us, sign up for our [developer newsletter](https://discord.com/dev-newsletter).
 
 ## So, what is it?
 
@@ -13,10 +16,8 @@ Rich Presence allows you to leverage the totally overhauled "Now Playing" sectio
 
 ## Step 0: Get the SDK
 
-You've decided you want to integrate with Rich Presence. Of course you did! It's awesome—just ask us. You can get the SDK from our [GitHub repository](https://github.com/discordapp/discord-rpc). Grab a release build or use our build scripts, and check out the examples while you're there! We support C, C++, Unity, and Unreal Engine out of the box. If we don't have a release type that fits your development needs, roll your own! It's all open-source.
-
->warn
->Our precompiled libraries depend on the [Visual C++ Redistributable for Visual Studio 2015](https://www.microsoft.com/en-us/download/details.aspx?id=48145). If you distribute your game on Steam, make sure to check that box in your common redistributable settings.
+> warn
+> Please use our new Discord GameSDK. Read the documentation and get it [here](#DOCS_GAME_SDK_SDK_STARTER_GUIDE/).
 
 ## So, how does it work?
 
@@ -24,12 +25,12 @@ We worked hard to make using Discord's Rich Presence system as easy as possible.
 
 In the header file, you'll find six event-emitting callbacks:
 
-1. `ready()`
-2. `errored()`
-3. `disconnected()`
-4. `joinGame()`
-5. `spectateGame()`
-6. `joinRequest()`
+1.  `ready()`
+2.  `errored()`
+3.  `disconnected()`
+4.  `joinGame()`
+5.  `spectateGame()`
+6.  `joinRequest()`
 
 These six callbacks make up the entirety of what you need to implement. Behind the scenes, we do all the heavy lifting for you.
 
@@ -37,11 +38,11 @@ The header file also contains the `Discord_RunCallbacks()` function. This invoke
 
 ## Initialization
 
-The first step in implementing Rich Presence is [creating an application](https://discordapp.com/developers/applications/me). Once you've created your application, note and save your `Client ID`. You will need this to initialize the SDK; this value will be referred to throughout this documentation as both `client_id` and `application_id`. Next, scroll down to the bottom of your application's page and hit the button that says "Enable Rich Presence". This will allow you to upload assets to your dashboard for later use.
+The first step in implementing Rich Presence is [creating an application](https://discord.com/developers/applications/me). Once you've created your application, note and save your `Client ID`. You will need this to initialize the SDK; this value will be referred to throughout this documentation as both `client_id` and `application_id`. Next, scroll down to the bottom of your application's page and hit the button that says "Enable Rich Presence". This will allow you to upload assets to your dashboard for later use.
 
- To begin, you'll register your callback functions to the six `DiscordEventHandlers` and then call `Discord_Initialize()` with your `APPLICATION_ID`. If your game is distributed via Steam, you should also pass your application's Steam ID so Discord can launch your game through Steam:
+To begin, you'll register your callback functions to the six `DiscordEventHandlers` and then call `Discord_Initialize()` with your `APPLICATION_ID`. If your game is distributed via Steam, you should also pass your application's Steam ID so Discord can launch your game through Steam:
 
- ###### SDK Initialization Example
+###### SDK Initialization Example
 
 ```c
 void InitDiscord()
@@ -69,12 +70,16 @@ A quick breakdown on the `Discord_Initialize()` function:
 
 When you are ready to publish your integration, we recommend digging into the source code of the SDK and copying `discord_register.h`, `discord_register_win.cpp`, `discord_register_osx.m`, and `discord_register_linux.cpp` into your installation and update process. By registering your application protocols on installation and update, your players won't need to run the game before being able to interact with invites, Ask to Join, and spectating in Discord.
 
->danger
->**Shutting Down**
+## Shutting Down
 
->Don't leave so soon! But when you _do_ shut down your application, don't forget to call `Discord_Shutdown()`. This properly terminates the thread and allows your application to shut down cleanly.
+Don't leave so soon! But when you _do_ shut down your application, don't forget to call `Discord_Shutdown()`. This properly terminates the thread and allows your application to shut down cleanly.
+
+If you don't want to register all your event handlers at initialization, you can do so dynamically with `Discord_UpdateHandlers()`; this will allow you to register a new set of event handlers. Be mindful that this will delete old handlers if they are not explicitly bound to your handlers struct when calling this function.
 
 ## Updating Presence
+
+> warn
+> Deprecated in favor of [Discord GameSDK ActivityManager.UpdateActivity()](#DOCS_GAME_SDK_ACTIVITIES/update-activity)
 
 The core of Discord's Rich Presence SDK is the `Discord_UpdatePresence()` function. This is what sends your game data up to Discord to be seen and used by others. You should call `Discord_UpdatePresence()` any time something important in the presence payload changes.
 
@@ -128,32 +133,35 @@ typedef struct DiscordRichPresence {
 
 ###### Update Presence Payload Fields
 
-| parameter      | type    | description                                                               | example                                                    |
-| -------------- | ------- | ------------------------------------------------------------------------- | ---------------------------------------------------------- |
-| state          | char*   | the user's current party status                                           | "Looking to Play", "Playing Solo", "In a Group"            |
-| details        | char*   | what the player is currently doing                                        | "Competitive - Captain's Mode", "In Queue", "Unranked PvP" |
-| startTimestamp | int64_t | epoch seconds for game start - including will show time as "elapsed"      | 1507665886                                                 |
-| endTimestamp   | int64_t | epoch seconds for game end - including will show time as "remaining"      | 1507665886                                                 |
-| largeImageKey  | char*   | name of the uploaded image for the large profile artwork                  | "default"                                                  |
-| largeImageText | char*   | tooltip for the largeImageKey                                             | "Blade's Edge Arena", "Numbani", "Danger Zone"             |
-| smallImageKey  | char*   | name of the uploaded image for the small profile artwork                  | "rogue"                                                    |
-| smallImageText | char*   | tootltip for the smallImageKey                                            | "Rogue - Level 100"                                        |
-| partyId        | char*   | id of the player's party, lobby, or group                                 | "ae488379-351d-4a4f-ad32-2b9b01c91657"                     |
-| partySize      | int     | current size of the player's party, lobby, or group                       | 1                                                          |
-| partyMax       | int     | maximum size of the player's party, lobby, or group                       | 5                                                          |
-| matchSecret    | char*   | [deprecated Notify Me feature, may be re-used in future]                  | MmhuZToxMjMxMjM6cWl3amR3MWlqZA==                           |
-| spectateSecret | char*   | unique hashed string for Spectate button                                  | MTIzNDV8MTIzNDV8MTMyNDU0                                   |
-| joinSecret     | char*   | unique hashed string for chat invitations and Ask to Join                 | MTI4NzM0OjFpMmhuZToxMjMxMjM=                               |
-| instance       | int8_t  | [deprecated Notify Me feature, may be re-used in future]                  | 1                                                          |
+| parameter      | type     | description                                                                                                | example                                                    |
+| -------------- | -------- | ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------- |
+| state          | char\*   | the user's current party status                                                                            | "Looking to Play", "Playing Solo", "In a Group"            |
+| details        | char\*   | what the player is currently doing                                                                         | "Competitive - Captain's Mode", "In Queue", "Unranked PvP" |
+| startTimestamp | int64_t  | epoch seconds for game start - including will show time as "elapsed"                                       | 1507665886                                                 |
+| endTimestamp   | int64_t  | epoch seconds for game end - including will show time as "remaining"                                       | 1507665886                                                 |
+| largeImageKey  | char\*   | name of the uploaded image for the large profile artwork                                                   | "default"                                                  |
+| largeImageText | char\*   | tooltip for the largeImageKey                                                                              | "Blade's Edge Arena", "Numbani", "Danger Zone"             |
+| smallImageKey  | char\*   | name of the uploaded image for the small profile artwork                                                   | "rogue"                                                    |
+| smallImageText | char\*   | tooltip for the smallImageKey                                                                              | "Rogue - Level 100"                                        |
+| partyId        | char\*   | id of the player's party, lobby, or group                                                                  | "ae488379-351d-4a4f-ad32-2b9b01c91657"                     |
+| partySize      | int      | current size of the player's party, lobby, or group                                                        | 1                                                          |
+| partyMax       | int      | maximum size of the player's party, lobby, or group                                                        | 5                                                          |
+| matchSecret    | char\*   | (for future use) unique hashed string for a player's match                                                 | MmhuZToxMjMxMjM6cWl3amR3MWlqZA==                           |
+| spectateSecret | char\*   | unique hashed string for Spectate button                                                                   | MTIzNDV8MTIzNDV8MTMyNDU0                                   |
+| joinSecret     | char\*   | unique hashed string for chat invitations and Ask to Join                                                  | MTI4NzM0OjFpMmhuZToxMjMxMjM=                               |
+| instance       | int8_t   | (for future use) integer representing a boolean for if the player is in an instance (an in-progress match) | 1                                                          |
 
->info
->Sending `endTimestamp` will **always** have the time displayed as "remaining" until the given time. Sending `startTimestamp` will show "elapsed" as long as there is no `endTimestamp` sent.
+> info
+> Sending `endTimestamp` will **always** have the time displayed as "remaining" until the given time. Sending `startTimestamp` will show "elapsed" as long as there is no `endTimestamp` sent.
 
 Here's a handy image to see how these fields are actually displayed on a profile:
 
 ![](rp-legend.png)
 
 ## Joining
+
+> warn
+> Deprecated in favor of [Discord GameSDK ActivityManager.OnActivityJoin](#DOCS_GAME_SDK_ACTIVITIES/on-activity-join) and [Discord GameSDK ActivityManager.OnActivityJoinRequest](#DOCS_GAME_SDK_ACTIVITIES/on-activity-join-request)
 
 #### Relevant Callbacks:
 
@@ -173,11 +181,6 @@ Other Discord users can click "Join" on the invitation. Their game will then lau
 
 ### Ask to Join
 
->warn
->Requires Approval
-
-To enable the Ask to Join button on your players' profiles, you'll need to be approved by us. Submit your integration for approval on your [app's developer dashboard](https://discordapp.com/developers/applications/me). While there, you can also whitelist individual accounts for testing. Those accounts will have the Ask to Join button enabled on their profiles. For an in-depth explanation of what we look for during approval, see [Getting Approved](#DOCS_RICH_PRESENCE_GETTING_APPROVED/).
-
 When Player B clicks the Ask to Join button on Player A's profile, the `joinRequest()` callback fires for Player A, sending the following data:
 
 ###### Ask to Join Payload
@@ -193,25 +196,25 @@ typedef struct DiscordJoinRequest {
 
 ###### Ask to Join Payload Fields
 
-| parameter | type | description |
-| --------- | ---- | ----------- |
-| userId    | char[24]  | the userId of the player asking to join |
-| username  | char[344]  | the username of the player asking to join |
-| discriminator | char[8] | the discriminator of the player asking to join |
-| avatar*   | char[128] | the avatar hash of the player asking to join—see [image formatting](#DOCS_REFERENCE/image-formatting) for how to retrieve the image |
+| parameter     | type      | description                                                                                                                         |
+| ------------- | --------- | ----------------------------------------------------------------------------------------------------------------------------------- |
+| userId        | char[24]  | the userId of the player asking to join                                                                                             |
+| username      | char[344] | the username of the player asking to join                                                                                           |
+| discriminator | char[8]   | the discriminator of the player asking to join                                                                                      |
+| avatar\*      | char[128] | the avatar hash of the player asking to join—see [image formatting](#DOCS_REFERENCE/image-formatting) for how to retrieve the image |
 
->warn
->`avatar` can be an empty string if the user has not uploaded an avatar to Discord
+> warn
+> `avatar` can be an empty string if the user has not uploaded an avatar to Discord
 
 When it fires, your game should surface this data with a Yes or No choice for Player A to accept whether or not they wish to play with Player B. Then, call `Discord_Respond()` with Player B's `userId` and the appropriate response code:
 
 ###### Ask to Join Response Codes
 
-| code | value |
-| ---- | ----- |
-| DISCORD\_REPLY_NO | 0 |
-| DISCORD\_REPLY_YES | 1 |
-| DISCORD\_REPLY_IGNORE | 2 |
+| code                 | value |
+| -------------------- | ----- |
+| DISCORD_REPLY_NO     | 0     |
+| DISCORD_REPLY_YES    | 1     |
+| DISCORD_REPLY_IGNORE | 2     |
 
 The Ask to Join request persists for 30 seconds after the request is received, regardless of whether you have called `Discord_RunCallbacks()` within that window. Therefore, keep these two points in mind:
 
@@ -220,10 +223,8 @@ The Ask to Join request persists for 30 seconds after the request is received, r
 
 ## Spectating
 
->warn
->Requires Approval
-
-To enable the Spectate button on your players' profiles, you'll need to be approved by us. Submit your integration for approval on your [app's developer dashboard](https://discordapp.com/developers/applications/me). While there, you can also whitelist individual accounts for testing. Those accounts will have the Spectate button enabled on their profiles. For an in-depth explanation of what we look for during approval, see [Getting Approved](#DOCS_RICH_PRESENCE_GETTING_APPROVED/).
+> warn
+> Deprecated in favor of [Discord GameSDK ActivityManager.OnActivitySpectate](#DOCS_GAME_SDK_ACTIVITIES/on-activity-spectate)
 
 #### Relevant Callbacks:
 
@@ -251,42 +252,38 @@ All fields in the `DiscordRichPresence` object are entirely optional. Anything y
 
 ###### Rich Presence Field Requirements
 
-| Field          | Custom Artwork | Spectating | Joining  | Ask to Join |
-| :------------: | :------------: | :--------: | :------: | :---------: |
-| state          |                |            |          |             |
-| details        |                |            |          |             |
-| startTimestamp |                |            |          |             |
-| endTimestamp   |                |            |          |             |
-| largeImageKey  | x              |            |          |             |
-| smallImageKey  | x              |            |          |             |
-| largeImageText | x              |            |          |             |
-| smallImageText | x              |            |          |             |
-| partyId        |                |            | x        | x           |
-| partySize      |                |            | x        | x           |
-| partyMax       |                |            | x        | x           |
-| matchSecret    |                |            |          |             |
-| joinSecret     |                |            | x        | x           |
-| spectateSecret |                | x          |          |             |
-| instance       |                |            |          |             | |
+|     Field      | Custom Artwork | Spectating | Joining | Ask to Join |
+| :------------: | :------------: | :--------: | :-----: | :---------: |
+|     state      |                |            |         |             |
+|    details     |                |            |         |             |
+| startTimestamp |                |            |         |             |
+|  endTimestamp  |                |            |         |             |
+| largeImageKey  |       x        |            |         |             |
+| smallImageKey  |       x        |            |         |             |
+| largeImageText |       x        |            |         |             |
+| smallImageText |       x        |            |         |             |
+|    partyId     |                |            |    x    |      x      |
+|   partySize    |                |            |    x    |      x      |
+|    partyMax    |                |            |    x    |      x      |
+|  matchSecret   |                |            |         |             |
+|   joinSecret   |                |            |    x    |      x      |
+| spectateSecret |                |     x      |         |             |
+|    instance    |                |            |         |             |  |
 
 ## Your New Developer Dashboard
 
 Included with the launch of Rich Presence is an overhaul of Discord's Developer Dashboard. We want to make Rich Presence as easy as possible to use. Our first step is helping you ditch your CDN. You're welcome.
 
-OK, well, not entirely. But! Discord _will_ host any and all artwork that you need to have the very richest of presences. Upload an image, tag it with a key—preferrably one you can remember—and **bam**. It's ready for Rich Presence use. Head over to your [applications page](#MY_APPLICATIONS/top) to check it out!
+OK, well, not entirely. But! Discord _will_ host any and all artwork that you need to have the very richest of presences. Upload an image, tag it with a key—preferably one you can remember—and **bam**. It's ready for Rich Presence use. Head over to your [applications page](#MY_APPLICATIONS/top) to check it out!
 
->warn
->**Asset keys are automatically normalized to lowercase**. Be mindful of this when referring to them in your code.
+> warn
+> **Asset keys are automatically normalized to lowercase**. Be mindful of this when referring to them in your code.
 
 ## A note on testing and Game Detection
 
-In order to test your Rich Presence integration locally, you and your testers will need to make sure that your game client is detected by Discord. If your game is not automatically detected, presence data will not be shown. To detect your game, go to User Settings -> Games -> Add it! and select your application from the dropdown list. Every user working with your local development build will need to follow these steps in order for Discord to detect their presence.
+If you don't see Rich Presence data in your profile while testing, make sure you don't have multiple instances of Discord running—if you do, your presence might be changing in one of those!
 
-If you don't see Rich Presence data in your profile while testing, make sure you have the correct process selected for Game Detection. Also make sure you don't have multiple instances of Discord running—if you do, your presence might be changing in one of those!
-
-If you are having issues with your release build not being detected, send us an email at [gamedevs@discordapp.com](mailto:gamedevs@discordapp.com) and we'll add it to our database for you. If you distribute your game via Steam, Discord will auto-detect your game if it is marked as released and running from Steam. Local testing clients and un-released games may still need to be manually added.
-
-If you're testing on your own, we recommend [downloading two separate release channels](https://discordapp.com/download) of the Discord desktop client. You can log into the stable, public test, and canary builds with separate credentials, making testing easier for a single developer.
+If you're testing on your own, we recommend [downloading two separate release channels](https://discord.com/download) of the Discord desktop client. You can log into the stable, public test, and canary builds with separate credentials, making testing easier for a single developer.
 
 ## So, what now?
 
