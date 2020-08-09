@@ -705,7 +705,7 @@ Sent when a message is pinned or unpinned in a text channel. This is not sent wh
 
 This event can be sent in three different scenarios:
 
-1.  When a user is initially connecting, to lazily load and backfill information for all unavailable guilds sent in the [Ready](#DOCS_TOPICS_GATEWAY/ready) event.
+1.  When a user is initially connecting, to lazily load and backfill information for all unavailable guilds sent in the [Ready](#DOCS_TOPICS_GATEWAY/ready) event. Guilds that are unavailable due to an outage will send a [Guild Delete](#DOCS_TOPICS_GATEWAY/guild-delete) event.
 2.  When a Guild becomes available again to the client.
 3.  When the current user joins a new Guild.
 
@@ -720,7 +720,7 @@ Sent when a guild is updated. The inner payload is a [guild](#DOCS_RESOURCES_GUI
 
 #### Guild Delete
 
-Sent when a guild becomes unavailable during a guild outage, or when the user leaves or is removed from a guild. The inner payload is an [unavailable guild](#DOCS_RESOURCES_GUILD/unavailable-guild-object) object. If the `unavailable` field is not set, the user was removed from the guild.
+Sent when a guild becomes or was already unavailable due to an outage, or when the user leaves or is removed from a guild. The inner payload is an [unavailable guild](#DOCS_RESOURCES_GUILD/unavailable-guild-object) object. If the `unavailable` field is not set, the user was removed from the guild.
 
 #### Guild Ban Add
 
