@@ -50,7 +50,7 @@ Returns a `Discord.Result` and `Discord.ImageHandle` via callback.
 var handle = new Discord.ImageHandle()
 {
   Id = 53908232506183680,
-  Size = 1024
+  Size = 256
 };
 
 imageManager.Fetch(handle, false, (result, returnedHandle) =>
@@ -83,7 +83,7 @@ Returns `Discord.ImageDimensions`.
 var handle = new Discord.ImageHandle()
 {
   Id = 53908232506183680,
-  Size = 1024
+  Size = 256
 };
 var dimensions =  imageManager.GetDimensions(handle);
 ```
@@ -106,7 +106,7 @@ Gets the image data for a given user's avatar. In C#, this is overloaded by a he
 var handle = new Discord.ImageHandle()
 {
   Id = 53908232506183680,
-  Size = 1024
+  Size = 256
 };
 
 imageManager.Fetch(handle, false, (result, handle) =>
@@ -160,7 +160,7 @@ Returns a `Texture2D`.
 var handle = new Discord.ImageHandle()
 {
   Id = 53908232506183680,
-  Size = 1024
+  Size = 256
 };
 
 imageManager.Fetch(handle, false, (result, handle) =>
