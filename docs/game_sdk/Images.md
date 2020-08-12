@@ -178,7 +178,7 @@ imageManager.Fetch(handle, false, (result, handle) =>
 ```cs
 var discord = new Discord.Discord(clientId, Discord.CreateFlags.Default);
 
-// Request user's avatar data. Sizes can be powers of 2 between 16 and 2048
+// Request user's avatar data. Sizes can be powers of 2 between 16 and 256
 imageManager.Fetch(Discord.ImageHandle.User(53908232506183680, 128), (result, handle) =>
 {
   {
