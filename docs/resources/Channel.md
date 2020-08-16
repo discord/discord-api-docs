@@ -768,7 +768,7 @@ For example:
 
 ## Crosspost Message % POST /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}/crosspost
 
-Crosspost a message in a News Channel to following channels. This endpoints requires the 'SEND_MESSAGES' permission, if the current user sent the message, or the 'MANAGE_MESSAGES' permission, for all messages, to be present for the current user.
+Crosspost a message in a News Channel to following channels. This endpoint requires the 'SEND_MESSAGES' permission, if the current user sent the message, or additionally the 'MANAGE_MESSAGES' permission, for all other messages, to be present for the current user.
 
 Returns a [message](#DOCS_RESOURCES_CHANNEL/message-object) object.
 
