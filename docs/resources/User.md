@@ -135,6 +135,7 @@ Modify the requester's user account settings. Returns a [user](#DOCS_RESOURCES_U
 ## Get Current User Guilds % GET /users/@me/guilds
 
 Returns a list of partial [guild](#DOCS_RESOURCES_GUILD/guild-object) objects the current user is a member of. Requires the `guilds` OAuth2 scope.
+As with `GET /guild/<id>`, `approximate_member_count` and `approximate_presence_count` are only returned when `with_counts` is set to `true`.
 
 ###### Example Partial Guild
 
@@ -145,7 +146,9 @@ Returns a list of partial [guild](#DOCS_RESOURCES_GUILD/guild-object) objects th
   "icon": "8342729096ea3675442027381ff50dfe",
   "owner": true,
   "permissions": 36953089,
-  "permissions_new": "36953089"
+  "permissions_new": "36953089",
+  "approximate_member_count": 42,
+  "approximate_presence_count": 4
 }
 ```
 
@@ -154,11 +157,12 @@ Returns a list of partial [guild](#DOCS_RESOURCES_GUILD/guild-object) objects th
 
 ###### Query String Params
 
-| Field  | Type      | Description                            | Required | Default |
-| ------ | --------- | -------------------------------------- | -------- | ------- |
-| before | snowflake | get guilds before this guild ID        | false    | absent  |
-| after  | snowflake | get guilds after this guild ID         | false    | absent  |
-| limit  | integer   | max number of guilds to return (1-100) | false    | 100     |
+| Field        | Type      | Description                                                                   | Required | Default |
+| ------------ | --------- | ----------------------------------------------------------------------------- | -------- | ------- |
+| before       | snowflake | get guilds before this guild ID                                               | false    | absent  |
+| after        | snowflake | get guilds after this guild ID                                                | false    | absent  |
+| limit        | integer   | max number of guilds to return (1-100)                                        | false    | 100     |
+| with_counts? | boolean   | when `true`, will return approximate member and presence counts for the guild | false    | false   |
 
 ## Leave Guild % DELETE /users/@me/guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}
 
