@@ -50,7 +50,7 @@ Receiving payloads with the Gateway API is slightly more complex than sending. W
 
 #### ETF/JSON
 
-When initially creating and handshaking connections to the Gateway, a user can choose whether they wish to communicate over plain-text JSON or binary [ETF](https://erlang.org/doc/apps/erts/erl_ext_dist.html). When using ETF, the client must not send compressed messages to the server. Note that Snowflake IDs are transmitted as 64-bit integers over ETF, but are transmitted as strings over JSON. See [erlpack](https://github.com/discord/erlpack) for an implementation example.
+When initially creating and handshaking connections to the Gateway, a user can choose whether they wish to communicate over plain-text JSON or binary [ETF](http://erlang.org/doc/apps/erts/erl_ext_dist.html). When using ETF, the client must not send compressed messages to the server. Note that Snowflake IDs are transmitted as 64-bit integers over ETF, but are transmitted as strings over JSON. See [erlpack](https://github.com/discordapp/erlpack) for an implementation example.
 
 #### Payload Compression
 
@@ -294,7 +294,7 @@ Some intents are defined as "Privileged" due to the sensitive nature of the data
 
 In order to specify these intents in your `IDENTIFY` payload, you must first go to your application in the Developer Portal and enable the toggle for the Privileged Intents you wish to use.
 
-In the future, access to Privileged Intents will come with restrictions and limitations. [Read more here.](https://github.com/discord/discord-api-docs/issues/1363)
+In the future, access to Privileged Intents will come with restrictions and limitations. [Read more here.](https://github.com/discordapp/discord-api-docs/issues/1363)
 
 ## Rate Limiting
 

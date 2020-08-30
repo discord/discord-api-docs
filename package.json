@@ -8,12 +8,12 @@
   },  
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/discord/discord-api-docs.git"
+    "url": "git+https://github.com/discordapp/discord-api-docs.git"
   },
   "author": "Discord Krew",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/discord/discord-api-docs/issues"
+    "url": "https://github.com/discordapp/discord-api-docs/issues"
   },
-  "homepage": "https://github.com/discord/discord-api-docs#readme"
+  "homepage": "https://github.com/discordapp/discord-api-docs#readme"
 }
