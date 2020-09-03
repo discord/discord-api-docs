@@ -110,7 +110,7 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 
 | Feature                | Description                                                                     |
 | ---------------------- | ------------------------------------------------------------------------------- |
-| RELAY_ENABLED          | guild is using relays (experimental infrastructure handling large guilds)       |
+| RELAY_ENABLED          | guild is using relays (new infrastructure handling large guilds)                |
 | INVITE_SPLASH          | guild has access to set an invite splash background                             |
 | VIP_REGIONS            | guild has access to set 384kbps bitrate in voice (previously VIP voice servers) |
 | VANITY_URL             | guild has access to set a vanity URL                                            |
