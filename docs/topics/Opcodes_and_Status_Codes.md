@@ -145,6 +145,7 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 40005  | Request entity too large. Try sending something smaller in size                                                               |
 | 40006  | This feature has been temporarily disabled server-side                                                                        |
 | 40007  | The user is banned from this guild                                                                                            |
+| 40033  | This message has already been crossposted                                                                                     |
 | 50001  | Missing access                                                                                                                |
 | 50002  | Invalid account type                                                                                                          |
 | 50003  | Cannot execute action on a DM channel                                                                                         |
