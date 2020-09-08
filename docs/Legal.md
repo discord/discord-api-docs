@@ -4,7 +4,7 @@
 
 ## Posted date: July 15, 2020
  
-*For a link to the current terms, please see [here](https://github.com/discord/discord-api-docs/blob/b9edace323c9df64c79f104d85984690ae4e2977/docs/Legal.md).*
+*For a link to the previous terms, please see [here](https://github.com/discord/discord-api-docs/blob/b9edace323c9df64c79f104d85984690ae4e2977/docs/Legal.md).*
 
 Welcome to Discord’s APIs, software development kits (**“SDKs”**), and associated documentation (collectively, **"APIs"**). 
 
