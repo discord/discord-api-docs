@@ -211,7 +211,7 @@ Discord uses ids and hashes to render images in the client. These hashes can be 
 | Type                   | Path                                                                                                                                                                                                                                    | Supports             |
 | ---------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------- |
 | Custom Emoji           | emojis/[emoji_id](#DOCS_RESOURCES_EMOJI/emoji-object).png                                                                                                                                                                               | PNG, GIF             |
-| Message Attachment     | attachments/[channel_id](#DOCS_RESOURCES_CHANNEL/channel-object)/[attachment_id](#DOCS_RESOURCES_CHANNEL/attachment-object)/[file_name](#DOCS_RESOURCES_CHANNEL/attachment-object).png                                 | ANY                  |
+| Message Attachment     | attachments/[channel_id](#DOCS_RESOURCES_CHANNEL/channel-object)/[attachment_id](#DOCS_RESOURCES_CHANNEL/attachment-object)/[file_name](#DOCS_RESOURCES_CHANNEL/attachment-object) \*\*\*                               | ANY                  |
 | Guild Icon             | icons/[guild_id](#DOCS_RESOURCES_GUILD/guild-object)/[guild_icon](#DOCS_RESOURCES_GUILD/guild-object).png                                                                                                                               | PNG, JPEG, WebP, GIF |
 | Guild Splash           | splashes/[guild_id](#DOCS_RESOURCES_GUILD/guild-object)/[guild_splash](#DOCS_RESOURCES_GUILD/guild-object).png                                                                                                                          | PNG, JPEG, WebP      |
 | Guild Discovery Splash | discovery-splashes/[guild_id](#DOCS_RESOURCES_GUILD/guild-object)/[guild_discovery_splash](#DOCS_RESOURCES_GUILD/guild-object).png                                                                                                      | PNG, JPEG, WebP      |
@@ -226,6 +226,8 @@ Discord uses ids and hashes to render images in the client. These hashes can be 
 \* In the case of the Default User Avatar endpoint, the value for `user_discriminator` in the path should be the user's discriminator modulo 5—Test#1337 would be `1337 % 5`, which evaluates to 2.
 
 \*\* In the case of endpoints that support GIFs, the hash will begin with `a_` if it is available in GIF format. (example: `a_1269e74af4df7417b13759eae50c83dc`)
+
+\*\*\* In the case of files named by the user, formats are included in the `file_name`
 
 ## Image Data
 
