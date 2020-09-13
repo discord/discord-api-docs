@@ -59,7 +59,7 @@ Represents a guild or DM channel within Discord.
 
 ###### Example Guild News Channel
 
-Bots can post messages into this type of channel if they have the proper permissions, but cannot "publish" messages and push them out to the servers following the channel. These are called "Announcement Channels" in the client.
+Bots can post or publish messages in this type of channel if they have the proper permissions. These are called "Announcement Channels" in the client.
 
 ```json
 {
