@@ -35,6 +35,7 @@ Many of these libraries are represented in the [unofficial, community-driven Dis
 | [discordrb](https://github.com/discordrb/discordrb)          | Ruby       |
 | [discord-rs](https://github.com/SpaceManiac/discord-rs)      | Rust       |
 | [Serenity](https://github.com/serenity-rs/serenity)          | Rust       |
+| [Twilight](https://github.com/twilight-rs/twilight)          | Rust       |
 | [AckCord](https://github.com/Katrix/AckCord)                 | Scala      |
 | [Sword](https://github.com/Azoy/Sword)                       | Swift      |
 | [Discordeno](https://github.com/Skillz4Killz/Discordeno)     | TypeScript |
