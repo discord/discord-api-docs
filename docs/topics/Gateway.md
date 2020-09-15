@@ -1049,12 +1049,13 @@ Active sessions are indicated with an "online", "idle", or "dnd" string per plat
 
 ###### Activity Types
 
-| ID  | Name      | Format              | Example                   |
-| --- | --------- | ------------------- | ------------------------- |
-| 0   | Game      | Playing {name}      | "Playing Rocket League"   |
-| 1   | Streaming | Streaming {details} | "Streaming Rocket League" |
-| 2   | Listening | Listening to {name} | "Listening to Spotify"    |
-| 4   | Custom    | {emoji} {name}      | ":smiley: I am cool"      |
+| ID  | Name      | Format              | Example                              |
+| --- | --------- | ------------------- | ------------------------------------ |
+| 0   | Game      | Playing {name}      | "Playing Rocket League"              |
+| 1   | Streaming | Streaming {details} | "Streaming Rocket League"            |
+| 2   | Listening | Listening to {name} | "Listening to Spotify"               |
+| 4   | Custom    | {emoji} {name}      | ":smiley: I am cool"                 |
+| 5   | Competing | Competing in {name} | "Competing in Arena World Champions" |
 
 > info
 > The streaming type currently only supports Twitch and YouTube. Only `https://twitch.tv/` and `https://youtube.com/` urls will work.
