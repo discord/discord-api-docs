@@ -858,10 +858,6 @@ Any message IDs given that do not exist or are invalid will count towards the mi
 |----------|---------------------|-------------------------------------------|
 | messages | array of snowflakes | an array of message ids to delete (2-100) |
 
-## Bulk Delete Messages (deprecated) % POST /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/messages/bulk_delete
-
-Same as above, but this endpoint is deprecated.
-
 ## Edit Channel Permissions % PUT /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/permissions/{overwrite.id#DOCS_RESOURCES_CHANNEL/overwrite-object}
 
 Edit the channel permission overwrites for a user or role in a channel. Only usable for guild channels. Requires the `MANAGE_ROLES` permission. Returns a 204 empty response on success. For more information about permissions, see [permissions](#DOCS_TOPICS_PERMISSIONS/permissions).

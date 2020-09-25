@@ -16,7 +16,17 @@ We've introduced API and Gateway v8! Changes are noted throughout the documentat
 - Bots no longer receive [Channel Create Gateway Event](#DOCS_GATEWAY/channel-create) for DMs
 - `delete-message-days` is no longer available. Use `delete_message_days`. The previous value may never have been documented
 - Removed `roles`, `premium_since`, and `nick` from [Presence Update Gateway Event](#DOCS_GATEWAY/presence-update)
+- The follow routes have been deprecated and removed for better naming conventions:
 
+Removed in favor of `/guilds/<guild_id>/widget`:
+  - `/guilds/<guild_id>/embed` 
+  - `/servers/<guild_id>/embed.json`
+  - `/servers/<guild_id>/widget.json`
+  - `/guilds/<guild_id>/embed.json`
+  - `/guilds/<guild_id>/embed.png`
+
+Removed in favor of `/channels/<channel_id>/messages/bulk-delete`
+  - `/channels/<channel_id>/messages/bulk_delete/`
 
 
 ## New Permission Fields

@@ -783,17 +783,9 @@ Sync an integration. Requires the `MANAGE_GUILD` permission. Returns a 204 empty
 
 Returns the [guild widget](#DOCS_RESOURCES_GUILD/guild-widget-object) object. Requires the `MANAGE_GUILD` permission.
 
-## Get Guild Embed % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/embed
-
-Same as above, but this endpoint is deprecated.
-
 ## Modify Guild Widget % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/widget
 
 Modify a [guild widget](#DOCS_RESOURCES_GUILD/guild-widget-object) object for the guild. All attributes may be passed in with JSON and modified. Requires the `MANAGE_GUILD` permission. Returns the updated [guild widget](#DOCS_RESOURCES_GUILD/guild-widget-object) object.
-
-## Modify Guild Embed % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/embed
-
-Same as above, but this endpoint is deprecated.
 
 ## Get Guild Vanity URL % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/vanity-url
 
@@ -811,7 +803,6 @@ Returns a partial [invite](#DOCS_RESOURCES_INVITE/invite-object) object for guil
 ## Get Guild Widget Image % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/widget.png
 
 Returns a PNG image widget for the guild. Requires no permissions or authentication.
-The same documentation also applies to `embed.png`.
 
 > info
 > All parameters to this endpoint are optional.
