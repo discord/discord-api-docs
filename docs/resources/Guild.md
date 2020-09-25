@@ -775,16 +775,7 @@ Sync an integration. Requires the `MANAGE_GUILD` permission. Returns a 204 empty
 
 ## Get Guild Widget Settings % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/widget
 
-Returns the [guild widget](#DOCS_RESOURCES_GUILD/guild-widget-object) object. Requires the `MANAGE_GUILD` permission.
-
-###### Example Get Guild Widget Settings
-
-```json
-{
-    "enabled": true,
-    "channel_id": "639513359995470208"
-}
-```
+Returns a [guild widget](#DOCS_RESOURCES_GUILD/guild-widget-object) object. Requires the `MANAGE_GUILD` permission.
 
 ## Modify Guild Widget % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/widget
 
