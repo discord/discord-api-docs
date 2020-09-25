@@ -773,19 +773,28 @@ Delete the attached [integration](#DOCS_RESOURCES_GUILD/integration-object) obje
 
 Sync an integration. Requires the `MANAGE_GUILD` permission. Returns a 204 empty response on success.
 
-## Get Guild Widget % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/widget
+## Get Guild Widget Settings % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/widget
 
 Returns the [guild widget](#DOCS_RESOURCES_GUILD/guild-widget-object) object. Requires the `MANAGE_GUILD` permission.
+
+###### Example Get Guild Widget Settings
+
+```json
+{
+    "enabled": true,
+    "channel_id": "639513359995470208"
+}
+```
 
 ## Modify Guild Widget % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/widget
 
 Modify a [guild widget](#DOCS_RESOURCES_GUILD/guild-widget-object) object for the guild. All attributes may be passed in with JSON and modified. Requires the `MANAGE_GUILD` permission. Returns the updated [guild widget](#DOCS_RESOURCES_GUILD/guild-widget-object) object.
 
-## Get Guild Widget JSON % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-bject}/widget.json
+## Get Guild Widget % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/widget.json
 
-Returns the JSON object for the guild widget.
+Returns the widget for the guild.
 
-###### Example Get Guild Widget Json
+###### Example Get Guild Widget
 
 ```json
 {
