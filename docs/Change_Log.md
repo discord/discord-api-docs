@@ -1,5 +1,24 @@
 # Change Log
 
+## API and Gateway V8
+
+#### September 24, 2020
+
+We've introduced API and Gateway v8! Changes are noted throughout the documentation, but the major changes are:
+- API v8 is now default
+- All permissions have been converted to strings
+- `permissions_new`, `allow_new`, and `deny_new` have been removed
+- The `game` field has been removed. You should instead reference the first element of the activites array
+- Channel Permission Overwrites are now numbers (0 and 1) instead of strings ("role" and "member")
+- `embed_enabled` and `embed_channel_id` have been renamed `widget_enabled` and `widget_channel_id`
+- Form body errors have been improved to include more helpful messaging on validation. [See more here](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/API)
+- Rate limit headers are in seconds instead of milliseconds. As such, the `X-RateLimit-Precision header` is no longer respected. If you receive any millisecond headers, please report it as a bug!
+- Bots no longer receive [Channel Create Gateway Event](#DOCS_GATEWAY/channel-create) for DMs
+- `delete-message-days` is no longer available. Use `delete_message_days`. The previous value may never have been documented
+- Removed `roles`, `premium_since`, and `nick` from [Presence Update Gateway Event](#DOCS_GATEWAY/presence-update)
+
+
+
 ## New Permission Fields
 
 #### July 28, 2020

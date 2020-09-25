@@ -18,11 +18,66 @@ Discord exposes different versions of our API. You can specify which version to 
 ###### API Versions
 
 | Version | Status       | Default |
-| ------- | ------------ | ------- |
-| 6       | Available    | ✓       |
+|---------|--------------|---------|
+| 8       | Available    | ✓       |
+| 6       | Deprecated   |         |
 | 5       | Discontinued |         |
 | 4       | Discontinued |         |
 | 3       | Discontinued |         |
+
+## Error Messages
+
+In API v8, we've improved error formatting in form error responses. The response will tell you which json key contains the error, the error code, and a human readable error message. You can find all the error codes [here](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/API) Examples:
+
+###### Array Error
+
+```json
+{
+    "code": 50035,
+    "errors": {
+        "activities": {
+            "0": {
+                "platform": {
+                    "_errors": [
+                        {
+                            "code": "BASE_TYPE_CHOICES",
+                            "message": "Value must be one of ('desktop', 'android', 'ios')."
+                        }
+                    ]
+                },
+                "type": {
+                    "_errors": [
+                        {
+                            "code": "BASE_TYPE_CHOICES",
+                            "message": "Value must be one of (0, 1, 2, 3, 4, 5)."
+                        }
+                    ]
+                }
+            }
+        }
+    },
+    "message": "Invalid Form Body"
+}
+```
+
+###### Object Error
+
+```json
+{
+    "code": 50035,
+    "errors": {
+        "access_token": {
+            "_errors": [
+                {
+                    "code": "BASE_TYPE_REQUIRED",
+                    "message": "This field is required"
+                }
+            ]
+        }
+    },
+    "message": "Invalid Form Body"
+}
+```
 
 ## Authentication
 
@@ -63,7 +118,7 @@ Discord utilizes Twitter's [snowflake](https://github.com/twitter/snowflake/tree
 ###### Snowflake ID Format Structure (Left to Right)
 
 | Field               | Bits     | Number of bits | Description                                                                  | Retrieval                           |
-| ------------------- | -------- | -------------- | ---------------------------------------------------------------------------- | ----------------------------------- |
+|---------------------|----------|----------------|------------------------------------------------------------------------------|-------------------------------------|
 | Timestamp           | 63 to 22 | 42 bits        | Milliseconds since Discord Epoch, the first second of 2015 or 1420070400000. | `(snowflake >> 22) + 1420070400000` |
 | Internal worker ID  | 21 to 17 | 5 bits         |                                                                              | `(snowflake & 0x3E0000) >> 17`      |
 | Internal process ID | 16 to 12 | 5 bits         |                                                                              | `(snowflake & 0x1F000) >> 12`       |
@@ -128,7 +183,7 @@ Resource fields that are optional have names that are suffixed with a question m
 ###### Example Nullable and Optional Fields
 
 | Field                        | Type    |
-| ---------------------------- | ------- |
+|------------------------------|---------|
 | optional_field?              | string  |
 | nullable_field               | ?string |
 | optional_and_nullable_field? | ?string |
@@ -176,7 +231,7 @@ Discord utilizes a subset of markdown for rendering message content on its clien
 ###### Formats
 
 | Type                    | Structure          | Example                      |
-| ----------------------- | ------------------ | ---------------------------- |
+|-------------------------|--------------------|------------------------------|
 | User                    | <@USER_ID>         | <@80351110224678912>         |
 | User (Nickname)         | <@!USER_ID>        | <@!80351110224678912>        |
 | Channel                 | <#CHANNEL_ID>      | <#103735883630395392>        |
@@ -200,7 +255,7 @@ Discord uses ids and hashes to render images in the client. These hashes can be 
 ###### Image Formats
 
 | Name | Extension   |
-| ---- | ----------- |
+|------|-------------|
 | JPEG | .jpg, .jpeg |
 | PNG  | .png        |
 | WebP | .webp       |
@@ -209,7 +264,7 @@ Discord uses ids and hashes to render images in the client. These hashes can be 
 ###### CDN Endpoints
 
 | Type                   | Path                                                                                                                                                                                                                                    | Supports             |
-| ---------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------- |
+|------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------|
 | Custom Emoji           | emojis/[emoji_id](#DOCS_RESOURCES_EMOJI/emoji-object).png                                                                                                                                                                               | PNG, GIF             |
 | Guild Icon             | icons/[guild_id](#DOCS_RESOURCES_GUILD/guild-object)/[guild_icon](#DOCS_RESOURCES_GUILD/guild-object).png                                                                                                                               | PNG, JPEG, WebP, GIF |
 | Guild Splash           | splashes/[guild_id](#DOCS_RESOURCES_GUILD/guild-object)/[guild_splash](#DOCS_RESOURCES_GUILD/guild-object).png                                                                                                                          | PNG, JPEG, WebP      |

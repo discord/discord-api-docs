@@ -144,8 +144,7 @@ Returns a list of partial [guild](#DOCS_RESOURCES_GUILD/guild-object) objects th
   "name": "1337 Krew",
   "icon": "8342729096ea3675442027381ff50dfe",
   "owner": true,
-  "permissions": 36953089,
-  "permissions_new": "36953089"
+  "permissions": "36953089",
 }
 ```
 

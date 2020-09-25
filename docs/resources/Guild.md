@@ -15,13 +15,12 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 | discovery_splash              | ?string                                                                             | [discovery splash hash](#DOCS_REFERENCE/image-formatting); only present for guilds with the "DISCOVERABLE" feature                        |
 | owner?                        | boolean                                                                             | true if [the user](#DOCS_RESOURCES_USER/get-current-user-guilds) is the owner of the guild                                                |
 | owner_id                      | snowflake                                                                           | id of owner                                                                                                                               |
-| permissions?                  | integer                                                                             | legacy total permissions for [the user](#DOCS_RESOURCES_USER/get-current-user-guilds) in the guild (excludes overrides)                   |
-| permissions_new?              | string                                                                              | total permissions for [the user](#DOCS_RESOURCES_USER/get-current-user-guilds) in the guild (excludes overrides)                          |
+| permissions?                  | string                                                                             | legacy total permissions for [the user](#DOCS_RESOURCES_USER/get-current-user-guilds) in the guild (excludes overrides)                   |
 | region                        | string                                                                              | [voice region](#DOCS_RESOURCES_VOICE/voice-region-object) id for the guild                                                                |
 | afk_channel_id                | ?snowflake                                                                          | id of afk channel                                                                                                                         |
 | afk_timeout                   | integer                                                                             | afk timeout in seconds                                                                                                                    |
-| embed_enabled?                | boolean                                                                             | true if the server widget is enabled (deprecated, replaced with `widget_enabled`)                                                         |
-| embed_channel_id?             | ?snowflake                                                                          | the channel id that the widget will generate an invite to, or `null` if set to no invite (deprecated, replaced with `widget_channel_id`)  |
+| widget_enabled?                | boolean                                                                             | true if the server widget is enabled (deprecated, replaced with `widget_enabled`)                                                         |
+| widget_channel_id?             | ?snowflake                                                                          | the channel id that the widget will generate an invite to, or `null` if set to no invite (deprecated, replaced with `widget_channel_id`)  |
 | verification_level            | integer                                                                             | [verification level](#DOCS_RESOURCES_GUILD/guild-object-verification-level) required for the guild                                        |
 | default_message_notifications | integer                                                                             | default [message notifications level](#DOCS_RESOURCES_GUILD/guild-object-default-message-notification-level)                              |
 | explicit_content_filter       | integer                                                                             | [explicit content filter level](#DOCS_RESOURCES_GUILD/guild-object-explicit-content-filter-level)                                         |
@@ -170,8 +169,8 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
   "preferred_locale": "en-US",
   "rules_channel_id": "441688182833020939",
   "public_updates_channel_id": "281283303326089216",
-  "embed_enabled": true,
-  "embed_channel_id": null
+  "widget_enabled": true,
+  "widget_channel_id": null
 }
 ```
 
@@ -446,8 +445,7 @@ Returns the [guild](#DOCS_RESOURCES_GUILD/guild-object) object for the given id.
     {
       "id": "2909267986263572999",
       "name": "@everyone",
-      "permissions": 49794752,
-      "permissions_new": "49794752",
+      "permissions": "49794752",
       "position": 0,
       "color": 0,
       "hoist": false,
@@ -468,8 +466,8 @@ Returns the [guild](#DOCS_RESOURCES_GUILD/guild-object) object for the given id.
   "preferred_locale": "en-US",
   "rules_channel_id": null,
   "public_updates_channel_id": null,
-  "embed_enabled": true,
-  "embed_channel_id": "639513352485470999"
+  "widget_enabled": true,
+  "widget_channel_id": "639513352485470999"
 }
 ```
 
@@ -669,7 +667,7 @@ Create a new [role](#DOCS_TOPICS_PERMISSIONS/role-object) for the guild. Require
 | Field       | Type              | Description                                                    | Default                        |
 | ----------- | ----------------- | -------------------------------------------------------------- | ------------------------------ |
 | name        | string            | name of the role                                               | "new role"                     |
-| permissions | integer or string | bitwise value of the enabled/disabled permissions              | @everyone permissions in guild |
+| permissions | string            | bitwise value of the enabled/disabled permissions              | @everyone permissions in guild |
 | color       | integer           | RGB color value                                                | 0                              |
 | hoist       | boolean           | whether the role should be displayed separately in the sidebar | false                          |
 | mentionable | boolean           | whether the role should be mentionable                         | false                          |
@@ -699,7 +697,7 @@ Modify a guild role. Requires the `MANAGE_ROLES` permission. Returns the updated
 | Field       | Type              | Description                                                    |
 | ----------- | ----------------- | -------------------------------------------------------------- |
 | name        | string            | name of the role                                               |
-| permissions | integer or string | bitwise value of the enabled/disabled permissions              |
+| permissions | string            | bitwise value of the enabled/disabled permissions              |
 | color       | integer           | RGB color value                                                |
 | hoist       | boolean           | whether the role should be displayed separately in the sidebar |
 | mentionable | boolean           | whether the role should be mentionable                         |
