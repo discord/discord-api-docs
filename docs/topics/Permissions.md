@@ -6,7 +6,7 @@ Permissions are stored within a variable-length integer serialized into a string
 
 In API v8, all permissions—including `allow` and `deny` fields in overwrites—are serialized as strings. There are also no longer `_new` permission fields; all new permissions are rolled back into the base field.
 
-In legacy API v6, the `permissions`, `allow`, and `deny` fields in roles and overwrites are still serialized as a number; however, these numbers shall not grow beyond 31 bits. During the remaining lifetime of API v6, all new permission bits will only be introduced in `permissions_new`, `allow_new`, and `deny_new`. These `_new` fields are just for response serialization; requests with these fields should continue to use the original `permissions`, `allow`, and `deny` fields, which accept both string or number values.
+In API v6, the `permissions`, `allow`, and `deny` fields in roles and overwrites are still serialized as a number; however, these numbers shall not grow beyond 31 bits. During the remaining lifetime of API v6, all new permission bits will only be introduced in `permissions_new`, `allow_new`, and `deny_new`. These `_new` fields are just for response serialization; requests with these fields should continue to use the original `permissions`, `allow`, and `deny` fields, which accept both string or number values.
 
 ```python
 # Permissions value that can Send Messages (0x800) and Add Reactions (0x40):
