@@ -6,7 +6,7 @@
 
 We've introduced API and Gateway v8! Changes are noted throughout the documentation, but the major changes are:
 
-- API v8 is now available. v6 is still default the for the time being.
+- API v8 is now available. v6 is still the default for the time being.
 - All permissions have been converted to strings-serialized numbers. As such, `permissions_new`, `allow_new`, and `deny_new` have been removed
 - The `game` field has been removed. If you need a direct replacement, you can instead reference the first element of `activities`
 - Channel Permission Overwrite `type`s are now numbers (0 and 1) instead of strings ("role" and "member")
@@ -17,7 +17,7 @@ We've introduced API and Gateway v8! Changes are noted throughout the documentat
 - Bots no longer receive [Channel Create Gateway Event](#DOCS_GATEWAY/channel-create) for DMs
 - `delete-message-days` is no longer available. Use `delete_message_days`.
 - Removed `roles`, `premium_since`, and `nick` from [Presence Update Gateway Event](#DOCS_GATEWAY/presence-update)
-- The follow routes have been deprecated and removed for better naming conventions:
+- The following routes have been deprecated and removed for better naming conventions:
 
 Removed in favor of `/guilds/<guild_id>/widget`:
 
