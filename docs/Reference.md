@@ -185,7 +185,7 @@ Discord utilizes a subset of markdown for rendering message content on its clien
 | Custom Emoji            | <:NAME:ID>         | <:mmLol:216154654256398347>  |
 | Custom Emoji (Animated) | <a:NAME:ID>        | <a:b1nzy:392938283556143104> |
 
-Using the markdown for either users, roles, or channels will mention the target(s) accordingly. Standard emoji is currently rendered using [Twemoji](https://twemoji.twitter.com/) for Desktop/Android and Apple's native emoji on iOS.
+Using the markdown for either users, roles, or channels will usually mention the target(s) accordingly, but this can be suppressed using the `allowed_mentions` parameter when creating a message. Standard emoji are currently rendered using [Twemoji](https://twemoji.twitter.com/) for Desktop/Android and Apple's native emoji on iOS.
 
 ## Image Formatting
 
