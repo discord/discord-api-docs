@@ -781,6 +781,43 @@ Returns the [guild widget](#DOCS_RESOURCES_GUILD/guild-widget-object) object. Re
 
 Modify a [guild widget](#DOCS_RESOURCES_GUILD/guild-widget-object) object for the guild. All attributes may be passed in with JSON and modified. Requires the `MANAGE_GUILD` permission. Returns the updated [guild widget](#DOCS_RESOURCES_GUILD/guild-widget-object) object.
 
+## Get Guild Widget JSON % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-bject}/widget.json
+
+Returns the JSON object for the guild widget.
+
+###### Example Get Guild Widget Json
+
+```json
+{
+    "id": "290926798626999250",
+    "name": "Test Server",
+    "instant_invite": "https://discord.com/invite/abcdefg",
+    "channels": [
+        {
+            "id": "705216630279993882",
+            "name": "elephant",
+            "position": 2
+        },
+        {
+            "id": "669583461748992190",
+            "name": "groovy-music",
+            "position": 1
+        }
+    ],
+    "members": [
+        {
+            "id": "0",
+            "username": "1234",
+            "discriminator": "0000",
+            "avatar": null,
+            "status": "online",
+            "avatar_url": "https://cdn.discordapp.com/widget-avatars/FfvURgcr3Za92K3JtoCppqnYMppMDc5B-Rll74YrGCU/C-1DyBZPQ6t5q2RuATFuMFgq0_uEMZVzd_6LbGN_uJKvZflobA9diAlTjhf6CAESLLeTuu4dLuHFWOb_PNLteooNfhC4C6k5QgAGuxEOP12tVVVCvX6t64k14PMXZrGTDq8pWZhukP40Wg"
+        }
+    ],
+    "presence_count": 1
+}
+```
+
 ## Get Guild Vanity URL % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/vanity-url
 
 Returns a partial [invite](#DOCS_RESOURCES_INVITE/invite-object) object for guilds with that feature enabled. Requires the `MANAGE_GUILD` permission. `code` will be null if a vanity url for the guild is not set.

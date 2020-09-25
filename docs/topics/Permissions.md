@@ -170,7 +170,7 @@ Roles represent a set of permissions attached to a group of users. Roles have un
 | color           | integer   | integer representation of hexadecimal color code |
 | hoist           | boolean   | if this role is pinned in the user listing       |
 | position        | integer   | position of this role                            |
-| permissions     | string    | legacy permission bit set                        |
+| permissions     | string    | permission bit set                               |
 | managed         | boolean   | whether this role is managed by an integration   |
 | mentionable     | boolean   | whether this role is mentionable                 |
 

@@ -15,15 +15,18 @@ We've introduced API and Gateway v8! Changes are noted throughout the documentat
 - Form body errors have been improved to include more helpful messaging on validation. [See more here](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/API)
 - `X-RateLimit-Precision header` is no longer respected. Rate limits are now default in seconds and reflect what the previous millisecond precision did
 - Bots no longer receive [Channel Create Gateway Event](#DOCS_GATEWAY/channel-create) for DMs
-- `delete-message-days` is no longer available. Use `delete_message_days`. The previous value may never have been documented
 - Removed `roles`, `premium_since`, and `nick` from [Presence Update Gateway Event](#DOCS_GATEWAY/presence-update)
 - The follow routes have been deprecated and removed for better naming conventions:
 
 Removed in favor of `/guilds/<guild_id>/widget`:
-  - `/guilds/<guild_id>/embed` 
+  - `/guilds/<guild_id>/embed`
+
+Removed in favor of `/guilds/<guild_id>/widget.json`:
   - `/servers/<guild_id>/embed.json`
   - `/servers/<guild_id>/widget.json`
   - `/guilds/<guild_id>/embed.json`
+
+Removed in favor if `/guilds/<guild_id>/widget.png`:
   - `/guilds/<guild_id>/embed.png`
 
 Removed in favor of `/channels/<channel_id>/messages/bulk-delete`
