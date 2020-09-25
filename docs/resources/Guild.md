@@ -19,8 +19,8 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 | region                        | string                                                                              | [voice region](#DOCS_RESOURCES_VOICE/voice-region-object) id for the guild                                                                |
 | afk_channel_id                | ?snowflake                                                                          | id of afk channel                                                                                                                         |
 | afk_timeout                   | integer                                                                             | afk timeout in seconds                                                                                                                    |
-| widget_enabled?                | boolean                                                                             | true if the server widget is enabled (deprecated, replaced with `widget_enabled`)                                                         |
-| widget_channel_id?             | ?snowflake                                                                          | the channel id that the widget will generate an invite to, or `null` if set to no invite (deprecated, replaced with `widget_channel_id`)  |
+| widget_enabled?               | boolean                                                                             | true if the server widget is enabled                                                                                                      |
+| widget_channel_id?            | ?snowflake                                                                          | the channel id that the widget will generate an invite to, or `null` if set to no invite                                                  |
 | verification_level            | integer                                                                             | [verification level](#DOCS_RESOURCES_GUILD/guild-object-verification-level) required for the guild                                        |
 | default_message_notifications | integer                                                                             | default [message notifications level](#DOCS_RESOURCES_GUILD/guild-object-default-message-notification-level)                              |
 | explicit_content_filter       | integer                                                                             | [explicit content filter level](#DOCS_RESOURCES_GUILD/guild-object-explicit-content-filter-level)                                         |
@@ -29,8 +29,6 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 | features                      | array of [guild feature](#DOCS_RESOURCES_GUILD/guild-object-guild-features) strings | enabled guild features                                                                                                                    |
 | mfa_level                     | integer                                                                             | required [MFA level](#DOCS_RESOURCES_GUILD/guild-object-mfa-level) for the guild                                                          |
 | application_id                | ?snowflake                                                                          | application id of the guild creator if it is bot-created                                                                                  |
-| widget_enabled?               | boolean                                                                             | true if the server widget is enabled                                                                                                      |
-| widget_channel_id?            | ?snowflake                                                                          | the channel id that the widget will generate an invite to, or `null` if set to no invite                                                  |
 | system_channel_id             | ?snowflake                                                                          | the id of the channel where guild notices such as welcome messages and boost events are posted                                            |
 | system_channel_flags          | integer                                                                             | [system channel flags](#DOCS_RESOURCES_GUILD/guild-object-system-channel-flags)                                                           |
 | rules_channel_id              | ?snowflake                                                                          | the id of the channel where guilds with the "PUBLIC" feature can display rules and/or guidelines                                          |
@@ -168,9 +166,7 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
   "system_channel_flags": 0,
   "preferred_locale": "en-US",
   "rules_channel_id": "441688182833020939",
-  "public_updates_channel_id": "281283303326089216",
-  "widget_enabled": true,
-  "widget_channel_id": null
+  "public_updates_channel_id": "281283303326089216"
 }
 ```
 
@@ -465,9 +461,7 @@ Returns the [guild](#DOCS_RESOURCES_GUILD/guild-object) object for the given id.
   "system_channel_flags": 0,
   "preferred_locale": "en-US",
   "rules_channel_id": null,
-  "public_updates_channel_id": null,
-  "widget_enabled": true,
-  "widget_channel_id": "639513352485470999"
+  "public_updates_channel_id": null
 }
 ```
 

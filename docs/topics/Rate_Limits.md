@@ -28,7 +28,7 @@ X-RateLimit-Bucket: abcd1234
 - **X-RateLimit-Limit** - The number of requests that can be made
 - **X-RateLimit-Remaining** - The number of remaining requests that can be made
 - **X-RateLimit-Reset** - Epoch time (seconds since 00:00:00 UTC on January 1, 1970) at which the rate limit resets
-- **X-RateLimit-Reset-After** - Total time (in seconds) of when the current rate limit bucket will reset. Can have decimals.
+- **X-RateLimit-Reset-After** - Total time (in seconds) of when the current rate limit bucket will reset. Can have decimals to match previous millisecond ratelimit precision
 - **X-RateLimit-Bucket** - A unique string denoting the rate limit being encountered (non-inclusive of major parameters in the route path)
 
 ## Exceeding A Rate Limit

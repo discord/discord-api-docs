@@ -11,7 +11,7 @@ Important note: Not all event fields are documented, in particular, fields prefi
 | Version | Status       |
 |---------|--------------|
 | 8       | Available    |
-| 6       | Available    |
+| 6       | Deprecated   |
 | 5       | Discontinued |
 | 4       | Discontinued |
 
