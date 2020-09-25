@@ -50,7 +50,7 @@ Note that the normal rate-limiting headers will be sent in this response. The ra
 ```
 < HTTP/1.1 429 TOO MANY REQUESTS
 < Content-Type: application/json
-< Retry-After: 6457
+< Retry-After: 65
 < X-RateLimit-Limit: 10
 < X-RateLimit-Remaining: 0
 < X-RateLimit-Reset: 1470173023
@@ -68,7 +68,7 @@ Note that the normal rate-limiting headers will be sent in this response. The ra
 ```
 < HTTP/1.1 429 TOO MANY REQUESTS
 < Content-Type: application/json
-< Retry-After: 6457
+< Retry-After: 65
 < X-RateLimit-Global: true
 {
   "message": "You are being rate limited.",
