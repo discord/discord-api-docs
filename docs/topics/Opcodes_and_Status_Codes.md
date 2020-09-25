@@ -1,19 +1,5 @@
 # Opcodes and Status Codes
 
-## API
-
-In v8 and forward, API form body errors contain both a code and human-readable error message.
-
-###### API Error Codes
-
-| Code                 | Description                                                |
-|----------------------|------------------------------------------------------------|
-| BASE_TYPE_REQUIRED   | "This field is required"                                   |
-| BASE_TYPE_CHOICES    | "Value must be one of {choices}."                          |
-| BASE_TYPE_MIN_LENGTH | "Must be {min_length} or more in length."                  |
-| BASE_TYPE_MAX_LENGTH | "Must be {max_length} or fewer in length."                 |
-| BASE_TYPE_BAD_LENGTH | "Must be between {min_length} and {max_length} in length." |
-
 ## Gateway
 
 All gateway events in Discord are tagged with an opcode that denotes the payload type. Your connection to our gateway may also sometimes close. When it does, you will receive a close code that tells you what happened.

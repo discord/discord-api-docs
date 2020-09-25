@@ -27,7 +27,7 @@ Discord exposes different versions of our API. You can specify which version to 
 
 ## Error Messages
 
-In API v8, we've improved error formatting in form error responses. The response will tell you which json key contains the error, the error code, and a human readable error message. You can find all the error codes [here](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/API) Examples:
+In API v8, we've improved error formatting in form error responses. The response will tell you which json key contains the error, the error code, and a human readable error message. We will be frequently adding new error messages, so a complete list of errors is not feasible and would be almost instantly out of date. Here are some examples instead:
 
 ###### Array Error
 
