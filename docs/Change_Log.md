@@ -6,33 +6,36 @@
 
 We've introduced API and Gateway v8! Changes are noted throughout the documentation, but the major changes are:
 
-- API v8 is now available. v6 is still default for the time being
-- All permissions have been converted to strings
-- `permissions_new`, `allow_new`, and `deny_new` have been removed
-- The `game` field has been removed. You should instead reference the first element of the activites array
-- Channel Permission Overwrites are now numbers (0 and 1) instead of strings ("role" and "member")
+- API v8 is now available. v6 is still default the for the time being.
+- All permissions have been converted to strings-serialized numbers. As such, `permissions_new`, `allow_new`, and `deny_new` have been removed
+- The `game` field has been removed. If you need a direct replacement, you can instead reference the first element of `activities`
+- Channel Permission Overwrite `type`s are now numbers (0 and 1) instead of strings ("role" and "member")
 - `embed_enabled` and `embed_channel_id` have been renamed `widget_enabled` and `widget_channel_id`
 - Form body errors have been improved to include more helpful messaging on validation. [See more here](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/API)
-- `X-RateLimit-Precision header` is no longer respected. Rate limits are now default in seconds and reflect what the previous millisecond precision did
+- The `Retry-After` header is now based in seconds instead of milliseconds (e.g. `123` means 123 seconds)
+- The `X-RateLimit-Precision` header is no longer respected. `X-RateLimit-Reset` and `X-RateLimit-Reset-After` are always returned at millisecond precision (e.g. `123.456` instead of `124`)
 - Bots no longer receive [Channel Create Gateway Event](#DOCS_GATEWAY/channel-create) for DMs
 - `delete-message-days` is no longer available. Use `delete_message_days`.
 - Removed `roles`, `premium_since`, and `nick` from [Presence Update Gateway Event](#DOCS_GATEWAY/presence-update)
 - The follow routes have been deprecated and removed for better naming conventions:
 
 Removed in favor of `/guilds/<guild_id>/widget`:
-  - `/guilds/<guild_id>/embed`
+
+- `/guilds/<guild_id>/embed`
 
 Removed in favor of `/guilds/<guild_id>/widget.json`:
-  - `/servers/<guild_id>/embed.json`
-  - `/servers/<guild_id>/widget.json`
-  - `/guilds/<guild_id>/embed.json`
+
+- `/servers/<guild_id>/embed.json`
+- `/servers/<guild_id>/widget.json`
+- `/guilds/<guild_id>/embed.json`
 
 Removed in favor if `/guilds/<guild_id>/widget.png`:
-  - `/guilds/<guild_id>/embed.png`
+
+- `/guilds/<guild_id>/embed.png`
 
 Removed in favor of `/channels/<channel_id>/messages/bulk-delete`
-  - `/channels/<channel_id>/messages/bulk_delete/`
 
+- `/channels/<channel_id>/messages/bulk_delete/`
 
 ## New Permission Fields
 
