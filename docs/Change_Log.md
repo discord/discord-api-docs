@@ -29,11 +29,11 @@ Removed in favor of `/guilds/<guild_id>/widget.json`:
 - `/servers/<guild_id>/widget.json`
 - `/guilds/<guild_id>/embed.json`
 
-Removed in favor if `/guilds/<guild_id>/widget.png`:
+Removed in favor of `/guilds/<guild_id>/widget.png`:
 
 - `/guilds/<guild_id>/embed.png`
 
-Removed in favor of `/channels/<channel_id>/messages/bulk-delete`
+Removed in favor of `/channels/<channel_id>/messages/bulk-delete`:
 
 - `/channels/<channel_id>/messages/bulk_delete/`
 
