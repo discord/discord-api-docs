@@ -680,7 +680,7 @@ The inner `d` key is a boolean that indicates whether the session may be resumab
 
 #### Channel Create
 
-Sent when a new channel is created, relevant to the current user. The inner payload is a [channel](#DOCS_RESOURCES_CHANNEL/channel-object) object. Does not fire for DMs.
+Sent when a new guild channel is created, relevant to the current user. The inner payload is a [channel](#DOCS_RESOURCES_CHANNEL/channel-object) object.
 
 #### Channel Update
 
