@@ -17,13 +17,14 @@ Discord exposes different versions of our API. You can specify which version to 
 
 ###### API Versions
 
-| Version | Status       | Default |
-|---------|--------------|---------|
-| 8       | Available    |         |
-| 6       | Deprecated   | ✓       |
-| 5       | Discontinued |         |
-| 4       | Discontinued |         |
-| 3       | Discontinued |         |
+| Version | Status                           | Default |
+|---------|----------------------------------|---------|
+| 8       | Available                        |         |
+| 7       | Doesn't look like anything to me |         |
+| 6       | Deprecated                       | ✓       |
+| 5       | Discontinued                     |         |
+| 4       | Discontinued                     |         |
+| 3       | Discontinued                     |         |
 
 ## Error Messages
 
