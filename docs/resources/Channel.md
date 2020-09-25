@@ -392,8 +392,8 @@ Receiving:
 |-------|-----------|-------------------------------|
 | id    | snowflake | role or user id               |
 | type  | int       | either 0 (role) or 1 (member) |
-| allow | string    | permission bit set     |
-| deny  | string    | permission bit set     |
+| allow | string    | permission bit set            |
+| deny  | string    | permission bit set            |
 
 Sending:
 
@@ -868,7 +868,7 @@ Edit the channel permission overwrites for a user or role in a channel. Only usa
 |-------|--------|-------------------------------------------------|
 | allow | string | the bitwise value of all allowed permissions    |
 | deny  | string | the bitwise value of all disallowed permissions |
-| type  | string | "member" for a user or "role" for a role        |
+| type  | int    | 0 for "role" or 1 for "member"                  |
 
 ## Get Channel Invites % GET /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/invites
 
