@@ -10,7 +10,7 @@ Many of these libraries are represented in the [unofficial, community-driven Dis
 
 ###### Discord Libraries
 
-| Name                                                         | Language   | Discord Server                                |
+| Name                                                         | Language   | Support Server                                |
 | ------------------------------------------------------------ | ---------- | --------------------------------------------- | 
 | [discljord](https://github.com/igjoshua/discljord)           | Clojure    | [Invite](https://discord.gg/284PgKZ)          |
 | [aegis.cpp](https://github.com/zeroxs/aegis.cpp)             | C++        |                                               |
