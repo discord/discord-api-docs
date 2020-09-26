@@ -78,7 +78,7 @@ If we need to see some changes, you'll receive an email directing you on your st
 
 Now that you've been approved, there's a couple new toggles to flip in the Developer Portal: `Available`, and `Store Page Published`.
 
-![](available-published.png)
+![Screenshot of the SKU information page with the "available" and "store page published" switches highlighted](available-published.png)
 
 `Available` means that your game is now available for normal purchase/distribution; your non-beta store channel will no longer say `Coming soon!` when this is toggled, and users will be able to get your game.
 
