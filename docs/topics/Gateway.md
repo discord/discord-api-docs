@@ -332,7 +332,7 @@ To enable sharding on a connection, the user should send the `shard` array in th
 ###### Sharding Formula
 
 ```python
-(guild_id >> 22) % num_shards == shard_id
+shard_id = (guild_id >> 22) % num_shards
 ```
 
 As an example, if you wanted to split the connection between three shards, you'd use the following values for `shard` for each connection: `[0, 3]`, `[1, 3]`, and `[2, 3]`. Note that only the first shard (`[0, 3]`) would receive DMs.

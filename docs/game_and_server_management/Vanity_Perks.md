@@ -15,7 +15,7 @@ We like to continually improve and polish the features we release and have decid
 
 The first iteration of the banner background had the title at the bottom of the image. In the newest version of the design, we’ve moved the name of the server back to the top. In order to help with this change, we had the design team put together some guidelines for best results.
 
-![](previous-new-server-background.png)
+![Difference between the old server background format and the new one. The title has been repositioned at the top of the banner](previous-new-server-background.png)
 
 #### Best Practices
 
@@ -23,10 +23,10 @@ _Upload an image that's at least 960x540 pixels in a 16:9 aspect ratio._ Have a 
 
 _Keep the top 48px of the image fairly simple and free of any busy imagery._ We'd suggest uploading an image without a logo or text in it. This way, the title of your server will be easy to read.
 
-![](server-banner-margin-top.png)
+![Visual representation of a 48px top margin on a server banner to keep free](server-banner-margin-top.png)
 
 _Use an image that represents your game or brand._ Key art, stills of a character, or subtle background art work well here. Here's a great example from our good friend Master Chief:
 
-![](server-banner-example.png)
+![Example of a server banner](server-banner-example.png)
 
 You did it! Lookin' good there.
