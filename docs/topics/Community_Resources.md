@@ -27,10 +27,10 @@ Many of these libraries are represented in the [unofficial, community-driven Dis
 | [discord.js](https://github.com/discordjs/discord.js)        | JavaScript | [Invite](https://discord.gg/bRCvFy9)          |
 | [Eris](https://github.com/abalabahaha/eris)                  | JavaScript |                                               |
 | [Discord.jl](https://github.com/Xh4H/Discord.jl)             | Julia      |                                               |
-| [Discordia](https://github.com/SinisterRectus/Discordia)     | Lua        |                                               |
+| [Discordia](https://github.com/SinisterRectus/Discordia)     | Lua        | [Invite](https://discord.gg/EzRYYDW)          |
 | [discordnim](https://github.com/Krognol/discordnim)          | Nim        |                                               |
 | [RestCord](https://www.restcord.com/)                        | PHP        | [Invite](https://discord.gg/0duG4FF1ElFGUFVq) |
-| [discord.py](https://github.com/Rapptz/discord.py)           | Python     | [Invite](https://discord.gg/dpy)              |
+| [discord.py](https://github.com/Rapptz/discord.py)           | Python     | [Invite](https://discord.gg/r3sSKJJ)          |
 | [disco](https://github.com/b1naryth1ef/disco)                | Python     |                                               |
 | [discordrb](https://github.com/discordrb/discordrb)          | Ruby       |                                               |
 | [discord-rs](https://github.com/SpaceManiac/discord-rs)      | Rust       |                                               |
