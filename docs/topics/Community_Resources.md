@@ -20,7 +20,7 @@ Many of these libraries are represented in the [unofficial, community-driven Dis
 | [dscord](https://github.com/b1naryth1ef/dscord)              | D          |                                               |
 | [DiscordGo](https://github.com/bwmarrin/discordgo)           | Go         | [Invite](https://discord.gg/0f1SbxBZjYq9jLBk) |
 | [DisGord](https://github.com/andersfylling/disgord)          | Go         |                                               |
-| [catnip](https://github.com/mewna/catnip)                    | Java       |                                               |
+| [catnip](https://github.com/mewna/catnip)                    | Java       | [Invite](https://discord.gg/yeF2HpP)          |
 | [Discord4J](https://discord4j.com/)                          | Java       | [Invite](https://discord.gg/NxGAeCY)          |
 | [Javacord](https://github.com/Javacord/Javacord)             | Java       | [Invite](https://discord.gg/0qJ2jjyneLEgG7y3) |
 | [JDA](https://github.com/DV8FromTheWorld/JDA)                | Java       | [Invite](https://discord.gg/0hMr4ce0tIk3pSjp) |
