@@ -37,6 +37,10 @@ Removed in favor of `/channels/<channel_id>/messages/bulk-delete`:
 
 - `/channels/<channel_id>/messages/bulk_delete/`
 
+Removed in favor of `/invites/<code>/`:
+
+- `/invite/<code>/`
+
 ## New Permission Fields
 
 #### July 28, 2020

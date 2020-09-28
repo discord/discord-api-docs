@@ -94,7 +94,7 @@ Whenever an admin action is performed on the API, an entry is added to the respe
 | message_id         | snowflake | id of the message that was targeted                         | MESSAGE_PIN & MESSAGE_UNPIN                                                    |
 | count              | string    | number of entities that were targeted                       | MESSAGE_DELETE & MESSAGE_BULK_DELETE & MEMBER_DISCONNECT & MEMBER_MOVE         |
 | id                 | snowflake | id of the overwritten entity                                | CHANNEL_OVERWRITE_CREATE & CHANNEL_OVERWRITE_UPDATE & CHANNEL_OVERWRITE_DELETE |
-| type               | int       | type of overwritten entity - 0 for "role" or 1 for "member" | CHANNEL_OVERWRITE_CREATE & CHANNEL_OVERWRITE_UPDATE & CHANNEL_OVERWRITE_DELETE |
+| type               | string    | type of overwritten entity - "0" for "role" or "1" for "member" | CHANNEL_OVERWRITE_CREATE & CHANNEL_OVERWRITE_UPDATE & CHANNEL_OVERWRITE_DELETE |
 | role_name          | string    | name of the role if type is "role"                          | CHANNEL_OVERWRITE_CREATE & CHANNEL_OVERWRITE_UPDATE & CHANNEL_OVERWRITE_DELETE |
 
 ### Audit Log Change Object
