@@ -13,9 +13,9 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 | icon                          | ?string                                                                             | [icon hash](#DOCS_REFERENCE/image-formatting)                                                                                             |
 | splash                        | ?string                                                                             | [splash hash](#DOCS_REFERENCE/image-formatting)                                                                                           |
 | discovery_splash              | ?string                                                                             | [discovery splash hash](#DOCS_REFERENCE/image-formatting); only present for guilds with the "DISCOVERABLE" feature                        |
-| owner?                        | boolean                                                                             | true if [the user](#DOCS_RESOURCES_USER/get-current-user-guilds) is the owner of the guild                                                |
+| owner? \*\*                       | boolean                                                                             | true if [the user](#DOCS_RESOURCES_USER/get-current-user-guilds) is the owner of the guild                                                |
 | owner_id                      | snowflake                                                                           | id of owner                                                                                                                               |
-| permissions?                  | string                                                                             | total permissions for [the user](#DOCS_RESOURCES_USER/get-current-user-guilds) in the guild (excludes overrides)                   |
+| permissions? \*\*                 | string                                                                             | total permissions for [the user](#DOCS_RESOURCES_USER/get-current-user-guilds) in the guild (excludes overrides)                   |
 | region                        | string                                                                              | [voice region](#DOCS_RESOURCES_VOICE/voice-region-object) id for the guild                                                                |
 | afk_channel_id                | ?snowflake                                                                          | id of afk channel                                                                                                                         |
 | afk_timeout                   | integer                                                                             | afk timeout in seconds                                                                                                                    |
@@ -54,6 +54,8 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 | approximate_presence_count?   | integer                                                                             | approximate number of non-offline members in this guild, returned from the `GET /guild/<id>` endpoint when `with_counts` is `true`        |
 
 ** \* These fields are only sent within the [GUILD_CREATE](#DOCS_TOPICS_GATEWAY/guild-create) event **
+
+** \*\* These fields are only sent when using the [GET Current User Guilds](#DOCS_RESOURCES_USER/get-current-user-guilds) endpoint and are relative to the requested user **
 
 ###### Default Message Notification Level
 
