@@ -10,7 +10,7 @@ We've introduced API and Gateway v8! Changes are noted throughout the documentat
 - All permissions have been converted to strings-serialized numbers. As such, `permissions_new`, `allow_new`, and `deny_new` have been removed
 - The `game` field has been removed. If you need a direct replacement, you can instead reference the first element of `activities`
 - Channel Permission Overwrite `type`s are now numbers (0 and 1) instead of strings ("role" and "member")
-- `embed_enabled` and `embed_channel_id` have been renamed `widget_enabled` and `widget_channel_id`
+- `embed_enabled` and `embed_channel_id` have been removed. Use `widget_enabled` and `widget_channel_id` instead.
 - Form body errors have been improved to include more helpful messaging on validation. [See more here](#DOCS_REFERENCE/error-messages)
 - The `Retry-After` header is now based in seconds instead of milliseconds (e.g. `123` means 123 seconds)
 - The `X-RateLimit-Precision` header is no longer respected. `X-RateLimit-Reset` and `X-RateLimit-Reset-After` are always returned at millisecond precision (e.g. `123.456` instead of `124`)
