@@ -54,7 +54,7 @@ Note that the normal rate-limiting headers will be sent in this response. The ra
 < X-RateLimit-Limit: 10
 < X-RateLimit-Remaining: 0
 < X-RateLimit-Reset: 1470173023.123
-< X-RateLimit-Reset-After: 6.457
+< X-RateLimit-Reset-After: 64.57
 < X-RateLimit-Bucket: abcd1234
 {
   "message": "You are being rate limited.",
