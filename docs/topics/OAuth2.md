@@ -299,7 +299,6 @@ When receiving the access code on redirect, there will be additional querystring
     "widget_channel_id": null,
     "region": "us-east",
     "default_message_notifications": 1,
-    "embed_channel_id": null,
     "explicit_content_filter": 0,
     "splash": null,
     "features": [],
@@ -307,7 +306,7 @@ When receiving the access code on redirect, there will be additional querystring
     "widget_enabled": false,
     "verification_level": 0,
     "owner_id": "53908232999183680",
-    "embed_enabled": false,
+    "widget_enabled": false,
     "id": "2909267986347357250",
     "icon": null
   },
