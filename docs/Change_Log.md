@@ -9,7 +9,7 @@ We've introduced API and Gateway v8! Changes are noted throughout the documentat
 - API v8 is now available. v6 is still the default for the time being.
 - All permissions have been converted to strings-serialized numbers. As such, `permissions_new`, `allow_new`, and `deny_new` have been removed
 - The `game` field has been removed. If you need a direct replacement, you can instead reference the first element of `activities`
-- Channel Permission Overwrite `type`s are now strings "0" and "1" instead of "role" and "member"
+- Channel Permission Overwrite `type`s are now numbers (0 and 1) instead of strings ("role" and "member"). However due to a current technical constraint, they are string-serialized numbers in audit logs.
 - `embed_enabled` and `embed_channel_id` have been removed. Use `widget_enabled` and `widget_channel_id` instead.
 - Form body errors have been improved to include more helpful messaging on validation. [See more here](#DOCS_REFERENCE/error-messages)
 - The `Retry-After` header is now based in seconds instead of milliseconds (e.g. `123` means 123 seconds)
