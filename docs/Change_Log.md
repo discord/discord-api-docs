@@ -4,7 +4,9 @@
 
 #### September 24, 2020
 
-We've introduced API and Gateway v8! Changes are noted throughout the documentation, but the major changes are:
+We've introduced API and Gateway v8! Changes are noted throughout the documentation, and you can also read [this commit in our docs repo](https://github.com/discord/discord-api-docs/commit/545ff4a7883e5eee7ee91d19a5e5d760a0730033) for a full diff.
+
+The changes are:
 
 - API and Gateway v8 are now available. v6 is still the default for the time being.
 - All permissions have been converted to strings-serialized numbers. As such, `permissions_new`, `allow_new`, and `deny_new` have been removed
