@@ -299,7 +299,6 @@ When receiving the access code on redirect, there will be additional querystring
     "widget_channel_id": null,
     "region": "us-east",
     "default_message_notifications": 1,
-    "widget_channel_id": null,
     "explicit_content_filter": 0,
     "splash": null,
     "features": [],
