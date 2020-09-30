@@ -16,9 +16,9 @@ The changes are:
 - Form body errors have been improved to include more helpful messaging on validation. [See more here](#DOCS_REFERENCE/error-messages)
 - The `Retry-After` header is now based in seconds instead of milliseconds (e.g. `123` means 123 seconds)
 - The `X-RateLimit-Precision` header is no longer respected. `X-RateLimit-Reset` and `X-RateLimit-Reset-After` are always returned at millisecond precision (e.g. `123.456` instead of `124`)
-- Bots no longer receive [Channel Create Gateway Event](#DOCS_GATEWAY/channel-create) for DMs
+- Bots no longer receive [Channel Create Gateway Event](#DOCS_TOPICS_GATEWAY/channel-create) for DMs
 - `delete-message-days` is no longer available. Use `delete_message_days`.
-- Removed `roles`, `premium_since`, and `nick` from [Presence Update Gateway Event](#DOCS_GATEWAY/presence-update)
+- Removed `roles`, `premium_since`, and `nick` from [Presence Update Gateway Event](#DOCS_TOPICS_GATEWAY/presence-update)
 - The following deprecated routes have been removed for better naming conventions:
 
 Removed in favor of `/guilds/<guild_id>/widget`:
