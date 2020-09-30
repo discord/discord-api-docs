@@ -152,6 +152,7 @@ This is a minimal `IDENTIFY` payload. `IDENTIFY` supports additional optional fi
   "op": 2,
   "d": {
     "token": "my_token",
+    "intents": 513,
     "properties": {
       "$os": "linux",
       "$browser": "my_library",
@@ -194,7 +195,7 @@ If the gateway ever issues a disconnect to your client, it will provide a close 
 ## Gateway Intents
 
 > info
-> Intents are optionally supported on the v6 gateway. They will become mandatory in a future gateway version.
+> Intents are optionally supported on the v6 gateway but required as of v8
 
 Maintaining a stateful application can be difficult when it comes to the amount of data you're expected to process, especially at scale. Gateway Intents are a system to help you lower that computational burden.
 
@@ -426,7 +427,7 @@ Used to trigger the initial handshake with the gateway.
 | shard?               | array of two integers (shard_id, num_shards)               | used for [Guild Sharding](#DOCS_TOPICS_GATEWAY/sharding)                                                                       | -       |
 | presence?            | [update status](#DOCS_TOPICS_GATEWAY/update-status) object | presence structure for initial presence information                                                                            | -       |
 | guild_subscriptions? | boolean                                                    | enables dispatching of guild subscription events (presence and typing events)                                                  | true    |
-| intents?             | integer                                                    | the [Gateway Intents](#DOCS_TOPICS_GATEWAY/gateway-intents) you wish to receive                                                | -       |
+| intents              | integer                                                    | the [Gateway Intents](#DOCS_TOPICS_GATEWAY/gateway-intents) you wish to receive                                                | -       |
 
 ###### Identify Connection Properties
 
@@ -443,6 +444,7 @@ Used to trigger the initial handshake with the gateway.
   "op": 2,
   "d": {
     "token": "my_token",
+    "intents": 513,
     "properties": {
       "$os": "linux",
       "$browser": "disco",
