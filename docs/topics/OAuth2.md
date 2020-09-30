@@ -306,7 +306,6 @@ When receiving the access code on redirect, there will be additional querystring
     "widget_enabled": false,
     "verification_level": 0,
     "owner_id": "53908232999183680",
-    "widget_enabled": false,
     "id": "2909267986347357250",
     "icon": null
   },
