@@ -9,7 +9,7 @@ We've introduced API and Gateway v8! Changes are noted throughout the documentat
 The changes are:
 
 - API and Gateway v8 are now available. v6 is still the default for the time being.
-- [Gateway Intents](#DOCS_GATEWAY/gateway-intents) are now required
+- [Gateway Intents](#DOCS_TOPICS_GATEWAY/gateway-intents) are now required
 - All permissions have been converted to strings-serialized numbers. As such, `permissions_new`, `allow_new`, and `deny_new` have been removed
 - The `game` field has been removed. If you need a direct replacement, you can instead reference the first element of `activities`
 - Channel Permission Overwrite `type`s are now numbers (0 and 1) instead of strings ("role" and "member"). However due to a current technical constraint, they are string-serialized numbers in audit log `options`.
