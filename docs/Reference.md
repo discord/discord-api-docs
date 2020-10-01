@@ -127,7 +127,7 @@ Discord utilizes Twitter's [snowflake](https://github.com/twitter/snowflake/tree
 
 ### Convert Snowflake to DateTime
 
-![snowflake-composition](snowflake.png)
+![Graphical representation of how a Snowflake is constructed](snowflake.png)
 
 ### Snowflake IDs in Pagination
 
@@ -138,7 +138,7 @@ It is useful to note that snowflake IDs are just numbers with a timestamp, so wh
 ###### Generating a snowflake ID from a Timestamp Example
 
 ```
-timestamp_ms - DISCORD_EPOCH << 22
+(timestamp_ms - DISCORD_EPOCH) << 22
 ```
 
 ## ID Serialization
