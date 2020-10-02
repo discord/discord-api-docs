@@ -4,13 +4,13 @@ One of the new flagship features of Verified Servers and Game Servers are the ab
 
 In order to create a store channel for your game, you'll need to make sure you've followed [the Walkthrough](#DOCS_GAME_AND_SERVER_MANAGEMENT_HOW_TO_GET_YOUR_GAME_ON_DISCORD/) up to `Getting Approved`. If you've done that, you'll see in your server that you can create a new channel type: `Store`.
 
-![](create-store-channel.png)
+![Screenshot of the modal to create a new Store Channel](create-store-channel.png)
 
 Along with entering a name for your new channel, you'll be prompted to select an application. This should be the app you created when you started; it's the one linked to your server. After selecting your app, you'll be prompted to select a SKU. What's a SKU? A SKU is simply a thing that a user can buy. This is most likely your game (a SKU of type `Game`), but could also be `IAP`, `DLC`, or a `Bundle`.
 
 You can create SKUs to put up for sale by going to your app and selecting `SKU Management`.
 
-![](sku-management.png)
+![Screenshot of the SKU Management dashboard](sku-management.png)
 
 Once you select your SKU and create your channel...it's there! You now have a store channel in your server! If you want, you can set permissions on this channel like any channel in a server to restrict who can see it. Learn more about that by reading [Alpha and Beta Testing](#DOCS_GAME_AND_SERVER_MANAGEMENT_ALPHA_AND_BETA_TESTING/).
 
