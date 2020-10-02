@@ -903,18 +903,18 @@ Sent when an invite is deleted.
 
 #### Message Create
 
-Sent when a message is created. The inner payload is a [message](#DOCS_RESOURCES_CHANNEL/message-object) object.
+Sent when a message is created. The inner payload is a [message](#DOCS_RESOURCES_CHANNEL/message-object) object. If this message is a reply, it is guaranteed to have a `referenced_message` field.
 
 #### Message Update
 
-Sent when a message is updated. The inner payload is a [message](#DOCS_RESOURCES_CHANNEL/message-object) object.
+Sent when a message is updated. The inner payload is a [message](#DOCS_RESOURCES_CHANNEL/message-object) object. If this message is a reply, it is **not** guaranteed to have a `referenced_message` field.
 
 > warn
 > Unlike creates, message updates may contain only a subset of the full message object payload (but will always contain an id and channel_id).
 
 #### Message Delete
 
-Sent when a message is deleted.
+Sent when a message is deleted. If this message is a reply, it is **not** guaranteed to have a `referenced_message` field.
 
 ###### Message Delete Event Fields
 

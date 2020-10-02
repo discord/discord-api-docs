@@ -9,6 +9,7 @@ Inline Replies have been added to our documentation. They behave differently in 
 - Inline replies are type `19` in v8, but remain type `0` in v6
 - You can now add a `message_reference` on message create to create a reply
 - A new field `referenced_message` has been added to the [Message Object](#DOCS_RESOURCES_CHANNEL/message-object)
+- [Message Create](#DOCS_TOPICS_GATEWAY/message-create) gateway event is guaranteed to have a `referenced_message` if the message created is a reply. Otherwise, that field is not guaranteed.
 
 ## API and Gateway V8
 
