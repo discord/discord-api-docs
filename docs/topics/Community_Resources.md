@@ -39,7 +39,6 @@ Many of these libraries are represented in the [unofficial, community-driven Dis
 | [Sword](https://github.com/Azoy/Sword)                       | Swift      |                                               |
 | [Discordeno](https://github.com/Skillz4Killz/Discordeno)     | TypeScript | [Invite](https://discord.gg/J4NqJ72)          |
 
-
 ## Game SDK Tools
 
 Discord Game SDK's lobby and networking layer shares similarities with other gaming platforms (i.e. Valve's Steamworks SDK). The following open source library provides developers a uniform interface for these shared features and can simplify developing for multiple platforms. Note: this library is tailored for Unity3D development.
