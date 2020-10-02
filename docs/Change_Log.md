@@ -1,5 +1,15 @@
 # Change Log
 
+## Inline Replies
+
+## October 1, 2020
+
+Inline Replies have been added to our documentation. They behave differently in v6 and v8, so be cautious in your implementation:
+
+- Inline replies are type `19` in v8, but remain type `0` in v6
+- You can now add a `message_reference` on message create to create a reply
+- A new field `referenced_message` has been added to the [Message Object](#DOCS_RESOURCES_CHANNEL/message-object)
+
 ## API and Gateway V8
 
 #### September 24, 2020
