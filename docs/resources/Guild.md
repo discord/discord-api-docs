@@ -13,14 +13,14 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 | icon                          | ?string                                                                             | [icon hash](#DOCS_REFERENCE/image-formatting)                                                                                             |
 | splash                        | ?string                                                                             | [splash hash](#DOCS_REFERENCE/image-formatting)                                                                                           |
 | discovery_splash              | ?string                                                                             | [discovery splash hash](#DOCS_REFERENCE/image-formatting); only present for guilds with the "DISCOVERABLE" feature                        |
-| owner?                        | boolean                                                                             | true if [the user](#DOCS_RESOURCES_USER/get-current-user-guilds) is the owner of the guild                                                |
+| owner? \*\*                       | boolean                                                                             | true if [the user](#DOCS_RESOURCES_USER/get-current-user-guilds) is the owner of the guild                                                |
 | owner_id                      | snowflake                                                                           | id of owner                                                                                                                               |
-| permissions?                  | integer                                                                             | total permissions for [the user](#DOCS_RESOURCES_USER/get-current-user-guilds) in the guild (excludes overrides)                          |
+| permissions? \*\*                 | string                                                                             | total permissions for [the user](#DOCS_RESOURCES_USER/get-current-user-guilds) in the guild (excludes overrides)                   |
 | region                        | string                                                                              | [voice region](#DOCS_RESOURCES_VOICE/voice-region-object) id for the guild                                                                |
 | afk_channel_id                | ?snowflake                                                                          | id of afk channel                                                                                                                         |
 | afk_timeout                   | integer                                                                             | afk timeout in seconds                                                                                                                    |
-| embed_enabled?                | boolean                                                                             | true if the server widget is enabled (deprecated, replaced with `widget_enabled`)                                                         |
-| embed_channel_id?             | ?snowflake                                                                          | the channel id that the widget will generate an invite to, or `null` if set to no invite (deprecated, replaced with `widget_channel_id`)  |
+| widget_enabled?               | boolean                                                                             | true if the server widget is enabled                                                                                                      |
+| widget_channel_id?            | ?snowflake                                                                          | the channel id that the widget will generate an invite to, or `null` if set to no invite                                                  |
 | verification_level            | integer                                                                             | [verification level](#DOCS_RESOURCES_GUILD/guild-object-verification-level) required for the guild                                        |
 | default_message_notifications | integer                                                                             | default [message notifications level](#DOCS_RESOURCES_GUILD/guild-object-default-message-notification-level)                              |
 | explicit_content_filter       | integer                                                                             | [explicit content filter level](#DOCS_RESOURCES_GUILD/guild-object-explicit-content-filter-level)                                         |
@@ -29,8 +29,6 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 | features                      | array of [guild feature](#DOCS_RESOURCES_GUILD/guild-object-guild-features) strings | enabled guild features                                                                                                                    |
 | mfa_level                     | integer                                                                             | required [MFA level](#DOCS_RESOURCES_GUILD/guild-object-mfa-level) for the guild                                                          |
 | application_id                | ?snowflake                                                                          | application id of the guild creator if it is bot-created                                                                                  |
-| widget_enabled?               | boolean                                                                             | true if the server widget is enabled                                                                                                      |
-| widget_channel_id?            | ?snowflake                                                                          | the channel id that the widget will generate an invite to, or `null` if set to no invite                                                  |
 | system_channel_id             | ?snowflake                                                                          | the id of the channel where guild notices such as welcome messages and boost events are posted                                            |
 | system_channel_flags          | integer                                                                             | [system channel flags](#DOCS_RESOURCES_GUILD/guild-object-system-channel-flags)                                                           |
 | rules_channel_id              | ?snowflake                                                                          | the id of the channel where guilds with the "PUBLIC" feature can display rules and/or guidelines                                          |
@@ -56,6 +54,8 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 | approximate_presence_count?   | integer                                                                             | approximate number of non-offline members in this guild, returned from the `GET /guild/<id>` endpoint when `with_counts` is `true`        |
 
 ** \* These fields are only sent within the [GUILD_CREATE](#DOCS_TOPICS_GATEWAY/guild-create) event **
+
+** \*\* These fields are only sent when using the [GET Current User Guilds](#DOCS_RESOURCES_USER/get-current-user-guilds) endpoint and are relative to the requested user **
 
 ###### Default Message Notification Level
 
@@ -168,9 +168,7 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
   "system_channel_flags": 0,
   "preferred_locale": "en-US",
   "rules_channel_id": "441688182833020939",
-  "public_updates_channel_id": "281283303326089216",
-  "embed_enabled": true,
-  "embed_channel_id": null
+  "public_updates_channel_id": "281283303326089216"
 }
 ```
 
@@ -342,21 +340,10 @@ A partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object. Represents an Offl
 Create a new guild. Returns a [guild](#DOCS_RESOURCES_GUILD/guild-object) object on success. Fires a [Guild Create](#DOCS_TOPICS_GATEWAY/guild-create) Gateway event.
 
 > warn
-> This endpoint can be used only by bots in less than 10 guilds. Assigning a channel to a channel category is not supported by this endpoint, i.e. a channel can't have the `parent_id` field.
+> This endpoint can be used only by bots in less than 10 guilds.
 
 ###### JSON Params
 
-| Field                         | Type                                                                       | Description                                                                                                 |
-| ----------------------------- | -------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- |
-| name                          | string                                                                     | name of the guild (2-100 characters)                                                                        |
-| region                        | string                                                                     | [voice region](#DOCS_RESOURCES_VOICE/voice-region-object) id                                                |
-| icon                          | [image data](#DOCS_REFERENCE/image-data)                                   | base64 128x128 image for the guild icon                                                                     |
-| verification_level            | integer                                                                    | [verification level](#DOCS_RESOURCES_GUILD/guild-object-verification-level)                                 |
-| default_message_notifications | integer                                                                    | default [message notification level](#DOCS_RESOURCES_GUILD/guild-object-default-message-notification-level) |
-| explicit_content_filter       | integer                                                                    | [explicit content filter level](#DOCS_RESOURCES_GUILD/guild-object-explicit-content-filter-level)           |
-| roles                         | array of [role](#DOCS_TOPICS_PERMISSIONS/role-object) objects              | new guild roles                                                                                             |
-| channels                      | array of partial [channel](#DOCS_RESOURCES_CHANNEL/channel-object) objects | new guild's channels                                                                                        |
-=======
 | Field                          | Type                                                                       | Description                                                                                                 |
 | ------------------------------ | -------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- |
 | name                           | string                                                                     | name of the guild (2-100 characters)                                                                        |
@@ -456,7 +443,7 @@ Returns the [guild](#DOCS_RESOURCES_GUILD/guild-object) object for the given id.
     {
       "id": "2909267986263572999",
       "name": "@everyone",
-      "permissions": 49794752,
+      "permissions": "49794752",
       "position": 0,
       "color": 0,
       "hoist": false,
@@ -476,9 +463,7 @@ Returns the [guild](#DOCS_RESOURCES_GUILD/guild-object) object for the given id.
   "system_channel_flags": 0,
   "preferred_locale": "en-US",
   "rules_channel_id": null,
-  "public_updates_channel_id": null,
-  "embed_enabled": true,
-  "embed_channel_id": "639513352485470999"
+  "public_updates_channel_id": null
 }
 ```
 
@@ -654,11 +639,11 @@ Returns a [ban](#DOCS_RESOURCES_GUILD/ban-object) object for the given user or a
 
 Create a guild ban, and optionally delete previous messages sent by the banned user. Requires the `BAN_MEMBERS` permission. Returns a 204 empty response on success. Fires a [Guild Ban Add](#DOCS_TOPICS_GATEWAY/guild-ban-add) Gateway event.
 
-###### Query String Params
+###### JSON Params
 
 | Field                | Type    | Description                                 |
 | -------------------- | ------- | ------------------------------------------- |
-| delete-message-days? | integer | number of days to delete messages for (0-7) |
+| delete_message_days? | integer | number of days to delete messages for (0-7) |
 | reason?              | string  | reason for the ban                          |
 
 ## Remove Guild Ban % DELETE /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/bans/{user.id#DOCS_RESOURCES_USER/user-object}
@@ -675,13 +660,13 @@ Create a new [role](#DOCS_TOPICS_PERMISSIONS/role-object) for the guild. Require
 
 ###### JSON Params
 
-| Field       | Type    | Description                                                    | Default                        |
-| ----------- | ------- | -------------------------------------------------------------- | ------------------------------ |
-| name        | string  | name of the role                                               | "new role"                     |
-| permissions | integer | bitwise value of the enabled/disabled permissions              | @everyone permissions in guild |
-| color       | integer | RGB color value                                                | 0                              |
-| hoist       | boolean | whether the role should be displayed separately in the sidebar | false                          |
-| mentionable | boolean | whether the role should be mentionable                         | false                          |
+| Field       | Type              | Description                                                    | Default                        |
+| ----------- | ----------------- | -------------------------------------------------------------- | ------------------------------ |
+| name        | string            | name of the role                                               | "new role"                     |
+| permissions | string            | bitwise value of the enabled/disabled permissions              | @everyone permissions in guild |
+| color       | integer           | RGB color value                                                | 0                              |
+| hoist       | boolean           | whether the role should be displayed separately in the sidebar | false                          |
+| mentionable | boolean           | whether the role should be mentionable                         | false                          |
 
 ## Modify Guild Role Positions % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/roles
 
@@ -705,13 +690,13 @@ Modify a guild role. Requires the `MANAGE_ROLES` permission. Returns the updated
 
 ###### JSON Params
 
-| Field       | Type    | Description                                                    |
-| ----------- | ------- | -------------------------------------------------------------- |
-| name        | string  | name of the role                                               |
-| permissions | integer | bitwise value of the enabled/disabled permissions              |
-| color       | integer | RGB color value                                                |
-| hoist       | boolean | whether the role should be displayed separately in the sidebar |
-| mentionable | boolean | whether the role should be mentionable                         |
+| Field       | Type              | Description                                                    |
+| ----------- | ----------------- | -------------------------------------------------------------- |
+| name        | string            | name of the role                                               |
+| permissions | string            | bitwise value of the enabled/disabled permissions              |
+| color       | integer           | RGB color value                                                |
+| hoist       | boolean           | whether the role should be displayed separately in the sidebar |
+| mentionable | boolean           | whether the role should be mentionable                         |
 
 ## Delete Guild Role % DELETE /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/roles/{role.id#DOCS_TOPICS_PERMISSIONS/role-object}
 
@@ -725,10 +710,10 @@ By default, prune will not remove users with roles. You can optionally include s
 
 ###### Query String Params
 
-| Field         | Type                | Description                                   | Default |
-| ------------- | ------------------- | --------------------------------------------- | ------- |
-| days          | integer             | number of days to count prune for (1 or more) | 7       |
-| include_roles | array of snowflakes | role(s) to include                            | none    | 
+| Field         | Type                                        | Description                                   | Default |
+| ------------- | ------------------------------------------- | --------------------------------------------- | ------- |
+| days          | integer                                     | number of days to count prune for (1 or more) | 7       |
+| include_roles | string; comma-delimited array of snowflakes | role(s) to include                            | none    | 
 
 ## Begin Guild Prune % POST /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/prune
 
@@ -736,7 +721,7 @@ Begin a prune operation. Requires the `KICK_MEMBERS` permission. Returns an obje
 
 By default, prune will not remove users with roles. You can optionally include specific roles in your prune by providing the `include_roles` parameter. Any inactive user that has a subset of the provided role(s) will be included in the prune and users with additional roles will not.
 
-###### Query String Params
+###### JSON Params
 
 | Field               | Type                | Description                                                | Default |
 | ------------------- | ------------------- | ---------------------------------------------------------- | ------- |
@@ -790,21 +775,50 @@ Delete the attached [integration](#DOCS_RESOURCES_GUILD/integration-object) obje
 
 Sync an integration. Requires the `MANAGE_GUILD` permission. Returns a 204 empty response on success.
 
-## Get Guild Widget % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/widget
+## Get Guild Widget Settings % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/widget
 
-Returns the [guild widget](#DOCS_RESOURCES_GUILD/guild-widget-object) object. Requires the `MANAGE_GUILD` permission.
-
-## Get Guild Embed % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/embed
-
-Same as above, but this endpoint is deprecated.
+Returns a [guild widget](#DOCS_RESOURCES_GUILD/guild-widget-object) object. Requires the `MANAGE_GUILD` permission.
 
 ## Modify Guild Widget % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/widget
 
 Modify a [guild widget](#DOCS_RESOURCES_GUILD/guild-widget-object) object for the guild. All attributes may be passed in with JSON and modified. Requires the `MANAGE_GUILD` permission. Returns the updated [guild widget](#DOCS_RESOURCES_GUILD/guild-widget-object) object.
 
-## Modify Guild Embed % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/embed
+## Get Guild Widget % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/widget.json
 
-Same as above, but this endpoint is deprecated.
+Returns the widget for the guild.
+
+###### Example Get Guild Widget
+
+```json
+{
+    "id": "290926798626999250",
+    "name": "Test Server",
+    "instant_invite": "https://discord.com/invite/abcdefg",
+    "channels": [
+        {
+            "id": "705216630279993882",
+            "name": "elephant",
+            "position": 2
+        },
+        {
+            "id": "669583461748992190",
+            "name": "groovy-music",
+            "position": 1
+        }
+    ],
+    "members": [
+        {
+            "id": "0",
+            "username": "1234",
+            "discriminator": "0000",
+            "avatar": null,
+            "status": "online",
+            "avatar_url": "https://cdn.discordapp.com/widget-avatars/FfvURgcr3Za92K3JtoCppqnYMppMDc5B-Rll74YrGCU/C-1DyBZPQ6t5q2RuATFuMFgq0_uEMZVzd_6LbGN_uJKvZflobA9diAlTjhf6CAESLLeTuu4dLuHFWOb_PNLteooNfhC4C6k5QgAGuxEOP12tVVVCvX6t64k14PMXZrGTDq8pWZhukP40Wg"
+        }
+    ],
+    "presence_count": 1
+}
+```
 
 ## Get Guild Vanity URL % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/vanity-url
 
@@ -822,7 +836,6 @@ Returns a partial [invite](#DOCS_RESOURCES_INVITE/invite-object) object for guil
 ## Get Guild Widget Image % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/widget.png
 
 Returns a PNG image widget for the guild. Requires no permissions or authentication.
-The same documentation also applies to `embed.png`.
 
 > info
 > All parameters to this endpoint are optional.

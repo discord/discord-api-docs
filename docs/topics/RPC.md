@@ -100,7 +100,7 @@ curl -H 'Authorization: Bearer CZhtkLDpNYXgPH9Ml6shqh2OwykChw' http://127.0.0.1:
 
 [{
     "owner": true,
-    "permissions": 2146958399,
+    "permissions": "2146958399",
     "icon": "2d68b25aa5d1eead693432a5f0077dff",
     "id": "199737254929760256",
     "name": "test"

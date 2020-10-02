@@ -41,7 +41,7 @@ These are a list of all the OAuth2 scopes that Discord supports. Scopes that are
 | applications.entitlements  | allows your app to read entitlements for a user's applications                                                                                        |
 | relationships.read         | allows your app to know a user's friends and implicit relationships - whitelist only                                                                  |
 | activities.read            | allows your app to fetch data from a user's "Now Playing/Recently Played" list - whitelist only                                                       |
-| activities.write           | allows your app to update a user's activity - whitelist only (NOT REQUIRED FOR [GAMESDK ACTIVITIY MANAGER](#DOCS_GAME_SDK_ACTIVITIES/))                 |
+| activities.write           | allows your app to update a user's activity - whitelist only (NOT REQUIRED FOR [GAMESDK ACTIVITY MANAGER](#DOCS_GAME_SDK_ACTIVITIES/))                 |
 
 > info
 > `guilds.join` and `bot` require you to have a bot account linked to your application. Also, in order to add a user to a guild, your bot has to already belong to that guild.
@@ -290,7 +290,8 @@ When receiving the access code on redirect, there will be additional querystring
         "position": 0,
         "id": "290926798626357250",
         "managed": false,
-        "permissions": 49794241
+        "permissions": 49794241,
+        "permissions_new": "49794241"
       }
     ],
     "afk_timeout": 300,
@@ -298,7 +299,6 @@ When receiving the access code on redirect, there will be additional querystring
     "widget_channel_id": null,
     "region": "us-east",
     "default_message_notifications": 1,
-    "embed_channel_id": null,
     "explicit_content_filter": 0,
     "splash": null,
     "features": [],
@@ -306,7 +306,6 @@ When receiving the access code on redirect, there will be additional querystring
     "widget_enabled": false,
     "verification_level": 0,
     "owner_id": "53908232999183680",
-    "embed_enabled": false,
     "id": "2909267986347357250",
     "icon": null
   },
