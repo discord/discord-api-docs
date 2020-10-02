@@ -1,0 +1,17 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Developer Documentation
+    url: https://discord.com/developers/docs
+    about: Need documentation and examples for the API? Head over to Discord's developer documentation.
+  - name: Discord Developers Server
+    url: https://discord.gg/discord-developers
+    about: Need help with the API? Talk to us in Discord's developers server.
+  - name: Discord Feedback & Feature Requests
+    url: https://feedback.discord.com
+    about: Have feedback that isn't related to the API? Head over to Discord's feedback website.
+  - name: Discord Bug Reports
+    url: https://discord.gg/discord-testers
+    about: Have bugs that aren't related to the API? Head over to the Discord Testers server.
+  - name: Discord Support
+    url: https://dis.gd/contact
+    about: Need something else? Submit a ticket to Discord's support team.

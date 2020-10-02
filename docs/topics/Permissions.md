@@ -4,7 +4,9 @@ Permissions in Discord are a way to limit and grant certain abilities to users. 
 
 Permissions are stored within a variable-length integer serialized into a string, and are calculated using bitwise operations. For example, the permission value `123` will be serialized as `"123"`. For long-term stability, we recommend deserializing the permissions using your languages' Big Integer libraries. The total permissions integer can be determined by ORing together each individual value, and flags can be checked using AND operations.
 
-For compatibility with existing API v6 clients, the `permissions`, `allow`, and `deny` fields in roles and overwrites are still serialized as a number; however, these numbers shall not grow beyond 31 bits. During the remaining lifetime of API v6, all new permission bits will only be introduced in `permissions_new`, `allow_new`, and `deny_new`. These `_new` fields are just for response serialization; requests with these fields should continue to use the original `permissions`, `allow`, and `deny` fields, which accept both string or number values.
+In API v8, all permissions—including `allow` and `deny` fields in overwrites—are serialized as strings. There are also no longer `_new` permission fields; all new permissions are rolled back into the base field.
+
+In API v6, the `permissions`, `allow`, and `deny` fields in roles and overwrites are still serialized as a number; however, these numbers shall not grow beyond 31 bits. During the remaining lifetime of API v6, all new permission bits will only be introduced in `permissions_new`, `allow_new`, and `deny_new`. These `_new` fields are just for response serialization; requests with these fields should continue to use the original `permissions`, `allow`, and `deny` fields, which accept both string or number values.
 
 ```python
 # Permissions value that can Send Messages (0x800) and Add Reactions (0x40):
@@ -168,8 +170,7 @@ Roles represent a set of permissions attached to a group of users. Roles have un
 | color           | integer   | integer representation of hexadecimal color code |
 | hoist           | boolean   | if this role is pinned in the user listing       |
 | position        | integer   | position of this role                            |
-| permissions     | integer   | legacy permission bit set                        |
-| permissions_new | string    | permission bit set                               |
+| permissions     | string    | permission bit set                               |
 | managed         | boolean   | whether this role is managed by an integration   |
 | mentionable     | boolean   | whether this role is mentionable                 |
 
@@ -184,8 +185,7 @@ Roles without colors (`color == 0`) do not count towards the final computed colo
   "color": 3447003,
   "hoist": true,
   "position": 1,
-  "permissions": 66321471,
-  "permissions_new": "66321471",
+  "permissions": "66321471",
   "managed": false,
   "mentionable": false
 }
