@@ -23,7 +23,7 @@ Now you know, and knowing is half the battle.
 
 I know you're already convinced, so let's begin. First, get the SDK. Here it is:
 
-- [Discord Game SDK](https://dl-game-sdk.discordapp.net/latest/discord_game_sdk.zip)
+- [Discord Game SDK](https://dl-game-sdk.discordapp.net/2.5.6/discord_game_sdk.zip)
 
 There's a few things in there, but let's quickly talk about what the SDK actually _is_. Inside the `lib/` folder, you'll see `x86/` and `x86_64/` that have some `.lib`, `.bundle`, and `.dll` files. These are the things you want to distribute with your game.
 
