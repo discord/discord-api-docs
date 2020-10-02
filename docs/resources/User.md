@@ -59,7 +59,7 @@ There are other rules and restrictions not shared here for the sake of spam and 
 ###### User Flags
 
 | Value   | Description            |
-| ------- | ------------------     |
+| ------- | ---------------------- |
 | 0       | None                   |
 | 1 << 0  | Discord Employee       |
 | 1 << 1  | Discord Partner        |
@@ -144,7 +144,7 @@ Returns a list of partial [guild](#DOCS_RESOURCES_GUILD/guild-object) objects th
   "name": "1337 Krew",
   "icon": "8342729096ea3675442027381ff50dfe",
   "owner": true,
-  "permissions": 36953089
+  "permissions": "36953089",
 }
 ```
 
@@ -170,6 +170,9 @@ Returns a list of [DM channel](#DOCS_RESOURCES_CHANNEL/channel-object) objects. 
 ## Create DM % POST /users/@me/channels
 
 Create a new DM channel with a user. Returns a [DM channel](#DOCS_RESOURCES_CHANNEL/channel-object) object.
+
+> warn
+> You should not use this endpoint to DM everyone in a server about something. DMs should generally be initiated by a user action. If you open a significant amount of DMs too quickly, your bot may be rate limited or blocked from opening new ones.
 
 ###### JSON Params
 
