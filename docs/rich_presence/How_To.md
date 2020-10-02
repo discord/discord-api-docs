@@ -153,7 +153,7 @@ typedef struct DiscordRichPresence {
 
 Here's a handy image to see how these fields are actually displayed on a profile:
 
-![Graphical representation of the legend for rich presence details](rp-legend.png)
+![Graphical representation of the legend for rich presence details](../../images/rp-legend.png)
 
 | location                               | field name             | notes                                                                       |
 | -------------------------------------- | ---------------------- | --------------------------------------------------------------------------- |
