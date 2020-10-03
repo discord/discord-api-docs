@@ -7,10 +7,10 @@ Represents a code that when used, creates a guild based on a snapshot of an exis
 ###### Template Structure
 
 | Field                   | Type                                                             | Description                                            |
-| ----------------------- | ---------------------------------------------------------------- | ------------------------------------------------------ |
+|-------------------------|------------------------------------------------------------------|--------------------------------------------------------|
 | code                    | string                                                           | the template code (unique ID)                          |
 | name                    | string                                                           | template name                                          |
-| description             | string                                                           | the description for the template                       |
+| description             | ?string                                                          | the description for the template                       |
 | usage_count             | integer                                                          | number of times this template has been used            |
 | creator_id              | snowflake                                                        | the ID of the user who created the template            |
 | creator                 | [user](#DOCS_RESOURCES_USER/user-object) object                  | the user who created the template                      |
@@ -109,6 +109,6 @@ Create a new guild based on a template. Returns a [guild](#DOCS_RESOURCES_GUILD/
 ###### JSON Params
 
 | Field | Type                                     | Description                             |
-| ----- | ---------------------------------------- | --------------------------------------- |
+|-------|------------------------------------------|-----------------------------------------|
 | name  | string                                   | name of the guild (2-100 characters)    |
 | icon? | [image data](#DOCS_REFERENCE/image-data) | base64 128x128 image for the guild icon |
