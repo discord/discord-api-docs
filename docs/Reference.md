@@ -20,7 +20,7 @@ Discord exposes different versions of our API. You can specify which version to 
 | Version | Status                           | Default |
 |---------|----------------------------------|---------|
 | 8       | Available                        |         |
-| 7       | Doesn't look like anything to me |         |
+| 7       | Skipped                          |         |
 | 6       | Deprecated                       | ✓       |
 | 5       | Discontinued                     |         |
 | 4       | Discontinued                     |         |
