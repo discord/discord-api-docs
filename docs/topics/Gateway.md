@@ -8,13 +8,13 @@ Important note: Not all event fields are documented, in particular, fields prefi
 
 ###### Gateway Versions
 
-| Version | Status                           |
-|---------|----------------------------------|
-| 8       | Available                        |
-| 7       | Doesn't look like anything to me |
-| 6       | Deprecated                       |
-| 5       | Discontinued                     |
-| 4       | Discontinued                     |
+| Version | Status       |
+|---------|--------------|
+| 8       | Available    |
+| 7       | Skipped      |
+| 6       | Deprecated   |
+| 5       | Discontinued |
+| 4       | Discontinued |
 
 ## Payloads
 
