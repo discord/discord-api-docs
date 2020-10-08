@@ -86,8 +86,8 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 | NONE      | 0       | unrestricted                                                               |
 | LOW       | 1       | must have verified email on account                                        |
 | MEDIUM    | 2       | must be registered on Discord for longer than 5 minutes                    |
-| HIGH      | 3       | (╯°□°）╯︵ ┻━┻ - must be a member of the server for longer than 10 minutes |
-| VERY_HIGH | 4       | ┻━┻ ミヽ(ಠ 益 ಠ)ﾉ彡 ┻━┻ - must have a verified phone number                |
+| HIGH      | 3       | must be a member of the server for longer than 10 minutes |
+| VERY_HIGH | 4       | must have a verified phone number                |
 
 ###### Premium Tier
 
