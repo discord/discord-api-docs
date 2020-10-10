@@ -6,20 +6,19 @@ Represents a code that when used, creates a guild based on a snapshot of an exis
 
 ###### Template Structure
 
-| Field                   | Type                                                             | Description                                            |
-|-------------------------|------------------------------------------------------------------|--------------------------------------------------------|
-| code                    | string                                                           | the template code (unique ID)                          |
-| name                    | string                                                           | template name                                          |
-| description             | ?string                                                          | the description for the template                       |
-| usage_count             | integer                                                          | number of times this template has been used            |
-| creator_id              | snowflake                                                        | the ID of the user who created the template            |
-| creator                 | [user](#DOCS_RESOURCES_USER/user-object) object                  | the user who created the template                      |
-| created_at              | ISO8601 timestamp                                                | when this template was created                         |
-| updated_at              | ISO8601 timestamp                                                | when this template was last synced to the source guild |
-| source_guild_id         | snowflake                                                        | the ID of the guild this template is based on          |
-| serialized_source_guild | partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object       | the guild snapshot this template contains              |
-| is_dirty                | ?boolean                                                         | whether the template has unsynced changes              |
-
+| Field                   | Type                                                       | Description                                            |
+|-------------------------|------------------------------------------------------------|--------------------------------------------------------|
+| code                    | string                                                     | the template code (unique ID)                          |
+| name                    | string                                                     | template name                                          |
+| description             | ?string                                                    | the description for the template                       |
+| usage_count             | integer                                                    | number of times this template has been used            |
+| creator_id              | snowflake                                                  | the ID of the user who created the template            |
+| creator                 | [user](#DOCS_RESOURCES_USER/user-object) object            | the user who created the template                      |
+| created_at              | ISO8601 timestamp                                          | when this template was created                         |
+| updated_at              | ISO8601 timestamp                                          | when this template was last synced to the source guild |
+| source_guild_id         | snowflake                                                  | the ID of the guild this template is based on          |
+| serialized_source_guild | partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object | the guild snapshot this template contains              |
+| is_dirty                | ?boolean                                                   | whether the template has unsynced changes              |
 ###### Example Template Object
 
 ```json
@@ -112,3 +111,37 @@ Create a new guild based on a template. Returns a [guild](#DOCS_RESOURCES_GUILD/
 |-------|------------------------------------------|-----------------------------------------|
 | name  | string                                   | name of the guild (2-100 characters)    |
 | icon? | [image data](#DOCS_REFERENCE/image-data) | base64 128x128 image for the guild icon |
+
+## Get Guild Template % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/templates
+
+Returns an array with a [template](#DOCS_RESOURCES_TEMPLATE/template-object) object for the guild's template, or an empty array if it doesn't have one.  Requires the `MANAGE_GUILD` permission.
+
+## Create Guild Template % POST /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/templates
+
+Creates a template for the guild. Requires the `MANAGE_GUILD` permission. Returns the created [template](#DOCS_RESOURCES_TEMPLATE/template-object) object on success.
+
+###### JSON Params
+
+| Field        | Type    | Description                                     |
+|--------------|---------|-------------------------------------------------|
+| name         | string  | name of the template (1-100 characters)         |
+| description? | ?string | description for the template (0-120 characters) |
+
+## Sync Guild Template % PUT /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/templates/{template.code#DOCS_RESOURCES_TEMPLATE/template-object}
+
+Syncs the template to the guild's current state. Requires the `MANAGE_GUILD` permission. Returns the [template](#DOCS_RESOURCES_TEMPLATE/template-object) object on success.
+
+## Modify Guild Template % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/templates/{template.code#DOCS_RESOURCES_TEMPLATE/template-object}
+
+Modifies the template's metadata. Requires the `MANAGE_GUILD` permission. Returns the [template](#DOCS_RESOURCES_TEMPLATE/template-object) object on success.
+
+###### JSON Params
+
+| Field        | Type    | Description                                     |
+|--------------|---------|-------------------------------------------------|
+| name         | string  | name of the template (1-100 characters)         |
+| description? | ?string | description for the template (0-120 characters) |
+
+## Delete Guild Template % DELETE /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/templates/{template.code#DOCS_RESOURCES_TEMPLATE/template-object}
+
+Deletes the template. Requires the `MANAGE_GUILD` permission. Returns the deleted [template](#DOCS_RESOURCES_TEMPLATE/template-object) object on success.
