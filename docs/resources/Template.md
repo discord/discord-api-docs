@@ -19,6 +19,7 @@ Represents a code that when used, creates a guild based on a snapshot of an exis
 | source_guild_id         | snowflake                                                  | the ID of the guild this template is based on          |
 | serialized_source_guild | partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object | the guild snapshot this template contains              |
 | is_dirty                | ?boolean                                                   | whether the template has unsynced changes              |
+
 ###### Example Template Object
 
 ```json
