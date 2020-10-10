@@ -134,7 +134,7 @@ Modify the requester's user account settings. Returns a [user](#DOCS_RESOURCES_U
 
 ## Get Current User Guilds % GET /users/@me/guilds
 
-Returns a list of partial [guild](#DOCS_RESOURCES_GUILD/guild-object) objects the current user is a member of, sorted by snowflake in ascending order. Requires the `guilds` OAuth2 scope.
+Returns a list of partial [guild](#DOCS_RESOURCES_GUILD/guild-object) objects the current user is a member of, sorted by their id in ascending order. Requires the `guilds` OAuth2 scope.
 
 ###### Example Partial Guild
 
