@@ -145,6 +145,7 @@ Returns a list of partial [guild](#DOCS_RESOURCES_GUILD/guild-object) objects th
   "icon": "8342729096ea3675442027381ff50dfe",
   "owner": true,
   "permissions": "36953089",
+  "features": ["COMMUNITY", "NEWS"]
 }
 ```
 
