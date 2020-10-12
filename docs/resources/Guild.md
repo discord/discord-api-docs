@@ -508,7 +508,7 @@ Delete a guild permanently. User must be owner. Returns `204 No Content` on succ
 
 ## Get Guild Channels % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/channels
 
-Returns a list of guild [channel](#DOCS_RESOURCES_CHANNEL/channel-object) objects.
+Returns a list of guild [channel](#DOCS_RESOURCES_CHANNEL/channel-object) objects, sorted by their id in ascending order.
 
 ## Create Guild Channel % POST /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/channels
 
@@ -630,7 +630,7 @@ Remove a member from a guild. Requires `KICK_MEMBERS` permission. Returns a 204 
 
 ## Get Guild Bans % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/bans
 
-Returns a list of [ban](#DOCS_RESOURCES_GUILD/ban-object) objects for the users banned from this guild. Requires the `BAN_MEMBERS` permission.
+Returns a list of [ban](#DOCS_RESOURCES_GUILD/ban-object) objects for the users banned from this guild, sorted by the user's ids in ascending order. Requires the `BAN_MEMBERS` permission.
 
 ## Get Guild Ban % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/bans/{user.id#DOCS_RESOURCES_USER/user-object}
 
@@ -653,7 +653,7 @@ Remove the ban for a user. Requires the `BAN_MEMBERS` permissions. Returns a 204
 
 ## Get Guild Roles % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/roles
 
-Returns a list of [role](#DOCS_TOPICS_PERMISSIONS/role-object) objects for the guild.
+Returns a list of [role](#DOCS_TOPICS_PERMISSIONS/role-object) objects for the guild, sorted by their id in ascending order.
 
 ## Create Guild Role % POST /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/roles
 
@@ -671,7 +671,7 @@ Create a new [role](#DOCS_TOPICS_PERMISSIONS/role-object) for the guild. Require
 
 ## Modify Guild Role Positions % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/roles
 
-Modify the positions of a set of [role](#DOCS_TOPICS_PERMISSIONS/role-object) objects for the guild. Requires the `MANAGE_ROLES` permission. Returns a list of all of the guild's [role](#DOCS_TOPICS_PERMISSIONS/role-object) objects on success. Fires multiple [Guild Role Update](#DOCS_TOPICS_GATEWAY/guild-role-update) Gateway events.
+Modify the positions of a set of [role](#DOCS_TOPICS_PERMISSIONS/role-object) objects for the guild. Requires the `MANAGE_ROLES` permission. Returns a list of all of the guild's [role](#DOCS_TOPICS_PERMISSIONS/role-object) objects on success, sorted by their id in ascending order. Fires multiple [Guild Role Update](#DOCS_TOPICS_GATEWAY/guild-role-update) Gateway events.
 
 This endpoint takes a JSON array of parameters in the following format:
 
@@ -736,7 +736,7 @@ Returns a list of [voice region](#DOCS_RESOURCES_VOICE/voice-region-object) obje
 
 ## Get Guild Invites % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/invites
 
-Returns a list of [invite](#DOCS_RESOURCES_INVITE/invite-object) objects (with [invite metadata](#DOCS_RESOURCES_INVITE/invite-metadata-object)) for the guild. Requires the `MANAGE_GUILD` permission.
+Returns a list of [invite](#DOCS_RESOURCES_INVITE/invite-object) objects (with [invite metadata](#DOCS_RESOURCES_INVITE/invite-metadata-object)) for the guild, sorted by their code in alphabetical order (ASCII). Requires the `MANAGE_GUILD` permission.
 
 ## Get Guild Integrations % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/integrations
 

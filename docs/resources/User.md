@@ -196,4 +196,4 @@ Create a new group DM channel with multiple users. Returns a [DM channel](#DOCS_
 
 ## Get User Connections % GET /users/@me/connections
 
-Returns a list of [connection](#DOCS_RESOURCES_USER/connection-object) objects. Requires the `connections` OAuth2 scope.
+Returns a list of [connection](#DOCS_RESOURCES_USER/connection-object) objects, sorted by their type in alphabetical order. Requires the `connections` OAuth2 scope.
