@@ -192,7 +192,7 @@ If successful, the gateway will respond by replaying all missed events in order,
 
 If the gateway ever issues a disconnect to your client, it will provide a close event code that you can use to properly handle the disconnection. A full list of these close codes can be found in the [Response Codes](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/gateway-close-event-codes) documentation.
 
-When you close the connection to the API with the close code 1000 or 1001, your session will be invalidated and your bot appears offline. If you simply close the TCP connection, or use a different close code, the bot session will remain active and timeout after a few minutes. This can be useful for a reconnect, which will resume the previous session.
+When you close the connection to the gateway with the close code 1000 or 1001, your session will be invalidated and your bot appears offline. If you simply close the TCP connection, or use a different close code, the bot session will remain active and timeout after a few minutes. This can be useful for a reconnect, which will resume the previous session.
 
 ## Gateway Intents
 
