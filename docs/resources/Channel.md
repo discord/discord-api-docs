@@ -661,7 +661,7 @@ Delete a channel, or close a private message. Requires the `MANAGE_CHANNELS` per
 > Deleting a guild channel cannot be undone. Use this with caution, as it is impossible to undo this action when performed on a guild channel. In contrast, when used with a private message, it is possible to undo the action by opening a private message with the recipient again.
 
 > info
-> For Public servers, the set Rules or Guidelines channel and the Moderators-only (Public Server Updates) channel cannot be deleted.
+> For Community guilds, the Rules or Guidelines channel and the Community Updates channel cannot be deleted.
 
 ## Get Channel Messages % GET /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/messages
 
