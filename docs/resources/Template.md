@@ -140,7 +140,7 @@ Modifies the template's metadata. Requires the `MANAGE_GUILD` permission. Return
 
 | Field        | Type    | Description                                     |
 |--------------|---------|-------------------------------------------------|
-| name         | string  | name of the template (1-100 characters)         |
+| name?        | string  | name of the template (1-100 characters)         |
 | description? | ?string | description for the template (0-120 characters) |
 
 ## Delete Guild Template % DELETE /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/templates/{template.code#DOCS_RESOURCES_TEMPLATE/template-object}
