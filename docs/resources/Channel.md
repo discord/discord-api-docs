@@ -279,19 +279,24 @@ Represents a message sent in a channel within Discord.
 
 ###### Message Sticker Structure
 
-  <!-- "id": "735556020897579018",
-  "name": "Sticker Pack 4, Sticker 1 Name",
-  "description": "Sticker 1 description",
-  "pack_id": "735555928115380234",
-  "asset": "4a952da3e5b77efc350eba4bfac9f08e",
-  "preview_asset": "00a20a6c82525cf31950ebdd7b281dd2",
-  "format_type": 3 -->
+| Field          | Type      | Description                                                                    |
+| -------------- | --------- | ------------------------------------------------------------------------------ |
+| id             | snowflake | id of the sticker                                                              |
+| pack_id        | snowflake | id of the pack the sticker is from                                             |
+| name           | string    | name of the sticker                                                            |
+| description    | string    | description of the sticker                                                     |
+| tags?          | string    | a comma-separated list of tags for the sticker                                 |
+| asset          | string    | sticker asset hash                                                             |
+| preview_asset  | ?string   | sticker preview asset hash                                                     |
+| format_type    | integer   | [type of sticker format](#DOCS_RESOURCES_CHANNEL/message-sticker-format-types) |
 
-| Field       | Type      | Description                             |
-|-------------|-----------|-----------------------------------------|
-| id          | snowflake | id of the originating message           |
-| name        | string    | id of the originating message's channel |
-| guild_id?   | snowflake | id of the originating message's guild   |
+###### Message Sticker Format Types
+
+| Type   | Value |
+| ------ | ----- |
+| PNG    | 1     |
+| APNG   | 2     |
+| LOTTIE | 3     |
 
 
 ###### Example Message
