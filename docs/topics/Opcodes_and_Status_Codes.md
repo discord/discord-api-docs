@@ -175,6 +175,7 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 50036  | An invite was accepted to a guild the application's bot is not in                                                             |
 | 50041  | Invalid API version provided                                                                                                  |
 | 50074  | Cannot delete a channel required for Community guilds                                                                         |
+| 50081  | Invalid sticker sent                                                                                                          |
 | 90001  | Reaction was blocked                                                                                                          |
 | 130000 | API resource is currently overloaded. Try again a little later                                                                |
 
