@@ -113,9 +113,9 @@ Create a new guild based on a template. Returns a [guild](#DOCS_RESOURCES_GUILD/
 | name  | string                                   | name of the guild (2-100 characters)    |
 | icon? | [image data](#DOCS_REFERENCE/image-data) | base64 128x128 image for the guild icon |
 
-## Get Guild Template % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/templates
+## Get Guild Templates % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/templates
 
-Returns an array with a [template](#DOCS_RESOURCES_TEMPLATE/template-object) object for the guild's template, or an empty array if it doesn't have one.  Requires the `MANAGE_GUILD` permission.
+Returns an array of [template](#DOCS_RESOURCES_TEMPLATE/template-object) objects. Requires the `MANAGE_GUILD` permission.
 
 ## Create Guild Template % POST /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/templates
 
