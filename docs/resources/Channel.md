@@ -290,7 +290,7 @@ Represents a message sent in a channel within Discord.
 | preview_asset\*  | ?string   | sticker preview asset hash                                                            |
 | format_type      | integer   | [type of sticker format](#DOCS_RESOURCES_CHANNEL/message-object-sticker-format-types) |
 
-\* Sticker asset hashes currently cannot be resolved to an image.
+\* The URL for fetching sticker assets is currently private.
 
 ###### Message Sticker Format Types
 
