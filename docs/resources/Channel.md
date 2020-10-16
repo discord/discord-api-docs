@@ -279,16 +279,18 @@ Represents a message sent in a channel within Discord.
 
 ###### Message Sticker Structure
 
-| Field          | Type      | Description                                                                           |
-| -------------- | --------- | ------------------------------------------------------------------------------------- |
-| id             | snowflake | id of the sticker                                                                     |
-| pack_id        | snowflake | id of the pack the sticker is from                                                    |
-| name           | string    | name of the sticker                                                                   |
-| description    | string    | description of the sticker                                                            |
-| tags?          | string    | a comma-separated list of tags for the sticker                                        |
-| asset          | string    | sticker asset hash                                                                    |
-| preview_asset  | ?string   | sticker preview asset hash                                                            |
-| format_type    | integer   | [type of sticker format](#DOCS_RESOURCES_CHANNEL/message-object-sticker-format-types) |
+| Field            | Type      | Description                                                                           |
+| ---------------- | --------- | ------------------------------------------------------------------------------------- |
+| id               | snowflake | id of the sticker                                                                     |
+| pack_id          | snowflake | id of the pack the sticker is from                                                    |
+| name             | string    | name of the sticker                                                                   |
+| description      | string    | description of the sticker                                                            |
+| tags?            | string    | a comma-separated list of tags for the sticker                                        |
+| asset\*          | string    | sticker asset hash                                                                    |
+| preview_asset\*  | ?string   | sticker preview asset hash                                                            |
+| format_type      | integer   | [type of sticker format](#DOCS_RESOURCES_CHANNEL/message-object-sticker-format-types) |
+
+\* Sticker asset hashes currently cannot be resolved to an image.
 
 ###### Message Sticker Format Types
 
