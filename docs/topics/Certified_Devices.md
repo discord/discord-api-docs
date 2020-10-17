@@ -12,7 +12,7 @@ I'm glad you asked!
 
 Yup, that's it. You give us the real-time info about any connected devices, and we'll handle the rest to make sure that anyone using your device will have an awesome experience. Your device will also have a `CERTIFIED` badge in Discord's audio settings, and really, who doesn't love badges?
 
-![](certified-device.png)
+![An example of how a certified device may be shown for an example audio input and output device](certified-device.png)
 
 ## Connecting
 
@@ -42,7 +42,7 @@ ws://127.0.0.1:PORT?v=1&client_id=YOUR_CLIENT_ID&encoding=json
 
 To keep your hardware in sync with Discord, send updates any time the hardware mute is toggled, or one of the voice features like echo cancellation is enabled or disabled by the user. This lets Discord get out of the way of your optimization when you're in control, or help out when you're not, ensuring an awesome experience for anyone using your hardware.
 
-Each time you update, send a full array of `devices`, sorted by your preffered priority. That means if you want a specific headset to be the default that Discord will attempt to use, put it first in the array.
+Each time you update, send a full array of `devices`, sorted by your preferred priority. That means if you want a specific headset to be the default that Discord will attempt to use, put it first in the array.
 
 ## Getting Device UUID
 
