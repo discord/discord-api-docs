@@ -317,7 +317,7 @@ For larger bots, client state can grow to be quite large. We recommend only stor
 ## Guild Subscriptions
 
 > info
-> While not deprecated, Guild Subscriptions have been superceded by [Gateway Intents](#DOCS_TOPICS_GATEWAY/gateway-intents). You may continue to use guild subscriptions, but we recommend migrating to intents for even better results.
+> Guild subscriptions are no longer available in gateway v8. It is recommended to use [Gateway Intents](#DOCS_TOPICS_GATEWAY/gateway-intents) instead.
 
 Presence and typing events get dispatched from guilds that your bot is a member of. For many bots, these events are not useful and can be frequent and expensive to process at scale. Because of this, we allow bots to opt out of guild subscriptions by setting `guild_subscriptions` to `false` when [Identify](#DOCS_TOPICS_GATEWAY/identify)ing.
 
@@ -428,8 +428,12 @@ Used to trigger the initial handshake with the gateway.
 | large_threshold?     | integer                                                    | value between 50 and 250, total number of members where the gateway will stop sending offline members in the guild member list | 50      |
 | shard?               | array of two integers (shard_id, num_shards)               | used for [Guild Sharding](#DOCS_TOPICS_GATEWAY/sharding)                                                                       | -       |
 | presence?            | [update status](#DOCS_TOPICS_GATEWAY/update-status) object | presence structure for initial presence information                                                                            | -       |
-| guild_subscriptions? | boolean                                                    | enables dispatching of guild subscription events (presence and typing events)                                                  | true    |
+| guild_subscriptions? | boolean                                                    | enables dispatching of guild subscription events (presence and typing events)*                                         | true    |
 | intents              | integer                                                    | the [Gateway Intents](#DOCS_TOPICS_GATEWAY/gateway-intents) you wish to receive                                                | -       |
+
+
+> info
+> * If  `intents` are specified in your identify payload, `guild_subscriptions` will not have any effect.
 
 ###### Identify Connection Properties
 
