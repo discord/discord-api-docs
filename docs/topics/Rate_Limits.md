@@ -77,7 +77,15 @@ Note that the normal rate-limiting headers will be sent in this response. The ra
 }
 ```
 
-## Invalid Request Limit	
+## Global Rate Limit
+
+All bots can make up to 50 requests per second to our API. This is independent of any individual rate limit on a route. If your bot gets big enough, based on its functionality, it may be impossible for to stay below 50 requests per second during normal operations.
+
+Global rate limit issues generally show up as repeatedly getting banned from the Discord API when your bot starts (see below). If your bot gets temporarily CloudFlare banned from the Discord API every once in a while, it is most likely **not** a global rate limit issue. You probably had a spike of errors that was not properly handled and hit our error threshold.
+
+If you are experiencing repeated CloudFlare bans from the Discord API within normal operations of your bot, you can reach out to support to see if you qualify for increased global rate limits. You can contact Discord support using [https://dis.gd/contact](https://dis.gd/contact).
+
+## Invalid Request Limit aka CloudFlare bans
 
 IP addresses that make too many invalid HTTP requests are automatically and temporarily restricted from accessing the Discord API. Currently, this limit is **10,000 per 10 minutes**. An invalid request is one that results in **401**, **403**, or **429** statuses.	
 

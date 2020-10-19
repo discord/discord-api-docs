@@ -343,7 +343,11 @@ Note that `num_shards` does not relate to, or limit, the total number of potenti
 
 ## Sharding for Very Large Bots
 
-If you own a bot that is in over 250,000 guilds, there are some additional considerations you must take around sharding. Please file a support-ticket to get moved to the sharding for big bots, when you reach this amount of servers. You can contact the discord support using [https://dis.gd/contact](https://dis.gd/contact).
+If you own a bot that is in over 250,000 guilds, there are some additional considerations you must take around sharding. Because of our rate limits of 1000 `IDENTIFY` calls per day, and our limits on how many shards you can start concurrently, you might find yourself unable to fully restart your bot due to the number of shards you are running. Since reconnects are a normal part of our gateway, you may not have enough `IDENTIFY` left to roll out new code, for example.
+
+Also, it may take hours to start your bot due to our limits on starting shards concurrently.
+
+This is not true for _all_ bots above 250,000 guilds, but if you have a large bot and find yourself having these issues, please file a support-ticket to get moved to Large Bot Sharding. You can contact the discord support using [https://dis.gd/contact](https://dis.gd/contact).
 
 The number of shards you run must be a multiple of a fixed number we will determine when reaching out to you. If you attempt to start your bot with an invalid number of shards, your websocket connection will close with a 4010 Invalid Shard opcode. The gateway bot bootstrap endpoint will return the correct amount of shards, so if you're already using this endpoint to determine your number of shards, you shouldn't require any further changes.
 
