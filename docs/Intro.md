@@ -33,7 +33,7 @@ No matter where your game lives, it should have a first-class experience in Disc
 - Ask to Join and Spectate their friends' games
 - Spend more time playing together and less time setting up
 
-It’s free, easy, open-source, and self-serve, so check out [the GameSDK Activity Manager](#DOCS_GAME_SDK_ACTIVITIES/) and get started!
+It’s free, easy, and self-serve, so check out [the GameSDK Activity Manager](#DOCS_GAME_SDK_ACTIVITIES/) and get started!
 
 ## Go Make Cool Stuff!
 

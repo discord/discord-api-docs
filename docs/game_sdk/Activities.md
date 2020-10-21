@@ -82,6 +82,7 @@ For more detailed information and documentation around the Rich Presence feature
 | Streaming | 1     |
 | Listening | 2     |
 | Custom    | 4     |
+| Competing | 5     |
 
 For more details about the activity types, [see Gateway documentation](#DOCS_TOPICS_GATEWAY/activity-object-activity-types).
 

@@ -18,6 +18,7 @@ Used to represent a webhook.
 | name            | ?string                                                          | the default name of the webhook                                                                  |
 | avatar          | ?string                                                          | the default avatar of the webhook                                                                |
 | token?          | string                                                           | the secure token of the webhook (returned for Incoming Webhooks)                                 |
+| application_id  | ?snowflake                                                       | the bot/OAuth2 application that created this webhook                                             |
 | source_guild?   | partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object       | the guild of the channel that this webhook is following (returned for Channel Follower Webhooks) |
 | source_channel? | partial [channel](#DOCS_RESOURCES_CHANNEL/channel-object) object | the channel that this webhook is following (returned for Channel Follower Webhooks)              |
 
