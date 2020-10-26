@@ -347,7 +347,7 @@ If you own a bot that is in over 250,000 guilds, there are some additional consi
 
 Also, it may take hours to start your bot due to our limits on starting shards concurrently.
 
-This is not true for _all_ bots above 250,000 guilds, but if you have a large bot and find yourself having these issues, please file a support-ticket to get moved to Large Bot Sharding. You can contact the discord support using [https://dis.gd/contact](https://dis.gd/contact). Large Bot Sharding grants:
+This is not true for _all_ bots above 250,000 guilds, but if you have a large bot and find yourself having these issues, please file a support-ticket to get moved to Large Bot Sharding. You can contact Discord support using [https://dis.gd/contact](https://dis.gd/contact). Large Bot Sharding grants:
 
 - An increase to 2000 `IDENTIFY` calls per day
 - An increased number of shards you can concurrently start.
