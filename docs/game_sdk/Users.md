@@ -129,7 +129,7 @@ Returns `bool`.
 
 ```cs
 var userManager = discord.GetUserManager();
-if (userManager.CurrentUserHasFlag(Discord.UserFlags.HypeSquadHouse1))
+if (userManager.CurrentUserHasFlag(Discord.UserFlag.HypeSquadHouse1))
 {
   Console.WriteLine("User is a member of House Bravery!");
 }
