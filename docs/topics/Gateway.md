@@ -341,6 +341,74 @@ As an example, if you wanted to split the connection between three shards, you'd
 
 Note that `num_shards` does not relate to, or limit, the total number of potential sessions—it is only used for *routing* traffic. As such, sessions do not have to be identified in an evenly distributed manner when sharding. You can establish multiple sessions with the same `[shard_id, num_shards]`, or sessions with different `num_shards` values. This allows you to create sessions that will handle more or less traffic than others for more fine-tuned load balancing, or orchestrate "zero-downtime" scaling/updating by handing off traffic to a new deployment of sessions with a higher or lower `num_shards` count that are prepared in parallel.
 
+###### Max Concurrency
+
+If you have multiple shards, you may start them concurrently based on the [`max_concurrency`](#DOCS_TOPICS_GATEWAY/session-start-limit-object) value returned to you on session start. Which shards you can start concurrently are assigned based on a key for each shard. The rate limit key for a given shard can be computed with
+
+```
+rate_limit_key = shard_id % max_concurrency
+```
+
+This puts your shards into "buckets" of `max_concurrency` size. When you start your bot, you may start up to `max_concurrency` shards at a time, and you must start them by "bucket" **in order**. To explain another way, let's say you have 16 shards, and your `max_concurrency` is 16:
+
+```
+shard_id: 0, rate limit key (0 % 16): 0
+shard_id: 1, rate limit key (1 % 16): 1
+shard_id: 2, rate limit key (2 % 16): 2
+shard_id: 3, rate limit key (3 % 16): 3
+shard_id: 4, rate limit key (4 % 16): 4
+shard_id: 5, rate limit key (5 % 16): 5
+shard_id: 6, rate limit key (6 % 16): 6
+shard_id: 7, rate limit key (7 % 16): 7
+shard_id: 8, rate limit key (8 % 16): 8
+shard_id: 9, rate limit key (9 % 16): 9
+shard_id: 10, rate limit key (10 % 16): 10
+shard_id: 11, rate limit key (11 % 16): 11
+shard_id: 12, rate limit key (12 % 16): 12
+shard_id: 13, rate limit key (13 % 16): 13
+shard_id: 14, rate limit key (14 % 16): 14
+shard_id: 15, rate limit key (15 % 16): 15
+```
+
+You may start all 16 of your shards at once, because each has a `rate_limit_key` which fills the bucket of 16 shards. However, let's say you had 32 shards:
+
+```
+shard_id: 0, rate limit key (0 % 16): 0
+shard_id: 1, rate limit key (1 % 16): 1
+shard_id: 2, rate limit key (2 % 16): 2
+shard_id: 3, rate limit key (3 % 16): 3
+shard_id: 4, rate limit key (4 % 16): 4
+shard_id: 5, rate limit key (5 % 16): 5
+shard_id: 6, rate limit key (6 % 16): 6
+shard_id: 7, rate limit key (7 % 16): 7
+shard_id: 8, rate limit key (8 % 16): 8
+shard_id: 9, rate limit key (9 % 16): 9
+shard_id: 10, rate limit key (10 % 16): 10
+shard_id: 11, rate limit key (11 % 16): 11
+shard_id: 12, rate limit key (12 % 16): 12
+shard_id: 13, rate limit key (13 % 16): 13
+shard_id: 14, rate limit key (14 % 16): 14
+shard_id: 15, rate limit key (15 % 16): 15
+shard_id: 16, rate limit key (16 % 16): 0
+shard_id: 17, rate limit key (17 % 16): 1
+shard_id: 18, rate limit key (18 % 16): 2
+shard_id: 19, rate limit key (19 % 16): 3
+shard_id: 20, rate limit key (20 % 16): 4
+shard_id: 21, rate limit key (21 % 16): 5
+shard_id: 22, rate limit key (22 % 16): 6
+shard_id: 23, rate limit key (23 % 16): 7
+shard_id: 24, rate limit key (24 % 16): 8
+shard_id: 25, rate limit key (25 % 16): 9
+shard_id: 26, rate limit key (26 % 16): 10
+shard_id: 27, rate limit key (27 % 16): 11
+shard_id: 28, rate limit key (28 % 16): 12
+shard_id: 29, rate limit key (29 % 16): 13
+shard_id: 30, rate limit key (30 % 16): 14
+shard_id: 31, rate limit key (31 % 16): 15
+```
+
+In this case, you must start the shard buckets **in "order"**. That means that you can start shard 0 -> shard 15 concurrently, and then you can start shard 16 -> shard 31.
+
 ## Sharding for Very Large Bots
 
 If you own a bot that is in over 250,000 guilds, there are some additional considerations you must take around sharding. Because of our rate limits of 1000 `IDENTIFY` calls per day, and our limits on how many shards you can start concurrently, you might find yourself unable to fully restart your bot due to the number of shards you are running. Since reconnects are a normal part of our gateway, you may not have enough `IDENTIFY` left to roll out new code, for example.
