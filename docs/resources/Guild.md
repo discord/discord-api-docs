@@ -556,7 +556,7 @@ Returns a [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) object for t
 Returns a list of [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) objects that are members of the guild.
 
 > warn
-> In the future, this endpoint will be restricted in line with our [Privileged Intents](#DOCS_TOPICS_GATEWAY/privileged-intents)
+> This endpoint is restricted according to whether the `GUILD_MEMBERS` [Privileged Intent](#DOCS_TOPICS_GATEWAY/privileged-intents) is enabled for your application.
 
 > info
 > All parameters to this endpoint are optional
@@ -704,7 +704,7 @@ Delete a guild role. Requires the `MANAGE_ROLES` permission. Returns a 204 empty
 
 ## Get Guild Prune Count % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/prune
 
-Returns an object with one 'pruned' key indicating the number of members that would be removed in a prune operation. Requires the `KICK_MEMBERS` permission. 
+Returns an object with one 'pruned' key indicating the number of members that would be removed in a prune operation. Requires the `KICK_MEMBERS` permission.
 
 By default, prune will not remove users with roles. You can optionally include specific roles in your prune by providing the `include_roles` parameter. Any inactive user that has a subset of the provided role(s) will be counted in the prune and users with additional roles will not.
 
@@ -713,7 +713,7 @@ By default, prune will not remove users with roles. You can optionally include s
 | Field         | Type                                        | Description                                   | Default |
 | ------------- | ------------------------------------------- | --------------------------------------------- | ------- |
 | days          | integer                                     | number of days to count prune for (1 or more) | 7       |
-| include_roles | string; comma-delimited array of snowflakes | role(s) to include                            | none    | 
+| include_roles | string; comma-delimited array of snowflakes | role(s) to include                            | none    |
 
 ## Begin Guild Prune % POST /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/prune
 
@@ -727,7 +727,7 @@ By default, prune will not remove users with roles. You can optionally include s
 | ------------------- | ------------------- | ---------------------------------------------------------- | ------- |
 | days                | integer             | number of days to prune (1 or more)                        | 7       |
 | compute_prune_count | boolean             | whether 'pruned' is returned, discouraged for large guilds | true    |
-| include_roles       | array of snowflakes | role(s) to include                                         | none    | 
+| include_roles       | array of snowflakes | role(s) to include                                         | none    |
 
 ## Get Guild Voice Regions % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/regions
 
