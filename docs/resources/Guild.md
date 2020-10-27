@@ -281,23 +281,25 @@ A partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object. Represents an Offl
 
 ###### Integration Structure
 
-| Field               | Type                                                                                                 | Description                                                                               |
-| ------------------- | ---------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
-| id                  | snowflake                                                                                            | integration id                                                                            |
-| name                | string                                                                                               | integration name                                                                          |
-| type                | string                                                                                               | integration type (twitch, youtube, or discord)                                            |
-| enabled             | boolean                                                                                              | is this integration enabled                                                               |
-| syncing             | boolean                                                                                              | is this integration syncing                                                               |
-| role_id             | snowflake                                                                                            | id that this integration uses for "subscribers", or the guild id for discord integrations |
-| enable_emoticons?   | boolean                                                                                              | whether emoticons should be synced for this integration (twitch only currently)           |
-| expire_behavior     | [integration expire behavior](#DOCS_RESOURCES_GUILD/integration-object-integration-expire-behaviors) | the behavior of expiring subscribers                                                      |
-| expire_grace_period | integer                                                                                              | the grace period (in days) before expiring subscribers                                    |
-| user?               | [user](#DOCS_RESOURCES_USER/user-object) object                                                      | user for this integration                                                                 |
-| account             | [account](#DOCS_RESOURCES_GUILD/integration-account-object) object                                   | integration account information                                                           |
-| synced_at           | ISO8601 timestamp                                                                                    | when this integration was last synced                                                     |
-| subscriber_count    | integer                                                                                              | how many subscribers this integration has (0 for discord integrations)                    |
-| revoked             | boolean                                                                                              | has this integration been revoked                                                         |
-| application?        | [application](#DOCS_RESOURCES_GUILD/integration-account-object) object                               | The bot/OAuth2 application for discord integrations                                       |
+| Field                   | Type                                                                                                 | Description                                                                               |
+| ----------------------- | ---------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
+| id                      | snowflake                                                                                            | integration id                                                                            |
+| name                    | string                                                                                               | integration name                                                                          |
+| type                    | string                                                                                               | integration type (twitch, youtube, or discord)                                            |
+| enabled                 | boolean                                                                                              | is this integration enabled                                                               |
+| syncing? \*             | boolean                                                                                              | is this integration syncing                                                               |
+| role_id? \*             | snowflake                                                                                            | id that this integration uses for "subscribers"                                           |
+| enable_emoticons? \*    | boolean                                                                                              | whether emoticons should be synced for this integration (twitch only currently)           |
+| expire_behavior? \*     | [integration expire behavior](#DOCS_RESOURCES_GUILD/integration-object-integration-expire-behaviors) | the behavior of expiring subscribers                                                      |
+| expire_grace_period? \* | integer                                                                                              | the grace period (in days) before expiring subscribers                                    |
+| user? \*                | [user](#DOCS_RESOURCES_USER/user-object) object                                                      | user for this integration                                                                 |
+| account                 | [account](#DOCS_RESOURCES_GUILD/integration-account-object) object                                   | integration account information                                                           |
+| synced_at? \*           | ISO8601 timestamp                                                                                    | when this integration was last synced                                                     |
+| subscriber_count? \*    | integer                                                                                              | how many subscribers this integration has                                                 |
+| revoked? \*             | boolean                                                                                              | has this integration been revoked                                                         |
+| application?            | [application](#DOCS_RESOURCES_GUILD/integration-account-object) object                               | The bot/OAuth2 application for discord integrations                                       |
+
+** \* These fields are not provided for discord bot integrations. **
 
 ###### Integration Expire Behaviors
 
@@ -755,12 +757,6 @@ Returns a list of [invite](#DOCS_RESOURCES_INVITE/invite-object) objects (with [
 ## Get Guild Integrations % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/integrations
 
 Returns a list of [integration](#DOCS_RESOURCES_GUILD/integration-object) objects for the guild. Requires the `MANAGE_GUILD` permission.
-
-###### Query String Params
-
-| Field                 | Type    | Description                                                                                                   | Required | Default |
-| --------------------- | ------- | ------------------------------------------------------------------------------------------------------------- | -------- | ------- |
-| include_applications? | boolean | when `true`, will include bot and OAuth2 webhook integrations, otherwise will only include Twitch and YouTube | false    | false   |
 
 ## Create Guild Integration % POST /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/integrations
 
