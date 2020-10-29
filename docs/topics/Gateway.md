@@ -916,7 +916,7 @@ Sent when a message is updated. The inner payload is a [message](#DOCS_RESOURCES
 
 #### Message Delete
 
-Sent when a message is deleted. If this message is a reply, it is **not** guaranteed to have a `referenced_message` field.
+Sent when a message is deleted.
 
 ###### Message Delete Event Fields
 
