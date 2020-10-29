@@ -128,6 +128,7 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 10031  | Unknown lobby                                                                                                                 |
 | 10032  | Unknown branch                                                                                                                |
 | 10036  | Unknown redistributable                                                                                                       |
+| 10057  | Unknown guild template                                                                                                        |
 | 20001  | Bots cannot use this endpoint                                                                                                 |
 | 20002  | Only bots can use this endpoint                                                                                               |
 | 20022  | This message cannot be edited due to announcement rate limits                                                                 |
@@ -173,6 +174,7 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 50035  | Invalid form body (returned for both `application/json` and `multipart/form-data` bodies), or invalid `Content-Type` provided |
 | 50036  | An invite was accepted to a guild the application's bot is not in                                                             |
 | 50041  | Invalid API version provided                                                                                                  |
+| 50074  | Cannot delete a channel required for Community guilds                                                                         |
 | 90001  | Reaction was blocked                                                                                                          |
 | 130000 | API resource is currently overloaded. Try again a little later                                                                |
 

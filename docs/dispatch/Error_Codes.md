@@ -6,7 +6,7 @@
 This page outlines some of the common errors codes that may be encountered when using Dispatch.
 
 | Code | Name                       | Possible Solution                                                                                                                              |
-|------|----------------------------|------------------------------------------------------------------------------------------------------------------------------------------------|--|
+| ---- | -------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
 | 2020 | Request Signing Failed     | Check user entitlement                                                                                                                         |
 | 2022 | Disk Space Low             | Free up disk space                                                                                                                             |
 | 2023 | Disk Permission Denied     | Choose a new location, or change write permissions on desired location                                                                         |
@@ -23,3 +23,4 @@ This page outlines some of the common errors codes that may be encountered when 
 | 2073 | Not Entitled               | Check that your manifests are properly configured in the Developer Portal. Have the user install the game from the Library, not the store page |
 | 2076 | Two Clients Patching       | User has multiple Discords open trying to patch the same game; only use one                                                                    |
 | 9001 | Unknown                    | Catch-all error code. Escalate to #dispatch in dev server with repro steps/as much info as possible                                            |
+
