@@ -368,14 +368,14 @@ These messages have `message_id` and `channel_id`, and `guild_id` if it is in a 
 
 Replies: messages replying to a previous message (type 19).  
 These messages have `message_id` and `channel_id`, and `guild_id` if it is in a guild, with data of the message that was replied to. The channel_id and guild_id will be the same as the reply.  
-Replies are created by including a message_reference when sending a message.
+Replies are created by including a message_reference when sending a message. When sending, only `message_id` is required.
 
 ###### Message Reference Structure
 
 | Field       | Type      | Description                             |
 |-------------|-----------|-----------------------------------------|
 | message_id? | snowflake | id of the originating message           |
-| channel_id  | snowflake | id of the originating message's channel |
+| channel_id? | snowflake | id of the originating message's channel |
 | guild_id?   | snowflake | id of the originating message's guild   |
 
 ### Followed Channel Object
