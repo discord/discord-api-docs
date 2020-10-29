@@ -200,7 +200,7 @@ Represents a message sent in a channel within Discord.
 | type                      | integer                                                                                                                                         | [type of message](#DOCS_RESOURCES_CHANNEL/message-object-message-types)                                                       |
 | activity?                 | [message activity](#DOCS_RESOURCES_CHANNEL/message-object-message-activity-structure) object                                                    | sent with Rich Presence-related chat embeds                                                                                   |
 | application?              | [message application](#DOCS_RESOURCES_CHANNEL/message-object-message-application-structure) object                                              | sent with Rich Presence-related chat embeds                                                                                   |
-| message_reference?        | [message reference](#DOCS_RESOURCES_CHANNEL/message-object-message-reference-structure) object                                                  | reference data sent with crossposted messages                                                                                 |
+| message_reference?        | [message reference](#DOCS_RESOURCES_CHANNEL/message-object-message-reference-structure) object                                                  | reference data sent with crossposted messages and inline replies                                                                                |
 | flags?                    | integer                                                                                                                                         | [message flags](#DOCS_RESOURCES_CHANNEL/message-object-message-flags) `OR`d together, describes extra features of the message |
 | referenced_message? | ?[message object](#DOCS_RESOURCES_CHANNEL/message-object) | the message that was replied to. If not present, the backend couldn't fetch the message. If null, the message was deleted. If present and non-null, it is a message object |
 
@@ -257,8 +257,8 @@ Represents a message sent in a channel within Discord.
 
 | Field       | Type      | Description                             |
 |-------------|-----------|-----------------------------------------|
-| message_id? | snowflake | id of the originating message           |
-| channel_id  | snowflake | id of the originating message's channel |
+| message_id | snowflake | id of the originating message           |
+| channel_id?  | snowflake | id of the originating message's channel |
 | guild_id?   | snowflake | id of the originating message's guild   |
 
 ###### Message Activity Types
@@ -533,6 +533,7 @@ The allowed mention field allows for more granular control over mentions without
 | parse | array of allowed mention types | An array of [allowed mention types](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object-allowed-mention-types) to parse from the content. |
 | roles | list of snowflakes             | Array of role_ids to mention (Max size of 100)                                                                                        |
 | users | list of snowflakes             | Array of user_ids to mention (Max size of 100)                                                                                        |
+| replied_user | bool | Specifically for inline replies, whether to mention the author of the message you are replying to or not |
 
 ###### Allowed Mentions Reference
 

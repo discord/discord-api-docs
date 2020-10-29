@@ -2,7 +2,7 @@
 
 ## Inline Replies
 
-## October 1, 2020
+#### October 1, 2020
 
 Inline Replies have been added to our documentation. They behave differently in v6 and v8, so be cautious in your implementation:
 
