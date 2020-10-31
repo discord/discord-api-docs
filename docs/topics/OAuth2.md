@@ -8,11 +8,11 @@ The first step in implementing OAuth2 is [registering a developer application](#
 
 ###### OAuth2 URLs
 
-| URL                                            | Description            |
-| ---------------------------------------------- | ---------------------- |
-| https://discord.com/api/oauth2/authorize    | Base authorization URL |
-| https://discord.com/api/oauth2/token        | Token URL              |
-| https://discord.com/api/oauth2/token/revoke | Revocation URL         |
+| URL                                            | Description                                                          |
+| ---------------------------------------------- | -------------------------------------------------------------------- |
+| https://discord.com/api/oauth2/authorize       | Base authorization URL                                               |
+| https://discord.com/api/oauth2/token           | Token URL                                                            |
+| https://discord.com/api/oauth2/token/revoke    | Revocation URL (see [RFC 7009](https://tools.ietf.org/html/rfc7009)) |
 
 > warn
 > In accordance with [RFC 6749](https://tools.ietf.org/html/rfc6749), the [token URL](#DOCS_TOPICS_OAUTH2/shared-resources-oauth2-urls) **only** accepts a content type of `x-www-form-urlencoded`. JSON content is not permitted and will return an error.
