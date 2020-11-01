@@ -13,9 +13,9 @@ Many of these libraries are represented in the [unofficial, community-driven Dis
 | Name                                                         | Language   | Support Server                                |
 | ------------------------------------------------------------ | ---------- | --------------------------------------------- | 
 | [discljord](https://github.com/igjoshua/discljord)           | Clojure    | [Invite](https://discord.gg/284PgKZ)          |
-| [aegis.cpp](https://github.com/zeroxs/aegis.cpp)             | C++        |                                               |
-| [discordcr](https://github.com/discordcr/discordcr)          | Crystal    |                                               |
-| [Discord.Net](https://github.com/RogueException/Discord.Net) | C#         |                                               |
+| [aegis.cpp](https://github.com/zeroxs/aegis.cpp)             | C++        | [Invite](https://discord.gg/w7Y3Bb8)          |
+| [discordcr](https://github.com/discordcr/discordcr)          | Crystal    | [Invite](https://discord.gg/puaxPkK)          |
+| [Discord.Net](https://github.com/RogueException/Discord.Net) | C#         | [Invite](https://discord.gg/jkrBmQR)          |
 | [DSharpPlus](https://github.com/DSharpPlus/DSharpPlus)       | C#         | [Invite](https://discord.gg/KeAS3pU)          |
 | [dscord](https://github.com/b1naryth1ef/dscord)              | D          |                                               |
 | [DiscordGo](https://github.com/bwmarrin/discordgo)           | Go         | [Invite](https://discord.gg/0f1SbxBZjYq9jLBk) |
@@ -25,18 +25,18 @@ Many of these libraries are represented in the [unofficial, community-driven Dis
 | [Javacord](https://github.com/Javacord/Javacord)             | Java       | [Invite](https://discord.gg/0qJ2jjyneLEgG7y3) |
 | [JDA](https://github.com/DV8FromTheWorld/JDA)                | Java       | [Invite](https://discord.gg/0hMr4ce0tIk3pSjp) |
 | [discord.js](https://github.com/discordjs/discord.js)        | JavaScript | [Invite](https://discord.gg/bRCvFy9)          |
-| [Eris](https://github.com/abalabahaha/eris)                  | JavaScript |                                               |
-| [Discord.jl](https://github.com/Xh4H/Discord.jl)             | Julia      |                                               |
+| [Eris](https://github.com/abalabahaha/eris)                  | JavaScript | [Invite](https://discord.gg/D8FNF2P)          |
+| [Discord.jl](https://github.com/Xh4H/Discord.jl)             | Julia      | [Invite](https://discord.gg/ng9TjYd)          |
 | [Discordia](https://github.com/SinisterRectus/Discordia)     | Lua        | [Invite](https://discord.gg/EzRYYDW)          |
 | [discordnim](https://github.com/Krognol/discordnim)          | Nim        |                                               |
 | [RestCord](https://www.restcord.com/)                        | PHP        | [Invite](https://discord.gg/0duG4FF1ElFGUFVq) |
 | [discord.py](https://github.com/Rapptz/discord.py)           | Python     | [Invite](https://discord.gg/r3sSKJJ)          |
 | [disco](https://github.com/b1naryth1ef/disco)                | Python     |                                               |
-| [discordrb](https://github.com/discordrb/discordrb)          | Ruby       |                                               |
+| [discordrb](https://github.com/discordrb/discordrb)          | Ruby       | [Invite](https://discord.gg/cyK3Hjm)          |
 | [discord-rs](https://github.com/SpaceManiac/discord-rs)      | Rust       |                                               |
 | [Serenity](https://github.com/serenity-rs/serenity)          | Rust       | [Invite](https://discord.gg/9X7vCus)          |
 | [AckCord](https://github.com/Katrix/AckCord)                 | Scala      | [Invite](https://discord.gg/5UH627u)          |
-| [Sword](https://github.com/Azoy/Sword)                       | Swift      |                                               |
+| [Sword](https://github.com/Azoy/Sword)                       | Swift      | [Invite](https://discord.gg/99a3xNk)          |
 | [Discordeno](https://github.com/Skillz4Killz/Discordeno)     | TypeScript | [Invite](https://discord.gg/J4NqJ72)          |
 
 ## Game SDK Tools
