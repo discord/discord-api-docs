@@ -61,7 +61,7 @@ The authorization code grant is what most developers will recognize as "standard
 ###### Authorization URL Example
 
 ```
-https://discord.com/api/oauth2/authorize?response_type=code&client_id=157730590492196864&scope=identify%20guilds.join&state=15773059ghq9183habn&redirect_uri=https%3A%2F%2Fnicememe.website&prompt=consent
+https://discord.com/api/oauth2/authorize?response_type=code&client_id=157730590492196864&scope=identify%20guilds.join&state=15773059ghq9183habn&redirect_uri=https%3A%2F%2Fredirect.com&prompt=consent
 ```
 
 `client_id` is your application's `client_id`. `scope` is a list of [OAuth2 scopes](#DOCS_TOPICS_OAUTH2/shared-resources-oauth2-scopes) separated by url encoded spaces (`%20`). `redirect_uri` is whatever URL you registered when creating your application, url-encoded. `state` is the unique string mentioned in [State and Security](#DOCS_TOPICS_OAUTH2/state-and-security).
@@ -73,7 +73,7 @@ When someone navigates to this URL, they will be prompted to authorize your appl
 ###### Redirect URL Example
 
 ```
-https://nicememe.website/?code=NhhvTDYsFcdgNLnnLijcl7Ku7bEEeee&state=15773059ghq9183habn
+https://redirect.com/?code=NhhvTDYsFcdgNLnnLijcl7Ku7bEEeee&state=15773059ghq9183habn
 ```
 
 `code` is now exchanged for the user's access token by making a `POST` request to the [token URL](#DOCS_TOPICS_OAUTH2/shared-resources-oauth2-urls) with the following parameters:
@@ -91,7 +91,7 @@ https://nicememe.website/?code=NhhvTDYsFcdgNLnnLijcl7Ku7bEEeee&state=15773059ghq
 API_ENDPOINT = 'https://discord.com/api/v6'
 CLIENT_ID = '332269999912132097'
 CLIENT_SECRET = '937it3ow87i4ery69876wqire'
-REDIRECT_URI = 'https://nicememe.website'
+REDIRECT_URI = 'https://redirect.com'
 
 def exchange_code(code):
   data = {
@@ -139,7 +139,7 @@ Having the user's access token allows your application to make certain requests 
 API_ENDPOINT = 'https://discord.com/api/v6'
 CLIENT_ID = '332269999912132097'
 CLIENT_SECRET = '937it3ow87i4ery69876wqire'
-REDIRECT_URI = 'https://nicememe.website'
+REDIRECT_URI = 'https://redirect.com'
 
 def refresh_token(refresh_token):
   data = {
@@ -175,7 +175,7 @@ On redirect, your redirect URI will contain additional **URI fragments**: `acces
 ###### Redirect URL Example
 
 ```
-https://findingfakeurlsisprettyhard.tv/#access_token=RTfP0OK99U3kbRtHOoKLmJbOn45PjL&token_type=Bearer&expires_in=604800&scope=identify&state=15773059ghq9183habn
+https://Randomurl.com/#access_token=RTfP0OK99U3kbRtHOoKLmJbOn45PjL&token_type=Bearer&expires_in=604800&scope=identify&state=15773059ghq9183habn
 ```
 
 There are tradeoffs in using the implicit grant flow. It is both quicker and easier to implement, but rather than exchanging a code and getting a token returned in a secure HTTP body, the access token is returned in the URI fragment, which makes it possibly exposed to unauthorized parties. **You also are not returned a refresh token, so the user must explicitly re-authorize once their token expires.**
@@ -253,7 +253,7 @@ Bot authorization is a special server-less and callback-less OAuth2 flow that ma
 ###### URL Example
 
 ```
-https://discord.com/api/oauth2/authorize?client_id=157730590492196864&scope=bot&permissions=1
+https://discord.com/api/oauth2/authorize?client_id=157730590492196864&scope=bot&permissions=0
 ```
 
 In the case of bots, the `scope` parameter should be set to `bot`. There's also a new parameter, `permissions`, which is an integer corresponding to the [permission calculations](#DOCS_TOPICS_PERMISSIONS/permissions-bitwise-permission-flags) for the bot. You'll also notice the absence of `response_type` and `redirect_uri`. Bot authorization does not require these parameters because there is no need to retrieve the user's access token.
@@ -327,7 +327,7 @@ Discord's webhook flow is a specialized version of an [authorization code](#DOCS
 ###### URL Example
 
 ```
-https://discord.com/api/oauth2/authorize?response_type=code&client_id=157730590492196864&scope=webhook.incoming&state=15773059ghq9183habn&redirect_uri=https%3A%2F%2Fnicememe.website
+https://discord.com/api/oauth2/authorize?response_type=code&client_id=157730590492196864&scope=webhook.incoming&state=15773059ghq9183habn&redirect_uri=https%3A%2F%2Fredirect.com
 ```
 
 When the user navigates to this URL, they will be prompted to select a channel in which to allow the webhook. When the webhook is [executed](#DOCS_RESOURCES_WEBHOOK/execute-webhook), it will post its message into this channel. On acceptance, the user will be redirected to your `redirect_uri`. The URL will contain the `code` querystring parameter which should be [exchanged for an access token](#DOCS_TOPICS_OAUTH2/authorization-code-grant-access-token-exchange-example). In return, you will receive a slightly modified token response:
