@@ -5,7 +5,6 @@
   "main": "index.js",
   "directories": {
     "doc": "docs"
-    "discord": "discord"
   },  
   "repository": {
     "type": "git",
