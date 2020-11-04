@@ -514,19 +514,19 @@ Used to maintain an active gateway connection. Must be sent every `heartbeat_int
 
 Used to request all members for a guild or a list of guilds. When initially connecting, the gateway will only send offline members if a guild has less than the `large_threshold` members (value in the [Gateway Identify](#DOCS_TOPICS_GATEWAY/identify)). If a client wishes to receive additional members, they need to explicitly request them via this operation. The server will send [Guild Members Chunk](#DOCS_TOPICS_GATEWAY/guild-members-chunk) events in response with up to 1000 members per chunk until all members that match the request have been sent.
 
-If you are using [Gateway Intents](#DOCS_TOPICS_GATEWAY/gateway-intents), there are some significant changes to this command to be mindful of:
+Due to our privacy and infrastructural concerns with this feature, there are some limitations that apply:
 
 - `GUILD_PRESENCES` intent is required to set `presences = true`. Otherwise, it will always be false
 - `GUILD_MEMBERS` intent is required to request the entire member list—`(query=‘’, limit=0<=n)`
-- You will be limited to requesting 1 `guild_id`
-- Requesting a prefix will return a maximum of 100 members
+- You will be limited to requesting 1 `guild_id` per request
+- Requesting a prefix (`query` parameter) will return a maximum of 100 members
 - Requesting `user_ids` will continue to be limited to returning 100 members
 
 ###### Guild Request Members Structure
 
 | Field      | Type                             | Description                                                                                                                           | Required                   |
 |------------|----------------------------------|---------------------------------------------------------------------------------------------------------------------------------------|----------------------------|
-| guild_id   | snowflake or array of snowflakes | id of the guild(s) to get members for                                                                                                 | true                       |
+| guild_id   | snowflake                        | id of the guild to get members for                                                                                                    | true                       |
 | query?     | string                           | string that username starts with, or an empty string to return all members                                                            | one of query or user_ids   |
 | limit      | integer                          | maximum number of members to send matching the `query`; a limit of `0` can be used with an empty string `query` to return all members | true when specifying query |
 | presences? | boolean                          | used to specify if we want the presences of the matched members                                                                       | false                      |
