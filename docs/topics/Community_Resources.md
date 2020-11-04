@@ -28,6 +28,7 @@ Many of these libraries are represented in the [unofficial, community-driven Dis
 | [Eris](https://github.com/abalabahaha/eris)                  | JavaScript |
 | [Discord.jl](https://github.com/Xh4H/Discord.jl)             | Julia      |
 | [Discordia](https://github.com/SinisterRectus/Discordia)     | Lua        |
+| [dimscord](https://github.com/krisppurg/dimscord)            | Nim        |
 | [discordnim](https://github.com/Krognol/discordnim)          | Nim        |
 | [RestCord](https://www.restcord.com/)                        | PHP        |
 | [discord.py](https://github.com/Rapptz/discord.py)           | Python     |
