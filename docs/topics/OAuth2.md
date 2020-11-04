@@ -15,7 +15,7 @@ The first step in implementing OAuth2 is [registering a developer application](#
 | https://discord.com/api/oauth2/token/revoke | [Token Revocation](https://tools.ietf.org/html/rfc7009) URL |
 
 > warn
-> In accordance with [RFC 6749](https://tools.ietf.org/html/rfc6749), the [token URL](#DOCS_TOPICS_OAUTH2/shared-resources-oauth2-urls) **only** accepts a content type of `x-www-form-urlencoded`. JSON content is not permitted and will return an error.
+> In accordance with the relevant RFCs, the token and token revocation URLs will **only** accept a content type of `x-www-form-urlencoded`. JSON content is not permitted and will return an error.
 
 ###### OAuth2 Scopes
 
