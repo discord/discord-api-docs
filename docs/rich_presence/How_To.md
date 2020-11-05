@@ -7,9 +7,6 @@ How easy is it for people to play your game together? With Rich Presence from Di
 
 If you are testing a game integration with Rich Presence, other users will be able to see it. Please create a private test account and do not join any public servers while testing your integration.
 
-> info
-> If you want to stay up to date with the latest developer news from Discord and learn about new and exciting ways to work with us, sign up for our [developer newsletter](https://discord.com/dev-newsletter).
-
 ## So, what is it?
 
 Rich Presence allows you to leverage the totally overhauled "Now Playing" section in a Discord user's profile to help people play your game together. Rich game data—including duration, score, current boss or map, and so much more—lives inside Discord. You can spectate a friend's game directly from their profile popout, or party up via beautiful chat embeds with real-time information about open party slots and the party's in-game status. No more exchanging usernames and friend codes, or wondering if there's room for you to join. Rich Presence is a living invitation to play together, or to watch your friends kick butt.
@@ -147,8 +144,8 @@ typedef struct DiscordRichPresence {
 | partySize      | int      | current size of the player's party, lobby, or group                                                        | 1                                                          |
 | partyMax       | int      | maximum size of the player's party, lobby, or group                                                        | 5                                                          |
 | matchSecret    | char\*   | (for future use) unique hashed string for a player's match                                                 | MmhuZToxMjMxMjM6cWl3amR3MWlqZA==                           |
-| spectateSecret | char\*   | unique hashed string for Spectate button                                                                   | MTIzNDV8MTIzNDV8MTMyNDU0                                   |
-| joinSecret     | char\*   | unique hashed string for chat invitations and Ask to Join                                                  | MTI4NzM0OjFpMmhuZToxMjMxMjM=                               |
+| spectateSecret | char\*   | unique hashed string for Spectate button                                                                   | MTIzNDV8MTIzNDV8MTMyNDU0                                   |
+| joinSecret     | char\*   | unique hashed string for chat invitations and Ask to Join                                                  | MTI4NzM0OjFpMmhuZToxMjMxMjM=                               |
 | instance       | int8_t   | (for future use) integer representing a boolean for if the player is in an instance (an in-progress match) | 1                                                          |
 
 > info
@@ -156,7 +153,22 @@ typedef struct DiscordRichPresence {
 
 Here's a handy image to see how these fields are actually displayed on a profile:
 
-![](rp-legend.png)
+![Graphical representation of the legend for rich presence details](rp-legend.png)
+
+| location                               | field name             | notes                                                                       |
+| -------------------------------------- | ---------------------- | --------------------------------------------------------------------------- |
+| First row below title                  | details                |                                                                             |
+| Second row below title                 | state                  |                                                                             |
+| Second row below title                 | partySize              | In parenthesis next to the `state`, first number in the format `(1 of 10)`  |
+| Second row below title                 | partyMax               | In parenthesis next to the `state`, second number in the format `(1 of 10)` |
+| Third row below title                  | startTimestamp         | Converted to a format such as `01:33 elapsed`                               |
+| First button at the bottom             | joinSecret             | Button has the text "Ask to join"                                           |
+| Second button at the bottom            | spectateSecret         | Button has the text "Spectate"                                              |
+| Large image to the left of any content | largeImageKey          | Four rows high, includes the title but not the bottom buttons               |
+| Small image to the left of any content | smallImageKey          | Small icon inset on the bottom right of the `largeImageKey`                 |
+
+Note that this layout may be subject to change without warning. This information is only provided to help those with
+impaired eyesight to understand the potential layout of this information in a user interface.
 
 ## Joining
 
@@ -189,7 +201,7 @@ When Player B clicks the Ask to Join button on Player A's profile, the `joinRequ
 typedef struct DiscordJoinRequest {
     char userId[32];
     char username[344];
-    char discriminator[8]
+    char discriminator[8];
     char avatar[128];
 } DiscordJoinRequest;
 ```
@@ -268,7 +280,7 @@ All fields in the `DiscordRichPresence` object are entirely optional. Anything y
 |  matchSecret   |                |            |         |             |
 |   joinSecret   |                |            |    x    |      x      |
 | spectateSecret |                |     x      |         |             |
-|    instance    |                |            |         |             |  |
+|    instance    |                |            |         |             |
 
 ## Your New Developer Dashboard
 

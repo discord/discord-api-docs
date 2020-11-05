@@ -8,14 +8,14 @@ The first step in implementing OAuth2 is [registering a developer application](#
 
 ###### OAuth2 URLs
 
-| URL                                            | Description            |
-| ---------------------------------------------- | ---------------------- |
-| https://discord.com/api/oauth2/authorize    | Base authorization URL |
-| https://discord.com/api/oauth2/token        | Token URL              |
-| https://discord.com/api/oauth2/token/revoke | Revocation URL         |
+| URL                                         | Description                                                 |
+| ------------------------------------------- | ----------------------------------------------------------- |
+| https://discord.com/api/oauth2/authorize    | Base authorization URL                                      |
+| https://discord.com/api/oauth2/token        | Token URL                                                   |
+| https://discord.com/api/oauth2/token/revoke | [Token Revocation](https://tools.ietf.org/html/rfc7009) URL |
 
 > warn
-> In accordance with [RFC 6749](https://tools.ietf.org/html/rfc6749), the [token URL](#DOCS_TOPICS_OAUTH2/shared-resources-oauth2-urls) **only** accepts a content type of `x-www-form-urlencoded`. JSON content is not permitted and will return an error.
+> In accordance with the relevant RFCs, the token and token revocation URLs will **only** accept a content type of `x-www-form-urlencoded`. JSON content is not permitted and will return an error.
 
 ###### OAuth2 Scopes
 
@@ -41,7 +41,7 @@ These are a list of all the OAuth2 scopes that Discord supports. Scopes that are
 | applications.entitlements  | allows your app to read entitlements for a user's applications                                                                                        |
 | relationships.read         | allows your app to know a user's friends and implicit relationships - whitelist only                                                                  |
 | activities.read            | allows your app to fetch data from a user's "Now Playing/Recently Played" list - whitelist only                                                       |
-| activities.write           | allows your app to update a user's activity - whitelist only (NOT REQUIRED FOR [GAMESDK ACTIVITIY MANAGER](#DOCS_GAME_SDK_ACTIVITIES/))                 |
+| activities.write           | allows your app to update a user's activity - whitelist only (NOT REQUIRED FOR [GAMESDK ACTIVITY MANAGER](#DOCS_GAME_SDK_ACTIVITIES/))                 |
 
 > info
 > `guilds.join` and `bot` require you to have a bot account linked to your application. Also, in order to add a user to a guild, your bot has to already belong to that guild.
@@ -182,7 +182,7 @@ There are tradeoffs in using the implicit grant flow. It is both quicker and eas
 
 ## Client Credentials Grant
 
-The client credential flow is a quick and easy way for bot developers to get their own bearer tokens for testing purposes. By making a `POST` request to the [token URL](#DOCS_TOPICS_OAUTH2/shared-resources-oauth2-urls) with a grant type of `client_credentials`, you will be returned an access token for the bot owner. Therefore, always be super-extra-very-we-are-not-kidding-like-really-be-secure-make-sure-your-info-is-not-in-your-source-code careful with your `client_id` and `client_secret`. We don't take kindly to imposters around these parts.
+The client credential flow is a quick and easy way for bot developers to get their own bearer tokens for testing purposes. By making a `POST` request to the [token URL](#DOCS_TOPICS_OAUTH2/shared-resources-oauth2-urls) with a grant type of `client_credentials`, using Basic authentication with your client id as the username and your client secret as the password, you will be returned an access token for the bot owner. Therefore, always be super-extra-very-we-are-not-kidding-like-really-be-secure-make-sure-your-info-is-not-in-your-source-code careful with your `client_id` and `client_secret`. We don't take kindly to imposters around these parts.
 
 You can specify scopes with the `scope` parameter, which is a list of [OAuth2 scopes](#DOCS_TOPICS_OAUTH2/shared-resources-oauth2-scopes) separated by spaces:
 
@@ -290,7 +290,8 @@ When receiving the access code on redirect, there will be additional querystring
         "position": 0,
         "id": "290926798626357250",
         "managed": false,
-        "permissions": 49794241
+        "permissions": 49794241,
+        "permissions_new": "49794241"
       }
     ],
     "afk_timeout": 300,
@@ -298,7 +299,6 @@ When receiving the access code on redirect, there will be additional querystring
     "widget_channel_id": null,
     "region": "us-east",
     "default_message_notifications": 1,
-    "embed_channel_id": null,
     "explicit_content_filter": 0,
     "splash": null,
     "features": [],
@@ -306,7 +306,6 @@ When receiving the access code on redirect, there will be additional querystring
     "widget_enabled": false,
     "verification_level": 0,
     "owner_id": "53908232999183680",
-    "embed_enabled": false,
     "id": "2909267986347357250",
     "icon": null
   },
