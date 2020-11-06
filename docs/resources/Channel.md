@@ -495,8 +495,8 @@ Embed types are "loosely defined" and, for the most part, are not used by our cl
 | size      | integer   | size of file in bytes     |
 | url       | string    | source url of file        |
 | proxy_url | string    | a proxied url of file     |
-| height    | ?integer  | height of file (if image) |
-| width     | ?integer  | width of file (if image)  |
+| height?   | ?integer  | height of file (if image) |
+| width?    | ?integer  | width of file (if image)  |
 
 ### Channel Mention Object
 
