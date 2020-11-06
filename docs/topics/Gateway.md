@@ -700,11 +700,11 @@ Sent when a message is pinned or unpinned in a text channel. This is not sent wh
 
 ###### Channel Pins Update Event Fields
 
-| Field               | Type              | Description                                                 |
-|---------------------|-------------------|-------------------------------------------------------------|
-| guild_id?           | snowflake         | the id of the guild                                         |
-| channel_id          | snowflake         | the id of the channel                                       |
-| last_pin_timestamp? | ISO8601 timestamp | the time at which the most recent pinned message was pinned |
+| Field               | Type               | Description                                                  |
+|---------------------|--------------------|--------------------------------------------------------------|
+| guild_id?           | snowflake          | the id of the guild                                          |
+| channel_id          | snowflake          | the id of the channel                                        |
+| last_pin_timestamp? | ?ISO8601 timestamp | the time at which the most recent pinned message was pinned  |
 
 ### Guilds
 
