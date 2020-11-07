@@ -1030,7 +1030,7 @@ Active sessions are indicated with an "online", "idle", or "dnd" string per plat
 
 | Field           | Type                                                                          | Description                                                                                                               |
 |-----------------|-------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------|
-| id              | string                                                                        | the activity's id                                                                                                         |
+| id?             | string                                                                        | the activity's id                                                                                                         |
 | name            | string                                                                        | the activity's name                                                                                                       |
 | type            | integer                                                                       | [activity type](#DOCS_TOPICS_GATEWAY/activity-object-activity-types)                                                      |
 | url?            | ?string                                                                       | stream url, is validated when type is 1                                                                                   |
