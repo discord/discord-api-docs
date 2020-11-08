@@ -129,7 +129,7 @@ Having the user's access token allows your application to make certain requests 
 - `grant_type` - must be set to `refresh_token`
 - `refresh_token` - the user's refresh token
 - `redirect_uri` - your `redirect_uri`
-- `scope` - one or more scopes requested in your authorization url, space-delimited (optional, will be treated as equal to all previously allowed scopes if omitted)
+- `scope` - one or more scopes requested in your authorization url, space-delimited (optional, will be treated as equal to all previously allowed scopes if empty or omitted)
 
 ###### Refresh Token Exchange Example
 
