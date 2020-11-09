@@ -163,27 +163,27 @@ Roles represent a set of permissions attached to a group of users. Roles have un
 
 ###### Role Structure
 
-| Field           | Type                                                             | Description                                      |
-| --------------- | ---------------------------------------------------------------- | ------------------------------------------------ |
-| id              | snowflake                                                        | role id                                          |
-| name            | string                                                           | role name                                        |
-| color           | integer                                                          | integer representation of hexadecimal color code |
-| hoist           | boolean                                                          | if this role is pinned in the user listing       |
-| position        | integer                                                          | position of this role                            |
-| permissions     | string                                                           | permission bit set                               |
-| managed         | boolean                                                          | whether this role is managed by an integration   |
-| mentionable     | boolean                                                          | whether this role is mentionable                 |
-| tags?           | [role tags](#DOCS_TOPICS_PERMISSIONS/role-tags-structure) object | the tags this role has                           |
+| Field       | Type                                                             | Description                                      |
+| ----------- | ---------------------------------------------------------------- | ------------------------------------------------ |
+| id          | snowflake                                                        | role id                                          |
+| name        | string                                                           | role name                                        |
+| color       | integer                                                          | integer representation of hexadecimal color code |
+| hoist       | boolean                                                          | if this role is pinned in the user listing       |
+| position    | integer                                                          | position of this role                            |
+| permissions | string                                                           | permission bit set                               |
+| managed     | boolean                                                          | whether this role is managed by an integration   |
+| mentionable | boolean                                                          | whether this role is mentionable                 |
+| tags?       | [role tags](#DOCS_TOPICS_PERMISSIONS/role-tags-structure) object | the tags this role has                           |
 
 Roles without colors (`color == 0`) do not count towards the final computed color in the user list.
 
 ###### Role Tags Structure
 
-| Field               | Type            | Description                                         |
-| ------------------- | --------------- | --------------------------------------------------- |
-| bot_id?             | snowflake       | the id of the bot this role belongs to              |
-| integration_id?     | snowflake       | the id of the integration this role belongs to      |
-| premium_subscriber? | null            | whether this is the guild's premium subscriber role |
+| Field               | Type      | Description                                         |
+| ------------------- | --------- | --------------------------------------------------- |
+| bot_id?             | snowflake | the id of the bot this role belongs to              |
+| integration_id?     | snowflake | the id of the integration this role belongs to      |
+| premium_subscriber? | null      | whether this is the guild's premium subscriber role |
 
 ###### Example Role
 
