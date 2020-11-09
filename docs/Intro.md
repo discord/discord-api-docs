@@ -35,6 +35,13 @@ No matter where your game lives, it should have a first-class experience in Disc
 
 It’s free, easy, and self-serve, so check out [the GameSDK Activity Manager](#DOCS_GAME_SDK_ACTIVITIES/) and get started!
 
+## Still need some help?
+
+We all need a hand sometimes,
+Join the official Discord Developers server, for support and discussion regarding all things Discord API: https://discord.gg/discord-developers
+
+And if you're knowledgeable, help out, you might get a cookie
+
 ## Go Make Cool Stuff!
 
 We love our developers, and we plan to keep making practical tools so that YOU can keep making cool stuff. Build a bot, integrate our account system, or put us right in your game; whatever you do, do it with Discord.
