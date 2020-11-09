@@ -2,6 +2,10 @@
 
 Discord has the best online community. At least, we like to think so, and this is our website, so our word is law, deal with it. Therefore it's a fact that our community is the best, and they make really awesome things that we want to share with developers to make their lives easier. From permissions calculators to embed visualizers to full libraries to interface with our API, there are so many great things that have come out of our community.
 
+## Discord Developers
+
+The Discord Developers server is the official, developer ran, but community driven, support hub. If you need help with developing something on Discord or want official updates from the developers, [this is the place to be](https://discord.gg/discord-developers). 
+
 ## Libraries
 
 The Discord team curates the following list of officially vetted libraries that conform to our APIs standards around authentication and rate limiting. Using custom implementations or non-compliant libraries that abuse the API or cause excessive rate limits may result in a **permanent** ban.
