@@ -26,5 +26,5 @@ The Unofficial Discord API server is a common hangout for library and bot develo
 
 [![Widget for the Discord API guild](https://discord.com/api/guilds/81384788765712384/widget.png?style=banner1)](https://discord.gg/discord-api)
 
-The Official Discord Developers have plenty of help channels with knowledgeable people and Discord's developers to get you help with something you need. However do keep in mind this is a purely on-topic server, if you want a community, join the server above.
+The Official Discord Developers server has plenty of help channels with knowledgeable people and Discord's developers to get you help with something you need, and get updates straight from the developers. However do keep in mind this is a purely on-topic server, if you want a community, join the server above.
 Invite for Discord Developers: https://discord.gg/discord-developers
