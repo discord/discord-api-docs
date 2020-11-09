@@ -20,7 +20,7 @@ Links between docs can be achieved by using a hash symbol (#), plus the markdown
 Alert boxes are achieved by using a block quote that has one of 'warn', 'danger' or 'info' on the first line.
 
 ## Need some help?
-Here are some Discord servers that can help you out with everything Discord API;
+Here are some Discord servers that can help you out with everything Discord API:
 
 The Unofficial Discord API server is a common hangout for library and bot developers alike. It's a great starting point for those looking to dive in and learn bot-creation with the Discord API.
 
