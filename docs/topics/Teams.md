@@ -51,8 +51,6 @@ We've got a lot of awesome features planned for teams in the future, so stay tun
 
 Go team!
 
-## API Stuff
-
 ## Data Models
 
 ###### Team Object
