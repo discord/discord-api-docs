@@ -27,6 +27,8 @@ The changes are:
 - Bots no longer receive [Channel Create Gateway Event](#DOCS_TOPICS_GATEWAY/channel-create) for DMs
 - `delete-message-days` is no longer available. Use `delete_message_days`.
 - Removed `roles`, `premium_since`, and `nick` from [Presence Update Gateway Event](#DOCS_TOPICS_GATEWAY/presence-update)
+- Removed some [integration object](#DOCS_RESOURCES_GUILD/integration-object) fields for Discord application integrations
+- Removed `include_applications` from [Get Guild Integrations](#DOCS_RESOURCES_GUILD/get-guild-integrations). Application integrations are always included.
 - The following deprecated routes have been removed for better naming conventions:
 
 Removed in favor of `/guilds/<guild_id>/widget`:
