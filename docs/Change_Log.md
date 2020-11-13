@@ -1,5 +1,11 @@
 # Change Log
 
+## Stickers
+
+#### November 13, 2020
+
+Stickers are now documented as part of the [message](#DOCS_RESOURCES_CHANNEL/message-object) object. 
+
 ## API and Gateway V8
 
 #### October 27, 2020
