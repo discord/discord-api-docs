@@ -12,7 +12,20 @@ Inline Replies have been added to our documentation. They behave differently in 
 - A new field `replied_user` has been added to the [Allowed Mentions Object](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object)
 - [Message Create](#DOCS_TOPICS_GATEWAY/message-create) gateway event is guaranteed to have a `referenced_message` if the message created is a reply. Otherwise, that field is not guaranteed.
 
+## Stickers
+
+#### November 13, 2020
+
+Stickers are now documented as part of the [message](#DOCS_RESOURCES_CHANNEL/message-object) object. 
+
 ## API and Gateway V8
+
+#### October 27, 2020
+
+The v6 gateway now applies the restrictions for gateway intents. This means the new chunking limitations are now in effect, regardless of intents being used. See [Request Guild Members](#DOCS_TOPICS_GATEWAY/request-guild-members) for further details.
+Additionally, if privileged intents are not enabled in the application dashboard the bot will not receive the events for those intents.
+
+All other intents are always enabled by default unless specified otherwise by the identify payload. We have made a support article to explain some of the changes and resulting issues with more details: [Gateway Update FAQ](https://dis.gd/gwupdate)
 
 #### September 24, 2020
 
@@ -32,6 +45,8 @@ The changes are:
 - Bots no longer receive [Channel Create Gateway Event](#DOCS_TOPICS_GATEWAY/channel-create) for DMs
 - `delete-message-days` is no longer available. Use `delete_message_days`.
 - Removed `roles`, `premium_since`, and `nick` from [Presence Update Gateway Event](#DOCS_TOPICS_GATEWAY/presence-update)
+- Removed some [integration object](#DOCS_RESOURCES_GUILD/integration-object) fields for Discord application integrations
+- Removed `include_applications` from [Get Guild Integrations](#DOCS_RESOURCES_GUILD/get-guild-integrations). Application integrations are always included.
 - The following deprecated routes have been removed for better naming conventions:
 
 Removed in favor of `/guilds/<guild_id>/widget`:

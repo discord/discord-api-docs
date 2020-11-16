@@ -64,6 +64,7 @@ Our voice gateways have their own set of opcodes and close codes.
 | Code | Description             | Explanation                                                                                                                                         |
 |------|-------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------|
 | 4001 | Unknown opcode          | You sent an invalid [opcode](#DOCS_RESOURCES_VOICE_CONNECTIONS/voice-events-voice-opcodes).                                                         |
+| 4002 | Failed to decode payload | You sent a invalid payload in your [identifying](#DOCS_TOPICS_GATEWAY/gateway-identify) to the Gateway.                                            |
 | 4003 | Not authenticated       | You sent a payload before [identifying](#DOCS_TOPICS_GATEWAY/gateway-identify) with the Gateway.                                                    |
 | 4004 | Authentication failed   | The token you sent in your [identify](#DOCS_TOPICS_GATEWAY/gateway-identify) payload is incorrect.                                                  |
 | 4005 | Already authenticated   | You sent more than one [identify](#DOCS_TOPICS_GATEWAY/gateway-identify) payload. Stahp.                                                            |
@@ -142,6 +143,7 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 30013  | Maximum number of guild channels reached (500)                                                                                |
 | 30015  | Maximum number of attachments in a message reached (10)                                                                       |
 | 30016  | Maximum number of invites reached (1000)                                                                                      |
+| 30031  | Guild already has a template                                                                                                  |
 | 40001  | Unauthorized. Provide a valid token and try again                                                                             |
 | 40002  | You need to verify your account in order to perform this action                                                               |
 | 40005  | Request entity too large. Try sending something smaller in size                                                               |
@@ -175,6 +177,7 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 50036  | An invite was accepted to a guild the application's bot is not in                                                             |
 | 50041  | Invalid API version provided                                                                                                  |
 | 50074  | Cannot delete a channel required for Community guilds                                                                         |
+| 50081  | Invalid sticker sent                                                                                                          |
 | 90001  | Reaction was blocked                                                                                                          |
 | 130000 | API resource is currently overloaded. Try again a little later                                                                |
 

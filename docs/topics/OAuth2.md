@@ -8,14 +8,14 @@ The first step in implementing OAuth2 is [registering a developer application](#
 
 ###### OAuth2 URLs
 
-| URL                                            | Description            |
-| ---------------------------------------------- | ---------------------- |
-| https://discord.com/api/oauth2/authorize    | Base authorization URL |
-| https://discord.com/api/oauth2/token        | Token URL              |
-| https://discord.com/api/oauth2/token/revoke | Revocation URL         |
+| URL                                         | Description                                                 |
+| ------------------------------------------- | ----------------------------------------------------------- |
+| https://discord.com/api/oauth2/authorize    | Base authorization URL                                      |
+| https://discord.com/api/oauth2/token        | Token URL                                                   |
+| https://discord.com/api/oauth2/token/revoke | [Token Revocation](https://tools.ietf.org/html/rfc7009) URL |
 
 > warn
-> In accordance with [RFC 6749](https://tools.ietf.org/html/rfc6749), the [token URL](#DOCS_TOPICS_OAUTH2/shared-resources-oauth2-urls) **only** accepts a content type of `x-www-form-urlencoded`. JSON content is not permitted and will return an error.
+> In accordance with the relevant RFCs, the token and token revocation URLs will **only** accept a content type of `x-www-form-urlencoded`. JSON content is not permitted and will return an error.
 
 ###### OAuth2 Scopes
 
@@ -182,7 +182,7 @@ There are tradeoffs in using the implicit grant flow. It is both quicker and eas
 
 ## Client Credentials Grant
 
-The client credential flow is a quick and easy way for bot developers to get their own bearer tokens for testing purposes. By making a `POST` request to the [token URL](#DOCS_TOPICS_OAUTH2/shared-resources-oauth2-urls) with a grant type of `client_credentials`, you will be returned an access token for the bot owner. Therefore, always be super-extra-very-we-are-not-kidding-like-really-be-secure-make-sure-your-info-is-not-in-your-source-code careful with your `client_id` and `client_secret`. We don't take kindly to imposters around these parts.
+The client credential flow is a quick and easy way for bot developers to get their own bearer tokens for testing purposes. By making a `POST` request to the [token URL](#DOCS_TOPICS_OAUTH2/shared-resources-oauth2-urls) with a grant type of `client_credentials`, using Basic authentication with your client id as the username and your client secret as the password, you will be returned an access token for the bot owner. Therefore, always be super-extra-very-we-are-not-kidding-like-really-be-secure-make-sure-your-info-is-not-in-your-source-code careful with your `client_id` and `client_secret`. We don't take kindly to imposters around these parts.
 
 You can specify scopes with the `scope` parameter, which is a list of [OAuth2 scopes](#DOCS_TOPICS_OAUTH2/shared-resources-oauth2-scopes) separated by spaces:
 
