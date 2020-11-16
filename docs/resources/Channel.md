@@ -848,11 +848,12 @@ Returns a [message](#DOCS_RESOURCES_CHANNEL/message-object) object. Fires a [Mes
 
 ###### JSON Params
 
-| Field   | Type                                                 | Description                                                                                                                             |
-|---------|------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------|
-| content | string                                               | the new message contents (up to 2000 characters)                                                                                        |
-| embed   | [embed](#DOCS_RESOURCES_CHANNEL/embed-object) object | embedded `rich` content                                                                                                                 |
-| flags   | integer                                              | edit the [flags](#DOCS_RESOURCES_CHANNEL/message-object-message-flags) of a message (only `SUPPRESS_EMBEDS` can currently be set/unset) |
+| Field            | Type                                                                      | Description                                                                                                                             |
+|------------------|---------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------|
+| content          | string                                                                    | the new message contents (up to 2000 characters)                                                                                        |
+| embed            | [embed](#DOCS_RESOURCES_CHANNEL/embed-object) object                      | embedded `rich` content                                                                                                                 |
+| flags            | integer                                                                   | edit the [flags](#DOCS_RESOURCES_CHANNEL/message-object-message-flags) of a message (only `SUPPRESS_EMBEDS` can currently be set/unset) |
+| allowed_mentions | [allowed mention object](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object) | allowed mentions for the message                                                                                                        |
 
 ## Delete Message % DELETE /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}
 
