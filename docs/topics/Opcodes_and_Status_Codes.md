@@ -145,6 +145,7 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 30015  | Maximum number of attachments in a message reached (10)                                                                       |
 | 30016  | Maximum number of invites reached (1000)                                                                                      |
 | 30030  | Maximum number of guild discovery subcategories has been reached (5)                                                          |
+| 30031  | Guild already has a template                                                                                                  |
 | 40001  | Unauthorized. Provide a valid token and try again                                                                             |
 | 40002  | You need to verify your account in order to perform this action                                                               |
 | 40005  | Request entity too large. Try sending something smaller in size                                                               |
@@ -178,6 +179,7 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 50036  | An invite was accepted to a guild the application's bot is not in                                                             |
 | 50041  | Invalid API version provided                                                                                                  |
 | 50074  | Cannot delete a channel required for Community guilds                                                                         |
+| 50081  | Invalid sticker sent                                                                                                          |
 | 90001  | Reaction was blocked                                                                                                          |
 | 130000 | API resource is currently overloaded. Try again a little later                                                                |
 

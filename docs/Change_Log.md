@@ -1,5 +1,23 @@
 # Change Log
 
+## Inline Replies
+
+#### November 16, 2020
+
+Inline Replies have been added to our documentation. They behave differently in v6 and v8, so be cautious in your implementation:
+
+- Inline replies are type `19` in v8, but remain type `0` in v6
+- You can now add a `message_reference` on message create to create a reply
+- A new field `referenced_message` has been added to the [Message Object](#DOCS_RESOURCES_CHANNEL/message-object)
+- A new field `replied_user` has been added to the [Allowed Mentions Object](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object)
+- [Message Create](#DOCS_TOPICS_GATEWAY/message-create) gateway event is guaranteed to have a `referenced_message` if the message created is a reply. Otherwise, that field is not guaranteed.
+
+## Stickers
+
+#### November 13, 2020
+
+Stickers are now documented as part of the [message](#DOCS_RESOURCES_CHANNEL/message-object) object. 
+
 ## API and Gateway V8
 
 #### October 27, 2020
@@ -27,6 +45,8 @@ The changes are:
 - Bots no longer receive [Channel Create Gateway Event](#DOCS_TOPICS_GATEWAY/channel-create) for DMs
 - `delete-message-days` is no longer available. Use `delete_message_days`.
 - Removed `roles`, `premium_since`, and `nick` from [Presence Update Gateway Event](#DOCS_TOPICS_GATEWAY/presence-update)
+- Removed some [integration object](#DOCS_RESOURCES_GUILD/integration-object) fields for Discord application integrations
+- Removed `include_applications` from [Get Guild Integrations](#DOCS_RESOURCES_GUILD/get-guild-integrations). Application integrations are always included.
 - The following deprecated routes have been removed for better naming conventions:
 
 Removed in favor of `/guilds/<guild_id>/widget`:
