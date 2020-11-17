@@ -55,7 +55,7 @@ An example of how to do this properly is at the end of this documentation page.
 | Offline      | 0     |
 | Online       | 1     |
 | Idle         | 2     |
-| DoNotDisturb | 4     |
+| DoNotDisturb | 3     |
 
 ## Filter
 
