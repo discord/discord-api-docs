@@ -736,7 +736,7 @@ This endpoint supports requests with `Content-Type`s of both `application/json` 
 > info
 > Note that when sending `application/json` you must send at least one of `content` or `embed`, and when sending `multipart/form-data`, you must send at least one of `content`, `embed` or `file`. For a `file` attachment, the `Content-Disposition` subpart header MUST contain a `filename` parameter.
 
-You may create a message as a reply to another message. To do so, include a [`message_reference`](#DOCS_RESOURCES_CHANNEL/message-object-message-reference-structure) with a `message_id`. This requires the `VIEW MESSAGE HISTORY` permission, and the referenced message must exist and cannot be a system message. The `channel_id` and `guild_id` in the `message_reference` are optional, but will be validated if provided.
+You may create a message as a reply to another message. To do so, include a [`message_reference`](#DOCS_RESOURCES_CHANNEL/message-object-message-reference-structure) with a `message_id`. This requires the `READ_MESSAGE_HISTORY` permission, and the referenced message must exist and cannot be a system message. The `channel_id` and `guild_id` in the `message_reference` are optional, but will be validated if provided.
 
 ###### Params
 
