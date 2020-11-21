@@ -52,7 +52,18 @@ Receiving payloads with the Gateway API is slightly more complex than sending. W
 
 #### ETF/JSON
 
-When initially creating and handshaking connections to the Gateway, a user can choose whether they wish to communicate over plain-text JSON or binary [ETF](https://erlang.org/doc/apps/erts/erl_ext_dist.html). When using ETF, the client must not send compressed messages to the server. Note that Snowflake IDs are transmitted as 64-bit integers over ETF, but are transmitted as strings over JSON. See [erlpack](https://github.com/discord/erlpack) for an implementation example.
+When initially creating and handshaking connections to the Gateway, a user can choose whether they wish to communicate over plain-text JSON or binary [ETF](https://erlang.org/doc/apps/erts/erl_ext_dist.html).
+
+Note that Snowflake IDs are transmitted as 64-bit integers over ETF, but are transmitted as strings over JSON.
+
+##### Using ETF
+
+While using ETF there are some additional payload constraints to note:
+
+- The client must not send compressed messages to the server.
+- Payloads must use string keys, atom keys will lead to a 4002 decode error.
+
+See [erlpack](https://github.com/discord/erlpack) for an ETF implementation example. 
 
 #### Payload Compression
 
