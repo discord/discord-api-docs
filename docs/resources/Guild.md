@@ -374,6 +374,8 @@ Create a new guild. Returns a [guild](#DOCS_RESOURCES_GUILD/guild-object) object
 | afk_channel_id?                | snowflake                                                                  | id for afk channel                                                                                          |
 | afk_timeout?                   | integer                                                                    | afk timeout in seconds                                                                                      |
 | system_channel_id?             | snowflake                                                                  | the id of the channel where guild notices such as welcome messages and boost events are posted              |
+| system_channel_flags?          | integer                                                                    | [system channel flags](#DOCS_RESOURCES_GUILD/guild-object-system-channel-flags)                             |
+
 
 > warn
 > When using the `roles` parameter, the first member of the array is used to change properties of the guild's `@everyone` role. If you are trying to bootstrap a guild with additional roles, keep this in mind.
@@ -513,6 +515,7 @@ Modify a guild's settings. Requires the `MANAGE_GUILD` permission. Returns the u
 | discovery_splash              | ?[image data](#DOCS_REFERENCE/image-data)                                           | base64 16:9 png/jpeg image for the guild discovery splash (when the server has the `DISCOVERABLE` feature)                   |
 | banner                        | ?[image data](#DOCS_REFERENCE/image-data)                                           | base64 16:9 png/jpeg image for the guild banner (when the server has the `BANNER` feature)                                   |
 | system_channel_id             | ?snowflake                                                                          | the id of the channel where guild notices such as welcome messages and boost events are posted                               |
+| system_channel_flags          | integer                                                                             | [system channel flags](#DOCS_RESOURCES_GUILD/guild-object-system-channel-flags)                                              |
 | rules_channel_id              | ?snowflake                                                                          | the id of the channel where Community guilds display rules and/or guidelines                                                 |
 | public_updates_channel_id     | ?snowflake                                                                          | the id of the channel where admins and moderators of Community guilds receive notices from Discord                           |
 | preferred_locale              | ?string                                                                             | the preferred locale of a Community guild used in server discovery and notices from Discord; defaults to "en-US"             |
