@@ -27,7 +27,7 @@ We know that your server and community are at the heart of your game's success o
 
 # Announcement Channels
 
-As part of our ongoing effort to help you build your game community, all community servers also have the ability to create Announcement Channels!
+As part of our ongoing effort to help you build your game community, all [community servers](https://dis.gd/communityservers) (along with [verified](https://discord.com/verification), [partnered](https://discord.com/partners), and [developer servers](docs/game-and-server-management/how-to-get-your-game-on-discord#your-server-your-kingdom)) have the ability to create Announcement Channels!
 
 Unlike a regular text channel, Announcement Channels comes with a “Follow” button that allows your superfans to hook and connect your channel into their own personal servers. Now, select messages in your Announcement Channels can be "published" in your players' friend servers as regular messages, allowing them to get the latest updates of their favorite game in the places they hang out most. Because these posts appear and function as messages, it means that everyone in your superfan’s server can find them, discuss them live, and receive them as mobile notifications, if they have this setting enabled.
 
