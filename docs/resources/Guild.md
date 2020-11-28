@@ -53,10 +53,13 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 | max_video_channel_users?      | integer                                                                             | the maximum amount of users in a video channel                                                                                           |
 | approximate_member_count?     | integer                                                                             | approximate number of members in this guild, returned from the `GET /guild/<id>` endpoint when `with_counts` is `true`                   |
 | approximate_presence_count?   | integer                                                                             | approximate number of non-offline members in this guild, returned from the `GET /guild/<id>` endpoint when `with_counts` is `true`       |
+| welcome_screen? \*\*\*   | [welcome screen](#DOCS_RESOURCES_GUILD/welcome-screen-object) object                     | welcome screen object; only present for guilds with the "DISCOVERABLE" feature                                                           |
 
 ** \* These fields are only sent within the [GUILD_CREATE](#DOCS_TOPICS_GATEWAY/guild-create) event **
 
 ** \*\* These fields are only sent when using the [GET Current User Guilds](#DOCS_RESOURCES_USER/get-current-user-guilds) endpoint and are relative to the requested user **
+
+** \*\*\* These fields are only sent when the [GET Invite](#DOCS_RESOURCES_INVITE/get-invite) endpoint is used **
 
 ###### Default Message Notification Level
 
@@ -123,6 +126,22 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 | ANIMATED_ICON          | guild has access to set an animated guild icon                                  |
 | BANNER                 | guild has access to set a guild banner image                                    |
 | WELCOME_SCREEN_ENABLED | guild has enabled the welcome screen                                            |
+
+###### Welcome Screen Object
+
+| Field            | Type                                                                                           | Description                |
+| ---------------- | ---------------------------------------------------------------------------------------------- | ---------------------------|
+| description      | string                                                                                         | welcome screen description |
+| welcome_channels | array of [welcome screen channel](#DOCS_RESOURCES_GUILD/welcome-screen-channel-object) objects | welcome screen channels    |
+
+###### Welcome Screen Channel Object
+
+| Field       | Type       | Description                                                          |
+| ----------- | ---------- | -------------------------------------------------------------------- |
+| channel_id  | snowflake  | the id of the channel it is pointing to                              |
+| description | string     | the description of the welcome channel                               |
+| emoji_id    | ?snowflake | [emoji id](#DOCS_REFERENCE/image-formatting), if custom emote is set |
+| emoji_name  | string     | emoji name                                                           |
 
 ###### Example Guild
 
