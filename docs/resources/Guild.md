@@ -141,7 +141,7 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 | channel_id  | snowflake  | the id of the channel it is pointing to                              |
 | description | string     | the description of the welcome channel                               |
 | emoji_id    | ?snowflake | [emoji id](#DOCS_REFERENCE/image-formatting), if custom emote is set |
-| emoji_name  | string     | emoji name                                                           |
+| emoji_name  | ?string    | emoji name, if emote is used. Otherwise `null` is sent               |
 
 ###### Example Guild
 
