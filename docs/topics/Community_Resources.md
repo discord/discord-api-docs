@@ -37,7 +37,7 @@ Many of these libraries are represented in the [unofficial, community-driven Dis
 | [Serenity](https://github.com/serenity-rs/serenity)          | Rust       | [Invite](https://discord.gg/9X7vCus)          |
 | [AckCord](https://github.com/Katrix/AckCord)                 | Scala      | [Invite](https://discord.gg/5UH627u)          |
 | [Sword](https://github.com/Azoy/Sword)                       | Swift      | [Invite](https://discord.gg/99a3xNk)          |
-| [Discordeno](https://github.com/Skillz4Killz/Discordeno)     | TypeScript | [Invite](https://discord.gg/J4NqJ72)          |
+| [Discordeno](https://github.com/Skillz4Killz/Discordeno)     | TypeScript | [Invite](https://discord.gg/5vBgXk3UcZ)       |
 
 ## Game SDK Tools
 
