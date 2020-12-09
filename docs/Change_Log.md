@@ -1,5 +1,14 @@
 # Change Log
 
+## Slash Commands and Interactions
+#### December 15, 2020
+
+Slash Commands are here! There's a _lot_ to cover, so go check out specific documentation under [Slash Commands](#DOCS_INTERACTIONS_SLASH_COMMANDS/).
+
+Slash Commands include some new features for webhooks as well:
+
+- Webhooks can now update previously-sent message from the same webhook using [Edit Webhook Message](#DOCS_RESOURCES_WEBHOOK/edit-webhook-message)
+
 ## Inline Replies
 
 #### November 16, 2020
