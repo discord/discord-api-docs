@@ -1,8 +1,6 @@
 # Slash Commands
 
-Slash Commands are the new, exciting way to build and interact with apps on Discord. 
-
-<more intro>
+Slash Commands are the new, exciting way to build and interact with apps on Discord. This is not a terribly exciting introduction, so I will add more fun words here later.
 
 ## What is a Slash Command
 
@@ -16,7 +14,7 @@ An **Interaction** is the message that your application receives when a user use
 
 We're all used to the way that Discord bots have worked for a long time. You make an application in the Dev Portal, you add a bot user to it, and you copy the token. That token can be used to connect to the gateway and to make requests against our API.
 
-Slash Commands and Interactions bring something entirely new to the table: the ability to interact with an application _without needing a bot user in the guild_. As you read through this documentation, you'll see that bot tokens are only referenced in once place, as a helpful alternative to doing a client credentials auth flow. Slash Commands do not depend on a bot user in the guild; responding to interactions does not require a bot token.
+Slash Commands and Interactions bring something entirely new to the table: the ability to interact with an application _without needing a bot user in the guild_. As you read through this documentation, you'll see that bot tokens are only referenced as a helpful alternative to doing a client credentials auth flow. Slash Commands do not depend on a bot user in the guild; responding to interactions does not require a bot token.
 
 In many cases, you may still need a bot user. If you need to receive gateway events, or need to interact with other parts of our API (like fetching a guild, or a channel, or updating permissions on a user), those actions are all still tied to having a bot token. However, if you don't need any of those things, you never have to add a bot user to your application at all.
 
@@ -43,7 +41,7 @@ Who knows, maybe in the future, Interactions tokens will become even smarter.
 > info
 > Currently, Slash Commands can only be registered via HTTP endpoint.
 
-There are kind of Slash Commands: global commands and guild commands. Global commands are available for every guild that adds your app; guild commands are specific to the guild you specify when making them. Command names are unique per application within each scope (global and guild). That means:
+There are two kinds of Slash Commands: global commands and guild commands. Global commands are available for every guild that adds your app; guild commands are specific to the guild you specify when making them. Command names are unique per application within each scope (global and guild). That means:
 
 - Your app **cannot** have two global commands with the same name
 - Your app **cannot** have two guild commands within the same name **on the same guild**
@@ -101,7 +99,7 @@ headers = {
 r = requests.post(url, headers, body)
 ```
 
-This command will not be available on _all_ your app's guilds.
+This command will be available on _all_ your app's guilds.
 
 > warn
 > Global commands are cached for **1 hour**. That means that new global commands will fan out slowly across all guilds, and will be guaranteed to be updated in an hour.
@@ -120,7 +118,7 @@ This command will only be available within the guild that you specified.
 
 ## Updating and Deleting a Command
 
-Slash Commands can be deleted, and updated by making `DELETE` and `PATCH` calls to the command endpoint. Those endpoints are
+Slash Commands can be deleted and updated by making `DELETE` and `PATCH` calls to the command endpoint. Those endpoints are
 
 - `applications/<my_application_id>/commands/<command_id>` for global commands, or
 - `applications/<my_application_id>/guilds/<guild_id>/commands/<command_id>` for guild commands
@@ -234,9 +232,10 @@ If you are receiving Interactions over the gateway, you will **also need to resp
 To respond to a gateway Interaction, make a `POST` request like this. `interaction_id` is the unique id of that individual Interaction from the receieved payload. `interaction_token` is the unique token for that interaction from the received payload:
 
 ```py
-url = "https://discord.com/api/v8/interactions/<interaction_id>/<interaction_token>/callback
+url = "https://discord.com/api/v8/interactions/<interaction_id>/<interaction_token>/callback"
+
 data = {
-    "content": "Congrats on sending your command!
+    "content": "Congrats on sending your command!"
 }
 r = requests.post(url, data)
 ```
@@ -258,13 +257,16 @@ Interaction tokens are valid for **15 minutes**, meaning you can respond and upd
 
 If you are receiving Interactions via outgoing webhook, there are some security steps you **must** take before your app is eligible to receive requests. The internet is a scary place, especially for people hosting open, unauthenticated endpoints.
 
-Every Interaction is sent with a `x-signature-ed25519` header. The header includes an encryption key and a timestamp. Using your favorite security library of choice, you **must validate this signature header each time to you receive an interaction**.
+Every Interaction is sent with a `x-signature-ed25519` header. The header includes an encryption key and a timestamp. Using your favorite security library of choice, you **must validate this signature header each time to you receive an interaction**. If the signature fails validate, respond with a `400` error code.
 
 Your **public key** for your app can be found on the **General Information page for your app in the Dev Portal**.
 
 If you are not properly validating this signature header, we will not allow you to save your interactions URL in the Dev Portal. We will also do automated, routine security checks against your endpoint, meaning that if you remove this validation in the future, we will remove your interactions URL in the future and alert you via email and System DM.
 
+
 ## Subcommands and Groups
+
+Mason TODO to talk more about this
 
 ## Endpoints
 
