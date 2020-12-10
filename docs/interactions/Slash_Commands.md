@@ -158,7 +158,7 @@ When you attempt to save a URL, we will send a `POST` request to that URL with a
 ```py
 @app.route('/', methods=['POST'])
 def my_command():
-    if request.json.type == 1:        
+    if request.json["type"] == 1:        
         return jsonify({
             "type": 1
         })
@@ -217,7 +217,7 @@ When responding to an interaction received **via webhook**, your server can simp
 ```py
 @app.route('/', methods=['POST'])
 def my_command():
-    if request.json.type == 1:        
+    if request.json["type"] == 1:        
         return jsonify({
             "type": 1
         })
@@ -272,18 +272,21 @@ Your **public key** for your app can be found on the **General Information page 
 If you are not properly validating this signature header, we will not allow you to save your interactions URL in the Dev Portal. We will also do automated, routine security checks against your endpoint, meaning that if you remove this validation in the future, we will remove your interactions URL in the future and alert you via email and System DM.
 
 
-## Subcommands and Groups
+## Subcommands and Subcommand Groups
+
+> warn
+> Currently, subcommands and subcommand groups all appear at the top level in the command explorer. This may change in the future to include them as nested autocomplete options.
 
 For those developers looking to make more organized and complex groups of commands, look no further than subcommands and groups.
 
-**Subcommands** organize your command by **specifying actions on the top-level command**.
+**Subcommands** organize your command by **specifying actions within a command or group**.
 
-**Groups** organize your command by **specifying the resource affected by the top-level command**.
+**Subcommand Groups** organize your **subcommands** by **grouping commands by similar action or resource within a command**.
 
 > info
 > These are not enforced rules. You are free to use subcommands and groups however you'd like; it's just how we think about them.
 
-Let's look at an example. Let's imagine you run a moderation bot. You want to make some `/permissions` commands that can do the following:
+Let's look at an example. Let's imagine you run a moderation bot. You want to make a `/permissions` command that can do the following:
 
 - Get the guild permissions for a user or a role
 - Get the permissions for a user or a role on a specific channel
@@ -295,145 +298,74 @@ We'll start by defining the top-level information for `/permissions`:
 ```js
 {
     "name": "permissions",
-    "description": "Get or modify permissions for a user or a role",
+    "description": "Get or edit permissions for a user or a role",
     "options": []
 }
 ```
 
-Now we have a command named `permissions`. We want this command to be able to get _and_ change permissions. Rather than making two separate commands, we can use subcommands:
+![A command with no arguments. It says /permissions](command.png)
+
+Now we have a command named `permissions`. We want this command to be able to affect users roles. Rather than making two separate commands, we can use subcommand groups. We want to use subcommand groups here because we are grouping commands on a similar resource: `user` or `role`.
 
 ```js
 {
     "name": "permissions",
-    "description": "Get or modify permissions for a user or a role",
+    "description": "Get or edit permissions for a user or a role",
     "options": [
         {
-            "name": "get",
-            "description": "Get permissions for a user or role",
-            "type": 1 // 1 is the type SUBCOMMAND,
-            "options": []
+            "name": "user",
+            "description": "Get or edit permissions for a user",
+            "type": 2 // 2 is type SUB_COMMAND_GROUP
         },
         {
-            "name": "edit",
-            "description": "Edit permissions for a user or role",
-            "type": 1,
-            "options": []
+            "name": "role",
+            "description": "Get or edit permissions for a role",
+            "type": 2
         }
     ]
 }
 ```
 
-Now, within our command `permissions`, we have two _subcommands_ `get` and `edit`. Now, we said that we wanted to be able to choose either a role or a user. You may think you'd want to use optional parameters so the user can pick which one they'd like, but you can also use groups:
+You'll notice that a command like this **will not show up** in the command explorer. That's because groups are effectively "folders" for commands, and we've made two empty folders. So let's continue.
+
+After we scope our command to the `user` or `role` groups, we want to be able to either `get` or `edit` their permissions. Within the subcommand groups, we can make subcommands for `get` and `edit`:
 
 ```js
 {
     "name": "permissions",
-    "description": "Get or modify permissions for a user or a role",
+    "description": "Get or edit permissions for a user or a role",
     "options": [
         {
-            "name": "get",
-            "description": "Get permissions for a user or role",
-            "type": 1 // 1 is the type SUBCOMMAND,
+            "name": "user",
+            "description": "Get or edit permissions for a user",
+            "type": 2, // 2 is type SUB_COMMAND_GROUP
             "options": [
                 {
-                    "name": "user",
-                    "description": "Get the permissions for a user",
-                    "type": 2 // 2 is the type SUBCOMMAND GROUP
-                    "options": []
+                    "name": "get",
+                    "description": "Get permissions for a user",
+                    "type": 1 // 1 is type SUB_COMMAND
                 },
                 {
-                    "name": "role",
-                    "description": "Get the permissions for a role",
-                    "type": 2
-                    "options": []
+                    "name": "edit",
+                    "description": "Edit permissions for a user",
+                    "type": 1
                 }
             ]
         },
         {
-            "name": "edit",
-            "description": "Edit permissions for a user or role",
-            "type": 1,
+            "name": "role",
+            "description": "Get or edit permissions for a role",
+            "type": 2,
             "options": [
                 {
-                    "name": "user",
-                    "description": "Edit the permissions for a user",
-                    "type": 2
-                    "options": []
+                    "name": "get",
+                    "description": "Get permissions for a role",
+                    "type": 1
                 },
                 {
-                    "name": "role",
-                    "description": "Edit the permissions for a role",
-                    "type": 2
-                    "options": []
-                }
-            ]
-        }
-    ]
-}
-```
-
-Finally, we want to be able to scope these commands to guild-level permissions by default, or to a specific channel if chosen. _Now_ we can make use of optional arguments:
-
-```js
-{
-    "name": "permissions",
-    "description": "Get or modify permissions for a user or a role",
-    "options": [
-        {
-            "name": "get",
-            "description": "Get permissions for a user or role",
-            "type": 1 // 1 is the type SUBCOMMAND,
-            "options": [
-                {
-                    "name": "user",
-                    "description": "Get the permissions for a user",
-                    "type": 2 // 2 is the type SUBCOMMAND GROUP
-                    "options": [{
-                        "name": "channel",
-                        "description": "The channel to get permissions for",
-                        "type": 7 // 7 is the type CHANNEL,
-                        "required": false
-                    }]
-                },
-                {
-                    "name": "role",
-                    "description": "Get the permissions for a role",
-                    "type": 2
-                    "options": [{
-                        "name": "channel",
-                        "description": "The channel to get permissions for",
-                        "type": 7
-                        "required": false
-                    }]
-                }
-            ]
-        },
-        {
-            "name": "edit",
-            "description": "Edit permissions for a user or role",
-            "type": 1,
-            "options": [
-                {
-                    "name": "user",
-                    "description": "Edit the permissions for a user",
-                    "type": 2
-                    "options": [{
-                        "name": "channel",
-                        "description": "The channel to edit permissions on",
-                        "type": 7
-                        "required": false
-                    }]
-                },
-                {
-                    "name": "role",
-                    "description": "Edit the permissions for a role",
-                    "type": 2
-                    "options": [{
-                        "name": "channel",
-                        "description": "The channel to edit permissions on",
-                        "type": 7
-                        "required": false
-                    }]
+                    "name": "edit",
+                    "description": "Edit permissions for a role",
+                    "type": 1
                 }
             ]
         }
@@ -441,7 +373,112 @@ Finally, we want to be able to scope these commands to guild-level permissions b
 }
 ```
 
-And, done! The JSON looks a bit complicated, but what we've ended up with is a single command that can be scoped to multiple actions, and then further scoped to a particular resource, and then even _further_ scope with optional arguments. Here's what it looks like all put together:
+![A command with grouped subcommands. It says /permissions user get](command-with-groups-subcommands.png)
+
+Now, we need some arguments! If we chose `user`, we need to be able to pick a user; if we chose `role`, we need to be able to pick a role. We also want to be able to pick between guild-level permissions and channel-specific permissions. For that, we can use optional arguments:
+
+```js
+{
+    "name": "permissions",
+    "description": "Get or edit permissions for a user or a role",
+    "options": [
+        {
+            "name": "user",
+            "description": "Get or edit permissions for a user",
+            "type": 2, // 2 is type SUB_COMMAND_GROUP
+            "options": [
+                {
+                    "name": "get",
+                    "description": "Get permissions for a user",
+                    "type": 1, // 1 is type SUB_COMMAND
+                    "options": [
+                        {
+                            "name": "user",
+                            "description": "The user to get",
+                            "type": 6, // 6 is type USER
+                            "required": true
+                        },
+                        {
+                            "name": "channel",
+                            "description": "The channel permissions to get",
+                            "type": 7, // 7 is type CHANNEL
+                            "required": false
+                        }
+                    ]
+                },
+                {
+                    "name": "edit",
+                    "description": "Edit permissions for a user",
+                    "type": 1,
+                    "options": [
+                        {
+                            "name": "user",
+                            "description": "The user to edit",
+                            "type": 6,
+                            "required": true
+                        },
+                        {
+                            "name": "channel",
+                            "description": "The channel permissions to edit",
+                            "type": 7,
+                            "required": false
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "role",
+            "description": "Get or edit permissions for a role",
+            "type": 2,
+            "options": [
+                {
+                    "name": "get",
+                    "description": "Get permissions for a role",
+                    "type": 1,
+                    "options": [
+                        {
+                            "name": "role",
+                            "description": "The role to get",
+                            "type": 6, // 8 is type ROLE
+                            "required": true
+                        },
+                        {
+                            "name": "channel",
+                            "description": "The channel permissions to get",
+                            "type": 7,
+                            "required": false
+                        }
+                    ]
+                },
+                {
+                    "name": "edit",
+                    "description": "Edit permissions for a role",
+                    "type": 1,
+                    "options": [
+                        {
+                            "name": "role",
+                            "description": "The role to edit",
+                            "type": 6, // 8 is type ROLE
+                            "required": true
+                        },
+                        {
+                            "name": "channel",
+                            "description": "The channel permissions to edit",
+                            "type": 7,
+                            "required": false
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
+```
+
+And, done! The JSON looks a bit complicated, but what we've ended up with is a single command that can be scoped to multiple actions, and then further scoped to a particular resource, and then even _further_ scope with optional arguments. Here's what it looks like all put together.
+
+![A command with grouped subcommands and parameters. It says /permissions user get with arguments for a user and a channel.](command-with-groups-subcommands-parameters.png)
 
 ## Endpoints
 
