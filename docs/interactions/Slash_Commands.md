@@ -51,6 +51,9 @@ There are two kinds of Slash Commands: global commands and guild commands. Globa
 To make a **global** Slash Command, make an HTTP POST call like this:
 
 ```py
+import requests
+
+
 url = "https://discord.com/api/v8/applications/<my_application_id>/commands"
 
 body = {
@@ -96,7 +99,7 @@ headers = {
     "Authorization": "Bearer abcdefg"
 }
 
-r = requests.post(url, headers, body)
+r = requests.post(url, headers=headers, json=body)
 ```
 
 This command will be available on _all_ your app's guilds.
@@ -107,7 +110,11 @@ This command will be available on _all_ your app's guilds.
 To make a **guild** Slash Command, make a similar HTTP POST call, but scope it to a specific `guild_id`:
 
 ```py
+import requests
+
+
 url = "https://discord.com/api/v8/applications/<my_application_id>/guilds/<guild_id>/commands"
+
 body = # ...
 ```
 
