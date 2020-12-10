@@ -56,7 +56,7 @@ import requests
 
 url = "https://discord.com/api/v8/applications/<my_application_id>/commands"
 
-body = {
+json = {
     "name": "blep",
     "description": "Send a random adorable animal photo",
     "options": [
@@ -99,7 +99,7 @@ headers = {
     "Authorization": "Bearer abcdefg"
 }
 
-r = requests.post(url, headers=headers, json=body)
+r = requests.post(url, headers=headers, json=json)
 ```
 
 This command will be available on _all_ your app's guilds.
@@ -115,7 +115,7 @@ import requests
 
 url = "https://discord.com/api/v8/applications/<my_application_id>/guilds/<guild_id>/commands"
 
-body = # ...
+json = # ...
 ```
 
 This command will only be available within the guild that you specified.
@@ -241,10 +241,10 @@ To respond to a gateway Interaction, make a `POST` request like this. `interacti
 ```py
 url = "https://discord.com/api/v8/interactions/<interaction_id>/<interaction_token>/callback"
 
-data = {
+json = {
     "content": "Congrats on sending your command!"
 }
-r = requests.post(url, data)
+r = requests.post(url, json=json)
 ```
 
 > info
@@ -255,6 +255,7 @@ r = requests.post(url, data)
 Sometimes, your bot will want to send followup messages to a user after responding to an interaction. Or, you may want to edit your original response. You can use the following endpoints to do so:
 
 - `PATCH /webhooks/<interaction_id>/<interaction_token>/messages/@original` to edit your initial response to an Interaction
+- `DELETE /webhooks/<interaction_id>/<interaction_token>/messages/@original` to delete your initial response to an Interaction
 - `POST /webhooks/<interaction_id>/<interaction_token>/messages` to send a new message
 - `PATCH /webhooks/<interaction_id>/<interaction_token>/messages/<message_id>` to edit a message sent with that `token`
 
@@ -264,7 +265,7 @@ Interaction tokens are valid for **15 minutes**, meaning you can respond and upd
 
 If you are receiving Interactions via outgoing webhook, there are some security steps you **must** take before your app is eligible to receive requests. The internet is a scary place, especially for people hosting open, unauthenticated endpoints.
 
-Every Interaction is sent with a `x-signature-ed25519` header. The header includes an encryption key and a timestamp. Using your favorite security library of choice, you **must validate this signature header each time to you receive an interaction**. If the signature fails validate, respond with a `400` error code.
+Every Interaction is sent with an `x-signature-ed25519` header. The header includes an encryption key and a timestamp. Using your favorite security library of choice, you **must validate this signature header each time to you receive an interaction**. If the signature fails validate, respond with a `401` error code.
 
 Your **public key** for your app can be found on the **General Information page for your app in the Dev Portal**.
 
@@ -273,7 +274,174 @@ If you are not properly validating this signature header, we will not allow you 
 
 ## Subcommands and Groups
 
-Mason TODO to talk more about this
+For those developers looking to make more organized and complex groups of commands, look no further than subcommands and groups.
+
+**Subcommands** organize your command by **specifying actions on the top-level command**.
+
+**Groups** organize your command by **specifying the resource affected by the top-level command**.
+
+> info
+> These are not enforced rules. You are free to use subcommands and groups however you'd like; it's just how we think about them.
+
+Let's look at an example. Let's imagine you run a moderation bot. You want to make some `/permissions` commands that can do the following:
+
+- Get the guild permissions for a user or a role
+- Get the permissions for a user or a role on a specific channel
+- Change the guild permissions for a user or a role
+- Change the permissions for a user or a role on a specific channel
+
+We'll start by defining the top-level information for `/permissions`:
+
+```js
+{
+    "name": "permissions",
+    "description": "Get or modify permissions for a user or a role",
+    "options": []
+}
+```
+
+Now we have a command named `permissions`. We want this command to be able to get _and_ change permissions. Rather than making two separate commands, we can use subcommands:
+
+```js
+{
+    "name": "permissions",
+    "description": "Get or modify permissions for a user or a role",
+    "options": [
+        {
+            "name": "get",
+            "description": "Get permissions for a user or role",
+            "type": 1 // 1 is the type SUBCOMMAND,
+            "options": []
+        },
+        {
+            "name": "edit",
+            "description": "Edit permissions for a user or role",
+            "type": 1,
+            "options": []
+        }
+    ]
+}
+```
+
+Now, within our command `permissions`, we have two _subcommands_ `get` and `edit`. Now, we said that we wanted to be able to choose either a role or a user. You may think you'd want to use optional parameters so the user can pick which one they'd like, but you can also use groups:
+
+```js
+{
+    "name": "permissions",
+    "description": "Get or modify permissions for a user or a role",
+    "options": [
+        {
+            "name": "get",
+            "description": "Get permissions for a user or role",
+            "type": 1 // 1 is the type SUBCOMMAND,
+            "options": [
+                {
+                    "name": "user",
+                    "description": "Get the permissions for a user",
+                    "type": 2 // 2 is the type SUBCOMMAND GROUP
+                    "options": []
+                },
+                {
+                    "name": "role",
+                    "description": "Get the permissions for a role",
+                    "type": 2
+                    "options": []
+                }
+            ]
+        },
+        {
+            "name": "edit",
+            "description": "Edit permissions for a user or role",
+            "type": 1,
+            "options": [
+                {
+                    "name": "user",
+                    "description": "Edit the permissions for a user",
+                    "type": 2
+                    "options": []
+                },
+                {
+                    "name": "role",
+                    "description": "Edit the permissions for a role",
+                    "type": 2
+                    "options": []
+                }
+            ]
+        }
+    ]
+}
+```
+
+Finally, we want to be able to scope these commands to guild-level permissions by default, or to a specific channel if chosen. _Now_ we can make use of optional arguments:
+
+```js
+{
+    "name": "permissions",
+    "description": "Get or modify permissions for a user or a role",
+    "options": [
+        {
+            "name": "get",
+            "description": "Get permissions for a user or role",
+            "type": 1 // 1 is the type SUBCOMMAND,
+            "options": [
+                {
+                    "name": "user",
+                    "description": "Get the permissions for a user",
+                    "type": 2 // 2 is the type SUBCOMMAND GROUP
+                    "options": [{
+                        "name": "channel",
+                        "description": "The channel to get permissions for",
+                        "type": 7 // 7 is the type CHANNEL,
+                        "required": false
+                    }]
+                },
+                {
+                    "name": "role",
+                    "description": "Get the permissions for a role",
+                    "type": 2
+                    "options": [{
+                        "name": "channel",
+                        "description": "The channel to get permissions for",
+                        "type": 7
+                        "required": false
+                    }]
+                }
+            ]
+        },
+        {
+            "name": "edit",
+            "description": "Edit permissions for a user or role",
+            "type": 1,
+            "options": [
+                {
+                    "name": "user",
+                    "description": "Edit the permissions for a user",
+                    "type": 2
+                    "options": [{
+                        "name": "channel",
+                        "description": "The channel to edit permissions on",
+                        "type": 7
+                        "required": false
+                    }]
+                },
+                {
+                    "name": "role",
+                    "description": "Edit the permissions for a role",
+                    "type": 2
+                    "options": [{
+                        "name": "channel",
+                        "description": "The channel to edit permissions on",
+                        "type": 7
+                        "required": false
+                    }]
+                }
+            ]
+        }
+    ]
+}
+```
+
+And, done! The JSON looks a bit complicated, but what we've ended up with is a single command that can be scoped to multiple actions, and then further scoped to a particular resource, and then even _further_ scope with optional arguments. Here's what it looks like all put together:
 
 ## Endpoints
 
@@ -350,7 +518,31 @@ Edit a global commands. Updates will be available in all guilds after 1 hour. Re
 
 ## Delete Guild Application Command % POST /applications/{application.id}/commands/{id}
 
-Deletes a guild commands. Returns `204`.
+Deletes a guild commands. Returns `204` on success.
+
+## Create Interaction Response % POST /interactions/{interaction.id#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction}/{interaction.token#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction}/callback
+
+Create a response to an Interaction from the gateway. Functions the same as [Execute Webhook](#DOCS_RESOURCES_WEBHOOK/execute-webhook)
+
+## Edit Original Interaction Response % PATCH /webhooks/{interaction.id#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction}/{interaction.token#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction}/messages/@original
+
+Edits the initial Interaction response. Functions the same as [Edit Webhook Message](#DOCS_RESOURCES_WEBHOOK/edit-webhook-messages).
+
+# Delete Original Interaction Response % DELETE /webhooks/{interaction.id#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction}/{interaction.token#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction}/messages/@original
+
+Deletes the initial Interaction response. Returns `204` on success.
+
+## Create Followup Message % POST /webhooks/{interaction.id#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction}/{interaction.token#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction}/messages
+
+Create a followup message for an Interaction. Functions the same as [Execute Webhook](#DOCS_RESOURCES_WEBHOOK/execute-webhook)
+
+## Edit Followup Message % PATCH /webhooks/{interaction.id#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction}/{interaction.token#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}
+
+Edits a followup message for an Interaction. Functions the same as [Edit Webhook Message](#DOCS_RESOURCES_WEBHOOK/edit-webhook-messages).
+
+# Delete Followup Message % DELETE /webhooks/{interaction.id#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction}/{interaction.token#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}
+
+Deletes a followup message for an Interaction. Returns `204` on success.
 
 ## Data Models and Types
 
