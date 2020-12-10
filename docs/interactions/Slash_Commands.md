@@ -131,10 +131,10 @@ Full documentation of endpoints can be found in [Endpoints](#DOCS_INTERACTIONS_S
 
 When a user completes a Slash Commands, your app will receive an **Interaction**. Your app can receive an interaction in one of two ways:
 
-- Via gateway event, `INTERACTION_CREATED` <docs>
+- Via gateway event, `INTERACTION_CREATE` <docs>
 - Via outgoing webhook
 
-These two methods are **mutually exclusive**; you can _only_ receive Interactions one of the two ways. The `INTERACTION_CREATED` gateway event will be handled by the library you are using, so we'll just cover outgoing webhooks.
+These two methods are **mutually exclusive**; you can _only_ receive Interactions one of the two ways. The `INTERACTION_CREATE` gateway event will be handled by the library you are using, so we'll just cover outgoing webhooks.
 
 In your application in the Developer Portal, there is a field on the main page called "Interactions Endpoint URL". If you want to receive Interactions via outgoing webhook, you can set your URL in this field. In order for the URL to be valid, you must be prepared for two things ahead of time:
 
