@@ -236,7 +236,7 @@ def my_command():
 
 If you are receiving Interactions over the gateway, you will **also need to respond via HTTP**. Responses to Interactions **are not sent as commands over the gateway**.
 
-To respond to a gateway Interaction, make a `POST` request like this. `interaction_id` is the unique id of that individual Interaction from the receieved payload. `interaction_token` is the unique token for that interaction from the received payload:
+To respond to a gateway Interaction, make a `POST` request like this. `interaction_id` is the unique id of that individual Interaction from the receieved payload. `interaction_token` is the unique token for that interaction from the received payload. **This endpoint is only valid for Interactions received over the gateway. Otherwise, respond to the `POST` request.**
 
 ```py
 url = "https://discord.com/api/v8/interactions/<interaction_id>/<interaction_token>/callback"
@@ -254,10 +254,10 @@ r = requests.post(url, json=json)
 
 Sometimes, your bot will want to send followup messages to a user after responding to an interaction. Or, you may want to edit your original response. You can use the following endpoints to do so:
 
-- `PATCH /webhooks/<interaction_id>/<interaction_token>/messages/@original` to edit your initial response to an Interaction
-- `DELETE /webhooks/<interaction_id>/<interaction_token>/messages/@original` to delete your initial response to an Interaction
-- `POST /webhooks/<interaction_id>/<interaction_token>/messages` to send a new message
-- `PATCH /webhooks/<interaction_id>/<interaction_token>/messages/<message_id>` to edit a message sent with that `token`
+- `PATCH /webhooks/<application_id>/<interaction_token>/messages/@original` to edit your initial response to an Interaction
+- `DELETE /webhooks/<application_id>/<interaction_token>/messages/@original` to delete your initial response to an Interaction
+- `POST /webhooks/<application_id>/<interaction_token>` to send a new followup message
+- `PATCH /webhooks/<application_id>/<interaction_token>/messages/<message_id>` to edit a message sent with that `token`
 
 Interaction tokens are valid for **15 minutes**, meaning you can respond and update to a Slash Command within that amount of time.
 
@@ -561,23 +561,23 @@ Deletes a guild commands. Returns `204` on success.
 
 Create a response to an Interaction from the gateway. Functions the same as [Execute Webhook](#DOCS_RESOURCES_WEBHOOK/execute-webhook)
 
-## Edit Original Interaction Response % PATCH /webhooks/{interaction.id#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction}/{interaction.token#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction}/messages/@original
+## Edit Original Interaction Response % PATCH /webhooks/application.id/{interaction.token#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction}/messages/@original
 
 Edits the initial Interaction response. Functions the same as [Edit Webhook Message](#DOCS_RESOURCES_WEBHOOK/edit-webhook-messages).
 
-# Delete Original Interaction Response % DELETE /webhooks/{interaction.id#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction}/{interaction.token#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction}/messages/@original
+# Delete Original Interaction Response % DELETE /webhooks/application.id/{interaction.token#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction}/messages/@original
 
 Deletes the initial Interaction response. Returns `204` on success.
 
-## Create Followup Message % POST /webhooks/{interaction.id#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction}/{interaction.token#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction}/messages
+## Create Followup Message % POST /webhooks/application.id/{interaction.token#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction}
 
 Create a followup message for an Interaction. Functions the same as [Execute Webhook](#DOCS_RESOURCES_WEBHOOK/execute-webhook)
 
-## Edit Followup Message % PATCH /webhooks/{interaction.id#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction}/{interaction.token#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}
+## Edit Followup Message % PATCH /webhooks/application.id/{interaction.token#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}
 
 Edits a followup message for an Interaction. Functions the same as [Edit Webhook Message](#DOCS_RESOURCES_WEBHOOK/edit-webhook-messages).
 
-# Delete Followup Message % DELETE /webhooks/{interaction.id#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction}/{interaction.token#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}
+# Delete Followup Message % DELETE /webhooks/application.id/{interaction.token#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}
 
 Deletes a followup message for an Interaction. Returns `204` on success.
 
