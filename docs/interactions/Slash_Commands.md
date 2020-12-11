@@ -526,7 +526,7 @@ Edit a global commands. Updates will be available in all guilds after 1 hour. Re
 | options?    | array of [ApplicationCommandOption](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-option) | the parameters for the command |
 
 
-## Delete Global Application Command % POST /applications/{application.id}/commands/{id}
+## Delete Global Application Command % DELETE /applications/{application.id}/commands/{id}
 
 Deletes a global commands. Returns `204`.
 
@@ -562,7 +562,7 @@ Edit a global commands. Updates will be available in all guilds after 1 hour. Re
 | options?    | array of [ApplicationCommandOption](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-option) | the parameters for the command |
 
 
-## Delete Guild Application Command % POST /applications/{application.id}/commands/{id}
+## Delete Guild Application Command % DELETE /applications/{application.id}/commands/{id}
 
 Deletes a guild commands. Returns `204` on success.
 
