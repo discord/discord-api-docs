@@ -48,6 +48,9 @@ There are two kinds of Slash Commands: global commands and guild commands. Globa
 - Your app **can** have a global and guild command with the same name
 - Multiple apps **can** have commands with the same names
 
+> danger
+> Apps can have a maximum of 50 global commands, and an additional 50 guild-specific commands per guild
+
 To make a **global** Slash Command, make an HTTP POST call like this:
 
 ```py
@@ -242,7 +245,10 @@ To respond to a gateway Interaction, make a `POST` request like this. `interacti
 url = "https://discord.com/api/v8/interactions/<interaction_id>/<interaction_token>/callback"
 
 json = {
-    "content": "Congrats on sending your command!"
+    "type": 1,
+    "data": {
+        "content": "Congrats on sending your command!"
+    }
 }
 r = requests.post(url, json=json)
 ```
@@ -258,6 +264,9 @@ Sometimes, your bot will want to send followup messages to a user after respondi
 - `DELETE /webhooks/<application_id>/<interaction_token>/messages/@original` to delete your initial response to an Interaction
 - `POST /webhooks/<application_id>/<interaction_token>` to send a new followup message
 - `PATCH /webhooks/<application_id>/<interaction_token>/messages/<message_id>` to edit a message sent with that `token`
+
+> danger
+> Interactions webhooks share the same rate limit properties as normal webhooks
 
 Interaction tokens are valid for **15 minutes**, meaning you can respond and update to a Slash Command within that amount of time.
 
@@ -585,6 +594,9 @@ Deletes a followup message for an Interaction. Returns `204` on success.
 
 ## ApplicationCommand
 
+> danger
+> A command, or each individual subcommand, can have a maximum of 10 `options`
+
 An application command is the base "command" model that belongs to an application. This is what you are creating when you `POST` a new command.
 
 | Field          | Type                                                                                              | Description                         |
@@ -596,6 +608,9 @@ An application command is the base "command" model that belongs to an applicatio
 | options?       | array of [ApplicationCommandOption](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-option) | the parameters for the command      |
 
 ## ApplicationCommandOption
+
+> danger
+> You can specify a maximum of 10 `choices` per option
 
 | Field       | Type                                                                                                           | Description                                                                                                |
 |-------------|----------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------|
