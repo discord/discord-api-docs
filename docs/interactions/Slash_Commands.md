@@ -272,14 +272,44 @@ Interaction tokens are valid for **15 minutes**, meaning you can respond and upd
 
 ## Security and Authorization
 
-If you are receiving Interactions via outgoing webhook, there are some security steps you **must** take before your app is eligible to receive requests. The internet is a scary place, especially for people hosting open, unauthenticated endpoints.
+> info
+> Check out our [Community Resources](#DOCS_TOPICS_COMMUNITY_RESOURCES/interactions) for libraries to help you with security in your language of choice
 
-Every Interaction is sent with an `x-signature-ed25519` header. The header includes an encryption key and a timestamp. Using your favorite security library of choice, you **must validate this signature header each time to you receive an interaction**. If the signature fails validate, respond with a `401` error code.
+The internet is a scary place, especially for people hosting open, unauthenticated endpoints. If you are receiving Interactions via outgoing webhook, there are some security steps you **must** take before your app is eligible to receive requests.
 
-Your **public key** for your app can be found on the **General Information page for your app in the Dev Portal**.
+Every Interaction is sent with the following headers:
 
-If you are not properly validating this signature header, we will not allow you to save your interactions URL in the Dev Portal. We will also do automated, routine security checks against your endpoint, meaning that if you remove this validation in the future, we will remove your interactions URL in the future and alert you via email and System DM.
+- `X-Signature-Ed25519` as a signature
+- `X-Signature-Timestamp` as a timestamp
 
+Using your favorite security library, you **must validate the request each time to you receive an interaction**. If the signature fails validate, respond with a `401` error code. Here's a couple code examples:
+
+```js
+// This example uses the nobe-ed25519 node package
+// MY_CLIENT_PUBLIC_KEY for your app can be found on the General Information page for your app in the Dev Portal
+
+ const signature = req.get('X-Signature-Ed25519');
+ const timestamp = req.get('X-Signature-Timestamp');
+ const isValidRequest = await verifyKey(req.rawBody, signature, timestamp, 'MY_CLIENT_PUBLIC_KEY');
+ if (!isValidRequest) {
+   return res.status(401).end('Bad request signature');
+ }
+ ```
+
+```py
+# This example uses the pynacl python package
+# MY_CLIENT_PUBLIC_KEY for your app can be found on the General Information page for your app in the Dev Portal
+
+signature = request.headers["X-Signature-Ed25519"]
+timestamp = request.headers["X-Signature-Timestamp"]
+
+if not verify_key(request.data, signature, timestamp, 'my_client_public_key'):
+    return "Signature is invalid", 401
+```
+
+If you are not properly validating this signature header, we will not allow you to save your interactions URL in the Dev Portal. We will also do automated, routine security checks against your endpoint, including purposefully sending you invalid signatures. If you fail the validation, we will remove your interactions URL in the future and alert you via email and System DM.
+
+We highly recommend checking out our [Community Resources](#DOCS_COMMUNITY_RESOURCES/interactions) and the two libraries found there. They not only provide typing for Interactions data models, but also include decorators for API frameworks like Flask and Express to make validation easy.
 
 ## Subcommands and Subcommand Groups
 
