@@ -2,6 +2,19 @@
 
 Slash Commands are the new, exciting way to build and interact with apps on Discord. This is not a terribly exciting introduction, so I will add more fun words here later.
 
+## A Quick Note on Limits
+
+In this documentation you'll find some notes about limits and caps on certain parts of Slash Commands. At a high level, they are as follows:
+
+- An app can have up to 50 global commands
+- An app can have up to an additional 50 guild commands per guild
+- `choices` can have up to 10 values per option
+- commands can have up to 10 `options` per command
+- Limitations on [command names](#DOCS_INTERACTIONS_SLASH_COMMANDS/registering-a-command)
+- Limitations on [nesting subcommands and groups](#DOCS_INTERACTIONS_SLASH_COMMANDS/subcommands-and-groups-nesting-subcommands-and-groups)
+
+These are the limits and caps for the initial release, but **they can be subject to change with your feedback.** If you would like to leave feedback about Slash Commands--limits, features, or otherwise--please open a ticket on our [Github Issue Tracker](https://github.com/discord/discord-api-docs/issues) using the `Slash Commands` template.
+
 ## What is a Slash Command
 
 A **Slash Command** is a command that you register for your application. They're made up of a name, description, and a block of `options`, which you can think of like arguments to a function. The name and description help users find your command among many others, and the `options` validate user input as they fill out your command.
@@ -322,8 +335,57 @@ For those developers looking to make more organized and complex groups of comman
 
 **Subcommand Groups** organize your **subcommands** by **grouping commands by similar action or resource within a command**.
 
-> info
-> These are not enforced rules. You are free to use subcommands and groups however you'd like; it's just how we think about them.
+These are not enforced rules. You are free to use subcommands and groups however you'd like; it's just how we think about them.
+
+### Nested Subcommands and Groups
+
+A quick note on nested subcommands and groups. We support nesting one level deep within a group, meaning your top level command can contain subcommand groups, and those groups can contain subcommands. **That is the only kind of nesting supported.** Here's some visual examples:
+
+```
+VALID
+
+command
+|
+|__ subcommand-group
+    |
+    |__ subcommand
+|
+|__ subcommand-group
+    |
+    |__ subcommand
+
+
+-------
+
+INVALID
+
+
+command
+|
+|__ subcommand-group
+    |
+    |__ subcommand-group
+|
+|__ subcommand-group
+    |
+    |__ subcommand-group
+
+----
+
+INVALID
+
+command
+|
+|__ subcommand
+    |
+    |__ subcommand-group
+|
+|__ subcommand
+    |
+    |__ subcommand-group
+```
+
+### Example Walkthrough
 
 Let's look at an example. Let's imagine you run a moderation bot. You want to make a `/permissions` command that can do the following:
 
