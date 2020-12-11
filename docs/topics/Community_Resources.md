@@ -33,7 +33,7 @@ Many of these libraries are represented in the [unofficial, community-driven Dis
 | [discord.py](https://github.com/Rapptz/discord.py)           | Python     |
 | [disco](https://github.com/b1naryth1ef/disco)                | Python     |
 | [discordrb](https://github.com/discordrb/discordrb)          | Ruby       |
-| [discord-rs](https://github.com/SpaceManiac/discord-rs)      | Rust       |
+| [Twilight](https://github.com/twilight-rs/twilight)          | Rust       |
 | [Serenity](https://github.com/serenity-rs/serenity)          | Rust       |
 | [AckCord](https://github.com/Katrix/AckCord)                 | Scala      |
 | [Sword](https://github.com/Azoy/Sword)                       | Swift      |
