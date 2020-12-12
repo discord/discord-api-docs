@@ -1,6 +1,6 @@
 ## Get Current Application Information % GET /oauth2/applications/@me
 
-Returns the bot's OAuth2 application info.
+Returns the bot's application info.
 
 ###### Response Structure
 
