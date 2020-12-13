@@ -51,8 +51,8 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 | preferred_locale              | string                                                                              | the preferred locale of a Community guild; used in server discovery and notices from Discord; defaults to "en-US"                        |
 | public_updates_channel_id     | ?snowflake                                                                          | the id of the channel where admins and moderators of Community guilds receive notices from Discord                                       |
 | max_video_channel_users?      | integer                                                                             | the maximum amount of users in a video channel                                                                                           |
-| approximate_member_count?     | integer                                                                             | approximate number of members in this guild, returned from the `GET /guild/<id>` endpoint when `with_counts` is `true`                   |
-| approximate_presence_count?   | integer                                                                             | approximate number of non-offline members in this guild, returned from the `GET /guild/<id>` endpoint when `with_counts` is `true`       |
+| approximate_member_count?     | integer                                                                             | approximate number of members in this guild, returned from the `GET /guilds/<id>` endpoint when `with_counts` is `true`                   |
+| approximate_presence_count?   | integer                                                                             | approximate number of non-offline members in this guild, returned from the `GET /guilds/<id>` endpoint when `with_counts` is `true`       |
 
 ** \* These fields are only sent within the [GUILD_CREATE](#DOCS_TOPICS_GATEWAY/guild-create) event **
 
