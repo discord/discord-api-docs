@@ -1,6 +1,12 @@
 # Slash Commands
 
-Slash Commands are the new, exciting way to build and interact with apps on Discord. This is not a terribly exciting introduction, so I will add more fun words here later.
+Slash Commands are the new, exciting way to build and interact with apps on Discord.
+
+With Slash Commands, all you have to do is type `/` and you're ready to use your favorite bot. Users can learn everything your bot does and easily find new features as you add them. Validation, error states, and helpful UI walks them through your commands, meaning they can get it right the first time, especially on mobile. You now have one more ally in the fight against your phone's autocorrect.
+
+Slash Commands set your users up for success instead of confusion and frustration. They separate how users think and how your code works, meaning no matter how complex your codebase and commands may get, people who love your bot will find it approachable and easy to use.
+
+Let's get started!
 
 ## A Quick Note on Limits
 
