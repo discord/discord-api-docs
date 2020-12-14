@@ -304,26 +304,43 @@ Every Interaction is sent with the following headers:
 Using your favorite security library, you **must validate the request each time to you receive an interaction**. If the signature fails validate, respond with a `401` error code. Here's a couple code examples:
 
 ```js
-// This example uses the nobe-ed25519 node package
-// MY_CLIENT_PUBLIC_KEY for your app can be found on the General Information page for your app in the Dev Portal
+const nacl = require('tweetnacl');
 
- const signature = req.get('X-Signature-Ed25519');
- const timestamp = req.get('X-Signature-Timestamp');
- const isValidRequest = await verifyKey(req.rawBody, signature, timestamp, 'MY_CLIENT_PUBLIC_KEY');
- if (!isValidRequest) {
-   return res.status(401).end('Bad request signature');
- }
+// Your public key can be found on your application in the Developer Portal
+const PUBLIC_KEY = 'APPLICATION_PUBLIC_KEY';
+
+const signature = req.get('X-Signature-Ed25519');
+const timestamp = req.get('X-Signature-Timestamp');
+const body = req.rawBody; // rawBody is expected to be a string, not raw bytes
+
+const isVerified = nacl.sign.detached.verify(
+  Buffer.from(timestamp + body),
+  Buffer.from(signature, 'hex'),
+  Buffer.from(PUBLIC_KEY, 'hex')
+);
+
+if (!isVerified) {
+  return res.status(401).end('invalid request signature');
+}
  ```
 
 ```py
-# This example uses the pynacl python package
-# MY_CLIENT_PUBLIC_KEY for your app can be found on the General Information page for your app in the Dev Portal
+from nacl.signing import VerifyKey
+from nacl.exceptions import BadSignatureError
+
+# Your public key can be found on your application in the Developer Portal
+PUBLIC_KEY = 'APPLICATION_PUBLIC_KEY'
+
+verify_key = VerifyKey(bytes.fromhex(PUBLIC_KEY))
 
 signature = request.headers["X-Signature-Ed25519"]
 timestamp = request.headers["X-Signature-Timestamp"]
+body = request.data
 
-if not verify_key(request.data, signature, timestamp, 'my_client_public_key'):
-    return "Signature is invalid", 401
+try:
+    verify_key.verify(f'{timestamp}{body}'.encode(), bytes.fromhex(signature))
+except BadSignatureError:
+    abort(401, 'invalid request signature')
 ```
 
 If you are not properly validating this signature header, we will not allow you to save your interactions URL in the Dev Portal. We will also do automated, routine security checks against your endpoint, including purposefully sending you invalid signatures. If you fail the validation, we will remove your interactions URL in the future and alert you via email and System DM.
