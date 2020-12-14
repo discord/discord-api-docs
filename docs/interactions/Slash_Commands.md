@@ -52,7 +52,7 @@ When requesting this scope, we "shortcut" the OAuth2 flow similar to adding a bo
 
 If your application does not require a bot user within the guild for its commands to work, **you no longer need to add for the bot scope or specific permissions**. To clarify this point even more:
 
-> danger
+> info
 > If your application only talks to Discord through creating Slash Commands and responding to Interactions, and does not use any other part of our API, **you no longer need to request the bot scope**.
 
 Who knows, maybe in the future, Interactions tokens will become even smarter.
@@ -160,7 +160,7 @@ Full documentation of endpoints can be found in [Endpoints](#DOCS_INTERACTIONS_S
 
 ## Receiving an Interaction
 
-When a user completes a Slash Commands, your app will receive an **Interaction**. Your app can receive an interaction in one of two ways:
+When a user uses a Slash Command, your app will receive an **Interaction**. Your app can receive an interaction in one of two ways:
 
 - Via gateway event, `INTERACTION_CREATE` <docs>
 - Via outgoing webhook
@@ -260,7 +260,7 @@ def my_command():
 
 If you are receiving Interactions over the gateway, you will **also need to respond via HTTP**. Responses to Interactions **are not sent as commands over the gateway**.
 
-To respond to a gateway Interaction, make a `POST` request like this. `interaction_id` is the unique id of that individual Interaction from the receieved payload. `interaction_token` is the unique token for that interaction from the received payload. **This endpoint is only valid for Interactions received over the gateway. Otherwise, respond to the `POST` request.**
+To respond to a gateway Interaction, make a `POST` request like this. `interaction_id` is the unique id of that individual Interaction from the received payload. `interaction_token` is the unique token for that interaction from the received payload. **This endpoint is only valid for Interactions received over the gateway. Otherwise, respond to the `POST` request.**
 
 ```py
 url = "https://discord.com/api/v8/interactions/<interaction_id>/<interaction_token>/callback"
