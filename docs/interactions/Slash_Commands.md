@@ -564,7 +564,7 @@ Now, we need some arguments! If we chose `user`, we need to be able to pick a us
                         {
                             "name": "role",
                             "description": "The role to get",
-                            "type": 8, // 6 is type ROLE
+                            "type": 8, // 8 is type ROLE
                             "required": true
                         },
                         {
