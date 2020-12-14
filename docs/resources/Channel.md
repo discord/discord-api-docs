@@ -218,7 +218,7 @@ Represents a message sent in a channel within Discord.
 ###### Message Types
 
 > warn
-> Replies only have type `19` in API v8. In v6, they are still type `0`.
+> Type `19` and `20` are only in API v8. In v6, they are still type `0`.
 
 | Type                                   | Value |
 |----------------------------------------|-------|
@@ -238,6 +238,7 @@ Represents a message sent in a channel within Discord.
 | GUILD_DISCOVERY_DISQUALIFIED           | 14    |
 | GUILD_DISCOVERY_REQUALIFIED            | 15    |
 | REPLY                                  | 19    |
+| APPLICATION_COMMAND                    | 20    |
 
 ###### Message Activity Structure
 

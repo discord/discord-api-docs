@@ -264,7 +264,7 @@ To respond to a gateway Interaction, make a `POST` request like this. `interacti
 url = "https://discord.com/api/v8/interactions/<interaction_id>/<interaction_token>/callback"
 
 json = {
-    "type": 1,
+    "type": 4,
     "data": {
         "content": "Congrats on sending your command!"
     }
@@ -611,14 +611,14 @@ And, done! The JSON looks a bit complicated, but what we've ended up with is a s
 
 ## Get Global Application Commands % GET /applications/{application.id}/commands
 
-Fetch all of the global commands for your application. Returns a list of [ApplicationCommand](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command) objects.
+Fetch all of the global commands for your application. Returns an array of [ApplicationCommand](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command) objects.
 
 ## Create Global Application Command % POST /applications/{application.id}/commands
 
 > danger
 > Creating a command with the same name as an existing command for your application will overwrite the old command.
 
-Create a new global commands. New global commands will be available in all guilds after 1 hour. Returns `200` and an [ApplicationCommand](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command) object.
+Create a new global command. New global commands will be available in all guilds after 1 hour. Returns `200` and an [ApplicationCommand](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command) object.
 
 ###### JSON Params
 
@@ -630,7 +630,7 @@ Create a new global commands. New global commands will be available in all guild
 
 ## Edit Global Application Command % PATCH /applications/{application.id}/commands/{id}
 
-Edit a global commands. Updates will be available in all guilds after 1 hour. Returns `200` and an [ApplicationCommand](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command) object.
+Edit a global command. Updates will be available in all guilds after 1 hour. Returns `200` and an [ApplicationCommand](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command) object.
 
 ###### JSON Params
 
@@ -643,18 +643,18 @@ Edit a global commands. Updates will be available in all guilds after 1 hour. Re
 
 ## Delete Global Application Command % DELETE /applications/{application.id}/commands/{id}
 
-Deletes a global commands. Returns `204`.
+Deletes a global command. Returns `204`.
 
 ## Get Guild Application Commands % GET /applications/{application.id}/guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/commands
 
-Fetch all of the global commands for your application. Returns a list of [ApplicationCommand](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command) objects.
+Fetch all of the guild commands for your application for a specific guild. Returns an array of [ApplicationCommand](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command) objects.
 
 ## Create Guild Application Command % POST /applications/{application.id}/guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/commands
 
 > danger
 > Creating a command with the same name as an existing command for your application will overwrite the old command.
 
-Create a new global commands. New global commands will be available in all guilds after 1 hour. Returns `200` and an [ApplicationCommand](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command) object.
+Create a new guild command. New guild commands will be available in the guild immediately. Returns `200` and an [ApplicationCommand](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command) object.
 
 ###### JSON Params
 
@@ -666,7 +666,7 @@ Create a new global commands. New global commands will be available in all guild
 
 ## Edit Guild Application Command % PATCH /applications/{application.id}/guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/commands
 
-Edit a global commands. Updates will be available in all guilds after 1 hour. Returns `200` and an [ApplicationCommand](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command) object.
+Edit a guild command. Updates for guild commands will be available immediately. Returns `200` and an [ApplicationCommand](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command) object.
 
 ###### JSON Params
 
@@ -679,7 +679,7 @@ Edit a global commands. Updates will be available in all guilds after 1 hour. Re
 
 ## Delete Guild Application Command % DELETE /applications/{application.id}/commands/{id}
 
-Deletes a guild commands. Returns `204` on success.
+Delete a guild command. Returns `204` on success.
 
 ## Create Interaction Response % POST /interactions/{interaction.id#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction}/{interaction.token#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction}/callback
 
