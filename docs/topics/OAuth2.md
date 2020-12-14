@@ -387,6 +387,7 @@ Returns the bot's OAuth2 [application object](#DOCS_TOPICS_OAUTH2/application-ob
 | primary_sku_id?        | snowflake                                                  | if this application is a game sold on Discord, this field will be the id of the "Game SKU" that is created, if exists     |
 | slug?                  | string                                                     | if this application is a game sold on Discord, this field will be the URL slug that links to the store page               |
 | cover_image?           | string                                                     | if this application is a game sold on Discord, this field will be the hash of the image on store embeds                   |
+| flags                  | int                                                        | the application's public flags                                                                                            |
 
 ###### Example Application Information
 

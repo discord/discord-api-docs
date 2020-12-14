@@ -653,6 +653,7 @@ The ready event is dispatched when a client has completed the initial handshake 
 | guilds           | array of [Unavailable Guild](#DOCS_RESOURCES_GUILD/unavailable-guild-object) objects | the guilds the user is in                                                                                     |
 | session_id       | string                                                                               | used for resuming connections                                                                                 |
 | shard?           | array of two integers (shard_id, num_shards)                                         | the [shard information](#DOCS_TOPICS_GATEWAY/sharding) associated with this session, if sent when identifying |
+| application      | partial [application object](#DOCS_TOPICS_OAUTH2/application-object)                 | contains `id` and `flags`                                                                                     | 
 
 #### Resumed
 
