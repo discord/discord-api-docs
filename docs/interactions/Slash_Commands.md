@@ -628,7 +628,7 @@ Create a new global command. New global commands will be available in all guilds
 | description | string                                                                                            | 1-100 character description    |
 | options?    | array of [ApplicationCommandOption](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-option) | the parameters for the command |
 
-## Edit Global Application Command % PATCH /applications/{application.id}/commands/{id}
+## Edit Global Application Command % PATCH /applications/{application.id}/commands/{command.id#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command}
 
 Edit a global command. Updates will be available in all guilds after 1 hour. Returns `200` and an [ApplicationCommand](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command) object.
 
@@ -641,7 +641,7 @@ Edit a global command. Updates will be available in all guilds after 1 hour. Ret
 | options?    | array of [ApplicationCommandOption](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-option) | the parameters for the command |
 
 
-## Delete Global Application Command % DELETE /applications/{application.id}/commands/{id}
+## Delete Global Application Command % DELETE /applications/{application.id}/commands/{command.id#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command}
 
 Deletes a global command. Returns `204`.
 
@@ -664,7 +664,7 @@ Create a new guild command. New guild commands will be available in the guild im
 | description | string                                                                                            | 1-100 character description    |
 | options?    | array of [ApplicationCommandOption](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-option) | the parameters for the command |
 
-## Edit Guild Application Command % PATCH /applications/{application.id}/guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/commands
+## Edit Guild Application Command % PATCH /applications/{application.id}/guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/commands/{command.id#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command}
 
 Edit a guild command. Updates for guild commands will be available immediately. Returns `200` and an [ApplicationCommand](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command) object.
 
@@ -677,7 +677,7 @@ Edit a guild command. Updates for guild commands will be available immediately. 
 | options?    | array of [ApplicationCommandOption](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-option) | the parameters for the command |
 
 
-## Delete Guild Application Command % DELETE /applications/{application.id}/commands/{id}
+## Delete Guild Application Command % DELETE /applications/{application.id}/guilds/{guild.id#DOCS_RESOURCES_GUILD/commands/{command.id#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command}
 
 Delete a guild command. Returns `204` on success.
 
