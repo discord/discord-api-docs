@@ -177,7 +177,7 @@ In your application in the Developer Portal, there is a field on the main page c
 
 If either of these are not complete, we will not validate your URL and it will fail to save.
 
-When you attempt to save a URL, we will send a `POST` request to that URL with a `PING` payload. The `PING` payload has a `type: 1`. So, to properly ACK the payload, return a `200` reponse with a payload of `type: 1`:
+When you attempt to save a URL, we will send a `POST` request to that URL with a `PING` payload. The `PING` payload has a `type: 1`. So, to properly ACK the payload, return a `200` response with a payload of `type: 1`:
 
 ```py
 @app.route('/', methods=['POST'])
