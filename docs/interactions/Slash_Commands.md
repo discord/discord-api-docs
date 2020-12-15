@@ -162,7 +162,7 @@ Full documentation of endpoints can be found in [Endpoints](#DOCS_INTERACTIONS_S
 
 When a user uses a Slash Command, your app will receive an **Interaction**. Your app can receive an interaction in one of two ways:
 
-- Via gateway event, `INTERACTION_CREATE` <docs>
+- Via gateway event, [INTERACTION_CREATE](#DOCS_TOPICS_GATEWAY/interaction-create)
 - Via outgoing webhook
 
 These two methods are **mutually exclusive**; you can _only_ receive Interactions one of the two ways. The `INTERACTION_CREATE` gateway event will be handled by the library you are using, so we'll just cover outgoing webhooks.
@@ -612,7 +612,7 @@ And, done! The JSON looks a bit complicated, but what we've ended up with is a s
 ## Endpoints
 
 > info
-> For authoriation, all endpoints take either a bot token or client credentials token for your application
+> For authorization, all endpoints take either a bot token or client credentials token for your application
 
 ## Get Global Application Commands % GET /applications/{application.id#DOCS_TOPICS_OAUTH2/application-object}/commands
 
