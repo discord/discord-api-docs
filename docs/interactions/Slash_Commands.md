@@ -162,7 +162,7 @@ Full documentation of endpoints can be found in [Endpoints](#DOCS_INTERACTIONS_S
 
 When a user uses a Slash Command, your app will receive an **Interaction**. Your app can receive an interaction in one of two ways:
 
-- Via gateway event, [INTERACTION_CREATE](#DOCS_TOPICS_GATEWAY/interaction-create)
+- Via [Interaction Create](#DOCS_TOPICS_GATEWAY/interaction-create) gateway event
 - Via outgoing webhook
 
 These two methods are **mutually exclusive**; you can _only_ receive Interactions one of the two ways. The `INTERACTION_CREATE` gateway event will be handled by the library you are using, so we'll just cover outgoing webhooks.
