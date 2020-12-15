@@ -39,6 +39,13 @@ Many of these libraries are represented in the [unofficial, community-driven Dis
 | [Sword](https://github.com/Azoy/Sword)                       | Swift      |
 | [discordeno](https://github.com/discordeno/discordeno)       | TypeScript |
 
+## Interactions
+
+[Interactions and Slash Commands](#DOCS_INTERACTIONS_SLASH_COMMANDS/) are the great, new way of making a Discord bot. The following open-source libraries provide help for the security and authentication checks that are mandatory if you are receiving Interactions via outgoing webhook. They also include some types for the Interactions data models.
+
+- [discord-interactions-js](https://github.com/discord/discord-interactions-js)
+- [discord-interactions-python](https://github.com/discord/discord-interactions-python)
+
 ## Game SDK Tools
 
 Discord Game SDK's lobby and networking layer shares similarities with other gaming platforms (i.e. Valve's Steamworks SDK). The following open source library provides developers a uniform interface for these shared features and can simplify developing for multiple platforms. Note: this library is tailored for Unity3D development.

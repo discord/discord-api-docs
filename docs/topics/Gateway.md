@@ -409,6 +409,7 @@ Events are payloads sent over the socket to a client that correspond to events i
 | [Voice State Update](#DOCS_TOPICS_GATEWAY/voice-state-update)                       | someone joined, left, or moved a voice channel                                                                                   |
 | [Voice Server Update](#DOCS_TOPICS_GATEWAY/voice-server-update)                     | guild's voice server was updated                                                                                                 |
 | [Webhooks Update](#DOCS_TOPICS_GATEWAY/webhooks-update)                             | guild channel webhook was created, update, or deleted                                                                            |
+| [Interaction Create](#DOCS_TOPICS_GATEWAY/interaction-create)                       | user used a [Slash Command](#DOCS_INTERACTIONS_SLASH_COMMANDS/)                                                                   |
 
 ### Event Names
 
@@ -652,6 +653,7 @@ The ready event is dispatched when a client has completed the initial handshake 
 | guilds           | array of [Unavailable Guild](#DOCS_RESOURCES_GUILD/unavailable-guild-object) objects | the guilds the user is in                                                                                     |
 | session_id       | string                                                                               | used for resuming connections                                                                                 |
 | shard?           | array of two integers (shard_id, num_shards)                                         | the [shard information](#DOCS_TOPICS_GATEWAY/sharding) associated with this session, if sent when identifying |
+| application      | partial [application object](#DOCS_TOPICS_OAUTH2/application-object)                 | contains `id` and `flags`                                                                                     | 
 
 #### Resumed
 
@@ -1214,6 +1216,12 @@ Sent when a guild channel's webhook is created, updated, or deleted.
 |------------|-----------|-------------------|
 | guild_id   | snowflake | id of the guild   |
 | channel_id | snowflake | id of the channel |
+
+### Interactions
+
+### Interaction Create
+
+Sent when a user in a guild uses a [Slash Command](#DOCS_INTERACTIONS_SLASH_COMMANDS/). Inner payload is an [Interaction](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction).
 
 ## Get Gateway % GET /gateway
 
