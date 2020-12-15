@@ -362,6 +362,9 @@ For those developers looking to make more organized and complex groups of comman
 
 These are not enforced rules. You are free to use subcommands and groups however you'd like; it's just how we think about them.
 
+> danger
+> Using subcommands or subcommand groups will make your base command unusable. You can't access the base `/permissions` if you also have `/permissions add | remove` as subcommands or subcommand groups
+
 ### Nested Subcommands and Groups
 
 A quick note on nested subcommands and groups. We support nesting one level deep within a group, meaning your top level command can contain subcommand groups, and those groups can contain subcommands. **That is the only kind of nesting supported.** Here's some visual examples:
