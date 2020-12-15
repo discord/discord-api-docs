@@ -1,6 +1,7 @@
 # Change Log
 
 ## Slash Commands and Interactions
+
 #### December 15, 2020
 
 Slash Commands are here! There's a _lot_ to cover, so go check out specific documentation under [Slash Commands](#DOCS_INTERACTIONS_SLASH_COMMANDS/).
