@@ -96,7 +96,7 @@ json = {
                 },
                 {
                     "name": "Cat",
-                    "value": "animal_dog"
+                    "value": "animal_cat"
                 },
                 {
                     "name": "Penguin",
