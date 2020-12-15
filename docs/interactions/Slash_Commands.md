@@ -69,7 +69,7 @@ There are two kinds of Slash Commands: global commands and guild commands. Globa
 - Your app **can** have a global and guild command with the same name
 - Multiple apps **can** have commands with the same names
 
-> danger
+> info
 > Apps can have a maximum of 50 global commands, and an additional 50 guild-specific commands per guild
 
 To make a **global** Slash Command, make an HTTP POST call like this:
@@ -286,7 +286,7 @@ Sometimes, your bot will want to send followup messages to a user after respondi
 - `POST /webhooks/<application_id>/<interaction_token>` to send a new followup message
 - `PATCH /webhooks/<application_id>/<interaction_token>/messages/<message_id>` to edit a message sent with that `token`
 
-> danger
+> info
 > Interactions webhooks share the same rate limit properties as normal webhooks
 
 Interaction tokens are valid for **15 minutes**, meaning you can respond and update to a Slash Command within that amount of time.
@@ -711,7 +711,7 @@ Deletes a followup message for an Interaction. Returns `204` on success.
 
 ## ApplicationCommand
 
-> danger
+> info
 > A command, or each individual subcommand, can have a maximum of 10 `options`
 
 An application command is the base "command" model that belongs to an application. This is what you are creating when you `POST` a new command.
@@ -726,7 +726,7 @@ An application command is the base "command" model that belongs to an applicatio
 
 ## ApplicationCommandOption
 
-> danger
+> info
 > You can specify a maximum of 10 `choices` per option
 
 | Field       | Type                                                                                                           | Description                                                                                                |
@@ -836,4 +836,3 @@ Not all message fields are currently supported.
 | content           | string           | message content                                                                             |
 | embeds?           | array of embeds  | supports up to 10 embeds                                                                    |
 | allowed_mentions? | allowed mentions | [allowed mentions](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object) object                  |
-| flags             | int              | acceptable values are [message flags](#DOCS_RESOURCES_CHANNEL/message-object-message-flags) |
