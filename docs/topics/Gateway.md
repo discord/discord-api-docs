@@ -8,22 +8,26 @@ Important note: Not all event fields are documented, in particular, fields prefi
 
 ###### Gateway Versions
 
-| Version | Status       |
-| ------- | ------------ |
-| 6       | Available    |
-| 5       | Discontinued |
-| 4       | Discontinued |
+| Version | Status                           |
+|---------|----------------------------------|
+| 8       | Available                        |
+| 7       | Doesn't look like anything to me |
+| 6       | Deprecated                       |
+| 5       | Discontinued                     |
+| 4       | Discontinued                     |
 
 ## Payloads
 
 ###### Gateway Payload Structure
 
-| Field | Type                    | Description                                                                     | Present           |
-| ----- | ----------------------- | ------------------------------------------------------------------------------- | ----------------- |
-| op    | integer                 | [opcode](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/gateway-opcodes) for the payload | Always            |
-| d     | ?mixed (any JSON value) | event data                                                                      | Always            |
-| s     | integer                 | sequence number, used for resuming sessions and heartbeats                      | Only for Opcode 0 |
-| t     | string                  | the event name for this payload                                                 | Only for Opcode 0 |
+| Field | Type                    | Description                                                                     |
+|-------|-------------------------|---------------------------------------------------------------------------------|
+| op    | integer                 | [opcode](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/gateway-opcodes) for the payload |
+| d     | ?mixed (any JSON value) | event data                                                                      |
+| s     | ?integer \*             | sequence number, used for resuming sessions and heartbeats                      |
+| t     | ?string \*              | the event name for this payload                                                 |
+
+\* `s` and `t` are `null` when `op` is not `0` (Gateway Dispatch Opcode).
 
 ### Sending Payloads
 
@@ -48,7 +52,7 @@ Receiving payloads with the Gateway API is slightly more complex than sending. W
 
 #### ETF/JSON
 
-When initially creating and handshaking connections to the Gateway, a user can choose whether they wish to communicate over plain-text JSON or binary [ETF](http://erlang.org/doc/apps/erts/erl_ext_dist.html). When using ETF, the client must not send compressed messages to the server. Note that Snowflake IDs are transmitted as 64-bit integers over ETF, but are transmitted as strings over JSON. See [erlpack](https://github.com/discordapp/erlpack) for an implementation example.
+When initially creating and handshaking connections to the Gateway, a user can choose whether they wish to communicate over plain-text JSON or binary [ETF](https://erlang.org/doc/apps/erts/erl_ext_dist.html). When using ETF, the client must not send compressed messages to the server. Note that Snowflake IDs are transmitted as 64-bit integers over ETF, but are transmitted as strings over JSON. See [erlpack](https://github.com/discord/erlpack) for an implementation example.
 
 #### Payload Compression
 
@@ -79,7 +83,8 @@ def on_websocket_message(msg):
 
   # if the message *does* end with ZLIB_SUFFIX,
   # get the full message by decompressing the buffers
-  msg = inflator.decompress(buffer).decode('utf-8')
+  # NOTE: the message is utf-8 encoded.
+  msg = inflator.decompress(buffer)
   buffer = bytearray()
 
   # here you can treat `msg` as either JSON or ETF encoded,
@@ -92,11 +97,11 @@ def on_websocket_message(msg):
 
 ###### Gateway URL Params
 
-| Field     | Type    | Description                                   | Accepted Values                                                   |
-| --------- | ------- | --------------------------------------------- | ----------------------------------------------------------------- |
-| v         | integer | Gateway Version to use                        | 6 (see [Gateway versions](#DOCS_TOPICS_GATEWAY/gateway-versions)) |
-| encoding  | string  | The encoding of received gateway packets      | 'json' or 'etf'                                                   |
-| compress? | string  | The (optional) compression of gateway packets | 'zlib-stream'                                                     |
+| Field     | Type    | Description                                   | Accepted Values                                                            |
+|-----------|---------|-----------------------------------------------|----------------------------------------------------------------------------|
+| v         | integer | Gateway Version to use                        | see [Gateway versions](#DOCS_TOPICS_GATEWAY/gateways-gateway-versions) |
+| encoding  | string  | The encoding of received gateway packets      | 'json' or 'etf'                                                            |
+| compress? | string  | The (optional) compression of gateway packets | 'zlib-stream'                                                              |
 
 The first step in establishing connectivity to the gateway is requesting a valid websocket endpoint from the API. This can be done through either the [Get Gateway](#DOCS_TOPICS_GATEWAY/get-gateway) or the [Get Gateway Bot](#DOCS_TOPICS_GATEWAY/get-gateway-bot) endpoint.
 
@@ -108,7 +113,10 @@ Once connected, the client should immediately receive an [Opcode 10 Hello](#DOCS
 
 ```json
 {
-  "heartbeat_interval": 45000
+  "op": 10,
+  "d": {
+    "heartbeat_interval": 45000
+  }
 }
 ```
 
@@ -141,16 +149,20 @@ This is a minimal `IDENTIFY` payload. `IDENTIFY` supports additional optional fi
 
 ```json
 {
-  "token": "my_token",
-  "properties": {
-    "$os": "linux",
-    "$browser": "my_library",
-    "$device": "my_library"
+  "op": 2,
+  "d": {
+    "token": "my_token",
+    "intents": 513,
+    "properties": {
+      "$os": "linux",
+      "$browser": "my_library",
+      "$device": "my_library"
+    }
   }
 }
 ```
 
-If the payload is valid, the gateway will respond with a [Ready](#DOCS_TOPICS_GATEWAY/ready) event. Your client is now considered in a "connected" state. Clients are limited to 1 identify every 5 seconds; if they exceed this limit, the gateway will respond with an [Opcode 9 Invalid Session](#DOCS_TOPICS_GATEWAY/invalid-session). It is important to note that although the ready event contains a large portion of the required initial state, some information (such as guilds and their members) is sent asynchronously (see [Guild Create](#DOCS_TOPICS_GATEWAY/guild-create) event).
+If the payload is valid, the gateway will respond with a [Ready](#DOCS_TOPICS_GATEWAY/ready) event. Your client is now considered in a "connected" state. Clients are limited by [maximum concurrency](#DOCS_TOPICS_GATEWAY/session-start-limit-object) when [Identify](#DOCS_TOPICS_GATEWAY/identify)ing; if they exceed this limit, the gateway will respond with an [Opcode 9 Invalid Session](#DOCS_TOPICS_GATEWAY/invalid-session). It is important to note that although the ready event contains a large portion of the required initial state, some information (such as guilds and their members) is sent asynchronously (see [Guild Create](#DOCS_TOPICS_GATEWAY/guild-create) event).
 
 > warn
 > Clients are limited to 1000 `IDENTIFY` calls to the websocket in a 24-hour period. This limit is global and across all shards, but does not include `RESUME` calls. Upon hitting this limit, all active sessions for the bot will be terminated, the bot's token will be reset, and the owner will receive an email notification. It's up to the owner to update their application with the new token.
@@ -165,9 +177,12 @@ Your client should store the `session_id` from the [Ready](#DOCS_TOPICS_GATEWAY/
 
 ```json
 {
-  "token": "my_token",
-  "session_id": "session_id_i_stored",
-  "seq": 1337
+  "op": 6,
+  "d": {
+    "token": "my_token",
+    "session_id": "session_id_i_stored",
+    "seq": 1337
+  }
 }
 ```
 
@@ -177,9 +192,119 @@ If successful, the gateway will respond by replaying all missed events in order,
 
 If the gateway ever issues a disconnect to your client, it will provide a close event code that you can use to properly handle the disconnection. A full list of these close codes can be found in the [Response Codes](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/gateway-close-event-codes) documentation.
 
+When you close the connection to the gateway with the close code 1000 or 1001, your session will be invalidated and your bot will appear offline. If you simply close the TCP connection, or use a different close code, the bot session will remain active and timeout after a few minutes. This can be useful for a reconnect, which will resume the previous session.
+
+## Gateway Intents
+
+> info
+> Intents are optionally supported on the v6 gateway but required as of v8
+
+Maintaining a stateful application can be difficult when it comes to the amount of data you're expected to process, especially at scale. Gateway Intents are a system to help you lower that computational burden.
+
+When [identifying](#DOCS_TOPICS_GATEWAY/identifying) to the gateway, you can specify an `intents` parameter which allows you to conditionally subscribe to pre-defined "intents", groups of events defined by Discord. If you do not specify a certain intent, you will not receive any of the gateway events that are batched into that group. The valid intents are:
+
+### List of Intents
+
+```
+GUILDS (1 << 0)
+  - GUILD_CREATE
+  - GUILD_UPDATE
+  - GUILD_DELETE
+  - GUILD_ROLE_CREATE
+  - GUILD_ROLE_UPDATE
+  - GUILD_ROLE_DELETE
+  - CHANNEL_CREATE
+  - CHANNEL_UPDATE
+  - CHANNEL_DELETE
+  - CHANNEL_PINS_UPDATE
+
+GUILD_MEMBERS (1 << 1)
+  - GUILD_MEMBER_ADD
+  - GUILD_MEMBER_UPDATE
+  - GUILD_MEMBER_REMOVE
+
+GUILD_BANS (1 << 2)
+  - GUILD_BAN_ADD
+  - GUILD_BAN_REMOVE
+
+GUILD_EMOJIS (1 << 3)
+  - GUILD_EMOJIS_UPDATE
+
+GUILD_INTEGRATIONS (1 << 4)
+  - GUILD_INTEGRATIONS_UPDATE
+
+GUILD_WEBHOOKS (1 << 5)
+  - WEBHOOKS_UPDATE
+
+GUILD_INVITES (1 << 6)
+  - INVITE_CREATE
+  - INVITE_DELETE
+
+GUILD_VOICE_STATES (1 << 7)
+  - VOICE_STATE_UPDATE
+
+GUILD_PRESENCES (1 << 8)
+  - PRESENCE_UPDATE
+
+GUILD_MESSAGES (1 << 9)
+  - MESSAGE_CREATE
+  - MESSAGE_UPDATE
+  - MESSAGE_DELETE
+  - MESSAGE_DELETE_BULK
+
+GUILD_MESSAGE_REACTIONS (1 << 10)
+  - MESSAGE_REACTION_ADD
+  - MESSAGE_REACTION_REMOVE
+  - MESSAGE_REACTION_REMOVE_ALL
+  - MESSAGE_REACTION_REMOVE_EMOJI
+
+GUILD_MESSAGE_TYPING (1 << 11)
+  - TYPING_START
+
+DIRECT_MESSAGES (1 << 12)
+  - MESSAGE_CREATE
+  - MESSAGE_UPDATE
+  - MESSAGE_DELETE
+  - CHANNEL_PINS_UPDATE
+
+DIRECT_MESSAGE_REACTIONS (1 << 13)
+  - MESSAGE_REACTION_ADD
+  - MESSAGE_REACTION_REMOVE
+  - MESSAGE_REACTION_REMOVE_ALL
+  - MESSAGE_REACTION_REMOVE_EMOJI
+
+DIRECT_MESSAGE_TYPING (1 << 14)
+  - TYPING_START
+```
+
+### Caveats
+
+Any [events not defined in an intent](#DOCS_TOPICS_GATEWAY/commands-and-events-gateway-events) are considered "passthrough" and will always be sent to you.
+
+[Guild Member Update](#DOCS_TOPICS_GATEWAY/guild-member-update) is sent for current-user updates regardless of whether the `GUILD_MEMBERS` intent is set.
+
+[Guild Create](#DOCS_TOPICS_GATEWAY/guild-create) and [Request Guild Members](#DOCS_TOPICS_GATEWAY/request-guild-members) are uniquely affected by intents. See these sections for more information.
+
+If you specify an `intent` value in your `IDENTIFY` payload that is *invalid*, the socket will close with a [`4013` close code](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/gateway-gateway-close-event-codes). An invalid intent is one that is not meaningful and not documented above.
+
+If you specify an `intent` value in your `IDENTIFY` payload that is *disallowed*, the socket will close with a [`4014` close code](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/gateway-gateway-close-event-codes). A disallowed intent is one which you have not enabled for your bot or one that your bot is not whitelisted to use.
+
+### Privileged Intents
+
+Some intents are defined as "Privileged" due to the sensitive nature of the data. Those intents are:
+
+- `GUILD_PRESENCES`
+- `GUILD_MEMBERS`
+
+In order to specify these intents in your `IDENTIFY` payload, you must first go to your application in the Developer Portal and enable the toggle for the Privileged Intents you wish to use. If your bot is in 100 or more guilds, you must also get your [bot verified](https://support.discord.com/hc/en-us/articles/360040720412-Bot-Verification-and-Data-Whitelisting).
+
+On **October 7, 2020** the events under the `GUILD_PRESENCES` and `GUILD_MEMBERS` intents will be turned **off by default on all gateway versions**. If you are using **Gateway v6**, you will receive those events if you have enabled the flags for those intents in the Developer Portal and have been verified if your bot is in 100 or more guilds. You do not need to use Intents on Gateway v6 to receive these events; you just need to enable the flags.
+
+If you are using **Gateway v8**, Intents are mandatory and must be specified when connecting.
+
 ## Rate Limiting
 
-Clients are allowed 120 events every 60 seconds, meaning you can send on average at a rate of up to 2 events per second. Clients who surpass this limit are immediately disconnected from the Gateway, and similarly to the HTTP API, repeat offenders will have their API access revoked. Clients are also limited to one gateway connection per 5 seconds. If you hit this limit, the Gateway will respond with an [Opcode 9 Invalid Session](#DOCS_TOPICS_GATEWAY/invalid-session).
+Clients are allowed 120 events every 60 seconds, meaning you can send on average at a rate of up to 2 events per second. Clients who surpass this limit are immediately disconnected from the Gateway, and similarly to the HTTP API, repeat offenders will have their API access revoked. Clients also have limit of [concurrent](#DOCS_TOPICS_GATEWAY/session-start-limit-object) [Identify](#DOCS_TOPICS_GATEWAY/identify) requests allowed per 5 seconds. If you hit this limit, the Gateway will respond with an [Opcode 9 Invalid Session](#DOCS_TOPICS_GATEWAY/invalid-session).
 
 ## Tracking State
 
@@ -190,6 +315,9 @@ An example of state tracking can be found with member status caching. When initi
 For larger bots, client state can grow to be quite large. We recommend only storing objects in memory that are needed for a bot's operation. Many bots, for example, just respond to user input through chat commands. These bots may only need to keep guild information (like guild/channel roles and permissions) in memory, since [MESSAGE_CREATE](#DOCS_TOPICS_GATEWAY/message-create) and [MESSAGE_UPDATE](#DOCS_TOPICS_GATEWAY/message-update) events have the full member object available.
 
 ## Guild Subscriptions
+
+> info
+> While not deprecated, Guild Subscriptions have been superceded by [Gateway Intents](#DOCS_TOPICS_GATEWAY/gateway-intents). You may continue to use guild subscriptions, but we recommend migrating to intents for even better results.
 
 Presence and typing events get dispatched from guilds that your bot is a member of. For many bots, these events are not useful and can be frequent and expensive to process at scale. Because of this, we allow bots to opt out of guild subscriptions by setting `guild_subscriptions` to `false` when [Identify](#DOCS_TOPICS_GATEWAY/identify)ing.
 
@@ -206,10 +334,12 @@ To enable sharding on a connection, the user should send the `shard` array in th
 ###### Sharding Formula
 
 ```python
-(guild_id >> 22) % num_shards == shard_id
+shard_id = (guild_id >> 22) % num_shards
 ```
 
 As an example, if you wanted to split the connection between three shards, you'd use the following values for `shard` for each connection: `[0, 3]`, `[1, 3]`, and `[2, 3]`. Note that only the first shard (`[0, 3]`) would receive DMs.
+
+Note that `num_shards` does not relate to, or limit, the total number of potential sessions—it is only used for *routing* traffic. As such, sessions do not have to be identified in an evenly distributed manner when sharding. You can establish multiple sessions with the same `[shard_id, num_shards]`, or sessions with different `num_shards` values. This allows you to create sessions that will handle more or less traffic than others for more fine-tuned load balancing, or orchestrate "zero-downtime" scaling/updating by handing off traffic to a new deployment of sessions with a higher or lower `num_shards` count that are prepared in parallel.
 
 ## Sharding for Very Large Bots
 
@@ -226,7 +356,7 @@ Commands are requests made to the gateway socket by a client.
 ###### Gateway Commands
 
 | name                                                                | description                                                  |
-| ------------------------------------------------------------------- | ------------------------------------------------------------ |
+|---------------------------------------------------------------------|--------------------------------------------------------------|
 | [Identify](#DOCS_TOPICS_GATEWAY/identify)                           | triggers the initial handshake with the gateway              |
 | [Resume](#DOCS_TOPICS_GATEWAY/resume)                               | resumes a dropped gateway connection                         |
 | [Heartbeat](#DOCS_TOPICS_GATEWAY/heartbeat)                         | maintains an active gateway connection                       |
@@ -238,44 +368,48 @@ Events are payloads sent over the socket to a client that correspond to events i
 
 ###### Gateway Events
 
-| name                                                                            | description                                                                                                                      |
-| ------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| [Hello](#DOCS_TOPICS_GATEWAY/hello)                                             | defines the heartbeat interval                                                                                                   |
-| [Ready](#DOCS_TOPICS_GATEWAY/ready)                                             | contains the initial state information                                                                                           |
-| [Resumed](#DOCS_TOPICS_GATEWAY/resumed)                                         | response to [Resume](#DOCS_TOPICS_GATEWAY/resume)                                                                                |
-| [Reconnect](#DOCS_TOPICS_GATEWAY/reconnect)                                     | server is going away, client should reconnect to gateway and resume                                                              |
-| [Invalid Session](#DOCS_TOPICS_GATEWAY/invalid-session)                         | failure response to [Identify](#DOCS_TOPICS_GATEWAY/identify) or [Resume](#DOCS_TOPICS_GATEWAY/resume) or invalid active session |
-| [Channel Create](#DOCS_TOPICS_GATEWAY/channel-create)                           | new channel created                                                                                                              |
-| [Channel Update](#DOCS_TOPICS_GATEWAY/channel-update)                           | channel was updated                                                                                                              |
-| [Channel Delete](#DOCS_TOPICS_GATEWAY/channel-delete)                           | channel was deleted                                                                                                              |
-| [Channel Pins Update](#DOCS_TOPICS_GATEWAY/channel-pins-update)                 | message was pinned or unpinned                                                                                                   |
-| [Guild Create](#DOCS_TOPICS_GATEWAY/guild-create)                               | lazy-load for unavailable guild, guild became available, or user joined a new guild                                              |
-| [Guild Update](#DOCS_TOPICS_GATEWAY/guild-update)                               | guild was updated                                                                                                                |
-| [Guild Delete](#DOCS_TOPICS_GATEWAY/guild-delete)                               | guild became unavailable, or user left/was removed from a guild                                                                  |
-| [Guild Ban Add](#DOCS_TOPICS_GATEWAY/guild-ban-add)                             | user was banned from a guild                                                                                                     |
-| [Guild Ban Remove](#DOCS_TOPICS_GATEWAY/guild-ban-remove)                       | user was unbanned from a guild                                                                                                   |
-| [Guild Emojis Update](#DOCS_TOPICS_GATEWAY/guild-emojis-update)                 | guild emojis were updated                                                                                                        |
-| [Guild Integrations Update](#DOCS_TOPICS_GATEWAY/guild-integrations-update)     | guild integration was updated                                                                                                    |
-| [Guild Member Add](#DOCS_TOPICS_GATEWAY/guild-member-add)                       | new user joined a guild                                                                                                          |
-| [Guild Member Remove](#DOCS_TOPICS_GATEWAY/guild-member-remove)                 | user was removed from a guild                                                                                                    |
-| [Guild Member Update](#DOCS_TOPICS_GATEWAY/guild-member-update)                 | guild member was updated                                                                                                         |
-| [Guild Members Chunk](#DOCS_TOPICS_GATEWAY/guild-members-chunk)                 | response to [Request Guild Members](#DOCS_TOPICS_GATEWAY/request-guild-members)                                                  |
-| [Guild Role Create](#DOCS_TOPICS_GATEWAY/guild-role-create)                     | guild role was created                                                                                                           |
-| [Guild Role Update](#DOCS_TOPICS_GATEWAY/guild-role-update)                     | guild role was updated                                                                                                           |
-| [Guild Role Delete](#DOCS_TOPICS_GATEWAY/guild-role-delete)                     | guild role was deleted                                                                                                           |
-| [Message Create](#DOCS_TOPICS_GATEWAY/message-create)                           | message was created                                                                                                              |
-| [Message Update](#DOCS_TOPICS_GATEWAY/message-update)                           | message was edited                                                                                                               |
-| [Message Delete](#DOCS_TOPICS_GATEWAY/message-delete)                           | message was deleted                                                                                                              |
-| [Message Delete Bulk](#DOCS_TOPICS_GATEWAY/message-delete-bulk)                 | multiple messages were deleted at once                                                                                           |
-| [Message Reaction Add](#DOCS_TOPICS_GATEWAY/message-reaction-add)               | user reacted to a message                                                                                                        |
-| [Message Reaction Remove](#DOCS_TOPICS_GATEWAY/message-reaction-remove)         | user removed a reaction from a message                                                                                           |
-| [Message Reaction Remove All](#DOCS_TOPICS_GATEWAY/message-reaction-remove-all) | all reactions were explicitly removed from a message                                                                             |
-| [Presence Update](#DOCS_TOPICS_GATEWAY/presence-update)                         | user was updated                                                                                                                 |
-| [Typing Start](#DOCS_TOPICS_GATEWAY/typing-start)                               | user started typing in a channel                                                                                                 |
-| [User Update](#DOCS_TOPICS_GATEWAY/user-update)                                 | properties about the user changed                                                                                                |
-| [Voice State Update](#DOCS_TOPICS_GATEWAY/voice-state-update)                   | someone joined, left, or moved a voice channel                                                                                   |
-| [Voice Server Update](#DOCS_TOPICS_GATEWAY/voice-server-update)                 | guild's voice server was updated                                                                                                 |
-| [Webhooks Update](#DOCS_TOPICS_GATEWAY/webhooks-update)                         | guild channel webhook was created, update, or deleted                                                                            |
+| name                                                                                | description                                                                                                                      |
+|-------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------|
+| [Hello](#DOCS_TOPICS_GATEWAY/hello)                                                 | defines the heartbeat interval                                                                                                   |
+| [Ready](#DOCS_TOPICS_GATEWAY/ready)                                                 | contains the initial state information                                                                                           |
+| [Resumed](#DOCS_TOPICS_GATEWAY/resumed)                                             | response to [Resume](#DOCS_TOPICS_GATEWAY/resume)                                                                                |
+| [Reconnect](#DOCS_TOPICS_GATEWAY/reconnect)                                         | server is going away, client should reconnect to gateway and resume                                                              |
+| [Invalid Session](#DOCS_TOPICS_GATEWAY/invalid-session)                             | failure response to [Identify](#DOCS_TOPICS_GATEWAY/identify) or [Resume](#DOCS_TOPICS_GATEWAY/resume) or invalid active session |
+| [Channel Create](#DOCS_TOPICS_GATEWAY/channel-create)                               | new guild channel created                                                                                                       |
+| [Channel Update](#DOCS_TOPICS_GATEWAY/channel-update)                               | channel was updated                                                                                                              |
+| [Channel Delete](#DOCS_TOPICS_GATEWAY/channel-delete)                               | channel was deleted                                                                                                              |
+| [Channel Pins Update](#DOCS_TOPICS_GATEWAY/channel-pins-update)                     | message was pinned or unpinned                                                                                                   |
+| [Guild Create](#DOCS_TOPICS_GATEWAY/guild-create)                                   | lazy-load for unavailable guild, guild became available, or user joined a new guild                                              |
+| [Guild Update](#DOCS_TOPICS_GATEWAY/guild-update)                                   | guild was updated                                                                                                                |
+| [Guild Delete](#DOCS_TOPICS_GATEWAY/guild-delete)                                   | guild became unavailable, or user left/was removed from a guild                                                                  |
+| [Guild Ban Add](#DOCS_TOPICS_GATEWAY/guild-ban-add)                                 | user was banned from a guild                                                                                                     |
+| [Guild Ban Remove](#DOCS_TOPICS_GATEWAY/guild-ban-remove)                           | user was unbanned from a guild                                                                                                   |
+| [Guild Emojis Update](#DOCS_TOPICS_GATEWAY/guild-emojis-update)                     | guild emojis were updated                                                                                                        |
+| [Guild Integrations Update](#DOCS_TOPICS_GATEWAY/guild-integrations-update)         | guild integration was updated                                                                                                    |
+| [Guild Member Add](#DOCS_TOPICS_GATEWAY/guild-member-add)                           | new user joined a guild                                                                                                          |
+| [Guild Member Remove](#DOCS_TOPICS_GATEWAY/guild-member-remove)                     | user was removed from a guild                                                                                                    |
+| [Guild Member Update](#DOCS_TOPICS_GATEWAY/guild-member-update)                     | guild member was updated                                                                                                         |
+| [Guild Members Chunk](#DOCS_TOPICS_GATEWAY/guild-members-chunk)                     | response to [Request Guild Members](#DOCS_TOPICS_GATEWAY/request-guild-members)                                                  |
+| [Guild Role Create](#DOCS_TOPICS_GATEWAY/guild-role-create)                         | guild role was created                                                                                                           |
+| [Guild Role Update](#DOCS_TOPICS_GATEWAY/guild-role-update)                         | guild role was updated                                                                                                           |
+| [Guild Role Delete](#DOCS_TOPICS_GATEWAY/guild-role-delete)                         | guild role was deleted                                                                                                           |
+| [Invite Create](#DOCS_TOPICS_GATEWAY/invite-create)                                 | invite to a channel was created                                                                                                  |
+| [Invite Delete](#DOCS_TOPICS_GATEWAY/invite-delete)                                 | invite to a channel was deleted                                                                                                  |
+| [Message Create](#DOCS_TOPICS_GATEWAY/message-create)                               | message was created                                                                                                              |
+| [Message Update](#DOCS_TOPICS_GATEWAY/message-update)                               | message was edited                                                                                                               |
+| [Message Delete](#DOCS_TOPICS_GATEWAY/message-delete)                               | message was deleted                                                                                                              |
+| [Message Delete Bulk](#DOCS_TOPICS_GATEWAY/message-delete-bulk)                     | multiple messages were deleted at once                                                                                           |
+| [Message Reaction Add](#DOCS_TOPICS_GATEWAY/message-reaction-add)                   | user reacted to a message                                                                                                        |
+| [Message Reaction Remove](#DOCS_TOPICS_GATEWAY/message-reaction-remove)             | user removed a reaction from a message                                                                                           |
+| [Message Reaction Remove All](#DOCS_TOPICS_GATEWAY/message-reaction-remove-all)     | all reactions were explicitly removed from a message                                                                             |
+| [Message Reaction Remove Emoji](#DOCS_TOPICS_GATEWAY/message-reaction-remove-emoji) | all reactions for a given emoji were explicitly removed from a message                                                           |
+| [Presence Update](#DOCS_TOPICS_GATEWAY/presence-update)                             | user was updated                                                                                                                 |
+| [Typing Start](#DOCS_TOPICS_GATEWAY/typing-start)                                   | user started typing in a channel                                                                                                 |
+| [User Update](#DOCS_TOPICS_GATEWAY/user-update)                                     | properties about the user changed                                                                                                |
+| [Voice State Update](#DOCS_TOPICS_GATEWAY/voice-state-update)                       | someone joined, left, or moved a voice channel                                                                                   |
+| [Voice Server Update](#DOCS_TOPICS_GATEWAY/voice-server-update)                     | guild's voice server was updated                                                                                                 |
+| [Webhooks Update](#DOCS_TOPICS_GATEWAY/webhooks-update)                             | guild channel webhook was created, update, or deleted                                                                            |
+| [Interaction Create](#DOCS_TOPICS_GATEWAY/interaction-create)                       | user used a [Slash Command](#DOCS_INTERACTIONS_SLASH_COMMANDS/)                                                                   |
 
 ### Event Names
 
@@ -288,7 +422,7 @@ Used to trigger the initial handshake with the gateway.
 ###### Identify Structure
 
 | Field                | Type                                                       | Description                                                                                                                    | Default |
-| -------------------- | ---------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ | ------- |
+|----------------------|------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------|---------|
 | token                | string                                                     | authentication token                                                                                                           | -       |
 | properties           | object                                                     | [connection properties](#DOCS_TOPICS_GATEWAY/identify-identify-connection-properties)                                          | -       |
 | compress?            | boolean                                                    | whether this connection supports compression of packets                                                                        | false   |
@@ -296,11 +430,12 @@ Used to trigger the initial handshake with the gateway.
 | shard?               | array of two integers (shard_id, num_shards)               | used for [Guild Sharding](#DOCS_TOPICS_GATEWAY/sharding)                                                                       | -       |
 | presence?            | [update status](#DOCS_TOPICS_GATEWAY/update-status) object | presence structure for initial presence information                                                                            | -       |
 | guild_subscriptions? | boolean                                                    | enables dispatching of guild subscription events (presence and typing events)                                                  | true    |
+| intents              | integer                                                    | the [Gateway Intents](#DOCS_TOPICS_GATEWAY/gateway-intents) you wish to receive                                                | -       |
 
 ###### Identify Connection Properties
 
 | Field     | Type   | Description           |
-| --------- | ------ | --------------------- |
+|-----------|--------|-----------------------|
 | \$os      | string | your operating system |
 | \$browser | string | your library name     |
 | \$device  | string | your library name     |
@@ -309,24 +444,31 @@ Used to trigger the initial handshake with the gateway.
 
 ```json
 {
-  "token": "my_token",
-  "properties": {
-    "$os": "linux",
-    "$browser": "disco",
-    "$device": "disco"
-  },
-  "compress": true,
-  "large_threshold": 250,
-  "guild_subscriptions": false,
-  "shard": [0, 1],
-  "presence": {
-    "game": {
-      "name": "Cards Against Humanity",
-      "type": 0
+  "op": 2,
+  "d": {
+    "token": "my_token",
+    "intents": 513,
+    "properties": {
+      "$os": "linux",
+      "$browser": "disco",
+      "$device": "disco"
     },
-    "status": "dnd",
-    "since": 91879201,
-    "afk": false
+    "compress": true,
+    "large_threshold": 250,
+    "guild_subscriptions": false,
+    "shard": [0, 1],
+    "presence": {
+      "activities": [{
+        "name": "Cards Against Humanity",
+        "type": 0
+      }],
+      "status": "dnd",
+      "since": 91879201,
+      "afk": false
+    },
+    // This intent represents 1 << 0 for GUILDS, 1 << 1 for GUILD_MEMBERS, and 1 << 2 for GUILD_BANS
+    // This connection will only receive the events defined in those three intents
+    "intents": 7
   }
 }
 ```
@@ -338,7 +480,7 @@ Used to replay missed events when a disconnected client resumes.
 ###### Resume Structure
 
 | Field      | Type    | Description                   |
-| ---------- | ------- | ----------------------------- |
+|------------|---------|-------------------------------|
 | token      | string  | session token                 |
 | session_id | string  | session id                    |
 | seq        | integer | last sequence number received |
@@ -347,9 +489,12 @@ Used to replay missed events when a disconnected client resumes.
 
 ```json
 {
-  "token": "randomstring",
-  "session_id": "evenmorerandomstring",
-  "seq": 1337
+  "op": 6,
+  "d": {
+    "token": "randomstring",
+    "session_id": "evenmorerandomstring",
+    "seq": 1337
+  }
 }
 ```
 
@@ -370,23 +515,35 @@ Used to maintain an active gateway connection. Must be sent every `heartbeat_int
 
 Used to request all members for a guild or a list of guilds. When initially connecting, the gateway will only send offline members if a guild has less than the `large_threshold` members (value in the [Gateway Identify](#DOCS_TOPICS_GATEWAY/identify)). If a client wishes to receive additional members, they need to explicitly request them via this operation. The server will send [Guild Members Chunk](#DOCS_TOPICS_GATEWAY/guild-members-chunk) events in response with up to 1000 members per chunk until all members that match the request have been sent.
 
+Due to our privacy and infrastructural concerns with this feature, there are some limitations that apply:
+
+- `GUILD_PRESENCES` intent is required to set `presences = true`. Otherwise, it will always be false
+- `GUILD_MEMBERS` intent is required to request the entire member list—`(query=‘’, limit=0<=n)`
+- You will be limited to requesting 1 `guild_id` per request
+- Requesting a prefix (`query` parameter) will return a maximum of 100 members
+- Requesting `user_ids` will continue to be limited to returning 100 members
+
 ###### Guild Request Members Structure
 
 | Field      | Type                             | Description                                                                                                                           | Required                   |
-| ---------- | -------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- | -------------------------- |
-| guild_id   | snowflake or array of snowflakes | id of the guild(s) to get members for                                                                                                 | true                       |
+|------------|----------------------------------|---------------------------------------------------------------------------------------------------------------------------------------|----------------------------|
+| guild_id   | snowflake                        | id of the guild to get members for                                                                                                    | true                       |
 | query?     | string                           | string that username starts with, or an empty string to return all members                                                            | one of query or user_ids   |
 | limit      | integer                          | maximum number of members to send matching the `query`; a limit of `0` can be used with an empty string `query` to return all members | true when specifying query |
 | presences? | boolean                          | used to specify if we want the presences of the matched members                                                                       | false                      |
 | user_ids?  | snowflake or array of snowflakes | used to specify which users you wish to fetch                                                                                         | one of query or user_ids   |
+| nonce?     | string                           | nonce to identify the [Guild Members Chunk](#DOCS_TOPICS_GATEWAY/guild-members-chunk) response                                        | false                      |
 
 ###### Guild Request Members
 
 ```json
 {
-  "guild_id": "41771983444115456",
-  "query": "",
-  "limit": 0
+  "op": 8,
+  "d": {
+    "guild_id": "41771983444115456",
+    "query": "",
+    "limit": 0
+  }
 }
 ```
 
@@ -397,7 +554,7 @@ Sent when a client wants to join, move, or disconnect from a voice channel.
 ###### Gateway Voice State Update Structure
 
 | Field      | Type       | Description                                                          |
-| ---------- | ---------- | -------------------------------------------------------------------- |
+|------------|------------|----------------------------------------------------------------------|
 | guild_id   | snowflake  | id of the guild                                                      |
 | channel_id | ?snowflake | id of the voice channel client wants to join (null if disconnecting) |
 | self_mute  | boolean    | is the client muted                                                  |
@@ -407,10 +564,13 @@ Sent when a client wants to join, move, or disconnect from a voice channel.
 
 ```json
 {
-  "guild_id": "41771983423143937",
-  "channel_id": "127121515262115840",
-  "self_mute": false,
-  "self_deaf": false
+  "op": 4,
+  "d": {
+    "guild_id": "41771983423143937",
+    "channel_id": "127121515262115840",
+    "self_mute": false,
+    "self_deaf": false
+  }
 }
 ```
 
@@ -420,17 +580,17 @@ Sent by the client to indicate a presence or status update.
 
 ###### Gateway Status Update Structure
 
-| Field  | Type                                                     | Description                                                                                 |
-| ------ | -------------------------------------------------------- | ------------------------------------------------------------------------------------------- |
-| since  | ?integer                                                 | unix time (in milliseconds) of when the client went idle, or null if the client is not idle |
-| game   | ?[activity](#DOCS_TOPICS_GATEWAY/activity-object) object | null, or the user's new activity                                                            |
-| status | string                                                   | the user's new [status](#DOCS_TOPICS_GATEWAY/update-status-status-types)                    |
-| afk    | boolean                                                  | whether or not the client is afk                                                            |
+| Field      | Type                                                               | Description                                                                                 |
+|------------|--------------------------------------------------------------------|---------------------------------------------------------------------------------------------|
+| since      | ?integer                                                           | unix time (in milliseconds) of when the client went idle, or null if the client is not idle |
+| activities | ?array of [activity](#DOCS_TOPICS_GATEWAY/activity-object) objects | null, or the user's activities                                                              |
+| status     | string                                                             | the user's new [status](#DOCS_TOPICS_GATEWAY/update-status-status-types)                    |
+| afk        | boolean                                                            | whether or not the client is afk                                                            |
 
 ###### Status Types
 
 | Status    | Description                    |
-| --------- | ------------------------------ |
+|-----------|--------------------------------|
 | online    | Online                         |
 | dnd       | Do Not Disturb                 |
 | idle      | AFK                            |
@@ -441,13 +601,16 @@ Sent by the client to indicate a presence or status update.
 
 ```json
 {
-  "since": 91879201,
-  "game": {
-    "name": "Save the Oxford Comma",
-    "type": 0
-  },
-  "status": "online",
-  "afk": false
+  "op": 3,
+  "d": {
+    "since": 91879201,
+    "activities": [{
+      "name": "Save the Oxford Comma",
+      "type": 0
+    }],
+    "status": "online",
+    "afk": false
+  }
 }
 ```
 
@@ -460,14 +623,17 @@ Sent on connection to the websocket. Defines the heartbeat interval that the cli
 ###### Hello Structure
 
 | Field              | Type    | Description                                                     |
-| ------------------ | ------- | --------------------------------------------------------------- |
+|--------------------|---------|-----------------------------------------------------------------|
 | heartbeat_interval | integer | the interval (in milliseconds) the client should heartbeat with |
 
 ###### Example Hello
 
 ```json
 {
-  "heartbeat_interval": 45000
+  "op": 10,
+  "d": {
+    "heartbeat_interval": 45000
+  }
 }
 ```
 
@@ -480,13 +646,14 @@ The ready event is dispatched when a client has completed the initial handshake 
 ###### Ready Event Fields
 
 | Field            | Type                                                                                 | Description                                                                                                   |
-| ---------------- | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------- |
-| v                | integer                                                                              | [gateway protocol version](#DOCS_TOPICS_GATEWAY/gateway-protocol-versions)                                    |
+|------------------|--------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------|
+| v                | integer                                                                              | [gateway version](#DOCS_TOPICS_GATEWAY/gateways-gateway-versions)                                             |
 | user             | [user](#DOCS_RESOURCES_USER/user-object) object                                      | information about the user including email                                                                    |
 | private_channels | array                                                                                | empty array                                                                                                   |
 | guilds           | array of [Unavailable Guild](#DOCS_RESOURCES_GUILD/unavailable-guild-object) objects | the guilds the user is in                                                                                     |
 | session_id       | string                                                                               | used for resuming connections                                                                                 |
 | shard?           | array of two integers (shard_id, num_shards)                                         | the [shard information](#DOCS_TOPICS_GATEWAY/sharding) associated with this session, if sent when identifying |
+| application      | partial [application object](#DOCS_TOPICS_OAUTH2/application-object)                 | contains `id` and `flags`                                                                                     | 
 
 #### Resumed
 
@@ -519,7 +686,7 @@ The inner `d` key is a boolean that indicates whether the session may be resumab
 
 #### Channel Create
 
-Sent when a new channel is created, relevant to the current user. The inner payload is a [channel](#DOCS_RESOURCES_CHANNEL/channel-object) object.
+Sent when a new guild channel is created, relevant to the current user. The inner payload is a [channel](#DOCS_RESOURCES_CHANNEL/channel-object) object.
 
 #### Channel Update
 
@@ -535,11 +702,11 @@ Sent when a message is pinned or unpinned in a text channel. This is not sent wh
 
 ###### Channel Pins Update Event Fields
 
-| Field               | Type              | Description                                                 |
-| ------------------- | ----------------- | ----------------------------------------------------------- |
-| guild_id?           | snowflake         | the id of the guild                                         |
-| channel_id          | snowflake         | the id of the channel                                       |
-| last_pin_timestamp? | ISO8601 timestamp | the time at which the most recent pinned message was pinned |
+| Field               | Type               | Description                                                  |
+|---------------------|--------------------|--------------------------------------------------------------|
+| guild_id?           | snowflake          | the id of the guild                                          |
+| channel_id          | snowflake          | the id of the channel                                        |
+| last_pin_timestamp? | ?ISO8601 timestamp | the time at which the most recent pinned message was pinned  |
 
 ### Guilds
 
@@ -547,11 +714,14 @@ Sent when a message is pinned or unpinned in a text channel. This is not sent wh
 
 This event can be sent in three different scenarios:
 
-1.  When a user is initially connecting, to lazily load and backfill information for all unavailable guilds sent in the [Ready](#DOCS_TOPICS_GATEWAY/ready) event.
+1.  When a user is initially connecting, to lazily load and backfill information for all unavailable guilds sent in the [Ready](#DOCS_TOPICS_GATEWAY/ready) event. Guilds that are unavailable due to an outage will send a [Guild Delete](#DOCS_TOPICS_GATEWAY/guild-delete) event.
 2.  When a Guild becomes available again to the client.
 3.  When the current user joins a new Guild.
 
 The inner payload is a [guild](#DOCS_RESOURCES_GUILD/guild-object) object, with all the extra fields specified.
+
+> warn
+> If you are using [Gateway Intents](#DOCS_TOPICS_GATEWAY/gateway-intents), members and presences returned in this event will only contain your bot and users in voice channels unless you specify the `GUILD_PRESENCES` intent.
 
 #### Guild Update
 
@@ -559,7 +729,7 @@ Sent when a guild is updated. The inner payload is a [guild](#DOCS_RESOURCES_GUI
 
 #### Guild Delete
 
-Sent when a guild becomes unavailable during a guild outage, or when the user leaves or is removed from a guild. The inner payload is an [unavailable guild](#DOCS_RESOURCES_GUILD/unavailable-guild-object) object. If the `unavailable` field is not set, the user was removed from the guild.
+Sent when a guild becomes or was already unavailable due to an outage, or when the user leaves or is removed from a guild. The inner payload is an [unavailable guild](#DOCS_RESOURCES_GUILD/unavailable-guild-object) object. If the `unavailable` field is not set, the user was removed from the guild.
 
 #### Guild Ban Add
 
@@ -568,7 +738,7 @@ Sent when a user is banned from a guild.
 ###### Guild Ban Add Event Fields
 
 | Field    | Type                                              | Description     |
-| -------- | ------------------------------------------------- | --------------- |
+|----------|---------------------------------------------------|-----------------|
 | guild_id | snowflake                                         | id of the guild |
 | user     | a [user](#DOCS_RESOURCES_USER/user-object) object | the banned user |
 
@@ -579,7 +749,7 @@ Sent when a user is unbanned from a guild.
 ###### Guild Ban Remove Event Fields
 
 | Field    | Type                                              | Description       |
-| -------- | ------------------------------------------------- | ----------------- |
+|----------|---------------------------------------------------|-------------------|
 | guild_id | snowflake                                         | id of the guild   |
 | user     | a [user](#DOCS_RESOURCES_USER/user-object) object | the unbanned user |
 
@@ -590,7 +760,7 @@ Sent when a guild's emojis have been updated.
 ###### Guild Emojis Update Event Fields
 
 | Field    | Type      | Description                                           |
-| -------- | --------- | ----------------------------------------------------- |
+|----------|-----------|-------------------------------------------------------|
 | guild_id | snowflake | id of the guild                                       |
 | emojis   | array     | array of [emojis](#DOCS_RESOURCES_EMOJI/emoji-object) |
 
@@ -601,55 +771,70 @@ Sent when a guild integration is updated.
 ###### Guild Integrations Update Event Fields
 
 | Field    | Type      | Description                                     |
-| -------- | --------- | ----------------------------------------------- |
+|----------|-----------|-------------------------------------------------|
 | guild_id | snowflake | id of the guild whose integrations were updated |
 
 #### Guild Member Add
+
+> warn
+> If using [Gateway Intents](#DOCS_TOPICS_GATEWAY/gateway-intents), the `GUILD_MEMBERS` intent will be required to receive this event.
 
 Sent when a new user joins a guild. The inner payload is a [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) object with an extra `guild_id` key:
 
 ###### Guild Member Add Extra Fields
 
 | Field    | Type      | Description     |
-| -------- | --------- | --------------- |
+|----------|-----------|-----------------|
 | guild_id | snowflake | id of the guild |
 
 #### Guild Member Remove
+
+> warn
+> If using [Gateway Intents](#DOCS_TOPICS_GATEWAY/gateway-intents), the `GUILD_MEMBERS` intent will be required to receive this event.
 
 Sent when a user is removed from a guild (leave/kick/ban).
 
 ###### Guild Member Remove Event Fields
 
 | Field    | Type                                              | Description              |
-| -------- | ------------------------------------------------- | ------------------------ |
+|----------|---------------------------------------------------|--------------------------|
 | guild_id | snowflake                                         | the id of the guild      |
 | user     | a [user](#DOCS_RESOURCES_USER/user-object) object | the user who was removed |
 
 #### Guild Member Update
 
-Sent when a guild member is updated.
+> warn
+> If using [Gateway Intents](#DOCS_TOPICS_GATEWAY/gateway-intents), the `GUILD_MEMBERS` intent will be required to receive this event.
+
+Sent when a guild member is updated. This will also fire when the user object of a guild member changes.
 
 ###### Guild Member Update Event Fields
-| Field         | Type                                              | Description                                        |
-| ------------- | ------------------------------------------------- | -------------------------------------------------- |
-| guild_id      | snowflake                                         | the id of the guild                                |
-| roles         | array of snowflakes                               | user role ids                                      |
-| user          | a [user](#DOCS_RESOURCES_USER/user-object) object | the user                                           |
-| nick          | string                                            | nickname of the user in the guild                  |
-| premium_since | ?ISO8601 timestamp                                | when the user used their Nitro boost on the guild |
+
+| Field          | Type                                              | Description                                                                                                              |
+|----------------|---------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------|
+| guild_id       | snowflake                                         | the id of the guild                                                                                                      |
+| roles          | array of snowflakes                               | user role ids                                                                                                            |
+| user           | a [user](#DOCS_RESOURCES_USER/user-object) object | the user                                                                                                                 |
+| nick?          | ?string                                           | nickname of the user in the guild                                                                                        |
+| joined_at      | ISO8601 timestamp                                 | when the user joined the guild                                                                                           |
+| premium_since? | ?ISO8601 timestamp                                | when the user starting [boosting](https://support.discord.com/hc/en-us/articles/360028038352-Server-Boosting-) the guild |
 
 #### Guild Members Chunk
 
 Sent in response to [Guild Request Members](#DOCS_TOPICS_GATEWAY/request-guild-members).
+You can use the `chunk_index` and `chunk_count` to calculate how many chunks are left for your request.
 
 ###### Guild Members Chunk Event Fields
 
-| Field      | Type                                                                       | Description                                                                                |
-| ---------- | -------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------ |
-| guild_id   | snowflake                                                                  | the id of the guild                                                                        |
-| members    | array of [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) objects | set of guild members                                                                       |
-| not_found? | array                                                                      | if passing an invalid id to `REQUEST_GUILD_MEMBERS`, it will be returned here              |
-| presences? | array of [presence](#DOCS_TOPICS_GATEWAY/presence) objects                 | if passing true to `REQUEST_GUILD_MEMBERS`, presences of the returned members will be here |
+| Field       | Type                                                                       | Description                                                                                 |
+|-------------|----------------------------------------------------------------------------|---------------------------------------------------------------------------------------------|
+| guild_id    | snowflake                                                                  | the id of the guild                                                                         |
+| members     | array of [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) objects | set of guild members                                                                        |
+| chunk_index | integer                                                                    | the chunk index in the expected chunks for this response (0 <= chunk\_index < chunk\_count) |
+| chunk_count | integer                                                                    | the total number of expected chunks for this response                                       |
+| not_found?  | array                                                                      | if passing an invalid id to `REQUEST_GUILD_MEMBERS`, it will be returned here               |
+| presences?  | array of [presence](#DOCS_TOPICS_GATEWAY/presence) objects                 | if passing true to `REQUEST_GUILD_MEMBERS`, presences of the returned members will be here  |
+| nonce?      | string                                                                     | the nonce used in the [Guild Members Request](#DOCS_TOPICS_GATEWAY/request-guild-members)   |
 
 #### Guild Role Create
 
@@ -658,7 +843,7 @@ Sent when a guild role is created.
 ###### Guild Role Create Event Fields
 
 | Field    | Type                                                  | Description         |
-| -------- | ----------------------------------------------------- | ------------------- |
+|----------|-------------------------------------------------------|---------------------|
 | guild_id | snowflake                                             | the id of the guild |
 | role     | a [role](#DOCS_TOPICS_PERMISSIONS/role-object) object | the role created    |
 
@@ -669,7 +854,7 @@ Sent when a guild role is updated.
 ###### Guild Role Update Event Fields
 
 | Field    | Type                                                  | Description         |
-| -------- | ----------------------------------------------------- | ------------------- |
+|----------|-------------------------------------------------------|---------------------|
 | guild_id | snowflake                                             | the id of the guild |
 | role     | a [role](#DOCS_TOPICS_PERMISSIONS/role-object) object | the role updated    |
 
@@ -680,9 +865,43 @@ Sent when a guild role is deleted.
 ###### Guild Role Delete Event Fields
 
 | Field    | Type      | Description     |
-| -------- | --------- | --------------- |
+|----------|-----------|-----------------|
 | guild_id | snowflake | id of the guild |
 | role_id  | snowflake | id of the role  |
+
+### Invites
+
+### Invite Create
+
+Sent when a new invite to a channel is created.
+
+###### Invite Create Event Fields
+
+| Field             | Type                                                    | Description                                                                                                        |
+|-------------------|---------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------|
+| channel_id        | snowflake                                               | the channel the invite is for                                                                                      |
+| code              | string                                                  | the unique invite [code](#DOCS_RESOURCES_INVITE/invite-object)                                                     |
+| created_at        | timestamp                                               | the time at which the invite was created                                                                           |
+| guild_id?         | snowflake                                               | the guild of the invite                                                                                            |
+| inviter?          | [user](#DOCS_RESOURCES_USER/user-object) object         | the user that created the invite                                                                                   |
+| max_age           | integer                                                 | how long the invite is valid for (in seconds)                                                                      |
+| max_uses          | integer                                                 | the maximum number of times the invite can be used                                                                 |
+| target_user?      | partial [user](#DOCS_RESOURCES_USER/user-object) object | the target user for this invite                                                                                    |
+| target_user_type? | integer                                                 | the [type of user target](#DOCS_RESOURCES_INVITE/invite-object-target-user-types) for this invite                  |
+| temporary         | boolean                                                 | whether or not the invite is temporary (invited users will be kicked on disconnect unless they're assigned a role) |
+| uses              | integer                                                 | how many times the invite has been used (always will be 0)                                                         |
+
+### Invite Delete
+
+Sent when an invite is deleted.
+
+###### Invite Delete Event Fields
+
+| Field      | Type      | Description                                                    |
+|------------|-----------|----------------------------------------------------------------|
+| channel_id | snowflake | the channel of the invite                                      |
+| guild_id?  | snowflake | the guild of the invite                                        |
+| code       | string    | the unique invite [code](#DOCS_RESOURCES_INVITE/invite-object) |
 
 ### Messages
 
@@ -704,7 +923,7 @@ Sent when a message is deleted.
 ###### Message Delete Event Fields
 
 | Field      | Type      | Description           |
-| ---------- | --------- | --------------------- |
+|------------|-----------|-----------------------|
 | id         | snowflake | the id of the message |
 | channel_id | snowflake | the id of the channel |
 | guild_id?  | snowflake | the id of the guild   |
@@ -716,7 +935,7 @@ Sent when multiple messages are deleted at once.
 ###### Message Delete Bulk Event Fields
 
 | Field      | Type                | Description             |
-| ---------- | ------------------- | ----------------------- |
+|------------|---------------------|-------------------------|
 | ids        | array of snowflakes | the ids of the messages |
 | channel_id | snowflake           | the id of the channel   |
 | guild_id?  | snowflake           | the id of the guild     |
@@ -728,7 +947,7 @@ Sent when a user adds a reaction to a message.
 ###### Message Reaction Add Event Fields
 
 | Field      | Type                                                         | Description                                                                                                     |
-| ---------- | ------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------- |
+|------------|--------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------|
 | user_id    | snowflake                                                    | the id of the user                                                                                              |
 | channel_id | snowflake                                                    | the id of the channel                                                                                           |
 | message_id | snowflake                                                    | the id of the message                                                                                           |
@@ -743,7 +962,7 @@ Sent when a user removes a reaction from a message.
 ###### Message Reaction Remove Event Fields
 
 | Field      | Type                                                         | Description                                                                                                     |
-| ---------- | ------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------- |
+|------------|--------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------|
 | user_id    | snowflake                                                    | the id of the user                                                                                              |
 | channel_id | snowflake                                                    | the id of the channel                                                                                           |
 | message_id | snowflake                                                    | the id of the message                                                                                           |
@@ -757,14 +976,30 @@ Sent when a user explicitly removes all reactions from a message.
 ###### Message Reaction Remove All Event Fields
 
 | Field      | Type      | Description           |
-| ---------- | --------- | --------------------- |
+|------------|-----------|-----------------------|
 | channel_id | snowflake | the id of the channel |
 | message_id | snowflake | the id of the message |
 | guild_id?  | snowflake | the id of the guild   |
 
+#### Message Reaction Remove Emoji
+
+Sent when a bot removes all instances of a given emoji from the reactions of a message.
+
+###### Message Reaction Remove Emoji
+
+| Field      | Type                                                       | Description                |
+|------------|------------------------------------------------------------|----------------------------|
+| channel_id | snowflake                                                  | the id of the channel      |
+| guild_id?  | snowflake                                                  | the id of the guild        |
+| message_id | snowflake                                                  | the id of the message      |
+| emoji      | [partial emoji object](#DOCS_RESOURCES_EMOJI/emoji-object) | the emoji that was removed |
+
 ### Presence
 
 #### Presence Update
+
+> warn
+> If you are using [Gateway Intents](#DOCS_TOPICS_GATEWAY/gateway-intents), you _must_ specify the `GUILD_PRESENCES` intent in order to receive Presence Update events
 
 A user's presence is their current state on a guild. This event is sent when a user's presence or info, such as name or avatar, is updated.
 
@@ -773,24 +1008,20 @@ A user's presence is their current state on a guild. This event is sent when a u
 
 ###### Presence Update Event Fields
 
-| Field          | Type                                                              | Description                                        |
-| -------------- | ----------------------------------------------------------------- | -------------------------------------------------- |
-| user           | [user](#DOCS_RESOURCES_USER/user-object) object                   | the user presence is being updated for             |
-| roles          | array of snowflakes                                               | roles this user is in                              |
-| game           | ?[activity](#DOCS_TOPICS_GATEWAY/activity-object) object          | null, or the user's current activity               |
-| guild_id       | snowflake                                                         | id of the guild                                    |
-| status         | string                                                            | either "idle", "dnd", "online", or "offline"       |
-| activities     | array of [activity](#DOCS_TOPICS_GATEWAY/activity-object) objects | user's current activities                          |
-| client_status  | [client_status](#DOCS_TOPICS_GATEWAY/client-status-object) object | user's platform-dependent status                   |
-| premium_since? | ?ISO8601 timestamp                                                | when the user used their Nitro boost on the server |
-| nick?          | ?string                                                           | this users guild nickname (if one is set)          |
+| Field         | Type                                                              | Description                                  |
+|---------------|-------------------------------------------------------------------|----------------------------------------------|
+| user          | [user](#DOCS_RESOURCES_USER/user-object) object                   | the user presence is being updated for       |
+| guild_id      | snowflake                                                         | id of the guild                              |
+| status        | string                                                            | either "idle", "dnd", "online", or "offline" |
+| activities    | array of [activity](#DOCS_TOPICS_GATEWAY/activity-object) objects | user's current activities                    |
+| client_status | [client_status](#DOCS_TOPICS_GATEWAY/client-status-object) object | user's platform-dependent status             |
 
 #### Client Status Object
 
 Active sessions are indicated with an "online", "idle", or "dnd" string per platform. If a user is offline or invisible, the corresponding field is not present.
 
 | Field    | Type   | Description                                                                           |
-| -------- | ------ | ------------------------------------------------------------------------------------- |
+|----------|--------|---------------------------------------------------------------------------------------|
 | desktop? | string | the user's status set for an active desktop (Windows, Linux, Mac) application session |
 | mobile?  | string | the user's status set for an active mobile (iOS, Android) application session         |
 | web?     | string | the user's status set for an active web (browser, bot account) application session    |
@@ -800,48 +1031,49 @@ Active sessions are indicated with an "online", "idle", or "dnd" string per plat
 ###### Activity Structure
 
 | Field           | Type                                                                          | Description                                                                                                               |
-| --------------- | ----------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
+|-----------------|-------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------|
 | name            | string                                                                        | the activity's name                                                                                                       |
 | type            | integer                                                                       | [activity type](#DOCS_TOPICS_GATEWAY/activity-object-activity-types)                                                      |
 | url?            | ?string                                                                       | stream url, is validated when type is 1                                                                                   |
-| created_at      | int                                                                           | unix timestamp of when the activity was added to the user's session                                                       |
+| created_at      | integer                                                                       | unix timestamp of when the activity was added to the user's session                                                       |
 | timestamps?     | [timestamps](#DOCS_TOPICS_GATEWAY/activity-object-activity-timestamps) object | unix timestamps for start and/or end of the game                                                                          |
 | application_id? | snowflake                                                                     | application id for the game                                                                                               |
 | details?        | ?string                                                                       | what the player is currently doing                                                                                        |
 | state?          | ?string                                                                       | the user's current party status                                                                                           |
-| emoji?          | ?[emoji](#DOCS_TOPICS_GATEWAY/activity-object-activity-emoji) object           | the emoji used for a custom status                                                                                        |
+| emoji?          | ?[emoji](#DOCS_TOPICS_GATEWAY/activity-object-activity-emoji) object          | the emoji used for a custom status                                                                                        |
 | party?          | [party](#DOCS_TOPICS_GATEWAY/activity-object-activity-party) object           | information for the current party of the player                                                                           |
 | assets?         | [assets](#DOCS_TOPICS_GATEWAY/activity-object-activity-assets) object         | images for the presence and their hover texts                                                                             |
 | secrets?        | [secrets](#DOCS_TOPICS_GATEWAY/activity-object-activity-secrets) object       | secrets for Rich Presence joining and spectating                                                                          |
 | instance?       | boolean                                                                       | whether or not the activity is an instanced game session                                                                  |
-| flags?          | int                                                                           | [activity flags](#DOCS_TOPICS_GATEWAY/activity-object-activity-flags) `OR`d together, describes what the payload includes |
+| flags?          | integer                                                                       | [activity flags](#DOCS_TOPICS_GATEWAY/activity-object-activity-flags) `OR`d together, describes what the payload includes |
 
 > info
 > Bots are only able to send `name`, `type`, and optionally `url`.
 
 ###### Activity Types
 
-| ID  | Name      | Format              | Example                   |
-| --- | --------- | ------------------- | ------------------------- |
-| 0   | Game      | Playing {name}      | "Playing Rocket League"   |
-| 1   | Streaming | Streaming {details} | "Streaming Rocket League" |
-| 2   | Listening | Listening to {name} | "Listening to Spotify"    |
-| 4   | Custom    | {emoji} {name}      | ":smiley: I am cool"      |
+| ID | Name      | Format              | Example                              |
+|----|-----------|---------------------|--------------------------------------|
+| 0  | Game      | Playing {name}      | "Playing Rocket League"              |
+| 1  | Streaming | Streaming {details} | "Streaming Rocket League"            |
+| 2  | Listening | Listening to {name} | "Listening to Spotify"               |
+| 4  | Custom    | {emoji} {name}      | ":smiley: I am cool"                 |
+| 5  | Competing | Competing in {name} | "Competing in Arena World Champions" |
 
 > info
 > The streaming type currently only supports Twitch and YouTube. Only `https://twitch.tv/` and `https://youtube.com/` urls will work.
 
 ###### Activity Timestamps
 
-| Field  | Type | Description                                              |
-| ------ | ---- | -------------------------------------------------------- |
-| start? | int  | unix time (in milliseconds) of when the activity started |
-| end?   | int  | unix time (in milliseconds) of when the activity ends    |
+| Field  | Type    | Description                                              |
+|--------|---------|----------------------------------------------------------|
+| start? | integer | unix time (in milliseconds) of when the activity started |
+| end?   | integer | unix time (in milliseconds) of when the activity ends    |
 
 ###### Activity Emoji
 
 | Field     | Type      | Description                    |
-| --------- | --------- | ------------------------------ |
+|-----------|-----------|--------------------------------|
 | name      | string    | the name of the emoji          |
 | id?       | snowflake | the id of the emoji            |
 | animated? | boolean   | whether this emoji is animated |
@@ -849,14 +1081,14 @@ Active sessions are indicated with an "online", "idle", or "dnd" string per plat
 ###### Activity Party
 
 | Field | Type                                           | Description                                       |
-| ----- | ---------------------------------------------- | ------------------------------------------------- |
+|-------|------------------------------------------------|---------------------------------------------------|
 | id?   | string                                         | the id of the party                               |
 | size? | array of two integers (current_size, max_size) | used to show the party's current and maximum size |
 
 ###### Activity Assets
 
 | Field        | Type   | Description                                                       |
-| ------------ | ------ | ----------------------------------------------------------------- |
+|--------------|--------|-------------------------------------------------------------------|
 | large_image? | string | the id for a large asset of the activity, usually a snowflake     |
 | large_text?  | string | text displayed when hovering over the large image of the activity |
 | small_image? | string | the id for a small asset of the activity, usually a snowflake     |
@@ -865,7 +1097,7 @@ Active sessions are indicated with an "online", "idle", or "dnd" string per plat
 ###### Activity Secrets
 
 | Field     | Type   | Description                               |
-| --------- | ------ | ----------------------------------------- |
+|-----------|--------|-------------------------------------------|
 | join?     | string | the secret for joining a party            |
 | spectate? | string | the secret for spectating a game          |
 | match?    | string | the secret for a specific instanced match |
@@ -873,7 +1105,7 @@ Active sessions are indicated with an "online", "idle", or "dnd" string per plat
 ###### Activity Flags
 
 | Name         | Value  |
-| ------------ | ------ |
+|--------------|--------|
 | INSTANCE     | 1 << 0 |
 | JOIN         | 1 << 1 |
 | SPECTATE     | 1 << 2 |
@@ -933,7 +1165,7 @@ Sent when a user starts typing in a channel.
 ###### Typing Start Event Fields
 
 | Field      | Type                                                       | Description                                               |
-| ---------- | ---------------------------------------------------------- | --------------------------------------------------------- |
+|------------|------------------------------------------------------------|-----------------------------------------------------------|
 | channel_id | snowflake                                                  | id of the channel                                         |
 | guild_id?  | snowflake                                                  | id of the guild                                           |
 | user_id    | snowflake                                                  | id of the user                                            |
@@ -957,7 +1189,7 @@ Sent when a guild's voice server is updated. This is sent when initially connect
 ###### Voice Server Update Event Fields
 
 | Field    | Type      | Description                               |
-| -------- | --------- | ----------------------------------------- |
+|----------|-----------|-------------------------------------------|
 | token    | string    | voice connection token                    |
 | guild_id | snowflake | the guild this voice server update is for |
 | endpoint | string    | the voice server host                     |
@@ -981,9 +1213,15 @@ Sent when a guild channel's webhook is created, updated, or deleted.
 ###### Webhook Update Event Fields
 
 | Field      | Type      | Description       |
-| ---------- | --------- | ----------------- |
+|------------|-----------|-------------------|
 | guild_id   | snowflake | id of the guild   |
 | channel_id | snowflake | id of the channel |
+
+### Interactions
+
+### Interaction Create
+
+Sent when a user in a guild uses a [Slash Command](#DOCS_INTERACTIONS_SLASH_COMMANDS/). Inner payload is an [Interaction](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction).
 
 ## Get Gateway % GET /gateway
 
@@ -1009,11 +1247,11 @@ Returns an object based on the information in [Get Gateway](#DOCS_TOPICS_GATEWAY
 
 ###### JSON Response
 
-| Field               | Type                                                                          | Description                                                                             |
-| ------------------- | ----------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
-| url                 | string                                                                        | The WSS URL that can be used for connecting to the gateway                              |
+| Field               | Type                                                                          | Description                                                                              |
+|---------------------|-------------------------------------------------------------------------------|------------------------------------------------------------------------------------------|
+| url                 | string                                                                        | The WSS URL that can be used for connecting to the gateway                               |
 | shards              | integer                                                                       | The recommended number of [shards](#DOCS_TOPICS_GATEWAY/sharding) to use when connecting |
-| session_start_limit | [session_start_limit](#DOCS_TOPICS_GATEWAY/session-start-limit-object) object | Information on the current session start limit                                          |
+| session_start_limit | [session_start_limit](#DOCS_TOPICS_GATEWAY/session-start-limit-object) object | Information on the current session start limit                                           |
 
 ###### Example Response
 
@@ -1024,7 +1262,8 @@ Returns an object based on the information in [Get Gateway](#DOCS_TOPICS_GATEWAY
   "session_start_limit": {
     "total": 1000,
     "remaining": 999,
-    "reset_after": 14400000
+    "reset_after": 14400000,
+    "max_concurrency": 1
   }
 }
 ```
@@ -1033,8 +1272,9 @@ Returns an object based on the information in [Get Gateway](#DOCS_TOPICS_GATEWAY
 
 ###### Session Start Limit Structure
 
-| Field       | Type    | Description                                                        |
-| ----------- | ------- | ------------------------------------------------------------------ |
-| total       | integer | The total number of session starts the current user is allowed     |
-| remaining   | integer | The remaining number of session starts the current user is allowed |
-| reset_after | integer | The number of milliseconds after which the limit resets            |
+| Field           | Type    | Description                                                        |
+| --------------- | ------- | ------------------------------------------------------------------ |
+| total           | integer | The total number of session starts the current user is allowed     |
+| remaining       | integer | The remaining number of session starts the current user is allowed |
+| reset_after     | integer | The number of milliseconds after which the limit resets            |
+| max_concurrency | integer | The number of identify requests allowed per 5 seconds              |

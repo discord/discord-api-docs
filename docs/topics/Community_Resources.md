@@ -37,6 +37,14 @@ Many of these libraries are represented in the [unofficial, community-driven Dis
 | [Serenity](https://github.com/serenity-rs/serenity)          | Rust       |
 | [AckCord](https://github.com/Katrix/AckCord)                 | Scala      |
 | [Sword](https://github.com/Azoy/Sword)                       | Swift      |
+| [discordeno](https://github.com/discordeno/discordeno)       | TypeScript |
+
+## Interactions
+
+[Interactions and Slash Commands](#DOCS_INTERACTIONS_SLASH_COMMANDS/) are the great, new way of making a Discord bot. The following open-source libraries provide help for the security and authentication checks that are mandatory if you are receiving Interactions via outgoing webhook. They also include some types for the Interactions data models.
+
+- [discord-interactions-js](https://github.com/discord/discord-interactions-js)
+- [discord-interactions-python](https://github.com/discord/discord-interactions-python)
 
 ## Game SDK Tools
 
@@ -56,6 +64,12 @@ Using Discord's [Dispatch](#DOCS_DISPATCH_DISPATCH_AND_YOU) tool for game develo
 
 - [FiniteReality's Permissions Calculator](https://finitereality.github.io/permissions-calculator/?v=0)
 - [abalabahaha's Permissions Calculator](https://discordapi.com/permissions.html#0)
+
+## Intent Calculators
+
+[Gateway Intents](#DOCS_TOPICS_GATEWAY/gateway-intents) are pretty confusing at first. If you're not sure what to send in your [identify payload](#DOCS_TOPICS_GATEWAY/identify), then this tool may be of help:
+
+- [ziad87's Intent Calculator](https://ziad87.net/intents/)
 
 ## Embed Visualizer
 

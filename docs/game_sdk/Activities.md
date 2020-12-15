@@ -1,11 +1,14 @@
 # Activities
 
 > info
-> Need help with the SDK? Talk to us in the [Discord GameSDK Server](https://discord.gg/discord-gamesdk)!
+> Need help with the SDK? Talk to us in the [Discord Developers Server](https://discord.gg/discord-developers)!
+
+> warn
+> Game approval submissions are currently paused due to unforeseen circumstances. We apologize for the inconvenience. [Click here for more info.](https://support-dev.discord.com/hc/en-us/articles/360041437171)
 
 Looking to integrate Rich Presence into your game? No need to manage multiple SDKs—this one does all that awesome stuff, too!. Delight your players with the ability to post game invites in chat and party up directly from Discord. Surface interesting live game data in their profile and on the Games Tab for their friends, encouraging them to group up and play together.
 
-For more detailed information and documentation around the Rich Presence feature set and integration tips, check out our [Rich Presence Documentation](https://discordapp.com/developers/docs/rich-presence/how-to).
+For more detailed information and documentation around the Rich Presence feature set and integration tips, check out our [Rich Presence Documentation](https://discord.com/developers/docs/rich-presence/how-to).
 
 ## Data Models
 
@@ -78,7 +81,10 @@ For more detailed information and documentation around the Rich Presence feature
 | Playing   | 0     |
 | Streaming | 1     |
 | Listening | 2     |
-| Watching  | 3     |
+| Custom    | 4     |
+| Competing | 5     |
+
+For more details about the activity types, [see Gateway documentation](#DOCS_TOPICS_GATEWAY/activity-object-activity-types).
 
 `ActivityType` is strictly for the purpose of handling events that you receive from Discord; though the SDK/our API will not reject a payload with an `ActivityType` sent, it will be discarded and will not change anything in the client.
 
@@ -112,7 +118,7 @@ If you want to hook up joining and spectating for your games, there are certain 
 | ActivityAssets.LargeImage      |       x        |          |      |             |
 | ActivityAssets.SmallImage      |       x        |          |      |             |
 | ActivityAssets.LargeText       |       x        |          |      |             |
-| ActivityAssets.SmallTest       |       x        |          |      |             |
+| ActivityAssets.SmallText       |       x        |          |      |             |
 | ActivityParty.Id               |                |          |  x   |      x      |
 | ActivityParty.Size.CurrentSize |                |          |  x   |      x      |
 | ActivityParty.Size.MaxSize     |                |          |  x   |      x      |
@@ -161,8 +167,8 @@ activityManager.RegisterSteam(1938123);
 
 Sets a user's presence in Discord to a new activity. This has a rate limit of 5 updates per 20 seconds.
 
->info
->It is possible for users to hide their presence on Discord (User Settings -> Game Activity). Presence set through this SDK may not be visible when this setting is toggled off.
+> info
+> It is possible for users to hide their presence on Discord (User Settings -> Game Activity). Presence set through this SDK may not be visible when this setting is toggled off.
 
 Returns a `Discord.Result` via callback.
 
@@ -344,7 +350,6 @@ Fires when a user accepts a game chat invite or receives confirmation from Askin
 | ---------- | ------ | ---------------------------------- |
 | joinSecret | string | the secret to join the user's game |
 
-
 ###### Example
 
 ```cs
@@ -443,7 +448,6 @@ Fires when a user accepts a spectate chat invite or clicks the Spectate button o
 | name           | type   | description                                       |
 | -------------- | ------ | ------------------------------------------------- |
 | spectateSecret | string | the secret to join the user's game as a spectator |
-
 
 ###### Example
 

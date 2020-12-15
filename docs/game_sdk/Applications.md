@@ -1,11 +1,14 @@
 # Applications
 
 > info
-> Need help with the SDK? Talk to us in the [Discord GameSDK Server](https://discord.gg/discord-gamesdk)!
+> Need help with the SDK? Talk to us in the [Discord Developers Server](https://discord.gg/discord-developers)!
+
+> warn
+> Game approval submissions are currently paused due to unforeseen circumstances. We apologize for the inconvenience. [Click here for more info.](https://support-dev.discord.com/hc/en-us/articles/360041437171)
 
 Many games run their own backend servers for things like user authentication. If one of those many games is yours, then we've got something for you! This manager gives you access to a bearer token for the currently connected Discord user, which you can send off to your server to do user authentication.
 
-This token is also useful for retrieving information about the connected user's account. Check out our [OAuth2 documentation](https://discordapp.com/developers/docs/topics/oauth2) for more information.
+This token is also useful for retrieving information about the connected user's account. Check out our [OAuth2 documentation](https://discord.com/developers/docs/topics/oauth2) for more information.
 
 These bearer tokens are good for seven days, after which they will expire. When a user reconnects to your game, and is online and connected to the internet, they'll receive a new token that you can grab.
 

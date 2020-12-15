@@ -1,7 +1,7 @@
 # Branches and Builds
 
 > info
-> Need help with Dispatch? Talk to us in the [Discord GameSDK Server](https://discord.gg/discord-gamesdk)!
+> Need help with Dispatch? Talk to us in the [Discord Developers Server](https://discord.gg/discord-developers)!
 
 In order for other people to download your game from Discord's servers, you need to _upload_ your game to Discord's servers. Let's learn how to do that!
 
@@ -60,8 +60,8 @@ Small thing to note - the default `login` method works via an OAuth2 bearer toke
 
 First, find the `credentials.json` file at:
 
-- Windows: `C:\User\<you>\.dispatch\credentials.json`
-- macOS: `~/.dispatch/config.json`
+- Windows: `C:\Users\<you>\.dispatch\credentials.json`
+- macOS: `~/.dispatch/credentials.json`
 
 Inside that, we can use our Bot token for our application that will _not_ be invalidated across different machines.
 
@@ -90,7 +90,7 @@ ONWARDS!
 
 Now that we're set up to use the tool, let's make some branches! Branches, builds, and everything in between in Discord are tied to an application. To get one for your game, ask a Discord team member to hook you up!
 
-Then, head over to our [developer portal](https://discordapp.com/developers/), click into that new application, and copy the `Client Id` at the top of the page, keeping it handy throughout this process. Client ID and "application id" are interchangeable phrases. For the rest of this documentation, we'll refer to it as application id.
+Then, head over to our [developer portal](https://discord.com/developers/), click into that new application, and copy the `Client Id` at the top of the page, keeping it handy throughout this process. Client ID and "application id" are interchangeable phrases. For the rest of this documentation, we'll refer to it as application id.
 
 Back to your terminal, type:
 
@@ -546,7 +546,7 @@ Your manifest would look something like this:
           "mappings": [
             {
               "local_path": ".",
-              "install_Path": "./game_data/Assets/AssetBundles/DLC" // Puts the DLC in the proper folder structure
+              "install_path": "./game_data/Assets/AssetBundles/DLC" // Puts the DLC in the proper folder structure
             }
           ]
         }

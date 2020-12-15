@@ -8,16 +8,17 @@ Used to represent a webhook.
 
 ###### Webhook Structure
 
-| Field      | Type                                            | Description                                                                               |
-| ---------- | ----------------------------------------------- | ----------------------------------------------------------------------------------------- |
-| id         | snowflake                                       | the id of the webhook                                                                     |
-| type       | integer                                         | the [type](#DOCS_RESOURCES_WEBHOOK/webhook-object-webhook-types) of the webhook           |
-| guild_id?  | snowflake                                       | the guild id this webhook is for                                                          |
-| channel_id | snowflake                                       | the channel id this webhook is for                                                        |
-| user?      | [user](#DOCS_RESOURCES_USER/user-object) object | the user this webhook was created by (not returned when getting a webhook with its token) |
-| name       | ?string                                         | the default name of the webhook                                                           |
-| avatar     | ?string                                         | the default avatar of the webhook                                                         |
-| token?     | string                                          | the secure token of the webhook (returned for Incoming Webhooks)                          |
+| Field          | Type                                            | Description                                                                               |
+| -------------- | ----------------------------------------------- | ----------------------------------------------------------------------------------------- |
+| id             | snowflake                                       | the id of the webhook                                                                     |
+| type           | integer                                         | the [type](#DOCS_RESOURCES_WEBHOOK/webhook-object-webhook-types) of the webhook           |
+| guild_id?      | snowflake                                       | the guild id this webhook is for                                                          |
+| channel_id     | snowflake                                       | the channel id this webhook is for                                                        |
+| user?          | [user](#DOCS_RESOURCES_USER/user-object) object | the user this webhook was created by (not returned when getting a webhook with its token) |
+| name           | ?string                                         | the default name of the webhook                                                           |
+| avatar         | ?string                                         | the default avatar of the webhook                                                         |
+| token?         | string                                          | the secure token of the webhook (returned for Incoming Webhooks)                          |
+| application_id | ?snowflake                                      | the bot/OAuth2 application that created this webhook                                      |
 
 ###### Webhook Types
 
@@ -84,11 +85,11 @@ Modify a webhook. Requires the `MANAGE_WEBHOOKS` permission. Returns the updated
 
 ###### JSON Params
 
-| Field      | Type                                     | Description                                        |
-| ---------- | ---------------------------------------- | -------------------------------------------------- |
-| name       | string                                   | the default name of the webhook                    |
-| avatar     | [image data](#DOCS_REFERENCE/image-data) | image for the default webhook avatar               |
-| channel_id | snowflake                                | the new channel id this webhook should be moved to |
+| Field      | Type                                      | Description                                        |
+| ---------- | ----------------------------------------- | -------------------------------------------------- |
+| name       | string                                    | the default name of the webhook                    |
+| avatar     | ?[image data](#DOCS_REFERENCE/image-data) | image for the default webhook avatar               |
+| channel_id | snowflake                                 | the new channel id this webhook should be moved to |
 
 ## Modify Webhook with Token % PATCH /webhooks/{webhook.id#DOCS_RESOURCES_WEBHOOK/webhook-object}/{webhook.token#DOCS_RESOURCES_WEBHOOK/webhook-object}
 
@@ -115,15 +116,16 @@ Same as above, except this call does not require authentication.
 
 ###### JSON/Form Params
 
-| Field        | Type                                                                    | Description                                                  | Required                     |
-| ------------ | ----------------------------------------------------------------------- | ------------------------------------------------------------ | ---------------------------- |
-| content      | string                                                                  | the message contents (up to 2000 characters)                 | one of content, file, embeds |
-| username     | string                                                                  | override the default username of the webhook                 | false                        |
-| avatar_url   | string                                                                  | override the default avatar of the webhook                   | false                        |
-| tts          | boolean                                                                 | true if this is a TTS message                                | false                        |
-| file         | file contents                                                           | the contents of the file being sent                          | one of content, file, embeds |
-| embeds       | array of up to 10 [embed](#DOCS_RESOURCES_CHANNEL/embed-object) objects | embedded `rich` content                                      | one of content, file, embeds |
-| payload_json | string                                                                  | See [message create](#DOCS_RESOURCES_CHANNEL/create-message) | `multipart/form-data` only   |
+| Field            | Type                                                                      | Description                                                  | Required                     |
+| ---------------- | ------------------------------------------------------------------------- | ------------------------------------------------------------ | ---------------------------- |
+| content          | string                                                                    | the message contents (up to 2000 characters)                 | one of content, file, embeds |
+| username         | string                                                                    | override the default username of the webhook                 | false                        |
+| avatar_url       | string                                                                    | override the default avatar of the webhook                   | false                        |
+| tts              | boolean                                                                   | true if this is a TTS message                                | false                        |
+| file             | file contents                                                             | the contents of the file being sent                          | one of content, file, embeds |
+| embeds           | array of up to 10 [embed](#DOCS_RESOURCES_CHANNEL/embed-object) objects   | embedded `rich` content                                      | one of content, file, embeds |
+| payload_json     | string                                                                    | See [message create](#DOCS_RESOURCES_CHANNEL/create-message) | `multipart/form-data` only   |
+| allowed_mentions | [allowed mention object](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object) | allowed mentions for the message                             | false                        |
 
 > info
 > For the webhook embed objects, you can set every field except `type` (it will be `rich` regardless of if you try to set it), `provider`, `video`, and any `height`, `width`, or `proxy_url` values for images.
@@ -147,3 +149,22 @@ Refer to [Slack's documentation](https://api.slack.com/incoming-webhooks) for mo
 | wait  | boolean | waits for server confirmation of message send before response (defaults to `true`; when `false` a message that is not saved does not return an error) | false    |
 
 Add a new webhook to your GitHub repo (in the repo's settings), and use this endpoint as the "Payload URL." You can choose what events your Discord channel receives by choosing the "Let me select individual events" option and selecting individual events for the new webhook you're configuring.
+
+## Edit Webhook Message % PATCH /webhooks/{webhook.id#DOCS_RESOURCES_WEBHOOK/webhook-object}/{webhook.token#DOCS_RESOURCES_WEBHOOK/webhook-object}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}
+
+Edits a previously-sent webhook message from the same token.
+
+> info
+> All parameters to this endpoint are optional and nullable.
+
+###### JSON/Form Params
+
+| Field            | Type                                                                      | Description                                  |
+| ---------------- | ------------------------------------------------------------------------- | -------------------------------------------- |
+| content          | string                                                                    | the message contents (up to 2000 characters) |
+| embeds           | array of up to 10 [embed](#DOCS_RESOURCES_CHANNEL/embed-object) objects   | embedded `rich` content                      |
+| allowed_mentions | [allowed mention object](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object) | allowed mentions for the message             |
+
+# Delete Webhook Message % DELETE /webhooks/{webhook.id#DOCS_RESOURCES_WEBHOOK/webhook-object}/{webhook.token#DOCS_RESOURCES_WEBHOOK/webhook-object}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}
+
+Deletes a message that was created by the webhook. Returns a 204 NO CONTENT response on success.

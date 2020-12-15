@@ -1,14 +1,11 @@
 # Introducing Rich Presence
 
 > danger
-> The SDK that this documentation references, [Discord-RPC](https://github.com/discordapp/discord-rpc), has been deprecated in favor of our new [Discord GameSDK](#DOCS_GAME_SDK_SDK_STARTER_GUIDE/). Replacement functionality for the Rich Presence SDK can be found in the [Activity Manager](#DOCS_GAME_SDK_ACTIVITIES/) of that SDK. This documentation can be referenced for education but does not entirely reflect the new SDK.
+> The SDK that this documentation references, [Discord-RPC](https://github.com/discord/discord-rpc), has been deprecated in favor of our new [Discord GameSDK](#DOCS_GAME_SDK_SDK_STARTER_GUIDE/). Replacement functionality for the Rich Presence SDK can be found in the [Activity Manager](#DOCS_GAME_SDK_ACTIVITIES/) of that SDK. This documentation can be referenced for education but does not entirely reflect the new SDK.
 
 How easy is it for people to play your game together? With Rich Presence from Discord, it just got so easy, a ~~caveman~~ Junior Dev could do it.
 
 If you are testing a game integration with Rich Presence, other users will be able to see it. Please create a private test account and do not join any public servers while testing your integration.
-
-> info
-> If you want to stay up to date with the latest developer news from Discord and learn about new and exciting ways to work with us, sign up for our [developer newsletter](https://discordapp.com/dev-newsletter).
 
 ## So, what is it?
 
@@ -38,7 +35,7 @@ The header file also contains the `Discord_RunCallbacks()` function. This invoke
 
 ## Initialization
 
-The first step in implementing Rich Presence is [creating an application](https://discordapp.com/developers/applications/me). Once you've created your application, note and save your `Client ID`. You will need this to initialize the SDK; this value will be referred to throughout this documentation as both `client_id` and `application_id`. Next, scroll down to the bottom of your application's page and hit the button that says "Enable Rich Presence". This will allow you to upload assets to your dashboard for later use.
+The first step in implementing Rich Presence is [creating an application](https://discord.com/developers/applications/me). Once you've created your application, note and save your `Client ID`. You will need this to initialize the SDK; this value will be referred to throughout this documentation as both `client_id` and `application_id`. Next, scroll down to the bottom of your application's page and hit the button that says "Enable Rich Presence". This will allow you to upload assets to your dashboard for later use.
 
 To begin, you'll register your callback functions to the six `DiscordEventHandlers` and then call `Discord_Initialize()` with your `APPLICATION_ID`. If your game is distributed via Steam, you should also pass your application's Steam ID so Discord can launch your game through Steam:
 
@@ -133,22 +130,22 @@ typedef struct DiscordRichPresence {
 
 ###### Update Presence Payload Fields
 
-| parameter      | type     | description                                                                | example                                                    |
-| -------------- | -------- | -------------------------------------------------------------------------- | ---------------------------------------------------------- |
-| state          | char\*   | the user's current party status                                            | "Looking to Play", "Playing Solo", "In a Group"            |
-| details        | char\*   | what the player is currently doing                                         | "Competitive - Captain's Mode", "In Queue", "Unranked PvP" |
-| startTimestamp | int64_t  | epoch seconds for game start - including will show time as "elapsed"       | 1507665886                                                 |
-| endTimestamp   | int64_t  | epoch seconds for game end - including will show time as "remaining"       | 1507665886                                                 |
-| largeImageKey  | char\*   | name of the uploaded image for the large profile artwork                   | "default"                                                  |
-| largeImageText | char\*   | tooltip for the largeImageKey                                              | "Blade's Edge Arena", "Numbani", "Danger Zone"             |
-| smallImageKey  | char\*   | name of the uploaded image for the small profile artwork                   | "rogue"                                                    |
-| smallImageText | char\*   | tooltip for the smallImageKey                                              | "Rogue - Level 100"                                        |
-| partyId        | char\*   | id of the player's party, lobby, or group                                  | "ae488379-351d-4a4f-ad32-2b9b01c91657"                     |
-| partySize      | int      | current size of the player's party, lobby, or group                        | 1                                                          |
-| partyMax       | int      | maximum size of the player's party, lobby, or group                        | 5                                                          |
-| matchSecret    | char\*   | (for future use) unique hashed string for a player's match                 | MmhuZToxMjMxMjM6cWl3amR3MWlqZA==                           |
-| spectateSecret | char\*   | unique hashed string for Spectate button                                   | MTIzNDV8MTIzNDV8MTMyNDU0                                   |
-| joinSecret     | char\*   | unique hashed string for chat invitations and Ask to Join                  | MTI4NzM0OjFpMmhuZToxMjMxMjM=                               |
+| parameter      | type     | description                                                                                                | example                                                    |
+| -------------- | -------- | ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------- |
+| state          | char\*   | the user's current party status                                                                            | "Looking to Play", "Playing Solo", "In a Group"            |
+| details        | char\*   | what the player is currently doing                                                                         | "Competitive - Captain's Mode", "In Queue", "Unranked PvP" |
+| startTimestamp | int64_t  | epoch seconds for game start - including will show time as "elapsed"                                       | 1507665886                                                 |
+| endTimestamp   | int64_t  | epoch seconds for game end - including will show time as "remaining"                                       | 1507665886                                                 |
+| largeImageKey  | char\*   | name of the uploaded image for the large profile artwork                                                   | "default"                                                  |
+| largeImageText | char\*   | tooltip for the largeImageKey                                                                              | "Blade's Edge Arena", "Numbani", "Danger Zone"             |
+| smallImageKey  | char\*   | name of the uploaded image for the small profile artwork                                                   | "rogue"                                                    |
+| smallImageText | char\*   | tooltip for the smallImageKey                                                                              | "Rogue - Level 100"                                        |
+| partyId        | char\*   | id of the player's party, lobby, or group                                                                  | "ae488379-351d-4a4f-ad32-2b9b01c91657"                     |
+| partySize      | int      | current size of the player's party, lobby, or group                                                        | 1                                                          |
+| partyMax       | int      | maximum size of the player's party, lobby, or group                                                        | 5                                                          |
+| matchSecret    | char\*   | (for future use) unique hashed string for a player's match                                                 | MmhuZToxMjMxMjM6cWl3amR3MWlqZA==                           |
+| spectateSecret | char\*   | unique hashed string for Spectate button                                                                   | MTIzNDV8MTIzNDV8MTMyNDU0                                   |
+| joinSecret     | char\*   | unique hashed string for chat invitations and Ask to Join                                                  | MTI4NzM0OjFpMmhuZToxMjMxMjM=                               |
 | instance       | int8_t   | (for future use) integer representing a boolean for if the player is in an instance (an in-progress match) | 1                                                          |
 
 > info
@@ -156,7 +153,22 @@ typedef struct DiscordRichPresence {
 
 Here's a handy image to see how these fields are actually displayed on a profile:
 
-![](rp-legend.png)
+![Graphical representation of the legend for rich presence details](rp-legend.png)
+
+| location                               | field name             | notes                                                                       |
+| -------------------------------------- | ---------------------- | --------------------------------------------------------------------------- |
+| First row below title                  | details                |                                                                             |
+| Second row below title                 | state                  |                                                                             |
+| Second row below title                 | partySize              | In parenthesis next to the `state`, first number in the format `(1 of 10)`  |
+| Second row below title                 | partyMax               | In parenthesis next to the `state`, second number in the format `(1 of 10)` |
+| Third row below title                  | startTimestamp         | Converted to a format such as `01:33 elapsed`                               |
+| First button at the bottom             | joinSecret             | Button has the text "Ask to join"                                           |
+| Second button at the bottom            | spectateSecret         | Button has the text "Spectate"                                              |
+| Large image to the left of any content | largeImageKey          | Four rows high, includes the title but not the bottom buttons               |
+| Small image to the left of any content | smallImageKey          | Small icon inset on the bottom right of the `largeImageKey`                 |
+
+Note that this layout may be subject to change without warning. This information is only provided to help those with
+impaired eyesight to understand the potential layout of this information in a user interface.
 
 ## Joining
 
@@ -189,7 +201,7 @@ When Player B clicks the Ask to Join button on Player A's profile, the `joinRequ
 typedef struct DiscordJoinRequest {
     char userId[32];
     char username[344];
-    char discriminator[8]
+    char discriminator[8];
     char avatar[128];
 } DiscordJoinRequest;
 ```
@@ -225,8 +237,6 @@ The Ask to Join request persists for 30 seconds after the request is received, r
 
 > warn
 > Deprecated in favor of [Discord GameSDK ActivityManager.OnActivitySpectate](#DOCS_GAME_SDK_ACTIVITIES/on-activity-spectate)
-
-To enable the Spectate button on your players' profiles, you'll need to be approved by us. Submit your integration for approval on your [app's developer dashboard](https://discordapp.com/developers/applications/me). While there, you can also whitelist individual accounts for testing. Those accounts will have the Spectate button enabled on their profiles. For an in-depth explanation of what we look for during approval, see [Getting Approved](#DOCS_RICH_PRESENCE_GETTING_APPROVED/).
 
 #### Relevant Callbacks:
 
@@ -270,7 +280,7 @@ All fields in the `DiscordRichPresence` object are entirely optional. Anything y
 |  matchSecret   |                |            |         |             |
 |   joinSecret   |                |            |    x    |      x      |
 | spectateSecret |                |     x      |         |             |
-|    instance    |                |            |         |             |  |
+|    instance    |                |            |         |             |
 
 ## Your New Developer Dashboard
 
@@ -285,7 +295,7 @@ OK, well, not entirely. But! Discord _will_ host any and all artwork that you ne
 
 If you don't see Rich Presence data in your profile while testing, make sure you don't have multiple instances of Discord running—if you do, your presence might be changing in one of those!
 
-If you're testing on your own, we recommend [downloading two separate release channels](https://discordapp.com/download) of the Discord desktop client. You can log into the stable, public test, and canary builds with separate credentials, making testing easier for a single developer.
+If you're testing on your own, we recommend [downloading two separate release channels](https://discord.com/download) of the Discord desktop client. You can log into the stable, public test, and canary builds with separate credentials, making testing easier for a single developer.
 
 ## So, what now?
 

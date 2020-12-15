@@ -1,7 +1,10 @@
 # Store
 
 > info
-> Need help with the SDK? Talk to us in the [Discord GameSDK Server](https://discord.gg/discord-gamesdk)!
+> Need help with the SDK? Talk to us in the [Discord Developers Server](https://discord.gg/discord-developers)!
+
+> warn
+> Game approval submissions are currently paused due to unforeseen circumstances. We apologize for the inconvenience. [Click here for more info.](https://support-dev.discord.com/hc/en-us/articles/360041437171)
 
 If your game has DLC or offers in-app purchases, this manager is for you! The Store Manager allows you to fetch a users' entitlements, as well as being notified when a user is granted an entitlement from a purchase flow for your game.
 
@@ -390,7 +393,7 @@ Gets entitlements for a given user. You can use this on your game backend to che
 ###### Example
 
 ```
-curl https://discordapp.com/api/v6/applications/461618159171141643/entitlements?user_id=53908232506183680&sku_ids=53908232599983680&with_payments=true&limit=1 \
+curl https://discord.com/api/v6/applications/461618159171141643/entitlements?user_id=53908232506183680&sku_ids=53908232599983680&with_payments=true&limit=1 \
 -H "Authorization: Bearer <token>" \
 -H "Accept: application/json"
 
@@ -403,7 +406,7 @@ curl https://discordapp.com/api/v6/applications/461618159171141643/entitlements?
       "sku_id": "53908232599983680",
       "application_id": "461618159171141643",
       "id": "53908232506183999",
-      "type": 3,
+      "type": 1,
       "payment": {
         "id": "538491076055400999",
         "currency": "usd",
@@ -429,7 +432,7 @@ Fetch an entitlement by its ID. This may be useful in confirming that a user has
 ###### Example
 
 ```
-curl https://discordapp.com/api/v6/applications/461618159171141643/entitlements/53908232506183999?with_payment=true \
+curl https://discord.com/api/v6/applications/461618159171141643/entitlements/53908232506183999?with_payment=true \
 -H "Authorization: Bearer <token>" \
 -H "Accept: application/json"
 
@@ -458,7 +461,7 @@ Get all SKUs for an application.
 ###### Example
 
 ```
-curl https://discordapp.com/api/v6/applications/461618159171141643/skus \
+curl https://discord.com/api/v6/applications/461618159171141643/skus \
 -H "Authorization: Bearer <token>" \
 -H "Accept: application/json"
 
@@ -496,28 +499,28 @@ Marks a given entitlement for the user as consumed, meaning it will no longer be
 ###### Example
 
 ```
-curl -X POST https://discordapp.com/api/v6/applications/461618159171141643/entitlements/53908232506183999/consume \
+curl -X POST https://discord.com/api/v6/applications/461618159171141643/entitlements/53908232506183999/consume \
 -H "Authorization: Bearer <token>" \
 -H "Accept: application/json"
 
 // Returns 204 No Content
 ```
 
-## Delete Test Entitlement % DELETE /applications/{application.id#DOCS_GAME_SDK_SDK_STARTER_GUIDE/get-set-up}/entitlements/{entitlement.id#DOCS_GAME_SDK_STORE/data-models-entitlement-struct}/
+## Delete Test Entitlement % DELETE /applications/{application.id#DOCS_GAME_SDK_SDK_STARTER_GUIDE/get-set-up}/entitlements/{entitlement.id#DOCS_GAME_SDK_STORE/data-models-entitlement-struct}
 
 Deletes a test entitlement for an application. You can only delete entitlements that were "purchased" in developer test mode; these are entitlements of `type == TestModePurchase`. You cannot use this route to delete arbitrary entitlements that users actually purchased.
 
 ###### Example
 
 ```
-curl -X DELETE https://discordapp.com/api/v6/applications/461618159171141643/entitlements/53908232506183999 \
+curl -X DELETE https://discord.com/api/v6/applications/461618159171141643/entitlements/53908232506183999 \
 -H "Authorization: Bearer <token>" \
 -H "Accept: application/json"
 
 // Returns 204 No Content
 ```
 
-## Create Purchase Discount % PUT /store/skus/{sku.id#DOCS_GAME_SDK_STORE/data-models-sku-struct}/discounts/{user.id#DOCS_RESOURCES_USER/user-object}/
+## Create Purchase Discount % PUT /store/skus/{sku.id#DOCS_GAME_SDK_STORE/data-models-sku-struct}/discounts/{user.id#DOCS_RESOURCES_USER/user-object}
 
 Creates a discount for the given user on their next purchase of the given SKU. You should call this endpoint from your backend server just before calling [StartPurchase](#DOCS_GAME_SDK_STORE/start-purchase) for the SKU you wish to discount. The user will then see a discounted price for that SKU at time of payment. The discount is automatically consumed after successful purchase or if the TTL expires.
 
@@ -531,7 +534,7 @@ Creates a discount for the given user on their next purchase of the given SKU. Y
 ###### Example
 
 ```
-curl -X PUT https://discordapp.com/api/v6/store/skus/461618229171141643/discounts/53908232522183999 \
+curl -X PUT https://discord.com/api/v6/store/skus/461618229171141643/discounts/53908232522183999 \
 -H "Authorization: Bearer <token>" \
 -H "Accept: application/json" \
 -H "Content-type: application/json" \
@@ -540,14 +543,14 @@ curl -X PUT https://discordapp.com/api/v6/store/skus/461618229171141643/discount
 // Returns 204 No Content
 ```
 
-## Delete Purchase Discount % DELETE /store/skus/{sku.id#DOCS_GAME_SDK_STORE/data-models-sku-struct}/discounts/{user.id#DOCS_RESOURCES_USER/user-object}/
+## Delete Purchase Discount % DELETE /store/skus/{sku.id#DOCS_GAME_SDK_STORE/data-models-sku-struct}/discounts/{user.id#DOCS_RESOURCES_USER/user-object}
 
 Deletes the currently active discount on the given SKU for the given user. You **do not need** to call this after a user has made a discounted purchase; successful discounted purchases will automatically remove the discount for that user for subsequent purchases.
 
 ###### Example
 
 ```
-curl -X DELETE https://discordapp.com/api/v6/store/skus/461618229171141643/discounts/53908232522183999 \
+curl -X DELETE https://discord.com/api/v6/store/skus/461618229171141643/discounts/53908232522183999 \
 -H "Authorization: Bearer <token>" \
 -H "Accept: application/json"
 

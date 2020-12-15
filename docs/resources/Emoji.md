@@ -7,15 +7,17 @@
 
 ###### Emoji Structure
 
-| Field           | Type                                                             | Description                                  |
-| --------------- | ---------------------------------------------------------------- | -------------------------------------------- |
-| id              | ?snowflake                                                       | [emoji id](#DOCS_REFERENCE/image-formatting) |
-| name            | ?string (can be null only in reaction emoji objects)             | emoji name                                   |
-| roles?          | array of [role](#DOCS_TOPICS_PERMISSIONS/role-object) object ids | roles this emoji is whitelisted to           |
-| user?           | [user](#DOCS_RESOURCES_USER/user-object) object                  | user that created this emoji                 |
-| require_colons? | boolean                                                          | whether this emoji must be wrapped in colons |
-| managed?        | boolean                                                          | whether this emoji is managed                |
-| animated?       | boolean                                                          | whether this emoji is animated               |
+| Field           | Type                                                             | Description                                                               |
+| --------------- | ---------------------------------------------------------------- | ------------------------------------------------------------------------- |
+| id              | ?snowflake                                                       | [emoji id](#DOCS_REFERENCE/image-formatting)                              |
+| name            | ?string (can be null only in reaction emoji objects)             | emoji name                                                                |
+| roles?          | array of [role](#DOCS_TOPICS_PERMISSIONS/role-object) object ids | roles this emoji is whitelisted to                                        |
+| user?           | [user](#DOCS_RESOURCES_USER/user-object) object                  | user that created this emoji                                              |
+| require_colons? | boolean                                                          | whether this emoji must be wrapped in colons                              |
+| managed?        | boolean                                                          | whether this emoji is managed                                             |
+| animated?       | boolean                                                          | whether this emoji is animated                                            |
+| available?      | boolean                                                          | whether this emoji can be used, may be false due to loss of Server Boosts |
+
 
 ###### Emoji Example
 
@@ -74,7 +76,7 @@ Returns a list of [emoji](#DOCS_RESOURCES_EMOJI/emoji-object) objects for the gi
 
 ## Get Guild Emoji % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/emojis/{emoji.id#DOCS_RESOURCES_EMOJI/emoji-object}
 
-Returns an [emoji](#DOCS_RESOURCES_EMOJI/emoji-object) object for the given guild and emoji IDs
+Returns an [emoji](#DOCS_RESOURCES_EMOJI/emoji-object) object for the given guild and emoji IDs.
 
 ## Create Guild Emoji % POST /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/emojis
 
@@ -95,12 +97,15 @@ Create a new emoji for the guild. Requires the `MANAGE_EMOJIS` permission. Retur
 
 Modify the given emoji. Requires the `MANAGE_EMOJIS` permission. Returns the updated [emoji](#DOCS_RESOURCES_EMOJI/emoji-object) object on success. Fires a [Guild Emojis Update](#DOCS_TOPICS_GATEWAY/guild-emojis-update) Gateway event.
 
+> info
+> All parameters to this endpoint are optional.
+
 ###### JSON Params
 
-| Field | Type                | Description                                   |
-| ----- | ------------------- | --------------------------------------------- |
-| name  | string              | name of the emoji                             |
-| roles | array of snowflakes | roles to which this emoji will be whitelisted |
+| Field | Type                 | Description                                   |
+| ----- | -------------------- | --------------------------------------------- |
+| name  | string               | name of the emoji                             |
+| roles | ?array of snowflakes | roles to which this emoji will be whitelisted |
 
 ## Delete Guild Emoji % DELETE /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/emojis/{emoji.id#DOCS_RESOURCES_EMOJI/emoji-object}
 

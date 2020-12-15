@@ -1,7 +1,10 @@
 # SDK Starter Guide
 
 > info
-> Need help with the SDK? Talk to us in the [Discord GameSDK Server](https://discord.gg/discord-gamesdk)!
+> Need help with the SDK? Talk to us in the [Discord Developers Server](https://discord.gg/discord-developers)!
+
+> warn
+> Game approval submissions are currently paused due to unforeseen circumstances. We apologize for the inconvenience. [Click here for more info.](https://support-dev.discord.com/hc/en-us/articles/360041437171)
 
 Welcome to the Discord GameSDK! We're glad you made it. This SDK is here to solve all your problems, if your problems include finding an awesome SDK to help develop your game. Our SDK is like Clippy, if Clippy were built on a modern tech stack, talked less, and was an awesome game development SDK.
 
@@ -20,7 +23,7 @@ Now you know, and knowing is half the battle.
 
 I know you're already convinced, so let's begin. First, get the SDK. Here it is:
 
-- [Discord Game SDK](https://dl-game-sdk.discordapp.net/latest/discord_game_sdk.zip)
+- [Discord Game SDK](https://dl-game-sdk.discordapp.net/2.5.6/discord_game_sdk.zip)
 
 There's a few things in there, but let's quickly talk about what the SDK actually _is_. Inside the `lib/` folder, you'll see `x86/` and `x86_64/` that have some `.lib`, `.bundle`, and `.dll` files. These are the things you want to distribute with your game.
 
@@ -30,7 +33,7 @@ These files are comprised of two parts: a "stub", and fallback modules. What tha
 
 Next, we need to set up the application for your game. An application is the base "entity" in Discord for your game; it's what all the builds, branches, SKUs, store pages, assets, etc. will be filed under.
 
-Head over to our [developer site](https://discordapp.com/developers/) and create an account/log in if you haven't yet. The first thing we're going to do is create a Team. Teams are groups of developers working together on applications; you should create a team for your organization at [https://discordapp.com/developers/teams](https://discordapp.com/developers/teams). You can invite other users to join your team and work on applications together with you.
+Head over to our [developer site](https://discord.com/developers/) and create an account/log in if you haven't yet. The first thing we're going to do is create a Team. Teams are groups of developers working together on applications; you should create a team for your organization at [https://discord.com/developers/teams](https://discord.com/developers/teams). You can invite other users to join your team and work on applications together with you.
 
 Now that your team is created, you'll want to make an application. To do so, click on "Applications" at the top of the page and create an application. Make sure you pick your newly-created team in the `Team` dropdown. You want your team to own the application; this unlocks store functionality! Now that your app is made, let's dive into some more setup.
 
@@ -62,6 +65,32 @@ From there, you'll be able to reference functions in the DLL within your scripts
     2. Open Discord
     3. Attempt to re-open your game
     Step 3 will fail when running directly from the Unity editor
+    Therefore, always keep Discord running during tests, or use Discord.CreateFlags.NoRequireDiscord
+*/
+var discord = new Discord.Discord(CLIENT_ID, (UInt64)Discord.CreateFlags.Default);
+```
+
+You're now free to use other functionality in the SDK! Make sure to call `discord.RunCallbacks()` in your main game loop; that's your `Update()` function.
+
+You're ready to go! Check out the rest of the documentation for more info on how to use the other pieces of the SDK. See an example of everything it can do in `examples/Program.cs` in the SDK zip file.
+
+## Code Primer - Non-Unity Projects (Csharp)
+
+- Open up that SDK zip that you downloaded.
+- Create a folder in your project directory called `DiscordGameSDK` and copy the contents of the `csharp/` folder to it
+- Build your solution then place the `.dll` in the directory of the `.exe` (either x86 or x86_64 version depending on your compile platform). If you compile for Any CPU you may need to perform additional wrapping around DLL importing (like setting the DLL directory dynamically) to make sure you load the correct DLL.
+
+From there, you'll be able to reference functions in the DLL within your scripts. We then instantiate the SDK with:
+
+```cs
+/*
+    Grab that Client ID from earlier
+    Discord.CreateFlags.Default will require Discord to be running for the game to work
+    If Discord is not running, it will:
+    1. Close your game
+    2. Open Discord
+    3. Attempt to re-open your game
+    Step 3 may fail when running directly from your editor
     Therefore, always keep Discord running during tests, or use Discord.CreateFlags.NoRequireDiscord
 */
 var discord = new Discord.Discord(CLIENT_ID, (UInt64)Discord.CreateFlags.Default);
@@ -169,7 +198,7 @@ void AMyPawn::BeginPlay()
         1. Close your game
         2. Open Discord
         3. Attempt to re-open your game
-        Step 3 will fail when running directly from the Unity editor
+        Step 3 will fail when running directly from the Unreal Engine editor
         Therefore, always keep Discord running during tests, or use Discord.CreateFlags.NoRequireDiscord
     */
 	auto result = discord::Core::Create(461618159171141643, DiscordCreateFlags_Default, &core);
@@ -208,8 +237,8 @@ While integrating the Discord GameSDK, you will probably find yourself wanting t
 
 We also know that getting a test build of a game on two separate machines can be both difficult and cumbersome. So, we've got a solution for you! By using system environment variables, you can tell the SDK in a certain game client to connect to a specific Discord client. Here's how it works:
 
-1. Download Discord Canary. This is our most updated build, and is good to develop against: [Windows](https://discordapp.com/api/download/canary?platform=win) - [Mac](https://discordapp.com/api/download/canary?platform=osx)
-2. Download a second Discord Build. Here's our Public Test Build: [Windows](https://discordapp.com/api/download/ptb?platform=win) - [Mac](https://discordapp.com/api/download/ptb?platform=osx)
+1. Download Discord Canary. This is our most updated build, and is good to develop against: [Windows](https://discord.com/api/download/canary?platform=win) - [Mac](https://discord.com/api/download/canary?platform=osx)
+2. Download a second Discord Build. Here's our Public Test Build: [Windows](https://discord.com/api/download/ptb?platform=win) - [Mac](https://discord.com/api/download/ptb?platform=osx)
 3. Open up two Discord clients. We recommend you develop against Discord Canary, so you can use PTB or Stable for your test account
 4. Log in with two separate users. Make sure any test account is added to the application's App Whitelist in the portal!
 

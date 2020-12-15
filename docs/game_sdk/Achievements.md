@@ -1,13 +1,16 @@
 # Achievements
 
 > info
-> Need help with the SDK? Talk to us in the [Discord GameSDK Server](https://discord.gg/discord-gamesdk)!
+> Need help with the SDK? Talk to us in the [Discord Developers Server](https://discord.gg/discord-developers)!
+
+> warn
+> Game approval submissions are currently paused due to unforeseen circumstances. We apologize for the inconvenience. [Click here for more info.](https://support-dev.discord.com/hc/en-us/articles/360041437171)
 
 There's no feeling quite like accomplishing a goal that you've set out to achieve. Is killing 1000 zombies in a game as great an achievement as climbing Mt. Everest? Of course it is, and I didn't even have to leave my house. So get off my back, society.
 
 Anyway—Discord has achievements! Show your players just how successful they are.
 
-Achievements are managed in the [Developer Portal](https://discordapp.com/developers/applications). Head over to your application --> `Achievements` to create and manage achievements for your game. You'll give them an icon, a name, and a description; then they'll be assigned an id.
+Achievements are managed in the [Developer Portal](https://discord.com/developers/applications). Head over to your application --> `Achievements` to create and manage achievements for your game. You'll give them an icon, a name, and a description; then they'll be assigned an id.
 
 You can also mark achievements as `secret` and `secure`. "Secret" achievements will _not_ be shown to the user until they've unlocked them. "Secure" achievements can only be set via HTTP calls from your server, _not_ by a game client using the SDK. No cheaters here!
 
@@ -71,7 +74,6 @@ achievementManager.SetUserAchievement(580159119969878046, 25, (res) =>
 Loads a stable list of the current user's achievements to iterate over. If the user has any achievements, do your iteration within the callback of this function.
 
 Returns `Discord.Result` via callback.
-
 
 > info
 > Remember to only iterate when there are results!
@@ -184,10 +186,10 @@ Fires when an achievement is updated for the currently connected user
 
 ## The API Way
 
-Below are the API endpoints and the parameters they accept. If you choose to interface directly with the Discord API, you will need a "Bot token". This is a special authorization token with which your application can access Discord's HTTP API. Head on over to [your app's dashboard](https://discordapp.com/developers/), and hit the big "Add a Bot User" button. From there, mutter _abra kadabra_ and reveal the token. This token is used as an authorization header against our API like so:
+Below are the API endpoints and the parameters they accept. If you choose to interface directly with the Discord API, you will need a "Bot token". This is a special authorization token with which your application can access Discord's HTTP API. Head on over to [your app's dashboard](https://discord.com/developers/), and hit the big "Add a Bot User" button. From there, mutter _abra kadabra_ and reveal the token. This token is used as an authorization header against our API like so:
 
 ```
-curl -x POST -h "Authorization: Bot <your token>" https://discordapp.com/api/some-route/that-does-a-thing
+curl -x POST -h "Authorization: Bot <your token>" https://discord.com/api/some-route/that-does-a-thing
 ```
 
 > info
@@ -195,7 +197,7 @@ curl -x POST -h "Authorization: Bot <your token>" https://discordapp.com/api/som
 
 ## Get Achievements
 
-`GET https://discordapp.com/api/v6/applications/<application_id>/achievements`
+`GET https://discord.com/api/v6/applications/<application_id>/achievements`
 
 Returns all achievements for the given application. This endpoint has a rate limit of 5 requests per 5 seconds per application.
 
@@ -221,7 +223,7 @@ Returns all achievements for the given application. This endpoint has a rate lim
 
 ## Get Achievement
 
-`GET https://discordapp.com/api/v6/applications/<application_id>/achievements/<achievement_id>`
+`GET https://discord.com/api/v6/applications/<application_id>/achievements/<achievement_id>`
 
 Returns the given achievement for the given application. This endpoint has a rate limit of 5 requests per 5 seconds per application.
 
@@ -245,7 +247,7 @@ Returns the given achievement for the given application. This endpoint has a rat
 
 ## Create Achievement
 
-`POST https://discordapp.com/api/v6/applications/<application_id>/achievements`
+`POST https://discord.com/api/v6/applications/<application_id>/achievements`
 
 Creates a new achievement for your application. Applications can have a maximum of 1000 achievements. This endpoint has a rate limit of 5 requests per 5 seconds per application.
 
@@ -295,7 +297,7 @@ Creates a new achievement for your application. Applications can have a maximum 
 
 ## Update Achievement
 
-`PATCH https://discordapp.com/api/v6/applications/<application_id>/achievements/<achievement_id>`
+`PATCH https://discord.com/api/v6/applications/<application_id>/achievements/<achievement_id>`
 
 Updates the achievement for **\_\_ALL USERS\_\_**. This is **NOT** to update a single user's achievement progress; this is to edit the UserAchievement itself. This endpoint has a rate limit of 5 requests per 5 seconds per application.
 
@@ -345,7 +347,7 @@ Updates the achievement for **\_\_ALL USERS\_\_**. This is **NOT** to update a s
 
 ## Delete Achievement
 
-`DELETE https://discordapp.com/api/v6/applications/<application_id>/achievements/<achievement_id>`
+`DELETE https://discord.com/api/v6/applications/<application_id>/achievements/<achievement_id>`
 
 Deletes the given achievement from your application. This endpoint has a rate limit of 5 requests per 5 seconds per application.
 
@@ -357,7 +359,7 @@ Deletes the given achievement from your application. This endpoint has a rate li
 
 ## Update User Achievement
 
-`PUT https://discordapp.com/api/v6/users/<user_id>/applications/<application_id>/achievements/<achievement_id>`
+`PUT https://discord.com/api/v6/users/<user_id>/applications/<application_id>/achievements/<achievement_id>`
 
 Updates the UserAchievement record for a given user. Use this endpoint to update `secure` achievement progress for users. This endpoint has a rate limit of 5 requests per 5 seconds per application.
 
@@ -375,7 +377,7 @@ Updates the UserAchievement record for a given user. Use this endpoint to update
 
 ## Get User Achievements
 
-`GET https://discordapp.com/api/v6/users/@me/applications/<application_id>/achievements`
+`GET https://discord.com/api/v6/users/@me/applications/<application_id>/achievements`
 
 Returns a list of achievements for the user whose token you're making the request with. This endpoint will **NOT** accept the Bearer token for your application generated via the [Client Crendentials Grant](#DOCS_TOPICS_OAUTH2/client-credentials-grant). You will need the _user's_ bearer token, gotten via either the [Authorization Code OAuth2 Grant](#DOCS_TOPICS_OAUTH2/authorization-code-grant) or via the SDK with [GetOAuth2Token](#DOCS_GAME_SDK_APPLICATIONS/get-oauth2-token). This endpoint has a rate limit of 2 requests per 5 seconds per application per user.
 

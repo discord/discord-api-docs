@@ -1,7 +1,10 @@
 # Overlay
 
 > info
-> Need help with the SDK? Talk to us in the [Discord GameSDK Server](https://discord.gg/discord-gamesdk)!
+> Need help with the SDK? Talk to us in the [Discord Developers Server](https://discord.gg/discord-developers)!
+
+> warn
+> Game approval submissions are currently paused due to unforeseen circumstances. We apologize for the inconvenience. [Click here for more info.](https://support-dev.discord.com/hc/en-us/articles/360041437171)
 
 Discord comes with an awesome built-in overlay, and you may want to make use of it for your game. This manager will help you do just that! It:
 
@@ -130,11 +133,11 @@ overlayManager.OpenGuildInvite("rjEeUJq", (result) =>
 
 Opens the overlay widget for voice settings for the currently connected application. These settings are unique to each user within the context of your application. That means that a user can have different favorite voice settings for each of their games!
 
-![](https://user-images.githubusercontent.com/167844/48321255-f4a44080-e5d5-11e8-930c-044a1b76d76f.png)
+![Screenshot of the Voice Settings modal for an application](game-overlay-sdk-voice-settings.png)
 
 Also, when connected to a lobby's voice channel, the overlay will show a widget that allows users to locally mute, deafen, and adjust the volume of others.
 
-![](https://user-images.githubusercontent.com/167844/48321253-f2da7d00-e5d5-11e8-94f5-c6a5314b8a07.png)
+![Screenshot of the Voice Widget displayed in an application](game-overlay-sdk-voice-widget.png)
 
 Returns a `Discord.Result` via callback.
 
@@ -164,6 +167,13 @@ Fires when the overlay is locked or unlocked (a.k.a. opened or closed)
 | ------ | ---- | ------------------------------------- |
 | locked | bool | is the overlay now locked or unlocked |
 
+###### Example
+
+overlayManager.OnToggle += overlayLock =>
+{
+    Console.WriteLine("Overlay Locked: {0}", overlayLock);
+};
+
 ## Example: Activate Overlay Invite Modal
 
 ```cs
@@ -179,4 +189,4 @@ overlayManager.OpenActivityInvite(ActivityActionType.Join, (result) =>
 
 And that invite modal looks like this!
 
-![](overlay-invite.gif)
+![Screenshot of an Invitation Modal in an application](game-overlay-sdk-invite.gif)

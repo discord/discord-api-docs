@@ -2,7 +2,11 @@
 
 Permissions in Discord are a way to limit and grant certain abilities to users. A set of base permissions can be configured at the guild level for different roles. When these roles are attached to users, they grant or revoke specific privileges within the guild. Along with the guild-level permissions, Discord also supports permission overwrites that can be assigned to individual guild roles or guild members on a per-channel basis.
 
-Permissions are stored within a 53-bit integer and are calculated using bitwise operations. The total permissions integer can be determined by ORing together each individual value, and flags can be checked using AND operations.
+Permissions are stored within a variable-length integer serialized into a string, and are calculated using bitwise operations. For example, the permission value `123` will be serialized as `"123"`. For long-term stability, we recommend deserializing the permissions using your languages' Big Integer libraries. The total permissions integer can be determined by ORing together each individual value, and flags can be checked using AND operations.
+
+In API v8, all permissions—including `allow` and `deny` fields in overwrites—are serialized as strings. There are also no longer `_new` permission fields; all new permissions are rolled back into the base field.
+
+In API v6, the `permissions`, `allow`, and `deny` fields in roles and overwrites are still serialized as a number; however, these numbers shall not grow beyond 31 bits. During the remaining lifetime of API v6, all new permission bits will only be introduced in `permissions_new`, `allow_new`, and `deny_new`. These `_new` fields are just for response serialization; requests with these fields should continue to use the original `permissions`, `allow`, and `deny` fields, which accept both string or number values.
 
 ```python
 # Permissions value that can Send Messages (0x800) and Add Reactions (0x40):
@@ -32,6 +36,8 @@ Below is a table of all current permissions, their integer values in hexadecimal
 | MANAGE_GUILD \*       | `0x00000020` | Allows management and editing of the guild                                                                                         |              |
 | ADD_REACTIONS         | `0x00000040` | Allows for the addition of reactions to messages                                                                                   | T            |
 | VIEW_AUDIT_LOG        | `0x00000080` | Allows for viewing of audit logs                                                                                                   |              |
+| PRIORITY_SPEAKER      | `0x00000100` | Allows for using priority speaker in a voice channel                                                                               | V            |
+| STREAM                | `0x00000200` | Allows the user to go live                                                                                                         | V            |
 | VIEW_CHANNEL          | `0x00000400` | Allows guild members to view a channel, which includes reading messages in text channels                                           | T, V         |
 | SEND_MESSAGES         | `0x00000800` | Allows for sending messages in a channel                                                                                           | T            |
 | SEND_TTS_MESSAGES     | `0x00001000` | Allows for sending of `/tts` messages                                                                                              | T            |
@@ -41,14 +47,13 @@ Below is a table of all current permissions, their integer values in hexadecimal
 | READ_MESSAGE_HISTORY  | `0x00010000` | Allows for reading of message history                                                                                              | T            |
 | MENTION_EVERYONE      | `0x00020000` | Allows for using the `@everyone` tag to notify all users in a channel, and the `@here` tag to notify all online users in a channel | T            |
 | USE_EXTERNAL_EMOJIS   | `0x00040000` | Allows the usage of custom emojis from other servers                                                                               | T            |
+| VIEW_GUILD_INSIGHTS   | `0x00080000` | Allows for viewing guild insights                                                                                                  |              |
 | CONNECT               | `0x00100000` | Allows for joining of a voice channel                                                                                              | V            |
 | SPEAK                 | `0x00200000` | Allows for speaking in a voice channel                                                                                             | V            |
 | MUTE_MEMBERS          | `0x00400000` | Allows for muting members in a voice channel                                                                                       | V            |
 | DEAFEN_MEMBERS        | `0x00800000` | Allows for deafening of members in a voice channel                                                                                 | V            |
 | MOVE_MEMBERS          | `0x01000000` | Allows for moving of members between voice channels                                                                                | V            |
 | USE_VAD               | `0x02000000` | Allows for using voice-activity-detection in a voice channel                                                                       | V            |
-| PRIORITY_SPEAKER      | `0x00000100` | Allows for using priority speaker in a voice channel                                                                               | V            |
-| STREAM                | `0x00000200` | Allows the user to go live                                                                                                         | V            |
 | CHANGE_NICKNAME       | `0x04000000` | Allows for modification of own nickname                                                                                            |              |
 | MANAGE_NICKNAMES      | `0x08000000` | Allows for modification of other users nicknames                                                                                   |              |
 | MANAGE_ROLES \*       | `0x10000000` | Allows management and editing of roles                                                                                             | T, V         |
@@ -158,18 +163,27 @@ Roles represent a set of permissions attached to a group of users. Roles have un
 
 ###### Role Structure
 
-| Field       | Type      | Description                                      |
-| ----------- | --------- | ------------------------------------------------ |
-| id          | snowflake | role id                                          |
-| name        | string    | role name                                        |
-| color       | integer   | integer representation of hexadecimal color code |
-| hoist       | boolean   | if this role is pinned in the user listing       |
-| position    | integer   | position of this role                            |
-| permissions | integer   | permission bit set                               |
-| managed     | boolean   | whether this role is managed by an integration   |
-| mentionable | boolean   | whether this role is mentionable                 |
+| Field       | Type                                                                         | Description                                      |
+| ----------- | ---------------------------------------------------------------------------- | ------------------------------------------------ |
+| id          | snowflake                                                                    | role id                                          |
+| name        | string                                                                       | role name                                        |
+| color       | integer                                                                      | integer representation of hexadecimal color code |
+| hoist       | boolean                                                                      | if this role is pinned in the user listing       |
+| position    | integer                                                                      | position of this role                            |
+| permissions | string                                                                       | permission bit set                               |
+| managed     | boolean                                                                      | whether this role is managed by an integration   |
+| mentionable | boolean                                                                      | whether this role is mentionable                 |
+| tags?       | [role tags](#DOCS_TOPICS_PERMISSIONS/role-object-role-tags-structure) object | the tags this role has                           |
 
 Roles without colors (`color == 0`) do not count towards the final computed color in the user list.
+
+###### Role Tags Structure
+
+| Field               | Type      | Description                                         |
+| ------------------- | --------- | --------------------------------------------------- |
+| bot_id?             | snowflake | the id of the bot this role belongs to              |
+| integration_id?     | snowflake | the id of the integration this role belongs to      |
+| premium_subscriber? | null      | whether this is the guild's premium subscriber role |
 
 ###### Example Role
 
@@ -180,7 +194,7 @@ Roles without colors (`color == 0`) do not count towards the final computed colo
   "color": 3447003,
   "hoist": true,
   "position": 1,
-  "permissions": 66321471,
+  "permissions": "66321471",
   "managed": false,
   "mentionable": false
 }

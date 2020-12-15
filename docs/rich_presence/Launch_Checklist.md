@@ -1,7 +1,7 @@
 # Rich Presence Launch Checklist
 
 > danger
-> The SDK that this documentation references, [Discord-RPC](https://github.com/discordapp/discord-rpc), has been deprecated in favor of our new [Discord GameSDK](#DOCS_GAME_SDK_SDK_STARTER_GUIDE/). Replacement functionality for the Rich Presence SDK can be found in the [Activity Manager](#DOCS_GAME_SDK_ACTIVITIES/) of that SDK. This documentation can be referenced for education but does not entirely reflect the new SDK.
+> The SDK that this documentation references, [Discord-RPC](https://github.com/discord/discord-rpc), has been deprecated in favor of our new [Discord GameSDK](#DOCS_GAME_SDK_SDK_STARTER_GUIDE/). Replacement functionality for the Rich Presence SDK can be found in the [Activity Manager](#DOCS_GAME_SDK_ACTIVITIES/) of that SDK. This documentation can be referenced for education but does not entirely reflect the new SDK.
 
 Ready to launch a Rich Presence integration for your game? Did you read our [Best Practices](#DOCS_RICH_PRESENCE_BEST_PRACTICES/) guide? If so, we recommend looking over this checklist one last time to ensure that your integration is as great as it can be!
 
@@ -38,9 +38,6 @@ Ready to launch a Rich Presence integration for your game? Did you read our [Bes
   - A `joinSecret` should not be sent if the player can't invite anyone!
 
 #### Spectating
-
-> warn
-> If you want the Spectate button on users' profiles, check out [Getting Approved](#DOCS_RICH_PRESENCE_GETTING_APPROVED/) for more information!
 
 - Have you successfully implemented spectate invites for your game if applicable?
 - Is your game's spectate mode true spectating?

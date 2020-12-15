@@ -37,7 +37,7 @@ Note that the `VALID UNTIL` date will not remove the game from the user's librar
 
 Up to 25,000 gift codes can be created at a time. When you go to create gift codes, you'll notice there are a few fields for you to fill out. Here's what they mean:
 
-![](gift-code-creation.png)
+![Screenshot of the modal to create gift codes with on the developer dashboard](gift-code-creation.png)
 
 - SKU: the SKU that you want the user to get
 - Branch: the branch of your game you want the user to get

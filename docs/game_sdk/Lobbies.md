@@ -1,7 +1,10 @@
 # Lobbies
 
 > info
-> Need help with the SDK? Talk to us in the [Discord GameSDK Server](https://discord.gg/discord-gamesdk)!
+> Need help with the SDK? Talk to us in the [Discord Developers Server](https://discord.gg/discord-developers)!
+
+> warn
+> Game approval submissions are currently paused due to unforeseen circumstances. We apologize for the inconvenience. [Click here for more info.](https://support-dev.discord.com/hc/en-us/articles/360041437171)
 
 Looking to integrate multiplayer into your game? Lobbies are a great way to organize players into contexts to play together. This manager works hand in hand with the networking layer of our SDK to make multiplayer integrations a breeze by:
 
@@ -25,7 +28,7 @@ To update a user or a lobby, create or get a transaction for that resource, call
 var lobbyManager = discord.GetLobbyManager();
 
 // Create the transaction
-var txn = LobbyManager.CreateLobbyTransaction();
+var txn = lobbyManager.GetLobbyCreateTransaction();
 
 // Set lobby information
 txn.SetCapacity(6);
@@ -42,9 +45,9 @@ lobbyManager.CreateLobby(txn, (result, lobby) =>
   var newTxn = lobbyManager.GetLobbyUpdateTransaction(lobby.id);
   newTxn.SetCapacity(5);
 
-  lobbyManager.UpdateLobby(lobby.id, newTxn, (result, newLobby) =>
+  lobbyManager.UpdateLobby(lobby.id, newTxn, (result) =>
   {
-    Console.WriteLine("lobby {0} updated", newLobby.Id);
+    Console.WriteLine("lobby {0} updated", lobby.Id);
   });
 });
 ```
@@ -125,7 +128,7 @@ Returns `void`.
 ```cs
 var txn = lobbyManager.GetLobbyUpdateTransaction();
 txn.SetType(Discord.LobbyType.Public);
-lobbyManager.UpdateLobby(lobbyId, txn, (Discord.Result result, ref Discord.Lobby lobby) =>
+lobbyManager.UpdateLobby(lobbyId, txn, (Discord.Result result) =>
 {
   if (result == Discord.Result.Ok)
   {
@@ -154,7 +157,7 @@ Returns `void`.
 ```cs
 var txn = lobbyManager.GetLobbyUpdateTransaction();
 txn.SetOwner(53908232506183680);
-lobbyManager.UpdateLobby(lobbyId, txn, (Discord.Result result, ref Discord.Lobby lobby) =>
+lobbyManager.UpdateLobby(lobbyId, txn, (Discord.Result result) =>
 {
   if (result == Discord.Result.Ok)
   {
@@ -180,7 +183,7 @@ Returns `void`.
 ```cs
 var txn = lobbyManager.GetLobbyUpdateTransaction();
 txn.SetCapacity(10);
-lobbyManager.UpdateLobby(lobbyId, txn, (Discord.Result result, ref Discord.Lobby lobby) =>
+lobbyManager.UpdateLobby(lobbyId, txn, (Discord.Result result) =>
 {
   if (result == Discord.Result.Ok)
   {
@@ -207,7 +210,7 @@ Returns `void`.
 ```cs
 var txn = lobbyManager.GetLobbyUpdateTransaction();
 txn.SetMetadata("average_mmr", "4500");
-lobbyManager.UpdateLobby(lobbyId, txn, (Discord.Result result, ref Discord.Lobby lobby) =>
+lobbyManager.UpdateLobby(lobbyId, txn, (Discord.Result result) =>
 {
   if (result == Discord.Result.Ok)
   {
@@ -233,7 +236,7 @@ Returns `void`.
 ```cs
 var txn = lobbyManager.GetLobbyUpdateTransaction();
 txn.DeleteMetadata("average_mmr");
-lobbyManager.UpdateLobby(lobbyId, txn, (Discord.Result result, ref Discord.Lobby lobby) =>
+lobbyManager.UpdateLobby(lobbyId, txn, (Discord.Result result) =>
 {
   if (result == Discord.Result.Ok)
   {
@@ -259,7 +262,7 @@ Returns `void`.
 ```cs
 var txn = lobbyManager.GetLobbyUpdateTransaction();
 txn.SetLocked(true);
-lobbyManager.UpdateLobby(lobbyId, txn, (Discord.Result result, ref Discord.Lobby lobby) =>
+lobbyManager.UpdateLobby(lobbyId, txn, (Discord.Result result) =>
 {
   if (result == Discord.Result.Ok)
   {
@@ -1311,30 +1314,30 @@ So, an explanation. Because the DLL that you ship with your game is a stub that 
 
 The SDK will function as if the game were launched from Discord and everything will work; if Discord is not currently launched, the SDK will launch it.
 
-That means that if Player A is launching Your Amazing Game from Discord, and Player B is launching it from Other Cool But Not As Cool As Discord Game Store, as long as Player B meets the above criteria, both players can play with each other using Discord's lobbies + networking functions. If the SDK is not able to launch Discord for Player B—maybe they've never installed/used Discord before!—you'll get an error saying as much. We're not saying what you _should_ do, but hey, wouldn't this make a really neat in-game touchpoint for your players to join their friends on Discord, and maybe even join your game's [verified server](https://discordapp.com/verification)?
+That means that if Player A is launching Your Amazing Game from Discord, and Player B is launching it from Other Cool But Not As Cool As Discord Game Store, as long as Player B meets the above criteria, both players can play with each other using Discord's lobbies + networking functions. If the SDK is not able to launch Discord for Player B—maybe they've never installed/used Discord before!—you'll get an error saying as much. We're not saying what you _should_ do, but hey, wouldn't this make a really neat in-game touchpoint for your players to join their friends on Discord, and maybe even join your game's [verified server](https://discord.com/verification)?
 
 OK so this wasn't really a code example, but I think you get how this works.
 
 ## The API Way
 
-Below are the API endpoints and the parameters they accept. If you choose to interface directly with the Discord API, you will need a "Bot token". This is a special authorization token with which your application can access Discord's HTTP API. Head on over to [your app's dashboard](https://discordapp.com/developers/), and hit the big "Add a Bot User" button. From there, mutter _abra kadabra_ and reveal the token. This token is used as an authorization header against our API like so:
+Below are the API endpoints and the parameters they accept. If you choose to interface directly with the Discord API, you will need a "Bot token". This is a special authorization token with which your application can access Discord's HTTP API. Head on over to [your app's dashboard](https://discord.com/developers/), and hit the big "Add a Bot User" button. From there, mutter _abra kadabra_ and reveal the token. This token is used as an authorization header against our API like so:
 
 ```
-curl -x POST -h "Authorization: Bot <your token>" https://discordapp.com/api/some-route/that-does-a-thing
+curl -x POST -h "Authorization: Bot <your token>" https://discord.com/api/some-route/that-does-a-thing
 ```
 
 > info
 > Make sure to prepend your token with "Bot"!
 
-Here are the routes; they all expect JSON bodies. Also, hey, while you're here. You've got a bot token. You're looking at our API. You should check out all the other [awesome stuff](https://discordapp.com/developers/docs/intro) you can do with it!
+Here are the routes; they all expect JSON bodies. Also, hey, while you're here. You've got a bot token. You're looking at our API. You should check out all the other [awesome stuff](https://discord.com/developers/docs/intro) you can do with it!
 
 ### Create Lobby
 
-`POST https://discordapp.com/api/v6/lobbies`
+`POST https://discord.com/api/v6/lobbies`
 
 Creates a new lobby. Returns an object similar to the SDK `Lobby` struct, documented below.
 
-To get a list of valid regions, call the [List Voice Regions](https://discordapp.com/developers/docs/resources/voice#list-voice-regions) endpoint.
+To get a list of valid regions, call the [List Voice Regions](https://discord.com/developers/docs/resources/voice#list-voice-regions) endpoint.
 
 ###### Parameters
 
@@ -1366,7 +1369,7 @@ To get a list of valid regions, call the [List Voice Regions](https://discordapp
 
 ### Update Lobby
 
-`PATCH https://discordapp.com/api/v6/lobbies/<lobby_id>`
+`PATCH https://discord.com/api/v6/lobbies/<lobby_id>`
 
 Updates a lobby.
 
@@ -1380,13 +1383,13 @@ Updates a lobby.
 
 ### Delete Lobby
 
-`DELETE https://discordapp.com/api/v6/lobbies/<lobby_id>`
+`DELETE https://discord.com/api/v6/lobbies/<lobby_id>`
 
 Deletes a lobby.
 
 ### Update Lobby Member
 
-`PATCH https://discordapp.com/api/v6/lobbies/<lobby_id>/members/<user_id>`
+`PATCH https://discord.com/api/v6/lobbies/<lobby_id>/members/<user_id>`
 
 Updates the metadata for a lobby member.
 
@@ -1398,7 +1401,7 @@ Updates the metadata for a lobby member.
 
 ### Create Lobby Search
 
-`POST https://discordapp.com/api/v6/lobbies/search`
+`POST https://discord.com/api/v6/lobbies/search`
 
 Creates a lobby search for matchmaking around given criteria.
 
@@ -1448,7 +1451,7 @@ Creates a lobby search for matchmaking around given criteria.
 
 ### Send Lobby Data
 
-`POST https://discordapp.com/api/v6/lobbies/<lobby_id>/send`
+`POST https://discord.com/api/v6/lobbies/<lobby_id>/send`
 
 Sends a message to the lobby, fanning it out to other lobby members.
 

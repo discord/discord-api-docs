@@ -1,7 +1,10 @@
 # Users
 
 > info
-> Need help with the SDK? Talk to us in the [Discord GameSDK Server](https://discord.gg/discord-gamesdk)!
+> Need help with the SDK? Talk to us in the [Discord Developers Server](https://discord.gg/discord-developers)!
+
+> warn
+> Game approval submissions are currently paused due to unforeseen circumstances. We apologize for the inconvenience. [Click here for more info.](https://support-dev.discord.com/hc/en-us/articles/360041437171)
 
 This manager helps retrieve basic user information for any user on Discord.
 
@@ -126,7 +129,7 @@ Returns `bool`.
 
 ```cs
 var userManager = discord.GetUserManager();
-if (userManager.CurrentUserHasFlag(Discord.UserFlags.HypeSquadHouse1))
+if (userManager.CurrentUserHasFlag(Discord.UserFlag.HypeSquadHouse1))
 {
   Console.WriteLine("User is a member of House Bravery!");
 }
@@ -147,13 +150,13 @@ Fires when the `User` struct of the currently connected user changes. They may h
 ```cs
 var userManager = discord.GetUserManager();
 // GetCurrentUser will error until this fires once.
-userManager.OnCurrentUserUpdate += () =>
-{
-var currentUser = userManager.GetCurrentUser();
-	Console.WriteLine(currentUser.Username);
-	Console.WriteLine(currentUser.Id);
-	Console.WriteLine(currentUser.Discriminator);
-	Console.WriteLine(currentUser.Avatar);
+userManager.OnCurrentUserUpdate += () => {
+  var currentUser = userManager.GetCurrentUser();
+
+  Console.WriteLine(currentUser.Username);
+  Console.WriteLine(currentUser.Id);
+  Console.WriteLine(currentUser.Discriminator);
+  Console.WriteLine(currentUser.Avatar);
 };
 ```
 
