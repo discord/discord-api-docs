@@ -776,7 +776,7 @@ An interaction is the base "thing" that is sent when a user invokes a command, a
 | guild_id   | snowflake                         | the guild it was sent from                              |
 | channel_id | snowflake                         | the channel it was sent from                            |
 | member     | GuildMember                       | guild member data for the invoking user                 |
-| token      | string                            | a contintuation token for responding to the interaction |
+| token      | string                            | a continuation token for responding to the interaction |
 | version    | int                               | read-only property, always `1`                          |
 
 \* This is always present on `ApplicationCommand` interaction types. It is optional for future-proofing against new interaction types
