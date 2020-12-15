@@ -27,7 +27,7 @@ These are the limits and caps for the initial release, but **they can be subject
 
 A **Slash Command** is a command that you register for your application. They're made up of a name, description, and a block of `options`, which you can think of like arguments to a function. The name and description help users find your command among many others, and the `options` validate user input as they fill out your command.
 
-Your commands are available in every guild that adds your application. You can also make commands for a specific guild; they're only available in that guild.
+Your global commands are available in every guild that adds your application. You can also make commands for a specific guild; they're only available in that guild.
 
 An **Interaction** is the message that your application receives when a user uses a command. It includes the values that the user submitted, as well as some metadata about this particular instance of the command being used: the `guild_id`, `channel_id`, `member` and other fields. You can find all the values in our [data models](#DOCS_INTERACTIONS_SLASH_COMMANDS/data-models-and-types).
 
@@ -236,7 +236,7 @@ Now that you've gotten the data from the user, it's time to respond to them.
 
 Interactions--both receiving and responding--are webhooks under the hood. So responding to an Interaction is just like sending a webhook request!
 
-When responding to an interaction received **via webhook**, your server can simply respond to the received `POST` request. You'll want to respond with a `200` status code (if everything went well), as well as specifying a `type` and `data`, which is an object with parameters the same as [Execute Webhook](#DOCS_RESOURCES_WEBHOOK/execute-webhook):
+When responding to an interaction received **via webhook**, your server can simply respond to the received `POST` request. You'll want to respond with a `200` status code (if everything went well), as well as specifying a `type` and `data`, which is an [Interaction Response](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-response) object:
 
 ```py
 @app.route('/', methods=['POST'])
@@ -260,7 +260,7 @@ def my_command():
 
 If you are receiving Interactions over the gateway, you will **also need to respond via HTTP**. Responses to Interactions **are not sent as commands over the gateway**.
 
-To respond to a gateway Interaction, make a `POST` request like this. `interaction_id` is the unique id of that individual Interaction from the received payload. `interaction_token` is the unique token for that interaction from the received payload. **This endpoint is only valid for Interactions received over the gateway. Otherwise, respond to the `POST` request.**
+To respond to a gateway Interaction, make a `POST` request like this. `interaction_id` is the unique id of that individual Interaction from the received payload. `interaction_token` is the unique token for that interaction from the received payload. **This endpoint is only valid for Interactions received over the gateway. Otherwise, respond to the `POST` request to issue an initial response.**
 
 ```py
 url = "https://discord.com/api/v8/interactions/<interaction_id>/<interaction_token>/callback"
@@ -279,7 +279,7 @@ r = requests.post(url, json=json)
 
 ## Followup Messages
 
-Sometimes, your bot will want to send followup messages to a user after responding to an interaction. Or, you may want to edit your original response. You can use the following endpoints to do so:
+Sometimes, your bot will want to send followup messages to a user after responding to an interaction. Or, you may want to edit your original response. Whether you receive Interations over the gateway or by outgoing webhook, you can use the following endpoints to edit your initial response or send followup messages:
 
 - `PATCH /webhooks/<application_id>/<interaction_token>/messages/@original` to edit your initial response to an Interaction
 - `DELETE /webhooks/<application_id>/<interaction_token>/messages/@original` to delete your initial response to an Interaction
@@ -356,14 +356,14 @@ We highly recommend checking out our [Community Resources](#DOCS_TOPICS_COMMUNIT
 
 For those developers looking to make more organized and complex groups of commands, look no further than subcommands and groups.
 
-**Subcommands** organize your command by **specifying actions within a command or group**.
+**Subcommands** organize your commands by **specifying actions within a command or group**.
 
-**Subcommand Groups** organize your **subcommands** by **grouping commands by similar action or resource within a command**.
+**Subcommand Groups** organize your **subcommands** by **grouping subcommands by similar action or resource within a command**.
 
 These are not enforced rules. You are free to use subcommands and groups however you'd like; it's just how we think about them.
 
 > danger
-> Using subcommands or subcommand groups will make your base command unusable. You can't access the base `/permissions` if you also have `/permissions add | remove` as subcommands or subcommand groups
+> Using subcommands or subcommand groups will make your base command unusable. You can't send the base `/permissions` command as a valid command if you also have `/permissions add | remove` as subcommands or subcommand groups
 
 ### Nested Subcommands and Groups
 
@@ -434,7 +434,7 @@ We'll start by defining the top-level information for `/permissions`:
 
 ![A command with no arguments. It says /permissions](command.png)
 
-Now we have a command named `permissions`. We want this command to be able to affect users roles. Rather than making two separate commands, we can use subcommand groups. We want to use subcommand groups here because we are grouping commands on a similar resource: `user` or `role`.
+Now we have a command named `permissions`. We want this command to be able to affect users and roles. Rather than making two separate commands, we can use subcommand groups. We want to use subcommand groups here because we are grouping commands on a similar resource: `user` or `role`.
 
 ```js
 {
@@ -457,7 +457,7 @@ Now we have a command named `permissions`. We want this command to be able to af
 
 You'll notice that a command like this **will not show up** in the command explorer. That's because groups are effectively "folders" for commands, and we've made two empty folders. So let's continue.
 
-After we scope our command to the `user` or `role` groups, we want to be able to either `get` or `edit` their permissions. Within the subcommand groups, we can make subcommands for `get` and `edit`:
+Now that we've effectively made `user` and `role` "folders", we want to be able to either `get` and `edit` permissions. Within the subcommand groups, we can make subcommands for `get` and `edit`:
 
 ```js
 {
@@ -529,7 +529,7 @@ Now, we need some arguments! If we chose `user`, we need to be able to pick a us
                         },
                         {
                             "name": "channel",
-                            "description": "The channel permissions to get",
+                            "description": "The channel permissions to get. If omitted, the guild permissions will be returned",
                             "type": 7, // 7 is type CHANNEL
                             "required": false
                         }
@@ -548,7 +548,7 @@ Now, we need some arguments! If we chose `user`, we need to be able to pick a us
                         },
                         {
                             "name": "channel",
-                            "description": "The channel permissions to edit",
+                            "description": "The channel permissions to edit. If omitted, the guild permissions will be edited",
                             "type": 7,
                             "required": false
                         }
@@ -574,7 +574,7 @@ Now, we need some arguments! If we chose `user`, we need to be able to pick a us
                         },
                         {
                             "name": "channel",
-                            "description": "The channel permissions to get",
+                            "description": "The channel permissions to get. If omitted, the guild permissions will be returned",
                             "type": 7,
                             "required": false
                         }
@@ -593,7 +593,7 @@ Now, we need some arguments! If we chose `user`, we need to be able to pick a us
                         },
                         {
                             "name": "channel",
-                            "description": "The channel permissions to edit",
+                            "description": "The channel permissions to edit. If omitted, the guild permissions will be edited",
                             "type": 7,
                             "required": false
                         }
@@ -761,7 +761,7 @@ If you specify `choices` for an option, they are the **only** valid values for a
 
 | Field | Type          | Description         |
 |-------|---------------|---------------------|
-| name  | string        | name of the choice  |
+| name  | string        | 1-100 character choice name |
 | value | string or int | value of the choice |
 
 ## Interaction
