@@ -731,7 +731,7 @@ An application command is the base "command" model that belongs to an applicatio
 
 | Field       | Type                                                                                                           | Description                                                                                                |
 |-------------|----------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------|
-| type        | int                                                                                                            | value of [ApplicationCommandOptionType](#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommandoption-type) |
+| type        | int                                                                                                            | value of [ApplicationCommandOptionType](#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommandoptiontype) |
 | name        | string                                                                                                         | 1-32 character name                                                                                        |
 | description | string                                                                                                         | 1-100 character description                                                                                |
 | default?    | bool                                                                                                           | the first `required` option for the user to complete--only one option can be `default`                     |
