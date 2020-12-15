@@ -737,8 +737,8 @@ An application command is the base "command" model that belongs to an applicatio
 | type        | int                                                                                                            | value of [ApplicationCommandOptionType](#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommandoptiontype) |
 | name        | string                                                                                                         | 1-32 character name                                                                                        |
 | description | string                                                                                                         | 1-100 character description                                                                                |
-| default?    | bool                                                                                                           | the first `required` option for the user to complete--only one option can be `default`                     |
-| required?   | bool                                                                                                           | if the parameter is required or optional--default `false`                                                  |
+| default?    | boolean                                                                                                        | the first `required` option for the user to complete--only one option can be `default`                     |
+| required?   | boolean                                                                                                        | if the parameter is required or optional--default `false`                                                  |
 | choices?    | array of [ApplicationCommandOptionChoice](#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommandoptionchoice) | choices for `string` and `int` types for the user to pick from                                             |
 | options?    | array of [ApplicationCommandOption](#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommandoption)              | if the option is a subcommand or subcommand group type, this nested options will be the parameters         |
 
@@ -835,7 +835,7 @@ Not all message fields are currently supported.
 
 | Name              | Value            | Description                                                                                 |
 |-------------------|------------------|---------------------------------------------------------------------------------------------|
-| tts?              | bool             | is the response TTS                                                                         |
+| tts?              | boolean          | is the response TTS                                                                         |
 | content           | string           | message content                                                                             |
 | embeds?           | array of embeds  | supports up to 10 embeds                                                                    |
 | allowed_mentions? | allowed mentions | [allowed mentions](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object) object                  |
