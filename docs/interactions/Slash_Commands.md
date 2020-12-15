@@ -835,5 +835,5 @@ Not all message fields are currently supported.
 | tts?              | bool             | is the response TTS                                                                         |
 | content           | string           | message content                                                                             |
 | embeds?           | array of embeds  | supports up to 10 embeds                                                                    |
-| allowed_mentions? | allowed mentions | https://discord.com/developers/docs/resources/channel#allowed-mentions-object               |
+| allowed_mentions? | allowed mentions | [allowed mentions](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object) option                  |
 | flags             | int              | acceptable values are [message flags](#DOCS_RESOURCES_CHANNEL/message-object-message-flags) |
