@@ -808,7 +808,7 @@ All options have names, and an option can either be a parameter and input value-
 | value?   | OptionType                                       | the value of the pair                           |
 | options? | array of ApplicationCommandInteractionDataOption | present if this option is a group or subcommand |
 
-###### Interaction Response
+## Interaction Response
 
 After receiving an interaction, you must respond to acknowledge it. This may be a `pong` for a `ping`, a message, or simply an acknowledgement that you have received it and will handle the command async.
 
