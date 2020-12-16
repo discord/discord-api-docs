@@ -259,8 +259,8 @@ A partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object. Represents an Offl
 | joined_at      | ISO8601 timestamp                               | when the user joined the guild                                                                                             |
 | premium_since? | ?ISO8601 timestamp                              | when the user started [boosting](https://support.discord.com/hc/en-us/articles/360028038352-Server-Boosting-) the guild |
 | deaf           | boolean                                         | whether the user is deafened in voice channels                                                                             |
-| mute           | boolean                                         | whether the user is muted in voice channels                                                                                |
-| pending        | boolean                                         | whether the user has passed the guild's Membership Screening requirements                                                                                |
+| mute           | boolean                                         | whether the user is muted in voice channels                                                                               |
+| pending?       | ?boolean                                        | whether the user has passed the guild's Membership Screening requirements                                                 |
 
 > info
 > The field `user` won't be included in the member object attached to `MESSAGE_CREATE` and `MESSAGE_UPDATE` gateway events.
