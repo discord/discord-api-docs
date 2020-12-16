@@ -294,7 +294,7 @@ Interaction tokens are valid for **15 minutes**, meaning you can respond and upd
 ## Security and Authorization
 
 > info
-> Check out our [Community Resources](docs/topics/Community_Resources.md#interactions) for libraries to help you with security in your language of choice
+> Check out our [Community Resources](discord-api-docs/blob/master/docs/topics/Community_Resources.md#interactions) for libraries to help you with security in your language of choice
 
 The internet is a scary place, especially for people hosting open, unauthenticated endpoints. If you are receiving Interactions via outgoing webhook, there are some security steps you **must** take before your app is eligible to receive requests.
 
@@ -347,7 +347,7 @@ except BadSignatureError:
 
 If you are not properly validating this signature header, we will not allow you to save your interactions URL in the Dev Portal. We will also do automated, routine security checks against your endpoint, including purposefully sending you invalid signatures. If you fail the validation, we will remove your interactions URL in the future and alert you via email and System DM.
 
-We highly recommend checking out our [Community Resources](docs/topics/Community_Resources.md#interactions) and the two libraries found there. They not only provide typing for Interactions data models, but also include decorators for API frameworks like Flask and Express to make validation easy.
+We highly recommend checking out our [Community Resources](discord-api-docs/blob/master/docs/topics/Community_Resources.md#interactions) and the two libraries found there. They not only provide typing for Interactions data models, but also include decorators for API frameworks like Flask and Express to make validation easy.
 
 ## Subcommands and Subcommand Groups
 
@@ -692,7 +692,7 @@ Create a response to an Interaction from the gateway. Takes an [Interaction resp
 
 ## Edit Original Interaction Response % PATCH /webhooks/application.id/{interaction.token#interaction}/messages/@original
 
-Edits the initial Interaction response. Functions the same as [Edit Webhook Message](docs/resources/Webhook.md#edit-webhook-message--patch-webhookswebhookiddocs_resources_webhookwebhook-objectwebhooktokendocs_resources_webhookwebhook-objectmessagesmessageiddocs_resources_channelmessage-object).
+Edits the initial Interaction response. Functions the same as [Edit Webhook Message](discord-api-docs/blob/master/docs/resources/Webhook.md#edit-webhook-message--patch-webhookswebhookiddocs_resources_webhookwebhook-objectwebhooktokendocs_resources_webhookwebhook-objectmessagesmessageiddocs_resources_channelmessage-object).
 
 ## Delete Original Interaction Response % DELETE /webhooks/application.id/{interaction.token#interaction}/messages/@original
 
@@ -700,11 +700,11 @@ Deletes the initial Interaction response. Returns `204` on success.
 
 ## Create Followup Message % POST /webhooks/application.id/{interaction.token#interaction}
 
-Create a followup message for an Interaction. Functions the same as [Execute Webhook](docs/resources/Webhook.md#execute-github-compatible-webhook--post-webhookswebhookiddocs_resources_webhookwebhook-objectwebhooktokendocs_resources_webhookwebhook-objectgithub)
+Create a followup message for an Interaction. Functions the same as [Execute Webhook](discord-api-docs/blob/master/docs/resources/Webhook.md#execute-github-compatible-webhook--post-webhookswebhookiddocs_resources_webhookwebhook-objectwebhooktokendocs_resources_webhookwebhook-objectgithub)
 
 ## Edit Followup Message % PATCH /webhooks/application.id/{interaction.token#interaction}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}
 
-Edits a followup message for an Interaction. Functions the same as [Edit Webhook Message](docs/resources/Webhook.md#edit-webhook-message--patch-webhookswebhookiddocs_resources_webhookwebhook-objectwebhooktokendocs_resources_webhookwebhook-objectmessagesmessageiddocs_resources_channelmessage-object).
+Edits a followup message for an Interaction. Functions the same as [Edit Webhook Message](discord-api-docs/blob/master/docs/resources/Webhook.md#edit-webhook-message--patch-webhookswebhookiddocs_resources_webhookwebhook-objectwebhooktokendocs_resources_webhookwebhook-objectmessagesmessageiddocs_resources_channelmessage-object).
 
 ## Delete Followup Message % DELETE /webhooks/application.id/{interaction.token#interaction}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}
 
@@ -838,4 +838,4 @@ Not all message fields are currently supported.
 | tts?              | bool             | is the response TTS                                                                         |
 | content           | string           | message content                                                                             |
 | embeds?           | array of embeds  | supports up to 10 embeds                                                                    |
-| allowed_mentions? | allowed mentions | [allowed mentions](docs/resources/Channel.md#allowed-mentions-object) object                  |
+| allowed_mentions? | allowed mentions | [allowed mentions](discord-api-docs/blob/master/docs/resources/Channel.md#allowed-mentions-object) object                  |
