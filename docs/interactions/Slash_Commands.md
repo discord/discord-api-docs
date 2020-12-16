@@ -633,7 +633,8 @@ Create a new global command. New global commands will be available in all guilds
 | description | string                                                                                            | 1-100 character description    |
 | options?    | array of [ApplicationCommandOption](#applicationcommandoption) | the parameters for the command |
 
-## Edit Global Application Command % PATCH /applications/{application.id#DOCS_TOPICS_OAUTH2/application-object}/commands/{command.id#applicationcommand}
+## Edit Global Application Command % PATCH /applications/{application.id#DOCS_TOPICS_OAUTH2/application-object}/commands/{command.id#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommand}
+
 
 Edit a global command. Updates will be available in all guilds after 1 hour. Returns `200` and an [ApplicationCommand](#applicationcommand) object.
 
@@ -646,7 +647,7 @@ Edit a global command. Updates will be available in all guilds after 1 hour. Ret
 | options?    | array of [ApplicationCommandOption](#applicationcommandoption) | the parameters for the command |
 
 
-## Delete Global Application Command % DELETE /applications/{application.id#DOCS_TOPICS_OAUTH2/application-object}/commands/{command.id#applicationcommand}
+## Delete Global Application Command % DELETE /applications/{application.id#DOCS_TOPICS_OAUTH2/application-object}/commands/{command.id#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommand}
 
 Deletes a global command. Returns `204`.
 
@@ -669,7 +670,7 @@ Create a new guild command. New guild commands will be available in the guild im
 | description | string                                                                                            | 1-100 character description    |
 | options?    | array of [ApplicationCommandOption](#applicationcommandoption) | the parameters for the command |
 
-## Edit Guild Application Command % PATCH /applications/{application.id#DOCS_TOPICS_OAUTH2/application-object}/guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/commands/{command.id#applicationcommand}
+## Edit Guild Application Command % PATCH /applications/{application.id#DOCS_TOPICS_OAUTH2/application-object}/guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/commands/{command.id#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommand}
 
 Edit a guild command. Updates for guild commands will be available immediately. Returns `200` and an [ApplicationCommand](#applicationcommand) object.
 
@@ -682,31 +683,31 @@ Edit a guild command. Updates for guild commands will be available immediately. 
 | options?    | array of [ApplicationCommandOption](#applicationcommandoption) | the parameters for the command |
 
 
-## Delete Guild Application Command % DELETE /applications/{application.id#DOCS_TOPICS_OAUTH2/application-object}/guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/commands/{command.id#applicationcommand}
+## Delete Guild Application Command % DELETE /applications/{application.id#DOCS_TOPICS_OAUTH2/application-object}/guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/commands/{command.id#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommand}
 
 Delete a guild command. Returns `204` on success.
 
-## Create Interaction Response % POST /interactions/{interaction.id#interaction}/{interaction.token#interaction}/callback
+## Create Interaction Response % POST /interactions/{interaction.id#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction}/{interaction.token#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction}/callback
 
 Create a response to an Interaction from the gateway. Takes an [Interaction response](#interaction-response).
 
-## Edit Original Interaction Response % PATCH /webhooks/application.id/{interaction.token#interaction}/messages/@original
+## Edit Original Interaction Response % PATCH /webhooks/application.id/{interaction.token#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction}/messages/@original
 
 Edits the initial Interaction response. Functions the same as [Edit Webhook Message](../resources/Webhook.md#edit-webhook-message--patch-webhookswebhookiddocs_resources_webhookwebhook-objectwebhooktokendocs_resources_webhookwebhook-objectmessagesmessageiddocs_resources_channelmessage-object).
 
-## Delete Original Interaction Response % DELETE /webhooks/application.id/{interaction.token#interaction}/messages/@original
+## Delete Original Interaction Response % DELETE /webhooks/application.id/{interaction.token#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction}/messages/@original
 
 Deletes the initial Interaction response. Returns `204` on success.
 
-## Create Followup Message % POST /webhooks/application.id/{interaction.token#interaction}
+## Create Followup Message % POST /webhooks/application.id/{interaction.token#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction}
 
 Create a followup message for an Interaction. Functions the same as [Execute Webhook](../resources/Webhook.md#execute-github-compatible-webhook--post-webhookswebhookiddocs_resources_webhookwebhook-objectwebhooktokendocs_resources_webhookwebhook-objectgithub)
 
-## Edit Followup Message % PATCH /webhooks/application.id/{interaction.token#interaction}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}
+## Edit Followup Message % PATCH /webhooks/application.id/{interaction.token#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}
 
 Edits a followup message for an Interaction. Functions the same as [Edit Webhook Message](../resources/Webhook.md#edit-webhook-message--patch-webhookswebhookiddocs_resources_webhookwebhook-objectwebhooktokendocs_resources_webhookwebhook-objectmessagesmessageiddocs_resources_channelmessage-object).
 
-## Delete Followup Message % DELETE /webhooks/application.id/{interaction.token#interaction}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}
+## Delete Followup Message % DELETE /webhooks/application.id/{interaction.token#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}
 
 Deletes a followup message for an Interaction. Returns `204` on success.
 
