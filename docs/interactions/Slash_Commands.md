@@ -623,7 +623,7 @@ Fetch all of the global commands for your application. Returns an array of [Appl
 > danger
 > Creating a command with the same name as an existing command for your application will overwrite the old command.
 
-Create a new global command. New global commands will be available in all guilds after 1 hour. Returns `200` and an [ApplicationCommand](#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommand) object.
+Create a new global command. New global commands will be available in all guilds after 1 hour. Returns `201` and an [ApplicationCommand](#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommand) object.
 
 ###### JSON Params
 
@@ -659,7 +659,7 @@ Fetch all of the guild commands for your application for a specific guild. Retur
 > danger
 > Creating a command with the same name as an existing command for your application will overwrite the old command.
 
-Create a new guild command. New guild commands will be available in the guild immediately. Returns `200` and an [ApplicationCommand](#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommand) object.
+Create a new guild command. New guild commands will be available in the guild immediately. Returns `201` and an [ApplicationCommand](#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommand) object.
 
 ###### JSON Params
 
