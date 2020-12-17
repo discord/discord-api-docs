@@ -833,9 +833,10 @@ Interaction responses may choose to "eat" the user's command input if you do not
 
 Not all message fields are currently supported.
 
-| Name              | Value            | Description                                                                                 |
-|-------------------|------------------|---------------------------------------------------------------------------------------------|
-| tts?              | bool             | is the response TTS                                                                         |
-| content           | string           | message content                                                                             |
-| embeds?           | array of embeds  | supports up to 10 embeds                                                                    |
-| allowed_mentions? | allowed mentions | [allowed mentions](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object) object                  |
+| Name              | Value            | Description                                                                                                                             |
+|-------------------|------------------|-----------------------------------------------------------------------------------------------------------------------------------------|
+| tts?              | bool             | is the response TTS                                                                                                                     |
+| content           | string           | message content                                                                                                                         |
+| embeds?           | array of embeds  | supports up to 10 embeds                                                                                                                |
+| allowed_mentions? | allowed mentions | [allowed mentions](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object) object                                                              |
+| flags?            | integer          | [message flags](#DOCS_RESOURCES_CHANNEL/message-object-message-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field) |
