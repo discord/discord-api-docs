@@ -275,7 +275,7 @@ r = requests.post(url, json=json)
 ```
 
 > info
-> Interaction `tokens` are valid for **15 minutes** and can be used to send followup messages.
+> Interaction `tokens` are valid for **15 minutes** and can be used to send followup messages but, if you don't respond in **3 seconds of the event being dispatched, it will be invalidated immediately**.
 
 ## Followup Messages
 
