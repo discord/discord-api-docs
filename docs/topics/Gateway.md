@@ -1217,6 +1217,26 @@ Sent when a guild channel's webhook is created, updated, or deleted.
 | guild_id   | snowflake | id of the guild   |
 | channel_id | snowflake | id of the channel |
 
+### Commands
+
+#### Application Command Create
+
+Sent when a new [Slash Command](#DOCS_INTERACTIONS_SLASH_COMMANDS/) is created, relevant to the current user. The inner payload is an [ApplicationCommand](#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommand) object, with an extra `guild_id` key.
+
+#### Application Command Update
+
+Sent when a [Slash Command](#DOCS_INTERACTIONS_SLASH_COMMANDS/) relevant to the current user is updated. The inner payload is an [ApplicationCommand](#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommand)) object, with an extra `guild_id` key.
+
+#### Application Command Delete
+
+Sent when a [Slash Command](#DOCS_INTERACTIONS_SLASH_COMMANDS/) relevant to the current user is deleted. The inner payload is an [ApplicationCommand](#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommand) object, with an extra `guild_id` key.
+
+###### Application Command Extra Fields
+
+| Field    | Type      | Description                       |
+|----------|-----------|-----------------------------------|
+| guild_id | snowflake | id of the guild the command is in |
+
 ### Interactions
 
 ### Interaction Create
