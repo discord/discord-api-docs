@@ -236,7 +236,7 @@ Now that you've gotten the data from the user, it's time to respond to them.
 
 Interactions--both receiving and responding--are webhooks under the hood. So responding to an Interaction is just like sending a webhook request!
 
-When responding to an interaction received **via webhook**, your server can simply respond to the received `POST` request. You'll want to respond with a `200` status code (if everything went well), as well as specifying a `type` and `data`, which is an [Interaction Response](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-response) object:
+When responding to an interaction received **via webhook**, your server can simply respond to the received `POST` request. You'll want to respond with a `200` status code (if everything went well), as well as specifying a `type` and `data`, which is an [Interaction Response](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-interaction-response) object:
 
 ```py
 @app.route('/', methods=['POST'])
