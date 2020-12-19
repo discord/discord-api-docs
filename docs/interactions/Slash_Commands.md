@@ -374,6 +374,14 @@ VALID
 
 command
 |
+|__ subcommand
+|
+|__ subcommand
+
+----
+
+command
+|
 |__ subcommand-group
     |
     |__ subcommand
