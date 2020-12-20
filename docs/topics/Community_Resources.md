@@ -45,6 +45,7 @@ Many of these libraries are represented in the [unofficial, community-driven Dis
 
 - [discord-interactions-js](https://github.com/discord/discord-interactions-js)
 - [discord-interactions-python](https://github.com/discord/discord-interactions-python)
+- [discord-interactions-php](https://github.com/discord/discord-interactions-php)
 - [discord-slash-commands](https://github.com/MeguminSama/discord-slash-commands)
 
 ## Game SDK Tools
