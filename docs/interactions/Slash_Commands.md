@@ -313,7 +313,7 @@ const PUBLIC_KEY = 'APPLICATION_PUBLIC_KEY';
 
 const signature = req.get('X-Signature-Ed25519');
 const timestamp = req.get('X-Signature-Timestamp');
-const body = req.rawBody; // rawBody is expected to be a string, not raw bytes
+const body = JSON.stringify(req.body);
 
 const isVerified = nacl.sign.detached.verify(
   Buffer.from(timestamp + body),
