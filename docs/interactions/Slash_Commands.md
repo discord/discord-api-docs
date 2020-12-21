@@ -303,7 +303,7 @@ Every Interaction is sent with the following headers:
 - `X-Signature-Ed25519` as a signature
 - `X-Signature-Timestamp` as a timestamp
 
-Using your favorite security library, you **must validate the request each time to you receive an interaction**. If the signature fails validate, respond with a `401` error code. Here's a couple code examples:
+Using your favorite security library, you **must validate the request each time you receive an interaction**. If the signature fails validation, respond with a `401` error code. Here's a couple code examples:
 
 ```js
 const nacl = require('tweetnacl');
