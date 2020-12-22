@@ -124,6 +124,7 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 | BANNER                           | guild has access to set a guild banner image                                                           |
 | WELCOME_SCREEN_ENABLED           | guild has enabled the welcome screen                                                                   |
 | MEMBER_VERIFICATION_GATE_ENABLED | guild has enabled Membership Screening                                                                 |
+| PREVIEW_ENABLED                  | guild can be viewed before Membership Screening is completed                                           |
 
 ###### Example Guild
 
