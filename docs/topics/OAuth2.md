@@ -9,7 +9,7 @@ The first step in implementing OAuth2 is [registering a developer application](#
 ###### OAuth2 URLs
 
 | URL                                         | Description                                                 |
-| ------------------------------------------- | ----------------------------------------------------------- |
+|---------------------------------------------|-------------------------------------------------------------|
 | https://discord.com/api/oauth2/authorize    | Base authorization URL                                      |
 | https://discord.com/api/oauth2/token        | Token URL                                                   |
 | https://discord.com/api/oauth2/token/revoke | [Token Revocation](https://tools.ietf.org/html/rfc7009) URL |
@@ -21,27 +21,28 @@ The first step in implementing OAuth2 is [registering a developer application](#
 
 These are a list of all the OAuth2 scopes that Discord supports. Scopes that are behind a whitelist cannot be requested unless your application is on said whitelist, and may cause undocumented/error behavior in the OAuth2 flow if you request them from a user.
 
-| Name                       | Description                                                                                                                                           |
-| -------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
-| bot                        | for oauth2 bots, this puts the bot in the user's selected guild by default                                                                            |
-| connections                | allows [/users/@me/connections](#DOCS_RESOURCES_USER/get-user-connections) to return linked third-party accounts                                      |
-| email                      | enables [/users/@me](#DOCS_RESOURCES_USER/get-current-user) to return an `email`                                                                      |
-| identify                   | allows [/users/@me](#DOCS_RESOURCES_USER/get-current-user) without `email`                                                                            |
-| guilds                     | allows [/users/@me/guilds](#DOCS_RESOURCES_USER/get-current-user-guilds) to return basic information about all of a user's guilds                     |
-| guilds.join                | allows [/guilds/{guild.id}/members/{user.id}](#DOCS_RESOURCES_GUILD/add-guild-member) to be used for joining users to a guild                         |
-| gdm.join                   | allows your app to [join users to a group dm](#DOCS_RESOURCES_CHANNEL/group-dm-add-recipient)                                                         |
-| messages.read              | for local rpc server api access, this allows you to read messages from all client channels (otherwise restricted to channels/guilds your app creates) |
-| rpc                        | for local rpc server access, this allows you to control a user's local Discord client - whitelist only                                                |
-| rpc.api                    | for local rpc server api access, this allows you to access the API as the local user - whitelist only                                                 |
-| rpc.notifications.read     | for local rpc server api access, this allows you to receive notifications pushed out to the user - whitelist only                                     |
-| webhook.incoming           | this generates a webhook that is returned in the oauth token response for authorization code grants                                                   |
-| applications.builds.upload | allows your app to upload/update builds for a user's applications - whitelist only                                                                    |
-| applications.builds.read   | allows your app to read build data for a user's applications                                                                                          |
-| applications.store.update  | allows your app to read and update store data (SKUs, store listings, achievements, etc.) for a user's applications                                    |
-| applications.entitlements  | allows your app to read entitlements for a user's applications                                                                                        |
-| relationships.read         | allows your app to know a user's friends and implicit relationships - whitelist only                                                                  |
-| activities.read            | allows your app to fetch data from a user's "Now Playing/Recently Played" list - whitelist only                                                       |
-| activities.write           | allows your app to update a user's activity - whitelist only (NOT REQUIRED FOR [GAMESDK ACTIVITY MANAGER](#DOCS_GAME_SDK_ACTIVITIES/))                 |
+| Name                         | Description                                                                                                                                           |
+|------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------|
+| bot                          | for oauth2 bots, this puts the bot in the user's selected guild by default                                                                            |
+| connections                  | allows [/users/@me/connections](#DOCS_RESOURCES_USER/get-user-connections) to return linked third-party accounts                                      |
+| email                        | enables [/users/@me](#DOCS_RESOURCES_USER/get-current-user) to return an `email`                                                                      |
+| identify                     | allows [/users/@me](#DOCS_RESOURCES_USER/get-current-user) without `email`                                                                            |
+| guilds                       | allows [/users/@me/guilds](#DOCS_RESOURCES_USER/get-current-user-guilds) to return basic information about all of a user's guilds                     |
+| guilds.join                  | allows [/guilds/{guild.id}/members/{user.id}](#DOCS_RESOURCES_GUILD/add-guild-member) to be used for joining users to a guild                         |
+| gdm.join                     | allows your app to [join users to a group dm](#DOCS_RESOURCES_CHANNEL/group-dm-add-recipient)                                                         |
+| messages.read                | for local rpc server api access, this allows you to read messages from all client channels (otherwise restricted to channels/guilds your app creates) |
+| rpc                          | for local rpc server access, this allows you to control a user's local Discord client - whitelist only                                                |
+| rpc.api                      | for local rpc server api access, this allows you to access the API as the local user - whitelist only                                                 |
+| rpc.notifications.read       | for local rpc server api access, this allows you to receive notifications pushed out to the user - whitelist only                                     |
+| webhook.incoming             | this generates a webhook that is returned in the oauth token response for authorization code grants                                                   |
+| applications.builds.upload   | allows your app to upload/update builds for a user's applications - whitelist only                                                                    |
+| applications.builds.read     | allows your app to read build data for a user's applications                                                                                          |
+| applications.store.update    | allows your app to read and update store data (SKUs, store listings, achievements, etc.) for a user's applications                                    |
+| applications.entitlements    | allows your app to read entitlements for a user's applications                                                                                        |
+| relationships.read           | allows your app to know a user's friends and implicit relationships - whitelist only                                                                  |
+| activities.read              | allows your app to fetch data from a user's "Now Playing/Recently Played" list - whitelist only                                                       |
+| activities.write             | allows your app to update a user's activity - whitelist only (NOT REQUIRED FOR [GAMESDK ACTIVITY MANAGER](#DOCS_GAME_SDK_ACTIVITIES/))                |
+| applications.commands.update | allows your app to update [Slash Commands](#DOCS_INTERACTIONS_SLASH_COMMANDS/) via this bearer token                                                  |
 
 > info
 > `guilds.join` and `bot` require you to have a bot account linked to your application. Also, in order to add a user to a guild, your bot has to already belong to that guild.
@@ -243,7 +244,7 @@ Bot authorization is a special server-less and callback-less OAuth2 flow that ma
 ###### Bot Auth Parameters
 
 | name                 | description                                                           |
-| -------------------- | --------------------------------------------------------------------- |
+|----------------------|-----------------------------------------------------------------------|
 | client_id            | your app's client id                                                  |
 | scope                | needs to include `bot` for the bot flow                               |
 | permissions          | the [permissions](#DOCS_TOPICS_PERMISSIONS/) you're requesting        |
@@ -365,12 +366,12 @@ Any user that wishes to add your webhook to their channel will need to go throug
 
 ## Get Current Application Information % GET /oauth2/applications/@me
 
-Returns the bot's OAuth2 application info.
+Returns the bot's OAuth2 [application object](#DOCS_TOPICS_OAUTH2/application-object) without `flags`.
 
-###### Response Structure
+###  Application Object
 
 | Field                  | Type                                                       | Description                                                                                                               |
-| ---------------------- | ---------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
+|------------------------|------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------|
 | id                     | snowflake                                                  | the id of the app                                                                                                         |
 | name                   | string                                                     | the name of the app                                                                                                       |
 | icon                   | ?string                                                    | the icon hash of the app                                                                                                  |
@@ -386,6 +387,7 @@ Returns the bot's OAuth2 application info.
 | primary_sku_id?        | snowflake                                                  | if this application is a game sold on Discord, this field will be the id of the "Game SKU" that is created, if exists     |
 | slug?                  | string                                                     | if this application is a game sold on Discord, this field will be the URL slug that links to the store page               |
 | cover_image?           | string                                                     | if this application is a game sold on Discord, this field will be the hash of the image on store embeds                   |
+| flags                  | int                                                        | the application's public flags                                                                                            |
 
 ###### Example Application Information
 

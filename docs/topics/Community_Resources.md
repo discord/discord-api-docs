@@ -37,7 +37,17 @@ Many of these libraries are represented in the [unofficial, community-driven Dis
 | [Serenity](https://github.com/serenity-rs/serenity)          | Rust       |
 | [AckCord](https://github.com/Katrix/AckCord)                 | Scala      |
 | [Sword](https://github.com/Azoy/Sword)                       | Swift      |
-| [Discordeno](https://github.com/Skillz4Killz/Discordeno)     | TypeScript |
+| [discordeno](https://github.com/discordeno/discordeno)       | TypeScript |
+
+## Interactions
+
+[Interactions and Slash Commands](#DOCS_INTERACTIONS_SLASH_COMMANDS/) are the great, new way of making a Discord bot. The following open-source libraries provide help for the security and authentication checks that are mandatory if you are receiving Interactions via outgoing webhook. They also include some types for the Interactions data models.
+
+- [discord-interactions-js](https://github.com/discord/discord-interactions-js)
+- [discord-interactions-python](https://github.com/discord/discord-interactions-python)
+- [discord-interactions-php](https://github.com/discord/discord-interactions-php)
+- [discord-slash-commands](https://github.com/MeguminSama/discord-slash-commands)
+- [slash-create](https://github.com/Snazzah/slash-create)
 
 ## Game SDK Tools
 
