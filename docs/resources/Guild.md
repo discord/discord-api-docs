@@ -377,7 +377,7 @@ Giving the member a join will bypass Membership Screening as well as the guild's
 |------------|--------------------------------------------------------------------------------------------------|--------------------------------------------------------|
 | field_type | [field type](#DOCS_RESOURCES_GUILD/membership-screening-object-membership-screening-field-types) | the type of field (currently "TERMS" is the only type) |
 | label      | string                                                                                           | the title of the field                                 |
-| values     | array of strings                                                                                 | the values of this field (such as the list of rules)   |
+| values?    | array of strings                                                                                 | the list of rules                                      |
 | required   | boolean                                                                                          | whether the user has to fill out this field            |
 
 ###### Membership Screening Field Types
