@@ -236,7 +236,7 @@ Now that you've gotten the data from the user, it's time to respond to them.
 
 Interactions--both receiving and responding--are webhooks under the hood. So responding to an Interaction is just like sending a webhook request!
 
-When responding to an interaction received **via webhook**, your server can simply respond to the received `POST` request. You'll want to respond with a `200` status code (if everything went well), as well as specifying a `type` and `data`, which is an [Interaction Response](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-response) object:
+To respond to an interaction received **via webhook**, your server can simply respond to the received `POST` request. You'll want to respond with a `200` status code (if everything went well), as well as specifying a `type` and `data`, which is an [Interaction Response](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-response) object:
 
 ```py
 @app.route('/', methods=['POST'])
@@ -275,7 +275,7 @@ r = requests.post(url, json=json)
 ```
 
 > info
-> Interaction `tokens` are valid for **15 minutes** and can be used to send followup messages but, if you don't respond in **3 seconds of the event being dispatched, it will be invalidated immediately**.
+> Interaction `tokens` are valid for **15 minutes** and can be used to send followup messages but you **must send an initial response within 3 seconds of receiving the event**.  If the 3 second deadline is exceeded, the token will be invalidated.
 
 ## Followup Messages
 
