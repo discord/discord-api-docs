@@ -96,7 +96,7 @@ json = {
                 },
                 {
                     "name": "Cat",
-                    "value": "animal_dog"
+                    "value": "animal_cat"
                 },
                 {
                     "name": "Penguin",
@@ -236,7 +236,7 @@ Now that you've gotten the data from the user, it's time to respond to them.
 
 Interactions--both receiving and responding--are webhooks under the hood. So responding to an Interaction is just like sending a webhook request!
 
-To respond to an interaction received **via webhook**, your server can simply respond to the received `POST` request. You'll want to respond with a `200` status code (if everything went well), as well as specifying a `type` and `data`, which is an [Interaction Response](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-response) object:
+When responding to an interaction received **via webhook**, your server can simply respond to the received `POST` request. You'll want to respond with a `200` status code (if everything went well), as well as specifying a `type` and `data`, which is an [Interaction Response](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-interaction-response) object:
 
 ```py
 @app.route('/', methods=['POST'])
@@ -303,7 +303,7 @@ Every Interaction is sent with the following headers:
 - `X-Signature-Ed25519` as a signature
 - `X-Signature-Timestamp` as a timestamp
 
-Using your favorite security library, you **must validate the request each time to you receive an interaction**. If the signature fails validate, respond with a `401` error code. Here's a couple code examples:
+Using your favorite security library, you **must validate the request each time you receive an interaction**. If the signature fails validation, respond with a `401` error code. Here's a couple code examples:
 
 ```js
 const nacl = require('tweetnacl');
@@ -371,6 +371,14 @@ A quick note on nested subcommands and groups. We support nesting one level deep
 
 ```
 VALID
+
+command
+|
+|__ subcommand
+|
+|__ subcommand
+
+----
 
 command
 |
@@ -623,7 +631,7 @@ Fetch all of the global commands for your application. Returns an array of [Appl
 > danger
 > Creating a command with the same name as an existing command for your application will overwrite the old command.
 
-Create a new global command. New global commands will be available in all guilds after 1 hour. Returns `200` and an [ApplicationCommand](#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommand) object.
+Create a new global command. New global commands will be available in all guilds after 1 hour. Returns `201` and an [ApplicationCommand](#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommand) object.
 
 ###### JSON Params
 
@@ -659,7 +667,7 @@ Fetch all of the guild commands for your application for a specific guild. Retur
 > danger
 > Creating a command with the same name as an existing command for your application will overwrite the old command.
 
-Create a new guild command. New guild commands will be available in the guild immediately. Returns `200` and an [ApplicationCommand](#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommand) object.
+Create a new guild command. New guild commands will be available in the guild immediately. Returns `201` and an [ApplicationCommand](#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommand) object.
 
 ###### JSON Params
 
@@ -808,7 +816,7 @@ All options have names, and an option can either be a parameter and input value-
 | value?   | OptionType                                       | the value of the pair                           |
 | options? | array of ApplicationCommandInteractionDataOption | present if this option is a group or subcommand |
 
-###### Interaction Response
+## Interaction Response
 
 After receiving an interaction, you must respond to acknowledge it. This may be a `pong` for a `ping`, a message, or simply an acknowledgement that you have received it and will handle the command async.
 
