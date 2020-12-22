@@ -83,3 +83,9 @@ Using Discord's [Dispatch](#DOCS_DISPATCH_DISPATCH_AND_YOU) tool for game develo
 Webhooks and embeds might seem like black magic. That's because they are, but let us help you demystify them a bit. This sweet embed visualizer lets you play around with JSON data and see exactly how it will look embedded in Discord. It even includes a webhook mode!
 
 - [LeoV's Embed Visualizer](https://leovoel.github.io/embed-visualizer/)
+
+## API Typings
+
+If you're working on a project that interacts with our API, you might find these modules useful, as they provide typings of our API that you can use to enhance your coding experience:
+
+- [vladfrangu's Discord API Typings](https://github.com/discordjs/discord-api-types)
