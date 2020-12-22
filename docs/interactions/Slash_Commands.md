@@ -835,7 +835,7 @@ Interaction responses may choose to "eat" the user's command input if you do not
 | Acknowledge              | 2     | ACK a command without sending a message, eating the user's input  |
 | ChannelMessage           | 3     | respond with a message, eating the user's input                   |
 | ChannelMessageWithSource | 4     | respond with a message, showing the user's input                  |
-| ACKWithSource            | 5     | ACK a command without sending a message, showing the user's input |
+| AcknowledgeWithSource    | 5     | ACK a command without sending a message, showing the user's input |
 
 ###### InteractionApplicationCommandCallbackData
 
