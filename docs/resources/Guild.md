@@ -361,7 +361,7 @@ A partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object. Represents an Offl
 
 In guilds with [Membership Screening](https://support.discord.com/hc/en-us/articles/1500000466882) enabled, when a member joins, [Guild Member Add](#DOCS_TOPICS_GATEWAY/guild-member-add) will be emitted but they will initially be restricted from doing any actions in the guild, and `pending` will be true in the [member object](#DOCS_RESOURCES_GUILD/guild-member-object). When the member completes the screening, [Guild Member Update](#DOCS_TOPICS_GATEWAY/guild-member-update) will be emitted and `pending` will be false.
 
-Giving the member a join will bypass Membership Screening as well as the guild's verification level, giving the member immediate access to chat. Therefore, instead of giving a role when the member joins, it is recommended to not give the role until the user is no longer `pending`.
+Giving the member a role will bypass Membership Screening as well as the guild's verification level, giving the member immediate access to chat. Therefore, instead of giving a role when the member joins, it is recommended to not give the role until the user is no longer `pending`.
 
 ###### Membership Screening Structure
 
@@ -905,11 +905,11 @@ Returns a PNG image widget for the guild. Requires no permissions or authenticat
 | banner3 | large image with guild icon, name and online count. In the footer, Discord logo on the left and "Chat Now" on the right                                        | [Example](https://discord.com/api/guilds/81384788765712384/widget.png?style=banner3) |
 | banner4 | large Discord logo at the top of the widget. Guild icon, name and online count in the middle portion of the widget and a "JOIN MY SERVER" button at the bottom | [Example](https://discord.com/api/guilds/81384788765712384/widget.png?style=banner4) |
 
-## Get Guild Membership Screening Form % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/member-verfication
+## Get Guild Membership Screening Form % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/member-verification
 
 Returns the [Membership Screening](#DOCS_RESOURCES_GUILD/membership-screening-object) object for the guild.
 
-## Modify Guild Membership Screening Form % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/member-verfication
+## Modify Guild Membership Screening Form % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/member-verification
 
 Modify the guild's [Membership Screening](#DOCS_RESOURCES_GUILD/membership-screening-object) form. Requires the `MANAGE_GUILD` permission. Returns the updated [Membership Screening](#DOCS_RESOURCES_GUILD/membership-screening-object) object.
 
