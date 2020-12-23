@@ -783,11 +783,19 @@ An interaction is the base "thing" that is sent when a user invokes a command, a
 | data?\*    | ApplicationCommandInteractionData | the command data payload                                |
 | guild_id   | snowflake                         | the guild it was sent from                              |
 | channel_id | snowflake                         | the channel it was sent from                            |
-| member     | GuildMember                       | guild member data for the invoking user                 |
-| token      | string                            | a continuation token for responding to the interaction |
+| member\*\* | GuildMember                       | guild member data for the invoking user                 |
+| token      | string                            | a continuation token for responding to the interaction  |
 | version    | int                               | read-only property, always `1`                          |
 
 \* This is always present on `ApplicationCommand` interaction types. It is optional for future-proofing against new interaction types
+
+\*\* The member object has an additional `permissions` field:
+
+###### Interaction Guild Member Extra Fields
+
+| Field       | Type   | Description                                                         |
+|-------------|--------|---------------------------------------------------------------------|
+| permissions | string | total permissions of the member in the channel, including overrides |
 
 ###### InteractionType
 
