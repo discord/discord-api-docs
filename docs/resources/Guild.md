@@ -919,5 +919,5 @@ Modify the guild's [Membership Screening](#DOCS_RESOURCES_GUILD/membership-scree
 | Field       | Type    | Description                                                                                                                                      |
 |-------------|---------|--------------------------------------------------------------------------------------------------------------------------------------------------|
 | enabled     | boolean | whether Membership Screening is enabled                                                                                                          |
-| form_fields | string  | array of array of [field](#DOCS_RESOURCES_GUILD/membership-screening-object-membership-screening-field-structure) objects serialized in a string |
+| form_fields | string  | array of [field](#DOCS_RESOURCES_GUILD/membership-screening-object-membership-screening-field-structure) objects serialized in a string |
 | description | string  | the server description to show in the screening form                                                                                             |
