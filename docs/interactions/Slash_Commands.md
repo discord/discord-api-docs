@@ -731,7 +731,7 @@ An application command is the base "command" model that belongs to an applicatio
 |----------------|---------------------------------------------------------------------------------------------------|-------------------------------------|
 | id             | snowflake                                                                                         | unique id of the command            |
 | application_id | snowflake                                                                                         | unique id of the parent application |
-| name           | string                                                                                            | 3-32 character name matching `^(?:\w|[-_])+$`                 |
+| name           | string                                                                                            | 3-32 character name matching `^[\w-]{3,32}$`                 |
 | description    | string                                                                                            | 1-100 character description         |
 | options?       | array of [ApplicationCommandOption](#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommandoption) | the parameters for the command      |
 
@@ -743,7 +743,7 @@ An application command is the base "command" model that belongs to an applicatio
 | Field       | Type                                                                                                           | Description                                                                                                |
 |-------------|----------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------|
 | type        | int                                                                                                            | value of [ApplicationCommandOptionType](#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommandoptiontype) |
-| name        | string                                                                                                         | 1-32 character name matching `^(?:\w|[-_])+$`                                                                                        |
+| name        | string                                                                                                         | 1-32 character name matching `^[\w-]{1,32}$`                                                                                        |
 | description | string                                                                                                         | 1-100 character description                                                                                |
 | default?    | bool                                                                                                           | the first `required` option for the user to complete--only one option can be `default`                     |
 | required?   | bool                                                                                                           | if the parameter is required or optional--default `false`                                                  |
