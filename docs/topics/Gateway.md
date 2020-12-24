@@ -1120,10 +1120,10 @@ Active sessions are indicated with an "online", "idle", or "dnd" string per plat
 
 When received over the gateway, the `buttons` field is an array of strings, which are the button labels. Bots cannot access a user's activity button URLs. When sending, the `buttons` field must be an array of the below object:
 
-| Field | Type   | Description                             |
-|-------|--------|-----------------------------------------|
-| label | string | the text shown on the buttons           |
-| url   | string | the url opened when clicking the button |
+| Field | Type   | Description                                                |
+|-------|--------|------------------------------------------------------------|
+| label | string | the text shown on the button (1-32 characters)             |
+| url   | string | the url opened when clicking the button (1-512 characters) |
 
 ###### Example Activity
 
