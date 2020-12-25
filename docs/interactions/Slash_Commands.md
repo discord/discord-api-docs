@@ -275,7 +275,7 @@ r = requests.post(url, json=json)
 ```
 
 > info
-> Interaction `tokens` are valid for **15 minutes** and can be used to send followup messages.
+> Interaction `tokens` are valid for **15 minutes** and can be used to send followup messages but you **must send an initial response within 3 seconds of receiving the event**.  If the 3 second deadline is exceeded, the token will be invalidated.
 
 ## Followup Messages
 
@@ -731,7 +731,7 @@ An application command is the base "command" model that belongs to an applicatio
 |----------------|---------------------------------------------------------------------------------------------------|-------------------------------------|
 | id             | snowflake                                                                                         | unique id of the command            |
 | application_id | snowflake                                                                                         | unique id of the parent application |
-| name           | string                                                                                            | 3-32 character name                 |
+| name           | string                                                                                            | 3-32 character name matching `^[\w-]{3,32}$`                 |
 | description    | string                                                                                            | 1-100 character description         |
 | options?       | array of [ApplicationCommandOption](#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommandoption) | the parameters for the command      |
 
@@ -743,7 +743,7 @@ An application command is the base "command" model that belongs to an applicatio
 | Field       | Type                                                                                                           | Description                                                                                                |
 |-------------|----------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------|
 | type        | int                                                                                                            | value of [ApplicationCommandOptionType](#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommandoptiontype) |
-| name        | string                                                                                                         | 1-32 character name                                                                                        |
+| name        | string                                                                                                         | 1-32 character name matching `^[\w-]{1,32}$`                                                                                        |
 | description | string                                                                                                         | 1-100 character description                                                                                |
 | default?    | bool                                                                                                           | the first `required` option for the user to complete--only one option can be `default`                     |
 | required?   | bool                                                                                                           | if the parameter is required or optional--default `false`                                                  |
@@ -835,7 +835,7 @@ Interaction responses may choose to "eat" the user's command input if you do not
 | Acknowledge              | 2     | ACK a command without sending a message, eating the user's input  |
 | ChannelMessage           | 3     | respond with a message, eating the user's input                   |
 | ChannelMessageWithSource | 4     | respond with a message, showing the user's input                  |
-| ACKWithSource            | 5     | ACK a command without sending a message, showing the user's input |
+| AcknowledgeWithSource    | 5     | ACK a command without sending a message, showing the user's input |
 
 ###### InteractionApplicationCommandCallbackData
 
