@@ -52,6 +52,7 @@ Many of these libraries are represented in the [unofficial, community-driven Dis
 - [discord-interactions-php](https://github.com/discord/discord-interactions-php)
 - [discord-slash-commands](https://github.com/MeguminSama/discord-slash-commands)
 - [slash-create](https://github.com/Snazzah/slash-create)
+- [caddy-discord-interactions-verifier](https://github.com/CarsonHoffman/caddy-discord-interactions-verifier)
 
 ## Game SDK Tools
 
