@@ -298,7 +298,7 @@ A partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object. Represents an Offl
 | synced_at? \*           | ISO8601 timestamp                                                                                    | when this integration was last synced                                                     |
 | subscriber_count? \*    | integer                                                                                              | how many subscribers this integration has                                                 |
 | revoked? \*             | boolean                                                                                              | has this integration been revoked                                                         |
-| application?            | [application](#DOCS_RESOURCES_GUILD/integration-account-object) object                               | The bot/OAuth2 application for discord integrations                                       |
+| application?            | [application](#DOCS_RESOURCES_GUILD/integration-application-object) object                           | The bot/OAuth2 application for discord integrations                                       |
 
 ** \* These fields are not provided for discord bot integrations. **
 
