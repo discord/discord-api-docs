@@ -260,7 +260,7 @@ A partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object. Represents an Offl
 | premium_since? | ?ISO8601 timestamp                              | when the user started [boosting](https://support.discord.com/hc/en-us/articles/360028038352-Server-Boosting-) the guild |
 | deaf           | boolean                                         | whether the user is deafened in voice channels                                                                             |
 | mute           | boolean                                         | whether the user is muted in voice channels                                                                               |
-| pending?       | ?boolean                                        | whether the user has passed the guild's Membership Screening requirements                                                 |
+| pending?       | boolean                                         | whether the user has not yet passed the guild's Membership Screening requirements                                         |
 
 > info
 > The field `user` won't be included in the member object attached to `MESSAGE_CREATE` and `MESSAGE_UPDATE` gateway events.
@@ -298,7 +298,7 @@ A partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object. Represents an Offl
 | synced_at? \*           | ISO8601 timestamp                                                                                    | when this integration was last synced                                                     |
 | subscriber_count? \*    | integer                                                                                              | how many subscribers this integration has                                                 |
 | revoked? \*             | boolean                                                                                              | has this integration been revoked                                                         |
-| application?            | [application](#DOCS_RESOURCES_GUILD/integration-account-object) object                               | The bot/OAuth2 application for discord integrations                                       |
+| application?            | [application](#DOCS_RESOURCES_GUILD/integration-application-object) object                           | The bot/OAuth2 application for discord integrations                                       |
 
 ** \* These fields are not provided for discord bot integrations. **
 
