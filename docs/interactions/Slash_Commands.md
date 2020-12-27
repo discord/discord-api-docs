@@ -177,7 +177,7 @@ In your application in the Developer Portal, there is a field on the main page c
 
 If either of these are not complete, we will not validate your URL and it will fail to save.
 
-When you attempt to save a URL, we will send a `POST` request to that URL with a `PING` payload. The `PING` payload has a `type: 1`. So, to properly ACK the payload, return a `200` reponse with a payload of `type: 1`:
+When you attempt to save a URL, we will send a `POST` request to that URL with a `PING` payload. The `PING` payload has a `type: 1`. So, to properly ACK the payload, return a `200` response with a payload of `type: 1`:
 
 ```py
 @app.route('/', methods=['POST'])
@@ -279,7 +279,7 @@ r = requests.post(url, json=json)
 
 ## Followup Messages
 
-Sometimes, your bot will want to send followup messages to a user after responding to an interaction. Or, you may want to edit your original response. Whether you receive Interations over the gateway or by outgoing webhook, you can use the following endpoints to edit your initial response or send followup messages:
+Sometimes, your bot will want to send followup messages to a user after responding to an interaction. Or, you may want to edit your original response. Whether you receive Interactions over the gateway or by outgoing webhook, you can use the following endpoints to edit your initial response or send followup messages:
 
 - `PATCH /webhooks/<application_id>/<interaction_token>/messages/@original` to edit your initial response to an Interaction
 - `DELETE /webhooks/<application_id>/<interaction_token>/messages/@original` to delete your initial response to an Interaction
@@ -808,7 +808,7 @@ An interaction is the base "thing" that is sent when a user invokes a command, a
 
 All options have names, and an option can either be a parameter and input value--in which case `value` will be set--or it can denote a subcommand or group--in which case it will contain a top-level key and another array of `options`. 
 
-`value` and `options` are mututally exclusive.
+`value` and `options` are mutually exclusive.
 
 | Field    | Type                                             | Description                                     |
 |----------|--------------------------------------------------|-------------------------------------------------|
