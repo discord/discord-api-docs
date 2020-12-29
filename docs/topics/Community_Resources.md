@@ -53,6 +53,7 @@ Many of these libraries are represented in the [unofficial, community-driven Dis
 - [discord-slash-commands](https://github.com/MeguminSama/discord-slash-commands)
 - [slash-create](https://github.com/Snazzah/slash-create)
 - [caddy-discord-interactions-verifier](https://github.com/CarsonHoffman/caddy-discord-interactions-verifier)
+- [dispike](https://github.com/ms7m/dispike)
 
 ## Game SDK Tools
 
