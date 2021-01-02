@@ -33,7 +33,7 @@ Many of these libraries are represented in the [unofficial, community-driven Dis
 | [Dimscord](https://github.com/krisppurg/dimscord)            | Nim        |
 | [discordnim](https://github.com/Krognol/discordnim)          | Nim        |
 | [RestCord](https://www.restcord.com/)                        | PHP        |
-| [DiscordPHP](https://github.com/teamreflex/DiscordPHP)       | PHP        |
+| [DiscordPHP](https://github.com/discord-php/DiscordPHP)      | PHP        |
 | [discord.py](https://github.com/Rapptz/discord.py)           | Python     |
 | [disco](https://github.com/b1naryth1ef/disco)                | Python     |
 | [discordrb](https://github.com/shardlab/discordrb)           | Ruby       |
@@ -54,7 +54,7 @@ Many of these libraries are represented in the [unofficial, community-driven Dis
 - [discord-slash-commands](https://github.com/MeguminSama/discord-slash-commands)
 - [slash-create](https://github.com/Snazzah/slash-create)
 - [caddy-discord-interactions-verifier](https://github.com/CarsonHoffman/caddy-discord-interactions-verifier)
-- [DiscordPHP-Slash](https://github.com/davidcole1340/DiscordPHP-Slash)
+- [DiscordPHP-Slash](https://github.com/discord-php/DiscordPHP-Slash)
 
 ## Game SDK Tools
 
