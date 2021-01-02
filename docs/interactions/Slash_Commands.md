@@ -620,7 +620,7 @@ And, done! The JSON looks a bit complicated, but what we've ended up with is a s
 ## Endpoints
 
 > info
-> For authoriation, all endpoints take either a bot token or client credentials token for your application
+> For authorization, all endpoints take either a bot token or client credentials token for your application
 
 ## Get Global Application Commands % GET /applications/{application.id#DOCS_TOPICS_OAUTH2/application-object}/commands
 
@@ -808,7 +808,7 @@ An interaction is the base "thing" that is sent when a user invokes a command, a
 
 All options have names, and an option can either be a parameter and input value--in which case `value` will be set--or it can denote a subcommand or group--in which case it will contain a top-level key and another array of `options`. 
 
-`value` and `options` are mututally exclusive.
+`value` and `options` are mutually exclusive.
 
 | Field    | Type                                             | Description                                     |
 |----------|--------------------------------------------------|-------------------------------------------------|
