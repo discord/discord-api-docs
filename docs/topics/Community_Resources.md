@@ -32,8 +32,8 @@ Many of these libraries are represented in the [unofficial, community-driven Dis
 | [Discordia](https://github.com/SinisterRectus/Discordia)     | Lua        |
 | [Dimscord](https://github.com/krisppurg/dimscord)            | Nim        |
 | [discordnim](https://github.com/Krognol/discordnim)          | Nim        |
-| [RestCord](https://www.restcord.com/)                        | PHP        |
 | [DiscordPHP](https://github.com/discord-php/DiscordPHP)      | PHP        |
+| [RestCord](https://www.restcord.com/)                        | PHP        |
 | [discord.py](https://github.com/Rapptz/discord.py)           | Python     |
 | [disco](https://github.com/b1naryth1ef/disco)                | Python     |
 | [discordrb](https://github.com/shardlab/discordrb)           | Ruby       |
