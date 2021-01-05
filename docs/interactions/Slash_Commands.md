@@ -162,7 +162,7 @@ Full documentation of endpoints can be found in [Endpoints](#DOCS_INTERACTIONS_S
 
 When a user uses a Slash Command, your app will receive an **Interaction**. Your app can receive an interaction in one of two ways:
 
-- Via gateway event, `INTERACTION_CREATE` <docs>
+- Via [Interaction Create](#DOCS_TOPICS_GATEWAY/interaction-create) gateway event
 - Via outgoing webhook
 
 These two methods are **mutually exclusive**; you can _only_ receive Interactions one of the two ways. The `INTERACTION_CREATE` gateway event will be handled by the library you are using, so we'll just cover outgoing webhooks.
@@ -745,8 +745,8 @@ An application command is the base "command" model that belongs to an applicatio
 | type        | int                                                                                                            | value of [ApplicationCommandOptionType](#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommandoptiontype) |
 | name        | string                                                                                                         | 1-32 character name matching `^[\w-]{1,32}$`                                                                                        |
 | description | string                                                                                                         | 1-100 character description                                                                                |
-| default?    | bool                                                                                                           | the first `required` option for the user to complete--only one option can be `default`                     |
-| required?   | bool                                                                                                           | if the parameter is required or optional--default `false`                                                  |
+| default?    | boolean                                                                                                        | the first `required` option for the user to complete--only one option can be `default`                     |
+| required?   | boolean                                                                                                        | if the parameter is required or optional--default `false`                                                  |
 | choices?    | array of [ApplicationCommandOptionChoice](#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommandoptionchoice) | choices for `string` and `int` types for the user to pick from                                             |
 | options?    | array of [ApplicationCommandOption](#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommandoption)              | if the option is a subcommand or subcommand group type, this nested options will be the parameters         |
 
@@ -843,7 +843,7 @@ Not all message fields are currently supported.
 
 | Name              | Value            | Description                                                                                 |
 |-------------------|------------------|---------------------------------------------------------------------------------------------|
-| tts?              | bool             | is the response TTS                                                                         |
+| tts?              | boolean          | is the response TTS                                                                         |
 | content           | string           | message content                                                                             |
 | embeds?           | array of embeds  | supports up to 10 embeds                                                                    |
 | allowed_mentions? | allowed mentions | [allowed mentions](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object) object                  |
