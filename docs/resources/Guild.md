@@ -51,8 +51,8 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 | preferred_locale              | string                                                                              | the preferred locale of a Community guild; used in server discovery and notices from Discord; defaults to "en-US"                        |
 | public_updates_channel_id     | ?snowflake                                                                          | the id of the channel where admins and moderators of Community guilds receive notices from Discord                                       |
 | max_video_channel_users?      | integer                                                                             | the maximum amount of users in a video channel                                                                                           |
-| approximate_member_count?     | integer                                                                             | approximate number of members in this guild, returned from the `GET /guild/<id>` endpoint when `with_counts` is `true`                   |
-| approximate_presence_count?   | integer                                                                             | approximate number of non-offline members in this guild, returned from the `GET /guild/<id>` endpoint when `with_counts` is `true`       |
+| approximate_member_count?     | integer                                                                             | approximate number of members in this guild, returned from the `GET /guilds/<id>` endpoint when `with_counts` is `true`                   |
+| approximate_presence_count?   | integer                                                                             | approximate number of non-offline members in this guild, returned from the `GET /guilds/<id>` endpoint when `with_counts` is `true`       |
 
 ** \* These fields are only sent within the [GUILD_CREATE](#DOCS_TOPICS_GATEWAY/guild-create) event **
 
@@ -259,7 +259,8 @@ A partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object. Represents an Offl
 | joined_at      | ISO8601 timestamp                               | when the user joined the guild                                                                                             |
 | premium_since? | ?ISO8601 timestamp                              | when the user started [boosting](https://support.discord.com/hc/en-us/articles/360028038352-Server-Boosting-) the guild |
 | deaf           | boolean                                         | whether the user is deafened in voice channels                                                                             |
-| mute           | boolean                                         | whether the user is muted in voice channels                                                                                |
+| mute           | boolean                                         | whether the user is muted in voice channels                                                                               |
+| pending?       | boolean                                         | whether the user has not yet passed the guild's Membership Screening requirements                                         |
 
 > info
 > The field `user` won't be included in the member object attached to `MESSAGE_CREATE` and `MESSAGE_UPDATE` gateway events.
@@ -297,7 +298,7 @@ A partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object. Represents an Offl
 | synced_at? \*           | ISO8601 timestamp                                                                                    | when this integration was last synced                                                     |
 | subscriber_count? \*    | integer                                                                                              | how many subscribers this integration has                                                 |
 | revoked? \*             | boolean                                                                                              | has this integration been revoked                                                         |
-| application?            | [application](#DOCS_RESOURCES_GUILD/integration-account-object) object                               | The bot/OAuth2 application for discord integrations                                       |
+| application?            | [application](#DOCS_RESOURCES_GUILD/integration-application-object) object                           | The bot/OAuth2 application for discord integrations                                       |
 
 ** \* These fields are not provided for discord bot integrations. **
 
