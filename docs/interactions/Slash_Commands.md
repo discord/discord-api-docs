@@ -643,6 +643,9 @@ Create a new global command. New global commands will be available in all guilds
 
 ## Edit Global Application Command % PATCH /applications/{application.id#DOCS_TOPICS_OAUTH2/application-object}/commands/{command.id#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommand}
 
+> info
+> All parameters for this endpoint are optional. `options` is nullable.
+
 Edit a global command. Updates will be available in all guilds after 1 hour. Returns `200` and an [ApplicationCommand](#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommand) object.
 
 ###### JSON Params
@@ -651,7 +654,7 @@ Edit a global command. Updates will be available in all guilds after 1 hour. Ret
 |-------------|---------------------------------------------------------------------------------------------------|--------------------------------|
 | name        | string                                                                                            | 3-32 character command name    |
 | description | string                                                                                            | 1-100 character description    |
-| options?    | array of [ApplicationCommandOption](#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommandoption) | the parameters for the command |
+| options     | array of [ApplicationCommandOption](#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommandoption)   | the parameters for the command |
 
 
 ## Delete Global Application Command % DELETE /applications/{application.id#DOCS_TOPICS_OAUTH2/application-object}/commands/{command.id#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommand}
@@ -679,7 +682,10 @@ Create a new guild command. New guild commands will be available in the guild im
 
 ## Edit Guild Application Command % PATCH /applications/{application.id#DOCS_TOPICS_OAUTH2/application-object}/guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/commands/{command.id#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommand}
 
-Edit a guild command. Updates for guild commands will be available immediately. Returns `200` and an [ApplicationCommand](#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommand) object.
+> info
+> All parameters for this endpoint are optional. `options` is nullable.
+
+Edit a guild command. Updates for guild commands will be available immediately. Returns `200` and an [ApplicationCommand](#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommand) object. 
 
 ###### JSON Params
 
@@ -687,7 +693,7 @@ Edit a guild command. Updates for guild commands will be available immediately. 
 |-------------|---------------------------------------------------------------------------------------------------|--------------------------------|
 | name        | string                                                                                            | 3-32 character command name    |
 | description | string                                                                                            | 1-100 character description    |
-| options?    | array of [ApplicationCommandOption](#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommandoption) | the parameters for the command |
+| options     | array of [ApplicationCommandOption](#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommandoption)   | the parameters for the command |
 
 
 ## Delete Guild Application Command % DELETE /applications/{application.id#DOCS_TOPICS_OAUTH2/application-object}/guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/commands/{command.id#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommand}
