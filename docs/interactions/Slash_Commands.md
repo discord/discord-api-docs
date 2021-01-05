@@ -162,7 +162,7 @@ Full documentation of endpoints can be found in [Endpoints](#DOCS_INTERACTIONS_S
 
 When a user uses a Slash Command, your app will receive an **Interaction**. Your app can receive an interaction in one of two ways:
 
-- Via gateway event, `INTERACTION_CREATE` <docs>
+- Via [Interaction Create](#DOCS_TOPICS_GATEWAY/interaction-create) gateway event
 - Via outgoing webhook
 
 These two methods are **mutually exclusive**; you can _only_ receive Interactions one of the two ways. The `INTERACTION_CREATE` gateway event will be handled by the library you are using, so we'll just cover outgoing webhooks.
@@ -177,7 +177,7 @@ In your application in the Developer Portal, there is a field on the main page c
 
 If either of these are not complete, we will not validate your URL and it will fail to save.
 
-When you attempt to save a URL, we will send a `POST` request to that URL with a `PING` payload. The `PING` payload has a `type: 1`. So, to properly ACK the payload, return a `200` reponse with a payload of `type: 1`:
+When you attempt to save a URL, we will send a `POST` request to that URL with a `PING` payload. The `PING` payload has a `type: 1`. So, to properly ACK the payload, return a `200` response with a payload of `type: 1`:
 
 ```py
 @app.route('/', methods=['POST'])
@@ -236,7 +236,7 @@ Now that you've gotten the data from the user, it's time to respond to them.
 
 Interactions--both receiving and responding--are webhooks under the hood. So responding to an Interaction is just like sending a webhook request!
 
-When responding to an interaction received **via webhook**, your server can simply respond to the received `POST` request. You'll want to respond with a `200` status code (if everything went well), as well as specifying a `type` and `data`, which is an [Interaction Response](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-interaction-response) object:
+When responding to an interaction received **via webhook**, your server can simply respond to the received `POST` request. You'll want to respond with a `200` status code (if everything went well), as well as specifying a `type` and `data`, which is an [Interaction Response](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-response) object:
 
 ```py
 @app.route('/', methods=['POST'])
@@ -279,7 +279,7 @@ r = requests.post(url, json=json)
 
 ## Followup Messages
 
-Sometimes, your bot will want to send followup messages to a user after responding to an interaction. Or, you may want to edit your original response. Whether you receive Interations over the gateway or by outgoing webhook, you can use the following endpoints to edit your initial response or send followup messages:
+Sometimes, your bot will want to send followup messages to a user after responding to an interaction. Or, you may want to edit your original response. Whether you receive Interactions over the gateway or by outgoing webhook, you can use the following endpoints to edit your initial response or send followup messages:
 
 - `PATCH /webhooks/<application_id>/<interaction_token>/messages/@original` to edit your initial response to an Interaction
 - `DELETE /webhooks/<application_id>/<interaction_token>/messages/@original` to delete your initial response to an Interaction
@@ -620,7 +620,7 @@ And, done! The JSON looks a bit complicated, but what we've ended up with is a s
 ## Endpoints
 
 > info
-> For authoriation, all endpoints take either a bot token or client credentials token for your application
+> For authorization, all endpoints take either a bot token or client credentials token for your application
 
 ## Get Global Application Commands % GET /applications/{application.id#DOCS_TOPICS_OAUTH2/application-object}/commands
 
@@ -643,6 +643,9 @@ Create a new global command. New global commands will be available in all guilds
 
 ## Edit Global Application Command % PATCH /applications/{application.id#DOCS_TOPICS_OAUTH2/application-object}/commands/{command.id#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommand}
 
+> info
+> All parameters for this endpoint are optional. `options` is nullable.
+
 Edit a global command. Updates will be available in all guilds after 1 hour. Returns `200` and an [ApplicationCommand](#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommand) object.
 
 ###### JSON Params
@@ -651,7 +654,7 @@ Edit a global command. Updates will be available in all guilds after 1 hour. Ret
 |-------------|---------------------------------------------------------------------------------------------------|--------------------------------|
 | name        | string                                                                                            | 3-32 character command name    |
 | description | string                                                                                            | 1-100 character description    |
-| options?    | array of [ApplicationCommandOption](#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommandoption) | the parameters for the command |
+| options     | array of [ApplicationCommandOption](#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommandoption)   | the parameters for the command |
 
 
 ## Delete Global Application Command % DELETE /applications/{application.id#DOCS_TOPICS_OAUTH2/application-object}/commands/{command.id#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommand}
@@ -679,7 +682,10 @@ Create a new guild command. New guild commands will be available in the guild im
 
 ## Edit Guild Application Command % PATCH /applications/{application.id#DOCS_TOPICS_OAUTH2/application-object}/guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/commands/{command.id#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommand}
 
-Edit a guild command. Updates for guild commands will be available immediately. Returns `200` and an [ApplicationCommand](#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommand) object.
+> info
+> All parameters for this endpoint are optional. `options` is nullable.
+
+Edit a guild command. Updates for guild commands will be available immediately. Returns `200` and an [ApplicationCommand](#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommand) object. 
 
 ###### JSON Params
 
@@ -687,7 +693,7 @@ Edit a guild command. Updates for guild commands will be available immediately. 
 |-------------|---------------------------------------------------------------------------------------------------|--------------------------------|
 | name        | string                                                                                            | 3-32 character command name    |
 | description | string                                                                                            | 1-100 character description    |
-| options?    | array of [ApplicationCommandOption](#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommandoption) | the parameters for the command |
+| options     | array of [ApplicationCommandOption](#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommandoption)   | the parameters for the command |
 
 
 ## Delete Guild Application Command % DELETE /applications/{application.id#DOCS_TOPICS_OAUTH2/application-object}/guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/commands/{command.id#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommand}
@@ -698,23 +704,23 @@ Delete a guild command. Returns `204` on success.
 
 Create a response to an Interaction from the gateway. Takes an [Interaction response](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-response).
 
-## Edit Original Interaction Response % PATCH /webhooks/application.id/{interaction.token#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction}/messages/@original
+## Edit Original Interaction Response % PATCH /webhooks/{application.id#DOCS_TOPICS_OAUTH2/application-object}/{interaction.token#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction}/messages/@original
 
 Edits the initial Interaction response. Functions the same as [Edit Webhook Message](#DOCS_RESOURCES_WEBHOOK/edit-webhook-message).
 
-## Delete Original Interaction Response % DELETE /webhooks/application.id/{interaction.token#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction}/messages/@original
+## Delete Original Interaction Response % DELETE /webhooks/{application.id#DOCS_TOPICS_OAUTH2/application-object}/{interaction.token#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction}/messages/@original
 
 Deletes the initial Interaction response. Returns `204` on success.
 
-## Create Followup Message % POST /webhooks/application.id/{interaction.token#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction}
+## Create Followup Message % POST /webhooks/{application.id#DOCS_TOPICS_OAUTH2/application-object}/{interaction.token#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction}
 
 Create a followup message for an Interaction. Functions the same as [Execute Webhook](#DOCS_RESOURCES_WEBHOOK/execute-webhook)
 
-## Edit Followup Message % PATCH /webhooks/application.id/{interaction.token#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}
+## Edit Followup Message % PATCH /webhooks/{application.id#DOCS_TOPICS_OAUTH2/application-object}/{interaction.token#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}
 
 Edits a followup message for an Interaction. Functions the same as [Edit Webhook Message](#DOCS_RESOURCES_WEBHOOK/edit-webhook-message).
 
-## Delete Followup Message % DELETE /webhooks/application.id/{interaction.token#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}
+## Delete Followup Message % DELETE /webhooks/{application.id#DOCS_TOPICS_OAUTH2/application-object}/{interaction.token#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}
 
 Deletes a followup message for an Interaction. Returns `204` on success.
 
@@ -731,7 +737,7 @@ An application command is the base "command" model that belongs to an applicatio
 |----------------|---------------------------------------------------------------------------------------------------|-------------------------------------|
 | id             | snowflake                                                                                         | unique id of the command            |
 | application_id | snowflake                                                                                         | unique id of the parent application |
-| name           | string                                                                                            | 3-32 character name matching `^(?:\w|[-_])+$`                 |
+| name           | string                                                                                            | 3-32 character name matching `^[\w-]{3,32}$`                 |
 | description    | string                                                                                            | 1-100 character description         |
 | options?       | array of [ApplicationCommandOption](#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommandoption) | the parameters for the command      |
 
@@ -743,10 +749,10 @@ An application command is the base "command" model that belongs to an applicatio
 | Field       | Type                                                                                                           | Description                                                                                                |
 |-------------|----------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------|
 | type        | int                                                                                                            | value of [ApplicationCommandOptionType](#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommandoptiontype) |
-| name        | string                                                                                                         | 1-32 character name matching `^(?:\w|[-_])+$`                                                                                        |
+| name        | string                                                                                                         | 1-32 character name matching `^[\w-]{1,32}$`                                                                                        |
 | description | string                                                                                                         | 1-100 character description                                                                                |
-| default?    | bool                                                                                                           | the first `required` option for the user to complete--only one option can be `default`                     |
-| required?   | bool                                                                                                           | if the parameter is required or optional--default `false`                                                  |
+| default?    | boolean                                                                                                        | the first `required` option for the user to complete--only one option can be `default`                     |
+| required?   | boolean                                                                                                        | if the parameter is required or optional--default `false`                                                  |
 | choices?    | array of [ApplicationCommandOptionChoice](#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommandoptionchoice) | choices for `string` and `int` types for the user to pick from                                             |
 | options?    | array of [ApplicationCommandOption](#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommandoption)              | if the option is a subcommand or subcommand group type, this nested options will be the parameters         |
 
@@ -808,7 +814,7 @@ An interaction is the base "thing" that is sent when a user invokes a command, a
 
 All options have names, and an option can either be a parameter and input value--in which case `value` will be set--or it can denote a subcommand or group--in which case it will contain a top-level key and another array of `options`. 
 
-`value` and `options` are mututally exclusive.
+`value` and `options` are mutually exclusive.
 
 | Field    | Type                                             | Description                                     |
 |----------|--------------------------------------------------|-------------------------------------------------|
@@ -843,7 +849,7 @@ Not all message fields are currently supported.
 
 | Name              | Value            | Description                                                                                 |
 |-------------------|------------------|---------------------------------------------------------------------------------------------|
-| tts?              | bool             | is the response TTS                                                                         |
+| tts?              | boolean          | is the response TTS                                                                         |
 | content           | string           | message content                                                                             |
 | embeds?           | array of embeds  | supports up to 10 embeds                                                                    |
 | allowed_mentions? | allowed mentions | [allowed mentions](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object) object                  |
