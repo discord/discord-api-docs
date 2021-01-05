@@ -698,23 +698,23 @@ Delete a guild command. Returns `204` on success.
 
 Create a response to an Interaction from the gateway. Takes an [Interaction response](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-response).
 
-## Edit Original Interaction Response % PATCH /webhooks/application.id/{interaction.token#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction}/messages/@original
+## Edit Original Interaction Response % PATCH /webhooks/{application.id#DOCS_TOPICS_OAUTH2/application-object}/{interaction.token#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction}/messages/@original
 
 Edits the initial Interaction response. Functions the same as [Edit Webhook Message](#DOCS_RESOURCES_WEBHOOK/edit-webhook-message).
 
-## Delete Original Interaction Response % DELETE /webhooks/application.id/{interaction.token#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction}/messages/@original
+## Delete Original Interaction Response % DELETE /webhooks/{application.id#DOCS_TOPICS_OAUTH2/application-object}/{interaction.token#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction}/messages/@original
 
 Deletes the initial Interaction response. Returns `204` on success.
 
-## Create Followup Message % POST /webhooks/application.id/{interaction.token#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction}
+## Create Followup Message % POST /webhooks/{application.id#DOCS_TOPICS_OAUTH2/application-object}/{interaction.token#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction}
 
 Create a followup message for an Interaction. Functions the same as [Execute Webhook](#DOCS_RESOURCES_WEBHOOK/execute-webhook)
 
-## Edit Followup Message % PATCH /webhooks/application.id/{interaction.token#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}
+## Edit Followup Message % PATCH /webhooks/{application.id#DOCS_TOPICS_OAUTH2/application-object}/{interaction.token#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}
 
 Edits a followup message for an Interaction. Functions the same as [Edit Webhook Message](#DOCS_RESOURCES_WEBHOOK/edit-webhook-message).
 
-## Delete Followup Message % DELETE /webhooks/application.id/{interaction.token#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}
+## Delete Followup Message % DELETE /webhooks/{application.id#DOCS_TOPICS_OAUTH2/application-object}/{interaction.token#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}
 
 Deletes a followup message for an Interaction. Returns `204` on success.
 
