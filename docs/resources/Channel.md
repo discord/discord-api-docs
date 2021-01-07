@@ -473,11 +473,12 @@ Embed types are "loosely defined" and, for the most part, are not used by our cl
 
 ###### Embed Video Structure
 
-| Field   | Type    | Description         |
-|---------|---------|---------------------|
-| url?    | string  | source url of video |
-| height? | integer | height of video     |
-| width?  | integer | width of video      |
+| Field      | Type    | Description                |
+|------------|---------|----------------------------|
+| url?       | string  | source url of video        |
+| proxy_url? | string  | a proxied url of the video |
+| height?    | integer | height of video            |
+| width?     | integer | width of video             |
 
 ###### Embed Image Structure
 
