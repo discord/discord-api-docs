@@ -362,14 +362,14 @@ A partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object. Represents an Offl
 ###### Welcome Screen Structure
 
 | Field            | Type                                                                                              | Description                                        |
-| -----------      | ------------------------------------------------------------------------------------------------- | -------------------------------------------------- |
+|------------------|---------------------------------------------------------------------------------------------------|----------------------------------------------------|
 | description      | ?string                                                                                           | the server description shown in the welcome screen |
 | welcome_channels | array of [welcome screen channel](#DOCS_RESOURCES_GUILD/welcome-screen-channel-structure) objects | the channels shown in the welcome screen, up to 5  |
 
 ###### Welcome Screen Channel Structure
 
 | Field       | Type       | Description                                                                               |
-| ----------- | ---------- | ----------------------------------------------------------------------------------------- |
+|-------------|------------|-------------------------------------------------------------------------------------------|
 | channel_id  | snowflake  | the server description shown in the welcome screen                                        |
 | description | string     | the description shown for the channel                                                     |
 | emoji_id    | ?snowflake | the [emoji id](#DOCS_REFERENCE/image-formatting), if the emoji is custom                  |
