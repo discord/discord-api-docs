@@ -42,6 +42,7 @@ These are a list of all the OAuth2 scopes that Discord supports. Scopes that are
 | relationships.read           | allows your app to know a user's friends and implicit relationships - whitelist only                                                                  |
 | activities.read              | allows your app to fetch data from a user's "Now Playing/Recently Played" list - whitelist only                                                       |
 | activities.write             | allows your app to update a user's activity - whitelist only (NOT REQUIRED FOR [GAMESDK ACTIVITY MANAGER](#DOCS_GAME_SDK_ACTIVITIES/))                |
+| applications.commands        | allows your app to use [Slash Commands](#DOCS_INTERACTIONS_SLASH_COMMANDS/) in a guild                                                                |
 | applications.commands.update | allows your app to update [Slash Commands](#DOCS_INTERACTIONS_SLASH_COMMANDS/) via this bearer token                                                  |
 
 > info
