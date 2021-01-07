@@ -32,6 +32,7 @@ Many of these libraries are represented in the [unofficial, community-driven Dis
 | [Discordia](https://github.com/SinisterRectus/Discordia)     | Lua        |
 | [Dimscord](https://github.com/krisppurg/dimscord)            | Nim        |
 | [discordnim](https://github.com/Krognol/discordnim)          | Nim        |
+| [DiscordPHP](https://github.com/discord-php/DiscordPHP)      | PHP        |
 | [RestCord](https://www.restcord.com/)                        | PHP        |
 | [discord.py](https://github.com/Rapptz/discord.py)           | Python     |
 | [disco](https://github.com/b1naryth1ef/disco)                | Python     |
@@ -54,6 +55,7 @@ Many of these libraries are represented in the [unofficial, community-driven Dis
 - [slash-create](https://github.com/Snazzah/slash-create)
 - [caddy-discord-interactions-verifier](https://github.com/CarsonHoffman/caddy-discord-interactions-verifier)
 - [dispike](https://github.com/ms7m/dispike)
+- [DiscordPHP-Slash](https://github.com/discord-php/DiscordPHP-Slash)
 
 ## Game SDK Tools
 
@@ -79,6 +81,7 @@ Using Discord's [Dispatch](#DOCS_DISPATCH_DISPATCH_AND_YOU) tool for game develo
 [Gateway Intents](#DOCS_TOPICS_GATEWAY/gateway-intents) are pretty confusing at first. If you're not sure what to send in your [identify payload](#DOCS_TOPICS_GATEWAY/identify), then this tool may be of help:
 
 - [ziad87's Intent Calculator](https://ziad87.net/intents/)
+- [Larko's Intent Calculator](https://intents.aymdj.me/)
 
 ## Embed Visualizer
 

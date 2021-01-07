@@ -242,9 +242,9 @@ Repairs an application build.
 | ---------------- | ---------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
 | application_id   | int                                                              | your application ID/client ID                                                                         |
 | branch_id        | int                                                              | the id of the branch to check                                                                         |
-| build_id         | int                                                              | the id of the build to reapir                                                                         |
+| build_id         | int                                                              | the id of the build to repair                                                                         |
 | application_root | file path                                                        | the directory that dispatch will treat as the local root for operations—`.` for the current directory |
-| --platform       | [platform](#DOCS_DISPATCH_FIELD_VALUES/manifest-platform-values) | the build platform to reapair                                                                         |
+| --platform       | [platform](#DOCS_DISPATCH_FIELD_VALUES/manifest-platform-values) | the build platform to repair                                                                          |
 
 ###### Example
 
