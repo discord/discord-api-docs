@@ -782,16 +782,16 @@ If you specify `choices` for an option, they are the **only** valid values for a
 
 An interaction is the base "thing" that is sent when a user invokes a command, and is the same for Slash Commands and other future interaction types
 
-| Field      | Type                              | Description                                             |
-|------------|-----------------------------------|---------------------------------------------------------|
-| id         | snowflake                         | id of the interaction                                   |
-| type       | InteractionType                   | the type of interaction                                 |
-| data?\*    | ApplicationCommandInteractionData | the command data payload                                |
-| guild_id   | snowflake                         | the guild it was sent from                              |
-| channel_id | snowflake                         | the channel it was sent from                            |
-| member     | GuildMember                       | guild member data for the invoking user                 |
-| token      | string                            | a continuation token for responding to the interaction |
-| version    | int                               | read-only property, always `1`                          |
+| Field      | Type                                                             | Description                                                    |
+|------------|------------------------------------------------------------------|----------------------------------------------------------------|
+| id         | snowflake                                                        | id of the interaction                                          |
+| type       | InteractionType                                                  | the type of interaction                                        |
+| data?\*    | ApplicationCommandInteractionData                                | the command data payload                                       |
+| guild_id   | snowflake                                                        | the guild it was sent from                                     |
+| channel_id | snowflake                                                        | the channel it was sent from                                   |
+| member     | [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) object | guild member data for the invoking user, including permissions |
+| token      | string                                                           | a continuation token for responding to the interaction         |
+| version    | int                                                              | read-only property, always `1`                                 |
 
 \* This is always present on `ApplicationCommand` interaction types. It is optional for future-proofing against new interaction types
 
