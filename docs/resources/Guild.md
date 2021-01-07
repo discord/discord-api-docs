@@ -108,23 +108,23 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 
 ###### Guild Features
 
-| Feature                          | Description                                                                                            |
-|----------------------------------|--------------------------------------------------------------------------------------------------------|
-| INVITE_SPLASH                    | guild has access to set an invite splash background                                                    |
-| VIP_REGIONS                      | guild has access to set 384kbps bitrate in voice (previously VIP voice servers)                        |
-| VANITY_URL                       | guild has access to set a vanity URL                                                                   |
-| VERIFIED                         | guild is verified                                                                                      |
-| PARTNERED                        | guild is partnered                                                                                     |
-| COMMUNITY                        | guild can enable welcome screen, Membership Screening, and discovery, and receives community updates   |
-| COMMERCE                         | guild has access to use commerce features (i.e. create store channels)                                 |
-| NEWS                             | guild has access to create news channels                                                               |
-| DISCOVERABLE                     | guild is able to be discovered in the directory                                                        |
-| FEATURABLE                       | guild is able to be featured in the directory                                                          |
-| ANIMATED_ICON                    | guild has access to set an animated guild icon                                                         |
-| BANNER                           | guild has access to set a guild banner image                                                           |
-| WELCOME_SCREEN_ENABLED           | guild has enabled the welcome screen                                                                   |
-| MEMBER_VERIFICATION_GATE_ENABLED | guild has enabled [Membership Screening](#DOCS_RESOURCES_GUILD/membership-screening-object)            |
-| PREVIEW_ENABLED                  | guild can be previewed before joining via Membership Screening or the directory                        |
+| Feature                          | Description                                                                                          |
+|----------------------------------|------------------------------------------------------------------------------------------------------|
+| INVITE_SPLASH                    | guild has access to set an invite splash background                                                  |
+| VIP_REGIONS                      | guild has access to set 384kbps bitrate in voice (previously VIP voice servers)                      |
+| VANITY_URL                       | guild has access to set a vanity URL                                                                 |
+| VERIFIED                         | guild is verified                                                                                    |
+| PARTNERED                        | guild is partnered                                                                                   |
+| COMMUNITY                        | guild can enable welcome screen, Membership Screening, and discovery, and receives community updates |
+| COMMERCE                         | guild has access to use commerce features (i.e. create store channels)                               |
+| NEWS                             | guild has access to create news channels                                                             |
+| DISCOVERABLE                     | guild is able to be discovered in the directory                                                      |
+| FEATURABLE                       | guild is able to be featured in the directory                                                        |
+| ANIMATED_ICON                    | guild has access to set an animated guild icon                                                       |
+| BANNER                           | guild has access to set a guild banner image                                                         |
+| WELCOME_SCREEN_ENABLED           | guild has enabled the welcome screen                                                                 |
+| MEMBER_VERIFICATION_GATE_ENABLED | guild has enabled [Membership Screening](#DOCS_RESOURCES_GUILD/membership-screening-object)          |
+| PREVIEW_ENABLED                  | guild can be previewed before joining via Membership Screening or the directory                      |
 
 ###### Example Guild
 
@@ -919,8 +919,8 @@ Modify the guild's [Membership Screening](#DOCS_RESOURCES_GUILD/membership-scree
 > info
 > All parameters to this endpoint are optional
 
-| Field       | Type    | Description                                                                                                                                      |
-|-------------|---------|--------------------------------------------------------------------------------------------------------------------------------------------------|
-| enabled     | boolean | whether Membership Screening is enabled                                                                                                          |
+| Field       | Type    | Description                                                                                                                             |
+|-------------|---------|-----------------------------------------------------------------------------------------------------------------------------------------|
+| enabled     | boolean | whether Membership Screening is enabled                                                                                                 |
 | form_fields | string  | array of [field](#DOCS_RESOURCES_GUILD/membership-screening-object-membership-screening-field-structure) objects serialized in a string |
-| description | string  | the server description to show in the screening form                                                                                             |
+| description | string  | the server description to show in the screening form                                                                                    |
