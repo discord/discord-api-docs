@@ -100,7 +100,7 @@ curl -H 'Authorization: Bearer CZhtkLDpNYXgPH9Ml6shqh2OwykChw' http://127.0.0.1:
 
 [{
     "owner": true,
-    "permissions": 2146958399,
+    "permissions": "2146958399",
     "icon": "2d68b25aa5d1eead693432a5f0077dff",
     "id": "199737254929760256",
     "name": "test"
@@ -324,10 +324,10 @@ Used to get a guild the client is in.
 
 ###### Get Guild Argument Structure
 
-| Field    | Type    | Description                                                 |
-| -------- | ------- | ----------------------------------------------------------- |
-| guild_id | string  | id of the guild to get                                      |
-| timeout  | integer | asyncronously get guild with time to wait before timing out |
+| Field    | Type    | Description                                                  |
+| -------- | ------- | ------------------------------------------------------------ |
+| guild_id | string  | id of the guild to get                                       |
+| timeout  | integer | asynchronously get guild with time to wait before timing out |
 
 ###### Get Guild Response Structure
 
@@ -566,11 +566,11 @@ Used to join and leave voice channels, group dms, or dms. Returns the [Get Chann
 
 ###### Select Voice Channel Argument Structure
 
-| Field      | Type    | Description                                                    |
-| ---------- | ------- | -------------------------------------------------------------- |
-| channel_id | string  | channel id to join (or `null` to leave)                        |
-| timeout    | integer | asyncronously join channel with time to wait before timing out |
-| force      | boolean | forces a user to join a voice channel                          |
+| Field      | Type    | Description                                                     |
+| ---------- | ------- | --------------------------------------------------------------- |
+| channel_id | string  | channel id to join (or `null` to leave)                         |
+| timeout    | integer | asynchronously join channel with time to wait before timing out |
+| force      | boolean | forces a user to join a voice channel                           |
 
 > warn
 > When trying to join the user to a voice channel, you will receive a `5003` error coded response if the user is already in a voice channel. The `force` parameter should only be specified in response to the case where a user is already in a voice channel and they have **approved** to be moved by your app to a new voice channel.
@@ -640,10 +640,10 @@ Used to join and leave text channels, group dms, or dms. Returns the [Get Channe
 
 ###### Select Text Channel Argument Structure
 
-| Field      | Type    | Description                                                    |
-| ---------- | ------- | -------------------------------------------------------------- |
-| channel_id | string  | channel id to join (or `null` to leave)                        |
-| timeout    | integer | asyncronously join channel with time to wait before timing out |
+| Field      | Type    | Description                                                     |
+| ---------- | ------- | --------------------------------------------------------------- |
+| channel_id | string  | channel id to join (or `null` to leave)                         |
+| timeout    | integer | asynchronously join channel with time to wait before timing out |
 
 #### GET_VOICE_SETTINGS
 
