@@ -449,6 +449,26 @@ Giving the member a role will bypass Membership Screening as well as the guild's
 |-------|--------------|
 | TERMS | Server Rules |
 
+###### Example Membership Screening Object
+
+```json
+{
+    "version": "2021-01-09T12:09:02.040000+00:00",
+    "form_fields": [
+        {
+            "field_type": "TERMS",
+            "label": "Read and agree to the server rules",
+            "values": [
+                "Treat everyone with respect. Absolutely no harassment, witch hunting, sexism, racism, or hate speech will be tolerated.",
+                "No spam or self-promotion (server invites, advertisements, etc) without permission from a staff member. This includes DMing fellow members."
+            ],
+            "required": true
+        }
+    ],
+    "description": "Welcome to this cool server!"
+}
+```
+
 ## Create Guild % POST /guilds
 
 Create a new guild. Returns a [guild](#DOCS_RESOURCES_GUILD/guild-object) object on success. Fires a [Guild Create](#DOCS_TOPICS_GATEWAY/guild-create) Gateway event.
