@@ -34,7 +34,7 @@ From here on forward, we'll be managing settings that tie directly to your game 
 - run alpha and beta tests for your game, using the magic of channel permissions to create role-based page access
 - apply for approval, letting you start making money (if you want to)
 
-Now that we've weeded out the trolls - let's get your server up and running with some fancy new features!
+Now that we've weeded out the trolls, let's get your server up and running with some fancy new features!
 
 ## Your Server - Your Kingdom
 

@@ -225,7 +225,7 @@ Console.WriteLine("File {0} is {1} in size and was last edited at {2}", file.Nam
 
 ## Count
 
-Returns the count of files for iteration.
+Returns the count of files, for iteration.
 
 Returns an `Int32`.
 

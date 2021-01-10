@@ -4,7 +4,7 @@ Alphas and betas are a critical part of a game's development lifecycle. We under
 
 ## Beta Entitlements
 
-As you develop your game, you'll constantly be making improvements. You want real-time feedback from players, and there's no better place for that than Discord. In the past, players would need to dig through menus to find out how to unlock test branches, as well as to remember secret passwords _and_ typing them incorrectly. Was that an `I` or an `l`? `O' or `0`?
+As you develop your game, you'll constantly be making improvements. You want real-time feedback from players, and there's no better place for that than Discord. In the past, players would need to dig through menus to find out how to unlock test branches, as well as remember secret passwords _and_ type them incorrectly. Was that an `I` or an `l`? `O` or `0`?
 
 One of the cool features of [Store Channels](#DOCS_GAME_AND_SERVER_MANAGEMENT_SPECIAL_CHANNELS/) is their ability to grant a Beta Entitlement for your game. That means that while you keep your master branch safe and sound, users can test on `beta-branch-please-ignore-bugs` in an isolated test environment.
 

@@ -140,7 +140,7 @@ applicationManager.ValidateOrExit((result) =>
 Get the signed app ticket for the current user. The structure of the ticket is: `version.signature.base64encodedjson`, so you should split the string by the `.` character. Ensure that the `version` matches the current version. The `signature` is used to verify the ticket using the libsodium library of your choice, and the `base64encodedjson` is what you can transform after verification. It contains:
 
 - the application id tied to the ticket
-- the user's user-id
+- the user's id
 - a timestamp for the ticket
 - the list of the user's [entitlements](#DOCS_GAME_SDK_STORE/data-models-entitlement-struct) for the application id
 
