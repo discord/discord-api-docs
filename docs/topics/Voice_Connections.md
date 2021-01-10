@@ -35,7 +35,7 @@ The first step in connecting to a voice server (and in turn, a guild's voice cha
 }
 ```
 
-If our request succeeded, the Gateway would respond with _two_ events—a [Voice State Update](#DOCS_TOPICS_GATEWAY/voice-state-update) event and a [Voice Server Update](#DOCS_TOPICS_GATEWAY/voice-server-update) event—meaning your library must properly wait for both events before continuing. The first will contain a new key, `session_id`, and the second will provide voice server information we can use to establish a new voice connection:
+If our request succeeds, the gateway will respond with _two_ events—a [Voice State Update](#DOCS_TOPICS_GATEWAY/voice-state-update) event and a [Voice Server Update](#DOCS_TOPICS_GATEWAY/voice-server-update) event—meaning your library must properly wait for both events before continuing. The first will contain a new key, `session_id`, and the second will provide voice server information we can use to establish a new voice connection:
 
 ###### Example Voice Server Update Payload
 
@@ -120,7 +120,7 @@ In order to maintain your WebSocket connection, you need to continuously send he
 }
 ```
 
-This is sent at the start of the connection. Be warned that the [Opcode 8 Hello](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice) structure differs by gateway version as shown in the above examples. Versions below v3 do not have an opcode or a data field denoted by `d'. V3 and above was updated to be structured like other payloads. Be sure to expect this different format based on your version.
+This is sent at the start of the connection. Be warned that the [Opcode 8 Hello](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice) structure differs by gateway version as shown in the above examples. Versions below v3 do not have an opcode or a data field denoted by `d`. V3 and above was updated to be structured like other payloads. Be sure to expect this different format based on your version.
 
 After receiving [Opcode 8 Hello](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice), you should send [Opcode 3 Heartbeat](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice)—which contains an integer nonce—every elapsed interval:
 
@@ -279,4 +279,3 @@ Generally, routers on the Internet mask or obfuscate UDP ports through a process
 | SSRC    | Unsigned integer                                               | 4 bytes  |
 | Address | Null-terminated string in response                             | 64 bytes |
 | Port    | Unsigned short                                                 | 2 bytes  |
-

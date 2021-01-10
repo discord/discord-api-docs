@@ -215,7 +215,7 @@ Corrupted build "491362538965958686"
 
 ## build preview-files
 
-Displays a preview of the install paths that a build will put files in for a given platform/locale. Additionally, it will show which files are considered user data.
+Displays a preview of the install paths that a build will put files in, for a given platform/locale. Additionally, will show which files are considered user data.
 
 ###### Arguments
 
@@ -271,7 +271,7 @@ Runs the launch setup for an application.
 
 ## completions generate
 
-Generations shell command completions; run `dispatch completions --help` for more info, as it varies by shell type.
+Generations shell command completions; run `dispatch completions --help` for more info, as it varies by shell.
 
 ###### Example
 

@@ -42,7 +42,7 @@ For WebSocket connections, the connection is always `ws://127.0.0.1:PORT/?v=VERS
 
 To begin, you'll need to create an app. Head to [your apps](https://discord.com/developers/applications/me) and click the big plus button. When you create an app on our Developers site, you must specify an "RPC Origin" and "Redirect URI" from which to permit connections and authorizations. **The origin you send when connecting and the redirect URI you send when exchanging an authorization code for an access token must match one of the ones entered on the Developers site.**
 
-When establishing a WebSocket connection, we verify the Origin header on the connection to prevent client ID spoofing. You will be instantly disconnected if the origin does not match.
+When establishing a WebSocket connection, we verify the Origin header on connection to prevent client ID spoofing. You will be instantly disconnected if the `Origin` does not match.
 
 If you're connecting to the RPC server from within a browser, RPC origins are usually in the form `SCHEME://HOST[:PORT]`, where `SCHEME` is typically HTTPS or HTTP, `HOST` is your domain or IP, and `PORT` is the port of the web server from which the user will be connecting (omitted for ports 80 and 443). For example, `https://discord.com` would be used if the user were connecting from `https://discord.com/some/page/url`.
 
@@ -504,7 +504,7 @@ Used to change the voice settings of users in voice channels
 
 | Field   | Type                                                              | Description                                                  |
 |---------|-------------------------------------------------------------------|--------------------------------------------------------------|
-| user_id | string                                                            | user-id                                                      |
+| user_id | string                                                            | id of the user                                                      |
 | pan?    | [pan](#DOCS_TOPICS_RPC/set-user-voice-settings-pan-object) object | set the pan of the user                                      |
 | volume? | integer                                                           | set the volume of the user (defaults to 100, min 0, max 200) |
 | mute?   | boolean                                                           | set the mute state of the user                               |

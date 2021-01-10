@@ -37,9 +37,9 @@ An example of how to do this properly is at the end of this documentation page.
 | None            | user has no intrinsic relationship                                                   |
 | Friend          | user is a friend                                                                     |
 | Blocked         | user is blocked                                                                      |
-| PendingIncoming | the user has a pending incoming friend request to connected user                     |
+| PendingIncoming | user has a pending incoming friend request to connected user                     |
 | PendingOutgoing | current user has a pending outgoing friend request to user                           |
-| Implicit        | user is not friends, but interacts with the current user often (frequency + recency) |
+| Implicit        | user is not friends, but interacts with current user often (frequency + recency) |
 
 ###### Presence Struct
 

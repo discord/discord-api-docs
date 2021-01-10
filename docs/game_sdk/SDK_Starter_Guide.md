@@ -33,16 +33,16 @@ These files are comprised of two parts: a "stub", and fallback modules. What tha
 
 Next, we need to set up the application for your game. An application is the base "entity" in Discord for your game; it's what all the builds, branches, SKUs, store pages, assets, etc., will be filed under.
 
-Head over to our [developer site](https://discord.com/developers/) and create an account/login if you haven't yet. The first thing we're going to do is create a Team. Teams are groups of developers working together on applications; you should create a team for your organization at [https://discord.com/developers/teams](https://discord.com/developers/teams). You can invite other users to join your team and work on applications together with you.
+Head over to our [developer site](https://discord.com/developers/) and create an account/log in if you haven't yet. The first thing we're going to do is create a Team. Teams are groups of developers working together on applications; you should create a team for your organization at [https://discord.com/developers/teams](https://discord.com/developers/teams). You can invite other users to join your team and work on applications together with you.
 
-Now that your team is created, you'll want to make an application. To do so, click on "Applications" at the top of the page and create an application. Make sure you pick your newly-created team in the `Team` dropdown. You want your team to own the application; this unlocks store functionality! Now that your app is made let's dive into some more setup.
+Now that your team is created, you'll want to make an application. To do so, click on "Applications" at the top of the page and create an application. Make sure you pick your newly-created team in the `Team` dropdown. You want your team to own the application; this unlocks store functionality! Now that your app is made, let's dive into some more setup.
 
 > warn
 > If you're integrating our SDK into an already-released game, there's a good chance that we may _already have_ an application in our database for your game! Reach out to our [Dev Support](https://dis.gd/devsupport) to learn more
 
 First, we'll need to set an OAuth2 redirect URL. You can add `http://127.0.0.1` in there for now; this powers some behind-the-scenes stuff you don't need to worry about.
 
-Next, copy the **Client ID** at the top of the page. This id also referred to as an "application id", is your game's unique identifier across Discord. Keep it handy!
+Next, copy the **Client ID** at the top of the page. This id, also referred to as an "application id", is your game's unique identifier across Discord. Keep it handy!
 
 While you're here, head to the "OAuth2" section of your application and add `http://127.0.0.1` as a redirect URI for your application. This will allow us to do the OAuth2 token exchange within the Discord client.
 
@@ -155,7 +155,7 @@ Next, we need to link these files within our project so that we can reference th
 
 ```cpp
 /*
-    ABSOLUTE_PATH_TO_DISCORD_FILES_DIRECTORY will look something like this:
+    ABSOLUTE_PATH_TO_DISCORD_FILES_DIRECTORY will look something like:
 
     "H:\\Unreal Projects\\gamesdktest\\Source\\gamesdktest\\discord-files\\"
 
@@ -164,7 +164,7 @@ Next, we need to link these files within our project so that we can reference th
 PublicIncludePaths.Add(ABSOLUTE_PATH_TO_DISCORD_FILES_DIRECTORY)
 
 /*
-    ABSOLUTE_PATH_TO_LIB_FILE will look something like this:
+    ABSOLUTE_PATH_TO_LIB_FILE will look something like:
 
     "H:\\Unreal Projects\\gamesdktest\\Binaries\\Win64\\discord_game_sdk.dll.lib"
 
@@ -199,7 +199,7 @@ void AMyPawn::BeginPlay()
         2. Open Discord
         3. Attempt to re-open your game
         Step 3 will fail when running directly from the Unreal Engine editor
-        Therefore, always keep Discord running during tests or use Discord.CreateFlags.NoRequireDiscord
+        Therefore, always keep Discord running during tests, or use Discord.CreateFlags.NoRequireDiscord
     */
 	auto result = discord::Core::Create(461618159171141643, DiscordCreateFlags_Default, &core);
 	discord::Activity activity{};
@@ -240,7 +240,7 @@ We also know that getting a test build of a game on two separate machines can be
 1. Download Discord Canary. This is our most updated build, and is good to develop against: [Windows](https://discord.com/api/download/canary?platform=win) - [Mac](https://discord.com/api/download/canary?platform=osx)
 2. Download a second Discord Build. Here's our Public Test Build: [Windows](https://discord.com/api/download/ptb?platform=win) - [Mac](https://discord.com/api/download/ptb?platform=osx)
 3. Open up two Discord clients. We recommend you develop against Discord Canary, so you can use PTB or Stable for your test account
-4. Login with two separate users. Make sure any test account is added to the application's App Whitelist in the portal!
+4. Log in with two separate users. Make sure any test account is added to the application's App Whitelist in the portal!
 
 Now, in your game code, you can tell the SDK which client to connect to via the environment variable `DISCORD_INSTANCE_ID` **before initializing the SDK**. The value of the variable corresponds to the order in which you opened the clients, so `0` would connect to the first opened client, `1` the second, etc.
 

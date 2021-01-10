@@ -1,6 +1,6 @@
 # Gateways
 
-Gateways are Discord's form of real-time communication over secure WebSockets. Clients will receive events and data over the Gateway they are connected to and send data over the REST API. The API for interacting with Gateways is complex and fairly unforgiving; therefore, it's highly recommended you read _all_ of the following documentation before writing a custom implementation.
+Gateways are Discord's form of real-time communication over secure WebSockets. Clients will receive events and data over the gateway they are connected to and send data over the REST API. The API for interacting with Gateways is complex and fairly unforgiving; therefore, it's highly recommended you read _all_ of the following documentation before writing a custom implementation.
 
 The Discord Gateway has a versioning system separate from the HTTP APIs. The documentation herein is only for the latest version in the following table, unless otherwise specified.
 
@@ -31,11 +31,11 @@ Important note: Not all event fields are documented. In particular, fields prefi
 
 ### Sending Payloads
 
-Packets sent from the client to the Gateway API are encapsulated within a [gateway payload object](#DOCS_TOPICS_GATEWAY/sending-payloads-example-gateway-dispatch) and must have the proper opcode and data object set. The payload object can then be serialized in the format of choice (see [ETF/JSON](#DOCS_TOPICS_GATEWAY/etfjson)) and sent over the WebSocket. Payloads to the Gateway are limited to a maximum of 4096 bytes sent. Going over this limit will cause a connection termination with error code 4002.
+Packets sent from the client to the Gateway API are encapsulated within a [gateway payload object](#DOCS_TOPICS_GATEWAY/sending-payloads-example-gateway-dispatch) and must have the proper opcode and data object set. The payload object can then be serialized in the format of choice (see [ETF/JSON](#DOCS_TOPICS_GATEWAY/etfjson)) and sent over the WebSocket. Payloads to the gateway are limited to a maximum of 4096 bytes sent. Going over this limit will cause a connection termination with error code 4002.
 
 ###### Example Gateway Dispatch
 
-"`json
+```json
 {
   "op": 0,
   "d": {},
@@ -46,7 +46,7 @@ Packets sent from the client to the Gateway API are encapsulated within a [gatew
 
 ### Receiving Payloads
 
-Receiving payloads with the Gateway API is slightly more complex than sending. When using the JSON encoding with compression enabled, the Gateway has the option of sending payloads as compressed JSON binaries using Zlib, meaning your library _must_ detect (see [RFC1950 2.2](https://tools.ietf.org/html/rfc1950#section-2.2)) and decompress these payloads before attempting to parse them. The Gateway does not implement a shared compression context between messages sent.
+Receiving payloads with the Gateway API is slightly more complex than sending. When using the JSON encoding with compression enabled, the Gateway has the option of sending payloads as compressed JSON binaries using Zlib, meaning your library _must_ detect (see [RFC1950 2.2](https://tools.ietf.org/html/rfc1950#section-2.2)) and decompress these payloads before attempting to parse them. The gateway does not implement a shared compression context between messages sent.
 
 ## Encoding and Compression
 
@@ -64,7 +64,7 @@ Currently, the only available transport compression option is `zlib-stream`. You
 
 ###### Transport Compression Example
 
-"`python
+```python
 # Z_SYNC_FLUSH suffix
 ZLIB_SUFFIX = b'\x00\x00\xff\xff'
 # initialize a buffer to store chunks
@@ -111,7 +111,7 @@ Once connected, the client should immediately receive an [Opcode 10 Hello](#DOCS
 
 ###### Example Gateway Hello
 
-"`json
+```json
 {
   "op": 10,
   "d": {
@@ -131,7 +131,7 @@ Clients can detect zombied or failed connections by listening for [Opcode 11 Hea
 
 ###### Example Gateway Heartbeat ACK
 
-"`json
+```json
 {
   "op": 11
 }
@@ -147,7 +147,7 @@ Next, the client is expected to send an [Opcode 2 Identify](#DOCS_TOPICS_GATEWAY
 
 This is a minimal `IDENTIFY` payload. `IDENTIFY` supports additional optional fields for other session properties, such as payload compression or an initial presence state. See the [Identify Structure](#DOCS_TOPICS_GATEWAY/identify) for a more complete example of all options you can pass in.
 
-"`json
+```json
 {
   "op": 2,
   "d": {
@@ -171,11 +171,11 @@ If the payload is valid, the gateway will respond with a [Ready](#DOCS_TOPICS_GA
 
 The Internet is a scary place. Disconnections happen, especially with persistent connections. Due to Discord's architecture, this is a semi-regular event and should be expected and handled. Discord has a process for "resuming" (or reconnecting) a connection that allows the client to replay any lost events from the last sequence number they received in the exact same way they would receive them normally.
 
-Your client should store the `session_id` from the [Ready](#DOCS_TOPICS_GATEWAY/ready) and the sequence number of the last event it received. When your client detects that it has been disconnected, it should completely close the connection and open a new one (following the same strategy as [Connecting](#DOCS_TOPICS_GATEWAY/connecting)). Once the new connection has been opened, the client should send a [Gateway Resume](#DOCS_TOPICS_GATEWAY/resume):
+Your client should store the `session_id` from the [Ready](#DOCS_TOPICS_GATEWAY/ready), and the sequence number of the last event it received. When your client detects that it has been disconnected, it should completely close the connection and open a new one (following the same strategy as [Connecting](#DOCS_TOPICS_GATEWAY/connecting)). Once the new connection has been opened, the client should send a [Gateway Resume](#DOCS_TOPICS_GATEWAY/resume):
 
 ###### Example Gateway Resume
 
-"`json
+```json
 {
   "op": 6,
   "d": {
@@ -417,7 +417,7 @@ Event names are in standard constant form, fully upper-cased and replacing all s
 
 #### Identify
 
-The identify payload is used to trigger the initial handshake with the Gateway.
+Used to trigger the initial handshake with the gateway.
 
 ###### Identify Structure
 
@@ -482,7 +482,7 @@ Used to replay missed events when a disconnected client resumes.
 | Field      | Type    | Description                   |
 |------------|---------|-------------------------------|
 | token      | string  | session token                 |
-| session_id | string  | session-id                    |
+| session_id | string  | session ID                    |
 | seq        | integer | last sequence number received |
 
 ###### Example Resume
@@ -513,14 +513,14 @@ Used to maintain an active gateway connection. Must be sent every `heartbeat_int
 
 #### Request Guild Members
 
-The request guild members payload is used to request all members for a guild or a list of guilds. When initially connecting, the Gateway will only send offline members if a guild has less than the `large_threshold` members (value in the [Gateway Identify](#DOCS_TOPICS_GATEWAY/identify)). If a client wishes to receive additional members, they need to explicitly request them via this operation. The server will send [Guild Members Chunk](#DOCS_TOPICS_GATEWAY/guild-members-chunk) events in response with up to 1000 members per chunk until all members that match the request have been sent.
+Used to request all members for a guild or a list of guilds. When initially connecting, the gateway will only send offline members if a guild has less than the `large_threshold` members (value in the [Gateway Identify](#DOCS_TOPICS_GATEWAY/identify)). If a client wishes to receive additional members, they need to explicitly request them via this operation. The server will send [Guild Members Chunk](#DOCS_TOPICS_GATEWAY/guild-members-chunk) events in response with up to 1000 members per chunk until all members that match the request have been sent.
 
 Due to our privacy and infrastructural concerns with this feature, there are some limitations that apply:
 
 - `GUILD_PRESENCES` intent is required to set `presences = true`. Otherwise, it will always be false
 - `GUILD_MEMBERS` intent is required to request the entire member list—`(query='', limit=0<=n)`
 - You will be limited to requesting 1 `guild_id`
-- Requesting a prefix will return a maximum of 100 members
+- Requesting a prefix  (`query` parameter) will return a maximum of 100 members
 - Requesting `user_ids` will continue to be limited to returning 100 members
 
 ###### Guild Request Members Structure
@@ -536,7 +536,7 @@ Due to our privacy and infrastructural concerns with this feature, there are som
 
 ###### Guild Request Members
 
-"`json
+```json
 {
   "op": 8,
   "d": {
@@ -562,7 +562,7 @@ Sent when a client wants to join, move, or disconnect from a voice channel.
 
 ###### Example Gateway Voice State Update
 
-"`json
+```json
 {
   "op": 4,
   "d": {
@@ -628,7 +628,7 @@ Sent on connection to the WebSocket. Defines the heartbeat interval that the cli
 
 ###### Example Hello
 
-"`json
+```json
 {
   "op": 10,
   "d": {

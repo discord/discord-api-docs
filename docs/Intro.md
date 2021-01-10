@@ -10,7 +10,7 @@ If you believe you're experiencing a bug with our API or want to report incorrec
 
 ## Bots and Apps
 
-Bots and apps are the lifeblood of the Discord development community. They come in all shapes and sizes, from small hobby projects for your server with friends to huge projects that live in hundreds of thousands of servers. We love seeing the unique, fun, and sometimes downright strange (in a good way) creations that come from our community.
+Bots and apps are the lifeblood of the Discord development community. They come in all shapes and sizes, from small hobby projects for your server with friends, to huge projects that live in hundreds of thousands of servers. We love seeing the unique, fun, and sometimes downright strange (in a good way) creations that come from our community.
 
 Discord offers an open API to serve requests for both bots and OAuth2 integrations. So whether you're making your own `!wumpus` commands or looking to `Log In With Discord`, we've got you covered.
 

@@ -1,6 +1,6 @@
 # Guild Resource
 
-Guilds in Discord represent an isolated collection of users and channels and are often referred to as "servers" in the UI.
+Guilds in Discord represent an isolated collection of users and channels, and are often referred to as "servers" in the UI.
 
 ### Guild Object
 
@@ -581,7 +581,7 @@ Modify a guild's settings. Requires the `MANAGE_GUILD` permission. Returns the u
 
 ## Delete Guild % DELETE /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}
 
-Delete a guild permanently. The user must be the owner of the target guild. Returns `204 No Content` on success. Fires a [Guild Delete](#DOCS_TOPICS_GATEWAY/guild-delete) Gateway event.
+Delete a guild permanently. The actor must be the owner of the target guild. Returns `204 No Content` on success. Fires a [Guild Delete](#DOCS_TOPICS_GATEWAY/guild-delete) Gateway event.
 
 ## Get Guild Channels % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/channels
 

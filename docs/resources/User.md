@@ -8,7 +8,7 @@ _not_ have a limitation on the number of Guilds they can be a part of.
 
 Discord enforces the following restrictions for usernames and nicknames:
 
-1.  Names can contain the most valid Unicode characters. We limit some zero-width and non-rendering characters.
+1.  Names can contain most valid Unicode characters. We limit some zero-width and non-rendering characters.
 2.  Usernames must be between 2 and 32 characters long.
 3.  Nicknames must be between 1 and 32 characters long.
 4.  Names are sanitized and trimmed of leading, trailing, and excessive internal whitespace.
@@ -173,7 +173,7 @@ Returns a list of [DM channel](#DOCS_RESOURCES_CHANNEL/channel-object) objects. 
 Create a new DM channel with a user. Returns a [DM channel](#DOCS_RESOURCES_CHANNEL/channel-object) object.
 
 > warn
-> You should not use this endpoint to DM everyone, in a server about something. DMs should generally be initiated by a user action. If you open a significant amount of DMs too quickly, your bot may be rate-limited or blocked from opening new ones.
+> You should not use this endpoint to DM everyone in a server about something. DMs should generally be initiated by a user action. If you open a significant amount of DMs too quickly, your bot may be rate-limited or blocked from opening new ones.
 
 ###### JSON Params
 

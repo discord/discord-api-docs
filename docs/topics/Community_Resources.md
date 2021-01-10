@@ -1,6 +1,6 @@
 # Community Resources
 
-Discord has the best online community. At least, we like to think so, and this is our website, so our word is the law, deal with it. Therefore it's a fact that our community is the best, and they make really awesome things that we want to share with developers to make their lives easier. From permissions calculators to embed visualizers to full libraries to interface with our API, there are so many great things that have come out of our community.
+Discord has the best online community. At least, we like to think so, and this is our website, so our word is law, deal with it. Therefore it's a fact that our community is the best, and they make really awesome things that we want to share with developers to make their lives easier. From permissions calculators to embed visualizers to full libraries to interface with our API, there are so many great things that have come out of our community.
 
 ## Libraries
 

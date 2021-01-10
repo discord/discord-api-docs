@@ -11,7 +11,7 @@ One of the cool features of [Store Channels](#DOCS_GAME_AND_SERVER_MANAGEMENT_SP
 > info
 > To learn more about creating branches, start with [Dispatch and You](#DOCS_DISPATCH_DISPATCH_AND_YOU/).
 
-When you create a store channel in your server, you'll be prompted with a choice to make it a Beta channel. That will allow you to grant users entitlement to the non-master branch of your game when visiting the store page. When your beta period is over and your game is ready for release and purchase, you can brick/delete these branches if you choose and prompt users to get the full game by putting up a new store channel that's not Beta.
+When you create a store channel in your server, you'll be prompted with a choice to make it a Beta channel. That will allow you to grant users entitlement to the non-master branch of your game when visiting the store page. When your beta period is over and your game is ready for release and purchase, you can brick/delete these branches if you choose, and prompt users to get the full game by putting up a new store channel that's not Beta.
 
 > warn
 > Beta branches cannot be sold. If a user has access to a store channel for a beta entitlement, they will be able to claim it for free.
@@ -27,7 +27,7 @@ A scenario might look like this: you create a Beta store channel. Only users wit
 > danger
 > Role-based entitlement will only work if you use Discord's DRM, which is a simple entitlement check. You can do that with the Dispatch command [`dispatch build drm-wrap`](#DOCS_DISPATCH_LIST_OF_COMMANDS/build-drmwrap) or by calling [`ApplicationManager.ValidateOrExit()`](#DOCS_GAME_SDK_APPLICATIONS/validateorexit). Otherwise, Discord will not check the user's entitlement when the game starts.
 
-Role-based entitlements help keep your beta community active and interactive while also providing a way to reward your biggest fans with secret access to special things.
+Role-based entitlements help keep your beta community active and interactive, while also providing a way to reward your biggest fans with secret access to special things.
 
 ## Gift Codes
 

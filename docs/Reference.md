@@ -1,6 +1,6 @@
 # API Reference
 
-Discord's API is based around two core layers, an HTTPS/REST API for general operations and a persistent secure WebSocket based connection for sending and subscribing to real-time events. The most common use case of the Discord API will be providing a service or access to a platform through the [OAuth2](https://oauth.net/2/) API.
+Discord's API is based around two core layers: An HTTPS/REST API for general operations, and a persistent secure WebSocket based connection for sending and subscribing to real-time events. The most common use case of the Discord API will be providing a service or access to a platform through the [OAuth2](https://oauth.net/2/) API.
 
 ###### Base URL
 
@@ -215,7 +215,7 @@ Clients may append more information and metadata to the _end_ of this string as 
 
 ### Rate Limiting
 
-The HTTP API implements a process for limiting and preventing excessive requests in accordance with [RFC 6585](https://tools.ietf.org/html/rfc6585#section-4). API users that regularly hit and ignore rate limits will have their API keys revoked and be blocked from the platform. For more information on rate-limiting of requests, please see the [Rate Limits](#DOCS_TOPICS_RATE_LIMITS/rate-limits) section.
+The HTTP API implements a process for limiting and preventing excessive requests in accordance with [RFC 6585](https://tools.ietf.org/html/rfc6585#section-4). API users that regularly hit and ignore rate limits will have their API keys revoked, and be blocked from the platform. For more information on rate-limiting of requests, please see the [Rate Limits](#DOCS_TOPICS_RATE_LIMITS/rate-limits) section.
 
 ## Gateway (WebSocket) API
 
@@ -292,4 +292,4 @@ Image data is a [Data URI scheme](https://en.wikipedia.org/wiki/Data_URI_scheme)
 data:image/jpeg;base64,BASE64_ENCODED_JPEG_IMAGE_DATA
 ```
 
-Ensure you use the proper content type (`image/jpeg`, `image/png`, `image/gif`) that matches the image data that is provided.
+Ensure you use the proper content type (`image/jpeg`, `image/png`, `image/gif`) that matches the image data being provided.

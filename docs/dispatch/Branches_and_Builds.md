@@ -88,9 +88,9 @@ ONWARDS!
 > warn
 > If you have not yet set up a Team and an application, please follow the steps in [Get Set Up](#DOCS_GAME_SDK_SDK_STARTER_GUIDE/get-set-up)
 
-Now that we're set up to use the tool let's make some branches! Branches, builds, and everything in between in Discord is tied to an application. To get one for your game, ask a Discord team member to hook you up!
+Now that we're set up to use the tool, let's make some branches! Branches, builds, and everything in between in Discord are tied to an application. To get one for your game, ask a Discord team member to hook you up!
 
-Then, head over to our [developer portal](https://discord.com/developers/), click into that new application and copy the `Client Id` at the top of the page, keeping it handy throughout this process. Client ID and "application id" are interchangeable phrases. For the rest of this documentation, we'll refer to it as application id.
+Then, head over to our [developer portal](https://discord.com/developers/), click into that new application, and copy the `Client Id` at the top of the page, keeping it handy throughout this process. Client ID and "application id" are interchangeable phrases. For the rest of this documentation, we'll refer to it as application id.
 
 Back to your terminal, type:
 
@@ -331,7 +331,7 @@ Then, manifest `two` would be the source of truth in a data conflict. Wew, ok, g
 }
 ```
 
-Some games may need specific registry keys set after installation or might have some installation scripts that need to be run. If so, those can be set here!
+Some games may need specific registry keys set after installation, or might have some installation scripts that need to be run. If so, those can be set here!
 
 For installation scripts, `name` is a user-friendly name that Discord will surface to users when explaining what's happening during the installation process. `executable` is the name of the script that needs to be run. `arguments` is an array that takes any arguments that may need to be passed to the script. `requires_admin`, when marked `true`, will run the install scripts with admin privileges; for some Windows users, this may force a User Access Control security popup. You must also tell Discord the `completion_registry_key` of the scripts so that we know not to try and run the script again if the given registry key is found on the user's machine.
 
@@ -501,7 +501,7 @@ However, some games do rely on downloading additional files for DLC content. If 
 }
 ```
 
-"manifests" is an array, which means it can contain multiple items. What you'll want to do is create two manifests: one for your base game and one for your DLC. Depending on how your build folder is set up, you can exclude the DLC files from being uploaded when you upload the base game. Let's pretend your build folder—the one on your local computer that you're uploading from—looks like this:
+"manifests" is an array, which means it can contain multiple items. What you'll want to do is create two manifests: one for your base game, and one for your DLC. Depending on how your build folder is set up, you can exclude the DLC files from being uploaded when you upload the base game. Let's pretend your build folder—the one on your local computer that you're uploading from—looks like this:
 
 ```
 game/
@@ -558,7 +558,7 @@ Your manifest would look something like this:
 
 So, what we've done is defined two manifests—or bundles of files—in one config. Now, how do we make 'em work?
 
-When you create SKUs in the dev portal, you assign manifests to SKUs. You'll want to assign `base-game`​ to your base game SKU and `dlc` ​to your DLC. Now, when players buy your base game, they'll get entitlement to the `base-game` manifest, and Discord will only download that one. Once they purchase `dlc`, they'll become entitled to that manifest, and Discord will patch the game with the new content they received.
+When you create SKUs in the dev portal, you assign manifests to SKUs. You'll want to assign `base-game`​ to your base game SKU, and `dlc` ​to your DLC. Now, when players buy your base game, they'll get entitlement to the `base-game` manifest, and Discord will only download that one. Once they purchase `dlc`, they'll become entitled to that manifest, and Discord will patch the game with the new content they received.
 
 ## DRM
 

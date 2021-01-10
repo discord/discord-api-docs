@@ -2,7 +2,7 @@
 
 ### Voice State Object
 
-The voice state object is used to represent a user's voice connection status.
+Used to represent a user's voice connection status.
 
 ###### Voice State Structure
 

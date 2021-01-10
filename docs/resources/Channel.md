@@ -172,7 +172,7 @@ Bots can neither send nor read messages from this channel type (as it is a store
 
 ### Message Object
 
-A message object represents a message sent in a channel within Discord.
+Represents a message sent in a channel within Discord.
 
 ###### Message Structure
 
@@ -424,7 +424,7 @@ See [permissions](#DOCS_TOPICS_PERMISSIONS/permissions) for more information abo
 
 | Field | Type      | Description                   |
 |-------|-----------|-------------------------------|
-| id    | snowflake | role or user-id               |
+| id    | snowflake | role or user id               |
 | type  | int       | either 0 (role) or 1 (member) |
 | allow | string    | permission bit set            |
 | deny  | string    | permission bit set            |
@@ -674,7 +674,7 @@ Get a channel by ID. Returns a [channel](#DOCS_RESOURCES_CHANNEL/channel-object)
 
 ## Modify Channel % PATCH /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}
 
-Update a channel's settings. This endpoint requires the `MANAGE_CHANNELS` permission for the guild. Returns a [channel](#DOCS_RESOURCES_CHANNEL/channel-object) on success, and a 400 BAD REQUEST on invalid parameters. Fires a [Channel Update](#DOCS_TOPICS_GATEWAY/channel-update) Gateway event. If modifying a category, individual [Channel Update](#DOCS_TOPICS_GATEWAY/channel-update) events will fire for each child channel that also changes. All JSON parameters are optional.
+Update a channel's settings. Requires the `MANAGE_CHANNELS` permission for the guild. Returns a [channel](#DOCS_RESOURCES_CHANNEL/channel-object) on success, and a 400 BAD REQUEST on invalid parameters. Fires a [Channel Update](#DOCS_TOPICS_GATEWAY/channel-update) Gateway event. If modifying a category, individual [Channel Update](#DOCS_TOPICS_GATEWAY/channel-update) events will fire for each child channel that also changes. All JSON parameters are optional.
 
 ###### JSON Params
 
@@ -693,7 +693,7 @@ Update a channel's settings. This endpoint requires the `MANAGE_CHANNELS` permis
 
 ## Delete/Close Channel % DELETE /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}
 
-Delete a channel, or close a private message. This endpoint requires the `MANAGE_CHANNELS` permission for the guild. Deleting a category does not delete its child channels; they will have their `parent_id` removed, and a [Channel Update](#DOCS_TOPICS_GATEWAY/channel-update) Gateway event will fire for each of them. Returns a [channel](#DOCS_RESOURCES_CHANNEL/channel-object) object on success. Fires a [Channel Delete](#DOCS_TOPICS_GATEWAY/channel-delete) Gateway event.
+Delete a channel, or close a private message. Requires the `MANAGE_CHANNELS` permission for the guild. Deleting a category does not delete its child channels; they will have their `parent_id` removed and a [Channel Update](#DOCS_TOPICS_GATEWAY/channel-update) Gateway event will fire for each of them. Returns a [channel](#DOCS_RESOURCES_CHANNEL/channel-object) object on success. Fires a [Channel Delete](#DOCS_TOPICS_GATEWAY/channel-delete) Gateway event.
 
 > warn
 > Deleting a guild channel cannot be undone. Use this with caution, as it is impossible to undo this action when performed on a guild channel. In contrast, when used with a private message, it is possible to undo the action by opening a private message with the recipient again.
@@ -703,10 +703,10 @@ Delete a channel, or close a private message. This endpoint requires the `MANAGE
 
 ## Get Channel Messages % GET /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/messages
 
-This endpoint returns the messages for a channel. If operating on a guild channel, this endpoint requires the `VIEW_CHANNEL` permission to be present on the current user. If the current user is missing the 'READ_MESSAGE_HISTORY' permission in the channel, then this will return no messages (since they cannot read the message history). Returns an array of [message](#DOCS_RESOURCES_CHANNEL/message-object) objects on success.
+Returns the messages for a channel. If operating on a guild channel, this endpoint requires the `VIEW_CHANNEL` permission to be present on the current user. If the current user is missing the 'READ_MESSAGE_HISTORY' permission in the channel then this will return no messages (since they cannot read the message history). Returns an array of [message](#DOCS_RESOURCES_CHANNEL/message-object) objects on success.
 
 > info
-> The before, after, and around keys are mutually exclusive, where only one key may be passed at a time.
+> The before, after, and around keys are mutually exclusive; only one key may be passed at a time.
 
 ###### Query String Params
 
@@ -719,7 +719,7 @@ This endpoint returns the messages for a channel. If operating on a guild channe
 
 ## Get Channel Message % GET /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}
 
-This route returns a specific message in the channel. If operating on a guild channel, this endpoint requires the 'READ_MESSAGE_HISTORY' permission to be present on the current user. Returns a [message](#DOCS_RESOURCES_CHANNEL/message-object) object on success.
+Returns a specific message in the channel. If operating on a guild channel, this endpoint requires the 'READ_MESSAGE_HISTORY' permission to be present on the current user. Returns a [message](#DOCS_RESOURCES_CHANNEL/message-object) object on success.
 
 ## Create Message % POST /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/messages
 
@@ -811,13 +811,13 @@ For example:
 
 ## Crosspost Message % POST /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}/crosspost
 
-Crosspost a message in a News Channel to the following channels. This endpoint requires the 'SEND_MESSAGES' permission if the current user sent the message, or additionally the 'MANAGE_MESSAGES' permission, for all other messages to be present for the current user.
+Crosspost a message in a News Channel to following channels. This endpoint requires the 'SEND_MESSAGES' permission, if the current user sent the message, or additionally the 'MANAGE_MESSAGES' permission, for all other messages, to be present for the current user.
 
 Returns a [message](#DOCS_RESOURCES_CHANNEL/message-object) object.
 
 ## Create Reaction % PUT /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}/reactions/{emoji#DOCS_RESOURCES_EMOJI/emoji-object}/@me
 
-This endpoint creates a reaction to the message. This endpoint requires the 'READ_MESSAGE_HISTORY' permission to be present on the current user. Additionally, if nobody else has reacted to the message using this emoji, this endpoint requires the 'ADD_REACTIONS' permission to be present on the current user. Returns a 204 empty response on success.
+Create a reaction for the message. This endpoint requires the 'READ_MESSAGE_HISTORY' permission to be present on the current user. Additionally, if nobody else has reacted to the message using this emoji, this endpoint requires the 'ADD_REACTIONS' permission to be present on the current user. Returns a 204 empty response on success.
 The `emoji` must be [URL Encoded](https://en.wikipedia.org/wiki/Percent-encoding) or the request will fail with `10014: Unknown Emoji`.
 
 ## Delete Own Reaction % DELETE /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}/reactions/{emoji#DOCS_RESOURCES_EMOJI/emoji-object}/@me
@@ -878,7 +878,7 @@ Delete a message. If operating on a guild channel and trying to delete a message
 
 Delete multiple messages in a single request. This endpoint can only be used on guild channels and requires the `MANAGE_MESSAGES` permission. Returns a 204 empty response on success. Fires a [Message Delete Bulk](#DOCS_TOPICS_GATEWAY/message-delete-bulk) Gateway event.
 
-Any message IDs are given that do not exist or are invalid will count towards the minimum and maximum message count (currently 2 and 100 respectively).
+Any message IDs given that do not exist or are invalid will count towards the minimum and maximum message count (currently 2 and 100 respectively).
 
 > warn
 > This endpoint will not delete messages older than two weeks and will fail with a 400 BAD REQUEST if any message provided is older than that or if any duplicate message IDs are provided.
@@ -887,7 +887,7 @@ Any message IDs are given that do not exist or are invalid will count towards th
 
 | Field    | Type                | Description                               |
 |----------|---------------------|-------------------------------------------|
-| messages | array of snowflakes | an array of message-ids to delete (2-100) |
+| messages | array of snowflakes | an array of message ids to delete (2-100) |
 
 ## Edit Channel Permissions % PUT /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/permissions/{overwrite.id#DOCS_RESOURCES_CHANNEL/overwrite-object}
 
@@ -944,7 +944,7 @@ Returns all pinned messages in the channel as an array of [message](#DOCS_RESOUR
 
 ## Add Pinned Channel Message % PUT /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/pins/{message.id#DOCS_RESOURCES_CHANNEL/message-object}
 
-Pin a message on a channel. Requires the `MANAGE_MESSAGES` permission. Returns a 204 empty response on success.
+Pin a message in a channel. Requires the `MANAGE_MESSAGES` permission. Returns a 204 empty response on success.
 
 > warn
 > The max pinned messages is 50.

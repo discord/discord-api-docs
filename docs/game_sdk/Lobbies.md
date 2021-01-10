@@ -12,7 +12,7 @@ Looking to integrate multiplayer into your game? Lobbies are a great way to orga
 - Matchmaking users based on lobby metadata, like ELO
 - Getting and setting arbitrary metadata on lobbies and lobby members
 
-Lobbies in Discord work in one of two ways. By using calls from the SDK, lobbies are effectively "owned" by the user who's client creates the lobby. Someone boots up the game hits your "Create Lobby" button, and their game client calls `LobbyManager.CreateLobby()` from the Discord SDK.
+Lobbies in Discord work in one of two ways. By using calls from the SDK, lobbies are effectively "owned" by the user who's client creates the lobby. Someone boots up the game, hits your "Create Lobby" button, and their game client calls `LobbyManager.CreateLobby()` from the Discord SDK.
 
 There is also another way to create and "own" lobbies with which the source of truth can be your own server. These SDK functions calls map to API endpoints that are exposed in Discord's HTTP API. In lieu of creating and managing lobbies in the SDK, you can call those endpoints directly with a token for your application and take care of it all on some far-away, totally secure server. Let's go over the SDK first.
 
