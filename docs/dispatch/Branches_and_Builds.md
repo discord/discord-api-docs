@@ -206,13 +206,13 @@ That way, you can `dispatch build push` from your actual root directory, but dis
 }
 ```
 
-File rules are a special and somewhat confusing part of the manifest, but we'll get through it together! The `file_rules` object lets you:
+File rules is a special and somewhat confusing part of the manifest, but we'll get through it together! The `file_rules` object lets you:
 
 1. Specify the way in which files get installed on a user's computer
 2. Mark files as protected, so they don't get overwritten
 3. Exclude certain files from being uploaded
 
-`mappings` lets you tell Dispatch to download files to a certain place in the install directory on a user's machine, letting you create the folder structure you need. Your game build files may be tucked deep in a subdirectory on your machine because whoever cleans up folder structures, but you can make sure it looks nice and clean for your players.
+`mappings` lets you tell Dispatch to download files to a certain place in the install directory on a user's machine, letting you create the folder structure you need. Your game build files may be tucked deep in a subdirectory on your machine, because whoever cleans up folder structures, but you can make sure it looks nice and clean for your players.
 
 `properties` allows you to mark properties on globs of files. In this case, marking a glob of files as `user_data` tells Dispatch not to touch these files in any way if it sees them; don't want that save data overwritten!
 

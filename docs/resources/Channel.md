@@ -2,7 +2,7 @@
 
 ### Channel Object
 
-A channel represents a guild or DM channel within Discord.
+Represents a guild or DM channel within Discord.
 
 ###### Channel Structure
 
