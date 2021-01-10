@@ -7,15 +7,15 @@
 
 ###### Emoji Structure
 
-| Field           | Type                                                             | Description                                                              |
-|-----------------|------------------------------------------------------------------|--------------------------------------------------------------------------|
-| id              | ?snowflake                                                       | [emoji id](#DOCS_REFERENCE/image-formatting)                             |
-| name            | ?string (can be null only in reaction emoji objects)             | emoji name                                                               |
-| roles?          | array of [role](#DOCS_TOPICS_PERMISSIONS/role-object) object ids | roles this emoji is whitelisted to                                       |
-| user?           | [user](#DOCS_RESOURCES_USER/user-object) object                  | user that created this emoji                                             |
-| require_colons? | boolean                                                          | whether this emoji must be wrapped in colons                             |
-| managed?        | boolean                                                          | whether this emoji is managed                                            |
-| animated?       | boolean                                                          | whether this emoji is animated                                           |
+| Field           | Type                                                             | Description                                                               |
+|-----------------|------------------------------------------------------------------|---------------------------------------------------------------------------|
+| id              | ?snowflake                                                       | [emoji id](#DOCS_REFERENCE/image-formatting)                              |
+| name            | ?string (can be null only in reaction emoji objects)             | emoji name                                                                |
+| roles?          | array of [role](#DOCS_TOPICS_PERMISSIONS/role-object) object ids | roles this emoji is whitelisted to                                        |
+| user?           | [user](#DOCS_RESOURCES_USER/user-object) object                  | user that created this emoji                                              |
+| require_colons? | boolean                                                          | whether this emoji must be wrapped in colons                              |
+| managed?        | boolean                                                          | whether this emoji is managed                                             |
+| animated?       | boolean                                                          | whether this emoji is animated                                            |
 | available?      | boolean                                                          | whether this emoji can be used; may be false due to loss of Server Boosts |
 
 

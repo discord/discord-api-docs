@@ -504,7 +504,7 @@ Used to change the voice settings of users in voice channels
 
 | Field   | Type                                                              | Description                                                  |
 |---------|-------------------------------------------------------------------|--------------------------------------------------------------|
-| user_id | string                                                            | id of the user                                                      |
+| user_id | string                                                            | id of the user                                               |
 | pan?    | [pan](#DOCS_TOPICS_RPC/set-user-voice-settings-pan-object) object | set the pan of the user                                      |
 | volume? | integer                                                           | set the volume of the user (defaults to 100, min 0, max 200) |
 | mute?   | boolean                                                           | set the mute state of the user                               |

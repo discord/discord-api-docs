@@ -126,7 +126,7 @@ You should begin your integration by setting up this callback to help you debug.
 | 26   | NotInstalled                    | Discord is not installed                                                                        |
 | 27   | NotRunning                      | Discord is not running                                                                          |
 | 28   | InsufficientBuffer              | insufficient buffer space when trying to write                                                  |
-| 29   | PurchaseCancelled               | user canceled the purchase flow                                                            |
+| 29   | PurchaseCancelled               | user canceled the purchase flow                                                                 |
 | 30   | InvalidGuild                    | Discord guild does not exist                                                                    |
 | 31   | InvalidEvent                    | the event you're trying to subscribe to does not exist                                          |
 | 32   | InvalidChannel                  | Discord channel does not exist                                                                  |

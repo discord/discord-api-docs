@@ -10,7 +10,7 @@ Used to represent a user's voice connection status.
 |--------------|------------------------------------------------------------------|------------------------------------------------|
 | guild_id?    | snowflake                                                        | the guild id this voice state is for           |
 | channel_id   | ?snowflake                                                       | the channel id this user is connected to       |
-| user_id      | snowflake                                                        | the id of the user this voice state is for            |
+| user_id      | snowflake                                                        | the id of the user this voice state is for     |
 | member?      | [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) object | the guild member this voice state is for       |
 | session_id   | string                                                           | the session id for this voice state            |
 | deaf         | boolean                                                          | whether this user is deafened by the server    |
