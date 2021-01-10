@@ -2,7 +2,7 @@
 
 ### Invite Object
 
-Represents a code that when used, adds a user to a guild or group DM channel.
+Represents a code that, when used, adds a user to a guild or group DM channel.
 
 ###### Invite Structure
 
@@ -71,7 +71,7 @@ Extra information about an invite, will extend the [invite](#DOCS_RESOURCES_INVI
 | uses       | integer                                         | number of times this invite has been used            |
 | max_uses   | integer                                         | max number of times this invite can be used          |
 | max_age    | integer                                         | duration (in seconds) after which the invite expires |
-| temporary  | boolean                                         | whether this invite only grants temporary membership |
+| temporary  | boolean                                         | whether this invite does only grant temporary membership |
 | created_at | ISO8601 timestamp                               | when this invite was created                         |
 
 ###### Example Invite Metadata

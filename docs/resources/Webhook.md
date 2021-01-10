@@ -4,7 +4,7 @@ Webhooks are a low-effort way to post messages to channels in Discord. They do n
 
 ### Webhook Object
 
-Used to represent a webhook.
+The webhook object is used to represent a webhook.
 
 ###### Webhook Structure
 
@@ -106,7 +106,7 @@ Same as above, except this call does not require authentication.
 ## Execute Webhook % POST /webhooks/{webhook.id#DOCS_RESOURCES_WEBHOOK/webhook-object}/{webhook.token#DOCS_RESOURCES_WEBHOOK/webhook-object}
 
 > warn
-> This endpoint supports both JSON and form data bodies. It does require multipart/form-data requests instead of the normal JSON request type when uploading files. Make sure you set your `Content-Type` to `multipart/form-data` if you're doing that. Note that in that case, the `embeds` field cannot be used, but you can pass an url-encoded JSON body as a form value for `payload_json`.
+> This endpoint supports both JSON and form data bodies. It does require multipart/form-data requests instead of the normal JSON request type when uploading files. Make sure you set your `Content-Type` to `multipart/form-data` if you're doing that. Note that in that case, the `embeds` field cannot be used, but you can pass an URL-encoded JSON body as a form value for `payload_json`.
 
 ###### Querystring Params
 

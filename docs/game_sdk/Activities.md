@@ -6,7 +6,7 @@
 > warn
 > Game approval submissions are currently paused due to unforeseen circumstances. We apologize for the inconvenience. [Click here for more info.](https://support-dev.discord.com/hc/en-us/articles/360041437171)
 
-Looking to integrate Rich Presence into your game? No need to manage multiple SDKs—this one does all that awesome stuff, too!. Delight your players with the ability to post game invites in chat and party up directly from Discord. Surface interesting live game data in their profile and on the Games Tab for their friends, encouraging them to group up and play together.
+Are you looking to integrate Rich Presence into your game? No need to manage multiple SDKs—this one does all that awesome stuff, too!. Delight your players with the ability to post-game invites in chat and party up directly from Discord. Surface interesting live game data in their profile and on the Games Tab for their friends, encouraging them to group up and play together.
 
 For more detailed information and documentation around the Rich Presence feature set and integration tips, check out our [Rich Presence Documentation](https://discord.com/developers/docs/rich-presence/how-to).
 
@@ -18,7 +18,7 @@ For more detailed information and documentation around the Rich Presence feature
 | ------------- | ------ | ----------------------------- |
 | Id            | Int64  | the user's id                 |
 | Username      | string | their name                    |
-| Discriminator | string | the user's unique discrim     |
+| Discriminator | string | the user's unique discriminator     |
 | Avatar        | string | the hash of the user's avatar |
 | Bot           | bool   | if the user is a bot user     |
 
@@ -40,16 +40,16 @@ For more detailed information and documentation around the Rich Presence feature
 
 | name  | type  | description                                            |
 | ----- | ----- | ------------------------------------------------------ |
-| Start | Int64 | unix timestamp - send this to have an "elapsed" timer  |
-| End   | Int64 | unix timestamp - send this to have a "remaining" timer |
+| Start | Int64 | UNIX timestamp - send this to have an "elapsed" timer  |
+| End   | Int64 | UNIX timestamp - send this to have a "remaining" timer |
 
 ###### ActivityAssets Struct
 
 | name       | type   | description                    |
 | ---------- | ------ | ------------------------------ |
-| LargeImage | string | keyname of an asset to display |
+| LargeImage | string | key name of an asset to display |
 | LargeText  | string | hover text for the large image |
-| SmallImage | string | keyname of an asset to display |
+| SmallImage | string | key name of an asset to display |
 | SmallText  | string | hover text for the small image |
 
 ###### ActivityParty Struct
@@ -381,7 +381,7 @@ activityManager.OnActivityJoin += secret => {
             lobbyManager.SendNetworkMessage(lobby.Id, user.Id, 0,
                 Encoding.UTF8.GetBytes(String.Format("Hello, {0}!", user.Username)));
         }
-		//Sends this off to a Activity callback named here as 'UpdateActivity' passing in the discord instance details and lobby details
+		//Sends this off to an Activity callback named here as 'UpdateActivity' passing in the discord instance details and lobby details
         UpdateActivity(discord, lobby);
     });
 };
@@ -441,7 +441,7 @@ void UpdateActivity(Discord.Discord discord, Discord.Lobby lobby)
 
 ## OnActivitySpectate
 
-Fires when a user accepts a spectate chat invite or clicks the Spectate button on a user's profile.
+Fired when a user accepts a spectate chat invite or clicks the Spectate button on a user's profile.
 
 ###### Parameters
 
@@ -481,7 +481,7 @@ activityManager.OnActivityJoinRequest += (ref Discord.User user) =>
 
 ## OnActivityInvite
 
-Fires when the user receives a join or spectate invite.
+Fired when the user receives a join or spectate invite.
 
 ###### Parameters
 
@@ -494,7 +494,7 @@ Fires when the user receives a join or spectate invite.
 ###### Example
 
 ```cs
-// An invite has been received. Consider rendering the user / activity on the UI.
+// An invite has been received. Consider rendering the user/activity on the UI.
 activityManager.OnActivityInvite += (Discord.ActivityActionType Type, ref Discord.User user, ref Discord.Activity activity2) =>
 {
       Console.WriteLine("Recieved Invite Type: {0}, from User: {1}, with Activity Name: {2}", Type, user.Username, activity2.Name);

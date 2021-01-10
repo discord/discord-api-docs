@@ -40,7 +40,7 @@ ws://127.0.0.1:PORT?v=1&client_id=YOUR_CLIENT_ID&encoding=json
 
 `PORT` is a range of ports from `6463` to `6473`. You should iterate over these ports with your request until one returns a success response code or succeeds with a socket connection. Keep track of that port number for the rest of the session.
 
-To keep your hardware in sync with Discord, send updates any time the hardware mute is toggled, or one of the voice features like echo cancellation is enabled or disabled by the user. This lets Discord get out of the way of your optimization when you're in control, or help out when you're not, ensuring an awesome experience for anyone using your hardware.
+To keep your hardware in sync with Discord, send updates any time the hardware mute is toggled, or one of the voice features like echo cancellation is enabled or disabled by the user. This lets Discord get out of the way of your optimization when you're in control or help out when you're not, ensuring an awesome experience for anyone using your hardware.
 
 Each time you update, send a full array of `devices`, sorted by your preferred priority. That means if you want a specific headset to be the default that Discord will attempt to use, put it first in the array.
 
@@ -182,14 +182,14 @@ The socket will respond with a `200 OK` status code and the following JSON.
 | Field | Type   | Description        |
 | ----- | ------ | ------------------ |
 | name  | string | name of the vendor |
-| url   | string | url for the vendor |
+| url   | string | URL for the vendor |
 
 ###### Model Object
 
 | Field | Type   | Description       |
 | ----- | ------ | ----------------- |
 | name  | string | name of the model |
-| url   | string | url for the model |
+| url   | string | URL for the model |
 
 ###### Device Types
 

@@ -2,7 +2,7 @@
 
 ## Audit Logs
 
-Whenever an admin action is performed on the API, an entry is added to the respective guild's audit log. You can specify the reason by attaching the `X-Audit-Log-Reason` request header. This header supports url encoded utf8 characters.
+Whenever an admin action is performed on the API, an entry is added to the respective guild's audit log. You can specify the reason by attaching the `X-Audit-Log-Reason` request header. This header supports URL encoded utf8 characters.
 
 ### Audit Log Object
 

@@ -42,7 +42,7 @@ if (!overlaymanager.IsEnabled())
 
 ## IsLocked
 
-Check if the overlay is currently locked or unlocked
+Check if the overlay is currently locked or unlocked.
 
 ###### Parameters
 

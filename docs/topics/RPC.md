@@ -1,7 +1,7 @@
 # RPC
 
 > danger
-> For now, RPC is in a private beta. We are not currently accepting any new developers into the program at this time.
+> For now, RPC is in private beta. We are not currently accepting any new developers into the program at this time.
 
 All Discord clients have an RPC server running on localhost that allows control over local Discord clients.
 
@@ -15,7 +15,7 @@ All Discord clients have an RPC server running on localhost that allows control 
 
 For connections to the RPC server, a [whitelist](#DOCS_TOPICS_RPC/authorize) is used to restrict access while you're still developing. You can invite up to 50 people to your whitelist.
 
-For applications/games not approved, we limit you to creating 10 guilds and 10 channels. This limit is raised to virtually unlimited after approval.
+For applications/games not approved, we limit you to creating ten guilds and ten channels. This limit is raised to virtually unlimited after approval.
 
 ## Payloads
 
@@ -40,21 +40,21 @@ For WebSocket connections, the connection is always `ws://127.0.0.1:PORT/?v=VERS
 - `PORT` is the port of the RPC Server.
 - `ENCODING` is the type of encoding for this connection to use. `json` and `etf` are supported.
 
-To begin, you'll need to create an app. Head to [your apps](https://discord.com/developers/applications/me) and click the big plus button. When you create an app on our Developers site, you must specify an "RPC Origin" and "Redirect URI" from which to permit connections and authorizations. **The origin you send when connecting and the redirect uri you send when exchanging an authorization code for an access token must match one of the ones entered on the Developers site.**
+To begin, you'll need to create an app. Head to [your apps](https://discord.com/developers/applications/me) and click the big plus button. When you create an app on our Developers site, you must specify an "RPC Origin" and "Redirect URI" from which to permit connections and authorizations. **The origin you send when connecting and the redirect URI you send when exchanging an authorization code for an access token must match one of the ones entered on the Developers site.**
 
-When establishing a WebSocket connection, we verify the Origin header on connection to prevent client ID spoofing. You will be instantly disconnected if the Origin does not match.
+When establishing a WebSocket connection, we verify the Origin header on the connection to prevent client ID spoofing. You will be instantly disconnected if the origin does not match.
 
-If you're connecting to the RPC server from within a browser, RPC origins are usually in the form `SCHEME://HOST[:PORT]`, where `SCHEME` is typically https or http, `HOST` is your domain or ip, and `PORT` is the port of the webserver from which the user will be connecting (omitted for ports 80 and 443). For example, `https://discord.com` would be used if the user were connecting from `https://discord.com/some/page/url`.
+If you're connecting to the RPC server from within a browser, RPC origins are usually in the form `SCHEME://HOST[:PORT]`, where `SCHEME` is typically HTTPS or HTTP, `HOST` is your domain or IP, and `PORT` is the port of the web server from which the user will be connecting (omitted for ports 80 and 443). For example, `https://discord.com` would be used if the user were connecting from `https://discord.com/some/page/url`.
 
-If you're connecting to the RPC server from within a non-browser application (like a game), you just need to make sure that the origin is sent with the upgrade request when connecting to the WebSocket. For local testing, we recommend testing with an origin like `https://localhost`. For production apps, we recommend setting the origin to your company/game's domain, for example `https://discord.com`.
+If you're connecting to the RPC server from within a non-browser application (like a game), you just need to make sure that the origin is sent with the upgrade request when connecting to the WebSocket. For local testing, we recommend testing with an origin like `https://localhost`. For production apps, we recommend setting the origin to your company/game's domain, for example, `https://discord.com`.
 
 ### RPC Server Ports
 
-The port range for Discord's local RPC server is [6463, 6472]. Since the RPC server runs locally, there's a chance it might not be able to obtain its preferred port when it tries to bind to one. For this reason, the local RPC server will pick one port out of a range of these 10 ports, trying sequentially until it can bind to one. When implementing your client, you should perform the same sequential checking to find the correct port to connect to.
+The port range for Discord's local RPC server is [6463, 6472]. Since the RPC server runs locally, there's a chance it might not be able to obtain its preferred port when it tries to bind to one. For this reason, the local RPC server will pick one port out of a range of these ten ports, trying sequentially until it can bind to one. When implementing your client, you should perform the same sequential checking to find the correct port to connect to.
 
 ## Authenticating
 
-In order to call any commands over RPC, you must be authenticated or you will receive a code `4006` error response. Thankfully, we've removed the oppressive nature of a couple commands that will let you `AUTHORIZE` and `AUTHENTICATE` new users. First, call [AUTHORIZE](#DOCS_TOPICS_RPC/authorize):
+In order to call any commands over RPC, you must be authenticated, or you will receive a code `4006` error response. Thankfully, we've removed the oppressive nature of a couple of commands that will let you `AUTHORIZE` and `AUTHENTICATE` new users. First, call [AUTHORIZE](#DOCS_TOPICS_RPC/authorize):
 
 ###### RPC Authorize Example
 
@@ -89,7 +89,7 @@ You can now call RPC commands on behalf of the authorized user!
 
 If you request the `rpc.api` [scope](#DOCS_TOPICS_OAUTH2/shared-resources-oauth2-scopes) when authorizing your app to the client, your app is able to call the Discord API on behalf of the user whose access token you retrieved.
 
-For proxied API requests, the schema, host, and path to the API endpoint is always `http://127.0.0.1:PORT/` where `PORT` is the same port on which the RPC server is listening.
+For proxied API requests, the schema, host, and path to the API endpoint are always `http://127.0.0.1:PORT/` where `PORT` is the same port on which the RPC server is listening.
 
 Proxied API requests accept an OAuth2 Bearer token in the Authorization header and respond as our API normally does. However, they are executed with the user's bearer token instead of a bot token, providing the ability to modify most of what the client has access to.
 
@@ -168,11 +168,11 @@ Events are payloads sent over the socket to a client that correspond to events i
 
 #### AUTHORIZE
 
-Used to authenticate a new client with your app. By default this pops up a modal in-app that asks the user to authorize access to your app.
+Used to authenticate a new client with your app. By default, this pops up a modal in-app that asks the user to authorize access to your app.
 
-**We currently do not allow access to RPC for unapproved games without an entry on a game's whitelist.** We grant 50 whitelist spots, which should be ample for development and testing. After approval, this restriction is removed and the whitelist is no longer needed.
+**We currently do not allow access to RPC for unapproved games without an entry on a game's whitelist.** We grant 50 whitelist spots, which should be ample for development and testing. After approval, this restriction is removed, and the whitelist is no longer needed.
 
-We also have an RPC token system to bypass the user authorization modal. This is usable by approved games as well as by users on a game's whitelist, and also disallows use of the `messages.read` scope. If you have been granted access, you can send a POST request to `https://discord.com/api/oauth2/token/rpc` with your application's `client_id` and `client_secret` in the body (sent as a url-encoded body, **not JSON**). You can then pass the returned `rpc_token` value to the `rpc_token` field in your RPC authorize request (documented below).
+We also have an RPC token system to bypass the user authorization modal. This is usable by approved games as well as by users on a game's whitelist and also disallows the use of the `messages.read` scope. If you have been granted access, you can send a POST request to `https://discord.com/api/oauth2/token/rpc` with your application's `client_id` and `client_secret` in the body (sent as a URL-encoded body, **not JSON**). You can then pass the returned `rpc_token` value to the `rpc_token` field in your RPC authorize request (documented below).
 
 ###### Authorize Argument Structure
 
@@ -240,7 +240,7 @@ Used to authenticate an existing client with your app.
 | description | string           | application description  |
 | icon        | string           | hash of the icon         |
 | id          | snowflake        | application client id    |
-| rpc_origins | array of strings | array of rpc origin urls |
+| rpc_origins | array of strings | array of rpc origin URLs |
 | name        | string           | application name         |
 
 ###### Example Authenticate Command Payload
@@ -335,7 +335,7 @@ Used to get a guild the client is in.
 | -------- | -------------------------------------------------------------------------- | ----------------------------------------------------- |
 | id       | string                                                                     | guild id                                              |
 | name     | string                                                                     | guild name                                            |
-| icon_url | string                                                                     | guild icon url                                        |
+| icon_url | string                                                                     | guild icon URL                                        |
 | members  | array of [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) objects | members of the guild (deprecated; always empty array) |
 
 ###### Example Get Guild Command Payload
@@ -498,15 +498,15 @@ Used to get a guild's channels the client is in.
 
 #### SET_USER_VOICE_SETTINGS
 
-Used to change voice settings of users in voice channels
+Used to change the voice settings of users in voice channels
 
 ###### Set User Voice Settings Argument and Response Structure
 
 | Field   | Type                                                              | Description                                              |
 | ------- | ----------------------------------------------------------------- | -------------------------------------------------------- |
-| user_id | string                                                            | user id                                                  |
+| user_id | string                                                            | user-id                                                  |
 | pan?    | [pan](#DOCS_TOPICS_RPC/set-user-voice-settings-pan-object) object | set the pan of the user                                  |
-| volume? | integer                                                           | set the volume of user (defaults to 100, min 0, max 200) |
+| volume? | integer                                                           | set the volume of the user (defaults to 100, min 0, max 200) |
 | mute?   | boolean                                                           | set the mute state of the user                           |
 
 > info
@@ -562,18 +562,18 @@ Used to change voice settings of users in voice channels
 
 #### SELECT_VOICE_CHANNEL
 
-Used to join and leave voice channels, group dms, or dms. Returns the [Get Channel](#DOCS_TOPICS_RPC/get-channel) response, `null` if none.
+Used to join and leave voice channels, group DMs, or DMs. Returns the [Get Channel](#DOCS_TOPICS_RPC/get-channel) response, or `null` if none.
 
 ###### Select Voice Channel Argument Structure
 
-| Field      | Type    | Description                                                     |
-| ---------- | ------- | --------------------------------------------------------------- |
-| channel_id | string  | channel id to join (or `null` to leave)                         |
-| timeout    | integer | asynchronously join channel with time to wait before timing out |
-| force      | boolean | forces a user to join a voice channel                           |
+| Field      | Type    | Description                                                    |
+| ---------- | ------- | -------------------------------------------------------------- |
+| channel_id | string  | channel id to join (or `null` to leave)                        |
+| timeout    | integer | asynchronously join a channel with time to wait before timing out |
+| force      | boolean | forces a user to join a voice channel                          |
 
 > warn
-> When trying to join the user to a voice channel, you will receive a `5003` error coded response if the user is already in a voice channel. The `force` parameter should only be specified in response to the case where a user is already in a voice channel and they have **approved** to be moved by your app to a new voice channel.
+> When trying to join the user to a voice channel, you will receive a `5003` error coded response if the user is already in a voice channel. The `force` parameter should only be specified in response to the case where a user is already in a voice channel, and they have **approved** to be moved by your app to a new voice channel.
 
 ###### Example Select Voice Channel Command Payload
 
@@ -640,10 +640,10 @@ Used to join and leave text channels, group dms, or dms. Returns the [Get Channe
 
 ###### Select Text Channel Argument Structure
 
-| Field      | Type    | Description                                                     |
-| ---------- | ------- | --------------------------------------------------------------- |
-| channel_id | string  | channel id to join (or `null` to leave)                         |
-| timeout    | integer | asynchronously join channel with time to wait before timing out |
+| Field      | Type    | Description                                                       |
+| ---------- | ------- | ----------------------------------------------------------------- |
+| channel_id | string  | channel id to join (or `null` to leave)                           |
+| timeout    | integer | asynchronously join a channel with time to wait before timing out |
 
 #### GET_VOICE_SETTINGS
 
@@ -999,14 +999,14 @@ Used by hardware manufacturers to send information about the current state of th
 | Field | Type   | Description        |
 | ----- | ------ | ------------------ |
 | name  | string | name of the vendor |
-| url   | string | url for the vendor |
+| url   | string | URL for the vendor |
 
 ###### Model Object
 
 | Field | Type   | Description       |
 | ----- | ------ | ----------------- |
 | name  | string | name of the model |
-| url   | string | url for the model |
+| url   | string | URL for the model |
 
 ###### Device Types
 
@@ -1162,8 +1162,8 @@ Used to reject an Ask to Join request.
 
 | Field        | Type   | Description           |
 | ------------ | ------ | --------------------- |
-| cdn_host     | string | server's cdn          |
-| api_endpoint | string | server's api endpoint |
+| cdn_host     | string | server's CDN          |
+| api_endpoint | string | server's API endpoint |
 | environment  | string | server's environment  |
 
 ###### Example Ready Dispatch Payload
@@ -1218,14 +1218,14 @@ Used to reject an Ask to Join request.
 
 | Field    | Type   | Description                         |
 | -------- | ------ | ----------------------------------- |
-| guild_id | string | id of guild to listen to updates of |
+| guild_id | string | id of the guild to listen to updates of |
 
 ###### Guild Status Dispatch Data Structure
 
 | Field  | Type                                                       | Description                                            |
 | ------ | ---------------------------------------------------------- | ------------------------------------------------------ |
 | guild  | partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object | guild with requested id                                |
-| online | integer                                                    | number of online users in guild (deprecated; always 0) |
+| online | integer                                                    | number of online users in the guild (deprecated; always 0) |
 
 ###### Example Guild Status Dispatch Payload
 
@@ -1383,7 +1383,7 @@ Dispatches channel voice state objects
 
 | Field      | Type   | Description                           |
 | ---------- | ------ | ------------------------------------- |
-| channel_id | string | id of channel to listen to updates of |
+| channel_id | string | id of the channel to listen to updates of |
 
 ###### Example Voice State Dispatch Payload
 
@@ -1470,7 +1470,7 @@ Dispatches message objects, with the exception of deletions, which only contains
 
 | Field      | Type   | Description                           |
 | ---------- | ------ | ------------------------------------- |
-| channel_id | string | id of channel to listen to updates of |
+| channel_id | string | id of the channel to listen to updates of |
 
 ###### Example Message Dispatch Payload
 
@@ -1519,13 +1519,13 @@ Dispatches message objects, with the exception of deletions, which only contains
 
 | Field      | Type   | Description                           |
 | ---------- | ------ | ------------------------------------- |
-| channel_id | string | id of channel to listen to updates of |
+| channel_id | string | id of the channel to listen to updates of |
 
 ###### Speaking Dispatch Data Structure
 
 | Field   | Type   | Description                             |
 | ------- | ------ | --------------------------------------- |
-| user_id | string | id of user who started/stopped speaking |
+| user_id | string | id of the user who started/stopped speaking |
 
 ###### Example Speaking Dispatch Payload
 
@@ -1547,9 +1547,9 @@ No arguments. This event requires the `rpc.notifications.read` [OAuth2 scope](#D
 
 | Field      | Type                                                     | Description                               |
 | ---------- | -------------------------------------------------------- | ----------------------------------------- |
-| channel_id | string                                                   | id of channel where notification occurred |
+| channel_id | string                                                   | id of the channel where notification occurred |
 | message    | [message](#DOCS_RESOURCES_CHANNEL/message-object) object | message that generated this notification  |
-| icon_url   | string                                                   | icon url of the notification              |
+| icon_url   | string                                                   | icon URL of the notification              |
 | title      | string                                                   | title of the notification                 |
 | body       | string                                                   | body of the notification                  |
 

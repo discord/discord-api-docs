@@ -16,7 +16,7 @@
 | require_colons? | boolean                                                          | whether this emoji must be wrapped in colons                              |
 | managed?        | boolean                                                          | whether this emoji is managed                                             |
 | animated?       | boolean                                                          | whether this emoji is animated                                            |
-| available?      | boolean                                                          | whether this emoji can be used, may be false due to loss of Server Boosts |
+| available?      | boolean                                                          | whether this emoji can be used may be false due to loss of Server Boosts |
 
 
 ###### Emoji Example
@@ -50,10 +50,10 @@
 ###### Gateway Reaction Custom Emoji Examples
 
 >info
->In `MESSAGE_REACTION_ADD` gateway events `animated` will be returned for animated emoji.
+>In `MESSAGE_REACTION_ADD` gateway events, `animated` will be returned for animated emoji.
 
 >info
->In `MESSAGE_REACTION_ADD` and `MESSAGE_REACTION_REMOVE` gateway events `name` may be `null` when custom emoji data is not available (for example, if it was deleted from the guild).
+>In `MESSAGE_REACTION_ADD` and `MESSAGE_REACTION_REMOVE` gateway events `name` maybe `null` when custom emoji data is not available (for example, if it was deleted from the guild).
 
 ```json
 {

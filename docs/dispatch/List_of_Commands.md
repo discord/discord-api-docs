@@ -96,7 +96,7 @@ Deletes a build from a branch.
 
 ## build drm-wrap
 
-Wraps your executable in Discord's DRM. This only works for Windows executables. If you want to DRM wrap a unix executable, you'll need to instead use [ValidateOrExit](#DOCS_GAME_SDK_APPLICATIONS/validateorexit).
+Wraps your executable in Discord's DRM. This only works for Windows executables. If you want to DRM wrap a UNIX executable, you'll need to instead use [ValidateOrExit](#DOCS_GAME_SDK_APPLICATIONS/validateorexit).
 
 > danger
 > This action is destructive and overwrites the executable. Make sure you've got a backup handy if needed!
@@ -165,7 +165,7 @@ Pushes a new build to the given branch. The JSON config file tells Dispatch how 
 | config_file      | filename  | the [JSON config file](#DOCS_DISPATCH_BRANCHES_AND_BUILDS/setting-up-our-first-build) for the build   |
 | application_root | file path | the directory that dispatch will treat as the local root for operations—`.` for the current directory |
 | -c               | flag      | forces a re-chunk of files even if the edited file timestamp hasn't changed                           |
-| -p               | flag      | automatically publishes the build if push is successful                                               |
+| -p               | flag      | automatically publishes the build if the push is successful                                               |
 
 ###### Example
 
@@ -175,7 +175,7 @@ Pushes a new build to the given branch. The JSON config file tells Dispatch how 
 
 ## build update
 
-Downloads the build for the given application id and branch id to the given install path, for the given platform and locale.
+Downloads the build for the given application id and branch id to the given install path for the given platform and locale.
 
 `install_path` can be any file path on your machine to download the build to.
 
@@ -215,7 +215,7 @@ Corrupted build "491362538965958686"
 
 ## build preview-files
 
-Displays a preview of the install paths that a build will put files in, for a given platform/locale. Additionally, will show which files are considered user data.
+Displays a preview of the install paths that a build will put files in for a given platform/locale. Additionally, it will show which files are considered user data.
 
 ###### Arguments
 
@@ -271,7 +271,7 @@ Runs the launch setup for an application.
 
 ## completions generate
 
-Generations shell command completions; run `dispatch completions --help` for more info, as it varies by shell
+Generations shell command completions; run `dispatch completions --help` for more info, as it varies by shell type.
 
 ###### Example
 

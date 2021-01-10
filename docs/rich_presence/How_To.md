@@ -9,7 +9,7 @@ If you are testing a game integration with Rich Presence, other users will be ab
 
 ## So, what is it?
 
-Rich Presence allows you to leverage the totally overhauled "Now Playing" section in a Discord user's profile to help people play your game together. Rich game data—including duration, score, current boss or map, and so much more—lives inside Discord. You can spectate a friend's game directly from their profile popout, or party up via beautiful chat embeds with real-time information about open party slots and the party's in-game status. No more exchanging usernames and friend codes, or wondering if there's room for you to join. Rich Presence is a living invitation to play together, or to watch your friends kick butt.
+Rich Presence allows you to leverage the totally overhauled "Now Playing" section in a Discord user's profile to help people play your game together. Rich game data—including duration, score, current boss or map, and so much more—lives inside Discord. You can spectate a friend's game directly from their profile popout or party up via beautiful chat embeds with real-time information about open party slots and the party's in-game status. No more exchanging usernames and friend codes or wondering if there's room for you to join. Rich Presence is a living invitation to play together or to watch your friends kick butt.
 
 ## Step 0: Get the SDK
 
@@ -31,7 +31,7 @@ In the header file, you'll find six event-emitting callbacks:
 
 These six callbacks make up the entirety of what you need to implement. Behind the scenes, we do all the heavy lifting for you.
 
-The header file also contains the `Discord_RunCallbacks()` function. This invokes any pending callbacks from Discord on the calling thread (it's thread safe!).
+The header file also contains the `Discord_RunCallbacks()` function. This invokes any pending callbacks from Discord on the calling thread (it's thread-safe!).
 
 ## Initialization
 

@@ -14,9 +14,9 @@ This manager helps you access the relationships your players have made on Discor
 
 ## First Notes
 
-Relationships on Discord change often; people start and stop playing games, go online, offline, invisible, or otherwise change state. Therefore, there are some important factors to remember when working with this manager. When you are first getting a list of a user's relationships, before you can `Filter()`, you need to wait for the `OnRefresh` callback to fire. This is your indicator that Discord has successfully taken a snapshot of the state of all your relationships at a given moment. Now that you have this snapshot, you can `Filter()` it to build the list that you want, and then iterate over that list to do whatever your game needs to do. Use this to build your initial social graph for a user.
+Relationships on Discord change often; people start and stop playing games, go online, offline, invisible, or otherwise change state. Therefore, there are some important factors to remember when working with this manager. When you are first getting a list of a user's relationships, before you can `Filter()`, you need to wait for the `OnRefresh` callback to fire. This is your indicator that Discord has successfully taken a snapshot of the state of all your relationships at a given moment. Now that you have this snapshot, you can `Filter()` it to build the list that you want and then iterate over that list to do whatever your game needs to do. Use this to build your initial social graph for a user.
 
-As relationships change, the `OnRelationshipUpdate` event will fire. You can use this to update the user's social graph, changing the status of the other Discord users that you chose to filter, e.g. someone is now online, or now playing the game, or no longer playing.
+As relationships change, the `OnRelationshipUpdate` event will fire. You can use this to update the user's social graph, changing the status of the other Discord users that you chose to filter, e.g., someone is now online, or now playing the game, or no longer playing.
 
 An example of how to do this properly is at the end of this documentation page.
 
@@ -37,9 +37,9 @@ An example of how to do this properly is at the end of this documentation page.
 | None            | user has no intrinsic relationship                                               |
 | Friend          | user is a friend                                                                 |
 | Blocked         | user is blocked                                                                  |
-| PendingIncoming | user has a pending incoming friend request to connected user                     |
+| PendingIncoming | the user has a pending incoming friend request to connected user                     |
 | PendingOutgoing | current user has a pending outgoing friend request to user                       |
-| Implicit        | user is not friends, but interacts with current user often (frequency + recency) |
+| Implicit        | user is not friends, but interacts with the current user often (frequency + recency) |
 
 ###### Presence Struct
 

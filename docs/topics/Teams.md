@@ -41,7 +41,7 @@ If you have an existing app that you want to transfer to a Team, you can do that
 
 ## What Next
 
-What next? Go make awesome stuff! Whether you're a Game Developer, Mad Bot Scientist, or OAuth2 Enthusiast, you can now work together with other like-minded Discordians to bring your creations to life.
+What next? Go, make awesome stuff! Whether you're a Game Developer, Mad Bot Scientist, or OAuth2 Enthusiast, you can now work together with other like-minded Discordians to bring your creations to life.
 
 We've got a lot of awesome features planned for teams in the future, so stay tuned for things like:
 

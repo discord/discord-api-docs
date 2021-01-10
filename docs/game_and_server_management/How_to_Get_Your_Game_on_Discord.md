@@ -16,7 +16,7 @@ You've now passed the first test with flying colors!
 
 ## Apps and Games
 
-Throughout this process, we'll reference your "app". An app, or application, is an entity on Discord that represents something you've built: a bot, an OAuth2 app, or in this case your game. We need to make an app for your game:
+Throughout this process, we'll reference your "app". An app, or application, is an entity on Discord that represents something you've built: a bot, an OAuth2 app, or in this case, your game. We need to make an app for your game:
 
 1. Create a new app at [https://discord.com/developers/applications](https://discord.com/developers/applications)
 2. When doing so, make sure you select your team from the `Team` dropdown
@@ -34,7 +34,7 @@ From here on forward, we'll be managing settings that tie directly to your game 
 - run alpha and beta tests for your game, using the magic of channel permissions to create role-based page access
 - apply for approval, letting you start making money (if you want to)
 
-Now that we've weeded out the trolls, let's get your server up and running with some fancy new features!
+Now that we've weeded out the trolls - let's get your server up and running with some fancy new features!
 
 ## Your Server - Your Kingdom
 
@@ -49,12 +49,12 @@ Select the server that you wish to grant these features, confirm to be double-ex
 Now, what do you do next? You start building! Build your community, make your game, invite testers into your server to get hype! Now is a great time to get familiar with all the tools at your disposal like:
 
 - [Discord's Developer Portal](https://discord.com/developers/applications), your one-stop-game-management-shop
-- [The Discord Game SDK](#DOCS_GAME_SDK_SDK_STARTER_GUIDE/), a spellbook full of useful game dev incantations including Discord's crystal-clear voice chat
+- [The Discord Game SDK](#DOCS_GAME_SDK_SDK_STARTER_GUIDE/), a spellbook full of useful game dev incantations, including Discord's crystal-clear voice chat
 - [Dispatch](#DOCS_DISPATCH_DISPATCH_AND_YOU/), Discord's game patcher and downloader that's so fast, you'll swear it's magic
 
 To guide you through this process to success, you can follow that handy checklist. It'll tell you the steps you need to complete, show you where and how to do them, and give you a blissful sense of satisfaction as the green check marks pile up.
 
-The next and final step in your on-boarding journey is getting approved. Once approved, you'll be able to start making money (or karma), and you'll unlock a ton of cool server customization features to make your kingdom cozy for your players.
+The next and final step in your onboarding journey is getting approved. Once approved, you'll be able to start making money (or karma), and you'll unlock a ton of cool server customization features to make your kingdom cozy for your players.
 
 ## Testing Your Game
 
@@ -64,7 +64,7 @@ If you are on the Team that owns the game, you can also use another special syst
 
 ## Getting Approved
 
-Your game looks wonderful. You've got a beautiful store page, and awesome game, and an eager community. It's time to get approved and plant your flag. Note that if your game is in an alpha or beta state, or you're interesting in Early Access, you are welcome to apply for approval whenever you are ready. Your game doesn't need to be the finished 1.0 version; give us something you'd feel comfortable giving to your players.
+Your game looks wonderful. You've got a beautiful store page, an awesome game, and an eager community. It's time to get approved and plant your flag. Note that if your game is in an alpha or beta state, or you're interesting in Early Access, you are welcome to apply for approval whenever you are ready. Your game doesn't need to be the finished 1.0 version; give us something you'd feel comfortable giving to your players.
 
 Once you've completed all the items on your checklist, the `Get Approved` button will unlock. Once you submit for approval, Discord will take a look at the following things:
 
@@ -74,9 +74,9 @@ Once you've completed all the items on your checklist, the `Get Approved` button
 
 If we need to see some changes, you'll receive an email directing you on your steps to success. Otherwise, you'll get **APPROVED!!!!!!!!!!** What's that mean? It means you can start charging for your game and making money! Don't spend it all in one place. Or do. Treat yourself. Or maybe you want your game to be **free!** Live your best life. We support you!
 
-## Available vs Store Page Published
+## Available vs. Store Page Published
 
-Now that you've been approved, there's a couple new toggles to flip in the Developer Portal: `Available`, and `Store Page Published`.
+Now that you've been approved, there are a couple of new toggles to flip in the Developer Portal: `Available` and `Store Page Published`.
 
 ![Screenshot of the SKU information page with the "available" and "store page published" switches highlighted](available-published.png)
 
@@ -87,19 +87,19 @@ Now that you've been approved, there's a couple new toggles to flip in the Devel
 
 If you no longer wish to make your SKU available for sale, you can again mark it unavailable. This will not remove it from users' libraries; it just stops new users from purchasing it.
 
-`Store Page Published` will do...well, what it says! Though your store page is always visible from within the channel in your server, there are other things that require you to explicitly mark your page viewable from outside that context, like gift code embeds for your game, or from in-game store fronts!
+`Store Page Published` will do...well, what it says! Though your store page is always visible from within the channel in your server, there are other things that require you to explicitly mark your page viewable from outside that context, like gift code embeds for your game or from in-game storefronts!
 
 TL;DR - When you're ready to distribute your game after getting approved, turn those two toggles on.
 
 ## Getting Verified and Discovered
 
-Apart from being approved, you can also get your server Verified. Getting verified means your server will get that oh-so-exclusive checkmark, to let people know you're the legit home for your game. 
+Apart from being approved, you can also get your server Verified. Getting verified means your server will get that oh-so-exclusive checkmark to let people know you're the legit home for your game. 
 
 To get verified, head on over to our [Verification page](https://discord.com/verification) and fill out the form at the bottom.
 
 ## Make Good Decisions
 
-Your game is off and running, and we couldn't be more proud. As it flourishes and your playerbase grows, keep an eye on your analytics, which you can find within your app. They'll give you important insight like revenue data, acquisitions funnels, and player retention to help you make informed decision about your game's lifecycle. Check out our [Analytics Help Article](https://support-dev.discord.com/hc/en-us/articles/360024852152) to learn more about how to read all those charts, and how to do things like [Conversion Tracking with UTM Links](https://support-dev.discord.com/hc/en-us/articles/360025153051-How-to-track-conversions-with-UTM-links).
+Your game is off and running, and we couldn't be more proud. As it flourishes and your player base grows, keep an eye on your analytics, which you can find within your app. They'll give you important insight like revenue data, acquisitions funnels, and player retention to help you make an informed decision about your game's lifecycle. Check out our [Analytics Help Article](https://support-dev.discord.com/hc/en-us/articles/360024852152) to learn more about how to read all those charts and how to do things like [Conversion Tracking with UTM Links](https://support-dev.discord.com/hc/en-us/articles/360025153051-How-to-track-conversions-with-UTM-links).
 
 ## What Comes Next
 

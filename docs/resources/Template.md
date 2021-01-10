@@ -2,7 +2,7 @@
 
 ### Template Object
 
-Represents a code that when used, creates a guild based on a snapshot of an existing one.
+Represents a code that, when used, creates a guild based on a snapshot of an existing one.
 
 ###### Template Structure
 
@@ -104,7 +104,7 @@ Returns a [template](#DOCS_RESOURCES_TEMPLATE/template-object) object for the gi
 Create a new guild based on a template. Returns a [guild](#DOCS_RESOURCES_GUILD/guild-object) object on success. Fires a [Guild Create](#DOCS_TOPICS_GATEWAY/guild-create) Gateway event.
 
 > warn
-> This endpoint can be used only by bots in less than 10 guilds.
+> This endpoint can be used only by bots in less than ten guilds.
 
 ###### JSON Params
 

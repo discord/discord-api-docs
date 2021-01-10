@@ -6,11 +6,11 @@
 > warn
 > Game approval submissions are currently paused due to unforeseen circumstances. We apologize for the inconvenience. [Click here for more info.](https://support-dev.discord.com/hc/en-us/articles/360041437171)
 
-There's no feeling quite like accomplishing a goal that you've set out to achieve. Is killing 1000 zombies in a game as great an achievement as climbing Mt. Everest? Of course it is, and I didn't even have to leave my house. So get off my back, society.
+There's no feeling quite like accomplishing a goal that you've set out to achieve. Is killing 1000 zombies in a game as great an achievement as climbing Mt. Everest? Of course, it is, and I didn't even have to leave my house. So get off my back, society.
 
 Anyway—Discord has achievements! Show your players just how successful they are.
 
-Achievements are managed in the [Developer Portal](https://discord.com/developers/applications). Head over to your application --> `Achievements` to create and manage achievements for your game. You'll give them an icon, a name, and a description; then they'll be assigned an id.
+Achievements are managed in the [Developer Portal](https://discord.com/developers/applications). Head over to your application --> `Achievements` to create and manage achievements for your game. You'll give them an icon, a name, and a description; then, they'll be assigned an id.
 
 You can also mark achievements as `secret` and `secure`. "Secret" achievements will _not_ be shown to the user until they've unlocked them. "Secure" achievements can only be set via HTTP calls from your server, _not_ by a game client using the SDK. No cheaters here!
 
@@ -41,7 +41,7 @@ You can also mark achievements as `secret` and `secure`. "Secret" achievements w
 | --------------- | ------ | ------------------------------------------------------------------------------------------ |
 | UserId          | Int64  | the unique id of the user working on the achievement                                       |
 | AchievementId   | Int64  | the unique id of the achievement                                                           |
-| PercentComplete | UInt8  | how far along the user is to completing the achievement (0-100)                            |
+| PercentComplete | UInt8  | how far along the user is to complete the achievement (0-100)                            |
 | UnlockedAt      | string | the timestamp at which the user completed the achievement (PercentComplete was set to 100) |
 
 ## SetUserAchievement
@@ -379,7 +379,7 @@ Updates the UserAchievement record for a given user. Use this endpoint to update
 
 `GET https://discord.com/api/v6/users/@me/applications/<application_id>/achievements`
 
-Returns a list of achievements for the user whose token you're making the request with. This endpoint will **NOT** accept the Bearer token for your application generated via the [Client Crendentials Grant](#DOCS_TOPICS_OAUTH2/client-credentials-grant). You will need the _user's_ bearer token, gotten via either the [Authorization Code OAuth2 Grant](#DOCS_TOPICS_OAUTH2/authorization-code-grant) or via the SDK with [GetOAuth2Token](#DOCS_GAME_SDK_APPLICATIONS/get-oauth2-token). This endpoint has a rate limit of 2 requests per 5 seconds per application per user.
+Returns a list of achievements for the user whose token you're making the request with. This endpoint will **NOT** accept the Bearer token for your application generated via the [Client Credentials Grant](#DOCS_TOPICS_OAUTH2/client-credentials-grant). You will need the _user's_ bearer token, gotten via either the [Authorization Code OAuth2 Grant](#DOCS_TOPICS_OAUTH2/authorization-code-grant) or via the SDK with [GetOAuth2Token](#DOCS_GAME_SDK_APPLICATIONS/get-oauth2-token). This endpoint has a rate limit of 2 requests per 5 seconds per application per user.
 
 > info
 > This endpoint will _not_ return any achievements marked as `secret` that the user has not yet completed.

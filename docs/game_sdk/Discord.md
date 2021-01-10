@@ -6,7 +6,7 @@
 > warn
 > Game approval submissions are currently paused due to unforeseen circumstances. We apologize for the inconvenience. [Click here for more info.](https://support-dev.discord.com/hc/en-us/articles/360041437171)
 
-Making a game? Need a whole bunch of fancy APIs to help make it great and your players' lives a breeze? Look no further! The Discord GameSDK is an easy drop-in SDK to help you manage all the hard things that come with making a game. Well, all the hards things about coding it at least. Interpersonal communication skills are on you (have you heard of this cool chat app called Discord?).
+Are you making a game? Need a whole bunch of fancy APIs to help make it great and your players' lives a breeze? Look no further! The Discord GameSDK is an easy drop-in SDK to help you manage all the hard things that come with making a game. Well, all the hards things about coding it, at least. Interpersonal communication skills are on you (have you heard of this cool chat app called Discord?).
 
 OK, cool, so how's it work?
 
@@ -27,13 +27,13 @@ At a high level, the Discord GameSDK has a class, `Discord`. This class is in ch
 - `UserManager` - for fetching user data for a given id and the current user
 - `VoiceManager` - to make use of Discord's awesome voice chat
 
-Each one of these managers contain a number of methods and events used to interact with Discord in the context of the manager. For example, `RelationshipManager` has a function called `Filter()`, which lets you pare down a user's inter-Discord relationships based on a boolean condition, like being friends!
+Each one of these managers contains a number of methods and events used to interact with Discord in the context of the manager. For example, `RelationshipManager` has a function called `Filter()`, which lets you pare down a user's inter-Discord relationships based on a boolean condition, like being friends!
 
 ## Functions in the SDK
 
 Most functions in the Discord GameSDK, uh, _function_ in a similar way. They take whatever parameters are required for the function to do its job—a user id, the requested size for an image, etc.—and a callback by means of a function pointer. That callback is fired when the function completes its work, letting you handle events without worrying about piping asynchronously-returned data to the right context.
 
-Some functions behave with a normal return behavior; e.g. `RelationshipManager.Count()` just returns the number directly. Don't worry, it's outlined in the docs.
+Some functions behave with a normal return behavior; e.g., `RelationshipManager.Count()` just returns the number directly. Don't worry, it's outlined in the docs.
 
 A quick example with our C# binding:
 
@@ -78,7 +78,7 @@ Discord passes a number of environment variables down to the SDK. These are acce
 
 ## Error Handling
 
-Debugging is a pain, so before we get into the meat of the SDK, we want to make sure you're prepared for when things go awry. Within the Discord core is a function called `SetLogHook()`. It takes a `level`, which is minimum level of log message you want to listen to, and a callback function:
+Debugging is a pain, so before we get into the meat of the SDK, we want to make sure you're prepared for when things go awry. Within the Discord core is a function called `SetLogHook()`. It takes a `level`, which is the minimum level of log message you want to listen to, and a callback function:
 
 ```cs
 public void LogProblemsFunction(Discord.LogLevel level, string message)
@@ -89,7 +89,7 @@ public void LogProblemsFunction(Discord.LogLevel level, string message)
 discord.SetLogHook(Discord.LogLevel.Debug, LogProblemsFunction);
 ```
 
-You should begin your integration by setting up this callback to help you debug. Helpfully, if you put a breakpoint inside the callback function you register here, you'll be able to see the stack trace for errors you run into (as long as they fail synchronously). Take the guess work out of debugging, or hey, ignore any and all logging by setting a callback that does nothing. We're not here to judge.
+You should begin your integration by setting up this callback to help you debug. Helpfully, if you put a breakpoint inside the callback function you register here, you'll be able to see the stack trace for errors you run into (as long as they fail synchronously). Take the guesswork out of debugging, or hey, ignore any and all logging by setting a callback that does nothing. We're not here to judge.
 
 ## Data Models
 
@@ -126,14 +126,14 @@ You should begin your integration by setting up this callback to help you debug.
 | 26   | NotInstalled                    | Discord is not installed                                                                        |
 | 27   | NotRunning                      | Discord is not running                                                                          |
 | 28   | InsufficientBuffer              | insufficient buffer space when trying to write                                                  |
-| 29   | PurchaseCancelled               | user cancelled the purchase flow                                                                |
+| 29   | PurchaseCancelled               | the user, canceled the purchase flow                                                                |
 | 30   | InvalidGuild                    | Discord guild does not exist                                                                    |
 | 31   | InvalidEvent                    | the event you're trying to subscribe to does not exist                                          |
 | 32   | InvalidChannel                  | Discord channel does not exist                                                                  |
 | 33   | InvalidOrigin                   | the origin header on the socket does not match what you've registered (you should not see this) |
 | 34   | RateLimited                     | you are calling that method too quickly                                                         |
 | 35   | OAuth2Error                     | the OAuth2 process failed at some point                                                         |
-| 36   | SelectChannelTimeout            | the user took too long selecting a channel for an invite                                        |
+| 36   | SelectChannelTimeout            | the user, took too long selecting a channel for an invite                                        |
 | 37   | GetGuildTimeout                 | took too long trying to fetch the guild                                                         |
 | 38   | SelectVoiceForceRequired        | push to talk is required for this channel                                                       |
 | 39   | CaptureShortcutAlreadyListening | that push to talk shortcut is already registered                                                |
@@ -156,7 +156,7 @@ You should begin your integration by setting up this callback to help you debug.
 | value            | description                                                         |
 |------------------|---------------------------------------------------------------------|
 | Default          | Requires Discord to be running to play the game                     |
-| NoRequireDiscord | Does not require Discord to be running, use this on other platforms |
+| NoRequireDiscord | Does not require Discord to be running; use this on other platforms |
 
 ## Create
 
@@ -215,7 +215,7 @@ Returns `void`.
 
 | name     | type     | description                                 |
 |----------|----------|---------------------------------------------|
-| level    | LogLevel | the minimum level of event to log           |
+| level    | LogLevel | the minimum level of an event to log           |
 | callback | function | the callback function to catch the messages |
 
 ###### Example
@@ -235,7 +235,7 @@ Runs all pending SDK callbacks. Put this in your game's main event loop, like `U
 
 This function also serves as a way to know that the local Discord client is still connected. If the user closes Discord while playing your game, `RunCallbacks()` will return/throw `Discord.Result.NotRunning`.
 
-In C and C++, this function returns `Discord.Result`. In C#, it returns `void` and will throw `Discord.Result` error if something went wrong.
+In C and C++, this function returns `Discord.Result`. In C#, it returns `void` and will throw a `Discord.Result` error if something went wrong.
 
 ###### Parameters
 
@@ -334,7 +334,7 @@ var lobbyManager = discord.GetLobbyManager();
 
 Fetches an instance of the manager for interfacing with networking in the SDK.
 
-Returns an `NetworkManager`.
+Returns a `NetworkManager`.
 
 ###### Parameters
 

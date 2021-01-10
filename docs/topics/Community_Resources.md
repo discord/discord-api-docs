@@ -1,10 +1,10 @@
 # Community Resources
 
-Discord has the best online community. At least, we like to think so, and this is our website, so our word is law, deal with it. Therefore it's a fact that our community is the best, and they make really awesome things that we want to share with developers to make their lives easier. From permissions calculators to embed visualizers to full libraries to interface with our API, there are so many great things that have come out of our community.
+Discord has the best online community. At least, we like to think so, and this is our website, so our word is the law, deal with it. Therefore it's a fact that our community is the best, and they make really awesome things that we want to share with developers to make their lives easier. From permissions calculators to embed visualizers to full libraries to interface with our API, there are so many great things that have come out of our community.
 
 ## Libraries
 
-The Discord team curates the following list of officially vetted libraries that conform to our APIs standards around authentication and rate limiting. Using custom implementations or non-compliant libraries that abuse the API or cause excessive rate limits may result in a **permanent** ban.
+The Discord team curates the following list of officially vetted libraries that conform to our APIs standards around authentication and rate-limiting. Using custom implementations or non-compliant libraries that abuse the API or cause excessive rate limits may result in a **permanent** ban.
 
 Many of these libraries are represented in the [unofficial, community-driven Discord server for developers](https://discord.gg/discord-api). There you'll find community members who can help answer questions about our API, community libraries, bot creation, and other development questions.
 
@@ -58,7 +58,7 @@ Many of these libraries are represented in the [unofficial, community-driven Dis
 
 ## Game SDK Tools
 
-Discord Game SDK's lobby and networking layer shares similarities with other gaming platforms (i.e. Valve's Steamworks SDK). The following open source library provides developers a uniform interface for these shared features and can simplify developing for multiple platforms. Note: this library is tailored for Unity3D development.
+Discord Game SDK's lobby and networking layer share similarities with other gaming platforms (i.e., Valve's Steamworks SDK). The following open-source library provides developers a uniform interface for these shared features and can simplify developing for multiple platforms. Note: this library is tailored for Unity3D development.
 
 - [HouraiNetworking](https://github.com/HouraiTeahouse/HouraiNetworking)
 

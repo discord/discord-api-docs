@@ -14,7 +14,7 @@ Ready to launch a Rich Presence integration for your game? Did you read our [Bes
 - Do your strings fit on their own lines without line wrapping?
   - Did you check on the smaller profile pop out?
 - Do they clearly communicate:
-  - What the player is currently doing?
+  - What is the player currently doing?
   - If the player is in a group or playing alone?
   - If the player is in a state where they can party up?
 
@@ -23,7 +23,7 @@ Ready to launch a Rich Presence integration for your game? Did you read our [Bes
 - Is your artwork high resolution?
 - Are your images at least 1024x1024 pixels?
 - Is it clean, interesting, and descriptive without being too highly detailed?
-- Do you have artwork for every different state? Don't forget your default state/main menu!
+- Do you have the artwork for every different state? Don't forget your default state/main menu!
 - Did you make use of tooltips and the small image where appropriate?
 
 #### Joining
@@ -39,7 +39,7 @@ Ready to launch a Rich Presence integration for your game? Did you read our [Bes
 
 #### Spectating
 
-- Have you successfully implemented spectate invites for your game if applicable?
+- Have you successfully implemented spectate invites for your game, if applicable?
 - Is your game's spectate mode true spectating?
   - We do _not_ allow using the Spectate button as a pseudo-Join button.
 - Are you properly removing data from the presence payload when someone can no longer spectate?

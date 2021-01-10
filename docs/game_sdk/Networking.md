@@ -37,7 +37,7 @@ var myPeerId = networkManager.GetPeerId();
 
 ## Flush
 
-Flushes the network. Run this at the end of your game's loop, once you've finished sending all you need to send. In Unity, for example, stick this in `LateUpdate()`.
+Flushes the network. Run this at the end of your game's loop once you've finished sending all you need to send. In Unity, for example, stick this in `LateUpdate()`.
 
 Returns `void`.
 
@@ -262,15 +262,15 @@ networkManager.OnRouteUpdate += route =>
 }
 ```
 
-## Flush vs RunCallbacks
+## Flush vs. RunCallbacks
 
 A quick note here may be helpful for the two functions that should be called continuously in your game loop: `discord.RunCallbacks()` and `networkManager.Flush()`. `RunCallbacks()` pumps the SDK's event loop, sending any newly-received data down the SDK tubes to your game. For this reason, you should call it at the beginning of your game loop; that way, any new data is handled immediately by callbacks you've registered. In Unity, for example, this goes in `Update()`.
 
-`Flush()` is specific to the network manager. It actually _writes_ the packets out to the stream. You should call this at the _end_ of your game loop as a way of saying "OK, I'm done with networking stuff, go send all the stuff to people who need it". In Unity, for example, this goes in `LateUpdate()`.
+`Flush()` is specific to the network manager. It actually _writes_ the packets out to the stream. You should call this at the _end_ of your game loop as a way of saying, "OK, I'm done with networking stuff, go send all the stuff to people who need it". In Unity, for example, this goes in `LateUpdate()`.
 
 ## Connecting to Each Other
 
-This manager is built around the concept of routes between players, and then channels on those routes. Player A opens a route to Player B. This route will change, most commonly if the user's external IP address changes. As that route changes, the player will receive `OnRouteUpdate` events. They should then alert other lobby members that their route has changed by updating their lobbymetadata. Other lobby members will see those updates from the `OnLobbyMemberUpdate` event, and can call `UpdateRoute()` accordingly. A user's route could change frequently, so architect your system anticipating frequent route changes and updates.
+This manager is built around the concept of routes between players and then channels on those routes. Player A opens a route to Player B. This route will change, most commonly if the user's external IP address changes. As that route changes, the player will receive `OnRouteUpdate` events. They should then alert other lobby members that their route has changed by updating their lobbymetadata. Other lobby members will see those updates from the `OnLobbyMemberUpdate` event and can call `UpdateRoute()` accordingly. A user's route could change frequently, so architect your system anticipating frequent route changes and updates.
 
 Once Player A has a route open to Player B, Player A then opens a channel to Player B, and Player B does the same to Player A. Channels are the pipes down which data is actually sent. These two users can now send data back and forth to each other with `SendMessage()` and receive it with `OnMessage`.
 
@@ -282,7 +282,7 @@ In order to properly send and receive data between A and B, both users need to h
 var discord = new Discord.Discord(clientId, (UInt64)Discord.CreateFlags.Default);
 
 // Join a lobby with another user in it
-// Get their peer id, and connect to them
+// Get their peer id and connect to them
 
 var networkManager = discord.GetNetworkManager();
 var lobbyManager = discord.GetLobbyManager();
@@ -320,7 +320,7 @@ lobbyManager.OnMemberUpdate += (lobbyId, userId) =>
 }
 
 // Connect to lobby with an id of 12345 and a secret of "password"
-// This may occur in a generated lobby search, when a user needs to input a password to connect
+// This may occur in a generated lobby search when a user needs to input a password to connect
 lobbyManager.ConnectLobby(12345, "password", (Discord.Result x, ref Discord.Lobby lobby) =>
 {
   lobbyId = lobby.Id;
@@ -358,7 +358,7 @@ networkManager.OpenChannel(otherUserPeerId, 1, true);
 // An important data packet from our game engine
 byte[] data = GameEngine.GetImportantData();
 
-// Determine if that data is about Player Loot Drops, if so send it on reliable, if not send it on unreliable
+// Determine if that data is about Player Loot Drops; if so, send it on reliable; if not send it on unreliable
 if (isDataAboutPlayerLootDrops(data))
 {
   // This is important and has to get there

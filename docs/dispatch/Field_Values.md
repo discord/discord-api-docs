@@ -67,7 +67,7 @@
 
 ###### Cloud Save Path Replacements
 
-| value            | Windows path                                                                        | macOS path                    | linux path          |
+| value            | Windows path                                                                        | macOS path                    | Linux path          |
 | ---------------- | ----------------------------------------------------------------------------------- | ----------------------------- | ------------------- |
 | \${HOME}         | %USERPROFILE%                                                                       | ~/                            | ~/                  |
 | \${DOCUMENTS}    | %USERPROFILE%\Documents                                                             | ~/Documents                   | \$XDG_DOCUMENTS_DIR |

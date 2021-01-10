@@ -43,7 +43,7 @@ Yup, that's it! Don't know what this file is? Go read [Branches and Builds](#DOC
 > info
 > Value from environment variable `DISCORD_STORAGE_PATH`
 
-Returns the filepath to which Discord saves files if you were to use the SDK's storage manager. Discord has branch-specific, user-specific saves, so you and your little brother will never overwrite each others' save files. If your game already has save file writing logic, you can use this method to get that user-specific path and help users protect their save files.
+Returns the file path to which Discord saves files if you were to use the SDK's storage manager. Discord has branch-specific, user-specific saves, so you and your little brother will never overwrite each others' save files. If your game already has save file writing logic, you can use this method to get that user-specific path and help users protect their save files.
 
 Returns a `string`.
 
@@ -60,7 +60,7 @@ Console.WriteLine("You should write your save files to {0}", savePath);
 
 ## Read
 
-Reads data synchronously from the game's allocated save file into a buffer. The file is mapped by key value pairs, and this function will read data that exists for the given key name.
+Reads data synchronously from the game's allocated save file into a buffer. The file is mapped by key-value pairs, and this function will read data that exists for the given key name.
 
 Returns a `UInt32`.
 
@@ -140,7 +140,7 @@ storageManager.Write("high_score", Encoding.UTF8.GetBytes("9999"));
 
 ## WriteAsync
 
-Writes data asynchronously to disk under the given keyname.
+Writes data asynchronously to disk under the given key name.
 
 Returns a `Discord.Result` via callback.
 
@@ -225,7 +225,7 @@ Console.WriteLine("File {0} is {1} in size and was last edited at {2}", file.Nam
 
 ## Count
 
-Returns the count of files, for iteration.
+Returns the count of files for iteration.
 
 Returns an `Int32`.
 

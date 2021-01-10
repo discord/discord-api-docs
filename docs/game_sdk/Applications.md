@@ -12,7 +12,7 @@ This token is also useful for retrieving information about the connected user's 
 
 These bearer tokens are good for seven days, after which they will expire. When a user reconnects to your game, and is online and connected to the internet, they'll receive a new token that you can grab.
 
-This manager also includes a couple useful helper functions, like getting the locale in which the user has chosen to use their Discord client, and knowing which game branch the game is running on. More about branches in the Dispatch CLI tool section of the documentation.
+This manager also includes a couple of useful helper functions, like getting the locale in which the user has chosen to use their Discord client and knowing which game branch the game is running on—more about branches in the Dispatch CLI tool section of the documentation.
 
 ## Data Models
 
@@ -58,7 +58,7 @@ Console.WriteLine("This user's language is {0}", locale);
 > info
 > Value from environment variable `DISCORD_CURRENT_BRANCH`
 
-Get the name of pushed branch on which the game is running. These are branches that you created and pushed using Dispatch.
+Get the name of the pushed branch on which the game is running. These are branches that you created and pushed using Dispatch.
 
 ###### Parameters
 
@@ -82,7 +82,7 @@ if (branch != MyBranches.Stable)
 > warn
 > Ensure that you have `http://127.0.0.1` set as a valid redirect URI for your application in the Developer Portal, or this method will always return an error.
 
-Retrieve an oauth2 bearer token for the current user. If your game was launched from Discord and you call this function, you will automatically receive the token. If the game was _not_ launched from Discord and this method is called, Discord will focus itself and prompt the user for authorization.
+Retrieve an oauth2 bearer token for the current user. If your game was launched from Discord and you call this function, you will automatically receive the token. If the game was _not_ launched from Discord, and this method is called, Discord will focus itself and prompt the user for authorization.
 
 Returns a `Discord.Result` and a `ref Discord.OAuth2Token` via callback.
 
@@ -140,13 +140,13 @@ applicationManager.ValidateOrExit((result) =>
 Get the signed app ticket for the current user. The structure of the ticket is: `version.signature.base64encodedjson`, so you should split the string by the `.` character. Ensure that the `version` matches the current version. The `signature` is used to verify the ticket using the libsodium library of your choice, and the `base64encodedjson` is what you can transform after verification. It contains:
 
 - the application id tied to the ticket
-- the user's user id
+- the user's user-id
 - a timestamp for the ticket
 - the list of the user's [entitlements](#DOCS_GAME_SDK_STORE/data-models-entitlement-struct) for the application id
 
-These values can be accessed by transforming the string into a [SignedAppTicket](#DOCS_GAME_SDK_APPLICATIONS/data-models-signedappticket-struct) with your application's private key. The ticket is signed using [libsodium](https://github.com/jedisct1/libsodium) which should be available for any programming language. Here's a [list of available libraries](https://download.libsodium.org/doc/bindings_for_other_languages).
+These values can be accessed by transforming the string into a [SignedAppTicket](#DOCS_GAME_SDK_APPLICATIONS/data-models-signedappticket-struct) with your application's private key. The ticket is signed using [libsodium](https://github.com/jedisct1/libsodium), which should be available for any programming language. Here's a [list of available libraries](https://download.libsodium.org/doc/bindings_for_other_languages).
 
-Note that both the public key you receive from Discord and the signature within the app ticket from the SDK are both in hex, and will need to be converted to `byte[]` before use with libsodium.
+Note that both the public key you receive from Discord and the signature within the app ticket from the SDK are both in hex and will need to be converted to `byte[]` before use with libsodium.
 
 Returns a `Discord.Result` and `ref string` via callback.
 
@@ -157,7 +157,7 @@ None
 ###### Example
 
 ```cs
-// Handle serialization however works best for you
+// Handle serialization, however, works best for you
 // This is just an easy example
 [Serializable]
 public class SignedAppTicket

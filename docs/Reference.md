@@ -1,6 +1,6 @@
 # API Reference
 
-Discord's API is based around two core layers, a HTTPS/REST API for general operations, and persistent secure WebSocket based connection for sending and subscribing to real-time events. The most common use case of the Discord API will be providing a service, or access to a platform through the [OAuth2](https://oauth.net/2/) API.
+Discord's API is based around two core layers, an HTTPS/REST API for general operations and a persistent secure WebSocket based connection for sending and subscribing to real-time events. The most common use case of the Discord API will be providing a service or access to a platform through the [OAuth2](https://oauth.net/2/) API.
 
 ###### Base URL
 
@@ -11,9 +11,9 @@ https://discord.com/api
 ## API Versioning
 
 > danger
-> Some API and Gateway versions are now non-functioning, and are labeled as discontinued in the table below for posterity. Trying to use these versions will fail and return 400 Bad Request.
+> Some API and Gateway versions are now non-functioning and are labeled as discontinued in the table below for posterity. Trying to use these versions will fail and return 400 Bad Request.
 
-Discord exposes different versions of our API. You can specify which version to use by including it in the request path like `https://discord.com/api/v{version_number}`. Omitting the version number from the route will route requests to the current default version (marked below accordingly). You can find the change log for the newest API version [here](https://discord.com/developers/docs/change-log).
+Discord exposes different versions of our API. You can specify which version to use by including it in the request path like `https://discord.com/api/v{version_number}`. Omitting the version number from the route will route requests to the current default version (marked below accordingly). You can find the changelog for the newest API version [here](https://discord.com/developers/docs/change-log).
 
 ###### API Versions
 
@@ -28,7 +28,7 @@ Discord exposes different versions of our API. You can specify which version to 
 
 ## Error Messages
 
-In API v8, we've improved error formatting in form error responses. The response will tell you which json key contains the error, the error code, and a human readable error message. We will be frequently adding new error messages, so a complete list of errors is not feasible and would be almost instantly out of date. Here are some examples instead:
+In API v8, we've improved error formatting in form error responses. The response will tell you which json key contains the error, the error code, and a human-readable error message. We will frequently be adding new error messages, so a complete list of errors is not feasible and would be almost instantly out of date. Here are some examples instead:
 
 ###### Array Error
 
@@ -103,11 +103,11 @@ Authorization: Bearer CZhtkLDpNYXgPH9Ml6shqh2OwykChw
 
 ## Encryption
 
-All HTTP-layer services and protocols (e.g. HTTP, WebSocket) within the Discord API are using TLS 1.2.
+All HTTP-layer services and protocols (e.g., HTTP, WebSocket) within the Discord API are using TLS 1.2.
 
 ## Snowflakes
 
-Discord utilizes Twitter's [snowflake](https://github.com/twitter/snowflake/tree/snowflake-2010) format for uniquely identifiable descriptors (IDs). These IDs are guaranteed to be unique across all of Discord, except in some unique scenarios in which child objects share their parent's ID. Because Snowflake IDs are up to 64 bits in size (e.g. a uint64), they are always returned as strings in the HTTP API to prevent integer overflows in some languages. See [Gateway ETF/JSON](#DOCS_TOPICS_GATEWAY/etf-json) for more information regarding Gateway encoding.
+Discord utilizes Twitter's [snowflake](https://github.com/twitter/snowflake/tree/snowflake-2010) format for uniquely identifiable descriptors (IDs). These IDs are guaranteed to be unique across all of Discord, except in some unique scenarios in which child objects share their parent's ID. Because Snowflake IDs are up to 64 bits in size (e.g., a uint64), they are always returned as strings in the HTTP API to prevent integer overflows in some languages. See [Gateway ETF/JSON](#DOCS_TOPICS_GATEWAY/etf-json) for more information regarding Gateway encoding.
 
 ###### Snowflake ID Broken Down in Binary
 
@@ -133,7 +133,7 @@ Discord utilizes Twitter's [snowflake](https://github.com/twitter/snowflake/tree
 
 We typically use snowflake IDs in many of our API routes for pagination. The standardized pagination paradigm we utilize is one in which you can specify IDs `before` and `after` in combination with `limit` to retrieve a desired page of results. You will want to refer to the specific endpoint documentation for details.
 
-It is useful to note that snowflake IDs are just numbers with a timestamp, so when dealing with pagination where you want results from the beginning of time (in Discord Epoch, but `0` works here too) or before/after a specific time you can generate a snowflake ID for that time.
+It is useful to note that snowflake IDs are just numbers with a timestamp, so when dealing with pagination where you want results from the beginning of time (in Discord Epoch, but `0` works here too) or before/after a specific time, you can generate a snowflake ID for that time.
 
 ###### Generating a snowflake ID from a Timestamp Example
 
@@ -215,11 +215,11 @@ Clients may append more information and metadata to the _end_ of this string as 
 
 ### Rate Limiting
 
-The HTTP API implements a process for limiting and preventing excessive requests in accordance with [RFC 6585](https://tools.ietf.org/html/rfc6585#section-4). API users that regularly hit and ignore rate limits will have their API keys revoked, and be blocked from the platform. For more information on rate limiting of requests, please see the [Rate Limits](#DOCS_TOPICS_RATE_LIMITS/rate-limits) section.
+The HTTP API implements a process for limiting and preventing excessive requests in accordance with [RFC 6585](https://tools.ietf.org/html/rfc6585#section-4). API users that regularly hit and ignore rate limits will have their API keys revoked and be blocked from the platform. For more information on rate-limiting of requests, please see the [Rate Limits](#DOCS_TOPICS_RATE_LIMITS/rate-limits) section.
 
 ## Gateway (WebSocket) API
 
-Discord's Gateway API is used for maintaining persistent, stateful websocket connections between your client and our servers. These connections are used for sending and receiving real-time events your client can use to track and update local state. The Gateway API uses secure websocket connections as specified in [RFC 6455](https://tools.ietf.org/html/rfc6455). For information on opening Gateway connections, please see the [Gateway API](#DOCS_TOPICS_GATEWAY/gateways) section.
+Discord's Gateway API is used for maintaining persistent, stateful WebSocket connections between your client and our servers. These connections are used for sending and receiving real-time events your client can use to track and update the local state. The Gateway API uses secure WebSocket connections as specified in [RFC 6455](https://tools.ietf.org/html/rfc6455). For information on opening Gateway connections, please see the [Gateway API](#DOCS_TOPICS_GATEWAY/gateways) section.
 
 > warn
 > A bot must connect to and identify with a gateway at least once before it can use the [Create Message](#DOCS_RESOURCES_CHANNEL/create-message) endpoint.
@@ -227,7 +227,7 @@ Discord's Gateway API is used for maintaining persistent, stateful websocket con
 
 ## Message Formatting
 
-Discord utilizes a subset of markdown for rendering message content on its clients, while also adding some custom functionality to enable things like mentioning users and channels. This functionality uses the following formats:
+Discord utilizes a subset of markdown for rendering message content on its clients while also adding some custom functionality to enable things like mentioning users and channels. This functionality uses the following formats:
 
 ###### Formats
 
@@ -251,7 +251,7 @@ Using the markdown for either users, roles, or channels will usually mention the
 https://cdn.discordapp.com/
 ```
 
-Discord uses ids and hashes to render images in the client. These hashes can be retrieved through various API requests, like [Get User](#DOCS_RESOURCES_USER/get-user). Below are the formats, size limitations, and CDN endpoints for images in Discord. The returned format can be changed by changing the [extension name](#DOCS_REFERENCE/image-formatting-image-formats) at the end of the URL. The returned size can be changed by appending a querystring of `?size=desired_size` to the URL. Image size can be any power of two between 16 and 4096.
+Discord uses ids and hashes to render images in the client. These hashes can be retrieved through various API requests, like [Get User](#DOCS_RESOURCES_USER/get-user). Below are the formats, size limitations, and CDN endpoints for images in Discord. The returned format can be changed by changing the [extension name](#DOCS_REFERENCE/image-formatting-image-formats) at the end of the URL. The returned size can be changed by appending a query string of `?size=desired_size` to the URL. The image size can be any power of two between 16 and 4096.
 
 ###### Image Formats
 
@@ -282,7 +282,7 @@ Discord uses ids and hashes to render images in the client. These hashes can be 
 
 \*\* In the case of endpoints that support GIFs, the hash will begin with `a_` if it is available in GIF format. (example: `a_1269e74af4df7417b13759eae50c83dc`)
 
-\*\*\* In the case of the Default User Avatar endpoint, the size of images returned is constant with the "size" querystring parameter being ignored.
+\*\*\* In the case of the Default User Avatar endpoint, the size of images returned is constant, with the "size" query string parameter being ignored.
 
 ## Image Data
 
@@ -292,4 +292,4 @@ Image data is a [Data URI scheme](https://en.wikipedia.org/wiki/Data_URI_scheme)
 data:image/jpeg;base64,BASE64_ENCODED_JPEG_IMAGE_DATA
 ```
 
-Ensure you use the proper content type (`image/jpeg`, `image/png`, `image/gif`) that matches the image data being provided.
+Ensure you use the proper content type (`image/jpeg`, `image/png`, `image/gif`) that matches the image data that is provided.

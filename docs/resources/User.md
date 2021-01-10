@@ -1,14 +1,14 @@
 # Users Resource
 
 Users in Discord are generally considered the base entity. Users can spawn across the entire platform, be members of
-guilds, participate in text and voice chat, and much more. Users are separated by a distinction of "bot" vs "normal." Although they are similar, bot users are automated users that are "owned" by another user. Unlike normal users, bot users do
+guilds, participate in text and voice chat, and much more. Users are separated by a distinction of "bot" vs. "normal." Although they are similar, bot users are automated users that are "owned" by another user. Unlike normal users, bot users do
 _not_ have a limitation on the number of Guilds they can be a part of.
 
 ## Usernames and Nicknames
 
 Discord enforces the following restrictions for usernames and nicknames:
 
-1.  Names can contain most valid unicode characters. We limit some zero-width and non-rendering characters.
+1.  Names can contain the most valid Unicode characters. We limit some zero-width and non-rendering characters.
 2.  Usernames must be between 2 and 32 characters long.
 3.  Nicknames must be between 1 and 32 characters long.
 4.  Names are sanitized and trimmed of leading, trailing, and excessive internal whitespace.
@@ -32,7 +32,7 @@ There are other rules and restrictions not shared here for the sake of spam and 
 | avatar        | ?string   | the user's [avatar hash](#DOCS_REFERENCE/image-formatting)                                           | identify              |
 | bot?          | boolean   | whether the user belongs to an OAuth2 application                                                    | identify              |
 | system?       | boolean   | whether the user is an Official Discord System user (part of the urgent message system)              | identify              |
-| mfa_enabled?  | boolean   | whether the user has two factor enabled on their account                                             | identify              |
+| mfa_enabled?  | boolean   | whether the user has two-factor authorization enabled on their account                                             | identify              |
 | locale?       | string    | the user's chosen language option                                                                    | identify              |
 | verified?     | boolean   | whether the email on this account has been verified                                                  | email                 |
 | email?        | ?string   | the user's email                                                                                     | email                 |
@@ -129,7 +129,7 @@ Modify the requester's user account settings. Returns a [user](#DOCS_RESOURCES_U
 
 | Field    | Type                                      | Description                                                                      |
 | -------- | ----------------------------------------- | -------------------------------------------------------------------------------- |
-| username | string                                    | user's username, if changed may cause the user's discriminator to be randomized. |
+| username | string                                    | user's username, if changed, may cause the user's discriminator to be randomized. |
 | avatar   | ?[image data](#DOCS_REFERENCE/image-data) | if passed, modifies the user's avatar                                            |
 
 ## Get Current User Guilds % GET /users/@me/guilds
@@ -166,14 +166,14 @@ Leave a guild. Returns a 204 empty response on success.
 
 ## Get User DMs % GET /users/@me/channels
 
-Returns a list of [DM channel](#DOCS_RESOURCES_CHANNEL/channel-object) objects. For bots, this is no longer a supported method of getting recent DMs, and will return an empty array.
+Returns a list of [DM channel](#DOCS_RESOURCES_CHANNEL/channel-object) objects. For bots, this is no longer a supported method of getting recent DMs and will return an empty array.
 
 ## Create DM % POST /users/@me/channels
 
 Create a new DM channel with a user. Returns a [DM channel](#DOCS_RESOURCES_CHANNEL/channel-object) object.
 
 > warn
-> You should not use this endpoint to DM everyone in a server about something. DMs should generally be initiated by a user action. If you open a significant amount of DMs too quickly, your bot may be rate limited or blocked from opening new ones.
+> You should not use this endpoint to DM everyone, in a server about something. DMs should generally be initiated by a user action. If you open a significant amount of DMs too quickly, your bot may be rate-limited or blocked from opening new ones.
 
 ###### JSON Params
 

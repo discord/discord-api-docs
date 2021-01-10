@@ -2,7 +2,7 @@
 
 Permissions in Discord are a way to limit and grant certain abilities to users. A set of base permissions can be configured at the guild level for different roles. When these roles are attached to users, they grant or revoke specific privileges within the guild. Along with the guild-level permissions, Discord also supports permission overwrites that can be assigned to individual guild roles or guild members on a per-channel basis.
 
-Permissions are stored within a variable-length integer serialized into a string, and are calculated using bitwise operations. For example, the permission value `123` will be serialized as `"123"`. For long-term stability, we recommend deserializing the permissions using your languages' Big Integer libraries. The total permissions integer can be determined by ORing together each individual value, and flags can be checked using AND operations.
+Permissions are stored within a variable-length integer serialized into a string and are calculated using bitwise operations. For example, the permission value `123` will be serialized as `"123"`. For long-term stability, we recommend deserializing the permissions using your languages' Big Integer libraries. The total permissions integer can be determined by ORing together each individual value, and flags can be checked using AND operations.
 
 In API v8, all permissions—including `allow` and `deny` fields in overwrites—are serialized as strings. There are also no longer `_new` permission fields; all new permissions are rolled back into the base field.
 
@@ -44,8 +44,9 @@ Below is a table of all current permissions, their integer values in hexadecimal
 | MANAGE_MESSAGES \*    | `0x00002000` | Allows for deletion of other users messages                                                                                        | T            |
 | EMBED_LINKS           | `0x00004000` | Links sent by users with this permission will be auto-embedded                                                                     | T            |
 | ATTACH_FILES          | `0x00008000` | Allows for uploading images and files                                                                                              | T            |
-| READ_MESSAGE_HISTORY  | `0x00010000` | Allows for reading of message history                                                                                              | T            |
-| MENTION_EVERYONE      | `0x00020000` | Allows for using the `@everyone` tag to notify all users in a channel, and the `@here` tag to notify all online users in a channel | T            |
+| READ_MESSAGE_HISTORY  | `0x00010000` | Allows 
+reading the message history                                                                                              | T            |
+| MENTION_EVERYONE      | `0x00020000` | Allows for using the `@everyone` tag to notify all users in a channel and the `@here` tag to notify all online users in a channel | T            |
 | USE_EXTERNAL_EMOJIS   | `0x00040000` | Allows the usage of custom emojis from other servers                                                                               | T            |
 | VIEW_GUILD_INSIGHTS   | `0x00080000` | Allows for viewing guild insights                                                                                                  |              |
 | CONNECT               | `0x00100000` | Allows for joining of a voice channel                                                                                              | V            |
@@ -119,7 +120,7 @@ def compute_overwrites(base_permissions, member, channel):
         permissions &= ~overwrite_everyone.deny
         permissions |= overwrite_everyone.allow
 
-    # Apply role specific overwrites.
+    # Apply role-specific overwrites.
     overwrites = channel.permission_overwrites
     allow = NONE
     deny = NONE
@@ -132,7 +133,7 @@ def compute_overwrites(base_permissions, member, channel):
     permissions &= ~deny
     permissions |= allow
 
-    # Apply member specific overwrite if it exist.
+    # Apply member-specific overwrite if it exists.
     overwrite_member = overwrites.get(member.user_id)
     if overwrite_member:
         permissions &= ~overwrite_member.deny
@@ -159,7 +160,7 @@ Permissions with regards to categories and channels within categories are a bit 
 
 ### Role Object
 
-Roles represent a set of permissions attached to a group of users. Roles have unique names, colors, and can be "pinned" to the side bar, causing their members to be listed separately. Roles are unique per guild, and can have separate permission profiles for the global context (guild) and channel context. The `@everyone` role has the same ID as the guild it belongs to.
+Roles represent a set of permissions attached to a group of users. Roles have unique names, colors and can be "pinned" to the sidebar, causing their members to be listed separately. Roles are unique per guild and can have separate permission profiles for the global context (guild) and channel context. The `@everyone` role has the same ID as the guild it belongs to.
 
 ###### Role Structure
 

@@ -250,7 +250,7 @@ if (!voiceManager.IsLocalMute(53908232506183680))
 
 ## GetLocalVolume
 
-Gets the local volume for a given user. This is the volume level at which the currently connected users hears the given user speak.
+Gets the local volume for a given user. This is the volume level at which the currently connected users hear the given user speak.
 
 Returns `byte`.
 
@@ -270,7 +270,7 @@ Console.WriteLine("User is at volume level {0}", volume);
 
 ## SetLocalVolume
 
-Sets the local volume for a given user. This is the volume level at which the currently connected users hears the given user speak. Valid volume values are from `0` to `200`, with `100` being the default. Lower than `100` will be a reduced volume level from default, whereas over `100` will be a boosted volume level from default.
+Sets the local volume for a given user. This is the volume level at which the currently connected users hear the given user speak. Valid volume values are from `0` to `200`, with `100` being the default. Lower than `100` will be a reduced volume level from the default, whereas over `100` will be a boosted volume level from default.
 
 Returns `void`.
 

@@ -49,10 +49,10 @@ The changes are:
 - [Gateway Intents](#DOCS_TOPICS_GATEWAY/gateway-intents) are now required
 - All permissions have been converted to strings-serialized numbers. As such, `permissions_new`, `allow_new`, and `deny_new` have been removed
 - The `game` field has been removed. If you need a direct replacement, you can instead reference the first element of `activities`
-- Channel Permission Overwrite `type`s are now numbers (0 and 1) instead of strings ("role" and "member"). However due to a current technical constraint, they are string-serialized numbers in audit log `options`.
+- Channel Permission Overwrite ` types are now numbers (0 and 1) instead of strings ("role" and "member"). However, due to a current technical constraint, they are string-serialized numbers in audit log `options`.
 - `embed_enabled` and `embed_channel_id` have been removed. Use `widget_enabled` and `widget_channel_id` instead.
 - Form body errors have been improved to include more helpful messaging on validation. [See more here](#DOCS_REFERENCE/error-messages)
-- The `Retry-After` header is now based in seconds instead of milliseconds (e.g. `123` means 123 seconds)
+- The `Retry-After` header is now based on seconds instead of milliseconds (e.g., `123` means 123 seconds)
 - The `X-RateLimit-Precision` header is no longer respected. `X-RateLimit-Reset` and `X-RateLimit-Reset-After` are always returned at millisecond precision (e.g. `123.456` instead of `124`)
 - Bots no longer receive [Channel Create Gateway Event](#DOCS_TOPICS_GATEWAY/channel-create) for DMs
 - `delete-message-days` is no longer available. Use `delete_message_days`.
@@ -105,7 +105,7 @@ The [Guild Members Chunk](#DOCS_TOPICS_GATEWAY/guild-members-chunk) gateway even
 
 #### March 3, 2020
 
-We've added a way to specify mentions in a more granular form. This change also begins the start of a 60 day deprecation cycle on legacy mention behavior. Read more:
+We've added a way to specify mentions in a more granular form. This change also begins the start of a 60-day deprecation cycle on legacy mention behavior. Read more:
 
 - [Allowed mentions object](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object)
 
@@ -128,7 +128,7 @@ The [Spectate](#DOCS_GAME_SDK_ACTIVITIES/onactivityspectate) functionality of Ri
 
 #### February 14, 2020
 
-We've added documentation around a brand new feature: [Gateway Intents!](#DOCS_TOPICS_GATEWAY/gateway-intents) Gateway Intents are a great way to specify which events you want to receive from our gateway. Go on, save yourself some bandwidth and CPU usage.
+We've added documentation around a brand new feature: [Gateway Intents!](#DOCS_TOPICS_GATEWAY/gateway-intents). Gateway Intents are a great way to specify which events you want to receive from our gateway. Go on, save yourself some bandwidth and CPU usage.
 
 Using Intents will change the behavior of some existing events and commands, so please refer to:
 
@@ -150,7 +150,7 @@ Updated our [IP discovery message](#DOCS_TOPICS_VOICE_CONNECTIONS/ip-discovery).
 
 #### November 27, 2019
 
-Fixed a bug from the 2.5.5 release that caused network handshakes to fail, resulting in no networking data being sent. The networking manager and integrated lobby networking should be full operational again after updating.
+Fixed a bug from the 2.5.5 release that caused network handshakes to fail, resulting in no networking data being sent. The networking manager and integrated lobby networking should be fully operational again after updating.
 
 ## GameSDK Version 2.5.5
 
@@ -164,13 +164,13 @@ Get the latest at the top of the [Getting Started](#DOCS_GAME_SDK_SDK_STARTER_GU
 
 #### August 22, 2019
 
-News Channels are now changed to [Announcement Channels](#DOCS_GAME_AND_SERVER_MANAGEMENT_SPECIAL_CHANNELS/announcement-channels). Developer License owners will continue to get access to them (both existing and new). Underlying channel type (GUILD_NEWS = 5) remains the same.
+News Channels are now changed to [Announcement Channels](#DOCS_GAME_AND_SERVER_MANAGEMENT_SPECIAL_CHANNELS/announcement-channels). Developer License owners will continue to get access to them (both existing and new). The underlying channel type (GUILD_NEWS = 5) remains the same.
 
 ## More Precise Rate Limits
 
 #### August 12, 2019
 
-You can now get more precise rate limit reset times, via a new request header. Check out the [rate limits](#DOCS_TOPICS_RATE_LIMITS/more-precise-rate-limit-resets) documentation for more information.
+You can now get more precise rate limit reset times via a new request header. Check out the [rate limits](#DOCS_TOPICS_RATE_LIMITS/more-precise-rate-limit-resets) documentation for more information.
 
 ## Bot Tokens for Achievements
 
@@ -220,7 +220,7 @@ Dispatch documentation around store listings has been removed. Store pages for t
 
 #### November 30, 2018
 
-The [User object](#DOCS_RESOURCES_USER/user-object) now includes two new additional fields, `premium_type` and `flags`. These can be used to know the Nitro status of a user, or determine which HypeSquad house a user is in.
+The [User object](#DOCS_RESOURCES_USER/user-object) now includes two new additional fields, `premium_type` and `flags`. These can be used to know the Nitro status of a user or determine which HypeSquad house a user is in.
 
 ## Documentation Fix: List of Open DMS in Certain Payloads
 
@@ -256,7 +256,7 @@ The [Accept Invite](#DOCS_RESOURCES_INVITE/accept-invite) endpoint is deprecated
 
 #### January 3, 2018
 
-Additional sharding requirements and information for bots in over 100,000 guilds has been added. This requires a small change in numbers of shards for affected bots. See the [documentation](#DOCS_TOPICS_GATEWAY/sharding-for-very-large-bots) for more information.
+Additional sharding requirements and information for bots in over 100,000 guilds have been added. This requires a small change in the number of shards for affected bots. See the [documentation](#DOCS_TOPICS_GATEWAY/sharding-for-very-large-bots) for more information.
 
 ## New Feature: Rich Presence
 
@@ -298,11 +298,11 @@ The `type` field in the [activity object](#DOCS_TOPICS_GATEWAY/activity-object) 
 
 #### August 3, 2017
 
-After today, we are changing how default channels function. The "default" channel for a given user is now the channel with the highest position that their permissions allow them to see. New guilds will no longer have a default channel with the same id as the guild. Existing guilds will not have their #general channel id changed. It is possible, if permissions are set in such a way, that a user will not have a default channel in a guild.
+After today, we are changing how default channels function. The "default" channel for a given user is now the channel with the highest position that their permissions allow them to see. New guilds will no longer have a default channel with the same id as the guild. Existing guilds will not have their #general channel id changed. It is possible, if permissions are set in such a way that a user will not have a default channel in a guild.
 
 We saw a use case in many servers where the previously-default #general channel was being repurposed as an announcement-only, non-writable channel for new members by using bots to clear the entire message history. Now, that channel can simply be deleted and re-created with the desired permissions. This change also allows dynamic default channels for users based on permissions.
 
-We are also rolling out a change in conjunction that will allow Discord to remember your last-visited channel in a guild across sessions. Newly-joined users will be directed to the guild's default channel on first join; existing members will return to whichever channel they last visited.
+We are also rolling out a change in conjunction that will allow Discord to remember your last-visited channel in a guild across sessions. Newly-joined users will be directed to the guild's default channel on the first join; existing members will return to whichever channel they last visited.
 
 ## New Feature: Audit Logs
 

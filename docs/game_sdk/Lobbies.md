@@ -12,7 +12,7 @@ Looking to integrate multiplayer into your game? Lobbies are a great way to orga
 - Matchmaking users based on lobby metadata, like ELO
 - Getting and setting arbitrary metadata on lobbies and lobby members
 
-Lobbies in Discord work in one of two ways. By using calls from the SDK, lobbies are effectively "owned" by the user who's client creates the lobby. Someone boots up the game, hits your "Create Lobby" button, and their game client calls `LobbyManager.CreateLobby()` from the Discord SDK.
+Lobbies in Discord work in one of two ways. By using calls from the SDK, lobbies are effectively "owned" by the user who's client creates the lobby. Someone boots up the game hits your "Create Lobby" button, and their game client calls `LobbyManager.CreateLobby()` from the Discord SDK.
 
 There is also another way to create and "own" lobbies with which the source of truth can be your own server. These SDK functions calls map to API endpoints that are exposed in Discord's HTTP API. In lieu of creating and managing lobbies in the SDK, you can call those endpoints directly with a token for your application and take care of it all on some far-away, totally secure server. Let's go over the SDK first.
 
@@ -96,20 +96,20 @@ lobbyManager.CreateLobby(txn, (result, lobby) =>
 | -------- | ----- | ------------------------------------ |
 | Local    | 0     | within the same region               |
 | Default  | 1     | within the same and adjacent regions |
-| Extended | 2     | far distances, like US to EU         |
+| Extended | 2     | far distances, like the US to EU         |
 | Global   | 3     | all regions                          |
 
 ###### LobbyTransaction Struct
 
-Has no values, but has member functions, outlined later.
+Has no values, but has member functions outlined later.
 
 ###### LobbyMemberTransaction Struct
 
-Has no values, but has member functions, outlined later.
+Has no values, but has member functions outlined later.
 
 ###### LobbySearchQuery Struct
 
-Has no values, but has member functions, outlined later.
+Has no values, but has member functions outlined later.
 
 ## LobbyTransaction.SetType
 
@@ -561,7 +561,7 @@ lobbyManager.ConnectLobby(290926798626357250, "363446008341987328:123123", (Disc
 
 ## ConnectLobbyWithActivitySecret
 
-Connects the current user to a lobby; requires the special activity secret from the lobby which is a concatenated lobbyId and secret.
+Connects the current user to a lobby; requires the special activity secret from the lobby, which is a concatenated lobbyId and secret.
 
 Returns `Discord.Result` and `ref Discord.Lobby` via callback.
 
@@ -724,7 +724,7 @@ for (int i = 0; i < count; i++)
 
 ## GetLobbyMetadataValue
 
-Returns lobby metadata value for a given key and id. Can be used with iteration, or direct access by keyname.
+Returns lobby metadata value for a given key and id. Can be used with iteration or direct access by key name.
 
 ###### Parameters
 
@@ -858,7 +858,7 @@ for (int i = 0; i < count; i++)
 
 ## GetMemberMetadataValue
 
-Returns user metadata for a given key. Can be used in conjunction with the count and get key functions if you're iterating over metadata. Or you can access the metadata directly by keyname
+Returns user metadata for a given key. Can be used in conjunction with the count and get key functions if you're iterating over metadata. Or you can access the metadata directly by key name
 
 Returns `string`.
 
@@ -912,7 +912,7 @@ lobbyManager.UpdateMember(290926798626357250, 53908232506183680, txn, (result) =
 
 ## SendLobbyMessage
 
-Sends a message to the lobby on behalf of the current user. You must be connected to the lobby you are messaging. You should use this function for message sending if you are _not_ using the built in networking layer for the lobby. If you are, you should use [SendNetworkMessage](#DOCS_GAME_SDK_LOBBIES/sendnetworkmessage) instead.
+Sends a message to the lobby on behalf of the current user. You must be connected to the lobby you are messaging. You should use this function for message sending if you are _not_ using the built-in networking layer for the lobby. If you are, you should use [SendNetworkMessage](#DOCS_GAME_SDK_LOBBIES/sendnetworkmessage) instead.
 
 This method has a rate limit of 10 messages per 5 seconds.
 
@@ -1223,9 +1223,9 @@ lobbyManager.OnSpeaking += (lobbyID, userID, speaking) =>
 
 ## Connecting to Lobbies
 
-In the preceding section, you probably noticed there are a couple different methods for connecting to a lobby: `Connect()` and `ConnectWithActivitySecret()`. Lobbies in Discord are even more useful when hooked together with Activities/Rich Presence functionality; they give you everything you need to create an awesome game invite system.
+In the preceding section, you probably noticed there are a couple of different methods for connecting to a lobby: `Connect()` and `ConnectWithActivitySecret()`. Lobbies in Discord are even more useful when hooked together with Activities/Rich Presence functionality; they give you everything you need to create an awesome game invite system.
 
-If you are creating lobbies for users in the game client, and not on a backend server, consider using `GetLobbyActivitySecret` and `ConnectWithActivitySecret()`. `GetLobbyActivitySecret()` will return you a unique secret for the lobby concatenated with the lobby's id. You can pipe this value directly to the `Secrets.Join` field of the `Activity` payload. Then, when a user receives the secret, their client can call `ConnectWithActivitySecret()` with just the secret; the lobby id is parsed out automatically. This saves you the effort of concatenating the secret + id together yourself and then parsing them out again. As a code example:
+If you are creating lobbies for users in the game client and not on a backend server, consider using `GetLobbyActivitySecret` and `ConnectWithActivitySecret()`. `GetLobbyActivitySecret()` will return you a unique secret for the lobby concatenated with the lobby's id. You can pipe this value directly to the `Secrets.Join` field of the `Activity` payload. Then, when a user receives the secret, their client can call `ConnectWithActivitySecret()` with just the secret; the lobby id is parsed out automatically. This saves you the effort of concatenating the secret + id together yourself and then parsing them out again. As a code example:
 
 ```cs
 var discord = new Discord.Discord(clientId, Discord.CreateFlags.Default);
@@ -1312,11 +1312,11 @@ So, an explanation. Because the DLL that you ship with your game is a stub that 
 2.  Has a Discord account
 3.  Has logged into Discord on their machine (whether or not Discord is open)
 
-The SDK will function as if the game were launched from Discord and everything will work; if Discord is not currently launched, the SDK will launch it.
+The SDK will function as if the game were launched from Discord, and everything will work; if Discord is not currently launched, the SDK will launch it.
 
-That means that if Player A is launching Your Amazing Game from Discord, and Player B is launching it from Other Cool But Not As Cool As Discord Game Store, as long as Player B meets the above criteria, both players can play with each other using Discord's lobbies + networking functions. If the SDK is not able to launch Discord for Player B—maybe they've never installed/used Discord before!—you'll get an error saying as much. We're not saying what you _should_ do, but hey, wouldn't this make a really neat in-game touchpoint for your players to join their friends on Discord, and maybe even join your game's [verified server](https://discord.com/verification)?
+That means that if Player A is launching Your Amazing Game from Discord and Player B is launching it from Other Cool But Not As Cool As Discord Game Store, as long as Player B meets the above criteria, both players can play with each other using Discord's lobbies + networking functions. If the SDK is not able to launch Discord for Player B—maybe they've never installed/used Discord before!—you'll get an error saying as much. We're not saying what you _should_ do, but hey, wouldn't this make a really neat in-game touchpoint for your players to join their friends on Discord, and maybe even join your game's [verified server](https://discord.com/verification)?
 
-OK so this wasn't really a code example, but I think you get how this works.
+OK, so this wasn't really a code example, but I think you get how this works.
 
 ## The API Way
 
@@ -1412,7 +1412,7 @@ Creates a lobby search for matchmaking around given criteria.
 | application_id | string              | your application id                      |
 | filter         | SearchFilter object | the filter to check against              |
 | sort           | SearchSort object   | how to sort the results                  |
-| limit          | int                 | limit of lobbies returned, default of 25 |
+| limit          | int                 | limit of lobbies returned, with a default of 25 |
 
 ###### SearchFilter Object
 
@@ -1455,7 +1455,7 @@ Creates a lobby search for matchmaking around given criteria.
 
 Sends a message to the lobby, fanning it out to other lobby members.
 
-This endpoints accepts a UTF8 string. If your message is already a string, you're good to go! If you want to send binary, you can send it to this endpoint as a base64 encoded data uri.
+This endpoint accepts a UTF8 string. If your message is already a string, you're good to go! If you want to send binary, you can send it to this endpoint as a base64 encoded data URI.
 
 ###### Parameters
 
@@ -1469,7 +1469,7 @@ Discord lobbies have the option of being used with a wrapped networking layer, a
 
 This layer allows you to easily connect to the network and open channels to all lobby members with one function call. You can then send network messages to users by their user ID, easily retrieved via lobby methods.
 
-We take care of all the route updating for you, so you can get up and running quickly and easily. If you'd like to see how the lower level networking functionality works, or want to try it yourself so you can tweak it to your liking, check out [Networking](#DOCS_GAME_SDK_NETWORKING/);
+We take care of all the route updating for you, so you can get up and running quickly and easily. If you'd like to see how the lower-level networking functionality works or want to try it yourself so you can tweak it to your liking, check out [Networking](#DOCS_GAME_SDK_NETWORKING/);
 
 ## ConnectNetwork
 

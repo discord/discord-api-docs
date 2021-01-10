@@ -42,7 +42,7 @@ The `Discord.SkuType.Consumable` type is used for entitlements that may be "cons
 
 What that means is that your game is expected to "consume" these entitlements by doing something on your game server—giving the player a level, more coins, a skin, etc.—and then telling Discord that's been done by calling the `POST /entitlements/<id>/consume`, documented below. Then, Discord will mark that entitlement as `consumed` (the `consumed` field in the returned object will be set to `true`).
 
-Entitlements to consumable SKUs are intended to signal your game's server/service/database that the user should get something in-game, and that the entitlement should be invalidated afterwards.
+Entitlements to consumable SKUs are intended to signal your game's server/service/database that the user should get something in-game and that the entitlement should be invalidated afterward.
 
 The same consumable SKU _can_ be purchased multiple times, but we have some safeguards in place to protect against possible abuse. If you purchase a consumable SKU, you cannot purchase a second one until the first one has been consumed; in the context of normal IAP transactions, your game will be auto-consuming entitlements as soon as they're created. If some malicious folks are somehow able to generate entitlements to your SKUs, they will not be able to consume them without your token, so you'll be safe!
 
@@ -66,7 +66,7 @@ Non-consumable SKUs can only be purchased once.
 | Application | 1     | SKU is a game                                  |
 | DLC         | 2     | SKU is a DLC                                   |
 | Consumable  | 3     | SKU is a consumable (in-app purchase)          |
-| Bundle      | 4     | SKU is a bundle (comprising the other 3 types) |
+| Bundle      | 4     | SKU is a bundle (comprising the other three types) |
 
 ###### SkuPrice Struct
 
@@ -93,7 +93,7 @@ Non-consumable SKUs can only be purchased once.
 | TestModePurchase    | 4     | entitlement was purchased by a dev in application test mode    |
 | FreePurchase        | 5     | entitlement was granted when the SKU was free                  |
 | UserGift            | 6     | entitlement was gifted by another user                         |
-| PremiumPurchase     | 7     | entitlement was claimed by user for free as a Nitro Subscriber |
+| PremiumPurchase     | 7     | entitlement was claimed by the user for free as a Nitro Subscriber |
 
 ## FetchSkus
 
@@ -142,7 +142,7 @@ for (int i = 0; i < storeManager.CountSkus(); i++)
 
 ## GetSku
 
-Gets a SKU by its ID. You must call `FetchSkus()` first before being able to access SKUs in this way.
+Gets an SKU by its ID. You must call `FetchSkus()` first before being able to access SKUs in this way.
 
 Returns `Discord.Sku`.
 
@@ -162,7 +162,7 @@ Console.WriteLine("Sku is {0}", sku.Name);
 
 ## GetSkuAt
 
-Gets a SKU by index when iterating over SKUs. You must call `FetchSkus()` first before being able to access SKUs in this way.
+Gets an SKU by index when iterating over SKUs. You must call `FetchSkus()` first before being able to access SKUs in this way.
 
 Returns `Discord.Sku`.
 
@@ -354,7 +354,7 @@ Fires when the connected user loses an entitlement, either by expiration, revoca
 
 ## HTTP APIs
 
-The following are HTTP requests, and should be handled by your game server, rather than a client. They require a token for an authorization header. This token should be the "Bot token" of your application. To get this token, go to your application in the Dev Portal. In the left sidebar, click the `Bot` navigation item. You should then click the `Add Bot` button.
+The following are HTTP requests and should be handled by your game server rather than a client. They require a token for an authorization header. This token should be the "Bot token" of your application. To get this token, go to your application in the Dev Portal. In the left sidebar, click the `Bot` navigation item. You should then click the `Add Bot` button.
 
 After that, you can copy the token on this page and use it in your HTTP requests. The format for the authorization header should be `Authorization: Bot <token>`.
 
@@ -374,7 +374,7 @@ Note that parameters with a `?` after the name denote optional fields. Parameter
 
 ## Get Entitlements % GET /applications/{application.id#DOCS_GAME_SDK_SDK_STARTER_GUIDE/get-set-up}/entitlements
 
-Gets entitlements for a given user. You can use this on your game backend to check entitlements of an arbitrary user, or perhaps in an administrative panel for your support team.
+Gets entitlements for a given user. You can use this on your game backend to check the entitlements of an arbitrary user, or perhaps in an administrative panel for your support team.
 
 > danger
 > The previous behavior on this endpoint was that not specifying a user_id or limit would return an unlimited amount of entitlements. That behavior is now deprecated and will be removed on March 1, 2019.
@@ -522,7 +522,7 @@ curl -X DELETE https://discord.com/api/v6/applications/461618159171141643/entitl
 
 ## Create Purchase Discount % PUT /store/skus/{sku.id#DOCS_GAME_SDK_STORE/data-models-sku-struct}/discounts/{user.id#DOCS_RESOURCES_USER/user-object}
 
-Creates a discount for the given user on their next purchase of the given SKU. You should call this endpoint from your backend server just before calling [StartPurchase](#DOCS_GAME_SDK_STORE/start-purchase) for the SKU you wish to discount. The user will then see a discounted price for that SKU at time of payment. The discount is automatically consumed after successful purchase or if the TTL expires.
+Creates a discount for the given user on their next purchase of the given SKU. You should call this endpoint from your backend server just before calling [StartPurchase](#DOCS_GAME_SDK_STORE/start-purchase) for the SKU you wish to discount. The user will then see a discounted price for that SKU at the time of payment. The discount is automatically consumed after a successful purchase or if the TTL expires.
 
 ###### Parameters
 
