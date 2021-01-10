@@ -19,7 +19,7 @@ You can also mark achievements as `secret` and `secure`. "Secret" achievements w
 ###### Achievement Struct
 
 | name           | type    | description                                                                                                                      |
-| -------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------- |
+|----------------|---------|----------------------------------------------------------------------------------------------------------------------------------|
 | application_id | Int64   | the unique id of the application                                                                                                 |
 | name           | object  | the name of the achievement as an [achievement locale object](#DOCS_GAME_SDK_ACHIEVEMENTS/achievement-locale-object)             |
 | description    | object  | the user-facing achievement description as an [achievement locale object](#DOCS_GAME_SDK_ACHIEVEMENTS/achievement-locale-object) |
@@ -31,14 +31,14 @@ You can also mark achievements as `secret` and `secure`. "Secret" achievements w
 ###### Achievement Locale Object
 
 | Name           | Description                                                                                                                                             |
-| -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|----------------|---------------------------------------------------------------------------------------------------------------------------------------------------------|
 | default        | the default locale for the achievement                                                                                                                  |
 | localizations? | object of [accepted locales](#DOCS_DISPATCH_FIELD_VALUES/predefined-field-values-accepted-locales) as the key and achievement translations as the value |
 
 ###### User Achievement Struct
 
 | name            | type   | description                                                                                |
-| --------------- | ------ | ------------------------------------------------------------------------------------------ |
+|-----------------|--------|--------------------------------------------------------------------------------------------|
 | UserId          | Int64  | the unique id of the user working on the achievement                                       |
 | AchievementId   | Int64  | the unique id of the achievement                                                           |
 | PercentComplete | UInt8  | how far along the user is to complete the achievement (0-100)                              |
@@ -53,7 +53,7 @@ Returns `Discord.Result` via callback.
 ###### Parameters
 
 | name            | type  | description                            |
-| --------------- | ----- | -------------------------------------- |
+|-----------------|-------|----------------------------------------|
 | achievementId   | Int64 | the id of the achievement to update    |
 | percentComplete | UInt8 | the user's updated percentage progress |
 
@@ -126,7 +126,7 @@ Returns `Discord.UserAchievement`
 ###### Parameters
 
 | name  | type  | description                               |
-| ----- | ----- | ----------------------------------------- |
+|-------|-------|-------------------------------------------|
 | index | Int32 | the index at which to get the achievement |
 
 ###### Example
@@ -155,7 +155,7 @@ Gets the user achievement for the given achievement id. If you keep a hardcoded 
 ###### Parameters
 
 | name          | type  | description                      |
-| ------------- | ----- | -------------------------------- |
+|---------------|-------|----------------------------------|
 | achievementId | Int64 | the id of the achievement to get |
 
 ###### Example
@@ -181,7 +181,7 @@ Fires when an achievement is updated for the currently connected user
 ###### Parameters
 
 | name        | type                | description                      |
-| ----------- | ------------------- | -------------------------------- |
+|-------------|---------------------|----------------------------------|
 | achievement | ref UserAchievement | the achievement that was updated |
 
 ## The API Way
@@ -254,7 +254,7 @@ Creates a new achievement for your application. Applications can have a maximum 
 ###### Parameters
 
 | name        | type      | description                             |
-| ----------- | --------- | --------------------------------------- |
+|-------------|-----------|-----------------------------------------|
 | name        | string    | the name of the achievement             |
 | description | string    | the user-facing achievement description |
 | secret      | bool      | if the achievement is secret            |
@@ -304,7 +304,7 @@ Updates the achievement for **\_\_ALL USERS\_\_**. This is **NOT** to update a s
 ###### Parameters
 
 | name        | type      | description                             |
-| ----------- | --------- | --------------------------------------- |
+|-------------|-----------|-----------------------------------------|
 | name        | string    | the name of the achievement             |
 | description | string    | the user-facing achievement description |
 | secret      | bool      | if the achievement is secret            |
@@ -366,7 +366,7 @@ Updates the UserAchievement record for a given user. Use this endpoint to update
 ###### Parameters
 
 | name             | type | description                                            |
-| ---------------- | ---- | ------------------------------------------------------ |
+|------------------|------|--------------------------------------------------------|
 | percent_complete | int  | the user's progress towards completing the achievement |
 
 ###### Return Object

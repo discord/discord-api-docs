@@ -56,7 +56,7 @@ Go team!
 ###### Team Object
 
 | field         | type                                                                              | description                            |
-| ------------- | --------------------------------------------------------------------------------- | -------------------------------------- |
+|---------------|-----------------------------------------------------------------------------------|----------------------------------------|
 | icon          | ?string                                                                           | a hash of the image of the team's icon |
 | id            | snowflake                                                                         | the unique id of the team              |
 | members       | array of [team member](#DOCS_TOPICS_TEAMS/data-models-team-member-object) objects | the members of the team                |
@@ -65,7 +65,7 @@ Go team!
 ###### Team Members Object
 
 | field            | type                                                    | description                                                                                     |
-| ---------------- | ------------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
+|------------------|---------------------------------------------------------|-------------------------------------------------------------------------------------------------|
 | membership_state | integer                                                 | the user's [membership state](#DOCS_TOPICS_TEAMS/data-models-membership-state-enum) on the team |
 | permissions      | array of strings                                        | will always be `["*"]`                                                                          |
 | team_id          | snowflake                                               | the id of the parent team of which they are a member                                            |
@@ -74,6 +74,6 @@ Go team!
 ###### Membership State Enum
 
 | name     | value |
-| -------- | ----- |
+|----------|-------|
 | INVITED  | 1     |
 | ACCEPTED | 2     |

@@ -69,7 +69,7 @@ Discord passes a number of environment variables down to the SDK. These are acce
 ###### SDK Environment Variables
 
 | name                   | method                                                                                  | description                                                                                                  |
-| ---------------------- | --------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------ |
+|------------------------|-----------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------|
 | DISCORD_INSTANCE_ID    | [Local Testing](#DOCS_GAME_SDK_SDK_STARTER_GUIDE/testing-locally-with-two-clients)      | the locally running instance of Discord to connect to; allows you to choose between multiple running clients |
 | DISCORD_ACCESS_TOKEN   | [ApplicationManager.GetOAuth2Token()](#DOCS_GAME_SDK_APPLICATIONS/get-oauth2-token)     | the connected user's bearer token                                                                            |
 | DISCORD_CURRENT_LOCALE | [ApplicationManager.GetCurrentLocale](#DOCS_GAME_SDK_APPLICATIONS/get-current-locale)   | the language that Discord is in for the connected user                                                       |
@@ -96,7 +96,7 @@ You should begin your integration by setting up this callback to help you debug.
 ###### Result Enum
 
 | Code | value                           | description                                                                                     |
-| ---- | ------------------------------- | ----------------------------------------------------------------------------------------------- |
+|------|---------------------------------|-------------------------------------------------------------------------------------------------|
 | 0    | Ok                              | everything is good                                                                              |
 | 1    | ServiceUnavailable              | Discord isn't working                                                                           |
 | 2    | InvalidVersion                  | the SDK version may be outdated                                                                 |
@@ -145,7 +145,7 @@ You should begin your integration by setting up this callback to help you debug.
 ###### LogLevel Enum
 
 | value   | description                    |
-| ------- | ------------------------------ |
+|---------|--------------------------------|
 | Error   | Log only errors                |
 | Warning | Log warnings and errors        |
 | Info    | Log info, warnings, and errors |
@@ -154,7 +154,7 @@ You should begin your integration by setting up this callback to help you debug.
 ###### CreateFlags Enum
 
 | value            | description                                                         |
-| ---------------- | ------------------------------------------------------------------- |
+|------------------|---------------------------------------------------------------------|
 | Default          | Requires Discord to be running to play the game                     |
 | NoRequireDiscord | Does not require Discord to be running; use this on other platforms |
 
@@ -167,7 +167,7 @@ Returns a new `Discord`.
 ###### Parameters
 
 | name     | type        | description                                         |
-| -------- | ----------- | --------------------------------------------------- |
+|----------|-------------|-----------------------------------------------------|
 | clientId | Int64       | your application's client id                        |
 | flags    | CreateFlags | the creation parameters for the SDK, outlined above |
 
@@ -214,7 +214,7 @@ Returns `void`.
 ###### Parameters
 
 | name     | type     | description                                 |
-| -------- | -------- | ------------------------------------------- |
+|----------|----------|---------------------------------------------|
 | level    | LogLevel | the minimum level of an event to log        |
 | callback | function | the callback function to catch the messages |
 

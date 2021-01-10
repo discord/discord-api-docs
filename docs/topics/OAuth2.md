@@ -9,7 +9,7 @@ The first step in implementing OAuth2 is [registering a developer application](#
 ###### OAuth2 URLs
 
 | URL                                         | Description                                                 |
-| ------------------------------------------- | ----------------------------------------------------------- |
+|---------------------------------------------|-------------------------------------------------------------|
 | https://discord.com/api/oauth2/authorize    | Base authorization URL                                      |
 | https://discord.com/api/oauth2/token        | Token URL                                                   |
 | https://discord.com/api/oauth2/token/revoke | [Token Revocation](https://tools.ietf.org/html/rfc7009) URL |
@@ -22,7 +22,7 @@ The first step in implementing OAuth2 is [registering a developer application](#
 This is a list of all the OAuth2 scopes that Discord supports. Scopes that are behind a whitelist cannot be requested unless your application is on the said whitelist and may cause undocumented/error behavior in the OAuth2 flow if you request them from a user.
 
 | Name                         | Description                                                                                                                                           |
-| ---------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
+|------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------|
 | bot                          | for oauth2 bots, this puts the bot in the user's selected guild by default                                                                            |
 | connections                  | allows [/users/@me/connections](#DOCS_RESOURCES_USER/get-user-connections) to return linked third-party accounts                                      |
 | email                        | enables [/users/@me](#DOCS_RESOURCES_USER/get-current-user) to return an `email`                                                                      |
@@ -245,7 +245,7 @@ Bot authorization is a special server-less and callback-less OAuth2 flow that ma
 ###### Bot Auth Parameters
 
 | name                 | description                                                           |
-| -------------------- | --------------------------------------------------------------------- |
+|----------------------|-----------------------------------------------------------------------|
 | client_id            | your app's client id                                                  |
 | scope                | needs to include `bot` for the bot flow                               |
 | permissions          | the [permissions](#DOCS_TOPICS_PERMISSIONS/) you're requesting        |
@@ -372,7 +372,7 @@ Returns the bot's OAuth2 [application object](#DOCS_TOPICS_OAUTH2/application-ob
 ###  Application Object
 
 | Field                  | Type                                                       | Description                                                                                                               |
-| ---------------------- | ---------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
+|------------------------|------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------|
 | id                     | snowflake                                                  | the id of the app                                                                                                         |
 | name                   | string                                                     | the name of the app                                                                                                       |
 | icon                   | ?string                                                    | the icon hash of the app                                                                                                  |

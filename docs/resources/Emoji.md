@@ -8,7 +8,7 @@
 ###### Emoji Structure
 
 | Field           | Type                                                             | Description                                                              |
-| --------------- | ---------------------------------------------------------------- | ------------------------------------------------------------------------ |
+|-----------------|------------------------------------------------------------------|--------------------------------------------------------------------------|
 | id              | ?snowflake                                                       | [emoji id](#DOCS_REFERENCE/image-formatting)                             |
 | name            | ?string (can be null only in reaction emoji objects)             | emoji name                                                               |
 | roles?          | array of [role](#DOCS_TOPICS_PERMISSIONS/role-object) object ids | roles this emoji is whitelisted to                                       |
@@ -88,7 +88,7 @@ Create a new emoji for the guild. Requires the `MANAGE_EMOJIS` permission. Retur
 ###### JSON Params
 
 | Field | Type                                     | Description                                    |
-| ----- | ---------------------------------------- | ---------------------------------------------- |
+|-------|------------------------------------------|------------------------------------------------|
 | name  | string                                   | name of the emoji                              |
 | image | [image data](#DOCS_REFERENCE/image-data) | the 128x128 emoji image                        |
 | roles | array of snowflakes                      | roles for which this emoji will be whitelisted |
@@ -103,7 +103,7 @@ Modify the given emoji. Requires the `MANAGE_EMOJIS` permission. Returns the upd
 ###### JSON Params
 
 | Field | Type                 | Description                                   |
-| ----- | -------------------- | --------------------------------------------- |
+|-------|----------------------|-----------------------------------------------|
 | name  | string               | name of the emoji                             |
 | roles | ?array of snowflakes | roles to which this emoji will be whitelisted |
 

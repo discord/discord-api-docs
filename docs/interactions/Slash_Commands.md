@@ -639,7 +639,7 @@ Create a new global command. New global commands will be available in all guilds
 ###### JSON Params
 
 | Field       | Type                                                                                            | Description                    |
-| ----------- | ----------------------------------------------------------------------------------------------- | ------------------------------ |
+|-------------|-------------------------------------------------------------------------------------------------|--------------------------------|
 | name        | string                                                                                          | 3-32 character command name    |
 | description | string                                                                                          | 1-100 character description    |
 | options?    | array of [ApplicationCommandOption](#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommandoption) | the parameters for the command |
@@ -654,7 +654,7 @@ Edit a global command. Updates will be available in all guilds after 1 hour. Ret
 ###### JSON Params
 
 | Field       | Type                                                                                            | Description                    |
-| ----------- | ----------------------------------------------------------------------------------------------- | ------------------------------ |
+|-------------|-------------------------------------------------------------------------------------------------|--------------------------------|
 | name        | string                                                                                          | 3-32 character command name    |
 | description | string                                                                                          | 1-100 character description    |
 | options     | array of [ApplicationCommandOption](#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommandoption) | the parameters for the command |
@@ -678,7 +678,7 @@ Create a new guild command. New guild commands will be available in the guild im
 ###### JSON Params
 
 | Field       | Type                                                                                            | Description                    |
-| ----------- | ----------------------------------------------------------------------------------------------- | ------------------------------ |
+|-------------|-------------------------------------------------------------------------------------------------|--------------------------------|
 | name        | string                                                                                          | 3-32 character command name    |
 | description | string                                                                                          | 1-100 character description    |
 | options?    | array of [ApplicationCommandOption](#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommandoption) | the parameters for the command |
@@ -693,7 +693,7 @@ Edit a guild command. Updates for guild commands will be available immediately. 
 ###### JSON Params
 
 | Field       | Type                                                                                            | Description                    |
-| ----------- | ----------------------------------------------------------------------------------------------- | ------------------------------ |
+|-------------|-------------------------------------------------------------------------------------------------|--------------------------------|
 | name        | string                                                                                          | 3-32 character command name    |
 | description | string                                                                                          | 1-100 character description    |
 | options     | array of [ApplicationCommandOption](#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommandoption) | the parameters for the command |
@@ -737,7 +737,7 @@ Deletes a followup message for an Interaction. Returns `204` on success.
 An application command is the base "command" model that belongs to an application. This is what you are creating when you `POST` a new command.
 
 | Field          | Type                                                                                            | Description                                  |
-| -------------- | ----------------------------------------------------------------------------------------------- | -------------------------------------------- |
+|----------------|-------------------------------------------------------------------------------------------------|----------------------------------------------|
 | id             | snowflake                                                                                       | unique id of the command                     |
 | application_id | snowflake                                                                                       | unique id of the parent application          |
 | name           | string                                                                                          | 3-32 character name matching `^[\w-]{3,32}$` |
@@ -750,7 +750,7 @@ An application command is the base "command" model that belongs to an applicatio
 > You can specify a maximum of 10 `choices` per option
 
 | Field       | Type                                                                                                        | Description                                                                                             |
-| ----------- | ----------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- |
+|-------------|-------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------|
 | type        | int                                                                                                         | value of [ApplicationCommandOptionType](#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommandoptiontype) |
 | name        | string                                                                                                      | 1-32 character name matching `^[\w-]{1,32}$`                                                            |
 | description | string                                                                                                      | 1-100 character description                                                                             |
@@ -762,7 +762,7 @@ An application command is the base "command" model that belongs to an applicatio
 ## ApplicationCommandOptionType
 
 | Name              | Value |
-| ----------------- | ----- |
+|-------------------|-------|
 | SUB_COMMAND       | 1     |
 | SUB_COMMAND_GROUP | 2     |
 | STRING            | 3     |
@@ -777,7 +777,7 @@ An application command is the base "command" model that belongs to an applicatio
 If you specify `choices` for an option, they are the **only** valid values for a user to pick
 
 | Field | Type          | Description                 |
-| ----- | ------------- | --------------------------- |
+|-------|---------------|-----------------------------|
 | name  | string        | 1-100 character choice name |
 | value | string or int | value of the choice         |
 
@@ -786,7 +786,7 @@ If you specify `choices` for an option, they are the **only** valid values for a
 An interaction is the base "thing" that is sent when a user invokes a command, and is the same for Slash Commands and other future interaction types
 
 | Field      | Type                                                             | Description                                                    |
-| ---------- | ---------------------------------------------------------------- | -------------------------------------------------------------- |
+|------------|------------------------------------------------------------------|----------------------------------------------------------------|
 | id         | snowflake                                                        | id of the interaction                                          |
 | type       | InteractionType                                                  | the type of interaction                                        |
 | data?\*    | ApplicationCommandInteractionData                                | the command data payload                                       |
@@ -801,14 +801,14 @@ An interaction is the base "thing" that is sent when a user invokes a command, a
 ###### InteractionType
 
 | Name               | Value |
-| ------------------ | ----- |
+|--------------------|-------|
 | Ping               | 1     |
 | ApplicationCommand | 2     |
 
 ###### ApplicationCommandInteractionData
 
 | Field    | Type                                             | Description                       |
-| -------- | ------------------------------------------------ | --------------------------------- |
+|----------|--------------------------------------------------|-----------------------------------|
 | id       | snowflake                                        | the ID of the invoked command     |
 | name     | string                                           | the name of the invoked command   |
 | options? | array of ApplicationCommandInteractionDataOption | the params + values from the user |
@@ -820,7 +820,7 @@ All options have names, and an option can either be a parameter and input value-
 `value` and `options` are mutually exclusive.
 
 | Field    | Type                                             | Description                                     |
-| -------- | ------------------------------------------------ | ----------------------------------------------- |
+|----------|--------------------------------------------------|-------------------------------------------------|
 | name     | string                                           | the name of the parameter                       |
 | value?   | OptionType                                       | the value of the pair                           |
 | options? | array of ApplicationCommandInteractionDataOption | present if this option is a group or subcommand |
@@ -832,14 +832,14 @@ After receiving an interaction, you must respond to acknowledge it. This may be 
 Interaction responses may choose to "eat" the user's command input if you do not wish to have their slash command show up as message in chat. This may be helpful for slash commands, or commands whose responses are asynchronous or ephemeral messages.
 
 | Field | Type                                      | Description                  |
-| ----- | ----------------------------------------- | ---------------------------- |
+|-------|-------------------------------------------|------------------------------|
 | type  | InteractionResponseType                   | the type of response         |
 | data? | InteractionApplicationCommandCallbackData | an optional response message |
 
 ###### InteractionResponseType
 
 | Name                     | Value | Description                                                       |
-| ------------------------ | ----- | ----------------------------------------------------------------- |
+|--------------------------|-------|-------------------------------------------------------------------|
 | Pong                     | 1     | ACK a `Ping`                                                      |
 | Acknowledge              | 2     | ACK a command without sending a message, eating the user's input  |
 | ChannelMessage           | 3     | respond with a message, eating the user's input                   |
@@ -851,7 +851,7 @@ Interaction responses may choose to "eat" the user's command input if you do not
 Not all message fields are currently supported.
 
 | Name              | Value            | Description                                                                |
-| ----------------- | ---------------- | -------------------------------------------------------------------------- |
+|-------------------|------------------|----------------------------------------------------------------------------|
 | tts?              | boolean          | is the response TTS                                                        |
 | content           | string           | message content                                                            |
 | embeds?           | array of embeds  | supports up to 10 embeds                                                   |

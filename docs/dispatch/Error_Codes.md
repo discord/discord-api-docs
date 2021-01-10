@@ -6,7 +6,7 @@
 This page outlines some of the common error codes that may be encountered when using Dispatch.
 
 | Code | Name                       | Possible Solution                                                                                                                              |
-| ---- | -------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+|------|----------------------------|------------------------------------------------------------------------------------------------------------------------------------------------|
 | 2020 | Request Signing Failed     | Check user entitlement                                                                                                                         |
 | 2022 | Disk Space Low             | Free up disk space                                                                                                                             |
 | 2023 | Disk Permission Denied     | Choose a new location or change write permissions on the desired location                                                                      |

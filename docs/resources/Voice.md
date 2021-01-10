@@ -7,7 +7,7 @@ The voice state object is used to represent a user's voice connection status.
 ###### Voice State Structure
 
 | Field        | Type                                                             | Description                                    |
-| ------------ | ---------------------------------------------------------------- | ---------------------------------------------- |
+|--------------|------------------------------------------------------------------|------------------------------------------------|
 | guild_id?    | snowflake                                                        | the guild id this voice state is for           |
 | channel_id   | ?snowflake                                                       | the channel id this user is connected to       |
 | user_id      | snowflake                                                        | the user-id this voice state is for            |
@@ -41,7 +41,7 @@ The voice state object is used to represent a user's voice connection status.
 ###### Voice Region Structure
 
 | Field      | Type    | Description                                                           |
-| ---------- | ------- | --------------------------------------------------------------------- |
+|------------|---------|-----------------------------------------------------------------------|
 | id         | string  | unique ID for the region                                              |
 | name       | string  | name of the region                                                    |
 | vip        | boolean | true if this is a VIP-only server                                     |

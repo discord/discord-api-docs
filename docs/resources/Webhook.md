@@ -9,7 +9,7 @@ The webhook object is used to represent a webhook.
 ###### Webhook Structure
 
 | Field          | Type                                            | Description                                                                               |
-| -------------- | ----------------------------------------------- | ----------------------------------------------------------------------------------------- |
+|----------------|-------------------------------------------------|-------------------------------------------------------------------------------------------|
 | id             | snowflake                                       | the id of the webhook                                                                     |
 | type           | integer                                         | the [type](#DOCS_RESOURCES_WEBHOOK/webhook-object-webhook-types) of the webhook           |
 | guild_id?      | snowflake                                       | the guild id this webhook is for                                                          |
@@ -23,7 +23,7 @@ The webhook object is used to represent a webhook.
 ###### Webhook Types
 
 | Value | Name             | Description                                                                                                    |
-| ----- | ---------------- | -------------------------------------------------------------------------------------------------------------- |
+|-------|------------------|----------------------------------------------------------------------------------------------------------------|
 | 1     | Incoming         | Incoming Webhooks can post messages to channels with a generated token                                         |
 | 2     | Channel Follower | Channel Follower Webhooks are internal webhooks used with Channel Following to post new messages into channels |
 
@@ -56,7 +56,7 @@ Create a new webhook. Requires the `MANAGE_WEBHOOKS` permission. Returns a [webh
 ###### JSON Params
 
 | Field  | Type                                      | Description                           |
-| ------ | ----------------------------------------- | ------------------------------------- |
+|--------|-------------------------------------------|---------------------------------------|
 | name   | string                                    | name of the webhook (1-80 characters) |
 | avatar | ?[image data](#DOCS_REFERENCE/image-data) | image for the default webhook avatar  |
 
@@ -86,7 +86,7 @@ Modify a webhook. Requires the `MANAGE_WEBHOOKS` permission. Returns the updated
 ###### JSON Params
 
 | Field      | Type                                      | Description                                        |
-| ---------- | ----------------------------------------- | -------------------------------------------------- |
+|------------|-------------------------------------------|----------------------------------------------------|
 | name       | string                                    | the default name of the webhook                    |
 | avatar     | ?[image data](#DOCS_REFERENCE/image-data) | image for the default webhook avatar               |
 | channel_id | snowflake                                 | the new channel id this webhook should be moved to |
@@ -111,13 +111,13 @@ Same as above, except this call does not require authentication.
 ###### Querystring Params
 
 | Field | Type    | Description                                                                                                                                                                                  | Required |
-| ----- | ------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
+|-------|---------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------|
 | wait  | boolean | waits for server confirmation of message send before response, and returns the created message body (defaults to `false`; when `false` a message that is not saved does not return an error) | false    |
 
 ###### JSON/Form Params
 
 | Field            | Type                                                                      | Description                                                  | Required                     |
-| ---------------- | ------------------------------------------------------------------------- | ------------------------------------------------------------ | ---------------------------- |
+|------------------|---------------------------------------------------------------------------|--------------------------------------------------------------|------------------------------|
 | content          | string                                                                    | the message contents (up to 2000 characters)                 | one of content, file, embeds |
 | username         | string                                                                    | override the default username of the webhook                 | false                        |
 | avatar_url       | string                                                                    | override the default avatar of the webhook                   | false                        |
@@ -135,7 +135,7 @@ Same as above, except this call does not require authentication.
 ###### Querystring Params
 
 | Field | Type    | Description                                                                                                                                           | Required |
-| ----- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
+|-------|---------|-------------------------------------------------------------------------------------------------------------------------------------------------------|----------|
 | wait  | boolean | waits for server confirmation of message send before response (defaults to `true`; when `false` a message that is not saved does not return an error) | false    |
 
 Refer to [Slack's documentation](https://api.slack.com/incoming-webhooks) for more information. We do not support Slack's `channel`, `icon_emoji`, `mrkdwn`, or `mrkdwn_in` properties.
@@ -145,7 +145,7 @@ Refer to [Slack's documentation](https://api.slack.com/incoming-webhooks) for mo
 ###### Querystring Params
 
 | Field | Type    | Description                                                                                                                                           | Required |
-| ----- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
+|-------|---------|-------------------------------------------------------------------------------------------------------------------------------------------------------|----------|
 | wait  | boolean | waits for server confirmation of message send before response (defaults to `true`; when `false` a message that is not saved does not return an error) | false    |
 
 Add a new webhook to your GitHub repo (in the repo's settings), and use this endpoint as the "Payload URL." You can choose what events your Discord channel receives by choosing the "Let me select individual events" option and selecting individual events for the new webhook you're configuring.
@@ -160,7 +160,7 @@ Edits a previously-sent webhook message from the same token.
 ###### JSON/Form Params
 
 | Field            | Type                                                                      | Description                                  |
-| ---------------- | ------------------------------------------------------------------------- | -------------------------------------------- |
+|------------------|---------------------------------------------------------------------------|----------------------------------------------|
 | content          | string                                                                    | the message contents (up to 2000 characters) |
 | embeds           | array of up to 10 [embed](#DOCS_RESOURCES_CHANNEL/embed-object) objects   | embedded `rich` content                      |
 | allowed_mentions | [allowed mention object](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object) | allowed mentions for the message             |

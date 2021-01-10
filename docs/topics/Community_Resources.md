@@ -11,7 +11,7 @@ Many of these libraries are represented in the [unofficial, community-driven Dis
 ###### Discord Libraries
 
 | Name                                                         | Language   |
-| ------------------------------------------------------------ | ---------- |
+|--------------------------------------------------------------|------------|
 | [discljord](https://github.com/igjoshua/discljord)           | Clojure    |
 | [aegis.cpp](https://github.com/zeroxs/aegis.cpp)             | C++        |
 | [discordcr](https://github.com/shardlab/discordcr)           | Crystal    |
