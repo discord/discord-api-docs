@@ -442,7 +442,7 @@ Used to trigger the initial handshake with the gateway.
 
 ###### Example Identify
 
-"`json
+```json
 {
   "op": 2,
   "d": {
@@ -487,7 +487,7 @@ Used to replay missed events when a disconnected client resumes.
 
 ###### Example Resume
 
-"`json
+```json
 {
   "op": 6,
   "d": {
@@ -599,7 +599,7 @@ The update status payload is sent by the client to indicate a presence or status
 
 ###### Example Gateway Status Update
 
-"`json
+```json
 {
   "op": 3,
   "d": {
@@ -675,7 +675,7 @@ The inner `d` key is a boolean that indicates whether the session may be resumab
 
 ###### Example Gateway Invalid Session
 
-"`json
+```json
 {
   "op": 9,
   "d": false
@@ -1115,7 +1115,7 @@ Active sessions are indicated with an "online", "idle", or "dnd" string per plat
 
 ###### Example Activity
 
-"`json
+```json
 {
   "details": "24H RL Stream for Charity",
   "state": "Rocket League",
@@ -1127,7 +1127,7 @@ Active sessions are indicated with an "online", "idle", or "dnd" string per plat
 
 ###### Example Activity with Rich Presence
 
-"`json
+```json
 {
   "name": "Rocket League",
   "type": 0,
@@ -1196,7 +1196,7 @@ Sent when a guild's voice server is updated. This is sent when initially connect
 
 ###### Example Voice Server Update Payload
 
-"`json
+```json
 {
   "token": "my_token",
   "guild_id": "41771983423143937",
@@ -1232,7 +1232,7 @@ Returns an object with a single valid WSS URL, which the client can use for [Con
 
 ###### Example Response
 
-"`json
+```json
 {
   "url": "wss://gateway.discord.gg/"
 }
@@ -1255,7 +1255,7 @@ Returns an object based on the information in [Get Gateway](#DOCS_TOPICS_GATEWAY
 
 ###### Example Response
 
-"`json
+```json
 {
   "url": "wss://gateway.discord.gg/",
   "shards": 9,

@@ -89,7 +89,7 @@ https://nicememe.website/?code=NhhvTDYsFcdgNLnnLijcl7Ku7bEEeee&state=15773059ghq
 
 ###### Access Token Exchange Example
 
-"`python
+```python
 API_ENDPOINT = 'https://discord.com/api/v6'
 CLIENT_ID = '332269999912132097'
 CLIENT_SECRET = '937it3ow87i4ery69876wqire'
@@ -116,7 +116,7 @@ You can also pass your `client_id` and `client_secret` as basic authentication w
 
 ###### Access Token Response
 
-"`json
+```json
 {
   "access_token": "6qrZcUqja7812RVdnEKjpzOL4CvHBFG",
   "token_type": "Bearer",
@@ -137,7 +137,7 @@ Having the user's access token allows your application to make certain requests 
 
 ###### Refresh Token Exchange Example
 
-"`python
+```python
 API_ENDPOINT = 'https://discord.com/api/v6'
 CLIENT_ID = '332269999912132097'
 CLIENT_SECRET = '937it3ow87i4ery69876wqire'
@@ -190,7 +190,7 @@ You can specify scopes with the `scope` parameter, which is a list of [OAuth2 sc
 
 ###### Client Credentials Token Request Example
 
-"`python
+```python
 import base64
 
 API_ENDPOINT = 'https://discord.com/api/v6'
@@ -214,7 +214,7 @@ In return, you will receive an access token (without a refresh token):
 
 ###### Client Credentials Access Token Response
 
-"`json
+```json
 {
   "access_token": "6qrZcUqja7812RVdnEKjpzOL4CvHBFG",
   "token_type": "Bearer",
@@ -275,7 +275,7 @@ When receiving the access code on redirect, there will be additional query strin
 
 ###### Extended Bot Authorization Access Token Example
 
-"`json
+```json
 {
   "token_type": "Bearer",
   "guild": {
@@ -336,7 +336,7 @@ When the user navigates to this URL, they will be prompted to select a channel i
 
 ###### Webhook Token Response Example
 
-"`json
+```json
 {
   "token_type": "Bearer",
   "access_token": "GNaVzEtATqdh173tNHEXY9ZYAuhiYxvy",
@@ -392,7 +392,7 @@ Returns the bot's OAuth2 [application object](#DOCS_TOPICS_OAUTH2/application-ob
 
 ###### Example Application Information
 
-"`json
+```json
 {
   "bot_public": true,
   "bot_require_code_grant": false,

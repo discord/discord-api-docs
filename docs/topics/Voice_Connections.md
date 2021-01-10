@@ -23,7 +23,7 @@ The first step in connecting to a voice server (and in turn, a guild's voice cha
 
 ###### Gateway Voice State Update Example
 
-"`json
+```json
 {
   "op": 4,
   "d": {
@@ -39,7 +39,7 @@ If our request succeeds, the gateway will respond with _two_ events—a [Voice S
 
 ###### Example Voice Server Update Payload
 
-"`json
+```json
 {
   "t": "VOICE_SERVER_UPDATE",
   "s": 2,
@@ -65,7 +65,7 @@ Once we retrieve a session_id, token, and endpoint information, we can connect a
 
 ###### Example Voice Identify Payload
 
-"`json
+```json
 {
   "op": 0,
   "d": {
@@ -81,7 +81,7 @@ The voice server should respond with an [Opcode 2 Ready](#DOCS_TOPICS_OPCODES_AN
 
 ###### Example Voice Ready Payload
 
-"`json
+```json
 {
     "op": 2,
     "d": {
@@ -103,7 +103,7 @@ In order to maintain your WebSocket connection, you need to continuously send he
 
 ###### Example Hello Payload below V3
 
-"`json
+```json
 {
   "heartbeat_interval": 41250
 }
@@ -111,7 +111,7 @@ In order to maintain your WebSocket connection, you need to continuously send he
 
 ###### Example Hello Payload since V3
 
-"`json
+```json
 {
   "op": 8,
   "d": {
@@ -126,7 +126,7 @@ After receiving [Opcode 8 Hello](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice), y
 
 ###### Example Heartbeat Payload
 
-"`json
+```json
 {
   "op": 3,
   "d": 1501184119561
@@ -137,7 +137,7 @@ In return, you will be sent back an [Opcode 6 Heartbeat ACK](#DOCS_TOPICS_OPCODE
 
 ###### Example Heartbeat ACK Payload
 
-"`json
+```json
 {
   "op": 6,
   "d": 1501184119561
@@ -150,7 +150,7 @@ Once we receive the properties of a UDP voice server from our [Opcode 2 Ready](#
 
 ###### Example Select Protocol Payload
 
-"`json
+```json
 {
     "op": 1,
     "d": {
@@ -179,7 +179,7 @@ Finally, the voice server will respond with a [Opcode 4 Session Description](#DO
 
 ###### Example Session Description Payload
 
-"`json
+```json
 {
     "op": 4,
     "d": {
@@ -220,7 +220,7 @@ The following flags can be used as a bitwise mask. For example, `5` would be pri
 
 ###### Example Speaking Payload
 
-"`json
+```json
 {
     "op": 5,
     "d": {
@@ -244,7 +244,7 @@ When your client detects that its connection has been severed, it should open a 
 
 ###### Example Resume Connection Payload
 
-"`json
+```json
 {
   "op": 7,
   "d": {
@@ -259,7 +259,7 @@ If successful, the Voice server will respond with an [Opcode 9 Resumed](#DOCS_TO
 
 ###### Example Resumed Payload
 
-"`json
+```json
 {
   "op": 9,
   "d": null
