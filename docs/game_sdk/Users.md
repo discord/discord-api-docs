@@ -12,13 +12,13 @@ This manager helps retrieve basic user information for any user on Discord.
 
 ###### User Struct
 
-| name          | type   | description                   |
-| ------------- | ------ | ----------------------------- |
-| Id            | Int64  | the user's id                 |
-| Username      | string | their name                    |
-| Discriminator | string | the user's unique discriminator     |
-| Avatar        | string | the hash of the user's avatar |
-| Bot           | bool   | if the user is a bot user     |
+| name          | type   | description                     |
+| ------------- | ------ | ------------------------------- |
+| Id            | Int64  | the user's id                   |
+| Username      | string | their name                      |
+| Discriminator | string | the user's unique discriminator |
+| Avatar        | string | the hash of the user's avatar   |
+| Bot           | bool   | if the user is a bot user       |
 
 ###### UserFlag Enum
 

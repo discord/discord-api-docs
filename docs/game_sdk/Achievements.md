@@ -41,7 +41,7 @@ You can also mark achievements as `secret` and `secure`. "Secret" achievements w
 | --------------- | ------ | ------------------------------------------------------------------------------------------ |
 | UserId          | Int64  | the unique id of the user working on the achievement                                       |
 | AchievementId   | Int64  | the unique id of the achievement                                                           |
-| PercentComplete | UInt8  | how far along the user is to complete the achievement (0-100)                            |
+| PercentComplete | UInt8  | how far along the user is to complete the achievement (0-100)                              |
 | UnlockedAt      | string | the timestamp at which the user completed the achievement (PercentComplete was set to 100) |
 
 ## SetUserAchievement

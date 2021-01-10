@@ -9,7 +9,7 @@ Whenever an admin action is performed on the API, an entry is added to the respe
 ###### Audit Log Structure
 
 | Field             | Type                                                                                 | Description                             |
-|-------------------|--------------------------------------------------------------------------------------|-----------------------------------------|
+| ----------------- | ------------------------------------------------------------------------------------ | --------------------------------------- |
 | webhooks          | array of [webhook](#DOCS_RESOURCES_WEBHOOK/webhook-object) objects                   | list of webhooks found in the audit log |
 | users             | array of [user](#DOCS_RESOURCES_USER/user-object) objects                            | list of users found in the audit log    |
 | audit_log_entries | array of [audit log entry](#DOCS_RESOURCES_AUDIT_LOG/audit-log-entry-object) objects | list of audit log entries               |
@@ -34,7 +34,7 @@ Whenever an admin action is performed on the API, an entry is added to the respe
 ###### Audit Log Entry Structure
 
 | Field       | Type                                                                                                    | Description                                           |
-|-------------|---------------------------------------------------------------------------------------------------------|-------------------------------------------------------|
+| ----------- | ------------------------------------------------------------------------------------------------------- | ----------------------------------------------------- |
 | target_id   | ?string                                                                                                 | id of the affected entity (webhook, user, role, etc.) |
 | changes?    | array of [audit log change](#DOCS_RESOURCES_AUDIT_LOG/audit-log-change-object) objects                  | changes made to the target_id                         |
 | user_id     | snowflake                                                                                               | the user who made the changes                         |
@@ -46,7 +46,7 @@ Whenever an admin action is performed on the API, an entry is added to the respe
 ###### Audit Log Events
 
 | Event                    | Value |
-|--------------------------|-------|
+| ------------------------ | ----- |
 | GUILD_UPDATE             | 1     |
 | CHANNEL_CREATE           | 10    |
 | CHANNEL_UPDATE           | 11    |
@@ -87,7 +87,7 @@ Whenever an admin action is performed on the API, an entry is added to the respe
 ###### Optional Audit Entry Info
 
 | Field              | Type      | Description                                                     | Action Type                                                                    |
-|--------------------|-----------|-----------------------------------------------------------------|--------------------------------------------------------------------------------|
+| ------------------ | --------- | --------------------------------------------------------------- | ------------------------------------------------------------------------------ |
 | delete_member_days | string    | number of days after which inactive members were kicked         | MEMBER_PRUNE                                                                   |
 | members_removed    | string    | number of members removed by the prune                          | MEMBER_PRUNE                                                                   |
 | channel_id         | snowflake | channel in which the entities were targeted                     | MEMBER_MOVE & MESSAGE_PIN & MESSAGE_UNPIN & MESSAGE_DELETE                     |
@@ -102,7 +102,7 @@ Whenever an admin action is performed on the API, an entry is added to the respe
 ###### Audit Log Change Structure
 
 | Field      | Type                                                                            | Description                                                                                            |
-|------------|---------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------|
+| ---------- | ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ |
 | new_value? | [mixed](#DOCS_RESOURCES_AUDIT_LOG/audit-log-change-object-audit-log-change-key) | new value of the key                                                                                   |
 | old_value? | [mixed](#DOCS_RESOURCES_AUDIT_LOG/audit-log-change-object-audit-log-change-key) | old value of the key                                                                                   |
 | key        | string                                                                          | name of audit log [change key](#DOCS_RESOURCES_AUDIT_LOG/audit-log-change-object-audit-log-change-key) |
@@ -110,7 +110,7 @@ Whenever an admin action is performed on the API, an entry is added to the respe
 ###### Audit Log Change Key
 
 | Name                          | Object Changed                                          | Type                                                                                     | Description                                                                                                                                             |
-|-------------------------------|---------------------------------------------------------|------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------|
+| ----------------------------- | ------------------------------------------------------- | ---------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | name                          | [guild](#DOCS_RESOURCES_GUILD/guild-object)             | string                                                                                   | name changed                                                                                                                                            |
 | icon_hash                     | [guild](#DOCS_RESOURCES_GUILD/guild-object)             | string                                                                                   | icon changed                                                                                                                                            |
 | splash_hash                   | [guild](#DOCS_RESOURCES_GUILD/guild-object)             | string                                                                                   | invite splash page artwork changed                                                                                                                      |
@@ -175,7 +175,7 @@ Returns an [audit log](#DOCS_RESOURCES_AUDIT_LOG/audit-log-object) object for th
 ###### Query String Parameters
 
 | Field       | Type      | Description                                                                                      |
-|-------------|-----------|--------------------------------------------------------------------------------------------------|
+| ----------- | --------- | ------------------------------------------------------------------------------------------------ |
 | user_id     | snowflake | filter the log for actions made by a user                                                        |
 | action_type | integer   | the type of [audit log event](#DOCS_RESOURCES_AUDIT_LOG/audit-log-entry-object-audit-log-events) |
 | before      | snowflake | filter the log before a certain entry id                                                         |

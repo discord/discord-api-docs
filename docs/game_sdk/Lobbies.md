@@ -96,7 +96,7 @@ lobbyManager.CreateLobby(txn, (result, lobby) =>
 | -------- | ----- | ------------------------------------ |
 | Local    | 0     | within the same region               |
 | Default  | 1     | within the same and adjacent regions |
-| Extended | 2     | far distances, like the US to EU         |
+| Extended | 2     | far distances, like the US to EU     |
 | Global   | 3     | all regions                          |
 
 ###### LobbyTransaction Struct
@@ -1407,11 +1407,11 @@ Creates a lobby search for matchmaking around given criteria.
 
 ###### Parameters
 
-| name           | type                | description                              |
-| -------------- | ------------------- | ---------------------------------------- |
-| application_id | string              | your application id                      |
-| filter         | SearchFilter object | the filter to check against              |
-| sort           | SearchSort object   | how to sort the results                  |
+| name           | type                | description                                     |
+| -------------- | ------------------- | ----------------------------------------------- |
+| application_id | string              | your application id                             |
+| filter         | SearchFilter object | the filter to check against                     |
+| sort           | SearchSort object   | how to sort the results                         |
 | limit          | int                 | limit of lobbies returned, with a default of 25 |
 
 ###### SearchFilter Object

@@ -7,7 +7,7 @@ All gateway events in Discord are tagged with an opcode that denotes the payload
 ###### Gateway Opcodes
 
 | Code | Name                  | Client Action | Description                                                                             |
-|------|-----------------------|---------------|-----------------------------------------------------------------------------------------|
+| ---- | --------------------- | ------------- | --------------------------------------------------------------------------------------- |
 | 0    | Dispatch              | Receive       | An event was dispatched.                                                                |
 | 1    | Heartbeat             | Send/Receive  | Fired periodically by the client to keep the connection alive.                          |
 | 2    | Identify              | Send          | Starts a new session during the initial handshake.                                      |
@@ -23,7 +23,7 @@ All gateway events in Discord are tagged with an opcode that denotes the payload
 ###### Gateway Close Event Codes
 
 | Code | Description           | Explanation                                                                                                                                                                                                                         |
-|------|-----------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| ---- | --------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | 4000 | Unknown error         | We're not sure what went wrong. Try reconnecting?                                                                                                                                                                                   |
 | 4001 | Unknown opcode        | You sent an invalid [Gateway opcode](#DOCS_TOPICS_GATEWAY/payloads-and-opcodes) or an invalid payload for an opcode. Don't do that!                                                                                                 |
 | 4002 | Decode error          | You sent an invalid [payload](#DOCS_TOPICS_GATEWAY/sending-payloads) to us. Don't do that!                                                                                                                                          |
@@ -31,7 +31,7 @@ All gateway events in Discord are tagged with an opcode that denotes the payload
 | 4004 | Authentication failed | The account token sent with your [identify payload](#DOCS_TOPICS_GATEWAY/identify) is incorrect.                                                                                                                                    |
 | 4005 | Already authenticated | You sent more than one identify payload. Don't do that!                                                                                                                                                                             |
 | 4007 | Invalid `seq`         | The sequence sent when [resuming](#DOCS_TOPICS_GATEWAY/resume) the session was invalid. Reconnect and start a new session.                                                                                                          |
-| 4008 | Rate limited          | Woah nelly! You're sending payloads to us too quickly. Slow it down! You will be disconnected when receiving this.                                                                                                                    |
+| 4008 | Rate limited          | Woah nelly! You're sending payloads to us too quickly. Slow it down! You will be disconnected when receiving this.                                                                                                                  |
 | 4009 | Session timed out     | Your session timed out. Reconnect and start a new one.                                                                                                                                                                              |
 | 4010 | Invalid shard         | You sent us an invalid [shard when identifying](#DOCS_TOPICS_GATEWAY/sharding).                                                                                                                                                     |
 | 4011 | Sharding required     | The session would have handled too many guilds - you are required to [shard](#DOCS_TOPICS_GATEWAY/sharding) your connection in order to connect.                                                                                    |
@@ -46,7 +46,7 @@ Our voice gateways have their own set of opcodes and close codes.
 ###### Voice Opcodes
 
 | Code | Name                | Sent By           | Description                                              |
-|------|---------------------|-------------------|----------------------------------------------------------|
+| ---- | ------------------- | ----------------- | -------------------------------------------------------- |
 | 0    | Identify            | client            | Begin a voice WebSocket connection.                      |
 | 1    | Select Protocol     | client            | Select the voice protocol.                               |
 | 2    | Ready               | server            | Complete the WebSocket handshake.                        |
@@ -61,20 +61,20 @@ Our voice gateways have their own set of opcodes and close codes.
 
 ###### Voice Close Event Codes
 
-| Code | Description             | Explanation                                                                                                                                         |
-|------|-------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------|
-| 4001 | Unknown opcode          | You sent an invalid [opcode](#DOCS_RESOURCES_VOICE_CONNECTIONS/voice-events-voice-opcodes).                                                         |
-| 4002 | Failed to decode payload | You sent a invalid payload in your [identifying](#DOCS_TOPICS_GATEWAY/gateway-identify) to the Gateway.                                            |
-| 4003 | Not authenticated       | You sent a payload before [identifying](#DOCS_TOPICS_GATEWAY/gateway-identify) with the Gateway.                                                    |
-| 4004 | Authentication failed   | The token you sent in your [identify](#DOCS_TOPICS_GATEWAY/gateway-identify) payload is incorrect.                                                  |
-| 4005 | Already authenticated   | You sent more than one [identify](#DOCS_TOPICS_GATEWAY/gateway-identify) payload. Stahp.                                                            |
-| 4006 | Session no longer valid | Your session is no longer valid.                                                                                                                    |
-| 4009 | Session timeout         | Your session has timed out.                                                                                                                         |
-| 4011 | Server not found        | We can't find the server you're trying to connect to.                                                                                               |
-| 4012 | Unknown protocol        | We didn't recognize the [protocol](#DOCS_RESOURCES_VOICE_CONNECTIONS/establishing-a-voice-udp-connection-example-select-protocol-payload) you sent. |
-| 4014 | Disconnected            | Either the channel was deleted, or you were kicked. Should not reconnect.                                                                            |
-| 4015 | Voice server crashed    | The server crashed. Our bad! Try [resuming](#DOCS_RESOURCES_VOICE_CONNECTIONS/resuming-voice-connection).                                           |
-| 4016 | Unknown encryption mode | We didn't recognize your [encryption](#DOCS_RESOURCES_VOICE_CONNECTIONS/encrypting-and-sending-voice).                                              |
+| Code | Description              | Explanation                                                                                                                                         |
+| ---- | ------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 4001 | Unknown opcode           | You sent an invalid [opcode](#DOCS_RESOURCES_VOICE_CONNECTIONS/voice-events-voice-opcodes).                                                         |
+| 4002 | Failed to decode payload | You sent a invalid payload in your [identifying](#DOCS_TOPICS_GATEWAY/gateway-identify) to the Gateway.                                             |
+| 4003 | Not authenticated        | You sent a payload before [identifying](#DOCS_TOPICS_GATEWAY/gateway-identify) with the Gateway.                                                    |
+| 4004 | Authentication failed    | The token you sent in your [identify](#DOCS_TOPICS_GATEWAY/gateway-identify) payload is incorrect.                                                  |
+| 4005 | Already authenticated    | You sent more than one [identify](#DOCS_TOPICS_GATEWAY/gateway-identify) payload. Stahp.                                                            |
+| 4006 | Session no longer valid  | Your session is no longer valid.                                                                                                                    |
+| 4009 | Session timeout          | Your session has timed out.                                                                                                                         |
+| 4011 | Server not found         | We can't find the server you're trying to connect to.                                                                                               |
+| 4012 | Unknown protocol         | We didn't recognize the [protocol](#DOCS_RESOURCES_VOICE_CONNECTIONS/establishing-a-voice-udp-connection-example-select-protocol-payload) you sent. |
+| 4014 | Disconnected             | Either the channel was deleted, or you were kicked. Should not reconnect.                                                                           |
+| 4015 | Voice server crashed     | The server crashed. Our bad! Try [resuming](#DOCS_RESOURCES_VOICE_CONNECTIONS/resuming-voice-connection).                                           |
+| 4016 | Unknown encryption mode  | We didn't recognize your [encryption](#DOCS_RESOURCES_VOICE_CONNECTIONS/encrypting-and-sending-voice).                                              |
 
 ## HTTP
 
@@ -83,10 +83,10 @@ Our API will return semantically valid HTTP response codes based on the success 
 ###### HTTP Response Codes
 
 | Code                      | Meaning                                                                              |
-|---------------------------|--------------------------------------------------------------------------------------|
-| 200 (OK)                  | The request was completed successfully.                                                  |
+| ------------------------- | ------------------------------------------------------------------------------------ |
+| 200 (OK)                  | The request was completed successfully.                                              |
 | 201 (CREATED)             | The entity was created successfully.                                                 |
-| 204 (NO CONTENT)          | The request was completed successfully but returned no content.                          |
+| 204 (NO CONTENT)          | The request was completed successfully but returned no content.                      |
 | 304 (NOT MODIFIED)        | The entity was not modified (no action was taken).                                   |
 | 400 (BAD REQUEST)         | The request was improperly formatted, or the server couldn't understand it.          |
 | 401 (UNAUTHORIZED)        | The `Authorization` header was missing or invalid.                                   |
@@ -104,7 +104,7 @@ Along with the HTTP error code, our API can also return more detailed error code
 ###### JSON Error Codes
 
 | Code   | Meaning                                                                                                                       |
-|--------|-------------------------------------------------------------------------------------------------------------------------------|
+| ------ | ----------------------------------------------------------------------------------------------------------------------------- |
 | 0      | General error (such as a malformed request body, amongst other things)                                                        |
 | 10001  | Unknown account                                                                                                               |
 | 10002  | Unknown application                                                                                                           |
@@ -152,7 +152,7 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 40033  | This message has already been crossposted                                                                                     |
 | 50001  | Missing access                                                                                                                |
 | 50002  | Invalid account type                                                                                                          |
-| 50003  | Cannot execute this action on a DM channel                                                                                         |
+| 50003  | Cannot execute this action on a DM channel                                                                                    |
 | 50004  | Guild widget disabled                                                                                                         |
 | 50005  | Cannot edit a message authored by another user                                                                                |
 | 50006  | Cannot send an empty message                                                                                                  |
@@ -165,11 +165,11 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 50013  | You lack permissions to perform that action                                                                                   |
 | 50014  | Invalid authentication token provided                                                                                         |
 | 50015  | Note was too long                                                                                                             |
-| 50016  | Provided too few or too many messages to delete. Must provide at least two and fewer than 100 messages to delete                |
+| 50016  | Provided too few or too many messages to delete. Must provide at least two and fewer than 100 messages to delete              |
 | 50019  | A message can only be pinned to the channel it was sent in                                                                    |
 | 50020  | Invite code was either invalid or taken                                                                                       |
-| 50021  | Cannot execute this action on a system message                                                                                     |
-| 50024  | Cannot execute this action on this channel type                                                                                    |
+| 50021  | Cannot execute this action on a system message                                                                                |
+| 50024  | Cannot execute this action on this channel type                                                                               |
 | 50025  | Invalid OAuth2 access token provided                                                                                          |
 | 50033  | "Invalid Recipient(s)"                                                                                                        |
 | 50034  | A message provided was too old to bulk delete                                                                                 |
@@ -197,7 +197,7 @@ RPC is the [local Discord server](#DOCS_TOPICS_RPC/) running on localhost. Acces
 ###### RPC Error Codes
 
 | Code | Name                               | Description                                                                           |
-|------|------------------------------------|---------------------------------------------------------------------------------------|
+| ---- | ---------------------------------- | ------------------------------------------------------------------------------------- |
 | 1000 | Unknown error                      | An unknown error occurred.                                                            |
 | 4000 | Invalid payload                    | You sent an invalid payload.                                                          |
 | 4002 | Invalid command                    | Invalid command name specified.                                                       |
@@ -212,13 +212,13 @@ RPC is the [local Discord server](#DOCS_TOPICS_RPC/) running on localhost. Acces
 | 5000 | OAuth2 error                       | A standard OAuth2 error occurred; check the data object for the OAuth2 error details. |
 | 5001 | Select channel timed out           | An asynchronous `SELECT_TEXT_CHANNEL`/`SELECT_VOICE_CHANNEL` command timed out.       |
 | 5002 | `GET_GUILD` timed out              | An asynchronous `GET_GUILD` command timed out.                                        |
-| 5003 | Select voice force required        | You tried to join a user to a voice channel, but the user was already in one.          |
+| 5003 | Select voice force required        | You tried to join a user to a voice channel, but the user was already in one.         |
 | 5004 | Capture shortcut already listening | You tried to capture more than one shortcut key at once.                              |
 
 ###### RPC Close Event Codes
 
 | Code | Name              | Description                                                               |
-|------|-------------------|---------------------------------------------------------------------------|
+| ---- | ----------------- | ------------------------------------------------------------------------- |
 | 4000 | Invalid client ID | You connected to the RPC server with an invalid client ID.                |
 | 4001 | Invalid origin    | You connected to the RPC server with an invalid origin.                   |
 | 4002 | Rate limited      | You are being rate-limited.                                               |

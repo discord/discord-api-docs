@@ -54,9 +54,9 @@ Lists all branches for an application.
 
 ```
 -> dispatch branch list 290926444748734465
-|    APPLICATION ID    |      BRANCH ID       |         NAME         |    LIVE_BUILD_ID     |           CREATED AT           |
-| -------------------- | -------------------- | -------------------- | -------------------- | ------------------------------ |
-|  290926444748734465  |  471164707759996234  |  master              |                      |  2018-07-24 04:00:20.146588Z   |
+| APPLICATION ID     | BRANCH ID          | NAME   | LIVE_BUILD_ID | CREATED AT                  |
+| ------------------ | ------------------ | ------ | ------------- | --------------------------- |
+| 290926444748734465 | 471164707759996234 | master |               | 2018-07-24 04:00:20.146588Z |
 ```
 
 ## branch promote
@@ -129,10 +129,10 @@ Lists the builds available on the given branch.
 
 ```
 -> dispatch build list 290926444748734465 491362538965958686
-|    APPLICATION ID    |       BUILD ID       |        STATUS        |   CREATION BRANCH    |           CREATED AT           |
-| -------------------- | -------------------- | -------------------- | -------------------- | ------------------------------ |
-|  290926444748734465  |  489230031839821824  |        READY         |        master        |  2018-09-12 00:25:29.045554Z   |
-|  290926444748734465  |  479469321974841354  |        READY         |        master        |  2018-08-16 01:59:54.481336Z   |
+| APPLICATION ID     | BUILD ID           | STATUS | CREATION BRANCH | CREATED AT                  |
+| ------------------ | ------------------ | ------ | --------------- | --------------------------- |
+| 290926444748734465 | 489230031839821824 | READY  | master          | 2018-09-12 00:25:29.045554Z |
+| 290926444748734465 | 479469321974841354 | READY  | master          | 2018-08-16 01:59:54.481336Z |
 ```
 
 ## build publish
@@ -165,7 +165,7 @@ Pushes a new build to the given branch. The JSON config file tells Dispatch how 
 | config_file      | filename  | the [JSON config file](#DOCS_DISPATCH_BRANCHES_AND_BUILDS/setting-up-our-first-build) for the build   |
 | application_root | file path | the directory that dispatch will treat as the local root for operations—`.` for the current directory |
 | -c               | flag      | forces a re-chunk of files even if the edited file timestamp hasn't changed                           |
-| -p               | flag      | automatically publishes the build if the push is successful                                               |
+| -p               | flag      | automatically publishes the build if the push is successful                                           |
 
 ###### Example
 
@@ -293,10 +293,10 @@ Lists created manifest labels. These labels are created from the JSON config fil
 
 ```
 -> dispatch manifest-label list 290926444748734465
-|    APPLICATION ID    |          ID          |         NAME         |
-| -------------------- | -------------------- | -------------------- |
-|  290926444748734465  |  471165178650999608  |        my-game       |
-|  290926444748734465  |  471169990397324288  |      my-game-dlc     |
+| APPLICATION ID     | ID                 | NAME        |
+| ------------------ | ------------------ | ----------- |
+| 290926444748734465 | 471165178650999608 | my-game     |
+| 290926444748734465 | 471169990397324288 | my-game-dlc |
 ```
 
 ## login

@@ -61,11 +61,11 @@ Non-consumable SKUs can only be purchased once.
 
 ###### SkuType Enum
 
-| name        | value | description                                    |
-| ----------- | ----- | ---------------------------------------------- |
-| Application | 1     | SKU is a game                                  |
-| DLC         | 2     | SKU is a DLC                                   |
-| Consumable  | 3     | SKU is a consumable (in-app purchase)          |
+| name        | value | description                                        |
+| ----------- | ----- | -------------------------------------------------- |
+| Application | 1     | SKU is a game                                      |
+| DLC         | 2     | SKU is a DLC                                       |
+| Consumable  | 3     | SKU is a consumable (in-app purchase)              |
 | Bundle      | 4     | SKU is a bundle (comprising the other three types) |
 
 ###### SkuPrice Struct
@@ -85,14 +85,14 @@ Non-consumable SKUs can only be purchased once.
 
 ###### EntitlementType Enum
 
-| name                | value | description                                                    |
-| ------------------- | ----- | -------------------------------------------------------------- |
-| Purchase            | 1     | entitlement was purchased                                      |
-| PremiumSubscription | 2     | entitlement for a Discord Nitro subscription                   |
-| DeveloperGift       | 3     | entitlement was gifted by a developer                          |
-| TestModePurchase    | 4     | entitlement was purchased by a dev in application test mode    |
-| FreePurchase        | 5     | entitlement was granted when the SKU was free                  |
-| UserGift            | 6     | entitlement was gifted by another user                         |
+| name                | value | description                                                        |
+| ------------------- | ----- | ------------------------------------------------------------------ |
+| Purchase            | 1     | entitlement was purchased                                          |
+| PremiumSubscription | 2     | entitlement for a Discord Nitro subscription                       |
+| DeveloperGift       | 3     | entitlement was gifted by a developer                              |
+| TestModePurchase    | 4     | entitlement was purchased by a dev in application test mode        |
+| FreePurchase        | 5     | entitlement was granted when the SKU was free                      |
+| UserGift            | 6     | entitlement was gifted by another user                             |
 | PremiumPurchase     | 7     | entitlement was claimed by the user for free as a Nitro Subscriber |
 
 ## FetchSkus

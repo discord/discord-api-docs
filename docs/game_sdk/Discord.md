@@ -69,7 +69,7 @@ Discord passes a number of environment variables down to the SDK. These are acce
 ###### SDK Environment Variables
 
 | name                   | method                                                                                  | description                                                                                                  |
-|------------------------|-----------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------|
+| ---------------------- | --------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------ |
 | DISCORD_INSTANCE_ID    | [Local Testing](#DOCS_GAME_SDK_SDK_STARTER_GUIDE/testing-locally-with-two-clients)      | the locally running instance of Discord to connect to; allows you to choose between multiple running clients |
 | DISCORD_ACCESS_TOKEN   | [ApplicationManager.GetOAuth2Token()](#DOCS_GAME_SDK_APPLICATIONS/get-oauth2-token)     | the connected user's bearer token                                                                            |
 | DISCORD_CURRENT_LOCALE | [ApplicationManager.GetCurrentLocale](#DOCS_GAME_SDK_APPLICATIONS/get-current-locale)   | the language that Discord is in for the connected user                                                       |
@@ -96,7 +96,7 @@ You should begin your integration by setting up this callback to help you debug.
 ###### Result Enum
 
 | Code | value                           | description                                                                                     |
-|------|---------------------------------|-------------------------------------------------------------------------------------------------|
+| ---- | ------------------------------- | ----------------------------------------------------------------------------------------------- |
 | 0    | Ok                              | everything is good                                                                              |
 | 1    | ServiceUnavailable              | Discord isn't working                                                                           |
 | 2    | InvalidVersion                  | the SDK version may be outdated                                                                 |
@@ -126,14 +126,14 @@ You should begin your integration by setting up this callback to help you debug.
 | 26   | NotInstalled                    | Discord is not installed                                                                        |
 | 27   | NotRunning                      | Discord is not running                                                                          |
 | 28   | InsufficientBuffer              | insufficient buffer space when trying to write                                                  |
-| 29   | PurchaseCancelled               | the user, canceled the purchase flow                                                                |
+| 29   | PurchaseCancelled               | the user, canceled the purchase flow                                                            |
 | 30   | InvalidGuild                    | Discord guild does not exist                                                                    |
 | 31   | InvalidEvent                    | the event you're trying to subscribe to does not exist                                          |
 | 32   | InvalidChannel                  | Discord channel does not exist                                                                  |
 | 33   | InvalidOrigin                   | the origin header on the socket does not match what you've registered (you should not see this) |
 | 34   | RateLimited                     | you are calling that method too quickly                                                         |
 | 35   | OAuth2Error                     | the OAuth2 process failed at some point                                                         |
-| 36   | SelectChannelTimeout            | the user, took too long selecting a channel for an invite                                        |
+| 36   | SelectChannelTimeout            | the user, took too long selecting a channel for an invite                                       |
 | 37   | GetGuildTimeout                 | took too long trying to fetch the guild                                                         |
 | 38   | SelectVoiceForceRequired        | push to talk is required for this channel                                                       |
 | 39   | CaptureShortcutAlreadyListening | that push to talk shortcut is already registered                                                |
@@ -145,7 +145,7 @@ You should begin your integration by setting up this callback to help you debug.
 ###### LogLevel Enum
 
 | value   | description                    |
-|---------|--------------------------------|
+| ------- | ------------------------------ |
 | Error   | Log only errors                |
 | Warning | Log warnings and errors        |
 | Info    | Log info, warnings, and errors |
@@ -154,7 +154,7 @@ You should begin your integration by setting up this callback to help you debug.
 ###### CreateFlags Enum
 
 | value            | description                                                         |
-|------------------|---------------------------------------------------------------------|
+| ---------------- | ------------------------------------------------------------------- |
 | Default          | Requires Discord to be running to play the game                     |
 | NoRequireDiscord | Does not require Discord to be running; use this on other platforms |
 
@@ -167,7 +167,7 @@ Returns a new `Discord`.
 ###### Parameters
 
 | name     | type        | description                                         |
-|----------|-------------|-----------------------------------------------------|
+| -------- | ----------- | --------------------------------------------------- |
 | clientId | Int64       | your application's client id                        |
 | flags    | CreateFlags | the creation parameters for the SDK, outlined above |
 
@@ -214,8 +214,8 @@ Returns `void`.
 ###### Parameters
 
 | name     | type     | description                                 |
-|----------|----------|---------------------------------------------|
-| level    | LogLevel | the minimum level of an event to log           |
+| -------- | -------- | ------------------------------------------- |
+| level    | LogLevel | the minimum level of an event to log        |
 | callback | function | the callback function to catch the messages |
 
 ###### Example

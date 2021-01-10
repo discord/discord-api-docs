@@ -32,7 +32,7 @@ There are other rules and restrictions not shared here for the sake of spam and 
 | avatar        | ?string   | the user's [avatar hash](#DOCS_REFERENCE/image-formatting)                                           | identify              |
 | bot?          | boolean   | whether the user belongs to an OAuth2 application                                                    | identify              |
 | system?       | boolean   | whether the user is an Official Discord System user (part of the urgent message system)              | identify              |
-| mfa_enabled?  | boolean   | whether the user has two-factor authorization enabled on their account                                             | identify              |
+| mfa_enabled?  | boolean   | whether the user has two-factor authorization enabled on their account                               | identify              |
 | locale?       | string    | the user's chosen language option                                                                    | identify              |
 | verified?     | boolean   | whether the email on this account has been verified                                                  | email                 |
 | email?        | ?string   | the user's email                                                                                     | email                 |
@@ -91,17 +91,17 @@ The connection object that the user has attached.
 
 ###### Connection Structure
 
-| Field         | Type    | Description                                                                               |
-| ------------- | ------- | ----------------------------------------------------------------------------------------- |
-| id            | string  | id of the connection account                                                              |
-| name          | string  | the username of the connection account                                                    |
-| type          | string  | the service of the connection (twitch, youtube)                                           |
-| revoked?      | boolean | whether the connection is revoked                                                         |
-| integrations? | array   | an array of partial [server integrations](#DOCS_RESOURCES_GUILD/integration-object)       |
-| verified      | boolean | whether the connection is verified                                                        |
-| friend_sync   | boolean | whether friend sync is enabled for this connection                                        |
-| show_activity | boolean | whether activities related to this connection will be shown in presence updates           |
-| visibility    | integer | [visibility](#DOCS_RESOURCES_USER/connection-object-visibility-types) of this connection  |
+| Field         | Type    | Description                                                                              |
+| ------------- | ------- | ---------------------------------------------------------------------------------------- |
+| id            | string  | id of the connection account                                                             |
+| name          | string  | the username of the connection account                                                   |
+| type          | string  | the service of the connection (twitch, youtube)                                          |
+| revoked?      | boolean | whether the connection is revoked                                                        |
+| integrations? | array   | an array of partial [server integrations](#DOCS_RESOURCES_GUILD/integration-object)      |
+| verified      | boolean | whether the connection is verified                                                       |
+| friend_sync   | boolean | whether friend sync is enabled for this connection                                       |
+| show_activity | boolean | whether activities related to this connection will be shown in presence updates          |
+| visibility    | integer | [visibility](#DOCS_RESOURCES_USER/connection-object-visibility-types) of this connection |
 
 ###### Visibility Types
 
@@ -127,10 +127,10 @@ Modify the requester's user account settings. Returns a [user](#DOCS_RESOURCES_U
 
 ###### JSON Params
 
-| Field    | Type                                      | Description                                                                      |
-| -------- | ----------------------------------------- | -------------------------------------------------------------------------------- |
+| Field    | Type                                      | Description                                                                       |
+| -------- | ----------------------------------------- | --------------------------------------------------------------------------------- |
 | username | string                                    | user's username, if changed, may cause the user's discriminator to be randomized. |
-| avatar   | ?[image data](#DOCS_REFERENCE/image-data) | if passed, modifies the user's avatar                                            |
+| avatar   | ?[image data](#DOCS_REFERENCE/image-data) | if passed, modifies the user's avatar                                             |
 
 ## Get Current User Guilds % GET /users/@me/guilds
 

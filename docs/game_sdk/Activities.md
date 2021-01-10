@@ -14,13 +14,13 @@ For more detailed information and documentation around the Rich Presence feature
 
 ###### User Struct
 
-| name          | type   | description                   |
-| ------------- | ------ | ----------------------------- |
-| Id            | Int64  | the user's id                 |
-| Username      | string | their name                    |
-| Discriminator | string | the user's unique discriminator     |
-| Avatar        | string | the hash of the user's avatar |
-| Bot           | bool   | if the user is a bot user     |
+| name          | type   | description                     |
+| ------------- | ------ | ------------------------------- |
+| Id            | Int64  | the user's id                   |
+| Username      | string | their name                      |
+| Discriminator | string | the user's unique discriminator |
+| Avatar        | string | the hash of the user's avatar   |
+| Bot           | bool   | if the user is a bot user       |
 
 ###### Activity Struct
 
@@ -45,12 +45,12 @@ For more detailed information and documentation around the Rich Presence feature
 
 ###### ActivityAssets Struct
 
-| name       | type   | description                    |
-| ---------- | ------ | ------------------------------ |
+| name       | type   | description                     |
+| ---------- | ------ | ------------------------------- |
 | LargeImage | string | key name of an asset to display |
-| LargeText  | string | hover text for the large image |
+| LargeText  | string | hover text for the large image  |
 | SmallImage | string | key name of an asset to display |
-| SmallText  | string | hover text for the small image |
+| SmallText  | string | hover text for the small image  |
 
 ###### ActivityParty Struct
 
@@ -109,21 +109,21 @@ If you want to hook up joining and spectating for your games, there are certain 
 
 ###### Requirements
 
-| Field                          | Custom Artwork | Spectate | Join | Ask to Join |
-| ------------------------------ | :------------: | :------: | :--: | :---------: |
-| State                          |                |          |      |             |
-| Details                        |                |          |      |             |
-| ActivityTimestamps.Start       |                |          |      |             |
-| ActivityTimestamps.End         |                |          |      |             |
-| ActivityAssets.LargeImage      |       x        |          |      |             |
-| ActivityAssets.SmallImage      |       x        |          |      |             |
-| ActivityAssets.LargeText       |       x        |          |      |             |
-| ActivityAssets.SmallText       |       x        |          |      |             |
-| ActivityParty.Id               |                |          |  x   |      x      |
-| ActivityParty.Size.CurrentSize |                |          |  x   |      x      |
-| ActivityParty.Size.MaxSize     |                |          |  x   |      x      |
-| ActivitySecrets.Join           |                |          |  x   |      x      |
-| ActivitySecrets.Spectate       |                |    x     |      |             |
+| Field                          | Custom Artwork | Spectate | Join  | Ask to Join |
+| ------------------------------ | :------------: | :------: | :---: | :---------: |
+| State                          |                |          |       |             |
+| Details                        |                |          |       |             |
+| ActivityTimestamps.Start       |                |          |       |             |
+| ActivityTimestamps.End         |                |          |       |             |
+| ActivityAssets.LargeImage      |       x        |          |       |             |
+| ActivityAssets.SmallImage      |       x        |          |       |             |
+| ActivityAssets.LargeText       |       x        |          |       |             |
+| ActivityAssets.SmallText       |       x        |          |       |             |
+| ActivityParty.Id               |                |          |   x   |      x      |
+| ActivityParty.Size.CurrentSize |                |          |   x   |      x      |
+| ActivityParty.Size.MaxSize     |                |          |   x   |      x      |
+| ActivitySecrets.Join           |                |          |   x   |      x      |
+| ActivitySecrets.Spectate       |                |    x     |       |             |
 
 ## RegisterCommand
 

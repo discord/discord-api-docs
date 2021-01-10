@@ -47,7 +47,7 @@ The voice state object is used to represent a user's voice connection status.
 | vip        | boolean | true if this is a VIP-only server                                     |
 | optimal    | boolean | true for a single server that is closest to the current user's client |
 | deprecated | boolean | whether this is a deprecated voice region (avoid switching to these)  |
-| custom     | boolean | whether this is a custom voice region (used for events/etc.)           |
+| custom     | boolean | whether this is a custom voice region (used for events/etc.)          |
 
 ## List Voice Regions % GET /voice/regions
 

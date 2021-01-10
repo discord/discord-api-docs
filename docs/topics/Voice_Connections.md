@@ -167,7 +167,7 @@ Once we receive the properties of a UDP voice server from our [Opcode 2 Ready](#
 ###### Encryption Modes
 
 | Mode   | Key                      | Nonce Bytes                                                            | Generating Nonce                      |
-|--------|--------------------------|------------------------------------------------------------------------|---------------------------------------|
+| ------ | ------------------------ | ---------------------------------------------------------------------- | ------------------------------------- |
 | Normal | xsalsa20_poly1305        | The nonce bytes are the RTP header                                     | Copy the RTP header                   |
 | Suffix | xsalsa20_poly1305_suffix | The nonce bytes are 24 bytes appended to the payload of the RTP packet | Generate 24 random bytes              |
 | Lite   | xsalsa20_poly1305_lite   | The nonce bytes are 4 bytes appended to the payload of the RTP packet  | Incremental 4 bytes (32bit) int value |
@@ -272,11 +272,11 @@ If the resume is unsuccessful—for example, due to an invalid session—the Web
 
 Generally, routers on the Internet mask or obfuscate UDP ports through a process called NAT. Most users who implement voice will want to utilize IP discovery to find their external IP and port, which will then be used for receiving voice communications. To retrieve your external IP and port, send the following UDP packet to your voice port (all numeric are big-endian):
 
-| Field           | Description                                                    | Size     |
-| --------------- | -------------------------------------------------------------- | -------- |
-| Type            | Values 0x1 and 0x2 indicate request and response, respectively | 2 bytes  |
-| Length          | Message length excluding Type and Length fields (value 70)     | 2 bytes  |
-| SSRC            | Unsigned integer                                               | 4 bytes  |
-| Address         | Null-terminated string in response                             | 64 bytes |
-| Port            | Unsigned short                                                 | 2 bytes  |
+| Field   | Description                                                    | Size     |
+| ------- | -------------------------------------------------------------- | -------- |
+| Type    | Values 0x1 and 0x2 indicate request and response, respectively | 2 bytes  |
+| Length  | Message length excluding Type and Length fields (value 70)     | 2 bytes  |
+| SSRC    | Unsigned integer                                               | 4 bytes  |
+| Address | Null-terminated string in response                             | 64 bytes |
+| Port    | Unsigned short                                                 | 2 bytes  |
 

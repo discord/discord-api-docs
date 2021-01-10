@@ -32,13 +32,13 @@ An example of how to do this properly is at the end of this documentation page.
 
 ###### RelationshipType Enum
 
-| value           | description                                                                      |
-| --------------- | -------------------------------------------------------------------------------- |
-| None            | user has no intrinsic relationship                                               |
-| Friend          | user is a friend                                                                 |
-| Blocked         | user is blocked                                                                  |
+| value           | description                                                                          |
+| --------------- | ------------------------------------------------------------------------------------ |
+| None            | user has no intrinsic relationship                                                   |
+| Friend          | user is a friend                                                                     |
+| Blocked         | user is blocked                                                                      |
 | PendingIncoming | the user has a pending incoming friend request to connected user                     |
-| PendingOutgoing | current user has a pending outgoing friend request to user                       |
+| PendingOutgoing | current user has a pending outgoing friend request to user                           |
 | Implicit        | user is not friends, but interacts with the current user often (frequency + recency) |
 
 ###### Presence Struct

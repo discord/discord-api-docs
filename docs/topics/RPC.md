@@ -502,12 +502,12 @@ Used to change the voice settings of users in voice channels
 
 ###### Set User Voice Settings Argument and Response Structure
 
-| Field   | Type                                                              | Description                                              |
-| ------- | ----------------------------------------------------------------- | -------------------------------------------------------- |
-| user_id | string                                                            | user-id                                                  |
-| pan?    | [pan](#DOCS_TOPICS_RPC/set-user-voice-settings-pan-object) object | set the pan of the user                                  |
+| Field   | Type                                                              | Description                                                  |
+| ------- | ----------------------------------------------------------------- | ------------------------------------------------------------ |
+| user_id | string                                                            | user-id                                                      |
+| pan?    | [pan](#DOCS_TOPICS_RPC/set-user-voice-settings-pan-object) object | set the pan of the user                                      |
 | volume? | integer                                                           | set the volume of the user (defaults to 100, min 0, max 200) |
-| mute?   | boolean                                                           | set the mute state of the user                           |
+| mute?   | boolean                                                           | set the mute state of the user                               |
 
 > info
 > In the current release, we only support a single modifier of voice settings at a time over RPC.
@@ -566,11 +566,11 @@ Used to join and leave voice channels, group DMs, or DMs. Returns the [Get Chann
 
 ###### Select Voice Channel Argument Structure
 
-| Field      | Type    | Description                                                    |
-| ---------- | ------- | -------------------------------------------------------------- |
-| channel_id | string  | channel id to join (or `null` to leave)                        |
+| Field      | Type    | Description                                                       |
+| ---------- | ------- | ----------------------------------------------------------------- |
+| channel_id | string  | channel id to join (or `null` to leave)                           |
 | timeout    | integer | asynchronously join a channel with time to wait before timing out |
-| force      | boolean | forces a user to join a voice channel                          |
+| force      | boolean | forces a user to join a voice channel                             |
 
 > warn
 > When trying to join the user to a voice channel, you will receive a `5003` error coded response if the user is already in a voice channel. The `force` parameter should only be specified in response to the case where a user is already in a voice channel, and they have **approved** to be moved by your app to a new voice channel.
@@ -1216,15 +1216,15 @@ Used to reject an Ask to Join request.
 
 ###### Guild Status Argument Structure
 
-| Field    | Type   | Description                         |
-| -------- | ------ | ----------------------------------- |
+| Field    | Type   | Description                             |
+| -------- | ------ | --------------------------------------- |
 | guild_id | string | id of the guild to listen to updates of |
 
 ###### Guild Status Dispatch Data Structure
 
-| Field  | Type                                                       | Description                                            |
-| ------ | ---------------------------------------------------------- | ------------------------------------------------------ |
-| guild  | partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object | guild with requested id                                |
+| Field  | Type                                                       | Description                                                |
+| ------ | ---------------------------------------------------------- | ---------------------------------------------------------- |
+| guild  | partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object | guild with requested id                                    |
 | online | integer                                                    | number of online users in the guild (deprecated; always 0) |
 
 ###### Example Guild Status Dispatch Payload
@@ -1381,8 +1381,8 @@ Dispatches channel voice state objects
 
 ###### Voice State Argument Structure
 
-| Field      | Type   | Description                           |
-| ---------- | ------ | ------------------------------------- |
+| Field      | Type   | Description                               |
+| ---------- | ------ | ----------------------------------------- |
 | channel_id | string | id of the channel to listen to updates of |
 
 ###### Example Voice State Dispatch Payload
@@ -1468,8 +1468,8 @@ Dispatches message objects, with the exception of deletions, which only contains
 
 ###### Message Argument Structure
 
-| Field      | Type   | Description                           |
-| ---------- | ------ | ------------------------------------- |
+| Field      | Type   | Description                               |
+| ---------- | ------ | ----------------------------------------- |
 | channel_id | string | id of the channel to listen to updates of |
 
 ###### Example Message Dispatch Payload
@@ -1517,14 +1517,14 @@ Dispatches message objects, with the exception of deletions, which only contains
 
 ###### Speaking Argument Structure
 
-| Field      | Type   | Description                           |
-| ---------- | ------ | ------------------------------------- |
+| Field      | Type   | Description                               |
+| ---------- | ------ | ----------------------------------------- |
 | channel_id | string | id of the channel to listen to updates of |
 
 ###### Speaking Dispatch Data Structure
 
-| Field   | Type   | Description                             |
-| ------- | ------ | --------------------------------------- |
+| Field   | Type   | Description                                 |
+| ------- | ------ | ------------------------------------------- |
 | user_id | string | id of the user who started/stopped speaking |
 
 ###### Example Speaking Dispatch Payload
@@ -1545,13 +1545,13 @@ No arguments. This event requires the `rpc.notifications.read` [OAuth2 scope](#D
 
 ###### Notification Create Dispatch Data Structure
 
-| Field      | Type                                                     | Description                               |
-| ---------- | -------------------------------------------------------- | ----------------------------------------- |
+| Field      | Type                                                     | Description                                   |
+| ---------- | -------------------------------------------------------- | --------------------------------------------- |
 | channel_id | string                                                   | id of the channel where notification occurred |
-| message    | [message](#DOCS_RESOURCES_CHANNEL/message-object) object | message that generated this notification  |
-| icon_url   | string                                                   | icon URL of the notification              |
-| title      | string                                                   | title of the notification                 |
-| body       | string                                                   | body of the notification                  |
+| message    | [message](#DOCS_RESOURCES_CHANNEL/message-object) object | message that generated this notification      |
+| icon_url   | string                                                   | icon URL of the notification                  |
+| title      | string                                                   | title of the notification                     |
+| body       | string                                                   | body of the notification                      |
 
 ###### Example Notification Create Dispatch Payload
 
