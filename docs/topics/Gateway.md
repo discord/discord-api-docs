@@ -307,7 +307,7 @@ If you are using **Gateway v8**, Intents are mandatory and must be specified whe
 > info
 > This section is about the Gateway rate limits, not the [HTTP API rate limits](#DOCS_TOPICS_RATE_LIMITS/)
 
-Clients are allowed to send 120 gateway commands every 60 seconds, meaning you can send on average at a rate of up to 2 commands per second. Clients who surpass this limit are immediately disconnected from the Gateway, and similarly to the HTTP API, repeat offenders will have their API access revoked. Clients also have limit of [concurrent](#DOCS_TOPICS_GATEWAY/session-start-limit-object) [Identify](#DOCS_TOPICS_GATEWAY/identify) requests allowed per 5 seconds. If you hit this limit, the Gateway will respond with an [Opcode 9 Invalid Session](#DOCS_TOPICS_GATEWAY/invalid-session).
+Clients are allowed to send 120 [gateway commands](#DOCS_TOPICS_GATEWAY/commands-and-events) every 60 seconds, meaning you can send on average at a rate of up to 2 commands per second. Clients who surpass this limit are immediately disconnected from the Gateway, and similarly to the HTTP API, repeat offenders will have their API access revoked. Clients also have limit of [concurrent](#DOCS_TOPICS_GATEWAY/session-start-limit-object) [Identify](#DOCS_TOPICS_GATEWAY/identify) requests allowed per 5 seconds. If you hit this limit, the Gateway will respond with an [Opcode 9 Invalid Session](#DOCS_TOPICS_GATEWAY/invalid-session).
 
 ## Tracking State
 
