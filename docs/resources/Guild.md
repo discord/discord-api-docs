@@ -109,21 +109,23 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 
 ###### Guild Features
 
-| Feature                | Description                                                                     |
-|------------------------|---------------------------------------------------------------------------------|
-| INVITE_SPLASH          | guild has access to set an invite splash background                             |
-| VIP_REGIONS            | guild has access to set 384kbps bitrate in voice (previously VIP voice servers) |
-| VANITY_URL             | guild has access to set a vanity URL                                            |
-| VERIFIED               | guild is verified                                                               |
-| PARTNERED              | guild is partnered                                                              |
-| COMMUNITY              | guild can enable welcome screen and discovery, and receives community updates   |
-| COMMERCE               | guild has access to use commerce features (i.e., create store channels)         |
-| NEWS                   | guild has access to create news channels                                        |
-| DISCOVERABLE           | guild is lurkable and able to be discovered in the directory                    |
-| FEATURABLE             | guild is able to be featured in the directory                                   |
-| ANIMATED_ICON          | guild has access to set an animated guild icon                                  |
-| BANNER                 | guild has access to set a guild banner image                                    |
-| WELCOME_SCREEN_ENABLED | guild has enabled the welcome screen                                            |
+| Feature                          | Description                                                                                          |
+|----------------------------------|------------------------------------------------------------------------------------------------------|
+| INVITE_SPLASH                    | guild has access to set an invite splash background                                                  |
+| VIP_REGIONS                      | guild has access to set 384kbps bitrate in voice (previously VIP voice servers)                      |
+| VANITY_URL                       | guild has access to set a vanity URL                                                                 |
+| VERIFIED                         | guild is verified                                                                                    |
+| PARTNERED                        | guild is partnered                                                                                   |
+| COMMUNITY                        | guild can enable welcome screen, Membership Screening, and discovery, and receives community updates |
+| COMMERCE                         | guild has access to use commerce features (i.e. create store channels)                               |
+| NEWS                             | guild has access to create news channels                                                             |
+| DISCOVERABLE                     | guild is able to be discovered in the directory                                                      |
+| FEATURABLE                       | guild is able to be featured in the directory                                                        |
+| ANIMATED_ICON                    | guild has access to set an animated guild icon                                                       |
+| BANNER                           | guild has access to set a guild banner image                                                         |
+| WELCOME_SCREEN_ENABLED           | guild has enabled the welcome screen                                                                 |
+| MEMBER_VERIFICATION_GATE_ENABLED | guild has enabled [Membership Screening](#DOCS_RESOURCES_GUILD/membership-screening-object)          |
+| PREVIEW_ENABLED                  | guild can be previewed before joining via Membership Screening or the directory                      |
 
 ###### Example Guild
 
@@ -252,20 +254,24 @@ A partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object. Represents an Offl
 
 ###### Guild Member Structure
 
-| Field          | Type                                            | Description                                                                                                             |
-|----------------|-------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------|
-| user?          | [user](#DOCS_RESOURCES_USER/user-object) object | the user this guild member represents                                                                                   |
-| nick           | ?string                                         | this users guild nickname                                                                                               |
-| roles          | array of snowflakes                             | array of [role](#DOCS_TOPICS_PERMISSIONS/role-object) object ids                                                        |
-| joined_at      | ISO8601 timestamp                               | when the user joined the guild                                                                                          |
-| premium_since? | ?ISO8601 timestamp                              | when the user started [boosting](https://support.discord.com/hc/en-us/articles/360028038352-Server-Boosting-) the guild |
-| deaf           | boolean                                         | whether the user is deafened in voice channels                                                                          |
-| mute           | boolean                                         | whether the user is muted in voice channels                                                                             |
-| pending?       | boolean                                         | whether the user has not yet passed the guild's Membership Screening requirements                                       |
-| permissions?   | string                                          | total permissions of the member in the channel, including overrides, returned when in the interaction object            |
+| Field          | Type                                            | Description                                                                                                                            |
+|----------------|-------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------|
+| user?          | [user](#DOCS_RESOURCES_USER/user-object) object | the user this guild member represents                                                                                                  |
+| nick           | ?string                                         | this users guild nickname                                                                                                              |
+| roles          | array of snowflakes                             | array of [role](#DOCS_TOPICS_PERMISSIONS/role-object) object ids                                                                       |
+| joined_at      | ISO8601 timestamp                               | when the user joined the guild                                                                                                         |
+| premium_since? | ?ISO8601 timestamp                              | when the user started [boosting](https://support.discord.com/hc/en-us/articles/360028038352-Server-Boosting-) the guild                |
+| deaf           | boolean                                         | whether the user is deafened in voice channels                                                                                         |
+| mute           | boolean                                         | whether the user is muted in voice channels                                                                                            |
+| pending?       | boolean                                         | whether the user has not yet passed the guild's [Membership Screening](#DOCS_RESOURCES_GUILD/membership-screening-object) requirements |
+| permissions?   | string                                          | total permissions of the member in the channel, including overrides, returned when in the interaction object                           |
+
 
 > info
 > The field `user` won't be included in the member object attached to `MESSAGE_CREATE` and `MESSAGE_UPDATE` gateway events.
+
+> info
+> In `GUILD_` events, `pending` will always be included as true or false. In non `GUILD_` events which can only be triggered by non-`pending` users, `pending` will not be included.
 
 ###### Example Guild Member
 
@@ -412,6 +418,55 @@ A partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object. Represents an Offl
       "emoji_name": "🔦"
     }
   ]
+}
+```
+
+### Membership Screening Object
+
+In guilds with [Membership Screening](https://support.discord.com/hc/en-us/articles/1500000466882) enabled, when a member joins, [Guild Member Add](#DOCS_TOPICS_GATEWAY/guild-member-add) will be emitted but they will initially be restricted from doing any actions in the guild, and `pending` will be true in the [member object](#DOCS_RESOURCES_GUILD/guild-member-object). When the member completes the screening, [Guild Member Update](#DOCS_TOPICS_GATEWAY/guild-member-update) will be emitted and `pending` will be false.
+
+Giving the member a role will bypass Membership Screening as well as the guild's verification level, giving the member immediate access to chat. Therefore, instead of giving a role when the member joins, it is recommended to not give the role until the user is no longer `pending`.
+
+###### Membership Screening Structure
+
+| Field       | Type                                                                                                             | Description                                        |
+|-------------|------------------------------------------------------------------------------------------------------------------|----------------------------------------------------|
+| version     | ISO8601 timestamp                                                                                                | when the fields were last updated                  |
+| form_fields | array of [field](#DOCS_RESOURCES_GUILD/membership-screening-object-membership-screening-field-structure) objects | the steps in the screening form                    |
+| description | ?string                                                                                                          | the server description shown in the screening form |
+
+###### Membership Screening Field Structure
+
+| Field      | Type                                                                                             | Description                                            |
+|------------|--------------------------------------------------------------------------------------------------|--------------------------------------------------------|
+| field_type | [field type](#DOCS_RESOURCES_GUILD/membership-screening-object-membership-screening-field-types) | the type of field (currently "TERMS" is the only type) |
+| label      | string                                                                                           | the title of the field                                 |
+| values?    | array of strings                                                                                 | the list of rules                                      |
+| required   | boolean                                                                                          | whether the user has to fill out this field            |
+
+###### Membership Screening Field Types
+
+| Value | Name         |
+|-------|--------------|
+| TERMS | Server Rules |
+
+###### Example Membership Screening Object
+
+```json
+{
+    "version": "2021-01-09T12:09:02.040000+00:00",
+    "form_fields": [
+        {
+            "field_type": "TERMS",
+            "label": "Read and agree to the server rules",
+            "values": [
+                "Treat everyone with respect. Absolutely no harassment, witch hunting, sexism, racism, or hate speech will be tolerated.",
+                "No spam or self-promotion (server invites, advertisements, etc) without permission from a staff member. This includes DMing fellow members."
+            ],
+            "required": true
+        }
+    ],
+    "description": "Welcome to this cool server!"
 }
 ```
 
@@ -926,10 +981,27 @@ Returns a PNG image widget for the guild. Requires no permissions or authenticat
 
 ###### Widget Style Options
 
-| Value   | Description                                                                                                                                                     | Example                                                                              |
-|---------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------|
-| shield  | shield style widget with Discord icon and guild members online count                                                                                            | [Example](https://discord.com/api/guilds/81384788765712384/widget.png?style=shield)  |
-| banner1 | large image with guild icon, name, and online count. "POWERED BY DISCORD" as the footer of the widget                                                           | [Example](https://discord.com/api/guilds/81384788765712384/widget.png?style=banner1) |
-| banner2 | smaller widget style with guild icon, name, and online count. Split on the right with Discord logo                                                              | [Example](https://discord.com/api/guilds/81384788765712384/widget.png?style=banner2) |
-| banner3 | large image with guild icon, name, and online count. In the footer, the Discord logo on the left and "Chat Now" on the right                                    | [Example](https://discord.com/api/guilds/81384788765712384/widget.png?style=banner3) |
-| banner4 | large Discord logo at the top of the widget. Guild icon, name, and online count in the middle portion of the widget and a "JOIN MY SERVER" button at the bottom | [Example](https://discord.com/api/guilds/81384788765712384/widget.png?style=banner4) |
+| Value   | Description                                                                                                                                                    | Example                                                                                 |
+| ------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
+| shield  | shield style widget with Discord icon and guild members online count                                                                                           | [Example](https://discord.com/api/guilds/81384788765712384/widget.png?style=shield)  |
+| banner1 | large image with guild icon, name and online count. "POWERED BY DISCORD" as the footer of the widget                                                           | [Example](https://discord.com/api/guilds/81384788765712384/widget.png?style=banner1) |
+| banner2 | smaller widget style with guild icon, name and online count. Split on the right with Discord logo                                                              | [Example](https://discord.com/api/guilds/81384788765712384/widget.png?style=banner2) |
+| banner3 | large image with guild icon, name and online count. In the footer, Discord logo on the left and "Chat Now" on the right                                        | [Example](https://discord.com/api/guilds/81384788765712384/widget.png?style=banner3) |
+| banner4 | large Discord logo at the top of the widget. Guild icon, name and online count in the middle portion of the widget and a "JOIN MY SERVER" button at the bottom | [Example](https://discord.com/api/guilds/81384788765712384/widget.png?style=banner4) |
+
+## Get Guild Membership Screening Form % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/member-verification
+
+Returns the [Membership Screening](#DOCS_RESOURCES_GUILD/membership-screening-object) object for the guild.
+
+## Modify Guild Membership Screening Form % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/member-verification
+
+Modify the guild's [Membership Screening](#DOCS_RESOURCES_GUILD/membership-screening-object) form. Requires the `MANAGE_GUILD` permission. Returns the updated [Membership Screening](#DOCS_RESOURCES_GUILD/membership-screening-object) object.
+
+> info
+> All parameters to this endpoint are optional
+
+| Field       | Type    | Description                                                                                                                             |
+|-------------|---------|-----------------------------------------------------------------------------------------------------------------------------------------|
+| enabled     | boolean | whether Membership Screening is enabled                                                                                                 |
+| form_fields | string  | array of [field](#DOCS_RESOURCES_GUILD/membership-screening-object-membership-screening-field-structure) objects serialized in a string |
+| description | string  | the server description to show in the screening form                                                                                    |
