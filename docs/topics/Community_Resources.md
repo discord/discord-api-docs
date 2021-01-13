@@ -14,10 +14,12 @@ Many of these libraries are represented in the [unofficial, community-driven Dis
 | ------------------------------------------------------------ | ---------- |
 | [discljord](https://github.com/igjoshua/discljord)           | Clojure    |
 | [aegis.cpp](https://github.com/zeroxs/aegis.cpp)             | C++        |
-| [discordcr](https://github.com/discordcr/discordcr)          | Crystal    |
+| [discordcr](https://github.com/shardlab/discordcr)           | Crystal    |
 | [Discord.Net](https://github.com/RogueException/Discord.Net) | C#         |
 | [DSharpPlus](https://github.com/DSharpPlus/DSharpPlus)       | C#         |
 | [dscord](https://github.com/b1naryth1ef/dscord)              | D          |
+| [coxir](https://github.com/satom99/coxir)                    | Elixir     |
+| [Nostrum](https://github.com/Kraigie/nostrum)                | Elixir     |
 | [DiscordGo](https://github.com/bwmarrin/discordgo)           | Go         |
 | [DisGord](https://github.com/andersfylling/disgord)          | Go         |
 | [catnip](https://github.com/mewna/catnip)                    | Java       |
@@ -28,13 +30,16 @@ Many of these libraries are represented in the [unofficial, community-driven Dis
 | [Eris](https://github.com/abalabahaha/eris)                  | JavaScript |
 | [Discord.jl](https://github.com/Xh4H/Discord.jl)             | Julia      |
 | [Discordia](https://github.com/SinisterRectus/Discordia)     | Lua        |
+| [Dimscord](https://github.com/krisppurg/dimscord)            | Nim        |
 | [discordnim](https://github.com/Krognol/discordnim)          | Nim        |
+| [DiscordPHP](https://github.com/discord-php/DiscordPHP)      | PHP        |
 | [RestCord](https://www.restcord.com/)                        | PHP        |
 | [discord.py](https://github.com/Rapptz/discord.py)           | Python     |
 | [disco](https://github.com/b1naryth1ef/disco)                | Python     |
-| [discordrb](https://github.com/discordrb/discordrb)          | Ruby       |
+| [discordrb](https://github.com/shardlab/discordrb)           | Ruby       |
 | [discord-rs](https://github.com/SpaceManiac/discord-rs)      | Rust       |
 | [Serenity](https://github.com/serenity-rs/serenity)          | Rust       |
+| [Twilight](https://github.com/twilight-rs/twilight)          | Rust       |
 | [AckCord](https://github.com/Katrix/AckCord)                 | Scala      |
 | [Sword](https://github.com/Azoy/Sword)                       | Swift      |
 | [discordeno](https://github.com/discordeno/discordeno)       | TypeScript |
@@ -48,6 +53,8 @@ Many of these libraries are represented in the [unofficial, community-driven Dis
 - [discord-interactions-php](https://github.com/discord/discord-interactions-php)
 - [discord-slash-commands](https://github.com/MeguminSama/discord-slash-commands)
 - [slash-create](https://github.com/Snazzah/slash-create)
+- [caddy-discord-interactions-verifier](https://github.com/CarsonHoffman/caddy-discord-interactions-verifier)
+- [DiscordPHP-Slash](https://github.com/discord-php/DiscordPHP-Slash)
 
 ## Game SDK Tools
 
@@ -73,6 +80,7 @@ Using Discord's [Dispatch](#DOCS_DISPATCH_DISPATCH_AND_YOU) tool for game develo
 [Gateway Intents](#DOCS_TOPICS_GATEWAY/gateway-intents) are pretty confusing at first. If you're not sure what to send in your [identify payload](#DOCS_TOPICS_GATEWAY/identify), then this tool may be of help:
 
 - [ziad87's Intent Calculator](https://ziad87.net/intents/)
+- [Larko's Intent Calculator](https://intents.aymdj.me/)
 
 ## Embed Visualizer
 
