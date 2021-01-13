@@ -810,14 +810,15 @@ Sent when a guild member is updated. This will also fire when the user object of
 
 ###### Guild Member Update Event Fields
 
-| Field          | Type                                              | Description                                                                                                              |
-|----------------|---------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------|
-| guild_id       | snowflake                                         | the id of the guild                                                                                                      |
-| roles          | array of snowflakes                               | user role ids                                                                                                            |
-| user           | a [user](#DOCS_RESOURCES_USER/user-object) object | the user                                                                                                                 |
-| nick?          | ?string                                           | nickname of the user in the guild                                                                                        |
-| joined_at      | ISO8601 timestamp                                 | when the user joined the guild                                                                                           |
-| premium_since? | ?ISO8601 timestamp                                | when the user starting [boosting](https://support.discord.com/hc/en-us/articles/360028038352-Server-Boosting-) the guild |
+| Field          | Type                                              | Description                                                                                                                            |
+|----------------|---------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------|
+| guild_id       | snowflake                                         | the id of the guild                                                                                                                    |
+| roles          | array of snowflakes                               | user role ids                                                                                                                          |
+| user           | a [user](#DOCS_RESOURCES_USER/user-object) object | the user                                                                                                                               |
+| nick?          | ?string                                           | nickname of the user in the guild                                                                                                      |
+| joined_at      | ISO8601 timestamp                                 | when the user joined the guild                                                                                                         |
+| premium_since? | ?ISO8601 timestamp                                | when the user starting [boosting](https://support.discord.com/hc/en-us/articles/360028038352-Server-Boosting-) the guild               |
+| pending?       | boolean                                           | whether the user has not yet passed the guild's [Membership Screening](#DOCS_RESOURCES_GUILD/membership-screening-object) requirements |
 
 #### Guild Members Chunk
 
