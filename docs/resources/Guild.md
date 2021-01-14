@@ -1000,11 +1000,11 @@ Modify the guild's [Welcome Screen](#DOCS_RESOURCES_GUILD/welcome-screen-object)
 > info
 > All parameters to this endpoint are optional and nullable
 
-| Field            | Type                                                                                                                     | Description                                                     |
-|------------------|--------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------|
-| enabled          | boolean                                                                                                                  | whether the welcome screen is enabled                           |
-| welcome_channels | array of [welcome screen channel])(#DOCS_RESOURCES_GUILD/welcome-screen-object-welcome-screen-channel-structure) objects | channels linked in the welcome screen and their display options |
-| description      | string                                                                                                                   | the server description to show in the welcome screen            |
+| Field            | Type                                                                                                                    | Description                                                     |
+|------------------|-------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------|
+| enabled          | boolean                                                                                                                 | whether the welcome screen is enabled                           |
+| welcome_channels | array of [welcome screen channel](#DOCS_RESOURCES_GUILD/welcome-screen-object-welcome-screen-channel-structure) objects | channels linked in the welcome screen and their display options |
+| description      | string                                                                                                                  | the server description to show in the welcome screen            |
 
 ## Get Guild Membership Screening Form % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/member-verification
 
