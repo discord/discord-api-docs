@@ -998,12 +998,12 @@ Returns the [Welcome Screen](#DOCS_RESOURCES_GUILD/welcome-screen-object) object
 Modify the guild's [Welcome Screen](#DOCS_RESOURCES_GUILD/welcome-screen-object). Requires the `MANAGE_GUILD` permission. Returns the updated [Welcome Screen](#DOCS_RESOURCES_GUILD/welcome-screen-object) object.
 
 > info
-> All parameters to this endpoint are optional
+> All parameters to this endpoint are optional and nullable
 
 | Field            | Type                                                                                                                     | Description                                                     |
-| ---------------- | ------------------------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------- |
+|------------------|--------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------|
 | enabled          | boolean                                                                                                                  | whether the welcome screen is enabled                           |
-| welcome_channels | array of [welcome screen channel])(#DOCS_RESOURCES_GUILD/welcome-screen-object-welcome-screen-channel-structure) objects | channels linked in the welcoem screen and their display options |
+| welcome_channels | array of [welcome screen channel])(#DOCS_RESOURCES_GUILD/welcome-screen-object-welcome-screen-channel-structure) objects | channels linked in the welcome screen and their display options |
 | description      | string                                                                                                                   | the server description to show in the welcome screen            |
 
 ## Get Guild Membership Screening Form % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/member-verification
