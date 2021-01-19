@@ -844,7 +844,7 @@ By default, prune will not remove users with roles. You can optionally include s
 
 | Field         | Type                                        | Description                                   | Default |
 | ------------- | ------------------------------------------- | --------------------------------------------- | ------- |
-| days          | integer                                     | number of days to count prune for (1 or more) | 7       |
+| days          | integer                                     | number of days to count prune for (1-30)      | 7       |
 | include_roles | string; comma-delimited array of snowflakes | role(s) to include                            | none    | 
 
 ## Begin Guild Prune % POST /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/prune
@@ -857,7 +857,7 @@ By default, prune will not remove users with roles. You can optionally include s
 
 | Field               | Type                | Description                                                | Default |
 | ------------------- | ------------------- | ---------------------------------------------------------- | ------- |
-| days                | integer             | number of days to prune (1 or more)                        | 7       |
+| days                | integer             | number of days to prune (1-30)                             | 7       |
 | compute_prune_count | boolean             | whether 'pruned' is returned, discouraged for large guilds | true    |
 | include_roles       | array of snowflakes | role(s) to include                                         | none    | 
 
