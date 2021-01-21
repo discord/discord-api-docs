@@ -644,6 +644,10 @@ Create a new global command. New global commands will be available in all guilds
 | description | string                                                                                            | 1-100 character description    |
 | options?    | array of [ApplicationCommandOption](#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommandoption) | the parameters for the command |
 
+## Get Global Application Command % GET /applications/{application.id#DOCS_TOPICS_OAUTH2/application-object}/commands/{command.id#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommand}
+
+Fetch a global command for your application. Returns an [ApplicationCommand](#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommand) object.
+
 ## Edit Global Application Command % PATCH /applications/{application.id#DOCS_TOPICS_OAUTH2/application-object}/commands/{command.id#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommand}
 
 > info
@@ -682,6 +686,10 @@ Create a new guild command. New guild commands will be available in the guild im
 | name        | string                                                                                            | 3-32 character command name    |
 | description | string                                                                                            | 1-100 character description    |
 | options?    | array of [ApplicationCommandOption](#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommandoption) | the parameters for the command |
+
+## Get Guild Application Command % GET /applications/{application.id#DOCS_TOPICS_OAUTH2/application-object}/guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/commands/{command.id#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommand}
+
+Fetch a guild command for your application. Returns an [ApplicationCommand](#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommand) object.
 
 ## Edit Guild Application Command % PATCH /applications/{application.id#DOCS_TOPICS_OAUTH2/application-object}/guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/commands/{command.id#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommand}
 
