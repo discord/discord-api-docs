@@ -432,3 +432,46 @@ Returns the bot's OAuth2 [application object](#DOCS_TOPICS_OAUTH2/application-ob
   "verify_key": "1e0a356058d627ca38a5c8c9648818061d49e49bd9da9e3ab17d98ad4d6bg2u8"
 }
 ```
+
+## Get Current Authorization Information % GET /oauth2/@me
+
+Returns info about the current authorization. Requires authentication with a bearer token.
+
+###### Response Structure
+
+| Field       | Type                                                                 | Description                                                                       |
+|-------------|----------------------------------------------------------------------|-----------------------------------------------------------------------------------|
+| application | partial [application](#DOCS_TOPICS_OAUTH2/application-object) object | the current application                                                           |
+| scopes      | array of strings                                                     | the scopes the user has authorized the application for                            |
+| expires     | ISO8601 timestamp                                                    | when the access token expires                                                     |
+| user?       | [user](#DOCS_RESOURCES_USER/user-object) object                      | the user who has authorized, if the user has authorized with the `identify` scope |
+
+###### Example Authorization Information
+
+```json
+{
+    "application": {
+        "id": "159799960412356608",
+        "name": "AIRHORN SOLUTIONS",
+        "icon": "f03590d3eb764081d154a66340ea7d6d",
+        "description": "",
+        "summary": "",
+        "hook": true,
+        "bot_public": true,
+        "bot_require_code_grant": false,
+        "verify_key": "c8cde6a3c8c6e49d86af3191287b3ce255872be1fff6dc285bdb420c06a2c3c8"
+    },
+    "scopes": [
+        "guilds.join",
+        "identify"
+    ],
+    "expires": "2021-01-23T02:33:17.017000+00:00",
+    "user": {
+        "id": "268473310986240001",
+        "username": "Discord",
+        "avatar": "f749bb0cbeeb26ef21eca719337d20f1",
+        "discriminator": "0001",
+        "public_flags": 131072
+    }
+}
+```
