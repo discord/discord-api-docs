@@ -42,7 +42,7 @@ Many of these libraries are represented in the [unofficial, community-driven Dis
 | [AckCord](https://github.com/Katrix/AckCord)                 | Scala      |
 | [Sword](https://github.com/Azoy/Sword)                       | Swift      |
 | [discordeno](https://github.com/discordeno/discordeno)       | TypeScript |
-| [Harmony](https://github.com/harmony-org/harmony)            | TypeScript |
+| [Harmony](https://github.com/harmonyland/harmony)            | TypeScript |
 
 ## Interactions
 
