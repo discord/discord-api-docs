@@ -304,7 +304,10 @@ If you are using **Gateway v8**, Intents are mandatory and must be specified whe
 
 ## Rate Limiting
 
-Clients are allowed 120 events every 60 seconds, meaning you can send on average at a rate of up to 2 events per second. Clients who surpass this limit are immediately disconnected from the Gateway, and similarly to the HTTP API, repeat offenders will have their API access revoked. Clients also have limit of [concurrent](#DOCS_TOPICS_GATEWAY/session-start-limit-object) [Identify](#DOCS_TOPICS_GATEWAY/identify) requests allowed per 5 seconds. If you hit this limit, the Gateway will respond with an [Opcode 9 Invalid Session](#DOCS_TOPICS_GATEWAY/invalid-session).
+> info
+> This section is about Gateway rate limits, not [HTTP API rate limits](#DOCS_TOPICS_RATE_LIMITS/)
+
+Clients are allowed to send 120 [gateway commands](#DOCS_TOPICS_GATEWAY/commands-and-events) every 60 seconds, meaning you can send an average of 2 commands per second. Clients who surpass this limit are immediately disconnected from the Gateway, and similarly to the HTTP API, repeat offenders will have their API access revoked. Clients also have a limit of [concurrent](#DOCS_TOPICS_GATEWAY/session-start-limit-object) [Identify](#DOCS_TOPICS_GATEWAY/identify) requests allowed per 5 seconds. If you hit this limit, the Gateway will respond with an [Opcode 9 Invalid Session](#DOCS_TOPICS_GATEWAY/invalid-session).
 
 ## Tracking State
 
@@ -409,6 +412,7 @@ Events are payloads sent over the socket to a client that correspond to events i
 | [Voice State Update](#DOCS_TOPICS_GATEWAY/voice-state-update)                       | someone joined, left, or moved a voice channel                                                                                   |
 | [Voice Server Update](#DOCS_TOPICS_GATEWAY/voice-server-update)                     | guild's voice server was updated                                                                                                 |
 | [Webhooks Update](#DOCS_TOPICS_GATEWAY/webhooks-update)                             | guild channel webhook was created, update, or deleted                                                                            |
+| [Interaction Create](#DOCS_TOPICS_GATEWAY/interaction-create)                       | user used a [Slash Command](#DOCS_INTERACTIONS_SLASH_COMMANDS/)                                                                   |
 
 ### Event Names
 
@@ -652,6 +656,7 @@ The ready event is dispatched when a client has completed the initial handshake 
 | guilds           | array of [Unavailable Guild](#DOCS_RESOURCES_GUILD/unavailable-guild-object) objects | the guilds the user is in                                                                                     |
 | session_id       | string                                                                               | used for resuming connections                                                                                 |
 | shard?           | array of two integers (shard_id, num_shards)                                         | the [shard information](#DOCS_TOPICS_GATEWAY/sharding) associated with this session, if sent when identifying |
+| application      | partial [application object](#DOCS_TOPICS_OAUTH2/application-object)                 | contains `id` and `flags`                                                                                     | 
 
 #### Resumed
 
@@ -700,11 +705,11 @@ Sent when a message is pinned or unpinned in a text channel. This is not sent wh
 
 ###### Channel Pins Update Event Fields
 
-| Field               | Type              | Description                                                 |
-|---------------------|-------------------|-------------------------------------------------------------|
-| guild_id?           | snowflake         | the id of the guild                                         |
-| channel_id          | snowflake         | the id of the channel                                       |
-| last_pin_timestamp? | ISO8601 timestamp | the time at which the most recent pinned message was pinned |
+| Field               | Type               | Description                                                  |
+|---------------------|--------------------|--------------------------------------------------------------|
+| guild_id?           | snowflake          | the id of the guild                                          |
+| channel_id          | snowflake          | the id of the channel                                        |
+| last_pin_timestamp? | ?ISO8601 timestamp | the time at which the most recent pinned message was pinned  |
 
 ### Guilds
 
@@ -808,14 +813,15 @@ Sent when a guild member is updated. This will also fire when the user object of
 
 ###### Guild Member Update Event Fields
 
-| Field          | Type                                              | Description                                                                                                              |
-|----------------|---------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------|
-| guild_id       | snowflake                                         | the id of the guild                                                                                                      |
-| roles          | array of snowflakes                               | user role ids                                                                                                            |
-| user           | a [user](#DOCS_RESOURCES_USER/user-object) object | the user                                                                                                                 |
-| nick?          | ?string                                           | nickname of the user in the guild                                                                                        |
-| joined_at      | ISO8601 timestamp                                 | when the user joined the guild                                                                                           |
-| premium_since? | ?ISO8601 timestamp                                | when the user starting [boosting](https://support.discord.com/hc/en-us/articles/360028038352-Server-Boosting-) the guild |
+| Field          | Type                                              | Description                                                                                                                            |
+|----------------|---------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------|
+| guild_id       | snowflake                                         | the id of the guild                                                                                                                    |
+| roles          | array of snowflakes                               | user role ids                                                                                                                          |
+| user           | a [user](#DOCS_RESOURCES_USER/user-object) object | the user                                                                                                                               |
+| nick?          | ?string                                           | nickname of the user in the guild                                                                                                      |
+| joined_at      | ISO8601 timestamp                                 | when the user joined the guild                                                                                                         |
+| premium_since? | ?ISO8601 timestamp                                | when the user starting [boosting](https://support.discord.com/hc/en-us/articles/360028038352-Server-Boosting-) the guild               |
+| pending?       | boolean                                           | whether the user has not yet passed the guild's [Membership Screening](#DOCS_RESOURCES_GUILD/membership-screening-object) requirements |
 
 #### Guild Members Chunk
 
@@ -1214,6 +1220,32 @@ Sent when a guild channel's webhook is created, updated, or deleted.
 |------------|-----------|-------------------|
 | guild_id   | snowflake | id of the guild   |
 | channel_id | snowflake | id of the channel |
+
+### Commands
+
+#### Application Command Create
+
+Sent when a new [Slash Command](#DOCS_INTERACTIONS_SLASH_COMMANDS/) is created, relevant to the current user. The inner payload is an [ApplicationCommand](#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommand) object, with an optional extra `guild_id` key.
+
+#### Application Command Update
+
+Sent when a [Slash Command](#DOCS_INTERACTIONS_SLASH_COMMANDS/) relevant to the current user is updated. The inner payload is an [ApplicationCommand](#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommand)) object, with an optional extra `guild_id` key.
+
+#### Application Command Delete
+
+Sent when a [Slash Command](#DOCS_INTERACTIONS_SLASH_COMMANDS/) relevant to the current user is deleted. The inner payload is an [ApplicationCommand](#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommand) object, with an optional extra `guild_id` key.
+
+###### Application Command Extra Fields
+
+| Field     | Type      | Description                       |
+|-------_---|-----------|-----------------------------------|
+| guild_id? | snowflake | id of the guild the command is in |
+
+### Interactions
+
+### Interaction Create
+
+Sent when a user in a guild uses a [Slash Command](#DOCS_INTERACTIONS_SLASH_COMMANDS/). Inner payload is an [Interaction](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction).
 
 ## Get Gateway % GET /gateway
 
