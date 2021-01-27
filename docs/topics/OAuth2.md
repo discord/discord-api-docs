@@ -90,7 +90,7 @@ https://nicememe.website/?code=NhhvTDYsFcdgNLnnLijcl7Ku7bEEeee&state=15773059ghq
 ###### Access Token Exchange Example
 
 ```python
-API_ENDPOINT = 'https://discord.com/api/v6'
+API_ENDPOINT = 'https://discord.com/api/v8'
 CLIENT_ID = '332269999912132097'
 CLIENT_SECRET = '937it3ow87i4ery69876wqire'
 REDIRECT_URI = 'https://nicememe.website'
@@ -138,7 +138,7 @@ Having the user's access token allows your application to make certain requests 
 ###### Refresh Token Exchange Example
 
 ```python
-API_ENDPOINT = 'https://discord.com/api/v6'
+API_ENDPOINT = 'https://discord.com/api/v8'
 CLIENT_ID = '332269999912132097'
 CLIENT_SECRET = '937it3ow87i4ery69876wqire'
 REDIRECT_URI = 'https://nicememe.website'
@@ -193,7 +193,7 @@ You can specify scopes with the `scope` parameter, which is a list of [OAuth2 sc
 ```python
 import base64
 
-API_ENDPOINT = 'https://discord.com/api/v6'
+API_ENDPOINT = 'https://discord.com/api/v8'
 CLIENT_ID = '332269999912132097'
 CLIENT_SECRET = '937it3ow87i4ery69876wqire'
 
