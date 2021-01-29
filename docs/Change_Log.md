@@ -1,5 +1,92 @@
 # Change Log
 
+#### January 22, 2021
+
+Permission overwrites in the guild channel creation endpoint are now validated against the permissions your bot has in the guild. Permission overwrites specified in the request body when creating guild channels will now require your bot to also have the permissions being applied. Setting `MANAGE_ROLES` permission in channel overwrites is only possible for guild administrators or users with `MANAGE_ROLES` as a permission overwrite in the channel.
+
+## Slash Commands and Interactions
+
+#### December 15, 2020
+
+Slash Commands are here! There's a _lot_ to cover, so go check out specific documentation under [Slash Commands](#DOCS_INTERACTIONS_SLASH_COMMANDS/).
+
+Slash Commands include some new features for webhooks as well:
+
+- Webhooks can now update previously-sent messages from the same webhook using [Edit Webhook Message](#DOCS_RESOURCES_WEBHOOK/edit-webhook-message) and [Delete Webhook Message](#DOCS_RESOURCES_WEBHOOK/delete-webhook-message)
+
+This PR also documents the `application` field on the `READY` gateway event, which is a partial [application object](#DOCS_TOPICS_OAUTH2/application-object) containing `id` and `flags`.
+
+## Inline Replies
+
+#### November 16, 2020
+
+Inline Replies have been added to our documentation. They behave differently in v6 and v8, so be cautious in your implementation:
+
+- Inline replies are type `19` in v8, but remain type `0` in v6
+- You can now add a `message_reference` on message create to create a reply
+- A new field `referenced_message` has been added to the [Message Object](#DOCS_RESOURCES_CHANNEL/message-object)
+- A new field `replied_user` has been added to the [Allowed Mentions Object](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object)
+- [Message Create](#DOCS_TOPICS_GATEWAY/message-create) gateway event is guaranteed to have a `referenced_message` if the message created is a reply. Otherwise, that field is not guaranteed.
+
+## Stickers
+
+#### November 13, 2020
+
+Stickers are now documented as part of the [message](#DOCS_RESOURCES_CHANNEL/message-object) object. 
+
+## API and Gateway V8
+
+#### October 27, 2020
+
+The v6 gateway now applies the restrictions for gateway intents. This means the new chunking limitations are now in effect, regardless of intents being used. See [Request Guild Members](#DOCS_TOPICS_GATEWAY/request-guild-members) for further details.
+Additionally, if privileged intents are not enabled in the application dashboard the bot will not receive the events for those intents.
+
+All other intents are always enabled by default unless specified otherwise by the identify payload. We have made a support article to explain some of the changes and resulting issues with more details: [Gateway Update FAQ](https://dis.gd/gwupdate)
+
+#### September 24, 2020
+
+We've introduced API and Gateway v8! Changes are noted throughout the documentation, and you can also read [this commit in our docs repo](https://github.com/discord/discord-api-docs/commit/545ff4a7883e5eee7ee91d19a5e5d760a0730033) for a full diff.
+
+The changes are:
+
+- API and Gateway v8 are now available. v6 is still the default for the time being.
+- [Gateway Intents](#DOCS_TOPICS_GATEWAY/gateway-intents) are now required
+- All permissions have been converted to strings-serialized numbers. As such, `permissions_new`, `allow_new`, and `deny_new` have been removed
+- The `game` field has been removed. If you need a direct replacement, you can instead reference the first element of `activities`
+- Channel Permission Overwrite `type`s are now numbers (0 and 1) instead of strings ("role" and "member"). However due to a current technical constraint, they are string-serialized numbers in audit log `options`.
+- `embed_enabled` and `embed_channel_id` have been removed. Use `widget_enabled` and `widget_channel_id` instead.
+- Form body errors have been improved to include more helpful messaging on validation. [See more here](#DOCS_REFERENCE/error-messages)
+- The `Retry-After` header is now based in seconds instead of milliseconds (e.g. `123` means 123 seconds)
+- The `X-RateLimit-Precision` header is no longer respected. `X-RateLimit-Reset` and `X-RateLimit-Reset-After` are always returned at millisecond precision (e.g. `123.456` instead of `124`)
+- Bots no longer receive [Channel Create Gateway Event](#DOCS_TOPICS_GATEWAY/channel-create) for DMs
+- `delete-message-days` is no longer available. Use `delete_message_days`.
+- Removed `roles`, `premium_since`, and `nick` from [Presence Update Gateway Event](#DOCS_TOPICS_GATEWAY/presence-update)
+- Removed some [integration object](#DOCS_RESOURCES_GUILD/integration-object) fields for Discord application integrations
+- Removed `include_applications` from [Get Guild Integrations](#DOCS_RESOURCES_GUILD/get-guild-integrations). Application integrations are always included.
+- The following deprecated routes have been removed for better naming conventions:
+
+Removed in favor of `/guilds/<guild_id>/widget`:
+
+- `/guilds/<guild_id>/embed`
+
+Removed in favor of `/guilds/<guild_id>/widget.json`:
+
+- `/servers/<guild_id>/embed.json`
+- `/servers/<guild_id>/widget.json`
+- `/guilds/<guild_id>/embed.json`
+
+Removed in favor of `/guilds/<guild_id>/widget.png`:
+
+- `/guilds/<guild_id>/embed.png`
+
+Removed in favor of `/channels/<channel_id>/messages/bulk-delete`:
+
+- `/channels/<channel_id>/messages/bulk_delete/`
+
+Removed in favor of `/invites/<code>/`:
+
+- `/invite/<code>/`
+
 ## New Permission Fields
 
 #### July 28, 2020
