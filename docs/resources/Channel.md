@@ -839,7 +839,6 @@ The `emoji` must be [URL Encoded](https://en.wikipedia.org/wiki/Percent-encoding
 
 | Field  | Type      | Description                           | Required | Default |
 |--------|-----------|---------------------------------------|----------|---------|
-| before | snowflake | get users before this user ID         | false    | absent  |
 | after  | snowflake | get users after this user ID          | false    | absent  |
 | limit  | integer   | max number of users to return (1-100) | false    | 25      |
 
