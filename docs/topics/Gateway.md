@@ -304,7 +304,10 @@ If you are using **Gateway v8**, Intents are mandatory and must be specified whe
 
 ## Rate Limiting
 
-Clients are allowed 120 events every 60 seconds, meaning you can send on average at a rate of up to 2 events per second. Clients who surpass this limit are immediately disconnected from the Gateway, and similarly to the HTTP API, repeat offenders will have their API access revoked. Clients also have limit of [concurrent](#DOCS_TOPICS_GATEWAY/session-start-limit-object) [Identify](#DOCS_TOPICS_GATEWAY/identify) requests allowed per 5 seconds. If you hit this limit, the Gateway will respond with an [Opcode 9 Invalid Session](#DOCS_TOPICS_GATEWAY/invalid-session).
+> info
+> This section is about Gateway rate limits, not [HTTP API rate limits](#DOCS_TOPICS_RATE_LIMITS/)
+
+Clients are allowed to send 120 [gateway commands](#DOCS_TOPICS_GATEWAY/commands-and-events) every 60 seconds, meaning you can send an average of 2 commands per second. Clients who surpass this limit are immediately disconnected from the Gateway, and similarly to the HTTP API, repeat offenders will have their API access revoked. Clients also have a limit of [concurrent](#DOCS_TOPICS_GATEWAY/session-start-limit-object) [Identify](#DOCS_TOPICS_GATEWAY/identify) requests allowed per 5 seconds. If you hit this limit, the Gateway will respond with an [Opcode 9 Invalid Session](#DOCS_TOPICS_GATEWAY/invalid-session).
 
 ## Tracking State
 
@@ -1217,6 +1220,26 @@ Sent when a guild channel's webhook is created, updated, or deleted.
 |------------|-----------|-------------------|
 | guild_id   | snowflake | id of the guild   |
 | channel_id | snowflake | id of the channel |
+
+### Commands
+
+#### Application Command Create
+
+Sent when a new [Slash Command](#DOCS_INTERACTIONS_SLASH_COMMANDS/) is created, relevant to the current user. The inner payload is an [ApplicationCommand](#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommand) object, with an optional extra `guild_id` key.
+
+#### Application Command Update
+
+Sent when a [Slash Command](#DOCS_INTERACTIONS_SLASH_COMMANDS/) relevant to the current user is updated. The inner payload is an [ApplicationCommand](#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommand)) object, with an optional extra `guild_id` key.
+
+#### Application Command Delete
+
+Sent when a [Slash Command](#DOCS_INTERACTIONS_SLASH_COMMANDS/) relevant to the current user is deleted. The inner payload is an [ApplicationCommand](#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommand) object, with an optional extra `guild_id` key.
+
+###### Application Command Extra Fields
+
+| Field     | Type      | Description                       |
+|-------_---|-----------|-----------------------------------|
+| guild_id? | snowflake | id of the guild the command is in |
 
 ### Interactions
 

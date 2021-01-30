@@ -257,10 +257,10 @@ A partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object. Represents an Offl
 | Field          | Type                                            | Description                                                                                                                            |
 |----------------|-------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------|
 | user?          | [user](#DOCS_RESOURCES_USER/user-object) object | the user this guild member represents                                                                                                  |
-| nick           | ?string                                         | this users guild nickname                                                                                                              |
+| nick?          | ?string                                         | this users guild nickname                                                                                                              |
 | roles          | array of snowflakes                             | array of [role](#DOCS_TOPICS_PERMISSIONS/role-object) object ids                                                                       |
 | joined_at      | ISO8601 timestamp                               | when the user joined the guild                                                                                                         |
-| premium_since? | ?ISO8601 timestamp                              | when the user started [boosting](https://support.discord.com/hc/en-us/articles/360028038352-Server-Boosting-) the guild                |
+| premium_since  | ?ISO8601 timestamp                              | when the user started [boosting](https://support.discord.com/hc/en-us/articles/360028038352-Server-Boosting-) the guild                |
 | deaf           | boolean                                         | whether the user is deafened in voice channels                                                                                         |
 | mute           | boolean                                         | whether the user is muted in voice channels                                                                                            |
 | pending?       | boolean                                         | whether the user has not yet passed the guild's [Membership Screening](#DOCS_RESOURCES_GUILD/membership-screening-object) requirements |
@@ -426,48 +426,8 @@ In guilds with [Membership Screening](https://support.discord.com/hc/en-us/artic
 
 Giving the member a role will bypass Membership Screening as well as the guild's verification level, giving the member immediate access to chat. Therefore, instead of giving a role when the member joins, it is recommended to not give the role until the user is no longer `pending`.
 
-###### Membership Screening Structure
-
-| Field       | Type                                                                                                             | Description                                        |
-|-------------|------------------------------------------------------------------------------------------------------------------|----------------------------------------------------|
-| version     | ISO8601 timestamp                                                                                                | when the fields were last updated                  |
-| form_fields | array of [field](#DOCS_RESOURCES_GUILD/membership-screening-object-membership-screening-field-structure) objects | the steps in the screening form                    |
-| description | ?string                                                                                                          | the server description shown in the screening form |
-
-###### Membership Screening Field Structure
-
-| Field      | Type                                                                                             | Description                                            |
-|------------|--------------------------------------------------------------------------------------------------|--------------------------------------------------------|
-| field_type | [field type](#DOCS_RESOURCES_GUILD/membership-screening-object-membership-screening-field-types) | the type of field (currently "TERMS" is the only type) |
-| label      | string                                                                                           | the title of the field                                 |
-| values?    | array of strings                                                                                 | the list of rules                                      |
-| required   | boolean                                                                                          | whether the user has to fill out this field            |
-
-###### Membership Screening Field Types
-
-| Value | Name         |
-|-------|--------------|
-| TERMS | Server Rules |
-
-###### Example Membership Screening Object
-
-```json
-{
-    "version": "2021-01-09T12:09:02.040000+00:00",
-    "form_fields": [
-        {
-            "field_type": "TERMS",
-            "label": "Read and agree to the server rules",
-            "values": [
-                "Treat everyone with respect. Absolutely no harassment, witch hunting, sexism, racism, or hate speech will be tolerated.",
-                "No spam or self-promotion (server invites, advertisements, etc) without permission from a staff member. This includes DMing fellow members."
-            ],
-            "required": true
-        }
-    ],
-    "description": "Welcome to this cool server!"
-}
-```
+> warn
+> We are making significant changes to the Membership Screening API specifically related to getting and editing the Membership Screening object. Long story short is that it can be improved. As such, we have removed those documentation. There will **not be** any changes to how pending members work, as outlined above. That behavior will stay the same.
 
 ## Create Guild % POST /guilds
 
@@ -643,7 +603,7 @@ Returns a list of guild [channel](#DOCS_RESOURCES_CHANNEL/channel-object) object
 
 ## Create Guild Channel % POST /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/channels
 
-Create a new [channel](#DOCS_RESOURCES_CHANNEL/channel-object) object for the guild. Requires the `MANAGE_CHANNELS` permission. Returns the new [channel](#DOCS_RESOURCES_CHANNEL/channel-object) object on success. Fires a [Channel Create](#DOCS_TOPICS_GATEWAY/channel-create) Gateway event.
+Create a new [channel](#DOCS_RESOURCES_CHANNEL/channel-object) object for the guild. Requires the `MANAGE_CHANNELS` permission. If setting permission overwrites, only permissions your bot has in the guild can be allowed/denied. Setting `MANAGE_ROLES` permission in channels is only possible for guild administrators. Returns the new [channel](#DOCS_RESOURCES_CHANNEL/channel-object) object on success. Fires a [Channel Create](#DOCS_TOPICS_GATEWAY/channel-create) Gateway event.
 
 > info
 > All parameters to this endpoint are optional excluding 'name'
@@ -722,7 +682,7 @@ Adds a user to the guild, provided you have a valid oauth2 access token for the 
 
 ## Modify Guild Member % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/members/{user.id#DOCS_RESOURCES_USER/user-object}
 
-Modify attributes of a [guild member](#DOCS_RESOURCES_GUILD/guild-member-object). Returns a 204 empty response on success. Fires a [Guild Member Update](#DOCS_TOPICS_GATEWAY/guild-member-update) Gateway event. If the `channel_id` is set to null, this will force the target user to be disconnected from voice.
+Modify attributes of a [guild member](#DOCS_RESOURCES_GUILD/guild-member-object). Returns a 200 OK with the [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) as the body. Fires a [Guild Member Update](#DOCS_TOPICS_GATEWAY/guild-member-update) Gateway event. If the `channel_id` is set to null, this will force the target user to be disconnected from voice.
 
 > info
 > All parameters to this endpoint are optional and nullable. When moving members to channels, the API user _must_ have permissions to both connect to the channel and have the `MOVE_MEMBERS` permission.
@@ -836,7 +796,7 @@ Delete a guild role. Requires the `MANAGE_ROLES` permission. Returns a 204 empty
 
 ## Get Guild Prune Count % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/prune
 
-Returns an object with one 'pruned' key indicating the number of members that would be removed in a prune operation. Requires the `KICK_MEMBERS` permission. 
+Returns an object with one 'pruned' key indicating the number of members that would be removed in a prune operation. Requires the `KICK_MEMBERS` permission.
 
 By default, prune will not remove users with roles. You can optionally include specific roles in your prune by providing the `include_roles` parameter. Any inactive user that has a subset of the provided role(s) will be counted in the prune and users with additional roles will not.
 
@@ -844,8 +804,8 @@ By default, prune will not remove users with roles. You can optionally include s
 
 | Field         | Type                                        | Description                                   | Default |
 | ------------- | ------------------------------------------- | --------------------------------------------- | ------- |
-| days          | integer                                     | number of days to count prune for (1 or more) | 7       |
-| include_roles | string; comma-delimited array of snowflakes | role(s) to include                            | none    | 
+| days          | integer                                     | number of days to count prune for (1-30)      | 7       |
+| include_roles | string; comma-delimited array of snowflakes | role(s) to include                            | none    |
 
 ## Begin Guild Prune % POST /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/prune
 
@@ -857,9 +817,9 @@ By default, prune will not remove users with roles. You can optionally include s
 
 | Field               | Type                | Description                                                | Default |
 | ------------------- | ------------------- | ---------------------------------------------------------- | ------- |
-| days                | integer             | number of days to prune (1 or more)                        | 7       |
+| days                | integer             | number of days to prune (1-30)                             | 7       |
 | compute_prune_count | boolean             | whether 'pruned' is returned, discouraged for large guilds | true    |
-| include_roles       | array of snowflakes | role(s) to include                                         | none    | 
+| include_roles       | array of snowflakes | role(s) to include                                         | none    |
 
 ## Get Guild Voice Regions % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/regions
 
