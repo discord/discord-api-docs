@@ -912,9 +912,9 @@ Create a new [invite](#DOCS_RESOURCES_INVITE/invite-object) object for the chann
 ###### JSON Params
 
 | Field             | Type    | Description                                                                                         | Default          |
-|-------------------|---------|-----------------------------------------------------------------------------------------------------|------------------|
-| max_age           | integer | duration of invite in seconds before expiry, or 0 for never                                         | 86400 (24 hours) |
-| max_uses          | integer | max number of uses or 0 for unlimited                                                               | 0                |
+| ----------------- | ------- | --------------------------------------------------------------------------------------------------- | ---------------- |
+| max_age           | integer | duration of invite in seconds before expiry, or 0 for never. between 0 and 604800 (7 days)          | 86400 (24 hours) |
+| max_uses          | integer | max number of uses or 0 for unlimited. between 0 and 100                                            | 0                |
 | temporary         | boolean | whether this invite only grants temporary membership                                                | false            |
 | unique            | boolean | if true, don't try to reuse a similar invite (useful for creating many unique one time use invites) | false            |
 | target_user?      | string  | the target user id for this invite                                                                  |                  |
