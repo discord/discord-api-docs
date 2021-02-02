@@ -857,9 +857,9 @@ Interaction responses may choose to "eat" the user's command input if you do not
 
 Not all message fields are currently supported.
 
-| Name              | Value            | Description                                                                                 |
-|-------------------|------------------|---------------------------------------------------------------------------------------------|
-| tts?              | boolean          | is the response TTS                                                                         |
-| content           | string           | message content                                                                             |
-| embeds?           | array of embeds  | supports up to 10 embeds                                                                    |
-| allowed_mentions? | allowed mentions | [allowed mentions](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object) object                  |
+| Name              | Value                                                    | Description                                                                                 |
+|-------------------|----------------------------------------------------------|---------------------------------------------------------------------------------------------|
+| tts?              | boolean                                                  | is the response TTS                                                                         |
+| content           | string                                                   | message content                                                                             |
+| embeds?           | array of [embeds](#DOCS_RESOURCES_CHANNEL/embed-object)  | supports up to 10 embeds                                                                    |
+| allowed_mentions? | allowed mentions                                         | [allowed mentions](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object) object                  |
