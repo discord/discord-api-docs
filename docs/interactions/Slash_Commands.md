@@ -62,7 +62,9 @@ Who knows, maybe in the future, Interactions tokens will become even smarter.
 > info
 > Currently, Slash Commands can only be registered via HTTP endpoint.
 
-There are two kinds of Slash Commands: global commands and guild commands. Global commands are available for every guild that adds your app; guild commands are specific to the guild you specify when making them. Command names are unique per application within each scope (global and guild). That means:
+There are two kinds of Slash Commands: global commands and guild commands. Global commands are available for every guild that adds your app. An individual app's global commands are also available in DMs if that app has a bot that shares a mutual guild with the user.
+
+Guild commands are specific to the guild you specify when making them. Guild commands are not available in DMs. Command names are unique per application within each scope (global and guild). That means:
 
 - Your app **cannot** have two global commands with the same name
 - Your app **cannot** have two guild commands within the same name **on the same guild**
@@ -790,20 +792,23 @@ If you specify `choices` for an option, they are the **only** valid values for a
 
 ## Interaction
 
-An interaction is the base "thing" that is sent when a user invokes a command, and is the same for Slash Commands and other future interaction types
+An interaction is the base "thing" that is sent when a user invokes a command, and is the same for Slash Commands and other future interaction types.
 
-| Field      | Type                                                             | Description                                                    |
-|------------|------------------------------------------------------------------|----------------------------------------------------------------|
-| id         | snowflake                                                        | id of the interaction                                          |
-| type       | InteractionType                                                  | the type of interaction                                        |
-| data?\*    | ApplicationCommandInteractionData                                | the command data payload                                       |
-| guild_id   | snowflake                                                        | the guild it was sent from                                     |
-| channel_id | snowflake                                                        | the channel it was sent from                                   |
-| member     | [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) object | guild member data for the invoking user, including permissions |
-| token      | string                                                           | a continuation token for responding to the interaction         |
-| version    | int                                                              | read-only property, always `1`                                 |
+| Field        | Type                                                             | Description                                                    |
+|--------------|------------------------------------------------------------------|----------------------------------------------------------------|
+| id           | snowflake                                                        | id of the interaction                                          |
+| type         | InteractionType                                                  | the type of interaction                                        |
+| data?\*      | ApplicationCommandInteractionData                                | the command data payload                                       |
+| guild_id?    | snowflake                                                        | the guild it was sent from                                     |
+| channel_id?  | snowflake                                                        | the channel it was sent from                                   |
+| member?\*\*  | [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) object | guild member data for the invoking user, including permissions |
+| user?        | [user](#DOCS_RESOURCES_USER/user-object) object                  | user object for the invoking user, if invoked in a DM          |
+| token        | string                                                           | a continuation token for responding to the interaction         |
+| version      | int                                                              | read-only property, always `1`                                 |
 
 \* This is always present on `ApplicationCommand` interaction types. It is optional for future-proofing against new interaction types
+
+\*\* `member` is sent when the command is invoked in a guild, and `user` is sent when invoked in a DM
 
 ###### InteractionType
 
