@@ -375,7 +375,7 @@ A partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object. Represents an Offl
 
 | Field       | Type       | Description                                                                               |
 |-------------|------------|-------------------------------------------------------------------------------------------|
-| channel_id  | snowflake  | the server description shown in the welcome screen                                        |
+| channel_id  | snowflake  | the channel's id                                                                          |
 | description | string     | the description shown for the channel                                                     |
 | emoji_id    | ?snowflake | the [emoji id](#DOCS_REFERENCE/image-formatting), if the emoji is custom                  |
 | emoji_name  | ?string    | the emoji name if custom, the unicode character if standard, or `null` if no emoji is set |
