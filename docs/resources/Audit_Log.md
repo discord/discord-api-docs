@@ -100,6 +100,9 @@ Whenever an admin action is performed on the API, an entry is added to the respe
 
 ###### Audit Log Change Structure
 
+> info
+> If `new_value` is not present in the change object, while `old_value` is, that means the property that was changed has been reset, or set to `null`
+
 | Field      | Type                                                                            | Description                                                                                            |
 | ---------- | ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ |
 | new_value? | [mixed](#DOCS_RESOURCES_AUDIT_LOG/audit-log-change-object-audit-log-change-key) | new value of the key                                                                                   |
