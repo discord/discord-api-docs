@@ -9,7 +9,7 @@ Whenever an admin action is performed on the API, an entry is added to the respe
 ###### Audit Log Structure
 
 | Field             | Type                                                                                 | Description                             |
-|-------------------|--------------------------------------------------------------------------------------|-----------------------------------------|
+| ----------------- | ------------------------------------------------------------------------------------ | --------------------------------------- |
 | webhooks          | array of [webhook](#DOCS_RESOURCES_WEBHOOK/webhook-object) objects                   | list of webhooks found in the audit log |
 | users             | array of [user](#DOCS_RESOURCES_USER/user-object) objects                            | list of users found in the audit log    |
 | audit_log_entries | array of [audit log entry](#DOCS_RESOURCES_AUDIT_LOG/audit-log-entry-object) objects | list of audit log entries               |
@@ -34,7 +34,7 @@ Whenever an admin action is performed on the API, an entry is added to the respe
 ###### Audit Log Entry Structure
 
 | Field       | Type                                                                                                    | Description                                           |
-|-------------|---------------------------------------------------------------------------------------------------------|-------------------------------------------------------|
+| ----------- | ------------------------------------------------------------------------------------------------------- | ----------------------------------------------------- |
 | target_id   | ?string                                                                                                 | id of the affected entity (webhook, user, role, etc.) |
 | changes?    | array of [audit log change](#DOCS_RESOURCES_AUDIT_LOG/audit-log-change-object) objects                  | changes made to the target_id                         |
 | user_id     | snowflake                                                                                               | the user who made the changes                         |
@@ -46,7 +46,7 @@ Whenever an admin action is performed on the API, an entry is added to the respe
 ###### Audit Log Events
 
 | Event                    | Value |
-|--------------------------|-------|
+| ------------------------ | ----- |
 | GUILD_UPDATE             | 1     |
 | CHANNEL_CREATE           | 10    |
 | CHANNEL_UPDATE           | 11    |
@@ -83,11 +83,10 @@ Whenever an admin action is performed on the API, an entry is added to the respe
 | INTEGRATION_UPDATE       | 81    |
 | INTEGRATION_DELETE       | 82    |
 
-
 ###### Optional Audit Entry Info
 
 | Field              | Type      | Description                                                     | Action Type                                                                    |
-|--------------------|-----------|-----------------------------------------------------------------|--------------------------------------------------------------------------------|
+| ------------------ | --------- | --------------------------------------------------------------- | ------------------------------------------------------------------------------ |
 | delete_member_days | string    | number of days after which inactive members were kicked         | MEMBER_PRUNE                                                                   |
 | members_removed    | string    | number of members removed by the prune                          | MEMBER_PRUNE                                                                   |
 | channel_id         | snowflake | channel in which the entities were targeted                     | MEMBER_MOVE & MESSAGE_PIN & MESSAGE_UNPIN & MESSAGE_DELETE                     |
@@ -102,7 +101,7 @@ Whenever an admin action is performed on the API, an entry is added to the respe
 ###### Audit Log Change Structure
 
 | Field      | Type                                                                            | Description                                                                                            |
-|------------|---------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------|
+| ---------- | ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ |
 | new_value? | [mixed](#DOCS_RESOURCES_AUDIT_LOG/audit-log-change-object-audit-log-change-key) | new value of the key                                                                                   |
 | old_value? | [mixed](#DOCS_RESOURCES_AUDIT_LOG/audit-log-change-object-audit-log-change-key) | old value of the key                                                                                   |
 | key        | string                                                                          | name of audit log [change key](#DOCS_RESOURCES_AUDIT_LOG/audit-log-change-object-audit-log-change-key) |
@@ -110,14 +109,20 @@ Whenever an admin action is performed on the API, an entry is added to the respe
 ###### Audit Log Change Key
 
 | Name                          | Object Changed                                          | Type                                                                                     | Description                                                                                                                                             |
-|-------------------------------|---------------------------------------------------------|------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------|
+| ----------------------------- | ------------------------------------------------------- | ---------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | name                          | [guild](#DOCS_RESOURCES_GUILD/guild-object)             | string                                                                                   | name changed                                                                                                                                            |
+| description                   | [guild](#DOCS_RESOURCES_GUILD/guild-object)             | string                                                                                   | description changed                                                                                                                                     |
 | icon_hash                     | [guild](#DOCS_RESOURCES_GUILD/guild-object)             | string                                                                                   | icon changed                                                                                                                                            |
 | splash_hash                   | [guild](#DOCS_RESOURCES_GUILD/guild-object)             | string                                                                                   | invite splash page artwork changed                                                                                                                      |
+| discovery_splash_hash         | [guild](#DOCS_RESOURCES_GUILD/guild-object)             | ?string                                                                                  | discovery splash changed                                                                                                                                |
+| banner_hash                   | [guild](#DOCS_RESOURCES_GUILD/guild-object)             | ?string                                                                                  | guild banner changed                                                                                                                                    |
 | owner_id                      | [guild](#DOCS_RESOURCES_GUILD/guild-object)             | snowflake                                                                                | owner changed                                                                                                                                           |
 | region                        | [guild](#DOCS_RESOURCES_GUILD/guild-object)             | string                                                                                   | region changed                                                                                                                                          |
+| preferred_locale              | [guild](#DOCS_RESOURCES_GUILD/guild-object)             | string                                                                                   | preferred locale changed                                                                                                                                |
 | afk_channel_id                | [guild](#DOCS_RESOURCES_GUILD/guild-object)             | snowflake                                                                                | afk channel changed                                                                                                                                     |
 | afk_timeout                   | [guild](#DOCS_RESOURCES_GUILD/guild-object)             | integer                                                                                  | afk timeout duration changed                                                                                                                            |
+| rules_channel_id              | [guild](#DOCS_RESOURCES_GUILD/guild-object)             | snowflake                                                                                | id of the rules channel changed                                                                                                                         |
+| public_updates_channel_id     | [guild](#DOCS_RESOURCES_GUILD/guild-object)             | snowflake                                                                                | id of the public updates channel changed                                                                                                                |
 | mfa_level                     | [guild](#DOCS_RESOURCES_GUILD/guild-object)             | integer                                                                                  | two-factor auth requirement changed                                                                                                                     |
 | verification_level            | [guild](#DOCS_RESOURCES_GUILD/guild-object)             | integer                                                                                  | required verification level changed                                                                                                                     |
 | explicit_content_filter       | [guild](#DOCS_RESOURCES_GUILD/guild-object)             | integer                                                                                  | change in [whose messages](#DOCS_RESOURCES_GUILD/guild-object-explicit-content-filter-level) are scanned and deleted for explicit content in the server |
@@ -158,6 +163,7 @@ Whenever an admin action is performed on the API, an entry is added to the respe
 | enable_emoticons              | [integration](#DOCS_RESOURCES_GUILD/integration-object) | boolean                                                                                  | integration emoticons enabled/disabled                                                                                                                  |
 | expire_behavior               | [integration](#DOCS_RESOURCES_GUILD/integration-object) | integer                                                                                  | integration expiring subscriber behavior changed                                                                                                        |
 | expire_grace_period           | [integration](#DOCS_RESOURCES_GUILD/integration-object) | integer                                                                                  | integration expire grace period changed                                                                                                                 |
+| user_limit                    | [voice channel](#DOCS_RESOURCES_CHANNEL/channel-object) | integer                                                                                  | new user limit in a voice channel                                                                                                                       |
 
 ###### Example Partial Role Object
 
@@ -175,7 +181,7 @@ Returns an [audit log](#DOCS_RESOURCES_AUDIT_LOG/audit-log-object) object for th
 ###### Query String Parameters
 
 | Field       | Type      | Description                                                                                      |
-|-------------|-----------|--------------------------------------------------------------------------------------------------|
+| ----------- | --------- | ------------------------------------------------------------------------------------------------ |
 | user_id     | snowflake | filter the log for actions made by a user                                                        |
 | action_type | integer   | the type of [audit log event](#DOCS_RESOURCES_AUDIT_LOG/audit-log-entry-object-audit-log-events) |
 | before      | snowflake | filter the log before a certain entry id                                                         |
