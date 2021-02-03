@@ -38,7 +38,7 @@ You will use commercially reasonable efforts to protect data collected by your A
 
 The APIs are designed to help you enhance your API Client. You agree to respond promptly to our requests to verify and audit your compliance with these Terms. YOU AGREE THAT DISCORD MAY MONITOR USE OF THE APIS TO ENSURE QUALITY, IMPROVE DISCORD PRODUCTS AND SERVICES, AND VERIFY YOUR COMPLIANCE WITH THE TERMS. This monitoring may include Discord accessing and using your API Client, for example to identify security issues that could affect Discord or its users. You will not interfere with this monitoring. Discord may use any technical means to overcome such interference. 
 
-# Section 4. IP, DMCA, and Confidentiality
+# Section 4: IP, DMCA, and Confidentiality
 
 ## a. IP Ownership, Open Source, and Feedback 
 
