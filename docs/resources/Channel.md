@@ -259,11 +259,12 @@ Represents a message sent in a channel within Discord.
 
 ###### Message Reference Structure
 
-| Field       | Type      | Description                             |
-|-------------|-----------|-----------------------------------------|
-| message_id? | snowflake | id of the originating message           |
-| channel_id? \*  | snowflake | id of the originating message's channel |
-| guild_id?   | snowflake | id of the originating message's guild   |
+| Field               | Type      | Description                                                                                                                             |
+|---------------------|-----------|-----------------------------------------------------------------------------------------------------------------------------------------|
+| message_id?         | snowflake | id of the originating message                                                                                                           |
+| channel_id? \*      | snowflake | id of the originating message's channel                                                                                                 |
+| guild_id?           | snowflake | id of the originating message's guild                                                                                                   |
+| fail_if_not_exists? | boolean   | when sending, whether to error if the referenced message doesn't exist instead of sending as a normal (non-reply) message, default true |
 
 \* `channel_id` is optional when creating a reply, but will always be present when receiving an event/response that includes this data model.
 
