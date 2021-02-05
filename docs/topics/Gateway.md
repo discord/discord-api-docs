@@ -162,7 +162,7 @@ This is a minimal `IDENTIFY` payload. `IDENTIFY` supports additional optional fi
 }
 ```
 
-If the payload is valid, the gateway will respond with a [Ready](#DOCS_TOPICS_GATEWAY/ready) event. Your client is now considered in a "connected" state. Clients are limited to 1 identify every 5 seconds; if they exceed this limit, the gateway will respond with an [Opcode 9 Invalid Session](#DOCS_TOPICS_GATEWAY/invalid-session). It is important to note that although the ready event contains a large portion of the required initial state, some information (such as guilds and their members) is sent asynchronously (see [Guild Create](#DOCS_TOPICS_GATEWAY/guild-create) event).
+If the payload is valid, the gateway will respond with a [Ready](#DOCS_TOPICS_GATEWAY/ready) event. Your client is now considered in a "connected" state. Clients are limited by [maximum concurrency](#DOCS_TOPICS_GATEWAY/session-start-limit-object) when [Identify](#DOCS_TOPICS_GATEWAY/identify)ing; if they exceed this limit, the gateway will respond with an [Opcode 9 Invalid Session](#DOCS_TOPICS_GATEWAY/invalid-session). It is important to note that although the ready event contains a large portion of the required initial state, some information (such as guilds and their members) is sent asynchronously (see [Guild Create](#DOCS_TOPICS_GATEWAY/guild-create) event).
 
 > warn
 > Clients are limited to 1000 `IDENTIFY` calls to the websocket in a 24-hour period. This limit is global and across all shards, but does not include `RESUME` calls. Upon hitting this limit, all active sessions for the bot will be terminated, the bot's token will be reset, and the owner will receive an email notification. It's up to the owner to update their application with the new token.
@@ -191,6 +191,8 @@ If successful, the gateway will respond by replaying all missed events in order,
 ### Disconnections
 
 If the gateway ever issues a disconnect to your client, it will provide a close event code that you can use to properly handle the disconnection. A full list of these close codes can be found in the [Response Codes](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/gateway-close-event-codes) documentation.
+
+When you close the connection to the gateway with the close code 1000 or 1001, your session will be invalidated and your bot will appear offline. If you simply close the TCP connection, or use a different close code, the bot session will remain active and timeout after a few minutes. This can be useful for a reconnect, which will resume the previous session.
 
 ## Gateway Intents
 
@@ -302,7 +304,10 @@ If you are using **Gateway v8**, Intents are mandatory and must be specified whe
 
 ## Rate Limiting
 
-Clients are allowed 120 events every 60 seconds, meaning you can send on average at a rate of up to 2 events per second. Clients who surpass this limit are immediately disconnected from the Gateway, and similarly to the HTTP API, repeat offenders will have their API access revoked. Clients are also limited to one gateway connection per 5 seconds. If you hit this limit, the Gateway will respond with an [Opcode 9 Invalid Session](#DOCS_TOPICS_GATEWAY/invalid-session).
+> info
+> This section is about Gateway rate limits, not [HTTP API rate limits](#DOCS_TOPICS_RATE_LIMITS/)
+
+Clients are allowed to send 120 [gateway commands](#DOCS_TOPICS_GATEWAY/commands-and-events) every 60 seconds, meaning you can send an average of 2 commands per second. Clients who surpass this limit are immediately disconnected from the Gateway, and similarly to the HTTP API, repeat offenders will have their API access revoked. Clients also have a limit of [concurrent](#DOCS_TOPICS_GATEWAY/session-start-limit-object) [Identify](#DOCS_TOPICS_GATEWAY/identify) requests allowed per 5 seconds. If you hit this limit, the Gateway will respond with an [Opcode 9 Invalid Session](#DOCS_TOPICS_GATEWAY/invalid-session).
 
 ## Tracking State
 
@@ -407,6 +412,7 @@ Events are payloads sent over the socket to a client that correspond to events i
 | [Voice State Update](#DOCS_TOPICS_GATEWAY/voice-state-update)                       | someone joined, left, or moved a voice channel                                                                                   |
 | [Voice Server Update](#DOCS_TOPICS_GATEWAY/voice-server-update)                     | guild's voice server was updated                                                                                                 |
 | [Webhooks Update](#DOCS_TOPICS_GATEWAY/webhooks-update)                             | guild channel webhook was created, update, or deleted                                                                            |
+| [Interaction Create](#DOCS_TOPICS_GATEWAY/interaction-create)                       | user used a [Slash Command](#DOCS_INTERACTIONS_SLASH_COMMANDS/)                                                                   |
 
 ### Event Names
 
@@ -512,19 +518,19 @@ Used to maintain an active gateway connection. Must be sent every `heartbeat_int
 
 Used to request all members for a guild or a list of guilds. When initially connecting, the gateway will only send offline members if a guild has less than the `large_threshold` members (value in the [Gateway Identify](#DOCS_TOPICS_GATEWAY/identify)). If a client wishes to receive additional members, they need to explicitly request them via this operation. The server will send [Guild Members Chunk](#DOCS_TOPICS_GATEWAY/guild-members-chunk) events in response with up to 1000 members per chunk until all members that match the request have been sent.
 
-If you are using [Gateway Intents](#DOCS_TOPICS_GATEWAY/gateway-intents), there are some significant changes to this command to be mindful of:
+Due to our privacy and infrastructural concerns with this feature, there are some limitations that apply:
 
 - `GUILD_PRESENCES` intent is required to set `presences = true`. Otherwise, it will always be false
 - `GUILD_MEMBERS` intent is required to request the entire member list—`(query=‘’, limit=0<=n)`
-- You will be limited to requesting 1 `guild_id`
-- Requesting a prefix will return a maximum of 100 members
+- You will be limited to requesting 1 `guild_id` per request
+- Requesting a prefix (`query` parameter) will return a maximum of 100 members
 - Requesting `user_ids` will continue to be limited to returning 100 members
 
 ###### Guild Request Members Structure
 
 | Field      | Type                             | Description                                                                                                                           | Required                   |
 |------------|----------------------------------|---------------------------------------------------------------------------------------------------------------------------------------|----------------------------|
-| guild_id   | snowflake or array of snowflakes | id of the guild(s) to get members for                                                                                                 | true                       |
+| guild_id   | snowflake                        | id of the guild to get members for                                                                                                    | true                       |
 | query?     | string                           | string that username starts with, or an empty string to return all members                                                            | one of query or user_ids   |
 | limit      | integer                          | maximum number of members to send matching the `query`; a limit of `0` can be used with an empty string `query` to return all members | true when specifying query |
 | presences? | boolean                          | used to specify if we want the presences of the matched members                                                                       | false                      |
@@ -650,6 +656,7 @@ The ready event is dispatched when a client has completed the initial handshake 
 | guilds           | array of [Unavailable Guild](#DOCS_RESOURCES_GUILD/unavailable-guild-object) objects | the guilds the user is in                                                                                     |
 | session_id       | string                                                                               | used for resuming connections                                                                                 |
 | shard?           | array of two integers (shard_id, num_shards)                                         | the [shard information](#DOCS_TOPICS_GATEWAY/sharding) associated with this session, if sent when identifying |
+| application      | partial [application object](#DOCS_TOPICS_OAUTH2/application-object)                 | contains `id` and `flags`                                                                                     | 
 
 #### Resumed
 
@@ -698,11 +705,11 @@ Sent when a message is pinned or unpinned in a text channel. This is not sent wh
 
 ###### Channel Pins Update Event Fields
 
-| Field               | Type              | Description                                                 |
-|---------------------|-------------------|-------------------------------------------------------------|
-| guild_id?           | snowflake         | the id of the guild                                         |
-| channel_id          | snowflake         | the id of the channel                                       |
-| last_pin_timestamp? | ISO8601 timestamp | the time at which the most recent pinned message was pinned |
+| Field               | Type               | Description                                                  |
+|---------------------|--------------------|--------------------------------------------------------------|
+| guild_id?           | snowflake          | the id of the guild                                          |
+| channel_id          | snowflake          | the id of the channel                                        |
+| last_pin_timestamp? | ?ISO8601 timestamp | the time at which the most recent pinned message was pinned  |
 
 ### Guilds
 
@@ -710,7 +717,7 @@ Sent when a message is pinned or unpinned in a text channel. This is not sent wh
 
 This event can be sent in three different scenarios:
 
-1.  When a user is initially connecting, to lazily load and backfill information for all unavailable guilds sent in the [Ready](#DOCS_TOPICS_GATEWAY/ready) event.
+1.  When a user is initially connecting, to lazily load and backfill information for all unavailable guilds sent in the [Ready](#DOCS_TOPICS_GATEWAY/ready) event. Guilds that are unavailable due to an outage will send a [Guild Delete](#DOCS_TOPICS_GATEWAY/guild-delete) event.
 2.  When a Guild becomes available again to the client.
 3.  When the current user joins a new Guild.
 
@@ -725,7 +732,7 @@ Sent when a guild is updated. The inner payload is a [guild](#DOCS_RESOURCES_GUI
 
 #### Guild Delete
 
-Sent when a guild becomes unavailable during a guild outage, or when the user leaves or is removed from a guild. The inner payload is an [unavailable guild](#DOCS_RESOURCES_GUILD/unavailable-guild-object) object. If the `unavailable` field is not set, the user was removed from the guild.
+Sent when a guild becomes or was already unavailable due to an outage, or when the user leaves or is removed from a guild. The inner payload is an [unavailable guild](#DOCS_RESOURCES_GUILD/unavailable-guild-object) object. If the `unavailable` field is not set, the user was removed from the guild.
 
 #### Guild Ban Add
 
@@ -806,14 +813,15 @@ Sent when a guild member is updated. This will also fire when the user object of
 
 ###### Guild Member Update Event Fields
 
-| Field          | Type                                              | Description                                                                                                              |
-|----------------|---------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------|
-| guild_id       | snowflake                                         | the id of the guild                                                                                                      |
-| roles          | array of snowflakes                               | user role ids                                                                                                            |
-| user           | a [user](#DOCS_RESOURCES_USER/user-object) object | the user                                                                                                                 |
-| nick?          | ?string                                           | nickname of the user in the guild                                                                                        |
-| joined_at      | ISO8601 timestamp                                 | when the user joined the guild                                                                                           |
-| premium_since? | ?ISO8601 timestamp                                | when the user starting [boosting](https://support.discord.com/hc/en-us/articles/360028038352-Server-Boosting-) the guild |
+| Field          | Type                                              | Description                                                                                                                            |
+|----------------|---------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------|
+| guild_id       | snowflake                                         | the id of the guild                                                                                                                    |
+| roles          | array of snowflakes                               | user role ids                                                                                                                          |
+| user           | a [user](#DOCS_RESOURCES_USER/user-object) object | the user                                                                                                                               |
+| nick?          | ?string                                           | nickname of the user in the guild                                                                                                      |
+| joined_at      | ISO8601 timestamp                                 | when the user joined the guild                                                                                                         |
+| premium_since? | ?ISO8601 timestamp                                | when the user starting [boosting](https://support.discord.com/hc/en-us/articles/360028038352-Server-Boosting-) the guild               |
+| pending?       | boolean                                           | whether the user has not yet passed the guild's [Membership Screening](#DOCS_RESOURCES_GUILD/membership-screening-object) requirements |
 
 #### Guild Members Chunk
 
@@ -1213,6 +1221,32 @@ Sent when a guild channel's webhook is created, updated, or deleted.
 | guild_id   | snowflake | id of the guild   |
 | channel_id | snowflake | id of the channel |
 
+### Commands
+
+#### Application Command Create
+
+Sent when a new [Slash Command](#DOCS_INTERACTIONS_SLASH_COMMANDS/) is created, relevant to the current user. The inner payload is an [ApplicationCommand](#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommand) object, with an optional extra `guild_id` key.
+
+#### Application Command Update
+
+Sent when a [Slash Command](#DOCS_INTERACTIONS_SLASH_COMMANDS/) relevant to the current user is updated. The inner payload is an [ApplicationCommand](#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommand)) object, with an optional extra `guild_id` key.
+
+#### Application Command Delete
+
+Sent when a [Slash Command](#DOCS_INTERACTIONS_SLASH_COMMANDS/) relevant to the current user is deleted. The inner payload is an [ApplicationCommand](#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommand) object, with an optional extra `guild_id` key.
+
+###### Application Command Extra Fields
+
+| Field     | Type      | Description                       |
+|-------_---|-----------|-----------------------------------|
+| guild_id? | snowflake | id of the guild the command is in |
+
+### Interactions
+
+### Interaction Create
+
+Sent when a user in a guild uses a [Slash Command](#DOCS_INTERACTIONS_SLASH_COMMANDS/). Inner payload is an [Interaction](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction).
+
 ## Get Gateway % GET /gateway
 
 > info
@@ -1252,7 +1286,8 @@ Returns an object based on the information in [Get Gateway](#DOCS_TOPICS_GATEWAY
   "session_start_limit": {
     "total": 1000,
     "remaining": 999,
-    "reset_after": 14400000
+    "reset_after": 14400000,
+    "max_concurrency": 1
   }
 }
 ```
@@ -1261,8 +1296,9 @@ Returns an object based on the information in [Get Gateway](#DOCS_TOPICS_GATEWAY
 
 ###### Session Start Limit Structure
 
-| Field       | Type    | Description                                                        |
-|-------------|---------|--------------------------------------------------------------------|
-| total       | integer | The total number of session starts the current user is allowed     |
-| remaining   | integer | The remaining number of session starts the current user is allowed |
-| reset_after | integer | The number of milliseconds after which the limit resets            |
+| Field           | Type    | Description                                                        |
+| --------------- | ------- | ------------------------------------------------------------------ |
+| total           | integer | The total number of session starts the current user is allowed     |
+| remaining       | integer | The remaining number of session starts the current user is allowed |
+| reset_after     | integer | The number of milliseconds after which the limit resets            |
+| max_concurrency | integer | The number of identify requests allowed per 5 seconds              |
