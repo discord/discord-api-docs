@@ -726,6 +726,9 @@ The inner payload is a [guild](#DOCS_RESOURCES_GUILD/guild-object) object, with 
 > warn
 > If you are using [Gateway Intents](#DOCS_TOPICS_GATEWAY/gateway-intents), members and presences returned in this event will only contain your bot and users in voice channels unless you specify the `GUILD_PRESENCES` intent.
 
+> warn
+> Currently for guilds over 75k members, members and presences returned in this event will only contain your bot and users in voice channels as well.
+
 #### Guild Update
 
 Sent when a guild is updated. The inner payload is a [guild](#DOCS_RESOURCES_GUILD/guild-object) object.
