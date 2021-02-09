@@ -1,8 +1,12 @@
 # Change Log
 
-#### February XX, 2021
+## Slash Commands in DMs
+
+#### February 9, 2021
 
 Slash Commands are now supported in DMs with bots. Due to this change, some of the fields on the [Interaction object](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction) have been made optional. Newly optional fields don't reflect any behavior changes in Slash Commands within guilds; they are to support commands in the context of a DM only.
+
+## Change to Permission Checking when Creating Channels
 
 #### January 22, 2021
 
@@ -38,7 +42,7 @@ Inline Replies have been added to our documentation. They behave differently in 
 
 Stickers are now documented as part of the [message](#DOCS_RESOURCES_CHANNEL/message-object) object. 
 
-## API and Gateway V8
+## Gateway v6 Intent Restrictions
 
 #### October 27, 2020
 
@@ -46,6 +50,8 @@ The v6 gateway now applies the restrictions for gateway intents. This means the 
 Additionally, if privileged intents are not enabled in the application dashboard the bot will not receive the events for those intents.
 
 All other intents are always enabled by default unless specified otherwise by the identify payload. We have made a support article to explain some of the changes and resulting issues with more details: [Gateway Update FAQ](https://dis.gd/gwupdate)
+
+## API and Gateway V8
 
 #### September 24, 2020
 
