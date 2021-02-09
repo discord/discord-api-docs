@@ -1,5 +1,8 @@
 # Slash Commands
 
+> info
+> Slash Commands are currently in a public developer beta. That means that the API could still be subject to change, but we're excited for you to start trying them out and giving your feedback on our [issue tracker](https://github.com/discord/discord-api-docs/issues).
+
 Slash Commands are the new, exciting way to build and interact with apps on Discord.
 
 With Slash Commands, all you have to do is type `/` and you're ready to use your favorite bot. Users can learn everything your bot does and easily find new features as you add them. Validation, error states, and helpful UI walks them through your commands, meaning they can get it right the first time, especially on mobile. You now have one more ally in the fight against your phone's autocorrect.
