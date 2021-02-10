@@ -516,7 +516,7 @@ Used to maintain an active gateway connection. Must be sent every `heartbeat_int
 
 #### Request Guild Members
 
-Used to request all members for a guild or a list of guilds. When initially connecting, the gateway will only send offline members if a guild has less than the `large_threshold` members (value in the [Gateway Identify](#DOCS_TOPICS_GATEWAY/identify)). If a client wishes to receive additional members, they need to explicitly request them via this operation. The server will send [Guild Members Chunk](#DOCS_TOPICS_GATEWAY/guild-members-chunk) events in response with up to 1000 members per chunk until all members that match the request have been sent.
+Used to request all members for a guild or a list of guilds. When initially connecting, if you are using [Gateway Intents](#DOCS_TOPICS_GATEWAY/gateway-intents) and don't have the `GUILD_PRESENCES` intent, or if the guild is over 75k members, it wil only send members who are in voice, plus the member for you (the connecting user). Otherwise, if a guild has more than `large_threshold` members (value in the [Gateway Identify](#DOCS_TOPICS_GATEWAY/identify)), it will only send members who are online, have a role, have a nickname, or are in a voice channel, and if it has under `large_threshold` members, it will send all members. If a client wishes to receive additional members, they need to explicitly request them via this operation. The server will send [Guild Members Chunk](#DOCS_TOPICS_GATEWAY/guild-members-chunk) events in response with up to 1000 members per chunk until all members that match the request have been sent.
 
 Due to our privacy and infrastructural concerns with this feature, there are some limitations that apply:
 
@@ -724,7 +724,7 @@ This event can be sent in three different scenarios:
 The inner payload is a [guild](#DOCS_RESOURCES_GUILD/guild-object) object, with all the extra fields specified.
 
 > warn
-> If your bot does not have the `GUILD_PRESENCES` [Gateway Intent](#DOCS_TOPICS_GATEWAY/gateway-intents) or the guild has over 75k members, members and presences returned in this event will only contain your bot and users in voice channels.
+> If you are using [Gateway Intents](#DOCS_TOPICS_GATEWAY/gateway-intents) and do not have the `GUILD_PRESENCES` intent, or if the guild has over 75k members, members and presences returned in this event will only contain your bot and users in voice channels.
 
 #### Guild Update
 
