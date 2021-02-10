@@ -724,7 +724,7 @@ This event can be sent in three different scenarios:
 The inner payload is a [guild](#DOCS_RESOURCES_GUILD/guild-object) object, with all the extra fields specified.
 
 > warn
-> If you are using [Gateway Intents](#DOCS_TOPICS_GATEWAY/gateway-intents) and do not have the `GUILD_PRESENCES` intent, or if the guild has over 75k members, members and presences returned in this event will only contain your bot and users in voice channels.
+> If your bot does not have the `GUILD_PRESENCES` [Gateway Intent](#DOCS_TOPICS_GATEWAY/gateway-intents), or if the guild has over 75k members, members and presences returned in this event will only contain your bot and users in voice channels.
 
 #### Guild Update
 
