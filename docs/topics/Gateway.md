@@ -1238,7 +1238,7 @@ Sent when a [Slash Command](#DOCS_INTERACTIONS_SLASH_COMMANDS/) relevant to the 
 ###### Application Command Extra Fields
 
 | Field     | Type      | Description                       |
-|-------_---|-----------|-----------------------------------|
+|-----------|-----------|-----------------------------------|
 | guild_id? | snowflake | id of the guild the command is in |
 
 ### Interactions
