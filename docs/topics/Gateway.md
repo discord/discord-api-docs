@@ -1229,7 +1229,7 @@ Sent when a new [Slash Command](#DOCS_INTERACTIONS_SLASH_COMMANDS/) is created, 
 
 #### Application Command Update
 
-Sent when a [Slash Command](#DOCS_INTERACTIONS_SLASH_COMMANDS/) relevant to the current user is updated. The inner payload is an [ApplicationCommand](#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommand)) object, with an optional extra `guild_id` key.
+Sent when a [Slash Command](#DOCS_INTERACTIONS_SLASH_COMMANDS/) relevant to the current user is updated. The inner payload is an [ApplicationCommand](#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommand) object, with an optional extra `guild_id` key.
 
 #### Application Command Delete
 
@@ -1238,7 +1238,7 @@ Sent when a [Slash Command](#DOCS_INTERACTIONS_SLASH_COMMANDS/) relevant to the 
 ###### Application Command Extra Fields
 
 | Field     | Type      | Description                       |
-|-------_---|-----------|-----------------------------------|
+|-----------|-----------|-----------------------------------|
 | guild_id? | snowflake | id of the guild the command is in |
 
 ### Interactions
