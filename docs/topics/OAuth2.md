@@ -344,10 +344,12 @@ When the user navigates to this URL, they will be prompted to select a channel i
   "expires_in": 604800,
   "refresh_token": "PvPL7ELyMDc1836457XCDh1Y8jPbRm",
   "webhook": {
+    "application_id": "310954232226357250",
     "name": "testwebhook",
     "url": "https://discord.com/api/webhooks/347114750880120863/kKDdjXa1g9tKNs0-_yOwLyALC9gydEWP6gr9sHabuK1vuofjhQDDnlOclJeRIvYK-pj_",
     "channel_id": "345626669224982402",
     "token": "kKDdjXa1g9tKNs0-_yOwLyALC9gydEWP6gr9sHabuK1vuofjhQDDnlOclJeRIvYK-pj_",
+    "type": 1,
     "avatar": null,
     "guild_id": "290926792226357250",
     "id": "347114750880120863"
@@ -355,13 +357,7 @@ When the user navigates to this URL, they will be prompted to select a channel i
 }
 ```
 
-From this object, you should store the `webhook.token` and `webhook.id`. To execute a particular webhook, send a `POST` request to:
-
-###### Webhook Execution URL
-
-```
-https://discord.com/api/webhooks/WEBHOOK_ID/WEBHOOK_TOKEN
-```
+From this object, you should store the `webhook.token` and `webhook.id`. See the [execute webhook](#DOCS_RESOURCES_WEBHOOK/execute-webhook) documentation for how to send messages with the webhook.
 
 Any user that wishes to add your webhook to their channel will need to go through the full OAuth2 flow. A new webhook is created each time, so you will need to save the token and id. If you wish to send a message to all your webhooks, you'll need to iterate over each stored id:token combination and make `POST` requests to each one. Be mindful of our [Rate Limits](#DOCS_TOPICS_RATE_LIMITS/rate-limits)!
 
