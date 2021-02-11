@@ -61,6 +61,7 @@ Many of these libraries are represented in the [unofficial, community-driven Dis
   - [DiscordPHP-Slash](https://github.com/discord-php/DiscordPHP-Slash)
 - Other
   - [caddy-discord-interactions-verifier](https://github.com/CarsonHoffman/caddy-discord-interactions-verifier)
+  - [Rauf's Slash Command Generator](https://rauf.wtf/slash)
 
 
 ## Game SDK Tools
