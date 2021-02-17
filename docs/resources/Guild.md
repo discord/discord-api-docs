@@ -71,7 +71,7 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 | Level                 | Integer | Description                                                     |
 | --------------------- | ------- | --------------------------------------------------------------- |
 | DISABLED              | 0       | no media content will be scanned                                |
-| MEMBERS_WITHOUT_ROLES | 1       | media content sent by members without any roles will be scanned | 
+| MEMBERS_WITHOUT_ROLES | 1       | media content sent by members without any roles will be scanned |
 | ALL_MEMBERS           | 2       | media content sent by any member will be scanned                |
 
 ###### MFA Level
