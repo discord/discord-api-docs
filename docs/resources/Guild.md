@@ -76,10 +76,10 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 
 ###### MFA Level
 
-| Level    | Integer |
-| -------- | ------- |
-| NONE     | 0       |
-| ELEVATED | 1       |
+| Level    | Integer | Description                                        |
+| -------- | ------- | -------------------------------------------------- |
+| NONE     | 0       | guild has no MFA/2FA requirement                   |
+| ELEVATED | 1       | guild has a 2FA requirement for moderation actions |
 
 ###### Verification Level
 
