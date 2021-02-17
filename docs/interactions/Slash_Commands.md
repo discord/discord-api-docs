@@ -842,24 +842,29 @@ All options have names, and an option can either be a parameter and input value-
 
 ## Interaction Response
 
-After receiving an interaction, you must respond to acknowledge it. This may be a `pong` for a `ping`, a message, or simply an acknowledgement that you have received it and will handle the command async.
+After receiving an interaction, you must respond to acknowledge it. You can choose to respond with a message immediately using type `4`, or you can choose to send a deferred response with type `5`. If choosing a deferred response, the user will see a loading state for the interaction, and you'll have up to 15 minutes to follow up using [Edit Original Interaction Response](#DOCS_INTERACTIONS_SLASH_COMMANDS/edit-original-interaction-response).
 
-Interaction responses may choose to "eat" the user's command input if you do not wish to have their slash command show up as message in chat. This may be helpful for slash commands, or commands whose responses are asynchronous or ephemeral messages.
+![A deferred response tells the user "Bot name is thinking"](ephemeral-example.png)
+
+Interaction responses can also be public—everyone can see it—or "ephemeral"—only the invoking user can see it. That is determined by setting `flags` to `64` on the [InteractionApplicationCommandCallbackData](#DOCS_INTERACTIONS_SLASH_COMMANDS/InteractionApplicationCommandCallbackData).
 
 | Field | Type                                      | Description                  |
 |-------|-------------------------------------------|------------------------------|
 | type  | InteractionResponseType                   | the type of response         |
 | data? | InteractionApplicationCommandCallbackData | an optional response message |
 
+> warn
+> Interaction response types `2` and `3` have been deprecated
+
 ###### InteractionResponseType
 
 | Name                     | Value | Description                                                       |
 |--------------------------|-------|-------------------------------------------------------------------|
 | Pong                     | 1     | ACK a `Ping`                                                      |
-| Acknowledge              | 2     | ACK a command without sending a message, eating the user's input  |
-| ChannelMessage           | 3     | respond with a message, eating the user's input                   |
-| ChannelMessageWithSource | 4     | respond with a message, showing the user's input                  |
-| AcknowledgeWithSource    | 5     | ACK a command without sending a message, showing the user's input |
+| Acknowledge              | 2     | **DEPRECATED** ACK a command without sending a message, eating the user's input  |
+| ChannelMessage           | 3     | **DEPRECATED** respond with a message, eating the user's input                   |
+| ChannelMessageWithSource | 4     | respond to an interaction with a message                 |
+| DeferredChannelMessageWithSource    | 5     | ACK an interaction and send a response later, the user sees a loading state |
 
 ###### InteractionApplicationCommandCallbackData
 
@@ -871,3 +876,4 @@ Not all message fields are currently supported.
 | content           | string                                                   | message content                                                                             |
 | embeds?           | array of [embeds](#DOCS_RESOURCES_CHANNEL/embed-object)  | supports up to 10 embeds                                                                    |
 | allowed_mentions? | allowed mentions                                         | [allowed mentions](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object) object                  |
+| flags | int | set to `64` to make your response ephemeral |
