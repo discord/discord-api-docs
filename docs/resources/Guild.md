@@ -68,11 +68,11 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 
 ###### Explicit Content Filter Level
 
-| Level                 | Integer |
-| --------------------- | ------- |
-| DISABLED              | 0       |
-| MEMBERS_WITHOUT_ROLES | 1       |
-| ALL_MEMBERS           | 2       |
+| Level                 | Integer | Description                                                     |
+| --------------------- | ------- | --------------------------------------------------------------- |
+| DISABLED              | 0       | no media content will be scanned                                |
+| MEMBERS_WITHOUT_ROLES | 1       | media content sent by members without any roles will be scanned | 
+| ALL_MEMBERS           | 2       | media content sent by any member will be scanned                |
 
 ###### MFA Level
 
