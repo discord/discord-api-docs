@@ -62,6 +62,7 @@ Many of these libraries are represented in the [unofficial, community-driven Dis
 - Other
   - [caddy-discord-interactions-verifier](https://github.com/CarsonHoffman/caddy-discord-interactions-verifier)
   - [Rauf's Slash Command Generator](https://rauf.wtf/slash)
+  - [Slash Commands GUI](https://slash-commands-gui.netlify.app)
 
 
 ## Game SDK Tools
