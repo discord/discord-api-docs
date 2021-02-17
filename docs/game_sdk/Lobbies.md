@@ -45,9 +45,9 @@ lobbyManager.CreateLobby(txn, (result, lobby) =>
   var newTxn = lobbyManager.GetLobbyUpdateTransaction(lobby.id);
   newTxn.SetCapacity(5);
 
-  lobbyManager.UpdateLobby(lobby.id, newTxn, (result, newLobby) =>
+  lobbyManager.UpdateLobby(lobby.id, newTxn, (result) =>
   {
-    Console.WriteLine("lobby {0} updated", newLobby.Id);
+    Console.WriteLine("lobby {0} updated", lobby.Id);
   });
 });
 ```
@@ -128,7 +128,7 @@ Returns `void`.
 ```cs
 var txn = lobbyManager.GetLobbyUpdateTransaction();
 txn.SetType(Discord.LobbyType.Public);
-lobbyManager.UpdateLobby(lobbyId, txn, (Discord.Result result, ref Discord.Lobby lobby) =>
+lobbyManager.UpdateLobby(lobbyId, txn, (Discord.Result result) =>
 {
   if (result == Discord.Result.Ok)
   {
@@ -157,7 +157,7 @@ Returns `void`.
 ```cs
 var txn = lobbyManager.GetLobbyUpdateTransaction();
 txn.SetOwner(53908232506183680);
-lobbyManager.UpdateLobby(lobbyId, txn, (Discord.Result result, ref Discord.Lobby lobby) =>
+lobbyManager.UpdateLobby(lobbyId, txn, (Discord.Result result) =>
 {
   if (result == Discord.Result.Ok)
   {
@@ -183,7 +183,7 @@ Returns `void`.
 ```cs
 var txn = lobbyManager.GetLobbyUpdateTransaction();
 txn.SetCapacity(10);
-lobbyManager.UpdateLobby(lobbyId, txn, (Discord.Result result, ref Discord.Lobby lobby) =>
+lobbyManager.UpdateLobby(lobbyId, txn, (Discord.Result result) =>
 {
   if (result == Discord.Result.Ok)
   {
@@ -210,7 +210,7 @@ Returns `void`.
 ```cs
 var txn = lobbyManager.GetLobbyUpdateTransaction();
 txn.SetMetadata("average_mmr", "4500");
-lobbyManager.UpdateLobby(lobbyId, txn, (Discord.Result result, ref Discord.Lobby lobby) =>
+lobbyManager.UpdateLobby(lobbyId, txn, (Discord.Result result) =>
 {
   if (result == Discord.Result.Ok)
   {
@@ -236,7 +236,7 @@ Returns `void`.
 ```cs
 var txn = lobbyManager.GetLobbyUpdateTransaction();
 txn.DeleteMetadata("average_mmr");
-lobbyManager.UpdateLobby(lobbyId, txn, (Discord.Result result, ref Discord.Lobby lobby) =>
+lobbyManager.UpdateLobby(lobbyId, txn, (Discord.Result result) =>
 {
   if (result == Discord.Result.Ok)
   {
@@ -262,7 +262,7 @@ Returns `void`.
 ```cs
 var txn = lobbyManager.GetLobbyUpdateTransaction();
 txn.SetLocked(true);
-lobbyManager.UpdateLobby(lobbyId, txn, (Discord.Result result, ref Discord.Lobby lobby) =>
+lobbyManager.UpdateLobby(lobbyId, txn, (Discord.Result result) =>
 {
   if (result == Discord.Result.Ok)
   {

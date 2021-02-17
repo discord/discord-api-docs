@@ -18,6 +18,7 @@ Used to represent a user's voice connection status.
 | self_deaf    | boolean                                                          | whether this user is locally deafened          |
 | self_mute    | boolean                                                          | whether this user is locally muted             |
 | self_stream? | boolean                                                          | whether this user is streaming using "Go Live" |
+| self_video   | boolean                                                          | whether this user's camera is enabled          |
 | suppress     | boolean                                                          | whether this user is muted by the current user |
 
 ###### Example Voice State

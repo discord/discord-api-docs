@@ -60,7 +60,7 @@ Small thing to note - the default `login` method works via an OAuth2 bearer toke
 
 First, find the `credentials.json` file at:
 
-- Windows: `C:\User\<you>\.dispatch\credentials.json`
+- Windows: `C:\Users\<you>\.dispatch\credentials.json`
 - macOS: `~/.dispatch/credentials.json`
 
 Inside that, we can use our Bot token for our application that will _not_ be invalidated across different machines.
@@ -139,7 +139,7 @@ This is the top level of the config file. It has an `application` object at the 
 
 We're in the heart of a manifest now! `label` is the name you want to give an individual manifest/bundle of files. Make these easily identifiable so you can reference them later in your store page creation.
 
-`platforms` are the platforms for which the manifest is valid. Most simple configs, like our example, will use the same manifest for `win32` and `win64`, and then make other manifests for `osx` and `linux`. However, some older games may need specific configurations for 32bit and 64bit systems, and therefore need separate manifests.
+`platforms` are the platforms for which the manifest is valid. Most simple configs, like our example, will use the same manifest for `win32` and `win64`, and then make other manifests for `macos` and `linux`. However, some older games may need specific configurations for 32bit and 64bit systems, and therefore need separate manifests.
 
 `locales` is an array of locales for which the manifest is valid; leaving it empty denotes it's valid for all locales. For example, your base game files will probably have an empty `locales` array, but you may other manifests for things like language packs defined for `es-ES` or `fr` or other locales.
 
