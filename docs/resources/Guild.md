@@ -93,12 +93,12 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 
 ###### Premium Tier
 
-| Level  | Integer |
-| ------ | ------- |
-| NONE   | 0       |
-| TIER_1 | 1       |
-| TIER_2 | 2       |
-| TIER_3 | 3       |
+| Level  | Integer | Description                                         |
+| ------ | ------- | --------------------------------------------------- |
+| NONE   | 0       | guild has not unlocked any boost perks              |
+| TIER_1 | 1       | guild has unlocked level 1 boost perks (2+ boosts)  |
+| TIER_2 | 2       | guild has unlocked level 2 boost perks (15+ boosts) |
+| TIER_3 | 3       | guild has unlocked level 3 boost perks (30+ boosts) |
 
 ###### System Channel Flags
 
