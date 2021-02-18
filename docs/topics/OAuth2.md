@@ -365,11 +365,9 @@ https://discord.com/api/webhooks/WEBHOOK_ID/WEBHOOK_TOKEN
 
 Any user that wishes to add your webhook to their channel will need to go through the full OAuth2 flow. A new webhook is created each time, so you will need to save the token and id. If you wish to send a message to all your webhooks, you'll need to iterate over each stored id:token combination and make `POST` requests to each one. Be mindful of our [Rate Limits](#DOCS_TOPICS_RATE_LIMITS/rate-limits)!
 
-## Get Current Application Information % GET /oauth2/applications/@me
+### Application Object
 
-Returns the bot's OAuth2 [application object](#DOCS_TOPICS_OAUTH2/application-object) without `flags`.
-
-###  Application Object
+###### Application Structure
 
 | Field                  | Type                                                       | Description                                                                                                               |
 |------------------------|------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------|
@@ -388,7 +386,7 @@ Returns the bot's OAuth2 [application object](#DOCS_TOPICS_OAUTH2/application-ob
 | primary_sku_id?        | snowflake                                                  | if this application is a game sold on Discord, this field will be the id of the "Game SKU" that is created, if exists     |
 | slug?                  | string                                                     | if this application is a game sold on Discord, this field will be the URL slug that links to the store page               |
 | cover_image?           | string                                                     | if this application is a game sold on Discord, this field will be the hash of the image on store embeds                   |
-| flags                  | int                                                        | the application's public flags                                                                                            |
+| flags                  | int                                                        | the application's public [flags](#DOCS_TOPICS_OAUTH2/application-object-application-flags)                                |
 
 ###### Example Application Information
 
@@ -432,6 +430,24 @@ Returns the bot's OAuth2 [application object](#DOCS_TOPICS_OAUTH2/application-ob
   "verify_key": "1e0a356058d627ca38a5c8c9648818061d49e49bd9da9e3ab17d98ad4d6bg2u8"
 }
 ```
+
+###### Application Flags
+
+| Value   | Name                             |
+|---------|----------------------------------|
+| 1 << 2  | MANAGED_EMOJI                    |
+| 1 << 4  | GROUP_DM_CREATE                  |
+| 1 << 11 | RPC_HAS_CONNECTED                |
+| 1 << 12 | GATEWAY_PRESENCE                 |
+| 1 << 13 | GATEWAY_PRESENCE_LIMITED         |
+| 1 << 14 | GATEWAY_GUILD_MEMBERS            |
+| 1 << 15 | GATEWAY_GUILD_MEMBERS_LIMITED    |
+| 1 << 16 | VERIFICATION_PENDING_GUILD_LIMIT |
+| 1 << 17 | EMBEDDED                         |
+
+## Get Current Application Information % GET /oauth2/applications/@me
+
+Returns the bot's OAuth2 [application object](#DOCS_TOPICS_OAUTH2/application-object) without `flags`.
 
 ## Get Current Authorization Information % GET /oauth2/@me
 
