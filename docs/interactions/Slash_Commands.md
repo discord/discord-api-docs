@@ -123,7 +123,7 @@ headers = {
     "Authorization": "Bot 123456"
 }
 
-# or a client credentials token for your app with the applications.commmands.update scope
+# or a client credentials token for your app with the applications.commands.update scope
 headers = {
     "Authorization": "Bearer abcdefg"
 }
