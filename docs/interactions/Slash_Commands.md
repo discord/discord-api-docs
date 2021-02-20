@@ -822,11 +822,21 @@ An interaction is the base "thing" that is sent when a user invokes a command, a
 
 ###### ApplicationCommandInteractionData
 
-| Field    | Type                                             | Description                       |
-|----------|--------------------------------------------------|-----------------------------------|
-| id       | snowflake                                        | the ID of the invoked command     |
-| name     | string                                           | the name of the invoked command   |
-| options? | array of ApplicationCommandInteractionDataOption | the params + values from the user |
+| Field     | Type                                             | Description                        |
+|-----------|--------------------------------------------------|------------------------------------|
+| id        | snowflake                                        | the ID of the invoked command      |
+| name      | string                                           | the name of the invoked command    |
+| resolved? | ApplicationCommandInteractionDataResolved        | converted users + roles + channels |
+| options?  | array of ApplicationCommandInteractionDataOption | the params + values from the user  |
+
+###### ApplicationCommandInteractionDataResolved
+
+| Field     | Type                | Description                         |
+|-----------|---------------------|-------------------------------------|
+| users?    | dict of ID: User    | the IDs and partial User objects    |
+| members?  | dict of ID: Member  | the IDs and partial Member objects  |
+| roles?    | dict of ID: Role    | the IDs and partial Role objects    |
+| channels? | dict of ID: Channel | the IDs and partial Channel objects |
 
 ###### ApplicationCommandInteractionDataOption
 
