@@ -48,14 +48,21 @@ Many of these libraries are represented in the [unofficial, community-driven Dis
 
 [Interactions and Slash Commands](#DOCS_INTERACTIONS_SLASH_COMMANDS/) are the great, new way of making a Discord bot. The following open-source libraries provide help for the security and authentication checks that are mandatory if you are receiving Interactions via outgoing webhook. They also include some types for the Interactions data models.
 
-- [discord-interactions-js](https://github.com/discord/discord-interactions-js)
-- [discord-interactions-python](https://github.com/discord/discord-interactions-python)
-- [discord-interactions-php](https://github.com/discord/discord-interactions-php)
-- [discord-slash-commands](https://github.com/MeguminSama/discord-slash-commands)
-- [slash-create](https://github.com/Snazzah/slash-create)
-- [caddy-discord-interactions-verifier](https://github.com/CarsonHoffman/caddy-discord-interactions-verifier)
-- [DiscordPHP-Slash](https://github.com/discord-php/DiscordPHP-Slash)
-- [discord-interactions.py](https://github.com/LiBa001/discord-interactions.py)
+- Javascript
+  - [discord-interactions-js](https://github.com/discord/discord-interactions-js)
+  - [slash-create](https://github.com/Snazzah/slash-create)
+  - [discord-slash-commands](https://github.com/MeguminSama/discord-slash-commands)
+- Python
+  - [discord-py-slash-command](https://github.com/eunwoo1104/discord-py-slash-command)
+  - [discord-interactions-python](https://github.com/discord/discord-interactions-python)
+  - [dispike](https://github.com/ms7m/dispike)
+  - [discord-interactions.py](https://github.com/LiBa001/discord-interactions.py)
+- PHP
+  - [discord-interactions-php](https://github.com/discord/discord-interactions-php)
+  - [DiscordPHP-Slash](https://github.com/discord-php/DiscordPHP-Slash)
+- Other
+  - [caddy-discord-interactions-verifier](https://github.com/CarsonHoffman/caddy-discord-interactions-verifier)
+  - [Rauf's Slash Command Generator](https://rauf.wtf/slash)
 
 ## Game SDK Tools
 
@@ -78,7 +85,7 @@ Using Discord's [Dispatch](#DOCS_DISPATCH_DISPATCH_AND_YOU) tool for game develo
 
 ## Intent Calculators
 
-[Gateway Intents](#DOCS_TOPICS_GATEWAY/gateway-intents) are pretty confusing at first. If you're not sure what to send in your [identify payload](#DOCS_TOPICS_GATEWAY/identify), then this tool may be of help:
+[Gateway Intents](#DOCS_TOPICS_GATEWAY/gateway-intents) are pretty confusing at first. If you're not sure what to send in your [identify payload](#DOCS_TOPICS_GATEWAY/identify), then these tools may be of help:
 
 - [ziad87's Intent Calculator](https://ziad87.net/intents/)
 - [Larko's Intent Calculator](https://intents.aymdj.me/)

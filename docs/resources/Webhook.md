@@ -152,7 +152,7 @@ Add a new webhook to your GitHub repo (in the repo's settings), and use this end
 
 ## Edit Webhook Message % PATCH /webhooks/{webhook.id#DOCS_RESOURCES_WEBHOOK/webhook-object}/{webhook.token#DOCS_RESOURCES_WEBHOOK/webhook-object}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}
 
-Edits a previously-sent webhook message from the same token.
+Edits a previously-sent webhook message from the same token. Returns a [message](#DOCS_RESOURCES_CHANNEL/message-object) object on success.
 
 > info
 > All parameters to this endpoint are optional and nullable.
