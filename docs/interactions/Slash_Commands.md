@@ -831,12 +831,16 @@ An interaction is the base "thing" that is sent when a user invokes a command, a
 
 ###### ApplicationCommandInteractionDataResolved
 
-| Field     | Type                | Description                         |
-|-----------|---------------------|-------------------------------------|
-| users?    | dict of ID: User    | the IDs and partial User objects    |
-| members?  | dict of ID: Member  | the IDs and partial Member objects  |
-| roles?    | dict of ID: Role    | the IDs and partial Role objects    |
-| channels? | dict of ID: Channel | the IDs and partial Channel objects |
+| Field         | Type                | Description                         |
+|---------------|---------------------|-------------------------------------|
+| users?        | JSON of ID: User    | the IDs and User objects            |
+| members?\*    | JSON of ID: Member  | the IDs and partial Member objects  |
+| roles?        | JSON of ID: Role    | the IDs and Role objects            |
+| channels?\*\* | JSON of ID: Channel | the IDs and partial Channel objects |
+
+\* Partial `Member` objects are missing `user`, `deaf` and `mute` fields
+
+\*\* Partial `Channel` objects only have `id`, `name`, `type` and `permissions` fields
 
 ###### ApplicationCommandInteractionDataOption
 
