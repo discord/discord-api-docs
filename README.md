@@ -19,7 +19,7 @@ Links between docs can be achieved by using a hash symbol (#), plus the markdown
 ### Alert Boxes
 Alert boxes are achieved by using a block quote that has one of 'warn', 'danger' or 'info' on the first line.
 
-## Join the Unofficial Discord API Server
+## Unofficial Discord API Server
 The Unofficial Discord API server is a common hangout for library and bot developers alike. It's a great starting point for those looking to dive in and learn bot-creation with the Discord API.
 
-[![Widget for the Discord API guild](https://discord.com/api/guilds/81384788765712384/widget.png?style=banner1)](https://discord.gg/discord-api)
+[![Widget for the Discord API guild](https://discord.com/api/guilds/81384788765712384/widget.png?style=banner2)](https://discord.gg/discord-api)
