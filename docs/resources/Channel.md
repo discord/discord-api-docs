@@ -259,11 +259,12 @@ Represents a message sent in a channel within Discord.
 
 ###### Message Reference Structure
 
-| Field       | Type      | Description                             |
-|-------------|-----------|-----------------------------------------|
-| message_id? | snowflake | id of the originating message           |
-| channel_id? \*  | snowflake | id of the originating message's channel |
-| guild_id?   | snowflake | id of the originating message's guild   |
+| Field               | Type      | Description                                                                                                                             |
+|---------------------|-----------|-----------------------------------------------------------------------------------------------------------------------------------------|
+| message_id?         | snowflake | id of the originating message                                                                                                           |
+| channel_id? \*      | snowflake | id of the originating message's channel                                                                                                 |
+| guild_id?           | snowflake | id of the originating message's guild                                                                                                   |
+| fail_if_not_exists? | boolean   | when sending, whether to error if the referenced message doesn't exist instead of sending as a normal (non-reply) message, default true |
 
 \* `channel_id` is optional when creating a reply, but will always be present when receiving an event/response that includes this data model.
 
@@ -729,32 +730,35 @@ Returns a specific message in the channel. If operating on a guild channel, this
 > warn
 > Discord may strip certain characters from message content, like invalid unicode characters or characters which cause unexpected message formatting. If you are passing user-generated strings into message content, consider sanitizing the data to prevent unexpected behavior and utilizing `allowed_mentions` to prevent unexpected mentions.
 
-Post a message to a guild text or DM channel. If operating on a guild channel, this endpoint requires the `SEND_MESSAGES` permission to be present on the current user. If the `tts` field is set to `true`, the `SEND_TTS_MESSAGES` permission is required for the message to be spoken. Returns a [message](#DOCS_RESOURCES_CHANNEL/message-object) object. Fires a [Message Create](#DOCS_TOPICS_GATEWAY/message-create) Gateway event. See [message formatting](#DOCS_REFERENCE/message-formatting) for more information on how to properly format messages.
+Post a message to a guild text or DM channel. Returns a [message](#DOCS_RESOURCES_CHANNEL/message-object) object. Fires a [Message Create](#DOCS_TOPICS_GATEWAY/message-create) Gateway event. See [message formatting](#DOCS_REFERENCE/message-formatting) for more information on how to properly format messages.
 
-The maximum request size when sending a message is 8MB.
+###### Limitations
 
-This endpoint supports requests with `Content-Type`s of both `application/json` and `multipart/form-data`. You must however use `multipart/form-data` when uploading files. Note that when sending `multipart/form-data` requests the `embed` field cannot be used, however you can pass a JSON encoded body as form value for `payload_json`, where additional request parameters such as `embed` can be set.
+- When operating on a guild channel, the current user must have the `SEND_MESSAGES` permission.
+- When sending a message with `tts` (text-to-speech) set to `true`, the current user must have the `SEND_TTS_MESSAGES` permission.
+- When creating a message as a reply to another message, the current user must have the `READ_MESSAGE_HISTORY` permission.
+    - The referenced message must exist and cannot be a system message.
+- The maximum request size when sending a message is **8MB**
+- For the embed object, you can set every field except `type` (it will be `rich` regardless of if you try to set it), `provider`, `video`, and any `height`, `width`, or `proxy_url` values for images.
+- **Files can only be uploaded when using the `multipart/form-data` content type.**
 
-> info
-> Note that when sending `application/json` you must send at least one of `content` or `embed`, and when sending `multipart/form-data`, you must send at least one of `content`, `embed` or `file`. For a `file` attachment, the `Content-Disposition` subpart header MUST contain a `filename` parameter.
+You may create a message as a reply to another message. To do so, include a [`message_reference`](#DOCS_RESOURCES_CHANNEL/message-object-message-reference-structure) with a `message_id`. The `channel_id` and `guild_id` in the `message_reference` are optional, but will be validated if provided.
 
-You may create a message as a reply to another message. To do so, include a [`message_reference`](#DOCS_RESOURCES_CHANNEL/message-object-message-reference-structure) with a `message_id`. This requires the `READ_MESSAGE_HISTORY` permission, and the referenced message must exist and cannot be a system message. The `channel_id` and `guild_id` in the `message_reference` are optional, but will be validated if provided.
+This endpoint supports requests with `Content-Type`s of both `application/json` and `multipart/form-data`. Refer to the following sections for more information.
 
-###### Params
-
-| Field            | Type                                                                       | Description                                             |
-|------------------|----------------------------------------------------------------------------|---------------------------------------------------------|
-| content          | string                                                                     | the message contents (up to 2000 characters)            |
-| nonce            | integer or string                                                          | a nonce that can be used for optimistic message sending |
-| tts              | boolean                                                                    | true if this is a TTS message                           |
-| file             | file contents                                                              | the contents of the file being sent                     |
-| embed            | [embed](#DOCS_RESOURCES_CHANNEL/embed-object) object                       | embedded `rich` content                                 |
-| payload_json     | string                                                                     | JSON encoded body of any additional request fields.     |
-| allowed_mentions | [allowed_mentions](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object) object | allowed mentions for a message                          |
-| message_reference | [message reference](#DOCS_RESOURCES_CHANNEL/message-object-message-reference-structure) | include to make your message a reply |
+###### Parameters for `content-type: application/json`
 
 > info
-> For the embed object, you can set every field except `type` (it will be `rich` regardless of if you try to set it), `provider`, `video`, and any `height`, `width`, or `proxy_url` values for images.
+> Note that when sending `application/json` you must send at **least one of** `content` or `embed`.
+
+| Field             | Type                                                                                    | Description                                             |
+|-------------------|-----------------------------------------------------------------------------------------|---------------------------------------------------------|
+| content           | string                                                                                  | the message contents (up to 2000 characters)            |
+| nonce             | integer or string                                                                       | a nonce that can be used for optimistic message sending |
+| tts               | boolean                                                                                 | true if this is a TTS message                           |
+| embed             | [embed](#DOCS_RESOURCES_CHANNEL/embed-object) object                                    | embedded `rich` content                                 |
+| allowed_mentions  | [allowed_mentions](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object) object              | allowed mentions for a message                          |
+| message_reference | [message reference](#DOCS_RESOURCES_CHANNEL/message-object-message-reference-structure) | include to make your message a reply                    |
 
 ###### Example Request Body (application/json)
 
@@ -769,25 +773,67 @@ You may create a message as a reply to another message. To do so, include a [`me
 }
 ```
 
+###### Parameters for `content-type: multipart/form-data`
+
+> info
+> Note that when sending `multipart/form-data`, you must provide a value for at **least one of** `content`, `embed` or `file`. For a `file` attachment, the `Content-Disposition` subpart header MUST contain a `filename` parameter.
+
+> warning
+> This endpoint supports **all** the same fields as its `application/json` counterpart, however they must be set in `payload_json` rather than provided as form fields.
+> Some fields (documented below) can be provided as `form-data` fields, but **if you supply a `payload_json`, all fields except for `file` fields will be ignored**.
+
+| Field             | Type              | Description                                             |
+|-------------------|-------------------|---------------------------------------------------------|
+| content           | string            | the message contents (up to 2000 characters)            |
+| nonce             | integer or string | a nonce that can be used for optimistic message sending |
+| tts               | boolean           | true if this is a TTS message                           |
+| file              | file contents     | the contents of the file being sent                     |
+| payload_json      | string            | JSON encoded body of any additional request fields.     |
+
 ###### Example Request Bodies (multipart/form-data)
 
-| Field Name   | Form Value                                                                                                                       |
-|--------------|----------------------------------------------------------------------------------------------------------------------------------|
-| payload_json | `"content": "Hello, World!", "tts": false, "embed": { "title": "Hello, Embed!", "description": "This is an embedded message." }` |
-| file         | file contents                                                                                                                    |
+Note that these examples are small sections of an HTTP request to demonstrate behaviour of this endpoint - client libraries will set their own form boundaries, `boundary` is just an example. For more information, refer to the [multipart/form-data spec](https://tools.ietf.org/html/rfc7578#section-4).
 
-| Field Name | Form Value    |
-|------------|---------------|
-| content    | Hello, World! |
-| tts        | false         |
-| file       | file contents |
+This example demonstrates usage of the endpoint *without* `payload_json`.
 
-> warn
-> When sending `payload_json` in multipart requests, fields except for `file` are ignored.
+```
+--boundary
+Content-Disposition: form-data; name="content"
+Hello, World!
+--boundary
+Content-Disposition: form-data; name="tts"
+true
+--boundary--
+```
+
+This example demonstrates usage of the endpoint *with* `payload_json` and all content fields (`content`, `embed`, `file`) set.
+```
+--boundary
+Content-Disposition: form-data; name="payload_json"
+Content-Type: application/json
+{
+  "content": "Hello, World!",
+  "embed": {
+    "title": "Hello, Embed!",
+    "description": "This is an embedded message."
+  },
+  "message_reference": {
+    "message_id": "233648473390448641"
+  }
+}
+--boundary
+Content-Disposition: form-data; name="file"; filename="myfilename.png"
+Content-Type: image/png
+[image bytes]
+--boundary--
+```
 
 ###### Using Attachments within Embeds
 
 You can upload attachments when creating a message and use those attachments within your embed. To do this, you will want to upload files as part of your `multipart/form-data` body. Make sure that you're uploading files that contain a filename, as you will need a filename to reference against.
+
+> warn
+> Only filenames with proper image extensions are supported for the time being.
 
 In the embed object, you can then set an image to use an attachment as its url with our attachment scheme syntax: `attachment://filename.png`
 
@@ -802,9 +848,6 @@ For example:
   }
 }
 ```
-
-> warn
-> Only filenames with proper image extensions are supported for the time being.
 
 ## Crosspost Message % POST /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}/crosspost
 
@@ -912,9 +955,9 @@ Create a new [invite](#DOCS_RESOURCES_INVITE/invite-object) object for the chann
 ###### JSON Params
 
 | Field             | Type    | Description                                                                                         | Default          |
-|-------------------|---------|-----------------------------------------------------------------------------------------------------|------------------|
-| max_age           | integer | duration of invite in seconds before expiry, or 0 for never                                         | 86400 (24 hours) |
-| max_uses          | integer | max number of uses or 0 for unlimited                                                               | 0                |
+| ----------------- | ------- | --------------------------------------------------------------------------------------------------- | ---------------- |
+| max_age           | integer | duration of invite in seconds before expiry, or 0 for never. between 0 and 604800 (7 days)          | 86400 (24 hours) |
+| max_uses          | integer | max number of uses or 0 for unlimited. between 0 and 100                                            | 0                |
 | temporary         | boolean | whether this invite only grants temporary membership                                                | false            |
 | unique            | boolean | if true, don't try to reuse a similar invite (useful for creating many unique one time use invites) | false            |
 | target_user?      | string  | the target user id for this invite                                                                  |                  |
