@@ -70,16 +70,16 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 
 | Level                 | Integer | Description                                                     |
 | --------------------- | ------- | --------------------------------------------------------------- |
-| DISABLED              | 0       | no media content will be scanned                                |
-| MEMBERS_WITHOUT_ROLES | 1       | media content sent by members without any roles will be scanned |
-| ALL_MEMBERS           | 2       | media content sent by any member will be scanned                |
+| DISABLED              | 0       | media content will not be scanned                               |
+| MEMBERS_WITHOUT_ROLES | 1       | media content sent by members without roles will be scanned     |
+| ALL_MEMBERS           | 2       | media content sent by all members will be scanned               |
 
 ###### MFA Level
 
-| Level    | Integer | Description                                        |
-| -------- | ------- | -------------------------------------------------- |
-| NONE     | 0       | guild has no MFA/2FA requirement                   |
-| ELEVATED | 1       | guild has a 2FA requirement for moderation actions |
+| Level    | Integer | Description                                             |
+| -------- | ------- | --------------------------------------------------------|
+| NONE     | 0       | guild has no MFA/2FA requirement for moderation actions |
+| ELEVATED | 1       | guild has a 2FA requirement for moderation actions      |
 
 ###### Verification Level
 
