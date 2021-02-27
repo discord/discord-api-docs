@@ -792,25 +792,29 @@ This endpoint supports requests with `Content-Type`s of both `application/json` 
 
 ###### Example Request Bodies (multipart/form-data)
 
-Note that these examples are small sections of an HTTP request to demonstrate behaviour of this endpoint - client libraries will set their own form boundaries, `boundary` is just an example. For more information, refer to the [multipart/form-data spec](https://tools.ietf.org/html/rfc7578#section-4).
+Note that these examples are small sections of an HTTP request to demonstrate behaviour of this endpoint - client libraries will set their own form boundaries, `boundary` is just an example. Newlines should be `\r\n` style. For more information, refer to the [multipart/form-data spec](https://tools.ietf.org/html/rfc7578#section-4).
 
 This example demonstrates usage of the endpoint *without* `payload_json`.
 
 ```
 --boundary
 Content-Disposition: form-data; name="content"
+
 Hello, World!
 --boundary
 Content-Disposition: form-data; name="tts"
+
 true
 --boundary--
 ```
 
 This example demonstrates usage of the endpoint *with* `payload_json` and all content fields (`content`, `embed`, `file`) set.
+
 ```
 --boundary
 Content-Disposition: form-data; name="payload_json"
 Content-Type: application/json
+
 {
   "content": "Hello, World!",
   "embed": {
@@ -824,6 +828,7 @@ Content-Type: application/json
 --boundary
 Content-Disposition: form-data; name="file"; filename="myfilename.png"
 Content-Type: image/png
+
 [image bytes]
 --boundary--
 ```
