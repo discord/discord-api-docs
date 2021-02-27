@@ -648,7 +648,7 @@ Returns a [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) object for t
 Returns a list of [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) objects that are members of the guild.
 
 > warn
-> In the future, this endpoint will be restricted in line with our [Privileged Intents](#DOCS_TOPICS_GATEWAY/privileged-intents)
+> Currently, this endpoint requires the SERVER MEMBERS [Privileged Intent](#DOCS_TOPICS_GATEWAY/privileged-intents)
 
 > info
 > All parameters to this endpoint are optional
