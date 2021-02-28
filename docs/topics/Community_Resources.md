@@ -52,6 +52,7 @@ Many of these libraries are represented in the [unofficial, community-driven Dis
   - [discord-interactions-js](https://github.com/discord/discord-interactions-js)
   - [slash-create](https://github.com/Snazzah/slash-create)
   - [discord-slash-commands](https://github.com/MeguminSama/discord-slash-commands)
+  - [deno-discord-slash-commands](https://deno.land/x/discord_slash_commands)
 - Python
   - [discord-py-slash-command](https://github.com/eunwoo1104/discord-py-slash-command)
   - [discord-interactions-python](https://github.com/discord/discord-interactions-python)
