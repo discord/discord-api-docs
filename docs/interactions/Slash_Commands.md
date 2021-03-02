@@ -15,14 +15,18 @@ Let's get started!
 
 In this documentation you'll find some notes about limits and caps on certain parts of Slash Commands. At a high level, they are as follows:
 
-- An app can have up to 50 top-level global commands (50 commands with unique names)
-- An app can have up to an additional 50 guild commands per guild
-- An app can have up to 10 subcommand groups on a top-level command
-- An app can have up to 10 subcommands within a subcommand group
-- `choices` can have up to 10 values per option
-- commands can have up to 10 `options` per command
+- An app can have up to 100 top-level global commands with unique names
+- An app can have up to an additional 100 guild commands per guild
+- An app can have up to 25 subcommand groups on a top-level command
+- An app can have up to 25 subcommands within a subcommand group
+- commands can have up to 25 `options`
+- options can have up to 25 `choices`
+- Maximum of 4000 characters for combined name, description, and value properties for each command and its children
 - Limitations on [command names](#DOCS_INTERACTIONS_SLASH_COMMANDS/registering-a-command)
 - Limitations on [nesting subcommands and groups](#DOCS_INTERACTIONS_SLASH_COMMANDS/nested-subcommands-and-groups)
+- Rate limitation of 2 requests per 60 seconds for batch update
+- Rate limitation of 5 requests per 20 seconds for all other routes
+- Global rate limitation of 200 application command creates per day per guild
 
 These are the limits and caps for the initial release, but **they can be subject to change with your feedback.** If you would like to leave feedback about Slash Commands--limits, features, or otherwise--please open a ticket on our [Github Issue Tracker](https://github.com/discord/discord-api-docs/issues) using the `Slash Commands` templates.
 
@@ -788,10 +792,10 @@ An application command is the base "command" model that belongs to an applicatio
 
 If you specify `choices` for an option, they are the **only** valid values for a user to pick
 
-| Field | Type          | Description         |
-|-------|---------------|---------------------|
-| name  | string        | 1-100 character choice name |
-| value | string or int | value of the choice |
+| Field | Type          | Description                                     |
+|-------|---------------|-------------------------------------------------|
+| name  | string        | 1-100 character choice name                     |
+| value | string or int | value of the choice, 0-100 characters if string |
 
 ## Interaction
 
