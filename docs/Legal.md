@@ -32,11 +32,11 @@ You will comply with all applicable privacy laws and regulations including those
 
 ## b. Implement Good Security. 
 
-You will use commercially reasonable efforts to protect data collected by your API Client, including PII, from unauthorized access or use. These efforts will include, but are not limited to, encryption of this data at rest. You will promptly report to your users any unauthorized access or use of such information to the extent required by applicable law.
+You will use commercially reasonable efforts to protect data collected by your API Client, including PII, from unauthorized access or use. These efforts will include but are not limited to, encryption of this data at rest. You will promptly report to your users any unauthorized access or use of such information to the extent required by applicable law.
 
 # Section 3: API Clients and Monitoring
 
-The APIs are designed to help you enhance your API Client. You agree to respond promptly to our requests to verify and audit your compliance with these Terms. YOU AGREE THAT DISCORD MAY MONITOR USE OF THE APIS TO ENSURE QUALITY, IMPROVE DISCORD PRODUCTS AND SERVICES, AND VERIFY YOUR COMPLIANCE WITH THE TERMS. This monitoring may include Discord accessing and using your API Client, for example to identify security issues that could affect Discord or its users. You will not interfere with this monitoring. Discord may use any technical means to overcome such interference. 
+The APIs are designed to help you enhance your API Client. You agree to respond promptly to our requests to verify and audit your compliance with these Terms. YOU AGREE THAT DISCORD MAY MONITOR USE OF THE APIS TO ENSURE QUALITY, IMPROVE DISCORD PRODUCTS AND SERVICES, AND VERIFY YOUR COMPLIANCE WITH THE TERMS. This monitoring may include Discord accessing and using your API Client, for example, to identify security issues that could affect Discord or its users. You will not interfere with this monitoring. Discord may use any technical means to overcome such interference. 
 
 # Section 4: IP, DMCA, and Confidentiality
 
@@ -44,24 +44,24 @@ The APIs are designed to help you enhance your API Client. You agree to respond 
 
 Discord does not acquire ownership in your API Clients, and by using our APIs, you do not acquire ownership of any rights in our APIs or the content that is accessed through our APIs.
 
-Some of the software required by or included in our APIs may be offered under an open source license. Open source software licenses constitute separate written agreements. For certain APIs, open source software is listed in the documentation. To the limited extent the open source software license expressly supersedes the Terms, the open source license instead sets forth your agreement with Discord for the applicable open source software.
+Some of the software required by or included in our APIs may be offered under an open-source license. Open-source software licenses constitute separate written agreements. For certain APIs, open-source software is listed in the documentation. To the limited extent the open-source software license expressly supersedes the Terms, the open-source license instead sets forth your agreement with Discord for the applicable open-source software.
 
 If you provide feedback or suggestions about our APIs, then we (and those we allow) may use such information without obligation to you.
 
 ## b. Discord DMCA Policy
 
-We can't determine whether something is being used legally or not without copyright holder’s input. We respond to notices of alleged copyright infringement and terminate accounts of repeat infringers according to the process set out in the U.S. Digital Millennium Copyright Act. If you think somebody is violating your copyrights and want to notify us, you can find information about submitting notices and Discord's policy about responding to notices in our [Terms of Service](https://discord.com/terms).
+We can't determine whether something is being used legally or not without the copyright holder’s input. We respond to notices of alleged copyright infringement and terminate accounts of repeat infringers according to the process set out in the U.S. Digital Millennium Copyright Act. If you think somebody is violating your copyrights and want to notify us, you can find information about submitting notices and Discord's policy about responding to notices in our [Terms of Service](https://discord.com/terms).
 
 ## c. Confidential Matters
 
 1. Developer credentials (such as passwords, keys, and client secrets) are intended to be used by you and identify your API Client. You will keep your credentials confidential and make reasonable efforts to prevent and discourage other API Clients from using your credentials. Developer credentials may not be embedded in open source projects.
-2. Our communications to you and our APIs may contain Discord confidential information. Discord confidential information includes any materials, communications, and information that are marked confidential or that would normally be considered confidential under the circumstances. If you receive any such information, then you will not disclose it to any third party without Discord's prior written consent unless required by law with reasonable prior notice to us (unless a court orders that we not receive notice).
+2. Our communications to you and our APIs may contain Discord confidential information. Discord confidential information includes any materials, communications, and information that are marked confidential or that would normally be considered confidential under the circumstances. If you receive any such information, then you will not disclose it to any third party without Discord's prior written consent unless required by law with reasonable prior notice to us (unless court orders that we do not receive notice).
 
 # Section 5: Content
 
 ## a. Content Accessible Through our APIs
 
-Our APIs contain some third-party content (such as text, images, videos, audio, or software). This content is the sole responsibility of the person that makes it available and you are solely responsible for your decision to use or distribute any of this content. While we may sometimes review content to determine whether it is illegal or violates our policies or the Terms, and we may remove or refuse to display content, we make no representations or warranties about the content, its appropriateness, legality, pedigree or other details. Finally, content accessible through our APIs may be subject to intellectual property rights, and, if so, you may not use it unless you are licensed to do so by the owner of that content or are otherwise permitted by law. Your access to the content provided by the API may be restricted, limited, or filtered in accordance with applicable law, regulation, and policy.
+Our APIs contain some third-party content (such as text, images, videos, audio, or software). This content is the sole responsibility of the person that makes it available and you are solely responsible for your decision to use or distribute any of this content. While we may sometimes review content to determine whether it is illegal or violates our policies or the Terms, and we may remove or refuse to display content, we make no representations or warranties about the content, its appropriateness, legality, pedigree, or other details. Finally, content accessible through our APIs may be subject to intellectual property rights, and, if so, you may not use it unless you are licensed to do so by the owner of that content or are otherwise permitted by law. Your access to the content provided by the API may be restricted, limited, or filtered in accordance with applicable law, regulation, and policy.
 
 ## b. Submission of Content
 
@@ -75,11 +75,11 @@ Some of our APIs allow the submission of content. Discord does not acquire any o
  
 ## b. Attribution
 
-You agree to display any attribution(s) required by Discord as described in the documentation for the API. Discord hereby grants to you a nontransferable, nonsublicenseable, nonexclusive license while the Terms are in effect to display Discord’s Brand Features for the purpose of promoting or advertising that you use the APIs. You must only use the Discord Brand Features in accordance with the Terms and for the purpose of fulfilling your obligations under this Section. In using Discord’s Brand Features, you must follow the [Discord Brand Features Use Guidelines](https://discord.com/branding). You understand and agree that Discord has the sole discretion to determine whether your attribution(s) and use of Discord's Brand Features are in accordance with the above requirements and guidelines.
+You agree to display any attribution(s) required by Discord as described in the documentation for the API. Discord hereby grants to you a non-transferable, non-sublicensable, nonexclusive license while the Terms are in effect to display Discord’s Brand Features for the purpose of promoting or advertising that you use the APIs. You must only use the Discord Brand Features in accordance with the Terms and for the purpose of fulfilling your obligations under this Section. In using Discord’s Brand Features, you must follow the [Discord Brand Features Use Guidelines](https://discord.com/branding). You understand and agree that Discord has the sole discretion to determine whether your attribution(s) and use of Discord's Brand Features are in accordance with the above requirements and guidelines.
 
 ## c. Publicity
 
-You will not make any statement regarding your use of an API which suggests partnership with, sponsorship by, or endorsement by Discord without a Discord officer’s prior written approval.
+You will not make any statement regarding your use of an API that suggests partnership with, sponsorship by, or endorsement by Discord without a Discord officer’s prior written approval.
 
 ## d. Promotional and Marketing Use
 
@@ -89,7 +89,7 @@ In the course of promoting, marketing, or demonstrating the APIs you are using a
 
 ## a. Termination
 
-You may stop using our APIs at any time with or without notice. Discord reserves the right to terminate the Terms with you or discontinue the APIs or any portion or feature or your access thereto if you violate any of these Terms, if we believe your Application harms us or our users, or at our convenience upon notice to you. 
+You may stop using our APIs at any time with or without notice. Discord reserves the right to terminate the Terms with you or discontinue the APIs or any portion or feature or your access thereto if you violate any of these Terms if we believe your Application harms us or our users, or at our convenience upon notice to you. 
 
 ## b. Your Obligations Post-Termination
 
@@ -97,7 +97,7 @@ Upon any termination of the Terms or discontinuation of your access to an API, y
 
 ## c. Surviving Provisions
 
-When the Terms come to an end, those terms that by their nature are intended to continue indefinitely will continue to apply, including but not limited to: Sections 4b, 5, 7, 8, and 9.
+When the Terms come to an end, those terms that by their nature are intended to continue indefinitely will continue to apply, including but not limited to Sections 4b, 5, 7, 8, and 9.
 
 # Section 8: Liability for our APIs
 
@@ -122,7 +122,7 @@ Unless prohibited by applicable law, you will defend and indemnify Discord, and 
 1. your actual or alleged misuse or your end users’ misuse of the APIs;
 2. your actual or alleged violation or your end users’ violation of the Terms; 
 3. your actual or alleged infringement of any third party’s intellectual property rights or rights to privacy or publicity; or
-4. any content or data routed into or used with the APIs by you, those acting on your behalf, or your end users.
+4. any content or data routed into or used with the APIs by you, those acting on your behalf, or your end-users.
 
 # Section 9: General Provisions
 
@@ -136,17 +136,17 @@ The APIs were developed solely at private expense and are commercial computer so
 
 ## c. Choice of Law; Dispute Resolution
 
-Except as set forth below the laws of California, U.S.A., excluding California's conflict of laws rules, will apply to any disputes arising out of or related to the Terms or the APIs.
+Except as set forth below the laws of California, the U.S.A., excluding California's conflict of laws rules, will apply to any disputes arising out of or related to the Terms or the APIs.
 
-This Agreement shall be interpreted, construed and enforced in all respects in accordance with the internal laws of the State of California, U.S.A., without regard to its principles of conflicts of law. If you have a dispute with Discord arising out of or in connection with the subject matter covered by these Terms, you agree to first contact us and attempt to resolve the dispute with us informally. If we aren’t able to resolve the dispute informally, you and we each agree that any claim or dispute between you and the Company that arises in whole or in part from these Terms or your use of the API shall be decided exclusively by a court of competent jurisdiction located in San Francisco County, California, and you hereby consent to, and waive all defenses of lack of personal jurisdiction and forum non conveniens with respect to venue and jurisdiction in the state and federal courts of San Francisco County, California.
+This Agreement shall be interpreted, construed, and enforced in all respects in accordance with the internal laws of the State of California, U.S.A., without regard to its principles of conflicts of law. If you have a dispute with Discord arising out of or in connection with the subject matter covered by these Terms, you agree to first contact us and attempt to resolve the dispute with us informally. If we aren’t able to resolve the dispute informally, you and we each agree that any claim or dispute between you and the Company that arises in whole or in part from these Terms or your use of the API shall be decided exclusively by a court of competent jurisdiction located in San Francisco County, California, and you hereby consent to and waive all defenses of lack of personal jurisdiction and forum non conveniens with respect to venue and jurisdiction in the state and federal courts of San Francisco County, California.
 
 If you are accepting the Terms on behalf of a United States city, county, or state government entity, then the following applies instead of the paragraph above: the parties agree to remain silent regarding governing law and venue.
 
 ## d. General Legal Terms
 
-We each agree to contract in the English language. If we provide a translation of the Terms, we do so for your convenience only and the English Terms will solely govern our relationship. The Terms do not create any third party beneficiary rights or any agency, partnership, or joint venture. Nothing in the Terms will limit either party's ability to seek injunctive relief. We are not liable for failure or delay in performance to the extent caused by circumstances beyond our reasonable control. If you do not comply with the Terms, and Discord does not take action right away, this does not mean that Discord is giving up any rights that it may have (such as taking action in the future). If it turns out that a particular term is not enforceable, this will not affect any other terms. The Terms are the entire agreement between you and Discord relating to its subject and supersede any prior or contemporaneous agreements on that subject. For information about how to contact Discord, please visit our [Terms of Service](https://discord.com/terms).
+We each agree to contract in the English language. If we provide a translation of the Terms, we do so for your convenience only and the English Terms will solely govern our relationship. The Terms do not create any-third party beneficiary rights or any agency, partnership, or joint venture. Nothing in the Terms will limit either party's ability to seek injunctive relief. We are not liable for failure or delay in performance to the extent caused by circumstances beyond our reasonable control. If you do not comply with the Terms, and Discord does not take action right away, this does not mean that Discord is giving up any rights that it may have (such as taking action in the future). If it turns out that a particular term is not enforceable, this will not affect any other terms. The Terms are the entire agreement between you and Discord relating to its subject and supersede any prior or contemporaneous agreements on that subject. For information about how to contact Discord, please visit our [Terms of Service](https://discord.com/terms).
 
-You may not assign, sublicense or delegate any of your rights or obligations under these Terms to any third party without the prior written consent of Discord. Any assignment, sublicense or delegation in violation of this provision is null and void. Any change of control or material ownership of you is hereby deemed an assignment. 
+You may not assign, sublicense, or delegate any of your rights or obligations under these Terms to any third party without the prior written consent of Discord. Any assignment, sublicense or delegation in violation of this provision is null and void. Any change of control or material ownership of you has hereby deemed an assignment. 
 These Terms are non-exclusive. You acknowledge that Discord may develop products or services that may compete with the API Clients or any other products or services.
 
 **_"Discord"_** means Discord Inc., with offices in San Francisco, California  unless set forth otherwise in additional terms applicable for a given API. We may refer to "Discord" as "we", "our", or "us" in the Terms.
