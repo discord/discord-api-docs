@@ -877,3 +877,14 @@ Not all message fields are currently supported.
 | embeds?           | array of [embeds](#DOCS_RESOURCES_CHANNEL/embed-object)  | supports up to 10 embeds                                                                    |
 | allowed_mentions? | allowed mentions                                         | [allowed mentions](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object) object                  |
 | flags?            | int                                                      | set to `64` to make your response ephemeral                                                 |
+
+## MessageInteraction
+
+This is sent on the [message object](#DOCS_RESOURCES_CHANNEL/message-object) when the message is a response to an Interaction.
+
+| Name | Value | Description |
+| --- | --- | --- |
+| id           | snowflake                                                        | id of the interaction                                          |
+| type         | InteractionType                                                  | the type of interaction                                        |
+| name | string | the name of the [ApplicationCommand](#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommand) |
+| user | [user object](#DOCS_RESOURCES_USER/user-object) | the user who invoked the interaction |
