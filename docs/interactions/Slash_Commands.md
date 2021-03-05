@@ -263,7 +263,7 @@ def my_command():
                 "tts": False,
                 "content": "Congrats on sending your command!",
                 "embeds": [],
-                "allowed_mentions": {}
+                "allowed_mentions": { "parse": [] }
             }
         })
 ```
