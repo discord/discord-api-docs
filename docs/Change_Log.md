@@ -1,5 +1,19 @@
 # Change Log
 
+## Changes to Slash Command Response Types and Flags
+
+## March 5, 2021
+
+Changes to interaction response types have been made to support better designs for Slash Commands:
+
+- Type `2` `Acknowledge` has been deprecated
+- Type `3` `ChannelMessage` has been deprecated
+- Type `5` `AcknowledgeWithSource` has been renamed to `DeferredChannelMessageWithSource`
+
+These deprecated types will be removed and break on **April 9, 2021**.
+
+Additionally, `flags` has been documented on [InteractionApplicationCommandCallbackData](#DOCS_INTERACTIONS_SLASH_COMMANDS/InteractionApplicationCommandCallbackData). Setting `flags` to `64` will make the interaction response ephemeral.
+
 ## Slash Commands in DMs
 
 #### February 9, 2021
