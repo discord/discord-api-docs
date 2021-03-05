@@ -90,7 +90,7 @@ Extra information about an invite, will extend the [invite](#DOCS_RESOURCES_INVI
 
 Returns an [invite](#DOCS_RESOURCES_INVITE/invite-object) object for the given code.
 
-###### Get Invite URL Parameters
+###### Query String Params
 
 | Field        | Type    | Description                                                 |
 | ------------ | ------- | ----------------------------------------------------------- |

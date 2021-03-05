@@ -95,7 +95,7 @@ def on_websocket_message(msg):
 
 ### Connecting
 
-###### Gateway URL Params
+###### Gateway URL Query String Params
 
 | Field     | Type    | Description                                   | Accepted Values                                                            |
 |-----------|---------|-----------------------------------------------|----------------------------------------------------------------------------|

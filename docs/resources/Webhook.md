@@ -108,7 +108,7 @@ Same as above, except this call does not require authentication.
 > warn
 > This endpoint supports both JSON and form data bodies. It does require multipart/form-data requests instead of the normal JSON request type when uploading files. Make sure you set your `Content-Type` to `multipart/form-data` if you're doing that. Note that in that case, the `embeds` field cannot be used, but you can pass an url-encoded JSON body as a form value for `payload_json`.
 
-###### Querystring Params
+###### Query String Params
 
 | Field | Type    | Description                                                                                                                                                                                  | Required |
 | ----- | ------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
@@ -132,7 +132,7 @@ Same as above, except this call does not require authentication.
 
 ## Execute Slack-Compatible Webhook % POST /webhooks/{webhook.id#DOCS_RESOURCES_WEBHOOK/webhook-object}/{webhook.token#DOCS_RESOURCES_WEBHOOK/webhook-object}/slack
 
-###### Querystring Params
+###### Query String Params
 
 | Field | Type    | Description                                                                                                                                           | Required |
 | ----- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
@@ -142,7 +142,7 @@ Refer to [Slack's documentation](https://api.slack.com/incoming-webhooks) for mo
 
 ## Execute GitHub-Compatible Webhook % POST /webhooks/{webhook.id#DOCS_RESOURCES_WEBHOOK/webhook-object}/{webhook.token#DOCS_RESOURCES_WEBHOOK/webhook-object}/github
 
-###### Querystring Params
+###### Query String Params
 
 | Field | Type    | Description                                                                                                                                           | Required |
 | ----- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- | -------- |

@@ -181,7 +181,7 @@ Whenever an admin action is performed on the API, an entry is added to the respe
 
 Returns an [audit log](#DOCS_RESOURCES_AUDIT_LOG/audit-log-object) object for the guild. Requires the 'VIEW_AUDIT_LOG' permission.
 
-###### Query String Parameters
+###### Query String Params
 
 | Field       | Type      | Description                                                                                      |
 | ----------- | --------- | ------------------------------------------------------------------------------------------------ |
