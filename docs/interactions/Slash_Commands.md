@@ -77,7 +77,7 @@ Guild commands are specific to the guild you specify when making them. Guild com
 - Multiple apps **can** have commands with the same names
 
 > info
-> Apps can have a maximum of 50 global commands, and an additional 50 guild-specific commands per guild
+> Apps can have a maximum of 100 global commands, and an additional 100 guild-specific commands per guild
 
 To make a **global** Slash Command, make an HTTP POST call like this:
 
