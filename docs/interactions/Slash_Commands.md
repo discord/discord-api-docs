@@ -136,7 +136,7 @@ r = requests.post(url, headers=headers, json=json)
 This command will be available on _all_ your app's guilds.
 
 > warn
-> Global commands are cached for **1 hour**. That means that new global commands will fan out slowly across all guilds, and will be guaranteed to be updated in an hour.
+> Global commands are cached for **1 hour**. That means that new global commands will fan out slowly across all guilds, and will be guaranteed to be updated in an hour. When your bot is added to a server, the cache is ignored for that server and your bot's command will be instantly added to that server.
 
 To make a **guild** Slash Command, make a similar HTTP POST call, but scope it to a specific `guild_id`:
 
