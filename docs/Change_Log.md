@@ -12,7 +12,7 @@ Changes to interaction response types have been made to support better designs f
 
 These deprecated types will be removed and break on **April 9, 2021**.
 
-Additionally, `flags` has been documented on [InteractionApplicationCommandCallbackData](#DOCS_INTERACTIONS_SLASH_COMMANDS/InteractionApplicationCommandCallbackData). Setting `flags` to `64` will make the interaction response ephemeral.
+Additionally, `flags` has been documented on [InteractionApplicationCommandCallbackData](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-response-interactionapplicationcommandcallbackdata). Setting `flags` to `64` will make the interaction response ephemeral.
 
 ## Slash Commands in DMs
 
