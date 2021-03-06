@@ -836,11 +836,12 @@ All options have names, and an option can either be a parameter and input value-
 
 `value` and `options` are mutually exclusive.
 
-| Field    | Type                                             | Description                                     |
-|----------|--------------------------------------------------|-------------------------------------------------|
-| name     | string                                           | the name of the parameter                       |
-| value?   | OptionType                                       | the value of the pair                           |
-| options? | array of ApplicationCommandInteractionDataOption | present if this option is a group or subcommand |
+| Field    | Type                                             | Description                                                                                             |
+|----------|--------------------------------------------------|---------------------------------------------------------------------------------------------------------|
+| name     | string                                           | the name of the parameter                                                                               |
+| type     | int                                              | value of [ApplicationCommandOptionType](#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommandoptiontype) |
+| value?   | OptionType                                       | the value of the pair                                                                                   |
+| options? | array of ApplicationCommandInteractionDataOption | present if this option is a group or subcommand                                                         |
 
 ## Interaction Response
 
