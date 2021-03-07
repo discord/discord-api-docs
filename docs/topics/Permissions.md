@@ -157,6 +157,9 @@ There may be other cases in which certain permissions implicitly deny or allow o
 
 Permissions with regards to categories and channels within categories are a bit tricky. Rather than inheritance, permissions are calculated by means of what we call Permission Syncing. If a child channel has the same permissions and overwrites (or lack thereof) as its parent category, the channel is considered "synced" to the category. Any further changes to a **parent category** will be reflected in its synced child channels. Any further changes to a **child channel** will cause it to become de-synced from its parent category, and its permissions will no longer change with changes to its parent category.
 
+> warn
+> Overwrites for the @everyone role of a guild should be ignored if both `allow` and `deny` are set to `0`. A channel with both values set to `0` for the @everyone role, will be considered synced with the parent category, even if that category does not have an overwrite for that role.
+
 ### Role Object
 
 Roles represent a set of permissions attached to a group of users. Roles have unique names, colors, and can be "pinned" to the side bar, causing their members to be listed separately. Roles are unique per guild, and can have separate permission profiles for the global context (guild) and channel context. The `@everyone` role has the same ID as the guild it belongs to.
