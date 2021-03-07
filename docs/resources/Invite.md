@@ -6,22 +6,24 @@ Represents a code that when used, adds a user to a guild or group DM channel.
 
 ###### Invite Structure
 
-| Field                       | Type                                                             | Description                                                                                       |
-| --------------------------- | ---------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- |
-| code                        | string                                                           | the invite code (unique ID)                                                                       |
-| guild?                      | partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object       | the guild this invite is for                                                                      |
-| channel                     | partial [channel](#DOCS_RESOURCES_CHANNEL/channel-object) object | the channel this invite is for                                                                    |
-| inviter?                    | [user](#DOCS_RESOURCES_USER/user-object) object                  | the user who created the invite                                                                   |
-| target_user?                | partial [user](#DOCS_RESOURCES_USER/user-object) object          | the target user for this invite                                                                   |
-| target_user_type?           | integer                                                          | the [type of user target](#DOCS_RESOURCES_INVITE/invite-object-target-user-types) for this invite |
-| approximate_presence_count? | integer                                                          | approximate count of online members (only present when target_user is set)                        |
-| approximate_member_count?   | integer                                                          | approximate count of total members                                                                |
+| Field                       | Type                                                                 | Description                                                                                                        |
+|-----------------------------|----------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------|
+| code                        | string                                                               | the invite code (unique ID)                                                                                        |
+| guild?                      | partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object           | the guild this invite is for                                                                                       |
+| channel                     | partial [channel](#DOCS_RESOURCES_CHANNEL/channel-object) object     | the channel this invite is for                                                                                     |
+| inviter?                    | [user](#DOCS_RESOURCES_USER/user-object) object                      | the user who created the invite                                                                                    |
+| target_type?                | integer                                                              | the [type of target](#DOCS_RESOURCES_INVITE/invite-object-invite-target-types) for this voice channel invite       |
+| target_user?                | [user](#DOCS_RESOURCES_USER/user-object) object                      | the user whose stream to display for this voice channel stream invite                                              |
+| target_application?         | partial [application](#DOCS_TOPICS_OAUTH2/application-object) object | the embedded application to open for this voice channel embedded application invite                                |
+| approximate_presence_count? | integer                                                              | approximate count of online members, returned from the `GET /invites/<code>` endpoint when `with_counts` is `true` |
+| approximate_member_count?   | integer                                                              | approximate count of total members, returned from the `GET /invites/<code>` endpoint when `with_counts` is `true`  |
 
-###### Target User Types
+###### Invite Target Types
 
-| Type   | Value |
-| ------ | ----- |
-| STREAM | 1     |
+| Type                 | Value |
+|----------------------|-------|
+| STREAM               | 1     |
+| EMBEDDED_APPLICATION | 2     |
 
 ###### Example Invite Object
 
@@ -50,13 +52,13 @@ Represents a code that when used, adds a user to a guild or group DM channel.
     "avatar": "deadbeef",
     "discriminator": "7653"
   },
+  "target_type": 1,
   "target_user": {
     "id": "165176875973476352",
     "username": "bob",
     "avatar": "deadbeef",
     "discriminator": "1234"
-  },
-  "target_user_type": 1
+  }
 }
 ```
 
