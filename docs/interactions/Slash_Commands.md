@@ -747,7 +747,7 @@ Deletes a followup message for an Interaction. Returns `204` on success.
 ## ApplicationCommand
 
 > info
-> A command, or each individual subcommand, can have a maximum of 10 `options`
+> A command, or each individual subcommand, can have a maximum of 25 `options`
 
 An application command is the base "command" model that belongs to an application. This is what you are creating when you `POST` a new command.
 
@@ -762,7 +762,7 @@ An application command is the base "command" model that belongs to an applicatio
 ## ApplicationCommandOption
 
 > info
-> You can specify a maximum of 10 `choices` per option
+> You can specify a maximum of 25 `choices` per option
 
 | Field       | Type                                                                                                        | Description                                                                                             |
 |-------------|-------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------|
