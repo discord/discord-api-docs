@@ -257,7 +257,7 @@ A partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object. Represents an Offl
 | Field          | Type                                            | Description                                                                                                                            |
 |----------------|-------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------|
 | user?          | [user](#DOCS_RESOURCES_USER/user-object) object | the user this guild member represents                                                                                                  |
-| nick           | ?string                                         | this users guild nickname                                                                                                              |
+| nick?          | ?string                                         | this users guild nickname                                                                                                              |
 | roles          | array of snowflakes                             | array of [role](#DOCS_TOPICS_PERMISSIONS/role-object) object ids                                                                       |
 | joined_at      | ISO8601 timestamp                               | when the user joined the guild                                                                                                         |
 | premium_since? | ?ISO8601 timestamp                              | when the user started [boosting](https://support.discord.com/hc/en-us/articles/360028038352-Server-Boosting-) the guild                |
@@ -375,7 +375,7 @@ A partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object. Represents an Offl
 
 | Field       | Type       | Description                                                                               |
 |-------------|------------|-------------------------------------------------------------------------------------------|
-| channel_id  | snowflake  | the server description shown in the welcome screen                                        |
+| channel_id  | snowflake  | the channel's id                                                                          |
 | description | string     | the description shown for the channel                                                     |
 | emoji_id    | ?snowflake | the [emoji id](#DOCS_REFERENCE/image-formatting), if the emoji is custom                  |
 | emoji_name  | ?string    | the emoji name if custom, the unicode character if standard, or `null` if no emoji is set |
@@ -426,48 +426,8 @@ In guilds with [Membership Screening](https://support.discord.com/hc/en-us/artic
 
 Giving the member a role will bypass Membership Screening as well as the guild's verification level, giving the member immediate access to chat. Therefore, instead of giving a role when the member joins, it is recommended to not give the role until the user is no longer `pending`.
 
-###### Membership Screening Structure
-
-| Field       | Type                                                                                                             | Description                                        |
-|-------------|------------------------------------------------------------------------------------------------------------------|----------------------------------------------------|
-| version     | ISO8601 timestamp                                                                                                | when the fields were last updated                  |
-| form_fields | array of [field](#DOCS_RESOURCES_GUILD/membership-screening-object-membership-screening-field-structure) objects | the steps in the screening form                    |
-| description | ?string                                                                                                          | the server description shown in the screening form |
-
-###### Membership Screening Field Structure
-
-| Field      | Type                                                                                             | Description                                            |
-|------------|--------------------------------------------------------------------------------------------------|--------------------------------------------------------|
-| field_type | [field type](#DOCS_RESOURCES_GUILD/membership-screening-object-membership-screening-field-types) | the type of field (currently "TERMS" is the only type) |
-| label      | string                                                                                           | the title of the field                                 |
-| values?    | array of strings                                                                                 | the list of rules                                      |
-| required   | boolean                                                                                          | whether the user has to fill out this field            |
-
-###### Membership Screening Field Types
-
-| Value | Name         |
-|-------|--------------|
-| TERMS | Server Rules |
-
-###### Example Membership Screening Object
-
-```json
-{
-    "version": "2021-01-09T12:09:02.040000+00:00",
-    "form_fields": [
-        {
-            "field_type": "TERMS",
-            "label": "Read and agree to the server rules",
-            "values": [
-                "Treat everyone with respect. Absolutely no harassment, witch hunting, sexism, racism, or hate speech will be tolerated.",
-                "No spam or self-promotion (server invites, advertisements, etc) without permission from a staff member. This includes DMing fellow members."
-            ],
-            "required": true
-        }
-    ],
-    "description": "Welcome to this cool server!"
-}
-```
+> warn
+> We are making significant changes to the Membership Screening API specifically related to getting and editing the Membership Screening object. Long story short is that it can be improved. As such, we have removed those documentation. There will **not be** any changes to how pending members work, as outlined above. That behavior will stay the same.
 
 ## Create Guild % POST /guilds
 
@@ -643,7 +603,7 @@ Returns a list of guild [channel](#DOCS_RESOURCES_CHANNEL/channel-object) object
 
 ## Create Guild Channel % POST /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/channels
 
-Create a new [channel](#DOCS_RESOURCES_CHANNEL/channel-object) object for the guild. Requires the `MANAGE_CHANNELS` permission. Returns the new [channel](#DOCS_RESOURCES_CHANNEL/channel-object) object on success. Fires a [Channel Create](#DOCS_TOPICS_GATEWAY/channel-create) Gateway event.
+Create a new [channel](#DOCS_RESOURCES_CHANNEL/channel-object) object for the guild. Requires the `MANAGE_CHANNELS` permission. If setting permission overwrites, only permissions your bot has in the guild can be allowed/denied. Setting `MANAGE_ROLES` permission in channels is only possible for guild administrators. Returns the new [channel](#DOCS_RESOURCES_CHANNEL/channel-object) object on success. Fires a [Channel Create](#DOCS_TOPICS_GATEWAY/channel-create) Gateway event.
 
 > info
 > All parameters to this endpoint are optional excluding 'name'
@@ -704,6 +664,8 @@ Returns a list of [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) obje
 
 Adds a user to the guild, provided you have a valid oauth2 access token for the user with the `guilds.join` scope. Returns a 201 Created with the [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) as the body, or 204 No Content if the user is already a member of the guild. Fires a [Guild Member Add](#DOCS_TOPICS_GATEWAY/guild-member-add) Gateway event.
 
+For guilds with [Membership Screening](#DOCS_RESOURCES_GUILD/membership-screening-object) enabled, this endpoint will default to adding new members as `pending` in the [guild member object](#DOCS_RESOURCES_GUILD/guild-member-object). Members that are `pending` will have to complete membership screening before they become full members that can talk.
+
 > info
 > All parameters to this endpoint except for `access_token` are optional.
 
@@ -719,6 +681,9 @@ Adds a user to the guild, provided you have a valid oauth2 access token for the 
 | roles        | array of snowflakes | array of role ids the member is assigned                                                                                 | MANAGE_ROLES     |
 | mute         | boolean             | whether the user is muted in voice channels                                                                              | MUTE_MEMBERS     |
 | deaf         | boolean             | whether the user is deafened in voice channels                                                                           | DEAFEN_MEMBERS   |
+
+> warn
+> For guilds with Membership Screening enabled, assigning a role using the `roles` parameter will add the user to the guild as a full member (`pending` is false in the [member object](#DOCS_RESOURCES_GUILD/guild-member-object)). A member with a role will bypass membership screening and the guild's verification level, and get immediate access to chat. Therefore, instead of assigning a role when the member joins, it is recommended to grant roles only after the user completes screening.
 
 ## Modify Guild Member % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/members/{user.id#DOCS_RESOURCES_USER/user-object}
 
@@ -987,20 +952,3 @@ Returns a PNG image widget for the guild. Requires no permissions or authenticat
 | banner2 | smaller widget style with guild icon, name and online count. Split on the right with Discord logo                                                              | [Example](https://discord.com/api/guilds/81384788765712384/widget.png?style=banner2) |
 | banner3 | large image with guild icon, name and online count. In the footer, Discord logo on the left and "Chat Now" on the right                                        | [Example](https://discord.com/api/guilds/81384788765712384/widget.png?style=banner3) |
 | banner4 | large Discord logo at the top of the widget. Guild icon, name and online count in the middle portion of the widget and a "JOIN MY SERVER" button at the bottom | [Example](https://discord.com/api/guilds/81384788765712384/widget.png?style=banner4) |
-
-## Get Guild Membership Screening Form % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/member-verification
-
-Returns the [Membership Screening](#DOCS_RESOURCES_GUILD/membership-screening-object) object for the guild.
-
-## Modify Guild Membership Screening Form % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/member-verification
-
-Modify the guild's [Membership Screening](#DOCS_RESOURCES_GUILD/membership-screening-object) form. Requires the `MANAGE_GUILD` permission. Returns the updated [Membership Screening](#DOCS_RESOURCES_GUILD/membership-screening-object) object.
-
-> info
-> All parameters to this endpoint are optional
-
-| Field       | Type    | Description                                                                                                                             |
-|-------------|---------|-----------------------------------------------------------------------------------------------------------------------------------------|
-| enabled     | boolean | whether Membership Screening is enabled                                                                                                 |
-| form_fields | string  | array of [field](#DOCS_RESOURCES_GUILD/membership-screening-object-membership-screening-field-structure) objects serialized in a string |
-| description | string  | the server description to show in the screening form                                                                                    |

@@ -21,29 +21,29 @@ The first step in implementing OAuth2 is [registering a developer application](#
 
 These are a list of all the OAuth2 scopes that Discord supports. Scopes that are behind a whitelist cannot be requested unless your application is on said whitelist, and may cause undocumented/error behavior in the OAuth2 flow if you request them from a user.
 
-| Name                         | Description                                                                                                                                           |
-|------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------|
-| bot                          | for oauth2 bots, this puts the bot in the user's selected guild by default                                                                            |
-| connections                  | allows [/users/@me/connections](#DOCS_RESOURCES_USER/get-user-connections) to return linked third-party accounts                                      |
-| email                        | enables [/users/@me](#DOCS_RESOURCES_USER/get-current-user) to return an `email`                                                                      |
-| identify                     | allows [/users/@me](#DOCS_RESOURCES_USER/get-current-user) without `email`                                                                            |
-| guilds                       | allows [/users/@me/guilds](#DOCS_RESOURCES_USER/get-current-user-guilds) to return basic information about all of a user's guilds                     |
-| guilds.join                  | allows [/guilds/{guild.id}/members/{user.id}](#DOCS_RESOURCES_GUILD/add-guild-member) to be used for joining users to a guild                         |
-| gdm.join                     | allows your app to [join users to a group dm](#DOCS_RESOURCES_CHANNEL/group-dm-add-recipient)                                                         |
-| messages.read                | for local rpc server api access, this allows you to read messages from all client channels (otherwise restricted to channels/guilds your app creates) |
-| rpc                          | for local rpc server access, this allows you to control a user's local Discord client - whitelist only                                                |
-| rpc.api                      | for local rpc server api access, this allows you to access the API as the local user - whitelist only                                                 |
-| rpc.notifications.read       | for local rpc server api access, this allows you to receive notifications pushed out to the user - whitelist only                                     |
-| webhook.incoming             | this generates a webhook that is returned in the oauth token response for authorization code grants                                                   |
-| applications.builds.upload   | allows your app to upload/update builds for a user's applications - whitelist only                                                                    |
-| applications.builds.read     | allows your app to read build data for a user's applications                                                                                          |
-| applications.store.update    | allows your app to read and update store data (SKUs, store listings, achievements, etc.) for a user's applications                                    |
-| applications.entitlements    | allows your app to read entitlements for a user's applications                                                                                        |
-| relationships.read           | allows your app to know a user's friends and implicit relationships - whitelist only                                                                  |
-| activities.read              | allows your app to fetch data from a user's "Now Playing/Recently Played" list - whitelist only                                                       |
-| activities.write             | allows your app to update a user's activity - whitelist only (NOT REQUIRED FOR [GAMESDK ACTIVITY MANAGER](#DOCS_GAME_SDK_ACTIVITIES/))                |
-| applications.commands        | allows your app to use [Slash Commands](#DOCS_INTERACTIONS_SLASH_COMMANDS/) in a guild                                                                |
-| applications.commands.update | allows your app to update [Slash Commands](#DOCS_INTERACTIONS_SLASH_COMMANDS/) via this bearer token                                                  |
+| Name                         | Description                                                                                                                                                                              |
+|------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| bot                          | for oauth2 bots, this puts the bot in the user's selected guild by default                                                                                                               |
+| connections                  | allows [/users/@me/connections](#DOCS_RESOURCES_USER/get-user-connections) to return linked third-party accounts                                                                         |
+| email                        | enables [/users/@me](#DOCS_RESOURCES_USER/get-current-user) to return an `email`                                                                                                         |
+| identify                     | allows [/users/@me](#DOCS_RESOURCES_USER/get-current-user) without `email`                                                                                                               |
+| guilds                       | allows [/users/@me/guilds](#DOCS_RESOURCES_USER/get-current-user-guilds) to return basic information about all of a user's guilds                                                        |
+| guilds.join                  | allows [/guilds/{guild.id}/members/{user.id}](#DOCS_RESOURCES_GUILD/add-guild-member) to be used for joining users to a guild                                                            |
+| gdm.join                     | allows your app to [join users to a group dm](#DOCS_RESOURCES_CHANNEL/group-dm-add-recipient)                                                                                            |
+| messages.read                | for local rpc server api access, this allows you to read messages from all client channels (otherwise restricted to channels/guilds your app creates)                                    |
+| rpc                          | for local rpc server access, this allows you to control a user's local Discord client - whitelist only                                                                                   |
+| rpc.api                      | for local rpc server api access, this allows you to access the API as the local user - whitelist only                                                                                    |
+| rpc.notifications.read       | for local rpc server api access, this allows you to receive notifications pushed out to the user - whitelist only                                                                        |
+| webhook.incoming             | this generates a webhook that is returned in the oauth token response for authorization code grants                                                                                      |
+| applications.builds.upload   | allows your app to upload/update builds for a user's applications - whitelist only                                                                                                       |
+| applications.builds.read     | allows your app to read build data for a user's applications                                                                                                                             |
+| applications.store.update    | allows your app to read and update store data (SKUs, store listings, achievements, etc.) for a user's applications                                                                       |
+| applications.entitlements    | allows your app to read entitlements for a user's applications                                                                                                                           |
+| relationships.read           | allows your app to know a user's friends and implicit relationships - whitelist only                                                                                                     |
+| activities.read              | allows your app to fetch data from a user's "Now Playing/Recently Played" list - whitelist only                                                                                          |
+| activities.write             | allows your app to update a user's activity - whitelist only (NOT REQUIRED FOR [GAMESDK ACTIVITY MANAGER](#DOCS_GAME_SDK_ACTIVITIES/))                                                   |
+| applications.commands        | allows your app to use [Slash Commands](#DOCS_INTERACTIONS_SLASH_COMMANDS/) in a guild                                                                                                   |
+| applications.commands.update | allows your app to update its [Slash Commands](#DOCS_INTERACTIONS_SLASH_COMMANDS/) via this bearer token - [client credentials grant](#DOCS_TOPICS_OAUTH2/client-credentials-grant) only |
 
 > info
 > `guilds.join` and `bot` require you to have a bot account linked to your application. Also, in order to add a user to a guild, your bot has to already belong to that guild.
@@ -90,7 +90,7 @@ https://nicememe.website/?code=NhhvTDYsFcdgNLnnLijcl7Ku7bEEeee&state=15773059ghq
 ###### Access Token Exchange Example
 
 ```python
-API_ENDPOINT = 'https://discord.com/api/v6'
+API_ENDPOINT = 'https://discord.com/api/v8'
 CLIENT_ID = '332269999912132097'
 CLIENT_SECRET = '937it3ow87i4ery69876wqire'
 REDIRECT_URI = 'https://nicememe.website'
@@ -138,7 +138,7 @@ Having the user's access token allows your application to make certain requests 
 ###### Refresh Token Exchange Example
 
 ```python
-API_ENDPOINT = 'https://discord.com/api/v6'
+API_ENDPOINT = 'https://discord.com/api/v8'
 CLIENT_ID = '332269999912132097'
 CLIENT_SECRET = '937it3ow87i4ery69876wqire'
 REDIRECT_URI = 'https://nicememe.website'
@@ -193,7 +193,7 @@ You can specify scopes with the `scope` parameter, which is a list of [OAuth2 sc
 ```python
 import base64
 
-API_ENDPOINT = 'https://discord.com/api/v6'
+API_ENDPOINT = 'https://discord.com/api/v8'
 CLIENT_ID = '332269999912132097'
 CLIENT_SECRET = '937it3ow87i4ery69876wqire'
 

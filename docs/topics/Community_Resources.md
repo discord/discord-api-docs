@@ -61,6 +61,7 @@ Many of these libraries are represented in the [unofficial, community-driven Dis
   - [DiscordPHP-Slash](https://github.com/discord-php/DiscordPHP-Slash)
 - Other
   - [caddy-discord-interactions-verifier](https://github.com/CarsonHoffman/caddy-discord-interactions-verifier)
+  - [Rauf's Slash Command Generator](https://rauf.wtf/slash)
 
 
 ## Game SDK Tools
@@ -84,7 +85,7 @@ Using Discord's [Dispatch](#DOCS_DISPATCH_DISPATCH_AND_YOU) tool for game develo
 
 ## Intent Calculators
 
-[Gateway Intents](#DOCS_TOPICS_GATEWAY/gateway-intents) are pretty confusing at first. If you're not sure what to send in your [identify payload](#DOCS_TOPICS_GATEWAY/identify), then this tool may be of help:
+[Gateway Intents](#DOCS_TOPICS_GATEWAY/gateway-intents) are pretty confusing at first. If you're not sure what to send in your [identify payload](#DOCS_TOPICS_GATEWAY/identify), then these tools may be of help:
 
 - [ziad87's Intent Calculator](https://ziad87.net/intents/)
 - [Larko's Intent Calculator](https://intents.aymdj.me/)
