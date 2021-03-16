@@ -670,7 +670,6 @@ Edit a global command. Updates will be available in all guilds after 1 hour. Ret
 | description | string                                                                                          | 1-100 character description                  |
 | options     | array of [ApplicationCommandOption](#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommandoption) | the parameters for the command               |
 
-
 ## Delete Global Application Command % DELETE /applications/{application.id#DOCS_TOPICS_OAUTH2/application-object}/commands/{command.id#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommand}
 
 Deletes a global command. Returns `204`.
@@ -678,6 +677,10 @@ Deletes a global command. Returns `204`.
 ## Get Guild Application Commands % GET /applications/{application.id#DOCS_TOPICS_OAUTH2/application-object}/guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/commands
 
 Fetch all of the guild commands for your application for a specific guild. Returns an array of [ApplicationCommand](#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommand) objects.
+
+## Batch Update Global Application Commands % PUT /applications/{application.id#DOCS_TOPICS_OAUTH2/application-object}/commands
+
+Takes a list of application commands, overwriting existing commands that are registered globally for this application. Updates will be available in all guilds after 1 hour. Returns `200` and a list of [ApplicationCommand](#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommand) objects.
 
 ## Create Guild Application Command % POST /applications/{application.id#DOCS_TOPICS_OAUTH2/application-object}/guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/commands
 
@@ -717,6 +720,10 @@ Edit a guild command. Updates for guild commands will be available immediately. 
 ## Delete Guild Application Command % DELETE /applications/{application.id#DOCS_TOPICS_OAUTH2/application-object}/guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/commands/{command.id#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommand}
 
 Delete a guild command. Returns `204` on success.
+
+## Batch Update Guild Application Commands % PUT /applications/{application.id#DOCS_TOPICS_OAUTH2/application-object}/guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/commands
+
+Takes a list of application commands, overwriting existing commands for the guild. Returns `200` and a list of [ApplicationCommand](#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommand) objects.
 
 ## Create Interaction Response % POST /interactions/{interaction.id#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction}/{interaction.token#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction}/callback
 
