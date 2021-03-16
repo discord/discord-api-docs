@@ -48,7 +48,7 @@ Welcome to the new world.
 
 ## Authorizing Your Application
 
-There is a new special OAuth2 scope for applications called `applications.commands`. 
+There is a new special OAuth2 scope for applications called `applications.commands`.
 
 > danger
 > **In order to make Slash Commands work within a guild, the guild must authorize your application with the `applications.commands` scope. The `bot` scope is not enough.**
@@ -120,7 +120,7 @@ json = {
     ]
 }
 
-# For authorization, you can use either your bot token 
+# For authorization, you can use either your bot token
 headers = {
     "Authorization": "Bot 123456"
 }
@@ -189,7 +189,7 @@ When you attempt to save a URL, we will send a `POST` request to that URL with a
 ```py
 @app.route('/', methods=['POST'])
 def my_command():
-    if request.json["type"] == 1:        
+    if request.json["type"] == 1:
         return jsonify({
             "type": 1
         })
@@ -203,7 +203,7 @@ An Interaction includes the `data` that the user sent in the command, as well as
 {
     "type": 2,
     "token": "A_UNIQUE_TOKEN",
-    "member": { 
+    "member": {
         "user": {
             "id": 53908232506183680,
             "username": "Mason",
@@ -219,19 +219,19 @@ An Interaction includes the `data` that the user sent in the command, as well as
         "mute": false,
         "joined_at": "2017-03-13T19:19:14.040000+00:00",
         "is_pending": false,
-        "deaf": false 
+        "deaf": false
     },
     "id": "786008729715212338",
     "guild_id": "290926798626357999",
-    "data": { 
+    "data": {
         "options": [{
             "name": "cardname",
             "value": "The Gitrog Monster"
         }],
         "name": "cardsearch",
-        "id": "771825006014889984" 
+        "id": "771825006014889984"
     },
-    "channel_id": "645027906669510667" 
+    "channel_id": "645027906669510667"
 }
 ```
 
@@ -251,11 +251,11 @@ When responding to an interaction received **via webhook**, your server can simp
 ```py
 @app.route('/', methods=['POST'])
 def my_command():
-    if request.json["type"] == 1:        
+    if request.json["type"] == 1:
         return jsonify({
             "type": 1
         })
-    
+
     else:
         return jsonify({
             "type": 4,
@@ -703,7 +703,7 @@ Fetch a guild command for your application. Returns an [ApplicationCommand](#DOC
 > info
 > All parameters for this endpoint are optional. `options` is nullable.
 
-Edit a guild command. Updates for guild commands will be available immediately. Returns `200` and an [ApplicationCommand](#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommand) object. 
+Edit a guild command. Updates for guild commands will be available immediately. Returns `200` and an [ApplicationCommand](#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommand) object.
 
 ###### JSON Params
 
@@ -832,7 +832,7 @@ An interaction is the base "thing" that is sent when a user invokes a command, a
 
 ###### ApplicationCommandInteractionDataOption
 
-All options have names, and an option can either be a parameter and input value--in which case `value` will be set--or it can denote a subcommand or group--in which case it will contain a top-level key and another array of `options`. 
+All options have names, and an option can either be a parameter and input value--in which case `value` will be set--or it can denote a subcommand or group--in which case it will contain a top-level key and another array of `options`.
 
 `value` and `options` are mutually exclusive.
 
