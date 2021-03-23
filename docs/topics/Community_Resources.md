@@ -29,6 +29,7 @@ Many of these libraries are represented in the [unofficial, community-driven Dis
 | [discord.js](https://github.com/discordjs/discord.js)        | JavaScript |
 | [Eris](https://github.com/abalabahaha/eris)                  | JavaScript |
 | [Discord.jl](https://github.com/Xh4H/Discord.jl)             | Julia      |
+| [Kord](https://github.com/kordlib/kord)                      | Kotlin     |
 | [Discordia](https://github.com/SinisterRectus/Discordia)     | Lua        |
 | [Dimscord](https://github.com/krisppurg/dimscord)            | Nim        |
 | [discordnim](https://github.com/Krognol/discordnim)          | Nim        |
