@@ -197,7 +197,6 @@ When you close the connection to the gateway with the close code 1000 or 1001, y
 ## Gateway Intents
 
 > info
-> Intents are optionally supported on the v6 gateway but required as of v8
 
 Maintaining a stateful application can be difficult when it comes to the amount of data you're expected to process, especially at scale. Gateway Intents are a system to help you lower that computational burden.
 
@@ -298,7 +297,7 @@ Some intents are defined as "Privileged" due to the sensitive nature of the data
 
 In order to specify these intents in your `IDENTIFY` payload, you must first go to your application in the Developer Portal and enable the toggle for the Privileged Intents you wish to use. If your bot is in 100 or more guilds, you must also get your [bot verified](https://support.discord.com/hc/en-us/articles/360040720412-Bot-Verification-and-Data-Whitelisting).
 
-On **October 7, 2020** the events under the `GUILD_PRESENCES` and `GUILD_MEMBERS` intents will be turned **off by default on all gateway versions**. If you are using **Gateway v6**, you will receive those events if you have enabled the flags for those intents in the Developer Portal and have been verified if your bot is in 100 or more guilds. You do not need to use Intents on Gateway v6 to receive these events; you just need to enable the flags.
+On **October 7, 2020** the events under the `GUILD_PRESENCES` and `GUILD_MEMBERS` intents were turned **off by default on all gateway versions**. If you wereusing **Gateway v6**, you would have received those events if you had enabled the flags for those intents in the Developer Portal and had been verified if your bot was in 100 or more guilds. You did not need to use Intents on Gateway v6 to receive these events; you just needed to enable the flags. 
 
 If you are using **Gateway v8**, Intents are mandatory and must be specified when connecting.
 
