@@ -634,7 +634,7 @@ Need to keep some of your Slash Commands safe from prying eyes, or only availabl
 > info
 > For now, disabled commands still show up in the command picker, but are unable to be used.
 
-You can also set a `default_permission` on your commands if you want them to be disabled by default when your app is added to a new guild. Setting `default_permissions` to `false` will disallow _anyone_ in a guild from using the command--even Administrators--unless a specific overwrite is configured.
+You can also set a `default_permission` on your commands if you want them to be disabled by default when your app is added to a new guild. Setting `default_permission` to `false` will disallow _anyone_ in a guild from using the command--even Administrators--unless a specific overwrite is configured.
 
 For example, this command will not be usable by anyone in any guilds by default:
 
@@ -650,10 +650,10 @@ To enable it just for a moderator role:
 
 ```py
 MODERATOR_ROLE_ID = "173547401905176999"
-url = "https://discord.com/api/v8/applications/<my_application_id>/guilds/<my_guild_id>/commands/<my_command_id>"
+url = "https://discord.com/api/v8/applications/<my_application_id>/guilds/<my_guild_id>/commands/<my_command_id>/permissions"
 
 json = {
-    "id": MODERATOR_ROLE_ID
+    "id": MODERATOR_ROLE_ID,
     "type": 1,
     "permission": True
 }
@@ -782,7 +782,7 @@ Edits a followup message for an Interaction. Functions the same as [Edit Webhook
 
 Deletes a followup message for an Interaction. Returns `204` on success.
 
-## Get Guild Application Command Permissions % GET /applications/{application.id#DOCS_TOPICS_OAUTH2/application-object}/guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/permissions
+## Get Guild Application Command Permissions % GET /applications/{application.id#DOCS_TOPICS_OAUTH2/application-object}/guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/commands/permissions
 
 Fetches command permissions for all commands for your application in a guild. Returns an array of [ApplicationCommandPermissions](#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommandpermissions).
 
