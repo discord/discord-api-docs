@@ -636,7 +636,36 @@ Need to keep some of your Slash Commands safe from prying eyes, or only availabl
 
 You can also set a `default_permission` on your commands if you want them to be disabled by default when your app is added to a new guild. Setting `default_permissions` to `False` will disallow _anyone_ in a guild from using the command--even Administrators--unless a specific overwrite is configured.
 
-Check out the [examples in the Endpoints](#DOCS_INTERACTIONS_SLASH_COMMANDS/getglobalapplicationcommandpermissions).
+For example, this command will not be usable by anyone in any guilds by default:
+
+```json
+{
+    "name": "permissions_test",
+    "description": "A test of default permissions",
+    "default_permission": false
+}
+```
+
+To enable it just for a moderator role:
+
+```py
+MODERATOR_ROLE_ID = "173547401905176999"
+url = "https://discord.com/api/v8/applications/<my_application_id>/guilds/<my_guild_id>/commands/<my_command_id>"
+
+json = {
+    "id": MODERATOR_ROLE_ID
+    "type": 1,
+    "permission": True
+}
+
+headers = {
+    "Authorization": "Bot 123456"
+}
+
+r = requests.put(url, headers=headers, json=json)
+```
+
+The command will be visible to everyone, but disabled for everyone except the moderator role.
 
 ## Endpoints
 
