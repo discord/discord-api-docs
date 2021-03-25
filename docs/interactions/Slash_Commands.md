@@ -1,8 +1,5 @@
 # Slash Commands
 
-> info
-> Slash Commands are currently in a public developer beta. That means that the API could still be subject to change, but we're excited for you to start trying them out and giving your feedback on our [issue tracker](https://github.com/discord/discord-api-docs/issues).
-
 Slash Commands are the new, exciting way to build and interact with apps on Discord.
 
 With Slash Commands, all you have to do is type `/` and you're ready to use your favorite bot. Users can learn everything your bot does and easily find new features as you add them. Validation, error states, and helpful UI walks them through your commands, meaning they can get it right the first time, especially on mobile. You now have one more ally in the fight against your phone's autocorrect.
@@ -25,8 +22,6 @@ In this documentation you'll find some notes about limits and caps on certain pa
 - Limitations on [command names](#DOCS_INTERACTIONS_SLASH_COMMANDS/registering-a-command)
 - Limitations on [nesting subcommands and groups](#DOCS_INTERACTIONS_SLASH_COMMANDS/nested-subcommands-and-groups)
 - Global rate limit of 200 application command creates per day per guild
-
-These are the limits and caps for the initial release, but **they can be subject to change with your feedback.** If you would like to leave feedback about Slash Commands--limits, features, or otherwise--please open a ticket on our [Github Issue Tracker](https://github.com/discord/discord-api-docs/issues) using the `Slash Commands` templates.
 
 ## What is a Slash Command
 
@@ -65,7 +60,7 @@ Who knows, maybe in the future, Interactions tokens will become even smarter.
 ## Registering a Command
 
 > info
-> Currently, Slash Commands can only be registered via HTTP endpoint.
+> Slash Commands can only be registered via HTTP endpoint.
 
 There are two kinds of Slash Commands: global commands and guild commands. Global commands are available for every guild that adds your app. An individual app's global commands are also available in DMs if that app has a bot that shares a mutual guild with the user.
 
