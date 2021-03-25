@@ -627,6 +627,17 @@ And, done! The JSON looks a bit complicated, but what we've ended up with is a s
 
 ![A command with grouped subcommands and parameters. It says /permissions user get with arguments for a user and a channel.](command-with-groups-subcommands-parameters.png)
 
+## Permissions
+
+Need to keep some of your Slash Commands safe from prying eyes, or only available to the right people? Slash Commands support permission overwrites for all your commands. For both guild _and_ global commands, you can enable or disable a specific user or role in a guild from using a command.
+
+> info
+> For now, disabled commands still show up in the command picker, but are unable to be used.
+
+You can also set a `default_permission` on your commands if you want them to be disabled by default when your app is added to a new guild. Setting `default_permissions` to `False` will disallow _anyone_ in a guild from using the command--even Administrators--unless a specific overwrite is configured.
+
+Check out the [examples in the Endpoints](#DOCS_INTERACTIONS_SLASH_COMMANDS/getglobalapplicationcommandpermissions).
+
 ## Endpoints
 
 > info
@@ -742,6 +753,31 @@ Edits a followup message for an Interaction. Functions the same as [Edit Webhook
 
 Deletes a followup message for an Interaction. Returns `204` on success.
 
+## Get Guild Application Command Permissions % GET /applications/{application.id#DOCS_TOPICS_OAUTH2/application-object}/guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/permissions
+
+Fetches command permissions for all commands for your application in a guild. Returns an array of [ApplicationCommandPermissions](#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommandpermissions).
+
+
+## Get Application Command Permissions % GET /applications/{application.id#DOCS_TOPICS_OAUTH2/application-object}/guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/commands/{command.id#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommand}/permissions
+
+Fetches command permissions for a specific command for your application in a guild. Returns an array of [ApplicationCommandPermissions](#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommandpermissions).
+
+## Edit Application Command Permissions % PUT /applications/{application.id#DOCS_TOPICS_OAUTH2/application-object}/guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/commands/{command.id#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommand}/permissions
+
+> warn
+> This endpoint will overwrite existing permissions for the command in that guild
+
+Edits command permissions for a specific command for your application in a guild.
+
+> warn
+> Deleting or renaming a command will permanently delete all permissions for that command
+
+###### JSON Params
+
+| Field | Type | Description |
+| ----- | ---- | ----------- |
+| permissions | array of [ApplicationCommandPermissions] | 
+
 ## Data Models and Types
 
 ## ApplicationCommand
@@ -758,6 +794,7 @@ An application command is the base "command" model that belongs to an applicatio
 | name           | string                                                                                          | 1-32 character name matching `^[\w-]{1,32}$` |
 | description    | string                                                                                          | 1-100 character description                  |
 | options?       | array of [ApplicationCommandOption](#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommandoption) | the parameters for the command               |
+| default_permission? | boolean (default `true`) | whether the command is enabled by default when the app is added to a guild |
 
 ## ApplicationCommandOption
 
@@ -794,6 +831,23 @@ If you specify `choices` for an option, they are the **only** valid values for a
 |-------|---------------|-------------------------------------------------|
 | name  | string        | 1-100 character choice name                     |
 | value | string or int | value of the choice, up to 100 characters if string |
+
+## ApplicationCommandPermissions
+
+Application command permissions allow you to enable or disable commands for specific users or roles within a guild.
+
+| Field | Type | Description |
+| ----- | ---- | ----------- |
+| id    | snowflake | the id of the role or user |
+| type | [ApplicationCommandPermissionType](#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommandpermissiontype) | role or user |
+| permission | boolean | `true` to allow, `false`, to disallow |
+
+## ApplicationCommandPermissionType
+
+| Name | Value |
+| -----| ----- |
+| ROLE | 1     |
+| USER | 2     |
 
 ## Interaction
 
