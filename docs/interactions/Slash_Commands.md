@@ -634,7 +634,7 @@ Need to keep some of your Slash Commands safe from prying eyes, or only availabl
 > info
 > For now, disabled commands still show up in the command picker, but are unable to be used.
 
-You can also set a `default_permission` on your commands if you want them to be disabled by default when your app is added to a new guild. Setting `default_permissions` to `False` will disallow _anyone_ in a guild from using the command--even Administrators--unless a specific overwrite is configured.
+You can also set a `default_permission` on your commands if you want them to be disabled by default when your app is added to a new guild. Setting `default_permissions` to `false` will disallow _anyone_ in a guild from using the command--even Administrators--unless a specific overwrite is configured.
 
 For example, this command will not be usable by anyone in any guilds by default:
 
