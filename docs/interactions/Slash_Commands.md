@@ -680,14 +680,14 @@ Fetch all of the guild commands for your application for a specific guild. Retur
 
 ## Bulk Overwrite Global Application Commands % PUT /applications/{application.id#DOCS_TOPICS_OAUTH2/application-object}/commands
 
-Takes a list of application commands, overwriting existing commands that are registered globally for this application. Updates will be available in all guilds after 1 hour. Returns `200` and a list of [ApplicationCommand](#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommand) objects. Commands that do not already exist will count toward your daily application command create limit.
+Takes a list of application commands, overwriting existing commands that are registered globally for this application. Updates will be available in all guilds after 1 hour. Returns `200` and a list of [ApplicationCommand](#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommand) objects. Commands that do not already exist will count toward daily application command create limits.
 
 ## Create Guild Application Command % POST /applications/{application.id#DOCS_TOPICS_OAUTH2/application-object}/guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/commands
 
 > danger
 > Creating a command with the same name as an existing command for your application will overwrite the old command.
 
-Create a new guild command. New guild commands will be available in the guild immediately. Returns `201` and an [ApplicationCommand](#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommand) object.  If the command did not already exist, it will count toward your daily application command create limit.
+Create a new guild command. New guild commands will be available in the guild immediately. Returns `201` and an [ApplicationCommand](#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommand) object.  If the command did not already exist, it will count toward daily application command create limits.
 
 ###### JSON Params
 
