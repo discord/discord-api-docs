@@ -25,7 +25,8 @@ Represents a guild or DM channel within Discord.
 | owner_id?              | snowflake                                                              | id of the DM creator                                                                                                                                                            |
 | application_id?        | snowflake                                                              | application id of the group DM creator if it is bot-created                                                                                                                     |
 | parent_id?             | ?snowflake                                                             | id of the parent category for a channel (each parent category can contain up to 50 channels)                                                                                    |
-| last_pin_timestamp?    | ?ISO8601 timestamp                                                     | when the last pinned message was pinned. This may be `null` in events such as `GUILD_CREATE` when a message is not pinned.                                                  |
+| last_pin_timestamp?    | ?ISO8601 timestamp                                                     | when the last pinned message was pinned. This may be `null` in events such as `GUILD_CREATE` when a message is not pinned.                                                      |
+| video_quality_mode?    | integer                                                                | the camera [video quality mode](#DOCS_RESOURCES_CHANNEL/channel-object-video-quality-modes) of the voice or stage channel, 1 when not present                                   |
 
 ###### Channel Types
 
@@ -38,6 +39,13 @@ Represents a guild or DM channel within Discord.
 | GUILD_CATEGORY | 4  | an [organizational category](https://support.discord.com/hc/en-us/articles/115001580171-Channel-Categories-101) that contains up to 50 channels      |
 | GUILD_NEWS     | 5  | a channel that [users can follow and crosspost into their own server](https://support.discord.com/hc/en-us/articles/360032008192)                    |
 | GUILD_STORE    | 6  | a channel in which game developers can [sell their game on Discord](https://discord.com/developers/docs/game-and-server-management/special-channels) |
+
+###### Video Quality Modes
+
+| Mode | Value | Description                                         |
+| ---- | ----- | --------------------------------------------------- |
+| AUTO | 1     | Discord chooses the quality for optimal performance |
+| FULL | 2     | 720p                                                |
 
 ###### Example Guild Text Channel
 
