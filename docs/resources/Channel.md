@@ -240,6 +240,7 @@ Represents a message sent in a channel within Discord.
 | GUILD_DISCOVERY_REQUALIFIED            | 15    |
 | REPLY                                  | 19    |
 | APPLICATION_COMMAND                    | 20    |
+| GUILD_INVITE_REMINDER                  | 22    |
 
 ###### Message Activity Structure
 
