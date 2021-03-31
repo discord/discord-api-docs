@@ -28,17 +28,17 @@ Below is a table of all current permissions, their integer values in hexadecimal
 
 | Permission            | Value         | Description                                                                                                                        | Channel Type |
 | --------------------- | ------------- | ---------------------------------------------------------------------------------------------------------------------------------- | ------------ |
-| CREATE_INSTANT_INVITE | `0x000000001` | Allows creation of instant invites                                                                                                 | T, V         |
+| CREATE_INSTANT_INVITE | `0x000000001` | Allows creation of instant invites                                                                                                 | T, V, S      |
 | KICK_MEMBERS \*       | `0x000000002` | Allows kicking members                                                                                                             |              |
 | BAN_MEMBERS \*        | `0x000000004` | Allows banning members                                                                                                             |              |
 | ADMINISTRATOR \*      | `0x000000008` | Allows all permissions and bypasses channel permission overwrites                                                                  |              |
-| MANAGE_CHANNELS \*    | `0x000000010` | Allows management and editing of channels                                                                                          | T, V         |
+| MANAGE_CHANNELS \*    | `0x000000010` | Allows management and editing of channels                                                                                          | T, V, S      |
 | MANAGE_GUILD \*       | `0x000000020` | Allows management and editing of the guild                                                                                         |              |
 | ADD_REACTIONS         | `0x000000040` | Allows for the addition of reactions to messages                                                                                   | T            |
 | VIEW_AUDIT_LOG        | `0x000000080` | Allows for viewing of audit logs                                                                                                   |              |
 | PRIORITY_SPEAKER      | `0x000000100` | Allows for using priority speaker in a voice channel                                                                               | V            |
 | STREAM                | `0x000000200` | Allows the user to go live                                                                                                         | V            |
-| VIEW_CHANNEL          | `0x000000400` | Allows guild members to view a channel, which includes reading messages in text channels                                           | T, V         |
+| VIEW_CHANNEL          | `0x000000400` | Allows guild members to view a channel, which includes reading messages in text channels                                           | T, V, S      |
 | SEND_MESSAGES         | `0x000000800` | Allows for sending messages in a channel                                                                                           | T            |
 | SEND_TTS_MESSAGES     | `0x000001000` | Allows for sending of `/tts` messages                                                                                              | T            |
 | MANAGE_MESSAGES \*    | `0x000002000` | Allows for deletion of other users messages                                                                                        | T            |
@@ -48,19 +48,19 @@ Below is a table of all current permissions, their integer values in hexadecimal
 | MENTION_EVERYONE      | `0x000020000` | Allows for using the `@everyone` tag to notify all users in a channel, and the `@here` tag to notify all online users in a channel | T            |
 | USE_EXTERNAL_EMOJIS   | `0x000040000` | Allows the usage of custom emojis from other servers                                                                               | T            |
 | VIEW_GUILD_INSIGHTS   | `0x000080000` | Allows for viewing guild insights                                                                                                  |              |
-| CONNECT               | `0x000100000` | Allows for joining of a voice channel                                                                                              | V            |
+| CONNECT               | `0x000100000` | Allows for joining of a voice channel                                                                                              | V, S         |
 | SPEAK                 | `0x000200000` | Allows for speaking in a voice channel                                                                                             | V            |
-| MUTE_MEMBERS          | `0x000400000` | Allows for muting members in a voice channel                                                                                       | V            |
-| DEAFEN_MEMBERS        | `0x000800000` | Allows for deafening of members in a voice channel                                                                                 | V            |
-| MOVE_MEMBERS          | `0x001000000` | Allows for moving of members between voice channels                                                                                | V            |
-| USE_VAD               | `0x002000000` | Allows for using voice-activity-detection in a voice channel                                                                       | V            |
+| MUTE_MEMBERS          | `0x000400000` | Allows for muting members in a voice channel                                                                                       | V, S         |
+| DEAFEN_MEMBERS        | `0x000800000` | Allows for deafening of members in a voice channel                                                                                 | V, S         |
+| MOVE_MEMBERS          | `0x001000000` | Allows for moving of members between voice channels                                                                                | V, S         |
+| USE_VAD               | `0x002000000` | Allows for using voice-activity-detection in a voice channel                                                                       | V, S         |
 | CHANGE_NICKNAME       | `0x004000000` | Allows for modification of own nickname                                                                                            |              |
 | MANAGE_NICKNAMES      | `0x008000000` | Allows for modification of other users nicknames                                                                                   |              |
-| MANAGE_ROLES \*       | `0x010000000` | Allows management and editing of roles                                                                                             | T, V         |
-| MANAGE_WEBHOOKS \*    | `0x020000000` | Allows management and editing of webhooks                                                                                          | T, V         |
+| MANAGE_ROLES \*       | `0x010000000` | Allows management and editing of roles                                                                                             | T, V, S      |
+| MANAGE_WEBHOOKS \*    | `0x020000000` | Allows management and editing of webhooks                                                                                          | T            |
 | MANAGE_EMOJIS \*      | `0x040000000` | Allows management and editing of emojis                                                                                            |              |
 | USE_SLASH_COMMANDS    | `0x080000000` | Allows members to use slash commands in text channels                                                                              | T            |
-| REQUEST_TO_SPEAK      | `0x100000000` | Allows for requesting to speak in stage channels. (_This permission is under active development and may be changed or removed._)   | V            |
+| REQUEST_TO_SPEAK      | `0x100000000` | Allows for requesting to speak in stage channels. (_This permission is under active development and may be changed or removed._)   | S            |
 
 **\* These permissions require the owner account to use [two-factor authentication](#DOCS_TOPICS_OAUTH2/twofactor-authentication-requirement) when used on a guild that has server-wide 2FA enabled.**
 
@@ -79,7 +79,7 @@ Otherwise, permissions do not obey the role hierarchy. For example, a user has t
 
 ## Permission Overwrites
 
-Certain permissions can be applied to roles or directly to members on a channel-level by using permission overwrites. Applicable permissions are indicated by a **T** for text-channels or **V** for voice-channels in the table above.
+Certain permissions can be applied to roles or directly to members on a channel-level by using permission overwrites. Applicable permissions are indicated by a **T** for text channels, **V** for voice channels, or **S** for stage channels in the table above.
 
 When using overwrites, there are cases where permission collisions could occur for a user; that is to say, the user may have certain overwrites with permissions that contradict each other or their guild-level role permissions. With this in mind, permissions are applied to users in the following hierarchy:
 
