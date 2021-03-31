@@ -29,15 +29,16 @@ Represents a guild or DM channel within Discord.
 
 ###### Channel Types
 
-| Type           | ID | Description                                                                                                                                          |
-|----------------|----|------------------------------------------------------------------------------------------------------------------------------------------------------|
-| GUILD_TEXT     | 0  | a text channel within a server                                                                                                                       |
-| DM             | 1  | a direct message between users                                                                                                                       |
-| GUILD_VOICE    | 2  | a voice channel within a server                                                                                                                      |
-| GROUP_DM       | 3  | a direct message between multiple users                                                                                                              |
-| GUILD_CATEGORY | 4  | an [organizational category](https://support.discord.com/hc/en-us/articles/115001580171-Channel-Categories-101) that contains up to 50 channels      |
-| GUILD_NEWS     | 5  | a channel that [users can follow and crosspost into their own server](https://support.discord.com/hc/en-us/articles/360032008192)                    |
-| GUILD_STORE    | 6  | a channel in which game developers can [sell their game on Discord](https://discord.com/developers/docs/game-and-server-management/special-channels) |
+| Type              | ID  | Description                                                                                                                                          |
+| ----------------- | --- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| GUILD_TEXT        | 0   | a text channel within a server                                                                                                                       |
+| DM                | 1   | a direct message between users                                                                                                                       |
+| GUILD_VOICE       | 2   | a voice channel within a server                                                                                                                      |
+| GROUP_DM          | 3   | a direct message between multiple users                                                                                                              |
+| GUILD_CATEGORY    | 4   | an [organizational category](https://support.discord.com/hc/en-us/articles/115001580171-Channel-Categories-101) that contains up to 50 channels      |
+| GUILD_NEWS        | 5   | a channel that [users can follow and crosspost into their own server](https://support.discord.com/hc/en-us/articles/360032008192)                    |
+| GUILD_STORE       | 6   | a channel in which game developers can [sell their game on Discord](https://discord.com/developers/docs/game-and-server-management/special-channels) |
+| GUILD_STAGE_VOICE | 13  | a voice channel for [hosting events with an audience](https://support.discord.com/hc/en-us/articles/1500005513722)                                   |
 
 ###### Example Guild Text Channel
 
