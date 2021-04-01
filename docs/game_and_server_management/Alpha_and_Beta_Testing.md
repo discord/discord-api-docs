@@ -31,13 +31,16 @@ Role-based entitlements help keep your beta community active and interactive, wh
 
 ## Gift Codes
 
+> warn
+> Note that only Approved Games can generate gift codes.
+
 If you want to push out access to your game at scale, rather than inviting people into your server and giving them a role, you can create gift codes in the Developer Portal! Gift codes are like game keys on other platforms that you might be familiar with, with an added bonus: the ability to specify the entitlement time window. That means that you can create codes for your game to give to everyone, but they won't be able to play until the `VALID FROM` date. Similarly, you can set a `VALID UNTIL` date on all your gift codes if you want the entitlements to expire after a certain time, removing access from players.
 
 Note that the `VALID UNTIL` date will not remove the game from the user's library, but they will no longer be able to launch it.
 
 Up to 25,000 gift codes can be created at a time. When you go to create gift codes, you'll notice there are a few fields for you to fill out. Here's what they mean:
 
-![](gift-code-creation.png)
+![Screenshot of the modal to create gift codes with on the developer dashboard](gift-code-creation.png)
 
 - SKU: the SKU that you want the user to get
 - Branch: the branch of your game you want the user to get

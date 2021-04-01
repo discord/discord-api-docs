@@ -78,7 +78,7 @@ If we need to see some changes, you'll receive an email directing you on your st
 
 Now that you've been approved, there's a couple new toggles to flip in the Developer Portal: `Available`, and `Store Page Published`.
 
-![](available-published.png)
+![Screenshot of the SKU information page with the "available" and "store page published" switches highlighted](available-published.png)
 
 `Available` means that your game is now available for normal purchase/distribution; your non-beta store channel will no longer say `Coming soon!` when this is toggled, and users will be able to get your game.
 
@@ -93,7 +93,7 @@ TL;DR - When you're ready to distribute your game after getting approved, turn t
 
 ## Getting Verified and Discovered
 
-Apart from being approved, you can also get your server Verified. Getting verified means your server will get that oh-so-exclusive checkmark, to let people know you're the legit home for your game. It also means you'll show up in [Server Discovery](https://support.discord.com/hc/en-us/articles/360023968311-Server-Discovery) so that players can search for your game or community to join you in your server. It _also also_ unlocks a sweet customizable [Server Banner](#DOCS_GAME_AND_SERVER_MANAGEMENT_VANITY_PERKS/server-banner-background) to fly over your kingdom.
+Apart from being approved, you can also get your server Verified. Getting verified means your server will get that oh-so-exclusive checkmark, to let people know you're the legit home for your game. 
 
 To get verified, head on over to our [Verification page](https://discord.com/verification) and fill out the form at the bottom.
 

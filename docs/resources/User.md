@@ -58,22 +58,22 @@ There are other rules and restrictions not shared here for the sake of spam and 
 
 ###### User Flags
 
-| Value   | Description            |
-| ------- | ---------------------- |
-| 0       | None                   |
-| 1 << 0  | Discord Employee       |
-| 1 << 1  | Discord Partner        |
-| 1 << 2  | HypeSquad Events       |
-| 1 << 3  | Bug Hunter Level 1     |
-| 1 << 6  | House Bravery          |
-| 1 << 7  | House Brilliance       |
-| 1 << 8  | House Balance          |
-| 1 << 9  | Early Supporter        |
-| 1 << 10 | Team User              |
-| 1 << 12 | System                 |
-| 1 << 14 | Bug Hunter Level 2     |
-| 1 << 16 | Verified Bot           |
-| 1 << 17 | Verified Bot Developer |
+| Value   | Description                  |
+| ------- | ---------------------------- |
+| 0       | None                         |
+| 1 << 0  | Discord Employee             |
+| 1 << 1  | Partnered Server Owner       |
+| 1 << 2  | HypeSquad Events             |
+| 1 << 3  | Bug Hunter Level 1           |
+| 1 << 6  | House Bravery                |
+| 1 << 7  | House Brilliance             |
+| 1 << 8  | House Balance                |
+| 1 << 9  | Early Supporter              |
+| 1 << 10 | Team User                    |
+| 1 << 12 | System                       |
+| 1 << 14 | Bug Hunter Level 2           |
+| 1 << 16 | Verified Bot                 |
+| 1 << 17 | Early Verified Bot Developer |
 
 ###### Premium Types
 
@@ -91,17 +91,17 @@ The connection object that the user has attached.
 
 ###### Connection Structure
 
-| Field         | Type    | Description                                                                         |
-| ------------- | ------- | ----------------------------------------------------------------------------------- |
-| id            | string  | id of the connection account                                                        |
-| name          | string  | the username of the connection account                                              |
-| type          | string  | the service of the connection (twitch, youtube)                                     |
-| revoked?      | boolean | whether the connection is revoked                                                   |
-| integrations? | array   | an array of partial [server integrations](#DOCS_RESOURCES_GUILD/integration-object) |
-| verified      | boolean | whether the connection is verified                                                  |
-| friend_sync   | boolean | whether friend sync is enabled for this connection                                  |
-| show_activity | boolean | whether activities related to this connection will be shown in presence updates     |
-| visibility    | integer | [visibility](#DOCS_RESOURCES_USER/user-object-visibility-types) of this connection  |
+| Field         | Type    | Description                                                                               |
+| ------------- | ------- | ----------------------------------------------------------------------------------------- |
+| id            | string  | id of the connection account                                                              |
+| name          | string  | the username of the connection account                                                    |
+| type          | string  | the service of the connection (twitch, youtube)                                           |
+| revoked?      | boolean | whether the connection is revoked                                                         |
+| integrations? | array   | an array of partial [server integrations](#DOCS_RESOURCES_GUILD/integration-object)       |
+| verified      | boolean | whether the connection is verified                                                        |
+| friend_sync   | boolean | whether friend sync is enabled for this connection                                        |
+| show_activity | boolean | whether activities related to this connection will be shown in presence updates           |
+| visibility    | integer | [visibility](#DOCS_RESOURCES_USER/connection-object-visibility-types) of this connection  |
 
 ###### Visibility Types
 
@@ -144,8 +144,8 @@ Returns a list of partial [guild](#DOCS_RESOURCES_GUILD/guild-object) objects th
   "name": "1337 Krew",
   "icon": "8342729096ea3675442027381ff50dfe",
   "owner": true,
-  "permissions": 36953089,
-  "permissions_new": "36953089"
+  "permissions": "36953089",
+  "features": ["COMMUNITY", "NEWS"]
 }
 ```
 
@@ -173,7 +173,7 @@ Returns a list of [DM channel](#DOCS_RESOURCES_CHANNEL/channel-object) objects. 
 Create a new DM channel with a user. Returns a [DM channel](#DOCS_RESOURCES_CHANNEL/channel-object) object.
 
 > warn
-> You should not use this endpoint to DM everyone in a server about something. DMs should generally be intiated by a user action. If you open a significant amount of DMs too quickly, your bot may be rate limited or blocked from opening new ones.
+> You should not use this endpoint to DM everyone in a server about something. DMs should generally be initiated by a user action. If you open a significant amount of DMs too quickly, your bot may be rate limited or blocked from opening new ones.
 
 ###### JSON Params
 
