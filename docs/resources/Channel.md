@@ -678,6 +678,10 @@ Get a channel by ID. Returns a [channel](#DOCS_RESOURCES_CHANNEL/channel-object)
 
 Update a channel's settings. Requires the `MANAGE_CHANNELS` permission for the guild. Returns a [channel](#DOCS_RESOURCES_CHANNEL/channel-object) on success, and a 400 BAD REQUEST on invalid parameters. Fires a [Channel Update](#DOCS_TOPICS_GATEWAY/channel-update) Gateway event. If modifying a category, individual [Channel Update](#DOCS_TOPICS_GATEWAY/channel-update) events will fire for each child channel that also changes. If modifying permission overwrites, the `MANAGE_ROLES` permission is required. Only permissions your bot has in the guild or channel can be allowed/denied (unless your bot has a `MANAGE_ROLES` overwrite in the channel). All JSON parameters are optional.
 
+> warn
+> Editing channel name and/or topic has a custom rate limit of 2 edits per 10 minutes.
+
+
 ###### JSON Params
 
 | Field                 | Type                                                                    | Description                                                                                                                                                                     | Channel Type             |
