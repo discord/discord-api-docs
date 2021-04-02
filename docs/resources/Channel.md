@@ -287,7 +287,8 @@ Represents a message sent in a channel within Discord.
 | SUPPRESS_EMBEDS        | 1 << 2 | do not include any embeds when serializing this message                           |
 | SOURCE_MESSAGE_DELETED | 1 << 3 | the source message for this crosspost has been deleted (via Channel Following)    |
 | URGENT                 | 1 << 4 | this message came from the urgent message system                                  |
-
+| EPHEMERAL              | 1 << 6 | this message is only visible to the user who invoked the Interaction              |
+| LOADING                | 1 << 7 | this message is an Interaction Response and the bot is "thinking"                 |
 
 ###### Message Sticker Structure
 

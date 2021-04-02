@@ -734,7 +734,7 @@ Deletes the initial Interaction response. Returns `204` on success.
 
 ## Create Followup Message % POST /webhooks/{application.id#DOCS_TOPICS_OAUTH2/application-object}/{interaction.token#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction}
 
-Create a followup message for an Interaction. Functions the same as [Execute Webhook](#DOCS_RESOURCES_WEBHOOK/execute-webhook), but `wait` is always true.
+Create a followup message for an Interaction. Functions the same as [Execute Webhook](#DOCS_RESOURCES_WEBHOOK/execute-webhook), but `wait` is always true, and `flags` can be set to `64` in the body to send an ephemeral message.
 
 ## Edit Followup Message % PATCH /webhooks/{application.id#DOCS_TOPICS_OAUTH2/application-object}/{interaction.token#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}
 
@@ -849,9 +849,9 @@ All options have names, and an option can either be a parameter and input value-
 
 After receiving an interaction, you must respond to acknowledge it. You can choose to respond with a message immediately using type `4`, or you can choose to send a deferred response with type `5`. If choosing a deferred response, the user will see a loading state for the interaction, and you'll have up to 15 minutes to edit the original deferred response using [Edit Original Interaction Response](#DOCS_INTERACTIONS_SLASH_COMMANDS/edit-original-interaction-response).
 
-![A deferred response tells the user "Bot name is thinking"](ephemeral-example.png)
+![A deferred response tells the user "Bot name is thinking"](deferred-example.png)
 
-Interaction responses can also be public—everyone can see it—or "ephemeral"—only the invoking user can see it. That is determined by setting `flags` to `64` on the [InteractionApplicationCommandCallbackData](#DOCS_INTERACTIONS_SLASH_COMMANDS/InteractionApplicationCommandCallbackData).
+Interaction responses can also be public—everyone can see it—or "ephemeral"—only the invoking user can see it. That is determined by setting `flags` to `64` on the [InteractionApplicationCommandCallbackData](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-response-interactionapplicationcommandcallbackdata).
 
 | Field | Type                                      | Description                  |
 |-------|-------------------------------------------|------------------------------|
