@@ -1130,7 +1130,7 @@ Active sessions are indicated with an "online", "idle", or "dnd" string per plat
   "state": "Rocket League",
   "name": "Twitch",
   "type": 1,
-  "url": "https://www.twitch.tv/discordapp"
+  "url": "https://www.twitch.tv/discord"
 }
 ```
 
