@@ -827,11 +827,25 @@ An interaction is the base "thing" that is sent when a user invokes a command, a
 
 ###### ApplicationCommandInteractionData
 
-| Field    | Type                                             | Description                       |
-|----------|--------------------------------------------------|-----------------------------------|
-| id       | snowflake                                        | the ID of the invoked command     |
-| name     | string                                           | the name of the invoked command   |
-| options? | array of ApplicationCommandInteractionDataOption | the params + values from the user |
+| Field     | Type                                             | Description                        |
+|-----------|--------------------------------------------------|------------------------------------|
+| id        | snowflake                                        | the ID of the invoked command      |
+| name      | string                                           | the name of the invoked command    |
+| resolved? | ApplicationCommandInteractionDataResolved        | converted users + roles + channels |
+| options?  | array of ApplicationCommandInteractionDataOption | the params + values from the user  |
+
+###### ApplicationCommandInteractionDataResolved
+
+| Field         | Type                | Description                         |
+|---------------|---------------------|-------------------------------------|
+| users?        | JSON of ID: User    | the IDs and User objects            |
+| members?\*    | JSON of ID: Member  | the IDs and partial Member objects  |
+| roles?        | JSON of ID: Role    | the IDs and Role objects            |
+| channels?\*\* | JSON of ID: Channel | the IDs and partial Channel objects |
+
+\* Partial `Member` objects are missing `user`, `deaf` and `mute` fields
+
+\*\* Partial `Channel` objects only have `id`, `name`, `type` and `permissions` fields
 
 ###### ApplicationCommandInteractionDataOption
 
