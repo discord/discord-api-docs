@@ -392,7 +392,6 @@ Returns the bot's OAuth2 [application object](#DOCS_TOPICS_OAUTH2/application-ob
 | cover_image?           | string                                                     | if this application is a game sold on Discord, this field will be the hash of the image on store embeds                    |
 | flags                  | int                                                        | the application's public flags                                                                                             |
 
-
 ###### Example Application Information
 
 ```json
