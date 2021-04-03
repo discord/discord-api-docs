@@ -59,6 +59,8 @@ Many of these libraries are represented in the [unofficial, community-driven Dis
 - PHP
   - [discord-interactions-php](https://github.com/discord/discord-interactions-php)
   - [DiscordPHP-Slash](https://github.com/discord-php/DiscordPHP-Slash)
+- Lua
+  - [discordia-slash](https://github.com/GitSparTV/discordia-slash)
 - Other
   - [caddy-discord-interactions-verifier](https://github.com/CarsonHoffman/caddy-discord-interactions-verifier)
   - [Rauf's Slash Command Generator](https://rauf.wtf/slash)
