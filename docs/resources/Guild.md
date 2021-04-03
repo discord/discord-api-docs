@@ -648,7 +648,7 @@ Returns a [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) object for t
 Returns a list of [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) objects that are members of the guild.
 
 > warn
-> In the future, this endpoint will be restricted in line with our [Privileged Intents](#DOCS_TOPICS_GATEWAY/privileged-intents)
+> This endpoint is restricted according to whether the `GUILD_MEMBERS` [Privileged Intent](#DOCS_TOPICS_GATEWAY/privileged-intents) is enabled for your application.
 
 > info
 > All parameters to this endpoint are optional
@@ -663,6 +663,8 @@ Returns a list of [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) obje
 ## Add Guild Member % PUT /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/members/{user.id#DOCS_RESOURCES_USER/user-object}
 
 Adds a user to the guild, provided you have a valid oauth2 access token for the user with the `guilds.join` scope. Returns a 201 Created with the [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) as the body, or 204 No Content if the user is already a member of the guild. Fires a [Guild Member Add](#DOCS_TOPICS_GATEWAY/guild-member-add) Gateway event.
+
+For guilds with [Membership Screening](#DOCS_RESOURCES_GUILD/membership-screening-object) enabled, this endpoint will default to adding new members as `pending` in the [guild member object](#DOCS_RESOURCES_GUILD/guild-member-object). Members that are `pending` will have to complete membership screening before they become full members that can talk.
 
 > info
 > All parameters to this endpoint except for `access_token` are optional.
@@ -679,6 +681,9 @@ Adds a user to the guild, provided you have a valid oauth2 access token for the 
 | roles        | array of snowflakes | array of role ids the member is assigned                                                                                 | MANAGE_ROLES     |
 | mute         | boolean             | whether the user is muted in voice channels                                                                              | MUTE_MEMBERS     |
 | deaf         | boolean             | whether the user is deafened in voice channels                                                                           | DEAFEN_MEMBERS   |
+
+> warn
+> For guilds with Membership Screening enabled, assigning a role using the `roles` parameter will add the user to the guild as a full member (`pending` is false in the [member object](#DOCS_RESOURCES_GUILD/guild-member-object)). A member with a role will bypass membership screening and the guild's verification level, and get immediate access to chat. Therefore, instead of assigning a role when the member joins, it is recommended to grant roles only after the user completes screening.
 
 ## Modify Guild Member % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/members/{user.id#DOCS_RESOURCES_USER/user-object}
 
@@ -833,39 +838,9 @@ Returns a list of [invite](#DOCS_RESOURCES_INVITE/invite-object) objects (with [
 
 Returns a list of [integration](#DOCS_RESOURCES_GUILD/integration-object) objects for the guild. Requires the `MANAGE_GUILD` permission.
 
-## Create Guild Integration % POST /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/integrations
-
-Attach an [integration](#DOCS_RESOURCES_GUILD/integration-object) object from the current user to the guild. Requires the `MANAGE_GUILD` permission. Returns a 204 empty response on success. Fires a [Guild Integrations Update](#DOCS_TOPICS_GATEWAY/guild-integrations-update) Gateway event.
-
-###### JSON Params
-
-| Field | Type      | Description          |
-| ----- | --------- | -------------------- |
-| type  | string    | the integration type |
-| id    | snowflake | the integration id   |
-
-## Modify Guild Integration % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/integrations/{integration.id#DOCS_RESOURCES_GUILD/integration-object}
-
-Modify the behavior and settings of an [integration](#DOCS_RESOURCES_GUILD/integration-object) object for the guild. Requires the `MANAGE_GUILD` permission. Returns a 204 empty response on success. Fires a [Guild Integrations Update](#DOCS_TOPICS_GATEWAY/guild-integrations-update) Gateway event.
-
-> info
-> All parameters to this endpoint are optional and nullable.
-
-###### JSON Params
-
-| Field               | Type    | Description                                                                                                                                                                        |
-| ------------------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| expire_behavior     | integer | the behavior when an integration subscription lapses (see the [integration expire behaviors](#DOCS_RESOURCES_GUILD/integration-object-integration-expire-behaviors) documentation) |
-| expire_grace_period | integer | period (in days) where the integration will ignore lapsed subscriptions                                                                                                            |
-| enable_emoticons    | boolean | whether emoticons should be synced for this integration (twitch only currently)                                                                                                    |
-
 ## Delete Guild Integration % DELETE /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/integrations/{integration.id#DOCS_RESOURCES_GUILD/integration-object}
 
 Delete the attached [integration](#DOCS_RESOURCES_GUILD/integration-object) object for the guild. Deletes any associated webhooks and kicks the associated bot if there is one. Requires the `MANAGE_GUILD` permission. Returns a 204 empty response on success. Fires a [Guild Integrations Update](#DOCS_TOPICS_GATEWAY/guild-integrations-update) Gateway event.
-
-## Sync Guild Integration % POST /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/integrations/{integration.id#DOCS_RESOURCES_GUILD/integration-object}/sync
-
-Sync an integration. Requires the `MANAGE_GUILD` permission. Returns a 204 empty response on success.
 
 ## Get Guild Widget Settings % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/widget
 

@@ -1,5 +1,25 @@
 # Change Log
 
+## Large Bot Sharding Lowered to 150,000 Guilds 
+
+## March 15, 2021
+
+There have been reports that sessions have higher frequency of errors when starting if a bot has joined too many guilds (the gateway connection times out). To account for this we have lowered the requirement for large bot sharding down to 150,000 guilds in order to improve reliability.
+
+## Changes to Slash Command Response Types and Flags
+
+## March 5, 2021
+
+Changes to interaction response types have been made to support better designs for Slash Commands:
+
+- Type `2` `Acknowledge` has been deprecated
+- Type `3` `ChannelMessage` has been deprecated
+- Type `5` `AcknowledgeWithSource` has been renamed to `DeferredChannelMessageWithSource`
+
+These deprecated types will be removed and break on **April 9, 2021**.
+
+Additionally, `flags` has been documented on [InteractionApplicationCommandCallbackData](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-response-interactionapplicationcommandcallbackdata). Setting `flags` to `64` will make the interaction response ephemeral.
+
 ## Slash Commands in DMs
 
 #### February 9, 2021

@@ -296,11 +296,13 @@ Some intents are defined as "Privileged" due to the sensitive nature of the data
 - `GUILD_PRESENCES`
 - `GUILD_MEMBERS`
 
-In order to specify these intents in your `IDENTIFY` payload, you must first go to your application in the Developer Portal and enable the toggle for the Privileged Intents you wish to use. If your bot is in 100 or more guilds, you must also get your [bot verified](https://support.discord.com/hc/en-us/articles/360040720412-Bot-Verification-and-Data-Whitelisting).
+To specify these intents in your `IDENTIFY` payload, you must visit your application page in the Developer Portal and enable the toggle for each Privileged Intent that you wish to use. If your bot qualifies for [verification](https://dis.gd/bot-verification), you must first [verify your bot](https://support.discord.com/hc/en-us/articles/360040720412-Bot-Verification-and-Data-Whitelisting) and request access to these intents during the verification process. If your bot is already verified and you need to request additional privileged intents, [contact support](https://dis.gd/support).
 
-On **October 7, 2020** the events under the `GUILD_PRESENCES` and `GUILD_MEMBERS` intents will be turned **off by default on all gateway versions**. If you are using **Gateway v6**, you will receive those events if you have enabled the flags for those intents in the Developer Portal and have been verified if your bot is in 100 or more guilds. You do not need to use Intents on Gateway v6 to receive these events; you just need to enable the flags.
+Events under the `GUILD_PRESENCES` and `GUILD_MEMBERS` intents are turned **off by default on all gateway versions**. If you are using **Gateway v6**, you will receive those events if you are authorized to receive them and have enabled the intents in the Developer Portal. You do not need to use Intents on Gateway v6 to receive these events; you just need to enable the flags.
 
-If you are using **Gateway v8**, Intents are mandatory and must be specified when connecting.
+If you are using **Gateway v8**, Intents are mandatory and must be specified when identifying.
+
+In addition to the gateway restrictions described here, Discord's REST API is also affected by Privileged Intents. Specifically, to use the [List Guild Members](#DOCS_RESOURCES_GUILD/list-guild-members) endpoint, you must have the `GUILD_MEMBERS` intent enabled for your application. This behavior is independent of whether the intent is set during `IDENTIFY`.
 
 ## Rate Limiting
 
@@ -346,7 +348,7 @@ Note that `num_shards` does not relate to, or limit, the total number of potenti
 
 ## Sharding for Very Large Bots
 
-If you own a bot that is in over 250,000 guilds, there are some additional considerations you must take around sharding. Please file a support-ticket to get moved to the sharding for big bots, when you reach this amount of servers. You can contact the discord support using [https://dis.gd/contact](https://dis.gd/contact).
+If you own a bot that is near or in over 150,000 guilds, there are some additional considerations you must take around sharding. Please file a support-ticket to get moved to the sharding for big bots, when you reach near this amount of servers. You can contact the discord support using [https://dis.gd/contact](https://dis.gd/contact).
 
 The number of shards you run must be a multiple of a fixed number we will determine when reaching out to you. If you attempt to start your bot with an invalid number of shards, your websocket connection will close with a 4010 Invalid Shard opcode. The gateway bot bootstrap endpoint will return the correct amount of shards, so if you're already using this endpoint to determine your number of shards, you shouldn't require any further changes.
 
@@ -378,6 +380,9 @@ Events are payloads sent over the socket to a client that correspond to events i
 | [Resumed](#DOCS_TOPICS_GATEWAY/resumed)                                             | response to [Resume](#DOCS_TOPICS_GATEWAY/resume)                                                                                |
 | [Reconnect](#DOCS_TOPICS_GATEWAY/reconnect)                                         | server is going away, client should reconnect to gateway and resume                                                              |
 | [Invalid Session](#DOCS_TOPICS_GATEWAY/invalid-session)                             | failure response to [Identify](#DOCS_TOPICS_GATEWAY/identify) or [Resume](#DOCS_TOPICS_GATEWAY/resume) or invalid active session |
+| [Application Command Create](#DOCS_TOPICS_GATEWAY/application-command-create)       | new [Slash Command](#DOCS_INTERACTIONS_SLASH_COMMANDS/) was created                                                              |
+| [Application Command Update](#DOCS_TOPICS_GATEWAY/application-command-update)       | [Slash Command](#DOCS_INTERACTIONS_SLASH_COMMANDS/) was updated                                                                  |
+| [Application Command Delete](#DOCS_TOPICS_GATEWAY/application-command-delete)       | [Slash Command](#DOCS_INTERACTIONS_SLASH_COMMANDS/) was deleted                                                                  |
 | [Channel Create](#DOCS_TOPICS_GATEWAY/channel-create)                               | new guild channel created                                                                                                        |
 | [Channel Update](#DOCS_TOPICS_GATEWAY/channel-update)                               | channel was updated                                                                                                              |
 | [Channel Delete](#DOCS_TOPICS_GATEWAY/channel-delete)                               | channel was deleted                                                                                                              |
@@ -396,6 +401,7 @@ Events are payloads sent over the socket to a client that correspond to events i
 | [Guild Role Create](#DOCS_TOPICS_GATEWAY/guild-role-create)                         | guild role was created                                                                                                           |
 | [Guild Role Update](#DOCS_TOPICS_GATEWAY/guild-role-update)                         | guild role was updated                                                                                                           |
 | [Guild Role Delete](#DOCS_TOPICS_GATEWAY/guild-role-delete)                         | guild role was deleted                                                                                                           |
+| [Interaction Create](#DOCS_TOPICS_GATEWAY/interaction-create)                       | user used an interaction, such as a [Slash Command](#DOCS_INTERACTIONS_SLASH_COMMANDS/)                                                                  |
 | [Invite Create](#DOCS_TOPICS_GATEWAY/invite-create)                                 | invite to a channel was created                                                                                                  |
 | [Invite Delete](#DOCS_TOPICS_GATEWAY/invite-delete)                                 | invite to a channel was deleted                                                                                                  |
 | [Message Create](#DOCS_TOPICS_GATEWAY/message-create)                               | message was created                                                                                                              |
@@ -412,10 +418,6 @@ Events are payloads sent over the socket to a client that correspond to events i
 | [Voice State Update](#DOCS_TOPICS_GATEWAY/voice-state-update)                       | someone joined, left, or moved a voice channel                                                                                   |
 | [Voice Server Update](#DOCS_TOPICS_GATEWAY/voice-server-update)                     | guild's voice server was updated                                                                                                 |
 | [Webhooks Update](#DOCS_TOPICS_GATEWAY/webhooks-update)                             | guild channel webhook was created, update, or deleted                                                                            |
-| [Application Command Create](#DOCS_TOPICS_GATEWAY/application-command-create)       | new [Slash Command](#DOCS_INTERACTIONS_SLASH_COMMANDS/) was created                                                              |
-| [Application Command Update](#DOCS_TOPICS_GATEWAY/application-command-update)       | [Slash Command](#DOCS_INTERACTIONS_SLASH_COMMANDS/) was updated                                                                  |
-| [Application Command Delete](#DOCS_TOPICS_GATEWAY/application-command-delete)       | [Slash Command](#DOCS_INTERACTIONS_SLASH_COMMANDS/) was deleted                                                                  |
-| [Interaction Create](#DOCS_TOPICS_GATEWAY/interaction-create)                       | user used a [Slash Command](#DOCS_INTERACTIONS_SLASH_COMMANDS/)                                                                  |
 
 ### Event Names
 
@@ -1128,7 +1130,7 @@ Active sessions are indicated with an "online", "idle", or "dnd" string per plat
   "state": "Rocket League",
   "name": "Twitch",
   "type": 1,
-  "url": "https://www.twitch.tv/discordapp"
+  "url": "https://www.twitch.tv/discord"
 }
 ```
 
