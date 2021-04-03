@@ -534,7 +534,7 @@ Embed types are "loosely defined" and, for the most part, are not used by our cl
 |---------------|-----------|-------------------------------------------------------------------------------------|
 | id            | snowflake | attachment id                                                                       |
 | filename      | string    | name of file attached                                                               |
-| content_type? | string    | the attachment's content's type (like `image/png`, `text/x-python` or `audio/mpeg`) |
+| content_type? | string    | the attachment's [media type](https://en.wikipedia.org/wiki/Media_type)             |
 | size          | integer   | size of file in bytes                                                               |
 | url           | string    | source url of file                                                                  |
 | proxy_url     | string    | a proxied url of file                                                               |
