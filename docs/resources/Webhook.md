@@ -152,18 +152,20 @@ Add a new webhook to your GitHub repo (in the repo's settings), and use this end
 
 ## Edit Webhook Message % PATCH /webhooks/{webhook.id#DOCS_RESOURCES_WEBHOOK/webhook-object}/{webhook.token#DOCS_RESOURCES_WEBHOOK/webhook-object}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}
 
-Edits a previously-sent webhook message from the same token.
+Edits a previously-sent webhook message from the same token. Returns a [message](#DOCS_RESOURCES_CHANNEL/message-object) object on success.
 
 > info
 > All parameters to this endpoint are optional and nullable.
 
 ###### JSON/Form Params
 
-| Field            | Type                                                                      | Description                                  |
-| ---------------- | ------------------------------------------------------------------------- | -------------------------------------------- |
-| content          | string                                                                    | the message contents (up to 2000 characters) |
-| embeds           | array of up to 10 [embed](#DOCS_RESOURCES_CHANNEL/embed-object) objects   | embedded `rich` content                      |
-| allowed_mentions | [allowed mention object](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object) | allowed mentions for the message             |
+| Field            | Type                                                                      | Description                                                  |
+| ---------------- | ------------------------------------------------------------------------- | ------------------------------------------------------------ |
+| content          | string                                                                    | the message contents (up to 2000 characters)                 |
+| embeds           | array of up to 10 [embed](#DOCS_RESOURCES_CHANNEL/embed-object) objects   | embedded `rich` content                                      |
+| file             | file contents                                                             | the contents of the file being sent/edited                   |
+| payload_json     | string                                                                    | See [message create](#DOCS_RESOURCES_CHANNEL/create-message) |
+| allowed_mentions | [allowed mention object](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object) | allowed mentions for the message                             |
 
 # Delete Webhook Message % DELETE /webhooks/{webhook.id#DOCS_RESOURCES_WEBHOOK/webhook-object}/{webhook.token#DOCS_RESOURCES_WEBHOOK/webhook-object}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}
 

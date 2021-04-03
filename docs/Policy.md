@@ -72,9 +72,9 @@ please follow the outlined steps:
 - 100 server limit for your bot
     - Please see your bot’s settings and get verified and approved for Privileged Intents as needed. [Read more here](https://support.discord.com/hc/en-us/articles/360040720412)
 - Large Bot Sharding
-    - If you are in over 200,000 guilds, please reach out to support at [https://dis.gd/contact](https://dis.gd/contact) about Large Bot Sharding. [Read more here](https://discord.com/developers/docs/topics/gateway#identifying)
+    - If you are near or in over 150,000 guilds, please reach out to support at [https://dis.gd/contact](https://dis.gd/contact) about Large Bot Sharding. [Read more here](https://discord.com/developers/docs/topics/gateway#sharding-for-very-large-bots)
 - Higher global rate limit
-    - If you are in over 200,000 guilds, please reach out to support at [https://dis.gd/contact](https://dis.gd/contact) about a higher global rate limit
+    - If you are near or in over 150,000 guilds, please reach out to support at [https://dis.gd/contact](https://dis.gd/contact) about a higher global rate limit
 
 ## HIPAA Rules.
 
