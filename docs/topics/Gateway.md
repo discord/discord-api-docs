@@ -296,15 +296,20 @@ Some intents are defined as "Privileged" due to the sensitive nature of the data
 - `GUILD_PRESENCES`
 - `GUILD_MEMBERS`
 
-In order to specify these intents in your `IDENTIFY` payload, you must first go to your application in the Developer Portal and enable the toggle for the Privileged Intents you wish to use. If your bot is in 100 or more guilds, you must also get your [bot verified](https://support.discord.com/hc/en-us/articles/360040720412-Bot-Verification-and-Data-Whitelisting).
+To specify these intents in your `IDENTIFY` payload, you must visit your application page in the Developer Portal and enable the toggle for each Privileged Intent that you wish to use. If your bot qualifies for [verification](https://dis.gd/bot-verification), you must first [verify your bot](https://support.discord.com/hc/en-us/articles/360040720412-Bot-Verification-and-Data-Whitelisting) and request access to these intents during the verification process. If your bot is already verified and you need to request additional privileged intents, [contact support](https://dis.gd/support).
 
-On **October 7, 2020** the events under the `GUILD_PRESENCES` and `GUILD_MEMBERS` intents will be turned **off by default on all gateway versions**. If you are using **Gateway v6**, you will receive those events if you have enabled the flags for those intents in the Developer Portal and have been verified if your bot is in 100 or more guilds. You do not need to use Intents on Gateway v6 to receive these events; you just need to enable the flags.
+Events under the `GUILD_PRESENCES` and `GUILD_MEMBERS` intents are turned **off by default on all gateway versions**. If you are using **Gateway v6**, you will receive those events if you are authorized to receive them and have enabled the intents in the Developer Portal. You do not need to use Intents on Gateway v6 to receive these events; you just need to enable the flags.
 
-If you are using **Gateway v8**, Intents are mandatory and must be specified when connecting.
+If you are using **Gateway v8**, Intents are mandatory and must be specified when identifying.
+
+In addition to the gateway restrictions described here, Discord's REST API is also affected by Privileged Intents. Specifically, to use the [List Guild Members](#DOCS_RESOURCES_GUILD/list-guild-members) endpoint, you must have the `GUILD_MEMBERS` intent enabled for your application. This behavior is independent of whether the intent is set during `IDENTIFY`.
 
 ## Rate Limiting
 
-Clients are allowed 120 events every 60 seconds, meaning you can send on average at a rate of up to 2 events per second. Clients who surpass this limit are immediately disconnected from the Gateway, and similarly to the HTTP API, repeat offenders will have their API access revoked. Clients also have limit of [concurrent](#DOCS_TOPICS_GATEWAY/session-start-limit-object) [Identify](#DOCS_TOPICS_GATEWAY/identify) requests allowed per 5 seconds. If you hit this limit, the Gateway will respond with an [Opcode 9 Invalid Session](#DOCS_TOPICS_GATEWAY/invalid-session).
+> info
+> This section is about Gateway rate limits, not [HTTP API rate limits](#DOCS_TOPICS_RATE_LIMITS/)
+
+Clients are allowed to send 120 [gateway commands](#DOCS_TOPICS_GATEWAY/commands-and-events) every 60 seconds, meaning you can send an average of 2 commands per second. Clients who surpass this limit are immediately disconnected from the Gateway, and similarly to the HTTP API, repeat offenders will have their API access revoked. Clients also have a limit of [concurrent](#DOCS_TOPICS_GATEWAY/session-start-limit-object) [Identify](#DOCS_TOPICS_GATEWAY/identify) requests allowed per 5 seconds. If you hit this limit, the Gateway will respond with an [Opcode 9 Invalid Session](#DOCS_TOPICS_GATEWAY/invalid-session).
 
 ## Tracking State
 
@@ -343,7 +348,7 @@ Note that `num_shards` does not relate to, or limit, the total number of potenti
 
 ## Sharding for Very Large Bots
 
-If you own a bot that is in over 250,000 guilds, there are some additional considerations you must take around sharding. Please file a support-ticket to get moved to the sharding for big bots, when you reach this amount of servers. You can contact the discord support using [https://dis.gd/contact](https://dis.gd/contact).
+If you own a bot that is near or in over 150,000 guilds, there are some additional considerations you must take around sharding. Please file a support-ticket to get moved to the sharding for big bots, when you reach near this amount of servers. You can contact the discord support using [https://dis.gd/contact](https://dis.gd/contact).
 
 The number of shards you run must be a multiple of a fixed number we will determine when reaching out to you. If you attempt to start your bot with an invalid number of shards, your websocket connection will close with a 4010 Invalid Shard opcode. The gateway bot bootstrap endpoint will return the correct amount of shards, so if you're already using this endpoint to determine your number of shards, you shouldn't require any further changes.
 
@@ -375,7 +380,10 @@ Events are payloads sent over the socket to a client that correspond to events i
 | [Resumed](#DOCS_TOPICS_GATEWAY/resumed)                                             | response to [Resume](#DOCS_TOPICS_GATEWAY/resume)                                                                                |
 | [Reconnect](#DOCS_TOPICS_GATEWAY/reconnect)                                         | server is going away, client should reconnect to gateway and resume                                                              |
 | [Invalid Session](#DOCS_TOPICS_GATEWAY/invalid-session)                             | failure response to [Identify](#DOCS_TOPICS_GATEWAY/identify) or [Resume](#DOCS_TOPICS_GATEWAY/resume) or invalid active session |
-| [Channel Create](#DOCS_TOPICS_GATEWAY/channel-create)                               | new guild channel created                                                                                                       |
+| [Application Command Create](#DOCS_TOPICS_GATEWAY/application-command-create)       | new [Slash Command](#DOCS_INTERACTIONS_SLASH_COMMANDS/) was created                                                              |
+| [Application Command Update](#DOCS_TOPICS_GATEWAY/application-command-update)       | [Slash Command](#DOCS_INTERACTIONS_SLASH_COMMANDS/) was updated                                                                  |
+| [Application Command Delete](#DOCS_TOPICS_GATEWAY/application-command-delete)       | [Slash Command](#DOCS_INTERACTIONS_SLASH_COMMANDS/) was deleted                                                                  |
+| [Channel Create](#DOCS_TOPICS_GATEWAY/channel-create)                               | new guild channel created                                                                                                        |
 | [Channel Update](#DOCS_TOPICS_GATEWAY/channel-update)                               | channel was updated                                                                                                              |
 | [Channel Delete](#DOCS_TOPICS_GATEWAY/channel-delete)                               | channel was deleted                                                                                                              |
 | [Channel Pins Update](#DOCS_TOPICS_GATEWAY/channel-pins-update)                     | message was pinned or unpinned                                                                                                   |
@@ -393,6 +401,7 @@ Events are payloads sent over the socket to a client that correspond to events i
 | [Guild Role Create](#DOCS_TOPICS_GATEWAY/guild-role-create)                         | guild role was created                                                                                                           |
 | [Guild Role Update](#DOCS_TOPICS_GATEWAY/guild-role-update)                         | guild role was updated                                                                                                           |
 | [Guild Role Delete](#DOCS_TOPICS_GATEWAY/guild-role-delete)                         | guild role was deleted                                                                                                           |
+| [Interaction Create](#DOCS_TOPICS_GATEWAY/interaction-create)                       | user used an interaction, such as a [Slash Command](#DOCS_INTERACTIONS_SLASH_COMMANDS/)                                                                  |
 | [Invite Create](#DOCS_TOPICS_GATEWAY/invite-create)                                 | invite to a channel was created                                                                                                  |
 | [Invite Delete](#DOCS_TOPICS_GATEWAY/invite-delete)                                 | invite to a channel was deleted                                                                                                  |
 | [Message Create](#DOCS_TOPICS_GATEWAY/message-create)                               | message was created                                                                                                              |
@@ -512,7 +521,7 @@ Used to maintain an active gateway connection. Must be sent every `heartbeat_int
 
 #### Request Guild Members
 
-Used to request all members for a guild or a list of guilds. When initially connecting, the gateway will only send offline members if a guild has less than the `large_threshold` members (value in the [Gateway Identify](#DOCS_TOPICS_GATEWAY/identify)). If a client wishes to receive additional members, they need to explicitly request them via this operation. The server will send [Guild Members Chunk](#DOCS_TOPICS_GATEWAY/guild-members-chunk) events in response with up to 1000 members per chunk until all members that match the request have been sent.
+Used to request all members for a guild or a list of guilds. When initially connecting, if you don't have the `GUILD_PRESENCES` [Gateway Intent](#DOCS_TOPICS_GATEWAY/gateway-intents), or if the guild is over 75k members, it will only send members who are in voice, plus the member for you (the connecting user). Otherwise, if a guild has over `large_threshold` members (value in the [Gateway Identify](#DOCS_TOPICS_GATEWAY/identify)), it will only send members who are online, have a role, have a nickname, or are in a voice channel, and if it has under `large_threshold` members, it will send all members. If a client wishes to receive additional members, they need to explicitly request them via this operation. The server will send [Guild Members Chunk](#DOCS_TOPICS_GATEWAY/guild-members-chunk) events in response with up to 1000 members per chunk until all members that match the request have been sent.
 
 Due to our privacy and infrastructural concerns with this feature, there are some limitations that apply:
 
@@ -652,6 +661,7 @@ The ready event is dispatched when a client has completed the initial handshake 
 | guilds           | array of [Unavailable Guild](#DOCS_RESOURCES_GUILD/unavailable-guild-object) objects | the guilds the user is in                                                                                     |
 | session_id       | string                                                                               | used for resuming connections                                                                                 |
 | shard?           | array of two integers (shard_id, num_shards)                                         | the [shard information](#DOCS_TOPICS_GATEWAY/sharding) associated with this session, if sent when identifying |
+| application      | partial [application object](#DOCS_TOPICS_OAUTH2/application-object)                 | contains `id` and `flags`                                                                                     | 
 
 #### Resumed
 
@@ -700,11 +710,11 @@ Sent when a message is pinned or unpinned in a text channel. This is not sent wh
 
 ###### Channel Pins Update Event Fields
 
-| Field               | Type              | Description                                                 |
-|---------------------|-------------------|-------------------------------------------------------------|
-| guild_id?           | snowflake         | the id of the guild                                         |
-| channel_id          | snowflake         | the id of the channel                                       |
-| last_pin_timestamp? | ISO8601 timestamp | the time at which the most recent pinned message was pinned |
+| Field               | Type               | Description                                                  |
+|---------------------|--------------------|--------------------------------------------------------------|
+| guild_id?           | snowflake          | the id of the guild                                          |
+| channel_id          | snowflake          | the id of the channel                                        |
+| last_pin_timestamp? | ?ISO8601 timestamp | the time at which the most recent pinned message was pinned  |
 
 ### Guilds
 
@@ -719,7 +729,7 @@ This event can be sent in three different scenarios:
 The inner payload is a [guild](#DOCS_RESOURCES_GUILD/guild-object) object, with all the extra fields specified.
 
 > warn
-> If you are using [Gateway Intents](#DOCS_TOPICS_GATEWAY/gateway-intents), members and presences returned in this event will only contain your bot and users in voice channels unless you specify the `GUILD_PRESENCES` intent.
+> If your bot does not have the `GUILD_PRESENCES` [Gateway Intent](#DOCS_TOPICS_GATEWAY/gateway-intents), or if the guild has over 75k members, members and presences returned in this event will only contain your bot and users in voice channels.
 
 #### Guild Update
 
@@ -808,14 +818,15 @@ Sent when a guild member is updated. This will also fire when the user object of
 
 ###### Guild Member Update Event Fields
 
-| Field          | Type                                              | Description                                                                                                              |
-|----------------|---------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------|
-| guild_id       | snowflake                                         | the id of the guild                                                                                                      |
-| roles          | array of snowflakes                               | user role ids                                                                                                            |
-| user           | a [user](#DOCS_RESOURCES_USER/user-object) object | the user                                                                                                                 |
-| nick?          | ?string                                           | nickname of the user in the guild                                                                                        |
-| joined_at      | ISO8601 timestamp                                 | when the user joined the guild                                                                                           |
-| premium_since? | ?ISO8601 timestamp                                | when the user starting [boosting](https://support.discord.com/hc/en-us/articles/360028038352-Server-Boosting-) the guild |
+| Field          | Type                                              | Description                                                                                                                            |
+|----------------|---------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------|
+| guild_id       | snowflake                                         | the id of the guild                                                                                                                    |
+| roles          | array of snowflakes                               | user role ids                                                                                                                          |
+| user           | a [user](#DOCS_RESOURCES_USER/user-object) object | the user                                                                                                                               |
+| nick?          | ?string                                           | nickname of the user in the guild                                                                                                      |
+| joined_at      | ISO8601 timestamp                                 | when the user joined the guild                                                                                                         |
+| premium_since? | ?ISO8601 timestamp                                | when the user starting [boosting](https://support.discord.com/hc/en-us/articles/360028038352-Server-Boosting-) the guild               |
+| pending?       | boolean                                           | whether the user has not yet passed the guild's [Membership Screening](#DOCS_RESOURCES_GUILD/membership-screening-object) requirements |
 
 #### Guild Members Chunk
 
@@ -1119,7 +1130,7 @@ Active sessions are indicated with an "online", "idle", or "dnd" string per plat
   "state": "Rocket League",
   "name": "Twitch",
   "type": 1,
-  "url": "https://www.twitch.tv/discordapp"
+  "url": "https://www.twitch.tv/discord"
 }
 ```
 
@@ -1214,6 +1225,32 @@ Sent when a guild channel's webhook is created, updated, or deleted.
 |------------|-----------|-------------------|
 | guild_id   | snowflake | id of the guild   |
 | channel_id | snowflake | id of the channel |
+
+### Commands
+
+#### Application Command Create
+
+Sent when a new [Slash Command](#DOCS_INTERACTIONS_SLASH_COMMANDS/) is created, relevant to the current user. The inner payload is an [ApplicationCommand](#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommand) object, with an optional extra `guild_id` key.
+
+#### Application Command Update
+
+Sent when a [Slash Command](#DOCS_INTERACTIONS_SLASH_COMMANDS/) relevant to the current user is updated. The inner payload is an [ApplicationCommand](#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommand) object, with an optional extra `guild_id` key.
+
+#### Application Command Delete
+
+Sent when a [Slash Command](#DOCS_INTERACTIONS_SLASH_COMMANDS/) relevant to the current user is deleted. The inner payload is an [ApplicationCommand](#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommand) object, with an optional extra `guild_id` key.
+
+###### Application Command Extra Fields
+
+| Field     | Type      | Description                       |
+|-----------|-----------|-----------------------------------|
+| guild_id? | snowflake | id of the guild the command is in |
+
+### Interactions
+
+#### Interaction Create
+
+Sent when a user in a guild uses a [Slash Command](#DOCS_INTERACTIONS_SLASH_COMMANDS/). Inner payload is an [Interaction](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction).
 
 ## Get Gateway % GET /gateway
 
