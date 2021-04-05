@@ -900,6 +900,16 @@ Returns a partial [invite](#DOCS_RESOURCES_INVITE/invite-object) object for guil
 }
 ```
 
+## Modify Guild Vanity URL % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/vanity-url
+
+Modify a guild's vanity URL. Requires the `MANAGE_GUILD` permission. Returns a partial invite object on success (see above)
+
+##### JSON Params
+
+| Field | Type    | Description         | Default |
+| ----- | ------- | ------------------- | ------- |
+| code  | ?string | vanity invite code  | null    |
+
 ## Get Guild Widget Image % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/widget.png
 
 Returns a PNG image widget for the guild. Requires no permissions or authentication.
