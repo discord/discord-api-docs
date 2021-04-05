@@ -649,7 +649,7 @@ For example, this command will not be usable by anyone in any guilds by default:
 To enable it just for a moderator role:
 
 ```py
-MODERATOR_ROLE_ID = "<moderator_role_id"
+MODERATOR_ROLE_ID = "<moderator_role_id>"
 url = "https://discord.com/api/v8/applications/<my_application_id>/guilds/<my_guild_id>/commands/<my_command_id>/permissions"
 
 json = {
