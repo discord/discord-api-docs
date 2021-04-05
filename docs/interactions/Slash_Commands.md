@@ -632,9 +632,9 @@ And, done! The JSON looks a bit complicated, but what we've ended up with is a s
 Need to keep some of your Slash Commands safe from prying eyes, or only available to the right people? Slash Commands support permission overwrites for all your commands. For both guild _and_ global commands, you can enable or disable a specific user or role in a guild from using a command.
 
 > info
-> For now, disabled commands still show up in the command picker, but are unable to be used.
+> For now, if you don't have permission to use a command, they'll show up in the command picker as disabled and unusable. They will not be hidden.
 
-You can also set a `default_permission` on your commands if you want them to be disabled by default when your app is added to a new guild. Setting `default_permission` to `false` will disallow _anyone_ in a guild from using the command--even Administrators--unless a specific overwrite is configured.
+You can also set a `default_permission` on your commands if you want them to be disabled by default when your app is added to a new guild. Setting `default_permission` to `false` will disallow _anyone_ in a guild from using the command--even Administrators and guild owners--unless a specific overwrite is configured.
 
 For example, this command will not be usable by anyone in any guilds by default:
 
@@ -649,13 +649,17 @@ For example, this command will not be usable by anyone in any guilds by default:
 To enable it just for a moderator role:
 
 ```py
-MODERATOR_ROLE_ID = "173547401905176999"
+MODERATOR_ROLE_ID = "<moderator_role_id"
 url = "https://discord.com/api/v8/applications/<my_application_id>/guilds/<my_guild_id>/commands/<my_command_id>/permissions"
 
 json = {
-    "id": MODERATOR_ROLE_ID,
-    "type": 1,
-    "permission": True
+    "permissions": [
+        {
+            "id": MODERATOR_ROLE_ID,
+            "type": 1,
+            "permission": True
+        }
+    ]
 }
 
 headers = {
@@ -664,8 +668,6 @@ headers = {
 
 r = requests.put(url, headers=headers, json=json)
 ```
-
-The command will be visible to everyone, but disabled for everyone except the moderator role.
 
 ## Endpoints
 
@@ -690,6 +692,7 @@ Create a new global command. New global commands will be available in all guilds
 | name        | string                                                                                          | 1-32 character name matching `^[\w-]{1,32}$` |
 | description | string                                                                                          | 1-100 character description                  |
 | options?    | array of [ApplicationCommandOption](#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommandoption) | the parameters for the command               |
+| default_permission? | boolean (default `true`) | whether the command is enabled by default when the app is added to a guild |
 
 ## Get Global Application Command % GET /applications/{application.id#DOCS_TOPICS_OAUTH2/application-object}/commands/{command.id#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommand}
 
@@ -709,6 +712,7 @@ Edit a global command. Updates will be available in all guilds after 1 hour. Ret
 | name        | string                                                                                          | 1-32 character name matching `^[\w-]{1,32}$` |
 | description | string                                                                                          | 1-100 character description                  |
 | options     | array of [ApplicationCommandOption](#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommandoption) | the parameters for the command               |
+| default_permission? | boolean (default `true`) | whether the command is enabled by default when the app is added to a guild |
 
 
 ## Delete Global Application Command % DELETE /applications/{application.id#DOCS_TOPICS_OAUTH2/application-object}/commands/{command.id#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommand}
@@ -733,6 +737,7 @@ Create a new guild command. New guild commands will be available in the guild im
 | name        | string                                                                                          | 1-32 character name matching `^[\w-]{1,32}$` |
 | description | string                                                                                          | 1-100 character description                  |
 | options?    | array of [ApplicationCommandOption](#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommandoption) | the parameters for the command               |
+| default_permission? | boolean (default `true`) | whether the command is enabled by default when the app is added to a guild |
 
 ## Get Guild Application Command % GET /applications/{application.id#DOCS_TOPICS_OAUTH2/application-object}/guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/commands/{command.id#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommand}
 
@@ -752,6 +757,7 @@ Edit a guild command. Updates for guild commands will be available immediately. 
 | name        | string                                                                                          | 1-32 character name matching `^[\w-]{1,32}$` |
 | description | string                                                                                          | 1-100 character description                  |
 | options     | array of [ApplicationCommandOption](#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommandoption) | the parameters for the command               |
+| default_permission? | boolean (default `true`) | whether the command is enabled by default when the app is added to a guild |
 
 
 ## Delete Guild Application Command % DELETE /applications/{application.id#DOCS_TOPICS_OAUTH2/application-object}/guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/commands/{command.id#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommand}
@@ -805,7 +811,7 @@ Edits command permissions for a specific command for your application in a guild
 
 | Field | Type | Description |
 | ----- | ---- | ----------- |
-| permissions | array of [ApplicationCommandPermissions] | 
+| permissions | array of [ApplicationCommandPermissions] |
 
 ## Data Models and Types
 

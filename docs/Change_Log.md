@@ -2,7 +2,7 @@
 
 ## Slash Command Permissions
 
-## March XX, 2021
+## April 5, 2021
 
 Need to keep some of your Slash Commands safe from prying eyes, or only available to the right people? Slash Commands now support [command permissions](#DOCS_INTERACTIONS_SLASH_COMMANDS/permissions)!
 
