@@ -813,6 +813,52 @@ Edits command permissions for a specific command for your application in a guild
 | ----- | ---- | ----------- |
 | permissions | array of [ApplicationCommandPermissions] |
 
+## Batch Edit Application Command Permissions % PUT /applications/{application.id#DOCS_TOPICS_OAUTH2/application-object}/guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/commands/permissions
+
+> warn
+> This endpoint will overwrite all existing permissions for all commands in a guild
+
+Batch edits permissions for all commands in a guild. Takes an array of partial [GuildApplicationCommandPermissions](#DOCS_INTERACTIONS_SLASH_COMMANDS/guildapplicationcommandpermissions) objects including `id` and `permissions`.
+
+###### Example
+
+```py
+FIRST_COMMAND_ID = "<first_command_id>"
+SECOND_COMMAND_ID = "<second_command_id>"
+ADMIN_ROLE_ID = "<admin_role_id>"
+
+url = "https://discord.com/api/v8/applications/<my_application_id>/guilds/<my_guild_id>/commands/permissions"
+
+json = [
+    {
+        "id": FIRST_COMMAND_ID,
+        "permissions": [
+            {
+                "id": ADMIN_ROLE_ID,
+                "type": 1,
+                "permission": true
+            }
+        ]
+    },
+    {
+        "id": SECOND_COMMAND_ID,
+        "permissions": [
+            {
+                "id": ADMIN_ROLE_ID,
+                "type": 1,
+                "permission": false
+            }
+        ]
+    }
+]
+
+headers = {
+    "Authorization": "Bot 123456"
+}
+
+r = requests.put(url, headers=headers, json=json)
+```
+
 ## Data Models and Types
 
 ## ApplicationCommand
