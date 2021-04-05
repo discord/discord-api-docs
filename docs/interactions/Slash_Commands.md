@@ -790,12 +790,12 @@ Deletes a followup message for an Interaction. Returns `204` on success.
 
 ## Get Guild Application Command Permissions % GET /applications/{application.id#DOCS_TOPICS_OAUTH2/application-object}/guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/commands/permissions
 
-Fetches command permissions for all commands for your application in a guild. Returns an array of [ApplicationCommandPermissions](#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommandpermissions).
+Fetches command permissions for all commands for your application in a guild. Returns an array of [GuildApplicationCommandPermissions](#DOCS_INTERACTIONS_SLASH_COMMANDS/guildapplicationcommandpermissions) objects.
 
 
 ## Get Application Command Permissions % GET /applications/{application.id#DOCS_TOPICS_OAUTH2/application-object}/guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/commands/{command.id#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommand}/permissions
 
-Fetches command permissions for a specific command for your application in a guild. Returns an array of [ApplicationCommandPermissions](#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommandpermissions).
+Fetches command permissions for a specific command for your application in a guild. Returns a [GuildApplicationCommandPermissions](#DOCS_INTERACTIONS_SLASH_COMMANDS/guildapplicationcommandpermissions) object.
 
 ## Edit Application Command Permissions % PUT /applications/{application.id#DOCS_TOPICS_OAUTH2/application-object}/guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/commands/{command.id#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommand}/permissions
 
@@ -866,6 +866,17 @@ If you specify `choices` for an option, they are the **only** valid values for a
 |-------|---------------|-------------------------------------------------|
 | name  | string        | 1-100 character choice name                     |
 | value | string or int | value of the choice, up to 100 characters if string |
+
+## GuildApplicationCommandPermissions
+
+Returned when fetching the permissions for a command in a guild.
+
+| Field | Type | Description |
+| ----- | ---- | ----------- |
+| id | snowflake | the id of the command |
+| application_id | snowflake | the id of the application the command belongs to |
+| guild_id | snowflake | the id of the guild |
+| permissions | array of [ApplicationCommandPermissions](#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommandpermissions) | the permissions for the command in the guild |
 
 ## ApplicationCommandPermissions
 
