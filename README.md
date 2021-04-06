@@ -22,9 +22,6 @@ Alert boxes are achieved by using a block quote that has one of 'warn', 'danger'
 ## Need some help?
 Here are some Discord servers that can help you out with everything Discord API:
 
-The Unofficial Discord API server is a common hangout for library and bot developers alike. It's a great starting point for those looking to dive in and learn bot-creation with the Discord API.
+The [Official Discord Developers server](https://discord.gg/discord-developers) has plenty of help channels with knowledgeable people and Discord's developers to get you help with something you need, and get updates straight from the developers. However do keep in mind this is a purely on-topic server. If you are looking for a community, join the server below.
 
-[![Widget for the Discord API guild](https://discord.com/api/guilds/81384788765712384/widget.png?style=banner1)](https://discord.gg/discord-api)
-
-The Official Discord Developers server has plenty of help channels with knowledgeable people and Discord's developers to get you help with something you need, and get updates straight from the developers. However do keep in mind this is a purely on-topic server, if you want a community, join the server above.
-Invite for Discord Developers: https://discord.gg/discord-developers
+The [Unofficial Discord API server](https://discord.gg/discord-api) is a common hangout for library and bot developers alike. It's a great starting point for those looking to dive in and learn bot-creation with the Discord API.
