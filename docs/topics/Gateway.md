@@ -886,9 +886,9 @@ Sent when a guild role is deleted.
 
 ### Integration Create
 
-Sent when an integration is created. The inner payload is a [integration](#DOCS_RESOURCES_GUILD/integration-object) object with an extra `guild_id` key:
+Sent when an integration is created. The inner payload is a [integration](#DOCS_RESOURCES_GUILD/integration-object) object with an additional `guild_id` key:
 
-###### Integration Create Extra Fields
+###### Integration Create Event Additional Fields
 
 | Field    | Type      | Description     |
 |----------|-----------|-----------------|
@@ -896,9 +896,9 @@ Sent when an integration is created. The inner payload is a [integration](#DOCS_
 
 ### Integration Update
 
-Sent when an integration is updated. The inner payload is a [integration](#DOCS_RESOURCES_GUILD/integration-object) object with an extra `guild_id` key:
+Sent when an integration is updated. The inner payload is a [integration](#DOCS_RESOURCES_GUILD/integration-object) object with an additional `guild_id` key:
 
-###### Integration Update Extra Fields
+###### Integration Update Event Additional Fields
 
 | Field    | Type      | Description     |
 |----------|-----------|-----------------|
