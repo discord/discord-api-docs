@@ -40,13 +40,13 @@ For WebSocket connections, the connection is always `ws://127.0.0.1:PORT/?v=VERS
 - `PORT` is the port of the RPC Server.
 - `ENCODING` is the type of encoding for this connection to use. `json` and `etf` are supported.
 
-To begin, you'll need to create an app. Head to [your apps](https://discordapp.com/developers/applications/me) and click the big plus button. When you create an app on our Developers site, you must specify an "RPC Origin" and "Redirect URI" from which to permit connections and authorizations. **The origin you send when connecting and the redirect uri you send when exchanging an authorization code for an access token must match one of the ones entered on the Developers site.**
+To begin, you'll need to create an app. Head to [your apps](https://discord.com/developers/applications/me) and click the big plus button. When you create an app on our Developers site, you must specify an "RPC Origin" and "Redirect URI" from which to permit connections and authorizations. **The origin you send when connecting and the redirect uri you send when exchanging an authorization code for an access token must match one of the ones entered on the Developers site.**
 
 When establishing a WebSocket connection, we verify the Origin header on connection to prevent client ID spoofing. You will be instantly disconnected if the Origin does not match.
 
-If you're connecting to the RPC server from within a browser, RPC origins are usually in the form `SCHEME://HOST[:PORT]`, where `SCHEME` is typically https or http, `HOST` is your domain or ip, and `PORT` is the port of the webserver from which the user will be connecting (omitted for ports 80 and 443). For example, `https://discordapp.com` would be used if the user were connecting from `https://discordapp.com/some/page/url`.
+If you're connecting to the RPC server from within a browser, RPC origins are usually in the form `SCHEME://HOST[:PORT]`, where `SCHEME` is typically https or http, `HOST` is your domain or ip, and `PORT` is the port of the webserver from which the user will be connecting (omitted for ports 80 and 443). For example, `https://discord.com` would be used if the user were connecting from `https://discord.com/some/page/url`.
 
-If you're connecting to the RPC server from within a non-browser application (like a game), you just need to make sure that the origin is sent with the upgrade request when connecting to the WebSocket. For local testing, we recommend testing with an origin like `https://localhost`. For production apps, we recommend setting the origin to your company/game's domain, for example `https://discordapp.com`.
+If you're connecting to the RPC server from within a non-browser application (like a game), you just need to make sure that the origin is sent with the upgrade request when connecting to the WebSocket. For local testing, we recommend testing with an origin like `https://localhost`. For production apps, we recommend setting the origin to your company/game's domain, for example `https://discord.com`.
 
 ### RPC Server Ports
 
@@ -69,7 +69,7 @@ In order to call any commands over RPC, you must be authenticated or you will re
 }
 ```
 
-The user will then be prompted to authorize your app to access RPC on Discord. The `AUTHORIZE` command returns a `code` that you can exchange with a POST to `https://discordapp.com/api/oauth2/token` containing the [standard OAuth2 body parameters](https://tools.ietf.org/html/rfc6749#section-4.1.3) for the token exchange. The token endpoint on our API will return an `access_token` that can be sent with [AUTHENTICATE](#DOCS_TOPICS_RPC/authenticate):
+The user will then be prompted to authorize your app to access RPC on Discord. The `AUTHORIZE` command returns a `code` that you can exchange with a POST to `https://discord.com/api/oauth2/token` containing the [standard OAuth2 body parameters](https://tools.ietf.org/html/rfc6749#section-4.1.3) for the token exchange. The token endpoint on our API will return an `access_token` that can be sent with [AUTHENTICATE](#DOCS_TOPICS_RPC/authenticate):
 
 ###### RPC Authenticate Example
 
@@ -100,14 +100,14 @@ curl -H 'Authorization: Bearer CZhtkLDpNYXgPH9Ml6shqh2OwykChw' http://127.0.0.1:
 
 [{
     "owner": true,
-    "permissions": 2146958399,
+    "permissions": "2146958399",
     "icon": "2d68b25aa5d1eead693432a5f0077dff",
     "id": "199737254929760256",
     "name": "test"
 }]
 ```
 
-Certain endpoints deemed potentially unsafe—like authorization and user management—are blocked. Check out the [rest of our API docs](https://discordapp.com/developers/docs/reference) to learn more about interfacing with our REST API.
+Certain endpoints deemed potentially unsafe—like authorization and user management—are blocked. Check out the [rest of our API docs](https://discord.com/developers/docs/reference) to learn more about interfacing with our REST API.
 
 ## Commands and Events
 
@@ -172,7 +172,7 @@ Used to authenticate a new client with your app. By default this pops up a modal
 
 **We currently do not allow access to RPC for unapproved games without an entry on a game's whitelist.** We grant 50 whitelist spots, which should be ample for development and testing. After approval, this restriction is removed and the whitelist is no longer needed.
 
-We also have an RPC token system to bypass the user authorization modal. This is usable by approved games as well as by users on a game's whitelist, and also disallows use of the `messages.read` scope. If you have been granted access, you can send a POST request to `https://discordapp.com/api/oauth2/token/rpc` with your application's `client_id` and `client_secret` in the body (sent as a url-encoded body, **not JSON**). You can then pass the returned `rpc_token` value to the `rpc_token` field in your RPC authorize request (documented below).
+We also have an RPC token system to bypass the user authorization modal. This is usable by approved games as well as by users on a game's whitelist, and also disallows use of the `messages.read` scope. If you have been granted access, you can send a POST request to `https://discord.com/api/oauth2/token/rpc` with your application's `client_id` and `client_secret` in the body (sent as a url-encoded body, **not JSON**). You can then pass the returned `rpc_token` value to the `rpc_token` field in your RPC authorize request (documented below).
 
 ###### Authorize Argument Structure
 
@@ -324,10 +324,10 @@ Used to get a guild the client is in.
 
 ###### Get Guild Argument Structure
 
-| Field    | Type    | Description                                                 |
-| -------- | ------- | ----------------------------------------------------------- |
-| guild_id | string  | id of the guild to get                                      |
-| timeout  | integer | asyncronously get guild with time to wait before timing out |
+| Field    | Type    | Description                                                  |
+| -------- | ------- | ------------------------------------------------------------ |
+| guild_id | string  | id of the guild to get                                       |
+| timeout  | integer | asynchronously get guild with time to wait before timing out |
 
 ###### Get Guild Response Structure
 
@@ -566,11 +566,11 @@ Used to join and leave voice channels, group dms, or dms. Returns the [Get Chann
 
 ###### Select Voice Channel Argument Structure
 
-| Field      | Type    | Description                                                    |
-| ---------- | ------- | -------------------------------------------------------------- |
-| channel_id | string  | channel id to join (or `null` to leave)                        |
-| timeout    | integer | asyncronously join channel with time to wait before timing out |
-| force      | boolean | forces a user to join a voice channel                          |
+| Field      | Type    | Description                                                     |
+| ---------- | ------- | --------------------------------------------------------------- |
+| channel_id | string  | channel id to join (or `null` to leave)                         |
+| timeout    | integer | asynchronously join channel with time to wait before timing out |
+| force      | boolean | forces a user to join a voice channel                           |
 
 > warn
 > When trying to join the user to a voice channel, you will receive a `5003` error coded response if the user is already in a voice channel. The `force` parameter should only be specified in response to the case where a user is already in a voice channel and they have **approved** to be moved by your app to a new voice channel.
@@ -640,10 +640,10 @@ Used to join and leave text channels, group dms, or dms. Returns the [Get Channe
 
 ###### Select Text Channel Argument Structure
 
-| Field      | Type    | Description                                                    |
-| ---------- | ------- | -------------------------------------------------------------- |
-| channel_id | string  | channel id to join (or `null` to leave)                        |
-| timeout    | integer | asyncronously join channel with time to wait before timing out |
+| Field      | Type    | Description                                                     |
+| ---------- | ------- | --------------------------------------------------------------- |
+| channel_id | string  | channel id to join (or `null` to leave)                         |
+| timeout    | integer | asynchronously join channel with time to wait before timing out |
 
 #### GET_VOICE_SETTINGS
 
@@ -1175,7 +1175,7 @@ Used to reject an Ask to Join request.
     "v": 1,
     "config": {
       "cdn_host": "cdn.discordapp.com",
-      "api_endpoint": "//discordapp.com/api",
+      "api_endpoint": "//discord.com/api",
       "environment": "production"
     },
     "user": {

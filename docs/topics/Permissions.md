@@ -2,7 +2,11 @@
 
 Permissions in Discord are a way to limit and grant certain abilities to users. A set of base permissions can be configured at the guild level for different roles. When these roles are attached to users, they grant or revoke specific privileges within the guild. Along with the guild-level permissions, Discord also supports permission overwrites that can be assigned to individual guild roles or guild members on a per-channel basis.
 
-Permissions are stored within a 53-bit integer and are calculated using bitwise operations. The total permissions integer can be determined by ORing together each individual value, and flags can be checked using AND operations.
+Permissions are stored within a variable-length integer serialized into a string, and are calculated using bitwise operations. For example, the permission value `123` will be serialized as `"123"`. For long-term stability, we recommend deserializing the permissions using your languages' Big Integer libraries. The total permissions integer can be determined by ORing together each individual value, and flags can be checked using AND operations.
+
+In API v8, all permissions—including `allow` and `deny` fields in overwrites—are serialized as strings. There are also no longer `_new` permission fields; all new permissions are rolled back into the base field.
+
+In API v6, the `permissions`, `allow`, and `deny` fields in roles and overwrites are still serialized as a number; however, these numbers shall not grow beyond 31 bits. During the remaining lifetime of API v6, all new permission bits will only be introduced in `permissions_new`, `allow_new`, and `deny_new`. These `_new` fields are just for response serialization; requests with these fields should continue to use the original `permissions`, `allow`, and `deny` fields, which accept both string or number values.
 
 ```python
 # Permissions value that can Send Messages (0x800) and Add Reactions (0x40):
@@ -53,12 +57,12 @@ Below is a table of all current permissions, their integer values in hexadecimal
 | CHANGE_NICKNAME       | `0x04000000` | Allows for modification of own nickname                                                                                            |              |
 | MANAGE_NICKNAMES      | `0x08000000` | Allows for modification of other users nicknames                                                                                   |              |
 | MANAGE_ROLES \*       | `0x10000000` | Allows management and editing of roles                                                                                             | T, V         |
-| MANAGE_WEBHOOKS \*    | `0x20000000` | Allows management and editing of webhooks                                                                                          | T, V         |
+| MANAGE_WEBHOOKS \*    | `0x20000000` | Allows management and editing of webhooks                                                                                          | T            |
 | MANAGE_EMOJIS \*      | `0x40000000` | Allows management and editing of emojis                                                                                            |              |
 
 **\* These permissions require the owner account to use [two-factor authentication](#DOCS_TOPICS_OAUTH2/twofactor-authentication-requirement) when used on a guild that has server-wide 2FA enabled.**
 
-Note that these internal permission names may be referred to differently by the Discord client. For example, "Manage Permissions" refers to MANAGE_ROLES, "Read Messages" refers to VIEW_CHANNEL, and "Use Voice Activity" refers to USE_VAD.
+Note that these internal permission names may be referred to differently by the Discord client. For example, "Manage Permissions" refers to MANAGE_ROLES and "Use Voice Activity" refers to USE_VAD.
 
 ## Permission Hierarchy
 
@@ -159,18 +163,27 @@ Roles represent a set of permissions attached to a group of users. Roles have un
 
 ###### Role Structure
 
-| Field       | Type      | Description                                      |
-| ----------- | --------- | ------------------------------------------------ |
-| id          | snowflake | role id                                          |
-| name        | string    | role name                                        |
-| color       | integer   | integer representation of hexadecimal color code |
-| hoist       | boolean   | if this role is pinned in the user listing       |
-| position    | integer   | position of this role                            |
-| permissions | integer   | permission bit set                               |
-| managed     | boolean   | whether this role is managed by an integration   |
-| mentionable | boolean   | whether this role is mentionable                 |
+| Field       | Type                                                                         | Description                                      |
+| ----------- | ---------------------------------------------------------------------------- | ------------------------------------------------ |
+| id          | snowflake                                                                    | role id                                          |
+| name        | string                                                                       | role name                                        |
+| color       | integer                                                                      | integer representation of hexadecimal color code |
+| hoist       | boolean                                                                      | if this role is pinned in the user listing       |
+| position    | integer                                                                      | position of this role                            |
+| permissions | string                                                                       | permission bit set                               |
+| managed     | boolean                                                                      | whether this role is managed by an integration   |
+| mentionable | boolean                                                                      | whether this role is mentionable                 |
+| tags?       | [role tags](#DOCS_TOPICS_PERMISSIONS/role-object-role-tags-structure) object | the tags this role has                           |
 
 Roles without colors (`color == 0`) do not count towards the final computed color in the user list.
+
+###### Role Tags Structure
+
+| Field               | Type      | Description                                         |
+| ------------------- | --------- | --------------------------------------------------- |
+| bot_id?             | snowflake | the id of the bot this role belongs to              |
+| integration_id?     | snowflake | the id of the integration this role belongs to      |
+| premium_subscriber? | null      | whether this is the guild's premium subscriber role |
 
 ###### Example Role
 
@@ -181,7 +194,7 @@ Roles without colors (`color == 0`) do not count towards the final computed colo
   "color": 3447003,
   "hoist": true,
   "position": 1,
-  "permissions": 66321471,
+  "permissions": "66321471",
   "managed": false,
   "mentionable": false
 }

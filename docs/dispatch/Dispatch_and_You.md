@@ -7,7 +7,7 @@ If you're distributing a game on Discord, you'll need to send us the files! We q
 
 In light of those learnings, we built Dispatch! Great name, isn't it? _Dis_-patch? Anyway, Dispatch is your all-in-one uploader tool to get your builds, artwork, patches, DLC, and anything else onto Discord's servers. It's fast, easy to use, and I've been assured by our engineers that it's made of 100% farm-raised, cage-free, grass-fed code.
 
-If you are looking to update your store page, head on over to our handy dandy [Developer Portal](https://discordapp.com/developers). It has all the tools you need to make changes to your store page for your game. During the beta period, if you need access to your store page, let a member of the Discord team know, and we'll help you out.
+If you are looking to update your store page, head on over to our handy dandy [Developer Portal](https://discord.com/developers). It has all the tools you need to make changes to your store page for your game. During the beta period, if you need access to your store page, let a member of the Discord team know, and we'll help you out.
 
 Let's get you pointed in the right direction; follow this little Table of Contents to start, and you'll be a pro with this tool faster than you can say "But wait I don't actually know what a terminal is."
 
