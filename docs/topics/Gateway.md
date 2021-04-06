@@ -120,7 +120,7 @@ Once connected, the client should immediately receive an [Opcode 10 Hello](#DOCS
 
 ### Heartbeating
 
-After receiving [Opcode 10 Hello](#DOCS_TOPICS_GATEWAY/hello), the client may begin sending [Opcode 1 Heartbeat](#DOCS_TOPICS_GATEWAY/heartbeat) payloads at any time before the first `heartbeat_inverval` period elapses. After this, `heartbeat_interval` dictates the *maximum* time between any two heartbeats. You may send heartbeats before this interval elapses, but you should avoid doing so unless necessary. There is already tolerance in the `heartbeat_interval` that will cover network latency, so you do not need to account for it in your own implementation - waiting the precise interval will suffice.
+After receiving [Opcode 10 Hello](#DOCS_TOPICS_GATEWAY/hello), the client may begin sending [Opcode 1 Heartbeat](#DOCS_TOPICS_GATEWAY/heartbeat) payloads after `heartbeat_interval * random.random()` milliseconds, and every `heartbeat_interval` milliseconds thereafter. You may send heartbeats before this interval elapses, but you should avoid doing so unless necessary. There is already tolerance in the `heartbeat_interval` that will cover network latency, so you do not need to account for it in your own implementation - waiting the precise interval will suffice.
 
 The gateway may request a heartbeat from the client in some situations by sending an [Opcode 1 Heartbeat](#DOCS_TOPICS_GATEWAY/heartbeat). When this occurs, the client should immediately send an [Opcode 1 Heartbeat](#DOCS_TOPICS_GATEWAY/heartbeat) without waiting the remainder of the current interval.
 
