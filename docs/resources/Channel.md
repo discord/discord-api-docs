@@ -394,7 +394,7 @@ Represents a message sent in a channel within Discord.
 
 ### Message Reference Object
 
-There are four situations in which a message has a message_reference object:
+There are currently four situations in which a message has a message_reference object:
 
 Crosspost messages: messages that originated from another channel (IS_CROSSPOST flag).  
 These messages have all three fields, with data of the original message that was crossposted.
@@ -408,6 +408,8 @@ These messages have `message_id` and `channel_id`, and `guild_id` if it is in a 
 Replies: messages replying to a previous message (type 19).  
 These messages have `message_id` and `channel_id`, and `guild_id` if it is in a guild, with data of the message that was replied to. The channel_id and guild_id will be the same as the reply.  
 Replies are created by including a message_reference when sending a message. When sending, only `message_id` is required.
+
+Since message references are a generic attribution to a previous message, there may be more types of messages which have this information in the future.
 
 ###### Message Reference Structure
 
