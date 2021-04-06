@@ -371,9 +371,9 @@ From this object, you should store the `webhook.token` and `webhook.id`. See the
 
 Any user that wishes to add your webhook to their channel will need to go through the full OAuth2 flow. A new webhook is created each time, so you will need to save the token and id. If you wish to send a message to all your webhooks, you'll need to iterate over each stored id:token combination and make `POST` requests to each one. Be mindful of our [Rate Limits](#DOCS_TOPICS_RATE_LIMITS/rate-limits)!
 
-## Get Current Application Information % GET /oauth2/applications/@me
+## Get Current Bot Application Information % GET /oauth2/applications/@me
 
-Returns the bot's OAuth2 [application](#DOCS_TOPICS_OAUTH2/application) object.
+Returns the bot's OAuth2 [application](#DOCS_TOPICS_OAUTH2/application) object without `flags`.
 
 ## Application
 
@@ -396,7 +396,7 @@ Returns the bot's OAuth2 [application](#DOCS_TOPICS_OAUTH2/application) object.
 | primary_sku_id?        | snowflake                                                  | if this application is a game sold on Discord, this field will be the id of the "Game SKU" that is created, if exists      |
 | slug?                  | string                                                     | if this application is a game sold on Discord, this field will be the URL slug that links to the store page                |
 | cover_image?           | string                                                     | if this application is a game sold on Discord, this field will be the hash of the image on store embeds                    |
-| flags                  | int                                                        | the application's public flags                                                                                             |
+| flags                  | int                                                        | the application's public [flags](#DOCS_TOPICS_OAUTH2/application-application-flags)                                        |
 
 ###### Example Application
 
@@ -441,18 +441,29 @@ Returns the bot's OAuth2 [application](#DOCS_TOPICS_OAUTH2/application) object.
 }
 ```
 
+###### Application Flags
+
+| Value   | Name                             |
+|---------|----------------------------------|
+| 1 << 12 | GATEWAY_PRESENCE                 |
+| 1 << 13 | GATEWAY_PRESENCE_LIMITED         |
+| 1 << 14 | GATEWAY_GUILD_MEMBERS            |
+| 1 << 15 | GATEWAY_GUILD_MEMBERS_LIMITED    |
+| 1 << 16 | VERIFICATION_PENDING_GUILD_LIMIT |
+| 1 << 17 | EMBEDDED                         |
+
 ## Get Current Authorization Information % GET /oauth2/@me
 
 Returns info about the current authorization. Requires authentication with a bearer token.
 
 ###### Response Structure
 
-| Field       | Type                                                                 | Description                                                                       |
-|-------------|----------------------------------------------------------------------|-----------------------------------------------------------------------------------|
-| application | partial [application](#DOCS_TOPICS_OAUTH2/application-object) object | the current application                                                           |
-| scopes      | array of strings                                                     | the scopes the user has authorized the application for                            |
-| expires     | ISO8601 timestamp                                                    | when the access token expires                                                     |
-| user?       | [user](#DOCS_RESOURCES_USER/user-object) object                      | the user who has authorized, if the user has authorized with the `identify` scope |
+| Field       | Type                                                          | Description                                                                       |
+|-------------|---------------------------------------------------------------|-----------------------------------------------------------------------------------|
+| application | partial [application](#DOCS_TOPICS_OAUTH2/application) object | the current application                                                           |
+| scopes      | array of strings                                              | the scopes the user has authorized the application for                            |
+| expires     | ISO8601 timestamp                                             | when the access token expires                                                     |
+| user?       | [user](#DOCS_RESOURCES_USER/user-object) object               | the user who has authorized, if the user has authorized with the `identify` scope |
 
 ###### Example Authorization Information
 
