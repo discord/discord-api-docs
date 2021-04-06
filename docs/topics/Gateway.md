@@ -908,7 +908,7 @@ Sent when an integration is updated. The inner payload is a [integration](#DOCS_
 
 Sent when an integration is deleted.
 
-###### Integrations Delete Event Fields
+###### Integration Delete Event Fields
 
 | Field           | Type      | Description                                                   |
 |-----------------|-----------|---------------------------------------------------------------|
