@@ -26,7 +26,7 @@ Represents a guild or DM channel within Discord.
 | application_id?        | snowflake                                                              | application id of the group DM creator if it is bot-created                                                                                                                     |
 | parent_id?             | ?snowflake                                                             | id of the parent category for a channel (each parent category can contain up to 50 channels)                                                                                    |
 | last_pin_timestamp?    | ?ISO8601 timestamp                                                     | when the last pinned message was pinned. This may be `null` in events such as `GUILD_CREATE` when a message is not pinned.                                                      |
-| rtc_region?            | ?string                                                                | [voice region](#DOCS_RESOURCES_VOICE/voice-region-object) id for the voice channel                                                                                              |
+| rtc_region?            | ?string                                                                | [voice region](#DOCS_RESOURCES_VOICE/voice-region-object) id for the voice channel, automatic when set to null                                                                 |
 
 ###### Channel Types
 
