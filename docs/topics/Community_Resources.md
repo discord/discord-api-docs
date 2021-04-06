@@ -63,6 +63,7 @@ Many of these libraries are represented in the [unofficial, community-driven Dis
 - Python
   - [discord-py-slash-command](https://github.com/eunwoo1104/discord-py-slash-command)
   - [discord-interactions-python](https://github.com/discord/discord-interactions-python)
+  - [discord-interactions.py](https://github.com/LiBa001/discord-interactions.py)
   - [dispike](https://github.com/ms7m/dispike)
 - PHP
   - [discord-interactions-php](https://github.com/discord/discord-interactions-php)
