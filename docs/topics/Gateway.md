@@ -244,6 +244,9 @@ GUILD_EMOJIS (1 << 3)
 
 GUILD_INTEGRATIONS (1 << 4)
   - GUILD_INTEGRATIONS_UPDATE
+  - INTEGRATION_CREATE
+  - INTEGRATION_UPDATE
+  - INTEGRATION_DELETE
 
 GUILD_WEBHOOKS (1 << 5)
   - WEBHOOKS_UPDATE
@@ -476,6 +479,9 @@ Events are payloads sent over the socket to a client that correspond to events i
 | [Guild Role Create](#DOCS_TOPICS_GATEWAY/guild-role-create)                         | guild role was created                                                                                                           |
 | [Guild Role Update](#DOCS_TOPICS_GATEWAY/guild-role-update)                         | guild role was updated                                                                                                           |
 | [Guild Role Delete](#DOCS_TOPICS_GATEWAY/guild-role-delete)                         | guild role was deleted                                                                                                           |
+| [Integration Create](#DOCS_TOPICS_GATEWAY/integration-create)                       | guild integration was created                                                                                                    |
+| [Integration Update](#DOCS_TOPICS_GATEWAY/integration-update)                       | guild integration was updated                                                                                                    |
+| [Integration Delete](#DOCS_TOPICS_GATEWAY/integration-delete)                       | guild integration was deleted                                                                                                    |
 | [Interaction Create](#DOCS_TOPICS_GATEWAY/interaction-create)                       | user used an interaction, such as a [Slash Command](#DOCS_INTERACTIONS_SLASH_COMMANDS/)                                                                  |
 | [Invite Create](#DOCS_TOPICS_GATEWAY/invite-create)                                 | invite to a channel was created                                                                                                  |
 | [Invite Delete](#DOCS_TOPICS_GATEWAY/invite-delete)                                 | invite to a channel was deleted                                                                                                  |
@@ -901,6 +907,8 @@ Sent when a guild member is updated. This will also fire when the user object of
 | nick?          | ?string                                           | nickname of the user in the guild                                                                                                      |
 | joined_at      | ISO8601 timestamp                                 | when the user joined the guild                                                                                                         |
 | premium_since? | ?ISO8601 timestamp                                | when the user starting [boosting](https://support.discord.com/hc/en-us/articles/360028038352-Server-Boosting-) the guild               |
+| deaf?          | boolean                                           | whether the user is deafened in voice channels                                                                                         |
+| mute?          | boolean                                           | whether the user is muted in voice channels                                                                                            |
 | pending?       | boolean                                           | whether the user has not yet passed the guild's [Membership Screening](#DOCS_RESOURCES_GUILD/membership-screening-object) requirements |
 
 #### Guild Members Chunk
@@ -952,6 +960,40 @@ Sent when a guild role is deleted.
 |----------|-----------|-----------------|
 | guild_id | snowflake | id of the guild |
 | role_id  | snowflake | id of the role  |
+
+### Integrations
+
+### Integration Create
+
+Sent when an integration is created. The inner payload is a [integration](#DOCS_RESOURCES_GUILD/integration-object) object with an additional `guild_id` key:
+
+###### Integration Create Event Additional Fields
+
+| Field    | Type      | Description     |
+|----------|-----------|-----------------|
+| guild_id | snowflake | id of the guild |
+
+### Integration Update
+
+Sent when an integration is updated. The inner payload is a [integration](#DOCS_RESOURCES_GUILD/integration-object) object with an additional `guild_id` key:
+
+###### Integration Update Event Additional Fields
+
+| Field    | Type      | Description     |
+|----------|-----------|-----------------|
+| guild_id | snowflake | id of the guild |
+
+### Integration Delete
+
+Sent when an integration is deleted.
+
+###### Integration Delete Event Fields
+
+| Field           | Type      | Description                                                   |
+|-----------------|-----------|---------------------------------------------------------------|
+| id              | snowflake | integration id                                                |
+| guild_id        | snowflake | id of the guild                                               |
+| application_id? | snowflake | id of the bot/OAuth2 application for this discord integration |
 
 ### Invites
 
