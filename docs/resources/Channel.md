@@ -352,21 +352,6 @@ Represents a message sent in a channel within Discord.
 }
 ```
 
-##### Example Partial Application
-
-```json
-{
-  "cover_image": "bb9580es4ds62e8e7c3f676ad24d6f02",
-  "description": "",
-  "icon": "c92cb8ed7136fs5rde6765f080790b84d",
-  "id": "4921441460403333332",
-  "name": "Killer Game",
-  "primary_sku_id": "492373500997402624",
-  "splash": "b3cd8054876fe57f92d688f6d24cc39bf",
-  "summary": ""
-}
-```
-
 ### Reaction Object
 
 ###### Reaction Structure
