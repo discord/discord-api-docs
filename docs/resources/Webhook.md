@@ -8,17 +8,20 @@ Used to represent a webhook.
 
 ###### Webhook Structure
 
-| Field          | Type                                            | Description                                                                               |
-| -------------- | ----------------------------------------------- | ----------------------------------------------------------------------------------------- |
-| id             | snowflake                                       | the id of the webhook                                                                     |
-| type           | integer                                         | the [type](#DOCS_RESOURCES_WEBHOOK/webhook-object-webhook-types) of the webhook           |
-| guild_id?      | snowflake                                       | the guild id this webhook is for                                                          |
-| channel_id     | snowflake                                       | the channel id this webhook is for                                                        |
-| user?          | [user](#DOCS_RESOURCES_USER/user-object) object | the user this webhook was created by (not returned when getting a webhook with its token) |
-| name           | ?string                                         | the default name of the webhook                                                           |
-| avatar         | ?string                                         | the default avatar of the webhook                                                         |
-| token?         | string                                          | the secure token of the webhook (returned for Incoming Webhooks)                          |
-| application_id | ?snowflake                                      | the bot/OAuth2 application that created this webhook                                      |
+| Field           | Type                                                             | Description                                                                                                   |
+| --------------- | ---------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
+| id              | snowflake                                                        | the id of the webhook                                                                                         |
+| type            | integer                                                          | the [type](#DOCS_RESOURCES_WEBHOOK/webhook-object-webhook-types) of the webhook                               |
+| guild_id?       | snowflake                                                        | the guild id this webhook is for                                                                              |
+| channel_id      | snowflake                                                        | the channel id this webhook is for                                                                            |
+| user?           | [user](#DOCS_RESOURCES_USER/user-object) object                  | the user this webhook was created by (not returned when getting a webhook with its token)                     |
+| name            | ?string                                                          | the default name of the webhook                                                                               |
+| avatar          | ?string                                                          | the default avatar of the webhook                                                                             |
+| token?          | string                                                           | the secure token of the webhook (returned for Incoming Webhooks)                                              |
+| application_id  | ?snowflake                                                       | the bot/OAuth2 application that created this webhook                                                          |
+| source_guild?   | partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object       | the guild of the channel that this webhook is following (returned for Channel Follower Webhooks)              |
+| source_channel? | partial [channel](#DOCS_RESOURCES_CHANNEL/channel-object) object | the channel that this webhook is following (returned for Channel Follower Webhooks)                           |
+| url?            | str                                                              | the url used for executing the webhook (returned by the [webhooks](#DOCS_TOPICS_OAUTH2/webhooks) OAuth2 flow) |
 
 ###### Webhook Types
 
@@ -42,7 +45,8 @@ Used to represent a webhook.
     "username": "test",
     "discriminator": "7479",
     "id": "190320984123768832",
-    "avatar": "b004ec1740a63ca06ae2e14c5cee11f3"
+    "avatar": "b004ec1740a63ca06ae2e14c5cee11f3",
+    "public_flags": 131328
   }
 }
 ```
@@ -108,7 +112,7 @@ Same as above, except this call does not require authentication.
 > warn
 > This endpoint supports both JSON and form data bodies. It does require multipart/form-data requests instead of the normal JSON request type when uploading files. Make sure you set your `Content-Type` to `multipart/form-data` if you're doing that. Note that in that case, the `embeds` field cannot be used, but you can pass an url-encoded JSON body as a form value for `payload_json`.
 
-###### Querystring Params
+###### Query String Params
 
 | Field | Type    | Description                                                                                                                                                                                  | Required |
 | ----- | ------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
@@ -132,7 +136,7 @@ Same as above, except this call does not require authentication.
 
 ## Execute Slack-Compatible Webhook % POST /webhooks/{webhook.id#DOCS_RESOURCES_WEBHOOK/webhook-object}/{webhook.token#DOCS_RESOURCES_WEBHOOK/webhook-object}/slack
 
-###### Querystring Params
+###### Query String Params
 
 | Field | Type    | Description                                                                                                                                           | Required |
 | ----- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
@@ -142,7 +146,7 @@ Refer to [Slack's documentation](https://api.slack.com/incoming-webhooks) for mo
 
 ## Execute GitHub-Compatible Webhook % POST /webhooks/{webhook.id#DOCS_RESOURCES_WEBHOOK/webhook-object}/{webhook.token#DOCS_RESOURCES_WEBHOOK/webhook-object}/github
 
-###### Querystring Params
+###### Query String Params
 
 | Field | Type    | Description                                                                                                                                           | Required |
 | ----- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
@@ -159,11 +163,13 @@ Edits a previously-sent webhook message from the same token. Returns a [message]
 
 ###### JSON/Form Params
 
-| Field            | Type                                                                      | Description                                  |
-| ---------------- | ------------------------------------------------------------------------- | -------------------------------------------- |
-| content          | string                                                                    | the message contents (up to 2000 characters) |
-| embeds           | array of up to 10 [embed](#DOCS_RESOURCES_CHANNEL/embed-object) objects   | embedded `rich` content                      |
-| allowed_mentions | [allowed mention object](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object) | allowed mentions for the message             |
+| Field            | Type                                                                      | Description                                                  |
+| ---------------- | ------------------------------------------------------------------------- | ------------------------------------------------------------ |
+| content          | string                                                                    | the message contents (up to 2000 characters)                 |
+| embeds           | array of up to 10 [embed](#DOCS_RESOURCES_CHANNEL/embed-object) objects   | embedded `rich` content                                      |
+| file             | file contents                                                             | the contents of the file being sent/edited                   |
+| payload_json     | string                                                                    | See [message create](#DOCS_RESOURCES_CHANNEL/create-message) |
+| allowed_mentions | [allowed mention object](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object) | allowed mentions for the message                             |
 
 # Delete Webhook Message % DELETE /webhooks/{webhook.id#DOCS_RESOURCES_WEBHOOK/webhook-object}/{webhook.token#DOCS_RESOURCES_WEBHOOK/webhook-object}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}
 

@@ -57,8 +57,9 @@ Below is a table of all current permissions, their integer values in hexadecimal
 | CHANGE_NICKNAME       | `0x04000000` | Allows for modification of own nickname                                                                                            |              |
 | MANAGE_NICKNAMES      | `0x08000000` | Allows for modification of other users nicknames                                                                                   |              |
 | MANAGE_ROLES \*       | `0x10000000` | Allows management and editing of roles                                                                                             | T, V         |
-| MANAGE_WEBHOOKS \*    | `0x20000000` | Allows management and editing of webhooks                                                                                          | T, V         |
+| MANAGE_WEBHOOKS \*    | `0x20000000` | Allows management and editing of webhooks                                                                                          | T            |
 | MANAGE_EMOJIS \*      | `0x40000000` | Allows management and editing of emojis                                                                                            |              |
+| USE_SLASH_COMMANDS    | `0x80000000` | Allows members to use slash commands in text channels                                                                              | T            |
 
 **\* These permissions require the owner account to use [two-factor authentication](#DOCS_TOPICS_OAUTH2/twofactor-authentication-requirement) when used on a guild that has server-wide 2FA enabled.**
 

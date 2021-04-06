@@ -16,7 +16,7 @@ Yup, that's it. You give us the real-time info about any connected devices, and 
 
 ## Connecting
 
-###### Querystring Parameters
+###### Query String Params
 
 | Name      | Value                | Required  |
 | --------- | -------------------- | --------- |
