@@ -57,10 +57,8 @@ imageManager.Fetch(handle, false, (result, returnedHandle) =>
 {
   if (result == Discord.Result.Ok)
   {
-    imageManager.GetData(returnedHandle, (result, data) =>
-    {
-      // Do stuff with the byte[] data
-    });
+    var data = imageManager.GetData(returnedHandle);
+    // Do stuff with the byte[] data
   }
 });
 ```

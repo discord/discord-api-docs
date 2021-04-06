@@ -64,6 +64,7 @@ Our voice gateways have their own set of opcodes and close codes.
 | Code | Description             | Explanation                                                                                                                                         |
 |------|-------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------|
 | 4001 | Unknown opcode          | You sent an invalid [opcode](#DOCS_RESOURCES_VOICE_CONNECTIONS/voice-events-voice-opcodes).                                                         |
+| 4002 | Failed to decode payload | You sent a invalid payload in your [identifying](#DOCS_TOPICS_GATEWAY/gateway-identify) to the Gateway.                                            |
 | 4003 | Not authenticated       | You sent a payload before [identifying](#DOCS_TOPICS_GATEWAY/gateway-identify) with the Gateway.                                                    |
 | 4004 | Authentication failed   | The token you sent in your [identify](#DOCS_TOPICS_GATEWAY/gateway-identify) payload is incorrect.                                                  |
 | 4005 | Already authenticated   | You sent more than one [identify](#DOCS_TOPICS_GATEWAY/gateway-identify) payload. Stahp.                                                            |
@@ -71,7 +72,7 @@ Our voice gateways have their own set of opcodes and close codes.
 | 4009 | Session timeout         | Your session has timed out.                                                                                                                         |
 | 4011 | Server not found        | We can't find the server you're trying to connect to.                                                                                               |
 | 4012 | Unknown protocol        | We didn't recognize the [protocol](#DOCS_RESOURCES_VOICE_CONNECTIONS/establishing-a-voice-udp-connection-example-select-protocol-payload) you sent. |
-| 4014 | Disconnected            | Either the channel was deleted or you were kicked. Should not reconnect.                                                                            |
+| 4014 | Disconnected            | Either the channel was deleted, you were kicked, or the main gateway session was dropped. Should not reconnect.                                     |
 | 4015 | Voice server crashed    | The server crashed. Our bad! Try [resuming](#DOCS_RESOURCES_VOICE_CONNECTIONS/resuming-voice-connection).                                           |
 | 4016 | Unknown encryption mode | We didn't recognize your [encryption](#DOCS_RESOURCES_VOICE_CONNECTIONS/encrypting-and-sending-voice).                                              |
 
@@ -129,6 +130,7 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 10032  | Unknown branch                                                                                                                |
 | 10036  | Unknown redistributable                                                                                                       |
 | 10057  | Unknown guild template                                                                                                        |
+| 10063  | Unknown application command                                                                                                   |
 | 20001  | Bots cannot use this endpoint                                                                                                 |
 | 20002  | Only bots can use this endpoint                                                                                               |
 | 20022  | This message cannot be edited due to announcement rate limits                                                                 |
@@ -142,6 +144,7 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 30013  | Maximum number of guild channels reached (500)                                                                                |
 | 30015  | Maximum number of attachments in a message reached (10)                                                                       |
 | 30016  | Maximum number of invites reached (1000)                                                                                      |
+| 30031  | Guild already has a template                                                                                                  |
 | 40001  | Unauthorized. Provide a valid token and try again                                                                             |
 | 40002  | You need to verify your account in order to perform this action                                                               |
 | 40005  | Request entity too large. Try sending something smaller in size                                                               |
@@ -169,12 +172,15 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 50021  | Cannot execute action on a system message                                                                                     |
 | 50024  | Cannot execute action on this channel type                                                                                    |
 | 50025  | Invalid OAuth2 access token provided                                                                                          |
+| 50027  | Invalid webhook token provided                                                                                                |
 | 50033  | "Invalid Recipient(s)"                                                                                                        |
 | 50034  | A message provided was too old to bulk delete                                                                                 |
 | 50035  | Invalid form body (returned for both `application/json` and `multipart/form-data` bodies), or invalid `Content-Type` provided |
 | 50036  | An invite was accepted to a guild the application's bot is not in                                                             |
 | 50041  | Invalid API version provided                                                                                                  |
 | 50074  | Cannot delete a channel required for Community guilds                                                                         |
+| 50081  | Invalid sticker sent                                                                                                          |
+| 60003  | Two factor is required for this operation                                                                                     |
 | 90001  | Reaction was blocked                                                                                                          |
 | 130000 | API resource is currently overloaded. Try again a little later                                                                |
 

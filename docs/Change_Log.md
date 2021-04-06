@@ -1,5 +1,76 @@
 # Change Log
 
+## Large Bot Sharding Lowered to 150,000 Guilds 
+
+## March 15, 2021
+
+There have been reports that sessions have higher frequency of errors when starting if a bot has joined too many guilds (the gateway connection times out). To account for this we have lowered the requirement for large bot sharding down to 150,000 guilds in order to improve reliability.
+
+## Changes to Slash Command Response Types and Flags
+
+## March 5, 2021
+
+Changes to interaction response types have been made to support better designs for Slash Commands:
+
+- Type `2` `Acknowledge` has been deprecated
+- Type `3` `ChannelMessage` has been deprecated
+- Type `5` `AcknowledgeWithSource` has been renamed to `DeferredChannelMessageWithSource`
+
+These deprecated types will be removed and break on **April 9, 2021**.
+
+Additionally, `flags` has been documented on [InteractionApplicationCommandCallbackData](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-response-interactionapplicationcommandcallbackdata). Setting `flags` to `64` will make the interaction response ephemeral.
+
+## Slash Commands in DMs
+
+#### February 9, 2021
+
+Slash Commands are now supported in DMs with bots. Due to this change, some of the fields on the [Interaction object](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction) have been made optional. Newly optional fields don't reflect any behavior changes in Slash Commands within guilds; they are to support commands in the context of a DM only.
+
+## Change to Permission Checking when Creating Channels
+
+#### January 22, 2021
+
+Permission overwrites in the guild channel creation endpoint are now validated against the permissions your bot has in the guild. Permission overwrites specified in the request body when creating guild channels will now require your bot to also have the permissions being applied. Setting `MANAGE_ROLES` permission in channel overwrites is only possible for guild administrators or users with `MANAGE_ROLES` as a permission overwrite in the channel.
+
+## Slash Commands and Interactions
+
+#### December 15, 2020
+
+Slash Commands are here! There's a _lot_ to cover, so go check out specific documentation under [Slash Commands](#DOCS_INTERACTIONS_SLASH_COMMANDS/).
+
+Slash Commands include some new features for webhooks as well:
+
+- Webhooks can now update previously-sent messages from the same webhook using [Edit Webhook Message](#DOCS_RESOURCES_WEBHOOK/edit-webhook-message) and [Delete Webhook Message](#DOCS_RESOURCES_WEBHOOK/delete-webhook-message)
+
+This PR also documents the `application` field on the `READY` gateway event, which is a partial [application object](#DOCS_TOPICS_OAUTH2/application-object) containing `id` and `flags`.
+
+## Inline Replies
+
+#### November 16, 2020
+
+Inline Replies have been added to our documentation. They behave differently in v6 and v8, so be cautious in your implementation:
+
+- Inline replies are type `19` in v8, but remain type `0` in v6
+- You can now add a `message_reference` on message create to create a reply
+- A new field `referenced_message` has been added to the [Message Object](#DOCS_RESOURCES_CHANNEL/message-object)
+- A new field `replied_user` has been added to the [Allowed Mentions Object](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object)
+- [Message Create](#DOCS_TOPICS_GATEWAY/message-create) gateway event is guaranteed to have a `referenced_message` if the message created is a reply. Otherwise, that field is not guaranteed.
+
+## Stickers
+
+#### November 13, 2020
+
+Stickers are now documented as part of the [message](#DOCS_RESOURCES_CHANNEL/message-object) object. 
+
+## Gateway v6 Intent Restrictions
+
+#### October 27, 2020
+
+The v6 gateway now applies the restrictions for gateway intents. This means the new chunking limitations are now in effect, regardless of intents being used. See [Request Guild Members](#DOCS_TOPICS_GATEWAY/request-guild-members) for further details.
+Additionally, if privileged intents are not enabled in the application dashboard the bot will not receive the events for those intents.
+
+All other intents are always enabled by default unless specified otherwise by the identify payload. We have made a support article to explain some of the changes and resulting issues with more details: [Gateway Update FAQ](https://dis.gd/gwupdate)
+
 ## API and Gateway V8
 
 #### September 24, 2020
@@ -10,6 +81,7 @@ The changes are:
 
 - API and Gateway v8 are now available. v6 is still the default for the time being.
 - [Gateway Intents](#DOCS_TOPICS_GATEWAY/gateway-intents) are now required
+- Removed `guild_subscriptions` in identify in favor of [Gateway Intents](#DOCS_TOPICS_GATEWAY/gateway-intents).
 - All permissions have been converted to strings-serialized numbers. As such, `permissions_new`, `allow_new`, and `deny_new` have been removed
 - The `game` field has been removed. If you need a direct replacement, you can instead reference the first element of `activities`
 - Channel Permission Overwrite `type`s are now numbers (0 and 1) instead of strings ("role" and "member"). However due to a current technical constraint, they are string-serialized numbers in audit log `options`.
@@ -20,6 +92,8 @@ The changes are:
 - Bots no longer receive [Channel Create Gateway Event](#DOCS_TOPICS_GATEWAY/channel-create) for DMs
 - `delete-message-days` is no longer available. Use `delete_message_days`.
 - Removed `roles`, `premium_since`, and `nick` from [Presence Update Gateway Event](#DOCS_TOPICS_GATEWAY/presence-update)
+- Removed some [integration object](#DOCS_RESOURCES_GUILD/integration-object) fields for Discord application integrations
+- Removed `include_applications` from [Get Guild Integrations](#DOCS_RESOURCES_GUILD/get-guild-integrations). Application integrations are always included.
 - The following deprecated routes have been removed for better naming conventions:
 
 Removed in favor of `/guilds/<guild_id>/widget`:
