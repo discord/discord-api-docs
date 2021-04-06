@@ -648,8 +648,7 @@ Due to possible ambiguities, not all configurations are valid. An _invalid_ conf
 Because `parse: ["users"]` and `users: [123, 124]` are both present, we would throw a validation error.
 This is because the conditions cannot be fulfilled simultaneously (they are mutually exclusive).
 
-The ID list fields act as whitelists, and can contain mentions not in the content. These ID's that are not in the
-content will simply be ignored.
+Any entities with an ID included in the list of IDs will be mentioned. Note that the IDs of entities not present in the message's content will simply be ignored.
 e.g. The following example is valid, and would mention user 123, but _not_ user 125 since there is no mention of
 user 125 in the content.
 

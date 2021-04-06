@@ -37,7 +37,7 @@ All gateway events in Discord are tagged with an opcode that denotes the payload
 | 4011 | Sharding required     | The session would have handled too many guilds - you are required to [shard](#DOCS_TOPICS_GATEWAY/sharding) your connection in order to connect.                                                                                    |
 | 4012 | Invalid API version   | You sent an invalid version for the gateway.                                                                                                                                                                                        |
 | 4013 | Invalid intent(s)     | You sent an invalid intent for a [Gateway Intent](#DOCS_TOPICS_GATEWAY/gateway-intents). You may have incorrectly calculated the bitwise value.                                                                                     |
-| 4014 | Disallowed intent(s)  | You sent a disallowed intent for a [Gateway Intent](#DOCS_TOPICS_GATEWAY/gateway-intents). You may have tried to specify an intent that you [have not enabled or are not whitelisted for](#DOCS_TOPICS_GATEWAY/privileged-intents). |
+| 4014 | Disallowed intent(s)  | You sent a disallowed intent for a [Gateway Intent](#DOCS_TOPICS_GATEWAY/gateway-intents). You may have tried to specify an intent that you [have not enabled or are not approved for](#DOCS_TOPICS_GATEWAY/privileged-intents). |
 
 ## Voice
 
@@ -195,7 +195,7 @@ Along with the HTTP error code, our API can also return more detailed error code
 
 ## RPC
 
-RPC is the [local Discord server](#DOCS_TOPICS_RPC/) running on localhost. Access to the RPC server is gated behind a whitelist.
+RPC is the [local Discord server](#DOCS_TOPICS_RPC/) running on localhost. Access to the RPC server requires approval from Discord.
 
 ###### RPC Error Codes
 
