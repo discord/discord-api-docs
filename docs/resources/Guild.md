@@ -61,25 +61,25 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 
 ###### Default Message Notification Level
 
-| Key           | Value |
-| ------------- | ----- |
-| ALL_MESSAGES  | 0     |
-| ONLY_MENTIONS | 1     |
+| Key           | Value | Description                                                                        |
+| ------------- | ----- | ---------------------------------------------------------------------------------- |
+| ALL_MESSAGES  | 0     | members will receive notifications for all messages by default                     |
+| ONLY_MENTIONS | 1     | members will receive notifications only for messages that @mention them by default |
 
 ###### Explicit Content Filter Level
 
-| Level                 | Integer |
-| --------------------- | ------- |
-| DISABLED              | 0       |
-| MEMBERS_WITHOUT_ROLES | 1       |
-| ALL_MEMBERS           | 2       |
+| Level                 | Integer | Description                                                     |
+| --------------------- | ------- | --------------------------------------------------------------- |
+| DISABLED              | 0       | media content will not be scanned                               |
+| MEMBERS_WITHOUT_ROLES | 1       | media content sent by members without roles will be scanned     |
+| ALL_MEMBERS           | 2       | media content sent by all members will be scanned               |
 
 ###### MFA Level
 
-| Level    | Integer |
-| -------- | ------- |
-| NONE     | 0       |
-| ELEVATED | 1       |
+| Level    | Integer | Description                                             |
+| -------- | ------- | --------------------------------------------------------|
+| NONE     | 0       | guild has no MFA/2FA requirement for moderation actions |
+| ELEVATED | 1       | guild has a 2FA requirement for moderation actions      |
 
 ###### Verification Level
 
@@ -88,17 +88,17 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 | NONE      | 0       | unrestricted                                                               |
 | LOW       | 1       | must have verified email on account                                        |
 | MEDIUM    | 2       | must be registered on Discord for longer than 5 minutes                    |
-| HIGH      | 3       | must be a member of the server for longer than 10 minutes |
-| VERY_HIGH | 4       | must have a verified phone number                |
+| HIGH      | 3       | must be a member of the server for longer than 10 minutes                  |
+| VERY_HIGH | 4       | must have a verified phone number                                          |
 
 ###### Premium Tier
 
-| Level  | Integer |
-| ------ | ------- |
-| NONE   | 0       |
-| TIER_1 | 1       |
-| TIER_2 | 2       |
-| TIER_3 | 3       |
+| Level  | Integer | Description                                   |
+| ------ | ------- | --------------------------------------------- |
+| NONE   | 0       | guild has not unlocked any Server Boost perks |
+| TIER_1 | 1       | guild has unlocked Server Boost level 1 perks |
+| TIER_2 | 2       | guild has unlocked Server Boost level 2 perks |
+| TIER_3 | 3       | guild has unlocked Server Boost level 3 perks |
 
 ###### System Channel Flags
 
