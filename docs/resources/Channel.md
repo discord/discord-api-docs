@@ -745,14 +745,14 @@ This endpoint supports requests with `Content-Type`s of both `application/json` 
 > info
 > Note that when sending `application/json` you must send at **least one of** `content` or `embed`.
 
-| Field             | Type                                                                                    | Description                                             |
-|-------------------|-----------------------------------------------------------------------------------------|---------------------------------------------------------|
-| content           | string                                                                                  | the message contents (up to 2000 characters)            |
-| nonce             | integer or string                                                                       | a nonce that can be used for optimistic message sending |
-| tts               | boolean                                                                                 | true if this is a TTS message                           |
-| embed             | [embed](#DOCS_RESOURCES_CHANNEL/embed-object) object                                    | embedded `rich` content                                 |
-| allowed_mentions  | [allowed_mentions](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object) object              | allowed mentions for a message                          |
-| message_reference | [message reference](#DOCS_RESOURCES_CHANNEL/message-object-message-reference-structure) | include to make your message a reply                    |
+| Field             | Type                                                                                    | Description                                                                   |
+|-------------------|-----------------------------------------------------------------------------------------|-------------------------------------------------------------------------------|
+| content           | string                                                                                  | the message contents (up to 2000 characters)                                  |
+| nonce             | integer or string                                                                       | a nonce that can be used for optimistic message sending (up to 25 characters) |
+| tts               | boolean                                                                                 | true if this is a TTS message                                                 |
+| embed             | [embed](#DOCS_RESOURCES_CHANNEL/embed-object) object                                    | embedded `rich` content                                                       |
+| allowed_mentions  | [allowed_mentions](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object) object              | allowed mentions for a message                                                |
+| message_reference | [message reference](#DOCS_RESOURCES_CHANNEL/message-object-message-reference-structure) | include to make your message a reply                                          |
 
 ###### Example Request Body (application/json)
 
