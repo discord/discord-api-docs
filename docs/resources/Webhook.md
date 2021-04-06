@@ -16,7 +16,7 @@ Used to represent a webhook.
 | channel_id     | snowflake                                       | the channel id this webhook is for                                                        |
 | user?          | [user](#DOCS_RESOURCES_USER/user-object) object | the user this webhook was created by (not returned when getting a webhook with its token) |
 | name           | ?string                                         | the default name of the webhook                                                           |
-| avatar         | ?string                                         | the default avatar of the webhook                                                         |
+| avatar         | ?string                                         | the default avatar [hash](#DOCS_REFERENCE/image-formatting) of the webhook                |
 | token?         | string                                          | the secure token of the webhook (returned for Incoming Webhooks)                          |
 | application_id | ?snowflake                                      | the bot/OAuth2 application that created this webhook                                      |
 
