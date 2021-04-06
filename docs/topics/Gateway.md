@@ -457,7 +457,6 @@ Used to trigger the initial handshake with the gateway.
   "op": 2,
   "d": {
     "token": "my_token",
-    "intents": 513,
     "properties": {
       "$os": "linux",
       "$browser": "disco",
