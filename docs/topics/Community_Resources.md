@@ -53,6 +53,8 @@ Many of these libraries are represented in the [unofficial, community-driven Dis
 
 [Interactions and Slash Commands](#DOCS_INTERACTIONS_SLASH_COMMANDS/) are the great, new way of making a Discord bot. The following open-source libraries provide help for the security and authentication checks that are mandatory if you are receiving Interactions via outgoing webhook. They also include some types for the Interactions data models.
 
+- Go
+  - [discord-interactions-go](https://github.com/bsdlp/discord-interactions-go)
 - Javascript
   - [discord-interactions-js](https://github.com/discord/discord-interactions-js)
   - [slash-create](https://github.com/Snazzah/slash-create)
@@ -69,7 +71,6 @@ Many of these libraries are represented in the [unofficial, community-driven Dis
 - Other
   - [caddy-discord-interactions-verifier](https://github.com/CarsonHoffman/caddy-discord-interactions-verifier)
   - [Rauf's Slash Command Generator](https://rauf.wtf/slash)
-
 
 ## Game SDK Tools
 
