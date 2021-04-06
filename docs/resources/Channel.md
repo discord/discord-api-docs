@@ -954,8 +954,8 @@ Create a new [invite](#DOCS_RESOURCES_INVITE/invite-object) object for the chann
 | max_uses          | integer | max number of uses or 0 for unlimited. between 0 and 100                                            | 0                |
 | temporary         | boolean | whether this invite only grants temporary membership                                                | false            |
 | unique            | boolean | if true, don't try to reuse a similar invite (useful for creating many unique one time use invites) | false            |
-| target_user?      | string  | the target user id for this invite                                                                  |                  |
-| target_user_type? | integer | the type of target user for this invite                                                             |                  |
+| target_user_id?   | string  | the target user id for this invite                                                                  |                  |
+| target_user_type? | integer | the [type of user target](#DOCS_RESOURCES_INVITE/invite-object-target-user-types) for this invite   |                  |
 
 ## Delete Channel Permission % DELETE /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/permissions/{overwrite.id#DOCS_RESOURCES_CHANNEL/overwrite-object}
 

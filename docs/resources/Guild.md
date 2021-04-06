@@ -357,7 +357,8 @@ A partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object. Represents an Offl
     "username": "Mason",
     "discriminator": "9999",
     "id": "53908099506183680",
-    "avatar": "a_bab14f271d565501444b2ca3be944b25"
+    "avatar": "a_bab14f271d565501444b2ca3be944b25",
+    "public_flags": 131141
   }
 }
 ```
