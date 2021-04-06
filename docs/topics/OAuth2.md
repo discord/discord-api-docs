@@ -8,40 +8,42 @@ The first step in implementing OAuth2 is [registering a developer application](#
 
 ###### OAuth2 URLs
 
-| URL                                            | Description            |
-| ---------------------------------------------- | ---------------------- |
-| https://discordapp.com/api/oauth2/authorize    | Base authorization URL |
-| https://discordapp.com/api/oauth2/token        | Token URL              |
-| https://discordapp.com/api/oauth2/token/revoke | Revocation URL         |
+| URL                                         | Description                                                 |
+|---------------------------------------------|-------------------------------------------------------------|
+| https://discord.com/api/oauth2/authorize    | Base authorization URL                                      |
+| https://discord.com/api/oauth2/token        | Token URL                                                   |
+| https://discord.com/api/oauth2/token/revoke | [Token Revocation](https://tools.ietf.org/html/rfc7009) URL |
 
 > warn
-> In accordance with [RFC 6749](https://tools.ietf.org/html/rfc6749), the [token URL](#DOCS_TOPICS_OAUTH2/shared-resources-oauth2-urls) **only** accepts a content type of `x-www-form-urlencoded`. JSON content is not permitted and will return an error.
+> In accordance with the relevant RFCs, the token and token revocation URLs will **only** accept a content type of `x-www-form-urlencoded`. JSON content is not permitted and will return an error.
 
 ###### OAuth2 Scopes
 
 These are a list of all the OAuth2 scopes that Discord supports. Scopes that are behind a whitelist cannot be requested unless your application is on said whitelist, and may cause undocumented/error behavior in the OAuth2 flow if you request them from a user.
 
-| Name                       | Description                                                                                                                                           |
-| -------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
-| bot                        | for oauth2 bots, this puts the bot in the user's selected guild by default                                                                            |
-| connections                | allows [/users/@me/connections](#DOCS_RESOURCES_USER/get-user-connections) to return linked third-party accounts                                      |
-| email                      | enables [/users/@me](#DOCS_RESOURCES_USER/get-current-user) to return an `email`                                                                      |
-| identify                   | allows [/users/@me](#DOCS_RESOURCES_USER/get-current-user) without `email`                                                                            |
-| guilds                     | allows [/users/@me/guilds](#DOCS_RESOURCES_USER/get-current-user-guilds) to return basic information about all of a user's guilds                     |
-| guilds.join                | allows [/guilds/{guild.id}/members/{user.id}](#DOCS_RESOURCES_GUILD/add-guild-member) to be used for joining users to a guild                         |
-| gdm.join                   | allows your app to [join users to a group dm](#DOCS_RESOURCES_CHANNEL/group-dm-add-recipient)                                                         |
-| messages.read              | for local rpc server api access, this allows you to read messages from all client channels (otherwise restricted to channels/guilds your app creates) |
-| rpc                        | for local rpc server access, this allows you to control a user's local Discord client - whitelist only                                                |
-| rpc.api                    | for local rpc server api access, this allows you to access the API as the local user - whitelist only                                                 |
-| rpc.notifications.read     | for local rpc server api access, this allows you to receive notifications pushed out to the user - whitelist only                                     |
-| webhook.incoming           | this generates a webhook that is returned in the oauth token response for authorization code grants                                                   |
-| applications.builds.upload | allows your app to upload/update builds for a user's applications - whitelist only                                                                    |
-| applications.builds.read   | allows your app to read build data for a user's applications                                                                                          |
-| applications.store.update  | allows your app to read and update store data (SKUs, store listings, achievements, etc.) for a user's applications                                    |
-| applications.entitlements  | allows your app to read entitlements for a user's applications                                                                                        |
-| relationships.read         | allows your app to know a user's friends and implicit relationships - whitelist only                                                                  |
-| activities.read            | allows your app to fetch data from a user's "Now Playing/Recently Played" list - whitelist only                                                       |
-| activities.write           | allows your app to update a user's activity - whitelist only (NOT REQUIRED FOR [GAMESDK ACTIVITIY MANAGER](#DOCS_GAME_SDK_ACTIVITIES/))                 |
+| Name                         | Description                                                                                                                                                                              |
+|------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| bot                          | for oauth2 bots, this puts the bot in the user's selected guild by default                                                                                                               |
+| connections                  | allows [/users/@me/connections](#DOCS_RESOURCES_USER/get-user-connections) to return linked third-party accounts                                                                         |
+| email                        | enables [/users/@me](#DOCS_RESOURCES_USER/get-current-user) to return an `email`                                                                                                         |
+| identify                     | allows [/users/@me](#DOCS_RESOURCES_USER/get-current-user) without `email`                                                                                                               |
+| guilds                       | allows [/users/@me/guilds](#DOCS_RESOURCES_USER/get-current-user-guilds) to return basic information about all of a user's guilds                                                        |
+| guilds.join                  | allows [/guilds/{guild.id}/members/{user.id}](#DOCS_RESOURCES_GUILD/add-guild-member) to be used for joining users to a guild                                                            |
+| gdm.join                     | allows your app to [join users to a group dm](#DOCS_RESOURCES_CHANNEL/group-dm-add-recipient)                                                                                            |
+| messages.read                | for local rpc server api access, this allows you to read messages from all client channels (otherwise restricted to channels/guilds your app creates)                                    |
+| rpc                          | for local rpc server access, this allows you to control a user's local Discord client - whitelist only                                                                                   |
+| rpc.api                      | for local rpc server api access, this allows you to access the API as the local user - whitelist only                                                                                    |
+| rpc.notifications.read       | for local rpc server api access, this allows you to receive notifications pushed out to the user - whitelist only                                                                        |
+| webhook.incoming             | this generates a webhook that is returned in the oauth token response for authorization code grants                                                                                      |
+| applications.builds.upload   | allows your app to upload/update builds for a user's applications - whitelist only                                                                                                       |
+| applications.builds.read     | allows your app to read build data for a user's applications                                                                                                                             |
+| applications.store.update    | allows your app to read and update store data (SKUs, store listings, achievements, etc.) for a user's applications                                                                       |
+| applications.entitlements    | allows your app to read entitlements for a user's applications                                                                                                                           |
+| relationships.read           | allows your app to know a user's friends and implicit relationships - whitelist only                                                                                                     |
+| activities.read              | allows your app to fetch data from a user's "Now Playing/Recently Played" list - whitelist only                                                                                          |
+| activities.write             | allows your app to update a user's activity - whitelist only (NOT REQUIRED FOR [GAMESDK ACTIVITY MANAGER](#DOCS_GAME_SDK_ACTIVITIES/))                                                   |
+| applications.commands        | allows your app to use [Slash Commands](#DOCS_INTERACTIONS_SLASH_COMMANDS/) in a guild                                                                                                   |
+| applications.commands.update | allows your app to update its [Slash Commands](#DOCS_INTERACTIONS_SLASH_COMMANDS/) via this bearer token - [client credentials grant](#DOCS_TOPICS_OAUTH2/client-credentials-grant) only |
 
 > info
 > `guilds.join` and `bot` require you to have a bot account linked to your application. Also, in order to add a user to a guild, your bot has to already belong to that guild.
@@ -61,7 +63,7 @@ The authorization code grant is what most developers will recognize as "standard
 ###### Authorization URL Example
 
 ```
-https://discordapp.com/api/oauth2/authorize?response_type=code&client_id=157730590492196864&scope=identify%20guilds.join&state=15773059ghq9183habn&redirect_uri=https%3A%2F%2Fnicememe.website&prompt=consent
+https://discord.com/api/oauth2/authorize?response_type=code&client_id=157730590492196864&scope=identify%20guilds.join&state=15773059ghq9183habn&redirect_uri=https%3A%2F%2Fnicememe.website&prompt=consent
 ```
 
 `client_id` is your application's `client_id`. `scope` is a list of [OAuth2 scopes](#DOCS_TOPICS_OAUTH2/shared-resources-oauth2-scopes) separated by url encoded spaces (`%20`). `redirect_uri` is whatever URL you registered when creating your application, url-encoded. `state` is the unique string mentioned in [State and Security](#DOCS_TOPICS_OAUTH2/state-and-security).
@@ -88,7 +90,7 @@ https://nicememe.website/?code=NhhvTDYsFcdgNLnnLijcl7Ku7bEEeee&state=15773059ghq
 ###### Access Token Exchange Example
 
 ```python
-API_ENDPOINT = 'https://discordapp.com/api/v6'
+API_ENDPOINT = 'https://discord.com/api/v8'
 CLIENT_ID = '332269999912132097'
 CLIENT_SECRET = '937it3ow87i4ery69876wqire'
 REDIRECT_URI = 'https://nicememe.website'
@@ -136,7 +138,7 @@ Having the user's access token allows your application to make certain requests 
 ###### Refresh Token Exchange Example
 
 ```python
-API_ENDPOINT = 'https://discordapp.com/api/v6'
+API_ENDPOINT = 'https://discord.com/api/v8'
 CLIENT_ID = '332269999912132097'
 CLIENT_SECRET = '937it3ow87i4ery69876wqire'
 REDIRECT_URI = 'https://nicememe.website'
@@ -167,7 +169,7 @@ The implicit OAuth2 grant is a simplified flow optimized for in-browser clients.
 ###### Authorization URL Example
 
 ```
-https://discordapp.com/api/oauth2/authorize?response_type=token&client_id=290926444748734499&state=15773059ghq9183habn&scope=identify
+https://discord.com/api/oauth2/authorize?response_type=token&client_id=290926444748734499&state=15773059ghq9183habn&scope=identify
 ```
 
 On redirect, your redirect URI will contain additional **URI fragments**: `access_token`, `token_type`, `expires_in`, `scope`, and [`state`](#DOCS_TOPICS_OAUTH2/state-and-security)(if specified). **These are not querystring parameters.** Be mindful of the "#" character:
@@ -182,7 +184,7 @@ There are tradeoffs in using the implicit grant flow. It is both quicker and eas
 
 ## Client Credentials Grant
 
-The client credential flow is a quick and easy way for bot developers to get their own bearer tokens for testing purposes. By making a `POST` request to the [token URL](#DOCS_TOPICS_OAUTH2/shared-resources-oauth2-urls) with a grant type of `client_credentials`, you will be returned an access token for the bot owner. Therefore, always be super-extra-very-we-are-not-kidding-like-really-be-secure-make-sure-your-info-is-not-in-your-source-code careful with your `client_id` and `client_secret`. We don't take kindly to imposters around these parts.
+The client credential flow is a quick and easy way for bot developers to get their own bearer tokens for testing purposes. By making a `POST` request to the [token URL](#DOCS_TOPICS_OAUTH2/shared-resources-oauth2-urls) with a grant type of `client_credentials`, using Basic authentication with your client id as the username and your client secret as the password, you will be returned an access token for the bot owner. Therefore, always be super-extra-very-we-are-not-kidding-like-really-be-secure-make-sure-your-info-is-not-in-your-source-code careful with your `client_id` and `client_secret`. We don't take kindly to imposters around these parts.
 
 You can specify scopes with the `scope` parameter, which is a list of [OAuth2 scopes](#DOCS_TOPICS_OAUTH2/shared-resources-oauth2-scopes) separated by spaces:
 
@@ -191,7 +193,7 @@ You can specify scopes with the `scope` parameter, which is a list of [OAuth2 sc
 ```python
 import base64
 
-API_ENDPOINT = 'https://discordapp.com/api/v6'
+API_ENDPOINT = 'https://discord.com/api/v8'
 CLIENT_ID = '332269999912132097'
 CLIENT_SECRET = '937it3ow87i4ery69876wqire'
 
@@ -243,7 +245,7 @@ Bot authorization is a special server-less and callback-less OAuth2 flow that ma
 ###### Bot Auth Parameters
 
 | name                 | description                                                           |
-| -------------------- | --------------------------------------------------------------------- |
+|----------------------|-----------------------------------------------------------------------|
 | client_id            | your app's client id                                                  |
 | scope                | needs to include `bot` for the bot flow                               |
 | permissions          | the [permissions](#DOCS_TOPICS_PERMISSIONS/) you're requesting        |
@@ -253,7 +255,7 @@ Bot authorization is a special server-less and callback-less OAuth2 flow that ma
 ###### URL Example
 
 ```
-https://discordapp.com/api/oauth2/authorize?client_id=157730590492196864&scope=bot&permissions=1
+https://discord.com/api/oauth2/authorize?client_id=157730590492196864&scope=bot&permissions=1
 ```
 
 In the case of bots, the `scope` parameter should be set to `bot`. There's also a new parameter, `permissions`, which is an integer corresponding to the [permission calculations](#DOCS_TOPICS_PERMISSIONS/permissions-bitwise-permission-flags) for the bot. You'll also notice the absence of `response_type` and `redirect_uri`. Bot authorization does not require these parameters because there is no need to retrieve the user's access token.
@@ -290,7 +292,8 @@ When receiving the access code on redirect, there will be additional querystring
         "position": 0,
         "id": "290926798626357250",
         "managed": false,
-        "permissions": 49794241
+        "permissions": 49794241,
+        "permissions_new": "49794241"
       }
     ],
     "afk_timeout": 300,
@@ -298,7 +301,6 @@ When receiving the access code on redirect, there will be additional querystring
     "widget_channel_id": null,
     "region": "us-east",
     "default_message_notifications": 1,
-    "embed_channel_id": null,
     "explicit_content_filter": 0,
     "splash": null,
     "features": [],
@@ -306,7 +308,6 @@ When receiving the access code on redirect, there will be additional querystring
     "widget_enabled": false,
     "verification_level": 0,
     "owner_id": "53908232999183680",
-    "embed_enabled": false,
     "id": "2909267986347357250",
     "icon": null
   },
@@ -328,7 +329,7 @@ Discord's webhook flow is a specialized version of an [authorization code](#DOCS
 ###### URL Example
 
 ```
-https://discordapp.com/api/oauth2/authorize?response_type=code&client_id=157730590492196864&scope=webhook.incoming&state=15773059ghq9183habn&redirect_uri=https%3A%2F%2Fnicememe.website
+https://discord.com/api/oauth2/authorize?response_type=code&client_id=157730590492196864&scope=webhook.incoming&state=15773059ghq9183habn&redirect_uri=https%3A%2F%2Fnicememe.website
 ```
 
 When the user navigates to this URL, they will be prompted to select a channel in which to allow the webhook. When the webhook is [executed](#DOCS_RESOURCES_WEBHOOK/execute-webhook), it will post its message into this channel. On acceptance, the user will be redirected to your `redirect_uri`. The URL will contain the `code` querystring parameter which should be [exchanged for an access token](#DOCS_TOPICS_OAUTH2/authorization-code-grant-access-token-exchange-example). In return, you will receive a slightly modified token response:
@@ -344,7 +345,7 @@ When the user navigates to this URL, they will be prompted to select a channel i
   "refresh_token": "PvPL7ELyMDc1836457XCDh1Y8jPbRm",
   "webhook": {
     "name": "testwebhook",
-    "url": "https://discordapp.com/api/webhooks/347114750880120863/kKDdjXa1g9tKNs0-_yOwLyALC9gydEWP6gr9sHabuK1vuofjhQDDnlOclJeRIvYK-pj_",
+    "url": "https://discord.com/api/webhooks/347114750880120863/kKDdjXa1g9tKNs0-_yOwLyALC9gydEWP6gr9sHabuK1vuofjhQDDnlOclJeRIvYK-pj_",
     "channel_id": "345626669224982402",
     "token": "kKDdjXa1g9tKNs0-_yOwLyALC9gydEWP6gr9sHabuK1vuofjhQDDnlOclJeRIvYK-pj_",
     "avatar": null,
@@ -359,7 +360,7 @@ From this object, you should store the `webhook.token` and `webhook.id`. To exec
 ###### Webhook Execution URL
 
 ```
-https://discordapp.com/api/webhooks/WEBHOOK_ID/WEBHOOK_TOKEN
+https://discord.com/api/webhooks/WEBHOOK_ID/WEBHOOK_TOKEN
 ```
 
 Any user that wishes to add your webhook to their channel will need to go through the full OAuth2 flow. A new webhook is created each time, so you will need to save the token and id. If you wish to send a message to all your webhooks, you'll need to iterate over each stored id:token combination and make `POST` requests to each one. Be mindful of our [Rate Limits](#DOCS_TOPICS_RATE_LIMITS/rate-limits)!
@@ -372,23 +373,24 @@ Returns the bot's OAuth2 [application](#DOCS_TOPICS_OAUTH2/application) object.
 
 ###### Application Structure
 
-| Field                  | Type                                                       | Description                                                                                                               |
-| ---------------------- | ---------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
-| id                     | snowflake                                                  | the id of the app                                                                                                         |
-| name                   | string                                                     | the name of the app                                                                                                       |
-| icon                   | ?string                                                    | the icon hash of the app                                                                                                  |
-| description            | string                                                     | the description of the app                                                                                                |
-| rpc_origins?           | array of strings                                           | an array of rpc origin urls, if rpc is enabled                                                                            |
-| bot_public             | boolean                                                    | when false only app owner can join the app's bot to guilds                                                                |
-| bot_require_code_grant | boolean                                                    | when true the app's bot will only join upon completion of the full oauth2 code grant flow                                 |
-| owner                  | partial [user](#DOCS_RESOURCES_USER/user-object) object    | partial user object containing info on the owner of the application                                                       |
-| summary                | string                                                     | if this application is a game sold on Discord, this field will be the summary field for the store page of its primary sku |
-| verify_key             | string                                                     | the base64 encoded key for the GameSDK's [GetTicket](#DOCS_GAME_SDK_APPLICATIONS/get-ticket)                              |
-| team                   | ?[team](#DOCS_TOPICS_TEAMS/data-models-team-object) object | if the application belongs to a team, this will be a list of the members of that team                                     |
-| guild_id?              | snowflake                                                  | if this application is a game sold on Discord, this field will be the guild to which it has been linked                   |
-| primary_sku_id?        | snowflake                                                  | if this application is a game sold on Discord, this field will be the id of the "Game SKU" that is created, if exists     |
-| slug?                  | string                                                     | if this application is a game sold on Discord, this field will be the URL slug that links to the store page               |
-| cover_image?           | string                                                     | if this application is a game sold on Discord, this field will be the hash of the image on store embeds                   |
+| Field                  | Type                                                       | Description                                                                                                                |
+|------------------------|------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------|
+| id                     | snowflake                                                  | the id of the app                                                                                                          |
+| name                   | string                                                     | the name of the app                                                                                                        |
+| icon                   | ?string                                                    | the icon hash of the app                                                                                                   |
+| description            | string                                                     | the description of the app                                                                                                 |
+| rpc_origins?           | array of strings                                           | an array of rpc origin urls, if rpc is enabled                                                                             |
+| bot_public             | boolean                                                    | when false only app owner can join the app's bot to guilds                                                                 |
+| bot_require_code_grant | boolean                                                    | when true the app's bot will only join upon completion of the full oauth2 code grant flow                                  |
+| owner                  | partial [user](#DOCS_RESOURCES_USER/user-object) object    | partial user object containing info on the owner of the application                                                        |
+| summary                | string                                                     | if this application is a game sold on Discord, this field will be the summary field for the store page of its primary sku  |
+| verify_key             | string                                                     | the hex encoded key for verification in interactions and the GameSDK's [GetTicket](#DOCS_GAME_SDK_APPLICATIONS/get-ticket) |
+| team                   | ?[team](#DOCS_TOPICS_TEAMS/data-models-team-object) object | if the application belongs to a team, this will be a list of the members of that team                                      |
+| guild_id?              | snowflake                                                  | if this application is a game sold on Discord, this field will be the guild to which it has been linked                    |
+| primary_sku_id?        | snowflake                                                  | if this application is a game sold on Discord, this field will be the id of the "Game SKU" that is created, if exists      |
+| slug?                  | string                                                     | if this application is a game sold on Discord, this field will be the URL slug that links to the store page                |
+| cover_image?           | string                                                     | if this application is a game sold on Discord, this field will be the hash of the image on store embeds                    |
+| flags                  | int                                                        | the application's public flags                                                                                             |
 
 ###### Example Application
 
@@ -430,5 +432,48 @@ Returns the bot's OAuth2 [application](#DOCS_TOPICS_OAUTH2/application) object.
     ]
   },
   "verify_key": "1e0a356058d627ca38a5c8c9648818061d49e49bd9da9e3ab17d98ad4d6bg2u8"
+}
+```
+
+## Get Current Authorization Information % GET /oauth2/@me
+
+Returns info about the current authorization. Requires authentication with a bearer token.
+
+###### Response Structure
+
+| Field       | Type                                                                 | Description                                                                       |
+|-------------|----------------------------------------------------------------------|-----------------------------------------------------------------------------------|
+| application | partial [application](#DOCS_TOPICS_OAUTH2/application-object) object | the current application                                                           |
+| scopes      | array of strings                                                     | the scopes the user has authorized the application for                            |
+| expires     | ISO8601 timestamp                                                    | when the access token expires                                                     |
+| user?       | [user](#DOCS_RESOURCES_USER/user-object) object                      | the user who has authorized, if the user has authorized with the `identify` scope |
+
+###### Example Authorization Information
+
+```json
+{
+    "application": {
+        "id": "159799960412356608",
+        "name": "AIRHORN SOLUTIONS",
+        "icon": "f03590d3eb764081d154a66340ea7d6d",
+        "description": "",
+        "summary": "",
+        "hook": true,
+        "bot_public": true,
+        "bot_require_code_grant": false,
+        "verify_key": "c8cde6a3c8c6e49d86af3191287b3ce255872be1fff6dc285bdb420c06a2c3c8"
+    },
+    "scopes": [
+        "guilds.join",
+        "identify"
+    ],
+    "expires": "2021-01-23T02:33:17.017000+00:00",
+    "user": {
+        "id": "268473310986240001",
+        "username": "Discord",
+        "avatar": "f749bb0cbeeb26ef21eca719337d20f1",
+        "discriminator": "0001",
+        "public_flags": 131072
+    }
 }
 ```

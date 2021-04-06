@@ -1,5 +1,140 @@
 # Change Log
 
+## Large Bot Sharding Lowered to 150,000 Guilds 
+
+## March 15, 2021
+
+There have been reports that sessions have higher frequency of errors when starting if a bot has joined too many guilds (the gateway connection times out). To account for this we have lowered the requirement for large bot sharding down to 150,000 guilds in order to improve reliability.
+
+## Changes to Slash Command Response Types and Flags
+
+## March 5, 2021
+
+Changes to interaction response types have been made to support better designs for Slash Commands:
+
+- Type `2` `Acknowledge` has been deprecated
+- Type `3` `ChannelMessage` has been deprecated
+- Type `5` `AcknowledgeWithSource` has been renamed to `DeferredChannelMessageWithSource`
+
+These deprecated types will be removed and break on **April 9, 2021**.
+
+Additionally, `flags` has been documented on [InteractionApplicationCommandCallbackData](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-response-interactionapplicationcommandcallbackdata). Setting `flags` to `64` will make the interaction response ephemeral.
+
+## Slash Commands in DMs
+
+#### February 9, 2021
+
+Slash Commands are now supported in DMs with bots. Due to this change, some of the fields on the [Interaction object](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction) have been made optional. Newly optional fields don't reflect any behavior changes in Slash Commands within guilds; they are to support commands in the context of a DM only.
+
+## Change to Permission Checking when Creating Channels
+
+#### January 22, 2021
+
+Permission overwrites in the guild channel creation endpoint are now validated against the permissions your bot has in the guild. Permission overwrites specified in the request body when creating guild channels will now require your bot to also have the permissions being applied. Setting `MANAGE_ROLES` permission in channel overwrites is only possible for guild administrators or users with `MANAGE_ROLES` as a permission overwrite in the channel.
+
+## Slash Commands and Interactions
+
+#### December 15, 2020
+
+Slash Commands are here! There's a _lot_ to cover, so go check out specific documentation under [Slash Commands](#DOCS_INTERACTIONS_SLASH_COMMANDS/).
+
+Slash Commands include some new features for webhooks as well:
+
+- Webhooks can now update previously-sent messages from the same webhook using [Edit Webhook Message](#DOCS_RESOURCES_WEBHOOK/edit-webhook-message) and [Delete Webhook Message](#DOCS_RESOURCES_WEBHOOK/delete-webhook-message)
+
+This PR also documents the `application` field on the `READY` gateway event, which is a partial [application object](#DOCS_TOPICS_OAUTH2/application-object) containing `id` and `flags`.
+
+## Inline Replies
+
+#### November 16, 2020
+
+Inline Replies have been added to our documentation. They behave differently in v6 and v8, so be cautious in your implementation:
+
+- Inline replies are type `19` in v8, but remain type `0` in v6
+- You can now add a `message_reference` on message create to create a reply
+- A new field `referenced_message` has been added to the [Message Object](#DOCS_RESOURCES_CHANNEL/message-object)
+- A new field `replied_user` has been added to the [Allowed Mentions Object](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object)
+- [Message Create](#DOCS_TOPICS_GATEWAY/message-create) gateway event is guaranteed to have a `referenced_message` if the message created is a reply. Otherwise, that field is not guaranteed.
+
+## Stickers
+
+#### November 13, 2020
+
+Stickers are now documented as part of the [message](#DOCS_RESOURCES_CHANNEL/message-object) object. 
+
+## Gateway v6 Intent Restrictions
+
+#### October 27, 2020
+
+The v6 gateway now applies the restrictions for gateway intents. This means the new chunking limitations are now in effect, regardless of intents being used. See [Request Guild Members](#DOCS_TOPICS_GATEWAY/request-guild-members) for further details.
+Additionally, if privileged intents are not enabled in the application dashboard the bot will not receive the events for those intents.
+
+All other intents are always enabled by default unless specified otherwise by the identify payload. We have made a support article to explain some of the changes and resulting issues with more details: [Gateway Update FAQ](https://dis.gd/gwupdate)
+
+## API and Gateway V8
+
+#### September 24, 2020
+
+We've introduced API and Gateway v8! Changes are noted throughout the documentation, and you can also read [this commit in our docs repo](https://github.com/discord/discord-api-docs/commit/545ff4a7883e5eee7ee91d19a5e5d760a0730033) for a full diff.
+
+The changes are:
+
+- API and Gateway v8 are now available. v6 is still the default for the time being.
+- [Gateway Intents](#DOCS_TOPICS_GATEWAY/gateway-intents) are now required
+- All permissions have been converted to strings-serialized numbers. As such, `permissions_new`, `allow_new`, and `deny_new` have been removed
+- The `game` field has been removed. If you need a direct replacement, you can instead reference the first element of `activities`
+- Channel Permission Overwrite `type`s are now numbers (0 and 1) instead of strings ("role" and "member"). However due to a current technical constraint, they are string-serialized numbers in audit log `options`.
+- `embed_enabled` and `embed_channel_id` have been removed. Use `widget_enabled` and `widget_channel_id` instead.
+- Form body errors have been improved to include more helpful messaging on validation. [See more here](#DOCS_REFERENCE/error-messages)
+- The `Retry-After` header is now based in seconds instead of milliseconds (e.g. `123` means 123 seconds)
+- The `X-RateLimit-Precision` header is no longer respected. `X-RateLimit-Reset` and `X-RateLimit-Reset-After` are always returned at millisecond precision (e.g. `123.456` instead of `124`)
+- Bots no longer receive [Channel Create Gateway Event](#DOCS_TOPICS_GATEWAY/channel-create) for DMs
+- `delete-message-days` is no longer available. Use `delete_message_days`.
+- Removed `roles`, `premium_since`, and `nick` from [Presence Update Gateway Event](#DOCS_TOPICS_GATEWAY/presence-update)
+- Removed some [integration object](#DOCS_RESOURCES_GUILD/integration-object) fields for Discord application integrations
+- Removed `include_applications` from [Get Guild Integrations](#DOCS_RESOURCES_GUILD/get-guild-integrations). Application integrations are always included.
+- The following deprecated routes have been removed for better naming conventions:
+
+Removed in favor of `/guilds/<guild_id>/widget`:
+
+- `/guilds/<guild_id>/embed`
+
+Removed in favor of `/guilds/<guild_id>/widget.json`:
+
+- `/servers/<guild_id>/embed.json`
+- `/servers/<guild_id>/widget.json`
+- `/guilds/<guild_id>/embed.json`
+
+Removed in favor of `/guilds/<guild_id>/widget.png`:
+
+- `/guilds/<guild_id>/embed.png`
+
+Removed in favor of `/channels/<channel_id>/messages/bulk-delete`:
+
+- `/channels/<channel_id>/messages/bulk_delete/`
+
+Removed in favor of `/invites/<code>/`:
+
+- `/invite/<code>/`
+
+## New Permission Fields
+
+#### July 28, 2020
+
+Documented `permissions_new`, `allow_new`, and `deny_new` as string-serialized permission bitfields.
+
+## Legacy Mention Behavior Deprecation
+
+#### May 11, 2020
+
+The legacy mention behavior for bots is now removed, and granular control of mentions should use the [Allowed Mentions](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object) API moving forwards.
+
+## New Properties on Guild Members Chunk Event
+
+#### April 24, 2020
+
+The [Guild Members Chunk](#DOCS_TOPICS_GATEWAY/guild-members-chunk) gateway event now contains two properties: `chunk_index` and `chunk_count`. These values can be used to keep track of how many events you have left to receive in response to a [Request Guild Members](#DOCS_TOPICS_GATEWAY/request-guild-members) command.
+
 ## New Allowed Mentions Object
 
 #### March 3, 2020
@@ -87,7 +222,7 @@ Additional information around Teams has been added to both the API and the docum
 
 #### May 29, 2019
 
-Additional information has been documented to support [Server Nitro Boosting](https://support.discordapp.com/hc/en-us/articles/360028038352-Server-Boosting). This includes the addition of a few [message types](#DOCS_RESOURCES_CHANNEL/message-object-message-types), as well as some [new fields on guilds](#DOCS_RESOURCES_GUILD/guild-object-premium-tier). Please note that this feature is currently under experimentation, and these fields may be subject to change.
+Additional information has been documented to support [Server Nitro Boosting](https://support.discord.com/hc/en-us/articles/360028038352-Server-Boosting). This includes the addition of a few [message types](#DOCS_RESOURCES_CHANNEL/message-object-message-types), as well as some [new fields on guilds](#DOCS_RESOURCES_GUILD/guild-object-premium-tier). Please note that this feature is currently under experimentation, and these fields may be subject to change.
 
 ## Deprecation of Discord-RPC Rich Presence SDK
 
@@ -113,7 +248,7 @@ There have also been some small additions to the Rich Presence SDK. The previous
 
 #### December 11, 2018
 
-Dispatch documentation around store listings has been removed. Store pages for the Discord Store are now managed entirely within the [Developer Portal](https://discordapp.com/developers).
+Dispatch documentation around store listings has been removed. Store pages for the Discord Store are now managed entirely within the [Developer Portal](https://discord.com/developers).
 
 ## Enhancement: User Object
 
@@ -137,7 +272,7 @@ We released server changes that allow guilds to represent an incomplete state of
 
 #### February 5, 2018
 
-Additional `activity` and `application` fields—as well as corresponding object documentation—have been added to the [Message](#DOCS_RESOURCES_CHANNEL/message-object) object in support of our newly-released [Spotify integration](https://support.discordapp.com/hc/en-us/articles/360000167212-Discord-Spotify-Connection) and previous Rich Presence enhancements.
+Additional `activity` and `application` fields—as well as corresponding object documentation—have been added to the [Message](#DOCS_RESOURCES_CHANNEL/message-object) object in support of our newly-released [Spotify integration](https://support.discord.com/hc/en-us/articles/360000167212-Discord-Spotify-Connection) and previous Rich Presence enhancements.
 
 ## Enhancement: Get Guild Emoji Endpoint
 
@@ -167,7 +302,7 @@ Rich Presence is now live and available for all developers! Rich Presence allows
 - Allowing users to post invitations to join their party or spectate their game in chat
 - Displaying "Spectate" and "Ask to Join" buttons on users' profiles
 
-For more information, check out our [Rich Presence site](https://discordapp.com/rich-presence). To get started on development, [read the docs](#DOCS_RICH_PRESENCE_HOW_TO/)!
+For more information, check out our [Rich Presence site](https://discord.com/rich-presence). To get started on development, [read the docs](#DOCS_RICH_PRESENCE_HOW_TO/)!
 
 ## Breaking Change: API & Gateway Below v6 Discontinued
 

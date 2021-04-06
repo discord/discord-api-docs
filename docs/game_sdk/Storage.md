@@ -4,7 +4,7 @@
 > Need help with the SDK? Talk to us in the [Discord Developers Server](https://discord.gg/discord-developers)!
 
 > warn
-> Game approval submissions are currently paused due to unforeseen circumstances. We apologize for the inconvenience. [Click here for more info.](https://support-dev.discordapp.com/hc/en-us/articles/360041437171)
+> Game approval submissions are currently paused due to unforeseen circumstances. We apologize for the inconvenience. [Click here for more info.](https://support-dev.discord.com/hc/en-us/articles/360041437171)
 
 We've been told that people playing games want to save their progress as they go, allowing them to come back where they left off and continue their epic journey of power.
 
@@ -44,6 +44,8 @@ Yup, that's it! Don't know what this file is? Go read [Branches and Builds](#DOC
 > Value from environment variable `DISCORD_STORAGE_PATH`
 
 Returns the filepath to which Discord saves files if you were to use the SDK's storage manager. Discord has branch-specific, user-specific saves, so you and your little brother will never overwrite each others' save files. If your game already has save file writing logic, you can use this method to get that user-specific path and help users protect their save files.
+
+Returns a `string`.
 
 ###### Parameters
 
@@ -140,6 +142,8 @@ storageManager.Write("high_score", Encoding.UTF8.GetBytes("9999"));
 
 Writes data asynchronously to disk under the given keyname.
 
+Returns a `Discord.Result` via callback.
+
 ###### Parameters
 
 | name | type   | description                 |
@@ -204,7 +208,7 @@ if (!highScore)
 
 Returns file info for the given key name.
 
-Returns a `Filestat`.
+Returns a `FileStat`.
 
 ###### Parameters
 

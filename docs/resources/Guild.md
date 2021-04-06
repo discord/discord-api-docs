@@ -6,55 +6,58 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 
 ###### Guild Structure
 
-| Field                         | Type                                                                                | Description                                                                                                                      |
-| ----------------------------- | ----------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| id                            | snowflake                                                                           | guild id                                                                                                                         |
-| name                          | string                                                                              | guild name (2-100 characters)                                                                                                    |
-| icon                          | ?string                                                                             | [icon hash](#DOCS_REFERENCE/image-formatting)                                                                                    |
-| splash                        | ?string                                                                             | [splash hash](#DOCS_REFERENCE/image-formatting)                                                                                  |
-| discovery_splash              | ?string                                                                             | [discovery splash hash](#DOCS_REFERENCE/image-formatting)                                                                        |
-| owner?                        | boolean                                                                             | whether or not [the user](#DOCS_RESOURCES_USER/get-current-user-guilds) is the owner of the guild                                |
-| owner_id                      | snowflake                                                                           | id of owner                                                                                                                      |
-| permissions?                  | integer                                                                             | total permissions for [the user](#DOCS_RESOURCES_USER/get-current-user-guilds) in the guild (does not include channel overrides) |
-| region                        | string                                                                              | [voice region](#DOCS_RESOURCES_VOICE/voice-region-object) id for the guild                                                       |
-| afk_channel_id                | ?snowflake                                                                          | id of afk channel                                                                                                                |
-| afk_timeout                   | integer                                                                             | afk timeout in seconds                                                                                                           |
-| embed_enabled?                | boolean                                                                             | whether this guild is embeddable (e.g. widget)                                                                                   |
-| embed_channel_id?             | ?snowflake                                                                          | if not null, the channel id that the widget will generate an invite to                                                           |
-| verification_level            | integer                                                                             | [verification level](#DOCS_RESOURCES_GUILD/guild-object-verification-level) required for the guild                               |
-| default_message_notifications | integer                                                                             | default [message notifications level](#DOCS_RESOURCES_GUILD/guild-object-default-message-notification-level)                     |
-| explicit_content_filter       | integer                                                                             | [explicit content filter level](#DOCS_RESOURCES_GUILD/guild-object-explicit-content-filter-level)                                |
-| roles                         | array of [role](#DOCS_TOPICS_PERMISSIONS/role-object) objects                       | roles in the guild                                                                                                               |
-| emojis                        | array of [emoji](#DOCS_RESOURCES_EMOJI/emoji-object) objects                        | custom guild emojis                                                                                                              |
-| features                      | array of [guild feature](#DOCS_RESOURCES_GUILD/guild-object-guild-features) strings | enabled guild features                                                                                                           |
-| mfa_level                     | integer                                                                             | required [MFA level](#DOCS_RESOURCES_GUILD/guild-object-mfa-level) for the guild                                                 |
-| application_id                | ?snowflake                                                                          | application id of the guild creator if it is bot-created                                                                         |
-| widget_enabled?               | boolean                                                                             | whether or not the server widget is enabled                                                                                      |
-| widget_channel_id?            | ?snowflake                                                                          | the channel id for the server widget                                                                                             |
-| system_channel_id             | ?snowflake                                                                          | the id of the channel where guild notices such as welcome messages and boost events are posted                                   |
-| system_channel_flags          | integer                                                                             | [system channel flags](#DOCS_RESOURCES_GUILD/guild-object-system-channel-flags)                                                  |
-| rules_channel_id              | ?snowflake                                                                          | the id of the channel where "PUBLIC" guilds display rules and/or guidelines                                                      |
-| joined_at? \*                 | ISO8601 timestamp                                                                   | when this guild was joined at                                                                                                    |
-| large? \*                     | boolean                                                                             | whether this is considered a large guild                                                                                         |
-| unavailable? \*               | boolean                                                                             | whether this guild is unavailable                                                                                                |
-| member_count? \*              | integer                                                                             | total number of members in this guild                                                                                            |
-| voice_states? \*              | array of partial [voice state](#DOCS_RESOURCES_VOICE/voice-state-object) objects    | (without the `guild_id` key)                                                                                                     |
-| members? \*                   | array of [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) objects          | users in the guild                                                                                                               |
-| channels? \*                  | array of [channel](#DOCS_RESOURCES_CHANNEL/channel-object) objects                  | channels in the guild                                                                                                            |
-| presences? \*                 | array of partial [presence update](#DOCS_TOPICS_GATEWAY/presence-update) objects    | presences of the users in the guild                                                                                              |
-| max_presences?                | ?integer                                                                            | the maximum amount of presences for the guild (the default value, currently 25000, is in effect when null is returned)           |
-| max_members?                  | integer                                                                             | the maximum amount of members for the guild                                                                                      |
-| vanity_url_code               | ?string                                                                             | the vanity url code for the guild                                                                                                |
-| description                   | ?string                                                                             | the description for the guild                                                                                                    |
-| banner                        | ?string                                                                             | [banner hash](#DOCS_REFERENCE/image-formatting)                                                                                  |
-| premium_tier                  | integer                                                                             | [premium tier](#DOCS_RESOURCES_GUILD/guild-object-premium-tier) (Server Boost level)                                             |
-| premium_subscription_count?   | integer                                                                             | the number of boosts this server currently has                                                                                   |
-| preferred_locale              | string                                                                              | the preferred locale of a "PUBLIC" guild used in server discovery and notices from Discord; defaults to "en-US"                  |
-| public_updates_channel_id     | ?snowflake                                                                          | the id of the channel where admins and moderators of "PUBLIC" guilds receive notices from Discord                                |
-| approximate_member_count?     | integer                                                                             | approximate number of members in this guild, returned from the `GET /guild/<id>` endpoint when `with_counts` is `true`           |
-| approximate_presence_count?   | integer                                                                             | approximate number of online members in this guild, returned from the `GET /guild/<id>` endpoint when `with_counts` is `true`    |
+| Field                         | Type                                                                                | Description                                                                                                                              |
+|-------------------------------|-------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------|
+| id                            | snowflake                                                                           | guild id                                                                                                                                 |
+| name                          | string                                                                              | guild name (2-100 characters, excluding trailing and leading whitespace)                                                                 |
+| icon                          | ?string                                                                             | [icon hash](#DOCS_REFERENCE/image-formatting)                                                                                            |
+| icon_hash?                    | ?string                                                                             | [icon hash](#DOCS_REFERENCE/image-formatting), returned when in the template object                                                      |
+| splash                        | ?string                                                                             | [splash hash](#DOCS_REFERENCE/image-formatting)                                                                                          |
+| discovery_splash              | ?string                                                                             | [discovery splash hash](#DOCS_REFERENCE/image-formatting); only present for guilds with the "DISCOVERABLE" feature                       |
+| owner? \*\*                   | boolean                                                                             | true if [the user](#DOCS_RESOURCES_USER/get-current-user-guilds) is the owner of the guild                                               |
+| owner_id                      | snowflake                                                                           | id of owner                                                                                                                              |
+| permissions? \*\*             | string                                                                              | total permissions for [the user](#DOCS_RESOURCES_USER/get-current-user-guilds) in the guild (excludes overrides)                         |
+| region                        | string                                                                              | [voice region](#DOCS_RESOURCES_VOICE/voice-region-object) id for the guild                                                               |
+| afk_channel_id                | ?snowflake                                                                          | id of afk channel                                                                                                                        |
+| afk_timeout                   | integer                                                                             | afk timeout in seconds                                                                                                                   |
+| widget_enabled?               | boolean                                                                             | true if the server widget is enabled                                                                                                     |
+| widget_channel_id?            | ?snowflake                                                                          | the channel id that the widget will generate an invite to, or `null` if set to no invite                                                 |
+| verification_level            | integer                                                                             | [verification level](#DOCS_RESOURCES_GUILD/guild-object-verification-level) required for the guild                                       |
+| default_message_notifications | integer                                                                             | default [message notifications level](#DOCS_RESOURCES_GUILD/guild-object-default-message-notification-level)                             |
+| explicit_content_filter       | integer                                                                             | [explicit content filter level](#DOCS_RESOURCES_GUILD/guild-object-explicit-content-filter-level)                                        |
+| roles                         | array of [role](#DOCS_TOPICS_PERMISSIONS/role-object) objects                       | roles in the guild                                                                                                                       |
+| emojis                        | array of [emoji](#DOCS_RESOURCES_EMOJI/emoji-object) objects                        | custom guild emojis                                                                                                                      |
+| features                      | array of [guild feature](#DOCS_RESOURCES_GUILD/guild-object-guild-features) strings | enabled guild features                                                                                                                   |
+| mfa_level                     | integer                                                                             | required [MFA level](#DOCS_RESOURCES_GUILD/guild-object-mfa-level) for the guild                                                         |
+| application_id                | ?snowflake                                                                          | application id of the guild creator if it is bot-created                                                                                 |
+| system_channel_id             | ?snowflake                                                                          | the id of the channel where guild notices such as welcome messages and boost events are posted                                           |
+| system_channel_flags          | integer                                                                             | [system channel flags](#DOCS_RESOURCES_GUILD/guild-object-system-channel-flags)                                                          |
+| rules_channel_id              | ?snowflake                                                                          | the id of the channel where Community guilds can display rules and/or guidelines                                                         |
+| joined_at? \*                 | ISO8601 timestamp                                                                   | when this guild was joined at                                                                                                            |
+| large? \*                     | boolean                                                                             | true if this is considered a large guild                                                                                                 |
+| unavailable? \*               | boolean                                                                             | true if this guild is unavailable due to an outage                                                                                       |
+| member_count? \*              | integer                                                                             | total number of members in this guild                                                                                                    |
+| voice_states? \*              | array of partial [voice state](#DOCS_RESOURCES_VOICE/voice-state-object) objects    | states of members currently in voice channels; lacks the `guild_id` key                                                                  |
+| members? \*                   | array of [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) objects          | users in the guild                                                                                                                       |
+| channels? \*                  | array of [channel](#DOCS_RESOURCES_CHANNEL/channel-object) objects                  | channels in the guild                                                                                                                    |
+| presences? \*                 | array of partial [presence update](#DOCS_TOPICS_GATEWAY/presence-update) objects    | presences of the members in the guild, will only include non-offline members if the size is greater than `large threshold`               |
+| max_presences?                | ?integer                                                                            | the maximum number of presences for the guild (the default value, currently 25000, is in effect when `null` is returned)                 |
+| max_members?                  | integer                                                                             | the maximum number of members for the guild                                                                                              |
+| vanity_url_code               | ?string                                                                             | the vanity url code for the guild                                                                                                        |
+| description                   | ?string                                                                             | the description for the guild, if the guild is discoverable                                                                              |
+| banner                        | ?string                                                                             | [banner hash](#DOCS_REFERENCE/image-formatting)                                                                                          |
+| premium_tier                  | integer                                                                             | [premium tier](#DOCS_RESOURCES_GUILD/guild-object-premium-tier) (Server Boost level)                                                     |
+| premium_subscription_count?   | integer                                                                             | the number of boosts this guild currently has                                                                                            |
+| preferred_locale              | string                                                                              | the preferred locale of a Community guild; used in server discovery and notices from Discord; defaults to "en-US"                        |
+| public_updates_channel_id     | ?snowflake                                                                          | the id of the channel where admins and moderators of Community guilds receive notices from Discord                                       |
+| max_video_channel_users?      | integer                                                                             | the maximum amount of users in a video channel                                                                                           |
+| approximate_member_count?     | integer                                                                             | approximate number of members in this guild, returned from the `GET /guilds/<id>` endpoint when `with_counts` is `true`                  |
+| approximate_presence_count?   | integer                                                                             | approximate number of non-offline members in this guild, returned from the `GET /guilds/<id>` endpoint when `with_counts` is `true`      |
+| welcome_screen?               | [welcome screen](#DOCS_RESOURCES_GUILD/welcome-screen-object) object                | the welcome screen of a Community guild, shown to new members, returned when in the invite object                                        |
 
 ** \* These fields are only sent within the [GUILD_CREATE](#DOCS_TOPICS_GATEWAY/guild-create) event **
+
+** \*\* These fields are only sent when using the [GET Current User Guilds](#DOCS_RESOURCES_USER/get-current-user-guilds) endpoint and are relative to the requested user **
 
 ###### Default Message Notification Level
 
@@ -85,8 +88,8 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 | NONE      | 0       | unrestricted                                                               |
 | LOW       | 1       | must have verified email on account                                        |
 | MEDIUM    | 2       | must be registered on Discord for longer than 5 minutes                    |
-| HIGH      | 3       | (╯°□°）╯︵ ┻━┻ - must be a member of the server for longer than 10 minutes |
-| VERY_HIGH | 4       | ┻━┻ ミヽ(ಠ 益 ಠ)ﾉ彡 ┻━┻ - must have a verified phone number                |
+| HIGH      | 3       | must be a member of the server for longer than 10 minutes |
+| VERY_HIGH | 4       | must have a verified phone number                |
 
 ###### Premium Tier
 
@@ -106,22 +109,23 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 
 ###### Guild Features
 
-| Feature                | Description                                                                     |
-| ---------------------- | ------------------------------------------------------------------------------- |
-| INVITE_SPLASH          | guild has access to set an invite splash background                             |
-| VIP_REGIONS            | guild has access to set 384kbps bitrate in voice (previously VIP voice servers) |
-| VANITY_URL             | guild has access to set a vanity URL                                            |
-| VERIFIED               | guild is verified                                                               |
-| PARTNERED              | guild is partnered                                                              |
-| PUBLIC                 | guild is public                                                                 |
-| COMMERCE               | guild has access to use commerce features (i.e. create store channels)          |
-| NEWS                   | guild has access to create news channels                                        |
-| DISCOVERABLE           | guild is able to be discovered in the directory                                 |
-| FEATURABLE             | guild is able to be featured in the directory                                   |
-| ANIMATED_ICON          | guild has access to set an animated guild icon                                  |
-| BANNER                 | guild has access to set a guild banner image                                    |
-| PUBLIC_DISABLED        | guild cannot be public                                                          |
-| WELCOME_SCREEN_ENABLED | guild has enabled the welcome screen                                            |
+| Feature                          | Description                                                                                          |
+|----------------------------------|------------------------------------------------------------------------------------------------------|
+| INVITE_SPLASH                    | guild has access to set an invite splash background                                                  |
+| VIP_REGIONS                      | guild has access to set 384kbps bitrate in voice (previously VIP voice servers)                      |
+| VANITY_URL                       | guild has access to set a vanity URL                                                                 |
+| VERIFIED                         | guild is verified                                                                                    |
+| PARTNERED                        | guild is partnered                                                                                   |
+| COMMUNITY                        | guild can enable welcome screen, Membership Screening, and discovery, and receives community updates |
+| COMMERCE                         | guild has access to use commerce features (i.e. create store channels)                               |
+| NEWS                             | guild has access to create news channels                                                             |
+| DISCOVERABLE                     | guild is able to be discovered in the directory                                                      |
+| FEATURABLE                       | guild is able to be featured in the directory                                                        |
+| ANIMATED_ICON                    | guild has access to set an animated guild icon                                                       |
+| BANNER                           | guild has access to set a guild banner image                                                         |
+| WELCOME_SCREEN_ENABLED           | guild has enabled the welcome screen                                                                 |
+| MEMBER_VERIFICATION_GATE_ENABLED | guild has enabled [Membership Screening](#DOCS_RESOURCES_GUILD/membership-screening-object)          |
+| PREVIEW_ENABLED                  | guild can be previewed before joining via Membership Screening or the directory                      |
 
 ###### Example Guild
 
@@ -142,7 +146,7 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
     "MORE_EMOJI",
     "INVITE_SPLASH",
     "BANNER",
-    "PUBLIC"
+    "COMMUNITY"
   ],
   "emojis": [],
   "banner": "9b6439a7de04f1d26af92f84ac9e1e4a",
@@ -167,9 +171,7 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
   "system_channel_flags": 0,
   "preferred_locale": "en-US",
   "rules_channel_id": "441688182833020939",
-  "public_updates_channel_id": "281283303326089216",
-  "embed_enabled": true,
-  "embed_channel_id": null
+  "public_updates_channel_id": "281283303326089216"
 }
 ```
 
@@ -219,7 +221,7 @@ A partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object. Represents an Offl
     "ANIMATED_ICON",
     "INVITE_SPLASH",
     "NEWS",
-    "PUBLIC",
+    "COMMUNITY",
     "BANNER",
     "VERIFIED",
     "MORE_EMOJI"
@@ -230,16 +232,16 @@ A partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object. Represents an Offl
 }
 ```
 
-### Guild Embed Object
+### Guild Widget Object
 
-###### Guild Embed Structure
+###### Guild Widget Structure
 
 | Field      | Type       | Description                  |
 | ---------- | ---------- | ---------------------------- |
-| enabled    | boolean    | whether the embed is enabled |
-| channel_id | ?snowflake | the embed channel id         |
+| enabled    | boolean    | whether the widget is enabled |
+| channel_id | ?snowflake | the widget channel id         |
 
-###### Example Guild Embed
+###### Example Guild Widget
 
 ```json
 {
@@ -252,18 +254,23 @@ A partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object. Represents an Offl
 
 ###### Guild Member Structure
 
-| Field          | Type                                            | Description                                                                                                                |
-| -------------- | ----------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
-| user?          | [user](#DOCS_RESOURCES_USER/user-object) object | the user this guild member represents                                                                                      |
-| nick           | ?string                                         | this users guild nickname                                                                                                  |
-| roles          | array of snowflakes                             | array of [role](#DOCS_TOPICS_PERMISSIONS/role-object) object ids                                                           |
-| joined_at      | ISO8601 timestamp                               | when the user joined the guild                                                                                             |
-| premium_since? | ?ISO8601 timestamp                              | when the user started [boosting](https://support.discordapp.com/hc/en-us/articles/360028038352-Server-Boosting-) the guild |
-| deaf           | boolean                                         | whether the user is deafened in voice channels                                                                             |
-| mute           | boolean                                         | whether the user is muted in voice channels                                                                                |
+| Field          | Type                                            | Description                                                                                                                            |
+|----------------|-------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------|
+| user?          | [user](#DOCS_RESOURCES_USER/user-object) object | the user this guild member represents                                                                                                  |
+| nick?          | ?string                                         | this users guild nickname                                                                                                              |
+| roles          | array of snowflakes                             | array of [role](#DOCS_TOPICS_PERMISSIONS/role-object) object ids                                                                       |
+| joined_at      | ISO8601 timestamp                               | when the user joined the guild                                                                                                         |
+| premium_since? | ?ISO8601 timestamp                              | when the user started [boosting](https://support.discord.com/hc/en-us/articles/360028038352-Server-Boosting-) the guild                |
+| deaf           | boolean                                         | whether the user is deafened in voice channels                                                                                         |
+| mute           | boolean                                         | whether the user is muted in voice channels                                                                                            |
+| pending?       | boolean                                         | whether the user has not yet passed the guild's [Membership Screening](#DOCS_RESOURCES_GUILD/membership-screening-object) requirements |
+| permissions?   | string                                          | total permissions of the member in the channel, including overrides, returned when in the interaction object                           |
 
 > info
 > The field `user` won't be included in the member object attached to `MESSAGE_CREATE` and `MESSAGE_UPDATE` gateway events.
+
+> info
+> In `GUILD_` events, `pending` will always be included as true or false. In non `GUILD_` events which can only be triggered by non-`pending` users, `pending` will not be included.
 
 ###### Example Guild Member
 
@@ -282,20 +289,25 @@ A partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object. Represents an Offl
 
 ###### Integration Structure
 
-| Field               | Type                                                                                                 | Description                                                                     |
-| ------------------- | ---------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
-| id                  | snowflake                                                                                            | integration id                                                                  |
-| name                | string                                                                                               | integration name                                                                |
-| type                | string                                                                                               | integration type (twitch, youtube, etc)                                         |
-| enabled             | boolean                                                                                              | is this integration enabled                                                     |
-| syncing             | boolean                                                                                              | is this integration syncing                                                     |
-| role_id             | snowflake                                                                                            | id that this integration uses for "subscribers"                                 |
-| enable_emoticons?   | boolean                                                                                              | whether emoticons should be synced for this integration (twitch only currently) |
-| expire_behavior     | [integration expire behavior](#DOCS_RESOURCES_GUILD/integration-object-integration-expire-behaviors) | the behavior of expiring subscribers                                            |
-| expire_grace_period | integer                                                                                              | the grace period (in days) before expiring subscribers                          |
-| user                | [user](#DOCS_RESOURCES_USER/user-object) object                                                      | user for this integration                                                       |
-| account             | [account](#DOCS_RESOURCES_GUILD/integration-account-object) object                                   | integration account information                                                 |
-| synced_at           | ISO8601 timestamp                                                                                    | when this integration was last synced                                           |
+| Field                   | Type                                                                                                 | Description                                                                               |
+| ----------------------- | ---------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
+| id                      | snowflake                                                                                            | integration id                                                                            |
+| name                    | string                                                                                               | integration name                                                                          |
+| type                    | string                                                                                               | integration type (twitch, youtube, or discord)                                            |
+| enabled                 | boolean                                                                                              | is this integration enabled                                                               |
+| syncing? \*             | boolean                                                                                              | is this integration syncing                                                               |
+| role_id? \*             | snowflake                                                                                            | id that this integration uses for "subscribers"                                           |
+| enable_emoticons? \*    | boolean                                                                                              | whether emoticons should be synced for this integration (twitch only currently)           |
+| expire_behavior? \*     | [integration expire behavior](#DOCS_RESOURCES_GUILD/integration-object-integration-expire-behaviors) | the behavior of expiring subscribers                                                      |
+| expire_grace_period? \* | integer                                                                                              | the grace period (in days) before expiring subscribers                                    |
+| user? \*                | [user](#DOCS_RESOURCES_USER/user-object) object                                                      | user for this integration                                                                 |
+| account                 | [account](#DOCS_RESOURCES_GUILD/integration-account-object) object                                   | integration account information                                                           |
+| synced_at? \*           | ISO8601 timestamp                                                                                    | when this integration was last synced                                                     |
+| subscriber_count? \*    | integer                                                                                              | how many subscribers this integration has                                                 |
+| revoked? \*             | boolean                                                                                              | has this integration been revoked                                                         |
+| application?            | [application](#DOCS_RESOURCES_GUILD/integration-application-object) object                           | The bot/OAuth2 application for discord integrations                                       |
+
+** \* These fields are not provided for discord bot integrations. **
 
 ###### Integration Expire Behaviors
 
@@ -312,6 +324,20 @@ A partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object. Represents an Offl
 | ----- | ------ | ------------------- |
 | id    | string | id of the account   |
 | name  | string | name of the account |
+
+
+### Integration Application Object
+
+###### Integration Application Structure
+
+| Field       | Type                                            | Description                                                  |
+| -----       | ----------------------------------------------- | ------------------------------------------------------------ |
+| id          | snowflake                                       | the id of the app                                            |
+| name        | string                                          | the name of the app                                          |
+| icon        | ?string                                         | the [icon hash](#DOCS_REFERENCE/image-formatting) of the app |
+| description | string                                          | the description of the app                                   |
+| summary     | string                                          | the description of the app                                   |
+| bot?        | [user](#DOCS_RESOURCES_USER/user-object) object | the bot associated with this application                     |
 
 ### Ban Object
 
@@ -336,12 +362,79 @@ A partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object. Represents an Offl
 }
 ```
 
+### Welcome Screen Object
+
+###### Welcome Screen Structure
+
+| Field            | Type                                                                                              | Description                                        |
+|------------------|---------------------------------------------------------------------------------------------------|----------------------------------------------------|
+| description      | ?string                                                                                           | the server description shown in the welcome screen |
+| welcome_channels | array of [welcome screen channel](#DOCS_RESOURCES_GUILD/welcome-screen-channel-structure) objects | the channels shown in the welcome screen, up to 5  |
+
+###### Welcome Screen Channel Structure
+
+| Field       | Type       | Description                                                                               |
+|-------------|------------|-------------------------------------------------------------------------------------------|
+| channel_id  | snowflake  | the channel's id                                                                          |
+| description | string     | the description shown for the channel                                                     |
+| emoji_id    | ?snowflake | the [emoji id](#DOCS_REFERENCE/image-formatting), if the emoji is custom                  |
+| emoji_name  | ?string    | the emoji name if custom, the unicode character if standard, or `null` if no emoji is set |
+
+###### Example Welcome Screen
+
+```json
+{
+  "description": "Discord Developers is a place to learn about Discord's API, bots, and SDKs and integrations. This is NOT a general Discord support server.",
+  "welcome_channels": [
+    {
+      "channel_id": "697138785317814292",
+      "description": "Follow for official Discord API updates",
+      "emoji_id": null,
+      "emoji_name": "📡"
+    },
+    {
+      "channel_id": "697236247739105340",
+      "description": "Get help with Bot Verifications",
+      "emoji_id": null,
+      "emoji_name": "📸"
+    },
+    {
+      "channel_id": "697489244649816084",
+      "description": "Create amazing things with Discord's API",
+      "emoji_id": null,
+      "emoji_name": "🔬"
+    },
+    {
+      "channel_id": "613425918748131338",
+      "description": "Integrate Discord into your game",
+      "emoji_id": null,
+      "emoji_name": "🎮"
+    },
+    {
+      "channel_id": "646517734150242346",
+      "description": "Find more places to help you on your quest",
+      "emoji_id": null,
+      "emoji_name": "🔦"
+    }
+  ]
+}
+```
+
+### Membership Screening Object
+
+In guilds with [Membership Screening](https://support.discord.com/hc/en-us/articles/1500000466882) enabled, when a member joins, [Guild Member Add](#DOCS_TOPICS_GATEWAY/guild-member-add) will be emitted but they will initially be restricted from doing any actions in the guild, and `pending` will be true in the [member object](#DOCS_RESOURCES_GUILD/guild-member-object). When the member completes the screening, [Guild Member Update](#DOCS_TOPICS_GATEWAY/guild-member-update) will be emitted and `pending` will be false.
+
+Giving the member a role will bypass Membership Screening as well as the guild's verification level, giving the member immediate access to chat. Therefore, instead of giving a role when the member joins, it is recommended to not give the role until the user is no longer `pending`.
+
+> warn
+> We are making significant changes to the Membership Screening API specifically related to getting and editing the Membership Screening object. Long story short is that it can be improved. As such, we have removed those documentation. There will **not be** any changes to how pending members work, as outlined above. That behavior will stay the same.
+
 ## Create Guild % POST /guilds
 
 Create a new guild. Returns a [guild](#DOCS_RESOURCES_GUILD/guild-object) object on success. Fires a [Guild Create](#DOCS_TOPICS_GATEWAY/guild-create) Gateway event.
 
 > warn
-> This endpoint can be used only by bots in less than 10 guilds. Assigning a channel to a channel category is not supported by this endpoint, i.e. a channel can't have the `parent_id` field.
+> This endpoint can be used only by bots in less than 10 guilds.
 
 ###### JSON Params
 
@@ -444,7 +537,7 @@ Returns the [guild](#DOCS_RESOURCES_GUILD/guild-object) object for the given id.
     {
       "id": "2909267986263572999",
       "name": "@everyone",
-      "permissions": 49794752,
+      "permissions": "49794752",
       "position": 0,
       "color": 0,
       "hoist": false,
@@ -464,18 +557,14 @@ Returns the [guild](#DOCS_RESOURCES_GUILD/guild-object) object for the given id.
   "system_channel_flags": 0,
   "preferred_locale": "en-US",
   "rules_channel_id": null,
-  "public_updates_channel_id": null,
-  "embed_enabled": true,
-  "embed_channel_id": "639513352485470999"
+  "public_updates_channel_id": null
 }
 ```
 
 ## Get Guild Preview % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/preview
 
-Returns the [guild preview](#DOCS_RESOURCES_GUILD/guild-preview-object) object for the given id, even if the user is not in the guild.
+Returns the [guild preview](#DOCS_RESOURCES_GUILD/guild-preview-object) object for the given id. If the user is not in the guild, then the guild must be Discoverable.
 
-> info
-> This endpoint is only for Public guilds
 
 ## Modify Guild % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}
 
@@ -500,9 +589,9 @@ Modify a guild's settings. Requires the `MANAGE_GUILD` permission. Returns the u
 | splash                        | ?[image data](#DOCS_REFERENCE/image-data) | base64 16:9 png/jpeg image for the guild splash (when the server has `INVITE_SPLASH` feature)                            |
 | banner                        | ?[image data](#DOCS_REFERENCE/image-data) | base64 16:9 png/jpeg image for the guild banner (when the server has `BANNER` feature)                                   |
 | system_channel_id             | ?snowflake                                | the id of the channel where guild notices such as welcome messages and boost events are posted                           |
-| rules_channel_id              | ?snowflake                                | the id of the channel where "PUBLIC" guilds display rules and/or guidelines                                              |
-| public_updates_channel_id     | ?snowflake                                | the id of the channel where admins and moderators of "PUBLIC" guilds receive notices from Discord                        |
-| preferred_locale              | ?string                                   | the preferred locale of a "PUBLIC" guild used in server discovery and notices from Discord; defaults to "en-US"          |
+| rules_channel_id              | ?snowflake                                | the id of the channel where Community guilds display rules and/or guidelines                                             |
+| public_updates_channel_id     | ?snowflake                                | the id of the channel where admins and moderators of Community guilds receive notices from Discord                       |
+| preferred_locale              | ?string                                   | the preferred locale of a Community guild used in server discovery and notices from Discord; defaults to "en-US"         |
 
 ## Delete Guild % DELETE /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}
 
@@ -514,7 +603,7 @@ Returns a list of guild [channel](#DOCS_RESOURCES_CHANNEL/channel-object) object
 
 ## Create Guild Channel % POST /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/channels
 
-Create a new [channel](#DOCS_RESOURCES_CHANNEL/channel-object) object for the guild. Requires the `MANAGE_CHANNELS` permission. Returns the new [channel](#DOCS_RESOURCES_CHANNEL/channel-object) object on success. Fires a [Channel Create](#DOCS_TOPICS_GATEWAY/channel-create) Gateway event.
+Create a new [channel](#DOCS_RESOURCES_CHANNEL/channel-object) object for the guild. Requires the `MANAGE_CHANNELS` permission. If setting permission overwrites, only permissions your bot has in the guild can be allowed/denied. Setting `MANAGE_ROLES` permission in channels is only possible for guild administrators. Returns the new [channel](#DOCS_RESOURCES_CHANNEL/channel-object) object on success. Fires a [Channel Create](#DOCS_TOPICS_GATEWAY/channel-create) Gateway event.
 
 > info
 > All parameters to this endpoint are optional excluding 'name'
@@ -559,7 +648,7 @@ Returns a [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) object for t
 Returns a list of [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) objects that are members of the guild.
 
 > warn
-> In the future, this endpoint will be restricted in line with our [Privileged Intents](#DOCS_TOPICS_GATEWAY/privileged-intents)
+> This endpoint is restricted according to whether the `GUILD_MEMBERS` [Privileged Intent](#DOCS_TOPICS_GATEWAY/privileged-intents) is enabled for your application.
 
 > info
 > All parameters to this endpoint are optional
@@ -574,6 +663,8 @@ Returns a list of [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) obje
 ## Add Guild Member % PUT /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/members/{user.id#DOCS_RESOURCES_USER/user-object}
 
 Adds a user to the guild, provided you have a valid oauth2 access token for the user with the `guilds.join` scope. Returns a 201 Created with the [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) as the body, or 204 No Content if the user is already a member of the guild. Fires a [Guild Member Add](#DOCS_TOPICS_GATEWAY/guild-member-add) Gateway event.
+
+For guilds with [Membership Screening](#DOCS_RESOURCES_GUILD/membership-screening-object) enabled, this endpoint will default to adding new members as `pending` in the [guild member object](#DOCS_RESOURCES_GUILD/guild-member-object). Members that are `pending` will have to complete membership screening before they become full members that can talk.
 
 > info
 > All parameters to this endpoint except for `access_token` are optional.
@@ -591,9 +682,12 @@ Adds a user to the guild, provided you have a valid oauth2 access token for the 
 | mute         | boolean             | whether the user is muted in voice channels                                                                              | MUTE_MEMBERS     |
 | deaf         | boolean             | whether the user is deafened in voice channels                                                                           | DEAFEN_MEMBERS   |
 
+> warn
+> For guilds with Membership Screening enabled, assigning a role using the `roles` parameter will add the user to the guild as a full member (`pending` is false in the [member object](#DOCS_RESOURCES_GUILD/guild-member-object)). A member with a role will bypass membership screening and the guild's verification level, and get immediate access to chat. Therefore, instead of assigning a role when the member joins, it is recommended to grant roles only after the user completes screening.
+
 ## Modify Guild Member % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/members/{user.id#DOCS_RESOURCES_USER/user-object}
 
-Modify attributes of a [guild member](#DOCS_RESOURCES_GUILD/guild-member-object). Returns a 204 empty response on success. Fires a [Guild Member Update](#DOCS_TOPICS_GATEWAY/guild-member-update) Gateway event. If the `channel_id` is set to null, this will force the target user to be disconnected from voice.
+Modify attributes of a [guild member](#DOCS_RESOURCES_GUILD/guild-member-object). Returns a 200 OK with the [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) as the body. Fires a [Guild Member Update](#DOCS_TOPICS_GATEWAY/guild-member-update) Gateway event. If the `channel_id` is set to null, this will force the target user to be disconnected from voice.
 
 > info
 > All parameters to this endpoint are optional and nullable. When moving members to channels, the API user _must_ have permissions to both connect to the channel and have the `MOVE_MEMBERS` permission.
@@ -642,11 +736,11 @@ Returns a [ban](#DOCS_RESOURCES_GUILD/ban-object) object for the given user or a
 
 Create a guild ban, and optionally delete previous messages sent by the banned user. Requires the `BAN_MEMBERS` permission. Returns a 204 empty response on success. Fires a [Guild Ban Add](#DOCS_TOPICS_GATEWAY/guild-ban-add) Gateway event.
 
-###### Query String Params
+###### JSON Params
 
 | Field                | Type    | Description                                 |
 | -------------------- | ------- | ------------------------------------------- |
-| delete-message-days? | integer | number of days to delete messages for (0-7) |
+| delete_message_days? | integer | number of days to delete messages for (0-7) |
 | reason?              | string  | reason for the ban                          |
 
 ## Remove Guild Ban % DELETE /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/bans/{user.id#DOCS_RESOURCES_USER/user-object}
@@ -663,13 +757,13 @@ Create a new [role](#DOCS_TOPICS_PERMISSIONS/role-object) for the guild. Require
 
 ###### JSON Params
 
-| Field       | Type    | Description                                                    | Default                        |
-| ----------- | ------- | -------------------------------------------------------------- | ------------------------------ |
-| name        | string  | name of the role                                               | "new role"                     |
-| permissions | integer | bitwise value of the enabled/disabled permissions              | @everyone permissions in guild |
-| color       | integer | RGB color value                                                | 0                              |
-| hoist       | boolean | whether the role should be displayed separately in the sidebar | false                          |
-| mentionable | boolean | whether the role should be mentionable                         | false                          |
+| Field       | Type              | Description                                                    | Default                        |
+| ----------- | ----------------- | -------------------------------------------------------------- | ------------------------------ |
+| name        | string            | name of the role                                               | "new role"                     |
+| permissions | string            | bitwise value of the enabled/disabled permissions              | @everyone permissions in guild |
+| color       | integer           | RGB color value                                                | 0                              |
+| hoist       | boolean           | whether the role should be displayed separately in the sidebar | false                          |
+| mentionable | boolean           | whether the role should be mentionable                         | false                          |
 
 ## Modify Guild Role Positions % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/roles
 
@@ -693,13 +787,13 @@ Modify a guild role. Requires the `MANAGE_ROLES` permission. Returns the updated
 
 ###### JSON Params
 
-| Field       | Type    | Description                                                    |
-| ----------- | ------- | -------------------------------------------------------------- |
-| name        | string  | name of the role                                               |
-| permissions | integer | bitwise value of the enabled/disabled permissions              |
-| color       | integer | RGB color value                                                |
-| hoist       | boolean | whether the role should be displayed separately in the sidebar |
-| mentionable | boolean | whether the role should be mentionable                         |
+| Field       | Type              | Description                                                    |
+| ----------- | ----------------- | -------------------------------------------------------------- |
+| name        | string            | name of the role                                               |
+| permissions | string            | bitwise value of the enabled/disabled permissions              |
+| color       | integer           | RGB color value                                                |
+| hoist       | boolean           | whether the role should be displayed separately in the sidebar |
+| mentionable | boolean           | whether the role should be mentionable                         |
 
 ## Delete Guild Role % DELETE /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/roles/{role.id#DOCS_TOPICS_PERMISSIONS/role-object}
 
@@ -709,22 +803,28 @@ Delete a guild role. Requires the `MANAGE_ROLES` permission. Returns a 204 empty
 
 Returns an object with one 'pruned' key indicating the number of members that would be removed in a prune operation. Requires the `KICK_MEMBERS` permission.
 
+By default, prune will not remove users with roles. You can optionally include specific roles in your prune by providing the `include_roles` parameter. Any inactive user that has a subset of the provided role(s) will be counted in the prune and users with additional roles will not.
+
 ###### Query String Params
 
-| Field | Type    | Description                                   | Default |
-| ----- | ------- | --------------------------------------------- | ------- |
-| days  | integer | number of days to count prune for (1 or more) | 7       |
+| Field         | Type                                        | Description                                   | Default |
+| ------------- | ------------------------------------------- | --------------------------------------------- | ------- |
+| days          | integer                                     | number of days to count prune for (1-30)      | 7       |
+| include_roles | string; comma-delimited array of snowflakes | role(s) to include                            | none    |
 
 ## Begin Guild Prune % POST /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/prune
 
 Begin a prune operation. Requires the `KICK_MEMBERS` permission. Returns an object with one 'pruned' key indicating the number of members that were removed in the prune operation. For large guilds it's recommended to set the `compute_prune_count` option to `false`, forcing 'pruned' to `null`. Fires multiple [Guild Member Remove](#DOCS_TOPICS_GATEWAY/guild-member-remove) Gateway events.
 
-###### Query String Params
+By default, prune will not remove users with roles. You can optionally include specific roles in your prune by providing the `include_roles` parameter. Any inactive user that has a subset of the provided role(s) will be included in the prune and users with additional roles will not.
 
-| Field               | Type    | Description                                                | Default |
-| ------------------- | ------- | ---------------------------------------------------------- | ------- |
-| days                | integer | number of days to prune (1 or more)                        | 7       |
-| compute_prune_count | boolean | whether 'pruned' is returned, discouraged for large guilds | true    |
+###### JSON Params
+
+| Field               | Type                | Description                                                | Default |
+| ------------------- | ------------------- | ---------------------------------------------------------- | ------- |
+| days                | integer             | number of days to prune (1-30)                             | 7       |
+| compute_prune_count | boolean             | whether 'pruned' is returned, discouraged for large guilds | true    |
+| include_roles       | array of snowflakes | role(s) to include                                         | none    |
 
 ## Get Guild Voice Regions % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/regions
 
@@ -738,47 +838,54 @@ Returns a list of [invite](#DOCS_RESOURCES_INVITE/invite-object) objects (with [
 
 Returns a list of [integration](#DOCS_RESOURCES_GUILD/integration-object) objects for the guild. Requires the `MANAGE_GUILD` permission.
 
-## Create Guild Integration % POST /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/integrations
-
-Attach an [integration](#DOCS_RESOURCES_GUILD/integration-object) object from the current user to the guild. Requires the `MANAGE_GUILD` permission. Returns a 204 empty response on success. Fires a [Guild Integrations Update](#DOCS_TOPICS_GATEWAY/guild-integrations-update) Gateway event.
-
-###### JSON Params
-
-| Field | Type      | Description          |
-| ----- | --------- | -------------------- |
-| type  | string    | the integration type |
-| id    | snowflake | the integration id   |
-
-## Modify Guild Integration % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/integrations/{integration.id#DOCS_RESOURCES_GUILD/integration-object}
-
-Modify the behavior and settings of an [integration](#DOCS_RESOURCES_GUILD/integration-object) object for the guild. Requires the `MANAGE_GUILD` permission. Returns a 204 empty response on success. Fires a [Guild Integrations Update](#DOCS_TOPICS_GATEWAY/guild-integrations-update) Gateway event.
-
-> info
-> All parameters to this endpoint are optional and nullable.
-
-###### JSON Params
-
-| Field               | Type    | Description                                                                                                                                                                        |
-| ------------------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| expire_behavior     | integer | the behavior when an integration subscription lapses (see the [integration expire behaviors](#DOCS_RESOURCES_GUILD/integration-object-integration-expire-behaviors) documentation) |
-| expire_grace_period | integer | period (in days) where the integration will ignore lapsed subscriptions                                                                                                            |
-| enable_emoticons    | boolean | whether emoticons should be synced for this integration (twitch only currently)                                                                                                    |
-
 ## Delete Guild Integration % DELETE /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/integrations/{integration.id#DOCS_RESOURCES_GUILD/integration-object}
 
-Delete the attached [integration](#DOCS_RESOURCES_GUILD/integration-object) object for the guild. Requires the `MANAGE_GUILD` permission. Returns a 204 empty response on success. Fires a [Guild Integrations Update](#DOCS_TOPICS_GATEWAY/guild-integrations-update) Gateway event.
+Delete the attached [integration](#DOCS_RESOURCES_GUILD/integration-object) object for the guild. Deletes any associated webhooks and kicks the associated bot if there is one. Requires the `MANAGE_GUILD` permission. Returns a 204 empty response on success. Fires a [Guild Integrations Update](#DOCS_TOPICS_GATEWAY/guild-integrations-update) Gateway event.
 
-## Sync Guild Integration % POST /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/integrations/{integration.id#DOCS_RESOURCES_GUILD/integration-object}/sync
+## Get Guild Widget Settings % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/widget
 
-Sync an integration. Requires the `MANAGE_GUILD` permission. Returns a 204 empty response on success.
+Returns a [guild widget](#DOCS_RESOURCES_GUILD/guild-widget-object) object. Requires the `MANAGE_GUILD` permission.
 
-## Get Guild Embed % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/embed
+## Modify Guild Widget % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/widget
 
-Returns the [guild embed](#DOCS_RESOURCES_GUILD/guild-embed-object) object. Requires the `MANAGE_GUILD` permission.
+Modify a [guild widget](#DOCS_RESOURCES_GUILD/guild-widget-object) object for the guild. All attributes may be passed in with JSON and modified. Requires the `MANAGE_GUILD` permission. Returns the updated [guild widget](#DOCS_RESOURCES_GUILD/guild-widget-object) object.
 
-## Modify Guild Embed % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/embed
+## Get Guild Widget % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/widget.json
 
-Modify a [guild embed](#DOCS_RESOURCES_GUILD/guild-embed-object) object for the guild. All attributes may be passed in with JSON and modified. Requires the `MANAGE_GUILD` permission. Returns the updated [guild embed](#DOCS_RESOURCES_GUILD/guild-embed-object) object.
+Returns the widget for the guild.
+
+###### Example Get Guild Widget
+
+```json
+{
+    "id": "290926798626999250",
+    "name": "Test Server",
+    "instant_invite": "https://discord.com/invite/abcdefg",
+    "channels": [
+        {
+            "id": "705216630279993882",
+            "name": "elephant",
+            "position": 2
+        },
+        {
+            "id": "669583461748992190",
+            "name": "groovy-music",
+            "position": 1
+        }
+    ],
+    "members": [
+        {
+            "id": "0",
+            "username": "1234",
+            "discriminator": "0000",
+            "avatar": null,
+            "status": "online",
+            "avatar_url": "https://cdn.discordapp.com/widget-avatars/FfvURgcr3Za92K3JtoCppqnYMppMDc5B-Rll74YrGCU/C-1DyBZPQ6t5q2RuATFuMFgq0_uEMZVzd_6LbGN_uJKvZflobA9diAlTjhf6CAESLLeTuu4dLuHFWOb_PNLteooNfhC4C6k5QgAGuxEOP12tVVVCvX6t64k14PMXZrGTDq8pWZhukP40Wg"
+        }
+    ],
+    "presence_count": 1
+}
+```
 
 ## Get Guild Vanity URL % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/vanity-url
 
@@ -796,7 +903,6 @@ Returns a partial [invite](#DOCS_RESOURCES_INVITE/invite-object) object for guil
 ## Get Guild Widget Image % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/widget.png
 
 Returns a PNG image widget for the guild. Requires no permissions or authentication.
-The same documentation also applies to `embed.png`.
 
 > info
 > All parameters to this endpoint are optional.
@@ -811,8 +917,8 @@ The same documentation also applies to `embed.png`.
 
 | Value   | Description                                                                                                                                                    | Example                                                                                 |
 | ------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
-| shield  | shield style widget with Discord icon and guild members online count                                                                                           | [Example](https://discordapp.com/api/guilds/81384788765712384/widget.png?style=shield)  |
-| banner1 | large image with guild icon, name and online count. "POWERED BY DISCORD" as the footer of the widget                                                           | [Example](https://discordapp.com/api/guilds/81384788765712384/widget.png?style=banner1) |
-| banner2 | smaller widget style with guild icon, name and online count. Split on the right with Discord logo                                                              | [Example](https://discordapp.com/api/guilds/81384788765712384/widget.png?style=banner2) |
-| banner3 | large image with guild icon, name and online count. In the footer, Discord logo on the left and "Chat Now" on the right                                        | [Example](https://discordapp.com/api/guilds/81384788765712384/widget.png?style=banner3) |
-| banner4 | large Discord logo at the top of the widget. Guild icon, name and online count in the middle portion of the widget and a "JOIN MY SERVER" button at the bottom | [Example](https://discordapp.com/api/guilds/81384788765712384/widget.png?style=banner4) |
+| shield  | shield style widget with Discord icon and guild members online count                                                                                           | [Example](https://discord.com/api/guilds/81384788765712384/widget.png?style=shield)  |
+| banner1 | large image with guild icon, name and online count. "POWERED BY DISCORD" as the footer of the widget                                                           | [Example](https://discord.com/api/guilds/81384788765712384/widget.png?style=banner1) |
+| banner2 | smaller widget style with guild icon, name and online count. Split on the right with Discord logo                                                              | [Example](https://discord.com/api/guilds/81384788765712384/widget.png?style=banner2) |
+| banner3 | large image with guild icon, name and online count. In the footer, Discord logo on the left and "Chat Now" on the right                                        | [Example](https://discord.com/api/guilds/81384788765712384/widget.png?style=banner3) |
+| banner4 | large Discord logo at the top of the widget. Guild icon, name and online count in the middle portion of the widget and a "JOIN MY SERVER" button at the bottom | [Example](https://discord.com/api/guilds/81384788765712384/widget.png?style=banner4) |

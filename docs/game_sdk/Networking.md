@@ -4,7 +4,7 @@
 > Need help with the SDK? Talk to us in the [Discord Developers Server](https://discord.gg/discord-developers)!
 
 > warn
-> Game approval submissions are currently paused due to unforeseen circumstances. We apologize for the inconvenience. [Click here for more info.](https://support-dev.discordapp.com/hc/en-us/articles/360041437171)
+> Game approval submissions are currently paused due to unforeseen circumstances. We apologize for the inconvenience. [Click here for more info.](https://support-dev.discord.com/hc/en-us/articles/360041437171)
 
 A note before starting: this documentation covers the "low layer" networking level of the Discord GameSDK. What that means is that using the network manager directly affords you the flexibility to update routes, open channels, and handle events directly emitted by the SDK. If you're looking for something a bit easier and faster to integrate, we recommend that you check out the networking wrapper around our lobby documentation: [Integrated Networking](#DOCS_GAME_SDK_LOBBIES/integrated-networking)
 
@@ -48,7 +48,7 @@ None
 ###### Example
 
 ```cs
-OnLateUpdate()
+void LateUpdate()
 {
   networkManager.Flush();
 }
@@ -337,16 +337,16 @@ lobbyManager.ConnectLobby(12345, "password", (Discord.Result x, ref Discord.Lobb
   });
 
   // Get the first member in the lobby, assuming someone is already there
-  var member = lobbyManager.GetMemberUserId(lobby.Id, 0);
+  var memberId = lobbyManager.GetMemberUserId(lobby.Id, 0);
 
   // Get their peer id and route from their metadata, added previously
   var rawPeerId = lobbyManager.GetMemberMetadataValue(lobbyId, userId, "peer_id");
   // Metadata is stored as a string, so we need to make it an integer for OpenChannel
   otherUserPeerId = System.Convert.ToUInt64(rawPeerId);
-  var otherRoute = lobbyManager.GetMemberMetadataValue(lobby.Id, member.Id, "route");
+  var otherRoute = lobbyManager.GetMemberMetadataValue(lobby.Id, memberId, "route");
 
   // Connect to them
-  networkManager.OpenRoute(otherUserPeerId, otherRoute);
+  networkManager.OpenPeer(otherUserPeerId, otherRoute);
 
 }
 
