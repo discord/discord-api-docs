@@ -899,7 +899,7 @@ Returns `Discord.Result` via callback.
 ###### Example
 
 ```cs
-var txn = lobbyManager.GetLobbyMemberTransaction(290926798626357250, 53908232506183680);
+var txn = lobbyManager.GetMemberUpdateTransaction();
 txn.SetMetadata("my_mmr", "9999");
 lobbyManager.UpdateMember(290926798626357250, 53908232506183680, txn, (result) =>
 {
