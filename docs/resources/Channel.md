@@ -965,14 +965,15 @@ Create a new [invite](#DOCS_RESOURCES_INVITE/invite-object) object for the chann
 
 ###### JSON Params
 
-| Field             | Type    | Description                                                                                         | Default          |
-| ----------------- | ------- | --------------------------------------------------------------------------------------------------- | ---------------- |
-| max_age           | integer | duration of invite in seconds before expiry, or 0 for never. between 0 and 604800 (7 days)          | 86400 (24 hours) |
-| max_uses          | integer | max number of uses or 0 for unlimited. between 0 and 100                                            | 0                |
-| temporary         | boolean | whether this invite only grants temporary membership                                                | false            |
-| unique            | boolean | if true, don't try to reuse a similar invite (useful for creating many unique one time use invites) | false            |
-| target_user_id?   | string  | the target user id for this invite                                                                  |                  |
-| target_user_type? | integer | the [type of user target](#DOCS_RESOURCES_INVITE/invite-object-target-user-types) for this invite   |                  |
+| Field                 | Type      | Description                                                                                                                               | Default          |
+|-----------------------|-----------|-------------------------------------------------------------------------------------------------------------------------------------------|------------------|
+| max_age               | integer   | duration of invite in seconds before expiry, or 0 for never. between 0 and 604800 (7 days)                                                | 86400 (24 hours) |
+| max_uses              | integer   | max number of uses or 0 for unlimited. between 0 and 100                                                                                  | 0                |
+| temporary             | boolean   | whether this invite only grants temporary membership                                                                                      | false            |
+| unique                | boolean   | if true, don't try to reuse a similar invite (useful for creating many unique one time use invites)                                       | false            |
+| target_type           | integer   | the [type of target](#DOCS_RESOURCES_INVITE/invite-object-invite-target-types) for this voice channel invite                              |                  |
+| target_user_id        | snowflake | the id of the user whose stream to display for this invite, required if `target_type` is 1, the user must be streaming in the channel     |                  |
+| target_application_id | snowflake | the id of the embedded application to open for this invite, required if `target_type` is 2, the application must have the `EMBEDDED` flag |                  |
 
 ## Delete Channel Permission % DELETE /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/permissions/{overwrite.id#DOCS_RESOURCES_CHANNEL/overwrite-object}
 
