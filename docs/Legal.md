@@ -38,7 +38,7 @@ You will use commercially reasonable efforts to protect data collected by your A
 
 The APIs are designed to help you enhance your API Client. You agree to respond promptly to our requests to verify and audit your compliance with these Terms. YOU AGREE THAT DISCORD MAY MONITOR USE OF THE APIS TO ENSURE QUALITY, IMPROVE DISCORD PRODUCTS AND SERVICES, AND VERIFY YOUR COMPLIANCE WITH THE TERMS. This monitoring may include Discord accessing and using your API Client, for example to identify security issues that could affect Discord or its users. You will not interfere with this monitoring. Discord may use any technical means to overcome such interference. 
 
-# Section 4. IP, DMCA, and Confidentiality
+# Section 4: IP, DMCA, and Confidentiality
 
 ## a. IP Ownership, Open Source, and Feedback 
 
@@ -75,7 +75,7 @@ Some of our APIs allow the submission of content. Discord does not acquire any o
  
 ## b. Attribution
 
-You agree to display any attribution(s) required by Discord as described in the documentation for the API. Discord hereby grants to you a nontransferable, nonsublicenseable, nonexclusive license while the Terms are in effect to display Discord’s Brand Features for the purpose of promoting or advertising that you use the APIs. You must only use the Discord Brand Features in accordance with the Terms and for the purpose of fulfilling your obligations under this Section. In using Discord’s Brand Features, you must follow the [Discord Brand Features Use Guidelines](https://discordapp.com/branding). You understand and agree that Discord has the sole discretion to determine whether your attribution(s) and use of Discord's Brand Features are in accordance with the above requirements and guidelines.
+You agree to display any attribution(s) required by Discord as described in the documentation for the API. Discord hereby grants to you a nontransferable, nonsublicenseable, nonexclusive license while the Terms are in effect to display Discord’s Brand Features for the purpose of promoting or advertising that you use the APIs. You must only use the Discord Brand Features in accordance with the Terms and for the purpose of fulfilling your obligations under this Section. In using Discord’s Brand Features, you must follow the [Discord Brand Features Use Guidelines](https://discord.com/branding). You understand and agree that Discord has the sole discretion to determine whether your attribution(s) and use of Discord's Brand Features are in accordance with the above requirements and guidelines.
 
 ## c. Publicity
 
@@ -144,7 +144,7 @@ If you are accepting the Terms on behalf of a United States city, county, or sta
 
 ## d. General Legal Terms
 
-We each agree to contract in the English language. If we provide a translation of the Terms, we do so for your convenience only and the English Terms will solely govern our relationship. The Terms do not create any third party beneficiary rights or any agency, partnership, or joint venture. Nothing in the Terms will limit either party's ability to seek injunctive relief. We are not liable for failure or delay in performance to the extent caused by circumstances beyond our reasonable control. If you do not comply with the Terms, and Discord does not take action right away, this does not mean that Discord is giving up any rights that it may have (such as taking action in the future). If it turns out that a particular term is not enforceable, this will not affect any other terms. The Terms are the entire agreement between you and Discord relating to its subject and supersede any prior or contemporaneous agreements on that subject. For information about how to contact Discord, please visit our [Terms of Service](https://discordapp.com/terms).
+We each agree to contract in the English language. If we provide a translation of the Terms, we do so for your convenience only and the English Terms will solely govern our relationship. The Terms do not create any third party beneficiary rights or any agency, partnership, or joint venture. Nothing in the Terms will limit either party's ability to seek injunctive relief. We are not liable for failure or delay in performance to the extent caused by circumstances beyond our reasonable control. If you do not comply with the Terms, and Discord does not take action right away, this does not mean that Discord is giving up any rights that it may have (such as taking action in the future). If it turns out that a particular term is not enforceable, this will not affect any other terms. The Terms are the entire agreement between you and Discord relating to its subject and supersede any prior or contemporaneous agreements on that subject. For information about how to contact Discord, please visit our [Terms of Service](https://discord.com/terms).
 
 You may not assign, sublicense or delegate any of your rights or obligations under these Terms to any third party without the prior written consent of Discord. Any assignment, sublicense or delegation in violation of this provision is null and void. Any change of control or material ownership of you is hereby deemed an assignment. 
 These Terms are non-exclusive. You acknowledge that Discord may develop products or services that may compete with the API Clients or any other products or services.
