@@ -85,7 +85,6 @@ https://nicememe.website/?code=NhhvTDYsFcdgNLnnLijcl7Ku7bEEeee&state=15773059ghq
 - `grant_type` - must be set to `authorization_code`
 - `code` - the code from the querystring
 - `redirect_uri` - your `redirect_uri`
-- `scope` - the scopes requested in your authorization url, space-delimited
 
 ###### Access Token Exchange Example
 
@@ -101,8 +100,7 @@ def exchange_code(code):
     'client_secret': CLIENT_SECRET,
     'grant_type': 'authorization_code',
     'code': code,
-    'redirect_uri': REDIRECT_URI,
-    'scope': 'identify email connections'
+    'redirect_uri': REDIRECT_URI
   }
   headers = {
     'Content-Type': 'application/x-www-form-urlencoded'
@@ -133,7 +131,7 @@ Having the user's access token allows your application to make certain requests 
 - `grant_type` - must be set to `refresh_token`
 - `refresh_token` - the user's refresh token
 - `redirect_uri` - your `redirect_uri`
-- `scope` - the scopes requested in your authorization url, space-delimited
+- `scope` - one or more scopes requested in your authorization url, space-delimited (optional, will be treated as equal to all granted scopes if empty or omitted)
 
 ###### Refresh Token Exchange Example
 
@@ -367,9 +365,11 @@ Any user that wishes to add your webhook to their channel will need to go throug
 
 ## Get Current Application Information % GET /oauth2/applications/@me
 
-Returns the bot's OAuth2 [application object](#DOCS_TOPICS_OAUTH2/application-object) without `flags`.
+Returns the bot's OAuth2 [application](#DOCS_TOPICS_OAUTH2/application) object.
 
-###  Application Object
+## Application
+
+###### Application Structure
 
 | Field                  | Type                                                       | Description                                                                                                                |
 |------------------------|------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------|
@@ -390,7 +390,7 @@ Returns the bot's OAuth2 [application object](#DOCS_TOPICS_OAUTH2/application-ob
 | cover_image?           | string                                                     | if this application is a game sold on Discord, this field will be the hash of the image on store embeds                    |
 | flags                  | int                                                        | the application's public flags                                                                                             |
 
-###### Example Application Information
+###### Example Application
 
 ```json
 {

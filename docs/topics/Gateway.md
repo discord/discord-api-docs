@@ -52,7 +52,17 @@ Receiving payloads with the Gateway API is slightly more complex than sending. W
 
 #### ETF/JSON
 
-When initially creating and handshaking connections to the Gateway, a user can choose whether they wish to communicate over plain-text JSON or binary [ETF](https://erlang.org/doc/apps/erts/erl_ext_dist.html). When using ETF, the client must not send compressed messages to the server. Note that Snowflake IDs are transmitted as 64-bit integers over ETF, but are transmitted as strings over JSON. See [erlpack](https://github.com/discord/erlpack) for an implementation example.
+When initially creating and handshaking connections to the Gateway, a user can choose whether they wish to communicate over plain-text JSON or binary [ETF](https://erlang.org/doc/apps/erts/erl_ext_dist.html).
+
+##### Using ETF
+
+While using ETF there are some additional constraints to note:
+
+- Snowflake IDs are transmitted as 64-bit integers over ETF.
+- The client must not send compressed messages to the server.
+- Payloads must use string keys, atom keys will lead to a 4002 decode error.
+
+See [erlpack](https://github.com/discord/erlpack) for an ETF implementation example. 
 
 #### Payload Compression
 
@@ -105,7 +115,7 @@ def on_websocket_message(msg):
 
 The first step in establishing connectivity to the gateway is requesting a valid websocket endpoint from the API. This can be done through either the [Get Gateway](#DOCS_TOPICS_GATEWAY/get-gateway) or the [Get Gateway Bot](#DOCS_TOPICS_GATEWAY/get-gateway-bot) endpoint.
 
-With the resulting payload, you can now open a websocket connection to the "url" (or endpoint) specified. Generally, it is a good idea to explicitly pass the gateway version and encoding. For example, we may connect to `wss://gateway.discord.gg/?v=6&encoding=json`.
+With the resulting payload, you can now open a websocket connection to the "url" (or endpoint) specified. Generally, it is a good idea to explicitly pass the gateway version and encoding. For example, we may connect to `wss://gateway.discord.gg/?v=8&encoding=json`.
 
 Once connected, the client should immediately receive an [Opcode 10 Hello](#DOCS_TOPICS_GATEWAY/hello) payload, with information on the connection's heartbeat interval:
 
@@ -122,12 +132,11 @@ Once connected, the client should immediately receive an [Opcode 10 Hello](#DOCS
 
 ### Heartbeating
 
-The client should now begin sending [Opcode 1 Heartbeat](#DOCS_TOPICS_GATEWAY/heartbeat) payloads every `heartbeat_interval` milliseconds, until the connection is eventually closed or terminated. This OP code is also bidirectional. The gateway may request a heartbeat from you in some situations, and you should send a heartbeat back to the gateway as you normally would.
+After receiving [Opcode 10 Hello](#DOCS_TOPICS_GATEWAY/hello), the client may begin sending [Opcode 1 Heartbeat](#DOCS_TOPICS_GATEWAY/heartbeat) payloads after `heartbeat_interval * random.random()` milliseconds, and every `heartbeat_interval` milliseconds thereafter. You may send heartbeats before this interval elapses, but you should avoid doing so unless necessary. There is already tolerance in the `heartbeat_interval` that will cover network latency, so you do not need to account for it in your own implementation - waiting the precise interval will suffice.
 
-> info
-> In the event of a service outage where you stay connected to the gateway, you should continue to heartbeat and receive ACKs. The gateway will eventually respond and issue a session once it's able to.
+The gateway may request a heartbeat from the client in some situations by sending an [Opcode 1 Heartbeat](#DOCS_TOPICS_GATEWAY/heartbeat). When this occurs, the client should immediately send an [Opcode 1 Heartbeat](#DOCS_TOPICS_GATEWAY/heartbeat) without waiting the remainder of the current interval.
 
-Clients can detect zombied or failed connections by listening for [Opcode 11 Heartbeat ACK](#DOCS_TOPICS_GATEWAY/heartbeating-example-gateway-heartbeat-ack):
+Any time the client sends a heartbeat, the gateway will respond with [Opcode 11 Heartbeat ACK](#DOCS_TOPICS_GATEWAY/heartbeating-example-gateway-heartbeat-ack), a successful *acknowledgement* of their last heartbeat:
 
 ###### Example Gateway Heartbeat ACK
 
@@ -137,7 +146,10 @@ Clients can detect zombied or failed connections by listening for [Opcode 11 Hea
 }
 ```
 
-If a client does not receive a heartbeat ack between its attempts at sending heartbeats, it should immediately terminate the connection with a non-1000 close code, reconnect, and attempt to resume.
+If a client does not receive a heartbeat ack between its attempts at sending heartbeats, this may be due to a failed or "zombied" connection. The client should then immediately terminate the connection with a non-1000 close code, reconnect, and attempt to [Resume](#DOCS_TOPICS_GATEWAY/resuming).
+
+> info
+> In the event of a service outage where you stay connected to the gateway, you should continue to heartbeat and receive ACKs. The gateway will eventually respond and issue a session once it's able to.
 
 ### Identifying
 
@@ -232,6 +244,9 @@ GUILD_EMOJIS (1 << 3)
 
 GUILD_INTEGRATIONS (1 << 4)
   - GUILD_INTEGRATIONS_UPDATE
+  - INTEGRATION_CREATE
+  - INTEGRATION_UPDATE
+  - INTEGRATION_DELETE
 
 GUILD_WEBHOOKS (1 << 5)
   - WEBHOOKS_UPDATE
@@ -298,11 +313,13 @@ Some intents are defined as "Privileged" due to the sensitive nature of the data
 - `GUILD_PRESENCES`
 - `GUILD_MEMBERS`
 
-In order to specify these intents in your `IDENTIFY` payload, you must first go to your application in the Developer Portal and enable the toggle for the Privileged Intents you wish to use. If your bot is in 100 or more guilds, you must also get your [bot verified](https://support.discord.com/hc/en-us/articles/360040720412-Bot-Verification-and-Data-Whitelisting).
+To specify these intents in your `IDENTIFY` payload, you must visit your application page in the Developer Portal and enable the toggle for each Privileged Intent that you wish to use. If your bot qualifies for [verification](https://dis.gd/bot-verification), you must first [verify your bot](https://support.discord.com/hc/en-us/articles/360040720412-Bot-Verification-and-Data-Whitelisting) and request access to these intents during the verification process. If your bot is already verified and you need to request additional privileged intents, [contact support](https://dis.gd/support).
 
-On **October 7, 2020** the events under the `GUILD_PRESENCES` and `GUILD_MEMBERS` intents will be turned **off by default on all gateway versions**. If you are using **Gateway v6**, you will receive those events if you have enabled the flags for those intents in the Developer Portal and have been verified if your bot is in 100 or more guilds. You do not need to use Intents on Gateway v6 to receive these events; you just need to enable the flags.
+Events under the `GUILD_PRESENCES` and `GUILD_MEMBERS` intents are turned **off by default on all gateway versions**. If you are using **Gateway v6**, you will receive those events if you are authorized to receive them and have enabled the intents in the Developer Portal. You do not need to use Intents on Gateway v6 to receive these events; you just need to enable the flags.
 
-If you are using **Gateway v8**, Intents are mandatory and must be specified when connecting.
+If you are using **Gateway v8**, Intents are mandatory and must be specified when identifying.
+
+In addition to the gateway restrictions described here, Discord's REST API is also affected by Privileged Intents. Specifically, to use the [List Guild Members](#DOCS_RESOURCES_GUILD/list-guild-members) endpoint, you must have the `GUILD_MEMBERS` intent enabled for your application. This behavior is independent of whether the intent is set during `IDENTIFY`.
 
 ## Rate Limiting
 
@@ -318,13 +335,6 @@ Most of a client's state is provided during the initial [Ready](#DOCS_TOPICS_GAT
 An example of state tracking can be found with member status caching. When initially connecting to the gateway, the client receives information regarding the online status of guild members (online, idle, dnd, offline). To keep this state updated, a client must track and parse [Presence Update](#DOCS_TOPICS_GATEWAY/presence-update) events as they are received, and apply the provided data to the cached member objects.
 
 For larger bots, client state can grow to be quite large. We recommend only storing objects in memory that are needed for a bot's operation. Many bots, for example, just respond to user input through chat commands. These bots may only need to keep guild information (like guild/channel roles and permissions) in memory, since [MESSAGE_CREATE](#DOCS_TOPICS_GATEWAY/message-create) and [MESSAGE_UPDATE](#DOCS_TOPICS_GATEWAY/message-update) events have the full member object available.
-
-## Guild Subscriptions
-
-> info
-> While not deprecated, Guild Subscriptions have been superceded by [Gateway Intents](#DOCS_TOPICS_GATEWAY/gateway-intents). You may continue to use guild subscriptions, but we recommend migrating to intents for even better results.
-
-Presence and typing events get dispatched from guilds that your bot is a member of. For many bots, these events are not useful and can be frequent and expensive to process at scale. Because of this, we allow bots to opt out of guild subscriptions by setting `guild_subscriptions` to `false` when [Identify](#DOCS_TOPICS_GATEWAY/identify)ing.
 
 ## Guild Availability
 
@@ -346,13 +356,83 @@ As an example, if you wanted to split the connection between three shards, you'd
 
 Note that `num_shards` does not relate to, or limit, the total number of potential sessions—it is only used for *routing* traffic. As such, sessions do not have to be identified in an evenly distributed manner when sharding. You can establish multiple sessions with the same `[shard_id, num_shards]`, or sessions with different `num_shards` values. This allows you to create sessions that will handle more or less traffic than others for more fine-tuned load balancing, or orchestrate "zero-downtime" scaling/updating by handing off traffic to a new deployment of sessions with a higher or lower `num_shards` count that are prepared in parallel.
 
+###### Max Concurrency
+
+If you have multiple shards, you may start them concurrently based on the [`max_concurrency`](#DOCS_TOPICS_GATEWAY/session-start-limit-object) value returned to you on session start. Which shards you can start concurrently are assigned based on a key for each shard. The rate limit key for a given shard can be computed with
+
+```
+rate_limit_key = shard_id % max_concurrency
+```
+
+This puts your shards into "buckets" of `max_concurrency` size. When you start your bot, you may start up to `max_concurrency` shards at a time, and you must start them by "bucket" **in order**. To explain another way, let's say you have 16 shards, and your `max_concurrency` is 16:
+
+```
+shard_id: 0, rate limit key (0 % 16): 0
+shard_id: 1, rate limit key (1 % 16): 1
+shard_id: 2, rate limit key (2 % 16): 2
+shard_id: 3, rate limit key (3 % 16): 3
+shard_id: 4, rate limit key (4 % 16): 4
+shard_id: 5, rate limit key (5 % 16): 5
+shard_id: 6, rate limit key (6 % 16): 6
+shard_id: 7, rate limit key (7 % 16): 7
+shard_id: 8, rate limit key (8 % 16): 8
+shard_id: 9, rate limit key (9 % 16): 9
+shard_id: 10, rate limit key (10 % 16): 10
+shard_id: 11, rate limit key (11 % 16): 11
+shard_id: 12, rate limit key (12 % 16): 12
+shard_id: 13, rate limit key (13 % 16): 13
+shard_id: 14, rate limit key (14 % 16): 14
+shard_id: 15, rate limit key (15 % 16): 15
+```
+
+You may start all 16 of your shards at once, because each has a `rate_limit_key` which fills the bucket of 16 shards. However, let's say you had 32 shards:
+
+```
+shard_id: 0, rate limit key (0 % 16): 0
+shard_id: 1, rate limit key (1 % 16): 1
+shard_id: 2, rate limit key (2 % 16): 2
+shard_id: 3, rate limit key (3 % 16): 3
+shard_id: 4, rate limit key (4 % 16): 4
+shard_id: 5, rate limit key (5 % 16): 5
+shard_id: 6, rate limit key (6 % 16): 6
+shard_id: 7, rate limit key (7 % 16): 7
+shard_id: 8, rate limit key (8 % 16): 8
+shard_id: 9, rate limit key (9 % 16): 9
+shard_id: 10, rate limit key (10 % 16): 10
+shard_id: 11, rate limit key (11 % 16): 11
+shard_id: 12, rate limit key (12 % 16): 12
+shard_id: 13, rate limit key (13 % 16): 13
+shard_id: 14, rate limit key (14 % 16): 14
+shard_id: 15, rate limit key (15 % 16): 15
+shard_id: 16, rate limit key (16 % 16): 0
+shard_id: 17, rate limit key (17 % 16): 1
+shard_id: 18, rate limit key (18 % 16): 2
+shard_id: 19, rate limit key (19 % 16): 3
+shard_id: 20, rate limit key (20 % 16): 4
+shard_id: 21, rate limit key (21 % 16): 5
+shard_id: 22, rate limit key (22 % 16): 6
+shard_id: 23, rate limit key (23 % 16): 7
+shard_id: 24, rate limit key (24 % 16): 8
+shard_id: 25, rate limit key (25 % 16): 9
+shard_id: 26, rate limit key (26 % 16): 10
+shard_id: 27, rate limit key (27 % 16): 11
+shard_id: 28, rate limit key (28 % 16): 12
+shard_id: 29, rate limit key (29 % 16): 13
+shard_id: 30, rate limit key (30 % 16): 14
+shard_id: 31, rate limit key (31 % 16): 15
+```
+
+In this case, you must start the shard buckets **in "order"**. That means that you can start shard 0 -> shard 15 concurrently, and then you can start shard 16 -> shard 31.
+
 ## Sharding for Very Large Bots
 
 If you own a bot that is near or in over 150,000 guilds, there are some additional considerations you must take around sharding. Please file a support-ticket to get moved to the sharding for big bots, when you reach near this amount of servers. You can contact the discord support using [https://dis.gd/contact](https://dis.gd/contact).
 
 The number of shards you run must be a multiple of a fixed number we will determine when reaching out to you. If you attempt to start your bot with an invalid number of shards, your websocket connection will close with a 4010 Invalid Shard opcode. The gateway bot bootstrap endpoint will return the correct amount of shards, so if you're already using this endpoint to determine your number of shards, you shouldn't require any further changes.
 
-The session start limit for these bots will also be increased from 1000 to 2000 per day. Finally, the [Get Current User Guilds](#DOCS_RESOURCES_USER/get-current-user-guilds) endpoint will no longer return results for your bot. We will be creating a new endpoint that is more shard-aware to iterate through your bot's guilds if needed.
+The session start limit for these bots will also be increased from 1000 to `max(2000, (guild_count / 1000) * 3)` per day. You also receive an increased `max_concurrency`, the number of [shards you can concurrently start](#DOCS_TOPICS_GATEWAY/session-start-limit-object).
+
+Finally, the [Get Current User Guilds](#DOCS_RESOURCES_USER/get-current-user-guilds) endpoint will no longer return results for your bot. We will be creating a new endpoint that is more shard-aware to iterate through your bot's guilds if needed.
 
 ## Commands and Events
 
@@ -401,6 +481,9 @@ Events are payloads sent over the socket to a client that correspond to events i
 | [Guild Role Create](#DOCS_TOPICS_GATEWAY/guild-role-create)                         | guild role was created                                                                                                           |
 | [Guild Role Update](#DOCS_TOPICS_GATEWAY/guild-role-update)                         | guild role was updated                                                                                                           |
 | [Guild Role Delete](#DOCS_TOPICS_GATEWAY/guild-role-delete)                         | guild role was deleted                                                                                                           |
+| [Integration Create](#DOCS_TOPICS_GATEWAY/integration-create)                       | guild integration was created                                                                                                    |
+| [Integration Update](#DOCS_TOPICS_GATEWAY/integration-update)                       | guild integration was updated                                                                                                    |
+| [Integration Delete](#DOCS_TOPICS_GATEWAY/integration-delete)                       | guild integration was deleted                                                                                                    |
 | [Interaction Create](#DOCS_TOPICS_GATEWAY/interaction-create)                       | user used an interaction, such as a [Slash Command](#DOCS_INTERACTIONS_SLASH_COMMANDS/)                                                                  |
 | [Invite Create](#DOCS_TOPICS_GATEWAY/invite-create)                                 | invite to a channel was created                                                                                                  |
 | [Invite Delete](#DOCS_TOPICS_GATEWAY/invite-delete)                                 | invite to a channel was deleted                                                                                                  |
@@ -437,7 +520,6 @@ Used to trigger the initial handshake with the gateway.
 | large_threshold?     | integer                                                    | value between 50 and 250, total number of members where the gateway will stop sending offline members in the guild member list | 50      |
 | shard?               | array of two integers (shard_id, num_shards)               | used for [Guild Sharding](#DOCS_TOPICS_GATEWAY/sharding)                                                                       | -       |
 | presence?            | [update status](#DOCS_TOPICS_GATEWAY/update-status) object | presence structure for initial presence information                                                                            | -       |
-| guild_subscriptions? | boolean                                                    | enables dispatching of guild subscription events (presence and typing events)                                                  | true    |
 | intents              | integer                                                    | the [Gateway Intents](#DOCS_TOPICS_GATEWAY/gateway-intents) you wish to receive                                                | -       |
 
 ###### Identify Connection Properties
@@ -455,7 +537,6 @@ Used to trigger the initial handshake with the gateway.
   "op": 2,
   "d": {
     "token": "my_token",
-    "intents": 513,
     "properties": {
       "$os": "linux",
       "$browser": "disco",
@@ -463,7 +544,6 @@ Used to trigger the initial handshake with the gateway.
     },
     "compress": true,
     "large_threshold": 250,
-    "guild_subscriptions": false,
     "shard": [0, 1],
     "presence": {
       "activities": [{
@@ -541,6 +621,9 @@ Due to our privacy and infrastructural concerns with this feature, there are som
 | presences? | boolean                          | used to specify if we want the presences of the matched members                                                                       | false                      |
 | user_ids?  | snowflake or array of snowflakes | used to specify which users you wish to fetch                                                                                         | one of query or user_ids   |
 | nonce?     | string                           | nonce to identify the [Guild Members Chunk](#DOCS_TOPICS_GATEWAY/guild-members-chunk) response                                        | false                      |
+
+> info
+> Nonce can only be up to 32 bytes. If you send an invalid nonce it will be ignored and the reply member_chunk(s) will not have a nonce set.
 
 ###### Guild Request Members
 
@@ -826,6 +909,8 @@ Sent when a guild member is updated. This will also fire when the user object of
 | nick?          | ?string                                           | nickname of the user in the guild                                                                                                      |
 | joined_at      | ISO8601 timestamp                                 | when the user joined the guild                                                                                                         |
 | premium_since? | ?ISO8601 timestamp                                | when the user starting [boosting](https://support.discord.com/hc/en-us/articles/360028038352-Server-Boosting-) the guild               |
+| deaf?          | boolean                                           | whether the user is deafened in voice channels                                                                                         |
+| mute?          | boolean                                           | whether the user is muted in voice channels                                                                                            |
 | pending?       | boolean                                           | whether the user has not yet passed the guild's [Membership Screening](#DOCS_RESOURCES_GUILD/membership-screening-object) requirements |
 
 #### Guild Members Chunk
@@ -877,6 +962,40 @@ Sent when a guild role is deleted.
 |----------|-----------|-----------------|
 | guild_id | snowflake | id of the guild |
 | role_id  | snowflake | id of the role  |
+
+### Integrations
+
+### Integration Create
+
+Sent when an integration is created. The inner payload is a [integration](#DOCS_RESOURCES_GUILD/integration-object) object with an additional `guild_id` key:
+
+###### Integration Create Event Additional Fields
+
+| Field    | Type      | Description     |
+|----------|-----------|-----------------|
+| guild_id | snowflake | id of the guild |
+
+### Integration Update
+
+Sent when an integration is updated. The inner payload is a [integration](#DOCS_RESOURCES_GUILD/integration-object) object with an additional `guild_id` key:
+
+###### Integration Update Event Additional Fields
+
+| Field    | Type      | Description     |
+|----------|-----------|-----------------|
+| guild_id | snowflake | id of the guild |
+
+### Integration Delete
+
+Sent when an integration is deleted.
+
+###### Integration Delete Event Fields
+
+| Field           | Type      | Description                                                   |
+|-----------------|-----------|---------------------------------------------------------------|
+| id              | snowflake | integration id                                                |
+| guild_id        | snowflake | id of the guild                                               |
+| application_id? | snowflake | id of the bot/OAuth2 application for this discord integration |
 
 ### Invites
 
@@ -1055,6 +1174,7 @@ Active sessions are indicated with an "online", "idle", or "dnd" string per plat
 | secrets?        | [secrets](#DOCS_TOPICS_GATEWAY/activity-object-activity-secrets) object       | secrets for Rich Presence joining and spectating                                                                          |
 | instance?       | boolean                                                                       | whether or not the activity is an instanced game session                                                                  |
 | flags?          | integer                                                                       | [activity flags](#DOCS_TOPICS_GATEWAY/activity-object-activity-flags) `OR`d together, describes what the payload includes |
+| buttons?        | array of [buttons](#DOCS_TOPICS_GATEWAY/activity-object-activity-buttons)     | the custom buttons shown in the Rich Presence (max 2)                                                                     |
 
 > info
 > Bots are only able to send `name`, `type`, and optionally `url`.
@@ -1122,6 +1242,15 @@ Active sessions are indicated with an "online", "idle", or "dnd" string per plat
 | SYNC         | 1 << 4 |
 | PLAY         | 1 << 5 |
 
+###### Activity Buttons
+
+When received over the gateway, the `buttons` field is an array of strings, which are the button labels. Bots cannot access a user's activity button URLs. When sending, the `buttons` field must be an array of the below object:
+
+| Field | Type   | Description                                                |
+|-------|--------|------------------------------------------------------------|
+| label | string | the text shown on the button (1-32 characters)             |
+| url   | string | the url opened when clicking the button (1-512 characters) |
+
 ###### Example Activity
 
 ```json
@@ -1130,7 +1259,7 @@ Active sessions are indicated with an "online", "idle", or "dnd" string per plat
   "state": "Rocket League",
   "name": "Twitch",
   "type": 1,
-  "url": "https://www.twitch.tv/discordapp"
+  "url": "https://www.twitch.tv/discord"
 }
 ```
 
@@ -1195,13 +1324,16 @@ Sent when someone joins/leaves/moves voice channels. Inner payload is a [voice s
 
 Sent when a guild's voice server is updated. This is sent when initially connecting to voice, and when the current voice instance fails over to a new server.
 
+> warn
+> A null endpoint means that the voice server allocated has gone away and is trying to be reallocated. You should attempt to disconnect from the currently connected voice server, and not attempt to reconnect until a new voice server is allocated.
+
 ###### Voice Server Update Event Fields
 
 | Field    | Type      | Description                               |
 |----------|-----------|-------------------------------------------|
 | token    | string    | voice connection token                    |
 | guild_id | snowflake | the guild this voice server update is for |
-| endpoint | string    | the voice server host                     |
+| endpoint | ?string   | the voice server host                     |
 
 ###### Example Voice Server Update Payload
 

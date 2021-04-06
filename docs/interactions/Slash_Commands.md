@@ -734,7 +734,7 @@ Deletes the initial Interaction response. Returns `204` on success.
 
 ## Create Followup Message % POST /webhooks/{application.id#DOCS_TOPICS_OAUTH2/application-object}/{interaction.token#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction}
 
-Create a followup message for an Interaction. Functions the same as [Execute Webhook](#DOCS_RESOURCES_WEBHOOK/execute-webhook), but `wait` is always true.
+Create a followup message for an Interaction. Functions the same as [Execute Webhook](#DOCS_RESOURCES_WEBHOOK/execute-webhook), but `wait` is always true, and `flags` can be set to `64` in the body to send an ephemeral message.
 
 ## Edit Followup Message % PATCH /webhooks/{application.id#DOCS_TOPICS_OAUTH2/application-object}/{interaction.token#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}
 
@@ -827,11 +827,25 @@ An interaction is the base "thing" that is sent when a user invokes a command, a
 
 ###### ApplicationCommandInteractionData
 
-| Field    | Type                                             | Description                       |
-|----------|--------------------------------------------------|-----------------------------------|
-| id       | snowflake                                        | the ID of the invoked command     |
-| name     | string                                           | the name of the invoked command   |
-| options? | array of ApplicationCommandInteractionDataOption | the params + values from the user |
+| Field     | Type                                             | Description                        |
+|-----------|--------------------------------------------------|------------------------------------|
+| id        | snowflake                                        | the ID of the invoked command      |
+| name      | string                                           | the name of the invoked command    |
+| resolved? | ApplicationCommandInteractionDataResolved        | converted users + roles + channels |
+| options?  | array of ApplicationCommandInteractionDataOption | the params + values from the user  |
+
+###### ApplicationCommandInteractionDataResolved
+
+| Field         | Type                | Description                         |
+|---------------|---------------------|-------------------------------------|
+| users?        | JSON of ID: User    | the IDs and User objects            |
+| members?\*    | JSON of ID: Member  | the IDs and partial Member objects  |
+| roles?        | JSON of ID: Role    | the IDs and Role objects            |
+| channels?\*\* | JSON of ID: Channel | the IDs and partial Channel objects |
+
+\* Partial `Member` objects are missing `user`, `deaf` and `mute` fields
+
+\*\* Partial `Channel` objects only have `id`, `name`, `type` and `permissions` fields
 
 ###### ApplicationCommandInteractionDataOption
 
@@ -839,19 +853,20 @@ All options have names, and an option can either be a parameter and input value-
 
 `value` and `options` are mutually exclusive.
 
-| Field    | Type                                             | Description                                     |
-|----------|--------------------------------------------------|-------------------------------------------------|
-| name     | string                                           | the name of the parameter                       |
-| value?   | OptionType                                       | the value of the pair                           |
-| options? | array of ApplicationCommandInteractionDataOption | present if this option is a group or subcommand |
+| Field    | Type                                             | Description                                                                                             |
+|----------|--------------------------------------------------|---------------------------------------------------------------------------------------------------------|
+| name     | string                                           | the name of the parameter                                                                               |
+| type     | int                                              | value of [ApplicationCommandOptionType](#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommandoptiontype) |
+| value?   | OptionType                                       | the value of the pair                                                                                   |
+| options? | array of ApplicationCommandInteractionDataOption | present if this option is a group or subcommand                                                         |
 
 ## Interaction Response
 
 After receiving an interaction, you must respond to acknowledge it. You can choose to respond with a message immediately using type `4`, or you can choose to send a deferred response with type `5`. If choosing a deferred response, the user will see a loading state for the interaction, and you'll have up to 15 minutes to edit the original deferred response using [Edit Original Interaction Response](#DOCS_INTERACTIONS_SLASH_COMMANDS/edit-original-interaction-response).
 
-![A deferred response tells the user "Bot name is thinking"](ephemeral-example.png)
+![A deferred response tells the user "Bot name is thinking"](deferred-example.png)
 
-Interaction responses can also be public—everyone can see it—or "ephemeral"—only the invoking user can see it. That is determined by setting `flags` to `64` on the [InteractionApplicationCommandCallbackData](#DOCS_INTERACTIONS_SLASH_COMMANDS/InteractionApplicationCommandCallbackData).
+Interaction responses can also be public—everyone can see it—or "ephemeral"—only the invoking user can see it. That is determined by setting `flags` to `64` on the [InteractionApplicationCommandCallbackData](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-response-interactionapplicationcommandcallbackdata).
 
 | Field | Type                                      | Description                  |
 |-------|-------------------------------------------|------------------------------|
