@@ -14,6 +14,7 @@ Many of these libraries are represented in the [unofficial, community-driven Dis
 | ------------------------------------------------------------ | ---------- |
 | [discljord](https://github.com/igjoshua/discljord)           | Clojure    |
 | [aegis.cpp](https://github.com/zeroxs/aegis.cpp)             | C++        |
+| [Sleepy Discord](https://github.com/yourWaifu/sleepy-discord)| C++        |
 | [discordcr](https://github.com/shardlab/discordcr)           | Crystal    |
 | [Discord.Net](https://github.com/RogueException/Discord.Net) | C#         |
 | [DSharpPlus](https://github.com/DSharpPlus/DSharpPlus)       | C#         |
@@ -59,6 +60,8 @@ Many of these libraries are represented in the [unofficial, community-driven Dis
 - PHP
   - [discord-interactions-php](https://github.com/discord/discord-interactions-php)
   - [DiscordPHP-Slash](https://github.com/discord-php/DiscordPHP-Slash)
+- Lua
+  - [discordia-slash](https://github.com/GitSparTV/discordia-slash)
 - Other
   - [caddy-discord-interactions-verifier](https://github.com/CarsonHoffman/caddy-discord-interactions-verifier)
   - [Rauf's Slash Command Generator](https://rauf.wtf/slash)

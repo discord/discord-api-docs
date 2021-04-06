@@ -31,8 +31,7 @@ These are a list of all the OAuth2 scopes that Discord supports. Scopes that are
 | guilds.join                  | allows [/guilds/{guild.id}/members/{user.id}](#DOCS_RESOURCES_GUILD/add-guild-member) to be used for joining users to a guild                                                            |
 | gdm.join                     | allows your app to [join users to a group dm](#DOCS_RESOURCES_CHANNEL/group-dm-add-recipient)                                                                                            |
 | messages.read                | for local rpc server api access, this allows you to read messages from all client channels (otherwise restricted to channels/guilds your app creates)                                    |
-| rpc                          | for local rpc server access, this allows you to control a user's local Discord client - whitelist only                                                                                   |
-| rpc.api                      | for local rpc server api access, this allows you to access the API as the local user - whitelist only                                                                                    |
+| rpc                          | for local rpc server access, this allows you to control a user's local Discord client - whitelist only                                                                                   |                                                                                 |
 | rpc.notifications.read       | for local rpc server api access, this allows you to receive notifications pushed out to the user - whitelist only                                                                        |
 | webhook.incoming             | this generates a webhook that is returned in the oauth token response for authorization code grants                                                                                      |
 | applications.builds.upload   | allows your app to upload/update builds for a user's applications - whitelist only                                                                                                       |
@@ -367,30 +366,32 @@ Any user that wishes to add your webhook to their channel will need to go throug
 
 ## Get Current Application Information % GET /oauth2/applications/@me
 
-Returns the bot's OAuth2 [application object](#DOCS_TOPICS_OAUTH2/application-object) without `flags`.
+Returns the bot's OAuth2 [application](#DOCS_TOPICS_OAUTH2/application) object.
 
-###  Application Object
+## Application
 
-| Field                  | Type                                                       | Description                                                                                                               |
-|------------------------|------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------|
-| id                     | snowflake                                                  | the id of the app                                                                                                         |
-| name                   | string                                                     | the name of the app                                                                                                       |
-| icon                   | ?string                                                    | the icon hash of the app                                                                                                  |
-| description            | string                                                     | the description of the app                                                                                                |
-| rpc_origins?           | array of strings                                           | an array of rpc origin urls, if rpc is enabled                                                                            |
-| bot_public             | boolean                                                    | when false only app owner can join the app's bot to guilds                                                                |
-| bot_require_code_grant | boolean                                                    | when true the app's bot will only join upon completion of the full oauth2 code grant flow                                 |
-| owner                  | partial [user](#DOCS_RESOURCES_USER/user-object) object    | partial user object containing info on the owner of the application                                                       |
-| summary                | string                                                     | if this application is a game sold on Discord, this field will be the summary field for the store page of its primary sku |
-| verify_key             | string                                                     | the base64 encoded key for the GameSDK's [GetTicket](#DOCS_GAME_SDK_APPLICATIONS/get-ticket)                              |
-| team                   | ?[team](#DOCS_TOPICS_TEAMS/data-models-team-object) object | if the application belongs to a team, this will be a list of the members of that team                                     |
-| guild_id?              | snowflake                                                  | if this application is a game sold on Discord, this field will be the guild to which it has been linked                   |
-| primary_sku_id?        | snowflake                                                  | if this application is a game sold on Discord, this field will be the id of the "Game SKU" that is created, if exists     |
-| slug?                  | string                                                     | if this application is a game sold on Discord, this field will be the URL slug that links to the store page               |
-| cover_image?           | string                                                     | if this application is a game sold on Discord, this field will be the hash of the image on store embeds                   |
-| flags                  | int                                                        | the application's public flags                                                                                            |
+###### Application Structure
 
-###### Example Application Information
+| Field                  | Type                                                       | Description                                                                                                                |
+|------------------------|------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------|
+| id                     | snowflake                                                  | the id of the app                                                                                                          |
+| name                   | string                                                     | the name of the app                                                                                                        |
+| icon                   | ?string                                                    | the icon hash of the app                                                                                                   |
+| description            | string                                                     | the description of the app                                                                                                 |
+| rpc_origins?           | array of strings                                           | an array of rpc origin urls, if rpc is enabled                                                                             |
+| bot_public             | boolean                                                    | when false only app owner can join the app's bot to guilds                                                                 |
+| bot_require_code_grant | boolean                                                    | when true the app's bot will only join upon completion of the full oauth2 code grant flow                                  |
+| owner                  | partial [user](#DOCS_RESOURCES_USER/user-object) object    | partial user object containing info on the owner of the application                                                        |
+| summary                | string                                                     | if this application is a game sold on Discord, this field will be the summary field for the store page of its primary sku  |
+| verify_key             | string                                                     | the hex encoded key for verification in interactions and the GameSDK's [GetTicket](#DOCS_GAME_SDK_APPLICATIONS/get-ticket) |
+| team                   | ?[team](#DOCS_TOPICS_TEAMS/data-models-team-object) object | if the application belongs to a team, this will be a list of the members of that team                                      |
+| guild_id?              | snowflake                                                  | if this application is a game sold on Discord, this field will be the guild to which it has been linked                    |
+| primary_sku_id?        | snowflake                                                  | if this application is a game sold on Discord, this field will be the id of the "Game SKU" that is created, if exists      |
+| slug?                  | string                                                     | if this application is a game sold on Discord, this field will be the URL slug that links to the store page                |
+| cover_image?           | string                                                     | if this application is a game sold on Discord, this field will be the hash of the image on store embeds                    |
+| flags                  | int                                                        | the application's public flags                                                                                             |
+
+###### Example Application
 
 ```json
 {
