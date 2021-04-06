@@ -37,10 +37,7 @@ It’s free, easy, and self-serve, so check out [the GameSDK Activity Manager](#
 
 ## Still need some help?
 
-We all need a hand sometimes,
-Join the official Discord Developers server, for support and discussion regarding all things Discord API: https://discord.gg/discord-developers
-
-And if you're knowledgeable, help out, you might get a cookie
+Join the [Official Discord Developers server](https://discord.gg/discord-developers) for support and discussion regarding Discord's APIs.
 
 ## Go Make Cool Stuff!
 
