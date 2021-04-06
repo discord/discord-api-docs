@@ -4,7 +4,7 @@ Discord has the best online community. At least, we like to think so, and this i
 
 ## Discord Developers
 
-The Discord Developers server is the official, developer ran, but community driven, support hub. If you need help with developing something on Discord or want official updates from the developers, [this is the place to be](https://discord.gg/discord-developers). 
+The [Official Discord Developers server](https://discord.gg/discord-developers) is a developer ran, but community driven, support hub. If you need help with developing something on Discord or want official updates from the developers, this is the place to be.
 
 ## Libraries
 
