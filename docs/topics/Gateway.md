@@ -122,12 +122,11 @@ Once connected, the client should immediately receive an [Opcode 10 Hello](#DOCS
 
 ### Heartbeating
 
-The client should now begin sending [Opcode 1 Heartbeat](#DOCS_TOPICS_GATEWAY/heartbeat) payloads every `heartbeat_interval` milliseconds, until the connection is eventually closed or terminated. This OP code is also bidirectional. The gateway may request a heartbeat from you in some situations, and you should send a heartbeat back to the gateway as you normally would.
+After receiving [Opcode 10 Hello](#DOCS_TOPICS_GATEWAY/hello), the client may begin sending [Opcode 1 Heartbeat](#DOCS_TOPICS_GATEWAY/heartbeat) payloads after `heartbeat_interval * random.random()` milliseconds, and every `heartbeat_interval` milliseconds thereafter. You may send heartbeats before this interval elapses, but you should avoid doing so unless necessary. There is already tolerance in the `heartbeat_interval` that will cover network latency, so you do not need to account for it in your own implementation - waiting the precise interval will suffice.
 
-> info
-> In the event of a service outage where you stay connected to the gateway, you should continue to heartbeat and receive ACKs. The gateway will eventually respond and issue a session once it's able to.
+The gateway may request a heartbeat from the client in some situations by sending an [Opcode 1 Heartbeat](#DOCS_TOPICS_GATEWAY/heartbeat). When this occurs, the client should immediately send an [Opcode 1 Heartbeat](#DOCS_TOPICS_GATEWAY/heartbeat) without waiting the remainder of the current interval.
 
-Clients can detect zombied or failed connections by listening for [Opcode 11 Heartbeat ACK](#DOCS_TOPICS_GATEWAY/heartbeating-example-gateway-heartbeat-ack):
+Any time the client sends a heartbeat, the gateway will respond with [Opcode 11 Heartbeat ACK](#DOCS_TOPICS_GATEWAY/heartbeating-example-gateway-heartbeat-ack), a successful *acknowledgement* of their last heartbeat:
 
 ###### Example Gateway Heartbeat ACK
 
@@ -137,7 +136,10 @@ Clients can detect zombied or failed connections by listening for [Opcode 11 Hea
 }
 ```
 
-If a client does not receive a heartbeat ack between its attempts at sending heartbeats, it should immediately terminate the connection with a non-1000 close code, reconnect, and attempt to resume.
+If a client does not receive a heartbeat ack between its attempts at sending heartbeats, this may be due to a failed or "zombied" connection. The client should then immediately terminate the connection with a non-1000 close code, reconnect, and attempt to [Resume](#DOCS_TOPICS_GATEWAY/resuming).
+
+> info
+> In the event of a service outage where you stay connected to the gateway, you should continue to heartbeat and receive ACKs. The gateway will eventually respond and issue a session once it's able to.
 
 ### Identifying
 
@@ -296,11 +298,13 @@ Some intents are defined as "Privileged" due to the sensitive nature of the data
 - `GUILD_PRESENCES`
 - `GUILD_MEMBERS`
 
-In order to specify these intents in your `IDENTIFY` payload, you must first go to your application in the Developer Portal and enable the toggle for the Privileged Intents you wish to use. If your bot is in 100 or more guilds, you must also get your [bot verified](https://support.discord.com/hc/en-us/articles/360040720412-Bot-Verification-and-Data-Whitelisting).
+To specify these intents in your `IDENTIFY` payload, you must visit your application page in the Developer Portal and enable the toggle for each Privileged Intent that you wish to use. If your bot qualifies for [verification](https://dis.gd/bot-verification), you must first [verify your bot](https://support.discord.com/hc/en-us/articles/360040720412-Bot-Verification-and-Data-Whitelisting) and request access to these intents during the verification process. If your bot is already verified and you need to request additional privileged intents, [contact support](https://dis.gd/support).
 
-On **October 7, 2020** the events under the `GUILD_PRESENCES` and `GUILD_MEMBERS` intents will be turned **off by default on all gateway versions**. If you are using **Gateway v6**, you will receive those events if you have enabled the flags for those intents in the Developer Portal and have been verified if your bot is in 100 or more guilds. You do not need to use Intents on Gateway v6 to receive these events; you just need to enable the flags.
+Events under the `GUILD_PRESENCES` and `GUILD_MEMBERS` intents are turned **off by default on all gateway versions**. If you are using **Gateway v6**, you will receive those events if you are authorized to receive them and have enabled the intents in the Developer Portal. You do not need to use Intents on Gateway v6 to receive these events; you just need to enable the flags.
 
-If you are using **Gateway v8**, Intents are mandatory and must be specified when connecting.
+If you are using **Gateway v8**, Intents are mandatory and must be specified when identifying.
+
+In addition to the gateway restrictions described here, Discord's REST API is also affected by Privileged Intents. Specifically, to use the [List Guild Members](#DOCS_RESOURCES_GUILD/list-guild-members) endpoint, you must have the `GUILD_MEMBERS` intent enabled for your application. This behavior is independent of whether the intent is set during `IDENTIFY`.
 
 ## Rate Limiting
 
@@ -539,6 +543,9 @@ Due to our privacy and infrastructural concerns with this feature, there are som
 | presences? | boolean                          | used to specify if we want the presences of the matched members                                                                       | false                      |
 | user_ids?  | snowflake or array of snowflakes | used to specify which users you wish to fetch                                                                                         | one of query or user_ids   |
 | nonce?     | string                           | nonce to identify the [Guild Members Chunk](#DOCS_TOPICS_GATEWAY/guild-members-chunk) response                                        | false                      |
+
+> info
+> Nonce can only be up to 32 bytes. If you send an invalid nonce it will be ignored and the reply member_chunk(s) will not have a nonce set.
 
 ###### Guild Request Members
 
@@ -1128,7 +1135,7 @@ Active sessions are indicated with an "online", "idle", or "dnd" string per plat
   "state": "Rocket League",
   "name": "Twitch",
   "type": 1,
-  "url": "https://www.twitch.tv/discordapp"
+  "url": "https://www.twitch.tv/discord"
 }
 ```
 
@@ -1193,13 +1200,16 @@ Sent when someone joins/leaves/moves voice channels. Inner payload is a [voice s
 
 Sent when a guild's voice server is updated. This is sent when initially connecting to voice, and when the current voice instance fails over to a new server.
 
+> warn
+> A null endpoint means that the voice server allocated has gone away and is trying to be reallocated. You should attempt to disconnect from the currently connected voice server, and not attempt to reconnect until a new voice server is allocated.
+
 ###### Voice Server Update Event Fields
 
 | Field    | Type      | Description                               |
 |----------|-----------|-------------------------------------------|
 | token    | string    | voice connection token                    |
 | guild_id | snowflake | the guild this voice server update is for |
-| endpoint | string    | the voice server host                     |
+| endpoint | ?string   | the voice server host                     |
 
 ###### Example Voice Server Update Payload
 
