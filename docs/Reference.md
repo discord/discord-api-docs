@@ -284,6 +284,8 @@ Discord uses ids and hashes to render images in the client. These hashes can be 
 
 \*\*\* In the case of the Default User Avatar endpoint, the size of images returned is constant with the "size" querystring parameter being ignored.
 
+\*\*\*\* In the case of the User Avatar endpoint, a [Webhook](#DOCS_RESOURCES_WEBHOOK) may also provide valid parameters.
+
 ## Image Data
 
 Image data is a [Data URI scheme](https://en.wikipedia.org/wiki/Data_URI_scheme) that supports JPG, GIF, and PNG formats. An example Data URI format is:
