@@ -544,10 +544,8 @@ Due to our privacy and infrastructural concerns with this feature, there are som
 | user_ids?  | snowflake or array of snowflakes | used to specify which users you wish to fetch                                                                                         | one of query or user_ids   |
 | nonce?     | string                           | nonce to identify the [Guild Members Chunk](#DOCS_TOPICS_GATEWAY/guild-members-chunk) response                                        | false                      |
 
-
 > info
 > Nonce can only be up to 32 bytes. If you send an invalid nonce it will be ignored and the reply member_chunk(s) will not have a nonce set.
-
 
 ###### Guild Request Members
 
