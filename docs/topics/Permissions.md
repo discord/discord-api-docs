@@ -57,12 +57,12 @@ Below is a table of all current permissions, their integer values in hexadecimal
 | CHANGE_NICKNAME       | `0x04000000` | Allows for modification of own nickname                                                                                            |              |
 | MANAGE_NICKNAMES      | `0x08000000` | Allows for modification of other users nicknames                                                                                   |              |
 | MANAGE_ROLES \*       | `0x10000000` | Allows management and editing of roles                                                                                             | T, V         |
-| MANAGE_WEBHOOKS \*    | `0x20000000` | Allows management and editing of webhooks                                                                                          | T, V         |
+| MANAGE_WEBHOOKS \*    | `0x20000000` | Allows management and editing of webhooks                                                                                          | T            |
 | MANAGE_EMOJIS \*      | `0x40000000` | Allows management and editing of emojis                                                                                            |              |
 
 **\* These permissions require the owner account to use [two-factor authentication](#DOCS_TOPICS_OAUTH2/twofactor-authentication-requirement) when used on a guild that has server-wide 2FA enabled.**
 
-Note that these internal permission names may be referred to differently by the Discord client. For example, "Manage Permissions" refers to MANAGE_ROLES, "Read Messages" refers to VIEW_CHANNEL, and "Use Voice Activity" refers to USE_VAD.
+Note that these internal permission names may be referred to differently by the Discord client. For example, "Manage Permissions" refers to MANAGE_ROLES and "Use Voice Activity" refers to USE_VAD.
 
 ## Permission Hierarchy
 
