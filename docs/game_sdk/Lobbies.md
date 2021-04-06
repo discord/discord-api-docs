@@ -36,7 +36,7 @@ txn.SetType(Discord.LobbyType.Public);
 txn.SetMetadata("a", "123");
 
 // Create it!
-lobbyManager.CreateLobby(txn, (result, lobby) =>
+lobbyManager.CreateLobby(txn, (Discord.Result result, ref Discord.Lobby lobby) =>
 {
   Console.WriteLine("lobby {0} created with secret {1}", lobby.Id, lobby.Secret);
 
@@ -462,7 +462,7 @@ var txn = lobbyManager.GetMemberUpdateTransaction(290926798626357250, 5390823250
 
 Creates a lobby. Creating a lobby auto-joins the connected user to it. **Do not call `SetOwner()` in the transaction for this method.**
 
-Returns `Discord.Result` and `ref Lobby` via callback.
+Returns `Discord.Result` and `ref Discord.Lobby` via callback.
 
 ###### Parameters
 
@@ -1239,9 +1239,9 @@ var txn = lobbyManager.GetLobbyCreateTransaction();
 txn.SetCapacity(5);
 txn.SetType(Discord.LobbyType.Private);
 
-lobbyManager.CreateLobby(txn, (result, lobby) =>
+lobbyManager.CreateLobby(txn, (Discord.Result result, ref Discord.Lobby lobby) =>
 {
-  // Get the sepcial activity secret
+  // Get the special activity secret
   var secret = lobbyManager.GetLobbyActivitySecret(lobby.id);
 
   // Create a new activity
