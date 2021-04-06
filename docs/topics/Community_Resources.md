@@ -84,8 +84,8 @@ Webhooks and embeds might seem like black magic. That's because they are, but le
 
 - [LeoV's Embed Visualizer](https://leovoel.github.io/embed-visualizer/)
 
-## API Typings
+## API Types
 
-If you're working on a project that interacts with our API, you might find these modules useful, as they provide typings of our API that you can use to enhance your coding experience:
+If you're working on a project that interacts with our API, you might find an API types module useful as it provides type inspection/completion for the Discord API.
 
-- [vladfrangu's Discord API Typings](https://github.com/discordjs/discord-api-types)
+- [discord.js API Types](https://github.com/discordjs/discord-api-types)
