@@ -415,7 +415,7 @@ If you own a bot that is near or in over 150,000 guilds, there are some addition
 
 The number of shards you run must be a multiple of a fixed number we will determine when reaching out to you. If you attempt to start your bot with an invalid number of shards, your websocket connection will close with a 4010 Invalid Shard opcode. The gateway bot bootstrap endpoint will return the correct amount of shards, so if you're already using this endpoint to determine your number of shards, you shouldn't require any further changes.
 
-The session start limit for these bots will also be increased from 1000 to `max(2000, (guild_count / SUGGESTED_GUILDS_PER_SHARD) * 3)` per day. You also receive an increased `max_concurrency`, the number of [shards you can concurrently start](#DOCS_TOPICS_GATEWAY/session-start-limit-object).
+The session start limit for these bots will also be increased from 1000 to `max(2000, (guild_count / 1000) * 3)` per day. You also receive an increased `max_concurrency`, the number of [shards you can concurrently start](#DOCS_TOPICS_GATEWAY/session-start-limit-object).
 
 Finally, the [Get Current User Guilds](#DOCS_RESOURCES_USER/get-current-user-guilds) endpoint will no longer return results for your bot. We will be creating a new endpoint that is more shard-aware to iterate through your bot's guilds if needed.
 
