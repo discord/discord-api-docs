@@ -30,7 +30,8 @@
     "username": "Luigi",
     "discriminator": "0002",
     "id": "96008815106887111",
-    "avatar": "5500909a3274e1812beb4e8de6631111"
+    "avatar": "5500909a3274e1812beb4e8de6631111",
+    "public_flags": 131328
   },
   "require_colons": true,
   "managed": false,

@@ -31,8 +31,7 @@ These are a list of all the OAuth2 scopes that Discord supports. Scopes that are
 | guilds.join                  | allows [/guilds/{guild.id}/members/{user.id}](#DOCS_RESOURCES_GUILD/add-guild-member) to be used for joining users to a guild                                                            |
 | gdm.join                     | allows your app to [join users to a group dm](#DOCS_RESOURCES_CHANNEL/group-dm-add-recipient)                                                                                            |
 | messages.read                | for local rpc server api access, this allows you to read messages from all client channels (otherwise restricted to channels/guilds your app creates)                                    |
-| rpc                          | for local rpc server access, this allows you to control a user's local Discord client - whitelist only                                                                                   |
-| rpc.api                      | for local rpc server api access, this allows you to access the API as the local user - whitelist only                                                                                    |
+| rpc                          | for local rpc server access, this allows you to control a user's local Discord client - whitelist only                                                                                   |                                                                                 |
 | rpc.notifications.read       | for local rpc server api access, this allows you to receive notifications pushed out to the user - whitelist only                                                                        |
 | webhook.incoming             | this generates a webhook that is returned in the oauth token response for authorization code grants                                                                                      |
 | applications.builds.upload   | allows your app to upload/update builds for a user's applications - whitelist only                                                                                                       |
@@ -367,9 +366,11 @@ Any user that wishes to add your webhook to their channel will need to go throug
 
 ## Get Current Application Information % GET /oauth2/applications/@me
 
-Returns the bot's OAuth2 [application object](#DOCS_TOPICS_OAUTH2/application-object) without `flags`.
+Returns the bot's OAuth2 [application](#DOCS_TOPICS_OAUTH2/application) object.
 
-###  Application Object
+## Application
+
+###### Application Structure
 
 | Field                  | Type                                                       | Description                                                                                                                |
 |------------------------|------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------|
@@ -390,7 +391,7 @@ Returns the bot's OAuth2 [application object](#DOCS_TOPICS_OAUTH2/application-ob
 | cover_image?           | string                                                     | if this application is a game sold on Discord, this field will be the hash of the image on store embeds                    |
 | flags                  | int                                                        | the application's public flags                                                                                             |
 
-###### Example Application Information
+###### Example Application
 
 ```json
 {
