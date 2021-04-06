@@ -321,13 +321,6 @@ An example of state tracking can be found with member status caching. When initi
 
 For larger bots, client state can grow to be quite large. We recommend only storing objects in memory that are needed for a bot's operation. Many bots, for example, just respond to user input through chat commands. These bots may only need to keep guild information (like guild/channel roles and permissions) in memory, since [MESSAGE_CREATE](#DOCS_TOPICS_GATEWAY/message-create) and [MESSAGE_UPDATE](#DOCS_TOPICS_GATEWAY/message-update) events have the full member object available.
 
-## Guild Subscriptions
-
-> info
-> While not deprecated, Guild Subscriptions have been superceded by [Gateway Intents](#DOCS_TOPICS_GATEWAY/gateway-intents). You may continue to use guild subscriptions, but we recommend migrating to intents for even better results.
-
-Presence and typing events get dispatched from guilds that your bot is a member of. For many bots, these events are not useful and can be frequent and expensive to process at scale. Because of this, we allow bots to opt out of guild subscriptions by setting `guild_subscriptions` to `false` when [Identify](#DOCS_TOPICS_GATEWAY/identify)ing.
-
 ## Guild Availability
 
 When connecting to the gateway as a bot user, guilds that the bot is a part of will start out as unavailable. Don't fret! The gateway will automatically attempt to reconnect on your behalf. As guilds become available to you, you will receive [Guild Create](#DOCS_TOPICS_GATEWAY/guild-create) events.
@@ -439,7 +432,6 @@ Used to trigger the initial handshake with the gateway.
 | large_threshold?     | integer                                                    | value between 50 and 250, total number of members where the gateway will stop sending offline members in the guild member list | 50      |
 | shard?               | array of two integers (shard_id, num_shards)               | used for [Guild Sharding](#DOCS_TOPICS_GATEWAY/sharding)                                                                       | -       |
 | presence?            | [update status](#DOCS_TOPICS_GATEWAY/update-status) object | presence structure for initial presence information                                                                            | -       |
-| guild_subscriptions? | boolean                                                    | enables dispatching of guild subscription events (presence and typing events)                                                  | true    |
 | intents              | integer                                                    | the [Gateway Intents](#DOCS_TOPICS_GATEWAY/gateway-intents) you wish to receive                                                | -       |
 
 ###### Identify Connection Properties
@@ -464,7 +456,6 @@ Used to trigger the initial handshake with the gateway.
     },
     "compress": true,
     "large_threshold": 250,
-    "guild_subscriptions": false,
     "shard": [0, 1],
     "presence": {
       "activities": [{
