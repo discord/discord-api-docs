@@ -28,8 +28,7 @@ You may not use the APIs in any way to:
 - obtain Discord User passwords to obtain access to Discord Data; 
 - sell, license or otherwise commercialize any Discord Data; 
 - provide or direct services to children under the age of thirteen (13) in the United States or, outside of the United States, the relevant age of digital consent; 
-- process Discord Data in a way that surprises or violates Discord users’ expectations; or
-- access any unpublished portion of the APIs without express written permission from Discord.
+- process Discord Data in a way that surprises or violates Discord users’ expectations.
 
 ## Don’t Do Anything Illegal, Harmful, or Otherwise Not Cool.
 
@@ -41,7 +40,7 @@ You may not use the APIs in any way:
 - to encourage or promote illegal activity or violation of third party rights;
 - to use the APIs to process or store any data that is subject to the International Traffic in Arms Regulations maintained by the U.S. Department of State
 - to distribute NSFW material without an NSFW tag; or
-- to defame, abuse, harass, stalk, threaten others, or otherwise violate our [Community Guidelines](https://discordapp.com/guidelines).
+- to defame, abuse, harass, stalk, threaten others, or otherwise violate our [Community Guidelines](https://discord.com/guidelines).
 
 ## Don’t abuse the platform. 
 
@@ -52,8 +51,8 @@ You will:
 
 You will not:
 
-- remove, obscure, or alter Discord’s [Terms of Service](https://discordapp.com/terms) or any links to or notices of those terms;
-- encourage or create functionality for your users that violates Discord’s [Terms of Service](https://discordapp.com/terms);
+- remove, obscure, or alter Discord’s [Terms of Service](https://discord.com/terms) or any links to or notices of those terms;
+- encourage or create functionality for your users that violates Discord’s [Terms of Service](https://discord.com/terms);
 - sublicense an API for use by a third party;
 - create an application that functions substantially the same as the APIs and offer it for use by third parties;
 - perform an action with the intent of introducing to Discord products and services any viruses, worms, defects, Trojan horses, malware, or any items of a destructive nature; 
@@ -71,11 +70,11 @@ We support increases to the following rate limits if your app meets the criteria
 please follow the outlined steps:
 
 - 100 server limit for your bot
-    - Please see your bot’s settings and get verified and approved for Privileged Intents as needed. [Read more here](https://support.discordapp.com/hc/en-us/articles/360040720412)
+    - Please see your bot’s settings and get verified and approved for Privileged Intents as needed. [Read more here](https://support.discord.com/hc/en-us/articles/360040720412)
 - Large Bot Sharding
-    - If you are in over 200,000 guilds, please reach out to support at [https://dis.gd/contact](https://dis.gd/contact) about Large Bot Sharding. [Read more here](https://discord.com/developers/docs/topics/gateway#identifying)
+    - If you are near or in over 150,000 guilds, please reach out to support at [https://dis.gd/contact](https://dis.gd/contact) about Large Bot Sharding. [Read more here](https://discord.com/developers/docs/topics/gateway#sharding-for-very-large-bots)
 - Higher global rate limit
-    - If you are in over 200,000 guilds, please reach out to support at [https://dis.gd/contact](https://dis.gd/contact) about a higher global rate limit
+    - If you are near or in over 150,000 guilds, please reach out to support at [https://dis.gd/contact](https://dis.gd/contact) about a higher global rate limit
 
 ## HIPAA Rules.
 

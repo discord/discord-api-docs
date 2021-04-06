@@ -17,12 +17,68 @@ Discord exposes different versions of our API. You can specify which version to 
 
 ###### API Versions
 
-| Version | Status       | Default |
-| ------- | ------------ | ------- |
-| 6       | Available    | ✓       |
-| 5       | Discontinued |         |
-| 4       | Discontinued |         |
-| 3       | Discontinued |         |
+| Version | Status                           | Default |
+|---------|----------------------------------|---------|
+| 8       | Available                        |         |
+| 7       | Doesn't look like anything to me |         |
+| 6       | Deprecated                       | ✓       |
+| 5       | Discontinued                     |         |
+| 4       | Discontinued                     |         |
+| 3       | Discontinued                     |         |
+
+## Error Messages
+
+In API v8, we've improved error formatting in form error responses. The response will tell you which json key contains the error, the error code, and a human readable error message. We will be frequently adding new error messages, so a complete list of errors is not feasible and would be almost instantly out of date. Here are some examples instead:
+
+###### Array Error
+
+```json
+{
+    "code": 50035,
+    "errors": {
+        "activities": {
+            "0": {
+                "platform": {
+                    "_errors": [
+                        {
+                            "code": "BASE_TYPE_CHOICES",
+                            "message": "Value must be one of ('desktop', 'android', 'ios')."
+                        }
+                    ]
+                },
+                "type": {
+                    "_errors": [
+                        {
+                            "code": "BASE_TYPE_CHOICES",
+                            "message": "Value must be one of (0, 1, 2, 3, 4, 5)."
+                        }
+                    ]
+                }
+            }
+        }
+    },
+    "message": "Invalid Form Body"
+}
+```
+
+###### Object Error
+
+```json
+{
+    "code": 50035,
+    "errors": {
+        "access_token": {
+            "_errors": [
+                {
+                    "code": "BASE_TYPE_REQUIRED",
+                    "message": "This field is required"
+                }
+            ]
+        }
+    },
+    "message": "Invalid Form Body"
+}
+```
 
 ## Authentication
 
@@ -63,7 +119,7 @@ Discord utilizes Twitter's [snowflake](https://github.com/twitter/snowflake/tree
 ###### Snowflake ID Format Structure (Left to Right)
 
 | Field               | Bits     | Number of bits | Description                                                                  | Retrieval                           |
-| ------------------- | -------- | -------------- | ---------------------------------------------------------------------------- | ----------------------------------- |
+|---------------------|----------|----------------|------------------------------------------------------------------------------|-------------------------------------|
 | Timestamp           | 63 to 22 | 42 bits        | Milliseconds since Discord Epoch, the first second of 2015 or 1420070400000. | `(snowflake >> 22) + 1420070400000` |
 | Internal worker ID  | 21 to 17 | 5 bits         |                                                                              | `(snowflake & 0x3E0000) >> 17`      |
 | Internal process ID | 16 to 12 | 5 bits         |                                                                              | `(snowflake & 0x1F000) >> 12`       |
@@ -71,7 +127,7 @@ Discord utilizes Twitter's [snowflake](https://github.com/twitter/snowflake/tree
 
 ### Convert Snowflake to DateTime
 
-![snowflake-composition](snowflake.png)
+![Graphical representation of how a Snowflake is constructed](snowflake.png)
 
 ### Snowflake IDs in Pagination
 
@@ -82,7 +138,7 @@ It is useful to note that snowflake IDs are just numbers with a timestamp, so wh
 ###### Generating a snowflake ID from a Timestamp Example
 
 ```
-timestamp_ms - DISCORD_EPOCH << 22
+(timestamp_ms - DISCORD_EPOCH) << 22
 ```
 
 ## ID Serialization
@@ -128,7 +184,7 @@ Resource fields that are optional have names that are suffixed with a question m
 ###### Example Nullable and Optional Fields
 
 | Field                        | Type    |
-| ---------------------------- | ------- |
+|------------------------------|---------|
 | optional_field?              | string  |
 | nullable_field               | ?string |
 | optional_and_nullable_field? | ?string |
@@ -176,7 +232,7 @@ Discord utilizes a subset of markdown for rendering message content on its clien
 ###### Formats
 
 | Type                    | Structure          | Example                      |
-| ----------------------- | ------------------ | ---------------------------- |
+|-------------------------|--------------------|------------------------------|
 | User                    | <@USER_ID>         | <@80351110224678912>         |
 | User (Nickname)         | <@!USER_ID>        | <@!80351110224678912>        |
 | Channel                 | <#CHANNEL_ID>      | <#103735883630395392>        |
@@ -185,7 +241,7 @@ Discord utilizes a subset of markdown for rendering message content on its clien
 | Custom Emoji            | <:NAME:ID>         | <:mmLol:216154654256398347>  |
 | Custom Emoji (Animated) | <a:NAME:ID>        | <a:b1nzy:392938283556143104> |
 
-Using the markdown for either users, roles, or channels will mention the target(s) accordingly. Standard emoji is currently rendered using [Twemoji](https://twemoji.twitter.com/) for Desktop/Android and Apple's native emoji on iOS.
+Using the markdown for either users, roles, or channels will usually mention the target(s) accordingly, but this can be suppressed using the `allowed_mentions` parameter when creating a message. Standard emoji are currently rendered using [Twemoji](https://twemoji.twitter.com/) for Desktop/Android and Apple's native emoji on iOS.
 
 ## Image Formatting
 
@@ -200,7 +256,7 @@ Discord uses ids and hashes to render images in the client. These hashes can be 
 ###### Image Formats
 
 | Name | Extension   |
-| ---- | ----------- |
+|------|-------------|
 | JPEG | .jpg, .jpeg |
 | PNG  | .png        |
 | WebP | .webp       |
@@ -209,13 +265,13 @@ Discord uses ids and hashes to render images in the client. These hashes can be 
 ###### CDN Endpoints
 
 | Type                   | Path                                                                                                                                                                                                                                    | Supports             |
-| ---------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------- |
+|------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------|
 | Custom Emoji           | emojis/[emoji_id](#DOCS_RESOURCES_EMOJI/emoji-object).png                                                                                                                                                                               | PNG, GIF             |
-| Guild Icon             | icons/[guild_id](#DOCS_RESOURCES_GUILD/guild-object)/[guild_icon](#DOCS_RESOURCES_GUILD/guild-object).png                                                                                                                               | PNG, JPEG, WebP, GIF |
+| Guild Icon             | icons/[guild_id](#DOCS_RESOURCES_GUILD/guild-object)/[guild_icon](#DOCS_RESOURCES_GUILD/guild-object).png \*\*                                                                                                                          | PNG, JPEG, WebP, GIF |
 | Guild Splash           | splashes/[guild_id](#DOCS_RESOURCES_GUILD/guild-object)/[guild_splash](#DOCS_RESOURCES_GUILD/guild-object).png                                                                                                                          | PNG, JPEG, WebP      |
 | Guild Discovery Splash | discovery-splashes/[guild_id](#DOCS_RESOURCES_GUILD/guild-object)/[guild_discovery_splash](#DOCS_RESOURCES_GUILD/guild-object).png                                                                                                      | PNG, JPEG, WebP      |
 | Guild Banner           | banners/[guild_id](#DOCS_RESOURCES_GUILD/guild-object)/[guild_banner](#DOCS_RESOURCES_GUILD/guild-object).png                                                                                                                           | PNG, JPEG, WebP      |
-| Default User Avatar    | embed/avatars/[user_discriminator](#DOCS_RESOURCES_USER/user-object).png \*                                                                                                                                                             | PNG                  |
+| Default User Avatar    | embed/avatars/[user_discriminator](#DOCS_RESOURCES_USER/user-object).png \* \*\*\*                                                                                                                                                      | PNG                  |
 | User Avatar            | avatars/[user_id](#DOCS_RESOURCES_USER/user-object)/[user_avatar](#DOCS_RESOURCES_USER/user-object).png \*\*                                                                                                                            | PNG, JPEG, WebP, GIF |
 | Application Icon       | app-icons/[application_id](#MY_APPLICATIONS/top)/[icon](#DOCS_TOPICS_OAUTH2/get-current-application-information).png                                                                                                                    | PNG, JPEG, WebP      |
 | Application Asset      | app-assets/[application_id](#MY_APPLICATIONS/top)/[asset_id](#DOCS_TOPICS_GATEWAY/activity-object-activity-assets).png                                                                                                                  | PNG, JPEG, WebP      |
@@ -225,6 +281,8 @@ Discord uses ids and hashes to render images in the client. These hashes can be 
 \* In the case of the Default User Avatar endpoint, the value for `user_discriminator` in the path should be the user's discriminator modulo 5—Test#1337 would be `1337 % 5`, which evaluates to 2.
 
 \*\* In the case of endpoints that support GIFs, the hash will begin with `a_` if it is available in GIF format. (example: `a_1269e74af4df7417b13759eae50c83dc`)
+
+\*\*\* In the case of the Default User Avatar endpoint, the size of images returned is constant with the "size" querystring parameter being ignored.
 
 ## Image Data
 

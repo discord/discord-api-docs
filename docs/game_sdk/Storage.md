@@ -45,6 +45,8 @@ Yup, that's it! Don't know what this file is? Go read [Branches and Builds](#DOC
 
 Returns the filepath to which Discord saves files if you were to use the SDK's storage manager. Discord has branch-specific, user-specific saves, so you and your little brother will never overwrite each others' save files. If your game already has save file writing logic, you can use this method to get that user-specific path and help users protect their save files.
 
+Returns a `string`.
+
 ###### Parameters
 
 None
@@ -140,6 +142,8 @@ storageManager.Write("high_score", Encoding.UTF8.GetBytes("9999"));
 
 Writes data asynchronously to disk under the given keyname.
 
+Returns a `Discord.Result` via callback.
+
 ###### Parameters
 
 | name | type   | description                 |
@@ -204,7 +208,7 @@ if (!highScore)
 
 Returns file info for the given key name.
 
-Returns a `Filestat`.
+Returns a `FileStat`.
 
 ###### Parameters
 
