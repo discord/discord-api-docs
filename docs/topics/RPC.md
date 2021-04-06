@@ -13,7 +13,7 @@ All Discord clients have an RPC server running on localhost that allows control 
 
 ## Restrictions
 
-For connections to the RPC server, a [list of approved testers](#DOCS_TOPICS_RPC/authorize) is used to restrict access while you're still developing. You can invite up to 50 people to your testers list.
+For connections to the RPC server, a [list of approved testers](#DOCS_TOPICS_RPC/authorize) is used to restrict access while you're still developing. You can invite up to 50 people.
 
 For applications/games not approved, we limit you to creating 10 guilds and 10 channels. This limit is raised to virtually unlimited after approval.
 
@@ -170,9 +170,9 @@ Events are payloads sent over the socket to a client that correspond to events i
 
 Used to authenticate a new client with your app. By default this pops up a modal in-app that asks the user to authorize access to your app.
 
-**We currently do not allow access to RPC for unapproved games without an entry on a game's testers list.** We grant 50 testing spots, which should be ample for development and testing. After approval, this restriction is removed and the testers feature is no longer needed.
+**We currently do not allow access to RPC for unapproved apps without being on the game's list of testers**. We grant 50 testing spots, which should be ample for development. After approval, this restriction is removed and your app will be accessible to anyone.
 
-We also have an RPC token system to bypass the user authorization modal. This is usable by approved games as well as by users on a game's approval list, and also disallows use of the `messages.read` scope. If you have been granted access, you can send a POST request to `https://discord.com/api/oauth2/token/rpc` with your application's `client_id` and `client_secret` in the body (sent as a url-encoded body, **not JSON**). You can then pass the returned `rpc_token` value to the `rpc_token` field in your RPC authorize request (documented below).
+We also have an RPC token system to bypass the user authorization modal. This is usable by approved games as well as by users on a game's list of testers, and also disallows use of the `messages.read` scope. If you have been granted access, you can send a POST request to `https://discord.com/api/oauth2/token/rpc` with your application's `client_id` and `client_secret` in the body (sent as a url-encoded body, **not JSON**). You can then pass the returned `rpc_token` value to the `rpc_token` field in your RPC authorize request (documented below).
 
 ###### Authorize Argument Structure
 
