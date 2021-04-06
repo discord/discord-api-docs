@@ -2,6 +2,10 @@
 
 Discord has the best online community. At least, we like to think so, and this is our website, so our word is law, deal with it. Therefore it's a fact that our community is the best, and they make really awesome things that we want to share with developers to make their lives easier. From permissions calculators to embed visualizers to full libraries to interface with our API, there are so many great things that have come out of our community.
 
+## Discord Developers
+
+The [Official Discord Developers server](https://discord.gg/discord-developers) is a developer ran, but community driven, support hub. If you need help with developing something on Discord or want official updates from the developers, this is the place to be.
+
 ## Libraries
 
 The Discord team curates the following list of officially vetted libraries that conform to our APIs standards around authentication and rate limiting. Using custom implementations or non-compliant libraries that abuse the API or cause excessive rate limits may result in a **permanent** ban.
@@ -14,6 +18,7 @@ Many of these libraries are represented in the [unofficial, community-driven Dis
 | ------------------------------------------------------------ | ---------- |
 | [discljord](https://github.com/igjoshua/discljord)           | Clojure    |
 | [aegis.cpp](https://github.com/zeroxs/aegis.cpp)             | C++        |
+| [Sleepy Discord](https://github.com/yourWaifu/sleepy-discord)| C++        |
 | [discordcr](https://github.com/shardlab/discordcr)           | Crystal    |
 | [Discord.Net](https://github.com/RogueException/Discord.Net) | C#         |
 | [DSharpPlus](https://github.com/DSharpPlus/DSharpPlus)       | C#         |
@@ -43,11 +48,14 @@ Many of these libraries are represented in the [unofficial, community-driven Dis
 | [AckCord](https://github.com/Katrix/AckCord)                 | Scala      |
 | [Sword](https://github.com/Azoy/Sword)                       | Swift      |
 | [discordeno](https://github.com/discordeno/discordeno)       | TypeScript |
+| [Harmony](https://github.com/harmonyland/harmony)            | TypeScript |
 
 ## Interactions
 
 [Interactions and Slash Commands](#DOCS_INTERACTIONS_SLASH_COMMANDS/) are the great, new way of making a Discord bot. The following open-source libraries provide help for the security and authentication checks that are mandatory if you are receiving Interactions via outgoing webhook. They also include some types for the Interactions data models.
 
+- Go
+  - [discord-interactions-go](https://github.com/bsdlp/discord-interactions-go)
 - Javascript
   - [discord-interactions-js](https://github.com/discord/discord-interactions-js)
   - [slash-create](https://github.com/Snazzah/slash-create)
@@ -55,6 +63,7 @@ Many of these libraries are represented in the [unofficial, community-driven Dis
 - Python
   - [discord-py-slash-command](https://github.com/eunwoo1104/discord-py-slash-command)
   - [discord-interactions-python](https://github.com/discord/discord-interactions-python)
+  - [discord-interactions.py](https://github.com/LiBa001/discord-interactions.py)
   - [dispike](https://github.com/ms7m/dispike)
 - PHP
   - [discord-interactions-php](https://github.com/discord/discord-interactions-php)
@@ -64,7 +73,6 @@ Many of these libraries are represented in the [unofficial, community-driven Dis
 - Other
   - [caddy-discord-interactions-verifier](https://github.com/CarsonHoffman/caddy-discord-interactions-verifier)
   - [Rauf's Slash Command Generator](https://rauf.wtf/slash)
-
 
 ## Game SDK Tools
 
@@ -97,3 +105,9 @@ Using Discord's [Dispatch](#DOCS_DISPATCH_DISPATCH_AND_YOU) tool for game develo
 Webhooks and embeds might seem like black magic. That's because they are, but let us help you demystify them a bit. This sweet embed visualizer lets you play around with JSON data and see exactly how it will look embedded in Discord. It even includes a webhook mode!
 
 - [LeoV's Embed Visualizer](https://leovoel.github.io/embed-visualizer/)
+
+## API Types
+
+If you're working on a project that interacts with our API, you might find an API types module useful as it provides type inspection/completion for the Discord API.
+
+- [discord.js API Types](https://github.com/discordjs/discord-api-types)
