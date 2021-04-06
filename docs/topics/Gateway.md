@@ -1120,6 +1120,7 @@ Active sessions are indicated with an "online", "idle", or "dnd" string per plat
 | secrets?        | [secrets](#DOCS_TOPICS_GATEWAY/activity-object-activity-secrets) object       | secrets for Rich Presence joining and spectating                                                                          |
 | instance?       | boolean                                                                       | whether or not the activity is an instanced game session                                                                  |
 | flags?          | integer                                                                       | [activity flags](#DOCS_TOPICS_GATEWAY/activity-object-activity-flags) `OR`d together, describes what the payload includes |
+| buttons?        | array of [buttons](#DOCS_TOPICS_GATEWAY/activity-object-activity-buttons)     | the custom buttons shown in the Rich Presence (max 2)                                                                     |
 
 > info
 > Bots are only able to send `name`, `type`, and optionally `url`.
@@ -1186,6 +1187,15 @@ Active sessions are indicated with an "online", "idle", or "dnd" string per plat
 | JOIN_REQUEST | 1 << 3 |
 | SYNC         | 1 << 4 |
 | PLAY         | 1 << 5 |
+
+###### Activity Buttons
+
+When received over the gateway, the `buttons` field is an array of strings, which are the button labels. Bots cannot access a user's activity button URLs. When sending, the `buttons` field must be an array of the below object:
+
+| Field | Type   | Description                                                |
+|-------|--------|------------------------------------------------------------|
+| label | string | the text shown on the button (1-32 characters)             |
+| url   | string | the url opened when clicking the button (1-512 characters) |
 
 ###### Example Activity
 
