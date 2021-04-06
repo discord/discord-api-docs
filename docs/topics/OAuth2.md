@@ -84,7 +84,6 @@ https://nicememe.website/?code=NhhvTDYsFcdgNLnnLijcl7Ku7bEEeee&state=15773059ghq
 - `grant_type` - must be set to `authorization_code`
 - `code` - the code from the querystring
 - `redirect_uri` - your `redirect_uri`
-- `scope` - the scopes requested in your authorization url, space-delimited
 
 ###### Access Token Exchange Example
 
@@ -100,8 +99,7 @@ def exchange_code(code):
     'client_secret': CLIENT_SECRET,
     'grant_type': 'authorization_code',
     'code': code,
-    'redirect_uri': REDIRECT_URI,
-    'scope': 'identify email connections'
+    'redirect_uri': REDIRECT_URI
   }
   headers = {
     'Content-Type': 'application/x-www-form-urlencoded'
@@ -132,7 +130,7 @@ Having the user's access token allows your application to make certain requests 
 - `grant_type` - must be set to `refresh_token`
 - `refresh_token` - the user's refresh token
 - `redirect_uri` - your `redirect_uri`
-- `scope` - the scopes requested in your authorization url, space-delimited
+- `scope` - one or more scopes requested in your authorization url, space-delimited (optional, will be treated as equal to all granted scopes if empty or omitted)
 
 ###### Refresh Token Exchange Example
 
