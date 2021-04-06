@@ -367,9 +367,11 @@ Any user that wishes to add your webhook to their channel will need to go throug
 
 ## Get Current Application Information % GET /oauth2/applications/@me
 
-Returns the bot's OAuth2 [application object](#DOCS_TOPICS_OAUTH2/application-object) without `flags`.
+Returns the bot's OAuth2 [application](#DOCS_TOPICS_OAUTH2/application) object.
 
-###  Application Object
+## Application
+
+###### Application Structure
 
 | Field                  | Type                                                       | Description                                                                                                                |
 |------------------------|------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------|
@@ -390,7 +392,7 @@ Returns the bot's OAuth2 [application object](#DOCS_TOPICS_OAUTH2/application-ob
 | cover_image?           | string                                                     | if this application is a game sold on Discord, this field will be the hash of the image on store embeds                    |
 | flags                  | int                                                        | the application's public flags                                                                                             |
 
-###### Example Application Information
+###### Example Application
 
 ```json
 {
