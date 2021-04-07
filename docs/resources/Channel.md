@@ -26,19 +26,21 @@ Represents a guild or DM channel within Discord.
 | application_id?        | snowflake                                                              | application id of the group DM creator if it is bot-created                                                                                                                     |
 | parent_id?             | ?snowflake                                                             | id of the parent category for a channel (each parent category can contain up to 50 channels)                                                                                    |
 | last_pin_timestamp?    | ?ISO8601 timestamp                                                     | when the last pinned message was pinned. This may be `null` in events such as `GUILD_CREATE` when a message is not pinned.                                                      |
+| rtc_region?            | ?string                                                                | [voice region](#DOCS_RESOURCES_VOICE/voice-region-object) id for the voice channel, automatic when set to null                                                                  |
 | video_quality_mode?    | integer                                                                | the camera [video quality mode](#DOCS_RESOURCES_CHANNEL/channel-object-video-quality-modes) of the voice channel, 1 when not present                                            |
 
 ###### Channel Types
 
-| Type           | ID | Description                                                                                                                                          |
-|----------------|----|------------------------------------------------------------------------------------------------------------------------------------------------------|
-| GUILD_TEXT     | 0  | a text channel within a server                                                                                                                       |
-| DM             | 1  | a direct message between users                                                                                                                       |
-| GUILD_VOICE    | 2  | a voice channel within a server                                                                                                                      |
-| GROUP_DM       | 3  | a direct message between multiple users                                                                                                              |
-| GUILD_CATEGORY | 4  | an [organizational category](https://support.discord.com/hc/en-us/articles/115001580171-Channel-Categories-101) that contains up to 50 channels      |
-| GUILD_NEWS     | 5  | a channel that [users can follow and crosspost into their own server](https://support.discord.com/hc/en-us/articles/360032008192)                    |
-| GUILD_STORE    | 6  | a channel in which game developers can [sell their game on Discord](https://discord.com/developers/docs/game-and-server-management/special-channels) |
+| Type              | ID  | Description                                                                                                                                          |
+| ----------------- | --- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| GUILD_TEXT        | 0   | a text channel within a server                                                                                                                       |
+| DM                | 1   | a direct message between users                                                                                                                       |
+| GUILD_VOICE       | 2   | a voice channel within a server                                                                                                                      |
+| GROUP_DM          | 3   | a direct message between multiple users                                                                                                              |
+| GUILD_CATEGORY    | 4   | an [organizational category](https://support.discord.com/hc/en-us/articles/115001580171-Channel-Categories-101) that contains up to 50 channels      |
+| GUILD_NEWS        | 5   | a channel that [users can follow and crosspost into their own server](https://support.discord.com/hc/en-us/articles/360032008192)                    |
+| GUILD_STORE       | 6   | a channel in which game developers can [sell their game on Discord](https://discord.com/developers/docs/game-and-server-management/special-channels) |
+| GUILD_STAGE_VOICE | 13  | a voice channel for [hosting events with an audience](https://support.discord.com/hc/en-us/articles/1500005513722)                                   |
 
 ###### Video Quality Modes
 
@@ -97,7 +99,8 @@ Bots can post or publish messages in this type of channel if they have the prope
   "permission_overwrites": [],
   "bitrate": 64000,
   "user_limit": 0,
-  "parent_id": null
+  "parent_id": null,
+  "rtc_region": null
 }
 ```
 
@@ -250,6 +253,7 @@ Represents a message sent in a channel within Discord.
 | GUILD_DISCOVERY_GRACE_PERIOD_FINAL_WARNING   | 17    |
 | REPLY                                        | 19    |
 | APPLICATION_COMMAND                          | 20    |
+| GUILD_INVITE_REMINDER                        | 22    |
 
 ###### Message Activity Structure
 
@@ -554,8 +558,8 @@ Embed types are "loosely defined" and, for the most part, are not used by our cl
 | size      | integer   | size of file in bytes     |
 | url       | string    | source url of file        |
 | proxy_url | string    | a proxied url of file     |
-| height    | ?integer  | height of file (if image) |
-| width     | ?integer  | width of file (if image)  |
+| height?   | ?integer  | height of file (if image) |
+| width?    | ?integer  | width of file (if image)  |
 
 ### Channel Mention Object
 
@@ -656,8 +660,7 @@ Due to possible ambiguities, not all configurations are valid. An _invalid_ conf
 Because `parse: ["users"]` and `users: [123, 124]` are both present, we would throw a validation error.
 This is because the conditions cannot be fulfilled simultaneously (they are mutually exclusive).
 
-The ID list fields act as whitelists, and can contain mentions not in the content. These ID's that are not in the
-content will simply be ignored.
+Any entities with an ID included in the list of IDs can be mentioned. Note that the IDs of entities not present in the message's content will simply be ignored.
 e.g. The following example is valid, and would mention user 123, but _not_ user 125 since there is no mention of
 user 125 in the content.
 
@@ -712,6 +715,7 @@ Update a channel's settings. Requires the `MANAGE_CHANNELS` permission for the g
 | user_limit            | ?integer                                                                | the user limit of the voice channel; 0 refers to no limit, 1 to 99 refers to a user limit                                                                                       | Voice                    |
 | permission_overwrites | ?array of [overwrite](#DOCS_RESOURCES_CHANNEL/overwrite-object) objects | channel or category-specific permissions                                                                                                                                        | All                      |
 | parent_id             | ?snowflake                                                              | id of the new parent category for a channel                                                                                                                                     | Text, News, Store, Voice |
+| rtc_region            | ?string                                                                 | channel [voice region](#DOCS_RESOURCES_VOICE/voice-region-object) id, automatic when set to null                                                                                | Voice                    |
 | video_quality_mode    | ?integer                                                                | the camera [video quality mode](#DOCS_RESOURCES_CHANNEL/channel-object-video-quality-modes) of the voice channel                                                                | Voice                    |
 
 ## Delete/Close Channel % DELETE /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}
@@ -904,7 +908,6 @@ The `emoji` must be [URL Encoded](https://en.wikipedia.org/wiki/Percent-encoding
 
 | Field  | Type      | Description                           | Required | Default |
 |--------|-----------|---------------------------------------|----------|---------|
-| before | snowflake | get users before this user ID         | false    | absent  |
 | after  | snowflake | get users after this user ID          | false    | absent  |
 | limit  | integer   | max number of users to return (1-100) | false    | 25      |
 
@@ -976,14 +979,15 @@ Create a new [invite](#DOCS_RESOURCES_INVITE/invite-object) object for the chann
 
 ###### JSON Params
 
-| Field             | Type    | Description                                                                                         | Default          |
-| ----------------- | ------- | --------------------------------------------------------------------------------------------------- | ---------------- |
-| max_age           | integer | duration of invite in seconds before expiry, or 0 for never. between 0 and 604800 (7 days)          | 86400 (24 hours) |
-| max_uses          | integer | max number of uses or 0 for unlimited. between 0 and 100                                            | 0                |
-| temporary         | boolean | whether this invite only grants temporary membership                                                | false            |
-| unique            | boolean | if true, don't try to reuse a similar invite (useful for creating many unique one time use invites) | false            |
-| target_user_id?   | string  | the target user id for this invite                                                                  |                  |
-| target_user_type? | integer | the [type of user target](#DOCS_RESOURCES_INVITE/invite-object-target-user-types) for this invite   |                  |
+| Field                 | Type      | Description                                                                                                                               | Default          |
+|-----------------------|-----------|-------------------------------------------------------------------------------------------------------------------------------------------|------------------|
+| max_age               | integer   | duration of invite in seconds before expiry, or 0 for never. between 0 and 604800 (7 days)                                                | 86400 (24 hours) |
+| max_uses              | integer   | max number of uses or 0 for unlimited. between 0 and 100                                                                                  | 0                |
+| temporary             | boolean   | whether this invite only grants temporary membership                                                                                      | false            |
+| unique                | boolean   | if true, don't try to reuse a similar invite (useful for creating many unique one time use invites)                                       | false            |
+| target_type           | integer   | the [type of target](#DOCS_RESOURCES_INVITE/invite-object-invite-target-types) for this voice channel invite                              |                  |
+| target_user_id        | snowflake | the id of the user whose stream to display for this invite, required if `target_type` is 1, the user must be streaming in the channel     |                  |
+| target_application_id | snowflake | the id of the embedded application to open for this invite, required if `target_type` is 2, the application must have the `EMBEDDED` flag |                  |
 
 ## Delete Channel Permission % DELETE /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/permissions/{overwrite.id#DOCS_RESOURCES_CHANNEL/overwrite-object}
 

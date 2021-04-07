@@ -19,7 +19,7 @@ The first step in implementing OAuth2 is [registering a developer application](#
 
 ###### OAuth2 Scopes
 
-These are a list of all the OAuth2 scopes that Discord supports. Scopes that are behind a whitelist cannot be requested unless your application is on said whitelist, and may cause undocumented/error behavior in the OAuth2 flow if you request them from a user.
+These are a list of all the OAuth2 scopes that Discord supports. Some scopes require approval from Discord to use. Requesting them from a user without approval from Discord may cause undocumented/error behavior in the OAuth2 flow.
 
 | Name                         | Description                                                                                                                                                                              |
 |------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -31,16 +31,16 @@ These are a list of all the OAuth2 scopes that Discord supports. Scopes that are
 | guilds.join                  | allows [/guilds/{guild.id}/members/{user.id}](#DOCS_RESOURCES_GUILD/add-guild-member) to be used for joining users to a guild                                                            |
 | gdm.join                     | allows your app to [join users to a group dm](#DOCS_RESOURCES_CHANNEL/group-dm-add-recipient)                                                                                            |
 | messages.read                | for local rpc server api access, this allows you to read messages from all client channels (otherwise restricted to channels/guilds your app creates)                                    |
-| rpc                          | for local rpc server access, this allows you to control a user's local Discord client - whitelist only                                                                                   |                                                                                 |
-| rpc.notifications.read       | for local rpc server api access, this allows you to receive notifications pushed out to the user - whitelist only                                                                        |
+| rpc                          | for local rpc server access, this allows you to control a user's local Discord client - requires Discord approval                                                                                  |
+| rpc.notifications.read       | for local rpc server api access, this allows you to receive notifications pushed out to the user - requires Discord approval                                                                        |
 | webhook.incoming             | this generates a webhook that is returned in the oauth token response for authorization code grants                                                                                      |
-| applications.builds.upload   | allows your app to upload/update builds for a user's applications - whitelist only                                                                                                       |
+| applications.builds.upload   | allows your app to upload/update builds for a user's applications - requires Discord approval                                                                                                       |
 | applications.builds.read     | allows your app to read build data for a user's applications                                                                                                                             |
 | applications.store.update    | allows your app to read and update store data (SKUs, store listings, achievements, etc.) for a user's applications                                                                       |
 | applications.entitlements    | allows your app to read entitlements for a user's applications                                                                                                                           |
-| relationships.read           | allows your app to know a user's friends and implicit relationships - whitelist only                                                                                                     |
-| activities.read              | allows your app to fetch data from a user's "Now Playing/Recently Played" list - whitelist only                                                                                          |
-| activities.write             | allows your app to update a user's activity - whitelist only (NOT REQUIRED FOR [GAMESDK ACTIVITY MANAGER](#DOCS_GAME_SDK_ACTIVITIES/))                                                   |
+| relationships.read           | allows your app to know a user's friends and implicit relationships - requires Discord approval                                                                                                     |
+| activities.read              | allows your app to fetch data from a user's "Now Playing/Recently Played" list - requires Discord approval                                                                                          |
+| activities.write             | allows your app to update a user's activity - requires Discord approval (NOT REQUIRED FOR [GAMESDK ACTIVITY MANAGER](#DOCS_GAME_SDK_ACTIVITIES/))                                                   |
 | applications.commands        | allows your app to use [Slash Commands](#DOCS_INTERACTIONS_SLASH_COMMANDS/) in a guild                                                                                                   |
 | applications.commands.update | allows your app to update its [Slash Commands](#DOCS_INTERACTIONS_SLASH_COMMANDS/) via this bearer token - [client credentials grant](#DOCS_TOPICS_OAUTH2/client-credentials-grant) only |
 
@@ -84,7 +84,6 @@ https://nicememe.website/?code=NhhvTDYsFcdgNLnnLijcl7Ku7bEEeee&state=15773059ghq
 - `grant_type` - must be set to `authorization_code`
 - `code` - the code from the querystring
 - `redirect_uri` - your `redirect_uri`
-- `scope` - the scopes requested in your authorization url, space-delimited
 
 ###### Access Token Exchange Example
 
@@ -100,8 +99,7 @@ def exchange_code(code):
     'client_secret': CLIENT_SECRET,
     'grant_type': 'authorization_code',
     'code': code,
-    'redirect_uri': REDIRECT_URI,
-    'scope': 'identify email connections'
+    'redirect_uri': REDIRECT_URI
   }
   headers = {
     'Content-Type': 'application/x-www-form-urlencoded'
@@ -132,7 +130,7 @@ Having the user's access token allows your application to make certain requests 
 - `grant_type` - must be set to `refresh_token`
 - `refresh_token` - the user's refresh token
 - `redirect_uri` - your `redirect_uri`
-- `scope` - the scopes requested in your authorization url, space-delimited
+- `scope` - one or more scopes requested in your authorization url, space-delimited (optional, will be treated as equal to all granted scopes if empty or omitted)
 
 ###### Refresh Token Exchange Example
 
@@ -308,7 +306,20 @@ When receiving the access code on redirect, there will be additional querystring
     "verification_level": 0,
     "owner_id": "53908232999183680",
     "id": "2909267986347357250",
-    "icon": null
+    "icon": null,
+    "description": null,
+    "public_updates_channel_id": null,
+    "rules_channel_id": null,
+    "max_members": 100000,
+    "vanity_url_code": null,
+    "premium_subscription_count": 0,
+    "premium_tier": 0,
+    "preferred_locale": "en-US",
+    "system_channel_flags": 0,
+    "banner": null,
+    "max_presences": null,
+    "discovery_splash": null,
+    "max_video_channel_users": 25
   },
   "access_token": "zMndOe7jFLXGawdlxMOdNvXjjOce5X",
   "scope": "bot",
@@ -343,10 +354,12 @@ When the user navigates to this URL, they will be prompted to select a channel i
   "expires_in": 604800,
   "refresh_token": "PvPL7ELyMDc1836457XCDh1Y8jPbRm",
   "webhook": {
+    "application_id": "310954232226357250",
     "name": "testwebhook",
     "url": "https://discord.com/api/webhooks/347114750880120863/kKDdjXa1g9tKNs0-_yOwLyALC9gydEWP6gr9sHabuK1vuofjhQDDnlOclJeRIvYK-pj_",
     "channel_id": "345626669224982402",
     "token": "kKDdjXa1g9tKNs0-_yOwLyALC9gydEWP6gr9sHabuK1vuofjhQDDnlOclJeRIvYK-pj_",
+    "type": 1,
     "avatar": null,
     "guild_id": "290926792226357250",
     "id": "347114750880120863"
@@ -354,19 +367,13 @@ When the user navigates to this URL, they will be prompted to select a channel i
 }
 ```
 
-From this object, you should store the `webhook.token` and `webhook.id`. To execute a particular webhook, send a `POST` request to:
-
-###### Webhook Execution URL
-
-```
-https://discord.com/api/webhooks/WEBHOOK_ID/WEBHOOK_TOKEN
-```
+From this object, you should store the `webhook.token` and `webhook.id`. See the [execute webhook](#DOCS_RESOURCES_WEBHOOK/execute-webhook) documentation for how to send messages with the webhook.
 
 Any user that wishes to add your webhook to their channel will need to go through the full OAuth2 flow. A new webhook is created each time, so you will need to save the token and id. If you wish to send a message to all your webhooks, you'll need to iterate over each stored id:token combination and make `POST` requests to each one. Be mindful of our [Rate Limits](#DOCS_TOPICS_RATE_LIMITS/rate-limits)!
 
-## Get Current Application Information % GET /oauth2/applications/@me
+## Get Current Bot Application Information % GET /oauth2/applications/@me
 
-Returns the bot's OAuth2 [application](#DOCS_TOPICS_OAUTH2/application) object.
+Returns the bot's OAuth2 [application](#DOCS_TOPICS_OAUTH2/application) object without `flags`.
 
 ## Application
 
@@ -381,6 +388,8 @@ Returns the bot's OAuth2 [application](#DOCS_TOPICS_OAUTH2/application) object.
 | rpc_origins?           | array of strings                                           | an array of rpc origin urls, if rpc is enabled                                                                             |
 | bot_public             | boolean                                                    | when false only app owner can join the app's bot to guilds                                                                 |
 | bot_require_code_grant | boolean                                                    | when true the app's bot will only join upon completion of the full oauth2 code grant flow                                  |
+| terms_of_service_url?  | string                                                     | the url of the app's terms of service                                                                                      |
+| privacy_policy_url?    | string                                                     | the url of the app's privacy policy                                                                                        |
 | owner                  | partial [user](#DOCS_RESOURCES_USER/user-object) object    | partial user object containing info on the owner of the application                                                        |
 | summary                | string                                                     | if this application is a game sold on Discord, this field will be the summary field for the store page of its primary sku  |
 | verify_key             | string                                                     | the hex encoded key for verification in interactions and the GameSDK's [GetTicket](#DOCS_GAME_SDK_APPLICATIONS/get-ticket) |
@@ -389,7 +398,7 @@ Returns the bot's OAuth2 [application](#DOCS_TOPICS_OAUTH2/application) object.
 | primary_sku_id?        | snowflake                                                  | if this application is a game sold on Discord, this field will be the id of the "Game SKU" that is created, if exists      |
 | slug?                  | string                                                     | if this application is a game sold on Discord, this field will be the URL slug that links to the store page                |
 | cover_image?           | string                                                     | if this application is a game sold on Discord, this field will be the hash of the image on store embeds                    |
-| flags                  | int                                                        | the application's public flags                                                                                             |
+| flags                  | int                                                        | the application's public [flags](#DOCS_TOPICS_OAUTH2/application-application-flags)                                        |
 
 ###### Example Application
 
@@ -434,18 +443,29 @@ Returns the bot's OAuth2 [application](#DOCS_TOPICS_OAUTH2/application) object.
 }
 ```
 
+###### Application Flags
+
+| Value   | Name                             |
+|---------|----------------------------------|
+| 1 << 12 | GATEWAY_PRESENCE                 |
+| 1 << 13 | GATEWAY_PRESENCE_LIMITED         |
+| 1 << 14 | GATEWAY_GUILD_MEMBERS            |
+| 1 << 15 | GATEWAY_GUILD_MEMBERS_LIMITED    |
+| 1 << 16 | VERIFICATION_PENDING_GUILD_LIMIT |
+| 1 << 17 | EMBEDDED                         |
+
 ## Get Current Authorization Information % GET /oauth2/@me
 
 Returns info about the current authorization. Requires authentication with a bearer token.
 
 ###### Response Structure
 
-| Field       | Type                                                                 | Description                                                                       |
-|-------------|----------------------------------------------------------------------|-----------------------------------------------------------------------------------|
-| application | partial [application](#DOCS_TOPICS_OAUTH2/application-object) object | the current application                                                           |
-| scopes      | array of strings                                                     | the scopes the user has authorized the application for                            |
-| expires     | ISO8601 timestamp                                                    | when the access token expires                                                     |
-| user?       | [user](#DOCS_RESOURCES_USER/user-object) object                      | the user who has authorized, if the user has authorized with the `identify` scope |
+| Field       | Type                                                          | Description                                                                       |
+|-------------|---------------------------------------------------------------|-----------------------------------------------------------------------------------|
+| application | partial [application](#DOCS_TOPICS_OAUTH2/application) object | the current application                                                           |
+| scopes      | array of strings                                              | the scopes the user has authorized the application for                            |
+| expires     | ISO8601 timestamp                                             | when the access token expires                                                     |
+| user?       | [user](#DOCS_RESOURCES_USER/user-object) object               | the user who has authorized, if the user has authorized with the `identify` scope |
 
 ###### Example Authorization Information
 

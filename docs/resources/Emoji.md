@@ -11,7 +11,7 @@
 | --------------- | ---------------------------------------------------------------- | ------------------------------------------------------------------------- |
 | id              | ?snowflake                                                       | [emoji id](#DOCS_REFERENCE/image-formatting)                              |
 | name            | ?string (can be null only in reaction emoji objects)             | emoji name                                                                |
-| roles?          | array of [role](#DOCS_TOPICS_PERMISSIONS/role-object) object ids | roles this emoji is whitelisted to                                        |
+| roles?          | array of [role](#DOCS_TOPICS_PERMISSIONS/role-object) object ids | roles allowed to use this emoji                                        |
 | user?           | [user](#DOCS_RESOURCES_USER/user-object) object                  | user that created this emoji                                              |
 | require_colons? | boolean                                                          | whether this emoji must be wrapped in colons                              |
 | managed?        | boolean                                                          | whether this emoji is managed                                             |
@@ -92,7 +92,7 @@ Create a new emoji for the guild. Requires the `MANAGE_EMOJIS` permission. Retur
 | ----- | ---------------------------------------- | ---------------------------------------------- |
 | name  | string                                   | name of the emoji                              |
 | image | [image data](#DOCS_REFERENCE/image-data) | the 128x128 emoji image                        |
-| roles | array of snowflakes                      | roles for which this emoji will be whitelisted |
+| roles | array of snowflakes                      | roles allowed to use this emoji                |
 
 ## Modify Guild Emoji % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/emojis/{emoji.id#DOCS_RESOURCES_EMOJI/emoji-object}
 
@@ -106,7 +106,7 @@ Modify the given emoji. Requires the `MANAGE_EMOJIS` permission. Returns the upd
 | Field | Type                 | Description                                   |
 | ----- | -------------------- | --------------------------------------------- |
 | name  | string               | name of the emoji                             |
-| roles | ?array of snowflakes | roles to which this emoji will be whitelisted |
+| roles | ?array of snowflakes | roles allowed to use this emoji               |
 
 ## Delete Guild Emoji % DELETE /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/emojis/{emoji.id#DOCS_RESOURCES_EMOJI/emoji-object}
 
