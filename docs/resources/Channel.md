@@ -826,9 +826,11 @@ This example demonstrates usage of the endpoint *without* `payload_json`.
 ```
 --boundary
 Content-Disposition: form-data; name="content"
+
 Hello, World!
 --boundary
 Content-Disposition: form-data; name="tts"
+
 true
 --boundary--
 ```
@@ -838,6 +840,7 @@ This example demonstrates usage of the endpoint *with* `payload_json` and all co
 --boundary
 Content-Disposition: form-data; name="payload_json"
 Content-Type: application/json
+
 {
   "content": "Hello, World!",
   "embed": {
@@ -851,6 +854,7 @@ Content-Type: application/json
 --boundary
 Content-Disposition: form-data; name="file"; filename="myfilename.png"
 Content-Type: image/png
+
 [image bytes]
 --boundary--
 ```
