@@ -1,5 +1,21 @@
 # Change Log
 
+## Slash Command Permissions
+
+## April 5, 2021
+
+Need to keep some of your Slash Commands safe from prying eyes, or only available to the right people? Slash Commands now support [command permissions](#DOCS_INTERACTIONS_SLASH_COMMANDS/permissions)!
+
+You can enable or disable a command (guild or global) for a specific user or role in a guild. For now, users will still be able to see the commands, but won't be able to use them.
+
+New routes have been added to support this functionality:
+
+- [`GET Guild Application Command Permissions`](#DOCS_INTERACTIONS_SLASH_COMMANDS/getguildapplicationcommandpermissions)
+- [`GET Application Command Permissions`](#DOCS_INTERACTIONS_SLASH_COMMANDS/getapplicationcommandpermissions)
+- [`PUT Application Command Permissions`](#DOCS_INTERACTIONS_SLASH_COMMANDS/putapplicationcommandpermissions)
+
+A `default_permission` field has also been added to the [ApplicationCommand](#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommand) model. This field allows you to disable commands for everyone in a guild by default, if you prefer to make some of your commands an opt-in experience.
+
 ## Large Bot Sharding Lowered to 150,000 Guilds 
 
 ## March 15, 2021
