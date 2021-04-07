@@ -228,6 +228,19 @@ Make sure you've got `core->RunCallbacks()` going every frame!
 
 You're ready to go! Check out the rest of the documentation for more info on how to use the other pieces of the SDK. See an example of everything it can do in `examples/cpp/main.cpp` in the SDK zip file.
 
+## Code Primer - No Engine (Cpp)
+
+In your project folder, you'll want to make something like a "discord-files" folder, for organization. In that folder, copy all the `.h` and `.cpp` files from the zip.
+You want to include all the header and source files respectively in your project
+
+![Correct Files](cpp-files-sdk.png)
+
+In your project settings, you'll want to include `discord_game_sdk.dll.lib` as an additional dependency:
+
+![Linked Library](lib-linked-sdk.png)
+
+- From there, you should be able to `#include "discord-files/discord.h`, or whatever the path to that header file is, and have access to the code.
+
 ## Testing Locally with Two Clients
 
 > info

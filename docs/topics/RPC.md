@@ -13,7 +13,7 @@ All Discord clients have an RPC server running on localhost that allows control 
 
 ## Restrictions
 
-For connections to the RPC server, a [whitelist](#DOCS_TOPICS_RPC/authorize) is used to restrict access while you're still developing. You can invite up to 50 people to your whitelist.
+For connections to the RPC server, a [list of approved testers](#DOCS_TOPICS_RPC/authorize) is used to restrict access while you're still developing. You can invite up to 50 people.
 
 For applications/games not approved, we limit you to creating 10 guilds and 10 channels. This limit is raised to virtually unlimited after approval.
 
@@ -63,7 +63,7 @@ In order to call any commands over RPC, you must be authenticated or you will re
   "nonce": "f48f6176-4afb-4c03-b1b8-d960861f5216",
   "args": {
     "client_id": "192741864418312192",
-    "scopes": ["rpc.api", "rpc", "identify"]
+    "scopes": ["rpc", "identify"]
   },
   "cmd": "AUTHORIZE"
 }
@@ -84,30 +84,6 @@ The user will then be prompted to authorize your app to access RPC on Discord. T
 ```
 
 You can now call RPC commands on behalf of the authorized user!
-
-## Proxied API Requests
-
-If you request the `rpc.api` [scope](#DOCS_TOPICS_OAUTH2/shared-resources-oauth2-scopes) when authorizing your app to the client, your app is able to call the Discord API on behalf of the user whose access token you retrieved.
-
-For proxied API requests, the schema, host, and path to the API endpoint is always `http://127.0.0.1:PORT/` where `PORT` is the same port on which the RPC server is listening.
-
-Proxied API requests accept an OAuth2 Bearer token in the Authorization header and respond as our API normally does. However, they are executed with the user's bearer token instead of a bot token, providing the ability to modify most of what the client has access to.
-
-###### Example RPC Proxy Call
-
-```
-curl -H 'Authorization: Bearer CZhtkLDpNYXgPH9Ml6shqh2OwykChw' http://127.0.0.1:6463/users/@me/guilds
-
-[{
-    "owner": true,
-    "permissions": "2146958399",
-    "icon": "2d68b25aa5d1eead693432a5f0077dff",
-    "id": "199737254929760256",
-    "name": "test"
-}]
-```
-
-Certain endpoints deemed potentially unsafe—like authorization and user management—are blocked. Check out the [rest of our API docs](https://discord.com/developers/docs/reference) to learn more about interfacing with our REST API.
 
 ## Commands and Events
 
@@ -170,9 +146,9 @@ Events are payloads sent over the socket to a client that correspond to events i
 
 Used to authenticate a new client with your app. By default this pops up a modal in-app that asks the user to authorize access to your app.
 
-**We currently do not allow access to RPC for unapproved games without an entry on a game's whitelist.** We grant 50 whitelist spots, which should be ample for development and testing. After approval, this restriction is removed and the whitelist is no longer needed.
+**We currently do not allow access to RPC for unapproved apps without being on the game's list of testers**. We grant 50 testing spots, which should be ample for development. After approval, this restriction is removed and your app will be accessible to anyone.
 
-We also have an RPC token system to bypass the user authorization modal. This is usable by approved games as well as by users on a game's whitelist, and also disallows use of the `messages.read` scope. If you have been granted access, you can send a POST request to `https://discord.com/api/oauth2/token/rpc` with your application's `client_id` and `client_secret` in the body (sent as a url-encoded body, **not JSON**). You can then pass the returned `rpc_token` value to the `rpc_token` field in your RPC authorize request (documented below).
+We also have an RPC token system to bypass the user authorization modal. This is usable by approved games as well as by users on a game's list of testers, and also disallows use of the `messages.read` scope. If you have been granted access, you can send a POST request to `https://discord.com/api/oauth2/token/rpc` with your application's `client_id` and `client_secret` in the body (sent as a url-encoded body, **not JSON**). You can then pass the returned `rpc_token` value to the `rpc_token` field in your RPC authorize request (documented below).
 
 ###### Authorize Argument Structure
 
@@ -196,7 +172,7 @@ We also have an RPC token system to bypass the user authorization modal. This is
   "nonce": "f48f6176-4afb-4c03-b1b8-d960861f5216",
   "args": {
     "client_id": "192741864418312192",
-    "scopes": ["rpc.api", "rpc", "identify"]
+    "scopes": ["rpc", "identify"]
   },
   "cmd": "AUTHORIZE"
 }
@@ -275,7 +251,7 @@ Used to authenticate an existing client with your app.
       "id": "190320984123768832",
       "avatar": "b004ec1740a63ca06ae2e14c5cee11f3"
     },
-    "scopes": ["rpc.api", "rpc", "identify"]
+    "scopes": ["rpc", "identify"]
   },
   "nonce": "5bb10a43-1fdc-4391-9512-0c8f4aa203d4"
 }
