@@ -551,15 +551,16 @@ Embed types are "loosely defined" and, for the most part, are not used by our cl
 
 ###### Attachment Structure
 
-| Field     | Type      | Description               |
-|-----------|-----------|---------------------------|
-| id        | snowflake | attachment id             |
-| filename  | string    | name of file attached     |
-| size      | integer   | size of file in bytes     |
-| url       | string    | source url of file        |
-| proxy_url | string    | a proxied url of file     |
-| height?   | ?integer  | height of file (if image) |
-| width?    | ?integer  | width of file (if image)  |
+| Field         | Type      | Description                                                                         |
+|---------------|-----------|-------------------------------------------------------------------------------------|
+| id            | snowflake | attachment id                                                                       |
+| filename      | string    | name of file attached                                                               |
+| content_type? | string    | the attachment's [media type](https://en.wikipedia.org/wiki/Media_type)             |
+| size          | integer   | size of file in bytes                                                               |
+| url           | string    | source url of file                                                                  |
+| proxy_url     | string    | a proxied url of file                                                               |
+| height?       | ?integer  | height of file (if image)                                                           |
+| width?        | ?integer  | width of file (if image)                                                            |
 
 ### Channel Mention Object
 
