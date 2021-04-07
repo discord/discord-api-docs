@@ -732,7 +732,7 @@ Sent on connection to the websocket. Defines the heartbeat interval that the cli
 
 The ready event is dispatched when a client has completed the initial handshake with the gateway (for new sessions). The ready event can be the largest and most complex event the gateway will send, as it contains all the state required for a client to begin interacting with the rest of the platform.
 
-`guilds` are the guilds of which your bot is a member. They start out as unavailable when you connect to the gateway. As they become available, your bot will be notified via [Guild Create](#DOCS_TOPICS_GATEWAY/guild-create) events. `private_channels` will be an empty array. As bots receive private messages, they will be notified via [Channel Create](#DOCS_TOPICS_GATEWAY/channel-create) events.
+`guilds` are the guilds of which your bot is a member. They start out as unavailable when you connect to the gateway. As they become available, your bot will be notified via [Guild Create](#DOCS_TOPICS_GATEWAY/guild-create) events.
 
 ###### Ready Event Fields
 
@@ -740,7 +740,6 @@ The ready event is dispatched when a client has completed the initial handshake 
 |------------------|--------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------|
 | v                | integer                                                                              | [gateway version](#DOCS_TOPICS_GATEWAY/gateways-gateway-versions)                                             |
 | user             | [user](#DOCS_RESOURCES_USER/user-object) object                                      | information about the user including email                                                                    |
-| private_channels | array                                                                                | empty array                                                                                                   |
 | guilds           | array of [Unavailable Guild](#DOCS_RESOURCES_GUILD/unavailable-guild-object) objects | the guilds the user is in                                                                                     |
 | session_id       | string                                                                               | used for resuming connections                                                                                 |
 | shard?           | array of two integers (shard_id, num_shards)                                         | the [shard information](#DOCS_TOPICS_GATEWAY/sharding) associated with this session, if sent when identifying |
