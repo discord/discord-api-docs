@@ -37,7 +37,7 @@ All gateway events in Discord are tagged with an opcode that denotes the payload
 | 4011 | Sharding required     | The session would have handled too many guilds - you are required to [shard](#DOCS_TOPICS_GATEWAY/sharding) your connection in order to connect.                                                                                    |
 | 4012 | Invalid API version   | You sent an invalid version for the gateway.                                                                                                                                                                                        |
 | 4013 | Invalid intent(s)     | You sent an invalid intent for a [Gateway Intent](#DOCS_TOPICS_GATEWAY/gateway-intents). You may have incorrectly calculated the bitwise value.                                                                                     |
-| 4014 | Disallowed intent(s)  | You sent a disallowed intent for a [Gateway Intent](#DOCS_TOPICS_GATEWAY/gateway-intents). You may have tried to specify an intent that you [have not enabled or are not whitelisted for](#DOCS_TOPICS_GATEWAY/privileged-intents). |
+| 4014 | Disallowed intent(s)  | You sent a disallowed intent for a [Gateway Intent](#DOCS_TOPICS_GATEWAY/gateway-intents). You may have tried to specify an intent that you [have not enabled or are not approved for](#DOCS_TOPICS_GATEWAY/privileged-intents). |
 
 ## Voice
 
@@ -72,7 +72,7 @@ Our voice gateways have their own set of opcodes and close codes.
 | 4009 | Session timeout         | Your session has timed out.                                                                                                                         |
 | 4011 | Server not found        | We can't find the server you're trying to connect to.                                                                                               |
 | 4012 | Unknown protocol        | We didn't recognize the [protocol](#DOCS_RESOURCES_VOICE_CONNECTIONS/establishing-a-voice-udp-connection-example-select-protocol-payload) you sent. |
-| 4014 | Disconnected            | Either the channel was deleted or you were kicked. Should not reconnect.                                                                            |
+| 4014 | Disconnected            | Either the channel was deleted, you were kicked, or the main gateway session was dropped. Should not reconnect.                                     |
 | 4015 | Voice server crashed    | The server crashed. Our bad! Try [resuming](#DOCS_RESOURCES_VOICE_CONNECTIONS/resuming-voice-connection).                                           |
 | 4016 | Unknown encryption mode | We didn't recognize your [encryption](#DOCS_RESOURCES_VOICE_CONNECTIONS/encrypting-and-sending-voice).                                              |
 
@@ -180,6 +180,7 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 50041  | Invalid API version provided                                                                                                  |
 | 50074  | Cannot delete a channel required for Community guilds                                                                         |
 | 50081  | Invalid sticker sent                                                                                                          |
+| 60003  | Two factor is required for this operation                                                                                     |
 | 90001  | Reaction was blocked                                                                                                          |
 | 130000 | API resource is currently overloaded. Try again a little later                                                                |
 
@@ -194,7 +195,7 @@ Along with the HTTP error code, our API can also return more detailed error code
 
 ## RPC
 
-RPC is the [local Discord server](#DOCS_TOPICS_RPC/) running on localhost. Access to the RPC server is gated behind a whitelist.
+RPC is the [local Discord server](#DOCS_TOPICS_RPC/) running on localhost. Access to the RPC server requires approval from Discord.
 
 ###### RPC Error Codes
 
