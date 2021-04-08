@@ -447,7 +447,7 @@ Commands are requests made to the gateway socket by a client.
 | [Heartbeat](#DOCS_TOPICS_GATEWAY/heartbeat)                         | maintains an active gateway connection                       |
 | [Request Guild Members](#DOCS_TOPICS_GATEWAY/request-guild-members) | requests members for a guild                                 |
 | [Update Voice State](#DOCS_TOPICS_GATEWAY/update-voice-state)       | joins, moves, or disconnects the client from a voice channel |
-| [Update Status](#DOCS_TOPICS_GATEWAY/update-status)                 | updates a client's presence                                  |
+| [Update Presence](#DOCS_TOPICS_GATEWAY/update-presence)             | updates a client's presence                                  |
 
 Events are payloads sent over the socket to a client that correspond to events in Discord.
 
@@ -519,7 +519,7 @@ Used to trigger the initial handshake with the gateway.
 | compress?            | boolean                                                    | whether this connection supports compression of packets                                                                        | false   |
 | large_threshold?     | integer                                                    | value between 50 and 250, total number of members where the gateway will stop sending offline members in the guild member list | 50      |
 | shard?               | array of two integers (shard_id, num_shards)               | used for [Guild Sharding](#DOCS_TOPICS_GATEWAY/sharding)                                                                       | -       |
-| presence?            | [update status](#DOCS_TOPICS_GATEWAY/update-status) object | presence structure for initial presence information                                                                            | -       |
+| presence?            | [update presence](#DOCS_TOPICS_GATEWAY/update-presence) object | presence structure for initial presence information                                                                            | -       |
 | intents              | integer                                                    | the [Gateway Intents](#DOCS_TOPICS_GATEWAY/gateway-intents) you wish to receive                                                | -       |
 
 ###### Identify Connection Properties
@@ -665,11 +665,11 @@ Sent when a client wants to join, move, or disconnect from a voice channel.
 }
 ```
 
-#### Update Status
+#### Update Presence
 
 Sent by the client to indicate a presence or status update.
 
-###### Gateway Status Update Structure
+###### Gateway Presence Update Structure
 
 | Field      | Type                                                               | Description                                                                                 |
 |------------|--------------------------------------------------------------------|---------------------------------------------------------------------------------------------|
@@ -688,7 +688,7 @@ Sent by the client to indicate a presence or status update.
 | invisible | Invisible and shown as offline |
 | offline   | Offline                        |
 
-###### Example Gateway Status Update
+###### Example Gateway Presence Update
 
 ```json
 {
