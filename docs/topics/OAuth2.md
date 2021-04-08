@@ -129,8 +129,6 @@ Having the user's access token allows your application to make certain requests 
 - `client_secret` - your application's client secret
 - `grant_type` - must be set to `refresh_token`
 - `refresh_token` - the user's refresh token
-- `redirect_uri` - your `redirect_uri`
-- `scope` - one or more scopes requested in your authorization url, space-delimited (optional, will be treated as equal to all granted scopes if empty or omitted)
 
 ###### Refresh Token Exchange Example
 
@@ -145,9 +143,7 @@ def refresh_token(refresh_token):
     'client_id': CLIENT_ID,
     'client_secret': CLIENT_SECRET,
     'grant_type': 'refresh_token',
-    'refresh_token': refresh_token,
-    'redirect_uri': REDIRECT_URI,
-    'scope': 'identify email connections'
+    'refresh_token': refresh_token
   }
   headers = {
     'Content-Type': 'application/x-www-form-urlencoded'
