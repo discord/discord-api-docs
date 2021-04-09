@@ -674,7 +674,7 @@ Sent by the client to indicate a presence or status update.
 | Field      | Type                                                               | Description                                                                                 |
 |------------|--------------------------------------------------------------------|---------------------------------------------------------------------------------------------|
 | since      | ?integer                                                           | unix time (in milliseconds) of when the client went idle, or null if the client is not idle |
-| activities | ?array of [activity](#DOCS_TOPICS_GATEWAY/activity-object) objects | the user's activities                                                              |
+| activities | array of [activity](#DOCS_TOPICS_GATEWAY/activity-object) objects  | the user's activities                                                                       |
 | status     | string                                                             | the user's new [status](#DOCS_TOPICS_GATEWAY/update-status-status-types)                    |
 | afk        | boolean                                                            | whether or not the client is afk                                                            |
 
