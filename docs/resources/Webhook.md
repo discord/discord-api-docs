@@ -41,6 +41,7 @@ Used to represent a webhook.
   "avatar": null,
   "guild_id": "199737254929760256",
   "id": "223704706495545344",
+  "application_id": null,
   "user": {
     "username": "test",
     "discriminator": "7479",
