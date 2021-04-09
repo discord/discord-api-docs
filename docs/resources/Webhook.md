@@ -159,6 +159,8 @@ Add a new webhook to your GitHub repo (in the repo's settings), and use this end
 
 Edits a previously-sent webhook message from the same token. Returns a [message](#DOCS_RESOURCES_CHANNEL/message-object) object on success.
 
+When the `content` field is edited, the `mentions` array in the message object will be reconstructed from scratch based on the new content. The `allowed_mentions` field of the edit request controls how this happens. If there is no explicit `allowed_mentions` in the edit request, the content will be parsed with _default_ allowances, that is, without regard to whether or not an `allowed_mentions` was present in the request that originally created the message.
+
 > info
 > All parameters to this endpoint are optional and nullable.
 
