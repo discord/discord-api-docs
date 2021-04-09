@@ -70,7 +70,6 @@ There are other rules and restrictions not shared here for the sake of spam and 
 | 1 << 8  | House Balance                |
 | 1 << 9  | Early Supporter              |
 | 1 << 10 | Team User                    |
-| 1 << 12 | System                       |
 | 1 << 14 | Bug Hunter Level 2           |
 | 1 << 16 | Verified Bot                 |
 | 1 << 17 | Early Verified Bot Developer |
