@@ -696,18 +696,18 @@ Fetch a global command for your application. Returns an [ApplicationCommand](#DO
 ## Edit Global Application Command % PATCH /applications/{application.id#DOCS_TOPICS_OAUTH2/application-object}/commands/{command.id#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommand}
 
 > info
-> All parameters for this endpoint are optional. `options` is nullable.
+> All parameters for this endpoint are optional.
 
 Edit a global command. Updates will be available in all guilds after 1 hour. Returns `200` and an [ApplicationCommand](#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommand) object.
 
 ###### JSON Params
 
-| Field       | Type                                                                                            | Description                                  |
-|-------------|-------------------------------------------------------------------------------------------------|----------------------------------------------|
-| name        | string                                                                                          | 1-32 character name matching `^[\w-]{1,32}$` |
-| description | string                                                                                          | 1-100 character description                  |
-| options     | array of [ApplicationCommandOption](#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommandoption) | the parameters for the command               |
-| default_permission? | boolean (default `true`) | whether the command is enabled by default when the app is added to a guild |
+| Field              | Type                                                                                             | Description                                                                |
+| ------------------ | ------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------- |
+| name               | string                                                                                           | 1-32 character name matching `^[\w-]{1,32}$`                               |
+| description        | string                                                                                           | 1-100 character description                                                |
+| options            | ?array of [ApplicationCommandOption](#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommandoption) | the parameters for the command                                             |
+| default_permission | boolean (default `true`)                                                                         | whether the command is enabled by default when the app is added to a guild |
 
 ## Delete Global Application Command % DELETE /applications/{application.id#DOCS_TOPICS_OAUTH2/application-object}/commands/{command.id#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommand}
 
@@ -744,18 +744,18 @@ Fetch a guild command for your application. Returns an [ApplicationCommand](#DOC
 ## Edit Guild Application Command % PATCH /applications/{application.id#DOCS_TOPICS_OAUTH2/application-object}/guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/commands/{command.id#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommand}
 
 > info
-> All parameters for this endpoint are optional. `options` is nullable.
+> All parameters for this endpoint are optional.
 
 Edit a guild command. Updates for guild commands will be available immediately. Returns `200` and an [ApplicationCommand](#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommand) object.
 
 ###### JSON Params
 
-| Field       | Type                                                                                            | Description                                  |
-|-------------|-------------------------------------------------------------------------------------------------|----------------------------------------------|
-| name        | string                                                                                          | 1-32 character name matching `^[\w-]{1,32}$` |
-| description | string                                                                                          | 1-100 character description                  |
-| options     | array of [ApplicationCommandOption](#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommandoption) | the parameters for the command               |
-| default_permission? | boolean (default `true`) | whether the command is enabled by default when the app is added to a guild |
+| Field              | Type                                                                                             | Description                                                                |
+| ------------------ | ------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------- |
+| name               | string                                                                                           | 1-32 character name matching `^[\w-]{1,32}$`                               |
+| description        | string                                                                                           | 1-100 character description                                                |
+| options            | ?array of [ApplicationCommandOption](#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommandoption) | the parameters for the command                                             |
+| default_permission | boolean (default `true`)                                                                         | whether the command is enabled by default when the app is added to a guild |
 
 
 ## Delete Guild Application Command % DELETE /applications/{application.id#DOCS_TOPICS_OAUTH2/application-object}/guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/commands/{command.id#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommand}
