@@ -130,6 +130,7 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 10032  | Unknown branch                                                                                                                |
 | 10036  | Unknown redistributable                                                                                                       |
 | 10057  | Unknown guild template                                                                                                        |
+| 10062  | Unknown interaction                                                                                                           |
 | 10063  | Unknown application command                                                                                                   |
 | 20001  | Bots cannot use this endpoint                                                                                                 |
 | 20002  | Only bots can use this endpoint                                                                                               |
