@@ -21,7 +21,7 @@ Used to represent a webhook.
 | application_id  | ?snowflake                                                       | the bot/OAuth2 application that created this webhook                                                          |
 | source_guild?   | partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object       | the guild of the channel that this webhook is following (returned for Channel Follower Webhooks)              |
 | source_channel? | partial [channel](#DOCS_RESOURCES_CHANNEL/channel-object) object | the channel that this webhook is following (returned for Channel Follower Webhooks)                           |
-| url?            | str                                                              | the url used for executing the webhook (returned by the [webhooks](#DOCS_TOPICS_OAUTH2/webhooks) OAuth2 flow) |
+| url?            | string                                                           | the url used for executing the webhook (returned by the [webhooks](#DOCS_TOPICS_OAUTH2/webhooks) OAuth2 flow) |
 
 ###### Webhook Types
 
