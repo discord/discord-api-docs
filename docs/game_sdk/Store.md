@@ -377,7 +377,7 @@ Note that parameters with a `?` after the name denote optional fields. Parameter
 Gets entitlements for a given user. You can use this on your game backend to check entitlements of an arbitrary user, or perhaps in an administrative panel for your support team.
 
 > danger
-> The previous behavior on this endpoint was that not specifying a user_id or limit would return an unlimited amount of entitlements. That behavior is now deprecated and will be removed on March 1, 2019.
+> The previous behavior on this endpoint was that not specifying a user_id or limit would return an unlimited amount of entitlements. That behavior was removed on March 1, 2019.
 
 ###### Query Parameters
 
