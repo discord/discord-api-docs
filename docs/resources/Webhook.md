@@ -16,12 +16,12 @@ Used to represent a webhook.
 | channel_id      | snowflake                                                        | the channel id this webhook is for                                                                            |
 | user?           | [user](#DOCS_RESOURCES_USER/user-object) object                  | the user this webhook was created by (not returned when getting a webhook with its token)                     |
 | name            | ?string                                                          | the default name of the webhook                                                                               |
-| avatar          | ?string                                                          | the default avatar of the webhook                                                                             |
+| avatar          | ?string                                                          | the default user avatar [hash](#DOCS_REFERENCE/image-formatting) of the webhook                               |
 | token?          | string                                                           | the secure token of the webhook (returned for Incoming Webhooks)                                              |
 | application_id  | ?snowflake                                                       | the bot/OAuth2 application that created this webhook                                                          |
 | source_guild?   | partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object       | the guild of the channel that this webhook is following (returned for Channel Follower Webhooks)              |
 | source_channel? | partial [channel](#DOCS_RESOURCES_CHANNEL/channel-object) object | the channel that this webhook is following (returned for Channel Follower Webhooks)                           |
-| url?            | str                                                              | the url used for executing the webhook (returned by the [webhooks](#DOCS_TOPICS_OAUTH2/webhooks) OAuth2 flow) |
+| url?            | string                                                           | the url used for executing the webhook (returned by the [webhooks](#DOCS_TOPICS_OAUTH2/webhooks) OAuth2 flow) |
 
 ###### Webhook Types
 
@@ -41,6 +41,7 @@ Used to represent a webhook.
   "avatar": null,
   "guild_id": "199737254929760256",
   "id": "223704706495545344",
+  "application_id": null,
   "user": {
     "username": "test",
     "discriminator": "7479",
@@ -157,6 +158,8 @@ Add a new webhook to your GitHub repo (in the repo's settings), and use this end
 ## Edit Webhook Message % PATCH /webhooks/{webhook.id#DOCS_RESOURCES_WEBHOOK/webhook-object}/{webhook.token#DOCS_RESOURCES_WEBHOOK/webhook-object}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}
 
 Edits a previously-sent webhook message from the same token. Returns a [message](#DOCS_RESOURCES_CHANNEL/message-object) object on success.
+
+When the `content` field is edited, the `mentions` array in the message object will be reconstructed from scratch based on the new content. The `allowed_mentions` field of the edit request controls how this happens. If there is no explicit `allowed_mentions` in the edit request, the content will be parsed with _default_ allowances, that is, without regard to whether or not an `allowed_mentions` was present in the request that originally created the message.
 
 > info
 > All parameters to this endpoint are optional and nullable.

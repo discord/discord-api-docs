@@ -447,7 +447,7 @@ Commands are requests made to the gateway socket by a client.
 | [Heartbeat](#DOCS_TOPICS_GATEWAY/heartbeat)                         | maintains an active gateway connection                       |
 | [Request Guild Members](#DOCS_TOPICS_GATEWAY/request-guild-members) | requests members for a guild                                 |
 | [Update Voice State](#DOCS_TOPICS_GATEWAY/update-voice-state)       | joins, moves, or disconnects the client from a voice channel |
-| [Update Status](#DOCS_TOPICS_GATEWAY/update-status)                 | updates a client's presence                                  |
+| [Update Presence](#DOCS_TOPICS_GATEWAY/update-presence)             | updates a client's presence                                  |
 
 Events are payloads sent over the socket to a client that correspond to events in Discord.
 
@@ -519,7 +519,7 @@ Used to trigger the initial handshake with the gateway.
 | compress?            | boolean                                                    | whether this connection supports compression of packets                                                                        | false   |
 | large_threshold?     | integer                                                    | value between 50 and 250, total number of members where the gateway will stop sending offline members in the guild member list | 50      |
 | shard?               | array of two integers (shard_id, num_shards)               | used for [Guild Sharding](#DOCS_TOPICS_GATEWAY/sharding)                                                                       | -       |
-| presence?            | [update status](#DOCS_TOPICS_GATEWAY/update-status) object | presence structure for initial presence information                                                                            | -       |
+| presence?            | [update presence](#DOCS_TOPICS_GATEWAY/update-presence) object | presence structure for initial presence information                                                                            | -       |
 | intents              | integer                                                    | the [Gateway Intents](#DOCS_TOPICS_GATEWAY/gateway-intents) you wish to receive                                                | -       |
 
 ###### Identify Connection Properties
@@ -665,18 +665,18 @@ Sent when a client wants to join, move, or disconnect from a voice channel.
 }
 ```
 
-#### Update Status
+#### Update Presence
 
 Sent by the client to indicate a presence or status update.
 
-###### Gateway Status Update Structure
+###### Gateway Presence Update Structure
 
-| Field      | Type                                                               | Description                                                                                 |
-|------------|--------------------------------------------------------------------|---------------------------------------------------------------------------------------------|
-| since      | ?integer                                                           | unix time (in milliseconds) of when the client went idle, or null if the client is not idle |
-| activities | ?array of [activity](#DOCS_TOPICS_GATEWAY/activity-object) objects | null, or the user's activities                                                              |
-| status     | string                                                             | the user's new [status](#DOCS_TOPICS_GATEWAY/update-status-status-types)                    |
-| afk        | boolean                                                            | whether or not the client is afk                                                            |
+| Field      | Type                                                              | Description                                                                                 |
+|------------|-------------------------------------------------------------------|---------------------------------------------------------------------------------------------|
+| since      | ?integer                                                          | unix time (in milliseconds) of when the client went idle, or null if the client is not idle |
+| activities | array of [activity](#DOCS_TOPICS_GATEWAY/activity-object) objects | the user's activities                                                                       |
+| status     | string                                                            | the user's new [status](#DOCS_TOPICS_GATEWAY/update-status-status-types)                    |
+| afk        | boolean                                                           | whether or not the client is afk                                                            |
 
 ###### Status Types
 
@@ -688,7 +688,7 @@ Sent by the client to indicate a presence or status update.
 | invisible | Invisible and shown as offline |
 | offline   | Offline                        |
 
-###### Example Gateway Status Update
+###### Example Gateway Presence Update
 
 ```json
 {
@@ -732,7 +732,7 @@ Sent on connection to the websocket. Defines the heartbeat interval that the cli
 
 The ready event is dispatched when a client has completed the initial handshake with the gateway (for new sessions). The ready event can be the largest and most complex event the gateway will send, as it contains all the state required for a client to begin interacting with the rest of the platform.
 
-`guilds` are the guilds of which your bot is a member. They start out as unavailable when you connect to the gateway. As they become available, your bot will be notified via [Guild Create](#DOCS_TOPICS_GATEWAY/guild-create) events. `private_channels` will be an empty array. As bots receive private messages, they will be notified via [Channel Create](#DOCS_TOPICS_GATEWAY/channel-create) events.
+`guilds` are the guilds of which your bot is a member. They start out as unavailable when you connect to the gateway. As they become available, your bot will be notified via [Guild Create](#DOCS_TOPICS_GATEWAY/guild-create) events.
 
 ###### Ready Event Fields
 
@@ -740,7 +740,6 @@ The ready event is dispatched when a client has completed the initial handshake 
 |------------------|--------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------|
 | v                | integer                                                                              | [gateway version](#DOCS_TOPICS_GATEWAY/gateways-gateway-versions)                                             |
 | user             | [user](#DOCS_RESOURCES_USER/user-object) object                                      | information about the user including email                                                                    |
-| private_channels | array                                                                                | empty array                                                                                                   |
 | guilds           | array of [Unavailable Guild](#DOCS_RESOURCES_GUILD/unavailable-guild-object) objects | the guilds the user is in                                                                                     |
 | session_id       | string                                                                               | used for resuming connections                                                                                 |
 | shard?           | array of two integers (shard_id, num_shards)                                         | the [shard information](#DOCS_TOPICS_GATEWAY/sharding) associated with this session, if sent when identifying |

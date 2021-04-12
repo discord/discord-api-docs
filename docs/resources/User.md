@@ -70,7 +70,6 @@ There are other rules and restrictions not shared here for the sake of spam and 
 | 1 << 8  | House Balance                |
 | 1 << 9  | Early Supporter              |
 | 1 << 10 | Team User                    |
-| 1 << 12 | System                       |
 | 1 << 14 | Bug Hunter Level 2           |
 | 1 << 16 | Verified Bot                 |
 | 1 << 17 | Early Verified Bot Developer |
@@ -163,10 +162,6 @@ Returns a list of partial [guild](#DOCS_RESOURCES_GUILD/guild-object) objects th
 ## Leave Guild % DELETE /users/@me/guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}
 
 Leave a guild. Returns a 204 empty response on success.
-
-## Get User DMs % GET /users/@me/channels
-
-Returns a list of [DM channel](#DOCS_RESOURCES_CHANNEL/channel-object) objects. For bots, this is no longer a supported method of getting recent DMs, and will return an empty array.
 
 ## Create DM % POST /users/@me/channels
 

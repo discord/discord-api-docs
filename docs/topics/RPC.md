@@ -108,7 +108,6 @@ Commands are requests made to the RPC socket by a client.
 | [SELECT_TEXT_CHANNEL](#DOCS_TOPICS_RPC/selecttextchannel)              | used to join or leave a text channel, group dm, or dm           |
 | [GET_VOICE_SETTINGS](#DOCS_TOPICS_RPC/getvoicesettings)                | used to retrieve the client's voice settings                    |
 | [SET_VOICE_SETTINGS](#DOCS_TOPICS_RPC/setvoicesettings)                | used to set the client's voice settings                         |
-| [CAPTURE_SHORTCUT](#DOCS_TOPICS_RPC/captureshortcut)                   | used to capture a keyboard shortcut entered by the user         |
 | [SET_CERTIFIED_DEVICES](#DOCS_TOPICS_RPC/setcertifieddevices)          | used to send info about certified hardware devices              |
 | [SET_ACTIVITY](#DOCS_TOPICS_RPC/setactivity)                           | used to update a user's Rich Presence                           |
 | [SEND_ACTIVITY_JOIN_INVITE](#DOCS_TOPICS_RPC/sendactivityjoininvite)   | used to consent to a Rich Presence Ask to Join request          |
@@ -137,7 +136,6 @@ Events are payloads sent over the socket to a client that correspond to events i
 | [MESSAGE_UPDATE](#DOCS_TOPICS_RPC/messagecreatemessageupdatemessagedelete)              | sent when a message is updated in a subscribed text channel                                    |
 | [MESSAGE_DELETE](#DOCS_TOPICS_RPC/messagecreatemessageupdatemessagedelete)              | sent when a message is deleted in a subscribed text channel                                    |
 | [NOTIFICATION_CREATE](#DOCS_TOPICS_RPC/notificationcreate)                              | sent when the client receives a notification (mention or new message in eligible channels)     |
-| [CAPTURE_SHORTCUT_CHANGE](#DOCS_TOPICS_RPC/captureshortcutchange)                       | sent when the user presses a key during [shortcut capturing](#DOCS_TOPICS_RPC/captureshortcut) |
 | [ACTIVITY_JOIN](#DOCS_TOPICS_RPC/activityjoin)                                          | sent when the user clicks a Rich Presence join invite in chat to join a game                   |
 | [ACTIVITY_SPECTATE](#DOCS_TOPICS_RPC/activityspectate)                                  | sent when the user clicks a Rich Presence spectate invite in chat to spectate a game           |
 | [ACTIVITY_JOIN_REQUEST](#DOCS_TOPICS_RPC/activityjoinrequest)                           | sent when the user receives a Rich Presence Ask to Join request                                |
@@ -898,52 +896,6 @@ Used to unsubscribe from events. `evt` of the payload should be set to the event
 }
 ```
 
-#### CAPTURE_SHORTCUT
-
-Used to capture a keyboard shortcut entered by the user.
-
-This command is asynchronously returned. You capture a shortcut by first sending the `START` action. Then, the user is free to press keys while we log the shortcut key codes for you. As they press keys, we will emit a [CAPTURE_SHORTCUT_CHANGE](#DOCS_TOPICS_RPC/captureshortcutchange) event with the updated key codes. **When the user finishes, you then need to finish capturing by sending the `STOP` action.**
-
-Returns the shortcut captured, and `null` for the `STOP` action.
-
-Note: The `START` call will return the captured shortcut in its `data` object, while the `STOP` call will have no `data`.
-
-###### Capture Shortcut Argument Structure
-
-| Field  | Type   | Description                       |
-| ------ | ------ | --------------------------------- |
-| action | string | capture action; `START` or `STOP` |
-
-###### Capture Shortcut Response Structure
-
-| Field    | Type                                                                    | Description                           |
-| -------- | ----------------------------------------------------------------------- | ------------------------------------- |
-| shortcut | [shortcut key combo](#DOCS_TOPICS_RPC/shortcut-key-combo-object) object | the captured shortcut key combo array |
-
-###### Example Capture Shortcut Command Payload
-
-```json
-{
-  "nonce": "9b4e9711-97f3-4f35-b047-32c82a51978e",
-  "args": {
-    "action": "START"
-  },
-  "cmd": "CAPTURE_SHORTCUT"
-}
-```
-
-###### Example Capture Shortcut Response Payload
-
-```json
-{
-  "cmd": "CAPTURE_SHORTCUT",
-  "data": {
-    "shortcut": [{ "type": 0, "code": 12, "name": "i" }]
-  },
-  "nonce": "9b4e9711-97f3-4f35-b047-32c82a51978e"
-}
-```
-
 #### SET_CERTIFIED_DEVICES
 
 Used by hardware manufacturers to send information about the current state of their certified devices that are connected to Discord.
@@ -1570,28 +1522,6 @@ No arguments. This event requires the `rpc.notifications.read` [OAuth2 scope](#D
     "body": "test message"
   },
   "evt": "NOTIFICATION_CREATE"
-}
-```
-
-#### CAPTURE_SHORTCUT_CHANGE
-
-No arguments
-
-###### Capture Shortcut Change Dispatch Data Structure
-
-| Field    | Type                                                                              | Description                  |
-| -------- | --------------------------------------------------------------------------------- | ---------------------------- |
-| shortcut | array of [shortcut key combo](#DOCS_TOPICS_RPC/shortcut-key-combo-object) objects | captured shortcut key combos |
-
-###### Example Capture Shortcut Change Dispatch Payload
-
-```json
-{
-  "cmd": "DISPATCH",
-  "evt": "CAPTURE_SHORTCUT_CHANGE",
-  "data": {
-    "shortcut": [{ "type": 0, "code": 12, "name": "i" }]
-  }
 }
 ```
 

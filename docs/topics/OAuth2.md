@@ -4,7 +4,7 @@ OAuth2 enables application developers to build applications that utilize authent
 
 ## Shared Resources
 
-The first step in implementing OAuth2 is [registering a developer application](#MY_APPLICATIONS/top) and retrieving your client ID and client secret. Most people who will be implementing OAuth2 will want to find and utilize a library in the language of their choice. For those implementing OAuth2 from scratch, please see [RFC 6749](https://tools.ietf.org/html/rfc6749) for details. After you create your application with Discord, make sure that you have your `client_id` and `client_secret` handy. The next step is to figure out which OAuth2 flow is right for your purposes.
+The first step in implementing OAuth2 is [registering a developer application](#APPLICATIONS/top) and retrieving your client ID and client secret. Most people who will be implementing OAuth2 will want to find and utilize a library in the language of their choice. For those implementing OAuth2 from scratch, please see [RFC 6749](https://tools.ietf.org/html/rfc6749) for details. After you create your application with Discord, make sure that you have your `client_id` and `client_secret` handy. The next step is to figure out which OAuth2 flow is right for your purposes.
 
 ###### OAuth2 URLs
 
@@ -129,8 +129,6 @@ Having the user's access token allows your application to make certain requests 
 - `client_secret` - your application's client secret
 - `grant_type` - must be set to `refresh_token`
 - `refresh_token` - the user's refresh token
-- `redirect_uri` - your `redirect_uri`
-- `scope` - one or more scopes requested in your authorization url, space-delimited (optional, will be treated as equal to all granted scopes if empty or omitted)
 
 ###### Refresh Token Exchange Example
 
@@ -145,9 +143,7 @@ def refresh_token(refresh_token):
     'client_id': CLIENT_ID,
     'client_secret': CLIENT_SECRET,
     'grant_type': 'refresh_token',
-    'refresh_token': refresh_token,
-    'redirect_uri': REDIRECT_URI,
-    'scope': 'identify email connections'
+    'refresh_token': refresh_token
   }
   headers = {
     'Content-Type': 'application/x-www-form-urlencoded'
@@ -226,7 +222,7 @@ So, what are bot accounts?
 
 ### Bot vs User Accounts
 
-Discord's API provides a separate type of user account dedicated to automation, called a bot account. Bot accounts can be created through the [applications page](#MY_APPLICATIONS/top), and are authenticated using a token (rather than a username and password). Unlike the normal OAuth2 flow, bot accounts have full access to all API routes without using bearer tokens, and can connect to the [Real Time Gateway](#DOCS_TOPICS_GATEWAY/gateways). Automating normal user accounts (generally called "self-bots") outside of the OAuth2/bot API is forbidden, and can result in an account termination if found.
+Discord's API provides a separate type of user account dedicated to automation, called a bot account. Bot accounts can be created through the [applications page](#APPLICATIONS/top), and are authenticated using a token (rather than a username and password). Unlike the normal OAuth2 flow, bot accounts have full access to all API routes without using bearer tokens, and can connect to the [Real Time Gateway](#DOCS_TOPICS_GATEWAY/gateways). Automating normal user accounts (generally called "self-bots") outside of the OAuth2/bot API is forbidden, and can result in an account termination if found.
 
 Bot accounts have a few differences in comparison to normal user accounts, namely:
 
