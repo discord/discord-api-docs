@@ -53,7 +53,7 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 | max_video_channel_users?      | integer                                                                             | the maximum amount of users in a video channel                                                                                      |
 | approximate_member_count?     | integer                                                                             | approximate number of members in this guild, returned from the `GET /guilds/<id>` endpoint when `with_counts` is `true`             |
 | approximate_presence_count?   | integer                                                                             | approximate number of non-offline members in this guild, returned from the `GET /guilds/<id>` endpoint when `with_counts` is `true` |
-| welcome_screen?               | [welcome screen](#DOCS_RESOURCES_GUILD/welcome-screen-object) object                | the welcome screen of a Community guild, shown to new members, returned in the invite object                                        |
+| welcome_screen?               | [welcome screen](#DOCS_RESOURCES_GUILD/welcome-screen-object) object                | the welcome screen of a Community guild, shown to new members, returned in the invite's guild object                                |
 | nsfw                          | boolean                                                                             | true if this guild is [designated as NSFW](https://support.discord.com/hc/en-us/articles/1500005389362-NSFW-Server-Designation)     |
 
 ** \* These fields are only sent within the [GUILD_CREATE](#DOCS_TOPICS_GATEWAY/guild-create) event **
