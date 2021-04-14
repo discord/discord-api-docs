@@ -2,7 +2,7 @@
 
 ## Slash Command Permissions
 
-## April 5, 2021
+#### April 5, 2021
 
 Need to keep some of your Slash Commands safe from prying eyes, or only available to the right people? Slash Commands now support [command permissions](#DOCS_INTERACTIONS_SLASH_COMMANDS/permissions)!
 
@@ -18,13 +18,13 @@ A `default_permission` field has also been added to the [ApplicationCommand](#DO
 
 ## Large Bot Sharding Lowered to 150,000 Guilds 
 
-## March 15, 2021
+#### March 15, 2021
 
 There have been reports that sessions have higher frequency of errors when starting if a bot has joined too many guilds (the gateway connection times out). To account for this we have lowered the requirement for large bot sharding down to 150,000 guilds in order to improve reliability.
 
 ## Changes to Slash Command Response Types and Flags
 
-## March 5, 2021
+#### March 5, 2021
 
 Changes to interaction response types have been made to support better designs for Slash Commands:
 
