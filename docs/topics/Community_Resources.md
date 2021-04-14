@@ -65,6 +65,7 @@ Many of these libraries are represented in the [unofficial, community-driven Dis
   - [discord-interactions-python](https://github.com/discord/discord-interactions-python)
   - [discord-interactions.py](https://github.com/LiBa001/discord-interactions.py)
   - [dispike](https://github.com/ms7m/dispike)
+  - [flask-discord-interactions](https://github.com/Breq16/flask-discord-interactions)
 - PHP
   - [discord-interactions-php](https://github.com/discord/discord-interactions-php)
   - [DiscordPHP-Slash](https://github.com/discord-php/DiscordPHP-Slash)
