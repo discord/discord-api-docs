@@ -293,7 +293,6 @@ Represents a message sent in a channel within Discord.
 | description      | string    | description of the sticker                                                                    |
 | tags?            | string    | a comma-separated list of tags for the sticker                                                |
 | asset\*          | string    | sticker asset hash                                                                            |
-| preview_asset\*  | ?string   | sticker preview asset hash                                                                    |
 | format_type      | integer   | [type of sticker format](#DOCS_RESOURCES_CHANNEL/message-object-message-sticker-format-types) |
 
 \* The URL for fetching sticker assets is currently private.
