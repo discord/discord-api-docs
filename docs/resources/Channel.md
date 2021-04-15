@@ -211,7 +211,7 @@ Represents a message sent in a channel within Discord.
 | type                          | integer                                                                                                                                         | [type of message](#DOCS_RESOURCES_CHANNEL/message-object-message-types)                                                                 |
 | activity?                     | [message activity](#DOCS_RESOURCES_CHANNEL/message-object-message-activity-structure) object                                                    | sent with Rich Presence-related chat embeds                                                                                             |
 | application?                  | partial [application](#DOCS_TOPICS_OAUTH2/application) object                                                                                   | sent with Rich Presence-related chat embeds                                                                                             |
-| message_reference?            | [message reference](#DOCS_RESOURCES_CHANNEL/message-object-message-reference-structure) object                                                  | data showing the source of a crosspost, channel follow add, pin, or reply message                                                       |
+| message_reference?            | [message reference](#DOCS_RESOURCES_CHANNEL/message-reference-object-message-reference-structure) object                                                  | data showing the source of a crosspost, channel follow add, pin, or reply message                                                       |
 | flags?                        | integer                                                                                                                                         | [message flags](#DOCS_RESOURCES_CHANNEL/message-object-message-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field) |
 | stickers?                     | array of [sticker](#DOCS_RESOURCES_CHANNEL/message-object-message-sticker-structure) objects                                                    | the stickers sent with the message (bots currently can only receive messages with stickers, not send)                                   |
 | referenced_message?\*\*\*\*\* | ?[message object](#DOCS_RESOURCES_CHANNEL/message-object)                                                                                       | the message associated with the message_reference                                                                                       |
@@ -768,7 +768,7 @@ Post a message to a guild text or DM channel. Returns a [message](#DOCS_RESOURCE
 - For the embed object, you can set every field except `type` (it will be `rich` regardless of if you try to set it), `provider`, `video`, and any `height`, `width`, or `proxy_url` values for images.
 - **Files can only be uploaded when using the `multipart/form-data` content type.**
 
-You may create a message as a reply to another message. To do so, include a [`message_reference`](#DOCS_RESOURCES_CHANNEL/message-object-message-reference-structure) with a `message_id`. The `channel_id` and `guild_id` in the `message_reference` are optional, but will be validated if provided.
+You may create a message as a reply to another message. To do so, include a [`message_reference`](#DOCS_RESOURCES_CHANNEL/message-reference-object-message-reference-structure) with a `message_id`. The `channel_id` and `guild_id` in the `message_reference` are optional, but will be validated if provided.
 
 This endpoint supports requests with `Content-Type`s of both `application/json` and `multipart/form-data`. Refer to the following sections for more information.
 
@@ -777,14 +777,14 @@ This endpoint supports requests with `Content-Type`s of both `application/json` 
 > info
 > Note that when sending `application/json` you must send at **least one of** `content` or `embed`.
 
-| Field             | Type                                                                                    | Description                                                                   |
-|-------------------|-----------------------------------------------------------------------------------------|-------------------------------------------------------------------------------|
-| content           | string                                                                                  | the message contents (up to 2000 characters)                                  |
-| nonce             | integer or string                                                                       | a nonce that can be used for optimistic message sending (up to 25 characters) |
-| tts               | boolean                                                                                 | true if this is a TTS message                                                 |
-| embed             | [embed](#DOCS_RESOURCES_CHANNEL/embed-object) object                                    | embedded `rich` content                                                       |
-| allowed_mentions  | [allowed_mentions](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object) object              | allowed mentions for a message                                                |
-| message_reference | [message reference](#DOCS_RESOURCES_CHANNEL/message-object-message-reference-structure) | include to make your message a reply                                          |
+| Field             | Type                                                                                              | Description                                                                   |
+|-------------------|---------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------|
+| content           | string                                                                                            | the message contents (up to 2000 characters)                                  |
+| nonce             | integer or string                                                                                 | a nonce that can be used for optimistic message sending (up to 25 characters) |
+| tts               | boolean                                                                                           | true if this is a TTS message                                                 |
+| embed             | [embed](#DOCS_RESOURCES_CHANNEL/embed-object) object                                              | embedded `rich` content                                                       |
+| allowed_mentions  | [allowed_mentions](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object) object                        | allowed mentions for a message                                                |
+| message_reference | [message reference](#DOCS_RESOURCES_CHANNEL/message-reference-object-message-reference-structure) | include to make your message a reply                                          |
 
 ###### Example Request Body (application/json)
 
