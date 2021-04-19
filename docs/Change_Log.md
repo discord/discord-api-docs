@@ -103,7 +103,7 @@ The changes are:
 - Channel Permission Overwrite `type`s are now numbers (0 and 1) instead of strings ("role" and "member"). However due to a current technical constraint, they are string-serialized numbers in audit log `options`.
 - `embed_enabled` and `embed_channel_id` have been removed. Use `widget_enabled` and `widget_channel_id` instead.
 - Form body errors have been improved to include more helpful messaging on validation. [See more here](#DOCS_REFERENCE/error-messages)
-- The `Retry-After` header is now based in seconds instead of milliseconds (e.g. `123` means 123 seconds)
+- The `Retry-After` header value and `retry_after` body value is now based in seconds instead of milliseconds (e.g. `123` means 123 seconds)
 - The `X-RateLimit-Precision` header is no longer respected. `X-RateLimit-Reset` and `X-RateLimit-Reset-After` are always returned at millisecond precision (e.g. `123.456` instead of `124`)
 - Bots no longer receive [Channel Create Gateway Event](#DOCS_TOPICS_GATEWAY/channel-create) for DMs
 - `delete-message-days` is no longer available. Use `delete_message_days`.
