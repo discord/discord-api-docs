@@ -815,9 +815,9 @@ Edits command permissions for a specific command for your application in a guild
 
 ###### JSON Params
 
-| Field | Type | Description |
-| ----- | ---- | ----------- |
-| permissions | array of [ApplicationCommandPermissions] |
+| Field       | Type                                                                                                      | Description                                  |
+| ----------- | --------------------------------------------------------------------------------------------------------- | -------------------------------------------- |
+| permissions | array of [ApplicationCommandPermissions](#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommandpermissions) | the permissions for the command in the guild |
 
 ## Batch Edit Application Command Permissions % PUT /applications/{application.id#DOCS_TOPICS_OAUTH2/application-object}/guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/commands/permissions
 
