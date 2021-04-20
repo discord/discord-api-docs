@@ -1,5 +1,15 @@
 # Change Log
 
+## API v9
+
+#### April 28, 2021
+
+API v9 is now available.
+
+API v9 includes supports for [threads](#DOCS_TOPICS_THREADS), an upcoming feature.  Older API versions will not receive any Gateway Events for threads, so it is important to update soon!  We've prepared a [migration guide](#DOCS_TOPICS_THREADS) to help make the upgrade process very straightforward.
+
+This documentation is being published early so bots can have at least two months to upgrade before threads launch.
+
 ## Slash Command Permissions
 
 #### April 5, 2021
@@ -16,7 +26,7 @@ New routes have been added to support this functionality:
 
 A `default_permission` field has also been added to the [ApplicationCommand](#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommand) model. This field allows you to disable commands for everyone in a guild by default, if you prefer to make some of your commands an opt-in experience.
 
-## Large Bot Sharding Lowered to 150,000 Guilds 
+## Large Bot Sharding Lowered to 150,000 Guilds
 
 #### March 15, 2021
 
@@ -76,7 +86,7 @@ Inline Replies have been added to our documentation. They behave differently in 
 
 #### November 13, 2020
 
-Stickers are now documented as part of the [message](#DOCS_RESOURCES_CHANNEL/message-object) object. 
+Stickers are now documented as part of the [message](#DOCS_RESOURCES_CHANNEL/message-object) object.
 
 ## Gateway v6 Intent Restrictions
 

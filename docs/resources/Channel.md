@@ -6,30 +6,37 @@ Represents a guild or DM channel within Discord.
 
 ###### Channel Structure
 
-| Field                  | Type                                                                   | Description                                                                                                                                                                     |
-|------------------------|------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| id                     | snowflake                                                              | the id of this channel                                                                                                                                                          |
-| type                   | integer                                                                | the [type of channel](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types)                                                                                                     |
-| guild_id?              | snowflake                                                              | the id of the guild (may be missing for some channel objects received over gateway guild dispatches)                                                                           |
-| position?              | integer                                                                | sorting position of the channel                                                                                                                                                 |
-| permission_overwrites? | array of [overwrite](#DOCS_RESOURCES_CHANNEL/overwrite-object) objects | explicit permission overwrites for members and roles                                                                                                                            |
-| name?                  | string                                                                 | the name of the channel (2-100 characters)                                                                                                                                      |
-| topic?                 | ?string                                                                | the channel topic (0-1024 characters)                                                                                                                                           |
-| nsfw?                  | boolean                                                                | whether the channel is nsfw                                                                                                                                                     |
-| last_message_id?       | ?snowflake                                                             | the id of the last message sent in this channel (may not point to an existing or valid message)                                                                                 |
-| bitrate?               | integer                                                                | the bitrate (in bits) of the voice channel                                                                                                                                      |
-| user_limit?            | integer                                                                | the user limit of the voice channel                                                                                                                                             |
-| rate_limit_per_user?   | integer                                                                | amount of seconds a user has to wait before sending another message (0-21600); bots, as well as users with the permission `manage_messages` or `manage_channel`, are unaffected |
-| recipients?            | array of [user](#DOCS_RESOURCES_USER/user-object) objects              | the recipients of the DM                                                                                                                                                        |
-| icon?                  | ?string                                                                | icon hash                                                                                                                                                                       |
-| owner_id?              | snowflake                                                              | id of the DM creator                                                                                                                                                            |
-| application_id?        | snowflake                                                              | application id of the group DM creator if it is bot-created                                                                                                                     |
-| parent_id?             | ?snowflake                                                             | id of the parent category for a channel (each parent category can contain up to 50 channels)                                                                                    |
-| last_pin_timestamp?    | ?ISO8601 timestamp                                                     | when the last pinned message was pinned. This may be `null` in events such as `GUILD_CREATE` when a message is not pinned.                                                      |
-| rtc_region?            | ?string                                                                | [voice region](#DOCS_RESOURCES_VOICE/voice-region-object) id for the voice channel, automatic when set to null                                                                  |
-| video_quality_mode?    | integer                                                                | the camera [video quality mode](#DOCS_RESOURCES_CHANNEL/channel-object-video-quality-modes) of the voice channel, 1 when not present                                            |
+| Field                  | Type                                                                       | Description                                                                                                                                                                     |
+|------------------------|----------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| id                     | snowflake                                                                  | the id of this channel                                                                                                                                                          |
+| type                   | integer                                                                    | the [type of channel](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types)                                                                                                     |
+| guild_id?              | snowflake                                                                  | the id of the guild (may be missing for some channel objects received over gateway guild dispatches)                                                                            |
+| position?              | integer                                                                    | sorting position of the channel                                                                                                                                                 |
+| permission_overwrites? | array of [overwrite](#DOCS_RESOURCES_CHANNEL/overwrite-object) objects     | explicit permission overwrites for members and roles                                                                                                                            |
+| name?                  | string                                                                     | the name of the channel (2-100 characters)                                                                                                                                      |
+| topic?                 | ?string                                                                    | the channel topic (0-1024 characters)                                                                                                                                           |
+| nsfw?                  | boolean                                                                    | whether the channel is nsfw                                                                                                                                                     |
+| last_message_id?       | ?snowflake                                                                 | the id of the last message sent in this channel (may not point to an existing or valid message)                                                                                 |
+| bitrate?               | integer                                                                    | the bitrate (in bits) of the voice channel                                                                                                                                      |
+| user_limit?            | integer                                                                    | the user limit of the voice channel                                                                                                                                             |
+| rate_limit_per_user?   | integer                                                                    | amount of seconds a user has to wait before sending another message (0-21600); bots, as well as users with the permission `manage_messages` or `manage_channel`, are unaffected |
+| recipients?            | array of [user](#DOCS_RESOURCES_USER/user-object) objects                  | the recipients of the DM                                                                                                                                                        |
+| icon?                  | ?string                                                                    | icon hash                                                                                                                                                                       |
+| owner_id?              | snowflake                                                                  | id of the DM or creator                                                                                                                                                         |
+| application_id?        | snowflake                                                                  | application id of the group DM creator if it is bot-created                                                                                                                     |
+| parent_id?             | ?snowflake                                                                 | for guild channels: id of the parent category for a channel (each parent category can contain up to 50 channels), for threads: id of the text channel this thread was created   |
+| last_pin_timestamp?    | ?ISO8601 timestamp                                                         | when the last pinned message was pinned. This may be `null` in events such as `GUILD_CREATE` when a message is not pinned.                                                      |
+| rtc_region?            | ?string                                                                    | [voice region](#DOCS_RESOURCES_VOICE/voice-region-object) id for the voice channel, automatic when set to null                                                                  |
+| video_quality_mode?    | integer                                                                    | the camera [video quality mode](#DOCS_RESOURCES_CHANNEL/channel-object-video-quality-modes) of the voice channel, 1 when not present                                            |
+| message_count?         | integer                                                                    | an approximate count of messages in a thread, caps at 50                                                                                                                        |
+| member_count?          | integer                                                                    | an approximate count of users in a thread, caps at 50                                                                                                                           |
+| thread_metadata?       | a [thread metadata](#DOCS_RESOURCES_CHANNEL/thread-metadata-object) object | thread-specific fields not needed by other channels                                                                                                                             |
+| member?                | a [thread member](#DOCS_RESOURCES_CHANNEL/thread-member-object) object     | thread member object for the current user, if they have joined the thread, only included on certain API endpoints                                                               |
 
 ###### Channel Types
+
+> warn
+> Type 10, 11 and 12 are only available in API v9.
 
 | Type              | ID  | Description                                                                                                                                          |
 | ----------------- | --- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -40,6 +47,9 @@ Represents a guild or DM channel within Discord.
 | GUILD_CATEGORY    | 4   | an [organizational category](https://support.discord.com/hc/en-us/articles/115001580171-Channel-Categories-101) that contains up to 50 channels      |
 | GUILD_NEWS        | 5   | a channel that [users can follow and crosspost into their own server](https://support.discord.com/hc/en-us/articles/360032008192)                    |
 | GUILD_STORE       | 6   | a channel in which game developers can [sell their game on Discord](https://discord.com/developers/docs/game-and-server-management/special-channels) |
+| NEWS_THREAD       | 10  | a temporary sub-channel within a GUILD_NEWS channel                                                                                                  |
+| PUBLIC_THREAD     | 11  | a temporary sub-channel within a GUILD_TEXT channel                                                                                                  |
+| PRIVATE_THREAD    | 12  | a temporary sub-channel within a GUILD_TEXT channel that is only viewable by those invited and those with the MANAGE_MESSAGES permission             |
 | GUILD_STAGE_VOICE | 13  | a voice channel for [hosting events with an audience](https://support.discord.com/hc/en-us/articles/1500005513722)                                   |
 
 ###### Video Quality Modes
@@ -181,6 +191,39 @@ Bots can neither send or read messages from this channel type (as it is a store 
 }
 ```
 
+###### Example Thread Channel
+
+[Threads](#DOCS_TOPICS_THREADS) can be either `archived` or `active`.  Archived threads are generally immutable.  To send a message or add a reaction, a thread must first be unarchived.  The API will helpfully automatically unarchive a thread when sending a message in that thread.
+
+Unlike with channels, the API will only sync updates to users about threads the current user can view.  When receiving a [guild create](#DOCS_TOPICS_GATEWAY/guild-create) payload, the API will only include active threads the current user can view.  Threads inside of private channels are completely private to the members of that private channel.  As such, when _gaining_ access to a channel the API send a [thread list sync](#DOCS_TOPICS_GATEWAY/thread-list-sync), which includes all active threads in that channel.
+
+Threads also track membership.  Users must be added to a thread before sending messages in them.  The API will helpfully automatically add users to a thread when sending a message in that thread.
+
+Guilds have limits on the number of active threads and members per thread.  Once these are reached additional threads cannot be created or unarchived, and users cannot be added.
+
+The [threads](#DOCS_TOPICS_THREADS) topic has some more information.
+
+```json
+{
+  "id": "41771983423143937",
+  "guild_id": "41771983423143937",
+  "parent_id": "41771983423143937",
+  "owner_id": "41771983423143937",
+  "name": "don't buy dota-2",
+  "type": 11,
+  "last_message_id": "155117677105512449",
+  "message_count": 1,
+  "member_count": 5,
+  "thread_metadata": {
+    "archived": false,
+    "archiver_id": "41771983423143937",
+    "auto_archive_duration": 1440,
+    "archive_timestamp": "2021-04-12T23:40:39.855793+00:00",
+    "locked": false
+  }
+}
+```
+
 ### Message Object
 
 Represents a message sent in a channel within Discord.
@@ -211,11 +254,12 @@ Represents a message sent in a channel within Discord.
 | type                          | integer                                                                                                                                         | [type of message](#DOCS_RESOURCES_CHANNEL/message-object-message-types)                                                                 |
 | activity?                     | [message activity](#DOCS_RESOURCES_CHANNEL/message-object-message-activity-structure) object                                                    | sent with Rich Presence-related chat embeds                                                                                             |
 | application?                  | partial [application](#DOCS_TOPICS_OAUTH2/application) object                                                                                   | sent with Rich Presence-related chat embeds                                                                                             |
-| message_reference?            | [message reference](#DOCS_RESOURCES_CHANNEL/message-reference-object-message-reference-structure) object                                                  | data showing the source of a crosspost, channel follow add, pin, or reply message                                                       |
+| message_reference?            | [message reference](#DOCS_RESOURCES_CHANNEL/message-reference-object-message-reference-structure) object                                        | data showing the source of a crosspost, channel follow add, pin, or reply message                                                       |
 | flags?                        | integer                                                                                                                                         | [message flags](#DOCS_RESOURCES_CHANNEL/message-object-message-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field) |
 | stickers?                     | array of [sticker](#DOCS_RESOURCES_CHANNEL/message-object-message-sticker-structure) objects                                                    | the stickers sent with the message (bots currently can only receive messages with stickers, not send)                                   |
 | referenced_message?\*\*\*\*\* | ?[message object](#DOCS_RESOURCES_CHANNEL/message-object)                                                                                       | the message associated with the message_reference                                                                                       |
 | interaction?                  | [message interaction object](#DOCS_INTERACTIONS_SLASH_COMMANDS/messageinteraction)                                                              | sent if the message is a response to an [Interaction](#DOCS_INTERACTIONS_SLASH_COMMANDS/)                                               |
+| thread?                       | [channel](#DOCS_RESOURCES_CHANNEL/channel) object                                                                                               | the thread that was started from this message, includes [thread member](#DOCS_RESOURCES_CHANNEL/thread-member-object) object            |
 
 \* The author object follows the structure of the user object, but is only a valid user in the case where the message is generated by a user or bot user. If the message is generated by a webhook, the author object corresponds to the webhook's id, username, and avatar. You can tell if a message is generated by a webhook by checking for the `webhook_id` on the message object.
 
@@ -225,12 +269,12 @@ Represents a message sent in a channel within Discord.
 
 \*\*\*\* Not all channel mentions in a message will appear in `mention_channels`. Only textual channels that are visible to everyone in a lurkable guild will ever be included. Only crossposted messages (via Channel Following) currently include `mention_channels` at all. If no mentions in the message meet these requirements, this field will not be sent.
 
-\*\*\*\*\* This field is only returned for messages with a `type` of `19` (REPLY). If the message is a reply but the `referenced_message` field is not present, the backend did not attempt to fetch the message that was being replied to, so its state is unknown. If the field exists but is null, the referenced message was deleted.
+\*\*\*\*\* This field is only returned for messages with a `type` of `19` (REPLY) or `21` (THREAD_STARTER_MESSAGE). If the message is a reply but the `referenced_message` field is not present, the backend did not attempt to fetch the message that was being replied to, so its state is unknown. If the field exists but is null, the referenced message was deleted.
 
 ###### Message Types
 
 > warn
-> Type `19` and `20` are only in API v8. In v6, they are still type `0`.
+> Type `19` and `20` are only in API v8. In v6, they are still type `0`.  Type 21 is only in API v9.
 
 | Type                                         | Value |
 |----------------------------------------------|-------|
@@ -251,8 +295,10 @@ Represents a message sent in a channel within Discord.
 | GUILD_DISCOVERY_REQUALIFIED                  | 15    |
 | GUILD_DISCOVERY_GRACE_PERIOD_INITIAL_WARNING | 16    |
 | GUILD_DISCOVERY_GRACE_PERIOD_FINAL_WARNING   | 17    |
+| THREAD_CREATED                               | 18    |
 | REPLY                                        | 19    |
 | APPLICATION_COMMAND                          | 20    |
+| THREAD_STARTER_MESSAGE                       | 21    |
 | GUILD_INVITE_REMINDER                        | 22    |
 
 ###### Message Activity Structure
@@ -280,6 +326,7 @@ Represents a message sent in a channel within Discord.
 | SUPPRESS_EMBEDS        | 1 << 2 | do not include any embeds when serializing this message                           |
 | SOURCE_MESSAGE_DELETED | 1 << 3 | the source message for this crosspost has been deleted (via Channel Following)    |
 | URGENT                 | 1 << 4 | this message came from the urgent message system                                  |
+| HAS_THREAD             | 1 << 5 | this message has an associated thread, with the same id as the message            |
 | EPHEMERAL              | 1 << 6 | this message is only visible to the user who invoked the Interaction              |
 | LOADING                | 1 << 7 | this message is an Interaction Response and the bot is "thinking"                 |
 
@@ -394,23 +441,6 @@ Represents a message sent in a channel within Discord.
 
 ### Message Reference Object
 
-There are currently four situations in which a message has a message_reference object:
-
-Crosspost messages: messages that originated from another channel (IS_CROSSPOST flag).  
-These messages have all three fields, with data of the original message that was crossposted.
-
-Channel Follow Add messages: automatic messages sent when a channel is followed into the current channel (type 12).  
-These messages have the `channel_id` and `guild_id` fields, with data of the followed announcement channel.
-
-Pin messages: automatic messages sent when a message is pinned (type 6).  
-These messages have `message_id` and `channel_id`, and `guild_id` if it is in a guild, with data of the message that was pinned.
-
-Replies: messages replying to a previous message (type 19).  
-These messages have `message_id` and `channel_id`, and `guild_id` if it is in a guild, with data of the message that was replied to. The channel_id and guild_id will be the same as the reply.  
-Replies are created by including a message_reference when sending a message. When sending, only `message_id` is required.
-
-Since message references are a generic attribution to a previous message, there may be more types of messages which have this information in the future.
-
 ###### Message Reference Structure
 
 | Field               | Type      | Description                                                                                                                             |
@@ -421,6 +451,37 @@ Since message references are a generic attribution to a previous message, there 
 | fail_if_not_exists? | boolean   | when sending, whether to error if the referenced message doesn't exist instead of sending as a normal (non-reply) message, default true |
 
 \* `channel_id` is optional when creating a reply, but will always be present when receiving an event/response that includes this data model.
+
+#### Message Types
+
+There are multiple message types that have a message_reference object.  Since message references are generic attribution to a previous message, there will be more types of messages which have this information in the future.
+
+###### Crosspost messages
+
+- These are messages that originated from another channel (IS_CROSSPOST flag).
+- These messages have all three fields, with data of the original message that was crossposted.
+
+###### Channel Follow Add messages
+
+- These are automatic messages sent when a channel is followed into the current channel (type 12).
+- These messages have the `channel_id` and `guild_id` fields, with data of the followed announcement channel.
+
+###### Pin messages
+
+- These are automatic messages sent when a message is pinned (type 6).
+- These messages have `message_id` and `channel_id`, and `guild_id` if it is in a guild, with data of the message that was pinned.
+
+###### Replies
+
+- These are messages replying to a previous message (type 19).
+- These messages have `message_id` and `channel_id`, and `guild_id` if it is in a guild, with data of the message that was replied to. The channel_id and guild_id will be the same as the reply.
+- Replies are created by including a message_reference when sending a message. When sending, only `message_id` is required.
+
+###### Thread starter messsage
+
+- These are the first message in a public thread.  They point back to the message in the parent channel from which the thread was started (type 21)
+- These messages have `message_id`, `channel_id`, and `guild_id`.
+- These messages will never have content, embeds, or attachments, mainly just the `message_reference` and `referenced_message` fields.
 
 ### Followed Channel Object
 
@@ -453,6 +514,33 @@ See [permissions](#DOCS_TOPICS_PERMISSIONS/permissions) for more information abo
 | type  | int       | either 0 (role) or 1 (member) |
 | allow | string    | permission bit set            |
 | deny  | string    | permission bit set            |
+
+### Thread Metadata Object
+
+The thread metadata object contains a number of thread-specific channel fields that are not needed by other channel types.
+
+###### Thread Metadata Structure
+
+| Field                 | Type              | Description                                                                                                         |
+|-----------------------|-------------------|---------------------------------------------------------------------------------------------------------------------|
+| archived              | boolean           | whether the thread is archived                                                                                      |
+| archiver_id?          | snowflake         | id of the user that last archived or unarchived the thread                                                          |
+| auto_archive_duration | integer           | duration in minutes to automatically archive the thread after recent activity, can be set to: 60, 1440, 4320, 10080 |
+| archive_timestamp     | ISO8601 timestamp | timestamp when the thread's archive status was last changed, used for calculating recent activity                   |
+| locked?               | boolean           | when a thread is locked, only users with MANAGE_THREADS can unarchive it                                            |
+
+### Thread Member Object
+
+A thread member is used to indicate whether a user has joined a thread or not.
+
+###### Thread Member Structure
+
+| Field          | Type              | Description                                                     |
+|----------------|-------------------|-----------------------------------------------------------------|
+| id             | snowflake         | the id of the thread                                            |
+| user_id        | snowflake         | the id of the user                                              |
+| join_timestamp | ISO8601 timestamp | the time the current_user last joined the thread                |
+| flags          | integer           | any user-thread settings, currently only used for notifications |
 
 ### Embed Object
 
@@ -695,13 +783,24 @@ Additionally, the characters in all `title`, `description`, `field.name`, `field
 
 ## Get Channel % GET /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}
 
-Get a channel by ID. Returns a [channel](#DOCS_RESOURCES_CHANNEL/channel-object) object.
+Get a channel by ID. Returns a [channel](#DOCS_RESOURCES_CHANNEL/channel-object) object.  If the channel is a thread, a [thread member](#DOCS_RESOURCES_CHANNEL/thread-member-object) object is included in the returned result.
 
 ## Modify Channel % PATCH /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}
 
-Update a channel's settings. Requires the `MANAGE_CHANNELS` permission for the guild. Returns a [channel](#DOCS_RESOURCES_CHANNEL/channel-object) on success, and a 400 BAD REQUEST on invalid parameters. Fires a [Channel Update](#DOCS_TOPICS_GATEWAY/channel-update) Gateway event. If modifying a category, individual [Channel Update](#DOCS_TOPICS_GATEWAY/channel-update) events will fire for each child channel that also changes. If modifying permission overwrites, the `MANAGE_ROLES` permission is required. Only permissions your bot has in the guild or channel can be allowed/denied (unless your bot has a `MANAGE_ROLES` overwrite in the channel). All JSON parameters are optional.
+Update a channel's settings. Returns a [channel](#DOCS_RESOURCES_CHANNEL/channel-object) on success, and a 400 BAD REQUEST on invalid parameters. All JSON parameters are optional.
 
-###### JSON Params
+###### JSON Params (Group DM)
+
+Fires a [Channel Update](#DOCS_TOPICS_GATEWAY/channel-update) Gateway event.
+
+| Field                 | Type                                                                    | Description                                                                                                                                                               |
+|-----------------------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| name                  | string                                                                  | 2-100 character channel name                                                                                                                                              |
+| icon                  | binary                                                                 | the [type of channel](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types); only conversion between text and news is supported and only in guilds with the "NEWS" feature |
+
+###### JSON Params (Guild channel)
+
+Requires the `MANAGE_CHANNELS` permission for the guild. Fires a [Channel Update](#DOCS_TOPICS_GATEWAY/channel-update) Gateway event. If modifying a category, individual [Channel Update](#DOCS_TOPICS_GATEWAY/channel-update) events will fire for each child channel that also changes. If modifying permission overwrites, the `MANAGE_ROLES` permission is required. Only permissions your bot has in the guild or channel can be allowed/denied (unless your bot has a `MANAGE_ROLES` overwrite in the channel).
 
 | Field                 | Type                                                                    | Description                                                                                                                                                                     | Channel Type             |
 |-----------------------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------|
@@ -718,9 +817,23 @@ Update a channel's settings. Requires the `MANAGE_CHANNELS` permission for the g
 | rtc_region            | ?string                                                                 | channel [voice region](#DOCS_RESOURCES_VOICE/voice-region-object) id, automatic when set to null                                                                                | Voice                    |
 | video_quality_mode    | ?integer                                                                | the camera [video quality mode](#DOCS_RESOURCES_CHANNEL/channel-object-video-quality-modes) of the voice channel                                                                | Voice                    |
 
+###### JSON Params (Thread)
+
+When setting `archived` to `false`, requires the ability to send messages in the thread.  The thread must already have `archived` set to `true`.
+
+Otherwise, requires the `MANAGE_THREADS` permission for the guild.  Fires a [Thread Update](#DOCS_TOPICS_GATEWAY/thread-update) Gateway event.  Requires the thread to have `archived` set to `false`.
+
+| Field                 | Type     | Description                                                                                                                                                                                       |
+|-----------------------|----------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| name                  | string   | 2-100 character channel name                                                                                                                                                                      |
+| archived              | boolean  | whether the channel is archived                                                                                                                                                                   |
+| auto_archive_duration | integer  | duration in minutes to automatically archive the thread after recent activity, can be set to: 60, 1440, 4320, 10080                                                                               |
+| locked                | boolean  | when a thread is locked, only users with MANAGE_THREADS can unarchive it                                                                                                                          |
+| rate_limit_per_user   | ?integer | amount of seconds a user has to wait before sending another message (0-21600); bots, as well as users with the permission `manage_messages`, `manage_thread`, or `manage_channel`, are unaffected |
+
 ## Delete/Close Channel % DELETE /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}
 
-Delete a channel, or close a private message. Requires the `MANAGE_CHANNELS` permission for the guild. Deleting a category does not delete its child channels; they will have their `parent_id` removed and a [Channel Update](#DOCS_TOPICS_GATEWAY/channel-update) Gateway event will fire for each of them. Returns a [channel](#DOCS_RESOURCES_CHANNEL/channel-object) object on success. Fires a [Channel Delete](#DOCS_TOPICS_GATEWAY/channel-delete) Gateway event.
+Delete a channel, or close a private message. Requires the `MANAGE_CHANNELS` permission for the guild, or `MANAGE_THREADS` if the channel is a thread. Deleting a category does not delete its child channels; they will have their `parent_id` removed and a [Channel Update](#DOCS_TOPICS_GATEWAY/channel-update) Gateway event will fire for each of them. Returns a [channel](#DOCS_RESOURCES_CHANNEL/channel-object) object on success. Fires a [Channel Delete](#DOCS_TOPICS_GATEWAY/channel-delete) Gateway event (or [Thread Delete](#DOCS_TOPICS_GATEWAY/thread-delete) if the channel was a thread).
 
 > warn
 > Deleting a guild channel cannot be undone. Use this with caution, as it is impossible to undo this action when performed on a guild channel. In contrast, when used with a private message, it is possible to undo the action by opening a private message with the recipient again.
@@ -1041,3 +1154,98 @@ Adds a recipient to a Group DM using their access token
 ## Group DM Remove Recipient % DELETE /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/recipients/{user.id#DOCS_RESOURCES_USER/user-object}
 
 Removes a recipient from a Group DM
+
+## Start a public thread % POST /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}/threads
+
+Creates a new public thread from an existing message.  Returns a [channel](#DOCS_RESOURCES_CHANNEL/channel-object) on success, and a 400 BAD REQUEST on invalid parameters.  Fires a [Thread Create](#DOCS_TOPICS_GATEWAY/thread-create) Gateway event.
+
+###### JSON Params
+
+| Field                 | Type    | Description                                                                                                         |
+|-----------------------|---------|---------------------------------------------------------------------------------------------------------------------|
+| name                  | string  | 2-100 character channel name                                                                                        |
+| auto_archive_duration | integer | duration in minutes to automatically archive the thread after recent activity, can be set to: 60, 1440, 4320, 10080 |
+
+## Start a private thread % POST /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/threads
+
+Creates a new private thread.  Returns a [channel](#DOCS_RESOURCES_CHANNEL/channel-object) on success, and a 400 BAD REQUEST on invalid parameters.  Fires a [Thread Create](#DOCS_TOPICS_GATEWAY/thread-create) Gateway event.
+
+###### JSON Params
+
+| Field                 | Type    | Description                                                                                                         |
+|-----------------------|---------|---------------------------------------------------------------------------------------------------------------------|
+| name                  | string  | 2-100 character channel name                                                                                        |
+| auto_archive_duration | integer | duration in minutes to automatically archive the thread after recent activity, can be set to: 60, 1440, 4320, 10080 |
+
+## Join a thread % POST /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/thread-members/@me
+
+Adds the current user to a thread. Returns a 204 empty response on success.  Also requires the thread is not archived.  Fires a [Thread Members Update](#DOCS_TOPICS_GATEWAY/thread-members-update) Gateway event.
+
+## Add a user to a thread % POST /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/thread-members/{user.id#DOCS_RESOURCES_USER/user-object}
+
+Adds another user to a thread. Requires the ability to send messages in the thread.  Also requires the thread is not archived. Returns a 204 empty response on success.  Fires a [Thread Members Update](#DOCS_TOPICS_GATEWAY/thread-members-update) Gateway event.
+
+## Leave a thread % DELETE /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/thread-members/@me
+
+Removes the current user from a thread. Returns a 204 empty response on success.  Fires a [Thread Members Update](#DOCS_TOPICS_GATEWAY/thread-members-update) Gateway event.
+
+## Remove a user from a thread % DELETE /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/thread-members/{user.id#DOCS_RESOURCES_USER/user-object}
+
+Removes another user from a thread. Requires the `MANAGE_THREADS` permission or that you are the creator of the thread.  Also requires the thread is not archived. Returns a 204 empty response on success.  Fires a [Thread Members Update](#DOCS_TOPICS_GATEWAY/thread-members-update) Gateway event.
+
+## Get all public archived threads % GET /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/threads/archived/public
+
+Returns archived threads in the channel that are public.  When called on a `GUILD_TEXT` channel, returns threads of [type](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types) `PUBLIC_THREAD`.  When called on a `GUILD_NEWS` channel returns threads of [type](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types) `NEWS_THREAD`.  Threads are ordered by `archive_timestamp`, in descending order. Requires the `READ_MESSAGE_HISTORY` permission.
+
+###### Query String Params
+
+| Field  | Type      | Description                                  |
+|--------|-----------|----------------------------------------------|
+| before | timestamp | returns threads before this timestamp        |
+| limit  | integer   | optional maximum number of threads to return |
+
+###### Response Body
+
+| Field    | Type      | Description                                                                                                                  |
+|----------|-----------|------------------------------------------------------------------------------------------------------------------------------|
+| threads  | snowflake | an array of [channel](#DOCS_RESOURCES_CHANNEL/channel-object) objects.                                                       |
+| members  | integer   | an array of [thread members](#DOCS_RESOURCES_CHANNEL/thread-member-object) objects, for any returned threads you have joined |
+| has_more | boolean   | whether there are potentially additional threads that could be returned on a subsequent call                                 |
+
+## Get all private archived threads % GET /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/threads/archived/private
+
+Returns archived threads in the channel that are of [type](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types) `PRIVATE_THREAD`.  Threads are ordered by `archive_timestamp`, in descending order. Requires both the `READ_MESSAGE_HISTORY` and `MANAGE_THREADS` permissions.
+
+###### Query String Params
+
+| Field  | Type      | Description                                  |
+|--------|-----------|----------------------------------------------|
+| before | timestamp | returns threads before this timestamp        |
+| limit  | integer   | optional maximum number of threads to return |
+
+###### Response Body
+
+| Field    | Type      | Description                                                                                                                  |
+|----------|-----------|------------------------------------------------------------------------------------------------------------------------------|
+| threads  | snowflake | an array of [channel](#DOCS_RESOURCES_CHANNEL/channel-object) objects.                                                       |
+| members  | integer   | an array of [thread members](#DOCS_RESOURCES_CHANNEL/thread-member-object) objects, for any returned threads you have joined |
+| has_more | boolean   | whether there are potentially additional threads that could be returned on a subsequent call                                 |
+
+## Get joined private archived threads % GET /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/users/@me/threads/archived/private
+
+Returns archived threads in the channel that are of [type](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types) `PRIVATE_THREAD`, and the user has joined.  Threads are ordered by their `id`, in descending order. Requires the `READ_MESSAGE_HISTORY` permission.
+
+###### Query String Params
+
+| Field  | Type      | Description                                  |
+|--------|-----------|----------------------------------------------|
+| before | snowflake | returns threads before this id               |
+| limit  | integer   | optional maximum number of threads to return |
+
+###### Response Body
+
+| Field    | Type      | Description                                                                                                                  |
+|----------|-----------|------------------------------------------------------------------------------------------------------------------------------|
+| threads  | snowflake | an array of [channel](#DOCS_RESOURCES_CHANNEL/channel-object) objects.                                                       |
+| members  | integer   | an array of [thread members](#DOCS_RESOURCES_CHANNEL/thread-member-object) objects, for any returned threads you have joined |
+| has_more | boolean   | whether there are potentially additional threads that could be returned on a subsequent call                                 |
