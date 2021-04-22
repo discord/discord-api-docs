@@ -371,7 +371,7 @@ A partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object. Represents an Offl
 | Field            | Type                                                                                              | Description                                        |
 | ---------------- | ------------------------------------------------------------------------------------------------- | -------------------------------------------------- |
 | description      | ?string                                                                                           | the server description shown in the welcome screen |
-| welcome_channels | array of [welcome screen channel](#DOCS_RESOURCES_GUILD/welcome-screen-channel-structure) objects | the channels shown in the welcome screen, up to 5  |
+| welcome_channels | array of [welcome screen channel](#DOCS_RESOURCES_GUILD/welcome-screen-object-welcome-screen-channel-structure) objects | the channels shown in the welcome screen, up to 5  |
 
 ###### Welcome Screen Channel Structure
 
