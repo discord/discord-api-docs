@@ -146,7 +146,7 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 30015  | Maximum number of attachments in a message reached (10)                                                                       |
 | 30016  | Maximum number of invites reached (1000)                                                                                      |
 | 30031  | Guild already has a template                                                                                                  |
-| 30035  | Maximum number of bans for non-guild members have been exceeded                                                                   |
+| 30035  | Maximum number of bans for non-guild members have been exceeded                                                               |
 | 40001  | Unauthorized. Provide a valid token and try again                                                                             |
 | 40002  | You need to verify your account in order to perform this action                                                               |
 | 40005  | Request entity too large. Try sending something smaller in size                                                               |
