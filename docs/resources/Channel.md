@@ -28,8 +28,8 @@ Represents a guild or DM channel within Discord.
 | last_pin_timestamp?    | ?ISO8601 timestamp                                                         | when the last pinned message was pinned. This may be `null` in events such as `GUILD_CREATE` when a message is not pinned.                                                      |
 | rtc_region?            | ?string                                                                    | [voice region](#DOCS_RESOURCES_VOICE/voice-region-object) id for the voice channel, automatic when set to null                                                                  |
 | video_quality_mode?    | integer                                                                    | the camera [video quality mode](#DOCS_RESOURCES_CHANNEL/channel-object-video-quality-modes) of the voice channel, 1 when not present                                            |
-| message_count?         | integer                                                                    | an approximate count of messages in a thread, caps at 50                                                                                                                        |
-| member_count?          | integer                                                                    | an approximate count of users in a thread, caps at 50                                                                                                                           |
+| message_count?         | integer                                                                    | an approximate count of messages in a thread, stops counting at 50                                                                                                              |
+| member_count?          | integer                                                                    | an approximate count of users in a thread, stops counting at 50                                                                                                                 |
 | thread_metadata?       | a [thread metadata](#DOCS_RESOURCES_CHANNEL/thread-metadata-object) object | thread-specific fields not needed by other channels                                                                                                                             |
 | member?                | a [thread member](#DOCS_RESOURCES_CHANNEL/thread-member-object) object     | thread member object for the current user, if they have joined the thread, only included on certain API endpoints                                                               |
 
@@ -49,7 +49,7 @@ Represents a guild or DM channel within Discord.
 | GUILD_STORE       | 6   | a channel in which game developers can [sell their game on Discord](https://discord.com/developers/docs/game-and-server-management/special-channels) |
 | NEWS_THREAD       | 10  | a temporary sub-channel within a GUILD_NEWS channel                                                                                                  |
 | PUBLIC_THREAD     | 11  | a temporary sub-channel within a GUILD_TEXT channel                                                                                                  |
-| PRIVATE_THREAD    | 12  | a temporary sub-channel within a GUILD_TEXT channel that is only viewable by those invited and those with the MANAGE_MESSAGES permission             |
+| PRIVATE_THREAD    | 12  | a temporary sub-channel within a GUILD_TEXT channel that is only viewable by those invited and those with the MANAGE_THREADS permission              |
 | GUILD_STAGE_VOICE | 13  | a voice channel for [hosting events with an audience](https://support.discord.com/hc/en-us/articles/1500005513722)                                   |
 
 ###### Video Quality Modes
@@ -199,7 +199,7 @@ Unlike with channels, the API will only sync updates to users about threads the 
 
 Threads also track membership.  Users must be added to a thread before sending messages in them.  The API will helpfully automatically add users to a thread when sending a message in that thread.
 
-Guilds have limits on the number of active threads and members per thread.  Once these are reached additional threads cannot be created or unarchived, and users cannot be added.
+Guilds have limits on the number of active threads and members per thread.  Once these are reached additional threads cannot be created or unarchived, and users cannot be added.  Threads do not count against the per-guild channel limit.
 
 The [threads](#DOCS_TOPICS_THREADS) topic has some more information.
 
@@ -214,6 +214,7 @@ The [threads](#DOCS_TOPICS_THREADS) topic has some more information.
   "last_message_id": "155117677105512449",
   "message_count": 1,
   "member_count": 5,
+  "rate_limit_per_user": 2,
   "thread_metadata": {
     "archived": false,
     "archiver_id": "41771983423143937",

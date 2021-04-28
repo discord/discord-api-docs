@@ -1,6 +1,6 @@
 # Threads
 
-[Threads](#DOCS_RESOURCES_CHANNEL/channel-object) are a new Discord feature, only available in API v9. Bots that do not update to API v9 will not receive gateway events for threads, or things that happen in threads (such as [Message Create](#DOCS_TOPICS_GATEWAY/message-create)).
+[Threads](#DOCS_RESOURCES_CHANNEL/channel-object) are a new Discord feature, only available in API v9. Bots that do not update to API v9 will not receive gateway events for threads, or things that happen in threads (such as [Message Create](#DOCS_TOPICS_GATEWAY/message-create)).  Threads can be thought of as temporary sub-channels inside an existing channel, to help better organize conversation in a busy channel.
 
 Threads have been designed to be very similar to [channel](#DOCS_RESOURCES_CHANNEL/channel-object) objects, and this topic aggregates all of the information about threads, which should all help to make migrating very straightforward.
 
@@ -18,7 +18,7 @@ Since threads are a new [type of channel](#DOCS_RESOURCES_CHANNEL/channel-object
 
 Additionally, there are a few new fields that are only available on threads:
 
-- `message_count` and `member_count` store an approximate count, capped at 50
+- `message_count` and `member_count` store an approximate count, but they stop counting at 50 (these are only used in our UI, so likely are not valuable to bots)
 - `thread_metadata` contains a few thread specific fields, `archived`, `archive_timestamp`, `archiver_id`, `auto_archive_duration`, `locked`. Archive timestamp is changed when creating, archiving, or unarchiving a thread, and when changing the auto_archive_duration field.
 
 ## Public & Private Threads
@@ -34,6 +34,8 @@ Every thread can be either active or archived. Changing a thread from archived -
 Besides helping to de-clutter the UI for users, archiving exists to limit the working set of threads that need to be kept around. Since the number of archived threads can be quite large, keeping all of them in memory may be quite prohibitive. Therefore guilds are capped at a certain number of active threads, and only active threads can be manipulated. Users cannot send messages, edit messages, add reactions, use slash commands, or join archived threads. The only operation that should happen within an archived thread is messages being deleted.
 
 Because of this constraint, the gateway protocol is designed to ensure that bots are able to have an accurate view of the full set of active threads, but archived threads are not synced up-front via the gateway.
+
+Threads do not count against the max-channels limit in a guild, but there will be a new limit on the maximum number of active threads in a guild.
 
 ## Permissions
 
