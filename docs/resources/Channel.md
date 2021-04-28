@@ -539,7 +539,7 @@ A thread member is used to indicate whether a user has joined a thread or not.
 |----------------|-------------------|-----------------------------------------------------------------|
 | id             | snowflake         | the id of the thread                                            |
 | user_id        | snowflake         | the id of the user                                              |
-| join_timestamp | ISO8601 timestamp | the time the current_user last joined the thread                |
+| join_timestamp | ISO8601 timestamp | the time the current user last joined the thread                |
 | flags          | integer           | any user-thread settings, currently only used for notifications |
 
 ### Embed Object
@@ -1199,10 +1199,10 @@ Returns archived threads in the channel that are public.  When called on a `GUIL
 
 ###### Query String Params
 
-| Field  | Type      | Description                                  |
-|--------|-----------|----------------------------------------------|
-| before | timestamp | returns threads before this timestamp        |
-| limit  | integer   | optional maximum number of threads to return |
+| Field   | Type      | Description                                  |
+|---------|-----------|----------------------------------------------|
+| before? | timestamp | returns threads before this timestamp        |
+| limit?  | integer   | optional maximum number of threads to return |
 
 ###### Response Body
 
@@ -1218,10 +1218,10 @@ Returns archived threads in the channel that are of [type](#DOCS_RESOURCES_CHANN
 
 ###### Query String Params
 
-| Field  | Type      | Description                                  |
-|--------|-----------|----------------------------------------------|
-| before | timestamp | returns threads before this timestamp        |
-| limit  | integer   | optional maximum number of threads to return |
+| Field   | Type      | Description                                  |
+|---------|-----------|----------------------------------------------|
+| before? | timestamp | returns threads before this timestamp        |
+| limit?  | integer   | optional maximum number of threads to return |
 
 ###### Response Body
 
@@ -1237,10 +1237,10 @@ Returns archived threads in the channel that are of [type](#DOCS_RESOURCES_CHANN
 
 ###### Query String Params
 
-| Field  | Type      | Description                                  |
-|--------|-----------|----------------------------------------------|
-| before | snowflake | returns threads before this id               |
-| limit  | integer   | optional maximum number of threads to return |
+| Field   | Type      | Description                                  |
+|---------|-----------|----------------------------------------------|
+| before? | snowflake | returns threads before this id               |
+| limit?  | integer   | optional maximum number of threads to return |
 
 ###### Response Body
 

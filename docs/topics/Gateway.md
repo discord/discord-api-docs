@@ -307,7 +307,7 @@ Any [events not defined in an intent](#DOCS_TOPICS_GATEWAY/commands-and-events-g
 
 [Guild Create](#DOCS_TOPICS_GATEWAY/guild-create) and [Request Guild Members](#DOCS_TOPICS_GATEWAY/request-guild-members) are uniquely affected by intents. See these sections for more information.
 
-[Thread Members Update](#DOCS_TOPICS_GATEWAY/thread-members-update) by default only includes if the current was added to or removed from a thread.  To receive these updates for other users, request the `GUILD_MEMBERS` [Gateway Intent](#DOCS_TOPICS_GATEWAY/gateway-intents).
+[Thread Members Update](#DOCS_TOPICS_GATEWAY/thread-members-update) by default only includes if the current user was added to or removed from a thread.  To receive these updates for other users, request the `GUILD_MEMBERS` [Gateway Intent](#DOCS_TOPICS_GATEWAY/gateway-intents).
 
 If you specify an `intent` value in your `IDENTIFY` payload that is *invalid*, the socket will close with a [`4013` close code](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/gateway-gateway-close-event-codes). An invalid intent is one that is not meaningful and not documented above.
 
