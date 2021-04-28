@@ -6,7 +6,7 @@ Threads have been designed to be very similar to [channel](#DOCS_RESOURCES_CHANN
 
 ## Disclaimer
 
-Threads have not shipped yet, and so everything in this documentation is still subject to change. At a minimum additional status codes will be added for reaching certain limits, but additional changes are still fair game, and likely.
+Threads have not shipped yet, and so everything in this documentation is still subject to change. At a minimum additional status codes will be added for reaching certain limits, and we may implement additional features, especially around moderation tooling, but we don't expect any of those to be breaking changes for what is currently documented.
 
 ## New Thread Fields
 

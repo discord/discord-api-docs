@@ -10,6 +10,9 @@ API v9 includes supports for [threads](#DOCS_TOPICS_THREADS), an upcoming featur
 
 This documentation is being published early so bots can have at least two months to upgrade before threads launch.
 
+Additionally, API v9 also removes the `/channels/:id/messages/:id/suppress-embeds` route.
+
+
 ## Slash Command Permissions
 
 #### April 5, 2021

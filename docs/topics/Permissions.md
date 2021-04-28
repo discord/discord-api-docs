@@ -166,7 +166,7 @@ Users must have the `VIEW_CHANNEL` permission to view _any_ threads in the chann
 
 Users can **create** a thread if they have _both_ the `SEND_MESSAGES` permission and the appropriate threads permission (`USE_THREADS` for public threads, `USE_PRIVATE_THREADS` for private threads) on the parent channel.
 
-Users can **participate** in a thread if they have _either_ the `SEND_MESSAGES` permission and the appropriate threads permission (`USE_THREADS` for public threads, `USE_PRIVATE_THREADS` for private threads) on the parent channel.
+Users can **participate** in a thread if they have _either_ the `SEND_MESSAGES` permission or the appropriate threads permission (`USE_THREADS` for public threads, `USE_PRIVATE_THREADS` for private threads) on the parent channel.
 
 ## Permission Syncing
 
