@@ -909,6 +909,7 @@ An application command is the base "command" model that belongs to an applicatio
 | USER              | 6     |
 | CHANNEL           | 7     |
 | ROLE              | 8     |
+| MENTIONABLE       | 9     |
 
 ## ApplicationCommandOptionChoice
 
