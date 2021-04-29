@@ -1156,7 +1156,7 @@ Adds a recipient to a Group DM using their access token
 
 Removes a recipient from a Group DM
 
-## Start a public thread % POST /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}/threads
+## Start Public Thread % POST /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}/threads
 
 Creates a new public thread from an existing message.  Returns a [channel](#DOCS_RESOURCES_CHANNEL/channel-object) on success, and a 400 BAD REQUEST on invalid parameters.  Fires a [Thread Create](#DOCS_TOPICS_GATEWAY/thread-create) Gateway event.
 
