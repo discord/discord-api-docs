@@ -182,7 +182,7 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 50041  | Invalid API version provided                                                                                                  |
 | 50074  | Cannot delete a channel required for Community guilds                                                                         |
 | 50081  | Invalid sticker sent                                                                                                          |
-| 50083  | Invalid thread archive state (e.g. Tried to archive an archived thread)                                                       |
+| 50083  | Tried to perform an operation on an archived thread, such as editing a message or adding a user to the thread                 |
 | 50084  | Invalid thread notification settings                                                                                          |
 | 50085  | `before` value is earlier than the thread creation date                                                                       |
 | 60003  | Two factor is required for this operation                                                                                     |
