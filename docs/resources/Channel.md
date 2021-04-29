@@ -1205,13 +1205,6 @@ Returns array of [thread members](#DOCS_RESOURCES_CHANNEL/thread-member-object) 
 
 Returns all active threads in the channel, including public and private threads.  Threads are ordered by their `id`, in descending order. Requires the `READ_MESSAGE_HISTORY` permission.
 
-###### Query String Params
-
-| Field   | Type      | Description                                  |
-|---------|-----------|----------------------------------------------|
-| before? | timestamp | returns threads before this timestamp        |
-| limit?  | integer   | optional maximum number of threads to return |
-
 ###### Response Body
 
 | Field    | Type                                                                            | Description                                                                                  |
