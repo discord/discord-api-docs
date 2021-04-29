@@ -1194,7 +1194,33 @@ Removes the current user from a thread. Returns a 204 empty response on success.
 
 Removes another user from a thread. Requires the `MANAGE_THREADS` permission or that you are the creator of the thread.  Also requires the thread is not archived. Returns a 204 empty response on success.  Fires a [Thread Members Update](#DOCS_TOPICS_GATEWAY/thread-members-update) Gateway event.
 
-## Get all public archived threads % GET /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/threads/archived/public
+## List Thread Members % GET GET /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/threads-members
+
+Returns array of [thread members](#DOCS_RESOURCES_CHANNEL/thread-member-object) objects that are members of the thread.
+
+> warn
+> This endpoint is restricted according to whether the `GUILD_MEMBERS` [Privileged Intent](#DOCS_TOPICS_GATEWAY/privileged-intents) is enabled for your application.
+
+## List active threads % GET /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/threads/active
+
+Returns all active threads in the channel, including public and private threads.  Threads are ordered by their `id`, in descending order. Requires the `READ_MESSAGE_HISTORY` permission.
+
+###### Query String Params
+
+| Field   | Type      | Description                                  |
+|---------|-----------|----------------------------------------------|
+| before? | timestamp | returns threads before this timestamp        |
+| limit?  | integer   | optional maximum number of threads to return |
+
+###### Response Body
+
+| Field    | Type                                                                            | Description                                                                                  |
+|----------|---------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------|
+| threads  | array of [channel](#DOCS_RESOURCES_CHANNEL/channel-object) objects              | the active threads                                                                           |
+| members  | array of [thread members](#DOCS_RESOURCES_CHANNEL/thread-member-object) objects | a thread member object for each returned thread the current user has joined                  |
+| has_more | boolean                                                                         | whether there are potentially additional threads that could be returned on a subsequent call |
+
+## List public archived threads % GET /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/threads/archived/public
 
 Returns archived threads in the channel that are public.  When called on a `GUILD_TEXT` channel, returns threads of [type](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types) `PUBLIC_THREAD`.  When called on a `GUILD_NEWS` channel returns threads of [type](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types) `NEWS_THREAD`.  Threads are ordered by `archive_timestamp`, in descending order. Requires the `READ_MESSAGE_HISTORY` permission.
 
@@ -1207,13 +1233,13 @@ Returns archived threads in the channel that are public.  When called on a `GUIL
 
 ###### Response Body
 
-| Field    | Type      | Description                                                                                                                  |
-|----------|-----------|------------------------------------------------------------------------------------------------------------------------------|
-| threads  | snowflake | an array of [channel](#DOCS_RESOURCES_CHANNEL/channel-object) objects.                                                       |
-| members  | integer   | an array of [thread members](#DOCS_RESOURCES_CHANNEL/thread-member-object) objects, for any returned threads you have joined |
-| has_more | boolean   | whether there are potentially additional threads that could be returned on a subsequent call                                 |
+| Field    | Type                                                                            | Description                                                                                  |
+|----------|---------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------|
+| threads  | array of [channel](#DOCS_RESOURCES_CHANNEL/channel-object) objects              | the public, archived threads                                                                 |
+| members  | array of [thread members](#DOCS_RESOURCES_CHANNEL/thread-member-object) objects | a thread member object for each returned thread the current user has joined                  |
+| has_more | boolean                                                                         | whether there are potentially additional threads that could be returned on a subsequent call |
 
-## Get all private archived threads % GET /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/threads/archived/private
+## List private archived threads % GET /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/threads/archived/private
 
 Returns archived threads in the channel that are of [type](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types) `PRIVATE_THREAD`.  Threads are ordered by `archive_timestamp`, in descending order. Requires both the `READ_MESSAGE_HISTORY` and `MANAGE_THREADS` permissions.
 
@@ -1226,13 +1252,13 @@ Returns archived threads in the channel that are of [type](#DOCS_RESOURCES_CHANN
 
 ###### Response Body
 
-| Field    | Type      | Description                                                                                                                  |
-|----------|-----------|------------------------------------------------------------------------------------------------------------------------------|
-| threads  | snowflake | an array of [channel](#DOCS_RESOURCES_CHANNEL/channel-object) objects.                                                       |
-| members  | integer   | an array of [thread members](#DOCS_RESOURCES_CHANNEL/thread-member-object) objects, for any returned threads you have joined |
-| has_more | boolean   | whether there are potentially additional threads that could be returned on a subsequent call                                 |
+| Field    | Type                                                                            | Description                                                                                  |
+|----------|---------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------|
+| threads  | array of [channel](#DOCS_RESOURCES_CHANNEL/channel-object) objects              | the private, archived threads                                                                |
+| members  | array of [thread members](#DOCS_RESOURCES_CHANNEL/thread-member-object) objects | a thread member object for each returned thread the current user has joined                  |
+| has_more | boolean                                                                         | whether there are potentially additional threads that could be returned on a subsequent call |
 
-## Get joined private archived threads % GET /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/users/@me/threads/archived/private
+## List joined private archived threads % GET /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/users/@me/threads/archived/private
 
 Returns archived threads in the channel that are of [type](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types) `PRIVATE_THREAD`, and the user has joined.  Threads are ordered by their `id`, in descending order. Requires the `READ_MESSAGE_HISTORY` permission.
 
@@ -1245,8 +1271,8 @@ Returns archived threads in the channel that are of [type](#DOCS_RESOURCES_CHANN
 
 ###### Response Body
 
-| Field    | Type      | Description                                                                                                                  |
-|----------|-----------|------------------------------------------------------------------------------------------------------------------------------|
-| threads  | snowflake | an array of [channel](#DOCS_RESOURCES_CHANNEL/channel-object) objects.                                                       |
-| members  | integer   | an array of [thread members](#DOCS_RESOURCES_CHANNEL/thread-member-object) objects, for any returned threads you have joined |
-| has_more | boolean   | whether there are potentially additional threads that could be returned on a subsequent call                                 |
+| Field    | Type                                                                            | Description                                                                                  |
+|----------|---------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------|
+| threads  | array of [channel](#DOCS_RESOURCES_CHANNEL/channel-object) objects              | the private, archived threads the current user has joined                                    |
+| members  | array of [thread members](#DOCS_RESOURCES_CHANNEL/thread-member-object) objects | a thread member object for each returned thread the current user has joined                  |
+| has_more | boolean                                                                         | whether there are potentially additional threads that could be returned on a subsequent call |

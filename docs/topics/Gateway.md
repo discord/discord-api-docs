@@ -10,6 +10,7 @@ Important note: Not all event fields are documented, in particular, fields prefi
 
 | Version | Status                           |
 |---------|----------------------------------|
+| 9       | Available                        |
 | 8       | Available                        |
 | 7       | Doesn't look like anything to me |
 | 6       | Deprecated                       |
@@ -819,12 +820,12 @@ Sent when the current user _gains_ access to a channel.
 
 ###### Thread List Sync Event Fields
 
-| Field        | Type                                                                           | Description                                                                                                                               |
-|--------------|--------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------|
-| guild_id     | snowflake                                                                      | the id of the guild                                                                                                                       |
-| channel_ids? | array of snowflakes                                                            | the parent channel ids whose threads are being synced.  If omitted, then threads were synced for the entire guild                         |
-| threads      | array of [channel](#DOCS_RESOURCES_CHANNEL/channel-object) objects             | all active threads in the given channels that the current user can access                                                                 |
-| members      | array of [thread member](#DOCS_RESOURCES_CHANNEL/thread-member-object) objects | all thread member objects from the synced threads for the current user, indicating which threads the current user has been added to       |
+| Field        | Type                                                                           | Description                                                                                                                                                                                                                 |
+|--------------|--------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| guild_id     | snowflake                                                                      | the id of the guild                                                                                                                                                                                                         |
+| channel_ids? | array of snowflakes                                                            | the parent channel ids whose threads are being synced.  If omitted, then threads were synced for the entire guild.  This array may contain channel_ids that have no active threads as well, so you know to clear that data. |
+| threads      | array of [channel](#DOCS_RESOURCES_CHANNEL/channel-object) objects             | all active threads in the given channels that the current user can access                                                                                                                                                   |
+| members      | array of [thread member](#DOCS_RESOURCES_CHANNEL/thread-member-object) objects | all thread member objects from the synced threads for the current user, indicating which threads the current user has been added to                                                                                         |
 
 #### Thread Member Update
 
