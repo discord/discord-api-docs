@@ -1194,7 +1194,7 @@ Removes the current user from a thread. Returns a 204 empty response on success.
 
 Removes another user from a thread. Requires the `MANAGE_THREADS` permission or that you are the creator of the thread.  Also requires the thread is not archived. Returns a 204 empty response on success.  Fires a [Thread Members Update](#DOCS_TOPICS_GATEWAY/thread-members-update) Gateway event.
 
-## List Thread Members % GET GET /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/threads-members
+## List Thread Members % GET /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/threads-members
 
 Returns array of [thread members](#DOCS_RESOURCES_CHANNEL/thread-member-object) objects that are members of the thread.
 
