@@ -1251,7 +1251,7 @@ Returns archived threads in the channel that are of [type](#DOCS_RESOURCES_CHANN
 | members  | array of [thread members](#DOCS_RESOURCES_CHANNEL/thread-member-object) objects | a thread member object for each returned thread the current user has joined                  |
 | has_more | boolean                                                                         | whether there are potentially additional threads that could be returned on a subsequent call |
 
-## List joined private archived threads % GET /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/users/@me/threads/archived/private
+## List Joined Private Archived Threads % GET /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/users/@me/threads/archived/private
 
 Returns archived threads in the channel that are of [type](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types) `PRIVATE_THREAD`, and the user has joined.  Threads are ordered by their `id`, in descending order. Requires the `READ_MESSAGE_HISTORY` permission.
 
