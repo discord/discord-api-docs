@@ -14,7 +14,7 @@ This page outlines some of the common errors codes that may be encountered when 
 | 2025 | Install Script Failed      | Restart Discord, attempt to uninstall/reinstall the game, ensure script is correct                                                             |
 | 2029 | Build Not Found            | Completely close and re-open Discord                                                                                                           |
 | 2051 | Panic!                     | Escalate in the dev server in #dispatch                                                                                                        |
-| 2058 | Too Many API Retries       | Escalate in the [Discord-Developers server](https://discord.gg/discord-developers) in #dispatch                                                                                                            |
+| 2058 | Too Many API Retries       | Escalate in the #dispatch channel of the [Discord Developers server](https://discord.gg/discord-developers)                                    |
 | 2059 | Failed to set Registry Key | User most likely denied Windows administrator permissions prompt. Try again, and accept the prompt                                             |
 | 2064 | Failed to Patch File       | Attempted to patch the game while running: ensure the game process is entirely ended, try restarting Discord, try disabling antivirus          |
 | 2065 | No Manifests               | Ensure that your manifests are properly selected in the Developer Portal for your SKU                                                          |
