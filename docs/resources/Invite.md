@@ -17,6 +17,7 @@ Represents a code that when used, adds a user to a guild or group DM channel.
 | target_application?         | partial [application](#DOCS_TOPICS_OAUTH2/application) object    | the embedded application to open for this voice channel embedded application invite                                |
 | approximate_presence_count? | integer                                                          | approximate count of online members, returned from the `GET /invites/<code>` endpoint when `with_counts` is `true` |
 | approximate_member_count?   | integer                                                          | approximate count of total members, returned from the `GET /invites/<code>` endpoint when `with_counts` is `true`  |
+| expired_at?                 | ISO8601 timestamp                                                | the expiration date of this invite, returned from the `GET /invites/<code>` endpoint when `with_expiration` is `true`  |
 
 ###### Invite Target Types
 
@@ -96,9 +97,10 @@ Returns an [invite](#DOCS_RESOURCES_INVITE/invite-object) object for the given c
 
 ###### Query String Params
 
-| Field        | Type    | Description                                                 |
-| ------------ | ------- | ----------------------------------------------------------- |
-| with_counts? | boolean | whether the invite should contain approximate member counts |
+| Field            | Type    | Description                                                 |
+| ---------------- | ------- | ----------------------------------------------------------- |
+| with_counts?     | boolean | whether the invite should contain approximate member counts |
+| with_expiration? | boolean | whether the invite should contain the expiration date       |
 
 ## Delete Invite % DELETE /invites/{invite.code#DOCS_RESOURCES_INVITE/invite-object}
 
