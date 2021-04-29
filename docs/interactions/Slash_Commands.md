@@ -1021,21 +1021,16 @@ Interaction responses can also be public—everyone can see it—or "ephemeral"�
 
 | Field | Type                                      | Description                  |
 |-------|-------------------------------------------|------------------------------|
-| type  | InteractionResponseType                   | the type of response         |
+| type  | InteractionCallbackType                   | the type of response         |
 | data? | InteractionApplicationCommandCallbackData | an optional response message |
 
-> warn
-> Interaction response types `2` and `3` have been deprecated
+###### InteractionCallbackType
 
-###### InteractionResponseType
-
-| Name                     | Value | Description                                                       |
-|--------------------------|-------|-------------------------------------------------------------------|
-| Pong                     | 1     | ACK a `Ping`                                                      |
-| Acknowledge              | 2     | **DEPRECATED** ACK a command without sending a message, eating the user's input  |
-| ChannelMessage           | 3     | **DEPRECATED** respond with a message, eating the user's input                   |
-| ChannelMessageWithSource | 4     | respond to an interaction with a message                 |
-| DeferredChannelMessageWithSource    | 5     | ACK an interaction and edit a response later, the user sees a loading state |
+| Name                             | Value | Description                                                                 |
+|----------------------------------|-------|-----------------------------------------------------------------------------|
+| Pong                             | 1     | ACK a `Ping`                                                                |
+| ChannelMessageWithSource         | 4     | respond to an interaction with a message                                    |
+| DeferredChannelMessageWithSource | 5     | ACK an interaction and edit a response later, the user sees a loading state |
 
 ###### InteractionApplicationCommandCallbackData
 
