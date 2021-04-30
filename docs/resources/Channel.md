@@ -920,36 +920,26 @@ When the `content` field is edited, the `mentions` array in the message object w
 
 Returns a [message](#DOCS_RESOURCES_CHANNEL/message-object) object. Fires a [Message Update](#DOCS_TOPICS_GATEWAY/message-update) Gateway event.
 
-This endpoint supports requests with `Content-Type`s of both `application/json` and `multipart/form-data`. Refer to the following sections for more information.
-
-> info
-> All parameters to this endpoint are optional and nullable.
-
-###### Parameters for `content-type: application/json`
-
-| Field            | Type                                                                      | Description                                                                                                                             |
-|------------------|---------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------|
-| content          | string                                                                    | the new message contents (up to 2000 characters)                                                                                        |
-| embed            | [embed](#DOCS_RESOURCES_CHANNEL/embed-object) object                      | embedded `rich` content                                                                                                                 |
-| flags            | integer                                                                   | edit the [flags](#DOCS_RESOURCES_CHANNEL/message-object-message-flags) of a message (only `SUPPRESS_EMBEDS` can currently be set/unset) |
-| allowed_mentions | [allowed mention object](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object) | allowed mentions for the message                                                                                                        |
-| attachments      | array of [attachment](#DOCS_RESOURCES_CHANNEL/attachment-object) objects  | attached files to keep                                                                                                                  |
-
-###### Parameters for `content-type: multipart/form-data`
-
 > info
 > For a `file` attachment, the `Content-Disposition` subpart header MUST contain a `filename` parameter.
 
 > warn
 > This endpoint supports both JSON and form data bodies. It does require `multipart/form-data` requests instead of the normal JSON request type when uploading files.
-> Make sure you set your `Content-Type` to `multipart/form-data` if you're doing that. Note that in that case, the `embed` field cannot be used, but you can pass an url-encoded JSON body as a form value for `payload_json`.
-> **If you supply a `payload_json`, all fields except for `file` fields will be ignored**.
 
-| Field             | Type              | Description                                                                       |
-|-------------------|-------------------|-----------------------------------------------------------------------------------|
-| content           | string            | the message contents (up to 2000 characters)                                      |
-| file              | file contents     | the contents of the file being sent                                               |
-| payload_json      | string            | JSON encoded body of aditional parameters from its `application/json` counterpart |
+> Make sure you set your `Content-Type` to `multipart/form-data` if you're doing that. Note that in that case, the `embed`, `allowed_mentions`, and `attachments` fields cannot be used, but you can pass an stringified JSON body as a form value as `payload_json` instead.
+> **If you supply a `payload_json` form value, all fields except for `file` fields will be ignored in the form data**.
+
+> info
+> All parameters to this endpoint are optional and nullable.
+
+| Field            | Type                                                                      | Description                                                     |
+| ---------------- | ------------------------------------------------------------------------- | --------------------------------------------------------------- |
+| content          | string                                                                    | the message contents (up to 2000 characters)                    |
+| embed            | [embed](#DOCS_RESOURCES_CHANNEL/embed-object) object                      | embedded `rich` content                                         |
+| file             | file contents                                                             | the contents of the file being sent/edited                      |
+| payload_json     | string                                                                    | JSON encoded body of non-file params (multipart/form-data only) |
+| allowed_mentions | [allowed mention object](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object) | allowed mentions for the message                                |
+| attachments      | array of [attachment](#DOCS_RESOURCES_CHANNEL/attachment-object) objects  | attached files to keep                                          |
 
 ## Delete Message % DELETE /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}
 
