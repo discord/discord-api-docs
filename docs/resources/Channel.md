@@ -802,19 +802,21 @@ This endpoint supports requests with `Content-Type`s of both `application/json` 
 ###### Parameters for `content-type: multipart/form-data`
 
 > info
-> Note that when sending `multipart/form-data`, you must provide a value for at **least one of** `content`, `embed` or `file`. For a `file` attachment, the `Content-Disposition` subpart header MUST contain a `filename` parameter.
+> Note that when sending `multipart/form-data`, you must provide a value for at **least one of** `content`, `embed` or `file` in either the form or in `payload_json`.
+> For a `file` attachment, the `Content-Disposition` subpart header MUST contain a `filename` parameter.
 
-> warning
-> This endpoint supports **all** the same fields as its `application/json` counterpart, however they must be set in `payload_json` rather than provided as form fields.
-> Some fields (documented below) can be provided as `form-data` fields, but **if you supply a `payload_json`, all fields except for `file` fields will be ignored**.
+> warn
+> This endpoint supports both JSON and form data bodies. It does require `multipart/form-data` requests instead of the normal JSON request type when uploading files.
+> Make sure you set your `Content-Type` to `multipart/form-data` if you're doing that. Note that in that case, the `embed` field cannot be used, but you can pass an url-encoded JSON body as a form value for `payload_json`.
+> **If you supply a `payload_json`, all fields except for `file` fields will be ignored**.
 
-| Field             | Type              | Description                                             |
-|-------------------|-------------------|---------------------------------------------------------|
-| content           | string            | the message contents (up to 2000 characters)            |
-| nonce             | integer or string | a nonce that can be used for optimistic message sending |
-| tts               | boolean           | true if this is a TTS message                           |
-| file              | file contents     | the contents of the file being sent                     |
-| payload_json      | string            | JSON encoded body of any additional request fields.     |
+| Field             | Type              | Description                                                                       |
+|-------------------|-------------------|-----------------------------------------------------------------------------------|
+| content           | string            | the message contents (up to 2000 characters)                                      |
+| nonce             | integer or string | a nonce that can be used for optimistic message sending                           |
+| tts               | boolean           | true if this is a TTS message                                                     |
+| file              | file contents     | the contents of the file being sent                                               |
+| payload_json      | string            | JSON encoded body of aditional parameters from its `application/json` counterpart |
 
 ###### Example Request Bodies (multipart/form-data)
 
@@ -930,10 +932,12 @@ When the `content` field is edited, the `mentions` array in the message object w
 
 Returns a [message](#DOCS_RESOURCES_CHANNEL/message-object) object. Fires a [Message Update](#DOCS_TOPICS_GATEWAY/message-update) Gateway event.
 
+This endpoint supports requests with `Content-Type`s of both `application/json` and `multipart/form-data`. Refer to the following sections for more information.
+
 > info
 > All parameters to this endpoint are optional and nullable.
 
-###### JSON Params
+###### Parameters for `content-type: application/json`
 
 | Field            | Type                                                                      | Description                                                                                                                             |
 |------------------|---------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------|
@@ -942,6 +946,22 @@ Returns a [message](#DOCS_RESOURCES_CHANNEL/message-object) object. Fires a [Mes
 | flags            | integer                                                                   | edit the [flags](#DOCS_RESOURCES_CHANNEL/message-object-message-flags) of a message (only `SUPPRESS_EMBEDS` can currently be set/unset) |
 | allowed_mentions | [allowed mention object](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object) | allowed mentions for the message                                                                                                        |
 | attachments      | array of [attachment](#DOCS_RESOURCES_CHANNEL/attachment-object) objects  | attached files to keep                                                                                                                  |
+
+###### Parameters for `content-type: multipart/form-data`
+
+> info
+> For a `file` attachment, the `Content-Disposition` subpart header MUST contain a `filename` parameter.
+
+> warn
+> This endpoint supports both JSON and form data bodies. It does require `multipart/form-data` requests instead of the normal JSON request type when uploading files.
+> Make sure you set your `Content-Type` to `multipart/form-data` if you're doing that. Note that in that case, the `embed` field cannot be used, but you can pass an url-encoded JSON body as a form value for `payload_json`.
+> **If you supply a `payload_json`, all fields except for `file` fields will be ignored**.
+
+| Field             | Type              | Description                                                                       |
+|-------------------|-------------------|-----------------------------------------------------------------------------------|
+| content           | string            | the message contents (up to 2000 characters)                                      |
+| file              | file contents     | the contents of the file being sent                                               |
+| payload_json      | string            | JSON encoded body of aditional parameters from its `application/json` counterpart |
 
 ## Delete Message % DELETE /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}
 

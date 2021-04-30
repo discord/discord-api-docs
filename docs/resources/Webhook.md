@@ -110,8 +110,14 @@ Same as above, except this call does not require authentication.
 
 ## Execute Webhook % POST /webhooks/{webhook.id#DOCS_RESOURCES_WEBHOOK/webhook-object}/{webhook.token#DOCS_RESOURCES_WEBHOOK/webhook-object}
 
+> info
+> Note that when sending `multipart/form-data`, you must provide a value for at **least one of** `content`, `embed` or `file` in either the form or in `payload_json`.
+> For a `file` attachment, the `Content-Disposition` subpart header MUST contain a `filename` parameter.
+
 > warn
-> This endpoint supports both JSON and form data bodies. It does require multipart/form-data requests instead of the normal JSON request type when uploading files. Make sure you set your `Content-Type` to `multipart/form-data` if you're doing that. Note that in that case, the `embeds` field cannot be used, but you can pass an url-encoded JSON body as a form value for `payload_json`.
+> This endpoint supports both JSON and form data bodies. It does require `multipart/form-data` requests instead of the normal JSON request type when uploading files.
+> Make sure you set your `Content-Type` to `multipart/form-data` if you're doing that. Note that in that case, the `embed` field cannot be used, but you can pass an url-encoded JSON body as a form value for `payload_json`.
+> **If you supply a `payload_json`, all fields except for `file` fields will be ignored**.
 
 ###### Query String Params
 
@@ -164,6 +170,20 @@ Returns a previously-sent webhook message from the same token. Returns a [messag
 Edits a previously-sent webhook message from the same token. Returns a [message](#DOCS_RESOURCES_CHANNEL/message-object) object on success.
 
 When the `content` field is edited, the `mentions` array in the message object will be reconstructed from scratch based on the new content. The `allowed_mentions` field of the edit request controls how this happens. If there is no explicit `allowed_mentions` in the edit request, the content will be parsed with _default_ allowances, that is, without regard to whether or not an `allowed_mentions` was present in the request that originally created the message.
+
+> info
+> For a `file` attachment, the `Content-Disposition` subpart header MUST contain a `filename` parameter.
+
+> warn
+> This endpoint supports both JSON and form data bodies. It does require `multipart/form-data` requests instead of the normal JSON request type when uploading files.
+> Make sure you set your `Content-Type` to `multipart/form-data` if you're doing that. Note that in that case, the `embed` and `embeds` field cannot be used, but you can pass an url-encoded JSON body as a form value for `payload_json`.
+> **If you supply a `payload_json`, all fields except for `file` fields will be ignored**.
+
+| Field             | Type              | Description                                                                       |
+|-------------------|-------------------|-----------------------------------------------------------------------------------|
+| content           | string            | the message contents (up to 2000 characters)                                      |
+| file              | file contents     | the contents of the file being sent                                               |
+| payload_json      | string            | JSON encoded body of aditional parameters from its `application/json` counterpart |
 
 > info
 > All parameters to this endpoint are optional and nullable.
