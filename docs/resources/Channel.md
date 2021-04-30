@@ -932,14 +932,15 @@ Returns a [message](#DOCS_RESOURCES_CHANNEL/message-object) object. Fires a [Mes
 > info
 > All parameters to this endpoint are optional and nullable.
 
-| Field            | Type                                                                      | Description                                                     |
-| ---------------- | ------------------------------------------------------------------------- | --------------------------------------------------------------- |
-| content          | string                                                                    | the message contents (up to 2000 characters)                    |
-| embed            | [embed](#DOCS_RESOURCES_CHANNEL/embed-object) object                      | embedded `rich` content                                         |
-| file             | file contents                                                             | the contents of the file being sent/edited                      |
-| payload_json     | string                                                                    | JSON encoded body of non-file params (multipart/form-data only) |
-| allowed_mentions | [allowed mention object](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object) | allowed mentions for the message                                |
-| attachments      | array of [attachment](#DOCS_RESOURCES_CHANNEL/attachment-object) objects  | attached files to keep                                          |
+| Field            | Type                                                                      | Description                                                                                                                             |
+| ---------------- | ------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
+| content          | string                                                                    | the message contents (up to 2000 characters)                                                                                            |
+| embed            | [embed](#DOCS_RESOURCES_CHANNEL/embed-object) object                      | embedded `rich` content                                                                                                                 |
+| flags            | integer                                                                   | edit the [flags](#DOCS_RESOURCES_CHANNEL/message-object-message-flags) of a message (only `SUPPRESS_EMBEDS` can currently be set/unset) |
+| file             | file contents                                                             | the contents of the file being sent/edited                                                                                              |
+| payload_json     | string                                                                    | JSON encoded body of non-file params (multipart/form-data only)                                                                         |
+| allowed_mentions | [allowed mention object](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object) | allowed mentions for the message                                                                                                        |
+| attachments      | array of [attachment](#DOCS_RESOURCES_CHANNEL/attachment-object) objects  | attached files to keep                                                                                                                  |
 
 ## Delete Message % DELETE /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}
 
