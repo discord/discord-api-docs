@@ -777,8 +777,8 @@ You may create a message as a reply to another message. To do so, include a [`me
 > For a `file` attachment, the `Content-Disposition` subpart header MUST contain a `filename` parameter.
 
 > warn
-> This endpoint supports both JSON and form data bodies. It does require `multipart/form-data` requests instead of the normal JSON request type when uploading files.
-> Make sure you set your `Content-Type` to `multipart/form-data` if you're doing that. Note that in that case, the `embed` and `allowed_mentions` fields cannot be used, but you can pass an stringified JSON body as a form value as `payload_json` instead.
+> This endpoint supports both `application/json` and `multipart/form-data` bodies. When uploading files the `multipart/form-data` content type must be used.
+> Note that in multipart form data, the `embed` and `allowed_mentions` fields cannot be used. You can pass a stringified JSON body as a form value as `payload_json` instead.
 > **If you supply a `payload_json` form value, all fields except for `file` fields will be ignored in the form data**.
 
 ###### JSON/Form Params
@@ -924,9 +924,8 @@ Returns a [message](#DOCS_RESOURCES_CHANNEL/message-object) object. Fires a [Mes
 > For a `file` attachment, the `Content-Disposition` subpart header MUST contain a `filename` parameter.
 
 > warn
-> This endpoint supports both JSON and form data bodies. It does require `multipart/form-data` requests instead of the normal JSON request type when uploading files.
-
-> Make sure you set your `Content-Type` to `multipart/form-data` if you're doing that. Note that in that case, the `embed`, `allowed_mentions`, and `attachments` fields cannot be used, but you can pass an stringified JSON body as a form value as `payload_json` instead.
+> This endpoint supports both `application/json` and `multipart/form-data` bodies. When uploading files the `multipart/form-data` content type must be used.
+> Note that in multipart form data, the `embed`, `allowed_mentions`, and `attachments` fields cannot be used. You can pass a stringified JSON body as a form value as `payload_json` instead.
 > **If you supply a `payload_json` form value, all fields except for `file` fields will be ignored in the form data**.
 
 > info
