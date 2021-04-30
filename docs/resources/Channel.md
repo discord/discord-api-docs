@@ -797,7 +797,7 @@ Fires a [Channel Update](#DOCS_TOPICS_GATEWAY/channel-update) Gateway event.
 | Field                 | Type                                                                    | Description                                                                                                                                                               |
 |-----------------------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | name                  | string                                                                  | 2-100 character channel name                                                                                                                                              |
-| icon                  | binary                                                                 | the [type of channel](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types); only conversion between text and news is supported and only in guilds with the "NEWS" feature |
+| icon                  | binary                                                                  | base64 encoded icon                                                                                                                                                       |
 
 ###### JSON Params (Guild channel)
 
@@ -820,7 +820,7 @@ Requires the `MANAGE_CHANNELS` permission for the guild. Fires a [Channel Update
 
 ###### JSON Params (Thread)
 
-When setting `archived` to `false`, requires the ability to send messages in the thread.  The thread must already have `archived` set to `true`.
+When setting `archived` to `false`, only the `SEND_MESSAGES` permission is required.
 
 Otherwise, requires the `MANAGE_THREADS` permission for the guild.  Fires a [Thread Update](#DOCS_TOPICS_GATEWAY/thread-update) Gateway event.  Requires the thread to have `archived` set to `false`.
 
@@ -1178,11 +1178,11 @@ Creates a new private thread.  Returns a [channel](#DOCS_RESOURCES_CHANNEL/chann
 | name                  | string  | 2-100 character channel name                                                                                        |
 | auto_archive_duration | integer | duration in minutes to automatically archive the thread after recent activity, can be set to: 60, 1440, 4320, 10080 |
 
-## Join Thread % POST /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/thread-members/@me
+## Join Thread % PUT /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/thread-members/@me
 
 Adds the current user to a thread. Returns a 204 empty response on success.  Also requires the thread is not archived.  Fires a [Thread Members Update](#DOCS_TOPICS_GATEWAY/thread-members-update) Gateway event.
 
-## Add User to Thread % POST /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/thread-members/{user.id#DOCS_RESOURCES_USER/user-object}
+## Add User to Thread % PUT /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/thread-members/{user.id#DOCS_RESOURCES_USER/user-object}
 
 Adds another user to a thread. Requires the ability to send messages in the thread.  Also requires the thread is not archived. Returns a 204 empty response on success.  Fires a [Thread Members Update](#DOCS_TOPICS_GATEWAY/thread-members-update) Gateway event.
 

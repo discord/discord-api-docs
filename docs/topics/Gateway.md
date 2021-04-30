@@ -235,13 +235,13 @@ GUILDS (1 << 0)
   - THREAD_DELETE
   - THREAD_LIST_SYNC
   - THREAD_MEMBER_UPDATE
-  - THREAD_MEMBERS_UPDATE
+  - THREAD_MEMBERS_UPDATE \*
 
 GUILD_MEMBERS (1 << 1)
   - GUILD_MEMBER_ADD
   - GUILD_MEMBER_UPDATE
   - GUILD_MEMBER_REMOVE
-  - THREAD_MEMBERS_UPDATE
+  - THREAD_MEMBERS_UPDATE \*
 
 GUILD_BANS (1 << 2)
   - GUILD_BAN_ADD
@@ -299,6 +299,8 @@ DIRECT_MESSAGE_REACTIONS (1 << 13)
 DIRECT_MESSAGE_TYPING (1 << 14)
   - TYPING_START
 ```
+
+\* [Thread Members Update](#DOCS_TOPICS_GATEWAY/thread-members-update) contains different data depending on which intents are used.
 
 ### Caveats
 

@@ -28,16 +28,16 @@ Below is a table of all current permissions, their integer values in hexadecimal
 
 | Permission            | Value                      | Description                                                                                                                        | Channel Type |
 | --------------------- | -------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- | ------------ |
-| CREATE_INSTANT_INVITE | `0x0000000001` `(1 << 00)` | Allows creation of instant invites                                                                                                 | T, V, S      |
-| KICK_MEMBERS \*       | `0x0000000002` `(1 << 01)` | Allows kicking members                                                                                                             |              |
-| BAN_MEMBERS \*        | `0x0000000004` `(1 << 02)` | Allows banning members                                                                                                             |              |
-| ADMINISTRATOR \*      | `0x0000000008` `(1 << 03)` | Allows all permissions and bypasses channel permission overwrites                                                                  |              |
-| MANAGE_CHANNELS \*    | `0x0000000010` `(1 << 04)` | Allows management and editing of channels                                                                                          | T, V, S      |
-| MANAGE_GUILD \*       | `0x0000000020` `(1 << 05)` | Allows management and editing of the guild                                                                                         |              |
-| ADD_REACTIONS         | `0x0000000040` `(1 << 06)` | Allows for the addition of reactions to messages                                                                                   | T            |
-| VIEW_AUDIT_LOG        | `0x0000000080` `(1 << 06)` | Allows for viewing of audit logs                                                                                                   |              |
-| PRIORITY_SPEAKER      | `0x0000000100` `(1 << 08)` | Allows for using priority speaker in a voice channel                                                                               | V            |
-| STREAM                | `0x0000000200` `(1 << 09)` | Allows the user to go live                                                                                                         | V            |
+| CREATE_INSTANT_INVITE | `0x0000000001` `(1 << 0)`  | Allows creation of instant invites                                                                                                 | T, V, S      |
+| KICK_MEMBERS \*       | `0x0000000002` `(1 << 1)`  | Allows kicking members                                                                                                             |              |
+| BAN_MEMBERS \*        | `0x0000000004` `(1 << 2)`  | Allows banning members                                                                                                             |              |
+| ADMINISTRATOR \*      | `0x0000000008` `(1 << 3)`  | Allows all permissions and bypasses channel permission overwrites                                                                  |              |
+| MANAGE_CHANNELS \*    | `0x0000000010` `(1 << 4)`  | Allows management and editing of channels                                                                                          | T, V, S      |
+| MANAGE_GUILD \*       | `0x0000000020` `(1 << 5)`  | Allows management and editing of the guild                                                                                         |              |
+| ADD_REACTIONS         | `0x0000000040` `(1 << 6)`  | Allows for the addition of reactions to messages                                                                                   | T            |
+| VIEW_AUDIT_LOG        | `0x0000000080` `(1 << 6)`  | Allows for viewing of audit logs                                                                                                   |              |
+| PRIORITY_SPEAKER      | `0x0000000100` `(1 << 8)`  | Allows for using priority speaker in a voice channel                                                                               | V            |
+| STREAM                | `0x0000000200` `(1 << 9)`  | Allows the user to go live                                                                                                         | V            |
 | VIEW_CHANNEL          | `0x0000000400` `(1 << 10)` | Allows guild members to view a channel, which includes reading messages in text channels                                           | T, V, S      |
 | SEND_MESSAGES         | `0x0000000800` `(1 << 11)` | Allows for sending messages in a channel                                                                                           | T            |
 | SEND_TTS_MESSAGES     | `0x0000001000` `(1 << 12)` | Allows for sending of `/tts` messages                                                                                              | T            |
