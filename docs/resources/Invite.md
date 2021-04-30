@@ -17,7 +17,7 @@ Represents a code that when used, adds a user to a guild or group DM channel.
 | target_application?         | partial [application](#DOCS_TOPICS_OAUTH2/application) object    | the embedded application to open for this voice channel embedded application invite                                |
 | approximate_presence_count? | integer                                                          | approximate count of online members, returned from the `GET /invites/<code>` endpoint when `with_counts` is `true` |
 | approximate_member_count?   | integer                                                          | approximate count of total members, returned from the `GET /invites/<code>` endpoint when `with_counts` is `true`  |
-| expires_at?                 | ISO8601 timestamp                                                | the expiration date of this invite, returned from the `GET /invites/<code>` endpoint when `with_expiration` is `true`  |
+| expires_at?                 | ?ISO8601 timestamp                                               | the expiration date of this invite, returned from the `GET /invites/<code>` endpoint when `with_expiration` is `true`  |
 
 ###### Invite Target Types
 
