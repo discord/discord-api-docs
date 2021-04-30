@@ -1,6 +1,6 @@
 # Threads
 
-[Threads](#DOCS_RESOURCES_CHANNEL/channel-object) are a new Discord feature, only available in API v9. Bots that do not update to API v9 will not receive gateway events for threads, or things that happen in threads (such as [Message Create](#DOCS_TOPICS_GATEWAY/message-create)).  Threads can be thought of as temporary sub-channels inside an existing channel, to help better organize conversation in a busy channel.
+[Threads](#DOCS_RESOURCES_CHANNEL/channel-object) are a new Discord feature, only available in API v9. Bots that do not update to API v9 will not receive gateway events for threads, or things that happen in threads (such as [Message Create](#DOCS_TOPICS_GATEWAY/message-create)). Threads can be thought of as temporary sub-channels inside an existing channel, to help better organize conversation in a busy channel.
 
 Threads have been designed to be very similar to [channel](#DOCS_RESOURCES_CHANNEL/channel-object) objects, and this topic aggregates all of the information about threads, which should all help to make migrating very straightforward.
 
@@ -23,15 +23,15 @@ Additionally, there are a few new fields that are only available on threads:
 
 ## Public & Private Threads
 
-Public threads are viewable by everyone who can view the parent channel of the thread. Public threads must be created from an existing message, but can be "orphaned" if that message is deleted. The [type](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types) of thread created matches the [type](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types) of the parent channel. `GUILD_TEXT` channels [create](#DOCS_RESOURCES_CHANNEL/start-a-public-thread) `PUBLIC_THREAD` and `GUILD_NEWS` channels [create](#DOCS_RESOURCES_CHANNEL/start-a-public-thread) `NEWS_THREAD`.
+Public threads are viewable by everyone who can view the parent channel of the thread. Public threads must be created from an existing message, but can be "orphaned" if that message is deleted. The [type](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types) of thread created matches the [type](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types) of the parent channel. `GUILD_TEXT` channels [create](#DOCS_RESOURCES_CHANNEL/start-a-public-thread) `GUILD_PUBLIC_THREAD` and `GUILD_NEWS` channels [create](#DOCS_RESOURCES_CHANNEL/start-a-public-thread) `GUILD_NEWS_THREAD`.
 
-Private threads behave similar to Group DMs, but in a Guild. Private threads are always [created](#DOCS_RESOURCES_CHANNEL/start-a-private-thread) with the `PRIVATE_THREAD` [type](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types) and can only be created in `GUILD_TEXT` channels.
+Private threads behave similar to Group DMs, but in a Guild. Private threads are always [created](#DOCS_RESOURCES_CHANNEL/start-a-private-thread) with the `GUILD_PRIVATE_THREAD` [type](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types) and can only be created in `GUILD_TEXT` channels.
 
 ## Active & Archived Threads
 
 Every thread can be either active or archived. Changing a thread from archived -> active is referred to as unarchiving the thread. Threads that have `locked` set to true can only be unarchived by a user with the `MANAGE_THREADS` permission.
 
-Besides helping to de-clutter the UI for users, archiving exists to limit the working set of threads that need to be kept around. Since the number of archived threads can be quite large, keeping all of them in memory may be quite prohibitive. Therefore guilds are capped at a certain number of active threads, and only active threads can be manipulated. Users cannot edit messages, add reactions, use slash commands, or join archived threads. The only operation that should happen within an archived thread is messages being deleted.  Sending a message will automatically unarchive the thread, unless the thread has been locked by a moderator.
+Besides helping to de-clutter the UI for users, archiving exists to limit the working set of threads that need to be kept around. Since the number of archived threads can be quite large, keeping all of them in memory may be quite prohibitive. Therefore guilds are capped at a certain number of active threads, and only active threads can be manipulated. Users cannot edit messages, add reactions, use slash commands, or join archived threads. The only operation that should happen within an archived thread is messages being deleted. Sending a message will automatically unarchive the thread, unless the thread has been locked by a moderator.
 
 Because of this constraint, the gateway protocol is designed to ensure that bots are able to have an accurate view of the full set of active threads, but archived threads are not synced up-front via the gateway.
 
@@ -41,7 +41,7 @@ Threads do not count against the max-channels limit in a guild, but there will b
 
 Threads generally inherit permissions from the parent channel. If you can send messages or add reactions in the parent channel, you can do that in a thread as well.
 
-Two new permission bits will be added, `USE_PUBLIC_THREADS` and `USE_PRIVATE_THREADS`. Users can _create_ a thread if they have BOTH the `SEND_MESSAGES` permission and the appropriate `USE_THREADS` permission. Users can _send messages_ in a thread if they have EITHER the `SEND_MESSAGES` permission or the appropriate `USE_THREADS` permission.
+Two new permission bits will be added, `USE_GUILD_PUBLIC_THREADS` and `USE_GUILD_PRIVATE_THREADS`. Users can _create_ a thread if they have BOTH the `SEND_MESSAGES` permission and the appropriate `USE_THREADS` permission. Users can _send messages_ in a thread if they have EITHER the `SEND_MESSAGES` permission or the appropriate `USE_THREADS` permission.
 
 Private threads are similar to Group DMs, but in a guild: You must be invited to the thread to be able to view or participate in it, or be a moderator (`MANAGE_THREADS` permission).
 
@@ -98,7 +98,7 @@ Threads introduce a few new [message types](#DOCS_RESOURCES_CHANNEL/message-obje
 
 - `RECIPIENT_ADD` and `RECIPIENT_REMOVE` have been repurposed to also send when a user is added to or removed from a thread by someone else
 - `CHANNEL_NAME_CHANGE` has been repurposed and is sent when the thread's name is changed
-- `THREAD_CREATED` is a new message sent when a thread is created from an older message, it contains a [message reference](#DOCS_RESOURCES_CHANNEL/message-reference-object-message-reference-structure) with the `guild_id` and `channel_id` of the thread. The `content` of the message is the `name` of the thread.
+- `THREAD_CREATED` is a new message sent to the parent `GUILD_TEXT` channel, used to inform users that a thread has been created. It is currently only sent in one case: when a `GUILD_PUBLIC_THREAD` is created from an older message (older is still TBD, but is currently set to a very small value). The message contains a [message reference](#DOCS_RESOURCES_CHANNEL/message-reference-object-message-reference-structure) with the `guild_id` and `channel_id` of the thread. The `content` of the message is the `name` of the thread.
 - `THREAD_STARTER_MESSAGE` is a new message sent as the first message in threads that are started from an existing message in the parent channel. It _only_ contains a [message reference](#DOCS_RESOURCES_CHANNEL/message-reference-object-message-reference-structure) field that points to the message from which the thread was started.
 
 ## Enumerating threads
