@@ -110,8 +110,16 @@ Same as above, except this call does not require authentication.
 
 ## Execute Webhook % POST /webhooks/{webhook.id#DOCS_RESOURCES_WEBHOOK/webhook-object}/{webhook.token#DOCS_RESOURCES_WEBHOOK/webhook-object}
 
+> info
+> Note that when sending a message, you must provide a value for at **least one of** `content`, `embeds`, or `file`.
+
+> info
+> For a `file` attachment, the `Content-Disposition` subpart header MUST contain a `filename` parameter.
+
 > warn
-> This endpoint supports both JSON and form data bodies. It does require multipart/form-data requests instead of the normal JSON request type when uploading files. Make sure you set your `Content-Type` to `multipart/form-data` if you're doing that. Note that in that case, the `embeds` field cannot be used, but you can pass an url-encoded JSON body as a form value for `payload_json`.
+> This endpoint supports both `application/json` and `multipart/form-data` bodies. When uploading files the `multipart/form-data` content type must be used.
+> Note that in multipart form data, the `embed` and `allowed_mentions` fields cannot be used. You can pass a stringified JSON body as a form value as `payload_json` instead.
+> **If you supply a `payload_json` form value, all fields except for `file` fields will be ignored in the form data**.
 
 ###### Query String Params
 
@@ -129,7 +137,7 @@ Same as above, except this call does not require authentication.
 | tts              | boolean                                                                   | true if this is a TTS message                                | false                        |
 | file             | file contents                                                             | the contents of the file being sent                          | one of content, file, embeds |
 | embeds           | array of up to 10 [embed](#DOCS_RESOURCES_CHANNEL/embed-object) objects   | embedded `rich` content                                      | one of content, file, embeds |
-| payload_json     | string                                                                    | See [message create](#DOCS_RESOURCES_CHANNEL/create-message) | `multipart/form-data` only   |
+| payload_json     | string                                                                    | JSON encoded body of non-file params                         | `multipart/form-data` only   |
 | allowed_mentions | [allowed mention object](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object) | allowed mentions for the message                             | false                        |
 
 > info
@@ -166,18 +174,26 @@ Edits a previously-sent webhook message from the same token. Returns a [message]
 When the `content` field is edited, the `mentions` array in the message object will be reconstructed from scratch based on the new content. The `allowed_mentions` field of the edit request controls how this happens. If there is no explicit `allowed_mentions` in the edit request, the content will be parsed with _default_ allowances, that is, without regard to whether or not an `allowed_mentions` was present in the request that originally created the message.
 
 > info
+> For a `file` attachment, the `Content-Disposition` subpart header MUST contain a `filename` parameter.
+
+> warn
+> This endpoint supports both `application/json` and `multipart/form-data` bodies. When uploading files the `multipart/form-data` content type must be used.
+> Note that in multipart form data, the `embed`, `allowed_mentions`, and `attachments` fields cannot be used. You can pass a stringified JSON body as a form value as `payload_json` instead.
+> **If you supply a `payload_json` form value, all fields except for `file` fields will be ignored in the form data**.
+
+> info
 > All parameters to this endpoint are optional and nullable.
 
 ###### JSON/Form Params
 
-| Field            | Type                                                                      | Description                                                  |
-| ---------------- | ------------------------------------------------------------------------- | ------------------------------------------------------------ |
-| content          | string                                                                    | the message contents (up to 2000 characters)                 |
-| embeds           | array of up to 10 [embed](#DOCS_RESOURCES_CHANNEL/embed-object) objects   | embedded `rich` content                                      |
-| file             | file contents                                                             | the contents of the file being sent/edited                   |
-| payload_json     | string                                                                    | See [message create](#DOCS_RESOURCES_CHANNEL/create-message) |
-| allowed_mentions | [allowed mention object](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object) | allowed mentions for the message                             |
-| attachments      | array of [attachment](#DOCS_RESOURCES_CHANNEL/attachment-object) objects  | attached files to keep                                       |
+| Field            | Type                                                                      | Description                                                     |
+| ---------------- | ------------------------------------------------------------------------- | --------------------------------------------------------------- |
+| content          | string                                                                    | the message contents (up to 2000 characters)                    |
+| embeds           | array of up to 10 [embed](#DOCS_RESOURCES_CHANNEL/embed-object) objects   | embedded `rich` content                                         |
+| file             | file contents                                                             | the contents of the file being sent/edited                      |
+| payload_json     | string                                                                    | JSON encoded body of non-file params (multipart/form-data only) |
+| allowed_mentions | [allowed mention object](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object) | allowed mentions for the message                                |
+| attachments      | array of [attachment](#DOCS_RESOURCES_CHANNEL/attachment-object) objects  | attached files to keep                                          |
 
 # Delete Webhook Message % DELETE /webhooks/{webhook.id#DOCS_RESOURCES_WEBHOOK/webhook-object}/{webhook.token#DOCS_RESOURCES_WEBHOOK/webhook-object}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}
 

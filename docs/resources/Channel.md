@@ -884,21 +884,28 @@ Post a message to a guild text or DM channel. Returns a [message](#DOCS_RESOURCE
 
 You may create a message as a reply to another message. To do so, include a [`message_reference`](#DOCS_RESOURCES_CHANNEL/message-reference-object-message-reference-structure) with a `message_id`. The `channel_id` and `guild_id` in the `message_reference` are optional, but will be validated if provided.
 
-This endpoint supports requests with `Content-Type`s of both `application/json` and `multipart/form-data`. Refer to the following sections for more information.
-
-###### Parameters for `content-type: application/json`
+> info
+> Note that when sending a message, you must provide a value for at **least one of** `content`, `embed`, or `file`.
 
 > info
-> Note that when sending `application/json` you must send at **least one of** `content` or `embed`.
+> For a `file` attachment, the `Content-Disposition` subpart header MUST contain a `filename` parameter.
 
-| Field             | Type                                                                                              | Description                                                                   |
-|-------------------|---------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------|
-| content           | string                                                                                            | the message contents (up to 2000 characters)                                  |
-| nonce             | integer or string                                                                                 | a nonce that can be used for optimistic message sending (up to 25 characters) |
-| tts               | boolean                                                                                           | true if this is a TTS message                                                 |
-| embed             | [embed](#DOCS_RESOURCES_CHANNEL/embed-object) object                                              | embedded `rich` content                                                       |
-| allowed_mentions  | [allowed_mentions](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object) object                        | allowed mentions for a message                                                |
-| message_reference | [message reference](#DOCS_RESOURCES_CHANNEL/message-reference-object-message-reference-structure) | include to make your message a reply                                          |
+> warn
+> This endpoint supports both `application/json` and `multipart/form-data` bodies. When uploading files the `multipart/form-data` content type must be used.
+> Note that in multipart form data, the `embed` and `allowed_mentions` fields cannot be used. You can pass a stringified JSON body as a form value as `payload_json` instead.
+> **If you supply a `payload_json` form value, all fields except for `file` fields will be ignored in the form data**.
+
+###### JSON/Form Params
+
+| Field             | Type                                                                                              | Description                                                  | Required                    |
+| ----------------- | ------------------------------------------------------------------------------------------------- | ------------------------------------------------------------ | --------------------------- |
+| content           | string                                                                                            | the message contents (up to 2000 characters)                 | one of content, file, embed |
+| tts               | boolean                                                                                           | true if this is a TTS message                                | false                       |
+| file              | file contents                                                                                     | the contents of the file being sent                          | one of content, file, embed |
+| embed             | [embed](#DOCS_RESOURCES_CHANNEL/embed-object) object                                              | embedded `rich` content                                      | one of content, file, embed |
+| payload_json      | string                                                                                            | JSON encoded body of non-file params                         | `multipart/form-data` only  |
+| allowed_mentions  | [allowed mention object](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object)                         | allowed mentions for the message                             | false                       |
+| message_reference | [message reference](#DOCS_RESOURCES_CHANNEL/message-reference-object-message-reference-structure) | include to make your message a reply                         | false                       |
 
 ###### Example Request Body (application/json)
 
@@ -912,23 +919,6 @@ This endpoint supports requests with `Content-Type`s of both `application/json` 
   }
 }
 ```
-
-###### Parameters for `content-type: multipart/form-data`
-
-> info
-> Note that when sending `multipart/form-data`, you must provide a value for at **least one of** `content`, `embed` or `file`. For a `file` attachment, the `Content-Disposition` subpart header MUST contain a `filename` parameter.
-
-> warning
-> This endpoint supports **all** the same fields as its `application/json` counterpart, however they must be set in `payload_json` rather than provided as form fields.
-> Some fields (documented below) can be provided as `form-data` fields, but **if you supply a `payload_json`, all fields except for `file` fields will be ignored**.
-
-| Field             | Type              | Description                                             |
-|-------------------|-------------------|---------------------------------------------------------|
-| content           | string            | the message contents (up to 2000 characters)            |
-| nonce             | integer or string | a nonce that can be used for optimistic message sending |
-| tts               | boolean           | true if this is a TTS message                           |
-| file              | file contents     | the contents of the file being sent                     |
-| payload_json      | string            | JSON encoded body of any additional request fields.     |
 
 ###### Example Request Bodies (multipart/form-data)
 
@@ -1045,15 +1035,25 @@ When the `content` field is edited, the `mentions` array in the message object w
 Returns a [message](#DOCS_RESOURCES_CHANNEL/message-object) object. Fires a [Message Update](#DOCS_TOPICS_GATEWAY/message-update) Gateway event.
 
 > info
+> For a `file` attachment, the `Content-Disposition` subpart header MUST contain a `filename` parameter.
+
+> warn
+> This endpoint supports both `application/json` and `multipart/form-data` bodies. When uploading files the `multipart/form-data` content type must be used.
+> Note that in multipart form data, the `embed`, `allowed_mentions`, and `attachments` fields cannot be used. You can pass a stringified JSON body as a form value as `payload_json` instead.
+> **If you supply a `payload_json` form value, all fields except for `file` fields will be ignored in the form data**.
+
+> info
 > All parameters to this endpoint are optional and nullable.
 
-###### JSON Params
+###### JSON/Form Params
 
 | Field            | Type                                                                      | Description                                                                                                                             |
-|------------------|---------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------|
-| content          | string                                                                    | the new message contents (up to 2000 characters)                                                                                        |
+| ---------------- | ------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
+| content          | string                                                                    | the message contents (up to 2000 characters)                                                                                            |
 | embed            | [embed](#DOCS_RESOURCES_CHANNEL/embed-object) object                      | embedded `rich` content                                                                                                                 |
 | flags            | integer                                                                   | edit the [flags](#DOCS_RESOURCES_CHANNEL/message-object-message-flags) of a message (only `SUPPRESS_EMBEDS` can currently be set/unset) |
+| file             | file contents                                                             | the contents of the file being sent/edited                                                                                              |
+| payload_json     | string                                                                    | JSON encoded body of non-file params (multipart/form-data only)                                                                         |
 | allowed_mentions | [allowed mention object](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object) | allowed mentions for the message                                                                                                        |
 | attachments      | array of [attachment](#DOCS_RESOURCES_CHANNEL/attachment-object) objects  | attached files to keep                                                                                                                  |
 
