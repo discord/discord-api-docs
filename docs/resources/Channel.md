@@ -771,14 +771,14 @@ Post a message to a guild text or DM channel. Returns a [message](#DOCS_RESOURCE
 You may create a message as a reply to another message. To do so, include a [`message_reference`](#DOCS_RESOURCES_CHANNEL/message-reference-object-message-reference-structure) with a `message_id`. The `channel_id` and `guild_id` in the `message_reference` are optional, but will be validated if provided.
 
 > info
-> Note that when sending a message, you must provide a value for at **least one of** `content`, `embeds`, or `file`.
+> Note that when sending a message, you must provide a value for at **least one of** `content`, `embed`, or `file`.
 
 > info
 > For a `file` attachment, the `Content-Disposition` subpart header MUST contain a `filename` parameter.
 
 > warn
 > This endpoint supports both JSON and form data bodies. It does require `multipart/form-data` requests instead of the normal JSON request type when uploading files.
-> Make sure you set your `Content-Type` to `multipart/form-data` if you're doing that. Note that in that case, the `embeds`, `allowed_mentions`, and `attachments` fields cannot be used, but you can pass an stringified JSON body as a form value as `payload_json` instead.
+> Make sure you set your `Content-Type` to `multipart/form-data` if you're doing that. Note that in that case, the `embed` and `allowed_mentions` fields cannot be used, but you can pass an stringified JSON body as a form value as `payload_json` instead.
 > **If you supply a `payload_json` form value, all fields except for `file` fields will be ignored in the form data**.
 
 ###### JSON/Form Params
