@@ -10,6 +10,7 @@ Important note: Not all event fields are documented, in particular, fields prefi
 
 | Version | Status                           |
 |---------|----------------------------------|
+| 9       | Available                        |
 | 8       | Available                        |
 | 7       | Doesn't look like anything to me |
 | 6       | Deprecated                       |
@@ -62,7 +63,7 @@ While using ETF there are some additional constraints to note:
 - The client must not send compressed messages to the server.
 - Payloads must use string keys, atom keys will lead to a 4002 decode error.
 
-See [erlpack](https://github.com/discord/erlpack) for an ETF implementation example. 
+See [erlpack](https://github.com/discord/erlpack) for an ETF implementation example.
 
 #### Payload Compression
 
@@ -229,11 +230,18 @@ GUILDS (1 << 0)
   - CHANNEL_UPDATE
   - CHANNEL_DELETE
   - CHANNEL_PINS_UPDATE
+  - THREAD_CREATE
+  - THREAD_UPDATE
+  - THREAD_DELETE
+  - THREAD_LIST_SYNC
+  - THREAD_MEMBER_UPDATE
+  - THREAD_MEMBERS_UPDATE \*
 
 GUILD_MEMBERS (1 << 1)
   - GUILD_MEMBER_ADD
   - GUILD_MEMBER_UPDATE
   - GUILD_MEMBER_REMOVE
+  - THREAD_MEMBERS_UPDATE \*
 
 GUILD_BANS (1 << 2)
   - GUILD_BAN_ADD
@@ -292,6 +300,8 @@ DIRECT_MESSAGE_TYPING (1 << 14)
   - TYPING_START
 ```
 
+\* [Thread Members Update](#DOCS_TOPICS_GATEWAY/thread-members-update) contains different data depending on which intents are used.
+
 ### Caveats
 
 Any [events not defined in an intent](#DOCS_TOPICS_GATEWAY/commands-and-events-gateway-events) are considered "passthrough" and will always be sent to you.
@@ -299,6 +309,8 @@ Any [events not defined in an intent](#DOCS_TOPICS_GATEWAY/commands-and-events-g
 [Guild Member Update](#DOCS_TOPICS_GATEWAY/guild-member-update) is sent for current-user updates regardless of whether the `GUILD_MEMBERS` intent is set.
 
 [Guild Create](#DOCS_TOPICS_GATEWAY/guild-create) and [Request Guild Members](#DOCS_TOPICS_GATEWAY/request-guild-members) are uniquely affected by intents. See these sections for more information.
+
+[Thread Members Update](#DOCS_TOPICS_GATEWAY/thread-members-update) by default only includes if the current user was added to or removed from a thread.  To receive these updates for other users, request the `GUILD_MEMBERS` [Gateway Intent](#DOCS_TOPICS_GATEWAY/gateway-intents).
 
 If you specify an `intent` value in your `IDENTIFY` payload that is *invalid*, the socket will close with a [`4013` close code](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/gateway-gateway-close-event-codes). An invalid intent is one that is not meaningful and not documented above.
 
@@ -467,6 +479,12 @@ Events are payloads sent over the socket to a client that correspond to events i
 | [Channel Update](#DOCS_TOPICS_GATEWAY/channel-update)                               | channel was updated                                                                                                              |
 | [Channel Delete](#DOCS_TOPICS_GATEWAY/channel-delete)                               | channel was deleted                                                                                                              |
 | [Channel Pins Update](#DOCS_TOPICS_GATEWAY/channel-pins-update)                     | message was pinned or unpinned                                                                                                   |
+| [Thread Create](#DOCS_TOPICS_GATEWAY/thread-create)                                 | thread created, also sent when being added to a private thread                                                                   |
+| [Thread Update](#DOCS_TOPICS_GATEWAY/thread-update)                                 | thread was updated                                                                                                               |
+| [Thread Delete](#DOCS_TOPICS_GATEWAY/thread-delete)                                 | thread was deleted                                                                                                               |
+| [Thread List Sync](#DOCS_TOPICS_GATEWAY/thread-list-sync)                           | sent when gaining access to a channel, contains all active threads in that channel                                               |
+| [Thread Member Update](#DOCS_TOPICS_GATEWAY/thread-member-update)                   | [thread member](#DOCS_RESOURCES_CHANNEL/thread-member-object) for the current user was updated                                   |
+| [Thread Members Update](#DOCS_TOPICS_GATEWAY/thread-members-update)                 | some user(s) were added to or removed from a thread                                                                              |
 | [Guild Create](#DOCS_TOPICS_GATEWAY/guild-create)                                   | lazy-load for unavailable guild, guild became available, or user joined a new guild                                              |
 | [Guild Update](#DOCS_TOPICS_GATEWAY/guild-update)                                   | guild was updated                                                                                                                |
 | [Guild Delete](#DOCS_TOPICS_GATEWAY/guild-delete)                                   | guild became unavailable, or user left/was removed from a guild                                                                  |
@@ -484,7 +502,7 @@ Events are payloads sent over the socket to a client that correspond to events i
 | [Integration Create](#DOCS_TOPICS_GATEWAY/integration-create)                       | guild integration was created                                                                                                    |
 | [Integration Update](#DOCS_TOPICS_GATEWAY/integration-update)                       | guild integration was updated                                                                                                    |
 | [Integration Delete](#DOCS_TOPICS_GATEWAY/integration-delete)                       | guild integration was deleted                                                                                                    |
-| [Interaction Create](#DOCS_TOPICS_GATEWAY/interaction-create)                       | user used an interaction, such as a [Slash Command](#DOCS_INTERACTIONS_SLASH_COMMANDS/)                                                                  |
+| [Interaction Create](#DOCS_TOPICS_GATEWAY/interaction-create)                       | user used an interaction, such as a [Slash Command](#DOCS_INTERACTIONS_SLASH_COMMANDS/)                                          |
 | [Invite Create](#DOCS_TOPICS_GATEWAY/invite-create)                                 | invite to a channel was created                                                                                                  |
 | [Invite Delete](#DOCS_TOPICS_GATEWAY/invite-delete)                                 | invite to a channel was deleted                                                                                                  |
 | [Message Create](#DOCS_TOPICS_GATEWAY/message-create)                               | message was created                                                                                                              |
@@ -743,7 +761,7 @@ The ready event is dispatched when a client has completed the initial handshake 
 | guilds           | array of [Unavailable Guild](#DOCS_RESOURCES_GUILD/unavailable-guild-object) objects | the guilds the user is in                                                                                     |
 | session_id       | string                                                                               | used for resuming connections                                                                                 |
 | shard?           | array of two integers (shard_id, num_shards)                                         | the [shard information](#DOCS_TOPICS_GATEWAY/sharding) associated with this session, if sent when identifying |
-| application      | partial [application object](#DOCS_TOPICS_OAUTH2/application-object)                 | contains `id` and `flags`                                                                                     | 
+| application      | partial [application object](#DOCS_TOPICS_OAUTH2/application-object)                 | contains `id` and `flags`                                                                                     |
 
 #### Resumed
 
@@ -785,6 +803,49 @@ Sent when a channel is updated. The inner payload is a [channel](#DOCS_RESOURCES
 #### Channel Delete
 
 Sent when a channel relevant to the current user is deleted. The inner payload is a [channel](#DOCS_RESOURCES_CHANNEL/channel-object) object.
+
+#### Thread Create
+
+Sent when a thread is created, relevant to the current user, or when the current user is added to a thread. The inner payload is a [channel](#DOCS_RESOURCES_CHANNEL/channel-object) object.  When being added to an existing private thread, includes a [thread member](#DOCS_RESOURCES_CHANNEL/thread-member-object) object.
+
+#### Thread Update
+
+Sent when a thread is updated. The inner payload is a [channel](#DOCS_RESOURCES_CHANNEL/channel-object) object. This is not sent when the field `last_message_id` is altered. To keep track of the last_message_id changes, you must listen for [Message Create](#DOCS_TOPICS_GATEWAY/message-create) events.
+
+#### Thread Delete
+
+Sent when a thread relevant to the current user is deleted. The inner payload is a subset of the [channel](#DOCS_RESOURCES_CHANNEL/channel-object) object, containing just the `id`, `guild_id`, `parent_id`, and `type` fields.
+
+#### Thread List Sync
+
+Sent when the current user _gains_ access to a channel.
+
+###### Thread List Sync Event Fields
+
+| Field        | Type                                                                           | Description                                                                                                                                                                                                                 |
+|--------------|--------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| guild_id     | snowflake                                                                      | the id of the guild                                                                                                                                                                                                         |
+| channel_ids? | array of snowflakes                                                            | the parent channel ids whose threads are being synced.  If omitted, then threads were synced for the entire guild.  This array may contain channel_ids that have no active threads as well, so you know to clear that data. |
+| threads      | array of [channel](#DOCS_RESOURCES_CHANNEL/channel-object) objects             | all active threads in the given channels that the current user can access                                                                                                                                                   |
+| members      | array of [thread member](#DOCS_RESOURCES_CHANNEL/thread-member-object) objects | all thread member objects from the synced threads for the current user, indicating which threads the current user has been added to                                                                                         |
+
+#### Thread Member Update
+
+Sent when the [thread member](#DOCS_RESOURCES_CHANNEL/thread-member-object) object for the current user is updated.  The inner payload is a [thread member](#DOCS_RESOURCES_CHANNEL/thread-member-object) object.
+
+#### Thread Members Update
+
+Sent when anyone is added to or removed from a thread.  If the current user does not have the `GUILD_MEMBERS` [Gateway Intent](#DOCS_TOPICS_GATEWAY/gateway-intents), then this event will only be sent if the current user was added to or removed from the thread.
+
+###### Thread Members Update Event Fields
+
+| Field                | Type                                                                           | Description                                                     |
+|----------------------|--------------------------------------------------------------------------------|-----------------------------------------------------------------|
+| id                   | snowflake                                                                      | the id of the thread                                            |
+| guild_id             | snowflake                                                                      | the id of the guild                                             |
+| member_count         | integer                                                                        | the approximate number of members in the thread, capped at 50   |
+| added_members?       | array of [thread member](#DOCS_RESOURCES_CHANNEL/thread-member-object) objects | the users who were added to the thread                          |
+| removed_member_ids?  | array of snowflakes                                                            | the id of the users who were removed from the thread            |
 
 #### Channel Pins Update
 

@@ -6,7 +6,7 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 
 ###### Guild Structure
 
-| Field                         | Type                                                                                | Description                                                                                                                         |
+| Field                         | Type                                                                                | Description                                                                                                                                  |
 | ----------------------------- | ----------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
 | id                            | snowflake                                                                           | guild id                                                                                                                                     |
 | name                          | string                                                                              | guild name (2-100 characters, excluding trailing and leading whitespace)                                                                     |
@@ -40,6 +40,7 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 | voice_states? \*              | array of partial [voice state](#DOCS_RESOURCES_VOICE/voice-state-object) objects    | states of members currently in voice channels; lacks the `guild_id` key                                                                      |
 | members? \*                   | array of [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) objects          | users in the guild                                                                                                                           |
 | channels? \*                  | array of [channel](#DOCS_RESOURCES_CHANNEL/channel-object) objects                  | channels in the guild                                                                                                                        |
+| threads? \*                   | array of [channel](#DOCS_RESOURCES_CHANNEL/channel-object) objects                  | all active threads in the guild that current user has permission to view                                                                     |
 | presences? \*                 | array of partial [presence update](#DOCS_TOPICS_GATEWAY/presence-update) objects    | presences of the members in the guild, will only include non-offline members if the size is greater than `large threshold`                   |
 | max_presences?                | ?integer                                                                            | the maximum number of presences for the guild (the default value, currently 25000, is in effect when `null` is returned)                     |
 | max_members?                  | integer                                                                             | the maximum number of members for the guild                                                                                                  |
@@ -53,7 +54,7 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 | max_video_channel_users?      | integer                                                                             | the maximum amount of users in a video channel                                                                                               |
 | approximate_member_count?     | integer                                                                             | approximate number of members in this guild, returned from the `GET /guilds/<id>` endpoint when `with_counts` is `true`                      |
 | approximate_presence_count?   | integer                                                                             | approximate number of non-offline members in this guild, returned from the `GET /guilds/<id>` endpoint when `with_counts` is `true`          |
-| welcome_screen?               | [welcome screen](#DOCS_RESOURCES_GUILD/welcome-screen-object) object                | the welcome screen of a Community guild, shown to new members, returned in an [Invite](#DOCS_RESOURCES_INVITE/invite-object)'s guild object |
+| welcome_screen?               | [welcome screen](#DOCS_RESOURCES_GUILD/welcome-screen-object) object                | the welcome screen of a Community guild, shown to new members, returned in an [Invite](#DOCS_RESOURCES_INVITE/invite-object)'s guild object  |
 | nsfw                          | boolean                                                                             | true if this guild is [designated as NSFW](https://support.discord.com/hc/en-us/articles/1500005389362-NSFW-Server-Designation)              |
 
 ** \* These fields are only sent within the [GUILD_CREATE](#DOCS_TOPICS_GATEWAY/guild-create) event **
