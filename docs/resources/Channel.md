@@ -1219,10 +1219,10 @@ Returns archived threads in the channel that are public.  When called on a `GUIL
 
 ###### Query String Params
 
-| Field   | Type      | Description                                  |
-|---------|-----------|----------------------------------------------|
-| before? | timestamp | returns threads before this timestamp        |
-| limit?  | integer   | optional maximum number of threads to return |
+| Field   | Type              | Description                                  |
+|---------|-------------------|----------------------------------------------|
+| before? | ISO8601 timestamp | returns threads before this timestamp        |
+| limit?  | integer           | optional maximum number of threads to return |
 
 ###### Response Body
 
@@ -1238,10 +1238,10 @@ Returns archived threads in the channel that are of [type](#DOCS_RESOURCES_CHANN
 
 ###### Query String Params
 
-| Field   | Type      | Description                                  |
-|---------|-----------|----------------------------------------------|
-| before? | timestamp | returns threads before this timestamp        |
-| limit?  | integer   | optional maximum number of threads to return |
+| Field   | Type              | Description                                  |
+|---------|-------------------|----------------------------------------------|
+| before? | ISO8601 timestamp | returns threads before this timestamp        |
+| limit?  | integer           | optional maximum number of threads to return |
 
 ###### Response Body
 
