@@ -932,6 +932,8 @@ Returns a [message](#DOCS_RESOURCES_CHANNEL/message-object) object. Fires a [Mes
 > info
 > All parameters to this endpoint are optional and nullable.
 
+###### JSON/Form Params
+
 | Field            | Type                                                                      | Description                                                                                                                             |
 | ---------------- | ------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
 | content          | string                                                                    | the message contents (up to 2000 characters)                                                                                            |
