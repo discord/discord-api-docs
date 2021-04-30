@@ -62,8 +62,8 @@ Below is a table of all current permissions, their integer values in hexadecimal
 | USE_SLASH_COMMANDS    | `0x0080000000` `(1 << 31)` | Allows members to use slash commands in text channels                                                                              | T            |
 | REQUEST_TO_SPEAK      | `0x0100000000` `(1 << 32)` | Allows for requesting to speak in stage channels. (_This permission is under active development and may be changed or removed._)   | S            |
 | MANAGE_THREADS \*     | `0x0400000000` `(1 << 34)` | Allows for deleting and archiving threads, and viewing all private threads                                                         | T            |
-| USE_GUILD_PUBLIC_THREADS    | `0x0800000000` `(1 << 35)` | Allows for creating and participating in threads                                                                                   | T            |
-| USE_GUILD_PRIVATE_THREADS   | `0x1000000000` `(1 << 36)` | Allows for creating and participating in private threads                                                                           | T            |
+| USE_PUBLIC_THREADS    | `0x0800000000` `(1 << 35)` | Allows for creating and participating in threads                                                                                   | T            |
+| USE_PRIVATE_THREADS   | `0x1000000000` `(1 << 36)` | Allows for creating and participating in private threads                                                                           | T            |
 
 **\* These permissions require the owner account to use [two-factor authentication](#DOCS_TOPICS_OAUTH2/twofactor-authentication-requirement) when used on a guild that has server-wide 2FA enabled.**
 
@@ -164,9 +164,9 @@ Threads inherit permissions from the parent channel (the channel they were creat
 
 Users must have the `VIEW_CHANNEL` permission to view _any_ threads in the channel, even if they are directly mentioned or added to the thread.
 
-Users can **create** a thread if they have _both_ the `SEND_MESSAGES` permission and the appropriate threads permission (`USE_GUILD_PUBLIC_THREADS` for public threads, `USE_GUILD_PRIVATE_THREADS` for private threads) on the parent channel.
+Users can **create** a thread if they have _both_ the `SEND_MESSAGES` permission and the appropriate threads permission (`USE_PUBLIC_THREADS` for public threads, `USE_PRIVATE_THREADS` for private threads) on the parent channel.
 
-Users can **participate** in a thread if they have _either_ the `SEND_MESSAGES` permission or the appropriate threads permission (`USE_GUILD_PUBLIC_THREADS` for public threads, `USE_GUILD_PRIVATE_THREADS` for private threads) on the parent channel.
+Users can **participate** in a thread if they have _either_ the `SEND_MESSAGES` permission or the appropriate threads permission (`USE_PUBLIC_THREADS` for public threads, `USE_PRIVATE_THREADS` for private threads) on the parent channel.
 
 ## Permission Syncing
 
