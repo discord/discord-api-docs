@@ -186,14 +186,14 @@ When the `content` field is edited, the `mentions` array in the message object w
 
 ###### JSON/Form Params
 
-| Field            | Type                                                                      | Description                                  |
-| ---------------- | ------------------------------------------------------------------------- | -------------------------------------------- |
-| content          | string                                                                    | the message contents (up to 2000 characters) |
-| embeds           | array of up to 10 [embed](#DOCS_RESOURCES_CHANNEL/embed-object) objects   | embedded `rich` content                      |
-| file             | file contents                                                             | the contents of the file being sent/edited   |
-| payload_json     | string                                                                    | JSON encoded body of non-file params         |
-| allowed_mentions | [allowed mention object](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object) | allowed mentions for the message             |
-| attachments      | array of [attachment](#DOCS_RESOURCES_CHANNEL/attachment-object) objects  | attached files to keep                       |
+| Field            | Type                                                                      | Description                                                     |
+| ---------------- | ------------------------------------------------------------------------- | --------------------------------------------------------------- |
+| content          | string                                                                    | the message contents (up to 2000 characters)                    |
+| embeds           | array of up to 10 [embed](#DOCS_RESOURCES_CHANNEL/embed-object) objects   | embedded `rich` content                                         |
+| file             | file contents                                                             | the contents of the file being sent/edited                      |
+| payload_json     | string                                                                    | JSON encoded body of non-file params (multipart/form-data only) |
+| allowed_mentions | [allowed mention object](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object) | allowed mentions for the message                                |
+| attachments      | array of [attachment](#DOCS_RESOURCES_CHANNEL/attachment-object) objects  | attached files to keep                                          |
 
 # Delete Webhook Message % DELETE /webhooks/{webhook.id#DOCS_RESOURCES_WEBHOOK/webhook-object}/{webhook.token#DOCS_RESOURCES_WEBHOOK/webhook-object}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}
 
