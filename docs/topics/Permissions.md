@@ -35,7 +35,7 @@ Below is a table of all current permissions, their integer values in hexadecimal
 | MANAGE_CHANNELS \*    | `0x0000000010` `(1 << 4)`  | Allows management and editing of channels                                                                                          | T, V, S      |
 | MANAGE_GUILD \*       | `0x0000000020` `(1 << 5)`  | Allows management and editing of the guild                                                                                         |              |
 | ADD_REACTIONS         | `0x0000000040` `(1 << 6)`  | Allows for the addition of reactions to messages                                                                                   | T            |
-| VIEW_AUDIT_LOG        | `0x0000000080` `(1 << 6)`  | Allows for viewing of audit logs                                                                                                   |              |
+| VIEW_AUDIT_LOG        | `0x0000000080` `(1 << 7)`  | Allows for viewing of audit logs                                                                                                   |              |
 | PRIORITY_SPEAKER      | `0x0000000100` `(1 << 8)`  | Allows for using priority speaker in a voice channel                                                                               | V            |
 | STREAM                | `0x0000000200` `(1 << 9)`  | Allows the user to go live                                                                                                         | V            |
 | VIEW_CHANNEL          | `0x0000000400` `(1 << 10)` | Allows guild members to view a channel, which includes reading messages in text channels                                           | T, V, S      |
