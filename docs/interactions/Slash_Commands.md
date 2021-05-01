@@ -883,6 +883,9 @@ An application command is the base "command" model that belongs to an applicatio
 | options?       | array of [ApplicationCommandOption](#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommandoption) | the parameters for the command               |
 | default_permission? | boolean (default `true`) | whether the command is enabled by default when the app is added to a guild |
 
+> warn
+> You need to pass required options before optional ones, otherwise it will return an error.
+
 ## ApplicationCommandOption
 
 > info
