@@ -149,6 +149,7 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 30035  | Maximum number of bans for non-guild members have been exceeded                                                               |
 | 40001  | Unauthorized. Provide a valid token and try again                                                                             |
 | 40002  | You need to verify your account in order to perform this action                                                               |
+| 40003  | You are opening direct messages too fast                                                                                      |
 | 40005  | Request entity too large. Try sending something smaller in size                                                               |
 | 40006  | This feature has been temporarily disabled server-side                                                                        |
 | 40007  | The user is banned from this guild                                                                                            |
