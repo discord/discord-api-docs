@@ -19,7 +19,7 @@ Since threads are a new [type of channel](#DOCS_RESOURCES_CHANNEL/channel-object
 Additionally, there are a few new fields that are only available on threads:
 
 - `message_count` and `member_count` store an approximate count, but they stop counting at 50 (these are only used in our UI, so likely are not valuable to bots)
-- `thread_metadata` contains a few thread specific fields, `archived`, `archive_timestamp`, `archiver_id`, `auto_archive_duration`, `locked`. Archive timestamp is changed when creating, archiving, or unarchiving a thread, and when changing the auto_archive_duration field.
+- `thread_metadata` contains a few thread specific fields, `archived`, `archive_timestamp`, `archiver_id`, `auto_archive_duration`, `locked`. Archive timestamp is changed when creating, archiving, or unarchiving a thread, and when changing the `auto_archive_duration` field.
 
 ## Public & Private Threads
 
