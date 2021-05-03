@@ -761,7 +761,7 @@ The ready event is dispatched when a client has completed the initial handshake 
 | guilds           | array of [Unavailable Guild](#DOCS_RESOURCES_GUILD/unavailable-guild-object) objects | the guilds the user is in                                                                                     |
 | session_id       | string                                                                               | used for resuming connections                                                                                 |
 | shard?           | array of two integers (shard_id, num_shards)                                         | the [shard information](#DOCS_TOPICS_GATEWAY/sharding) associated with this session, if sent when identifying |
-| application      | partial [application object](#DOCS_TOPICS_OAUTH2/application-object)                 | contains `id` and `flags`                                                                                     |
+| application      | partial [application object](#DOCS_TOPICS_APPLICATION/application-object)            | contains `id` and `flags`                                                                                     |
 
 #### Resumed
 
@@ -1065,20 +1065,20 @@ Sent when a new invite to a channel is created.
 
 ###### Invite Create Event Fields
 
-| Field               | Type                                                                 | Description                                                                                                        |
-|---------------------|----------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------|
-| channel_id          | snowflake                                                            | the channel the invite is for                                                                                      |
-| code                | string                                                               | the unique invite [code](#DOCS_RESOURCES_INVITE/invite-object)                                                     |
-| created_at          | timestamp                                                            | the time at which the invite was created                                                                           |
-| guild_id?           | snowflake                                                            | the guild of the invite                                                                                            |
-| inviter?            | [user](#DOCS_RESOURCES_USER/user-object) object                      | the user that created the invite                                                                                   |
-| max_age             | integer                                                              | how long the invite is valid for (in seconds)                                                                      |
-| max_uses            | integer                                                              | the maximum number of times the invite can be used                                                                 |
-| target_type?        | integer                                                              | the [type of target](#DOCS_RESOURCES_INVITE/invite-object-invite-target-types) for this voice channel invite       |
-| target_user?        | [user](#DOCS_RESOURCES_USER/user-object) object                      | the user whose stream to display for this voice channel stream invite                                              |
-| target_application? | partial [application](#DOCS_TOPICS_OAUTH2/application-object) object | the embedded application to open for this voice channel embedded application invite                                |
-| temporary           | boolean                                                              | whether or not the invite is temporary (invited users will be kicked on disconnect unless they're assigned a role) |
-| uses                | integer                                                              | how many times the invite has been used (always will be 0)                                                         |
+| Field               | Type                                                                      | Description                                                                                                        |
+|---------------------|---------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------|
+| channel_id          | snowflake                                                                 | the channel the invite is for                                                                                      |
+| code                | string                                                                    | the unique invite [code](#DOCS_RESOURCES_INVITE/invite-object)                                                     |
+| created_at          | timestamp                                                                 | the time at which the invite was created                                                                           |
+| guild_id?           | snowflake                                                                 | the guild of the invite                                                                                            |
+| inviter?            | [user](#DOCS_RESOURCES_USER/user-object) object                           | the user that created the invite                                                                                   |
+| max_age             | integer                                                                   | how long the invite is valid for (in seconds)                                                                      |
+| max_uses            | integer                                                                   | the maximum number of times the invite can be used                                                                 |
+| target_type?        | integer                                                                   | the [type of target](#DOCS_RESOURCES_INVITE/invite-object-invite-target-types) for this voice channel invite       |
+| target_user?        | [user](#DOCS_RESOURCES_USER/user-object) object                           | the user whose stream to display for this voice channel stream invite                                              |
+| target_application? | partial [application](#DOCS_TOPICS_APPLICATION/application-object) object | the embedded application to open for this voice channel embedded application invite                                |
+| temporary           | boolean                                                                   | whether or not the invite is temporary (invited users will be kicked on disconnect unless they're assigned a role) |
+| uses                | integer                                                                   | how many times the invite has been used (always will be 0)                                                         |
 
 ### Invite Delete
 
