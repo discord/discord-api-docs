@@ -103,7 +103,7 @@ Threads introduce a few new [message types](#DOCS_RESOURCES_CHANNEL/message-obje
 
 ## Enumerating threads
 
-There are four new `GET` routes for enumerating threads in a specific channel
+There are four new `GET` routes for enumerating threads in a specific channel:
 
 - `/channels/<channel_id>/threads/active` returns all active threads in a channel that the current user can access, includes public & private threads
 - `/channels/<channel_id>/users/@me/threads/archived/private` returns all archived, private threads in a channel, that the current user has is a member of, sorted by thread id descending
