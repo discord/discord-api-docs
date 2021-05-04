@@ -19,13 +19,13 @@ Since threads are a new [type of channel](#DOCS_RESOURCES_CHANNEL/channel-object
 Additionally, there are a few new fields that are only available on threads:
 
 - `message_count` and `member_count` store an approximate count, but they stop counting at 50 (these are only used in our UI, so likely are not valuable to bots)
-- `thread_metadata` contains a few thread specific fields, `archived`, `archive_timestamp`, `archiver_id`, `auto_archive_duration`, `locked`. Archive timestamp is changed when creating, archiving, or unarchiving a thread, and when changing the `auto_archive_duration` field.
+- `thread_metadata` contains a few thread specific fields, `archived`, `archive_timestamp`, `archiver_id`, `auto_archive_duration`, `locked`. `archive_timestamp` is changed when creating, archiving, or unarchiving a thread, and when changing the `auto_archive_duration` field.
 
 ## Public & Private Threads
 
-Public threads are viewable by everyone who can view the parent channel of the thread. Public threads must be created from an existing message, but can be "orphaned" if that message is deleted. The [type](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types) of thread created matches the [type](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types) of the parent channel. `GUILD_TEXT` channels [create](#DOCS_RESOURCES_CHANNEL/start-a-public-thread) `GUILD_PUBLIC_THREAD` and `GUILD_NEWS` channels [create](#DOCS_RESOURCES_CHANNEL/start-a-public-thread) `GUILD_NEWS_THREAD`.
+Public threads are viewable by everyone who can view the parent channel of the thread. Public threads must be created from an existing message, but can be "orphaned" if that message is deleted. The created thread and the message it was started from will share the same id. The [type](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types) of thread created matches the [type](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types) of the parent channel. `GUILD_TEXT` channels [create](#DOCS_RESOURCES_CHANNEL/start-thread-with-message) `GUILD_PUBLIC_THREAD` and `GUILD_NEWS` channels [create](#DOCS_RESOURCES_CHANNEL/start-thread-with-message) `GUILD_NEWS_THREAD`.
 
-Private threads behave similar to Group DMs, but in a Guild. Private threads are always [created](#DOCS_RESOURCES_CHANNEL/start-a-private-thread) with the `GUILD_PRIVATE_THREAD` [type](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types) and can only be created in `GUILD_TEXT` channels.
+Private threads behave similar to Group DMs, but in a Guild. Private threads are always [created](#DOCS_RESOURCES_CHANNEL/start-thread-without-message) with the `GUILD_PRIVATE_THREAD` [type](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types) and can only be created in `GUILD_TEXT` channels.
 
 ## Active & Archived Threads
 

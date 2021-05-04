@@ -614,7 +614,7 @@ Delete a guild permanently. User must be owner. Returns `204 No Content` on succ
 
 ## Get Guild Channels % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/channels
 
-Returns a list of guild [channel](#DOCS_RESOURCES_CHANNEL/channel-object) objects.
+Returns a list of guild [channel](#DOCS_RESOURCES_CHANNEL/channel-object) objects. Does not include threads.
 
 ## Create Guild Channel % POST /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/channels
 
