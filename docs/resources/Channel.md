@@ -1182,17 +1182,17 @@ Creates a new private thread. Returns a [channel](#DOCS_RESOURCES_CHANNEL/channe
 
 Adds the current user to a thread. Returns a 204 empty response on success. Also requires the thread is not archived. Fires a [Thread Members Update](#DOCS_TOPICS_GATEWAY/thread-members-update) Gateway event.
 
-## Add User To Thread % PUT /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/thread-members/{user.id#DOCS_RESOURCES_USER/user-object}
+## Add Member To Thread % PUT /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/thread-members/{user.id#DOCS_RESOURCES_USER/user-object}
 
-Adds another user to a thread. Requires the ability to send messages in the thread. Also requires the thread is not archived. Returns a 204 empty response on success. Fires a [Thread Members Update](#DOCS_TOPICS_GATEWAY/thread-members-update) Gateway event.
+Adds another member to a thread. Requires the ability to send messages in the thread. Also requires the thread is not archived. Returns a 204 empty response on success. Fires a [Thread Members Update](#DOCS_TOPICS_GATEWAY/thread-members-update) Gateway event.
 
 ## Leave Thread % DELETE /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/thread-members/@me
 
 Removes the current user from a thread. Returns a 204 empty response on success. Fires a [Thread Members Update](#DOCS_TOPICS_GATEWAY/thread-members-update) Gateway event.
 
-## Remove User From Thread % DELETE /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/thread-members/{user.id#DOCS_RESOURCES_USER/user-object}
+## Remove Member From Thread % DELETE /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/thread-members/{user.id#DOCS_RESOURCES_USER/user-object}
 
-Removes another user from a thread. Requires the `MANAGE_THREADS` permission or that you are the creator of the thread. Also requires the thread is not archived. Returns a 204 empty response on success. Fires a [Thread Members Update](#DOCS_TOPICS_GATEWAY/thread-members-update) Gateway event.
+Removes another member from a thread. Requires the `MANAGE_THREADS` permission or that you are the creator of the thread. Also requires the thread is not archived. Returns a 204 empty response on success. Fires a [Thread Members Update](#DOCS_TOPICS_GATEWAY/thread-members-update) Gateway event.
 
 ## List Thread Members % GET /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/threads-members
 
