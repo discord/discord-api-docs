@@ -109,3 +109,7 @@ There are four new `GET` routes for enumerating threads in a specific channel
 - `/channels/<channel_id>/users/@me/threads/archived/private` returns all archived, private threads in a channel, that the current user has is a member of, sorted by thread id descending
 - `/channels/<channel_id>/threads/archived/public` returns all archived, public threads in a channel, sorted by archive timestamp descending
 - `/channels/<channel_id>/threads/archived/private` returns all archived, private threads in a channel, sorted by archive timestamp descending
+
+## Webhooks
+
+Webhooks can send messages to threads by using the `thread_id` query parameter. See the [execute webhook](#DOCS_RESOURCES_WEBHOOKS/execute-webhook) docs for more details.
