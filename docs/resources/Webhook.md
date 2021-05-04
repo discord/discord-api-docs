@@ -126,6 +126,7 @@ Same as above, except this call does not require authentication.
 | Field | Type    | Description                                                                                                                                                                                  | Required |
 | ----- | ------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
 | wait  | boolean | waits for server confirmation of message send before response, and returns the created message body (defaults to `false`; when `false` a message that is not saved does not return an error) | false    |
+| thread_id | snowflake | Send a message to the specified thread within a webhook's channel. The thread will automatically be unarchived. | false    |
 
 ###### JSON/Form Params
 
