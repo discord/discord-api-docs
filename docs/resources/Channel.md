@@ -1143,7 +1143,7 @@ Delete a pinned message in a channel. Requires the `MANAGE_MESSAGES` permission.
 
 ## Group DM Add Recipient % PUT /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/recipients/{user.id#DOCS_RESOURCES_USER/user-object}
 
-Adds a recipient to a Group DM using their access token
+Adds a recipient to a Group DM using their access token.
 
 ###### JSON Params
 
@@ -1154,7 +1154,7 @@ Adds a recipient to a Group DM using their access token
 
 ## Group DM Remove Recipient % DELETE /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/recipients/{user.id#DOCS_RESOURCES_USER/user-object}
 
-Removes a recipient from a Group DM
+Removes a recipient from a Group DM.
 
 ## Start Thread with Message % POST /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}/threads
 
