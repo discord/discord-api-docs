@@ -911,6 +911,9 @@ An application command is the base "command" model that belongs to an applicatio
 | ROLE              | 8     |
 | MENTIONABLE       | 9     |
 
+> info
+> The `MENTIONABLE` type accepts users and (all) roles.
+
 ## ApplicationCommandOptionChoice
 
 If you specify `choices` for an option, they are the **only** valid values for a user to pick
