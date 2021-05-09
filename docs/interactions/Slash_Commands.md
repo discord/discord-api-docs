@@ -74,6 +74,8 @@ Guild commands are specific to the guild you specify when making them. Guild com
 > info
 > Apps can have a maximum of 100 global commands, and an additional 100 guild-specific commands per guild
 
+Command names must be lower-case and match the regular expression `^[a-z0-9-]{1,32}$`. Commands (including sub-commands) with upper- or mixed- case names will be rejected by the API with a HTTP 400 response.
+
 To make a **global** Slash Command, make an HTTP POST call like this:
 
 ```py
