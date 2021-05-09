@@ -58,6 +58,7 @@ Go team!
 | field         | type                                                                              | description                            |
 | ------------- | --------------------------------------------------------------------------------- | -------------------------------------- |
 | icon          | ?string                                                                           | a hash of the image of the team's icon |
+| name          | string                                                                            | the name of the team                   |
 | id            | snowflake                                                                         | the unique id of the team              |
 | members       | array of [team member](#DOCS_TOPICS_TEAMS/data-models-team-member-object) objects | the members of the team                |
 | owner_user_id | snowflake                                                                         | the user id of the current team owner  |
