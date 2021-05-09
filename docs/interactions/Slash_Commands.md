@@ -682,11 +682,11 @@ Create a new global command. New global commands will be available in all guilds
 
 ###### JSON Params
 
-| Field       | Type                                                                                            | Description                                  |
-|-------------|-------------------------------------------------------------------------------------------------|----------------------------------------------|
-| name        | string                                                                                          | 1-32 character name matching `^[\w-]{1,32}$` |
-| description | string                                                                                          | 1-100 character description                  |
-| options?    | array of [ApplicationCommandOption](#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommandoption) | the parameters for the command               |
+| Field       | Type                                                                                            | Description                                      |
+|-------------|-------------------------------------------------------------------------------------------------|--------------------------------------------------|
+| name        | string                                                                                          | 1-32 character name matching `^[a-z0-9-]{1,32}$` |
+| description | string                                                                                          | 1-100 character description                      |
+| options?    | array of [ApplicationCommandOption](#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommandoption) | the parameters for the command                   |
 | default_permission? | boolean (default `true`) | whether the command is enabled by default when the app is added to a guild |
 
 ## Get Global Application Command % GET /applications/{application.id#DOCS_TOPICS_OAUTH2/application-object}/commands/{command.id#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommand}
@@ -704,7 +704,7 @@ Edit a global command. Updates will be available in all guilds after 1 hour. Ret
 
 | Field              | Type                                                                                             | Description                                                                |
 | ------------------ | ------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------- |
-| name               | string                                                                                           | 1-32 character name matching `^[\w-]{1,32}$`                               |
+| name               | string                                                                                           | 1-32 character name matching `^[a-z0-9-]{1,32}$`                        |
 | description        | string                                                                                           | 1-100 character description                                                |
 | options            | ?array of [ApplicationCommandOption](#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommandoption) | the parameters for the command                                             |
 | default_permission | boolean (default `true`)                                                                         | whether the command is enabled by default when the app is added to a guild |
@@ -730,11 +730,11 @@ Create a new guild command. New guild commands will be available in the guild im
 
 ###### JSON Params
 
-| Field       | Type                                                                                            | Description                                  |
-|-------------|-------------------------------------------------------------------------------------------------|----------------------------------------------|
-| name        | string                                                                                          | 1-32 character name matching `^[\w-]{1,32}$` |
-| description | string                                                                                          | 1-100 character description                  |
-| options?    | array of [ApplicationCommandOption](#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommandoption) | the parameters for the command               |
+| Field       | Type                                                                                            | Description                                      |
+|-------------|-------------------------------------------------------------------------------------------------|--------------------------------------------------|
+| name        | string                                                                                          | 1-32 character name matching `^[a-z0-9-]{1,32}$` |
+| description | string                                                                                          | 1-100 character description                      |
+| options?    | array of [ApplicationCommandOption](#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommandoption) | the parameters for the command                   |
 | default_permission? | boolean (default `true`) | whether the command is enabled by default when the app is added to a guild |
 
 ## Get Guild Application Command % GET /applications/{application.id#DOCS_TOPICS_OAUTH2/application-object}/guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/commands/{command.id#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommand}
@@ -752,7 +752,7 @@ Edit a guild command. Updates for guild commands will be available immediately. 
 
 | Field              | Type                                                                                             | Description                                                                |
 | ------------------ | ------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------- |
-| name               | string                                                                                           | 1-32 character name matching `^[\w-]{1,32}$`                               |
+| name               | string                                                                                           | 1-32 character name matching `^[a-z0-9-]{1,32}$`                          |
 | description        | string                                                                                           | 1-100 character description                                                |
 | options            | ?array of [ApplicationCommandOption](#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommandoption) | the parameters for the command                                             |
 | default_permission | boolean (default `true`)                                                                         | whether the command is enabled by default when the app is added to a guild |
@@ -874,13 +874,13 @@ r = requests.put(url, headers=headers, json=json)
 
 An application command is the base "command" model that belongs to an application. This is what you are creating when you `POST` a new command.
 
-| Field          | Type                                                                                            | Description                                  |
-|----------------|-------------------------------------------------------------------------------------------------|----------------------------------------------|
-| id             | snowflake                                                                                       | unique id of the command                     |
-| application_id | snowflake                                                                                       | unique id of the parent application          |
-| name           | string                                                                                          | 1-32 character name matching `^[\w-]{1,32}$` |
-| description    | string                                                                                          | 1-100 character description                  |
-| options?       | array of [ApplicationCommandOption](#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommandoption) | the parameters for the command               |
+| Field          | Type                                                                                            | Description                                      |
+|----------------|-------------------------------------------------------------------------------------------------|--------------------------------------------------|
+| id             | snowflake                                                                                       | unique id of the command                         |
+| application_id | snowflake                                                                                       | unique id of the parent application              |
+| name           | string                                                                                          | 1-32 character name matching `^[a-z0-9-]{1,32}$` |
+| description    | string                                                                                          | 1-100 character description                      |
+| options?       | array of [ApplicationCommandOption](#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommandoption) | the parameters for the command                   |
 | default_permission? | boolean (default `true`) | whether the command is enabled by default when the app is added to a guild |
 
 ## ApplicationCommandOption
@@ -891,7 +891,7 @@ An application command is the base "command" model that belongs to an applicatio
 | Field       | Type                                                                                                        | Description                                                                                             |
 |-------------|-------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------|
 | type        | int                                                                                                         | value of [ApplicationCommandOptionType](#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommandoptiontype) |
-| name        | string                                                                                                      | 1-32 character name matching `^[\w-]{1,32}$`                                                            |
+| name        | string                                                                                                      | 1-32 character name matching `^[a-z0-9-]{1,32}$`                                                         |
 | description | string                                                                                                      | 1-100 character description                                                                             |
 | required?   | boolean                                                                                                     | if the parameter is required or optional--default `false`                                               |
 | choices?    | array of [ApplicationCommandOptionChoice](#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommandoptionchoice) | choices for `string` and `int` types for the user to pick from                                          |
