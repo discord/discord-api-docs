@@ -121,6 +121,8 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 10013  | Unknown user                                                                                                                  |
 | 10014  | Unknown emoji                                                                                                                 |
 | 10015  | Unknown webhook                                                                                                               |
+| 10016  | Unknown webhook service                                                                                                       |
+| 10020  | Unknown session                                                                                                               |
 | 10026  | Unknown ban                                                                                                                   |
 | 10027  | Unknown SKU                                                                                                                   |
 | 10028  | Unknown Store Listing                                                                                                         |
@@ -128,19 +130,28 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 10030  | Unknown build                                                                                                                 |
 | 10031  | Unknown lobby                                                                                                                 |
 | 10032  | Unknown branch                                                                                                                |
+| 10033  | Unknown store directory layout                                                                                                |
 | 10036  | Unknown redistributable                                                                                                       |
+| 10038  | Unknown gift code                                                                                                             |
 | 10057  | Unknown guild template                                                                                                        |
 | 10062  | Unknown interaction                                                                                                           |
 | 10063  | Unknown application command                                                                                                   |
+| 10066  | Unknown application command permissions                                                                                       |
 | 20001  | Bots cannot use this endpoint                                                                                                 |
 | 20002  | Only bots can use this endpoint                                                                                               |
+| 20009  | Explicit content cannot be sent to the desired recipient(s)                                                                   |
+| 20012  | You are not authorized to perform this action on this application                                                             |
+| 20016  | This action cannot be performed due to slowmode rate limit                                                                    |
+| 20018  | Only the owner of this account can perform this action                                                                        |
 | 20022  | This message cannot be edited due to announcement rate limits                                                                 |
 | 20028  | The channel you are writing has hit the write rate limit                                                                      |
 | 30001  | Maximum number of guilds reached (100)                                                                                        |
 | 30002  | Maximum number of friends reached (1000)                                                                                      |
 | 30003  | Maximum number of pins reached for the channel (50)                                                                           |
+| 30004  | Maximum number of recipients reached (10)                                                                                     |
 | 30005  | Maximum number of guild roles reached (250)                                                                                   |
 | 30007  | Maximum number of webhooks reached (10)                                                                                       |
+| 30008  | Maximum number of emojis reached                                                                                              |
 | 30010  | Maximum number of reactions reached (20)                                                                                      |
 | 30013  | Maximum number of guild channels reached (500)                                                                                |
 | 30015  | Maximum number of attachments in a message reached (10)                                                                       |
@@ -150,10 +161,13 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 30037  | Maximum number of bans fetches has been reached                                                                               |
 | 40001  | Unauthorized. Provide a valid token and try again                                                                             |
 | 40002  | You need to verify your account in order to perform this action                                                               |
+| 40003  | You are opening direct messages too fast                                                                                      |
 | 40005  | Request entity too large. Try sending something smaller in size                                                               |
 | 40006  | This feature has been temporarily disabled server-side                                                                        |
 | 40007  | The user is banned from this guild                                                                                            |
+| 40032  | Target user is not connected to voice                                                                                         |
 | 40033  | This message has already been crossposted                                                                                     |
+| 40041  | An application command with that name already exists                                                                          |
 | 50001  | Missing access                                                                                                                |
 | 50002  | Invalid account type                                                                                                          |
 | 50003  | Cannot execute action on a DM channel                                                                                         |
@@ -175,18 +189,23 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 50021  | Cannot execute action on a system message                                                                                     |
 | 50024  | Cannot execute action on this channel type                                                                                    |
 | 50025  | Invalid OAuth2 access token provided                                                                                          |
+| 50026  | Missing required OAuth2 scope                                                                                                 |
 | 50027  | Invalid webhook token provided                                                                                                |
+| 50028  | Invalid role                                                                                                                  |
 | 50033  | "Invalid Recipient(s)"                                                                                                        |
 | 50034  | A message provided was too old to bulk delete                                                                                 |
 | 50035  | Invalid form body (returned for both `application/json` and `multipart/form-data` bodies), or invalid `Content-Type` provided |
 | 50036  | An invite was accepted to a guild the application's bot is not in                                                             |
 | 50041  | Invalid API version provided                                                                                                  |
+| 50054  | Cannot self-redeem this gift                                                                                                  |
+| 50070  | Payment source required to redeem gift                                                                                        |
 | 50074  | Cannot delete a channel required for Community guilds                                                                         |
 | 50081  | Invalid sticker sent                                                                                                          |
 | 50083  | Tried to perform an operation on an archived thread, such as editing a message or adding a user to the thread                 |
 | 50084  | Invalid thread notification settings                                                                                          |
 | 50085  | `before` value is earlier than the thread creation date                                                                       |
 | 60003  | Two factor is required for this operation                                                                                     |
+| 80004  | No users with DiscordTag exist                                                                                                |
 | 90001  | Reaction was blocked                                                                                                          |
 | 130000 | API resource is currently overloaded. Try again a little later                                                                |
 
