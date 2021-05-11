@@ -884,7 +884,7 @@ An application command is the base "command" model that belongs to an applicatio
 | default_permission? | boolean (default `true`) | whether the command is enabled by default when the app is added to a guild |
 
 > warn
-> Required options must be before optional options
+> Required `options` must be listed before optional options
 
 ## ApplicationCommandOption
 
