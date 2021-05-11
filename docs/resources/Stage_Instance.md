@@ -2,22 +2,7 @@
 
 A _Stage Instance_ holds information about a live stage.
 
-## Definitions
-
-Below are some definitions related to stages.
-
-- **Liveness:** A Stage channel is considered _live_ when there is an associated stage instance. Conversely, a Stage channel is _not live_ when there is no associated stage instance.
-- **Speakers:** A participant of a Stage channel is a _speaker_ when their [voice state](#DOCS_RESOURCES_VOICE/voice-state-object)
-  is not `suppress`ed, and has no `request_to_speak_timestamp`.
-- **Moderators**: A member of the guild is a _moderator_ of a Stage channel if they have all of the following [permissions](#DOCS_TOPICS_PERMISSIONS/permissions):
-  - `MANAGE_CHANNELS`
-  - `MUTE_MEMBERS`
-  - `MOVE_MEMBERS`
-- Topic: This is the blurb that gets shown below the channel's name, among other places.
-
-## Auto Closing
-
-When a Stage channel has no speakers for a certain period of time (on the order of minutes) it will be automatically deleted.
+### Stage Instance Object
 
 ###### Stage Instance Structure
 
@@ -38,6 +23,23 @@ When a Stage channel has no speakers for a certain period of time (on the order 
   "topic": "Testing Testing, 123"
 }
 ```
+
+## Definitions
+
+Below are some definitions related to stages.
+
+- **Liveness:** A Stage channel is considered _live_ when there is an associated stage instance. Conversely, a Stage channel is _not live_ when there is no associated stage instance.
+- **Speakers:** A participant of a Stage channel is a _speaker_ when their [voice state](#DOCS_RESOURCES_VOICE/voice-state-object)
+  is not `suppress`ed, and has no `request_to_speak_timestamp`.
+- **Moderators**: A member of the guild is a _moderator_ of a Stage channel if they have all of the following [permissions](#DOCS_TOPICS_PERMISSIONS/permissions):
+  - `MANAGE_CHANNELS`
+  - `MUTE_MEMBERS`
+  - `MOVE_MEMBERS`
+- **Topic**: This is the blurb that gets shown below the channel's name, among other places.
+
+## Auto Closing
+
+When a Stage channel has no speakers for a certain period of time (on the order of minutes) it will be automatically deleted.
 
 ## Create Stage Instance % POST /stage-instances
 

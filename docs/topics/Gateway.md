@@ -236,6 +236,9 @@ GUILDS (1 << 0)
   - THREAD_LIST_SYNC
   - THREAD_MEMBER_UPDATE
   - THREAD_MEMBERS_UPDATE \*
+  - STAGE_INSTANCE_CREATE
+  - STAGE_INSTANCE_UPDATE
+  - STAGE_INSTANCE_DELETE
 
 GUILD_MEMBERS (1 << 1)
   - GUILD_MEMBER_ADD
@@ -1445,6 +1448,20 @@ Sent when a [Slash Command](#DOCS_INTERACTIONS_SLASH_COMMANDS/) relevant to the 
 #### Interaction Create
 
 Sent when a user in a guild uses a [Slash Command](#DOCS_INTERACTIONS_SLASH_COMMANDS/). Inner payload is an [Interaction](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction).
+
+### Stage Instances
+
+#### Stage Instance Create
+
+Sent when a [Stage instance](#DOCS_RESOURCES_STAGE_INSTANCE) is created (i.e. the Stage is now "live"). Inner payload is a [Stage instance](#DOCS_RESOURCE_STAGE_INSTANCE/stage-instance-object)
+
+#### Stage Instance Update
+
+Sent when a [Stage instance](#DOCS_RESOURCES_STAGE_INSTANCE) has been updated. Inner payload is a [Stage instance](#DOCS_RESOURCE_STAGE_INSTANCE/stage-instance-object)
+
+#### Stage Instance Delete
+
+Sent when a [Stage instance](#DOCS_RESOURCES_STAGE_INSTANCE) has been deleted (i.e. the Stage has been closed). Inner payload is a [Stage instance](#DOCS_RESOURCE_STAGE_INSTANCE/stage-instance-object)
 
 ## Get Gateway % GET /gateway
 
