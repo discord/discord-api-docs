@@ -149,7 +149,7 @@ Returns a list of partial [guild](#DOCS_RESOURCES_GUILD/guild-object) objects th
 ```
 
 > info
-> If an account is in over 100 guilds, pagination using the `before` or `after` parameter will be required when attempting to get all of an account's guilds.
+> If an account is in over 100 guilds, pagination using the `before` or `after` parameters will be required when attempting to get all of an account's guilds.
 
 ###### Query String Params
 
