@@ -1,81 +1,85 @@
-# Discord Developer Policy
+# 디스코드 개발자 정책
 
-## Last updated: July 1, 2020
+## 최근 업데이트: 2020년 7월 1일
+ 
+---
+ 
+### ⚠️ 참고용으로만 사용해주세요 ⚠️
+ 
+이 문서를 읽음으로써 일어나는 문제에는 **어떠한 책임도 지지 않습니다**.  
+정확한 내용은 반드시 [원본](https://discord.com/developers/docs/legal)에서 확인해주시기 바랍니다.
+ 
+---
 
-This Discord Developer Policy is incorporated into the Discord Developer Terms of Service (“Terms”) and applies to all uses of our APIs. All capitalized terms not defined here have the meaning assigned to them in these Terms. Please check back from time to time as these policies are occasionally updated.
+이 디스코드 개발자 정책은 디스코드 개발자 서비스 이용약관("약관")에 포함되어 있으며 당사의 API의 모든 사용에 적용됩니다. 여기에 정의되지 않은 조항은 "약관"에서 정의된 의미를 갖습니다. 이 정책은 가끔 업데이트되므로 계속 확인하주십시오.
 
-**“Discord Data”** means any and all data you obtain through the APIs.
+**“디스코드 데이터”** 는 귀하가 API를 통해 얻은 모든 데이터를 의미합니다.
 
-## Protect Discord users. 
+## 디스코드 사용자를 보호하십시오.
 
-You may not use the APIs in any way to:
+귀하는 다음 방법으로 API를 사용해서는 안됩니다.
 
-- modify a Discord user’s account without explicit permission from the Discord user. For example, you may not add a Discord user to a Discord (also known as a “server”) unless that Discord user expressly approved joining that Discord (such as when using a "group finder" app);
-- post messages, trigger notifications, or play audio on behalf of a Discord user except in response to such Discord user expressly opting-in to each instance of such action;
-- obtain Discord passwords or credentials under any circumstance; or
-- target users with advertisements or marketing.
+- 디스코드 사용자로부터 확실한 동의를 받지않고 디스코드 사용자의 계정을 수정하는 것. 예를 들어, 디스코드 사용자가 "그룹 파인더" 앱을 사용하는 것 같이 서버에 참가하는 것을 명확하게 동의하지 않은 상황에서 귀하가 디스코드 사용자를 서버에 참가시키는 것
+- 디스코드 사용자가 행동 하나하나에 동의하지 않은 상태에서 해당 사용자를 대신해서 메세지를 보내거나, 알림을 발생시키거나, 음악을 재생하는 것
+- 어떠한 상황에서라도 디스코드 비밀번호나 자격증명을 얻는 것
+- 사용자를 광고나 마켓팅의 대상으로 하는 것
 
-## Handle data with care. 
+## 데이터를 조심히 다루십시오.
 
-You may not use the APIs in any way to:
+귀하는 다음 방법으로 API를 사용해서는 안됩니다.
 
-- scrape any Discord Data;
-- use Discord Data for any purpose other than as necessary to provide your application;
-- disclose any user’s Discord Data without their specific, informed consent; 
-- disclose Discord Data to any ad network, data broker, or other advertising or monetization related service; 
-- retain data any longer than necessary for the operation of your application;
-- contravene Discord’s Privacy Policy;
-- obtain Discord User passwords to obtain access to Discord Data; 
-- sell, license or otherwise commercialize any Discord Data; 
-- provide or direct services to children under the age of thirteen (13) in the United States or, outside of the United States, the relevant age of digital consent; 
-- process Discord Data in a way that surprises or violates Discord users’ expectations.
+- 디스코드 데이터를 스크랩하는 것
+- 애플리케이션을 제공하기 위해 필요한 것 이외에 어떤 다른 목적을 위해 디스코드 데이터를 사용하는 것
+- 디스코드 사용자의 확실한 동의를 받지않고 해당 사용자의 디스코드 데이터를 공개하는 것
+- 광고 네트워크나 데이터 브로커, 다른 광고나 데이터 분석 관련 서비스에 디스코드 데이터를 공개하는 것
+- 애플리케이션의 작동에 필요한 시간 이상으로 데이터를 보존하는 것
+- 디스코드 개인정보 보호정책을 위반하는 것
+- 디스코드 데이터의 액세스 권한을 얻기 위해서 디스코드 사용자의 비밀번호를 얻는 것
+- 디스코드 데이터를 팔거나, 라이선스화하거나, 그 외 방식으로 상업화하는 것
+- 미국에서는 13세 미만, 미국 이외의 지역에서는 그 지역의 디지털 이용 최소 나이 미만의 어린이에게 서비스를 제공하는 것
+- 디스코드 사용자의 기대를 저버리는 방법으로 디스코드 데이터를 처리하는 것
 
-## Don’t Do Anything Illegal, Harmful, or Otherwise Not Cool.
+## 불법이거나 유해하거나 그 외에 멋지지 않은 행동을 하지마십시오.
 
-You may not use the APIs in any way:
+귀하는 다음 방법으로 API를 사용해서는 안됩니다.
 
-- to promote or facilitate unlawful online gambling;
-- for any activities where the use or failure of the APIs could lead to death, personal injury, or environmental damage (such as the operation of nuclear facilities, air traffic control, or life support systems);
-- that doesn’t comply with all applicable laws, regulations, and third party rights;
-- to encourage or promote illegal activity or violation of third party rights;
-- to use the APIs to process or store any data that is subject to the International Traffic in Arms Regulations maintained by the U.S. Department of State
-- to distribute NSFW material without an NSFW tag; or
-- to defame, abuse, harass, stalk, threaten others, or otherwise violate our [Community Guidelines](https://discord.com/guidelines).
+- 불법적인 온라인 도박을 홍보하거나 용이하게 하는 것
+- 핵 시설, 항공 교통 관제, 생명 유지 시스템의 작동·운영같이 API의 사용이나 실패가 사망이나 부상, 환경파괴를 초래할 수 있는 모든 활동과 관련된 것
+- 모든 적용가능한 법과 규제, 제3자의 권리를 준수하지 않는 것
+- 불법적인 행동이나 제3자 권리 침해를 홍보하거나 조장하는 것
+- 미국 국무부에서 관리하는 국제무기거래규제(ITAR)가 적용되는 데이터를 처리하거나 저장하기 위해서 API를 사용하는 것
+- NSFW 태크 없이 부적절한 자료를 배포하는 것
+- 남을 헐뜯거나, 학대하거나, 희롱하거나, 스토킹하거나, 그 외에 방식으로 [커뮤니티 가이드라인](https://discord.com/guidelines)을 위반하는 것
 
-## Don’t abuse the platform. 
+## 플랫폼을 남용하지 마십시오.
 
-You will:
+귀하는 최종 사용자가 적용가능한 법과 규제 및 디스코드 서비스 이용약관에 준수하고 고의로 위반하지 않도록 요구해야합니다. 또한, API 문서에 서술된 방법으로만 API에 액세스하거나 액세스를 시도해야합니다.
 
-- require your end users to comply with (and not knowingly enable them to violate) applicable law, regulation, and the Discord Terms of Service; and
-- only access (or attempt to access) an API by the means described in the documentation of that API. 
+귀하는 다음을 행해서는 안됩니다.
 
-You will not:
+- 디스코드 [서비스 이용약관](https://discord.com/terms)이나, 그 약관으로 통하는 링크, 그 약관에 대한 공지를 없애거나, 보기 어렵게하거나, 바꾸는 것
+- 사용자가 디스코드 [서비스 이용약관](https://discord.com/terms)를 위반할 수 있는 기능을 만들거나 그 기능을 권장하는 것
+- API를 제3자의 이용을 위해 라이선스를 양도하는 것(sublicense)
+- API와 상당히 동일하게 기능하는 애플리케이션을 만들고 그것은 제3자가 이용하도록 제공하는 것
+- 디스코드 제품이나 서비스에 바이러스나 웜, 결함, 멜웨어, 그외 파괴적인 성질을 가진 무언가를 심기 위한 목적으로 행동하는 것
+- 이 제한이 적용가능한 법률에 의해 명시적으로 금지되지 않는 범위까지, 어떤 API나 관련 소프트웨어를 리버스 엔지니어링하거나 소스코드를 추출하는 것
+- API나 개발자 계정을 사용할 때 귀하의 신원이나 애플리케이션의 정체를 감추거나 왜곡하는 것
+- 제3자가 디스코드 개발자 정책을 위반할 수 있도록 하는 것
+- API나 그 서버 혹은 API를 제공하는 네트워크를 방해하거나 지장을 주는 것
 
-- remove, obscure, or alter Discord’s [Terms of Service](https://discord.com/terms) or any links to or notices of those terms;
-- encourage or create functionality for your users that violates Discord’s [Terms of Service](https://discord.com/terms);
-- sublicense an API for use by a third party;
-- create an application that functions substantially the same as the APIs and offer it for use by third parties;
-- perform an action with the intent of introducing to Discord products and services any viruses, worms, defects, Trojan horses, malware, or any items of a destructive nature; 
-- reverse engineer or attempt to extract the source code from any API or any related software, except to the extent that this restriction is expressly prohibited by applicable law; 
-- misrepresent or mask either your identity or your application’s identity when using the APIs or developer accounts; 
-- permit or allow a third party to violate any of this Discord Developer Policy; or
-- interfere with or disrupt the APIs or the servers or networks providing the APIs.
+## API 제한
 
-## API Limits.
+디스코드는 당사의 독단적인 재량으로 API 요청수 제한, 애플리케이션이 속해있는 서버수 제한, 서비스를 제공할 수 있는 사용자 수 제한 등 API의 이용에 제한을 정하고 실행하고 있습니다. 귀하는 각 API 문서에 기록된 제한에 동의하며 이를 회피하려고 시도하지 않습니다.
 
-Discord sets and enforces limits on your use of the APIs (for example, by limiting the number of API requests that you may make, the number of servers your application is in, or the number of users you may serve), in our sole discretion. You agree to, and will not attempt to circumvent, such limitations documented with each API. 
+API 이 한도를 넘어서 사용하려면, 귀하는 디스코드의 서면 동의를 받아야합니다. 디스코드는 당사는 귀하의 계약에 따라 해당 사용에 대한 추가 조항 및/또는 요금에 대한 요청 또는 조건 수락을 거부할 수 있습니다. 당사는 귀하의 앱이 아래 기준을 만족하는 경우 제한이 다음같이 완화되도록 도와드립니다. 귀하가 제한 완화 승인을 원하는 경우, 아래 단계에 따라주세요.
 
-If you would like to use any API beyond these limits, you must obtain Discord’s express written consent (and Discord may decline such request or condition acceptance on your agreement to additional terms and/or charges for that use).
-We support increases to the following rate limits if your app meets the criteria set forth below. If you are seeking approval for any of the following rate limit increases, 
-please follow the outlined steps:
+- 봇 100 서버 제한
+  - 봇 설정을 확인하고 필요한 경우 특수 인텐트에 대한 승인을 받아야 합니다. 자세한 내용은 [여기](https://support.discord.com/hc/en-us/articles/360040720412)에서 확인해주세요.
+- 봇 샤딩
+  - 15만 길드에 근접하거나 초과한 경우, 봇의 샤딩을 위해 [https://dis.gd/contact](https://dis.gd/contact)에서 지원을 요청해주세요. 자세한 내용은 [여기](https://discord.com/developers/docs/topics/gateway#sharding-for-very-large-bots)에서 확인해주세요.
+- 글로벌 레이트 리미트 완화
+  - 15만 길드에 근접하거나 초과한 경우, 글로벌 레이트 리미트 완화를 위해 [https://dis.gd/contact](https://dis.gd/contact)에서 지원을 요청해주세요.
 
-- 100 server limit for your bot
-    - Please see your bot’s settings and get verified and approved for Privileged Intents as needed. [Read more here](https://support.discord.com/hc/en-us/articles/360040720412)
-- Large Bot Sharding
-    - If you are near or in over 150,000 guilds, please reach out to support at [https://dis.gd/contact](https://dis.gd/contact) about Large Bot Sharding. [Read more here](https://discord.com/developers/docs/topics/gateway#sharding-for-very-large-bots)
-- Higher global rate limit
-    - If you are near or in over 150,000 guilds, please reach out to support at [https://dis.gd/contact](https://dis.gd/contact) about a higher global rate limit
+## HIPAA 규약
 
-## HIPAA Rules.
-
-Discord does not intend use of the APIs to create obligations under the Health Insurance Portability and Accountability Act, as amended ("HIPAA"), and makes no representations that the APIs satisfy HIPAA requirements. If you are (or become) a "covered entity" or "business associate" as defined in HIPAA, you will not use the APIs for any purpose or in any manner involving transmitting protected health information to Discord.
+디스코드는 API의 이용이 개정된 건강 보험 이동성 및 책임법("HIPAA") 하의 의무를 만드는 것을 의도하지 않으며, API가 HIPAA 요건을 충족한다는 것을 표명하지 않습니다. 귀하가 HIPAA에 정의된 "대상 기관"이거나 "비즈니스 관련자"인 경우, 보호되는 건강 정보를 디스코드에 전송하는 것과 관련하여 어떠한 목적이나 방법으로도 API를 사용하지 마십시오.
