@@ -95,7 +95,7 @@ Represents a code that when used, creates a guild based on a snapshot of an exis
 }
 ```
 
-## Get Template % GET /guilds/templates/{template.code#DOCS_RESOURCES_TEMPLATE/template-object}
+## Get Guild Template % GET /guilds/templates/{template.code#DOCS_RESOURCES_TEMPLATE/template-object}
 
 Returns a [template](#DOCS_RESOURCES_TEMPLATE/template-object) object for the given code.
 
