@@ -367,6 +367,10 @@ From this object, you should store the `webhook.token` and `webhook.id`. See the
 
 Any user that wishes to add your webhook to their channel will need to go through the full OAuth2 flow. A new webhook is created each time, so you will need to save the token and id. If you wish to send a message to all your webhooks, you'll need to iterate over each stored id:token combination and make `POST` requests to each one. Be mindful of our [Rate Limits](#DOCS_TOPICS_RATE_LIMITS/rate-limits)!
 
+## Get Current Bot Application Information % GET /oauth2/applications/@me
+
+Returns the bot's [application](#DOCS_TOPICS_APPLICATION/application-object) object without `flags`.
+
 ## Get Current Authorization Information % GET /oauth2/@me
 
 Returns info about the current authorization. Requires authentication with a bearer token.
