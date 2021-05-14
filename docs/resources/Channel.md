@@ -255,6 +255,7 @@ Represents a message sent in a channel within Discord.
 | type                          | integer                                                                                                                                         | [type of message](#DOCS_RESOURCES_CHANNEL/message-object-message-types)                                                                 |
 | activity?                     | [message activity](#DOCS_RESOURCES_CHANNEL/message-object-message-activity-structure) object                                                    | sent with Rich Presence-related chat embeds                                                                                             |
 | application?                  | partial [application](#DOCS_TOPICS_APPLICATION/application-object) object                                                                       | sent with Rich Presence-related chat embeds                                                                                             |
+| application_id?               | snowflake                                                                                                                                       | if the message is a response to an [Interaction](#DOCS_INTERACTIONS_SLASH_COMMANDS/), this is the id of the interaction's application   |
 | message_reference?            | [message reference](#DOCS_RESOURCES_CHANNEL/message-reference-object-message-reference-structure) object                                        | data showing the source of a crosspost, channel follow add, pin, or reply message                                                       |
 | flags?                        | integer                                                                                                                                         | [message flags](#DOCS_RESOURCES_CHANNEL/message-object-message-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field) |
 | stickers?                     | array of [sticker](#DOCS_RESOURCES_CHANNEL/message-object-message-sticker-structure) objects                                                    | the stickers sent with the message (bots currently can only receive messages with stickers, not send)                                   |
@@ -1143,7 +1144,7 @@ Delete a pinned message in a channel. Requires the `MANAGE_MESSAGES` permission.
 
 ## Group DM Add Recipient % PUT /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/recipients/{user.id#DOCS_RESOURCES_USER/user-object}
 
-Adds a recipient to a Group DM using their access token
+Adds a recipient to a Group DM using their access token.
 
 ###### JSON Params
 
@@ -1154,11 +1155,13 @@ Adds a recipient to a Group DM using their access token
 
 ## Group DM Remove Recipient % DELETE /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/recipients/{user.id#DOCS_RESOURCES_USER/user-object}
 
-Removes a recipient from a Group DM
+Removes a recipient from a Group DM.
 
-## Start Public Thread % POST /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}/threads
+## Start Thread with Message % POST /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}/threads
 
-Creates a new public thread from an existing message.  Returns a [channel](#DOCS_RESOURCES_CHANNEL/channel-object) on success, and a 400 BAD REQUEST on invalid parameters.  Fires a [Thread Create](#DOCS_TOPICS_GATEWAY/thread-create) Gateway event.
+Creates a new thread from an existing message. Returns a [channel](#DOCS_RESOURCES_CHANNEL/channel-object) on success, and a 400 BAD REQUEST on invalid parameters. Fires a [Thread Create](#DOCS_TOPICS_GATEWAY/thread-create) Gateway event.
+
+When called on a `GUILD_TEXT` channel, creates a `GUILD_PUBLIC_THREAD`. When called on a `GUILD_NEWS` channel, creates a `GUILD_NEWS_THREAD`. The id of the created thread will be the same as the id of the message, and as such a message can only have a single thread created from it.
 
 ###### JSON Params
 
@@ -1167,9 +1170,9 @@ Creates a new public thread from an existing message.  Returns a [channel](#DOCS
 | name                  | string  | 2-100 character channel name                                                                                        |
 | auto_archive_duration | integer | duration in minutes to automatically archive the thread after recent activity, can be set to: 60, 1440, 4320, 10080 |
 
-## Start a private thread % POST /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/threads
+## Start Thread without Message % POST /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/threads
 
-Creates a new private thread.  Returns a [channel](#DOCS_RESOURCES_CHANNEL/channel-object) on success, and a 400 BAD REQUEST on invalid parameters.  Fires a [Thread Create](#DOCS_TOPICS_GATEWAY/thread-create) Gateway event.
+Creates a new thread that is not connected to an existing message. The created thread is always a `GUILD_PRIVATE_THREAD`. Returns a [channel](#DOCS_RESOURCES_CHANNEL/channel-object) on success, and a 400 BAD REQUEST on invalid parameters. Fires a [Thread Create](#DOCS_TOPICS_GATEWAY/thread-create) Gateway event.
 
 ###### JSON Params
 
@@ -1180,21 +1183,21 @@ Creates a new private thread.  Returns a [channel](#DOCS_RESOURCES_CHANNEL/chann
 
 ## Join Thread % PUT /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/thread-members/@me
 
-Adds the current user to a thread. Returns a 204 empty response on success.  Also requires the thread is not archived.  Fires a [Thread Members Update](#DOCS_TOPICS_GATEWAY/thread-members-update) Gateway event.
+Adds the current user to a thread. Returns a 204 empty response on success. Also requires the thread is not archived. Fires a [Thread Members Update](#DOCS_TOPICS_GATEWAY/thread-members-update) Gateway event.
 
-## Add User to Thread % PUT /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/thread-members/{user.id#DOCS_RESOURCES_USER/user-object}
+## Add Thread Member % PUT /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/thread-members/{user.id#DOCS_RESOURCES_USER/user-object}
 
-Adds another user to a thread. Requires the ability to send messages in the thread.  Also requires the thread is not archived. Returns a 204 empty response on success.  Fires a [Thread Members Update](#DOCS_TOPICS_GATEWAY/thread-members-update) Gateway event.
+Adds another member to a thread. Requires the ability to send messages in the thread. Also requires the thread is not archived. Returns a 204 empty response on success. Fires a [Thread Members Update](#DOCS_TOPICS_GATEWAY/thread-members-update) Gateway event.
 
 ## Leave Thread % DELETE /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/thread-members/@me
 
-Removes the current user from a thread. Returns a 204 empty response on success.  Fires a [Thread Members Update](#DOCS_TOPICS_GATEWAY/thread-members-update) Gateway event.
+Removes the current user from a thread. Returns a 204 empty response on success. Fires a [Thread Members Update](#DOCS_TOPICS_GATEWAY/thread-members-update) Gateway event.
 
-## Remove User from Thread % DELETE /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/thread-members/{user.id#DOCS_RESOURCES_USER/user-object}
+## Remove Thread Member % DELETE /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/thread-members/{user.id#DOCS_RESOURCES_USER/user-object}
 
-Removes another user from a thread. Requires the `MANAGE_THREADS` permission or that you are the creator of the thread.  Also requires the thread is not archived. Returns a 204 empty response on success.  Fires a [Thread Members Update](#DOCS_TOPICS_GATEWAY/thread-members-update) Gateway event.
+Removes another member from a thread. Requires the `MANAGE_THREADS` permission or that you are the creator of the thread. Also requires the thread is not archived. Returns a 204 empty response on success. Fires a [Thread Members Update](#DOCS_TOPICS_GATEWAY/thread-members-update) Gateway event.
 
-## List Thread Members % GET /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/threads-members
+## List Thread Members % GET /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/thread-members
 
 Returns array of [thread members](#DOCS_RESOURCES_CHANNEL/thread-member-object) objects that are members of the thread.
 
@@ -1203,7 +1206,7 @@ Returns array of [thread members](#DOCS_RESOURCES_CHANNEL/thread-member-object) 
 
 ## List Active Threads % GET /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/threads/active
 
-Returns all active threads in the channel, including public and private threads.  Threads are ordered by their `id`, in descending order. Requires the `READ_MESSAGE_HISTORY` permission.
+Returns all active threads in the channel, including public and private threads. Threads are ordered by their `id`, in descending order. Requires the `READ_MESSAGE_HISTORY` permission.
 
 ###### Response Body
 
@@ -1215,7 +1218,7 @@ Returns all active threads in the channel, including public and private threads.
 
 ## List Public Archived Threads % GET /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/threads/archived/public
 
-Returns archived threads in the channel that are public.  When called on a `GUILD_TEXT` channel, returns threads of [type](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types) `GUILD_PUBLIC_THREAD`.  When called on a `GUILD_NEWS` channel returns threads of [type](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types) `GUILD_NEWS_THREAD`.  Threads are ordered by `archive_timestamp`, in descending order. Requires the `READ_MESSAGE_HISTORY` permission.
+Returns archived threads in the channel that are public. When called on a `GUILD_TEXT` channel, returns threads of [type](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types) `GUILD_PUBLIC_THREAD`. When called on a `GUILD_NEWS` channel returns threads of [type](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types) `GUILD_NEWS_THREAD`. Threads are ordered by `archive_timestamp`, in descending order. Requires the `READ_MESSAGE_HISTORY` permission.
 
 ###### Query String Params
 
@@ -1234,7 +1237,7 @@ Returns archived threads in the channel that are public.  When called on a `GUIL
 
 ## List Private Archived Threads % GET /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/threads/archived/private
 
-Returns archived threads in the channel that are of [type](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types) `GUILD_PRIVATE_THREAD`.  Threads are ordered by `archive_timestamp`, in descending order. Requires both the `READ_MESSAGE_HISTORY` and `MANAGE_THREADS` permissions.
+Returns archived threads in the channel that are of [type](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types) `GUILD_PRIVATE_THREAD`. Threads are ordered by `archive_timestamp`, in descending order. Requires both the `READ_MESSAGE_HISTORY` and `MANAGE_THREADS` permissions.
 
 ###### Query String Params
 
@@ -1253,7 +1256,7 @@ Returns archived threads in the channel that are of [type](#DOCS_RESOURCES_CHANN
 
 ## List Joined Private Archived Threads % GET /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/users/@me/threads/archived/private
 
-Returns archived threads in the channel that are of [type](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types) `GUILD_PRIVATE_THREAD`, and the user has joined.  Threads are ordered by their `id`, in descending order. Requires the `READ_MESSAGE_HISTORY` permission.
+Returns archived threads in the channel that are of [type](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types) `GUILD_PRIVATE_THREAD`, and the user has joined. Threads are ordered by their `id`, in descending order. Requires the `READ_MESSAGE_HISTORY` permission.
 
 ###### Query String Params
 

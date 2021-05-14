@@ -116,7 +116,7 @@ def on_websocket_message(msg):
 
 The first step in establishing connectivity to the gateway is requesting a valid websocket endpoint from the API. This can be done through either the [Get Gateway](#DOCS_TOPICS_GATEWAY/get-gateway) or the [Get Gateway Bot](#DOCS_TOPICS_GATEWAY/get-gateway-bot) endpoint.
 
-With the resulting payload, you can now open a websocket connection to the "url" (or endpoint) specified. Generally, it is a good idea to explicitly pass the gateway version and encoding. For example, we may connect to `wss://gateway.discord.gg/?v=8&encoding=json`.
+With the resulting payload, you can now open a websocket connection to the "url" (or endpoint) specified. Generally, it is a good idea to explicitly pass the gateway version and encoding. For example, we may connect to `wss://gateway.discord.gg/?v=9&encoding=json`.
 
 Once connected, the client should immediately receive an [Opcode 10 Hello](#DOCS_TOPICS_GATEWAY/hello) payload, with information on the connection's heartbeat interval:
 
@@ -329,7 +329,7 @@ To specify these intents in your `IDENTIFY` payload, you must visit your applica
 
 Events under the `GUILD_PRESENCES` and `GUILD_MEMBERS` intents are turned **off by default on all gateway versions**. If you are using **Gateway v6**, you will receive those events if you are authorized to receive them and have enabled the intents in the Developer Portal. You do not need to use Intents on Gateway v6 to receive these events; you just need to enable the flags.
 
-If you are using **Gateway v8**, Intents are mandatory and must be specified when identifying.
+If you are using **Gateway v8** or above, Intents are mandatory and must be specified when identifying.
 
 In addition to the gateway restrictions described here, Discord's REST API is also affected by Privileged Intents. Specifically, to use the [List Guild Members](#DOCS_RESOURCES_GUILD/list-guild-members) endpoint, you must have the `GUILD_MEMBERS` intent enabled for your application. This behavior is independent of whether the intent is set during `IDENTIFY`.
 
@@ -967,7 +967,7 @@ Sent when a guild member is updated. This will also fire when the user object of
 | roles          | array of snowflakes                               | user role ids                                                                                                                          |
 | user           | a [user](#DOCS_RESOURCES_USER/user-object) object | the user                                                                                                                               |
 | nick?          | ?string                                           | nickname of the user in the guild                                                                                                      |
-| joined_at      | ISO8601 timestamp                                 | when the user joined the guild                                                                                                         |
+| joined_at      | ?ISO8601 timestamp                                 | when the user joined the guild                                                                                                         |
 | premium_since? | ?ISO8601 timestamp                                | when the user starting [boosting](https://support.discord.com/hc/en-us/articles/360028038352-Server-Boosting-) the guild               |
 | deaf?          | boolean                                           | whether the user is deafened in voice channels                                                                                         |
 | mute?          | boolean                                           | whether the user is muted in voice channels                                                                                            |

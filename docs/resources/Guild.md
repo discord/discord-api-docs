@@ -45,7 +45,7 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 | max_presences?                | ?integer                                                                            | the maximum number of presences for the guild (the default value, currently 25000, is in effect when `null` is returned)                     |
 | max_members?                  | integer                                                                             | the maximum number of members for the guild                                                                                                  |
 | vanity_url_code               | ?string                                                                             | the vanity url code for the guild                                                                                                            |
-| description                   | ?string                                                                             | the description for the guild, if the guild is discoverable                                                                                  |
+| description                   | ?string                                                                             | the description of a Community guild                                                                                                         |
 | banner                        | ?string                                                                             | [banner hash](#DOCS_REFERENCE/image-formatting)                                                                                              |
 | premium_tier                  | integer                                                                             | [premium tier](#DOCS_RESOURCES_GUILD/guild-object-premium-tier) (Server Boost level)                                                         |
 | premium_subscription_count?   | integer                                                                             | the number of boosts this guild currently has                                                                                                |
@@ -614,7 +614,7 @@ Delete a guild permanently. User must be owner. Returns `204 No Content` on succ
 
 ## Get Guild Channels % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/channels
 
-Returns a list of guild [channel](#DOCS_RESOURCES_CHANNEL/channel-object) objects.
+Returns a list of guild [channel](#DOCS_RESOURCES_CHANNEL/channel-object) objects. Does not include threads.
 
 ## Create Guild Channel % POST /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/channels
 
