@@ -1,10 +1,10 @@
-# Template Resource
+# Guild Template Resource
 
-### Template Object
+### Guild Template Object
 
-Represents a code that when used, creates a guild based on a snapshot of an existing one.
+Represents a code that when used, creates a guild based on a snapshot of an existing guild.
 
-###### Template Structure
+###### Guild Template Structure
 
 | Field                   | Type                                                       | Description                                            |
 |-------------------------|------------------------------------------------------------|--------------------------------------------------------|
@@ -20,7 +20,7 @@ Represents a code that when used, creates a guild based on a snapshot of an exis
 | serialized_source_guild | partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object | the guild snapshot this template contains              |
 | is_dirty                | ?boolean                                                   | whether the template has unsynced changes              |
 
-###### Example Template Object
+###### Example Guild Template Object
 
 ```json
 {
@@ -95,11 +95,11 @@ Represents a code that when used, creates a guild based on a snapshot of an exis
 }
 ```
 
-## Get Guild Template % GET /guilds/templates/{template.code#DOCS_RESOURCES_TEMPLATE/template-object}
+## Get Guild Template % GET /guilds/templates/{template.code#DOCS_RESOURCES_GUILD_TEMPLATE/guild-template-object}
 
-Returns a [template](#DOCS_RESOURCES_TEMPLATE/template-object) object for the given code.
+Returns a [guild template](#DOCS_RESOURCES_GUILD_TEMPLATE/guild-template-object) object for the given code.
 
-## Create Guild from Template % POST /guilds/templates/{template.code#DOCS_RESOURCES_TEMPLATE/template-object}
+## Create Guild from Guild Template % POST /guilds/templates/{template.code#DOCS_RESOURCES_GUILD_TEMPLATE/guild-template-object}
 
 Create a new guild based on a template. Returns a [guild](#DOCS_RESOURCES_GUILD/guild-object) object on success. Fires a [Guild Create](#DOCS_TOPICS_GATEWAY/guild-create) Gateway event.
 
@@ -115,11 +115,11 @@ Create a new guild based on a template. Returns a [guild](#DOCS_RESOURCES_GUILD/
 
 ## Get Guild Templates % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/templates
 
-Returns an array of [template](#DOCS_RESOURCES_TEMPLATE/template-object) objects. Requires the `MANAGE_GUILD` permission.
+Returns an array of [guild template](#DOCS_RESOURCES_GUILD_TEMPLATE/guild-template-object) objects. Requires the `MANAGE_GUILD` permission.
 
 ## Create Guild Template % POST /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/templates
 
-Creates a template for the guild. Requires the `MANAGE_GUILD` permission. Returns the created [template](#DOCS_RESOURCES_TEMPLATE/template-object) object on success.
+Creates a template for the guild. Requires the `MANAGE_GUILD` permission. Returns the created [guild template](#DOCS_RESOURCES_GUILD_TEMPLATE/guild-template-object) object on success.
 
 ###### JSON Params
 
@@ -128,13 +128,13 @@ Creates a template for the guild. Requires the `MANAGE_GUILD` permission. Return
 | name         | string  | name of the template (1-100 characters)         |
 | description? | ?string | description for the template (0-120 characters) |
 
-## Sync Guild Template % PUT /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/templates/{template.code#DOCS_RESOURCES_TEMPLATE/template-object}
+## Sync Guild Template % PUT /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/templates/{template.code#DOCS_RESOURCES_GUILD_TEMPLATE/guild-template-object}
 
-Syncs the template to the guild's current state. Requires the `MANAGE_GUILD` permission. Returns the [template](#DOCS_RESOURCES_TEMPLATE/template-object) object on success.
+Syncs the template to the guild's current state. Requires the `MANAGE_GUILD` permission. Returns the [guild template](#DOCS_RESOURCES_GUILD_TEMPLATE/guild-template-object) object on success.
 
-## Modify Guild Template % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/templates/{template.code#DOCS_RESOURCES_TEMPLATE/template-object}
+## Modify Guild Template % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/templates/{template.code#DOCS_RESOURCES_GUILD_TEMPLATE/guild-template-object}
 
-Modifies the template's metadata. Requires the `MANAGE_GUILD` permission. Returns the [template](#DOCS_RESOURCES_TEMPLATE/template-object) object on success.
+Modifies the template's metadata. Requires the `MANAGE_GUILD` permission. Returns the [guild template](#DOCS_RESOURCES_GUILD_TEMPLATE/guild-template-object) object on success.
 
 ###### JSON Params
 
@@ -143,6 +143,6 @@ Modifies the template's metadata. Requires the `MANAGE_GUILD` permission. Return
 | name?        | string  | name of the template (1-100 characters)         |
 | description? | ?string | description for the template (0-120 characters) |
 
-## Delete Guild Template % DELETE /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/templates/{template.code#DOCS_RESOURCES_TEMPLATE/template-object}
+## Delete Guild Template % DELETE /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/templates/{template.code#DOCS_RESOURCES_GUILD_TEMPLATE/guild-template-object}
 
-Deletes the template. Requires the `MANAGE_GUILD` permission. Returns the deleted [template](#DOCS_RESOURCES_TEMPLATE/template-object) object on success.
+Deletes the template. Requires the `MANAGE_GUILD` permission. Returns the deleted [guild template](#DOCS_RESOURCES_GUILD_TEMPLATE/guild-template-object) object on success.
