@@ -83,7 +83,7 @@ Used to represent a webhook.
 }
 ```
 
-###### Example Incoming Webhook
+###### Example Interaction Webhook
 
 ```json
 {
