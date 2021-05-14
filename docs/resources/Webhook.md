@@ -12,8 +12,8 @@ Used to represent a webhook.
 | --------------- | ---------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
 | id              | snowflake                                                        | the id of the webhook                                                                                         |
 | type            | integer                                                          | the [type](#DOCS_RESOURCES_WEBHOOK/webhook-object-webhook-types) of the webhook                               |
-| guild_id?       | snowflake                                                        | the guild id this webhook is for                                                                              |
-| channel_id      | snowflake                                                        | the channel id this webhook is for                                                                            |
+| guild_id?       | ?snowflake                                                       | the guild id this webhook is for, if any                                                                      |
+| channel_id      | ?snowflake                                                       | the channel id this webhook is for, if any                                                                    |
 | user?           | [user](#DOCS_RESOURCES_USER/user-object) object                  | the user this webhook was created by (not returned when getting a webhook with its token)                     |
 | name            | ?string                                                          | the default name of the webhook                                                                               |
 | avatar          | ?string                                                          | the default user avatar [hash](#DOCS_REFERENCE/image-formatting) of the webhook                               |
@@ -29,8 +29,9 @@ Used to represent a webhook.
 | ----- | ---------------- | -------------------------------------------------------------------------------------------------------------- |
 | 1     | Incoming         | Incoming Webhooks can post messages to channels with a generated token                                         |
 | 2     | Channel Follower | Channel Follower Webhooks are internal webhooks used with Channel Following to post new messages into channels |
+| 3     | Application      | Application webhooks are webhooks used with Interactions                                                       |
 
-###### Example Webhook
+###### Example Incoming Webhook
 
 ```json
 {
@@ -49,6 +50,50 @@ Used to represent a webhook.
     "avatar": "b004ec1740a63ca06ae2e14c5cee11f3",
     "public_flags": 131328
   }
+}
+```
+
+###### Example Channel Follower Webhook
+
+```json
+{
+  "type": 2,
+  "id": "752831914402115456",
+  "name": "Guildy name",
+  "avatar": "bb71f469c158984e265093a81b3397fb",
+  "channel_id": "561885260615255432",
+  "guild_id": "56188498421443265",
+  "application_id": null,
+  "source_guild": {
+    "id": "56188498421476534",
+    "name": "Guildy name",
+    "icon": "bb71f469c158984e265093a81b3397fb"
+  },
+  "source_channel": {
+    "id": "5618852344134324",
+    "name": "announcements"
+  },
+  "user": {
+    "username": "test",
+    "discriminator": "7479",
+    "id": "190320984123768832",
+    "avatar": "b004ec1740a63ca06ae2e14c5cee11f3",
+    "public_flags": 131328
+  }
+}
+```
+
+###### Example Application Webhook
+
+```json
+{
+  "type": 3,
+  "id": "658822586720976555",
+  "name": "Clyde",
+  "avatar": "689161dc90ac261d00f1608694ac6bfd",
+  "channel_id": null,
+  "guild_id": null,
+  "application_id": "658822586720976555"
 }
 ```
 
