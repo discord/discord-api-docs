@@ -12,8 +12,8 @@ Used to represent a webhook.
 | --------------- | ---------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
 | id              | snowflake                                                        | the id of the webhook                                                                                         |
 | type            | integer                                                          | the [type](#DOCS_RESOURCES_WEBHOOK/webhook-object-webhook-types) of the webhook                               |
-| guild_id?       | ?snowflake                                                       | the guild id this webhook is for (returned as `null` for interaction webhooks)                                |
-| channel_id      | ?snowflake                                                       | the channel id this webhook is for (returned as `null` for interaction webhooks)                              |
+| guild_id?       | ?snowflake                                                       | the guild id this webhook is for, if any                                                                      |
+| channel_id      | ?snowflake                                                       | the channel id this webhook is for, if any                                                                    |
 | user?           | [user](#DOCS_RESOURCES_USER/user-object) object                  | the user this webhook was created by (not returned when getting a webhook with its token)                     |
 | name            | ?string                                                          | the default name of the webhook                                                                               |
 | avatar          | ?string                                                          | the default user avatar [hash](#DOCS_REFERENCE/image-formatting) of the webhook                               |
@@ -29,7 +29,7 @@ Used to represent a webhook.
 | ----- | ---------------- | -------------------------------------------------------------------------------------------------------------- |
 | 1     | Incoming         | Incoming Webhooks can post messages to channels with a generated token                                         |
 | 2     | Channel Follower | Channel Follower Webhooks are internal webhooks used with Channel Following to post new messages into channels |
-| 3     | Interaction      | Application webhooks used in the interactions flow                                                             |
+| 3     | Application      | Application webhooks are webhooks used with Interactions                                                       |
 
 ###### Example Incoming Webhook
 
@@ -83,7 +83,7 @@ Used to represent a webhook.
 }
 ```
 
-###### Example Interaction Webhook
+###### Example Application Webhook
 
 ```json
 {
