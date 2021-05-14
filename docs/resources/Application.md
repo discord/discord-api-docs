@@ -78,35 +78,3 @@
 | 1 << 15 | GATEWAY_GUILD_MEMBERS_LIMITED    |
 | 1 << 16 | VERIFICATION_PENDING_GUILD_LIMIT |
 | 1 << 17 | EMBEDDED                         |
-
-### Application Asset Object
-
-###### Application Asset Structure
-
-| Field | Type      | Description           |
-|-------|-----------|-----------------------|
-| id    | snowflake | the id of the asset   |
-| name  | string    | the name of the asset |
-| type  | integer   | the type of the asset |
-
-###### Example Application Asset Object
-
-```json
-{
-  "id": "786728235789844490",
-  "type": 1,
-  "name": "testpattern"
-}
-```
-
-## Get Current Bot Application Information % GET /oauth2/applications/@me
-
-Returns the bot's [application](#DOCS_TOPICS_APPLICATION/application-object) object without `flags`.
-
-## Get Application Information % GET /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/rpc
-
-Returns a partial [application](#DOCS_TOPICS_APPLICATION/application-object) object for the given application ID.
-
-## Get Application Assets % GET /oauth2/applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/assets
-
-Returns an array of rich presence [asset](#DOCS_TOPICS_APPLICATION/application-asset-object) objects for the given application ID.
