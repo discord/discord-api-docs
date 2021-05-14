@@ -112,4 +112,4 @@ There are four new `GET` routes for enumerating threads in a specific channel:
 
 ## Webhooks
 
-Webhooks can send messages to threads by using the `thread_id` query parameter. See the [execute webhook](#DOCS_RESOURCES_WEBHOOKS/execute-webhook) docs for more details.
+Webhooks can send messages to threads by using the `thread_id` query parameter. See the [execute webhook](#DOCS_RESOURCES_WEBHOOK/execute-webhook) docs for more details.
