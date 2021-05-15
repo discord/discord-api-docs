@@ -372,7 +372,7 @@ Any user that wishes to add your webhook to their channel will need to go throug
 
 ## Get Current Bot Application Information % GET /oauth2/applications/@me
 
-Returns the bot's [application](#DOCS_TOPICS_APPLICATION/application-object) object without `flags`.
+Returns the bot's [application](#DOCS_RESOURCES_APPLICATION/application-object) object without `flags`.
 
 ## Get Current Authorization Information % GET /oauth2/@me
 
@@ -380,12 +380,12 @@ Returns info about the current authorization. Requires authentication with a bea
 
 ###### Response Structure
 
-| Field       | Type                                                                      | Description                                                                       |
-|-------------|---------------------------------------------------------------------------|-----------------------------------------------------------------------------------|
-| application | partial [application](#DOCS_TOPICS_APPLICATION/application-object) object | the current application                                                           |
-| scopes      | array of strings                                                          | the scopes the user has authorized the application for                            |
-| expires     | ISO8601 timestamp                                                         | when the access token expires                                                     |
-| user?       | [user](#DOCS_RESOURCES_USER/user-object) object                           | the user who has authorized, if the user has authorized with the `identify` scope |
+| Field       | Type                                                                         | Description                                                                       |
+|-------------|------------------------------------------------------------------------------|-----------------------------------------------------------------------------------|
+| application | partial [application](#DOCS_RESOURCES_APPLICATION/application-object) object | the current application                                                           |
+| scopes      | array of strings                                                             | the scopes the user has authorized the application for                            |
+| expires     | ISO8601 timestamp                                                            | when the access token expires                                                     |
+| user?       | [user](#DOCS_RESOURCES_USER/user-object) object                              | the user who has authorized, if the user has authorized with the `identify` scope |
 
 ###### Example Authorization Information
 
