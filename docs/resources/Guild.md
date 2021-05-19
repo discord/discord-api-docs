@@ -16,7 +16,7 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 | discovery_splash              | ?string                                                                                 | [discovery splash hash](#DOCS_REFERENCE/image-formatting); only present for guilds with the "DISCOVERABLE" feature                          |
 | owner? \*\*                   | boolean                                                                                 | true if [the user](#DOCS_RESOURCES_USER/get-current-user-guilds) is the owner of the guild                                                  |
 | owner_id                      | snowflake                                                                               | id of owner                                                                                                                                 |
-| permissions? \*\*             | string                                                                                  | total permissions for [the user](#DOCS_RESOURCES_USER/get-current-user-guilds) in the guild (excludes overrides)                            |
+| permissions? \*\*             | string                                                                                  | total permissions for [the user](#DOCS_RESOURCES_USER/get-current-user-guilds) in the guild (excludes overwrites)                            |
 | region                        | string                                                                                  | [voice region](#DOCS_RESOURCES_VOICE/voice-region-object) id for the guild                                                                  |
 | afk_channel_id                | ?snowflake                                                                              | id of afk channel                                                                                                                           |
 | afk_timeout                   | integer                                                                                 | afk timeout in seconds                                                                                                                      |
@@ -268,7 +268,7 @@ A partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object. Represents an Offl
 | deaf           | boolean                                         | whether the user is deafened in voice channels                                                                                         |
 | mute           | boolean                                         | whether the user is muted in voice channels                                                                                            |
 | pending?       | boolean                                         | whether the user has not yet passed the guild's [Membership Screening](#DOCS_RESOURCES_GUILD/membership-screening-object) requirements |
-| permissions?   | string                                          | total permissions of the member in the channel, including overrides, returned when in the interaction object                           |
+| permissions?   | string                                          | total permissions of the member in the channel, including overwrites, returned when in the interaction object                           |
 
 > info
 > The field `user` won't be included in the member object attached to `MESSAGE_CREATE` and `MESSAGE_UPDATE` gateway events.
