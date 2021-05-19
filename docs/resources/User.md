@@ -39,6 +39,8 @@ There are other rules and restrictions not shared here for the sake of spam and 
 | flags?        | integer   | the [flags](#DOCS_RESOURCES_USER/user-object-user-flags) on a user's account                         | identify              |
 | premium_type? | integer   | the [type of Nitro subscription](#DOCS_RESOURCES_USER/user-object-premium-types) on a user's account | identify              |
 | public_flags? | integer   | the public [flags](#DOCS_RESOURCES_USER/user-object-user-flags) on a user's account                  | identify              |
+| bio?          | ?string   | the user's bio                                                                                       | identify              |
+| banner?       | ?string   | the user's banner hash                                                                               | identify              |
 
 ###### Example User
 
@@ -52,7 +54,9 @@ There are other rules and restrictions not shared here for the sake of spam and 
   "email": "nelly@discord.com",
   "flags": 64,
   "premium_type": 1,
-  "public_flags": 64
+  "public_flags": 64,
+  "bio": null,
+  "banner": null
 }
 ```
 
