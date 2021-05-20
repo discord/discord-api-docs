@@ -64,10 +64,10 @@ Our voice gateways have their own set of opcodes and close codes.
 | Code | Description             | Explanation                                                                                                                                         |
 |------|-------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------|
 | 4001 | Unknown opcode          | You sent an invalid [opcode](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice-opcodes).                                                         |
-| 4002 | Failed to decode payload | You sent a invalid payload in your [identifying](#DOCS_TOPICS_GATEWAY/gateway-identify) to the Gateway.                                            |
-| 4003 | Not authenticated       | You sent a payload before [identifying](#DOCS_TOPICS_GATEWAY/gateway-identify) with the Gateway.                                                    |
-| 4004 | Authentication failed   | The token you sent in your [identify](#DOCS_TOPICS_GATEWAY/gateway-identify) payload is incorrect.                                                  |
-| 4005 | Already authenticated   | You sent more than one [identify](#DOCS_TOPICS_GATEWAY/gateway-identify) payload. Stahp.                                                            |
+| 4002 | Failed to decode payload | You sent a invalid payload in your [identifying](#DOCS_TOPICS_GATEWAY/identify) to the Gateway.                                            |
+| 4003 | Not authenticated       | You sent a payload before [identifying](#DOCS_TOPICS_GATEWAY/identify) with the Gateway.                                                    |
+| 4004 | Authentication failed   | The token you sent in your [identify](#DOCS_TOPICS_GATEWAY/identify) payload is incorrect.                                                  |
+| 4005 | Already authenticated   | You sent more than one [identify](#DOCS_TOPICS_GATEWAY/identify) payload. Stahp.                                                            |
 | 4006 | Session no longer valid | Your session is no longer valid.                                                                                                                    |
 | 4009 | Session timeout         | Your session has timed out.                                                                                                                         |
 | 4011 | Server not found        | We can't find the server you're trying to connect to.                                                                                               |
