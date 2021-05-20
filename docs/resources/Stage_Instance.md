@@ -6,12 +6,21 @@ A _Stage Instance_ holds information about a live stage.
 
 ###### Stage Instance Structure
 
-| Field      | Type      | Description                                        |
-| ---------- | --------- | -------------------------------------------------- |
-| id         | snowflake | The id of this Stage instance                      |
-| guild_id   | snowflake | The guild id of the associated Stage channel       |
-| channel_id | snowflake | The id of the associated Stage channel             |
-| topic      | string    | The topic of the Stage instance (1-120 characters) |
+| Field                 | Type      | Description                                                                                                   |
+| --------------------- | --------- | ------------------------------------------------------------------------------------------------------------- |
+| id                    | snowflake | The id of this Stage instance                                                                                 |
+| guild_id              | snowflake | The guild id of the associated Stage channel                                                                  |
+| channel_id            | snowflake | The id of the associated Stage channel                                                                        |
+| topic                 | string    | The topic of the Stage instance (1-120 characters)                                                            |
+| privacy_level         | integer   | The [privacy level](#DOCS_RESOURCES_STAGE_INSTANCE/stage-instance-object-privacy-level) of the Stage instance |
+| discoverable_disabled | boolean   | Whether or not Stage discovery is disabled                                                                    |
+
+###### Privacy Level
+
+| Level      | Value | Description                                                         |
+| ---------- | ----- | ------------------------------------------------------------------- |
+| PUBLIC     | 0     | The Stage instance is visible publicly, such as on Stage discovery. |
+| GUILD_ONLY | 1     | The Stage instance is visible to only guild members.                |
 
 ###### Example Stage Instance
 
@@ -20,7 +29,9 @@ A _Stage Instance_ holds information about a live stage.
   "id": "840647391636226060",
   "guild_id": "197038439483310086",
   "channel_id": "733488538393510049",
-  "topic": "Testing Testing, 123"
+  "topic": "Testing Testing, 123",
+  "privacy_level": 1,
+  "discoverable_disabled": false
 }
 ```
 
@@ -36,6 +47,9 @@ Below are some definitions related to stages.
   - `MUTE_MEMBERS`
   - `MOVE_MEMBERS`
 - **Topic**: This is the blurb that gets shown below the channel's name, among other places.
+- **Public**: A Stage instance is public when it has a `privacy_level` of `PUBLIC`. While a guild has a public Stage instance:
+  - The guild will be lurkable.
+  - Lurkers may join any Stage channel with a public Stage instance.
 
 ## Auto Closing
 
@@ -49,10 +63,11 @@ Requires the user to be a moderator of the Stage channel.
 
 ###### JSON Params
 
-| Field      | Type      | Description                                        |
-| ---------- | --------- | -------------------------------------------------- |
-| channel_id | snowflake | The id of the Stage channel                        |
-| topic      | string    | The topic of the Stage instance (1-120 characters) |
+| Field          | Type      | Description                                                                                                                        |
+| -------------- | --------- | ---------------------------------------------------------------------------------------------------------------------------------- |
+| channel_id     | snowflake | The id of the Stage channel                                                                                                        |
+| topic          | string    | The topic of the Stage instance (1-120 characters)                                                                                 |
+| privacy_level? | integer   | The [privacy level](#DOCS_RESOURCES_STAGE_INSTANCE/stage-instance-object-privacy-level) of the Stage instance (default GUILD_ONLY) |
 
 ## Get Stage Instance % GET /stage-instances/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}
 
@@ -66,9 +81,10 @@ Requires the user to be a moderator of the Stage channel.
 
 ###### JSON Params
 
-| Field | Type   | Description                                        |
-| ----- | ------ | -------------------------------------------------- |
-| topic | string | The topic of the Stage instance (1-120 characters) |
+| Field          | Type    | Description                                                                                                   |
+| -------------- | ------- | ------------------------------------------------------------------------------------------------------------- |
+| topic?         | string  | The topic of the Stage instance (1-120 characters)                                                            |
+| privacy_level? | integer | The [privacy level](#DOCS_RESOURCES_STAGE_INSTANCE/stage-instance-object-privacy-level) of the Stage instance |
 
 ## Delete Stage Instance % DELETE /stage-instances/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}
 
