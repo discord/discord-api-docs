@@ -96,7 +96,7 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 | VERY_HIGH | 4       | must have a verified phone number                         |
 
 ###### Guild NSFW Level
-| Level          | Integer |
+| Level          | Value   |
 | -------------- | ------- |
 | DEFAULT        | 0       |
 | EXPLICIT       | 1       |
