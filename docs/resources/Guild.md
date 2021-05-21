@@ -55,7 +55,7 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 | approximate_member_count?     | integer                                                                                 | approximate number of members in this guild, returned from the `GET /guilds/<id>` endpoint when `with_counts` is `true`                     |
 | approximate_presence_count?   | integer                                                                                 | approximate number of non-offline members in this guild, returned from the `GET /guilds/<id>` endpoint when `with_counts` is `true`         |
 | welcome_screen?               | [welcome screen](#DOCS_RESOURCES_GUILD/welcome-screen-object) object                    | the welcome screen of a Community guild, shown to new members, returned in an [Invite](#DOCS_RESOURCES_INVITE/invite-object)'s guild object |
-| nsfw                          | boolean                                                                                 | true if this guild is [designated as NSFW](https://support.discord.com/hc/en-us/articles/1500005389362-NSFW-Server-Designation)             |
+| nsfw_level                    | integer                                                                                 | [guild NSFW level](#DOCS_RESOURCES_GUILD/guild-object-guild-nsfw-level)                                                                     |
 | stage_instances? \*           | array of [stage instance](#DOCS_RESOURCES_STAGE_INSTANCE/stage-instance-object) objects | Stage instances in the guild                                                                                                                |
 
 ** \* These fields are only sent within the [GUILD_CREATE](#DOCS_TOPICS_GATEWAY/guild-create) event **
@@ -93,6 +93,14 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 | MEDIUM    | 2       | must be registered on Discord for longer than 5 minutes   |
 | HIGH      | 3       | must be a member of the server for longer than 10 minutes |
 | VERY_HIGH | 4       | must have a verified phone number                         |
+
+###### Guild NSFW Level
+| Level          | Value   |
+| -------------- | ------- |
+| DEFAULT        | 0       |
+| EXPLICIT       | 1       |
+| SAFE           | 2       |
+| AGE_RESTRICTED | 3       |
 
 ###### Premium Tier
 
