@@ -1159,7 +1159,7 @@ Removes a recipient from a Group DM.
 
 ## Start Thread with Message % POST /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}/threads
 
-Creates a new thread from an existing message. Returns a [channel](#DOCS_RESOURCES_CHANNEL/channel-object) on success, and a 400 BAD REQUEST on invalid parameters. Fires a [Thread Create](#DOCS_TOPICS_GATEWAY/thread-create) Gateway event.
+Creates a new thread from an existing message. Returns a [channel](#DOCS_RESOURCES_CHANNEL/channel-object) on success, and a 400 BAD REQUEST on invalid parameters. Fires a [Thread Create](#DOCS_TOPICS_GATEWAY/thread-create) Gateway event. Use type 12 if this thread should be private. Only usable on a normal text channel.
 
 When called on a `GUILD_TEXT` channel, creates a `GUILD_PUBLIC_THREAD`. When called on a `GUILD_NEWS` channel, creates a `GUILD_NEWS_THREAD`. The id of the created thread will be the same as the id of the message, and as such a message can only have a single thread created from it.
 
@@ -1169,10 +1169,11 @@ When called on a `GUILD_TEXT` channel, creates a `GUILD_PUBLIC_THREAD`. When cal
 |-----------------------|---------|---------------------------------------------------------------------------------------------------------------------|
 | name                  | string  | 2-100 character channel name                                                                                        |
 | auto_archive_duration | integer | duration in minutes to automatically archive the thread after recent activity, can be set to: 60, 1440, 4320, 10080 |
+| type?                 | integer | the [type of channel](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types)                                         |
 
 ## Start Thread without Message % POST /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/threads
 
-Creates a new thread that is not connected to an existing message. The created thread is always a `GUILD_PRIVATE_THREAD`. Returns a [channel](#DOCS_RESOURCES_CHANNEL/channel-object) on success, and a 400 BAD REQUEST on invalid parameters. Fires a [Thread Create](#DOCS_TOPICS_GATEWAY/thread-create) Gateway event.
+Creates a new thread that is not connected to an existing message. The created thread is always a `GUILD_PRIVATE_THREAD`. Returns a [channel](#DOCS_RESOURCES_CHANNEL/channel-object) on success, and a 400 BAD REQUEST on invalid parameters. Fires a [Thread Create](#DOCS_TOPICS_GATEWAY/thread-create) Gateway event. Use type 12 if this thread should be private. Only usable on a normal text channel.
 
 ###### JSON Params
 
@@ -1180,6 +1181,7 @@ Creates a new thread that is not connected to an existing message. The created t
 |-----------------------|---------|---------------------------------------------------------------------------------------------------------------------|
 | name                  | string  | 2-100 character channel name                                                                                        |
 | auto_archive_duration | integer | duration in minutes to automatically archive the thread after recent activity, can be set to: 60, 1440, 4320, 10080 |
+| type?                 | integer | the [type of channel](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types)                                         |
 
 ## Join Thread % PUT /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/thread-members/@me
 
