@@ -53,7 +53,7 @@ Below is a table of all current permissions, their integer values in hexadecimal
 | MUTE_MEMBERS          | `0x0000400000` `(1 << 22)` | Allows for muting members in a voice channel                                                                                       | V, S         |
 | DEAFEN_MEMBERS        | `0x0000800000` `(1 << 23)` | Allows for deafening of members in a voice channel                                                                                 | V, S         |
 | MOVE_MEMBERS          | `0x0001000000` `(1 << 24)` | Allows for moving of members between voice channels                                                                                | V, S         |
-| USE_VAD               | `0x0002000000` `(1 << 25)` | Allows for using voice-activity-detection in a voice channel                                                                       | V, S         |
+| USE_VAD               | `0x0002000000` `(1 << 25)` | Allows for using voice-activity-detection in a voice channel                                                                       | V            |
 | CHANGE_NICKNAME       | `0x0004000000` `(1 << 26)` | Allows for modification of own nickname                                                                                            |              |
 | MANAGE_NICKNAMES      | `0x0008000000` `(1 << 27)` | Allows for modification of other users nicknames                                                                                   |              |
 | MANAGE_ROLES \*       | `0x0010000000` `(1 << 28)` | Allows management and editing of roles                                                                                             | T, V, S      |

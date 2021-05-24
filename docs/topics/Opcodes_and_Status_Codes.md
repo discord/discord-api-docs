@@ -25,7 +25,7 @@ All gateway events in Discord are tagged with an opcode that denotes the payload
 | Code | Description           | Explanation                                                                                                                                                                                                                         |
 |------|-----------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | 4000 | Unknown error         | We're not sure what went wrong. Try reconnecting?                                                                                                                                                                                   |
-| 4001 | Unknown opcode        | You sent an invalid [Gateway opcode](#DOCS_TOPICS_GATEWAY/payloads-and-opcodes) or an invalid payload for an opcode. Don't do that!                                                                                                 |
+| 4001 | Unknown opcode        | You sent an invalid [Gateway opcode](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/gateway-opcodes) or an invalid payload for an opcode. Don't do that!                                                                                                 |
 | 4002 | Decode error          | You sent an invalid [payload](#DOCS_TOPICS_GATEWAY/sending-payloads) to us. Don't do that!                                                                                                                                          |
 | 4003 | Not authenticated     | You sent us a payload prior to [identifying](#DOCS_TOPICS_GATEWAY/identify).                                                                                                                                                        |
 | 4004 | Authentication failed | The account token sent with your [identify payload](#DOCS_TOPICS_GATEWAY/identify) is incorrect.                                                                                                                                    |
@@ -63,18 +63,18 @@ Our voice gateways have their own set of opcodes and close codes.
 
 | Code | Description             | Explanation                                                                                                                                         |
 |------|-------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------|
-| 4001 | Unknown opcode          | You sent an invalid [opcode](#DOCS_RESOURCES_VOICE_CONNECTIONS/voice-events-voice-opcodes).                                                         |
-| 4002 | Failed to decode payload | You sent a invalid payload in your [identifying](#DOCS_TOPICS_GATEWAY/gateway-identify) to the Gateway.                                            |
-| 4003 | Not authenticated       | You sent a payload before [identifying](#DOCS_TOPICS_GATEWAY/gateway-identify) with the Gateway.                                                    |
-| 4004 | Authentication failed   | The token you sent in your [identify](#DOCS_TOPICS_GATEWAY/gateway-identify) payload is incorrect.                                                  |
-| 4005 | Already authenticated   | You sent more than one [identify](#DOCS_TOPICS_GATEWAY/gateway-identify) payload. Stahp.                                                            |
+| 4001 | Unknown opcode          | You sent an invalid [opcode](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice-opcodes).                                                         |
+| 4002 | Failed to decode payload | You sent a invalid payload in your [identifying](#DOCS_TOPICS_GATEWAY/identify) to the Gateway.                                            |
+| 4003 | Not authenticated       | You sent a payload before [identifying](#DOCS_TOPICS_GATEWAY/identify) with the Gateway.                                                    |
+| 4004 | Authentication failed   | The token you sent in your [identify](#DOCS_TOPICS_GATEWAY/identify) payload is incorrect.                                                  |
+| 4005 | Already authenticated   | You sent more than one [identify](#DOCS_TOPICS_GATEWAY/identify) payload. Stahp.                                                            |
 | 4006 | Session no longer valid | Your session is no longer valid.                                                                                                                    |
 | 4009 | Session timeout         | Your session has timed out.                                                                                                                         |
 | 4011 | Server not found        | We can't find the server you're trying to connect to.                                                                                               |
-| 4012 | Unknown protocol        | We didn't recognize the [protocol](#DOCS_RESOURCES_VOICE_CONNECTIONS/establishing-a-voice-udp-connection-example-select-protocol-payload) you sent. |
+| 4012 | Unknown protocol        | We didn't recognize the [protocol](#DOCS_TOPICS_VOICE_CONNECTIONS/establishing-a-voice-udp-connection-example-select-protocol-payload) you sent. |
 | 4014 | Disconnected            | Channel was deleted, you were kicked, voice server changed, or the main gateway session was dropped. Should not reconnect.                           |
-| 4015 | Voice server crashed    | The server crashed. Our bad! Try [resuming](#DOCS_RESOURCES_VOICE_CONNECTIONS/resuming-voice-connection).                                           |
-| 4016 | Unknown encryption mode | We didn't recognize your [encryption](#DOCS_RESOURCES_VOICE_CONNECTIONS/encrypting-and-sending-voice).                                              |
+| 4015 | Voice server crashed    | The server crashed. Our bad! Try [resuming](#DOCS_TOPICS_VOICE_CONNECTIONS/resuming-voice-connection).                                           |
+| 4016 | Unknown encryption mode | We didn't recognize your [encryption](#DOCS_TOPICS_VOICE_CONNECTIONS/encrypting-and-sending-voice).                                              |
 
 ## HTTP
 
@@ -82,20 +82,20 @@ Our API will return semantically valid HTTP response codes based on the success 
 
 ###### HTTP Response Codes
 
-| Code                      | Meaning                                                                              |
-|---------------------------|--------------------------------------------------------------------------------------|
-| 200 (OK)                  | The request completed successfully.                                                  |
-| 201 (CREATED)             | The entity was created successfully.                                                 |
-| 204 (NO CONTENT)          | The request completed successfully but returned no content.                          |
-| 304 (NOT MODIFIED)        | The entity was not modified (no action was taken).                                   |
-| 400 (BAD REQUEST)         | The request was improperly formatted, or the server couldn't understand it.          |
-| 401 (UNAUTHORIZED)        | The `Authorization` header was missing or invalid.                                   |
-| 403 (FORBIDDEN)           | The `Authorization` token you passed did not have permission to the resource.        |
-| 404 (NOT FOUND)           | The resource at the location specified doesn't exist.                                |
-| 405 (METHOD NOT ALLOWED)  | The HTTP method used is not valid for the location specified.                        |
-| 429 (TOO MANY REQUESTS)   | You are being rate limited, see [Rate Limits](#DOCS_TOPICS_RATE_LIMITS/rate-limits). |
-| 502 (GATEWAY UNAVAILABLE) | There was not a gateway available to process your request. Wait a bit and retry.     |
-| 5xx (SERVER ERROR)        | The server had an error processing your request (these are rare).                    |
+| Code                      | Meaning                                                                          |
+|---------------------------|----------------------------------------------------------------------------------|
+| 200 (OK)                  | The request completed successfully.                                              |
+| 201 (CREATED)             | The entity was created successfully.                                             |
+| 204 (NO CONTENT)          | The request completed successfully but returned no content.                      |
+| 304 (NOT MODIFIED)        | The entity was not modified (no action was taken).                               |
+| 400 (BAD REQUEST)         | The request was improperly formatted, or the server couldn't understand it.      |
+| 401 (UNAUTHORIZED)        | The `Authorization` header was missing or invalid.                               |
+| 403 (FORBIDDEN)           | The `Authorization` token you passed did not have permission to the resource.    |
+| 404 (NOT FOUND)           | The resource at the location specified doesn't exist.                            |
+| 405 (METHOD NOT ALLOWED)  | The HTTP method used is not valid for the location specified.                    |
+| 429 (TOO MANY REQUESTS)   | You are being rate limited, see [Rate Limits](#DOCS_TOPICS_RATE_LIMITS).         |
+| 502 (GATEWAY UNAVAILABLE) | There was not a gateway available to process your request. Wait a bit and retry. |
+| 5xx (SERVER ERROR)        | The server had an error processing your request (these are rare).                |
 
 ## JSON
 

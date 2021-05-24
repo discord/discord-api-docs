@@ -73,6 +73,7 @@ There are other rules and restrictions not shared here for the sake of spam and 
 | 1 << 14 | Bug Hunter Level 2           |
 | 1 << 16 | Verified Bot                 |
 | 1 << 17 | Early Verified Bot Developer |
+| 1 << 18 | Discord Certified Moderator  |
 
 ###### Premium Types
 
