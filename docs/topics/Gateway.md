@@ -517,6 +517,9 @@ Events are payloads sent over the socket to a client that correspond to events i
 | [Message Reaction Remove All](#DOCS_TOPICS_GATEWAY/message-reaction-remove-all)     | all reactions were explicitly removed from a message                                                                             |
 | [Message Reaction Remove Emoji](#DOCS_TOPICS_GATEWAY/message-reaction-remove-emoji) | all reactions for a given emoji were explicitly removed from a message                                                           |
 | [Presence Update](#DOCS_TOPICS_GATEWAY/presence-update)                             | user was updated                                                                                                                 |
+| [Stage Instance Create](#DOCS_TOPICS_GATEWAY/stage-instance-create)                 | stage instance was created                                                                                                      |
+| [Stage Instance Delete](#DOCS_TOPICS_GATEWAY/stage-instance-delete)                 | stage instance was deleted or closed                                                                                            |
+| [Stage Instance Update](#DOCS_TOPICS_GATEWAY/stage-instance-update)                 | stage instance was updated                                                                                                        |
 | [Typing Start](#DOCS_TOPICS_GATEWAY/typing-start)                                   | user started typing in a channel                                                                                                 |
 | [User Update](#DOCS_TOPICS_GATEWAY/user-update)                                     | properties about the user changed                                                                                                |
 | [Voice State Update](#DOCS_TOPICS_GATEWAY/voice-state-update)                       | someone joined, left, or moved a voice channel                                                                                   |
@@ -1028,7 +1031,7 @@ Sent when a guild role is deleted.
 
 ### Integrations
 
-### Integration Create
+#### Integration Create
 
 Sent when an integration is created. The inner payload is a [integration](#DOCS_RESOURCES_GUILD/integration-object) object with an additional `guild_id` key:
 
@@ -1038,7 +1041,7 @@ Sent when an integration is created. The inner payload is a [integration](#DOCS_
 |----------|-----------|-----------------|
 | guild_id | snowflake | id of the guild |
 
-### Integration Update
+#### Integration Update
 
 Sent when an integration is updated. The inner payload is a [integration](#DOCS_RESOURCES_GUILD/integration-object) object with an additional `guild_id` key:
 
@@ -1048,7 +1051,7 @@ Sent when an integration is updated. The inner payload is a [integration](#DOCS_
 |----------|-----------|-----------------|
 | guild_id | snowflake | id of the guild |
 
-### Integration Delete
+#### Integration Delete
 
 Sent when an integration is deleted.
 
@@ -1062,7 +1065,7 @@ Sent when an integration is deleted.
 
 ### Invites
 
-### Invite Create
+#### Invite Create
 
 Sent when a new invite to a channel is created.
 
@@ -1083,7 +1086,7 @@ Sent when a new invite to a channel is created.
 | temporary           | boolean                                                                      | whether or not the invite is temporary (invited users will be kicked on disconnect unless they're assigned a role) |
 | uses                | integer                                                                      | how many times the invite has been used (always will be 0)                                                         |
 
-### Invite Delete
+#### Invite Delete
 
 Sent when an invite is deleted.
 
