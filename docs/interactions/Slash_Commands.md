@@ -992,12 +992,12 @@ An interaction is the base "thing" that is sent when a user invokes a command, a
 
 ###### ApplicationCommandInteractionDataResolved
 
-| Field         | Type                                                                                | Description                         |
-|---------------|-------------------------------------------------------------------------------------|-------------------------------------|
-| users?        | Map<Snowflake, [User Object](#DOCS_RESOURCES_USER/user-object)>                     | the IDs and User objects            |
-| members?\*    | Map<Snowflake, [Partial Member Object](#DOCS_RESOURCES_GUILD/guild-member-object)>  | the IDs and partial Member objects  |
-| roles?        | Map<Snowflake, [Role Object](#DOCS_TOPICS_PERMISSIONS/role-object)>                 | the IDs and Role objects            |
-| channels?\*\* | Map<Snowflake, [Partial Channel Object](#DOCS_RESOURCES_CHANNEL/channel-object)>    | the IDs and partial Channel objects |
+| Field         | Type                                                                                     | Description                         |
+|---------------|------------------------------------------------------------------------------------------|-------------------------------------|
+| users?        | Mapo of Snowflakes to [User Objects](#DOCS_RESOURCES_USER/user-object)                   | the IDs and User objects            |
+| members?\*    | Map of Snowflakes to [Partial Member Object](#DOCS_RESOURCES_GUILD/guild-member-object)  | the IDs and partial Member objects  |
+| roles?        | Map of Snowflakes to [Role Object](#DOCS_TOPICS_PERMISSIONS/role-object)>                | the IDs and Role objects            |
+| channels?\*\* | Map of Snowflakes to [Partial Channel Object](#DOCS_RESOURCES_CHANNEL/channel-object)    | the IDs and partial Channel objects |
 
 \* Partial `Member` objects are missing `user`, `deaf` and `mute` fields
 
