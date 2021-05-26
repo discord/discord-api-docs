@@ -11,7 +11,7 @@ You can now include buttons on messages sent by your app, whether they're bot me
 The addition of message components means new fields and response types:
 
 - An optional `components` field has been added to the [message object](#DOCS_RESOURCES_CHANNEL/message-object)
-- New response types `6` and `7` have been added for [interaction responses](#DOCS_INTERACTIONS_SLASH_COMMANDS/interactioncallbacktype), valid only for component-based interactions
+- New response types `6` and `7` have been added for [interaction responses](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-response-interactioncallbacktype), valid only for component-based interactions
 
 ## API v9
 
