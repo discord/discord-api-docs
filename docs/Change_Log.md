@@ -1,5 +1,18 @@
 # Change Log
 
+## Buttons and Message Components
+
+#### May 26, 2021
+
+Message components are now available with our first two components: a layout-based `ActionRow` and...buttons!
+
+You can now include buttons on messages sent by your app, whether they're bot messages or responses to interactions. [Learn more about message components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/).
+
+The addition of message components means new fields and response types:
+
+- An optional `components` field has been added to the [message object](#DOCS_RESOURCES_CHANNEL/message-object)
+- New reponse types `6` and `7` have been added for [interaction responses](#DOCS_INTERACTIONS_SLASH_COMMANDS/interactioncallbacktype), valid only for component-based interactions
+
 ## API v9
 
 #### April 28, 2021
