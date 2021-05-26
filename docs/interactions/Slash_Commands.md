@@ -1040,7 +1040,7 @@ Interaction responses can also be public—everyone can see it—or "ephemeral"�
 | Pong                             | 1     | ACK a `Ping`                                                                |
 | ChannelMessageWithSource         | 4     | respond to an interaction with a message                                    |
 | DeferredChannelMessageWithSource | 5     | ACK an interaction and edit a response later, the user sees a loading state |
-| DeferredUpdateMessage\* | 6 | for components, ACK an interaction and edit the original message later; the user sees a loading state |
+| DeferredUpdateMessage\* | 6 | for components, ACK an interaction and edit the original message later; the user does not see a loading state |
 | UpdateMessage\* | 7 | for components, edit the message the component was attached to |
 
 \* Only valid for [component-based](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/) interactions
