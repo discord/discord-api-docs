@@ -47,7 +47,7 @@ Packets sent from the client to the Gateway API are encapsulated within a [gatew
 
 ### Receiving Payloads
 
-Receiving payloads with the Gateway API is slightly more complex than sending. When using the JSON encoding with compression enabled, the Gateway has the option of sending payloads as compressed JSON binaries using zlib, meaning your library _must_ detect (see [RFC1950 2.2](https://tools.ietf.org/html/rfc1950#section-2.2)) and decompress these payloads before attempting to parse them. The gateway does not implement a shared compression context between messages sent.
+Receiving payloads with the Gateway API is slightly more complex than sending. When using the JSON encoding with [Payload Compression](#DOCS_TOPICS_GATEWAY/payload-compression) enabled, the Gateway has the option of sending payloads as compressed JSON binaries using zlib, meaning your library _must_ detect (see [RFC1950 2.2](https://tools.ietf.org/html/rfc1950#section-2.2)) and decompress these payloads before attempting to parse them. Otherwise the gateway does implement a shared compression context between messages sent, see [Transport Compression](#DOCS_TOPICS_GATEWAY/transport-compression).
 
 ## Encoding and Compression
 
@@ -773,6 +773,15 @@ The resumed event is dispatched when a client has sent a [resume payload](#DOCS_
 #### Reconnect
 
 The reconnect event is dispatched when a client should reconnect to the gateway (and resume their existing session, if they have one). This event usually occurs during deploys to migrate sessions gracefully off old hosts.
+
+###### Example Gateway Reconnect
+
+```json
+{
+  "op": 7,
+  "d": null
+}
+```
 
 #### Invalid Session
 
