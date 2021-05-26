@@ -969,6 +969,7 @@ An interaction is the base "thing" that is sent when a user invokes a command, a
 | user?          | [user](#DOCS_RESOURCES_USER/user-object) object                  | user object for the invoking user, if invoked in a DM          |
 | token          | string                                                           | a continuation token for responding to the interaction         |
 | version        | int                                                              | read-only property, always `1`                                 |
+| message? | [message](#DOCS_RESOURCES_CHANNEL/message-object) object | for components, the message they were attached to |
 
 \* This is always present on `ApplicationCommand` interaction types. It is optional for future-proofing against new interaction types
 
@@ -989,6 +990,8 @@ An interaction is the base "thing" that is sent when a user invokes a command, a
 | name      | string                                           | the name of the invoked command    |
 | resolved? | ApplicationCommandInteractionDataResolved        | converted users + roles + channels |
 | options?  | array of ApplicationCommandInteractionDataOption | the params + values from the user  |
+| custom_id | string | for components, the [`custom_id`](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/custom-id) of the component |
+| component_type | int | for components, the [type](DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-types) of the component |
 
 ###### ApplicationCommandInteractionDataResolved
 
@@ -1036,6 +1039,10 @@ Interaction responses can also be public—everyone can see it—or "ephemeral"�
 | Pong                             | 1     | ACK a `Ping`                                                                |
 | ChannelMessageWithSource         | 4     | respond to an interaction with a message                                    |
 | DeferredChannelMessageWithSource | 5     | ACK an interaction and edit a response later, the user sees a loading state |
+| DeferredUpdateMessage\* | 6 | for components, ACK an interaction and edit the original message later; the user sees a loading state |
+| UpdateMessage\* | 7 | for components, edit the message the component was attached to |
+
+\* Only valid for [component-based](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/) interactions
 
 ###### InteractionApplicationCommandCallbackData
 
