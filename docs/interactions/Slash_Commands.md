@@ -981,6 +981,7 @@ An interaction is the base "thing" that is sent when a user invokes a command, a
 |--------------------|-------|
 | Ping               | 1     |
 | ApplicationCommand | 2     |
+| MessageComponent   | 3     |
 
 ###### ApplicationCommandInteractionData
 
