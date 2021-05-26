@@ -17,7 +17,7 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 | owner? \*\*                   | boolean                                                                                 | true if [the user](#DOCS_RESOURCES_USER/get-current-user-guilds) is the owner of the guild                                                  |
 | owner_id                      | snowflake                                                                               | id of owner                                                                                                                                 |
 | permissions? \*\*             | string                                                                                  | total permissions for [the user](#DOCS_RESOURCES_USER/get-current-user-guilds) in the guild (excludes overwrites)                            |
-| region                        | string                                                                                  | [voice region](#DOCS_RESOURCES_VOICE/voice-region-object) id for the guild                                                                  |
+| region? \*\*\*                   | ?string                                                                                 | [voice region](#DOCS_RESOURCES_VOICE/voice-region-object) id for the guild  (deprecated)                                                           |
 | afk_channel_id                | ?snowflake                                                                              | id of afk channel                                                                                                                           |
 | afk_timeout                   | integer                                                                                 | afk timeout in seconds                                                                                                                      |
 | widget_enabled?               | boolean                                                                                 | true if the server widget is enabled                                                                                                        |
@@ -61,6 +61,8 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 ** \* These fields are only sent within the [GUILD_CREATE](#DOCS_TOPICS_GATEWAY/guild-create) event **
 
 ** \*\* These fields are only sent when using the [GET Current User Guilds](#DOCS_RESOURCES_USER/get-current-user-guilds) endpoint and are relative to the requested user **
+
+** \*\*\* This field is deprecated and will be removed in v9 and got replaced by [rtc_region](#DOCS_RESOURCES_CHANNEL/channel-object-channel-structure)**
 
 ###### Default Message Notification Level
 
@@ -164,7 +166,7 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
   "banner": "9b6439a7de04f1d26af92f84ac9e1e4a",
   "owner_id": "73193882359173120",
   "application_id": null,
-  "region": "us-west",
+  "region": null,
   "afk_channel_id": null,
   "afk_timeout": 300,
   "system_channel_id": null,
@@ -453,7 +455,7 @@ Create a new guild. Returns a [guild](#DOCS_RESOURCES_GUILD/guild-object) object
 | Field                          | Type                                                                       | Description                                                                                                 |
 | ------------------------------ | -------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- |
 | name                           | string                                                                     | name of the guild (2-100 characters)                                                                        |
-| region?                        | string                                                                     | [voice region](#DOCS_RESOURCES_VOICE/voice-region-object) id                                                |
+| region?                        | ?string                                                                    | [voice region](#DOCS_RESOURCES_VOICE/voice-region-object) id (deprecated)                                    |
 | icon?                          | [image data](#DOCS_REFERENCE/image-data)                                   | base64 128x128 image for the guild icon                                                                     |
 | verification_level?            | integer                                                                    | [verification level](#DOCS_RESOURCES_GUILD/guild-object-verification-level)                                 |
 | default_message_notifications? | integer                                                                    | default [message notification level](#DOCS_RESOURCES_GUILD/guild-object-default-message-notification-level) |
@@ -476,6 +478,9 @@ Create a new guild. Returns a [guild](#DOCS_RESOURCES_GUILD/guild-object) object
 
 > info
 > When using the `channels` parameter, the `id` field within each channel object may be set to an integer placeholder, and will be replaced by the API upon consumption. Its purpose is to allow you to create `GUILD_CATEGORY` channels by setting the `parent_id` field on any children to the category's `id` field. Category channels must be listed before any children.
+
+> warn
+> This field `region` is deprecated and will be removed in v9 and got replaced by [rtc_region](#DOCS_RESOURCES_CHANNEL/channel-object-channel-structure).
 
 ###### Example Partial Channel Object
 
@@ -547,7 +552,7 @@ Returns the [guild](#DOCS_RESOURCES_GUILD/guild-object) object for the given id.
   "banner": "5c3cb8d1bc159937fffe7e641ec96ca7",
   "owner_id": "53908232506183680",
   "application_id": null,
-  "region": "us-east",
+  "region": null,
   "afk_channel_id": null,
   "afk_timeout": 300,
   "system_channel_id": null,
@@ -598,7 +603,7 @@ Modify a guild's settings. Requires the `MANAGE_GUILD` permission. Returns the u
 | Field                         | Type                                                                                | Description                                                                                                                  |
 | ----------------------------- | ----------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
 | name                          | string                                                                              | guild name                                                                                                                   |
-| region                        | ?string                                                                             | guild [voice region](#DOCS_RESOURCES_VOICE/voice-region-object) id                                                           |
+| region                        | ?string                                                                             | guild [voice region](#DOCS_RESOURCES_VOICE/voice-region-object) id (deprecated)                                                    |
 | verification_level            | ?integer                                                                            | [verification level](#DOCS_RESOURCES_GUILD/guild-object-verification-level)                                                  |
 | default_message_notifications | ?integer                                                                            | default [message notification level](#DOCS_RESOURCES_GUILD/guild-object-default-message-notification-level)                  |
 | explicit_content_filter       | ?integer                                                                            | [explicit content filter level](#DOCS_RESOURCES_GUILD/guild-object-explicit-content-filter-level)                            |
