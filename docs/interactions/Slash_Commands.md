@@ -1056,6 +1056,7 @@ Not all message fields are currently supported.
 | embeds?           | array of [embeds](#DOCS_RESOURCES_CHANNEL/embed-object)  | supports up to 10 embeds                                                                    |
 | allowed_mentions? | allowed mentions                                         | [allowed mentions](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object) object                  |
 | flags?            | int                                                      | set to `64` to make your response ephemeral                                                 |
+| components?       | array of [components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS)| message components    |
 
 ## MessageInteraction
 
