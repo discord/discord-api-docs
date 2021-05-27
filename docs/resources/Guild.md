@@ -986,6 +986,8 @@ Modify the guild's [Welcome Screen](#DOCS_RESOURCES_GUILD/welcome-screen-object)
 > info
 > All parameters to this endpoint are optional and nullable
 
+###### JSON Params
+
 | Field            | Type                                                                                                                    | Description                                                     |
 | ---------------- | ----------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------- |
 | enabled          | boolean                                                                                                                 | whether the welcome screen is enabled                           |

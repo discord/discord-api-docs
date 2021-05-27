@@ -969,6 +969,7 @@ An interaction is the base "thing" that is sent when a user invokes a command, a
 | user?          | [user](#DOCS_RESOURCES_USER/user-object) object                  | user object for the invoking user, if invoked in a DM          |
 | token          | string                                                           | a continuation token for responding to the interaction         |
 | version        | int                                                              | read-only property, always `1`                                 |
+| message? | [message](#DOCS_RESOURCES_CHANNEL/message-object) object | for components, the message they were attached to |
 
 \* This is always present on `ApplicationCommand` interaction types. It is optional for future-proofing against new interaction types
 
@@ -980,6 +981,7 @@ An interaction is the base "thing" that is sent when a user invokes a command, a
 |--------------------|-------|
 | Ping               | 1     |
 | ApplicationCommand | 2     |
+| MessageComponent   | 3     |
 
 ###### ApplicationCommandInteractionData
 
@@ -989,15 +991,17 @@ An interaction is the base "thing" that is sent when a user invokes a command, a
 | name      | string                                           | the name of the invoked command    |
 | resolved? | ApplicationCommandInteractionDataResolved        | converted users + roles + channels |
 | options?  | array of ApplicationCommandInteractionDataOption | the params + values from the user  |
+| custom_id | string | for components, the [`custom_id`](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/custom-id) of the component |
+| component_type | int | for components, the [type](DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-types) of the component |
 
 ###### ApplicationCommandInteractionDataResolved
 
-| Field         | Type                | Description                         |
-|---------------|---------------------|-------------------------------------|
-| users?        | JSON of ID: User    | the IDs and User objects            |
-| members?\*    | JSON of ID: Member  | the IDs and partial Member objects  |
-| roles?        | JSON of ID: Role    | the IDs and Role objects            |
-| channels?\*\* | JSON of ID: Channel | the IDs and partial Channel objects |
+| Field         | Type                                                                                     | Description                         |
+|---------------|------------------------------------------------------------------------------------------|-------------------------------------|
+| users?        | Map of Snowflakes to [User Objects](#DOCS_RESOURCES_USER/user-object)                    | the IDs and User objects            |
+| members?\*    | Map of Snowflakes to [Partial Member Objects](#DOCS_RESOURCES_GUILD/guild-member-object)  | the IDs and partial Member objects  |
+| roles?        | Map of Snowflakes to [Role Objects](#DOCS_TOPICS_PERMISSIONS/role-object)                 | the IDs and Role objects            |
+| channels?\*\* | Map of Snowflakes to [Partial Channel Objects](#DOCS_RESOURCES_CHANNEL/channel-object)    | the IDs and partial Channel objects |
 
 \* Partial `Member` objects are missing `user`, `deaf` and `mute` fields
 
@@ -1036,6 +1040,10 @@ Interaction responses can also be public—everyone can see it—or "ephemeral"�
 | Pong                             | 1     | ACK a `Ping`                                                                |
 | ChannelMessageWithSource         | 4     | respond to an interaction with a message                                    |
 | DeferredChannelMessageWithSource | 5     | ACK an interaction and edit a response later, the user sees a loading state |
+| DeferredUpdateMessage\* | 6 | for components, ACK an interaction and edit the original message later; the user does not see a loading state |
+| UpdateMessage\* | 7 | for components, edit the message the component was attached to |
+
+\* Only valid for [component-based](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/) interactions
 
 ###### InteractionApplicationCommandCallbackData
 
@@ -1048,6 +1056,7 @@ Not all message fields are currently supported.
 | embeds?           | array of [embeds](#DOCS_RESOURCES_CHANNEL/embed-object)  | supports up to 10 embeds                                                                    |
 | allowed_mentions? | allowed mentions                                         | [allowed mentions](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object) object                  |
 | flags?            | int                                                      | set to `64` to make your response ephemeral                                                 |
+| components?       | array of [components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS)| message components    |
 
 ## MessageInteraction
 

@@ -1,12 +1,25 @@
 # Change Log
 
+## Buttons and Message Components
+
+#### May 26, 2021
+
+Message components are now available with our first two components: a layout-based `ActionRow` and...buttons!
+
+You can now include buttons on messages sent by your app, whether they're bot messages or responses to interactions. [Learn more about message components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/).
+
+The addition of message components means new fields and response types:
+
+- An optional `components` field has been added to the [message object](#DOCS_RESOURCES_CHANNEL/message-object)
+- New response types `6` and `7` have been added for [interaction responses](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-response-interactioncallbacktype), valid only for component-based interactions
+
 ## API v9
 
 #### April 28, 2021
 
 API v9 is now available.
 
-API v9 includes supports for [threads](#DOCS_TOPICS_THREADS), an upcoming feature.  Older API versions will not receive any Gateway Events for threads, so it is important to update soon!  We've prepared a [migration guide](#DOCS_TOPICS_THREADS) to help make the upgrade process very straightforward.
+API v9 includes support for [threads](#DOCS_TOPICS_THREADS), an upcoming feature.  Older API versions will not receive any Gateway Events for threads, so it is important to update soon!  We've prepared a [migration guide](#DOCS_TOPICS_THREADS) to help make the upgrade process very straightforward.
 
 This documentation is being published early so bots can have at least two months to upgrade before threads launch.
 

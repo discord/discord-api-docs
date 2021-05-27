@@ -191,23 +191,23 @@ Same as above, except this call does not require authentication.
 
 ## Execute Slack-Compatible Webhook % POST /webhooks/{webhook.id#DOCS_RESOURCES_WEBHOOK/webhook-object}/{webhook.token#DOCS_RESOURCES_WEBHOOK/webhook-object}/slack
 
+Refer to [Slack's documentation](https://api.slack.com/incoming-webhooks) for more information. We do not support Slack's `channel`, `icon_emoji`, `mrkdwn`, or `mrkdwn_in` properties.
+
 ###### Query String Params
 
 | Field | Type    | Description                                                                                                                                           | Required |
 | ----- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
 | wait  | boolean | waits for server confirmation of message send before response (defaults to `true`; when `false` a message that is not saved does not return an error) | false    |
-
-Refer to [Slack's documentation](https://api.slack.com/incoming-webhooks) for more information. We do not support Slack's `channel`, `icon_emoji`, `mrkdwn`, or `mrkdwn_in` properties.
 
 ## Execute GitHub-Compatible Webhook % POST /webhooks/{webhook.id#DOCS_RESOURCES_WEBHOOK/webhook-object}/{webhook.token#DOCS_RESOURCES_WEBHOOK/webhook-object}/github
 
+Add a new webhook to your GitHub repo (in the repo's settings), and use this endpoint as the "Payload URL." You can choose what events your Discord channel receives by choosing the "Let me select individual events" option and selecting individual events for the new webhook you're configuring.
+
 ###### Query String Params
 
 | Field | Type    | Description                                                                                                                                           | Required |
 | ----- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
 | wait  | boolean | waits for server confirmation of message send before response (defaults to `true`; when `false` a message that is not saved does not return an error) | false    |
-
-Add a new webhook to your GitHub repo (in the repo's settings), and use this endpoint as the "Payload URL." You can choose what events your Discord channel receives by choosing the "Let me select individual events" option and selecting individual events for the new webhook you're configuring.
 
 ## Get Webhook Message % GET /webhooks/{webhook.id#DOCS_RESOURCES_WEBHOOK/webhook-object}/{webhook.token#DOCS_RESOURCES_WEBHOOK/webhook-object}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}
 
