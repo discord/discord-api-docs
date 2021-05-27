@@ -24,15 +24,16 @@ The top-level `components` field is an array of `ActionRow` components.
 
 ## Component Object
 
-| Field      | Type                                                | Description                                                                         | Valid For                                                |
-| ---------- | --------------------------------------------------- | ----------------------------------------------------------------------------------- | -------------------------------------------------------- |
-| type       | int                                                 | [component type](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-types)             | all types                                                |
-| style?     | int                                                 | one of [button styles](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/buttons-button-styles) | [Buttons](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/buttons) |
-| label?     | string                                              | text that appears on the button, max 80 characters                                   | [Buttons](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/buttons) |
-| emoji?     | partial [emoji](#DOCS_RESOURCES_EMOJI/emoji-object) | `name`, `id`, and `animated`                                                        | [Buttons](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/buttons) |
-| custom_id? | string                                              | a developer-defined identifier for the button, max 100 characters                   | [Buttons](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/buttons) |
-| url?       | string                                              | a url for link-style buttons                                                        | [Buttons](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/buttons) |
-| disabled?  | bool                                                | whether the button is disabled, default `false`                                     | [Buttons](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/buttons) |
+| Field       | Type                                                                                  | Description                                                                         | Valid For                                                      |
+| ----------- | ------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- | -------------------------------------------------------------- |
+| type        | int                                                                                   | [component type](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-types)             | all types                                                      |
+| style?      | int                                                                                   | one of [button styles](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/buttons-button-styles) | [Buttons](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/buttons)       |
+| label?      | string                                                                                | text that appears on the button, max 80 characters                                  | [Buttons](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/buttons)       |
+| emoji?      | partial [emoji](#DOCS_RESOURCES_EMOJI/emoji-object)                                   | `name`, `id`, and `animated`                                                        | [Buttons](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/buttons)       |
+| custom_id?  | string                                                                                | a developer-defined identifier for the button, max 100 characters                   | [Buttons](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/buttons)       |
+| url?        | string                                                                                | a url for link-style buttons                                                        | [Buttons](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/buttons)       |
+| disabled?   | bool                                                                                  | whether the button is disabled, default `false`                                     | [Buttons](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/buttons)       |
+| components? | Array of [message components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-object) | a list of child components                                                          | [Action Rows](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/actionrow) |
 
 ## Component Types
 
