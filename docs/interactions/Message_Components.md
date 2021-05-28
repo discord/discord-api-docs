@@ -8,9 +8,6 @@ There are several different types of components; this documentation will outline
 
 Components are a new field on the [message object](#DOCS_RESOURCES_CHANNEL/message-object), so you can use them whether you're sending messages or responding to a [slash command](#DOCS_INTERACTIONS_SLASH_COMMANDS/) or other interaction.
 
-> danger
-> Your application should take care to validate data sent in message component interactions.
-
 The top-level `components` field is an array of `ActionRow` components.
 
 ```json
@@ -76,6 +73,9 @@ An `ActionRow` is a non-interactive container component for other types of compo
 ## Responding to a Component Interaction
 
 Responding to a user interacting with a component is the same as other interaction types, like slash commands. You can simply ACK the request, send a followup message, or edit the original message to something new. Check out [Responding to An Interaction](#DOCS_INTERACTIONS_SLASH_COMMANDS/responding-to-an-interaction) and [interaction response](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-response) for more.
+
+> danger
+> Your application should take care to validate data sent in message component interactions. For example, ensuring that the `custom_id` originates from the received message.
 
 ## Custom Id
 
