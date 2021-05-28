@@ -8,6 +8,9 @@ There are several different types of components; this documentation will outline
 
 Components are a new field on the [message object](#DOCS_RESOURCES_CHANNEL/message-object), so you can use them whether you're sending messages or responding to a [slash command](#DOCS_INTERACTIONS_SLASH_COMMANDS/) or other interaction.
 
+> danger
+> Your application should take care to validate data sent from message component interactions.
+
 The top-level `components` field is an array of `ActionRow` components.
 
 ```json
