@@ -72,7 +72,7 @@ An `ActionRow` is a non-interactive container component for other types of compo
 
 ## Responding to a Component Interaction
 
-Responding to a user interacting with a component is the same as other interaction types, like slash commands. You can simply ACK the request, send a followup message, or edit the original message to something new. Check out [Responding to An Interaction](#DOCS_INTERACTIONS_SLASH_COMMANDS/responding-to-an-interaction) and [interaction response](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-response) for more.
+Responding to a user interacting with a component is the same as other interaction types, like slash commands. You can simply ACK the request, send a followup message, or edit the original message to something new. Check out [Responding to An Interaction](#DOCS_INTERACTIONS_SLASH_COMMANDS/responding-to-an-interaction) and [interaction response](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-response-object-interaction-response-structure) for more.
 
 ## Custom Id
 
@@ -82,7 +82,7 @@ Message components, aside from `ActionRows`, have a mandatory `custom_id` field.
 
 ## Buttons
 
-Buttons are interactive components that render on messages. They can be clicked by users, and send an [interaction](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction) to your app when clicked.
+Buttons are interactive components that render on messages. They can be clicked by users, and send an [interaction](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-request-object-interaction-structure) to your app when clicked.
 
 - Buttons must be sent inside an `ActionRow`
 - An `ActionRow` can contain up to 5 buttons
@@ -103,7 +103,7 @@ Buttons come in a variety of styles to convey different types of actions. These 
 
 - Non-link buttons **must** have a `custom_id`, and cannot have a `url`
 - Link buttons **must** have a `url`, and cannot have a `custom_id`
-- Link buttons do not send an [interaction](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction) to your app when clicked
+- Link buttons do not send an [interaction](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-request-object-interaction-structure) to your app when clicked
 
 ###### Button Styles
 
