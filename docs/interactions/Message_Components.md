@@ -93,7 +93,7 @@ Buttons are interactive components that render on messages. They can be clicked 
 | ---------- | --------------------------------------------------- | ----------------------------------------------------------------------------------- |
 | type       | int                                                 | `2` for a button                                                                    |
 | style      | int                                                 | one of [button styles](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/buttons-button-styles) |
-| label?     | string                                              | text the appears on the button, max 80 characters                                   |
+| label?     | string                                              | text that appears on the button, max 80 characters                                   |
 | emoji?     | partial [emoji](#DOCS_RESOURCES_EMOJI/emoji-object) | `name`, `id`, and `animated`                                                        |
 | custom_id? | string                                              | a developer-defined identifier for the button, max 100 characters                   |
 | url?       | string                                              | a url for link-style buttons                                                        |
