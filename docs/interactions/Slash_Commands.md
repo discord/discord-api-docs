@@ -992,7 +992,7 @@ An interaction is the base "thing" that is sent when a user invokes a command, a
 | resolved? | ApplicationCommandInteractionDataResolved        | converted users + roles + channels |
 | options?  | array of ApplicationCommandInteractionDataOption | the params + values from the user  |
 | custom_id | string | for components, the [`custom_id`](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/custom-id) of the component |
-| component_type | int | for components, the [type](DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-types) of the component |
+| component_type | int | for components, the [type](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-types) of the component |
 
 ###### ApplicationCommandInteractionDataResolved
 
