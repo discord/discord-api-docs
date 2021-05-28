@@ -75,7 +75,7 @@ An `ActionRow` is a non-interactive container component for other types of compo
 Responding to a user interacting with a component is the same as other interaction types, like slash commands. You can simply ACK the request, send a followup message, or edit the original message to something new. Check out [Responding to An Interaction](#DOCS_INTERACTIONS_SLASH_COMMANDS/responding-to-an-interaction) and [interaction response](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-response) for more.
 
 > danger
-> Your application should take care to validate data sent in message component interactions. For example, ensuring that the `custom_id` originates from the received message.
+> Your application should take care to validate data sent in message component interactions. For example, ensuring that the `custom_id` originates from the received message. In the future this information will be validated by the API.
 
 ## Custom Id
 
