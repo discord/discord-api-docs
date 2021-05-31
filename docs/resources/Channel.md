@@ -908,7 +908,7 @@ You may create a message as a reply to another message. To do so, include a [`me
 | payload_json      | string                                                                                            | JSON encoded body of non-file params                         | `multipart/form-data` only  |
 | allowed_mentions  | [allowed mention object](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object)                         | allowed mentions for the message                             | false                       |
 | message_reference | [message reference](#DOCS_RESOURCES_CHANNEL/message-reference-object-message-reference-structure) | include to make your message a reply                         | false                       |
-| components        | array of [message component](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-object)              | the components to include with the message                   | false                       |
+| components        | array of [message component](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-object) objects      | the components to include with the message                   | false                       |
 
 ###### Example Request Body (application/json)
 
