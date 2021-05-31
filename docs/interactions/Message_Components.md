@@ -41,6 +41,7 @@ The top-level `components` field is an array of `ActionRow` components.
 | ---- | --------- | -------------------------------- |
 | 1    | ActionRow | A container for other components |
 | 2    | Button    | A clickable button               |
+| 3    | Select    | A selection menu                 |
 
 ## ActionRow
 
