@@ -4,7 +4,7 @@ Message components--we'll call them "components" moving forward--are a framework
 
 There are several different types of components; this documentation will outline the basics of this new framework and each example.
 
-## What are Components
+## Components
 
 Components are a new field on the [message object](#DOCS_RESOURCES_CHANNEL/message-object), so you can use them whether you're sending messages or responding to a [slash command](#DOCS_INTERACTIONS_SLASH_COMMANDS/) or other interaction.
 
@@ -22,29 +22,31 @@ The top-level `components` field is an array of `ActionRow` components.
 }
 ```
 
-## Component Object
+### Component Object
+
+###### Component Structure
 
 | Field       | Type                                                                                  | Description                                                                         | Valid For                                                      |
 | ----------- | ------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- | -------------------------------------------------------------- |
-| type        | int                                                                                   | [component type](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-types)             | all types                                                      |
-| style?      | int                                                                                   | one of [button styles](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/buttons-button-styles) | [Buttons](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/buttons)       |
+| type        | integer                                                                               | [component type](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-types)             | all types                                                      |
+| style?      | integer                                                                               | one of [button styles](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/buttons-button-styles) | [Buttons](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/buttons)       |
 | label?      | string                                                                                | text that appears on the button, max 80 characters                                  | [Buttons](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/buttons)       |
 | emoji?      | partial [emoji](#DOCS_RESOURCES_EMOJI/emoji-object)                                   | `name`, `id`, and `animated`                                                        | [Buttons](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/buttons)       |
 | custom_id?  | string                                                                                | a developer-defined identifier for the button, max 100 characters                   | [Buttons](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/buttons)       |
 | url?        | string                                                                                | a url for link-style buttons                                                        | [Buttons](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/buttons)       |
-| disabled?   | bool                                                                                  | whether the button is disabled, default `false`                                     | [Buttons](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/buttons)       |
-| components? | Array of [message components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-object) | a list of child components                                                          | [Action Rows](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/actionrow) |
+| disabled?   | boolean                                                                               | whether the button is disabled, default `false`                                     | [Buttons](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/buttons)       |
+| components? | array of [message components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-object) | a list of child components                                                          | [Action Rows](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/actionrow) |
 
-## Component Types
+###### Component Types
 
-| Type | Name      | Description                      |
-| ---- | --------- | -------------------------------- |
-| 1    | ActionRow | A container for other components |
-| 2    | Button    | A clickable button               |
+| Type | Name       | Description                      |
+| ---- | ---------- | -------------------------------- |
+| 1    | Action Row | A container for other components |
+| 2    | Button     | A clickable button               |
 
-## ActionRow
+## Action Rows
 
-An `ActionRow` is a non-interactive container component for other types of components. It has a `type: 1` and a sub-array of `components` of other types.
+An Action Row is a non-interactive container component for other types of components. It has a `type: 1` and a sub-array of `components` of other types.
 
 - You can have up to 5 `ActionRows` per message
 - An `ActionRow` cannot contain another `ActionRow`
@@ -77,7 +79,7 @@ Responding to a user interacting with a component is the same as other interacti
 > danger
 > Your application should take care to validate data sent in message component interactions. For example, ensuring that the `custom_id` originates from the received message. In the future this information will be validated by the API.
 
-## Custom Id
+## Custom ID
 
 Message components, aside from `ActionRows`, have a mandatory `custom_id` field. This field is defined by the developer when sending the component payload, and is returned in the interaction payload sent when a user interacts with the component. For example, if you set `custom_id: click_me` on a button, you'll receive an interaction containing `custom_id: click_me` when a user clicks that button.
 
@@ -87,20 +89,22 @@ Message components, aside from `ActionRows`, have a mandatory `custom_id` field.
 
 Buttons are interactive components that render on messages. They can be clicked by users, and send an [interaction](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction) to your app when clicked.
 
-- Buttons must be sent inside an `ActionRow`
-- An `ActionRow` can contain up to 5 buttons
+- Buttons must be sent inside an Action Row
+- An Action Row can contain up to 5 buttons
 
-###### Button Object
+### Button Object
+
+###### Button Structure
 
 | Field      | Type                                                | Description                                                                         |
 | ---------- | --------------------------------------------------- | ----------------------------------------------------------------------------------- |
-| type       | int                                                 | `2` for a button                                                                    |
-| style      | int                                                 | one of [button styles](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/buttons-button-styles) |
-| label?     | string                                              | text that appears on the button, max 80 characters                                   |
+| type       | integer                                             | `2` for a button                                                                    |
+| style      | integer                                             | one of [button styles](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/buttons-button-styles) |
+| label?     | string                                              | text that appears on the button, max 80 characters                                  |
 | emoji?     | partial [emoji](#DOCS_RESOURCES_EMOJI/emoji-object) | `name`, `id`, and `animated`                                                        |
 | custom_id? | string                                              | a developer-defined identifier for the button, max 100 characters                   |
 | url?       | string                                              | a url for link-style buttons                                                        |
-| disabled?  | bool                                                | whether the button is disabled, default `false`                                     |
+| disabled?  | boolean                                             | whether the button is disabled, default `false`                                     |
 
 Buttons come in a variety of styles to convey different types of actions. These styles also define what fields are valid for a button.
 
