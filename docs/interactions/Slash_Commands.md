@@ -996,6 +996,9 @@ An interaction is the base "thing" that is sent when a user invokes a command, a
 
 ###### ApplicationCommandInteractionDataResolved
 
+> info
+> If data for a Member is included, data for its corresponding User will also be included.
+
 | Field         | Type                                                                                     | Description                         |
 |---------------|------------------------------------------------------------------------------------------|-------------------------------------|
 | users?        | Map of Snowflakes to [User Objects](#DOCS_RESOURCES_USER/user-object)                    | the IDs and User objects            |
