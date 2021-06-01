@@ -33,6 +33,7 @@ Many of these libraries are represented in the [unofficial, community-driven Dis
 | [Javacord](https://github.com/Javacord/Javacord)             | Java       |
 | [JDA](https://github.com/DV8FromTheWorld/JDA)                | Java       |
 | [discord.js](https://github.com/discordjs/discord.js)        | JavaScript |
+| [Discord Slim](https://github.com/HanabishiRecca/Discord-Slim) | JavaScript / TypeScript |
 | [Eris](https://github.com/abalabahaha/eris)                  | JavaScript |
 | [Discord.jl](https://github.com/Xh4H/Discord.jl)             | Julia      |
 | [Discordia](https://github.com/SinisterRectus/Discordia)     | Lua        |
