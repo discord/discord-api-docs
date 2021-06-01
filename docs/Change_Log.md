@@ -66,7 +66,7 @@ Additionally, `flags` has been documented on [InteractionApplicationCommandCallb
 
 #### February 9, 2021
 
-Slash Commands are now supported in DMs with bots. Due to this change, some of the fields on the [Interaction object](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-request-object-interaction-structure) have been made optional. Newly optional fields don't reflect any behavior changes in Slash Commands within guilds; they are to support commands in the context of a DM only.
+Slash Commands are now supported in DMs with bots. Due to this change, some of the fields on the [Interaction object](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-object-interaction-structure) have been made optional. Newly optional fields don't reflect any behavior changes in Slash Commands within guilds; they are to support commands in the context of a DM only.
 
 ## Change to Permission Checking when Creating Channels
 

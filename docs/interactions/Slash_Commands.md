@@ -29,7 +29,7 @@ A **Slash Command** is a command that you register for your application. They're
 
 Your global commands are available in every guild that adds your application. You can also make commands for a specific guild; they're only available in that guild.
 
-An **[Interaction](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-request-object-interaction-structure)** is the message that your application receives when a user uses a command. It includes the values that the user submitted, as well as some metadata about this particular instance of the command being used: the `guild_id`, `channel_id`, `member` and other fields. You can find all the values in our [data models](#DOCS_INTERACTIONS_SLASH_COMMANDS/data-models-and-types).
+An **[Interaction](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-object-interaction-structure)** is the message that your application receives when a user uses a command. It includes the values that the user submitted, as well as some metadata about this particular instance of the command being used: the `guild_id`, `channel_id`, `member` and other fields. You can find all the values in our [data models](#DOCS_INTERACTIONS_SLASH_COMMANDS/data-models-and-types).
 
 ## Slash Commands, Interactions, and Bot Users
 
@@ -164,7 +164,7 @@ Full documentation of endpoints can be found in [Endpoints](#DOCS_INTERACTIONS_S
 
 ## Receiving an Interaction
 
-When a user uses a Slash Command, your app will receive an **[Interaction](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-request-object-interaction-structure)**. Your app can receive an interaction in one of two ways:
+When a user uses a Slash Command, your app will receive an **[Interaction](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-object-interaction-structure)**. Your app can receive an interaction in one of two ways:
 
 - Via [Interaction Create](#DOCS_TOPICS_GATEWAY/interaction-create) gateway event
 - Via outgoing webhook
@@ -194,7 +194,7 @@ def my_command():
 
 You'll also need to properly set up [Security and Authorization](#DOCS_INTERACTIONS_SLASH_COMMANDS/security-and-authorization) on your endpoint for the URL to be accepted. Once both of those are complete and your URL has been saved, you can start receiving Interactions via webhook! At this point, your app will **no longer receive Interactions over the gateway**. If you want to receive them over the gateway again, simply delete your URL.
 
-An [Interaction](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-request-object-interaction-structure) includes the `data` that the user sent in the command, as well as some metadata. It looks like this:
+An [Interaction](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-object-interaction-structure) includes the `data` that the user sent in the command, as well as some metadata. It looks like this:
 
 ```js
 {
@@ -310,7 +310,7 @@ Every Interaction is sent with the following headers:
 - `X-Signature-Ed25519` as a signature
 - `X-Signature-Timestamp` as a timestamp
 
-Using your favorite security library, you **must validate the request each time you receive an [interaction](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-request-object-interaction-structure)**. If the signature fails validation, respond with a `401` error code. Here's a couple code examples:
+Using your favorite security library, you **must validate the request each time you receive an [interaction](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-object-interaction-structure)**. If the signature fails validation, respond with a `401` error code. Here's a couple code examples:
 
 ```js
 const nacl = require('tweetnacl');
@@ -959,7 +959,7 @@ application-command-permissions-object-application-command-permission-type) | ro
 | ROLE | 1     |
 | USER | 2     |
 
-## Interaction Request Object
+## Interaction Object
 
 An interaction is the base "thing" that is sent when a user invokes a command, and is the same for Slash Commands and other future interaction types (such as [Message Components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS)).
 
@@ -969,8 +969,8 @@ An interaction is the base "thing" that is sent when a user invokes a command, a
 |----------------|------------------------------------------------------------------|----------------------------------------------------------------|
 | id             | snowflake                                                        | id of the interaction                                          |
 | application_id | snowflake                                                        | id of the application this interaction is for                  |
-| type           | [InteractionType](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-request-object-interaction-type)                                                  | the type of interaction                                        |
-| data?\*        | [ApplicationCommandInteractionData](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-request-object-application-command-interaction-data)                                | the command data payload                                       |
+| type           | [InteractionType](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-object-interaction-type)                                                  | the type of interaction                                        |
+| data?\*        | [ApplicationCommandInteractionData](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-object-application-command-interaction-data)                                | the command data payload                                       |
 | guild_id?      | snowflake                                                        | the guild it was sent from                                     |
 | channel_id?    | snowflake                                                        | the channel it was sent from                                   |
 | member?\*\*    | [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) object | guild member data for the invoking user, including permissions |
@@ -997,8 +997,8 @@ An interaction is the base "thing" that is sent when a user invokes a command, a
 |-----------|--------------------------------------------------|------------------------------------|
 | id        | snowflake                                        | the ID of the invoked command      |
 | name      | string                                           | the name of the invoked command    |
-| resolved? | [ApplicationCommandInteractionDataResolved](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-request-object-application-command-interaction-data-resolved-structure)        | converted users + roles + channels |
-| options?  | array of [ApplicationCommandInteractionDataOption](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-request-object-application-command-interaction-data-option-structure) | the params + values from the user  |
+| resolved? | [ApplicationCommandInteractionDataResolved](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-object-application-command-interaction-data-resolved-structure)        | converted users + roles + channels |
+| options?  | array of [ApplicationCommandInteractionDataOption](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-object-application-command-interaction-data-option-structure) | the params + values from the user  |
 | custom_id | string | for components, the [`custom_id`](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/custom-id) of the component |
 | component_type | int | for components, the [type](DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-types) of the component |
 
@@ -1027,7 +1027,7 @@ All options have names, and an option can either be a parameter and input value-
 | type     | int                                              | value of [ApplicationCommandOptionType](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object-application-command-option-type) |
 | value?   | [OptionType](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object-application-command-option-type)                                       | the value of the pair                                                                                   |
 | options? | array of [ApplicationCommandInteractionDataOption](
-#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-request-object-application-command-interaction-data-option-structure) | present if this option is a group or subcommand                                                         |
+#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-object-application-command-interaction-data-option-structure) | present if this option is a group or subcommand                                                         |
 
 ## Interaction Response Object
 
@@ -1079,6 +1079,6 @@ This is sent on the [message object](#DOCS_RESOURCES_CHANNEL/message-object) whe
 | Name | Value | Description |
 | --- | --- | --- |
 | id           | snowflake                                                        | id of the interaction                                          |
-| type         | [InteractionType](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-request-object-interaction-type)                                                  | the type of interaction                                        |
+| type         | [InteractionType](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-object-interaction-type)                                                  | the type of interaction                                        |
 | name | string | the name of the [ApplicationCommand](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object-application-command-structure) |
 | user | [user object](#DOCS_RESOURCES_USER/user-object) | the user who invoked the interaction |

@@ -82,7 +82,7 @@ Message components, aside from `ActionRows`, have a mandatory `custom_id` field.
 
 ## Buttons
 
-Buttons are interactive components that render on messages. They can be clicked by users, and send an [interaction](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-request-object-interaction-structure) to your app when clicked.
+Buttons are interactive components that render on messages. They can be clicked by users, and send an [interaction](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-object-interaction-structure) to your app when clicked.
 
 - Buttons must be sent inside an `ActionRow`
 - An `ActionRow` can contain up to 5 buttons
@@ -103,7 +103,7 @@ Buttons come in a variety of styles to convey different types of actions. These 
 
 - Non-link buttons **must** have a `custom_id`, and cannot have a `url`
 - Link buttons **must** have a `url`, and cannot have a `custom_id`
-- Link buttons do not send an [interaction](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-request-object-interaction-structure) to your app when clicked
+- Link buttons do not send an [interaction](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-object-interaction-structure) to your app when clicked
 
 ###### Button Styles
 
