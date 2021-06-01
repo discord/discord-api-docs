@@ -811,6 +811,7 @@ Fetches command permissions for a specific command for your application in a gui
 > This endpoint will overwrite existing permissions for the command in that guild
 
 Edits command permissions for a specific command for your application in a guild.
+You can only add up to 10 permission overwrites for a command.
 
 > warn
 > Deleting or renaming a command will permanently delete all permissions for that command
@@ -827,6 +828,7 @@ Edits command permissions for a specific command for your application in a guild
 > This endpoint will overwrite all existing permissions for all commands in a guild
 
 Batch edits permissions for all commands in a guild. Takes an array of partial [GuildApplicationCommandPermissions](#DOCS_INTERACTIONS_SLASH_COMMANDS/guildapplicationcommandpermissions) objects including `id` and `permissions`.
+You can only add up to 10 permission overwrites for a command.
 
 ###### Example
 
