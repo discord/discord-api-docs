@@ -82,6 +82,9 @@ Whenever an admin action is performed on the API, an entry is added to the respe
 | INTEGRATION_CREATE       | 80    |
 | INTEGRATION_UPDATE       | 81    |
 | INTEGRATION_DELETE       | 82    |
+| STAGE_INSTANCE_CREATE    | 83    |
+| STAGE_INSTANCE_UPDATE    | 84    |
+| STAGE_INSTANCE_DELETE    | 85    |
 
 ###### Optional Audit Entry Info
 
@@ -89,7 +92,7 @@ Whenever an admin action is performed on the API, an entry is added to the respe
 | ------------------ | --------- | --------------------------------------------------------------- | ------------------------------------------------------------------------------ |
 | delete_member_days | string    | number of days after which inactive members were kicked         | MEMBER_PRUNE                                                                   |
 | members_removed    | string    | number of members removed by the prune                          | MEMBER_PRUNE                                                                   |
-| channel_id         | snowflake | channel in which the entities were targeted                     | MEMBER_MOVE & MESSAGE_PIN & MESSAGE_UNPIN & MESSAGE_DELETE                     |
+| channel_id         | snowflake | channel in which the entities were targeted                     | MEMBER_MOVE & MESSAGE_PIN & MESSAGE_UNPIN & MESSAGE_DELETE & STAGE_INSTANCE_CREATE & STAGE_INSTANCE_UPDATE & STAGE_INSTANCE_DELETE |
 | message_id         | snowflake | id of the message that was targeted                             | MESSAGE_PIN & MESSAGE_UNPIN                                                    |
 | count              | string    | number of entities that were targeted                           | MESSAGE_DELETE & MESSAGE_BULK_DELETE & MEMBER_DISCONNECT & MEMBER_MOVE         |
 | id                 | snowflake | id of the overwritten entity                                    | CHANNEL_OVERWRITE_CREATE & CHANNEL_OVERWRITE_UPDATE & CHANNEL_OVERWRITE_DELETE |
@@ -138,7 +141,7 @@ Whenever an admin action is performed on the API, an entry is added to the respe
 | widget_channel_id             | [guild](#DOCS_RESOURCES_GUILD/guild-object)             | snowflake                                                                                | channel id of the server widget changed                                                                                                                 |
 | system_channel_id             | [guild](#DOCS_RESOURCES_GUILD/guild-object)             | snowflake                                                                                | id of the system channel changed                                                                                                                        |
 | position                      | [channel](#DOCS_RESOURCES_CHANNEL/channel-object)       | integer                                                                                  | text or voice channel position changed                                                                                                                  |
-| topic                         | [channel](#DOCS_RESOURCES_CHANNEL/channel-object)       | string                                                                                   | text channel topic changed                                                                                                                              |
+| topic                         | [channel](#DOCS_RESOURCES_CHANNEL/channel-object) or [stage instance](#DOCS_RESOURCES_STAGE_INSTANCE/stage-instance-object) | string               | text channel topic or stage instance topic changed                                                                                                      |
 | bitrate                       | [channel](#DOCS_RESOURCES_CHANNEL/channel-object)       | integer                                                                                  | voice channel bitrate changed                                                                                                                           |
 | permission_overwrites         | [channel](#DOCS_RESOURCES_CHANNEL/channel-object)       | array of [channel overwrite](#DOCS_RESOURCES_CHANNEL/overwrite-object) objects           | permissions on a channel changed                                                                                                                        |
 | nsfw                          | [channel](#DOCS_RESOURCES_CHANNEL/channel-object)       | boolean                                                                                  | channel nsfw restriction changed                                                                                                                        |
@@ -167,6 +170,7 @@ Whenever an admin action is performed on the API, an entry is added to the respe
 | expire_behavior               | [integration](#DOCS_RESOURCES_GUILD/integration-object) | integer                                                                                  | integration expiring subscriber behavior changed                                                                                                        |
 | expire_grace_period           | [integration](#DOCS_RESOURCES_GUILD/integration-object) | integer                                                                                  | integration expire grace period changed                                                                                                                 |
 | user_limit                    | [voice channel](#DOCS_RESOURCES_CHANNEL/channel-object) | integer                                                                                  | new user limit in a voice channel                                                                                                                       |
+| privacy_level                 | [stage instance](#DOCS_RESOURCES_STAGE_INSTANCE/stage-instance-object) | integer ([privacy level](#DOCS_RESOURCES_STAGE_INSTANCE/privacy-level))   | the privacy level of the stage instance.                                                                                                                |
 
 ###### Example Partial Role Object
 
