@@ -13,7 +13,7 @@ Represents a guild or DM channel within Discord.
 | guild_id?              | snowflake                                                                  | the id of the guild (may be missing for some channel objects received over gateway guild dispatches)                                                                            |
 | position?              | integer                                                                    | sorting position of the channel                                                                                                                                                 |
 | permission_overwrites? | array of [overwrite](#DOCS_RESOURCES_CHANNEL/overwrite-object) objects     | explicit permission overwrites for members and roles                                                                                                                            |
-| name?                  | string                                                                     | the name of the channel (2-100 characters)                                                                                                                                      |
+| name?                  | string                                                                     | the name of the channel (1-100 characters)                                                                                                                                      |
 | topic?                 | ?string                                                                    | the channel topic (0-1024 characters)                                                                                                                                           |
 | nsfw?                  | boolean                                                                    | whether the channel is nsfw                                                                                                                                                     |
 | last_message_id?       | ?snowflake                                                                 | the id of the last message sent in this channel (may not point to an existing or valid message)                                                                                 |
@@ -908,6 +908,7 @@ You may create a message as a reply to another message. To do so, include a [`me
 | payload_json      | string                                                                                            | JSON encoded body of non-file params                         | `multipart/form-data` only  |
 | allowed_mentions  | [allowed mention object](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object)                         | allowed mentions for the message                             | false                       |
 | message_reference | [message reference](#DOCS_RESOURCES_CHANNEL/message-reference-object-message-reference-structure) | include to make your message a reply                         | false                       |
+| components        | array of [message component](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-object) objects      | the components to include with the message                   | false                       |
 
 ###### Example Request Body (application/json)
 
@@ -1049,15 +1050,16 @@ Returns a [message](#DOCS_RESOURCES_CHANNEL/message-object) object. Fires a [Mes
 
 ###### JSON/Form Params
 
-| Field            | Type                                                                      | Description                                                                                                                             |
-| ---------------- | ------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
-| content          | string                                                                    | the message contents (up to 2000 characters)                                                                                            |
-| embed            | [embed](#DOCS_RESOURCES_CHANNEL/embed-object) object                      | embedded `rich` content                                                                                                                 |
-| flags            | integer                                                                   | edit the [flags](#DOCS_RESOURCES_CHANNEL/message-object-message-flags) of a message (only `SUPPRESS_EMBEDS` can currently be set/unset) |
-| file             | file contents                                                             | the contents of the file being sent/edited                                                                                              |
-| payload_json     | string                                                                    | JSON encoded body of non-file params (multipart/form-data only)                                                                         |
-| allowed_mentions | [allowed mention object](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object) | allowed mentions for the message                                                                                                        |
-| attachments      | array of [attachment](#DOCS_RESOURCES_CHANNEL/attachment-object) objects  | attached files to keep                                                                                                                  |
+| Field            | Type                                                                                 | Description                                                                                                                             |
+| ---------------- | ------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------- |
+| content          | string                                                                               | the message contents (up to 2000 characters)                                                                                            |
+| embed            | [embed](#DOCS_RESOURCES_CHANNEL/embed-object) object                                 | embedded `rich` content                                                                                                                 |
+| flags            | integer                                                                              | edit the [flags](#DOCS_RESOURCES_CHANNEL/message-object-message-flags) of a message (only `SUPPRESS_EMBEDS` can currently be set/unset) |
+| file             | file contents                                                                        | the contents of the file being sent/edited                                                                                              |
+| payload_json     | string                                                                               | JSON encoded body of non-file params (multipart/form-data only)                                                                         |
+| allowed_mentions | [allowed mention object](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object)            | allowed mentions for the message                                                                                                        |
+| attachments      | array of [attachment](#DOCS_RESOURCES_CHANNEL/attachment-object) objects             | attached files to keep                                                                                                                  |
+| components       | array of [message component](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-object) | the components to include with the message                                                                                              |
 
 ## Delete Message % DELETE /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}
 

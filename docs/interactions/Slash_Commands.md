@@ -811,6 +811,7 @@ Fetches command permissions for a specific command for your application in a gui
 > This endpoint will overwrite existing permissions for the command in that guild
 
 Edits command permissions for a specific command for your application in a guild.
+You can only add up to 10 permission overwrites for a command.
 
 > warn
 > Deleting or renaming a command will permanently delete all permissions for that command
@@ -827,6 +828,8 @@ Edits command permissions for a specific command for your application in a guild
 > This endpoint will overwrite all existing permissions for all commands in a guild
 
 Batch edits permissions for all commands in a guild. Takes an array of partial [GuildApplicationCommandPermissions](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-permissions-object-guild-application-command-permissions-structure) objects including `id` and `permissions`.
+You can only add up to 10 permission overwrites for a command.
+
 
 ###### Example
 
@@ -1000,7 +1003,7 @@ An interaction is the base "thing" that is sent when a user invokes a command, a
 | resolved? | [ApplicationCommandInteractionDataResolved](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-object-application-command-interaction-data-resolved-structure)        | converted users + roles + channels |
 | options?  | array of [ApplicationCommandInteractionDataOption](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-object-application-command-interaction-data-option-structure) | the params + values from the user  |
 | custom_id | string | for components, the [`custom_id`](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/custom-id) of the component |
-| component_type | int | for components, the [type](DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-types) of the component |
+| component_type | int | for components, the [type](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-types) of the component |
 
 ###### Application Command Interaction Data Resolved Structure
 

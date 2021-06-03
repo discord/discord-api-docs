@@ -95,6 +95,7 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 | VERY_HIGH | 4       | must have a verified phone number                         |
 
 ###### Guild NSFW Level
+
 | Level          | Value   |
 | -------------- | ------- |
 | DEFAULT        | 0       |
@@ -636,7 +637,7 @@ Create a new [channel](#DOCS_RESOURCES_CHANNEL/channel-object) object for the gu
 
 | Field                 | Type                                                                   | Description                                                                                                                                                                     |
 | --------------------- | ---------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| name                  | string                                                                 | channel name (2-100 characters)                                                                                                                                                 |
+| name                  | string                                                                 | channel name (1-100 characters)                                                                                                                                                 |
 | type                  | integer                                                                | the [type of channel](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types)                                                                                                     |
 | topic                 | string                                                                 | channel topic (0-1024 characters)                                                                                                                                               |
 | bitrate               | integer                                                                | the bitrate (in bits) of the voice channel (voice only)                                                                                                                         |
