@@ -812,6 +812,7 @@ Fetches command permissions for a specific command for your application in a gui
 
 Edits command permissions for a specific command for your application in a guild.
 You can only add up to 10 permission overwrites for a command.
+Returns a [GuildApplicationCommandPermissions](#DOCS_INTERACTIONS_SLASH_COMMANDS/guildapplicationcommandpermissions) object.
 
 > warn
 > Deleting or renaming a command will permanently delete all permissions for that command
@@ -829,6 +830,7 @@ You can only add up to 10 permission overwrites for a command.
 
 Batch edits permissions for all commands in a guild. Takes an array of partial [GuildApplicationCommandPermissions](#DOCS_INTERACTIONS_SLASH_COMMANDS/guildapplicationcommandpermissions) objects including `id` and `permissions`.
 You can only add up to 10 permission overwrites for a command.
+Returns an array of [GuildApplicationCommandPermissions](#DOCS_INTERACTIONS_SLASH_COMMANDS/guildapplicationcommandpermissions) objects.
 
 ###### Example
 
@@ -882,6 +884,7 @@ An application command is the base "command" model that belongs to an applicatio
 |----------------|-------------------------------------------------------------------------------------------------|--------------------------------------------------|
 | id             | snowflake                                                                                       | unique id of the command                         |
 | application_id | snowflake                                                                                       | unique id of the parent application              |
+| guild_id?      | snowflake                                                                                       | guild id of the command, if not global              |
 | name           | string                                                                                          | 1-32 lowercase character name matching `^[\w-]{1,32}$` |
 | description    | string                                                                                          | 1-100 character description                      |
 | options?       | array of [ApplicationCommandOption](#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommandoption) | the parameters for the command                   |
