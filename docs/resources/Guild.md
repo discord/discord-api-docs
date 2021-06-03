@@ -57,6 +57,7 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 | welcome_screen?               | [welcome screen](#DOCS_RESOURCES_GUILD/welcome-screen-object) object                    | the welcome screen of a Community guild, shown to new members, returned in an [Invite](#DOCS_RESOURCES_INVITE/invite-object)'s guild object |
 | nsfw_level                    | integer                                                                                 | [guild NSFW level](#DOCS_RESOURCES_GUILD/guild-object-guild-nsfw-level)                                                                     |
 | stage_instances? \*           | array of [stage instance](#DOCS_RESOURCES_STAGE_INSTANCE/stage-instance-object) objects | Stage instances in the guild                                                                                                                |
+| application_command_count? \* | integer                                                                                 | approximate number of slash commands in this guild                                                                                                                |
 
 ** \* These fields are only sent within the [GUILD_CREATE](#DOCS_TOPICS_GATEWAY/guild-create) event **
 
