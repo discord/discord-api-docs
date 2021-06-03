@@ -333,10 +333,10 @@ A partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object. Represents an Offl
 
 ###### Integration Account Structure
 
-| Field | Type      | Description         |
-| ----- | --------- | ------------------- |
-| id    | snowflake | id of the account   |
-| name  | string    | name of the account |
+| Field | Type   | Description                                                                                        |
+| ----- | ------ | -------------------------------------------------------------------------------------------------- |
+| id    | string | regular string when referring to a non-discord application integration, otherwise a snowflake ID   |
+| name  | string | name of the account                                                                                |
 
 ### Integration Application Object
 
