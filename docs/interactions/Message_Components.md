@@ -110,13 +110,13 @@ Buttons come in a variety of styles to convey different types of actions. These 
 
 ###### Button Styles
 
-| Name      | Value | Color                    | Required Field |
-| --------- | ----- | ------------------------ | -------------- |
-| Primary   | 1     | blurple                  | `custom_id`    |
-| Secondary | 2     | grey                     | `custom_id`    |
-| Success   | 3     | green                    | `custom_id`    |
-| Danger    | 4     | red                      | `custom_id`    |
-| Link      | 5     | grey, navigates to a URL | `url`          |
+| Name        | Value | Color                    | Required Field |
+| ----------- | ----- | ------------------------ | -------------- |
+| Primary     | 1     | blurple                  | `custom_id`    |
+| Secondary   | 2     | grey                     | `custom_id`    |
+| Success     | 3     | green                    | `custom_id`    |
+| Destructive | 4     | red                      | `custom_id`    |
+| Link        | 5     | grey, navigates to a URL | `url`          |
 
 ![An image showing the different button styles](button-styles.png)
 
