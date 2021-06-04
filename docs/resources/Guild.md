@@ -141,6 +141,9 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 | VERIFIED                         | guild is verified                                                                                                   |
 | VIP_REGIONS                      | guild has access to set 384kbps bitrate in voice (previously VIP voice servers)                                     |
 | WELCOME_SCREEN_ENABLED           | guild has enabled the welcome screen                                                                                |
+| TICKETED_EVENTS_ENABLED          | guild has enabled ticketed events                                                                                   |
+| MONETIZATION_ENABLED             | guild has enabled monetization                                                                                      |
+| MORE_STICKERS                    | guild has increased custom sticker slots                                                                            |
 
 ###### Example Guild
 
