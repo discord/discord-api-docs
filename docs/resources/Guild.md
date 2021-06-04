@@ -62,7 +62,7 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 
 ** \*\* These fields are only sent when using the [GET Current User Guilds](#DOCS_RESOURCES_USER/get-current-user-guilds) endpoint and are relative to the requested user **
 
-** \*\*\* This field is deprecated and will be removed in v9 and got replaced by [rtc_region](#DOCS_RESOURCES_CHANNEL/channel-object-channel-structure)**
+** \*\*\* This field is deprecated and will be removed in v9 and is replaced by [rtc_region](#DOCS_RESOURCES_CHANNEL/channel-object-channel-structure)**
 
 ###### Default Message Notification Level
 
