@@ -22,21 +22,21 @@ All gateway events in Discord are tagged with an opcode that denotes the payload
 
 ###### Gateway Close Event Codes
 
-| Code | Description           | Explanation                                                                                                                                                                                                                         |
-|------|-----------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| 4000 | Unknown error         | We're not sure what went wrong. Try reconnecting?                                                                                                                                                                                   |
-| 4001 | Unknown opcode        | You sent an invalid [Gateway opcode](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/gateway-opcodes) or an invalid payload for an opcode. Don't do that!                                                                                                 |
-| 4002 | Decode error          | You sent an invalid [payload](#DOCS_TOPICS_GATEWAY/sending-payloads) to us. Don't do that!                                                                                                                                          |
-| 4003 | Not authenticated     | You sent us a payload prior to [identifying](#DOCS_TOPICS_GATEWAY/identify).                                                                                                                                                        |
-| 4004 | Authentication failed | The account token sent with your [identify payload](#DOCS_TOPICS_GATEWAY/identify) is incorrect.                                                                                                                                    |
-| 4005 | Already authenticated | You sent more than one identify payload. Don't do that!                                                                                                                                                                             |
-| 4007 | Invalid `seq`         | The sequence sent when [resuming](#DOCS_TOPICS_GATEWAY/resume) the session was invalid. Reconnect and start a new session.                                                                                                          |
-| 4008 | Rate limited          | Woah nelly! You're sending payloads to us too quickly. Slow it down! You will be disconnected on receiving this.                                                                                                                    |
-| 4009 | Session timed out     | Your session timed out. Reconnect and start a new one.                                                                                                                                                                              |
-| 4010 | Invalid shard         | You sent us an invalid [shard when identifying](#DOCS_TOPICS_GATEWAY/sharding).                                                                                                                                                     |
-| 4011 | Sharding required     | The session would have handled too many guilds - you are required to [shard](#DOCS_TOPICS_GATEWAY/sharding) your connection in order to connect.                                                                                    |
-| 4012 | Invalid API version   | You sent an invalid version for the gateway.                                                                                                                                                                                        |
-| 4013 | Invalid intent(s)     | You sent an invalid intent for a [Gateway Intent](#DOCS_TOPICS_GATEWAY/gateway-intents). You may have incorrectly calculated the bitwise value.                                                                                     |
+| Code | Description           | Explanation                                                                                                                                                                                                                      |
+|------|-----------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| 4000 | Unknown error         | We're not sure what went wrong. Try reconnecting?                                                                                                                                                                                |
+| 4001 | Unknown opcode        | You sent an invalid [Gateway opcode](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/gateway-opcodes) or an invalid payload for an opcode. Don't do that!                                                                                  |
+| 4002 | Decode error          | You sent an invalid [payload](#DOCS_TOPICS_GATEWAY/sending-payloads) to us. Don't do that!                                                                                                                                       |
+| 4003 | Not authenticated     | You sent us a payload prior to [identifying](#DOCS_TOPICS_GATEWAY/identify).                                                                                                                                                     |
+| 4004 | Authentication failed | The account token sent with your [identify payload](#DOCS_TOPICS_GATEWAY/identify) is incorrect.                                                                                                                                 |
+| 4005 | Already authenticated | You sent more than one identify payload. Don't do that!                                                                                                                                                                          |
+| 4007 | Invalid `seq`         | The sequence sent when [resuming](#DOCS_TOPICS_GATEWAY/resume) the session was invalid. Reconnect and start a new session.                                                                                                       |
+| 4008 | Rate limited          | Woah nelly! You're sending payloads to us too quickly. Slow it down! You will be disconnected on receiving this.                                                                                                                 |
+| 4009 | Session timed out     | Your session timed out. Reconnect and start a new one.                                                                                                                                                                           |
+| 4010 | Invalid shard         | You sent us an invalid [shard when identifying](#DOCS_TOPICS_GATEWAY/sharding).                                                                                                                                                  |
+| 4011 | Sharding required     | The session would have handled too many guilds - you are required to [shard](#DOCS_TOPICS_GATEWAY/sharding) your connection in order to connect.                                                                                 |
+| 4012 | Invalid API version   | You sent an invalid version for the gateway.                                                                                                                                                                                     |
+| 4013 | Invalid intent(s)     | You sent an invalid intent for a [Gateway Intent](#DOCS_TOPICS_GATEWAY/gateway-intents). You may have incorrectly calculated the bitwise value.                                                                                  |
 | 4014 | Disallowed intent(s)  | You sent a disallowed intent for a [Gateway Intent](#DOCS_TOPICS_GATEWAY/gateway-intents). You may have tried to specify an intent that you [have not enabled or are not approved for](#DOCS_TOPICS_GATEWAY/privileged-intents). |
 
 ## Voice
@@ -61,20 +61,20 @@ Our voice gateways have their own set of opcodes and close codes.
 
 ###### Voice Close Event Codes
 
-| Code | Description             | Explanation                                                                                                                                         |
-|------|-------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------|
-| 4001 | Unknown opcode          | You sent an invalid [opcode](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice-opcodes).                                                         |
-| 4002 | Failed to decode payload | You sent a invalid payload in your [identifying](#DOCS_TOPICS_GATEWAY/identify) to the Gateway.                                            |
-| 4003 | Not authenticated       | You sent a payload before [identifying](#DOCS_TOPICS_GATEWAY/identify) with the Gateway.                                                    |
-| 4004 | Authentication failed   | The token you sent in your [identify](#DOCS_TOPICS_GATEWAY/identify) payload is incorrect.                                                  |
-| 4005 | Already authenticated   | You sent more than one [identify](#DOCS_TOPICS_GATEWAY/identify) payload. Stahp.                                                            |
-| 4006 | Session no longer valid | Your session is no longer valid.                                                                                                                    |
-| 4009 | Session timeout         | Your session has timed out.                                                                                                                         |
-| 4011 | Server not found        | We can't find the server you're trying to connect to.                                                                                               |
-| 4012 | Unknown protocol        | We didn't recognize the [protocol](#DOCS_TOPICS_VOICE_CONNECTIONS/establishing-a-voice-udp-connection-example-select-protocol-payload) you sent. |
-| 4014 | Disconnected            | Channel was deleted, you were kicked, voice server changed, or the main gateway session was dropped. Should not reconnect.                           |
-| 4015 | Voice server crashed    | The server crashed. Our bad! Try [resuming](#DOCS_TOPICS_VOICE_CONNECTIONS/resuming-voice-connection).                                           |
-| 4016 | Unknown encryption mode | We didn't recognize your [encryption](#DOCS_TOPICS_VOICE_CONNECTIONS/encrypting-and-sending-voice).                                              |
+| Code | Description              | Explanation                                                                                                                                      |
+|------|--------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------|
+| 4001 | Unknown opcode           | You sent an invalid [opcode](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice-opcodes).                                                               |
+| 4002 | Failed to decode payload | You sent a invalid payload in your [identifying](#DOCS_TOPICS_GATEWAY/identify) to the Gateway.                                                  |
+| 4003 | Not authenticated        | You sent a payload before [identifying](#DOCS_TOPICS_GATEWAY/identify) with the Gateway.                                                         |
+| 4004 | Authentication failed    | The token you sent in your [identify](#DOCS_TOPICS_GATEWAY/identify) payload is incorrect.                                                       |
+| 4005 | Already authenticated    | You sent more than one [identify](#DOCS_TOPICS_GATEWAY/identify) payload. Stahp.                                                                 |
+| 4006 | Session no longer valid  | Your session is no longer valid.                                                                                                                 |
+| 4009 | Session timeout          | Your session has timed out.                                                                                                                      |
+| 4011 | Server not found         | We can't find the server you're trying to connect to.                                                                                            |
+| 4012 | Unknown protocol         | We didn't recognize the [protocol](#DOCS_TOPICS_VOICE_CONNECTIONS/establishing-a-voice-udp-connection-example-select-protocol-payload) you sent. |
+| 4014 | Disconnected             | Channel was deleted, you were kicked, voice server changed, or the main gateway session was dropped. Should not reconnect.                       |
+| 4015 | Voice server crashed     | The server crashed. Our bad! Try [resuming](#DOCS_TOPICS_VOICE_CONNECTIONS/resuming-voice-connection).                                           |
+| 4016 | Unknown encryption mode  | We didn't recognize your [encryption](#DOCS_TOPICS_VOICE_CONNECTIONS/encrypting-and-sending-voice).                                              |
 
 ## HTTP
 
