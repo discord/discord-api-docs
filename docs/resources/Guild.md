@@ -480,7 +480,7 @@ Create a new guild. Returns a [guild](#DOCS_RESOURCES_GUILD/guild-object) object
 > When using the `channels` parameter, the `id` field within each channel object may be set to an integer placeholder, and will be replaced by the API upon consumption. Its purpose is to allow you to create `GUILD_CATEGORY` channels by setting the `parent_id` field on any children to the category's `id` field. Category channels must be listed before any children.
 
 > warn
-> This field `region` is deprecated and will be removed in v9 and got replaced by [rtc_region](#DOCS_RESOURCES_CHANNEL/channel-object-channel-structure).
+> This field `region` is deprecated and will be removed in v9 and is replaced by [rtc_region](#DOCS_RESOURCES_CHANNEL/channel-object-channel-structure).
 
 ###### Example Partial Channel Object
 
