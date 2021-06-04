@@ -50,6 +50,7 @@ Many of these libraries are represented in the [unofficial, community-driven Dis
 | [Sword](https://github.com/Azoy/Sword)                       | Swift      |
 | [Detritus](https://github.com/detritusjs/client)             | TypeScript |
 | [discordeno](https://github.com/discordeno/discordeno)       | TypeScript |
+| [droff](https://github.com/tim-smart/droff)                  | TypeScript |
 | [Harmony](https://github.com/harmonyland/harmony)            | TypeScript |
 
 ## Interactions
