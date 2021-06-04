@@ -11,7 +11,7 @@ You can now include buttons on messages sent by your app, whether they're bot me
 The addition of message components means new fields and response types:
 
 - An optional `components` field has been added to the [message object](#DOCS_RESOURCES_CHANNEL/message-object)
-- New response types `6` and `7` have been added for [interaction responses](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-response-interactioncallbacktype), valid only for component-based interactions
+- New response types `6` and `7` have been added for [interaction responses](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-response-object-interaction-callback-type), valid only for component-based interactions
 
 ## API v9
 
@@ -40,7 +40,7 @@ New routes have been added to support this functionality:
 - [`GET Application Command Permissions`](#DOCS_INTERACTIONS_SLASH_COMMANDS/getapplicationcommandpermissions)
 - [`PUT Application Command Permissions`](#DOCS_INTERACTIONS_SLASH_COMMANDS/putapplicationcommandpermissions)
 
-A `default_permission` field has also been added to the [ApplicationCommand](#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommand) model. This field allows you to disable commands for everyone in a guild by default, if you prefer to make some of your commands an opt-in experience.
+A `default_permission` field has also been added to the [ApplicationCommand](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object-application-command-structure) model. This field allows you to disable commands for everyone in a guild by default, if you prefer to make some of your commands an opt-in experience.
 
 ## Large Bot Sharding Lowered to 150,000 Guilds
 
@@ -60,13 +60,13 @@ Changes to interaction response types have been made to support better designs f
 
 These deprecated types will be removed and break on **April 9, 2021**.
 
-Additionally, `flags` has been documented on [InteractionApplicationCommandCallbackData](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-response-interactionapplicationcommandcallbackdata). Setting `flags` to `64` will make the interaction response ephemeral.
+Additionally, `flags` has been documented on [InteractionApplicationCommandCallbackData](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-response-object-interaction-application-command-callback-data-structure). Setting `flags` to `64` will make the interaction response ephemeral.
 
 ## Slash Commands in DMs
 
 #### February 9, 2021
 
-Slash Commands are now supported in DMs with bots. Due to this change, some of the fields on the [Interaction object](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction) have been made optional. Newly optional fields don't reflect any behavior changes in Slash Commands within guilds; they are to support commands in the context of a DM only.
+Slash Commands are now supported in DMs with bots. Due to this change, some of the fields on the [Interaction object](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-object-interaction-structure) have been made optional. Newly optional fields don't reflect any behavior changes in Slash Commands within guilds; they are to support commands in the context of a DM only.
 
 ## Change to Permission Checking when Creating Channels
 

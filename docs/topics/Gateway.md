@@ -47,7 +47,7 @@ Packets sent from the client to the Gateway API are encapsulated within a [gatew
 
 ### Receiving Payloads
 
-Receiving payloads with the Gateway API is slightly more complex than sending. When using the JSON encoding with compression enabled, the Gateway has the option of sending payloads as compressed JSON binaries using zlib, meaning your library _must_ detect (see [RFC1950 2.2](https://tools.ietf.org/html/rfc1950#section-2.2)) and decompress these payloads before attempting to parse them. The gateway does not implement a shared compression context between messages sent.
+Receiving payloads with the Gateway API is slightly more complex than sending. When using the JSON encoding with [Payload Compression](#DOCS_TOPICS_GATEWAY/payload-compression) enabled, the Gateway has the option of sending payloads as compressed JSON binaries using zlib, meaning your library _must_ detect (see [RFC1950 2.2](https://tools.ietf.org/html/rfc1950#section-2.2)) and decompress these payloads before attempting to parse them. Otherwise the gateway does implement a shared compression context between messages sent, see [Transport Compression](#DOCS_TOPICS_GATEWAY/transport-compression).
 
 ## Encoding and Compression
 
@@ -235,7 +235,7 @@ GUILDS (1 << 0)
   - THREAD_DELETE
   - THREAD_LIST_SYNC
   - THREAD_MEMBER_UPDATE
-  - THREAD_MEMBERS_UPDATE \*
+  - THREAD_MEMBERS_UPDATE *
   - STAGE_INSTANCE_CREATE
   - STAGE_INSTANCE_UPDATE
   - STAGE_INSTANCE_DELETE
@@ -244,7 +244,7 @@ GUILD_MEMBERS (1 << 1)
   - GUILD_MEMBER_ADD
   - GUILD_MEMBER_UPDATE
   - GUILD_MEMBER_REMOVE
-  - THREAD_MEMBERS_UPDATE \*
+  - THREAD_MEMBERS_UPDATE *
 
 GUILD_BANS (1 << 2)
   - GUILD_BAN_ADD
@@ -517,6 +517,9 @@ Events are payloads sent over the socket to a client that correspond to events i
 | [Message Reaction Remove All](#DOCS_TOPICS_GATEWAY/message-reaction-remove-all)     | all reactions were explicitly removed from a message                                                                             |
 | [Message Reaction Remove Emoji](#DOCS_TOPICS_GATEWAY/message-reaction-remove-emoji) | all reactions for a given emoji were explicitly removed from a message                                                           |
 | [Presence Update](#DOCS_TOPICS_GATEWAY/presence-update)                             | user was updated                                                                                                                 |
+| [Stage Instance Create](#DOCS_TOPICS_GATEWAY/stage-instance-create)                 | stage instance was created                                                                                                      |
+| [Stage Instance Delete](#DOCS_TOPICS_GATEWAY/stage-instance-delete)                 | stage instance was deleted or closed                                                                                            |
+| [Stage Instance Update](#DOCS_TOPICS_GATEWAY/stage-instance-update)                 | stage instance was updated                                                                                                        |
 | [Typing Start](#DOCS_TOPICS_GATEWAY/typing-start)                                   | user started typing in a channel                                                                                                 |
 | [User Update](#DOCS_TOPICS_GATEWAY/user-update)                                     | properties about the user changed                                                                                                |
 | [Voice State Update](#DOCS_TOPICS_GATEWAY/voice-state-update)                       | someone joined, left, or moved a voice channel                                                                                   |
@@ -774,6 +777,15 @@ The resumed event is dispatched when a client has sent a [resume payload](#DOCS_
 
 The reconnect event is dispatched when a client should reconnect to the gateway (and resume their existing session, if they have one). This event usually occurs during deploys to migrate sessions gracefully off old hosts.
 
+###### Example Gateway Reconnect
+
+```json
+{
+  "op": 7,
+  "d": null
+}
+```
+
 #### Invalid Session
 
 Sent to indicate one of at least three different situations:
@@ -1028,7 +1040,7 @@ Sent when a guild role is deleted.
 
 ### Integrations
 
-### Integration Create
+#### Integration Create
 
 Sent when an integration is created. The inner payload is a [integration](#DOCS_RESOURCES_GUILD/integration-object) object with an additional `guild_id` key:
 
@@ -1038,7 +1050,7 @@ Sent when an integration is created. The inner payload is a [integration](#DOCS_
 |----------|-----------|-----------------|
 | guild_id | snowflake | id of the guild |
 
-### Integration Update
+#### Integration Update
 
 Sent when an integration is updated. The inner payload is a [integration](#DOCS_RESOURCES_GUILD/integration-object) object with an additional `guild_id` key:
 
@@ -1048,7 +1060,7 @@ Sent when an integration is updated. The inner payload is a [integration](#DOCS_
 |----------|-----------|-----------------|
 | guild_id | snowflake | id of the guild |
 
-### Integration Delete
+#### Integration Delete
 
 Sent when an integration is deleted.
 
@@ -1062,7 +1074,7 @@ Sent when an integration is deleted.
 
 ### Invites
 
-### Invite Create
+#### Invite Create
 
 Sent when a new invite to a channel is created.
 
@@ -1083,7 +1095,7 @@ Sent when a new invite to a channel is created.
 | temporary           | boolean                                                                      | whether or not the invite is temporary (invited users will be kicked on disconnect unless they're assigned a role) |
 | uses                | integer                                                                      | how many times the invite has been used (always will be 0)                                                         |
 
-### Invite Delete
+#### Invite Delete
 
 Sent when an invite is deleted.
 
@@ -1427,15 +1439,15 @@ Sent when a guild channel's webhook is created, updated, or deleted.
 
 #### Application Command Create
 
-Sent when a new [Slash Command](#DOCS_INTERACTIONS_SLASH_COMMANDS/) is created, relevant to the current user. The inner payload is an [ApplicationCommand](#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommand) object, with an optional extra `guild_id` key.
+Sent when a new [Slash Command](#DOCS_INTERACTIONS_SLASH_COMMANDS/) is created, relevant to the current user. The inner payload is an [ApplicationCommand](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object-application-command-structure) object, with an optional extra `guild_id` key.
 
 #### Application Command Update
 
-Sent when a [Slash Command](#DOCS_INTERACTIONS_SLASH_COMMANDS/) relevant to the current user is updated. The inner payload is an [ApplicationCommand](#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommand) object, with an optional extra `guild_id` key.
+Sent when a [Slash Command](#DOCS_INTERACTIONS_SLASH_COMMANDS/) relevant to the current user is updated. The inner payload is an [ApplicationCommand](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object-application-command-structure) object, with an optional extra `guild_id` key.
 
 #### Application Command Delete
 
-Sent when a [Slash Command](#DOCS_INTERACTIONS_SLASH_COMMANDS/) relevant to the current user is deleted. The inner payload is an [ApplicationCommand](#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommand) object, with an optional extra `guild_id` key.
+Sent when a [Slash Command](#DOCS_INTERACTIONS_SLASH_COMMANDS/) relevant to the current user is deleted. The inner payload is an [ApplicationCommand](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object-application-command-structure) object, with an optional extra `guild_id` key.
 
 ###### Application Command Extra Fields
 
@@ -1447,7 +1459,7 @@ Sent when a [Slash Command](#DOCS_INTERACTIONS_SLASH_COMMANDS/) relevant to the 
 
 #### Interaction Create
 
-Sent when a user in a guild uses a [Slash Command](#DOCS_INTERACTIONS_SLASH_COMMANDS/). Inner payload is an [Interaction](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction).
+Sent when a user in a guild uses a [Slash Command](#DOCS_INTERACTIONS_SLASH_COMMANDS/). Inner payload is an [Interaction](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-object-interaction-structure).
 
 ### Stage Instances
 
