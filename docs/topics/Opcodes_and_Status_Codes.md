@@ -208,6 +208,7 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 60003  | Two factor is required for this operation                                                                                     |
 | 80004  | No users with DiscordTag exist                                                                                                |
 | 90001  | Reaction was blocked                                                                                                          |
+| 110000 | Index not yet available. Try again later                                                                                      |
 | 130000 | API resource is currently overloaded. Try again a little later                                                                |
 
 ###### Example JSON Error Response
