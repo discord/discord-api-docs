@@ -24,7 +24,7 @@ The top-level `components` field is an array of [Action Row](#DOCS_INTERACTIONS_
 | url?        | string                                                                        | a url for link-style buttons                                                        | [Buttons](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/buttons)         |
 | disabled?   | boolean                                                                       | whether the button is disabled, default `false`                                     | [Buttons](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/buttons)         |
 | components? | array of [components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-object) | a list of child components                                                          | [Action Rows](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/action-rows) |
-z
+
 ###### Component Types
 
 | Type | Name       | Description                      |
