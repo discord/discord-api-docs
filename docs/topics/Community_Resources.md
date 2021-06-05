@@ -21,9 +21,9 @@ Many of these libraries are represented in the [unofficial, community-driven Dis
 | [D++](https://github.com/brainboxdotcc/DPP)                  | C++        |
 | [Sleepy Discord](https://github.com/yourWaifu/sleepy-discord)| C++        |
 | [discordcr](https://github.com/shardlab/discordcr)           | Crystal    |
+| [Remora.Discord](https://github.com/Nihlus/Remora.Discord)   | C#         |
 | [Discord.Net](https://github.com/RogueException/Discord.Net) | C#         |
 | [DSharpPlus](https://github.com/DSharpPlus/DSharpPlus)       | C#         |
-| [dscord](https://github.com/b1naryth1ef/dscord)              | D          |
 | [coxir](https://github.com/satom99/coxir)                    | Elixir     |
 | [Nostrum](https://github.com/Kraigie/nostrum)                | Elixir     |
 | [DiscordGo](https://github.com/bwmarrin/discordgo)           | Go         |
@@ -51,12 +51,15 @@ Many of these libraries are represented in the [unofficial, community-driven Dis
 | [Sword](https://github.com/Azoy/Sword)                       | Swift      |
 | [Detritus](https://github.com/detritusjs/client)             | TypeScript |
 | [discordeno](https://github.com/discordeno/discordeno)       | TypeScript |
+| [droff](https://github.com/tim-smart/droff)                  | TypeScript |
 | [Harmony](https://github.com/harmonyland/harmony)            | TypeScript |
 
 ## Interactions
 
 [Interactions and Slash Commands](#DOCS_INTERACTIONS_SLASH_COMMANDS/) are the great, new way of making a Discord bot. The following open-source libraries provide help for the security and authentication checks that are mandatory if you are receiving Interactions via outgoing webhook. They also include some types for the Interactions data models.
 
+- C#
+  - [DSharpPlus.SlashCommands](https://github.com/IDoEverything/DSharpPlus.SlashCommands)
 - Go
   - [discord-interactions-go](https://github.com/bsdlp/discord-interactions-go)
 - Javascript
