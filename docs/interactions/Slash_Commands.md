@@ -25,7 +25,7 @@ In this documentation you'll find some notes about limits and caps on certain pa
 
 ## What is a Slash Command
 
-**Slash Commands** are a type of interaction that you can register for your application. They're made up of a name, description, and a block of `options`, which you can think of like arguments to a function. The name and description help users find your command among many others, and the `options` validate user input as they fill out your command.
+**Slash Commands** (synonymous with application commands) are a type of interaction that you can register for your application. They're made up of a name, description, and a block of `options`, which you can think of like arguments to a function. The name and description help users find your command among many others, and the `options` validate user input as they fill out your command.
 
 Your global commands are available in every guild that adds your application. You can also make commands for a specific guild; they're only available in that guild.
 
@@ -872,9 +872,9 @@ headers = {
 r = requests.put(url, headers=headers, json=json)
 ```
 
-## Data Models and Types
+### Data Models and Types
 
-## Application Command Object
+### Application Command Object
 
 ###### Application Command Structure
 
@@ -933,7 +933,7 @@ If you specify `choices` for an option, they are the **only** valid values for a
 | name  | string            | 1-100 character choice name                         |
 | value | string or integer | value of the choice, up to 100 characters if string |
 
-## Application Command Permissions Object
+### Application Command Permissions Object
 
 ###### Guild Application Command Permissions Structure
 
@@ -963,7 +963,7 @@ Application command permissions allow you to enable or disable commands for spec
 | ROLE | 1     |
 | USER | 2     |
 
-## Interaction Object
+### Interaction Object
 
 An interaction is the base "thing" that is sent when a user invokes a command, and is the same for Slash Commands and other future interaction types (such as [Message Components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS)).
 
@@ -1035,7 +1035,7 @@ All options have names, and an option can either be a parameter and input value-
 | value?   | [OptionType](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object-application-command-option-type)                                                     | the value of the pair                                                                                                                 |
 | options? | array of [ApplicationCommandInteractionDataOption](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-object-application-command-interaction-data-option-structure) | present if this option is a group or subcommand                                                                                       |
 
-## Interaction Response Object
+### Interaction Response Object
 
 After receiving an interaction, you must respond to acknowledge it. You can choose to respond with a message immediately using type `4`, or you can choose to send a deferred response with type `5`. If choosing a deferred response, the user will see a loading state for the interaction, and you'll have up to 15 minutes to edit the original deferred response using [Edit Original Interaction Response](#DOCS_INTERACTIONS_SLASH_COMMANDS/edit-original-interaction-response).
 
@@ -1075,7 +1075,7 @@ Not all message fields are currently supported.
 | flags?            | integer                                                             | set to `64` to make your response ephemeral                                |
 | components?       | array of [components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS)        | message components                                                         |
 
-## Message Interaction Object
+### Message Interaction Object
 
 This is sent on the [message object](#DOCS_RESOURCES_CHANNEL/message-object) when the message is a response to an Interaction.
 
