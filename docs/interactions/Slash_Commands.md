@@ -666,7 +666,7 @@ headers = {
 r = requests.put(url, headers=headers, json=json)
 ```
 
-## Endpoints
+### Endpoints
 
 > info
 > For authorization, all endpoints take either a bot token or client credentials token for your application
@@ -684,12 +684,12 @@ Create a new global command. New global commands will be available in all guilds
 
 ###### JSON Params
 
-| Field       | Type                                                                                            | Description                                      |
-|-------------|-------------------------------------------------------------------------------------------------|--------------------------------------------------|
-| name        | string                                                                                          | 1-32 lowercase character name matching `^[\w-]{1,32}$` |
-| description | string                                                                                          | 1-100 character description                      |
-| options?    | array of [ApplicationCommandOption](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object-application-command-option-structure) | the parameters for the command                   |
-| default_permission? | boolean (default `true`) | whether the command is enabled by default when the app is added to a guild |
+| Field               | Type                                                                                                                                   | Description                                                                |
+| ------------------- | -------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
+| name                | string                                                                                                                                 | 1-32 lowercase character name matching `^[\w-]{1,32}$`                     |
+| description         | string                                                                                                                                 | 1-100 character description                                                |
+| options?            | array of [ApplicationCommandOption](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object-application-command-option-structure) | the parameters for the command                                             |
+| default_permission? | boolean (default `true`)                                                                                                               | whether the command is enabled by default when the app is added to a guild |
 
 ## Get Global Application Command % GET /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/commands/{command.id#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommand}
 
@@ -883,15 +883,15 @@ r = requests.put(url, headers=headers, json=json)
 
 An application command is the base "command" model that belongs to an application. This is what you are creating when you `POST` a new command.
 
-| Field          | Type                                                                                            | Description                                      |
-|----------------|-------------------------------------------------------------------------------------------------|--------------------------------------------------|
-| id             | snowflake                                                                                       | unique id of the command                         |
-| application_id | snowflake                                                                                       | unique id of the parent application              |
-| guild_id?      | snowflake                                                                                       | guild id of the command, if not global              |
-| name           | string                                                                                          | 1-32 lowercase character name matching `^[\w-]{1,32}$` |
-| description    | string                                                                                          | 1-100 character description                      |
-| options?       | array of [ApplicationCommandOption](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object-application-command-option-structure) | the parameters for the command                   |
-| default_permission? | boolean (default `true`) | whether the command is enabled by default when the app is added to a guild |
+| Field               | Type                                                                                                                                   | Description                                                                |
+| ------------------- | -------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
+| id                  | snowflake                                                                                                                              | unique id of the command                                                   |
+| application_id      | snowflake                                                                                                                              | unique id of the parent application                                        |
+| guild_id?           | snowflake                                                                                                                              | guild id of the command, if not global                                     |
+| name                | string                                                                                                                                 | 1-32 lowercase character name matching `^[\w-]{1,32}$`                     |
+| description         | string                                                                                                                                 | 1-100 character description                                                |
+| options?            | array of [ApplicationCommandOption](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object-application-command-option-structure) | the parameters for the command                                             |
+| default_permission? | boolean (default `true`)                                                                                                               | whether the command is enabled by default when the app is added to a guild |
 
 > warn
 > Required `options` must be listed before optional options
@@ -901,19 +901,19 @@ An application command is the base "command" model that belongs to an applicatio
 > info
 > You can specify a maximum of 25 `choices` per option
 
-| Field       | Type                                                                                                        | Description                                                                                             |
-|-------------|-------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------|
-| type        | int                                                                                                         | value of [ApplicationCommandOptionType](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object-application-command-option-type) |
-| name        | string                                                                                                      | 1-32 lowercase character name matching `^[\w-]{1,32}$`                                                         |
-| description | string                                                                                                      | 1-100 character description                                                                             |
-| required?   | boolean                                                                                                     | if the parameter is required or optional--default `false`                                               |
-| choices?    | array of [ApplicationCommandOptionChoice](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object-application-command-option-choice-structure) | choices for `string` and `int` types for the user to pick from                                          |
-| options?    | array of [ApplicationCommandOption](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object-application-command-option-structure)             | if the option is a subcommand or subcommand group type, this nested options will be the parameters      |
+| Field       | Type                                                                                                                                                | Description                                                                                                                           |
+| ----------- | --------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| type        | integer                                                                                                                                             | value of [ApplicationCommandOptionType](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object-application-command-option-type) |
+| name        | string                                                                                                                                              | 1-32 lowercase character name matching `^[\w-]{1,32}$`                                                                                |
+| description | string                                                                                                                                              | 1-100 character description                                                                                                           |
+| required?   | boolean                                                                                                                                             | if the parameter is required or optional--default `false`                                                                             |
+| choices?    | array of [ApplicationCommandOptionChoice](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object-application-command-option-choice-structure) | choices for `string` and `int` types for the user to pick from                                                                        |
+| options?    | array of [ApplicationCommandOption](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object-application-command-option-structure)              | if the option is a subcommand or subcommand group type, this nested options will be the parameters                                    |
 
 ###### Application Command Option Type
 
 | Name              | Value |
-|-------------------|-------|
+| ----------------- | ----- |
 | SUB_COMMAND       | 1     |
 | SUB_COMMAND_GROUP | 2     |
 | STRING            | 3     |
@@ -928,11 +928,10 @@ An application command is the base "command" model that belongs to an applicatio
 
 If you specify `choices` for an option, they are the **only** valid values for a user to pick
 
-| Field | Type          | Description                                     |
-|-------|---------------|-------------------------------------------------|
-| name  | string        | 1-100 character choice name                     |
-| value | string or int | value of the choice, up to 100 characters if string |
-
+| Field | Type              | Description                                         |
+| ----- | ----------------- |---------------------------------------------------- |
+| name  | string            | 1-100 character choice name                         |
+| value | string or integer | value of the choice, up to 100 characters if string |
 
 ## Application Command Permissions Object
 
@@ -940,28 +939,27 @@ If you specify `choices` for an option, they are the **only** valid values for a
 
 Returned when fetching the permissions for a command in a guild.
 
-| Field | Type | Description |
-| ----- | ---- | ----------- |
-| id | snowflake | the id of the command |
-| application_id | snowflake | the id of the application the command belongs to |
-| guild_id | snowflake | the id of the guild |
-| permissions | array of [ApplicationCommandPermissions](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-permissions-object-application-command-permissions-structure) | the permissions for the command in the guild |
+| Field          | Type                                                                                                                                                         | Description                                      |
+| -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------ |
+| id             | snowflake                                                                                                                                                    | the id of the command                            |
+| application_id | snowflake                                                                                                                                                    | the id of the application the command belongs to |
+| guild_id       | snowflake                                                                                                                                                    | the id of the guild                              |
+| permissions    | array of [ApplicationCommandPermissions](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-permissions-object-application-command-permissions-structure) | the permissions for the command in the guild     |
 
 ###### Application Command Permissions Structure
 
 Application command permissions allow you to enable or disable commands for specific users or roles within a guild.
 
-| Field | Type | Description |
-| ----- | ---- | ----------- |
-| id    | snowflake | the id of the role or user |
-| type | [ApplicationCommandPermissionType](#DOCS_INTERACTIONS_SLASH_COMMANDS/
-application-command-permissions-object-application-command-permission-type) | role or user |
-| permission | boolean | `true` to allow, `false`, to disallow |
+| Field      | Type                                                                                                                                             | Description                           |
+| ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------- |
+| id         | snowflake                                                                                                                                        | the id of the role or user            |
+| type       | [ApplicationCommandPermissionType](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-permissions-object-application-command-permission-type) | role or user                          |
+| permission | boolean                                                                                                                                          | `true` to allow, `false`, to disallow |
 
 ###### Application Command Permission Type
 
 | Name | Value |
-| -----| ----- |
+| ---- | ----- |
 | ROLE | 1     |
 | USER | 2     |
 
@@ -971,19 +969,19 @@ An interaction is the base "thing" that is sent when a user invokes a command, a
 
 ###### Interaction Structure
 
-| Field          | Type                                                             | Description                                                    |
-|----------------|------------------------------------------------------------------|----------------------------------------------------------------|
-| id             | snowflake                                                        | id of the interaction                                          |
-| application_id | snowflake                                                        | id of the application this interaction is for                  |
-| type           | [InteractionType](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-object-interaction-type)                                                  | the type of interaction                                        |
-| data?\*        | [ApplicationCommandInteractionData](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-object-application-command-interaction-data)                                | the command data payload                                       |
-| guild_id?      | snowflake                                                        | the guild it was sent from                                     |
-| channel_id?    | snowflake                                                        | the channel it was sent from                                   |
-| member?\*\*    | [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) object | guild member data for the invoking user, including permissions |
-| user?          | [user](#DOCS_RESOURCES_USER/user-object) object                  | user object for the invoking user, if invoked in a DM          |
-| token          | string                                                           | a continuation token for responding to the interaction         |
-| version        | int                                                              | read-only property, always `1`                                 |
-| message? | [message](#DOCS_RESOURCES_CHANNEL/message-object) object | for components, the message they were attached to |
+| Field          | Type                                                                                                                           | Description                                                    |
+| -------------- | ------------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------- |
+| id             | snowflake                                                                                                                      | id of the interaction                                          |
+| application_id | snowflake                                                                                                                      | id of the application this interaction is for                  |
+| type           | [InteractionType](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-object-interaction-type)                                       | the type of interaction                                        |
+| data?\*        | [ApplicationCommandInteractionData](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-object-application-command-interaction-data) | the command data payload                                       |
+| guild_id?      | snowflake                                                                                                                      | the guild it was sent from                                     |
+| channel_id?    | snowflake                                                                                                                      | the channel it was sent from                                   |
+| member?\*\*    | [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) object                                                               | guild member data for the invoking user, including permissions |
+| user?          | [user](#DOCS_RESOURCES_USER/user-object) object                                                                                | user object for the invoking user, if invoked in a DM          |
+| token          | string                                                                                                                         | a continuation token for responding to the interaction         |
+| version        | integer                                                                                                                        | read-only property, always `1`                                 |
+| message?       | [message](#DOCS_RESOURCES_CHANNEL/message-object) object                                                                       | for components, the message they were attached to              |
 
 \* This is always present on `ApplicationCommand` interaction types. It is optional for future-proofing against new interaction types
 
@@ -992,21 +990,21 @@ An interaction is the base "thing" that is sent when a user invokes a command, a
 ###### Interaction Request Type
 
 | Name               | Value |
-|--------------------|-------|
+| ------------------ | ----- |
 | Ping               | 1     |
 | ApplicationCommand | 2     |
 | MessageComponent   | 3     |
 
 ###### Application Command Interaction Data Structure
 
-| Field     | Type                                             | Description                        |
-|-----------|--------------------------------------------------|------------------------------------|
-| id        | snowflake                                        | the ID of the invoked command      |
-| name      | string                                           | the name of the invoked command    |
-| resolved? | [ApplicationCommandInteractionDataResolved](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-object-application-command-interaction-data-resolved-structure)        | converted users + roles + channels |
-| options?  | array of [ApplicationCommandInteractionDataOption](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-object-application-command-interaction-data-option-structure) | the params + values from the user  |
-| custom_id | string | for components, the [`custom_id`](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/custom-id) of the component |
-| component_type | int | for components, the [type](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-types) of the component |
+| Field          | Type                                                                                                                                                           | Description                                                                                         |
+| -------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
+| id             | snowflake                                                                                                                                                      | the ID of the invoked command                                                                       |
+| name           | string                                                                                                                                                         | the name of the invoked command                                                                     |
+| resolved?      | [ApplicationCommandInteractionDataResolved](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-object-application-command-interaction-data-resolved-structure)      | converted users + roles + channels                                                                  |
+| options?       | array of [ApplicationCommandInteractionDataOption](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-object-application-command-interaction-data-option-structure) | the params + values from the user                                                                   |
+| custom_id      | string                                                                                                                                                         | for components, the [`custom_id`](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/custom-id) of the component |
+| component_type | integer                                                                                                                                                        | for components, the [type](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-types) of the component  |
 
 ###### Application Command Interaction Data Resolved Structure
 
@@ -1014,11 +1012,11 @@ An interaction is the base "thing" that is sent when a user invokes a command, a
 > If data for a Member is included, data for its corresponding User will also be included.
 
 | Field         | Type                                                                                     | Description                         |
-|---------------|------------------------------------------------------------------------------------------|-------------------------------------|
+| ------------- | ---------------------------------------------------------------------------------------- | ----------------------------------- |
 | users?        | Map of Snowflakes to [User Objects](#DOCS_RESOURCES_USER/user-object)                    | the IDs and User objects            |
-| members?\*    | Map of Snowflakes to [Partial Member Objects](#DOCS_RESOURCES_GUILD/guild-member-object)  | the IDs and partial Member objects  |
-| roles?        | Map of Snowflakes to [Role Objects](#DOCS_TOPICS_PERMISSIONS/role-object)                 | the IDs and Role objects            |
-| channels?\*\* | Map of Snowflakes to [Partial Channel Objects](#DOCS_RESOURCES_CHANNEL/channel-object)    | the IDs and partial Channel objects |
+| members?\*    | Map of Snowflakes to [Partial Member Objects](#DOCS_RESOURCES_GUILD/guild-member-object) | the IDs and partial Member objects  |
+| roles?        | Map of Snowflakes to [Role Objects](#DOCS_TOPICS_PERMISSIONS/role-object)                | the IDs and Role objects            |
+| channels?\*\* | Map of Snowflakes to [Partial Channel Objects](#DOCS_RESOURCES_CHANNEL/channel-object)   | the IDs and partial Channel objects |
 
 \* Partial `Member` objects are missing `user`, `deaf` and `mute` fields
 
@@ -1030,39 +1028,37 @@ All options have names, and an option can either be a parameter and input value-
 
 `value` and `options` are mutually exclusive.
 
-| Field    | Type                                             | Description                                                                                             |
-|----------|--------------------------------------------------|---------------------------------------------------------------------------------------------------------|
-| name     | string                                           | the name of the parameter                                                                               |
-| type     | int                                              | value of [ApplicationCommandOptionType](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object-application-command-option-type) |
-| value?   | [OptionType](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object-application-command-option-type)                                       | the value of the pair                                                                                   |
-| options? | array of [ApplicationCommandInteractionDataOption](
-#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-object-application-command-interaction-data-option-structure) | present if this option is a group or subcommand                                                         |
+| Field    | Type                                                                                                                                                           | Description                                                                                                                           |
+| -------- |--------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| name     | string                                                                                                                                                         | the name of the parameter                                                                                                             |
+| type     | integer                                                                                                                                                        | value of [ApplicationCommandOptionType](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object-application-command-option-type) |
+| value?   | [OptionType](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object-application-command-option-type)                                                     | the value of the pair                                                                                                                 |
+| options? | array of [ApplicationCommandInteractionDataOption](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-object-application-command-interaction-data-option-structure) | present if this option is a group or subcommand                                                                                       |
 
 ## Interaction Response Object
 
 After receiving an interaction, you must respond to acknowledge it. You can choose to respond with a message immediately using type `4`, or you can choose to send a deferred response with type `5`. If choosing a deferred response, the user will see a loading state for the interaction, and you'll have up to 15 minutes to edit the original deferred response using [Edit Original Interaction Response](#DOCS_INTERACTIONS_SLASH_COMMANDS/edit-original-interaction-response).
 
-![A deferred response tells the user "Bot name is thinking"](deferred-example.png)
+![A deferred response tells the user "{bot name} is thinking"](deferred-example.png)
 
 Interaction responses can also be public—everyone can see it—or "ephemeral"—only the invoking user can see it. That is determined by setting `flags` to `64` on the [InteractionApplicationCommandCallbackData](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-response-object-interaction-application-command-callback-data-structure).
 
 ###### Interaction Response Structure
 
-
-| Field | Type                                      | Description                  |
-|-------|-------------------------------------------|------------------------------|
-| type  | [InteractionCallbackType](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-response-object-interaction-callback-type)                   | the type of response         |
+| Field | Type                                                                                                                                                               | Description                  |
+| ----- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------- |
+| type  | [InteractionCallbackType](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-response-object-interaction-callback-type)                                                 | the type of response         |
 | data? | [InteractionApplicationCommandCallbackData](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-response-object-interaction-application-command-callback-data-structure) | an optional response message |
 
 ###### Interaction Callback Type
 
-| Name                             | Value | Description                                                                 |
-|----------------------------------|-------|-----------------------------------------------------------------------------|
-| Pong                             | 1     | ACK a `Ping`                                                                |
-| ChannelMessageWithSource         | 4     | respond to an interaction with a message                                    |
-| DeferredChannelMessageWithSource | 5     | ACK an interaction and edit a response later, the user sees a loading state |
-| DeferredUpdateMessage\* | 6 | for components, ACK an interaction and edit the original message later; the user does not see a loading state |
-| UpdateMessage\* | 7 | for components, edit the message the component was attached to |
+| Name                             | Value | Description                                                                                                   |
+| -------------------------------- | ----- | ------------------------------------------------------------------------------------------------------------- |
+| Pong                             | 1     | ACK a `Ping`                                                                                                  |
+| ChannelMessageWithSource         | 4     | respond to an interaction with a message                                                                      |
+| DeferredChannelMessageWithSource | 5     | ACK an interaction and edit a response later, the user sees a loading state                                   |
+| DeferredUpdateMessage\*          | 6     | for components, ACK an interaction and edit the original message later; the user does not see a loading state |
+| UpdateMessage\*                  | 7     | for components, edit the message the component was attached to                                                |
 
 \* Only valid for [component-based](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/) interactions
 
@@ -1070,14 +1066,14 @@ Interaction responses can also be public—everyone can see it—or "ephemeral"�
 
 Not all message fields are currently supported.
 
-| Name              | Value                                                    | Description                                                                                 |
-|-------------------|----------------------------------------------------------|---------------------------------------------------------------------------------------------|
-| tts?              | boolean                                                  | is the response TTS                                                                         |
-| content?          | string                                                   | message content                                                                             |
-| embeds?           | array of [embeds](#DOCS_RESOURCES_CHANNEL/embed-object)  | supports up to 10 embeds                                                                    |
-| allowed_mentions? | [allowed mentions](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object)                                         | [allowed mentions](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object) object                  |
-| flags?            | int                                                      | set to `64` to make your response ephemeral                                                 |
-| components?       | array of [components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS)| message components    |
+| Name              | Value                                                               | Description                                                                |
+| ----------------- | ------------------------------------------------------------------- | -------------------------------------------------------------------------- |
+| tts?              | boolean                                                             | is the response TTS                                                        |
+| content?          | string                                                              | message content                                                            |
+| embeds?           | array of [embeds](#DOCS_RESOURCES_CHANNEL/embed-object)             | supports up to 10 embeds                                                   |
+| allowed_mentions? | [allowed mentions](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object) | [allowed mentions](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object) object |
+| flags?            | integer                                                             | set to `64` to make your response ephemeral                                |
+| components?       | array of [components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS)        | message components                                                         |
 
 ## Message Interaction Object
 
@@ -1085,9 +1081,9 @@ This is sent on the [message object](#DOCS_RESOURCES_CHANNEL/message-object) whe
 
 ###### Message Interaction Structure
 
-| Name | Value | Description |
-| --- | --- | --- |
-| id           | snowflake                                                        | id of the interaction                                          |
-| type         | [InteractionType](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-object-interaction-type)                                                  | the type of interaction                                        |
-| name | string | the name of the [ApplicationCommand](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object-application-command-structure) |
-| user | [user object](#DOCS_RESOURCES_USER/user-object) | the user who invoked the interaction |
+| Name | Value                                                                                    | Description                                                                                                                      |
+| ---- | ---------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| id   | snowflake                                                                                | id of the interaction                                                                                                            |
+| type | [InteractionType](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-object-interaction-type) | the type of interaction                                                                                                          |
+| name | string                                                                                   | the name of the [ApplicationCommand](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object-application-command-structure) |
+| user | [user object](#DOCS_RESOURCES_USER/user-object)                                          | the user who invoked the interaction                                                                                             |
