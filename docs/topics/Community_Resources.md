@@ -14,45 +14,45 @@ Many of these libraries are represented in the [unofficial, community-driven Dis
 
 ###### Discord Libraries
 
-| Name                                                         | Language   |
-| ------------------------------------------------------------ | ---------- |
-| [discljord](https://github.com/igjoshua/discljord)           | Clojure    |
-| [aegis.cpp](https://github.com/zeroxs/aegis.cpp)             | C++        |
-| [D++](https://github.com/brainboxdotcc/DPP)                  | C++        |
-| [Sleepy Discord](https://github.com/yourWaifu/sleepy-discord)| C++        |
-| [discordcr](https://github.com/shardlab/discordcr)           | Crystal    |
-| [Remora.Discord](https://github.com/Nihlus/Remora.Discord)   | C#         |
-| [Discord.Net](https://github.com/RogueException/Discord.Net) | C#         |
-| [DSharpPlus](https://github.com/DSharpPlus/DSharpPlus)       | C#         |
-| [coxir](https://github.com/satom99/coxir)                    | Elixir     |
-| [Nostrum](https://github.com/Kraigie/nostrum)                | Elixir     |
-| [DiscordGo](https://github.com/bwmarrin/discordgo)           | Go         |
-| [DisGord](https://github.com/andersfylling/disgord)          | Go         |
-| [catnip](https://github.com/mewna/catnip)                    | Java       |
-| [Discord4J](https://discord4j.com/)                          | Java       |
-| [Javacord](https://github.com/Javacord/Javacord)             | Java       |
-| [JDA](https://github.com/DV8FromTheWorld/JDA)                | Java       |
-| [discord.js](https://github.com/discordjs/discord.js)        | JavaScript |
-| [Discord Slim](https://github.com/HanabishiRecca/Discord-Slim) | JavaScript / TypeScript |
-| [Eris](https://github.com/abalabahaha/eris)                  | JavaScript |
-| [Discord.jl](https://github.com/Xh4H/Discord.jl)             | Julia      |
-| [Discordia](https://github.com/SinisterRectus/Discordia)     | Lua        |
-| [Dimscord](https://github.com/krisppurg/dimscord)            | Nim        |
-| [discordnim](https://github.com/Krognol/discordnim)          | Nim        |
-| [DiscordPHP](https://github.com/discord-php/DiscordPHP)      | PHP        |
-| [RestCord](https://www.restcord.com/)                        | PHP        |
-| [discord.py](https://github.com/Rapptz/discord.py)           | Python     |
-| [disco](https://github.com/b1naryth1ef/disco)                | Python     |
-| [discordrb](https://github.com/shardlab/discordrb)           | Ruby       |
-| [discord-rs](https://github.com/SpaceManiac/discord-rs)      | Rust       |
-| [Serenity](https://github.com/serenity-rs/serenity)          | Rust       |
-| [Twilight](https://github.com/twilight-rs/twilight)          | Rust       |
-| [AckCord](https://github.com/Katrix/AckCord)                 | Scala      |
-| [Sword](https://github.com/Azoy/Sword)                       | Swift      |
-| [Detritus](https://github.com/detritusjs/client)             | TypeScript |
-| [discordeno](https://github.com/discordeno/discordeno)       | TypeScript |
-| [droff](https://github.com/tim-smart/droff)                  | TypeScript |
-| [Harmony](https://github.com/harmonyland/harmony)            | TypeScript |
+| Name                                                           | Language   |
+| -------------------------------------------------------------- | ---------- |
+| [discljord](https://github.com/igjoshua/discljord)             | Clojure    |
+| [aegis.cpp](https://github.com/zeroxs/aegis.cpp)               | C++        |
+| [D++](https://github.com/brainboxdotcc/DPP)                    | C++        |
+| [Sleepy Discord](https://github.com/yourWaifu/sleepy-discord)  | C++        |
+| [discordcr](https://github.com/shardlab/discordcr)             | Crystal    |
+| [Remora.Discord](https://github.com/Nihlus/Remora.Discord)     | C#         |
+| [Discord.Net](https://github.com/RogueException/Discord.Net)   | C#         |
+| [DSharpPlus](https://github.com/DSharpPlus/DSharpPlus)         | C#         |
+| [coxir](https://github.com/satom99/coxir)                      | Elixir     |
+| [Nostrum](https://github.com/Kraigie/nostrum)                  | Elixir     |
+| [DiscordGo](https://github.com/bwmarrin/discordgo)             | Go         |
+| [DisGord](https://github.com/andersfylling/disgord)            | Go         |
+| [catnip](https://github.com/mewna/catnip)                      | Java       |
+| [Discord4J](https://discord4j.com/)                            | Java       |
+| [Javacord](https://github.com/Javacord/Javacord)               | Java       |
+| [JDA](https://github.com/DV8FromTheWorld/JDA)                  | Java       |
+| [discord.js](https://github.com/discordjs/discord.js)          | JavaScript |
+| [Eris](https://github.com/abalabahaha/eris)                    | JavaScript |
+| [Discord.jl](https://github.com/Xh4H/Discord.jl)               | Julia      |
+| [Discordia](https://github.com/SinisterRectus/Discordia)       | Lua        |
+| [Dimscord](https://github.com/krisppurg/dimscord)              | Nim        |
+| [discordnim](https://github.com/Krognol/discordnim)            | Nim        |
+| [DiscordPHP](https://github.com/discord-php/DiscordPHP)        | PHP        |
+| [RestCord](https://www.restcord.com/)                          | PHP        |
+| [discord.py](https://github.com/Rapptz/discord.py)             | Python     |
+| [disco](https://github.com/b1naryth1ef/disco)                  | Python     |
+| [discordrb](https://github.com/shardlab/discordrb)             | Ruby       |
+| [discord-rs](https://github.com/SpaceManiac/discord-rs)        | Rust       |
+| [Serenity](https://github.com/serenity-rs/serenity)            | Rust       |
+| [Twilight](https://github.com/twilight-rs/twilight)            | Rust       |
+| [AckCord](https://github.com/Katrix/AckCord)                   | Scala      |
+| [Sword](https://github.com/Azoy/Sword)                         | Swift      |
+| [Detritus](https://github.com/detritusjs/client)               | TypeScript |
+| [discordeno](https://github.com/discordeno/discordeno)         | TypeScript |
+| [Discord Slim](https://github.com/HanabishiRecca/Discord-Slim) | TypeScript |
+| [droff](https://github.com/tim-smart/droff)                    | TypeScript |
+| [Harmony](https://github.com/harmonyland/harmony)              | TypeScript |
 
 ## Interactions
 
