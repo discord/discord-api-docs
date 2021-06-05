@@ -869,7 +869,7 @@ headers = {
 r = requests.put(url, headers=headers, json=json)
 ```
 
-### Data Models and Types
+## Data Models and Types
 
 ### Application Command Object
 

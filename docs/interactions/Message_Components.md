@@ -1,6 +1,6 @@
 # Message Components
 
-Message components&#x2014;we'll call them "components" moving forward--are a framework for adding interactive elements to the messages your app or bot sends. They're accessible, customizable, and easy to use.
+Message components&#x2014;we'll call them "components" moving forward&#x2014;are a framework for adding interactive elements to the messages your app or bot sends. They're accessible, customizable, and easy to use.
 
 There are several different types of components; this documentation will outline the basics of this new framework and each example.
 
