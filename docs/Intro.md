@@ -16,6 +16,8 @@ Discord offers an open API to serve requests for both bots and OAuth2 integratio
 
 So go do it! Go! Go [make an app](https://discord.com/developers/applications) and create something awesome.
 
+Note: `If you are under 16, you can call yourself unlucky, we won't verify your bot unless your parents give us their ID, or someone else does for you. Enjoy wasting your time`
+
 ## Games
 
 We love games, and we love helping game developers. If YOU have a game that you want to supercharge with Discord, then we have just the thing for you.
