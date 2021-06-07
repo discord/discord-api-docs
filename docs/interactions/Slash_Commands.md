@@ -954,8 +954,7 @@ Application command permissions allow you to enable or disable commands for spec
 | Field | Type | Description |
 | ----- | ---- | ----------- |
 | id    | snowflake | the id of the role or user |
-| type | [ApplicationCommandPermissionType](#DOCS_INTERACTIONS_SLASH_COMMANDS/
-application-command-permissions-object-application-command-permission-type) | role or user |
+| type | [ApplicationCommandPermissionType](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-permissions-object-application-command-permission-type) | role or user |
 | permission | boolean | `true` to allow, `false`, to disallow |
 
 ###### Application Command Permission Type
@@ -1035,8 +1034,7 @@ All options have names, and an option can either be a parameter and input value-
 | name     | string                                           | the name of the parameter                                                                               |
 | type     | int                                              | value of [ApplicationCommandOptionType](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object-application-command-option-type) |
 | value?   | [OptionType](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object-application-command-option-type)                                       | the value of the pair                                                                                   |
-| options? | array of [ApplicationCommandInteractionDataOption](
-#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-object-application-command-interaction-data-option-structure) | present if this option is a group or subcommand                                                         |
+| options? | array of [ApplicationCommandInteractionDataOption](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-object-application-command-interaction-data-option-structure) | present if this option is a group or subcommand                                                         |
 
 ## Interaction Response Object
 
