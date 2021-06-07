@@ -947,11 +947,11 @@ Returned when fetching the permissions for a command in a guild.
 
 Application command permissions allow you to enable or disable commands for specific users or roles within a guild.
 
-| Field      | Type                                                                                                                                             | Description                           |
-| ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------- |
-| id         | snowflake                                                                                                                                        | the id of the role or user            |
-| type       | [ApplicationCommandPermissionType](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-permissions-object-application-command-permission-type) | role or user                          |
-| permission | boolean                                                                                                                                          | `true` to allow, `false`, to disallow |
+| Field | Type | Description |
+| ----- | ---- | ----------- |
+| id    | snowflake | the id of the role or user |
+| type | [ApplicationCommandPermissionType](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-permissions-object-application-command-permission-type) | role or user |
+| permission | boolean | `true` to allow, `false`, to disallow |
 
 ###### Application Command Permission Type
 
