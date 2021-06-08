@@ -1095,11 +1095,11 @@ Edit the channel permission overwrites for a user or role in a channel. Only usa
 
 ###### JSON Params
 
-| Field | Type    | Description                                     | Default |
-|-------|---------|-------------------------------------------------|---------|
-| allow | string  | the bitwise value of all allowed permissions    | 0       |
-| deny  | string  | the bitwise value of all disallowed permissions | 0       |
-| type  | integer | 0 for a role or 1 for a member                  | 0       |
+| Field | Type    | Description                                     | Default   |
+|-------|---------|-------------------------------------------------|-----------|
+| allow | string  | the bitwise value of all allowed permissions    | "0"       |
+| deny  | string  | the bitwise value of all disallowed permissions | "0"       |
+| type  | integer | 0 for a role or 1 for a member                  | 0         |
 
 ## Get Channel Invites % GET /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/invites
 
