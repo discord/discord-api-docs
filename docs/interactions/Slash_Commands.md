@@ -82,7 +82,7 @@ To make a **global** Slash Command, make an HTTP POST call like this:
 import requests
 
 
-url = "https://discord.com/api/v8/applications/<my_application_id>/commands"
+url = "https://discord.com/api/v9/applications/<my_application_id>/commands"
 
 json = {
     "name": "blep",
@@ -141,7 +141,7 @@ To make a **guild** Slash Command, make a similar HTTP POST call, but scope it t
 import requests
 
 
-url = "https://discord.com/api/v8/applications/<my_application_id>/guilds/<guild_id>/commands"
+url = "https://discord.com/api/v9/applications/<my_application_id>/guilds/<guild_id>/commands"
 
 json = # ...
 ```
@@ -270,7 +270,7 @@ If you are receiving Interactions over the gateway, you will **also need to resp
 To respond to a gateway Interaction, make a `POST` request like this. `interaction_id` is the unique id of that individual Interaction from the received payload. `interaction_token` is the unique token for that interaction from the received payload. **This endpoint is only valid for Interactions received over the gateway. Otherwise, respond to the `POST` request to issue an initial response.**
 
 ```py
-url = "https://discord.com/api/v8/interactions/<interaction_id>/<interaction_token>/callback"
+url = "https://discord.com/api/v9/interactions/<interaction_id>/<interaction_token>/callback"
 
 json = {
     "type": 4,
@@ -647,7 +647,7 @@ To enable it just for a moderator role:
 
 ```py
 MODERATOR_ROLE_ID = "<moderator_role_id>"
-url = "https://discord.com/api/v8/applications/<my_application_id>/guilds/<my_guild_id>/commands/<my_command_id>/permissions"
+url = "https://discord.com/api/v9/applications/<my_application_id>/guilds/<my_guild_id>/commands/<my_command_id>/permissions"
 
 json = {
     "permissions": [
@@ -840,7 +840,7 @@ FIRST_COMMAND_ID = "<first_command_id>"
 SECOND_COMMAND_ID = "<second_command_id>"
 ADMIN_ROLE_ID = "<admin_role_id>"
 
-url = "https://discord.com/api/v8/applications/<my_application_id>/guilds/<my_guild_id>/commands/permissions"
+url = "https://discord.com/api/v9/applications/<my_application_id>/guilds/<my_guild_id>/commands/permissions"
 
 json = [
     {
