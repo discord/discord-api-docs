@@ -4,7 +4,7 @@
 
 #### June 9, 2021
 
-Message routes now accept an `embeds` field in addition to the existing `embed`. The `embed` field is considered deprecated and will be removed in the next API version.
+Message routes now accept an `embeds` field in addition to the existing `embed` field. The `embed` field is considered deprecated and will be removed in the next API version.
 
 ## Buttons and Message Components
 
