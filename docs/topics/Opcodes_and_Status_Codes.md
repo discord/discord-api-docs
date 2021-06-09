@@ -157,6 +157,8 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 30013  | Maximum number of guild channels reached (500)                                                                                |
 | 30015  | Maximum number of attachments in a message reached (10)                                                                       |
 | 30016  | Maximum number of invites reached (1000)                                                                                      |
+| 30018  | Maximum number of animated emojis reached                                                                                     |
+| 30019  | Maximum number of server members reached                                                                                      |
 | 30031  | Guild already has a template                                                                                                  |
 | 30035  | Maximum number of bans for non-guild members have been exceeded                                                               |
 | 30037  | Maximum number of bans fetches has been reached                                                                               |
