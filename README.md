@@ -9,7 +9,7 @@ This repository uses special markdown syntax that helps style the resulting web 
 ### H6 Headings
 H6 headings should be used above tables and code blocks to properly label them.
 
-### Linking
+### Linking 
 Links between docs can be achieved by using a hash symbol (#), plus the markdown file name, plus a slash, and finally the dash-separated anchor. For instance, to link to the above H6 heading section:
 
 ```md
