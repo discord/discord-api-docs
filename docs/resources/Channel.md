@@ -540,10 +540,12 @@ A thread member is used to indicate whether a user has joined a thread or not.
 
 | Field          | Type              | Description                                                     |
 |----------------|-------------------|-----------------------------------------------------------------|
-| id             | snowflake         | the id of the thread                                            |
-| user_id        | snowflake         | the id of the user                                              |
+| id? \*         | snowflake         | the id of the thread                                            |
+| user_id? \*    | snowflake         | the id of the user                                              |
 | join_timestamp | ISO8601 timestamp | the time the current user last joined the thread                |
 | flags          | integer           | any user-thread settings, currently only used for notifications |
+
+** \* These fields are ommitted on the member sent within each thread in the [GUILD_CREATE](#DOCS_TOPICS_GATEWAY/guild-create) event **
 
 ### Embed Object
 
