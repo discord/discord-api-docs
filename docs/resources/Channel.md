@@ -913,10 +913,10 @@ You may create a message as a reply to another message. To do so, include a [`me
 {
   "content": "Hello, World!",
   "tts": false,
-  "embed": {
+  "embeds": [{
     "title": "Hello, Embed!",
     "description": "This is an embedded message."
-  }
+  }]
 }
 ```
 
@@ -947,10 +947,10 @@ Content-Type: application/json
 
 {
   "content": "Hello, World!",
-  "embed": {
+  "embeds": [{
     "title": "Hello, Embed!",
     "description": "This is an embedded message."
-  },
+  }],
   "message_reference": {
     "message_id": "233648473390448641"
   }
@@ -976,11 +976,11 @@ For example:
 
 ```json
 {
-  "embed": {
+  "embeds": [{
     "image": {
       "url": "attachment://screenshot.png"
     }
-  }
+  }]
 }
 ```
 
@@ -1050,7 +1050,7 @@ Returns a [message](#DOCS_RESOURCES_CHANNEL/message-object) object. Fires a [Mes
 | Field            | Type                                                                                 | Description                                                                                                                             |
 | ---------------- | ------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------- |
 | content          | string                                                                               | the message contents (up to 2000 characters)                                                                                            |
-| embeds           | array of [embed](#DOCS_RESOURCES_CHANNEL/embed-object) object                        | embedded `rich` content                                                                                                                 |
+| embeds           | array of [embed](#DOCS_RESOURCES_CHANNEL/embed-object) objects                       | embedded `rich` content                                                                                                                 |
 | flags            | integer                                                                              | edit the [flags](#DOCS_RESOURCES_CHANNEL/message-object-message-flags) of a message (only `SUPPRESS_EMBEDS` can currently be set/unset) |
 | file             | file contents                                                                        | the contents of the file being sent/edited                                                                                              |
 | payload_json     | string                                                                               | JSON encoded body of non-file params (multipart/form-data only)                                                                         |
