@@ -6,32 +6,33 @@ Represents a guild or DM channel within Discord.
 
 ###### Channel Structure
 
-| Field                  | Type                                                                       | Description                                                                                                                                                                     |
-|------------------------|----------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| id                     | snowflake                                                                  | the id of this channel                                                                                                                                                          |
-| type                   | integer                                                                    | the [type of channel](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types)                                                                                                     |
-| guild_id?              | snowflake                                                                  | the id of the guild (may be missing for some channel objects received over gateway guild dispatches)                                                                            |
-| position?              | integer                                                                    | sorting position of the channel                                                                                                                                                 |
-| permission_overwrites? | array of [overwrite](#DOCS_RESOURCES_CHANNEL/overwrite-object) objects     | explicit permission overwrites for members and roles                                                                                                                            |
-| name?                  | string                                                                     | the name of the channel (1-100 characters)                                                                                                                                      |
-| topic?                 | ?string                                                                    | the channel topic (0-1024 characters)                                                                                                                                           |
-| nsfw?                  | boolean                                                                    | whether the channel is nsfw                                                                                                                                                     |
-| last_message_id?       | ?snowflake                                                                 | the id of the last message sent in this channel (may not point to an existing or valid message)                                                                                 |
-| bitrate?               | integer                                                                    | the bitrate (in bits) of the voice channel                                                                                                                                      |
-| user_limit?            | integer                                                                    | the user limit of the voice channel                                                                                                                                             |
-| rate_limit_per_user?   | integer                                                                    | amount of seconds a user has to wait before sending another message (0-21600); bots, as well as users with the permission `manage_messages` or `manage_channel`, are unaffected |
-| recipients?            | array of [user](#DOCS_RESOURCES_USER/user-object) objects                  | the recipients of the DM                                                                                                                                                        |
-| icon?                  | ?string                                                                    | icon hash                                                                                                                                                                       |
-| owner_id?              | snowflake                                                                  | id of the creator of the group DM or thread                                                                                                                                     |
-| application_id?        | snowflake                                                                  | application id of the group DM creator if it is bot-created                                                                                                                     |
-| parent_id?             | ?snowflake                                                                 | for guild channels: id of the parent category for a channel (each parent category can contain up to 50 channels), for threads: id of the text channel this thread was created   |
-| last_pin_timestamp?    | ?ISO8601 timestamp                                                         | when the last pinned message was pinned. This may be `null` in events such as `GUILD_CREATE` when a message is not pinned.                                                      |
-| rtc_region?            | ?string                                                                    | [voice region](#DOCS_RESOURCES_VOICE/voice-region-object) id for the voice channel, automatic when set to null                                                                  |
-| video_quality_mode?    | integer                                                                    | the camera [video quality mode](#DOCS_RESOURCES_CHANNEL/channel-object-video-quality-modes) of the voice channel, 1 when not present                                            |
-| message_count?         | integer                                                                    | an approximate count of messages in a thread, stops counting at 50                                                                                                              |
-| member_count?          | integer                                                                    | an approximate count of users in a thread, stops counting at 50                                                                                                                 |
-| thread_metadata?       | a [thread metadata](#DOCS_RESOURCES_CHANNEL/thread-metadata-object) object | thread-specific fields not needed by other channels                                                                                                                             |
-| member?                | a [thread member](#DOCS_RESOURCES_CHANNEL/thread-member-object) object     | thread member object for the current user, if they have joined the thread, only included on certain API endpoints                                                               |
+| Field                          | Type                                                                       | Description                                                                                                                                                                     |
+|--------------------------------|----------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| id                             | snowflake                                                                  | the id of this channel                                                                                                                                                          |
+| type                           | integer                                                                    | the [type of channel](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types)                                                                                                     |
+| guild_id?                      | snowflake                                                                  | the id of the guild (may be missing for some channel objects received over gateway guild dispatches)                                                                            |
+| position?                      | integer                                                                    | sorting position of the channel                                                                                                                                                 |
+| permission_overwrites?         | array of [overwrite](#DOCS_RESOURCES_CHANNEL/overwrite-object) objects     | explicit permission overwrites for members and roles                                                                                                                            |
+| name?                          | string                                                                     | the name of the channel (1-100 characters)                                                                                                                                      |
+| topic?                         | ?string                                                                    | the channel topic (0-1024 characters)                                                                                                                                           |
+| nsfw?                          | boolean                                                                    | whether the channel is nsfw                                                                                                                                                     |
+| last_message_id?               | ?snowflake                                                                 | the id of the last message sent in this channel (may not point to an existing or valid message)                                                                                 |
+| bitrate?                       | integer                                                                    | the bitrate (in bits) of the voice channel                                                                                                                                      |
+| user_limit?                    | integer                                                                    | the user limit of the voice channel                                                                                                                                             |
+| rate_limit_per_user?           | integer                                                                    | amount of seconds a user has to wait before sending another message (0-21600); bots, as well as users with the permission `manage_messages` or `manage_channel`, are unaffected |
+| recipients?                    | array of [user](#DOCS_RESOURCES_USER/user-object) objects                  | the recipients of the DM                                                                                                                                                        |
+| icon?                          | ?string                                                                    | icon hash                                                                                                                                                                       |
+| owner_id?                      | snowflake                                                                  | id of the creator of the group DM or thread                                                                                                                                     |
+| application_id?                | snowflake                                                                  | application id of the group DM creator if it is bot-created                                                                                                                     |
+| parent_id?                     | ?snowflake                                                                 | for guild channels: id of the parent category for a channel (each parent category can contain up to 50 channels), for threads: id of the text channel this thread was created   |
+| last_pin_timestamp?            | ?ISO8601 timestamp                                                         | when the last pinned message was pinned. This may be `null` in events such as `GUILD_CREATE` when a message is not pinned.                                                      |
+| rtc_region?                    | ?string                                                                    | [voice region](#DOCS_RESOURCES_VOICE/voice-region-object) id for the voice channel, automatic when set to null                                                                  |
+| video_quality_mode?            | integer                                                                    | the camera [video quality mode](#DOCS_RESOURCES_CHANNEL/channel-object-video-quality-modes) of the voice channel, 1 when not present                                            |
+| message_count?                 | integer                                                                    | an approximate count of messages in a thread, stops counting at 50                                                                                                              |
+| member_count?                  | integer                                                                    | an approximate count of users in a thread, stops counting at 50                                                                                                                 |
+| thread_metadata?               | a [thread metadata](#DOCS_RESOURCES_CHANNEL/thread-metadata-object) object | thread-specific fields not needed by other channels                                                                                                                             |
+| member?                        | a [thread member](#DOCS_RESOURCES_CHANNEL/thread-member-object) object     | thread member object for the current user, if they have joined the thread, only included on certain API endpoints                                                               |
+| default_auto_archive_duration? | integer                                                                    | default duration for newly created threads, in minutes, to automatically archive the thread after recent activity, can be set to: 60, 1440, 4320, 10080                         |
 
 ###### Channel Types
 
@@ -217,7 +218,6 @@ The [threads](#DOCS_TOPICS_THREADS) topic has some more information.
   "rate_limit_per_user": 2,
   "thread_metadata": {
     "archived": false,
-    "archiver_id": "41771983423143937",
     "auto_archive_duration": 1440,
     "archive_timestamp": "2021-04-12T23:40:39.855793+00:00",
     "locked": false
@@ -527,7 +527,6 @@ The thread metadata object contains a number of thread-specific channel fields t
 | Field                 | Type              | Description                                                                                                         |
 |-----------------------|-------------------|---------------------------------------------------------------------------------------------------------------------|
 | archived              | boolean           | whether the thread is archived                                                                                      |
-| archiver_id?          | snowflake         | id of the user that last archived or unarchived the thread                                                          |
 | auto_archive_duration | integer           | duration in minutes to automatically archive the thread after recent activity, can be set to: 60, 1440, 4320, 10080 |
 | archive_timestamp     | ISO8601 timestamp | timestamp when the thread's archive status was last changed, used for calculating recent activity                   |
 | locked?               | boolean           | when a thread is locked, only users with MANAGE_THREADS can unarchive it                                            |
@@ -824,9 +823,9 @@ Requires the `MANAGE_CHANNELS` permission for the guild. Fires a [Channel Update
 
 ###### JSON Params (Thread)
 
-When setting `archived` to `false`, only the `SEND_MESSAGES` permission is required.
+When setting `archived` to `false`, when `locked` is also `false`, only the `SEND_MESSAGES` permission is required.
 
-Otherwise, requires the `MANAGE_THREADS` permission for the guild.  Fires a [Thread Update](#DOCS_TOPICS_GATEWAY/thread-update) Gateway event.  Requires the thread to have `archived` set to `false`.
+Otherwise, requires the `MANAGE_THREADS` permission.  Fires a [Thread Update](#DOCS_TOPICS_GATEWAY/thread-update) Gateway event.  Requires the thread to have `archived` set to `false` or be set to `false` in the request.
 
 | Field                 | Type     | Description                                                                                                                                                                                       |
 |-----------------------|----------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -1199,7 +1198,7 @@ Removes the current user from a thread. Also requires the thread is not archived
 
 ## Remove Thread Member % DELETE /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/thread-members/{user.id#DOCS_RESOURCES_USER/user-object}
 
-Removes another member from a thread. Requires the `MANAGE_THREADS` permission or that you are the creator of the thread. Also requires the thread is not archived. Returns a 204 empty response on success. Fires a [Thread Members Update](#DOCS_TOPICS_GATEWAY/thread-members-update) Gateway event.
+Removes another member from a thread. Requires the `MANAGE_THREADS` permission, or the creator of the thread if it is a `GUILD_PRIVATE_THREAD`. Also requires the thread is not archived. Returns a 204 empty response on success. Fires a [Thread Members Update](#DOCS_TOPICS_GATEWAY/thread-members-update) Gateway event.
 
 ## List Thread Members % GET /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/thread-members
 
@@ -1210,7 +1209,7 @@ Returns array of [thread members](#DOCS_RESOURCES_CHANNEL/thread-member-object) 
 
 ## List Active Threads % GET /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/threads/active
 
-Returns all active threads in the channel, including public and private threads. Threads are ordered by their `id`, in descending order. Requires the `READ_MESSAGE_HISTORY` permission.
+Returns all active threads in the channel, including public and private threads. Threads are ordered by their `id`, in descending order.
 
 ###### Response Body
 
