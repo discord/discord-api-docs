@@ -886,28 +886,29 @@ Post a message to a guild text or DM channel. Returns a [message](#DOCS_RESOURCE
 You may create a message as a reply to another message. To do so, include a [`message_reference`](#DOCS_RESOURCES_CHANNEL/message-reference-object-message-reference-structure) with a `message_id`. The `channel_id` and `guild_id` in the `message_reference` are optional, but will be validated if provided.
 
 > info
-> Note that when sending a message, you must provide a value for at **least one of** `content`, `embed`, or `file`.
+> Note that when sending a message, you must provide a value for at **least one of** `content`, `embeds`, or `file`.
 
 > info
 > For a `file` attachment, the `Content-Disposition` subpart header MUST contain a `filename` parameter.
 
 > warn
 > This endpoint supports both `application/json` and `multipart/form-data` bodies. When uploading files the `multipart/form-data` content type must be used.
-> Note that in multipart form data, the `embed` and `allowed_mentions` fields cannot be used. You can pass a stringified JSON body as a form value as `payload_json` instead.
+> Note that in multipart form data, the `embeds` and `allowed_mentions` fields cannot be used. You can pass a stringified JSON body as a form value as `payload_json` instead.
 > **If you supply a `payload_json` form value, all fields except for `file` fields will be ignored in the form data**.
 
 ###### JSON/Form Params
 
-| Field             | Type                                                                                              | Description                                                  | Required                    |
-| ----------------- | ------------------------------------------------------------------------------------------------- | ------------------------------------------------------------ | --------------------------- |
-| content           | string                                                                                            | the message contents (up to 2000 characters)                 | one of content, file, embed |
-| tts               | boolean                                                                                           | true if this is a TTS message                                | false                       |
-| file              | file contents                                                                                     | the contents of the file being sent                          | one of content, file, embed |
-| embed             | [embed](#DOCS_RESOURCES_CHANNEL/embed-object) object                                              | embedded `rich` content                                      | one of content, file, embed |
-| payload_json      | string                                                                                            | JSON encoded body of non-file params                         | `multipart/form-data` only  |
-| allowed_mentions  | [allowed mention object](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object)                         | allowed mentions for the message                             | false                       |
-| message_reference | [message reference](#DOCS_RESOURCES_CHANNEL/message-reference-object-message-reference-structure) | include to make your message a reply                         | false                       |
-| components        | array of [message component](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-object) objects      | the components to include with the message                   | false                       |
+| Field                | Type                                                                                              | Description                                                  | Required                     |
+| -------------------- | ------------------------------------------------------------------------------------------------- | ------------------------------------------------------------ | ---------------------------- |
+| content              | string                                                                                            | the message contents (up to 2000 characters)                 | one of content, file, embeds |
+| tts                  | boolean                                                                                           | true if this is a TTS message                                | false                        |
+| file                 | file contents                                                                                     | the contents of the file being sent                          | one of content, file, embeds |
+| embeds               | array of [embed](#DOCS_RESOURCES_CHANNEL/embed-object) objects                                    | embedded `rich` content (up to 6000 characters)              | one of content, file, embeds |
+| embed *(deprecated)* | [embed](#DOCS_RESOURCES_CHANNEL/embed-object) object                                              | embedded `rich` content, deprecated in favor of `embeds`     | one of content, file, embed  |
+| payload_json         | string                                                                                            | JSON encoded body of non-file params                         | `multipart/form-data` only   |
+| allowed_mentions     | [allowed mention object](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object)                         | allowed mentions for the message                             | false                        |
+| message_reference    | [message reference](#DOCS_RESOURCES_CHANNEL/message-reference-object-message-reference-structure) | include to make your message a reply                         | false                        |
+| components           | array of [message component](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-object) objects      | the components to include with the message                   | false                        |
 
 ###### Example Request Body (application/json)
 
@@ -915,10 +916,10 @@ You may create a message as a reply to another message. To do so, include a [`me
 {
   "content": "Hello, World!",
   "tts": false,
-  "embed": {
+  "embeds": [{
     "title": "Hello, Embed!",
     "description": "This is an embedded message."
-  }
+  }]
 }
 ```
 
@@ -940,7 +941,7 @@ true
 --boundary--
 ```
 
-This example demonstrates usage of the endpoint *with* `payload_json` and all content fields (`content`, `embed`, `file`) set.
+This example demonstrates usage of the endpoint *with* `payload_json` and all content fields (`content`, `embeds`, `file`) set.
 
 ```
 --boundary
@@ -949,10 +950,10 @@ Content-Type: application/json
 
 {
   "content": "Hello, World!",
-  "embed": {
+  "embeds": [{
     "title": "Hello, Embed!",
     "description": "This is an embedded message."
-  },
+  }],
   "message_reference": {
     "message_id": "233648473390448641"
   }
@@ -978,11 +979,11 @@ For example:
 
 ```json
 {
-  "embed": {
+  "embeds": [{
     "image": {
       "url": "attachment://screenshot.png"
     }
-  }
+  }]
 }
 ```
 
@@ -1030,7 +1031,7 @@ The `emoji` must be [URL Encoded](https://en.wikipedia.org/wiki/Percent-encoding
 
 ## Edit Message % PATCH /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}
 
-Edit a previously sent message. The fields `content`, `embed`, and `flags` can be edited by the original message author. Other users can only edit `flags` and only if they have the `MANAGE_MESSAGES` permission in the corresponding channel. When specifying flags, ensure to include all previously set flags/bits in addition to ones that you are modifying. Only `flags` documented in the table below may be modified by users (unsupported flag changes are currently ignored without error).
+Edit a previously sent message. The fields `content`, `embeds`, and `flags` can be edited by the original message author. Other users can only edit `flags` and only if they have the `MANAGE_MESSAGES` permission in the corresponding channel. When specifying flags, ensure to include all previously set flags/bits in addition to ones that you are modifying. Only `flags` documented in the table below may be modified by users (unsupported flag changes are currently ignored without error).
 
 When the `content` field is edited, the `mentions` array in the message object will be reconstructed from scratch based on the new content. The `allowed_mentions` field of the edit request controls how this happens. If there is no explicit `allowed_mentions` in the edit request, the content will be parsed with _default_ allowances, that is, without regard to whether or not an `allowed_mentions` was present in the request that originally created the message.
 
@@ -1041,7 +1042,7 @@ Returns a [message](#DOCS_RESOURCES_CHANNEL/message-object) object. Fires a [Mes
 
 > warn
 > This endpoint supports both `application/json` and `multipart/form-data` bodies. When uploading files the `multipart/form-data` content type must be used.
-> Note that in multipart form data, the `embed`, `allowed_mentions`, and `attachments` fields cannot be used. You can pass a stringified JSON body as a form value as `payload_json` instead.
+> Note that in multipart form data, the `embeds`, `allowed_mentions`, and `attachments` fields cannot be used. You can pass a stringified JSON body as a form value as `payload_json` instead.
 > **If you supply a `payload_json` form value, all fields except for `file` fields will be ignored in the form data**.
 
 > info
@@ -1049,16 +1050,17 @@ Returns a [message](#DOCS_RESOURCES_CHANNEL/message-object) object. Fires a [Mes
 
 ###### JSON/Form Params
 
-| Field            | Type                                                                                 | Description                                                                                                                             |
-| ---------------- | ------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------- |
-| content          | string                                                                               | the message contents (up to 2000 characters)                                                                                            |
-| embed            | [embed](#DOCS_RESOURCES_CHANNEL/embed-object) object                                 | embedded `rich` content                                                                                                                 |
-| flags            | integer                                                                              | edit the [flags](#DOCS_RESOURCES_CHANNEL/message-object-message-flags) of a message (only `SUPPRESS_EMBEDS` can currently be set/unset) |
-| file             | file contents                                                                        | the contents of the file being sent/edited                                                                                              |
-| payload_json     | string                                                                               | JSON encoded body of non-file params (multipart/form-data only)                                                                         |
-| allowed_mentions | [allowed mention object](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object)            | allowed mentions for the message                                                                                                        |
-| attachments      | array of [attachment](#DOCS_RESOURCES_CHANNEL/attachment-object) objects             | attached files to keep                                                                                                                  |
-| components       | array of [message component](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-object) | the components to include with the message                                                                                              |
+| Field                | Type                                                                                 | Description                                                                                                                             |
+| -------------------- | ------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------- |
+| content              | string                                                                               | the message contents (up to 2000 characters)                                                                                            |
+| embeds               | array of [embed](#DOCS_RESOURCES_CHANNEL/embed-object) objects                       | embedded `rich` content (up to 6000 characters)                                                                                         |
+| embed *(deprecated)* | [embed](#DOCS_RESOURCES_CHANNEL/embed-object) object                                 | embedded `rich` content, deprecated in favor of `embeds`                                                                                |
+| flags                | integer                                                                              | edit the [flags](#DOCS_RESOURCES_CHANNEL/message-object-message-flags) of a message (only `SUPPRESS_EMBEDS` can currently be set/unset) |
+| file                 | file contents                                                                        | the contents of the file being sent/edited                                                                                              |
+| payload_json         | string                                                                               | JSON encoded body of non-file params (multipart/form-data only)                                                                         |
+| allowed_mentions     | [allowed mention object](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object)            | allowed mentions for the message                                                                                                        |
+| attachments          | array of [attachment](#DOCS_RESOURCES_CHANNEL/attachment-object) objects             | attached files to keep                                                                                                                  |
+| components           | array of [message component](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-object) | the components to include with the message                                                                                              |
 
 ## Delete Message % DELETE /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}
 
