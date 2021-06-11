@@ -825,7 +825,7 @@ Requires the `MANAGE_CHANNELS` permission for the guild. Fires a [Channel Update
 
 When setting `archived` to `false`, when `locked` is also `false`, only the `SEND_MESSAGES` permission is required.
 
-Otherwise, requires the `MANAGE_THREADS` permission.  Fires a [Thread Update](#DOCS_TOPICS_GATEWAY/thread-update) Gateway event.  Requires the thread to have `archived` set to `false` or be set to `false` in the request.
+Otherwise, requires the `MANAGE_THREADS` permission. Fires a [Thread Update](#DOCS_TOPICS_GATEWAY/thread-update) Gateway event. Requires the thread to have `archived` set to `false` or be set to `false` in the request.
 
 | Field                 | Type     | Description                                                                                                                                                                                       |
 |-----------------------|----------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
