@@ -22,21 +22,21 @@ All gateway events in Discord are tagged with an opcode that denotes the payload
 
 ###### Gateway Close Event Codes
 
-| Code | Description           | Explanation                                                                                                                                                                                                                         |
-|------|-----------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| 4000 | Unknown error         | We're not sure what went wrong. Try reconnecting?                                                                                                                                                                                   |
-| 4001 | Unknown opcode        | You sent an invalid [Gateway opcode](#DOCS_TOPICS_GATEWAY/payloads-and-opcodes) or an invalid payload for an opcode. Don't do that!                                                                                                 |
-| 4002 | Decode error          | You sent an invalid [payload](#DOCS_TOPICS_GATEWAY/sending-payloads) to us. Don't do that!                                                                                                                                          |
-| 4003 | Not authenticated     | You sent us a payload prior to [identifying](#DOCS_TOPICS_GATEWAY/identify).                                                                                                                                                        |
-| 4004 | Authentication failed | The account token sent with your [identify payload](#DOCS_TOPICS_GATEWAY/identify) is incorrect.                                                                                                                                    |
-| 4005 | Already authenticated | You sent more than one identify payload. Don't do that!                                                                                                                                                                             |
-| 4007 | Invalid `seq`         | The sequence sent when [resuming](#DOCS_TOPICS_GATEWAY/resume) the session was invalid. Reconnect and start a new session.                                                                                                          |
-| 4008 | Rate limited          | Woah nelly! You're sending payloads to us too quickly. Slow it down! You will be disconnected on receiving this.                                                                                                                    |
-| 4009 | Session timed out     | Your session timed out. Reconnect and start a new one.                                                                                                                                                                              |
-| 4010 | Invalid shard         | You sent us an invalid [shard when identifying](#DOCS_TOPICS_GATEWAY/sharding).                                                                                                                                                     |
-| 4011 | Sharding required     | The session would have handled too many guilds - you are required to [shard](#DOCS_TOPICS_GATEWAY/sharding) your connection in order to connect.                                                                                    |
-| 4012 | Invalid API version   | You sent an invalid version for the gateway.                                                                                                                                                                                        |
-| 4013 | Invalid intent(s)     | You sent an invalid intent for a [Gateway Intent](#DOCS_TOPICS_GATEWAY/gateway-intents). You may have incorrectly calculated the bitwise value.                                                                                     |
+| Code | Description           | Explanation                                                                                                                                                                                                                      |
+|------|-----------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| 4000 | Unknown error         | We're not sure what went wrong. Try reconnecting?                                                                                                                                                                                |
+| 4001 | Unknown opcode        | You sent an invalid [Gateway opcode](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/gateway-opcodes) or an invalid payload for an opcode. Don't do that!                                                                                  |
+| 4002 | Decode error          | You sent an invalid [payload](#DOCS_TOPICS_GATEWAY/sending-payloads) to us. Don't do that!                                                                                                                                       |
+| 4003 | Not authenticated     | You sent us a payload prior to [identifying](#DOCS_TOPICS_GATEWAY/identify).                                                                                                                                                     |
+| 4004 | Authentication failed | The account token sent with your [identify payload](#DOCS_TOPICS_GATEWAY/identify) is incorrect.                                                                                                                                 |
+| 4005 | Already authenticated | You sent more than one identify payload. Don't do that!                                                                                                                                                                          |
+| 4007 | Invalid `seq`         | The sequence sent when [resuming](#DOCS_TOPICS_GATEWAY/resume) the session was invalid. Reconnect and start a new session.                                                                                                       |
+| 4008 | Rate limited          | Woah nelly! You're sending payloads to us too quickly. Slow it down! You will be disconnected on receiving this.                                                                                                                 |
+| 4009 | Session timed out     | Your session timed out. Reconnect and start a new one.                                                                                                                                                                           |
+| 4010 | Invalid shard         | You sent us an invalid [shard when identifying](#DOCS_TOPICS_GATEWAY/sharding).                                                                                                                                                  |
+| 4011 | Sharding required     | The session would have handled too many guilds - you are required to [shard](#DOCS_TOPICS_GATEWAY/sharding) your connection in order to connect.                                                                                 |
+| 4012 | Invalid API version   | You sent an invalid version for the gateway.                                                                                                                                                                                     |
+| 4013 | Invalid intent(s)     | You sent an invalid intent for a [Gateway Intent](#DOCS_TOPICS_GATEWAY/gateway-intents). You may have incorrectly calculated the bitwise value.                                                                                  |
 | 4014 | Disallowed intent(s)  | You sent a disallowed intent for a [Gateway Intent](#DOCS_TOPICS_GATEWAY/gateway-intents). You may have tried to specify an intent that you [have not enabled or are not approved for](#DOCS_TOPICS_GATEWAY/privileged-intents). |
 
 ## Voice
@@ -61,20 +61,20 @@ Our voice gateways have their own set of opcodes and close codes.
 
 ###### Voice Close Event Codes
 
-| Code | Description             | Explanation                                                                                                                                         |
-|------|-------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------|
-| 4001 | Unknown opcode          | You sent an invalid [opcode](#DOCS_RESOURCES_VOICE_CONNECTIONS/voice-events-voice-opcodes).                                                         |
-| 4002 | Failed to decode payload | You sent a invalid payload in your [identifying](#DOCS_TOPICS_GATEWAY/gateway-identify) to the Gateway.                                            |
-| 4003 | Not authenticated       | You sent a payload before [identifying](#DOCS_TOPICS_GATEWAY/gateway-identify) with the Gateway.                                                    |
-| 4004 | Authentication failed   | The token you sent in your [identify](#DOCS_TOPICS_GATEWAY/gateway-identify) payload is incorrect.                                                  |
-| 4005 | Already authenticated   | You sent more than one [identify](#DOCS_TOPICS_GATEWAY/gateway-identify) payload. Stahp.                                                            |
-| 4006 | Session no longer valid | Your session is no longer valid.                                                                                                                    |
-| 4009 | Session timeout         | Your session has timed out.                                                                                                                         |
-| 4011 | Server not found        | We can't find the server you're trying to connect to.                                                                                               |
-| 4012 | Unknown protocol        | We didn't recognize the [protocol](#DOCS_RESOURCES_VOICE_CONNECTIONS/establishing-a-voice-udp-connection-example-select-protocol-payload) you sent. |
-| 4014 | Disconnected            | Channel was deleted, you were kicked, voice server changed, or the main gateway session was dropped. Should not reconnect.                           |
-| 4015 | Voice server crashed    | The server crashed. Our bad! Try [resuming](#DOCS_RESOURCES_VOICE_CONNECTIONS/resuming-voice-connection).                                           |
-| 4016 | Unknown encryption mode | We didn't recognize your [encryption](#DOCS_RESOURCES_VOICE_CONNECTIONS/encrypting-and-sending-voice).                                              |
+| Code | Description              | Explanation                                                                                                                                      |
+|------|--------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------|
+| 4001 | Unknown opcode           | You sent an invalid [opcode](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice-opcodes).                                                               |
+| 4002 | Failed to decode payload | You sent a invalid payload in your [identifying](#DOCS_TOPICS_GATEWAY/identify) to the Gateway.                                                  |
+| 4003 | Not authenticated        | You sent a payload before [identifying](#DOCS_TOPICS_GATEWAY/identify) with the Gateway.                                                         |
+| 4004 | Authentication failed    | The token you sent in your [identify](#DOCS_TOPICS_GATEWAY/identify) payload is incorrect.                                                       |
+| 4005 | Already authenticated    | You sent more than one [identify](#DOCS_TOPICS_GATEWAY/identify) payload. Stahp.                                                                 |
+| 4006 | Session no longer valid  | Your session is no longer valid.                                                                                                                 |
+| 4009 | Session timeout          | Your session has timed out.                                                                                                                      |
+| 4011 | Server not found         | We can't find the server you're trying to connect to.                                                                                            |
+| 4012 | Unknown protocol         | We didn't recognize the [protocol](#DOCS_TOPICS_VOICE_CONNECTIONS/establishing-a-voice-udp-connection-example-select-protocol-payload) you sent. |
+| 4014 | Disconnected             | Channel was deleted, you were kicked, voice server changed, or the main gateway session was dropped. Should not reconnect.                       |
+| 4015 | Voice server crashed     | The server crashed. Our bad! Try [resuming](#DOCS_TOPICS_VOICE_CONNECTIONS/resuming-voice-connection).                                           |
+| 4016 | Unknown encryption mode  | We didn't recognize your [encryption](#DOCS_TOPICS_VOICE_CONNECTIONS/encrypting-and-sending-voice).                                              |
 
 ## HTTP
 
@@ -82,20 +82,20 @@ Our API will return semantically valid HTTP response codes based on the success 
 
 ###### HTTP Response Codes
 
-| Code                      | Meaning                                                                              |
-|---------------------------|--------------------------------------------------------------------------------------|
-| 200 (OK)                  | The request completed successfully.                                                  |
-| 201 (CREATED)             | The entity was created successfully.                                                 |
-| 204 (NO CONTENT)          | The request completed successfully but returned no content.                          |
-| 304 (NOT MODIFIED)        | The entity was not modified (no action was taken).                                   |
-| 400 (BAD REQUEST)         | The request was improperly formatted, or the server couldn't understand it.          |
-| 401 (UNAUTHORIZED)        | The `Authorization` header was missing or invalid.                                   |
-| 403 (FORBIDDEN)           | The `Authorization` token you passed did not have permission to the resource.        |
-| 404 (NOT FOUND)           | The resource at the location specified doesn't exist.                                |
-| 405 (METHOD NOT ALLOWED)  | The HTTP method used is not valid for the location specified.                        |
-| 429 (TOO MANY REQUESTS)   | You are being rate limited, see [Rate Limits](#DOCS_TOPICS_RATE_LIMITS/rate-limits). |
-| 502 (GATEWAY UNAVAILABLE) | There was not a gateway available to process your request. Wait a bit and retry.     |
-| 5xx (SERVER ERROR)        | The server had an error processing your request (these are rare).                    |
+| Code                      | Meaning                                                                          |
+|---------------------------|----------------------------------------------------------------------------------|
+| 200 (OK)                  | The request completed successfully.                                              |
+| 201 (CREATED)             | The entity was created successfully.                                             |
+| 204 (NO CONTENT)          | The request completed successfully but returned no content.                      |
+| 304 (NOT MODIFIED)        | The entity was not modified (no action was taken).                               |
+| 400 (BAD REQUEST)         | The request was improperly formatted, or the server couldn't understand it.      |
+| 401 (UNAUTHORIZED)        | The `Authorization` header was missing or invalid.                               |
+| 403 (FORBIDDEN)           | The `Authorization` token you passed did not have permission to the resource.    |
+| 404 (NOT FOUND)           | The resource at the location specified doesn't exist.                            |
+| 405 (METHOD NOT ALLOWED)  | The HTTP method used is not valid for the location specified.                    |
+| 429 (TOO MANY REQUESTS)   | You are being rate limited, see [Rate Limits](#DOCS_TOPICS_RATE_LIMITS).         |
+| 502 (GATEWAY UNAVAILABLE) | There was not a gateway available to process your request. Wait a bit and retry. |
+| 5xx (SERVER ERROR)        | The server had an error processing your request (these are rare).                |
 
 ## JSON
 
@@ -121,6 +121,8 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 10013  | Unknown user                                                                                                                  |
 | 10014  | Unknown emoji                                                                                                                 |
 | 10015  | Unknown webhook                                                                                                               |
+| 10016  | Unknown webhook service                                                                                                       |
+| 10020  | Unknown session                                                                                                               |
 | 10026  | Unknown ban                                                                                                                   |
 | 10027  | Unknown SKU                                                                                                                   |
 | 10028  | Unknown Store Listing                                                                                                         |
@@ -128,32 +130,50 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 10030  | Unknown build                                                                                                                 |
 | 10031  | Unknown lobby                                                                                                                 |
 | 10032  | Unknown branch                                                                                                                |
+| 10033  | Unknown store directory layout                                                                                                |
 | 10036  | Unknown redistributable                                                                                                       |
+| 10038  | Unknown gift code                                                                                                             |
 | 10057  | Unknown guild template                                                                                                        |
 | 10059  | Unknown discovery category                                                                                                    |
 | 10062  | Unknown interaction                                                                                                           |
 | 10063  | Unknown application command                                                                                                   |
+| 10066  | Unknown application command permissions                                                                                       |
 | 20001  | Bots cannot use this endpoint                                                                                                 |
 | 20002  | Only bots can use this endpoint                                                                                               |
+| 20009  | Explicit content cannot be sent to the desired recipient(s)                                                                   |
+| 20012  | You are not authorized to perform this action on this application                                                             |
+| 20016  | This action cannot be performed due to slowmode rate limit                                                                    |
+| 20018  | Only the owner of this account can perform this action                                                                        |
 | 20022  | This message cannot be edited due to announcement rate limits                                                                 |
 | 20028  | The channel you are writing has hit the write rate limit                                                                      |
+| 20031  | Your Stage topic contains words that are not allowed for public Stages                                                        |
 | 30001  | Maximum number of guilds reached (100)                                                                                        |
 | 30002  | Maximum number of friends reached (1000)                                                                                      |
 | 30003  | Maximum number of pins reached for the channel (50)                                                                           |
+| 30004  | Maximum number of recipients reached (10)                                                                                     |
 | 30005  | Maximum number of guild roles reached (250)                                                                                   |
 | 30007  | Maximum number of webhooks reached (10)                                                                                       |
+| 30008  | Maximum number of emojis reached                                                                                              |
 | 30010  | Maximum number of reactions reached (20)                                                                                      |
 | 30013  | Maximum number of guild channels reached (500)                                                                                |
 | 30015  | Maximum number of attachments in a message reached (10)                                                                       |
 | 30016  | Maximum number of invites reached (1000)                                                                                      |
+| 30018  | Maximum number of animated emojis reached                                                                                     |
+| 30019  | Maximum number of server members reached                                                                                      |
 | 30030  | Maximum number of guild discovery subcategories has been reached (5)                                                          |
 | 30031  | Guild already has a template                                                                                                  |
+| 30033  | Max number of thread participants has been reached                                                                            |
+| 30035  | Maximum number of bans for non-guild members have been exceeded                                                               |
+| 30037  | Maximum number of bans fetches has been reached                                                                               |
 | 40001  | Unauthorized. Provide a valid token and try again                                                                             |
 | 40002  | You need to verify your account in order to perform this action                                                               |
+| 40003  | You are opening direct messages too fast                                                                                      |
 | 40005  | Request entity too large. Try sending something smaller in size                                                               |
 | 40006  | This feature has been temporarily disabled server-side                                                                        |
 | 40007  | The user is banned from this guild                                                                                            |
+| 40032  | Target user is not connected to voice                                                                                         |
 | 40033  | This message has already been crossposted                                                                                     |
+| 40041  | An application command with that name already exists                                                                          |
 | 50001  | Missing access                                                                                                                |
 | 50002  | Invalid account type                                                                                                          |
 | 50003  | Cannot execute action on a DM channel                                                                                         |
@@ -175,17 +195,29 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 50021  | Cannot execute action on a system message                                                                                     |
 | 50024  | Cannot execute action on this channel type                                                                                    |
 | 50025  | Invalid OAuth2 access token provided                                                                                          |
+| 50026  | Missing required OAuth2 scope                                                                                                 |
 | 50027  | Invalid webhook token provided                                                                                                |
+| 50028  | Invalid role                                                                                                                  |
 | 50033  | "Invalid Recipient(s)"                                                                                                        |
 | 50034  | A message provided was too old to bulk delete                                                                                 |
 | 50035  | Invalid form body (returned for both `application/json` and `multipart/form-data` bodies), or invalid `Content-Type` provided |
 | 50036  | An invite was accepted to a guild the application's bot is not in                                                             |
 | 50041  | Invalid API version provided                                                                                                  |
+| 50054  | Cannot self-redeem this gift                                                                                                  |
+| 50070  | Payment source required to redeem gift                                                                                        |
 | 50074  | Cannot delete a channel required for Community guilds                                                                         |
 | 50081  | Invalid sticker sent                                                                                                          |
+| 50083  | Tried to perform an operation on an archived thread, such as editing a message or adding a user to the thread                 |
+| 50084  | Invalid thread notification settings                                                                                          |
+| 50085  | `before` value is earlier than the thread creation date                                                                       |
 | 60003  | Two factor is required for this operation                                                                                     |
+| 80004  | No users with DiscordTag exist                                                                                                |
 | 90001  | Reaction was blocked                                                                                                          |
 | 130000 | API resource is currently overloaded. Try again a little later                                                                |
+| 160004 | A thread has already been created for this message                                                                            |
+| 160005 | Thread is locked                                                                                                              |
+| 160006 | Maximum number of active threads reached                                                                                      |
+| 160007 | Maximum number of active announcement threads reached                                                                         |
 
 ###### Example JSON Error Response
 

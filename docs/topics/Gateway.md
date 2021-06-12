@@ -10,6 +10,7 @@ Important note: Not all event fields are documented, in particular, fields prefi
 
 | Version | Status                           |
 |---------|----------------------------------|
+| 9       | Available                        |
 | 8       | Available                        |
 | 7       | Doesn't look like anything to me |
 | 6       | Deprecated                       |
@@ -46,7 +47,7 @@ Packets sent from the client to the Gateway API are encapsulated within a [gatew
 
 ### Receiving Payloads
 
-Receiving payloads with the Gateway API is slightly more complex than sending. When using the JSON encoding with compression enabled, the Gateway has the option of sending payloads as compressed JSON binaries using zlib, meaning your library _must_ detect (see [RFC1950 2.2](https://tools.ietf.org/html/rfc1950#section-2.2)) and decompress these payloads before attempting to parse them. The gateway does not implement a shared compression context between messages sent.
+Receiving payloads with the Gateway API is slightly more complex than sending. When using the JSON encoding with [Payload Compression](#DOCS_TOPICS_GATEWAY/payload-compression) enabled, the Gateway has the option of sending payloads as compressed JSON binaries using zlib, meaning your library _must_ detect (see [RFC1950 2.2](https://tools.ietf.org/html/rfc1950#section-2.2)) and decompress these payloads before attempting to parse them. Otherwise the gateway does implement a shared compression context between messages sent, see [Transport Compression](#DOCS_TOPICS_GATEWAY/transport-compression).
 
 ## Encoding and Compression
 
@@ -62,7 +63,7 @@ While using ETF there are some additional constraints to note:
 - The client must not send compressed messages to the server.
 - Payloads must use string keys, atom keys will lead to a 4002 decode error.
 
-See [erlpack](https://github.com/discord/erlpack) for an ETF implementation example. 
+See [erlpack](https://github.com/discord/erlpack) for an ETF implementation example.
 
 #### Payload Compression
 
@@ -115,7 +116,7 @@ def on_websocket_message(msg):
 
 The first step in establishing connectivity to the gateway is requesting a valid websocket endpoint from the API. This can be done through either the [Get Gateway](#DOCS_TOPICS_GATEWAY/get-gateway) or the [Get Gateway Bot](#DOCS_TOPICS_GATEWAY/get-gateway-bot) endpoint.
 
-With the resulting payload, you can now open a websocket connection to the "url" (or endpoint) specified. Generally, it is a good idea to explicitly pass the gateway version and encoding. For example, we may connect to `wss://gateway.discord.gg/?v=8&encoding=json`.
+With the resulting payload, you can now open a websocket connection to the "url" (or endpoint) specified. Generally, it is a good idea to explicitly pass the gateway version and encoding. For example, we may connect to `wss://gateway.discord.gg/?v=9&encoding=json`.
 
 Once connected, the client should immediately receive an [Opcode 10 Hello](#DOCS_TOPICS_GATEWAY/hello) payload, with information on the connection's heartbeat interval:
 
@@ -174,7 +175,7 @@ This is a minimal `IDENTIFY` payload. `IDENTIFY` supports additional optional fi
 }
 ```
 
-If the payload is valid, the gateway will respond with a [Ready](#DOCS_TOPICS_GATEWAY/ready) event. Your client is now considered in a "connected" state. Clients are limited by [maximum concurrency](#DOCS_TOPICS_GATEWAY/session-start-limit-object) when [Identify](#DOCS_TOPICS_GATEWAY/identify)ing; if they exceed this limit, the gateway will respond with an [Opcode 9 Invalid Session](#DOCS_TOPICS_GATEWAY/invalid-session). It is important to note that although the ready event contains a large portion of the required initial state, some information (such as guilds and their members) is sent asynchronously (see [Guild Create](#DOCS_TOPICS_GATEWAY/guild-create) event).
+If the payload is valid, the gateway will respond with a [Ready](#DOCS_TOPICS_GATEWAY/ready) event. Your client is now considered in a "connected" state. Clients are limited by [maximum concurrency](#DOCS_TOPICS_GATEWAY/session-start-limit-object) when [Identifying](#DOCS_TOPICS_GATEWAY/identify); if they exceed this limit, the gateway will respond with an [Opcode 9 Invalid Session](#DOCS_TOPICS_GATEWAY/invalid-session). It is important to note that although the ready event contains a large portion of the required initial state, some information (such as guilds and their members) is sent asynchronously (see [Guild Create](#DOCS_TOPICS_GATEWAY/guild-create) event).
 
 > warn
 > Clients are limited to 1000 `IDENTIFY` calls to the websocket in a 24-hour period. This limit is global and across all shards, but does not include `RESUME` calls. Upon hitting this limit, all active sessions for the bot will be terminated, the bot's token will be reset, and the owner will receive an email notification. It's up to the owner to update their application with the new token.
@@ -229,11 +230,21 @@ GUILDS (1 << 0)
   - CHANNEL_UPDATE
   - CHANNEL_DELETE
   - CHANNEL_PINS_UPDATE
+  - THREAD_CREATE
+  - THREAD_UPDATE
+  - THREAD_DELETE
+  - THREAD_LIST_SYNC
+  - THREAD_MEMBER_UPDATE
+  - THREAD_MEMBERS_UPDATE *
+  - STAGE_INSTANCE_CREATE
+  - STAGE_INSTANCE_UPDATE
+  - STAGE_INSTANCE_DELETE
 
 GUILD_MEMBERS (1 << 1)
   - GUILD_MEMBER_ADD
   - GUILD_MEMBER_UPDATE
   - GUILD_MEMBER_REMOVE
+  - THREAD_MEMBERS_UPDATE *
 
 GUILD_BANS (1 << 2)
   - GUILD_BAN_ADD
@@ -292,6 +303,8 @@ DIRECT_MESSAGE_TYPING (1 << 14)
   - TYPING_START
 ```
 
+\* [Thread Members Update](#DOCS_TOPICS_GATEWAY/thread-members-update) contains different data depending on which intents are used.
+
 ### Caveats
 
 Any [events not defined in an intent](#DOCS_TOPICS_GATEWAY/commands-and-events-gateway-events) are considered "passthrough" and will always be sent to you.
@@ -299,6 +312,8 @@ Any [events not defined in an intent](#DOCS_TOPICS_GATEWAY/commands-and-events-g
 [Guild Member Update](#DOCS_TOPICS_GATEWAY/guild-member-update) is sent for current-user updates regardless of whether the `GUILD_MEMBERS` intent is set.
 
 [Guild Create](#DOCS_TOPICS_GATEWAY/guild-create) and [Request Guild Members](#DOCS_TOPICS_GATEWAY/request-guild-members) are uniquely affected by intents. See these sections for more information.
+
+[Thread Members Update](#DOCS_TOPICS_GATEWAY/thread-members-update) by default only includes if the current user was added to or removed from a thread.  To receive these updates for other users, request the `GUILD_MEMBERS` [Gateway Intent](#DOCS_TOPICS_GATEWAY/gateway-intents).
 
 If you specify an `intent` value in your `IDENTIFY` payload that is *invalid*, the socket will close with a [`4013` close code](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/gateway-gateway-close-event-codes). An invalid intent is one that is not meaningful and not documented above.
 
@@ -317,7 +332,7 @@ To specify these intents in your `IDENTIFY` payload, you must visit your applica
 
 Events under the `GUILD_PRESENCES` and `GUILD_MEMBERS` intents are turned **off by default on all gateway versions**. If you are using **Gateway v6**, you will receive those events if you are authorized to receive them and have enabled the intents in the Developer Portal. You do not need to use Intents on Gateway v6 to receive these events; you just need to enable the flags.
 
-If you are using **Gateway v8**, Intents are mandatory and must be specified when identifying.
+If you are using **Gateway v8** or above, Intents are mandatory and must be specified when identifying.
 
 In addition to the gateway restrictions described here, Discord's REST API is also affected by Privileged Intents. Specifically, to use the [List Guild Members](#DOCS_RESOURCES_GUILD/list-guild-members) endpoint, you must have the `GUILD_MEMBERS` intent enabled for your application. This behavior is independent of whether the intent is set during `IDENTIFY`.
 
@@ -467,6 +482,12 @@ Events are payloads sent over the socket to a client that correspond to events i
 | [Channel Update](#DOCS_TOPICS_GATEWAY/channel-update)                               | channel was updated                                                                                                              |
 | [Channel Delete](#DOCS_TOPICS_GATEWAY/channel-delete)                               | channel was deleted                                                                                                              |
 | [Channel Pins Update](#DOCS_TOPICS_GATEWAY/channel-pins-update)                     | message was pinned or unpinned                                                                                                   |
+| [Thread Create](#DOCS_TOPICS_GATEWAY/thread-create)                                 | thread created, also sent when being added to a private thread                                                                   |
+| [Thread Update](#DOCS_TOPICS_GATEWAY/thread-update)                                 | thread was updated                                                                                                               |
+| [Thread Delete](#DOCS_TOPICS_GATEWAY/thread-delete)                                 | thread was deleted                                                                                                               |
+| [Thread List Sync](#DOCS_TOPICS_GATEWAY/thread-list-sync)                           | sent when gaining access to a channel, contains all active threads in that channel                                               |
+| [Thread Member Update](#DOCS_TOPICS_GATEWAY/thread-member-update)                   | [thread member](#DOCS_RESOURCES_CHANNEL/thread-member-object) for the current user was updated                                   |
+| [Thread Members Update](#DOCS_TOPICS_GATEWAY/thread-members-update)                 | some user(s) were added to or removed from a thread                                                                              |
 | [Guild Create](#DOCS_TOPICS_GATEWAY/guild-create)                                   | lazy-load for unavailable guild, guild became available, or user joined a new guild                                              |
 | [Guild Update](#DOCS_TOPICS_GATEWAY/guild-update)                                   | guild was updated                                                                                                                |
 | [Guild Delete](#DOCS_TOPICS_GATEWAY/guild-delete)                                   | guild became unavailable, or user left/was removed from a guild                                                                  |
@@ -484,7 +505,7 @@ Events are payloads sent over the socket to a client that correspond to events i
 | [Integration Create](#DOCS_TOPICS_GATEWAY/integration-create)                       | guild integration was created                                                                                                    |
 | [Integration Update](#DOCS_TOPICS_GATEWAY/integration-update)                       | guild integration was updated                                                                                                    |
 | [Integration Delete](#DOCS_TOPICS_GATEWAY/integration-delete)                       | guild integration was deleted                                                                                                    |
-| [Interaction Create](#DOCS_TOPICS_GATEWAY/interaction-create)                       | user used an interaction, such as a [Slash Command](#DOCS_INTERACTIONS_SLASH_COMMANDS/)                                                                  |
+| [Interaction Create](#DOCS_TOPICS_GATEWAY/interaction-create)                       | user used an interaction, such as a [Slash Command](#DOCS_INTERACTIONS_SLASH_COMMANDS/)                                          |
 | [Invite Create](#DOCS_TOPICS_GATEWAY/invite-create)                                 | invite to a channel was created                                                                                                  |
 | [Invite Delete](#DOCS_TOPICS_GATEWAY/invite-delete)                                 | invite to a channel was deleted                                                                                                  |
 | [Message Create](#DOCS_TOPICS_GATEWAY/message-create)                               | message was created                                                                                                              |
@@ -496,6 +517,9 @@ Events are payloads sent over the socket to a client that correspond to events i
 | [Message Reaction Remove All](#DOCS_TOPICS_GATEWAY/message-reaction-remove-all)     | all reactions were explicitly removed from a message                                                                             |
 | [Message Reaction Remove Emoji](#DOCS_TOPICS_GATEWAY/message-reaction-remove-emoji) | all reactions for a given emoji were explicitly removed from a message                                                           |
 | [Presence Update](#DOCS_TOPICS_GATEWAY/presence-update)                             | user was updated                                                                                                                 |
+| [Stage Instance Create](#DOCS_TOPICS_GATEWAY/stage-instance-create)                 | stage instance was created                                                                                                      |
+| [Stage Instance Delete](#DOCS_TOPICS_GATEWAY/stage-instance-delete)                 | stage instance was deleted or closed                                                                                            |
+| [Stage Instance Update](#DOCS_TOPICS_GATEWAY/stage-instance-update)                 | stage instance was updated                                                                                                        |
 | [Typing Start](#DOCS_TOPICS_GATEWAY/typing-start)                                   | user started typing in a channel                                                                                                 |
 | [User Update](#DOCS_TOPICS_GATEWAY/user-update)                                     | properties about the user changed                                                                                                |
 | [Voice State Update](#DOCS_TOPICS_GATEWAY/voice-state-update)                       | someone joined, left, or moved a voice channel                                                                                   |
@@ -743,7 +767,7 @@ The ready event is dispatched when a client has completed the initial handshake 
 | guilds           | array of [Unavailable Guild](#DOCS_RESOURCES_GUILD/unavailable-guild-object) objects | the guilds the user is in                                                                                     |
 | session_id       | string                                                                               | used for resuming connections                                                                                 |
 | shard?           | array of two integers (shard_id, num_shards)                                         | the [shard information](#DOCS_TOPICS_GATEWAY/sharding) associated with this session, if sent when identifying |
-| application      | partial [application object](#DOCS_TOPICS_OAUTH2/application-object)                 | contains `id` and `flags`                                                                                     | 
+| application      | partial [application object](#DOCS_RESOURCES_APPLICATION/application-object)         | contains `id` and `flags`                                                                                     |
 
 #### Resumed
 
@@ -752,6 +776,15 @@ The resumed event is dispatched when a client has sent a [resume payload](#DOCS_
 #### Reconnect
 
 The reconnect event is dispatched when a client should reconnect to the gateway (and resume their existing session, if they have one). This event usually occurs during deploys to migrate sessions gracefully off old hosts.
+
+###### Example Gateway Reconnect
+
+```json
+{
+  "op": 7,
+  "d": null
+}
+```
 
 #### Invalid Session
 
@@ -785,6 +818,49 @@ Sent when a channel is updated. The inner payload is a [channel](#DOCS_RESOURCES
 #### Channel Delete
 
 Sent when a channel relevant to the current user is deleted. The inner payload is a [channel](#DOCS_RESOURCES_CHANNEL/channel-object) object.
+
+#### Thread Create
+
+Sent when a thread is created, relevant to the current user, or when the current user is added to a thread. The inner payload is a [channel](#DOCS_RESOURCES_CHANNEL/channel-object) object.  When being added to an existing private thread, includes a [thread member](#DOCS_RESOURCES_CHANNEL/thread-member-object) object.
+
+#### Thread Update
+
+Sent when a thread is updated. The inner payload is a [channel](#DOCS_RESOURCES_CHANNEL/channel-object) object. This is not sent when the field `last_message_id` is altered. To keep track of the last_message_id changes, you must listen for [Message Create](#DOCS_TOPICS_GATEWAY/message-create) events.
+
+#### Thread Delete
+
+Sent when a thread relevant to the current user is deleted. The inner payload is a subset of the [channel](#DOCS_RESOURCES_CHANNEL/channel-object) object, containing just the `id`, `guild_id`, `parent_id`, and `type` fields.
+
+#### Thread List Sync
+
+Sent when the current user _gains_ access to a channel.
+
+###### Thread List Sync Event Fields
+
+| Field        | Type                                                                           | Description                                                                                                                                                                                                                 |
+|--------------|--------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| guild_id     | snowflake                                                                      | the id of the guild                                                                                                                                                                                                         |
+| channel_ids? | array of snowflakes                                                            | the parent channel ids whose threads are being synced.  If omitted, then threads were synced for the entire guild.  This array may contain channel_ids that have no active threads as well, so you know to clear that data. |
+| threads      | array of [channel](#DOCS_RESOURCES_CHANNEL/channel-object) objects             | all active threads in the given channels that the current user can access                                                                                                                                                   |
+| members      | array of [thread member](#DOCS_RESOURCES_CHANNEL/thread-member-object) objects | all thread member objects from the synced threads for the current user, indicating which threads the current user has been added to                                                                                         |
+
+#### Thread Member Update
+
+Sent when the [thread member](#DOCS_RESOURCES_CHANNEL/thread-member-object) object for the current user is updated.  The inner payload is a [thread member](#DOCS_RESOURCES_CHANNEL/thread-member-object) object.
+
+#### Thread Members Update
+
+Sent when anyone is added to or removed from a thread.  If the current user does not have the `GUILD_MEMBERS` [Gateway Intent](#DOCS_TOPICS_GATEWAY/gateway-intents), then this event will only be sent if the current user was added to or removed from the thread.
+
+###### Thread Members Update Event Fields
+
+| Field                | Type                                                                           | Description                                                     |
+|----------------------|--------------------------------------------------------------------------------|-----------------------------------------------------------------|
+| id                   | snowflake                                                                      | the id of the thread                                            |
+| guild_id             | snowflake                                                                      | the id of the guild                                             |
+| member_count         | integer                                                                        | the approximate number of members in the thread, capped at 50   |
+| added_members?       | array of [thread member](#DOCS_RESOURCES_CHANNEL/thread-member-object) objects | the users who were added to the thread                          |
+| removed_member_ids?  | array of snowflakes                                                            | the id of the users who were removed from the thread            |
 
 #### Channel Pins Update
 
@@ -906,7 +982,7 @@ Sent when a guild member is updated. This will also fire when the user object of
 | roles          | array of snowflakes                               | user role ids                                                                                                                          |
 | user           | a [user](#DOCS_RESOURCES_USER/user-object) object | the user                                                                                                                               |
 | nick?          | ?string                                           | nickname of the user in the guild                                                                                                      |
-| joined_at      | ISO8601 timestamp                                 | when the user joined the guild                                                                                                         |
+| joined_at      | ?ISO8601 timestamp                                 | when the user joined the guild                                                                                                         |
 | premium_since? | ?ISO8601 timestamp                                | when the user starting [boosting](https://support.discord.com/hc/en-us/articles/360028038352-Server-Boosting-) the guild               |
 | deaf?          | boolean                                           | whether the user is deafened in voice channels                                                                                         |
 | mute?          | boolean                                           | whether the user is muted in voice channels                                                                                            |
@@ -964,7 +1040,7 @@ Sent when a guild role is deleted.
 
 ### Integrations
 
-### Integration Create
+#### Integration Create
 
 Sent when an integration is created. The inner payload is a [integration](#DOCS_RESOURCES_GUILD/integration-object) object with an additional `guild_id` key:
 
@@ -974,7 +1050,7 @@ Sent when an integration is created. The inner payload is a [integration](#DOCS_
 |----------|-----------|-----------------|
 | guild_id | snowflake | id of the guild |
 
-### Integration Update
+#### Integration Update
 
 Sent when an integration is updated. The inner payload is a [integration](#DOCS_RESOURCES_GUILD/integration-object) object with an additional `guild_id` key:
 
@@ -984,7 +1060,7 @@ Sent when an integration is updated. The inner payload is a [integration](#DOCS_
 |----------|-----------|-----------------|
 | guild_id | snowflake | id of the guild |
 
-### Integration Delete
+#### Integration Delete
 
 Sent when an integration is deleted.
 
@@ -998,28 +1074,28 @@ Sent when an integration is deleted.
 
 ### Invites
 
-### Invite Create
+#### Invite Create
 
 Sent when a new invite to a channel is created.
 
 ###### Invite Create Event Fields
 
-| Field               | Type                                                                 | Description                                                                                                        |
-|---------------------|----------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------|
-| channel_id          | snowflake                                                            | the channel the invite is for                                                                                      |
-| code                | string                                                               | the unique invite [code](#DOCS_RESOURCES_INVITE/invite-object)                                                     |
-| created_at          | timestamp                                                            | the time at which the invite was created                                                                           |
-| guild_id?           | snowflake                                                            | the guild of the invite                                                                                            |
-| inviter?            | [user](#DOCS_RESOURCES_USER/user-object) object                      | the user that created the invite                                                                                   |
-| max_age             | integer                                                              | how long the invite is valid for (in seconds)                                                                      |
-| max_uses            | integer                                                              | the maximum number of times the invite can be used                                                                 |
-| target_type?        | integer                                                              | the [type of target](#DOCS_RESOURCES_INVITE/invite-object-invite-target-types) for this voice channel invite       |
-| target_user?        | [user](#DOCS_RESOURCES_USER/user-object) object                      | the user whose stream to display for this voice channel stream invite                                              |
-| target_application? | partial [application](#DOCS_TOPICS_OAUTH2/application-object) object | the embedded application to open for this voice channel embedded application invite                                |
-| temporary           | boolean                                                              | whether or not the invite is temporary (invited users will be kicked on disconnect unless they're assigned a role) |
-| uses                | integer                                                              | how many times the invite has been used (always will be 0)                                                         |
+| Field               | Type                                                                         | Description                                                                                                        |
+|---------------------|------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------|
+| channel_id          | snowflake                                                                    | the channel the invite is for                                                                                      |
+| code                | string                                                                       | the unique invite [code](#DOCS_RESOURCES_INVITE/invite-object)                                                     |
+| created_at          | timestamp                                                                    | the time at which the invite was created                                                                           |
+| guild_id?           | snowflake                                                                    | the guild of the invite                                                                                            |
+| inviter?            | [user](#DOCS_RESOURCES_USER/user-object) object                              | the user that created the invite                                                                                   |
+| max_age             | integer                                                                      | how long the invite is valid for (in seconds)                                                                      |
+| max_uses            | integer                                                                      | the maximum number of times the invite can be used                                                                 |
+| target_type?        | integer                                                                      | the [type of target](#DOCS_RESOURCES_INVITE/invite-object-invite-target-types) for this voice channel invite       |
+| target_user?        | [user](#DOCS_RESOURCES_USER/user-object) object                              | the user whose stream to display for this voice channel stream invite                                              |
+| target_application? | partial [application](#DOCS_RESOURCES_APPLICATION/application-object) object | the embedded application to open for this voice channel embedded application invite                                |
+| temporary           | boolean                                                                      | whether or not the invite is temporary (invited users will be kicked on disconnect unless they're assigned a role) |
+| uses                | integer                                                                      | how many times the invite has been used (always will be 0)                                                         |
 
-### Invite Delete
+#### Invite Delete
 
 Sent when an invite is deleted.
 
@@ -1363,15 +1439,15 @@ Sent when a guild channel's webhook is created, updated, or deleted.
 
 #### Application Command Create
 
-Sent when a new [Slash Command](#DOCS_INTERACTIONS_SLASH_COMMANDS/) is created, relevant to the current user. The inner payload is an [ApplicationCommand](#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommand) object, with an optional extra `guild_id` key.
+Sent when a new [Slash Command](#DOCS_INTERACTIONS_SLASH_COMMANDS/) is created, relevant to the current user. The inner payload is an [ApplicationCommand](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object-application-command-structure) object, with an optional extra `guild_id` key.
 
 #### Application Command Update
 
-Sent when a [Slash Command](#DOCS_INTERACTIONS_SLASH_COMMANDS/) relevant to the current user is updated. The inner payload is an [ApplicationCommand](#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommand) object, with an optional extra `guild_id` key.
+Sent when a [Slash Command](#DOCS_INTERACTIONS_SLASH_COMMANDS/) relevant to the current user is updated. The inner payload is an [ApplicationCommand](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object-application-command-structure) object, with an optional extra `guild_id` key.
 
 #### Application Command Delete
 
-Sent when a [Slash Command](#DOCS_INTERACTIONS_SLASH_COMMANDS/) relevant to the current user is deleted. The inner payload is an [ApplicationCommand](#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommand) object, with an optional extra `guild_id` key.
+Sent when a [Slash Command](#DOCS_INTERACTIONS_SLASH_COMMANDS/) relevant to the current user is deleted. The inner payload is an [ApplicationCommand](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object-application-command-structure) object, with an optional extra `guild_id` key.
 
 ###### Application Command Extra Fields
 
@@ -1383,7 +1459,21 @@ Sent when a [Slash Command](#DOCS_INTERACTIONS_SLASH_COMMANDS/) relevant to the 
 
 #### Interaction Create
 
-Sent when a user in a guild uses a [Slash Command](#DOCS_INTERACTIONS_SLASH_COMMANDS/). Inner payload is an [Interaction](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction).
+Sent when a user in a guild uses a [Slash Command](#DOCS_INTERACTIONS_SLASH_COMMANDS/). Inner payload is an [Interaction](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-object-interaction-structure).
+
+### Stage Instances
+
+#### Stage Instance Create
+
+Sent when a [Stage instance](#DOCS_RESOURCES_STAGE_INSTANCE) is created (i.e. the Stage is now "live"). Inner payload is a [Stage instance](#DOCS_RESOURCE_STAGE_INSTANCE/stage-instance-object)
+
+#### Stage Instance Update
+
+Sent when a [Stage instance](#DOCS_RESOURCES_STAGE_INSTANCE) has been updated. Inner payload is a [Stage instance](#DOCS_RESOURCE_STAGE_INSTANCE/stage-instance-object)
+
+#### Stage Instance Delete
+
+Sent when a [Stage instance](#DOCS_RESOURCES_STAGE_INSTANCE) has been deleted (i.e. the Stage has been closed). Inner payload is a [Stage instance](#DOCS_RESOURCE_STAGE_INSTANCE/stage-instance-object)
 
 ## Get Gateway % GET /gateway
 

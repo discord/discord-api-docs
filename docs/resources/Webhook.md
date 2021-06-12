@@ -12,8 +12,8 @@ Used to represent a webhook.
 | --------------- | ---------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
 | id              | snowflake                                                        | the id of the webhook                                                                                         |
 | type            | integer                                                          | the [type](#DOCS_RESOURCES_WEBHOOK/webhook-object-webhook-types) of the webhook                               |
-| guild_id?       | snowflake                                                        | the guild id this webhook is for                                                                              |
-| channel_id      | snowflake                                                        | the channel id this webhook is for                                                                            |
+| guild_id?       | ?snowflake                                                       | the guild id this webhook is for, if any                                                                      |
+| channel_id      | ?snowflake                                                       | the channel id this webhook is for, if any                                                                    |
 | user?           | [user](#DOCS_RESOURCES_USER/user-object) object                  | the user this webhook was created by (not returned when getting a webhook with its token)                     |
 | name            | ?string                                                          | the default name of the webhook                                                                               |
 | avatar          | ?string                                                          | the default user avatar [hash](#DOCS_REFERENCE/image-formatting) of the webhook                               |
@@ -29,8 +29,9 @@ Used to represent a webhook.
 | ----- | ---------------- | -------------------------------------------------------------------------------------------------------------- |
 | 1     | Incoming         | Incoming Webhooks can post messages to channels with a generated token                                         |
 | 2     | Channel Follower | Channel Follower Webhooks are internal webhooks used with Channel Following to post new messages into channels |
+| 3     | Application      | Application webhooks are webhooks used with Interactions                                                       |
 
-###### Example Webhook
+###### Example Incoming Webhook
 
 ```json
 {
@@ -52,6 +53,50 @@ Used to represent a webhook.
 }
 ```
 
+###### Example Channel Follower Webhook
+
+```json
+{
+  "type": 2,
+  "id": "752831914402115456",
+  "name": "Guildy name",
+  "avatar": "bb71f469c158984e265093a81b3397fb",
+  "channel_id": "561885260615255432",
+  "guild_id": "56188498421443265",
+  "application_id": null,
+  "source_guild": {
+    "id": "56188498421476534",
+    "name": "Guildy name",
+    "icon": "bb71f469c158984e265093a81b3397fb"
+  },
+  "source_channel": {
+    "id": "5618852344134324",
+    "name": "announcements"
+  },
+  "user": {
+    "username": "test",
+    "discriminator": "7479",
+    "id": "190320984123768832",
+    "avatar": "b004ec1740a63ca06ae2e14c5cee11f3",
+    "public_flags": 131328
+  }
+}
+```
+
+###### Example Application Webhook
+
+```json
+{
+  "type": 3,
+  "id": "658822586720976555",
+  "name": "Clyde",
+  "avatar": "689161dc90ac261d00f1608694ac6bfd",
+  "channel_id": null,
+  "guild_id": null,
+  "application_id": "658822586720976555"
+}
+```
+
 ## Create Webhook % POST /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/webhooks
 
 Create a new webhook. Requires the `MANAGE_WEBHOOKS` permission. Returns a [webhook](#DOCS_RESOURCES_WEBHOOK/webhook-object) object on success. Webhook names follow our naming restrictions that can be found in our [Usernames and Nicknames](#DOCS_RESOURCES_USER/usernames-and-nicknames) documentation, with the following additional stipulations:
@@ -60,10 +105,10 @@ Create a new webhook. Requires the `MANAGE_WEBHOOKS` permission. Returns a [webh
 
 ###### JSON Params
 
-| Field  | Type                                      | Description                           |
-| ------ | ----------------------------------------- | ------------------------------------- |
-| name   | string                                    | name of the webhook (1-80 characters) |
-| avatar | ?[image data](#DOCS_REFERENCE/image-data) | image for the default webhook avatar  |
+| Field   | Type                                      | Description                           |
+| ------- | ----------------------------------------- | ------------------------------------- |
+| name    | string                                    | name of the webhook (1-80 characters) |
+| avatar? | ?[image data](#DOCS_REFERENCE/image-data) | image for the default webhook avatar  |
 
 ## Get Channel Webhooks % GET /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/webhooks
 
@@ -110,50 +155,64 @@ Same as above, except this call does not require authentication.
 
 ## Execute Webhook % POST /webhooks/{webhook.id#DOCS_RESOURCES_WEBHOOK/webhook-object}/{webhook.token#DOCS_RESOURCES_WEBHOOK/webhook-object}
 
+> info
+> Note that when sending a message, you must provide a value for at **least one of** `content`, `embeds`, or `file`.
+
+> info
+> For a `file` attachment, the `Content-Disposition` subpart header MUST contain a `filename` parameter.
+
 > warn
-> This endpoint supports both JSON and form data bodies. It does require multipart/form-data requests instead of the normal JSON request type when uploading files. Make sure you set your `Content-Type` to `multipart/form-data` if you're doing that. Note that in that case, the `embeds` field cannot be used, but you can pass an url-encoded JSON body as a form value for `payload_json`.
+> This endpoint supports both `application/json` and `multipart/form-data` bodies. When uploading files the `multipart/form-data` content type must be used.
+> Note that in multipart form data, the `embed` and `allowed_mentions` fields cannot be used. You can pass a stringified JSON body as a form value as `payload_json` instead.
+> **If you supply a `payload_json` form value, all fields except for `file` fields will be ignored in the form data**.
 
 ###### Query String Params
 
 | Field | Type    | Description                                                                                                                                                                                  | Required |
 | ----- | ------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
 | wait  | boolean | waits for server confirmation of message send before response, and returns the created message body (defaults to `false`; when `false` a message that is not saved does not return an error) | false    |
+| thread_id | snowflake | Send a message to the specified thread within a webhook's channel. The thread will automatically be unarchived. | false    |
 
 ###### JSON/Form Params
 
-| Field            | Type                                                                      | Description                                                  | Required                     |
-| ---------------- | ------------------------------------------------------------------------- | ------------------------------------------------------------ | ---------------------------- |
-| content          | string                                                                    | the message contents (up to 2000 characters)                 | one of content, file, embeds |
-| username         | string                                                                    | override the default username of the webhook                 | false                        |
-| avatar_url       | string                                                                    | override the default avatar of the webhook                   | false                        |
-| tts              | boolean                                                                   | true if this is a TTS message                                | false                        |
-| file             | file contents                                                             | the contents of the file being sent                          | one of content, file, embeds |
-| embeds           | array of up to 10 [embed](#DOCS_RESOURCES_CHANNEL/embed-object) objects   | embedded `rich` content                                      | one of content, file, embeds |
-| payload_json     | string                                                                    | See [message create](#DOCS_RESOURCES_CHANNEL/create-message) | `multipart/form-data` only   |
-| allowed_mentions | [allowed mention object](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object) | allowed mentions for the message                             | false                        |
+| Field            | Type                                                                                 | Description                                                  | Required                     |
+| ---------------- | ------------------------------------------------------------------------------------ | ------------------------------------------------------------ | ---------------------------- |
+| content          | string                                                                               | the message contents (up to 2000 characters)                 | one of content, file, embeds |
+| username         | string                                                                               | override the default username of the webhook                 | false                        |
+| avatar_url       | string                                                                               | override the default avatar of the webhook                   | false                        |
+| tts              | boolean                                                                              | true if this is a TTS message                                | false                        |
+| file             | file contents                                                                        | the contents of the file being sent                          | one of content, file, embeds |
+| embeds           | array of up to 10 [embed](#DOCS_RESOURCES_CHANNEL/embed-object) objects              | embedded `rich` content                                      | one of content, file, embeds |
+| payload_json     | string                                                                               | JSON encoded body of non-file params                         | `multipart/form-data` only   |
+| allowed_mentions | [allowed mention object](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object)            | allowed mentions for the message                             | false                        |
+| components       | array of [message component](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-object) | the components to include with the message                   | false                        |
 
 > info
 > For the webhook embed objects, you can set every field except `type` (it will be `rich` regardless of if you try to set it), `provider`, `video`, and any `height`, `width`, or `proxy_url` values for images.
 
 ## Execute Slack-Compatible Webhook % POST /webhooks/{webhook.id#DOCS_RESOURCES_WEBHOOK/webhook-object}/{webhook.token#DOCS_RESOURCES_WEBHOOK/webhook-object}/slack
 
+Refer to [Slack's documentation](https://api.slack.com/incoming-webhooks) for more information. We do not support Slack's `channel`, `icon_emoji`, `mrkdwn`, or `mrkdwn_in` properties.
+
 ###### Query String Params
 
 | Field | Type    | Description                                                                                                                                           | Required |
 | ----- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
 | wait  | boolean | waits for server confirmation of message send before response (defaults to `true`; when `false` a message that is not saved does not return an error) | false    |
-
-Refer to [Slack's documentation](https://api.slack.com/incoming-webhooks) for more information. We do not support Slack's `channel`, `icon_emoji`, `mrkdwn`, or `mrkdwn_in` properties.
 
 ## Execute GitHub-Compatible Webhook % POST /webhooks/{webhook.id#DOCS_RESOURCES_WEBHOOK/webhook-object}/{webhook.token#DOCS_RESOURCES_WEBHOOK/webhook-object}/github
 
+Add a new webhook to your GitHub repo (in the repo's settings), and use this endpoint as the "Payload URL." You can choose what events your Discord channel receives by choosing the "Let me select individual events" option and selecting individual events for the new webhook you're configuring.
+
 ###### Query String Params
 
 | Field | Type    | Description                                                                                                                                           | Required |
 | ----- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
 | wait  | boolean | waits for server confirmation of message send before response (defaults to `true`; when `false` a message that is not saved does not return an error) | false    |
 
-Add a new webhook to your GitHub repo (in the repo's settings), and use this endpoint as the "Payload URL." You can choose what events your Discord channel receives by choosing the "Let me select individual events" option and selecting individual events for the new webhook you're configuring.
+## Get Webhook Message % GET /webhooks/{webhook.id#DOCS_RESOURCES_WEBHOOK/webhook-object}/{webhook.token#DOCS_RESOURCES_WEBHOOK/webhook-object}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}
+
+Returns a previously-sent webhook message from the same token. Returns a [message](#DOCS_RESOURCES_CHANNEL/message-object) object on success.
 
 ## Edit Webhook Message % PATCH /webhooks/{webhook.id#DOCS_RESOURCES_WEBHOOK/webhook-object}/{webhook.token#DOCS_RESOURCES_WEBHOOK/webhook-object}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}
 
@@ -162,17 +221,27 @@ Edits a previously-sent webhook message from the same token. Returns a [message]
 When the `content` field is edited, the `mentions` array in the message object will be reconstructed from scratch based on the new content. The `allowed_mentions` field of the edit request controls how this happens. If there is no explicit `allowed_mentions` in the edit request, the content will be parsed with _default_ allowances, that is, without regard to whether or not an `allowed_mentions` was present in the request that originally created the message.
 
 > info
+> For a `file` attachment, the `Content-Disposition` subpart header MUST contain a `filename` parameter.
+
+> warn
+> This endpoint supports both `application/json` and `multipart/form-data` bodies. When uploading files the `multipart/form-data` content type must be used.
+> Note that in multipart form data, the `embed`, `allowed_mentions`, and `attachments` fields cannot be used. You can pass a stringified JSON body as a form value as `payload_json` instead.
+> **If you supply a `payload_json` form value, all fields except for `file` fields will be ignored in the form data**.
+
+> info
 > All parameters to this endpoint are optional and nullable.
 
 ###### JSON/Form Params
 
-| Field            | Type                                                                      | Description                                                  |
-| ---------------- | ------------------------------------------------------------------------- | ------------------------------------------------------------ |
-| content          | string                                                                    | the message contents (up to 2000 characters)                 |
-| embeds           | array of up to 10 [embed](#DOCS_RESOURCES_CHANNEL/embed-object) objects   | embedded `rich` content                                      |
-| file             | file contents                                                             | the contents of the file being sent/edited                   |
-| payload_json     | string                                                                    | See [message create](#DOCS_RESOURCES_CHANNEL/create-message) |
-| allowed_mentions | [allowed mention object](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object) | allowed mentions for the message                             |
+| Field            | Type                                                                                 | Description                                                     |
+| ---------------- | ------------------------------------------------------------------------------------ | --------------------------------------------------------------- |
+| content          | string                                                                               | the message contents (up to 2000 characters)                    |
+| embeds           | array of up to 10 [embed](#DOCS_RESOURCES_CHANNEL/embed-object) objects              | embedded `rich` content                                         |
+| file             | file contents                                                                        | the contents of the file being sent/edited                      |
+| payload_json     | string                                                                               | JSON encoded body of non-file params (multipart/form-data only) |
+| allowed_mentions | [allowed mention object](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object)            | allowed mentions for the message                                |
+| attachments      | array of [attachment](#DOCS_RESOURCES_CHANNEL/attachment-object) objects             | attached files to keep                                          |
+| components       | array of [message component](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-object) | the components to include with the message                      |
 
 # Delete Webhook Message % DELETE /webhooks/{webhook.id#DOCS_RESOURCES_WEBHOOK/webhook-object}/{webhook.token#DOCS_RESOURCES_WEBHOOK/webhook-object}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}
 

@@ -23,26 +23,29 @@ These are a list of all the OAuth2 scopes that Discord supports. Some scopes req
 
 | Name                         | Description                                                                                                                                                                              |
 |------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| activities.read              | allows your app to fetch data from a user's "Now Playing/Recently Played" list - requires Discord approval                                                                               |
+| activities.write             | allows your app to update a user's activity - requires Discord approval (NOT REQUIRED FOR [GAMESDK ACTIVITY MANAGER](#DOCS_GAME_SDK_ACTIVITIES/))                                        |
+| applications.builds.read     | allows your app to read build data for a user's applications                                                                                                                             |
+| applications.builds.upload   | allows your app to upload/update builds for a user's applications - requires Discord approval                                                                                            |
+| applications.commands        | allows your app to use [Slash Commands](#DOCS_INTERACTIONS_SLASH_COMMANDS/) in a guild                                                                                                   |
+| applications.commands.update | allows your app to update its [Slash Commands](#DOCS_INTERACTIONS_SLASH_COMMANDS/) via this bearer token - [client credentials grant](#DOCS_TOPICS_OAUTH2/client-credentials-grant) only |
+| applications.entitlements    | allows your app to read entitlements for a user's applications                                                                                                                           |
+| applications.store.update    | allows your app to read and update store data (SKUs, store listings, achievements, etc.) for a user's applications                                                                       |
 | bot                          | for oauth2 bots, this puts the bot in the user's selected guild by default                                                                                                               |
 | connections                  | allows [/users/@me/connections](#DOCS_RESOURCES_USER/get-user-connections) to return linked third-party accounts                                                                         |
 | email                        | enables [/users/@me](#DOCS_RESOURCES_USER/get-current-user) to return an `email`                                                                                                         |
-| identify                     | allows [/users/@me](#DOCS_RESOURCES_USER/get-current-user) without `email`                                                                                                               |
+| gdm.join                     | allows your app to [join users to a group dm](#DOCS_RESOURCES_CHANNEL/group-dm-add-recipient)                                                                                            |
 | guilds                       | allows [/users/@me/guilds](#DOCS_RESOURCES_USER/get-current-user-guilds) to return basic information about all of a user's guilds                                                        |
 | guilds.join                  | allows [/guilds/{guild.id}/members/{user.id}](#DOCS_RESOURCES_GUILD/add-guild-member) to be used for joining users to a guild                                                            |
-| gdm.join                     | allows your app to [join users to a group dm](#DOCS_RESOURCES_CHANNEL/group-dm-add-recipient)                                                                                            |
+| identify                     | allows [/users/@me](#DOCS_RESOURCES_USER/get-current-user) without `email`                                                                                                               |
 | messages.read                | for local rpc server api access, this allows you to read messages from all client channels (otherwise restricted to channels/guilds your app creates)                                    |
-| rpc                          | for local rpc server access, this allows you to control a user's local Discord client - requires Discord approval                                                                                  |
-| rpc.notifications.read       | for local rpc server api access, this allows you to receive notifications pushed out to the user - requires Discord approval                                                                        |
+| relationships.read           | allows your app to know a user's friends and implicit relationships - requires Discord approval                                                                                          |
+| rpc                          | for local rpc server access, this allows you to control a user's local Discord client - requires Discord approval                                                                        |
+| rpc.activities.write         | for local rpc server access, this allows you to update a user's activity - requires Discord approval                                                                                     |
+| rpc.notifications.read       | for local rpc server access, this allows you to receive notifications pushed out to the user - requires Discord approval                                                                 |
+| rpc.voice.read               | for local rpc server access, this allows you to read a user's voice settings and listen for voice events - requires Discord approval                                                     |
+| rpc.voice.write              | for local rpc server access, this allows you to update a user's voice settings - requires Discord approval                                                                               |
 | webhook.incoming             | this generates a webhook that is returned in the oauth token response for authorization code grants                                                                                      |
-| applications.builds.upload   | allows your app to upload/update builds for a user's applications - requires Discord approval                                                                                                       |
-| applications.builds.read     | allows your app to read build data for a user's applications                                                                                                                             |
-| applications.store.update    | allows your app to read and update store data (SKUs, store listings, achievements, etc.) for a user's applications                                                                       |
-| applications.entitlements    | allows your app to read entitlements for a user's applications                                                                                                                           |
-| relationships.read           | allows your app to know a user's friends and implicit relationships - requires Discord approval                                                                                                     |
-| activities.read              | allows your app to fetch data from a user's "Now Playing/Recently Played" list - requires Discord approval                                                                                          |
-| activities.write             | allows your app to update a user's activity - requires Discord approval (NOT REQUIRED FOR [GAMESDK ACTIVITY MANAGER](#DOCS_GAME_SDK_ACTIVITIES/))                                                   |
-| applications.commands        | allows your app to use [Slash Commands](#DOCS_INTERACTIONS_SLASH_COMMANDS/) in a guild                                                                                                   |
-| applications.commands.update | allows your app to update its [Slash Commands](#DOCS_INTERACTIONS_SLASH_COMMANDS/) via this bearer token - [client credentials grant](#DOCS_TOPICS_OAUTH2/client-credentials-grant) only |
 
 > info
 > `guilds.join` and `bot` require you to have a bot account linked to your application. Also, in order to add a user to a guild, your bot has to already belong to that guild.
@@ -228,7 +231,7 @@ Bot accounts have a few differences in comparison to normal user accounts, namel
 
 1. Bots are added to guilds through the OAuth2 API, and cannot accept normal invites.
 2. Bots cannot have friends, nor be added to or join Group DMs.
-3. Bots do not have a maximum number of Guilds (unlike user accounts, which are limited to 100).
+3. Verified bots do not have a maximum number of Guilds.
 4. Bots have an entirely separate set of [Rate Limits](#DOCS_TOPICS_RATE_LIMITS/rate-limits).
 
 ### Bot Authorization Flow
@@ -369,86 +372,7 @@ Any user that wishes to add your webhook to their channel will need to go throug
 
 ## Get Current Bot Application Information % GET /oauth2/applications/@me
 
-Returns the bot's OAuth2 [application](#DOCS_TOPICS_OAUTH2/application) object without `flags`.
-
-## Application
-
-###### Application Structure
-
-| Field                  | Type                                                       | Description                                                                                                                |
-|------------------------|------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------|
-| id                     | snowflake                                                  | the id of the app                                                                                                          |
-| name                   | string                                                     | the name of the app                                                                                                        |
-| icon                   | ?string                                                    | the icon hash of the app                                                                                                   |
-| description            | string                                                     | the description of the app                                                                                                 |
-| rpc_origins?           | array of strings                                           | an array of rpc origin urls, if rpc is enabled                                                                             |
-| bot_public             | boolean                                                    | when false only app owner can join the app's bot to guilds                                                                 |
-| bot_require_code_grant | boolean                                                    | when true the app's bot will only join upon completion of the full oauth2 code grant flow                                  |
-| terms_of_service_url?  | string                                                     | the url of the app's terms of service                                                                                      |
-| privacy_policy_url?    | string                                                     | the url of the app's privacy policy                                                                                        |
-| owner                  | partial [user](#DOCS_RESOURCES_USER/user-object) object    | partial user object containing info on the owner of the application                                                        |
-| summary                | string                                                     | if this application is a game sold on Discord, this field will be the summary field for the store page of its primary sku  |
-| verify_key             | string                                                     | the hex encoded key for verification in interactions and the GameSDK's [GetTicket](#DOCS_GAME_SDK_APPLICATIONS/get-ticket) |
-| team                   | ?[team](#DOCS_TOPICS_TEAMS/data-models-team-object) object | if the application belongs to a team, this will be a list of the members of that team                                      |
-| guild_id?              | snowflake                                                  | if this application is a game sold on Discord, this field will be the guild to which it has been linked                    |
-| primary_sku_id?        | snowflake                                                  | if this application is a game sold on Discord, this field will be the id of the "Game SKU" that is created, if exists      |
-| slug?                  | string                                                     | if this application is a game sold on Discord, this field will be the URL slug that links to the store page                |
-| cover_image?           | string                                                     | if this application is a game sold on Discord, this field will be the hash of the image on store embeds                    |
-| flags                  | int                                                        | the application's public [flags](#DOCS_TOPICS_OAUTH2/application-application-flags)                                        |
-
-###### Example Application
-
-```json
-{
-  "bot_public": true,
-  "bot_require_code_grant": false,
-  "cover_image": "31deabb7e45b6c8ecfef77d2f99c81a5",
-  "description": "Test",
-  "guild_id": "290926798626357260",
-  "icon": null,
-  "id": "172150183260323840",
-  "name": "Baba O-Riley",
-  "owner": {
-    "avatar": null,
-    "discriminator": "1738",
-    "flags": 1024,
-    "id": "172150183260323840",
-    "username": "i own a bot"
-  },
-  "primary_sku_id": "172150183260323840",
-  "slug": "test",
-  "summary": "This is a game",
-  "team": {
-    "icon": "dd9b7dcfdf5351b9c3de0fe167bacbe1",
-    "id": "531992624043786253",
-    "members": [
-      {
-        "membership_state": 2,
-        "permissions": ["*"],
-        "team_id": "531992624043786253",
-        "user": {
-          "avatar": "d9e261cd35999608eb7e3de1fae3688b",
-          "discriminator": "0001",
-          "id": "511972282709709995",
-          "username": "Mr Owner"
-        }
-      }
-    ]
-  },
-  "verify_key": "1e0a356058d627ca38a5c8c9648818061d49e49bd9da9e3ab17d98ad4d6bg2u8"
-}
-```
-
-###### Application Flags
-
-| Value   | Name                             |
-|---------|----------------------------------|
-| 1 << 12 | GATEWAY_PRESENCE                 |
-| 1 << 13 | GATEWAY_PRESENCE_LIMITED         |
-| 1 << 14 | GATEWAY_GUILD_MEMBERS            |
-| 1 << 15 | GATEWAY_GUILD_MEMBERS_LIMITED    |
-| 1 << 16 | VERIFICATION_PENDING_GUILD_LIMIT |
-| 1 << 17 | EMBEDDED                         |
+Returns the bot's [application](#DOCS_RESOURCES_APPLICATION/application-object) object without `flags`.
 
 ## Get Current Authorization Information % GET /oauth2/@me
 
@@ -456,12 +380,12 @@ Returns info about the current authorization. Requires authentication with a bea
 
 ###### Response Structure
 
-| Field       | Type                                                          | Description                                                                       |
-|-------------|---------------------------------------------------------------|-----------------------------------------------------------------------------------|
-| application | partial [application](#DOCS_TOPICS_OAUTH2/application) object | the current application                                                           |
-| scopes      | array of strings                                              | the scopes the user has authorized the application for                            |
-| expires     | ISO8601 timestamp                                             | when the access token expires                                                     |
-| user?       | [user](#DOCS_RESOURCES_USER/user-object) object               | the user who has authorized, if the user has authorized with the `identify` scope |
+| Field       | Type                                                                         | Description                                                                       |
+|-------------|------------------------------------------------------------------------------|-----------------------------------------------------------------------------------|
+| application | partial [application](#DOCS_RESOURCES_APPLICATION/application-object) object | the current application                                                           |
+| scopes      | array of strings                                                             | the scopes the user has authorized the application for                            |
+| expires     | ISO8601 timestamp                                                            | when the access token expires                                                     |
+| user?       | [user](#DOCS_RESOURCES_USER/user-object) object                              | the user who has authorized, if the user has authorized with the `identify` scope |
 
 ###### Example Authorization Information
 

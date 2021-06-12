@@ -73,6 +73,7 @@ There are other rules and restrictions not shared here for the sake of spam and 
 | 1 << 14 | Bug Hunter Level 2           |
 | 1 << 16 | Verified Bot                 |
 | 1 << 17 | Early Verified Bot Developer |
+| 1 << 18 | Discord Certified Moderator  |
 
 ###### Premium Types
 
@@ -149,7 +150,7 @@ Returns a list of partial [guild](#DOCS_RESOURCES_GUILD/guild-object) objects th
 ```
 
 > info
-> This endpoint returns 100 guilds by default, which is the maximum number of guilds a non-bot user can join. Therefore, pagination is **not needed** for integrations that need to get a list of the users' guilds.
+> This endpoint returns 200 guilds by default, which is the maximum number of guilds a non-bot user can join. Therefore, pagination is **not needed** for integrations that need to get a list of the users' guilds.
 
 ###### Query String Params
 
@@ -157,7 +158,7 @@ Returns a list of partial [guild](#DOCS_RESOURCES_GUILD/guild-object) objects th
 | ------ | --------- | -------------------------------------- | -------- | ------- |
 | before | snowflake | get guilds before this guild ID        | false    | absent  |
 | after  | snowflake | get guilds after this guild ID         | false    | absent  |
-| limit  | integer   | max number of guilds to return (1-100) | false    | 100     |
+| limit  | integer   | max number of guilds to return (1-200) | false    | 200     |
 
 ## Leave Guild % DELETE /users/@me/guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}
 

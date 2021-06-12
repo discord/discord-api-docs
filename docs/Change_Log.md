@@ -1,8 +1,40 @@
 # Change Log
 
+## Support for Multiple Embeds in Message Routes
+
+#### June 10, 2021
+
+Message routes now accept an embeds array in addition to the existing embed field. Bots can now send up to 10 embeds per message, to be consistent with webhook behavior. The existing embed field is considered deprecated and will be removed in the next API version.
+
+## Buttons and Message Components
+
+#### May 26, 2021
+
+Message components are now available with our first two components: a layout-based `ActionRow` and...buttons!
+
+You can now include buttons on messages sent by your app, whether they're bot messages or responses to interactions. [Learn more about message components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/).
+
+The addition of message components means new fields and response types:
+
+- An optional `components` field has been added to the [message object](#DOCS_RESOURCES_CHANNEL/message-object)
+- New response types `6` and `7` have been added for [interaction responses](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-response-object-interaction-callback-type), valid only for component-based interactions
+
+## API v9
+
+#### April 28, 2021
+
+API v9 is now available.
+
+API v9 includes support for [threads](#DOCS_TOPICS_THREADS), an upcoming feature.  Older API versions will not receive any Gateway Events for threads, so it is important to update soon!  We've prepared a [migration guide](#DOCS_TOPICS_THREADS) to help make the upgrade process very straightforward.
+
+This documentation is being published early so bots can have at least two months to upgrade before threads launch.
+
+Additionally, API v9 also removes the `/channels/:id/messages/:id/suppress-embeds` route.
+
+
 ## Slash Command Permissions
 
-## April 5, 2021
+#### April 5, 2021
 
 Need to keep some of your Slash Commands safe from prying eyes, or only available to the right people? Slash Commands now support [command permissions](#DOCS_INTERACTIONS_SLASH_COMMANDS/permissions)!
 
@@ -14,17 +46,17 @@ New routes have been added to support this functionality:
 - [`GET Application Command Permissions`](#DOCS_INTERACTIONS_SLASH_COMMANDS/getapplicationcommandpermissions)
 - [`PUT Application Command Permissions`](#DOCS_INTERACTIONS_SLASH_COMMANDS/putapplicationcommandpermissions)
 
-A `default_permission` field has also been added to the [ApplicationCommand](#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommand) model. This field allows you to disable commands for everyone in a guild by default, if you prefer to make some of your commands an opt-in experience.
+A `default_permission` field has also been added to the [ApplicationCommand](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object-application-command-structure) model. This field allows you to disable commands for everyone in a guild by default, if you prefer to make some of your commands an opt-in experience.
 
-## Large Bot Sharding Lowered to 150,000 Guilds 
+## Large Bot Sharding Lowered to 150,000 Guilds
 
-## March 15, 2021
+#### March 15, 2021
 
 There have been reports that sessions have higher frequency of errors when starting if a bot has joined too many guilds (the gateway connection times out). To account for this we have lowered the requirement for large bot sharding down to 150,000 guilds in order to improve reliability.
 
 ## Changes to Slash Command Response Types and Flags
 
-## March 5, 2021
+#### March 5, 2021
 
 Changes to interaction response types have been made to support better designs for Slash Commands:
 
@@ -34,13 +66,13 @@ Changes to interaction response types have been made to support better designs f
 
 These deprecated types will be removed and break on **April 9, 2021**.
 
-Additionally, `flags` has been documented on [InteractionApplicationCommandCallbackData](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-response-interactionapplicationcommandcallbackdata). Setting `flags` to `64` will make the interaction response ephemeral.
+Additionally, `flags` has been documented on [InteractionApplicationCommandCallbackData](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-response-object-interaction-application-command-callback-data-structure). Setting `flags` to `64` will make the interaction response ephemeral.
 
 ## Slash Commands in DMs
 
 #### February 9, 2021
 
-Slash Commands are now supported in DMs with bots. Due to this change, some of the fields on the [Interaction object](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction) have been made optional. Newly optional fields don't reflect any behavior changes in Slash Commands within guilds; they are to support commands in the context of a DM only.
+Slash Commands are now supported in DMs with bots. Due to this change, some of the fields on the [Interaction object](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-object-interaction-structure) have been made optional. Newly optional fields don't reflect any behavior changes in Slash Commands within guilds; they are to support commands in the context of a DM only.
 
 ## Change to Permission Checking when Creating Channels
 
@@ -58,7 +90,7 @@ Slash Commands include some new features for webhooks as well:
 
 - Webhooks can now update previously-sent messages from the same webhook using [Edit Webhook Message](#DOCS_RESOURCES_WEBHOOK/edit-webhook-message) and [Delete Webhook Message](#DOCS_RESOURCES_WEBHOOK/delete-webhook-message)
 
-This PR also documents the `application` field on the `READY` gateway event, which is a partial [application object](#DOCS_TOPICS_OAUTH2/application-object) containing `id` and `flags`.
+This PR also documents the `application` field on the `READY` gateway event, which is a partial [application object](#DOCS_RESOURCES_APPLICATION/application-object) containing `id` and `flags`.
 
 ## Inline Replies
 
@@ -76,7 +108,7 @@ Inline Replies have been added to our documentation. They behave differently in 
 
 #### November 13, 2020
 
-Stickers are now documented as part of the [message](#DOCS_RESOURCES_CHANNEL/message-object) object. 
+Stickers are now documented as part of the [message](#DOCS_RESOURCES_CHANNEL/message-object) object.
 
 ## Gateway v6 Intent Restrictions
 
@@ -103,7 +135,7 @@ The changes are:
 - Channel Permission Overwrite `type`s are now numbers (0 and 1) instead of strings ("role" and "member"). However due to a current technical constraint, they are string-serialized numbers in audit log `options`.
 - `embed_enabled` and `embed_channel_id` have been removed. Use `widget_enabled` and `widget_channel_id` instead.
 - Form body errors have been improved to include more helpful messaging on validation. [See more here](#DOCS_REFERENCE/error-messages)
-- The `Retry-After` header is now based in seconds instead of milliseconds (e.g. `123` means 123 seconds)
+- The `Retry-After` header value and `retry_after` body value is now based in seconds instead of milliseconds (e.g. `123` means 123 seconds)
 - The `X-RateLimit-Precision` header is no longer respected. `X-RateLimit-Reset` and `X-RateLimit-Reset-After` are always returned at millisecond precision (e.g. `123.456` instead of `124`)
 - Bots no longer receive [Channel Create Gateway Event](#DOCS_TOPICS_GATEWAY/channel-create) for DMs
 - `delete-message-days` is no longer available. Use `delete_message_days`.
