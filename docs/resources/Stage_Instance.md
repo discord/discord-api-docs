@@ -75,7 +75,7 @@ Requires the user to be a moderator of the Stage channel.
 
 Gets the stage instance associated with the Stage channel, if it exists.
 
-## Update Stage Instance % PATCH /stage-instances/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}
+## Modify Stage Instance % PATCH /stage-instances/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}
 
 Updates fields of an existing Stage instance.
 
