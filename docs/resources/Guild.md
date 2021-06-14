@@ -595,7 +595,7 @@ Returns the [guild](#DOCS_RESOURCES_GUILD/guild-object) object for the given id.
 
 ## Get Guild Preview % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/preview
 
-Returns the [guild preview](#DOCS_RESOURCES_GUILD/guild-preview-object) object for the given id. If the user is not in the guild, then the guild must be Discoverable.
+Returns the [guild preview](#DOCS_RESOURCES_GUILD/guild-preview-object) object for the given id. If the user is not in the guild, then the guild must be lurkable (it must be Discoverable or have a [live public stage](#DOCS_RESOURCES_STAGE_INSTANCE/definitions)).
 
 ## Modify Guild % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}
 
@@ -1014,7 +1014,7 @@ Modify the guild's [Welcome Screen](#DOCS_RESOURCES_GUILD/welcome-screen-object)
 | welcome_channels | array of [welcome screen channel](#DOCS_RESOURCES_GUILD/welcome-screen-object-welcome-screen-channel-structure) objects | channels linked in the welcome screen and their display options |
 | description      | string                                                                                                                  | the server description to show in the welcome screen            |
 
-## Update Current User Voice State % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/voice-states/@me
+## Modify Current User Voice State % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/voice-states/@me
 
 Updates the current user's voice state.
 
@@ -1036,7 +1036,7 @@ There are currently several caveats for this endpoint:
 - You must have the `REQUEST_TO_SPEAK` permission to request to speak. You can always clear your own request to speak.
 - You are able to set `request_to_speak_timestamp` to any present or future time.
 
-## Update User Voice State % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/voice-states/{user.id#DOCS_RESOURCES_USER/user-object}
+## Modify User Voice State % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/voice-states/{user.id#DOCS_RESOURCES_USER/user-object}
 
 Updates another user's voice state.
 

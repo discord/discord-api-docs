@@ -157,7 +157,10 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 30013  | Maximum number of guild channels reached (500)                                                                                |
 | 30015  | Maximum number of attachments in a message reached (10)                                                                       |
 | 30016  | Maximum number of invites reached (1000)                                                                                      |
+| 30018  | Maximum number of animated emojis reached                                                                                     |
+| 30019  | Maximum number of server members reached                                                                                      |
 | 30031  | Guild already has a template                                                                                                  |
+| 30033  | Max number of thread participants has been reached                                                                            |
 | 30035  | Maximum number of bans for non-guild members have been exceeded                                                               |
 | 30037  | Maximum number of bans fetches has been reached                                                                               |
 | 40001  | Unauthorized. Provide a valid token and try again                                                                             |
@@ -209,6 +212,10 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 80004  | No users with DiscordTag exist                                                                                                |
 | 90001  | Reaction was blocked                                                                                                          |
 | 130000 | API resource is currently overloaded. Try again a little later                                                                |
+| 160004 | A thread has already been created for this message                                                                            |
+| 160005 | Thread is locked                                                                                                              |
+| 160006 | Maximum number of active threads reached                                                                                      |
+| 160007 | Maximum number of active announcement threads reached                                                                         |
 
 ###### Example JSON Error Response
 

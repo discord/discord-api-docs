@@ -59,6 +59,8 @@ Many of these libraries are represented in the [unofficial, community-driven Dis
 
 - C#
   - [DSharpPlus.SlashCommands](https://github.com/IDoEverything/DSharpPlus.SlashCommands)
+- Clojure
+  - [ring-discord-auth](https://github.com/JohnnyJayJay/ring-discord-auth)
 - Go
   - [discord-interactions-go](https://github.com/bsdlp/discord-interactions-go)
 - Javascript

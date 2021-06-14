@@ -1,5 +1,11 @@
 # Change Log
 
+## Support for Multiple Embeds in Message Routes
+
+#### June 10, 2021
+
+Message routes now accept an embeds array in addition to the existing embed field. Bots can now send up to 10 embeds per message, to be consistent with webhook behavior. The existing embed field is considered deprecated and will be removed in the next API version.
+
 ## Buttons and Message Components
 
 #### May 26, 2021

@@ -19,7 +19,7 @@ Since threads are a new [type of channel](#DOCS_RESOURCES_CHANNEL/channel-object
 Additionally, there are a few new fields that are only available on threads:
 
 - `message_count` and `member_count` store an approximate count, but they stop counting at 50 (these are only used in our UI, so likely are not valuable to bots)
-- `thread_metadata` contains a few thread specific fields, `archived`, `archive_timestamp`, `archiver_id`, `auto_archive_duration`, `locked`. `archive_timestamp` is changed when creating, archiving, or unarchiving a thread, and when changing the `auto_archive_duration` field.
+- `thread_metadata` contains a few thread specific fields, `archived`, `archive_timestamp`, `auto_archive_duration`, `locked`. `archive_timestamp` is changed when creating, archiving, or unarchiving a thread, and when changing the `auto_archive_duration` field.
 
 ## Public & Private Threads
 
@@ -36,6 +36,8 @@ Besides helping to de-clutter the UI for users, archiving exists to limit the wo
 Because of this constraint, the gateway protocol is designed to ensure that bots are able to have an accurate view of the full set of active threads, but archived threads are not synced up-front via the gateway.
 
 Threads do not count against the max-channels limit in a guild, but there will be a new limit on the maximum number of active threads in a guild.
+
+Threads automatically archive after inactivity. "Activity" is defined as sending a message, unarchiving a thread, or changing the auto-archive time. Bots can control how long a thread can be inactive with the `auto_archive_duration` field. Channels can also set `default_auto_archive_duration`, which is primarily used by our clients to pre-select a different auto-archive duration when a user starts the thread creation flow.
 
 ## Permissions
 
