@@ -537,14 +537,18 @@ A thread member is used to indicate whether a user has joined a thread or not.
 
 ###### Thread Member Structure
 
-| Field          | Type              | Description                                                     |
-|----------------|-------------------|-----------------------------------------------------------------|
-| id? \*         | snowflake         | the id of the thread                                            |
-| user_id? \*    | snowflake         | the id of the user                                              |
-| join_timestamp | ISO8601 timestamp | the time the current user last joined the thread                |
-| flags          | integer           | any user-thread settings, currently only used for notifications |
+| Field          | Type                                                                        | Description                                                     |
+| -------------- | --------------------------------------------------------------------------- | --------------------------------------------------------------- |
+| id? \*         | snowflake                                                                   | the id of the thread                                            |
+| user_id? \*    | snowflake                                                                   | the id of the user                                              |
+| join_timestamp | ISO8601 timestamp                                                           | the time the current user last joined the thread                |
+| flags          | integer                                                                     | any user-thread settings, currently only used for notifications |
+| member? \*\*   | [guild member object](#DOCS_RESOURCES_GUILD/guild-member-object)            | the member object for the user who joined the thread            |
+| presence? \*\* | [presence update object](#DOCS_TOPICS_GATEWAY/presence-update-event-fields) | the current presence of the user who joined the thread          |
 
 ** \* These fields are ommitted on the member sent within each thread in the [GUILD_CREATE](#DOCS_TOPICS_GATEWAY/guild-create) event **
+
+** \*\* These fields are only present in the [THREAD_MEMBERS_UPDATE](#DOCS_TOPICS_GATEWAY/thread-members-update) event **
 
 ### Embed Object
 
