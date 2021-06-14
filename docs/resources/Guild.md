@@ -300,7 +300,8 @@ A partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object. Represents an Offl
   "roles": [],
   "joined_at": "2015-04-26T06:26:56.936000+00:00",
   "deaf": false,
-  "mute": false
+  "mute": false,
+  "avatar": null
 }
 ```
 
