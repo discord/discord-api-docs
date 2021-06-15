@@ -341,7 +341,7 @@ Represents a message sent in a channel within Discord.
 | pack_id?         | snowflake | id of the pack the sticker is from                                                            |
 | name             | string    | name of the sticker                                                                           |
 | description      | string    | description of the sticker                                                                    |
-| tags             | string    | a unicode emoji representing the sticker's expression                                         |
+| tags             | string    | for guild stickers, a unicode emoji representing the sticker's expression. for nitro stickers, a comma-separated list of related expressions. |
 | asset\*          | string    | **Deprecated** previously the sticker asset hash, now an empty string                         |
 | format_type      | integer   | [type of sticker format](#DOCS_RESOURCES_CHANNEL/message-object-message-sticker-format-types) |
 | available?       | boolean   | whether or not the sticker is available                                                       |
