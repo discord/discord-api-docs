@@ -258,7 +258,7 @@ Represents a message sent in a channel within Discord.
 | application_id?               | snowflake                                                                                                                                       | if the message is a response to an [Interaction](#DOCS_INTERACTIONS_SLASH_COMMANDS/), this is the id of the interaction's application   |
 | message_reference?            | [message reference](#DOCS_RESOURCES_CHANNEL/message-reference-object-message-reference-structure) object                                        | data showing the source of a crosspost, channel follow add, pin, or reply message                                                       |
 | flags?                        | integer                                                                                                                                         | [message flags](#DOCS_RESOURCES_CHANNEL/message-object-message-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field) |
-| stickers?                     | array of [sticker](#DOCS_RESOURCES_CHANNEL/message-object-message-sticker-structure) objects                                                    | the stickers sent with the message (bots currently can only receive messages with stickers, not send)                                   |
+| stickers?                     | array of [sticker](#DOCS_RESOURCES_CHANNEL/message-object-message-sticker-structure) objects                                                    | **Deprecated** the stickers sent with the message (bots currently can only receive messages with stickers, not send)                                   |
 | referenced_message?\*\*\*\*\* | ?[message object](#DOCS_RESOURCES_CHANNEL/message-object)                                                                                       | the message associated with the message_reference                                                                                       |
 | interaction?                  | [message interaction object](#DOCS_INTERACTIONS_SLASH_COMMANDS/message-interaction-object-message-interaction-structure)                                                              | sent if the message is a response to an [Interaction](#DOCS_INTERACTIONS_SLASH_COMMANDS/)                                               |
 | thread?                       | [channel](#DOCS_RESOURCES_CHANNEL/channel) object                                                                                               | the thread that was started from this message, includes [thread member](#DOCS_RESOURCES_CHANNEL/thread-member-object) object            |
@@ -338,12 +338,16 @@ Represents a message sent in a channel within Discord.
 | Field            | Type      | Description                                                                                   |
 | ---------------- | --------- | --------------------------------------------------------------------------------------------- |
 | id               | snowflake | id of the sticker                                                                             |
-| pack_id          | snowflake | id of the pack the sticker is from                                                            |
+| pack_id?         | snowflake | id of the pack the sticker is from                                                            |
 | name             | string    | name of the sticker                                                                           |
 | description      | string    | description of the sticker                                                                    |
-| tags?            | string    | a comma-separated list of tags for the sticker                                                |
-| asset\*          | string    | sticker asset hash                                                                            |
+| tags             | string    | a unicode emoji representing the sticker's expression                                         |
+| asset\*          | string    | **Deprecated** previously the sticker asset hash, now an empty string                         |
 | format_type      | integer   | [type of sticker format](#DOCS_RESOURCES_CHANNEL/message-object-message-sticker-format-types) |
+| available?       | boolean   | whether or not the sticker is available                                                       |
+| guild_id?        | snowflake | id of the guild that owns this sticker                                                        |
+| user?            | [user](#DOCS_RESOURCES_USER/user-object) object | the user that uploaded the sticker                      |
+| sort_value?      | integer   | a sticker's sort order within a pack                                                          |
 
 \* The URL for fetching sticker assets is currently private.
 
