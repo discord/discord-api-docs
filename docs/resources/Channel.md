@@ -338,15 +338,16 @@ Represents a message sent in a channel within Discord.
 | Field            | Type      | Description                                                                                   |
 | ---------------- | --------- | --------------------------------------------------------------------------------------------- |
 | id               | snowflake | id of the sticker                                                                             |
-| pack_id          | snowflake | **Deprecated** id of the pack the sticker is from                                             |
+| pack_id?         | snowflake | id of the pack the sticker is from                                                            |
 | name             | string    | name of the sticker                                                                           |
 | description      | string    | description of the sticker                                                                    |
-| tags?            | string    | a comma-separated list of tags for the sticker                                                |
-| asset\*          | string    | **Deprecated** sticker asset hash                                                             |
+| tags             | string    | a unicode emoji representing the sticker's expression                                         |
+| asset\*          | string    | **Deprecated** previously the sticker asset hash, now an empty string                         |
 | format_type      | integer   | [type of sticker format](#DOCS_RESOURCES_CHANNEL/message-object-message-sticker-format-types) |
-| available        | boolean   | whether or not the sticker is available                                                       |
-| guild_id         | snowflake | id of the guild that owns this sticker                                                        |
+| available?       | boolean   | whether or not the sticker is available                                                       |
+| guild_id?        | snowflake | id of the guild that owns this sticker                                                        |
 | user?            | [user](#DOCS_RESOURCES_USER/user-object) object | the user that uploaded the sticker                      |
+| sort_value?      | integer   | a sticker's sort order within a pack                                                          |
 
 \* The URL for fetching sticker assets is currently private.
 
