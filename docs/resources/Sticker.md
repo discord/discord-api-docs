@@ -56,7 +56,7 @@ Represents a sticker that can be sent in messages. The URL for fetching sticker 
 
 Represents a pack of standard stickers.
 
-###### Sticker Structure
+###### Sticker Pack Structure
 
 | Field            | Type                                                               | Description                                                               |
 | ---------------- | ------------------------------------------------------------------ | ------------------------------------------------------------------------- |
