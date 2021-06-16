@@ -99,3 +99,35 @@ Returns an array of [sticker](#DOCS_RESOURCES_STICKER/sticker-object) objects fo
 ## Get Guild Sticker % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/stickers/{sticker.id#DOCS_RESOURCES_STICKER/sticker-object}
 
 Returns a [sticker](#DOCS_RESOURCES_STICKER/sticker-object) object for the given guild and sticker IDs.
+
+## Create Guild Sticker % POST /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/stickers
+
+Create a new sticker for the guild. Send a `multipart/form-data` body. Requires the `MANAGE_GUILD` permission. Returns the new [sticker](#DOCS_RESOURCES_STICKER/sticker-object) object on success.
+
+###### Form Params
+
+| Field        | Type          | Description                                                       |
+| ------------ | ------------- | ----------------------------------------------------------------- |
+| name         | string        | name of the sticker (2-30 characters)                             |
+| description? | string        | description of the sticker (up to 100 characters)                 |
+| tags         | string        | the name of a unicode emoji representing the sticker's expression |
+| file         | file contents | the sticker file to upload                                        |
+
+## Modify Guild Sticker % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/stickers/{sticker.id#DOCS_RESOURCES_STICKER/sticker-object}
+
+Modify the given sticker. Requires the `MANAGE_GUILD` permission. Returns the updated [sticker](#DOCS_RESOURCES_STICKER/sticker-object) object on success.
+
+> info
+> All parameters to this endpoint are optional.
+
+###### JSON Params
+
+| Field       | Type   | Description                                                       |
+| ----------- | ------ | ----------------------------------------------------------------- |
+| name        | string | name of the sticker (2-30 characters)                             |
+| description | string | description of the sticker (up to 100 characters)                 |
+| tags        | string | the name of a unicode emoji representing the sticker's expression |
+
+## Delete Guild Sticker % DELETE /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/stickers/{sticker.id#DOCS_RESOURCES_STICKER/sticker-object}
+
+Delete the given sticker. Requires the `MANAGE_GUILD` permission. Returns `204 No Content` on success.
