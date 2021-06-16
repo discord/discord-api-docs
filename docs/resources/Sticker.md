@@ -19,7 +19,7 @@ Represents a sticker that can be sent in messages. The URL for fetching sticker 
 | available?  | boolean                                         | whether or not the guild sticker is available                                                                                                                |
 | guild_id?   | snowflake                                       | id of the guild that owns this sticker                                                                                                                       |
 | user?       | [user](#DOCS_RESOURCES_USER/user-object) object | the user that uploaded the guild sticker                                                                                                                     |
-| sort_value? | integer                                         | a standard sticker's sort order within a pack                                                                                                                |
+| sort_value? | integer                                         | the standard sticker's sort order within its pack                                                                                                            |
 
 ###### Sticker Types
 
