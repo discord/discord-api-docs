@@ -52,6 +52,7 @@ Many of these libraries are represented in the [unofficial, community-driven Dis
 | [discordeno](https://github.com/discordeno/discordeno)       | TypeScript |
 | [droff](https://github.com/tim-smart/droff)                  | TypeScript |
 | [Harmony](https://github.com/harmonyland/harmony)            | TypeScript |
+| [Skycord](https://github.com/skycord/skycord)                | TypeScript |
 
 ## Interactions
 
