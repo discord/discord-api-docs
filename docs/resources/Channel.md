@@ -75,7 +75,7 @@ Represents a guild or DM channel within Discord.
   "topic": "24/7 chat about how to gank Mike #2",
   "last_message_id": "155117677105512449",
   "parent_id": "399942396007890945",
-  "default_auto_archive_duration": 240
+  "default_auto_archive_duration": 60
 }
 ```
 
@@ -95,7 +95,7 @@ Bots can post or publish messages in this type of channel if they have the prope
   "topic": "Rumors about Half Life 3",
   "last_message_id": "155117677105512449",
   "parent_id": "399942396007890945",
-  "default_auto_archive_duration": 240
+  "default_auto_archive_duration": 60
 }
 ```
 
