@@ -237,16 +237,34 @@ Discord utilizes a subset of markdown for rendering message content on its clien
 ###### Formats
 
 | Type                    | Structure          | Example                      |
-|-------------------------|--------------------|------------------------------|
-| User                    | <@USER_ID>         | <@80351110224678912>         |
-| User (Nickname)         | <@!USER_ID>        | <@!80351110224678912>        |
-| Channel                 | <#CHANNEL_ID>      | <#103735883630395392>        |
-| Role                    | <@&ROLE_ID>        | <@&165511591545143296>       |
-| Standard Emoji          | Unicode Characters | 💯                           |
-| Custom Emoji            | <:NAME:ID>         | <:mmLol:216154654256398347>  |
-| Custom Emoji (Animated) | <a:NAME:ID>        | <a:b1nzy:392938283556143104> |
+|--------------------------|--------------------|------------------------------|
+| User                     | <@USER_ID>         | <@80351110224678912>         |
+| User (Nickname)          | <@!USER_ID>        | <@!80351110224678912>        |
+| Channel                  | <#CHANNEL_ID>      | <#103735883630395392>        |
+| Role                     | <@&ROLE_ID>        | <@&165511591545143296>       |
+| Standard Emoji           | Unicode Characters | 💯                           |
+| Custom Emoji             | <:NAME:ID>         | <:mmLol:216154654256398347>  |
+| Custom Emoji (Animated)  | <a:NAME:ID>        | <a:b1nzy:392938283556143104> |
+| Unix Timestamp           | <t:TIMESTAMP>      | <t:1618953630>               |
+| Unix Timestamp (Flagged) | <t:TIMESTAMP:FLAG> | <t:1618953630:d>             |
 
 Using the markdown for either users, roles, or channels will usually mention the target(s) accordingly, but this can be suppressed using the `allowed_mentions` parameter when creating a message. Standard emoji are currently rendered using [Twemoji](https://twemoji.twitter.com/) for Desktop/Android and Apple's native emoji on iOS.
+
+Timestamps will display the given timestamp in the user's timezone and locale.
+
+###### Timestamp Flags
+
+| Flag | Example Output               | Description     |
+| ---- | ---------------------------- | --------------- |
+| t    | 16:20                        | Short Time      |
+| T    | 16:20:30                     | Long Time       |
+| d    | 20/04/2021                   | Short Date      |
+| D    | 20 April 2021                | Long Date       |
+| f \* | 20 April 2021 16:20          | Short Date/Time |
+| F    | Tuesday, 20 April 2021 16:20 | Long Date/Time  |
+| R    | 2 months ago                 | Relative Time   |
+
+\*default
 
 ## Image Formatting
 
