@@ -82,6 +82,10 @@ Represents a pack of standard stickers.
 }
 ```
 
+## Get Sticker % GET /stickers/{sticker.id#DOCS_RESOURCES_STICKER/sticker-object}
+
+Returns a [sticker](#DOCS_RESOURCES_STICKER/sticker-object) object for the given sticker ID.
+
 ## List Nitro Sticker Packs % GET /sticker-packs
 
 Returns the list of sticker packs available to Nitro subscribers.
