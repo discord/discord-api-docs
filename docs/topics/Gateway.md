@@ -479,7 +479,9 @@ These events do not have a event type specified, but are identified solely on op
 | 10 | [Hello](#DOCS_TOPICS_GATEWAY/hello)                                                 | defines the heartbeat interval                                                                                                   |
 | 11 | [Heartbeat ACK](#DOCS_TOPICS_GATEWAY/heartbeat-ack)                                 | heartbeat confirmation                                                                                                           |
 
-###### Gateway State Events
+###### Gateway Events
+
+Events are [Dispatch](...) payloads that correspond to events in Discord.
 
 | name                                                                                | description                                                                                                                      |
 |-------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------|
