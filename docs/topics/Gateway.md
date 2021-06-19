@@ -464,8 +464,6 @@ Commands are requests made to the gateway socket by a client.
 | [Update Voice State](#DOCS_TOPICS_GATEWAY/update-voice-state)       | joins, moves, or disconnects the client from a voice channel |
 | [Update Presence](#DOCS_TOPICS_GATEWAY/update-presence)             | updates a client's presence                                  |
 
-Events are payloads sent over the socket to a client. Events with an operation code of 0 regards changes in the Discord state, while 
-those with a higher op code affects only the websocket connection.
 
 ###### Gateway Operation Events
 These events do not have a event type specified, but are identified solely on operation code
