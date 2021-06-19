@@ -465,7 +465,7 @@ Commands are requests made to the gateway socket by a client.
 | [Update Presence](#DOCS_TOPICS_GATEWAY/update-presence)             | updates a client's presence                                  |
 
 
-###### Gateway Operation Events
+###### Gateway Opcodes
 These events do not have a event type specified, but are identified solely on operation code
 
 | op | name                                                                                | description                                                                                                                      |
