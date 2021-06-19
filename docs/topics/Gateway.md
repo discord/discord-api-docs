@@ -479,7 +479,7 @@ These events do not have a event type specified, but are identified solely on op
 
 ###### Gateway Events
 
-Events are [Dispatch](...) payloads that correspond to events in Discord.
+Events are [Dispatch](...) payloads that correspond to changes in Discord state.
 
 | name                                                                                | description                                                                                                                      |
 |-------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------|
