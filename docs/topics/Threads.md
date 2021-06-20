@@ -78,7 +78,7 @@ Membership is tracked in an array of [thread member](#DOCS_RESOURCES_CHANNEL/thr
 > info
 > These require the `GUILD_MEMBERS` [Gateway Intent](#DOCS_TOPICS_GATEWAY/gateway-intents)
 
-- An API `GET` call to `/channels/<channel_id>/thread-members` which returns an array of [thread member](#DOCS_RESOURCES_CHANNEL/thread-member-object) objects.
+- An API `GET` call to [`/channels/<channel_id>/thread-members`](#DOCS_RESOURCES_CHANNEL/list-thread-members) which returns an array of [thread member](#DOCS_RESOURCES_CHANNEL/thread-member-object) objects.
 - The [Thread Members Update](#DOCS_TOPICS_GATEWAY/thread-members-update) Gateway Event which will include all users who were added to or removed from a thread by an action.
 
 ## Editing & Deleting Threads
