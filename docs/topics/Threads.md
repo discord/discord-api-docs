@@ -107,10 +107,10 @@ Threads introduce a few new [message types](#DOCS_RESOURCES_CHANNEL/message-obje
 
 There are four new `GET` routes for enumerating threads in a specific channel:
 
-- `/channels/<channel_id>/threads/active` returns all active threads in a channel that the current user can access, includes public & private threads
-- `/channels/<channel_id>/users/@me/threads/archived/private` returns all archived, private threads in a channel, that the current user has is a member of, sorted by thread id descending
-- `/channels/<channel_id>/threads/archived/public` returns all archived, public threads in a channel, sorted by archive timestamp descending
-- `/channels/<channel_id>/threads/archived/private` returns all archived, private threads in a channel, sorted by archive timestamp descending
+- [`/channels/<channel_id>/threads/active`](#DOCS_RESOURCES_CHANNEL/list-active-threads) returns all active threads in a channel that the current user can access, includes public & private threads
+- [`/channels/<channel_id>/users/@me/threads/archived/private`](#DOCS_RESOURCES_CHANNEL/list-joined-private-archived-threads) returns all archived, private threads in a channel, that the current user has is a member of, sorted by thread id descending
+- [`/channels/<channel_id>/threads/archived/public`](#DOCS_RESOURCES_CHANNEL/list-public-archived-threads) returns all archived, public threads in a channel, sorted by archive timestamp descending
+- [`/channels/<channel_id>/threads/archived/private`](#DOCS_RESOURCES_CHANNEL/threads/archived/private) returns all archived, private threads in a channel, sorted by archive timestamp descending
 
 ## Webhooks
 
