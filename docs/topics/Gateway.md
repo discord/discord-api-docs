@@ -805,6 +805,20 @@ The inner `d` key is a boolean that indicates whether the session may be resumab
 }
 ```
 
+### Application Commands
+
+#### Application Command Create
+
+Sent when a slash command is created. The inner payload is a [slash comand](#DOCS_INTERACTIONS_SLASH_COMMANDS/) interaction.
+
+#### Application Command Update
+
+Sent when a slash command is updated. The inner payload is a [slash comand](#DOCS_INTERACTIONS_SLASH_COMMANDS/) interaction.
+
+#### Application Command Delete
+
+Sent when a slash command is deleted. The inner payload is a [slash comand](#DOCS_INTERACTIONS_SLASH_COMMANDS/) interaction.
+
 ### Channels
 
 #### Channel Create
