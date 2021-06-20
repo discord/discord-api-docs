@@ -137,6 +137,7 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 10062  | Unknown interaction                                                                                                           |
 | 10063  | Unknown application command                                                                                                   |
 | 10066  | Unknown application command permissions                                                                                       |
+| 10067  | Unknown Stage Instance                                                                                                        |
 | 20001  | Bots cannot use this endpoint                                                                                                 |
 | 20002  | Only bots can use this endpoint                                                                                               |
 | 20009  | Explicit content cannot be sent to the desired recipient(s)                                                                   |
@@ -211,6 +212,7 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 60003  | Two factor is required for this operation                                                                                     |
 | 80004  | No users with DiscordTag exist                                                                                                |
 | 90001  | Reaction was blocked                                                                                                          |
+| 150006 | The Stage is already open                                                                                                     |
 | 130000 | API resource is currently overloaded. Try again a little later                                                                |
 | 160004 | A thread has already been created for this message                                                                            |
 | 160005 | Thread is locked                                                                                                              |
