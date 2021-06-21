@@ -67,7 +67,6 @@ Many of these libraries are represented in the [unofficial, community-driven Dis
   - [slash-create](https://github.com/Snazzah/slash-create)
 - Python
   - [discord-interactions-python](https://github.com/discord/discord-interactions-python)
-  - [discord-py-slash-command](https://github.com/eunwoo1104/discord-py-slash-command)
   - [dispike](https://github.com/ms7m/dispike)
   - [flask-discord-interactions](https://github.com/Breq16/flask-discord-interactions)
 - PHP
