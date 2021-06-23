@@ -25,7 +25,7 @@ In this documentation you'll find some notes about limits and caps on certain pa
 
 ## What is a Slash Command
 
-**Slash Commands** (synonymous with application commands) are a type of interaction that you can register for your application. They're made up of a name, description, and a block of `options`, which you can think of like arguments to a function. The name and description help users find your command among many others, and the `options` validate user input as they fill out your command.
+**Slash Commands** (synonymous with application commands) are made up of a name, description, and a block of `options`, which you can think of like arguments to a function. The name and description help users find your command among many others, and the `options` validate user input as they fill out your command.
 
 Your global commands are available in every guild that adds your application. You can also make commands for a specific guild; they're only available in that guild.
 
