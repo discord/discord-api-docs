@@ -151,6 +151,8 @@ This command will only be available within the guild that you specified.
 > warn
 > Guild commands update **instantly**. We recommend you use guild commands for quick testing, and global commands when they're ready for public use.
 
+Take a look at the [application command option data structure][#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object-application-command-option-structure] for extensive info about the types of `options` you can use.
+
 ## Updating and Deleting a Command
 
 Slash Commands can be deleted and updated by making `DELETE` and `PATCH` calls to the command endpoint. Those endpoints are
