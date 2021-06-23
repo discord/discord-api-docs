@@ -78,7 +78,7 @@ Membership is tracked in an array of [thread member](#DOCS_RESOURCES_CHANNEL/thr
 > info
 > These require the `GUILD_MEMBERS` [Gateway Intent](#DOCS_TOPICS_GATEWAY/gateway-intents)
 
-- An API `GET` call to `/channels/<channel_id>/thread-members` which returns an array of [thread member](#DOCS_RESOURCES_CHANNEL/thread-member-object) objects.
+- An API `GET` call to [`/channels/<channel_id>/thread-members`](#DOCS_RESOURCES_CHANNEL/list-thread-members) which returns an array of [thread member](#DOCS_RESOURCES_CHANNEL/thread-member-object) objects.
 - The [Thread Members Update](#DOCS_TOPICS_GATEWAY/thread-members-update) Gateway Event which will include all users who were added to or removed from a thread by an action.
 
 ## Editing & Deleting Threads
@@ -107,10 +107,10 @@ Threads introduce a few new [message types](#DOCS_RESOURCES_CHANNEL/message-obje
 
 There are four new `GET` routes for enumerating threads in a specific channel:
 
-- `/channels/<channel_id>/threads/active` returns all active threads in a channel that the current user can access, includes public & private threads
-- `/channels/<channel_id>/users/@me/threads/archived/private` returns all archived, private threads in a channel, that the current user has is a member of, sorted by thread id descending
-- `/channels/<channel_id>/threads/archived/public` returns all archived, public threads in a channel, sorted by archive timestamp descending
-- `/channels/<channel_id>/threads/archived/private` returns all archived, private threads in a channel, sorted by archive timestamp descending
+- [`/channels/<channel_id>/threads/active`](#DOCS_RESOURCES_CHANNEL/list-active-threads) returns all active threads in a channel that the current user can access, includes public & private threads
+- [`/channels/<channel_id>/users/@me/threads/archived/private`](#DOCS_RESOURCES_CHANNEL/list-joined-private-archived-threads) returns all archived, private threads in a channel, that the current user has is a member of, sorted by thread id descending
+- [`/channels/<channel_id>/threads/archived/public`](#DOCS_RESOURCES_CHANNEL/list-public-archived-threads) returns all archived, public threads in a channel, sorted by archive timestamp descending
+- [`/channels/<channel_id>/threads/archived/private`](#DOCS_RESOURCES_CHANNEL/list-private-archived-threads) returns all archived, private threads in a channel, sorted by archive timestamp descending
 
 ## Webhooks
 
