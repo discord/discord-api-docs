@@ -58,7 +58,7 @@ Below is a table of all current permissions, their integer values in hexadecimal
 | MANAGE_NICKNAMES      | `0x0008000000` `(1 << 27)` | Allows for modification of other users nicknames                                                                                   |              |
 | MANAGE_ROLES \*       | `0x0010000000` `(1 << 28)` | Allows management and editing of roles                                                                                             | T, V, S      |
 | MANAGE_WEBHOOKS \*    | `0x0020000000` `(1 << 29)` | Allows management and editing of webhooks                                                                                          | T            |
-| MANAGE_EMOJIS \*      | `0x0040000000` `(1 << 30)` | Allows management and editing of emojis                                                                                            |              |
+| MANAGE_EMOJIS \*      | `0x0040000000` `(1 << 30)` | Allows management and editing of emojis and stickers                                                                               |              |
 | USE_SLASH_COMMANDS    | `0x0080000000` `(1 << 31)` | Allows members to use slash commands in text channels                                                                              | T            |
 | REQUEST_TO_SPEAK      | `0x0100000000` `(1 << 32)` | Allows for requesting to speak in stage channels. (_This permission is under active development and may be changed or removed._)   | S            |
 | MANAGE_THREADS \*     | `0x0400000000` `(1 << 34)` | Allows for deleting and archiving threads, and viewing all private threads                                                         | T            |
