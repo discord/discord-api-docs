@@ -19,7 +19,7 @@ Represents a guild or DM channel within Discord.
 | last_message_id?               | ?snowflake                                                                 | the id of the last message sent in this channel (may not point to an existing or valid message)                                                                                 |
 | bitrate?                       | integer                                                                    | the bitrate (in bits) of the voice channel                                                                                                                                      |
 | user_limit?                    | integer                                                                    | the user limit of the voice channel                                                                                                                                             |
-| rate_limit_per_user?           | integer                                                                    | amount of seconds a user has to wait before sending another message (0-21600); bots, as well as users with the permission `manage_messages` or `manage_channel`, are unaffected |
+| rate_limit_per_user?\*         | integer                                                                    | amount of seconds a user has to wait before sending another message (0-21600); bots, as well as users with the permission `manage_messages` or `manage_channel`, are unaffected |
 | recipients?                    | array of [user](#DOCS_RESOURCES_USER/user-object) objects                  | the recipients of the DM                                                                                                                                                        |
 | icon?                          | ?string                                                                    | icon hash                                                                                                                                                                       |
 | owner_id?                      | snowflake                                                                  | id of the creator of the group DM or thread                                                                                                                                     |
@@ -33,6 +33,8 @@ Represents a guild or DM channel within Discord.
 | thread_metadata?               | a [thread metadata](#DOCS_RESOURCES_CHANNEL/thread-metadata-object) object | thread-specific fields not needed by other channels                                                                                                                             |
 | member?                        | a [thread member](#DOCS_RESOURCES_CHANNEL/thread-member-object) object     | thread member object for the current user, if they have joined the thread, only included on certain API endpoints                                                               |
 | default_auto_archive_duration? | integer                                                                    | default duration for newly created threads, in minutes, to automatically archive the thread after recent activity, can be set to: 60, 1440, 4320, 10080                         |
+
+\* `rate_limit_per_user` also applies to thread creation. Users can send one message and create one thread during each `rate_limit_per_user` interval.
 
 ###### Channel Types
 
@@ -1190,6 +1192,9 @@ Creates a new thread that is not connected to an existing message. The created t
 |-----------------------|---------|---------------------------------------------------------------------------------------------------------------------|
 | name                  | string  | 2-100 character channel name                                                                                        |
 | auto_archive_duration | integer | duration in minutes to automatically archive the thread after recent activity, can be set to: 60, 1440, 4320, 10080 |
+| type?\*               | integer | the [type of thread](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types) to create                                |
+
+\* `type` defaults to `PRIVATE_THREAD` in order to match the behavior when thread documentation was first published. This is a bit of a weird default though, and thus is highly likely to change in a future API version, so we would recommend always explicitly setting the `type` parameter.
 
 ## Join Thread % PUT /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/thread-members/@me
 
