@@ -58,15 +58,15 @@ Represents a pack of standard stickers.
 
 ###### Sticker Pack Structure
 
-| Field            | Type                                                               | Description                                                               |
-| ---------------- | ------------------------------------------------------------------ | ------------------------------------------------------------------------- |
-| id               | snowflake                                                          | id of the sticker pack                                                    |
-| stickers         | array of [sticker](#DOCS_RESOURCES_STICKER/sticker-object) objects | the stickers in the pack                                                  |
-| name             | string                                                             | name of the sticker pack                                                  |
-| sku_id           | snowflake                                                          | id of the pack's SKU                                                      |
-| cover_sticker_id | snowflake                                                          | id of a sticker in the pack which is shown as the pack's icon             |
-| description      | string                                                             | description of the sticker pack                                           |
-| banner_asset_id  | snowflake                                                          | id of the sticker pack's [banner image](#DOCS_REFERENCE/image-formatting) |
+| Field             | Type                                                               | Description                                                               |
+| ----------------  | ------------------------------------------------------------------ | ------------------------------------------------------------------------- |
+| id                | snowflake                                                          | id of the sticker pack                                                    |
+| stickers          | array of [sticker](#DOCS_RESOURCES_STICKER/sticker-object) objects | the stickers in the pack                                                  |
+| name              | string                                                             | name of the sticker pack                                                  |
+| sku_id            | snowflake                                                          | id of the pack's SKU                                                      |
+| cover_sticker_id? | snowflake                                                          | id of a sticker in the pack which is shown as the pack's icon             |
+| description       | string                                                             | description of the sticker pack                                           |
+| banner_asset_id   | snowflake                                                          | id of the sticker pack's [banner image](#DOCS_REFERENCE/image-formatting) |
 
 ###### Example Sticker Pack
 
