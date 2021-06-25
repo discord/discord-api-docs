@@ -350,6 +350,15 @@ The smallest amount of data required to render a sticker.
 | name | string | name of the sticker |
 | format_type | integer | [type of sticker format](#DOCS_RESOURCES_CHANNEL/message-object-message-sticker-format-types) |
 
+###### Message Sticker Format Types
+
+| Type   | Value |
+| ------ | ----- |
+| PNG    | 1     |
+| APNG   | 2     |
+| LOTTIE | 3     |
+
+
 ###### Message Sticker Structure
 
 | Field            | Type      | Description                                                                                   |
@@ -367,15 +376,6 @@ The smallest amount of data required to render a sticker.
 | sort_value?      | integer   | a sticker's sort order within a pack                                                          |
 
 \* The URL for fetching sticker assets is currently private.
-
-###### Message Sticker Format Types
-
-| Type   | Value |
-| ------ | ----- |
-| PNG    | 1     |
-| APNG   | 2     |
-| LOTTIE | 3     |
-
 
 ###### Example Message
 
