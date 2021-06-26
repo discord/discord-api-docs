@@ -1211,7 +1211,7 @@ Creates a new thread that is not connected to an existing message. The created t
 | auto_archive_duration\*\* | integer | duration in minutes to automatically archive the thread after recent activity, can be set to: 60, 1440, 4320, 10080 |
 | type?\*\*\*               | integer | the [type of thread](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types) to create                                |
 
-\* Create a private thread require the server to be boosted. The [guild features](#DOCS_RESOURCES_GUILD/guild-object-guild-features) will indicate if that is possible for the guild.
+\* Creating a private thread requires the server to be boosted. The [guild features](#DOCS_RESOURCES_GUILD/guild-object-guild-features) will indicate if that is possible for the guild.
 \*\* The 3 day and 7 day archive durations require the server to be boosted. The [guild features](#DOCS_RESOURCES_GUILD/guild-object-guild-features) will indicate if that is possible for the guild.
 \*\*\* `type` defaults to `PRIVATE_THREAD` in order to match the behavior when thread documentation was first published. This is a bit of a weird default though, and thus is highly likely to change in a future API version, so we would recommend always explicitly setting the `type` parameter.
 
