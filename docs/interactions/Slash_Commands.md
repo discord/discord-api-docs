@@ -947,11 +947,11 @@ Returned when fetching the permissions for a command in a guild.
 
 Application command permissions allow you to enable or disable commands for specific users or roles within a guild.
 
-| Field | Type | Description |
-| ----- | ---- | ----------- |
-| id    | snowflake | the id of the role or user |
-| type | [ApplicationCommandPermissionType](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-permissions-object-application-command-permission-type) | role or user |
-| permission | boolean | `true` to allow, `false`, to disallow |
+| Field      | Type                                                                                                                                             | Description                           |
+| ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------- |
+| id         | snowflake                                                                                                                                        |  the id of the role or user           |
+| type       | [ApplicationCommandPermissionType](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-permissions-object-application-command-permission-type) | role or user                          |
+| permission | boolean                                                                                                                                          | `true` to allow, `false`, to disallow |
 
 ###### Application Command Permission Type
 
@@ -1010,10 +1010,10 @@ An interaction is the base "thing" that is sent when a user invokes a command, a
 
 | Field         | Type                                                                                     | Description                         |
 | ------------- | ---------------------------------------------------------------------------------------- | ----------------------------------- |
-| users?        | Map of Snowflakes to [User Objects](#DOCS_RESOURCES_USER/user-object)                    | the ids and User objects            |
-| members?\*    | Map of Snowflakes to [Partial Member Objects](#DOCS_RESOURCES_GUILD/guild-member-object) | the ids and partial Member objects  |
-| roles?        | Map of Snowflakes to [Role Objects](#DOCS_TOPICS_PERMISSIONS/role-object)                | the ids and Role objects            |
-| channels?\*\* | Map of Snowflakes to [Partial Channel Objects](#DOCS_RESOURCES_CHANNEL/channel-object)   | the ids and partial Channel objects |
+| users?        | Map of Snowflakes to [user](#DOCS_RESOURCES_USER/user-object) objects                    | the ids and User objects            |
+| members?\*    | Map of Snowflakes to [partial member](#DOCS_RESOURCES_GUILD/guild-member-object) objects | the ids and partial Member objects  |
+| roles?        | Map of Snowflakes to [role](#DOCS_TOPICS_PERMISSIONS/role-object) objects                | the ids and Role objects            |
+| channels?\*\* | Map of Snowflakes to [partial channel](#DOCS_RESOURCES_CHANNEL/channel-object) objects   | the ids and partial Channel objects |
 
 \* Partial `Member` objects are missing `user`, `deaf` and `mute` fields
 
@@ -1025,37 +1025,37 @@ All options have names, and an option can either be a parameter and input value-
 
 `value` and `options` are mutually exclusive.
 
-| Field    | Type                                                                                                                                                           | Description                                                                                                                           |
-| -------- |--------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
-| name     | string                                                                                                                                                         | the name of the parameter                                                                                                             |
-| type     | integer                                                                                                                                                        | value of [ApplicationCommandOptionType](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object-application-command-option-type) |
-| value?   | [OptionType](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object-application-command-option-type)                                                     | the value of the pair                                                                                                                 |
-| options? | array of [ApplicationCommandInteractionDataOption](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-object-application-command-interaction-data-option-structure) | present if this option is a group or subcommand                                                                                       |
+| Field    | Type                                                                                                                                                               | Description                                                                                                                              |
+| -------- |------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| name     | string                                                                                                                                                             | the name of the parameter                                                                                                                |
+| type     | integer                                                                                                                                                            | value of [Application Command Option Type](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object-application-command-option-type) |
+| value?   | [application command option pype](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object-application-command-option-type)                                    | the value of the pair                                                                                                                    |
+| options? | array of [Application Command Interaction Data Option](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-object-application-command-interaction-data-option-structure) | present if this option is a group or subcommand                                                                                          |
 
 ### Interaction Response Object
 
 After receiving an interaction, you must respond to acknowledge it. You can choose to respond with a message immediately using type `4`, or you can choose to send a deferred response with type `5`. If choosing a deferred response, the user will see a loading state for the interaction, and you'll have up to 15 minutes to edit the original deferred response using [Edit Original Interaction Response](#DOCS_INTERACTIONS_SLASH_COMMANDS/edit-original-interaction-response).
 
-![A deferred response tells the user "{bot name} is thinking"](deferred-example.png)
+![A deferred response tells the user "{bot.name} is thinking"](deferred-example.png)
 
-Interaction responses can also be public—everyone can see it—or "ephemeral"—only the invoking user can see it. That is determined by setting `flags` to `64` on the [InteractionApplicationCommandCallbackData](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-response-object-interaction-application-command-callback-data-structure).
+Interaction responses can also be public—everyone can see it—or "ephemeral"—only the invoking user can see it. That is determined by setting `flags` to `64` on the [Interaction Application Command Callback Data](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-response-object-interaction-application-command-callback-data-structure).
 
 ###### Interaction Response Structure
 
-| Field | Type                                                                                                                                                               | Description                  |
-| ----- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------- |
-| type  | [InteractionCallbackType](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-response-object-interaction-callback-type)                                                 | the type of response         |
-| data? | [InteractionApplicationCommandCallbackData](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-response-object-interaction-application-command-callback-data-structure) | an optional response message |
+| Field | Type                                                                                                                                                                   | Description                  |
+| ----- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------- |
+| type  | [Interaction Callback Type](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-response-object-interaction-callback-type)                                                   | the type of response         |
+| data? | [Interaction Application Command Callback Data](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-response-object-interaction-application-command-callback-data-structure) | an optional response message |
 
 ###### Interaction Callback Type
 
-| Name                             | Value | Description                                                                                                   |
-| -------------------------------- | ----- | ------------------------------------------------------------------------------------------------------------- |
-| Pong                             | 1     | ACK a `Ping`                                                                                                  |
-| ChannelMessageWithSource         | 4     | respond to an interaction with a message                                                                      |
-| DeferredChannelMessageWithSource | 5     | ACK an interaction and edit a response later, the user sees a loading state                                   |
-| DeferredUpdateMessage\*          | 6     | for components, ACK an interaction and edit the original message later; the user does not see a loading state |
-| UpdateMessage\*                  | 7     | for components, edit the message the component was attached to                                                |
+| Name                                 | Value | Description                                                                                                   |
+| ------------------------------------ | ----- | ------------------------------------------------------------------------------------------------------------- |
+| PONG                                 | 1     | ACK a `Ping`                                                                                                  |
+| CHANNEL_MESSAGE_WITH_SOURCE          | 4     | respond to an interaction with a message                                                                      |
+| DEFERRED_CHANNEL_MESSAGE_WITH_SOURCE | 5     | ACK an interaction and edit a response later, the user sees a loading state                                   |
+| DEFERRED_UPDATE_MESSAGE\*            | 6     | for components, ACK an interaction and edit the original message later; the user does not see a loading state |
+| UPDATE_MESSAGE\*                     | 7     | for components, edit the message the component was attached to                                                |
 
 \* Only valid for [component-based](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/) interactions
 
@@ -1063,14 +1063,20 @@ Interaction responses can also be public—everyone can see it—or "ephemeral"�
 
 Not all message fields are currently supported.
 
-| Name              | Value                                                               | Description                                                                |
-| ----------------- | ------------------------------------------------------------------- | -------------------------------------------------------------------------- |
-| tts?              | boolean                                                             | is the response TTS                                                        |
-| content?          | string                                                              | message content                                                            |
-| embeds?           | array of [embeds](#DOCS_RESOURCES_CHANNEL/embed-object)             | supports up to 10 embeds                                                   |
-| allowed_mentions? | [allowed mentions](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object) | [allowed mentions](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object) object |
-| flags?            | integer                                                             | set to `64` to make your response ephemeral                                |
-| components?       | array of [components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS)        | message components                                                         |
+| Name              | Value                                                               | Description                                                                                                                            |
+| ----------------- | ------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
+| tts?              | boolean                                                             | is the response TTS                                                                                                                    |
+| content?          | string                                                              | message content                                                                                                                        |
+| embeds?           | array of [embeds](#DOCS_RESOURCES_CHANNEL/embed-object)             | supports up to 10 embeds                                                                                                               |
+| allowed_mentions? | [allowed mentions](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object) | [allowed mentions](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object) object                                                             |
+| flags?            | integer                                                             | [Interaction Application Command Callback Data Flags](interaction-response-object-interaction-application-command-callback-data-flags) |
+| components?       | array of [components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/)       | message components                                                                                                                     |
+
+###### Interaction Application Command Callback Data Flags
+
+| Name      | Value  | Description                                    |
+| --------- | ------ | ---------------------------------------------- |
+| EPHEMERAL | 1 << 6 | only the user receiving the message can see it |
 
 ### Message Interaction Object
 
@@ -1078,9 +1084,9 @@ This is sent on the [message object](#DOCS_RESOURCES_CHANNEL/message-object) whe
 
 ###### Message Interaction Structure
 
-| Name | Value                                                                                    | Description                                                                                                                      |
-| ---- | ---------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| id   | snowflake                                                                                | id of the interaction                                                                                                            |
-| type | [InteractionType](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-object-interaction-type) | the type of interaction                                                                                                          |
-| name | string                                                                                   | the name of the [ApplicationCommand](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object-application-command-structure) |
-| user | [user object](#DOCS_RESOURCES_USER/user-object)                                          | the user who invoked the interaction                                                                                             |
+| Name | Value                                                                                     | Description                                                                                                                       |
+| ---- | ----------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
+| id   | snowflake                                                                                 | id of the interaction                                                                                                             |
+| type | [interaction type](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-object-interaction-type) | the type of interaction                                                                                                           |
+| name | string                                                                                    | the name of the [application command](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object-application-command-structure) |
+| user | [user object](#DOCS_RESOURCES_USER/user-object)                                           | the user who invoked the interaction                                                                                              |
