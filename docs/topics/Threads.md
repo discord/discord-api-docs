@@ -134,7 +134,7 @@ When a client is added to a public thread, but has not yet subscribed to threads
 
 ### Gaining access to a channel
 
-When a client gains access to a channel (example: they _gain_ the moderator role, and thus now they have more channels they can view), they won't have any of the threads in memory for that channel (since the gateway only syncs threads that the client has permission to view). To solve this, we send the [Thread List Sync](#DOCS_TOPICS_GATEWAY/thread-list-sync) dispatch to a client when they gain access to a channel! This dispatch includes a `channel_ids` array, which is the id of all the channels whose threads are being synced. This field can be used to first clear out any active threads whose `parent_id` is in the `channel_ids` array, and then injest any threads that were in the dispatch.
+When a client gains access to a channel (example: they _gain_ the moderator role, and thus now they have more channels they can view), they won't have any of the threads in memory for that channel (since the gateway only syncs threads that the client has permission to view). To solve this, we send the [Thread List Sync](#DOCS_TOPICS_GATEWAY/thread-list-sync) dispatch to a client when they gain access to a channel! This dispatch includes a `channel_ids` array, which is the id of all the channels whose threads are being synced. This field can be used to first clear out any active threads whose `parent_id` is in the `channel_ids` array, and then ingest any threads that were in the dispatch.
 
 ### Losing access to a channel
 
