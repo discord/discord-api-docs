@@ -797,7 +797,7 @@ All of the following limits are measured inclusively. Leading and trailing white
 | Field                                                                      | Limit                                                                                |
 |----------------------------------------------------------------------------|--------------------------------------------------------------------------------------|
 | title                                                                      | 256 characters                                                                       |
-| description                                                                | 2048 characters                                                                      |
+| description                                                                | 4096 characters                                                                      |
 | fields                                                                     | Up to 25 [field](#DOCS_RESOURCES_CHANNEL/embed-object-embed-field-structure) objects |
 | [field.name](#DOCS_RESOURCES_CHANNEL/embed-object-embed-field-structure)   | 256 characters                                                                       |
 | [field.value](#DOCS_RESOURCES_CHANNEL/embed-object-embed-field-structure)  | 1024 characters                                                                      |
