@@ -466,7 +466,7 @@ Commands are requests made to the gateway socket by a client.
 
 
 ###### Gateway Opcodes
-These events do not have a event type, and are identified solely by opcode.
+These events do not have an event type, and are only identified by an operation code.
 
 | op | name                                                                                | description                                                                                                                      |
 |----|-------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------|
