@@ -846,7 +846,7 @@ json = [
             {
                 "id": ADMIN_ROLE_ID,
                 "type": 1,
-                "permission": true
+                "permission": True
             }
         ]
     },
@@ -856,14 +856,14 @@ json = [
             {
                 "id": ADMIN_ROLE_ID,
                 "type": 1,
-                "permission": false
+                "permission": False
             }
         ]
     }
 ]
 
 headers = {
-    "Authorization": "Bot 123456"
+    "Authorization": "Bot <my_bot_token>"
 }
 
 r = requests.put(url, headers=headers, json=json)
