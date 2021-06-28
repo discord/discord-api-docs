@@ -660,7 +660,7 @@ json = {
 }
 
 headers = {
-    "Authorization": "Bot 123456"
+    "Authorization": "Bot <my_bot_token>"
 }
 
 r = requests.put(url, headers=headers, json=json)
@@ -669,47 +669,47 @@ r = requests.put(url, headers=headers, json=json)
 ### Endpoints
 
 > info
-> For authorization, all endpoints take either a bot token or client credentials token for your application
+> For authorization, all endpoints take either a [bot token](#REFERENCE/authentication) or [client credentials token](#TOPICS_OAUTH2/client-credentials-grant) for your application
 
 ## Get Global Application Commands % GET /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/commands
 
-Fetch all of the global commands for your application. Returns an array of [ApplicationCommand](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object-application-command-structure) objects.
+Fetch all of the global commands for your application. Returns an array of [application command](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object) objects.
 
 ## Create Global Application Command % POST /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/commands
 
 > danger
 > Creating a command with the same name as an existing command for your application will overwrite the old command.
 
-Create a new global command. New global commands will be available in all guilds after 1 hour. Returns `201` and an [ApplicationCommand](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object-application-command-structure) object.
+Create a new global command. New global commands will be available in all guilds after 1 hour. Returns `201` and an [application command](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object) object.
 
 ###### JSON Params
 
-| Field               | Type                                                                                                                                   | Description                                                                |
-| ------------------- | -------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
-| name                | string                                                                                                                                 | 1-32 lowercase character name matching `^[\w-]{1,32}$`                     |
-| description         | string                                                                                                                                 | 1-100 character description                                                |
-| options?            | array of [ApplicationCommandOption](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object-application-command-option-structure) | the parameters for the command                                             |
-| default_permission? | boolean (default `true`)                                                                                                               | whether the command is enabled by default when the app is added to a guild |
+| Field               | Type                                                                                                                                     | Description                                                                |
+| ------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
+| name                | string                                                                                                                                   | 1-32 lowercase character name matching `^[\w-]{1,32}$`                     |
+| description         | string                                                                                                                                   | 1-100 character description                                                |
+| options?            | array of [application command option](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object-application-command-option-structure) | the parameters for the command                                             |
+| default_permission? | boolean (default `true`)                                                                                                                 | whether the command is enabled by default when the app is added to a guild |
 
 ## Get Global Application Command % GET /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/commands/{command.id#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object}
 
-Fetch a global command for your application. Returns an [ApplicationCommand](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object-application-command-structure) object.
+Fetch a global command for your application. Returns an [application command](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object) object.
 
 ## Edit Global Application Command % PATCH /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/commands/{command.id#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object}
 
 > info
 > All parameters for this endpoint are optional.
 
-Edit a global command. Updates will be available in all guilds after 1 hour. Returns `200` and an [ApplicationCommand](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object-application-command-structure) object.
+Edit a global command. Updates will be available in all guilds after 1 hour. Returns `200` and an [application command](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object) object.
 
 ###### JSON Params
 
-| Field              | Type                                                                                                                                    | Description                                                                |
-| ------------------ | --------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
-| name               | string                                                                                                                                  | 1-32 lowercase character name matching `^[\w-]{1,32}$`                     |
-| description        | string                                                                                                                                  | 1-100 character description                                                |
-| options            | ?array of [ApplicationCommandOption](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object-application-command-option-structure) | the parameters for the command                                             |
-| default_permission | boolean (default `true`)                                                                                                                | whether the command is enabled by default when the app is added to a guild |
+| Field               | Type                                                                                                                                     | Description                                                                |
+| ------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
+| name                | string                                                                                                                                   | 1-32 lowercase character name matching `^[\w-]{1,32}$`                     |
+| description         | string                                                                                                                                   | 1-100 character description                                                |
+| options?            | array of [application command option](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object-application-command-option-structure) | the parameters for the command                                             |
+| default_permission? | boolean (default `true`)                                                                                                                 | whether the command is enabled by default when the app is added to a guild |
 
 ## Delete Global Application Command % DELETE /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/commands/{command.id#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object}
 
@@ -717,47 +717,47 @@ Deletes a global command. Returns `204`.
 
 ## Get Guild Application Commands % GET /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/commands
 
-Fetch all of the guild commands for your application for a specific guild. Returns an array of [ApplicationCommand](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object-application-command-structure) objects.
+Fetch all of the guild commands for your application for a specific guild. Returns an array of [application command](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object) objects.
 
 ## Bulk Overwrite Global Application Commands % PUT /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/commands
 
-Takes a list of application commands, overwriting existing commands that are registered globally for this application. Updates will be available in all guilds after 1 hour. Returns `200` and a list of [ApplicationCommand](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object-application-command-structure) objects. Commands that do not already exist will count toward daily application command create limits.
+Takes a list of application commands, overwriting existing commands that are registered globally for this application. Updates will be available in all guilds after 1 hour. Returns `200` and a list of [application command](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object) objects. Commands that do not already exist will count toward daily application command create limits.
 
 ## Create Guild Application Command % POST /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/commands
 
 > danger
 > Creating a command with the same name as an existing command for your application will overwrite the old command.
 
-Create a new guild command. New guild commands will be available in the guild immediately. Returns `201` and an [ApplicationCommand](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object-application-command-structure) object.  If the command did not already exist, it will count toward daily application command create limits.
+Create a new guild command. New guild commands will be available in the guild immediately. Returns `201` and an [application command](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object) object. If the command did not already exist, it will count toward daily application command create limits.
 
 ###### JSON Params
 
-| Field               | Type                                                                                                                                   | Description                                                                |
-| ------------------- | -------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
-| name                | string                                                                                                                                 | 1-32 lowercase character name matching `^[\w-]{1,32}$`                     |
-| description         | string                                                                                                                                 | 1-100 character description                                                |
-| options?            | array of [ApplicationCommandOption](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object-application-command-option-structure) | the parameters for the command                                             |
-| default_permission? | boolean (default `true`)                                                                                                               | whether the command is enabled by default when the app is added to a guild |
+| Field               | Type                                                                                                                                     | Description                                                                |
+| ------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
+| name                | string                                                                                                                                   | 1-32 lowercase character name matching `^[\w-]{1,32}$`                     |
+| description         | string                                                                                                                                   | 1-100 character description                                                |
+| options?            | array of [application command option](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object-application-command-option-structure) | the parameters for the command                                             |
+| default_permission? | boolean (default `true`)                                                                                                                 | whether the command is enabled by default when the app is added to a guild |
 
 ## Get Guild Application Command % GET /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/commands/{command.id#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object}
 
-Fetch a guild command for your application. Returns an [ApplicationCommand](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object-application-command-structure) object.
+Fetch a guild command for your application. Returns an [application command](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object) object.
 
 ## Edit Guild Application Command % PATCH /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/commands/{command.id#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object}
 
 > info
 > All parameters for this endpoint are optional.
 
-Edit a guild command. Updates for guild commands will be available immediately. Returns `200` and an [ApplicationCommand](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object-application-command-structure) object.
+Edit a guild command. Updates for guild commands will be available immediately. Returns `200` and an [application command](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object) object.
 
 ###### JSON Params
 
-| Field              | Type                                                                                                                                    | Description                                                                |
-| ------------------ | --------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
-| name               | string                                                                                                                                  | 1-32 lowercase character name matching `^[\w-]{1,32}$`                     |
-| description        | string                                                                                                                                  | 1-100 character description                                                |
-| options            | ?array of [ApplicationCommandOption](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object-application-command-option-structure) | the parameters for the command                                             |
-| default_permission | boolean (default `true`)                                                                                                                | whether the command is enabled by default when the app is added to a guild |
+| Field               | Type                                                                                                                                     | Description                                                                |
+| ------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
+| name                | string                                                                                                                                   | 1-32 lowercase character name matching `^[\w-]{1,32}$`                     |
+| description         | string                                                                                                                                   | 1-100 character description                                                |
+| options?            | array of [application command option](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object-application-command-option-structure) | the parameters for the command                                             |
+| default_permission? | boolean (default `true`)                                                                                                                 | whether the command is enabled by default when the app is added to a guild |
 
 ## Delete Guild Application Command % DELETE /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/commands/{command.id#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object}
 
@@ -765,11 +765,11 @@ Delete a guild command. Returns `204` on success.
 
 ## Bulk Overwrite Guild Application Commands % PUT /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/commands
 
-Takes a list of application commands, overwriting existing commands for the guild. Returns `200` and a list of [application command](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object-application-command-structure) objects.
+Takes a list of application commands, overwriting existing commands for the guild. Returns `200` and a list of [application command](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object) objects.
 
 ## Create Interaction Response % POST /interactions/{interaction.id#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction}/{interaction.token#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-object}/callback
 
-Create a response to an Interaction from the gateway. Takes an [interaction response](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-response-object-interaction-response-structure).
+Create a response to an Interaction from the gateway. Takes an [interaction response](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-response-object).
 
 ## Get Original Interaction Response % GET /webhooks/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/{interaction.token#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-object}/messages/@original
 
