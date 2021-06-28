@@ -30,7 +30,7 @@ The top-level `components` field is an array of [Action Row](#DOCS_INTERACTIONS_
 | Type | Name       | Description                      |
 | ---- | ---------- | -------------------------------- |
 | 1    | Action Row | A container for other components |
-| 2    | Button     | A clickable button               |
+| 2    | Button     | A button object                  |
 
 ###### Example Component
 
@@ -52,7 +52,6 @@ An Action Row is a non-interactive container component for other types of compon
 
 - You can have up to 5 Action Rows per message
 - An Action Row cannot contain another Action Row
-
 
 ```json
 {
@@ -83,9 +82,9 @@ Responding to a user interacting with a component is the same as other interacti
 
 ## Custom ID
 
-Components, aside from Action Rows, have a mandatory `custom_id` field. This field is defined by the developer when sending the component payload, and is returned in the interaction payload sent when a user interacts with the component. For example, if you set `custom_id: click_me` on a button, you'll receive an interaction containing `custom_id: click_me` when a user clicks that button.
+Components, aside from Action Rows, must have a `custom_id` field. This field is defined by the developer when sending the component payload, and is returned in the interaction payload sent when a user interacts with the component. For example, if you set `custom_id: click_me` on a button, you'll receive an interaction containing `custom_id: click_me` when a user clicks that button.
 
-`custom_id` is unique per component; one button can have a different `custom_id` than another button on the same message. This field is a string of max 100 characters, and can be used flexibly to maintain state or pass through other important data.
+`custom_id` must be unique per component; multiple buttons must not share the same `custom_id`. This field is a string of max 100 characters, and can be used flexibly to maintain state or pass through other important data.
 
 ## Buttons
 
@@ -106,7 +105,7 @@ Buttons are interactive components that render on messages. They can be clicked 
 | emoji?     | partial [emoji](#DOCS_RESOURCES_EMOJI/emoji-object) | `name`, `id`, and `animated`                                                        |
 | custom_id? | string                                              | a developer-defined identifier for the button, max 100 characters                   |
 | url?       | string                                              | a url for link-style buttons                                                        |
-| disabled?  | boolean                                             | whether the button is disabled, default `false`                                     |
+| disabled?  | boolean                                             | whether the button is disabled (default `false`)                                    |
 
 Buttons come in a variety of styles to convey different types of actions. These styles also define what fields are valid for a button.
 
