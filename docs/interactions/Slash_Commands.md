@@ -29,7 +29,7 @@ In this documentation you'll find some notes about limits and caps on certain pa
 
 Your global commands are available in every guild that adds your application. You can also make commands for a specific guild; they're only available in that guild.
 
-An **[Interaction](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-object-interaction-structure)** is the message that your application receives when a user uses a command. It includes the values that the user submitted, as well as some metadata about this particular instance of the command being used: the `guild_id`, `channel_id`, `member` and other fields. You can find all the values in our [data models](#DOCS_INTERACTIONS_SLASH_COMMANDS/data-models-and-types).
+An **[Interaction](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-object)** is the message that your application receives when a user uses a command. It includes the values that the user submitted, as well as some metadata about this particular instance of the command being used: the `guild_id`, `channel_id`, `member` and other fields. You can find all the values in our [data models](#DOCS_INTERACTIONS_SLASH_COMMANDS/data-models-and-types).
 
 ## Slash Commands, Interactions, and Bot Users
 
@@ -119,12 +119,12 @@ json = {
 
 # For authorization, you can use either your bot token
 headers = {
-    "Authorization": "Bot 123456"
+    "Authorization": "Bot <my_bot_token>"
 }
 
 # or a client credentials token for your app with the applications.commands.update scope
 headers = {
-    "Authorization": "Bearer abcdefg"
+    "Authorization": "Bearer <my_credentials_token>"
 }
 
 r = requests.post(url, headers=headers, json=json)
@@ -160,11 +160,11 @@ Slash Commands can be deleted and updated by making `DELETE` and `PATCH` calls t
 
 Because Slash Commands have unique names within a scope, we treat `POST` requests for new commands as upserts. That means **making a new command with an already-used name for your application will update the existing command**.
 
-Full documentation of endpoints can be found in [Endpoints](#DOCS_INTERACTIONS_SLASH_COMMANDS/endpoints).
+Full documentation of endpoints can be found [here](#DOCS_INTERACTIONS_SLASH_COMMANDS/endpoints).
 
 ## Receiving an Interaction
 
-When a user uses a Slash Command, your app will receive an **[Interaction](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-object-interaction-structure)**. Your app can receive an interaction in one of two ways:
+When a user uses a Slash Command, your app will receive an **[Interaction](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-object)**. Your app can receive an interaction in one of two ways:
 
 - Via [Interaction Create](#DOCS_TOPICS_GATEWAY/interaction-create) gateway event
 - Via outgoing webhook
@@ -194,7 +194,7 @@ def my_command():
 
 You'll also need to properly set up [Security and Authorization](#DOCS_INTERACTIONS_SLASH_COMMANDS/security-and-authorization) on your endpoint for the URL to be accepted. Once both of those are complete and your URL has been saved, you can start receiving Interactions via webhook! At this point, your app will **no longer receive Interactions over the gateway**. If you want to receive them over the gateway again, simply delete your URL.
 
-An [Interaction](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-object-interaction-structure) includes the `data` that the user sent in the command, as well as some metadata. It looks like this:
+An [Interaction](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-object) includes the `data` that the user sent in the command, as well as some metadata. It looks like this:
 
 ```js
 {
@@ -243,7 +243,7 @@ Interactions--both receiving and responding--are webhooks under the hood. So res
 > warn
 > While interaction responses and followups are webhooks, they respect @everyone's ability to ping @everyone / @here . Nonetheless if your application responds with user data, you should still use [`allowed_mentions`](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object) to filter which mentions in the content actually ping. Other differences include the ability to send named links in the message content (`[text](url)`) and the ability to include up to 10 embeds.
 
-When responding to an interaction received **via webhook**, your server can simply respond to the received `POST` request. You'll want to respond with a `200` status code (if everything went well), as well as specifying a `type` and `data`, which is an [Interaction Response](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-response-object-interaction-response-structure) object:
+When responding to an interaction received **via webhook**, your server can simply respond to the received `POST` request. You'll want to respond with a `200` status code (if everything went well), as well as specifying a `type` and `data`, which is an [Interaction Response](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-response-object) object:
 
 ```py
 @app.route('/', methods=['POST'])
@@ -288,10 +288,10 @@ r = requests.post(url, json=json)
 
 Sometimes, your bot will want to send followup messages to a user after responding to an interaction. Or, you may want to edit your original response. Whether you receive Interactions over the gateway or by outgoing webhook, you can use the following endpoints to edit your initial response or send followup messages:
 
-- `PATCH /webhooks/<application_id>/<interaction_token>/messages/@original` to edit your initial response to an Interaction
-- `DELETE /webhooks/<application_id>/<interaction_token>/messages/@original` to delete your initial response to an Interaction
-- `POST /webhooks/<application_id>/<interaction_token>` to send a new followup message
-- `PATCH /webhooks/<application_id>/<interaction_token>/messages/<message_id>` to edit a message sent with that `token`
+- [`PATCH /webhooks/<application_id>/<interaction_token>/messages/@original`](#INTERACTIONS_SLASH_COMMANDS/edit-original-interaction-response) to edit your initial response to an Interaction
+- [`DELETE /webhooks/<application_id>/<interaction_token>/messages/@original`](#INTERACTIONS_SLASH_COMMANDS/delete-original-interaction-response) to delete your initial response to an Interaction
+- [`POST /webhooks/<application_id>/<interaction_token>`](#INTERACTIONS_SLASH_COMMANDS/create-followup-message) to send a new followup message
+- [`PATCH /webhooks/<application_id>/<interaction_token>/messages/<message_id>`](#INTERACTIONS_SLASH_COMMANDS/edit-followup-message) to edit a message sent with that `token`
 
 > info
 > Interactions webhooks share the same rate limit properties as normal webhooks
@@ -310,7 +310,7 @@ Every Interaction is sent with the following headers:
 - `X-Signature-Ed25519` as a signature
 - `X-Signature-Timestamp` as a timestamp
 
-Using your favorite security library, you **must validate the request each time you receive an [interaction](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-object-interaction-structure)**. If the signature fails validation, respond with a `401` error code. Here's a couple code examples:
+Using your favorite security library, you **must validate the request each time you receive an [interaction](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-object)**. If the signature fails validation, respond with a `401` error code. Here's a couple code examples:
 
 ```js
 const nacl = require('tweetnacl');
