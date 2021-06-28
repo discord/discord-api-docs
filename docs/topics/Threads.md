@@ -1,12 +1,32 @@
 # Threads
 
-[Threads](#DOCS_RESOURCES_CHANNEL/channel-object) are a new Discord feature, only available in API v9. Bots that do not update to API v9 will not receive gateway events for threads, or things that happen in threads (such as [Message Create](#DOCS_TOPICS_GATEWAY/message-create)). Threads can be thought of as temporary sub-channels inside an existing channel, to help better organize conversation in a busy channel.
+[Threads](#DOCS_RESOURCES_CHANNEL/channel-object) are a new Discord feature. Threads can be thought of as temporary sub-channels inside an existing channel, to help better organize conversation in a busy channel.
 
 Threads have been designed to be very similar to [channel](#DOCS_RESOURCES_CHANNEL/channel-object) objects, and this topic aggregates all of the information about threads, which should all help to make migrating very straightforward.
 
 ## Disclaimer
 
 Threads have not shipped yet, and so everything in this documentation is still subject to change. At a minimum additional status codes will be added for reaching certain limits, and we may implement additional features, especially around moderation tooling, but we don't expect any of those to be breaking changes for what is currently documented.
+
+## Backwards Compatibility
+
+Threads are only available in API v9. Bots that do not update to API v9 will not receive most gateway events for threads, or things that happen in threads (such as [Message Create](#DOCS_TOPICS_GATEWAY/message-create)). Bots on APIv8 will still receive gateway events for Interactions though.
+
+The list of gateway events that may be dropped includes, but is not limited to:
+
+- MESSAGE_CREATE
+- MESSAGE_DELETE
+- MESSAGE_DELETE_BULK
+- MESSAGE_REACTION_ADD
+- MESSAGE_REACTION_REMOVE
+- MESSAGE_REACTION_REMOVE_ALL
+- MESSAGE_REACTION_REMOVE_EMOJI
+- MESSAGE_UPDATE
+- THREAD_CREATE
+- THREAD_UPDATE
+- THREAD_DELETE
+- THREAD_MEMBER_UPDATE
+- THREAD_MEMBERS_UPDATE
 
 ## New Thread Fields
 
