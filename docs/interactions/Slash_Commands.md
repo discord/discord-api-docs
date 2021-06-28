@@ -691,11 +691,11 @@ Create a new global command. New global commands will be available in all guilds
 | options?            | array of [ApplicationCommandOption](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object-application-command-option-structure) | the parameters for the command                                             |
 | default_permission? | boolean (default `true`)                                                                                                               | whether the command is enabled by default when the app is added to a guild |
 
-## Get Global Application Command % GET /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/commands/{command.id#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommand}
+## Get Global Application Command % GET /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/commands/{command.id#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object}
 
 Fetch a global command for your application. Returns an [ApplicationCommand](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object-application-command-structure) object.
 
-## Edit Global Application Command % PATCH /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/commands/{command.id#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommand}
+## Edit Global Application Command % PATCH /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/commands/{command.id#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object}
 
 > info
 > All parameters for this endpoint are optional.
@@ -711,7 +711,7 @@ Edit a global command. Updates will be available in all guilds after 1 hour. Ret
 | options            | ?array of [ApplicationCommandOption](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object-application-command-option-structure) | the parameters for the command                                             |
 | default_permission | boolean (default `true`)                                                                                                                | whether the command is enabled by default when the app is added to a guild |
 
-## Delete Global Application Command % DELETE /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/commands/{command.id#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommand}
+## Delete Global Application Command % DELETE /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/commands/{command.id#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object}
 
 Deletes a global command. Returns `204`.
 
@@ -739,11 +739,11 @@ Create a new guild command. New guild commands will be available in the guild im
 | options?            | array of [ApplicationCommandOption](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object-application-command-option-structure) | the parameters for the command                                             |
 | default_permission? | boolean (default `true`)                                                                                                               | whether the command is enabled by default when the app is added to a guild |
 
-## Get Guild Application Command % GET /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/commands/{command.id#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommand}
+## Get Guild Application Command % GET /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/commands/{command.id#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object}
 
 Fetch a guild command for your application. Returns an [ApplicationCommand](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object-application-command-structure) object.
 
-## Edit Guild Application Command % PATCH /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/commands/{command.id#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommand}
+## Edit Guild Application Command % PATCH /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/commands/{command.id#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object}
 
 > info
 > All parameters for this endpoint are optional.
@@ -759,58 +759,58 @@ Edit a guild command. Updates for guild commands will be available immediately. 
 | options            | ?array of [ApplicationCommandOption](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object-application-command-option-structure) | the parameters for the command                                             |
 | default_permission | boolean (default `true`)                                                                                                                | whether the command is enabled by default when the app is added to a guild |
 
-## Delete Guild Application Command % DELETE /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/commands/{command.id#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommand}
+## Delete Guild Application Command % DELETE /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/commands/{command.id#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object}
 
 Delete a guild command. Returns `204` on success.
 
 ## Bulk Overwrite Guild Application Commands % PUT /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/commands
 
-Takes a list of application commands, overwriting existing commands for the guild. Returns `200` and a list of [ApplicationCommand](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object-application-command-structure) objects.
+Takes a list of application commands, overwriting existing commands for the guild. Returns `200` and a list of [application command](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object-application-command-structure) objects.
 
-## Create Interaction Response % POST /interactions/{interaction.id#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction}/{interaction.token#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction}/callback
+## Create Interaction Response % POST /interactions/{interaction.id#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction}/{interaction.token#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-object}/callback
 
-Create a response to an Interaction from the gateway. Takes an [Interaction response](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-response-object-interaction-response-structure).
+Create a response to an Interaction from the gateway. Takes an [interaction response](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-response-object-interaction-response-structure).
 
-## Get Original Interaction Response % GET /webhooks/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/{interaction.token#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction}/messages/@original
+## Get Original Interaction Response % GET /webhooks/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/{interaction.token#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-object}/messages/@original
 
 Returns the initial Interaction response. Functions the same as [Get Webhook Message](#DOCS_RESOURCES_WEBHOOK/get-webhook-message).
 
-## Edit Original Interaction Response % PATCH /webhooks/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/{interaction.token#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction}/messages/@original
+## Edit Original Interaction Response % PATCH /webhooks/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/{interaction.token#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-object}/messages/@original
 
 Edits the initial Interaction response. Functions the same as [Edit Webhook Message](#DOCS_RESOURCES_WEBHOOK/edit-webhook-message).
 
-## Delete Original Interaction Response % DELETE /webhooks/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/{interaction.token#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction}/messages/@original
+## Delete Original Interaction Response % DELETE /webhooks/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/{interaction.token#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-object}/messages/@original
 
 Deletes the initial Interaction response. Returns `204` on success.
 
-## Create Followup Message % POST /webhooks/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/{interaction.token#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction}
+## Create Followup Message % POST /webhooks/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/{interaction.token#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-object}
 
 Create a followup message for an Interaction. Functions the same as [Execute Webhook](#DOCS_RESOURCES_WEBHOOK/execute-webhook), but `wait` is always true, and `flags` can be set to `64` in the body to send an ephemeral message. The `thread_id` query parameter is not required (and is furthermore ignored) when using this endpoint for interaction followups.
 
-## Edit Followup Message % PATCH /webhooks/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/{interaction.token#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}
+## Edit Followup Message % PATCH /webhooks/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/{interaction.token#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-object}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}
 
 Edits a followup message for an Interaction. Functions the same as [Edit Webhook Message](#DOCS_RESOURCES_WEBHOOK/edit-webhook-message).
 
-## Delete Followup Message % DELETE /webhooks/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/{interaction.token#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}
+## Delete Followup Message % DELETE /webhooks/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/{interaction.token#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-object}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}
 
 Deletes a followup message for an Interaction. Returns `204` on success.
 
 ## Get Guild Application Command Permissions % GET /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/commands/permissions
 
-Fetches command permissions for all commands for your application in a guild. Returns an array of [GuildApplicationCommandPermissions](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-permissions-object-guild-application-command-permissions-structure) objects.
+Fetches command permissions for all commands for your application in a guild. Returns an array of [guild application command permissions](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-permissions-object-guild-application-command-permissions-structure) objects.
 
-## Get Application Command Permissions % GET /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/commands/{command.id#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommand}/permissions
+## Get Application Command Permissions % GET /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/commands/{command.id#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object}/permissions
 
-Fetches command permissions for a specific command for your application in a guild. Returns a [GuildApplicationCommandPermissions](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-permissions-object-guild-application-command-permissions-structure) object.
+Fetches command permissions for a specific command for your application in a guild. Returns a [guild application command permissions](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-permissions-object-guild-application-command-permissions-structure) object.
 
-## Edit Application Command Permissions % PUT /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/commands/{command.id#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommand}/permissions
+## Edit Application Command Permissions % PUT /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/commands/{command.id#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object}/permissions
 
 > warn
 > This endpoint will overwrite existing permissions for the command in that guild
 
 Edits command permissions for a specific command for your application in a guild.
 You can only add up to 10 permission overwrites for a command.
-Returns a [GuildApplicationCommandPermissions](#DOCS_INTERACTIONS_SLASH_COMMANDS/guildapplicationcommandpermissions) object.
+Returns a [guild application command permissions](#DOCS_INTERACTIONS_SLASH_COMMANDS/guildapplicationcommandpermissions) object.
 
 > warn
 > Deleting or renaming a command will permanently delete all permissions for that command
