@@ -57,8 +57,8 @@ Many of these libraries are represented in the [unofficial, community-driven Dis
 
 [Interactions and Slash Commands](#DOCS_INTERACTIONS_SLASH_COMMANDS/) are the great, new way of making a Discord bot. The following open-source libraries provide help for the security and authentication checks that are mandatory if you are receiving Interactions via outgoing webhook. They also include some types for the Interactions data models.
 
-- C#
-  - [DSharpPlus.SlashCommands](https://github.com/IDoEverything/DSharpPlus.SlashCommands)
+- Clojure
+  - [ring-discord-auth](https://github.com/JohnnyJayJay/ring-discord-auth)
 - Go
   - [discord-interactions-go](https://github.com/bsdlp/discord-interactions-go)
 - Javascript
@@ -66,16 +66,12 @@ Many of these libraries are represented in the [unofficial, community-driven Dis
   - [discord-slash-commands](https://github.com/MeguminSama/discord-slash-commands) and its [Deno fork](https://deno.land/x/discord_slash_commands)
   - [slash-create](https://github.com/Snazzah/slash-create)
 - Python
-  - [discord-py-slash-command](https://github.com/eunwoo1104/discord-py-slash-command)
   - [discord-interactions-python](https://github.com/discord/discord-interactions-python)
   - [discord-interactions.py](https://github.com/LiBa001/discord-interactions.py)
   - [dispike](https://github.com/ms7m/dispike)
   - [flask-discord-interactions](https://github.com/Breq16/flask-discord-interactions)
 - PHP
   - [discord-interactions-php](https://github.com/discord/discord-interactions-php)
-  - [DiscordPHP-Slash](https://github.com/discord-php/DiscordPHP-Slash)
-- Lua
-  - [discordia-slash](https://github.com/GitSparTV/discordia-slash)
 - Other
   - [caddy-discord-interactions-verifier](https://github.com/CarsonHoffman/caddy-discord-interactions-verifier)
   - [Rauf's Slash Command Generator](https://rauf.wtf/slash)

@@ -6,32 +6,35 @@ Represents a guild or DM channel within Discord.
 
 ###### Channel Structure
 
-| Field                  | Type                                                                       | Description                                                                                                                                                                     |
-|------------------------|----------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| id                     | snowflake                                                                  | the id of this channel                                                                                                                                                          |
-| type                   | integer                                                                    | the [type of channel](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types)                                                                                                     |
-| guild_id?              | snowflake                                                                  | the id of the guild (may be missing for some channel objects received over gateway guild dispatches)                                                                            |
-| position?              | integer                                                                    | sorting position of the channel                                                                                                                                                 |
-| permission_overwrites? | array of [overwrite](#DOCS_RESOURCES_CHANNEL/overwrite-object) objects     | explicit permission overwrites for members and roles                                                                                                                            |
-| name?                  | string                                                                     | the name of the channel (1-100 characters)                                                                                                                                      |
-| topic?                 | ?string                                                                    | the channel topic (0-1024 characters)                                                                                                                                           |
-| nsfw?                  | boolean                                                                    | whether the channel is nsfw                                                                                                                                                     |
-| last_message_id?       | ?snowflake                                                                 | the id of the last message sent in this channel (may not point to an existing or valid message)                                                                                 |
-| bitrate?               | integer                                                                    | the bitrate (in bits) of the voice channel                                                                                                                                      |
-| user_limit?            | integer                                                                    | the user limit of the voice channel                                                                                                                                             |
-| rate_limit_per_user?   | integer                                                                    | amount of seconds a user has to wait before sending another message (0-21600); bots, as well as users with the permission `manage_messages` or `manage_channel`, are unaffected |
-| recipients?            | array of [user](#DOCS_RESOURCES_USER/user-object) objects                  | the recipients of the DM                                                                                                                                                        |
-| icon?                  | ?string                                                                    | icon hash                                                                                                                                                                       |
-| owner_id?              | snowflake                                                                  | id of the creator of the group DM or thread                                                                                                                                     |
-| application_id?        | snowflake                                                                  | application id of the group DM creator if it is bot-created                                                                                                                     |
-| parent_id?             | ?snowflake                                                                 | for guild channels: id of the parent category for a channel (each parent category can contain up to 50 channels), for threads: id of the text channel this thread was created   |
-| last_pin_timestamp?    | ?ISO8601 timestamp                                                         | when the last pinned message was pinned. This may be `null` in events such as `GUILD_CREATE` when a message is not pinned.                                                      |
-| rtc_region?            | ?string                                                                    | [voice region](#DOCS_RESOURCES_VOICE/voice-region-object) id for the voice channel, automatic when set to null                                                                  |
-| video_quality_mode?    | integer                                                                    | the camera [video quality mode](#DOCS_RESOURCES_CHANNEL/channel-object-video-quality-modes) of the voice channel, 1 when not present                                            |
-| message_count?         | integer                                                                    | an approximate count of messages in a thread, stops counting at 50                                                                                                              |
-| member_count?          | integer                                                                    | an approximate count of users in a thread, stops counting at 50                                                                                                                 |
-| thread_metadata?       | a [thread metadata](#DOCS_RESOURCES_CHANNEL/thread-metadata-object) object | thread-specific fields not needed by other channels                                                                                                                             |
-| member?                | a [thread member](#DOCS_RESOURCES_CHANNEL/thread-member-object) object     | thread member object for the current user, if they have joined the thread, only included on certain API endpoints                                                               |
+| Field                          | Type                                                                       | Description                                                                                                                                                                     |
+|--------------------------------|----------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| id                             | snowflake                                                                  | the id of this channel                                                                                                                                                          |
+| type                           | integer                                                                    | the [type of channel](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types)                                                                                                     |
+| guild_id?                      | snowflake                                                                  | the id of the guild (may be missing for some channel objects received over gateway guild dispatches)                                                                            |
+| position?                      | integer                                                                    | sorting position of the channel                                                                                                                                                 |
+| permission_overwrites?         | array of [overwrite](#DOCS_RESOURCES_CHANNEL/overwrite-object) objects     | explicit permission overwrites for members and roles                                                                                                                            |
+| name?                          | string                                                                     | the name of the channel (1-100 characters)                                                                                                                                      |
+| topic?                         | ?string                                                                    | the channel topic (0-1024 characters)                                                                                                                                           |
+| nsfw?                          | boolean                                                                    | whether the channel is nsfw                                                                                                                                                     |
+| last_message_id?               | ?snowflake                                                                 | the id of the last message sent in this channel (may not point to an existing or valid message)                                                                                 |
+| bitrate?                       | integer                                                                    | the bitrate (in bits) of the voice channel                                                                                                                                      |
+| user_limit?                    | integer                                                                    | the user limit of the voice channel                                                                                                                                             |
+| rate_limit_per_user?\*         | integer                                                                    | amount of seconds a user has to wait before sending another message (0-21600); bots, as well as users with the permission `manage_messages` or `manage_channel`, are unaffected |
+| recipients?                    | array of [user](#DOCS_RESOURCES_USER/user-object) objects                  | the recipients of the DM                                                                                                                                                        |
+| icon?                          | ?string                                                                    | icon hash                                                                                                                                                                       |
+| owner_id?                      | snowflake                                                                  | id of the creator of the group DM or thread                                                                                                                                     |
+| application_id?                | snowflake                                                                  | application id of the group DM creator if it is bot-created                                                                                                                     |
+| parent_id?                     | ?snowflake                                                                 | for guild channels: id of the parent category for a channel (each parent category can contain up to 50 channels), for threads: id of the text channel this thread was created   |
+| last_pin_timestamp?            | ?ISO8601 timestamp                                                         | when the last pinned message was pinned. This may be `null` in events such as `GUILD_CREATE` when a message is not pinned.                                                      |
+| rtc_region?                    | ?string                                                                    | [voice region](#DOCS_RESOURCES_VOICE/voice-region-object) id for the voice channel, automatic when set to null                                                                  |
+| video_quality_mode?            | integer                                                                    | the camera [video quality mode](#DOCS_RESOURCES_CHANNEL/channel-object-video-quality-modes) of the voice channel, 1 when not present                                            |
+| message_count?                 | integer                                                                    | an approximate count of messages in a thread, stops counting at 50                                                                                                              |
+| member_count?                  | integer                                                                    | an approximate count of users in a thread, stops counting at 50                                                                                                                 |
+| thread_metadata?               | a [thread metadata](#DOCS_RESOURCES_CHANNEL/thread-metadata-object) object | thread-specific fields not needed by other channels                                                                                                                             |
+| member?                        | a [thread member](#DOCS_RESOURCES_CHANNEL/thread-member-object) object     | thread member object for the current user, if they have joined the thread, only included on certain API endpoints                                                               |
+| default_auto_archive_duration? | integer                                                                    | default duration for newly created threads, in minutes, to automatically archive the thread after recent activity, can be set to: 60, 1440, 4320, 10080                         |
+
+\* `rate_limit_per_user` also applies to thread creation. Users can send one message and create one thread during each `rate_limit_per_user` interval.
 
 ###### Channel Types
 
@@ -73,7 +76,8 @@ Represents a guild or DM channel within Discord.
   "nsfw": true,
   "topic": "24/7 chat about how to gank Mike #2",
   "last_message_id": "155117677105512449",
-  "parent_id": "399942396007890945"
+  "parent_id": "399942396007890945",
+  "default_auto_archive_duration": 60
 }
 ```
 
@@ -92,7 +96,8 @@ Bots can post or publish messages in this type of channel if they have the prope
   "nsfw": true,
   "topic": "Rumors about Half Life 3",
   "last_message_id": "155117677105512449",
-  "parent_id": "399942396007890945"
+  "parent_id": "399942396007890945",
+  "default_auto_archive_duration": 60
 }
 ```
 
@@ -217,7 +222,6 @@ The [threads](#DOCS_TOPICS_THREADS) topic has some more information.
   "rate_limit_per_user": 2,
   "thread_metadata": {
     "archived": false,
-    "archiver_id": "41771983423143937",
     "auto_archive_duration": 1440,
     "archive_timestamp": "2021-04-12T23:40:39.855793+00:00",
     "locked": false
@@ -258,11 +262,12 @@ Represents a message sent in a channel within Discord.
 | application_id?               | snowflake                                                                                                                                       | if the message is a response to an [Interaction](#DOCS_INTERACTIONS_SLASH_COMMANDS/), this is the id of the interaction's application   |
 | message_reference?            | [message reference](#DOCS_RESOURCES_CHANNEL/message-reference-object-message-reference-structure) object                                        | data showing the source of a crosspost, channel follow add, pin, or reply message                                                       |
 | flags?                        | integer                                                                                                                                         | [message flags](#DOCS_RESOURCES_CHANNEL/message-object-message-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field) |
-| stickers?                     | array of [sticker](#DOCS_RESOURCES_CHANNEL/message-object-message-sticker-structure) objects                                                    | the stickers sent with the message (bots currently can only receive messages with stickers, not send)                                   |
 | referenced_message?\*\*\*\*\* | ?[message object](#DOCS_RESOURCES_CHANNEL/message-object)                                                                                       | the message associated with the message_reference                                                                                       |
 | interaction?                  | [message interaction object](#DOCS_INTERACTIONS_SLASH_COMMANDS/message-interaction-object-message-interaction-structure)                                                              | sent if the message is a response to an [Interaction](#DOCS_INTERACTIONS_SLASH_COMMANDS/)                                               |
 | thread?                       | [channel](#DOCS_RESOURCES_CHANNEL/channel) object                                                                                               | the thread that was started from this message, includes [thread member](#DOCS_RESOURCES_CHANNEL/thread-member-object) object            |
 | components? | Array of [message components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-object) | sent if the message contains components like buttons, action rows, or other interactive components |
+| sticker_items?\*\*\*\*\*\* | array of [message sticker item objects](#DOCS_RESOURCES_CHANNEL/message-object-message-sticker-item-structure) | sent if the message contains stickers |
+| stickers?                     | array of [sticker](#DOCS_RESOURCES_CHANNEL/message-object-message-sticker-structure) objects                                                    | **Deprecated** the stickers sent with the message |
 
 \* The author object follows the structure of the user object, but is only a valid user in the case where the message is generated by a user or bot user. If the message is generated by a webhook, the author object corresponds to the webhook's id, username, and avatar. You can tell if a message is generated by a webhook by checking for the `webhook_id` on the message object.
 
@@ -273,6 +278,8 @@ Represents a message sent in a channel within Discord.
 \*\*\*\* Not all channel mentions in a message will appear in `mention_channels`. Only textual channels that are visible to everyone in a lurkable guild will ever be included. Only crossposted messages (via Channel Following) currently include `mention_channels` at all. If no mentions in the message meet these requirements, this field will not be sent.
 
 \*\*\*\*\* This field is only returned for messages with a `type` of `19` (REPLY) or `21` (THREAD_STARTER_MESSAGE). If the message is a reply but the `referenced_message` field is not present, the backend did not attempt to fetch the message that was being replied to, so its state is unknown. If the field exists but is null, the referenced message was deleted.
+
+\*\*\*\*\*\* Bots cannot send stickers.
 
 ###### Message Types
 
@@ -333,19 +340,15 @@ Represents a message sent in a channel within Discord.
 | EPHEMERAL              | 1 << 6 | this message is only visible to the user who invoked the Interaction              |
 | LOADING                | 1 << 7 | this message is an Interaction Response and the bot is "thinking"                 |
 
-###### Message Sticker Structure
+###### Message Sticker Item Structure
+
+The smallest amount of data required to render a sticker.
 
 | Field            | Type      | Description                                                                                   |
 | ---------------- | --------- | --------------------------------------------------------------------------------------------- |
-| id               | snowflake | id of the sticker                                                                             |
-| pack_id          | snowflake | id of the pack the sticker is from                                                            |
-| name             | string    | name of the sticker                                                                           |
-| description      | string    | description of the sticker                                                                    |
-| tags?            | string    | a comma-separated list of tags for the sticker                                                |
-| asset\*          | string    | sticker asset hash                                                                            |
-| format_type      | integer   | [type of sticker format](#DOCS_RESOURCES_CHANNEL/message-object-message-sticker-format-types) |
-
-\* The URL for fetching sticker assets is currently private.
+| id | snowflake | id of the sticker |
+| name | string | name of the sticker |
+| format_type | integer | [type of sticker format](#DOCS_RESOURCES_CHANNEL/message-object-message-sticker-format-types) |
 
 ###### Message Sticker Format Types
 
@@ -355,6 +358,24 @@ Represents a message sent in a channel within Discord.
 | APNG   | 2     |
 | LOTTIE | 3     |
 
+
+###### Message Sticker Structure
+
+| Field            | Type      | Description                                                                                   |
+| ---------------- | --------- | --------------------------------------------------------------------------------------------- |
+| id               | snowflake | id of the sticker                                                                             |
+| pack_id?         | snowflake | id of the pack the sticker is from                                                            |
+| name             | string    | name of the sticker                                                                           |
+| description      | string    | description of the sticker                                                                    |
+| tags             | string    | for guild stickers, a unicode emoji representing the sticker's expression. for nitro stickers, a comma-separated list of related expressions. |
+| asset\*          | string    | **Deprecated** previously the sticker asset hash, now an empty string                         |
+| format_type      | integer   | [type of sticker format](#DOCS_RESOURCES_CHANNEL/message-object-message-sticker-format-types) |
+| available?       | boolean   | whether or not the sticker is available                                                       |
+| guild_id?        | snowflake | id of the guild that owns this sticker                                                        |
+| user?            | [user](#DOCS_RESOURCES_USER/user-object) object | the user that uploaded the sticker                      |
+| sort_value?      | integer   | a sticker's sort order within a pack                                                          |
+
+\* The URL for fetching sticker assets is currently private.
 
 ###### Example Message
 
@@ -527,7 +548,6 @@ The thread metadata object contains a number of thread-specific channel fields t
 | Field                 | Type              | Description                                                                                                         |
 |-----------------------|-------------------|---------------------------------------------------------------------------------------------------------------------|
 | archived              | boolean           | whether the thread is archived                                                                                      |
-| archiver_id?          | snowflake         | id of the user that last archived or unarchived the thread                                                          |
 | auto_archive_duration | integer           | duration in minutes to automatically archive the thread after recent activity, can be set to: 60, 1440, 4320, 10080 |
 | archive_timestamp     | ISO8601 timestamp | timestamp when the thread's archive status was last changed, used for calculating recent activity                   |
 | locked?               | boolean           | when a thread is locked, only users with MANAGE_THREADS can unarchive it                                            |
@@ -540,10 +560,12 @@ A thread member is used to indicate whether a user has joined a thread or not.
 
 | Field          | Type              | Description                                                     |
 |----------------|-------------------|-----------------------------------------------------------------|
-| id             | snowflake         | the id of the thread                                            |
-| user_id        | snowflake         | the id of the user                                              |
+| id? \*         | snowflake         | the id of the thread                                            |
+| user_id? \*    | snowflake         | the id of the user                                              |
 | join_timestamp | ISO8601 timestamp | the time the current user last joined the thread                |
 | flags          | integer           | any user-thread settings, currently only used for notifications |
+
+** \* These fields are ommitted on the member sent within each thread in the [GUILD_CREATE](#DOCS_TOPICS_GATEWAY/guild-create) event **
 
 ### Embed Object
 
@@ -775,7 +797,7 @@ All of the following limits are measured inclusively. Leading and trailing white
 | Field                                                                      | Limit                                                                                |
 |----------------------------------------------------------------------------|--------------------------------------------------------------------------------------|
 | title                                                                      | 256 characters                                                                       |
-| description                                                                | 2048 characters                                                                      |
+| description                                                                | 4096 characters                                                                      |
 | fields                                                                     | Up to 25 [field](#DOCS_RESOURCES_CHANNEL/embed-object-embed-field-structure) objects |
 | [field.name](#DOCS_RESOURCES_CHANNEL/embed-object-embed-field-structure)   | 256 characters                                                                       |
 | [field.value](#DOCS_RESOURCES_CHANNEL/embed-object-embed-field-structure)  | 1024 characters                                                                      |
@@ -805,34 +827,37 @@ Fires a [Channel Update](#DOCS_TOPICS_GATEWAY/channel-update) Gateway event.
 
 Requires the `MANAGE_CHANNELS` permission for the guild. Fires a [Channel Update](#DOCS_TOPICS_GATEWAY/channel-update) Gateway event. If modifying a category, individual [Channel Update](#DOCS_TOPICS_GATEWAY/channel-update) events will fire for each child channel that also changes. If modifying permission overwrites, the `MANAGE_ROLES` permission is required. Only permissions your bot has in the guild or channel can be allowed/denied (unless your bot has a `MANAGE_ROLES` overwrite in the channel).
 
-| Field                 | Type                                                                    | Description                                                                                                                                                                     | Channel Type             |
-|-----------------------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------|
-| name                  | string                                                                  | 2-100 character channel name                                                                                                                                                    | All                      |
-| type                  | integer                                                                 | the [type of channel](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types); only conversion between text and news is supported and only in guilds with the "NEWS" feature      | Text, News               |
-| position              | ?integer                                                                | the position of the channel in the left-hand listing                                                                                                                            | All                      |
-| topic                 | ?string                                                                 | 0-1024 character channel topic                                                                                                                                                  | Text, News               |
-| nsfw                  | ?boolean                                                                | whether the channel is nsfw                                                                                                                                                     | Text, News, Store        |
-| rate_limit_per_user   | ?integer                                                                | amount of seconds a user has to wait before sending another message (0-21600); bots, as well as users with the permission `manage_messages` or `manage_channel`, are unaffected | Text                     |
-| bitrate               | ?integer                                                                | the bitrate (in bits) of the voice channel; 8000 to 96000 (128000 for VIP servers)                                                                                              | Voice                    |
-| user_limit            | ?integer                                                                | the user limit of the voice channel; 0 refers to no limit, 1 to 99 refers to a user limit                                                                                       | Voice                    |
-| permission_overwrites | ?array of [overwrite](#DOCS_RESOURCES_CHANNEL/overwrite-object) objects | channel or category-specific permissions                                                                                                                                        | All                      |
-| parent_id             | ?snowflake                                                              | id of the new parent category for a channel                                                                                                                                     | Text, News, Store, Voice |
-| rtc_region            | ?string                                                                 | channel [voice region](#DOCS_RESOURCES_VOICE/voice-region-object) id, automatic when set to null                                                                                | Voice                    |
-| video_quality_mode    | ?integer                                                                | the camera [video quality mode](#DOCS_RESOURCES_CHANNEL/channel-object-video-quality-modes) of the voice channel                                                                | Voice                    |
+| Field                         | Type                                                                    | Description                                                                                                                                                                     | Channel Type             |
+|-------------------------------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------|
+| name                          | string                                                                  | 2-100 character channel name                                                                                                                                                    | All                      |
+| type                          | integer                                                                 | the [type of channel](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types); only conversion between text and news is supported and only in guilds with the "NEWS" feature      | Text, News               |
+| position                      | ?integer                                                                | the position of the channel in the left-hand listing                                                                                                                            | All                      |
+| topic                         | ?string                                                                 | 0-1024 character channel topic                                                                                                                                                  | Text, News               |
+| nsfw                          | ?boolean                                                                | whether the channel is nsfw                                                                                                                                                     | Text, News, Store        |
+| rate_limit_per_user           | ?integer                                                                | amount of seconds a user has to wait before sending another message (0-21600); bots, as well as users with the permission `manage_messages` or `manage_channel`, are unaffected | Text                     |
+| bitrate                       | ?integer                                                                | the bitrate (in bits) of the voice channel; 8000 to 96000 (128000 for VIP servers)                                                                                              | Voice                    |
+| user_limit                    | ?integer                                                                | the user limit of the voice channel; 0 refers to no limit, 1 to 99 refers to a user limit                                                                                       | Voice                    |
+| permission_overwrites         | ?array of [overwrite](#DOCS_RESOURCES_CHANNEL/overwrite-object) objects | channel or category-specific permissions                                                                                                                                        | All                      |
+| parent_id                     | ?snowflake                                                              | id of the new parent category for a channel                                                                                                                                     | Text, News, Store, Voice |
+| rtc_region                    | ?string                                                                 | channel [voice region](#DOCS_RESOURCES_VOICE/voice-region-object) id, automatic when set to null                                                                                | Voice                    |
+| video_quality_mode            | ?integer                                                                | the camera [video quality mode](#DOCS_RESOURCES_CHANNEL/channel-object-video-quality-modes) of the voice channel                                                                | Voice                    |
+| default_auto_archive_duration | ?integer                                                                | the default duration for newly created threads in the channel, in minutes, to automatically archive the thread after recent activity                                            | Text, News               |
 
 ###### JSON Params (Thread)
 
-When setting `archived` to `false`, only the `SEND_MESSAGES` permission is required.
+When setting `archived` to `false`, when `locked` is also `false`, only the `SEND_MESSAGES` permission is required.
 
-Otherwise, requires the `MANAGE_THREADS` permission for the guild.  Fires a [Thread Update](#DOCS_TOPICS_GATEWAY/thread-update) Gateway event.  Requires the thread to have `archived` set to `false`.
+Otherwise, requires the `MANAGE_THREADS` permission. Fires a [Thread Update](#DOCS_TOPICS_GATEWAY/thread-update) Gateway event. Requires the thread to have `archived` set to `false` or be set to `false` in the request.
 
-| Field                 | Type     | Description                                                                                                                                                                                       |
-|-----------------------|----------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| name                  | string   | 2-100 character channel name                                                                                                                                                                      |
-| archived              | boolean  | whether the channel is archived                                                                                                                                                                   |
-| auto_archive_duration | integer  | duration in minutes to automatically archive the thread after recent activity, can be set to: 60, 1440, 4320, 10080                                                                               |
-| locked                | boolean  | when a thread is locked, only users with MANAGE_THREADS can unarchive it                                                                                                                          |
-| rate_limit_per_user   | ?integer | amount of seconds a user has to wait before sending another message (0-21600); bots, as well as users with the permission `manage_messages`, `manage_thread`, or `manage_channel`, are unaffected |
+| Field                   | Type     | Description                                                                                                                                                                                       |
+|-------------------------|----------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| name                    | string   | 2-100 character channel name                                                                                                                                                                      |
+| archived                | boolean  | whether the channel is archived                                                                                                                                                                   |
+| auto_archive_duration\* | integer  | duration in minutes to automatically archive the thread after recent activity, can be set to: 60, 1440, 4320, 10080                                                                               |
+| locked                  | boolean  | when a thread is locked, only users with MANAGE_THREADS can unarchive it                                                                                                                          |
+| rate_limit_per_user     | ?integer | amount of seconds a user has to wait before sending another message (0-21600); bots, as well as users with the permission `manage_messages`, `manage_thread`, or `manage_channel`, are unaffected |
+
+\* The 3 day and 7 day archive durations require the server to be boosted. The [guild features](#DOCS_RESOURCES_GUILD/guild-object-guild-features) will indicate if a server is able to use those settings.
 
 ## Delete/Close Channel % DELETE /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}
 
@@ -867,9 +892,6 @@ Returns a specific message in the channel. If operating on a guild channel, this
 ## Create Message % POST /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/messages
 
 > warn
-> Before using this endpoint, you must connect to and identify with a [gateway](#DOCS_TOPICS_GATEWAY/gateways) at least once.
-
-> warn
 > Discord may strip certain characters from message content, like invalid unicode characters or characters which cause unexpected message formatting. If you are passing user-generated strings into message content, consider sanitizing the data to prevent unexpected behavior and utilizing `allowed_mentions` to prevent unexpected mentions.
 
 Post a message to a guild text or DM channel. Returns a [message](#DOCS_RESOURCES_CHANNEL/message-object) object. Fires a [Message Create](#DOCS_TOPICS_GATEWAY/message-create) Gateway event. See [message formatting](#DOCS_REFERENCE/message-formatting) for more information on how to properly format messages.
@@ -887,28 +909,29 @@ Post a message to a guild text or DM channel. Returns a [message](#DOCS_RESOURCE
 You may create a message as a reply to another message. To do so, include a [`message_reference`](#DOCS_RESOURCES_CHANNEL/message-reference-object-message-reference-structure) with a `message_id`. The `channel_id` and `guild_id` in the `message_reference` are optional, but will be validated if provided.
 
 > info
-> Note that when sending a message, you must provide a value for at **least one of** `content`, `embed`, or `file`.
+> Note that when sending a message, you must provide a value for at **least one of** `content`, `embeds`, or `file`.
 
 > info
 > For a `file` attachment, the `Content-Disposition` subpart header MUST contain a `filename` parameter.
 
 > warn
 > This endpoint supports both `application/json` and `multipart/form-data` bodies. When uploading files the `multipart/form-data` content type must be used.
-> Note that in multipart form data, the `embed` and `allowed_mentions` fields cannot be used. You can pass a stringified JSON body as a form value as `payload_json` instead.
+> Note that in multipart form data, the `embeds` and `allowed_mentions` fields cannot be used. You can pass a stringified JSON body as a form value as `payload_json` instead.
 > **If you supply a `payload_json` form value, all fields except for `file` fields will be ignored in the form data**.
 
 ###### JSON/Form Params
 
-| Field             | Type                                                                                              | Description                                                  | Required                    |
-| ----------------- | ------------------------------------------------------------------------------------------------- | ------------------------------------------------------------ | --------------------------- |
-| content           | string                                                                                            | the message contents (up to 2000 characters)                 | one of content, file, embed |
-| tts               | boolean                                                                                           | true if this is a TTS message                                | false                       |
-| file              | file contents                                                                                     | the contents of the file being sent                          | one of content, file, embed |
-| embed             | [embed](#DOCS_RESOURCES_CHANNEL/embed-object) object                                              | embedded `rich` content                                      | one of content, file, embed |
-| payload_json      | string                                                                                            | JSON encoded body of non-file params                         | `multipart/form-data` only  |
-| allowed_mentions  | [allowed mention object](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object)                         | allowed mentions for the message                             | false                       |
-| message_reference | [message reference](#DOCS_RESOURCES_CHANNEL/message-reference-object-message-reference-structure) | include to make your message a reply                         | false                       |
-| components        | array of [message component](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-object) objects      | the components to include with the message                   | false                       |
+| Field                | Type                                                                                              | Description                                                  | Required                     |
+| -------------------- | ------------------------------------------------------------------------------------------------- | ------------------------------------------------------------ | ---------------------------- |
+| content              | string                                                                                            | the message contents (up to 2000 characters)                 | one of content, file, embeds |
+| tts                  | boolean                                                                                           | true if this is a TTS message                                | false                        |
+| file                 | file contents                                                                                     | the contents of the file being sent                          | one of content, file, embeds |
+| embeds               | array of [embed](#DOCS_RESOURCES_CHANNEL/embed-object) objects                                    | embedded `rich` content (up to 6000 characters)              | one of content, file, embeds |
+| embed *(deprecated)* | [embed](#DOCS_RESOURCES_CHANNEL/embed-object) object                                              | embedded `rich` content, deprecated in favor of `embeds`     | one of content, file, embed  |
+| payload_json         | string                                                                                            | JSON encoded body of non-file params                         | `multipart/form-data` only   |
+| allowed_mentions     | [allowed mention object](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object)                         | allowed mentions for the message                             | false                        |
+| message_reference    | [message reference](#DOCS_RESOURCES_CHANNEL/message-reference-object-message-reference-structure) | include to make your message a reply                         | false                        |
+| components           | array of [message component](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-object) objects      | the components to include with the message                   | false                        |
 
 ###### Example Request Body (application/json)
 
@@ -916,10 +939,10 @@ You may create a message as a reply to another message. To do so, include a [`me
 {
   "content": "Hello, World!",
   "tts": false,
-  "embed": {
+  "embeds": [{
     "title": "Hello, Embed!",
     "description": "This is an embedded message."
-  }
+  }]
 }
 ```
 
@@ -941,7 +964,7 @@ true
 --boundary--
 ```
 
-This example demonstrates usage of the endpoint *with* `payload_json` and all content fields (`content`, `embed`, `file`) set.
+This example demonstrates usage of the endpoint *with* `payload_json` and all content fields (`content`, `embeds`, `file`) set.
 
 ```
 --boundary
@@ -950,10 +973,10 @@ Content-Type: application/json
 
 {
   "content": "Hello, World!",
-  "embed": {
+  "embeds": [{
     "title": "Hello, Embed!",
     "description": "This is an embedded message."
-  },
+  }],
   "message_reference": {
     "message_id": "233648473390448641"
   }
@@ -979,11 +1002,11 @@ For example:
 
 ```json
 {
-  "embed": {
+  "embeds": [{
     "image": {
       "url": "attachment://screenshot.png"
     }
-  }
+  }]
 }
 ```
 
@@ -1031,7 +1054,7 @@ The `emoji` must be [URL Encoded](https://en.wikipedia.org/wiki/Percent-encoding
 
 ## Edit Message % PATCH /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}
 
-Edit a previously sent message. The fields `content`, `embed`, and `flags` can be edited by the original message author. Other users can only edit `flags` and only if they have the `MANAGE_MESSAGES` permission in the corresponding channel. When specifying flags, ensure to include all previously set flags/bits in addition to ones that you are modifying. Only `flags` documented in the table below may be modified by users (unsupported flag changes are currently ignored without error).
+Edit a previously sent message. The fields `content`, `embeds`, and `flags` can be edited by the original message author. Other users can only edit `flags` and only if they have the `MANAGE_MESSAGES` permission in the corresponding channel. When specifying flags, ensure to include all previously set flags/bits in addition to ones that you are modifying. Only `flags` documented in the table below may be modified by users (unsupported flag changes are currently ignored without error).
 
 When the `content` field is edited, the `mentions` array in the message object will be reconstructed from scratch based on the new content. The `allowed_mentions` field of the edit request controls how this happens. If there is no explicit `allowed_mentions` in the edit request, the content will be parsed with _default_ allowances, that is, without regard to whether or not an `allowed_mentions` was present in the request that originally created the message.
 
@@ -1042,7 +1065,7 @@ Returns a [message](#DOCS_RESOURCES_CHANNEL/message-object) object. Fires a [Mes
 
 > warn
 > This endpoint supports both `application/json` and `multipart/form-data` bodies. When uploading files the `multipart/form-data` content type must be used.
-> Note that in multipart form data, the `embed`, `allowed_mentions`, and `attachments` fields cannot be used. You can pass a stringified JSON body as a form value as `payload_json` instead.
+> Note that in multipart form data, the `embeds`, `allowed_mentions`, and `attachments` fields cannot be used. You can pass a stringified JSON body as a form value as `payload_json` instead.
 > **If you supply a `payload_json` form value, all fields except for `file` fields will be ignored in the form data**.
 
 > info
@@ -1050,16 +1073,17 @@ Returns a [message](#DOCS_RESOURCES_CHANNEL/message-object) object. Fires a [Mes
 
 ###### JSON/Form Params
 
-| Field            | Type                                                                                 | Description                                                                                                                             |
-| ---------------- | ------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------- |
-| content          | string                                                                               | the message contents (up to 2000 characters)                                                                                            |
-| embed            | [embed](#DOCS_RESOURCES_CHANNEL/embed-object) object                                 | embedded `rich` content                                                                                                                 |
-| flags            | integer                                                                              | edit the [flags](#DOCS_RESOURCES_CHANNEL/message-object-message-flags) of a message (only `SUPPRESS_EMBEDS` can currently be set/unset) |
-| file             | file contents                                                                        | the contents of the file being sent/edited                                                                                              |
-| payload_json     | string                                                                               | JSON encoded body of non-file params (multipart/form-data only)                                                                         |
-| allowed_mentions | [allowed mention object](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object)            | allowed mentions for the message                                                                                                        |
-| attachments      | array of [attachment](#DOCS_RESOURCES_CHANNEL/attachment-object) objects             | attached files to keep                                                                                                                  |
-| components       | array of [message component](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-object) | the components to include with the message                                                                                              |
+| Field                | Type                                                                                 | Description                                                                                                                             |
+| -------------------- | ------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------- |
+| content              | string                                                                               | the message contents (up to 2000 characters)                                                                                            |
+| embeds               | array of [embed](#DOCS_RESOURCES_CHANNEL/embed-object) objects                       | embedded `rich` content (up to 6000 characters)                                                                                         |
+| embed *(deprecated)* | [embed](#DOCS_RESOURCES_CHANNEL/embed-object) object                                 | embedded `rich` content, deprecated in favor of `embeds`                                                                                |
+| flags                | integer                                                                              | edit the [flags](#DOCS_RESOURCES_CHANNEL/message-object-message-flags) of a message (only `SUPPRESS_EMBEDS` can currently be set/unset) |
+| file                 | file contents                                                                        | the contents of the file being sent/edited                                                                                              |
+| payload_json         | string                                                                               | JSON encoded body of non-file params (multipart/form-data only)                                                                         |
+| allowed_mentions     | [allowed mention object](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object)            | allowed mentions for the message                                                                                                        |
+| attachments          | array of [attachment](#DOCS_RESOURCES_CHANNEL/attachment-object) objects             | attached files to keep                                                                                                                  |
+| components           | array of [message component](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-object) | the components to include with the message                                                                                              |
 
 ## Delete Message % DELETE /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}
 
@@ -1168,21 +1192,30 @@ When called on a `GUILD_TEXT` channel, creates a `GUILD_PUBLIC_THREAD`. When cal
 
 ###### JSON Params
 
-| Field                 | Type    | Description                                                                                                         |
-|-----------------------|---------|---------------------------------------------------------------------------------------------------------------------|
-| name                  | string  | 2-100 character channel name                                                                                        |
-| auto_archive_duration | integer | duration in minutes to automatically archive the thread after recent activity, can be set to: 60, 1440, 4320, 10080 |
+| Field                   | Type    | Description                                                                                                         |
+|-------------------------|---------|---------------------------------------------------------------------------------------------------------------------|
+| name                    | string  | 2-100 character channel name                                                                                        |
+| auto_archive_duration\* | integer | duration in minutes to automatically archive the thread after recent activity, can be set to: 60, 1440, 4320, 10080 |
+
+\* The 3 day and 7 day archive durations require the server to be boosted. The [guild features](#DOCS_RESOURCES_GUILD/guild-object-guild-features) will indicate if a server is able to use those settings.
 
 ## Start Thread without Message % POST /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/threads
 
-Creates a new thread that is not connected to an existing message. The created thread is always a `GUILD_PRIVATE_THREAD`. Returns a [channel](#DOCS_RESOURCES_CHANNEL/channel-object) on success, and a 400 BAD REQUEST on invalid parameters. Fires a [Thread Create](#DOCS_TOPICS_GATEWAY/thread-create) Gateway event.
+Creates a new thread that is not connected to an existing message. The created thread defaults to a `GUILD_PRIVATE_THREAD`\*. Returns a [channel](#DOCS_RESOURCES_CHANNEL/channel-object) on success, and a 400 BAD REQUEST on invalid parameters. Fires a [Thread Create](#DOCS_TOPICS_GATEWAY/thread-create) Gateway event.
 
 ###### JSON Params
 
-| Field                 | Type    | Description                                                                                                         |
-|-----------------------|---------|---------------------------------------------------------------------------------------------------------------------|
-| name                  | string  | 2-100 character channel name                                                                                        |
-| auto_archive_duration | integer | duration in minutes to automatically archive the thread after recent activity, can be set to: 60, 1440, 4320, 10080 |
+| Field                     | Type    | Description                                                                                                         |
+|---------------------------|---------|---------------------------------------------------------------------------------------------------------------------|
+| name                      | string  | 2-100 character channel name                                                                                        |
+| auto_archive_duration\*\* | integer | duration in minutes to automatically archive the thread after recent activity, can be set to: 60, 1440, 4320, 10080 |
+| type?\*\*\*               | integer | the [type of thread](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types) to create                                |
+
+\* Creating a private thread requires the server to be boosted. The [guild features](#DOCS_RESOURCES_GUILD/guild-object-guild-features) will indicate if that is possible for the guild.
+
+\*\* The 3 day and 7 day archive durations require the server to be boosted. The [guild features](#DOCS_RESOURCES_GUILD/guild-object-guild-features) will indicate if that is possible for the guild.
+
+\*\*\* `type` defaults to `PRIVATE_THREAD` in order to match the behavior when thread documentation was first published. This is a bit of a weird default though, and thus is highly likely to change in a future API version, so we would recommend always explicitly setting the `type` parameter.
 
 ## Join Thread % PUT /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/thread-members/@me
 
@@ -1198,7 +1231,7 @@ Removes the current user from a thread. Also requires the thread is not archived
 
 ## Remove Thread Member % DELETE /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/thread-members/{user.id#DOCS_RESOURCES_USER/user-object}
 
-Removes another member from a thread. Requires the `MANAGE_THREADS` permission or that you are the creator of the thread. Also requires the thread is not archived. Returns a 204 empty response on success. Fires a [Thread Members Update](#DOCS_TOPICS_GATEWAY/thread-members-update) Gateway event.
+Removes another member from a thread. Requires the `MANAGE_THREADS` permission, or the creator of the thread if it is a `GUILD_PRIVATE_THREAD`. Also requires the thread is not archived. Returns a 204 empty response on success. Fires a [Thread Members Update](#DOCS_TOPICS_GATEWAY/thread-members-update) Gateway event.
 
 ## List Thread Members % GET /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/thread-members
 
@@ -1209,7 +1242,7 @@ Returns array of [thread members](#DOCS_RESOURCES_CHANNEL/thread-member-object) 
 
 ## List Active Threads % GET /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/threads/active
 
-Returns all active threads in the channel, including public and private threads. Threads are ordered by their `id`, in descending order. Requires the `READ_MESSAGE_HISTORY` permission.
+Returns all active threads in the channel, including public and private threads. Threads are ordered by their `id`, in descending order.
 
 ###### Response Body
 

@@ -42,7 +42,7 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 | channels? \*                  | array of [channel](#DOCS_RESOURCES_CHANNEL/channel-object) objects                      | channels in the guild                                                                                                                       |
 | threads? \*                   | array of [channel](#DOCS_RESOURCES_CHANNEL/channel-object) objects                      | all active threads in the guild that current user has permission to view                                                                    |
 | presences? \*                 | array of partial [presence update](#DOCS_TOPICS_GATEWAY/presence-update) objects        | presences of the members in the guild, will only include non-offline members if the size is greater than `large threshold`                  |
-| max_presences?                | ?integer                                                                                | the maximum number of presences for the guild (the default value, currently 25000, is in effect when `null` is returned)                    |
+| max_presences?                | ?integer                                                                                | the maximum number of presences for the guild (`null` is always returned, apart from the largest of guilds)                                 |
 | max_members?                  | integer                                                                                 | the maximum number of members for the guild                                                                                                 |
 | vanity_url_code               | ?string                                                                                 | the vanity url code for the guild                                                                                                           |
 | description                   | ?string                                                                                 | the description of a Community guild                                                                                                        |
@@ -144,6 +144,9 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 | TICKETED_EVENTS_ENABLED          | guild has enabled ticketed events                                                                                   |
 | MONETIZATION_ENABLED             | guild has enabled monetization                                                                                      |
 | MORE_STICKERS                    | guild has increased custom sticker slots                                                                            |
+| THREE_DAY_THREAD_ARCHIVE         | guild has access to the three day archive time for threads                                                          |
+| SEVEN_DAY_THREAD_ARCHIVE         | guild has access to the seven day archive time for threads                                                          |
+| PRIVATE_THREADS                  | guild has access to create private threads                                                                          |
 
 ###### Example Guild
 
@@ -353,7 +356,7 @@ A partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object. Represents an Offl
 | name        | string                                          | the name of the app                                          |
 | icon        | ?string                                         | the [icon hash](#DOCS_REFERENCE/image-formatting) of the app |
 | description | string                                          | the description of the app                                   |
-| summary     | string                                          | the description of the app                                   |
+| summary     | string                                          | the summary of the app                                       |
 | bot?        | [user](#DOCS_RESOURCES_USER/user-object) object | the bot associated with this application                     |
 
 ### Ban Object
@@ -593,7 +596,7 @@ Returns the [guild](#DOCS_RESOURCES_GUILD/guild-object) object for the given id.
 
 ## Get Guild Preview % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/preview
 
-Returns the [guild preview](#DOCS_RESOURCES_GUILD/guild-preview-object) object for the given id. If the user is not in the guild, then the guild must be Discoverable.
+Returns the [guild preview](#DOCS_RESOURCES_GUILD/guild-preview-object) object for the given id. If the user is not in the guild, then the guild must be lurkable (it must be Discoverable or have a [live public stage](#DOCS_RESOURCES_STAGE_INSTANCE/definitions)).
 
 ## Modify Guild % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}
 
@@ -998,7 +1001,7 @@ Modify the guild's [Welcome Screen](#DOCS_RESOURCES_GUILD/welcome-screen-object)
 | welcome_channels | array of [welcome screen channel](#DOCS_RESOURCES_GUILD/welcome-screen-object-welcome-screen-channel-structure) objects | channels linked in the welcome screen and their display options |
 | description      | string                                                                                                                  | the server description to show in the welcome screen            |
 
-## Update Current User Voice State % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/voice-states/@me
+## Modify Current User Voice State % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/voice-states/@me
 
 Updates the current user's voice state.
 
@@ -1020,7 +1023,7 @@ There are currently several caveats for this endpoint:
 - You must have the `REQUEST_TO_SPEAK` permission to request to speak. You can always clear your own request to speak.
 - You are able to set `request_to_speak_timestamp` to any present or future time.
 
-## Update User Voice State % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/voice-states/{user.id#DOCS_RESOURCES_USER/user-object}
+## Modify User Voice State % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/voice-states/{user.id#DOCS_RESOURCES_USER/user-object}
 
 Updates another user's voice state.
 

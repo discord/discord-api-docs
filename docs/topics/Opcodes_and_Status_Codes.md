@@ -137,6 +137,7 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 10062  | Unknown interaction                                                                                                           |
 | 10063  | Unknown application command                                                                                                   |
 | 10066  | Unknown application command permissions                                                                                       |
+| 10067  | Unknown Stage Instance                                                                                                        |
 | 20001  | Bots cannot use this endpoint                                                                                                 |
 | 20002  | Only bots can use this endpoint                                                                                               |
 | 20009  | Explicit content cannot be sent to the desired recipient(s)                                                                   |
@@ -145,7 +146,7 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 20018  | Only the owner of this account can perform this action                                                                        |
 | 20022  | This message cannot be edited due to announcement rate limits                                                                 |
 | 20028  | The channel you are writing has hit the write rate limit                                                                      |
-| 20031  | Your Stage topic contains words that are not allowed for public Stages                                                        |
+| 20031  | Your Stage topic, server name, server description, or channel names contain words that are not allowed                        |
 | 30001  | Maximum number of guilds reached (100)                                                                                        |
 | 30002  | Maximum number of friends reached (1000)                                                                                      |
 | 30003  | Maximum number of pins reached for the channel (50)                                                                           |
@@ -157,7 +158,10 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 30013  | Maximum number of guild channels reached (500)                                                                                |
 | 30015  | Maximum number of attachments in a message reached (10)                                                                       |
 | 30016  | Maximum number of invites reached (1000)                                                                                      |
+| 30018  | Maximum number of animated emojis reached                                                                                     |
+| 30019  | Maximum number of server members reached                                                                                      |
 | 30031  | Guild already has a template                                                                                                  |
+| 30033  | Max number of thread participants has been reached                                                                            |
 | 30035  | Maximum number of bans for non-guild members have been exceeded                                                               |
 | 30037  | Maximum number of bans fetches has been reached                                                                               |
 | 40001  | Unauthorized. Provide a valid token and try again                                                                             |
@@ -209,6 +213,11 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 80004  | No users with DiscordTag exist                                                                                                |
 | 90001  | Reaction was blocked                                                                                                          |
 | 130000 | API resource is currently overloaded. Try again a little later                                                                |
+| 150006 | The Stage is already open                                                                                                     |
+| 160004 | A thread has already been created for this message                                                                            |
+| 160005 | Thread is locked                                                                                                              |
+| 160006 | Maximum number of active threads reached                                                                                      |
+| 160007 | Maximum number of active announcement threads reached                                                                         |
 
 ###### Example JSON Error Response
 
