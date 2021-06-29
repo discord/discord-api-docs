@@ -982,7 +982,8 @@ Sent when a guild member is updated. This will also fire when the user object of
 | roles          | array of snowflakes                               | user role ids                                                                                                                          |
 | user           | a [user](#DOCS_RESOURCES_USER/user-object) object | the user                                                                                                                               |
 | nick?          | ?string                                           | nickname of the user in the guild                                                                                                      |
-| joined_at      | ?ISO8601 timestamp                                 | when the user joined the guild                                                                                                         |
+| avatar         | ?string                                           | the member's [guild avatar hash](#DOCS_REFERENCE/image-formatting)
+| joined_at      | ?ISO8601 timestamp                                | when the user joined the guild                                                                                                         |
 | premium_since? | ?ISO8601 timestamp                                | when the user starting [boosting](https://support.discord.com/hc/en-us/articles/360028038352-Server-Boosting-) the guild               |
 | deaf?          | boolean                                           | whether the user is deafened in voice channels                                                                                         |
 | mute?          | boolean                                           | whether the user is muted in voice channels                                                                                            |
