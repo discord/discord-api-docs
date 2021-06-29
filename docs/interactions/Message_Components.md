@@ -4,7 +4,7 @@ Message components—we'll call them "components" moving forward—are a framewo
 
 There are several different types of components; this documentation will outline the basics of this new framework and each example.
 
-## Components
+## What is a Component
 
 Components are a new field on the [message object](#DOCS_RESOURCES_CHANNEL/message-object), so you can use them whether you're sending messages or responding to a [slash command](#DOCS_INTERACTIONS_SLASH_COMMANDS/) or other interaction.
 
