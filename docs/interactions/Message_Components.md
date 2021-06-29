@@ -1,14 +1,38 @@
 # Message Components
 
-Message components--we'll call them "components" moving forward--are a framework for adding interactive elements to the messages your app or bot sends. They're accessible, customizable, and easy to use.
+Message components—we'll call them "components" moving forward—are a framework for adding interactive elements to the messages your app or bot sends. They're accessible, customizable, and easy to use.
 
 There are several different types of components; this documentation will outline the basics of this new framework and each example.
 
-## What are Components
+## What is a Component
 
 Components are a new field on the [message object](#DOCS_RESOURCES_CHANNEL/message-object), so you can use them whether you're sending messages or responding to a [slash command](#DOCS_INTERACTIONS_SLASH_COMMANDS/) or other interaction.
 
-The top-level `components` field is an array of `ActionRow` components.
+The top-level `components` field is an array of [Action Row](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/action-rows) components.
+
+### Component Object
+
+###### Component Structure
+
+| Field       | Type                                                                          | Description                                                                         | Valid For                                                        |
+| ----------- | ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- | ---------------------------------------------------------------- |
+| type        | integer                                                                       | [component type](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-types)             | all types                                                        |
+| style?      | integer                                                                       | one of [button styles](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/buttons-button-styles) | [Buttons](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/buttons)         |
+| label?      | string                                                                        | text that appears on the button, max 80 characters                                  | [Buttons](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/buttons)         |
+| emoji?      | partial [emoji](#DOCS_RESOURCES_EMOJI/emoji-object)                           | `name`, `id`, and `animated`                                                        | [Buttons](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/buttons)         |
+| custom_id?  | string                                                                        | a developer-defined identifier for the button, max 100 characters                   | [Buttons](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/buttons)         |
+| url?        | string                                                                        | a url for link-style buttons                                                        | [Buttons](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/buttons)         |
+| disabled?   | boolean                                                                       | whether the button is disabled, default `false`                                     | [Buttons](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/buttons)         |
+| components? | array of [components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-object) | a list of child components                                                          | [Action Rows](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/action-rows) |
+
+###### Component Types
+
+| Type | Name       | Description                      |
+| ---- | ---------- | -------------------------------- |
+| 1    | Action Row | A container for other components |
+| 2    | Button     | A button object                  |
+
+###### Example Component
 
 ```json
 {
@@ -22,33 +46,12 @@ The top-level `components` field is an array of `ActionRow` components.
 }
 ```
 
-## Component Object
+## Action Rows
 
-| Field       | Type                                                                                  | Description                                                                         | Valid For                                                      |
-| ----------- | ------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- | -------------------------------------------------------------- |
-| type        | int                                                                                   | [component type](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-types)             | all types                                                      |
-| style?      | int                                                                                   | one of [button styles](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/buttons-button-styles) | [Buttons](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/buttons)       |
-| label?      | string                                                                                | text that appears on the button, max 80 characters                                  | [Buttons](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/buttons)       |
-| emoji?      | partial [emoji](#DOCS_RESOURCES_EMOJI/emoji-object)                                   | `name`, `id`, and `animated`                                                        | [Buttons](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/buttons)       |
-| custom_id?  | string                                                                                | a developer-defined identifier for the button, max 100 characters                   | [Buttons](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/buttons)       |
-| url?        | string                                                                                | a url for link-style buttons                                                        | [Buttons](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/buttons)       |
-| disabled?   | bool                                                                                  | whether the button is disabled, default `false`                                     | [Buttons](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/buttons)       |
-| components? | Array of [message components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-object) | a list of child components                                                          | [Action Rows](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/actionrow) |
+An Action Row is a non-interactive container component for other types of components. It has a `type: 1` and a sub-array of `components` of other types.
 
-## Component Types
-
-| Type | Name      | Description                      |
-| ---- | --------- | -------------------------------- |
-| 1    | ActionRow | A container for other components |
-| 2    | Button    | A clickable button               |
-
-## ActionRow
-
-An `ActionRow` is a non-interactive container component for other types of components. It has a `type: 1` and a sub-array of `components` of other types.
-
-- You can have up to 5 `ActionRows` per message
-- An `ActionRow` cannot contain another `ActionRow`
-
+- You can have up to 5 Action Rows per message
+- An Action Row cannot contain another Action Row
 
 ```json
 {
@@ -72,41 +75,43 @@ An `ActionRow` is a non-interactive container component for other types of compo
 
 ## Responding to a Component Interaction
 
-Responding to a user interacting with a component is the same as other interaction types, like slash commands. You can simply ACK the request, send a followup message, or edit the original message to something new. Check out [Responding to An Interaction](#DOCS_INTERACTIONS_SLASH_COMMANDS/responding-to-an-interaction) and [interaction response](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-response-object-interaction-response-structure) for more.
+Responding to a user interacting with a component is the same as other interaction types, like slash commands. You can simply ACK the request, send a followup message, or edit the original message to something new. Check out [Responding to An Interaction](#DOCS_INTERACTIONS_SLASH_COMMANDS/responding-to-an-interaction) and [interaction response](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-response-object) for more.
 
 > danger
-> Your application should take care to validate data sent in message component interactions. For example, ensuring that the `custom_id` originates from the received message. In the future this information will be validated by the API.
+> Your application should take care to validate data sent in component interactions. For example, ensuring that the `custom_id` originates from the received message. In the future this information will be validated by the API.
 
-## Custom Id
+## Custom ID
 
-Message components, aside from `ActionRows`, have a mandatory `custom_id` field. This field is defined by the developer when sending the component payload, and is returned in the interaction payload sent when a user interacts with the component. For example, if you set `custom_id: click_me` on a button, you'll receive an interaction containing `custom_id: click_me` when a user clicks that button.
+Components, aside from Action Rows, must have a `custom_id` field. This field is defined by the developer when sending the component payload, and is returned in the interaction payload sent when a user interacts with the component. For example, if you set `custom_id: click_me` on a button, you'll receive an interaction containing `custom_id: click_me` when a user clicks that button.
 
-`custom_id` is unique per component; one button can have a different `custom_id` than another button on the same message. This field is a string of max 100 characters, and can be used flexibly to maintain state or pass through other important data.
+`custom_id` must be unique per component; multiple buttons must not share the same `custom_id`. This field is a string of max 100 characters, and can be used flexibly to maintain state or pass through other important data.
 
 ## Buttons
 
-Buttons are interactive components that render on messages. They can be clicked by users, and send an [interaction](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-object-interaction-structure) to your app when clicked.
+Buttons are interactive components that render on messages. They can be clicked by users, and send an [interaction](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-object) to your app when clicked.
 
-- Buttons must be sent inside an `ActionRow`
-- An `ActionRow` can contain up to 5 buttons
+- Buttons must be sent inside an Action Row
+- An Action Row can contain up to 5 buttons
 
-###### Button Object
+### Button Object
+
+###### Button Structure
 
 | Field      | Type                                                | Description                                                                         |
 | ---------- | --------------------------------------------------- | ----------------------------------------------------------------------------------- |
-| type       | int                                                 | `2` for a button                                                                    |
-| style      | int                                                 | one of [button styles](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/buttons-button-styles) |
-| label?     | string                                              | text that appears on the button, max 80 characters                                   |
+| type       | integer                                             | `2` for a button                                                                    |
+| style      | integer                                             | one of [button styles](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/buttons-button-styles) |
+| label?     | string                                              | text that appears on the button, max 80 characters                                  |
 | emoji?     | partial [emoji](#DOCS_RESOURCES_EMOJI/emoji-object) | `name`, `id`, and `animated`                                                        |
 | custom_id? | string                                              | a developer-defined identifier for the button, max 100 characters                   |
 | url?       | string                                              | a url for link-style buttons                                                        |
-| disabled?  | bool                                                | whether the button is disabled, default `false`                                     |
+| disabled?  | boolean                                             | whether the button is disabled (default `false`)                                    |
 
 Buttons come in a variety of styles to convey different types of actions. These styles also define what fields are valid for a button.
 
 - Non-link buttons **must** have a `custom_id`, and cannot have a `url`
 - Link buttons **must** have a `url`, and cannot have a `custom_id`
-- Link buttons do not send an [interaction](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-object-interaction-structure) to your app when clicked
+- Link buttons do not send an [interaction](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-object) to your app when clicked
 
 ###### Button Styles
 
@@ -120,7 +125,7 @@ Buttons come in a variety of styles to convey different types of actions. These 
 
 ![An image showing the different button styles](button-styles.png)
 
-When a user clicks on a button, your app will receive an [interaction](#DOCS_INTERACTIONS_SLASH_COMMANDS/interactions) including the message the button was on:
+When a user clicks on a button, your app will receive an [interaction](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-object) including the message the button was on:
 
 ###### Button Interaction
 
