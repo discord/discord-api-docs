@@ -147,6 +147,7 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 20022  | This message cannot be edited due to announcement rate limits                                                                 |
 | 20028  | The channel you are writing has hit the write rate limit                                                                      |
 | 20031  | Your Stage topic, server name, server description, or channel names contain words that are not allowed                        |
+| 20035  | Guild premium subscription level too low                                                                                      |
 | 30001  | Maximum number of guilds reached (100)                                                                                        |
 | 30002  | Maximum number of friends reached (1000)                                                                                      |
 | 30003  | Maximum number of pins reached for the channel (50)                                                                           |
