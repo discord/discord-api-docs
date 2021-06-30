@@ -98,12 +98,12 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 
 ###### Guild NSFW Level
 
-| Level          | Value   |
-| -------------- | ------- |
-| DEFAULT        | 0       |
-| EXPLICIT       | 1       |
-| SAFE           | 2       |
-| AGE_RESTRICTED | 3       |
+| Level          | Value   | Description                                                                                    |
+| -------------- | ------- | ---------------------------------------------------------------------------------------------- |
+| DEFAULT        | 0       | default or unset                                                                               |
+| EXPLICIT       | 1       | guild has very suggestive and/or mature content that would only be suitable for users ages 18+ |
+| SAFE           | 2       | guild has no content that could be deemed NSFW                                                 |
+| AGE_RESTRICTED | 3       | guild has mild NSFW content that may not be suitable for users ages 13-17                      |
 
 ###### Premium Tier
 
