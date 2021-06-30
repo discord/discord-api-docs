@@ -27,10 +27,11 @@ The top-level `components` field is an array of [Action Row](#DOCS_INTERACTIONS_
 
 ###### Component Types
 
-| Type | Name       | Description                      |
-| ---- | ---------- | -------------------------------- |
-| 1    | Action Row | A container for other components |
-| 2    | Button     | A button object                  |
+| Type | Name        | Description                            |
+| ---- | ----------- | -------------------------------------- |
+| 1    | Action Row  | A container for other components       |
+| 2    | Button      | A button object                        |
+| 3    | Select Menu | A select menu for picking from choices |
 
 ###### Example Component
 
@@ -92,6 +93,7 @@ Buttons are interactive components that render on messages. They can be clicked 
 
 - Buttons must be sent inside an Action Row
 - An Action Row can contain up to 5 buttons
+- An Action Row containing buttons cannot also contain a select menu
 
 ### Button Object
 
@@ -199,5 +201,215 @@ When a user clicks on a button, your app will receive an [interaction](#DOCS_INT
     },
     "channel_id": "345626669114982999",
     "application_id": "290926444748734465"
+}
+```
+
+## Select Menus
+
+Select menus are another interactive component that renders on messages. On desktop, clicking on a select menu opens a dropdown-style UI; on mobile, tapping a select menu opens up a half-sheet with the options.
+
+![A select menu open on desktop](desktop-select.png)
+![A select menu open on mobile](mobile-select.png)
+
+Select menus support single-select and multi-select behavior, meaning you can prompt a user to choose just one item from a list, or multiple. When a user finishes making their choice by clicking out of the dropdown or closing the half-sheet, your app will receive an [interaction](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-object-interaction-structure).
+
+- Select menus must be sent inside an Action Row
+- An Action Row can contain only one select menu
+- An Action Row containing a select menu cannot also contain buttons
+
+###### Select Menu Example
+
+```json
+// This is a message
+{
+    "content": "Mason is looking for new arena partners. What classes do you play?",
+    "components": [
+        {
+            "type": 1,
+            "components": [
+                {
+                    "type": 3,
+                    "custom_id": "class_select_1",
+                    "options":[
+                        {
+                            "label": "Rogue",
+                            "value": "rogue",
+                            "description": "Sneak n stab",
+                            "emoji": {
+                                "name": "rogue",
+                                "id": "625891304148303894"
+                            }
+                        },
+                        {
+                            "label": "Mage",
+                            "value": "mage",
+                            "description": "Turn \"em into a sheep",
+                            "emoji": {
+                                "name": "mage",
+                                "id": "625891304081063986"
+                            }
+                        },
+                        {
+                            "label": "Priest",
+                            "value": "priest",
+                            "description": "You get heals when I\"m done doing damage",
+                            "emoji": {
+                                "name": "priest",
+                                "id": "625891303795982337"
+                            }
+                        }
+                    ],
+                    "placeholder": "Choose a class",
+                    "min_values": 1,
+                    "max_values": 3
+                }
+            ]
+        }
+    ]
+}
+```
+### Select Menu Object
+
+###### Select Menu Structure
+
+| Field        | Type                                                                                                        | Description                                                               |
+| ------------ | ----------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------- |
+| custom_id    | string                                                                                                      | a developer-defined identifier for the button, max 100 characters         |
+| options      | array of [select options](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/select-menu-object-select-option-structure) | the choices in the select, max 25                                         |
+| placeholder? | string                                                                                                      | custom placeholder text if nothing is selected, max 100 characters        |
+| min_values   | integer                                                                                                     | the minimum number of items that must be chosen; default 1, min 0, max 25 |
+| max_values   | integer                                                                                                     | the maximum number of items that can be chosen; default 1, max 25         |
+
+###### Select Option Structure
+
+| Field        | Type                                                       | Description                                                |
+| ------------ | ---------------------------------------------------------- | ---------------------------------------------------------- |
+| label        | string                                                     | the user-facing name of the option, max 25 characters      |
+| value        | string                                                     | the dev-define value of the option, max 100 characters     |
+| description? | string                                                     | an additional description of the option, max 50 characters |
+| emoji?       | partial [emoji](#DOCS_RESOURCES_EMOJI/emoji-object) object | `id`, `name`, and `animated`                               |
+| default?     | boolean                                                    | will render this option as selected by default             |
+
+###### Select Menu Interaction
+
+```json
+{
+    "application_id": "845027738276462632",
+    "channel_id": "772908445358620702",
+    "data": {
+        "component_type":3,
+        "custom_id": "test-dropdown",
+        "values": [
+            "mage",
+            "rogue"
+        ]
+    },
+    "guild_id": "772904309264089089",
+    "id": "847587388497854464",
+    "member": {
+        "avatar": null,
+        "deaf": false,
+        "is_pending": false,
+        "joined_at": "2020-11-02T19:25:47.248000+00:00",
+        "mute": false,
+        "nick": "Bot Man",
+        "pending": false,
+        "permissions": "17179869183",
+        "premium_since": null,
+        "roles": [
+            "785609923542777878"
+        ],
+        "user":{
+            "avatar": "a_d5efa99b3eeaa7dd43acca82f5692432",
+            "discriminator": "1337",
+            "id": "53908232506183680",
+            "public_flags": 131141,
+            "username": "Mason"
+        }
+    },
+    "message":{
+        "application_id": "845027738276462632",
+        "attachments": [],
+        "author": {
+            "avatar": null,
+            "bot": true,
+            "discriminator": "5284",
+            "id": "845027738276462632",
+            "public_flags": 0,
+            "username": "Interactions Test"
+        },
+        "channel_id": "772908445358620702",
+        "components": [
+            {
+                "components": [
+                    {
+                        "custom_id": "test-dropdown",
+                        "max_values": 1,
+                        "min_values": 1,
+                        "options": [
+                            {
+                                "description": "Sneak n stab",
+                                "emoji":{
+                                    "id": "625891304148303894",
+                                    "name": "rogue"
+                                },
+                                "label": "Rogue",
+                                "value": "rogue"
+                            },
+                            {
+                                "description": "Turn 'em into a sheep",
+                                "emoji":{
+                                    "id": "625891304081063986",
+                                    "name": "mage"
+                                },
+                                "label": "Mage",
+                                "value": "mage"
+                            },
+                            {
+                                "description": "You get heals when I'm done doing damage",
+                                "emoji":{
+                                    "id": "625891303795982337",
+                                    "name": "priest"
+                                },
+                                "label": "Priest",
+                                "value": "priest"
+                            }
+                        ],
+                        "placeholder": "Choose a class",
+                        "type": 3
+                    }
+                ],
+                "type": 1
+            }
+        ],
+        "content": "Mason is looking for new arena partners. What classes do you play?",
+        "edited_timestamp": null,
+        "embeds": [],
+        "flags": 0,
+        "id": "847587334500646933",
+        "interaction": {
+            "id": "847587333942935632",
+            "name": "dropdown",
+            "type": 2,
+            "user": {
+                "avatar": "a_d5efa99b3eeaa7dd43acca82f5692432",
+                "discriminator": "1337",
+                "id": "53908232506183680",
+                "public_flags": 131141,
+                "username": "Mason"
+            }
+        },
+        "mention_everyone": false,
+        "mention_roles":[],
+        "mentions":[],
+        "pinned": false,
+        "timestamp": "2021-05-27T21:29:27.956000+00:00",
+        "tts": false,
+        "type": 20,
+        "webhook_id": "845027738276462632"
+    },
+    "token": "UNIQUE_TOKEN",
+    "type": 3,
+    "version": 1
 }
 ```
