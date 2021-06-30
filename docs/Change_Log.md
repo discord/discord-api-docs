@@ -25,7 +25,7 @@ You can now include buttons on messages sent by your app, whether they're bot me
 The addition of message components means new fields and response types:
 
 - An optional `components` field has been added to the [message object](#DOCS_RESOURCES_CHANNEL/message-object)
-- New response types `6` and `7` have been added for [interaction responses](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-response-object-interaction-callback-type), valid only for component-based interactions
+- New response types `6` and `7` have been added for [interaction responses](#DOCS_INTERACTIONS_RECEVING_AND_RESPONDING/interaction-response-object-interaction-callback-type), valid only for component-based interactions
 
 ## API v9
 
@@ -74,13 +74,13 @@ Changes to interaction response types have been made to support better designs f
 
 These deprecated types will be removed and break on **April 9, 2021**.
 
-Additionally, `flags` has been documented on [InteractionApplicationCommandCallbackData](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-response-object-interaction-application-command-callback-data-structure). Setting `flags` to `64` will make the interaction response ephemeral.
+Additionally, `flags` has been documented on [InteractionApplicationCommandCallbackData](#DOCS_INTERACTIONS_RECEVING_AND_RESPONDING/interaction-response-object-interaction-callback-data-structure). Setting `flags` to `64` will make the interaction response ephemeral.
 
 ## Slash Commands in DMs
 
 #### February 9, 2021
 
-Slash Commands are now supported in DMs with bots. Due to this change, some of the fields on the [Interaction object](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-object-interaction-structure) have been made optional. Newly optional fields don't reflect any behavior changes in Slash Commands within guilds; they are to support commands in the context of a DM only.
+Slash Commands are now supported in DMs with bots. Due to this change, some of the fields on the [Interaction object](#DOCS_INTERACTIONS_RECEVING_AND_RESPONDING/interaction-object-interaction-structure) have been made optional. Newly optional fields don't reflect any behavior changes in Slash Commands within guilds; they are to support commands in the context of a DM only.
 
 ## Change to Permission Checking when Creating Channels
 
