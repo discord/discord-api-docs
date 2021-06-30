@@ -243,7 +243,7 @@ Select menus support single-select and multi-select behavior, meaning you can pr
                         {
                             "label": "Mage",
                             "value": "mage",
-                            "description": "Turn \"em into a sheep",
+                            "description": "Turn 'em into a sheep",
                             "emoji": {
                                 "name": "mage",
                                 "id": "625891304081063986"
@@ -252,7 +252,7 @@ Select menus support single-select and multi-select behavior, meaning you can pr
                         {
                             "label": "Priest",
                             "value": "priest",
-                            "description": "You get heals when I\"m done doing damage",
+                            "description": "You get heals when I'm done doing damage",
                             "emoji": {
                                 "name": "priest",
                                 "id": "625891303795982337"
@@ -298,7 +298,7 @@ Select menus support single-select and multi-select behavior, meaning you can pr
     "channel_id": "772908445358620702",
     "data": {
         "component_type":3,
-        "custom_id": "test-dropdown",
+        "custom_id": "class_select_1",
         "values": [
             "mage",
             "rogue"
@@ -343,7 +343,7 @@ Select menus support single-select and multi-select behavior, meaning you can pr
             {
                 "components": [
                     {
-                        "custom_id": "test-dropdown",
+                        "custom_id": "class_select_1",
                         "max_values": 1,
                         "min_values": 1,
                         "options": [
