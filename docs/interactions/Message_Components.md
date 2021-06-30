@@ -209,7 +209,6 @@ When a user clicks on a button, your app will receive an [interaction](#DOCS_INT
 Select menus are another interactive component that renders on messages. On desktop, clicking on a select menu opens a dropdown-style UI; on mobile, tapping a select menu opens up a half-sheet with the options.
 
 ![A select menu open on desktop](desktop-select.png)
-![A select menu open on mobile](mobile-select.png)
 
 Select menus support single-select and multi-select behavior, meaning you can prompt a user to choose just one item from a list, or multiple. When a user finishes making their choice by clicking out of the dropdown or closing the half-sheet, your app will receive an [interaction](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-object-interaction-structure).
 
@@ -268,6 +267,7 @@ Select menus support single-select and multi-select behavior, meaning you can pr
     ]
 }
 ```
+
 ### Select Menu Object
 
 ###### Select Menu Structure
