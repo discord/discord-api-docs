@@ -135,6 +135,7 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 10038  | Unknown gift code                                                                                                             |
 | 10057  | Unknown guild template                                                                                                        |
 | 10059  | Unknown discoverable server category                                                                                          |
+| 10060  | Unknown sticker                                                                                                               |
 | 10062  | Unknown interaction                                                                                                           |
 | 10063  | Unknown application command                                                                                                   |
 | 10066  | Unknown application command permissions                                                                                       |
