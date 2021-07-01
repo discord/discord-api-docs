@@ -78,9 +78,6 @@ An Action Row is a non-interactive container component for other types of compon
 
 Responding to a user interacting with a component is the same as other interaction types, like slash commands. You can simply ACK the request, send a followup message, or edit the original message to something new. Check out [Responding to An Interaction](#DOCS_INTERACTIONS_SLASH_COMMANDS/responding-to-an-interaction) and [interaction response](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-response-object) for more.
 
-> danger
-> Your application should take care to validate data sent in component interactions. For example, ensuring that the `custom_id` originates from the received message. In the future this information will be validated by the API.
-
 ## Custom ID
 
 Components, aside from Action Rows, must have a `custom_id` field. This field is defined by the developer when sending the component payload, and is returned in the interaction payload sent when a user interacts with the component. For example, if you set `custom_id: click_me` on a button, you'll receive an interaction containing `custom_id: click_me` when a user clicks that button.
