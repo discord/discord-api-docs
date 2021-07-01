@@ -140,6 +140,7 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 10066  | Unknown application command permissions                                                                                       |
 | 10067  | Unknown Stage Instance                                                                                                        |
 | 10068  | Unknown Guild Member Verification Form                                                                                        |
+| 10069  | Unknown Guild Welcome Screen                                                                                                  |
 | 20001  | Bots cannot use this endpoint                                                                                                 |
 | 20002  | Only bots can use this endpoint                                                                                               |
 | 20009  | Explicit content cannot be sent to the desired recipient(s)                                                                   |
