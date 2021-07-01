@@ -279,7 +279,7 @@ Select menus support single-select and multi-select behavior, meaning you can pr
 | placeholder? | string                                                                                                      | custom placeholder text if nothing is selected, max 100 characters        |
 | min_values   | integer                                                                                                     | the minimum number of items that must be chosen; default 1, min 0, max 25 |
 | max_values   | integer                                                                                                     | the maximum number of items that can be chosen; default 1, max 25         |
-| disabled     | boolean                                                                                                     | disable the select, default false                                         |
+| disabled?    | boolean                                                                                                     | disable the select, default false                                         |
 
 ###### Select Option Structure
 
