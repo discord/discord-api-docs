@@ -78,9 +78,6 @@ An Action Row is a non-interactive container component for other types of compon
 
 Responding to a user interacting with a component is the same as other interaction types, like slash commands. You can simply ACK the request, send a followup message, or edit the original message to something new. Check out [Responding to An Interaction](#DOCS_INTERACTIONS_SLASH_COMMANDS/responding-to-an-interaction) and [interaction response](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-response-object) for more.
 
-> danger
-> Your application should take care to validate data sent in component interactions. For example, ensuring that the `custom_id` originates from the received message. In the future this information will be validated by the API.
-
 ## Custom ID
 
 Components, aside from Action Rows, must have a `custom_id` field. This field is defined by the developer when sending the component payload, and is returned in the interaction payload sent when a user interacts with the component. For example, if you set `custom_id: click_me` on a button, you'll receive an interaction containing `custom_id: click_me` when a user clicks that button.
@@ -209,7 +206,6 @@ When a user clicks on a button, your app will receive an [interaction](#DOCS_INT
 Select menus are another interactive component that renders on messages. On desktop, clicking on a select menu opens a dropdown-style UI; on mobile, tapping a select menu opens up a half-sheet with the options.
 
 ![A select menu open on desktop](desktop-select.png)
-![A select menu open on mobile](mobile-select.png)
 
 Select menus support single-select and multi-select behavior, meaning you can prompt a user to choose just one item from a list, or multiple. When a user finishes making their choice by clicking out of the dropdown or closing the half-sheet, your app will receive an [interaction](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-object-interaction-structure).
 
@@ -268,6 +264,7 @@ Select menus support single-select and multi-select behavior, meaning you can pr
     ]
 }
 ```
+
 ### Select Menu Object
 
 ###### Select Menu Structure
@@ -277,8 +274,8 @@ Select menus support single-select and multi-select behavior, meaning you can pr
 | custom_id    | string                                                                                                      | a developer-defined identifier for the button, max 100 characters         |
 | options      | array of [select options](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/select-menu-object-select-option-structure) | the choices in the select, max 25                                         |
 | placeholder? | string                                                                                                      | custom placeholder text if nothing is selected, max 100 characters        |
-| min_values   | integer                                                                                                     | the minimum number of items that must be chosen; default 1, min 0, max 25 |
-| max_values   | integer                                                                                                     | the maximum number of items that can be chosen; default 1, max 25         |
+| min_values?  | integer                                                                                                     | the minimum number of items that must be chosen; default 1, min 0, max 25 |
+| max_values?  | integer                                                                                                     | the maximum number of items that can be chosen; default 1, max 25         |
 | disabled?    | boolean                                                                                                     | disable the select, default false                                         |
 
 ###### Select Option Structure
