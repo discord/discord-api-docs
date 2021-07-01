@@ -766,7 +766,6 @@ Modifies the current member in a guild. Returns a 200 with the updated member ob
 | ----- | ------- | ------------------------------ | --------------- |
 | ?nick | ?string | value to set users nickname to | CHANGE_NICKNAME |
 
-
 ## Modify Current User Nick % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/members/@me/nick
 
 > danger
