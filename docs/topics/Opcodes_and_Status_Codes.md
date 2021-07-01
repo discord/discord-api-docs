@@ -134,6 +134,7 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 10036  | Unknown redistributable                                                                                                       |
 | 10038  | Unknown gift code                                                                                                             |
 | 10057  | Unknown guild template                                                                                                        |
+| 10059  | Unknown discoverable server category                                                                                          |
 | 10062  | Unknown interaction                                                                                                           |
 | 10063  | Unknown application command                                                                                                   |
 | 10066  | Unknown application command permissions                                                                                       |
@@ -162,6 +163,7 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 30016  | Maximum number of invites reached (1000)                                                                                      |
 | 30018  | Maximum number of animated emojis reached                                                                                     |
 | 30019  | Maximum number of server members reached                                                                                      |
+| 30030  | Maximum number of server categories has been reached (5)                                                                      |
 | 30031  | Guild already has a template                                                                                                  |
 | 30033  | Max number of thread participants has been reached                                                                            |
 | 30035  | Maximum number of bans for non-guild members have been exceeded                                                               |
