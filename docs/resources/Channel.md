@@ -882,17 +882,18 @@ You may create a message as a reply to another message. To do so, include a [`me
 
 ###### JSON/Form Params
 
-| Field                | Type                                                                                              | Description                                                  | Required                     |
-| -------------------- | ------------------------------------------------------------------------------------------------- | ------------------------------------------------------------ | ---------------------------- |
-| content              | string                                                                                            | the message contents (up to 2000 characters)                 | one of content, file, embeds |
-| tts                  | boolean                                                                                           | true if this is a TTS message                                | false                        |
-| file                 | file contents                                                                                     | the contents of the file being sent                          | one of content, file, embeds |
-| embeds               | array of [embed](#DOCS_RESOURCES_CHANNEL/embed-object) objects                                    | embedded `rich` content (up to 6000 characters)              | one of content, file, embeds |
-| embed *(deprecated)* | [embed](#DOCS_RESOURCES_CHANNEL/embed-object) object                                              | embedded `rich` content, deprecated in favor of `embeds`     | one of content, file, embed  |
-| payload_json         | string                                                                                            | JSON encoded body of non-file params                         | `multipart/form-data` only   |
-| allowed_mentions     | [allowed mention object](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object)                         | allowed mentions for the message                             | false                        |
-| message_reference    | [message reference](#DOCS_RESOURCES_CHANNEL/message-reference-object-message-reference-structure) | include to make your message a reply                         | false                        |
-| components           | array of [message component](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-object) objects      | the components to include with the message                   | false                        |
+| Field                | Type                                                                                              | Description                                                                                            | Required                                    |
+| -------------------- | ------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ | ------------------------------------------- |
+| content              | string                                                                                            | the message contents (up to 2000 characters)                                                           | one of content, file, embed(s), sticker_ids |
+| tts                  | boolean                                                                                           | true if this is a TTS message                                                                          | false                                       |
+| file                 | file contents                                                                                     | the contents of the file being sent                                                                    | one of content, file, embed(s), sticker_ids |
+| embeds               | array of [embed](#DOCS_RESOURCES_CHANNEL/embed-object) objects                                    | embedded `rich` content (up to 6000 characters)                                                        | one of content, file, embed(s), sticker_ids |
+| embed *(deprecated)* | [embed](#DOCS_RESOURCES_CHANNEL/embed-object) object                                              | embedded `rich` content, deprecated in favor of `embeds`                                               | one of content, file, embed(s), sticker_ids |
+| payload_json         | string                                                                                            | JSON encoded body of non-file params                                                                   | `multipart/form-data` only                  |
+| allowed_mentions     | [allowed mention object](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object)                         | allowed mentions for the message                                                                       | false                                       |
+| message_reference    | [message reference](#DOCS_RESOURCES_CHANNEL/message-reference-object-message-reference-structure) | include to make your message a reply                                                                   | false                                       |
+| components           | array of [message component](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-object) objects      | the components to include with the message                                                             | false                                       |
+| sticker_ids          | array of snowflakes                                                                               | IDs of up to 3 [stickers](#DOCS_RESOURCES_STICKER/sticker-object) in the server to send in the message | one of content, file, embed(s), sticker_ids |
 
 ###### Example Request Body (application/json)
 
