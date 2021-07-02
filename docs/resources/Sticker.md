@@ -52,6 +52,18 @@ Represents a sticker that can be sent in messages. The URL for fetching sticker 
 }
 ```
 
+### Sticker Item Object
+
+The smallest amount of data required to render a sticker. A partial sticker object.
+
+###### Sticker Item Structure
+
+| Field       | Type      | Description                                                                           |
+| ----------- | --------- | ------------------------------------------------------------------------------------- |
+| id          | snowflake | id of the sticker                                                                     |
+| name        | string    | name of the sticker                                                                   |
+| format_type | integer   | [type of sticker format](#DOCS_RESOURCES_STICKER/sticker-object-sticker-format-types) |
+
 ### Sticker Pack Object
 
 Represents a pack of standard stickers.
