@@ -6,20 +6,20 @@ Represents a sticker that can be sent in messages. The URL for fetching sticker 
 
 ###### Sticker Structure
 
-| Field       | Type                                            | Description                                                                                                                                                  |
-| ----------- | ----------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| id          | snowflake                                       | id of the sticker                                                                                                                                            |
-| pack_id?    | snowflake                                       | for standard stickers, id of the pack the sticker is from                                                                                                    |
-| name        | string                                          | name of the sticker                                                                                                                                          |
-| description | ?string                                         | description of the sticker                                                                                                                                   |
-| tags        | string                                          | for guild stickers, the name of a unicode emoji representing the sticker's expression. for standard stickers, a comma-separated list of related expressions. |
-| asset       | string                                          | **Deprecated** previously the sticker asset hash, now an empty string                                                                                        |
-| type        | integer                                         | [type of sticker](#DOCS_RESOURCES_STICKER/sticker-object-sticker-types)                                                                                      |
-| format_type | integer                                         | [type of sticker format](#DOCS_RESOURCES_STICKER/sticker-object-sticker-format-types)                                                                        |
-| available?  | boolean                                         | whether this sticker can be used, may be false due to loss of Server Boosts                                                                                  |
-| guild_id?   | snowflake                                       | id of the guild that owns this sticker                                                                                                                       |
-| user?       | [user](#DOCS_RESOURCES_USER/user-object) object | the user that uploaded the guild sticker                                                                                                                     |
-| sort_value? | integer                                         | the standard sticker's sort order within its pack                                                                                                            |
+| Field       | Type                                            | Description                                                                                                                                                          |
+| ----------- | ----------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| id          | snowflake                                       | id of the sticker                                                                                                                                                    |
+| pack_id?    | snowflake                                       | for standard stickers, id of the pack the sticker is from                                                                                                            |
+| name        | string                                          | name of the sticker                                                                                                                                                  |
+| description | ?string                                         | description of the sticker                                                                                                                                           |
+| tags        | string                                          | for guild stickers, the Discord name of a unicode emoji representing the sticker's expression. for standard stickers, a comma-separated list of related expressions. |
+| asset       | string                                          | **Deprecated** previously the sticker asset hash, now an empty string                                                                                                |
+| type        | integer                                         | [type of sticker](#DOCS_RESOURCES_STICKER/sticker-object-sticker-types)                                                                                              |
+| format_type | integer                                         | [type of sticker format](#DOCS_RESOURCES_STICKER/sticker-object-sticker-format-types)                                                                                |
+| available?  | boolean                                         | whether this sticker can be used, may be false due to loss of Server Boosts                                                                                          |
+| guild_id?   | snowflake                                       | id of the guild that owns this sticker                                                                                                                               |
+| user?       | [user](#DOCS_RESOURCES_USER/user-object) object | the user that uploaded the guild sticker                                                                                                                             |
+| sort_value? | integer                                         | the standard sticker's sort order within its pack                                                                                                                    |
 
 ###### Sticker Types
 
@@ -122,12 +122,12 @@ Create a new sticker for the guild. Send a `multipart/form-data` body. Requires 
 
 ###### Form Params
 
-| Field       | Type          | Description                                                                          |
-| ----------- | ------------- | ------------------------------------------------------------------------------------ |
-| name        | string        | name of the sticker (2-30 characters)                                                |
-| description | string        | description of the sticker (empty or 2-100 characters)                               |
-| tags        | string        | the name of a unicode emoji representing the sticker's expression (2-200 characters) |
-| file        | file contents | the sticker file to upload, must be a PNG, APNG, or Lottie JSON file, max 500 KB     |
+| Field       | Type          | Description                                                                                  |
+| ----------- | ------------- | -------------------------------------------------------------------------------------------- |
+| name        | string        | name of the sticker (2-30 characters)                                                        |
+| description | string        | description of the sticker (empty or 2-100 characters)                                       |
+| tags        | string        | the Discord name of a unicode emoji representing the sticker's expression (2-200 characters) |
+| file        | file contents | the sticker file to upload, must be a PNG, APNG, or Lottie JSON file, max 500 KB             |
 
 ## Modify Guild Sticker % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/stickers/{sticker.id#DOCS_RESOURCES_STICKER/sticker-object}
 
@@ -138,11 +138,11 @@ Modify the given sticker. Requires the `MANAGE_EMOJIS_AND_STICKERS` permission. 
 
 ###### JSON Params
 
-| Field       | Type    | Description                                                                          |
-| ----------- | ------- | ------------------------------------------------------------------------------------ |
-| name        | string  | name of the sticker (2-30 characters)                                                |
-| description | ?string | description of the sticker (2-100 characters)                                        |
-| tags        | string  | the name of a unicode emoji representing the sticker's expression (2-200 characters) |
+| Field       | Type    | Description                                                                                  |
+| ----------- | ------- | -------------------------------------------------------------------------------------------- |
+| name        | string  | name of the sticker (2-30 characters)                                                        |
+| description | ?string | description of the sticker (2-100 characters)                                                |
+| tags        | string  | the Discord name of a unicode emoji representing the sticker's expression (2-200 characters) |
 
 ## Delete Guild Sticker % DELETE /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/stickers/{sticker.id#DOCS_RESOURCES_STICKER/sticker-object}
 
