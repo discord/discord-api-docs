@@ -11,7 +11,7 @@ Represents a sticker that can be sent in messages. The URL for fetching sticker 
 | id          | snowflake                                       | id of the sticker                                                                                                                                            |
 | pack_id?    | snowflake                                       | for standard stickers, id of the pack the sticker is from                                                                                                    |
 | name        | string                                          | name of the sticker                                                                                                                                          |
-| description | string                                          | description of the sticker                                                                                                                                   |
+| description | ?string                                         | description of the sticker                                                                                                                                   |
 | tags        | string                                          | for guild stickers, the name of a unicode emoji representing the sticker's expression. for standard stickers, a comma-separated list of related expressions. |
 | asset       | string                                          | **Deprecated** previously the sticker asset hash, now an empty string                                                                                        |
 | type        | integer                                         | [type of sticker](#DOCS_RESOURCES_STICKER/sticker-object-sticker-types)                                                                                      |
@@ -110,11 +110,11 @@ Returns the list of sticker packs available to Nitro subscribers.
 
 ## List Guild Stickers % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/stickers
 
-Returns an array of [sticker](#DOCS_RESOURCES_STICKER/sticker-object) objects for the given guild.
+Returns an array of [sticker](#DOCS_RESOURCES_STICKER/sticker-object) objects for the given guild. Includes `user` fields if the bot has the `MANAGE_EMOJIS_AND_STICKERS` permission.
 
 ## Get Guild Sticker % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/stickers/{sticker.id#DOCS_RESOURCES_STICKER/sticker-object}
 
-Returns a [sticker](#DOCS_RESOURCES_STICKER/sticker-object) object for the given guild and sticker IDs.
+Returns a [sticker](#DOCS_RESOURCES_STICKER/sticker-object) object for the given guild and sticker IDs. Includes the `user` field if the bot has the `MANAGE_EMOJIS_AND_STICKERS` permission.
 
 ## Create Guild Sticker % POST /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/stickers
 
@@ -122,12 +122,12 @@ Create a new sticker for the guild. Send a `multipart/form-data` body. Requires 
 
 ###### Form Params
 
-| Field        | Type          | Description                                                       |
-| ------------ | ------------- | ----------------------------------------------------------------- |
-| name         | string        | name of the sticker (2-30 characters)                             |
-| description? | string        | description of the sticker (up to 100 characters)                 |
-| tags         | string        | the name of a unicode emoji representing the sticker's expression |
-| file         | file contents | the sticker file to upload                                        |
+| Field       | Type          | Description                                                                          |
+| ----------- | ------------- | ------------------------------------------------------------------------------------ |
+| name        | string        | name of the sticker (2-30 characters)                                                |
+| description | string        | description of the sticker (empty or 2-100 characters)                               |
+| tags        | string        | the name of a unicode emoji representing the sticker's expression (2-200 characters) |
+| file        | file contents | the sticker file to upload, must be a PNG, APNG, or Lottie JSON file, max 500 KB     |
 
 ## Modify Guild Sticker % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/stickers/{sticker.id#DOCS_RESOURCES_STICKER/sticker-object}
 
@@ -138,11 +138,11 @@ Modify the given sticker. Requires the `MANAGE_EMOJIS_AND_STICKERS` permission. 
 
 ###### JSON Params
 
-| Field       | Type   | Description                                                       |
-| ----------- | ------ | ----------------------------------------------------------------- |
-| name        | string | name of the sticker (2-30 characters)                             |
-| description | string | description of the sticker (up to 100 characters)                 |
-| tags        | string | the name of a unicode emoji representing the sticker's expression |
+| Field       | Type    | Description                                                                          |
+| ----------- | ------- | ------------------------------------------------------------------------------------ |
+| name        | string  | name of the sticker (2-30 characters)                                                |
+| description | ?string | description of the sticker (2-100 characters)                                        |
+| tags        | string  | the name of a unicode emoji representing the sticker's expression (2-200 characters) |
 
 ## Delete Guild Sticker % DELETE /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/stickers/{sticker.id#DOCS_RESOURCES_STICKER/sticker-object}
 
