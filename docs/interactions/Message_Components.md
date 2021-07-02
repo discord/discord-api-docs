@@ -114,7 +114,7 @@ Buttons come in a variety of styles to convey different types of actions. These 
 
 - Non-link buttons **must** have a `custom_id`, and cannot have a `url`
 - Link buttons **must** have a `url`, and cannot have a `custom_id`
-- Link buttons do not send an [interaction](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-object) to your app when clicked
+- Link buttons do not send an [interaction](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object) to your app when clicked
 
 ###### Button Styles
 
@@ -128,7 +128,7 @@ Buttons come in a variety of styles to convey different types of actions. These 
 
 ![An image showing the different button styles](button-styles.png)
 
-When a user clicks on a button, your app will receive an [interaction](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-object) including the message the button was on:
+When a user clicks on a button, your app will receive an [interaction](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object) including the message the button was on:
 
 ### Component Interaction Object
 
@@ -213,7 +213,7 @@ Select menus are another interactive component that renders on messages. On desk
 
 ![A select menu open on desktop](desktop-select.png)
 
-Select menus support single-select and multi-select behavior, meaning you can prompt a user to choose just one item from a list, or multiple. When a user finishes making their choice by clicking out of the dropdown or closing the half-sheet, your app will receive an [interaction](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-object-interaction-structure).
+Select menus support single-select and multi-select behavior, meaning you can prompt a user to choose just one item from a list, or multiple. When a user finishes making their choice by clicking out of the dropdown or closing the half-sheet, your app will receive an [interaction](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-interaction-structure).
 
 - Select menus must be sent inside an Action Row
 - An Action Row can contain only one select menu
