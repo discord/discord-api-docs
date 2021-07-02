@@ -42,7 +42,7 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 | channels? \*                  | array of [channel](#DOCS_RESOURCES_CHANNEL/channel-object) objects                      | channels in the guild                                                                                                                       |
 | threads? \*                   | array of [channel](#DOCS_RESOURCES_CHANNEL/channel-object) objects                      | all active threads in the guild that current user has permission to view                                                                    |
 | presences? \*                 | array of partial [presence update](#DOCS_TOPICS_GATEWAY/presence-update) objects        | presences of the members in the guild, will only include non-offline members if the size is greater than `large threshold`                  |
-| max_presences?                | ?integer                                                                                | the maximum number of presences for the guild (the default value, currently 25000, is in effect when `null` is returned)                    |
+| max_presences?                | ?integer                                                                                | the maximum number of presences for the guild (`null` is always returned, apart from the largest of guilds)                                 |
 | max_members?                  | integer                                                                                 | the maximum number of members for the guild                                                                                                 |
 | vanity_url_code               | ?string                                                                                 | the vanity url code for the guild                                                                                                           |
 | description                   | ?string                                                                                 | the description of a Community guild                                                                                                        |
@@ -145,6 +145,9 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 | TICKETED_EVENTS_ENABLED          | guild has enabled ticketed events                                                                                   |
 | MONETIZATION_ENABLED             | guild has enabled monetization                                                                                      |
 | MORE_STICKERS                    | guild has increased custom sticker slots                                                                            |
+| THREE_DAY_THREAD_ARCHIVE         | guild has access to the three day archive time for threads                                                          |
+| SEVEN_DAY_THREAD_ARCHIVE         | guild has access to the seven day archive time for threads                                                          |
+| PRIVATE_THREADS                  | guild has access to create private threads                                                                          |
 
 ###### Example Guild
 
@@ -354,7 +357,7 @@ A partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object. Represents an Offl
 | name        | string                                          | the name of the app                                          |
 | icon        | ?string                                         | the [icon hash](#DOCS_REFERENCE/image-formatting) of the app |
 | description | string                                          | the description of the app                                   |
-| summary     | string                                          | the description of the app                                   |
+| summary     | string                                          | the summary of the app                                       |
 | bot?        | [user](#DOCS_RESOURCES_USER/user-object) object | the bot associated with this application                     |
 
 ### Ban Object
