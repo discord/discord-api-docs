@@ -250,8 +250,9 @@ GUILD_BANS (1 << 2)
   - GUILD_BAN_ADD
   - GUILD_BAN_REMOVE
 
-GUILD_EMOJIS (1 << 3)
+GUILD_EMOJIS_AND_STICKERS (1 << 3)
   - GUILD_EMOJIS_UPDATE
+  - GUILD_STICKERS_UPDATE
 
 GUILD_INTEGRATIONS (1 << 4)
   - GUILD_INTEGRATIONS_UPDATE
@@ -494,6 +495,7 @@ Events are payloads sent over the socket to a client that correspond to events i
 | [Guild Ban Add](#DOCS_TOPICS_GATEWAY/guild-ban-add)                                 | user was banned from a guild                                                                                                     |
 | [Guild Ban Remove](#DOCS_TOPICS_GATEWAY/guild-ban-remove)                           | user was unbanned from a guild                                                                                                   |
 | [Guild Emojis Update](#DOCS_TOPICS_GATEWAY/guild-emojis-update)                     | guild emojis were updated                                                                                                        |
+| [Guild Stickers Update](#DOCS_TOPICS_GATEWAY/guild-stickers-update)                 | guild stickers were updated                                                                                                      |
 | [Guild Integrations Update](#DOCS_TOPICS_GATEWAY/guild-integrations-update)         | guild integration was updated                                                                                                    |
 | [Guild Member Add](#DOCS_TOPICS_GATEWAY/guild-member-add)                           | new user joined a guild                                                                                                          |
 | [Guild Member Remove](#DOCS_TOPICS_GATEWAY/guild-member-remove)                     | user was removed from a guild                                                                                                    |
@@ -929,6 +931,17 @@ Sent when a guild's emojis have been updated.
 |----------|-----------|-------------------------------------------------------|
 | guild_id | snowflake | id of the guild                                       |
 | emojis   | array     | array of [emojis](#DOCS_RESOURCES_EMOJI/emoji-object) |
+
+#### Guild Stickers Update
+
+Sent when a guild's stickers have been updated.
+
+###### Guild Stickers Update Event Fields
+
+| Field    | Type      | Description                                                 |
+|----------|-----------|-------------------------------------------------------------|
+| guild_id | snowflake | id of the guild                                             |
+| stickers | array     | array of [stickers](#DOCS_RESOURCES_STICKER/sticker-object) |
 
 #### Guild Integrations Update
 
