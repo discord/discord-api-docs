@@ -2,13 +2,13 @@
 
 ### Sticker Object
 
-Represents a sticker that can be sent in messages. The URL for fetching sticker assets is currently private.
+Represents a sticker that can be sent in messages.
 
 ###### Sticker Structure
 
 | Field       | Type                                            | Description                                                                                                                                                          |
 | ----------- | ----------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| id          | snowflake                                       | id of the sticker                                                                                                                                                    |
+| id          | snowflake                                       | [id of the sticker](#DOCS_REFERENCE/image-formatting)                                                                                                                |
 | pack_id?    | snowflake                                       | for standard stickers, id of the pack the sticker is from                                                                                                            |
 | name        | string                                          | name of the sticker                                                                                                                                                  |
 | description | ?string                                         | description of the sticker                                                                                                                                           |
