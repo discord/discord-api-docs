@@ -1,6 +1,6 @@
 ---
 name: Message Components Bug Report
-about: A bug has been found in Discord new Message Components
+about: A bug has been found in Discord's Message Components
 labels: message components
 ---
 
