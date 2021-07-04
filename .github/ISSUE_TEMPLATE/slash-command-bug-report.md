@@ -1,6 +1,6 @@
 ---
 name: Slash Commands Bug Report
-about: A bug has been found in Discord new Slash Commands and Interactions
+about: A bug has been found in Discord's Slash Commands and Interactions
 labels: slash commands
 ---
 
