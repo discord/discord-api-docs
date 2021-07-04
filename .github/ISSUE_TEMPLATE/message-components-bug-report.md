@@ -1,11 +1,11 @@
 ---
-name: Slash Commands Bug Report
-about: A bug has been found in Discord's Slash Commands and Interactions
-labels: slash commands
+name: Message Components Bug Report
+about: A bug has been found in Discord's Message Components
+labels: message components
 ---
 
 <!--
-  Before opening a new issue, please search existing issues:  https://github.com/discord/discord-api-docs/issues?q=is%3Aissue+label%3A%22slash+commands%22+
+  Before opening a new issue, please search existing issues:  https://github.com/discord/discord-api-docs/issues?q=is%3Aissue+label%3A%22message+components%22+
 -->
 
 **Description**
