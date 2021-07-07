@@ -228,6 +228,7 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 160006 | Maximum number of active threads reached                                                                                      |
 | 160007 | Maximum number of active announcement threads reached                                                                         |
 | 170001 | Invalid JSON for uploaded Lottie file                                                                                         |
+| 170005 | Lottie animation maximum dimensions exceeded                                                                                  |
 
 ###### Example JSON Error Response
 
