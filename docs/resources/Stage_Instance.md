@@ -61,6 +61,9 @@ Creates a new Stage instance associated to a Stage channel.
 
 Requires the user to be a moderator of the Stage channel.
 
+> info
+> This endpoint supports the `X-Audit-Log-Reason` header.
+
 ###### JSON Params
 
 | Field          | Type      | Description                                                                                                                        |
@@ -79,6 +82,9 @@ Updates fields of an existing Stage instance.
 
 Requires the user to be a moderator of the Stage channel.
 
+> info
+> This endpoint supports the `X-Audit-Log-Reason` header.
+
 ###### JSON Params
 
 | Field          | Type    | Description                                                                                                   |
@@ -91,3 +97,6 @@ Requires the user to be a moderator of the Stage channel.
 Deletes the Stage instance.
 
 Requires the user to be a moderator of the Stage channel.
+
+> info
+> This endpoint supports the `X-Audit-Log-Reason` header.
