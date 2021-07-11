@@ -235,11 +235,22 @@ You want to include all the header and source files respectively in your project
 
 ![Correct Files](cpp-files-sdk.png)
 
-In your project settings, you'll want to include `discord_game_sdk.dll.lib` as an additional dependency:
+Depending in your platform architecture (running `arch` in your command-line would mostly give it), go to the `lib` folder from the zip, then to the folder matching the arch name, and retrieve the binary file(s). If your IDE allows you to, you might want to include the binary as an additional dependency (e.g. `discord_game_sdk.dll.lib`):
 
 ![Linked Library](lib-linked-sdk.png)
 
 - From there, you should be able to `#include "discord-files/discord.h`, or whatever the path to that header file is, and have access to the code.
+- If you're using CMake, you'll want to include a `CMakeLists.txt` file, run `cmake .` (change the period with the relative path to the folder you're generating file for), then run `make` (or something else, if you specified for CMake to produce files for other build tools) in the directory of the build files. Here's a sample file:
+```cmake
+cmake_minimum_required(VERSION 3.20)
+project(MyGame)
+set(CMAKE_CXX_STANDARD 17)
+file(GLOB DISCORD discord-files/*.cpp)
+include_directories(MyGame ${CMAKE_SOURCE_DIR})
+link_directories(MyGame ${CMAKE_SOURCE_DIR})
+add_executable(MyGame ${DISCORD} main.cpp)
+target_link_libraries(MyGame discord_game_sdk)
+```
 
 ## Testing Locally with Two Clients
 
