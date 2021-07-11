@@ -235,7 +235,7 @@ You want to include all the header and source files respectively in your project
 
 ![Correct Files](cpp-files-sdk.png)
 
-Depending in your platform architecture (running `arch` in your command-line would mostly give it), go to the `lib` folder from the zip, then to the folder matching the arch name, retrieve the binary file(s), and add it into your project's directory. If your IDE allows you to, you might want to include the binary as an additional dependency (e.g. `discord_game_sdk.dll.lib`):
+Depending on your platform architecture (running `arch` in your command-line would mostly give it), go to the `lib` folder from the zip, then to the folder matching the arch name, retrieve the binary file(s), and add it into your project's directory. If your IDE allows you to, you might want to include the binary as an additional dependency (e.g. `discord_game_sdk.dll.lib`):
 
 ![Linked Library](lib-linked-sdk.png)
 
