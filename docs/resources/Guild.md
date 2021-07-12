@@ -811,6 +811,7 @@ Create a guild ban, and optionally delete previous messages sent by the banned u
 | Field                | Type    | Description                                 |
 | -------------------- | ------- | ------------------------------------------- |
 | delete_message_days? | integer | number of days to delete messages for (0-7) |
+| reason?              | string  | reason for the ban (deprecated)             |
 
 ## Remove Guild Ban % DELETE /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/bans/{user.id#DOCS_RESOURCES_USER/user-object}
 
@@ -912,6 +913,7 @@ By default, prune will not remove users with roles. You can optionally include s
 | days                | integer             | number of days to prune (1-30)                             | 7       |
 | compute_prune_count | boolean             | whether 'pruned' is returned, discouraged for large guilds | true    |
 | include_roles       | array of snowflakes | role(s) to include                                         | none    |
+| reason?             | string              | reason for the prune (deprecated)                          |         |
 
 ## Get Guild Voice Regions % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/regions
 
