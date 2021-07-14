@@ -55,7 +55,7 @@ Many of these libraries are represented in the [unofficial, community-driven Dis
 
 ## Interactions
 
-[Interactions and Slash Commands](#DOCS_INTERACTIONS_SLASH_COMMANDS/) are the great, new way of making a Discord bot. The following open-source libraries provide help for the security and authentication checks that are mandatory if you are receiving Interactions via outgoing webhook. They also include some types for the Interactions data models.
+[Interactions](#DOCS_INTERACTIONS_RECEVING_AND_RESPONDING/) are the great, new way of making a Discord bot. The following open-source libraries provide help for the security and authentication checks that are mandatory if you are receiving Interactions via outgoing webhook. They also include some types for the Interactions data models.
 
 - Clojure
   - [ring-discord-auth](https://github.com/JohnnyJayJay/ring-discord-auth)
