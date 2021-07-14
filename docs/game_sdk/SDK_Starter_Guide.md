@@ -240,17 +240,6 @@ Depending on your platform architecture (running `arch` in your command-line wou
 ![Linked Library](lib-linked-sdk.png)
 
 - From there, you should be able to `#include "discord-files/discord.h`, or whatever the path to that header file is, and have access to the code.
-- If you're using CMake, you'll want to include a `CMakeLists.txt` file, run `cmake .` (change the period with the relative path to the folder you're generating files for), then run `make` (or something else, if you specified for CMake to produce files for other build tools) in the directory of the build files. Here's a sample file:
-```cmake
-cmake_minimum_required(VERSION 3.20)
-project(MyGame)
-set(CMAKE_CXX_STANDARD 17)
-file(GLOB DISCORD discord-files/*.cpp)
-include_directories(MyGame ${CMAKE_SOURCE_DIR})
-link_directories(MyGame ${CMAKE_SOURCE_DIR})
-add_executable(MyGame ${DISCORD} main.cpp)
-target_link_libraries(MyGame discord_game_sdk)
-```
 
 ## Testing Locally with Two Clients
 
