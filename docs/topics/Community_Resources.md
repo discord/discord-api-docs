@@ -16,6 +16,7 @@ Many of these libraries are represented in the [unofficial, community-driven Dis
 
 | Name                                                         | Language   |
 | ------------------------------------------------------------ | ---------- |
+| [orca](https://github.com/cee-studio/orca)                   | C          |
 | [discljord](https://github.com/igjoshua/discljord)           | Clojure    |
 | [aegis.cpp](https://github.com/zeroxs/aegis.cpp)             | C++        |
 | [D++](https://github.com/brainboxdotcc/DPP)                  | C++        |
