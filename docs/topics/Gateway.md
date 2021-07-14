@@ -464,17 +464,27 @@ Commands are requests made to the gateway socket by a client.
 | [Update Voice State](#DOCS_TOPICS_GATEWAY/update-voice-state)       | joins, moves, or disconnects the client from a voice channel |
 | [Update Presence](#DOCS_TOPICS_GATEWAY/update-presence)             | updates a client's presence                                  |
 
-Events are payloads sent over the socket to a client that correspond to events in Discord.
+
+###### Gateway Opcodes
+These events do not have an event type, and are only identified by an operation code.
+
+| op | name                                                                                | description                                                                                                                      |
+|----|-------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------|
+| 0  | [Dispatch](#DOCS_TOPICS_GATEWAY/gateway-state-events)                               | the data field (d) contains information about changes to the discord state                                                       |
+| 1  | [Heartbeat](#DOCS_TOPICS_GATEWAY/heartbeat)                                         | you must send a heartbeat to discord                                                                                             |
+| 7  | [Reconnect](#DOCS_TOPICS_GATEWAY/reconnect)                                         | server is going away, client should reconnect to gateway and resume                                                              |
+| 9  | [Invalid Session](#DOCS_TOPICS_GATEWAY/invalid-session)                             | failure response to [Identify](#DOCS_TOPICS_GATEWAY/identify) or [Resume](#DOCS_TOPICS_GATEWAY/resume) or invalid active session |
+| 10 | [Hello](#DOCS_TOPICS_GATEWAY/hello)                                                 | defines the heartbeat interval                                                                                                   |
+| 11 | [Heartbeat ACK](#DOCS_TOPICS_GATEWAY/heartbeat-ack)                                 | heartbeat confirmation                                                                                                           |
 
 ###### Gateway Events
 
+Events are Dispatch payloads that correspond to changes in Discord state.
+
 | name                                                                                | description                                                                                                                      |
 |-------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------|
-| [Hello](#DOCS_TOPICS_GATEWAY/hello)                                                 | defines the heartbeat interval                                                                                                   |
 | [Ready](#DOCS_TOPICS_GATEWAY/ready)                                                 | contains the initial state information                                                                                           |
 | [Resumed](#DOCS_TOPICS_GATEWAY/resumed)                                             | response to [Resume](#DOCS_TOPICS_GATEWAY/resume)                                                                                |
-| [Reconnect](#DOCS_TOPICS_GATEWAY/reconnect)                                         | server is going away, client should reconnect to gateway and resume                                                              |
-| [Invalid Session](#DOCS_TOPICS_GATEWAY/invalid-session)                             | failure response to [Identify](#DOCS_TOPICS_GATEWAY/identify) or [Resume](#DOCS_TOPICS_GATEWAY/resume) or invalid active session |
 | [Application Command Create](#DOCS_TOPICS_GATEWAY/application-command-create)       | new [Slash Command](#DOCS_INTERACTIONS_SLASH_COMMANDS/) was created                                                              |
 | [Application Command Update](#DOCS_TOPICS_GATEWAY/application-command-update)       | [Slash Command](#DOCS_INTERACTIONS_SLASH_COMMANDS/) was updated                                                                  |
 | [Application Command Delete](#DOCS_TOPICS_GATEWAY/application-command-delete)       | [Slash Command](#DOCS_INTERACTIONS_SLASH_COMMANDS/) was deleted                                                                  |
