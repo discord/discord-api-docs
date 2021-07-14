@@ -184,6 +184,9 @@ The client credential flow is a quick and easy way for bot developers to get the
 
 You can specify scopes with the `scope` parameter, which is a list of [OAuth2 scopes](#DOCS_TOPICS_OAUTH2/shared-resources-oauth2-scopes) separated by spaces:
 
+> info
+> Team applications are limited to the `identify` and `applications.commands.update` scope, because teams are not bound to a specific user.
+
 ###### Client Credentials Token Request Example
 
 ```python
