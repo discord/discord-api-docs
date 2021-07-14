@@ -24,6 +24,7 @@ Many of these libraries are represented in the [unofficial, community-driven Dis
 | [Remora.Discord](https://github.com/Nihlus/Remora.Discord)   | C#         |
 | [Discord.Net](https://github.com/RogueException/Discord.Net) | C#         |
 | [DSharpPlus](https://github.com/DSharpPlus/DSharpPlus)       | C#         |
+| [nyxx](https://github.com/l7ssha/Nyxx)                       | Dart       |
 | [coxir](https://github.com/satom99/coxir)                    | Elixir     |
 | [Nostrum](https://github.com/Kraigie/nostrum)                | Elixir     |
 | [DiscordGo](https://github.com/bwmarrin/discordgo)           | Go         |
@@ -59,6 +60,8 @@ Many of these libraries are represented in the [unofficial, community-driven Dis
 
 - Clojure
   - [ring-discord-auth](https://github.com/JohnnyJayJay/ring-discord-auth)
+- Dart
+  - [nyxx_interactions](https://github.com/l7ssha/Nyxx)
 - Go
   - [discord-interactions-go](https://github.com/bsdlp/discord-interactions-go)
 - Javascript
