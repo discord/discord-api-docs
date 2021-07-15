@@ -34,7 +34,7 @@ There are other rules and restrictions not shared here for the sake of spam and 
 | system?       | boolean   | whether the user is an Official Discord System user (part of the urgent message system)              | identify              |
 | mfa_enabled?  | boolean   | whether the user has two factor enabled on their account                                             | identify              |
 | banner?       | ?string   | the user's banner, or null if unset                                                                  | identify              |
-| banner_color? | ?string   | the user's banner color as a hex string prefixed with "#", or null if unset                          | identify              |
+| banner_color? | ?number   | the user's banner color as a hex color                                                               | identify              |
 | locale?       | string    | the user's chosen language option                                                                    | identify              |
 | verified?     | boolean   | whether the email on this account has been verified                                                  | email                 |
 | email?        | ?string   | the user's email                                                                                     | email                 |
@@ -54,7 +54,7 @@ There are other rules and restrictions not shared here for the sake of spam and 
   "email": "nelly@discord.com",
   "flags": 64,
   "banner": "06c16474723fe537c283b8efa61a30c8",
-  "banner_color": "#9b00ff",
+  "banner_color": 16711680,
   "premium_type": 1,
   "public_flags": 64
 }
