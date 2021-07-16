@@ -64,6 +64,7 @@ Below is a table of all current permissions, their integer values in hexadecimal
 | MANAGE_THREADS \*             | `0x0400000000` `(1 << 34)` | Allows for deleting and archiving threads, and viewing all private threads                                                         | T            |
 | USE_PUBLIC_THREADS            | `0x0800000000` `(1 << 35)` | Allows for creating and participating in threads                                                                                   | T            |
 | USE_PRIVATE_THREADS           | `0x1000000000` `(1 << 36)` | Allows for creating and participating in private threads                                                                           | T            |
+| USE_EXTERNAL_STICKERS         | `0x2000000000` `(1 << 37)` | Allows the usage of custom stickers from other servers                                                                             | T            |
 
 **\* These permissions require the owner account to use [two-factor authentication](#DOCS_TOPICS_OAUTH2/twofactor-authentication-requirement) when used on a guild that has server-wide 2FA enabled.**
 
