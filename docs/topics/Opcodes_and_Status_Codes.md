@@ -229,6 +229,7 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 160007 | Maximum number of active announcement threads reached                                                                         |
 | 170001 | Invalid JSON for uploaded Lottie file                                                                                         |
 | 170005 | Lottie animation maximum dimensions exceeded                                                                                  |
+| 170007 | Sticker animation duration exceeds maximum of 5 seconds                                                                       |
 
 ###### Example JSON Error Response
 
