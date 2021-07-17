@@ -781,7 +781,7 @@ Fires a [Channel Update](#DOCS_TOPICS_GATEWAY/channel-update) Gateway event.
 
 | Field                 | Type                                                                    | Description                                                                                                                                                               |
 |-----------------------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| name                  | string                                                                  | 2-100 character channel name                                                                                                                                              |
+| name                  | string                                                                  | 1-100 character channel name                                                                                                                                              |
 | icon                  | binary                                                                  | base64 encoded icon                                                                                                                                                       |
 
 ###### JSON Params (Guild channel)
@@ -790,7 +790,7 @@ Requires the `MANAGE_CHANNELS` permission for the guild. Fires a [Channel Update
 
 | Field                         | Type                                                                    | Description                                                                                                                                                                     | Channel Type             |
 |-------------------------------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------|
-| name                          | string                                                                  | 2-100 character channel name                                                                                                                                                    | All                      |
+| name                          | string                                                                  | 1-100 character channel name                                                                                                                                                    | All                      |
 | type                          | integer                                                                 | the [type of channel](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types); only conversion between text and news is supported and only in guilds with the "NEWS" feature      | Text, News               |
 | position                      | ?integer                                                                | the position of the channel in the left-hand listing                                                                                                                            | All                      |
 | topic                         | ?string                                                                 | 0-1024 character channel topic                                                                                                                                                  | Text, News               |
@@ -812,7 +812,7 @@ Otherwise, requires the `MANAGE_THREADS` permission. Fires a [Thread Update](#DO
 
 | Field                   | Type     | Description                                                                                                                                                                                       |
 |-------------------------|----------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| name                    | string   | 2-100 character channel name                                                                                                                                                                      |
+| name                    | string   | 1-100 character channel name                                                                                                                                                                      |
 | archived                | boolean  | whether the channel is archived                                                                                                                                                                   |
 | auto_archive_duration\* | integer  | duration in minutes to automatically archive the thread after recent activity, can be set to: 60, 1440, 4320, 10080                                                                               |
 | locked                  | boolean  | when a thread is locked, only users with MANAGE_THREADS can unarchive it                                                                                                                          |
@@ -1156,7 +1156,7 @@ When called on a `GUILD_TEXT` channel, creates a `GUILD_PUBLIC_THREAD`. When cal
 
 | Field                   | Type    | Description                                                                                                         |
 |-------------------------|---------|---------------------------------------------------------------------------------------------------------------------|
-| name                    | string  | 2-100 character channel name                                                                                        |
+| name                    | string  | 1-100 character channel name                                                                                        |
 | auto_archive_duration\* | integer | duration in minutes to automatically archive the thread after recent activity, can be set to: 60, 1440, 4320, 10080 |
 
 \* The 3 day and 7 day archive durations require the server to be boosted. The [guild features](#DOCS_RESOURCES_GUILD/guild-object-guild-features) will indicate if a server is able to use those settings.
@@ -1169,7 +1169,7 @@ Creates a new thread that is not connected to an existing message. The created t
 
 | Field                     | Type    | Description                                                                                                         |
 |---------------------------|---------|---------------------------------------------------------------------------------------------------------------------|
-| name                      | string  | 2-100 character channel name                                                                                        |
+| name                      | string  | 1-100 character channel name                                                                                        |
 | auto_archive_duration\*\* | integer | duration in minutes to automatically archive the thread after recent activity, can be set to: 60, 1440, 4320, 10080 |
 | type?\*\*\*               | integer | the [type of thread](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types) to create                                |
 
