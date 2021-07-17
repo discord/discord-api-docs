@@ -511,7 +511,7 @@ The thread metadata object contains a number of thread-specific channel fields t
 | archived              | boolean           | whether the thread is archived                                                                                      |
 | auto_archive_duration | integer           | duration in minutes to automatically archive the thread after recent activity, can be set to: 60, 1440, 4320, 10080 |
 | archive_timestamp     | ISO8601 timestamp | timestamp when the thread's archive status was last changed, used for calculating recent activity                   |
-| locked?               | boolean           | when a thread is locked, only users with MANAGE_THREADS can unarchive it                                            |
+| locked?               | boolean           | whether the thread is locked; when a thread is locked, only users with MANAGE_THREADS can unarchive it                                            |
 
 ### Thread Member Object
 
@@ -775,6 +775,9 @@ Get a channel by ID. Returns a [channel](#DOCS_RESOURCES_CHANNEL/channel-object)
 
 Update a channel's settings. Returns a [channel](#DOCS_RESOURCES_CHANNEL/channel-object) on success, and a 400 BAD REQUEST on invalid parameters. All JSON parameters are optional.
 
+> info
+> This endpoint supports the `X-Audit-Log-Reason` header.
+
 ###### JSON Params (Group DM)
 
 Fires a [Channel Update](#DOCS_TOPICS_GATEWAY/channel-update) Gateway event.
@@ -813,9 +816,9 @@ Otherwise, requires the `MANAGE_THREADS` permission. Fires a [Thread Update](#DO
 | Field                   | Type     | Description                                                                                                                                                                                       |
 |-------------------------|----------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | name                    | string   | 1-100 character channel name                                                                                                                                                                      |
-| archived                | boolean  | whether the channel is archived                                                                                                                                                                   |
+| archived                | boolean  | whether the thread is archived                                                                                                                                                                   |
 | auto_archive_duration\* | integer  | duration in minutes to automatically archive the thread after recent activity, can be set to: 60, 1440, 4320, 10080                                                                               |
-| locked                  | boolean  | when a thread is locked, only users with MANAGE_THREADS can unarchive it                                                                                                                          |
+| locked                  | boolean  | whether the thread is locked; when a thread is locked, only users with MANAGE_THREADS can unarchive it                                                                                                                          |
 | rate_limit_per_user     | ?integer | amount of seconds a user has to wait before sending another message (0-21600); bots, as well as users with the permission `manage_messages`, `manage_thread`, or `manage_channel`, are unaffected |
 
 \* The 3 day and 7 day archive durations require the server to be boosted. The [guild features](#DOCS_RESOURCES_GUILD/guild-object-guild-features) will indicate if a server is able to use those settings.
@@ -829,6 +832,9 @@ Delete a channel, or close a private message. Requires the `MANAGE_CHANNELS` per
 
 > info
 > For Community guilds, the Rules or Guidelines channel and the Community Updates channel cannot be deleted.
+
+> info
+> This endpoint supports the `X-Audit-Log-Reason` header.
 
 ## Get Channel Messages % GET /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/messages
 
@@ -1051,6 +1057,9 @@ Returns a [message](#DOCS_RESOURCES_CHANNEL/message-object) object. Fires a [Mes
 
 Delete a message. If operating on a guild channel and trying to delete a message that was not sent by the current user, this endpoint requires the `MANAGE_MESSAGES` permission. Returns a 204 empty response on success. Fires a [Message Delete](#DOCS_TOPICS_GATEWAY/message-delete) Gateway event.
 
+> info
+> This endpoint supports the `X-Audit-Log-Reason` header.
+
 ## Bulk Delete Messages % POST /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/messages/bulk-delete
 
 Delete multiple messages in a single request. This endpoint can only be used on guild channels and requires the `MANAGE_MESSAGES` permission. Returns a 204 empty response on success. Fires a [Message Delete Bulk](#DOCS_TOPICS_GATEWAY/message-delete-bulk) Gateway event.
@@ -1059,6 +1068,9 @@ Any message IDs given that do not exist or are invalid will count towards the mi
 
 > warn
 > This endpoint will not delete messages older than 2 weeks, and will fail with a 400 BAD REQUEST if any message provided is older than that or if any duplicate message IDs are provided.
+
+> info
+> This endpoint supports the `X-Audit-Log-Reason` header.
 
 ###### JSON Params
 
@@ -1069,6 +1081,9 @@ Any message IDs given that do not exist or are invalid will count towards the mi
 ## Edit Channel Permissions % PUT /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/permissions/{overwrite.id#DOCS_RESOURCES_CHANNEL/overwrite-object}
 
 Edit the channel permission overwrites for a user or role in a channel. Only usable for guild channels. Requires the `MANAGE_ROLES` permission. Only permissions your bot has in the guild or channel can be allowed/denied (unless your bot has a `MANAGE_ROLES` overwrite in the channel). Returns a 204 empty response on success. For more information about permissions, see [permissions](#DOCS_TOPICS_PERMISSIONS/permissions).
+
+> info
+> This endpoint supports the `X-Audit-Log-Reason` header.
 
 ###### JSON Params
 
@@ -1086,6 +1101,9 @@ Returns a list of [invite](#DOCS_RESOURCES_INVITE/invite-object) objects (with [
 
 Create a new [invite](#DOCS_RESOURCES_INVITE/invite-object) object for the channel. Only usable for guild channels. Requires the `CREATE_INSTANT_INVITE` permission. All JSON parameters for this route are optional, however the request body is not. If you are not sending any fields, you still have to send an empty JSON object (`{}`). Returns an [invite](#DOCS_RESOURCES_INVITE/invite-object) object. Fires an [Invite Create](#DOCS_TOPICS_GATEWAY/invite-create) Gateway event.
 
+> info
+> This endpoint supports the `X-Audit-Log-Reason` header.
+
 ###### JSON Params
 
 | Field                 | Type      | Description                                                                                                                               | Default          |
@@ -1101,6 +1119,9 @@ Create a new [invite](#DOCS_RESOURCES_INVITE/invite-object) object for the chann
 ## Delete Channel Permission % DELETE /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/permissions/{overwrite.id#DOCS_RESOURCES_CHANNEL/overwrite-object}
 
 Delete a channel permission overwrite for a user or role in a channel. Only usable for guild channels. Requires the `MANAGE_ROLES` permission. Returns a 204 empty response on success. For more information about permissions, see [permissions](#DOCS_TOPICS_PERMISSIONS/permissions)
+
+> info
+> This endpoint supports the `X-Audit-Log-Reason` header.
 
 ## Follow News Channel % POST /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/followers
 
@@ -1127,9 +1148,15 @@ Pin a message in a channel. Requires the `MANAGE_MESSAGES` permission. Returns a
 > warn
 > The max pinned messages is 50.
 
+> info
+> This endpoint supports the `X-Audit-Log-Reason` header.
+
 ## Unpin Message % DELETE /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/pins/{message.id#DOCS_RESOURCES_CHANNEL/message-object}
 
 Unpin a message in a channel. Requires the `MANAGE_MESSAGES` permission. Returns a 204 empty response on success.
+
+> info
+> This endpoint supports the `X-Audit-Log-Reason` header.
 
 ## Group DM Add Recipient % PUT /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/recipients/{user.id#DOCS_RESOURCES_USER/user-object}
 
@@ -1152,6 +1179,9 @@ Creates a new thread from an existing message. Returns a [channel](#DOCS_RESOURC
 
 When called on a `GUILD_TEXT` channel, creates a `GUILD_PUBLIC_THREAD`. When called on a `GUILD_NEWS` channel, creates a `GUILD_NEWS_THREAD`. The id of the created thread will be the same as the id of the message, and as such a message can only have a single thread created from it.
 
+> info
+> This endpoint supports the `X-Audit-Log-Reason` header.
+
 ###### JSON Params
 
 | Field                   | Type    | Description                                                                                                         |
@@ -1164,6 +1194,9 @@ When called on a `GUILD_TEXT` channel, creates a `GUILD_PUBLIC_THREAD`. When cal
 ## Start Thread without Message % POST /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/threads
 
 Creates a new thread that is not connected to an existing message. The created thread defaults to a `GUILD_PRIVATE_THREAD`\*. Returns a [channel](#DOCS_RESOURCES_CHANNEL/channel-object) on success, and a 400 BAD REQUEST on invalid parameters. Fires a [Thread Create](#DOCS_TOPICS_GATEWAY/thread-create) Gateway event.
+
+> info
+> This endpoint supports the `X-Audit-Log-Reason` header.
 
 ###### JSON Params
 

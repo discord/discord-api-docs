@@ -606,6 +606,9 @@ Modify a guild's settings. Requires the `MANAGE_GUILD` permission. Returns the u
 > info
 > All parameters to this endpoint are optional
 
+> info
+> This endpoint supports the `X-Audit-Log-Reason` header.
+
 ###### JSON Params
 
 | Field                         | Type                                                                                | Description                                                                                                                  |
@@ -645,6 +648,9 @@ Create a new [channel](#DOCS_RESOURCES_CHANNEL/channel-object) object for the gu
 > info
 > All parameters to this endpoint are optional excluding 'name'
 
+> info
+> This endpoint supports the `X-Audit-Log-Reason` header.
+
 ###### JSON Params
 
 | Field                 | Type                                                                   | Description                                                                                                                                                                     |
@@ -666,6 +672,9 @@ Modify the positions of a set of [channel](#DOCS_RESOURCES_CHANNEL/channel-objec
 
 > info
 > Only channels to be modified are required, with the minimum being a swap between at least two channels.
+
+> info
+> This endpoint supports the `X-Audit-Log-Reason` header.
 
 This endpoint takes a JSON array of parameters in the following format:
 
@@ -745,6 +754,9 @@ Modify attributes of a [guild member](#DOCS_RESOURCES_GUILD/guild-member-object)
 > info
 > All parameters to this endpoint are optional and nullable. When moving members to channels, the API user _must_ have permissions to both connect to the channel and have the `MOVE_MEMBERS` permission.
 
+> info
+> This endpoint supports the `X-Audit-Log-Reason` header.
+
 ###### JSON Params
 
 | Field      | Type                | Description                                                                                            | Permission       |
@@ -759,6 +771,9 @@ Modify attributes of a [guild member](#DOCS_RESOURCES_GUILD/guild-member-object)
 
 Modifies the nickname of the current user in a guild. Returns a 200 with the nickname on success. Fires a [Guild Member Update](#DOCS_TOPICS_GATEWAY/guild-member-update) Gateway event.
 
+> info
+> This endpoint supports the `X-Audit-Log-Reason` header.
+
 ###### JSON Params
 
 | Field | Type    | Description                    | Permission      |
@@ -769,13 +784,22 @@ Modifies the nickname of the current user in a guild. Returns a 200 with the nic
 
 Adds a role to a [guild member](#DOCS_RESOURCES_GUILD/guild-member-object). Requires the `MANAGE_ROLES` permission. Returns a 204 empty response on success. Fires a [Guild Member Update](#DOCS_TOPICS_GATEWAY/guild-member-update) Gateway event.
 
+> info
+> This endpoint supports the `X-Audit-Log-Reason` header.
+
 ## Remove Guild Member Role % DELETE /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/members/{user.id#DOCS_RESOURCES_USER/user-object}/roles/{role.id#DOCS_TOPICS_PERMISSIONS/role-object}
 
 Removes a role from a [guild member](#DOCS_RESOURCES_GUILD/guild-member-object). Requires the `MANAGE_ROLES` permission. Returns a 204 empty response on success. Fires a [Guild Member Update](#DOCS_TOPICS_GATEWAY/guild-member-update) Gateway event.
 
+> info
+> This endpoint supports the `X-Audit-Log-Reason` header.
+
 ## Remove Guild Member % DELETE /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/members/{user.id#DOCS_RESOURCES_USER/user-object}
 
 Remove a member from a guild. Requires `KICK_MEMBERS` permission. Returns a 204 empty response on success. Fires a [Guild Member Remove](#DOCS_TOPICS_GATEWAY/guild-member-remove) Gateway event.
+
+> info
+> This endpoint supports the `X-Audit-Log-Reason` header.
 
 ## Get Guild Bans % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/bans
 
@@ -790,18 +814,21 @@ Returns a [ban](#DOCS_RESOURCES_GUILD/ban-object) object for the given user or a
 Create a guild ban, and optionally delete previous messages sent by the banned user. Requires the `BAN_MEMBERS` permission. Returns a 204 empty response on success. Fires a [Guild Ban Add](#DOCS_TOPICS_GATEWAY/guild-ban-add) Gateway event.
 
 > info
-> Supplying a reason in the JSON body will override `X-Audit-Log-Reason` header if both are provided.
+> This endpoint supports the `X-Audit-Log-Reason` header.
 
 ###### JSON Params
 
 | Field                | Type    | Description                                 |
 | -------------------- | ------- | ------------------------------------------- |
 | delete_message_days? | integer | number of days to delete messages for (0-7) |
-| reason?              | string  | reason for the ban                          |
+| reason?              | string  | reason for the ban (deprecated)             |
 
 ## Remove Guild Ban % DELETE /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/bans/{user.id#DOCS_RESOURCES_USER/user-object}
 
 Remove the ban for a user. Requires the `BAN_MEMBERS` permissions. Returns a 204 empty response on success. Fires a [Guild Ban Remove](#DOCS_TOPICS_GATEWAY/guild-ban-remove) Gateway event.
+
+> info
+> This endpoint supports the `X-Audit-Log-Reason` header.
 
 ## Get Guild Roles % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/roles
 
@@ -810,6 +837,9 @@ Returns a list of [role](#DOCS_TOPICS_PERMISSIONS/role-object) objects for the g
 ## Create Guild Role % POST /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/roles
 
 Create a new [role](#DOCS_TOPICS_PERMISSIONS/role-object) for the guild. Requires the `MANAGE_ROLES` permission. Returns the new [role](#DOCS_TOPICS_PERMISSIONS/role-object) object on success. Fires a [Guild Role Create](#DOCS_TOPICS_GATEWAY/guild-role-create) Gateway event. All JSON params are optional.
+
+> info
+> This endpoint supports the `X-Audit-Log-Reason` header.
 
 ###### JSON Params
 
@@ -824,6 +854,9 @@ Create a new [role](#DOCS_TOPICS_PERMISSIONS/role-object) for the guild. Require
 ## Modify Guild Role Positions % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/roles
 
 Modify the positions of a set of [role](#DOCS_TOPICS_PERMISSIONS/role-object) objects for the guild. Requires the `MANAGE_ROLES` permission. Returns a list of all of the guild's [role](#DOCS_TOPICS_PERMISSIONS/role-object) objects on success. Fires multiple [Guild Role Update](#DOCS_TOPICS_GATEWAY/guild-role-update) Gateway events.
+
+> info
+> This endpoint supports the `X-Audit-Log-Reason` header.
 
 This endpoint takes a JSON array of parameters in the following format:
 
@@ -841,6 +874,9 @@ Modify a guild role. Requires the `MANAGE_ROLES` permission. Returns the updated
 > info
 > All parameters to this endpoint are optional and nullable.
 
+> info
+> This endpoint supports the `X-Audit-Log-Reason` header.
+
 ###### JSON Params
 
 | Field       | Type    | Description                                                    |
@@ -854,6 +890,9 @@ Modify a guild role. Requires the `MANAGE_ROLES` permission. Returns the updated
 ## Delete Guild Role % DELETE /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/roles/{role.id#DOCS_TOPICS_PERMISSIONS/role-object}
 
 Delete a guild role. Requires the `MANAGE_ROLES` permission. Returns a 204 empty response on success. Fires a [Guild Role Delete](#DOCS_TOPICS_GATEWAY/guild-role-delete) Gateway event.
+
+> info
+> This endpoint supports the `X-Audit-Log-Reason` header.
 
 ## Get Guild Prune Count % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/prune
 
@@ -875,7 +914,7 @@ Begin a prune operation. Requires the `KICK_MEMBERS` permission. Returns an obje
 By default, prune will not remove users with roles. You can optionally include specific roles in your prune by providing the `include_roles` parameter. Any inactive user that has a subset of the provided role(s) will be included in the prune and users with additional roles will not.
 
 > info
-> Supplying a reason in the JSON body will override `X-Audit-Log-Reason` header if both are provided.
+> This endpoint supports the `X-Audit-Log-Reason` header.
 
 ###### JSON Params
 
@@ -884,7 +923,7 @@ By default, prune will not remove users with roles. You can optionally include s
 | days                | integer             | number of days to prune (1-30)                             | 7       |
 | compute_prune_count | boolean             | whether 'pruned' is returned, discouraged for large guilds | true    |
 | include_roles       | array of snowflakes | role(s) to include                                         | none    |
-| reason?             | string              | reason for the prune                                       |         |
+| reason?             | string              | reason for the prune (deprecated)                          |         |
 
 ## Get Guild Voice Regions % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/regions
 
@@ -902,6 +941,9 @@ Returns a list of [integration](#DOCS_RESOURCES_GUILD/integration-object) object
 
 Delete the attached [integration](#DOCS_RESOURCES_GUILD/integration-object) object for the guild. Deletes any associated webhooks and kicks the associated bot if there is one. Requires the `MANAGE_GUILD` permission. Returns a 204 empty response on success. Fires a [Guild Integrations Update](#DOCS_TOPICS_GATEWAY/guild-integrations-update) Gateway event.
 
+> info
+> This endpoint supports the `X-Audit-Log-Reason` header.
+
 ## Get Guild Widget Settings % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/widget
 
 Returns a [guild widget](#DOCS_RESOURCES_GUILD/guild-widget-object) object. Requires the `MANAGE_GUILD` permission.
@@ -909,6 +951,9 @@ Returns a [guild widget](#DOCS_RESOURCES_GUILD/guild-widget-object) object. Requ
 ## Modify Guild Widget % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/widget
 
 Modify a [guild widget](#DOCS_RESOURCES_GUILD/guild-widget-object) object for the guild. All attributes may be passed in with JSON and modified. Requires the `MANAGE_GUILD` permission. Returns the updated [guild widget](#DOCS_RESOURCES_GUILD/guild-widget-object) object.
+
+> info
+> This endpoint supports the `X-Audit-Log-Reason` header.
 
 ## Get Guild Widget % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/widget.json
 
@@ -993,6 +1038,9 @@ Modify the guild's [Welcome Screen](#DOCS_RESOURCES_GUILD/welcome-screen-object)
 
 > info
 > All parameters to this endpoint are optional and nullable
+
+> info
+> This endpoint supports the `X-Audit-Log-Reason` header.
 
 ###### JSON Params
 
