@@ -787,10 +787,9 @@ Deletes the initial Interaction response. Returns `204` on success.
 
 ## Create Followup Message % POST /webhooks/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/{interaction.token#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-object}
 
-Create a followup message for an Interaction. Functions the same as [Execute Webhook](#DOCS_RESOURCES_WEBHOOK/execute-webhook), but `wait` is always true, and `flags` can be set to `64` in the body to send an ephemeral message. The `thread_id` query parameter is not required (and is furthermore ignored) when using this endpoint for interaction followups.
+Create a followup message for an Interaction. Functions the same as [Execute Webhook](#DOCS_RESOURCES_WEBHOOK/execute-webhook), but `wait` is always true. The `thread_id` query parameter is not required (and is furthermore ignored) when using this endpoint for interaction followups.
 
-> info
-> The first followup response after you defer(ACK), has a few special rules to be aware of. The `flags` property of `64` can not be changed. If you ACK with a flag of 64 then your response will also be ephemeral. If you defer, without a flags property of `64` you can not then respond with a ephemeral response.
+`flags` can be set to `64` to mark the message as ephemeral, except when it is the first followup message to a deferred Interactions Response. In that case, the `flags` field will be ignored, and the ephemerality of the message will be determined by the `flags` value in your original ACK.
 
 ## Edit Followup Message % PATCH /webhooks/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/{interaction.token#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-object}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}
 
