@@ -228,7 +228,11 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 160006 | Maximum number of active threads reached                                                                                      |
 | 160007 | Maximum number of active announcement threads reached                                                                         |
 | 170001 | Invalid JSON for uploaded Lottie file                                                                                         |
+| 170002 | Uploaded Lotties cannot contain rasterized images such as PNG or JPEG                                                         |
+| 170003 | Sticker maximum framerate exceeded                                                                                            |
+| 170004 | Sticker frame count exceeds maximum of 1000 frames                                                                            |
 | 170005 | Lottie animation maximum dimensions exceeded                                                                                  |
+| 170006 | Sticker frame rate is either too small or too large                                                                           |
 | 170007 | Sticker animation duration exceeds maximum of 5 seconds                                                                       |
 
 ###### Example JSON Error Response
