@@ -30,6 +30,8 @@ There are other rules and restrictions not shared here for the sake of spam and 
 | username      | string    | the user's username, not unique across the platform                                                  | identify              |
 | discriminator | string    | the user's 4-digit discord-tag                                                                       | identify              |
 | avatar        | ?string   | the user's [avatar hash](#DOCS_REFERENCE/image-formatting)                                           | identify              |
+| banner?       | ?string   | the user's [banner hash](#DOCS_REFERENCE/image-formatting)                                           | identify              |
+| banner_color? | ?string   | the user's banner color                                                                              | identify              |
 | bot?          | boolean   | whether the user belongs to an OAuth2 application                                                    | identify              |
 | system?       | boolean   | whether the user is an Official Discord System user (part of the urgent message system)              | identify              |
 | mfa_enabled?  | boolean   | whether the user has two factor enabled on their account                                             | identify              |
@@ -48,6 +50,8 @@ There are other rules and restrictions not shared here for the sake of spam and 
   "username": "Nelly",
   "discriminator": "1337",
   "avatar": "8342729096ea3675442027381ff50dfe",
+  "banner": "8cb00228e0bcc0299b6788445d6bb7ae",
+  "banner_color": null,
   "verified": true,
   "email": "nelly@discord.com",
   "flags": 64,
