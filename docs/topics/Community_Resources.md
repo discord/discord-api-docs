@@ -75,6 +75,7 @@ Many of these libraries are represented in the [unofficial, community-driven Dis
 - Other
   - [caddy-discord-interactions-verifier](https://github.com/CarsonHoffman/caddy-discord-interactions-verifier)
   - [Rauf's Slash Command Generator](https://rauf.wtf/slash)
+  - [Autocode Slash Command Builder](https://autocode.com/tools/discord/command-builder/)
 
 ## Game SDK Tools
 

@@ -33,6 +33,7 @@ Represents a guild or DM channel within Discord.
 | thread_metadata?               | a [thread metadata](#DOCS_RESOURCES_CHANNEL/thread-metadata-object) object | thread-specific fields not needed by other channels                                                                                                                             |
 | member?                        | a [thread member](#DOCS_RESOURCES_CHANNEL/thread-member-object) object     | thread member object for the current user, if they have joined the thread, only included on certain API endpoints                                                               |
 | default_auto_archive_duration? | integer                                                                    | default duration for newly created threads, in minutes, to automatically archive the thread after recent activity, can be set to: 60, 1440, 4320, 10080                         |
+| permissions?                   | string                                                                     | computed permissions for the invoking user in the channel, including overwrites, only included when part of the `resolved` data received on a slash command interaction         |
 
 \* `rate_limit_per_user` also applies to thread creation. Users can send one message and create one thread during each `rate_limit_per_user` interval.
 
@@ -263,11 +264,11 @@ Represents a message sent in a channel within Discord.
 | message_reference?            | [message reference](#DOCS_RESOURCES_CHANNEL/message-reference-object-message-reference-structure) object                                        | data showing the source of a crosspost, channel follow add, pin, or reply message                                                       |
 | flags?                        | integer                                                                                                                                         | [message flags](#DOCS_RESOURCES_CHANNEL/message-object-message-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field) |
 | referenced_message?\*\*\*\*\* | ?[message object](#DOCS_RESOURCES_CHANNEL/message-object)                                                                                       | the message associated with the message_reference                                                                                       |
-| interaction?                  | [message interaction object](#DOCS_INTERACTIONS_SLASH_COMMANDS/message-interaction-object-message-interaction-structure)                                                              | sent if the message is a response to an [Interaction](#DOCS_INTERACTIONS_SLASH_COMMANDS/)                                               |
+| interaction?                  | [message interaction object](#DOCS_INTERACTIONS_SLASH_COMMANDS/message-interaction-object-message-interaction-structure)                        | sent if the message is a response to an [Interaction](#DOCS_INTERACTIONS_SLASH_COMMANDS/)                                               |
 | thread?                       | [channel](#DOCS_RESOURCES_CHANNEL/channel) object                                                                                               | the thread that was started from this message, includes [thread member](#DOCS_RESOURCES_CHANNEL/thread-member-object) object            |
-| components? | Array of [message components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-object) | sent if the message contains components like buttons, action rows, or other interactive components |
-| sticker_items?\*\*\*\*\*\* | array of [message sticker item objects](#DOCS_RESOURCES_CHANNEL/message-object-message-sticker-item-structure) | sent if the message contains stickers |
-| stickers?                     | array of [sticker](#DOCS_RESOURCES_CHANNEL/message-object-message-sticker-structure) objects                                                    | **Deprecated** the stickers sent with the message |
+| components?                   | Array of [message components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-object)                                                           | sent if the message contains components like buttons, action rows, or other interactive components                                      |
+| sticker_items?                | array of [message sticker item objects](#DOCS_RESOURCES_STICKER/sticker-item-object)                                                            | sent if the message contains stickers                                                                                                   |
+| stickers?                     | array of [sticker](#DOCS_RESOURCES_STICKER/sticker-object) objects                                                                              | **Deprecated** the stickers sent with the message                                                                                       |
 
 \* The author object follows the structure of the user object, but is only a valid user in the case where the message is generated by a user or bot user. If the message is generated by a webhook, the author object corresponds to the webhook's id, username, and avatar. You can tell if a message is generated by a webhook by checking for the `webhook_id` on the message object.
 
@@ -278,8 +279,6 @@ Represents a message sent in a channel within Discord.
 \*\*\*\* Not all channel mentions in a message will appear in `mention_channels`. Only textual channels that are visible to everyone in a lurkable guild will ever be included. Only crossposted messages (via Channel Following) currently include `mention_channels` at all. If no mentions in the message meet these requirements, this field will not be sent.
 
 \*\*\*\*\* This field is only returned for messages with a `type` of `19` (REPLY) or `21` (THREAD_STARTER_MESSAGE). If the message is a reply but the `referenced_message` field is not present, the backend did not attempt to fetch the message that was being replied to, so its state is unknown. If the field exists but is null, the referenced message was deleted.
-
-\*\*\*\*\*\* Bots cannot send stickers.
 
 ###### Message Types
 
@@ -339,43 +338,6 @@ Represents a message sent in a channel within Discord.
 | HAS_THREAD             | 1 << 5 | this message has an associated thread, with the same id as the message            |
 | EPHEMERAL              | 1 << 6 | this message is only visible to the user who invoked the Interaction              |
 | LOADING                | 1 << 7 | this message is an Interaction Response and the bot is "thinking"                 |
-
-###### Message Sticker Item Structure
-
-The smallest amount of data required to render a sticker.
-
-| Field            | Type      | Description                                                                                   |
-| ---------------- | --------- | --------------------------------------------------------------------------------------------- |
-| id | snowflake | id of the sticker |
-| name | string | name of the sticker |
-| format_type | integer | [type of sticker format](#DOCS_RESOURCES_CHANNEL/message-object-message-sticker-format-types) |
-
-###### Message Sticker Format Types
-
-| Type   | Value |
-| ------ | ----- |
-| PNG    | 1     |
-| APNG   | 2     |
-| LOTTIE | 3     |
-
-
-###### Message Sticker Structure
-
-| Field            | Type      | Description                                                                                   |
-| ---------------- | --------- | --------------------------------------------------------------------------------------------- |
-| id               | snowflake | id of the sticker                                                                             |
-| pack_id?         | snowflake | id of the pack the sticker is from                                                            |
-| name             | string    | name of the sticker                                                                           |
-| description      | string    | description of the sticker                                                                    |
-| tags             | string    | for guild stickers, a unicode emoji representing the sticker's expression. for nitro stickers, a comma-separated list of related expressions. |
-| asset\*          | string    | **Deprecated** previously the sticker asset hash, now an empty string                         |
-| format_type      | integer   | [type of sticker format](#DOCS_RESOURCES_CHANNEL/message-object-message-sticker-format-types) |
-| available?       | boolean   | whether or not the sticker is available                                                       |
-| guild_id?        | snowflake | id of the guild that owns this sticker                                                        |
-| user?            | [user](#DOCS_RESOURCES_USER/user-object) object | the user that uploaded the sticker                      |
-| sort_value?      | integer   | a sticker's sort order within a pack                                                          |
-
-\* The URL for fetching sticker assets is currently private.
 
 ###### Example Message
 
@@ -814,6 +776,9 @@ Get a channel by ID. Returns a [channel](#DOCS_RESOURCES_CHANNEL/channel-object)
 
 Update a channel's settings. Returns a [channel](#DOCS_RESOURCES_CHANNEL/channel-object) on success, and a 400 BAD REQUEST on invalid parameters. All JSON parameters are optional.
 
+> info
+> This endpoint supports the `X-Audit-Log-Reason` header.
+
 ###### JSON Params (Group DM)
 
 Fires a [Channel Update](#DOCS_TOPICS_GATEWAY/channel-update) Gateway event.
@@ -869,6 +834,9 @@ Delete a channel, or close a private message. Requires the `MANAGE_CHANNELS` per
 > info
 > For Community guilds, the Rules or Guidelines channel and the Community Updates channel cannot be deleted.
 
+> info
+> This endpoint supports the `X-Audit-Log-Reason` header.
+
 ## Get Channel Messages % GET /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/messages
 
 Returns the messages for a channel. If operating on a guild channel, this endpoint requires the `VIEW_CHANNEL` permission to be present on the current user. If the current user is missing the 'READ_MESSAGE_HISTORY' permission in the channel then this will return no messages (since they cannot read the message history). Returns an array of [message](#DOCS_RESOURCES_CHANNEL/message-object) objects on success.
@@ -921,17 +889,18 @@ You may create a message as a reply to another message. To do so, include a [`me
 
 ###### JSON/Form Params
 
-| Field                | Type                                                                                              | Description                                                  | Required                     |
-| -------------------- | ------------------------------------------------------------------------------------------------- | ------------------------------------------------------------ | ---------------------------- |
-| content              | string                                                                                            | the message contents (up to 2000 characters)                 | one of content, file, embeds |
-| tts                  | boolean                                                                                           | true if this is a TTS message                                | false                        |
-| file                 | file contents                                                                                     | the contents of the file being sent                          | one of content, file, embeds |
-| embeds               | array of [embed](#DOCS_RESOURCES_CHANNEL/embed-object) objects                                    | embedded `rich` content (up to 6000 characters)              | one of content, file, embeds |
-| embed *(deprecated)* | [embed](#DOCS_RESOURCES_CHANNEL/embed-object) object                                              | embedded `rich` content, deprecated in favor of `embeds`     | one of content, file, embed  |
-| payload_json         | string                                                                                            | JSON encoded body of non-file params                         | `multipart/form-data` only   |
-| allowed_mentions     | [allowed mention object](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object)                         | allowed mentions for the message                             | false                        |
-| message_reference    | [message reference](#DOCS_RESOURCES_CHANNEL/message-reference-object-message-reference-structure) | include to make your message a reply                         | false                        |
-| components           | array of [message component](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-object) objects      | the components to include with the message                   | false                        |
+| Field                | Type                                                                                              | Description                                                                                            | Required                                    |
+| -------------------- | ------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ | ------------------------------------------- |
+| content              | string                                                                                            | the message contents (up to 2000 characters)                                                           | one of content, file, embed(s), sticker_ids |
+| tts                  | boolean                                                                                           | true if this is a TTS message                                                                          | false                                       |
+| file                 | file contents                                                                                     | the contents of the file being sent                                                                    | one of content, file, embed(s), sticker_ids |
+| embeds               | array of [embed](#DOCS_RESOURCES_CHANNEL/embed-object) objects                                    | embedded `rich` content (up to 6000 characters)                                                        | one of content, file, embed(s), sticker_ids |
+| embed *(deprecated)* | [embed](#DOCS_RESOURCES_CHANNEL/embed-object) object                                              | embedded `rich` content, deprecated in favor of `embeds`                                               | one of content, file, embed(s), sticker_ids |
+| payload_json         | string                                                                                            | JSON encoded body of non-file params                                                                   | `multipart/form-data` only                  |
+| allowed_mentions     | [allowed mention object](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object)                         | allowed mentions for the message                                                                       | false                                       |
+| message_reference    | [message reference](#DOCS_RESOURCES_CHANNEL/message-reference-object-message-reference-structure) | include to make your message a reply                                                                   | false                                       |
+| components           | array of [message component](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-object) objects      | the components to include with the message                                                             | false                                       |
+| sticker_ids          | array of snowflakes                                                                               | IDs of up to 3 [stickers](#DOCS_RESOURCES_STICKER/sticker-object) in the server to send in the message | one of content, file, embed(s), sticker_ids |
 
 ###### Example Request Body (application/json)
 
@@ -1089,6 +1058,9 @@ Returns a [message](#DOCS_RESOURCES_CHANNEL/message-object) object. Fires a [Mes
 
 Delete a message. If operating on a guild channel and trying to delete a message that was not sent by the current user, this endpoint requires the `MANAGE_MESSAGES` permission. Returns a 204 empty response on success. Fires a [Message Delete](#DOCS_TOPICS_GATEWAY/message-delete) Gateway event.
 
+> info
+> This endpoint supports the `X-Audit-Log-Reason` header.
+
 ## Bulk Delete Messages % POST /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/messages/bulk-delete
 
 Delete multiple messages in a single request. This endpoint can only be used on guild channels and requires the `MANAGE_MESSAGES` permission. Returns a 204 empty response on success. Fires a [Message Delete Bulk](#DOCS_TOPICS_GATEWAY/message-delete-bulk) Gateway event.
@@ -1097,6 +1069,9 @@ Any message IDs given that do not exist or are invalid will count towards the mi
 
 > warn
 > This endpoint will not delete messages older than 2 weeks, and will fail with a 400 BAD REQUEST if any message provided is older than that or if any duplicate message IDs are provided.
+
+> info
+> This endpoint supports the `X-Audit-Log-Reason` header.
 
 ###### JSON Params
 
@@ -1107,6 +1082,9 @@ Any message IDs given that do not exist or are invalid will count towards the mi
 ## Edit Channel Permissions % PUT /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/permissions/{overwrite.id#DOCS_RESOURCES_CHANNEL/overwrite-object}
 
 Edit the channel permission overwrites for a user or role in a channel. Only usable for guild channels. Requires the `MANAGE_ROLES` permission. Only permissions your bot has in the guild or channel can be allowed/denied (unless your bot has a `MANAGE_ROLES` overwrite in the channel). Returns a 204 empty response on success. For more information about permissions, see [permissions](#DOCS_TOPICS_PERMISSIONS/permissions).
+
+> info
+> This endpoint supports the `X-Audit-Log-Reason` header.
 
 ###### JSON Params
 
@@ -1124,6 +1102,9 @@ Returns a list of [invite](#DOCS_RESOURCES_INVITE/invite-object) objects (with [
 
 Create a new [invite](#DOCS_RESOURCES_INVITE/invite-object) object for the channel. Only usable for guild channels. Requires the `CREATE_INSTANT_INVITE` permission. All JSON parameters for this route are optional, however the request body is not. If you are not sending any fields, you still have to send an empty JSON object (`{}`). Returns an [invite](#DOCS_RESOURCES_INVITE/invite-object) object. Fires an [Invite Create](#DOCS_TOPICS_GATEWAY/invite-create) Gateway event.
 
+> info
+> This endpoint supports the `X-Audit-Log-Reason` header.
+
 ###### JSON Params
 
 | Field                 | Type      | Description                                                                                                                               | Default          |
@@ -1139,6 +1120,9 @@ Create a new [invite](#DOCS_RESOURCES_INVITE/invite-object) object for the chann
 ## Delete Channel Permission % DELETE /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/permissions/{overwrite.id#DOCS_RESOURCES_CHANNEL/overwrite-object}
 
 Delete a channel permission overwrite for a user or role in a channel. Only usable for guild channels. Requires the `MANAGE_ROLES` permission. Returns a 204 empty response on success. For more information about permissions, see [permissions](#DOCS_TOPICS_PERMISSIONS/permissions)
+
+> info
+> This endpoint supports the `X-Audit-Log-Reason` header.
 
 ## Follow News Channel % POST /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/followers
 
@@ -1165,9 +1149,15 @@ Pin a message in a channel. Requires the `MANAGE_MESSAGES` permission. Returns a
 > warn
 > The max pinned messages is 50.
 
+> info
+> This endpoint supports the `X-Audit-Log-Reason` header.
+
 ## Unpin Message % DELETE /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/pins/{message.id#DOCS_RESOURCES_CHANNEL/message-object}
 
 Unpin a message in a channel. Requires the `MANAGE_MESSAGES` permission. Returns a 204 empty response on success.
+
+> info
+> This endpoint supports the `X-Audit-Log-Reason` header.
 
 ## Group DM Add Recipient % PUT /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/recipients/{user.id#DOCS_RESOURCES_USER/user-object}
 
@@ -1190,6 +1180,9 @@ Creates a new thread from an existing message. Returns a [channel](#DOCS_RESOURC
 
 When called on a `GUILD_TEXT` channel, creates a `GUILD_PUBLIC_THREAD`. When called on a `GUILD_NEWS` channel, creates a `GUILD_NEWS_THREAD`. The id of the created thread will be the same as the id of the message, and as such a message can only have a single thread created from it.
 
+> info
+> This endpoint supports the `X-Audit-Log-Reason` header.
+
 ###### JSON Params
 
 | Field                   | Type    | Description                                                                                                         |
@@ -1202,6 +1195,9 @@ When called on a `GUILD_TEXT` channel, creates a `GUILD_PUBLIC_THREAD`. When cal
 ## Start Thread without Message % POST /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/threads
 
 Creates a new thread that is not connected to an existing message. The created thread defaults to a `GUILD_PRIVATE_THREAD`\*. Returns a [channel](#DOCS_RESOURCES_CHANNEL/channel-object) on success, and a 400 BAD REQUEST on invalid parameters. Fires a [Thread Create](#DOCS_TOPICS_GATEWAY/thread-create) Gateway event.
+
+> info
+> This endpoint supports the `X-Audit-Log-Reason` header.
 
 ###### JSON Params
 

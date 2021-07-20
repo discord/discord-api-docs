@@ -13,7 +13,7 @@ Because we may change rate limits at any time and rate limits can be different p
 
 ## Header Format
 
-For every API request made, we return optional HTTP response headers containing the rate limit encountered during your request.
+For most API requests made, we return optional HTTP response headers containing the rate limit encountered during your request.
 
 ###### Rate Limit Header Examples
 
