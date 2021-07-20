@@ -1071,7 +1071,7 @@ Not all message fields are currently supported.
 | content?          | string                                                              | message content                                                                                                                        |
 | embeds?           | array of [embeds](#DOCS_RESOURCES_CHANNEL/embed-object)             | supports up to 10 embeds                                                                                                               |
 | allowed_mentions? | [allowed mentions](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object) | [allowed mentions](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object) object                                                             |
-| flags?            | integer                                                             | [interaction application command callback data flags](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/interaction-response-object-interaction-application-command-callback-data-flags) |
+| flags?            | integer                                                             | [interaction application command callback data flags](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-response-object-interaction-application-command-callback-data-flags) |
 | components?       | array of [components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/)       | message components                                                                                                                     |
 
 ###### Interaction Application Command Callback Data Flags
