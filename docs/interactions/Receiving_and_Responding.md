@@ -48,6 +48,7 @@ An [Interaction](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object)
 
 - [Slash Commands](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-interaction-object-sample-application-command-interaction)
 - [Message Components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-interaction-object-sample-component-interaction)
+- [Select Menu Message Components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/select-menu-object-select-menu-interaction)
 
 An explanation of all the fields can be found in our [data models](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/data-models-and-types).
 
@@ -235,7 +236,7 @@ An interaction is the base "thing" that is sent when a user interacts with your 
 
 \* This is always present on application command and message component interaction types. It is optional for future-proofing against new interaction types
 
-\*\* `member` is sent when the command is invoked in a guild, and `user` is sent when invoked in a DM
+\*\* `member` is sent when the interaction is invoked in a guild, and `user` is sent when invoked in a DM
 
 ###### Interaction Request Type
 
@@ -247,14 +248,15 @@ An interaction is the base "thing" that is sent when a user interacts with your 
 
 ###### Interaction Data Structure
 
-| Field          | Type                                                                                                                                                                                   | Description                                                                                                                     | Interaction Type |
-| -------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- | ---------------- |
-| id             | snowflake                                                                                                                                                                              | the [`ID`](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object-application-command-structure) of the invoked command   | Slash Command    |
-| name           | string                                                                                                                                                                                 | the [`name`](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object-application-command-structure) of the invoked command | Slash Command    |
-| resolved?      | [application command interaction data resolved](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-interaction-object-application-command-interaction-data-resolved-structure)      | converted users + roles + channels                                                                                              | Slash Command    |
-| options?       | array of [application command interaction data option](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-interaction-object-application-command-interaction-data-option-structure) | the params + values from the user                                                                                               | Slash Command    |
-| custom_id      | string                                                                                                                                                                                 | the [`custom_id`](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/custom-id) of the component                                             | Component        |
-| component_type | integer                                                                                                                                                                                | the [type](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-types) of the component                                              | Component        |
+| Field           | Type                                                                                                                                                                                   | Description                                                                                                                     | Interaction Type   |
+| --------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- | ------------------ |
+| id              | snowflake                                                                                                                                                                              | the [`ID`](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object-application-command-structure) of the invoked command   | Slash Command      |
+| name            | string                                                                                                                                                                                 | the [`name`](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object-application-command-structure) of the invoked command | Slash Command      |
+| resolved?       | [application command interaction data resolved](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-interaction-object-application-command-interaction-data-resolved-structure)      | converted users + roles + channels                                                                                              | Slash Command      |
+| options?        | array of [application command interaction data option](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-interaction-object-application-command-interaction-data-option-structure) | the params + values from the user                                                                                               | Slash Command      |
+| custom_id?      | string                                                                                                                                                                                 | the [`custom_id`](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/custom-id) of the component                                             | Component          |
+| component_type? | integer                                                                                                                                                                                | the [type](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-types) of the component                                              | Component          |
+| values?         | array of [select option values](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/select-menu-object-select-option-structure)                                                                      | the values the user selected                                                                                                    | Component (Select) |
 
 ### Interaction Response Object
 
