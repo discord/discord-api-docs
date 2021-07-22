@@ -14,6 +14,7 @@ Whenever an admin action is performed on the API, an entry is added to the respe
 | users             | array of [user](#DOCS_RESOURCES_USER/user-object) objects                            | list of users found in the audit log    |
 | audit_log_entries | array of [audit log entry](#DOCS_RESOURCES_AUDIT_LOG/audit-log-entry-object) objects | list of audit log entries               |
 | integrations      | array of partial [integration](#DOCS_RESOURCES_GUILD/integration-object) objects     | list of partial integration objects     |
+| threads           | array of partial [thread channel](#DOCS_RESOURCES_CHANNEL/channel-object) objects    | list of partial thread objects          |
 
 ###### Example Partial Integration Object
 
@@ -88,6 +89,9 @@ Whenever an admin action is performed on the API, an entry is added to the respe
 | STICKER_CREATE           | 90    |
 | STICKER_UPDATE           | 91    |
 | STICKER_DELETE           | 92    |
+| THREAD_CREATE            | 110   |
+| THREAD_UPDATE            | 111   |
+| THREAD_DELETE            | 112   |
 
 ###### Optional Audit Entry Info
 
@@ -179,6 +183,10 @@ Whenever an admin action is performed on the API, an entry is added to the respe
 | asset                         | [sticker](#DOCS_RESOURCES_STICKER/sticker-object)                                                                           | string                                                                               | empty string                                                                                                                                            |
 | available                     | [sticker](#DOCS_RESOURCES_STICKER/sticker-object)                                                                           | boolean                                                                              | availability of sticker changed                                                                                                                         |
 | guild_id                      | [sticker](#DOCS_RESOURCES_STICKER/sticker-object)                                                                           | snowflake                                                                            | guild sticker is in changed                                                                                                                             |
+| archived                      | [thread](#DOCS_RESOURCES_CHANNEL/thread-metadata-object)                                                                           | bool                                                                            | whether the thread was archived                                                                                                                             |
+| locked                        | [thread](#DOCS_RESOURCES_CHANNEL/thread-metadata-object)                                                                           | bool                                                                            | whether the thread was locked                                                                                                                               |
+| auto_archive_duration         | [thread](#DOCS_RESOURCES_CHANNEL/thread-metadata-object)                                                                           | integer                                                                         | auto archive duration changed                                                                                                                               |
+| type                          | [thread](#DOCS_RESOURCES_CHANNEL/channel-object)                                                                                   | integer  ([channel type](#DOCS_RESOURCES_CHANNEL/#channel-object-channel-types))| channel type of thread changed                                                                                       |
 
 ###### Example Partial Role Object
 
