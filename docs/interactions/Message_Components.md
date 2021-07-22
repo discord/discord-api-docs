@@ -89,7 +89,7 @@ Responding to a user interacting with a component is the same as other interacti
 
 Components, aside from Action Rows, must have a `custom_id` field. This field is defined by the developer when sending the component payload, and is returned in the interaction payload sent when a user interacts with the component. For example, if you set `custom_id: click_me` on a button, you'll receive an interaction containing `custom_id: click_me` when a user clicks that button.
 
-`custom_id` must be unique per component; multiple buttons must not share the same `custom_id`. This field is a string of max 100 characters, and can be used flexibly to maintain state or pass through other important data.
+`custom_id` must be unique per component; multiple buttons on the same message must not share the same `custom_id`. This field is a string of max 100 characters, and can be used flexibly to maintain state or pass through other important data.
 
 ## Buttons
 
