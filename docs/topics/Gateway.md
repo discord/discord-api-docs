@@ -848,7 +848,7 @@ Sent when the current user _gains_ access to a channel.
 
 #### Thread Member Update
 
-Sent when the [thread member](#DOCS_RESOURCES_CHANNEL/thread-member-object) object for the current user is updated.  The inner payload is a [thread member](#DOCS_RESOURCES_CHANNEL/thread-member-object) object.
+Sent when the [thread member](#DOCS_RESOURCES_CHANNEL/thread-member-object) object for the current user is updated. The inner payload is a [thread member](#DOCS_RESOURCES_CHANNEL/thread-member-object) object. This event is documented for completeness, but unlikely to be used by most bots. For bots, this event largely is just a signal that you are a member of the thread. See the [threads docs](#DOCS_TOPICS_THREADS) for more details.
 
 #### Thread Members Update
 

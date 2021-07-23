@@ -35,7 +35,7 @@ Represents a guild or DM channel within Discord.
 | default_auto_archive_duration? | integer                                                                    | default duration for newly created threads, in minutes, to automatically archive the thread after recent activity, can be set to: 60, 1440, 4320, 10080                         |
 | permissions?                   | string                                                                     | computed permissions for the invoking user in the channel, including overwrites, only included when part of the `resolved` data received on a slash command interaction         |
 
-\* `rate_limit_per_user` also applies to thread creation. Users can send one message and create one thread during each `rate_limit_per_user` interval.
+\* `rate_limit_per_user` also applies to thread creation. Users can send one message and create one thread during each `rate_limit_per_user` interval. For thread channels, `rate_limit_per_user` is only returned if the field is set to a non-zero and non-null value. The abscene of this field in API calls and Gateway events should indicate that slowmode has been reset to the default value.
 
 ###### Channel Types
 
@@ -1211,7 +1211,7 @@ Creates a new thread that is not connected to an existing message. The created t
 
 \*\* The 3 day and 7 day archive durations require the server to be boosted. The [guild features](#DOCS_RESOURCES_GUILD/guild-object-guild-features) will indicate if that is possible for the guild.
 
-\*\*\* `type` defaults to `PRIVATE_THREAD` in order to match the behavior when thread documentation was first published. This is a bit of a weird default though, and thus is highly likely to change in a future API version, so we would recommend always explicitly setting the `type` parameter.
+\*\*\* In API v9, `type` defaults to `PRIVATE_THREAD` in order to match the behavior when thread documentation was first published. In API v10 this will be changed to be a required field, with no default.
 
 ## Join Thread % PUT /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/thread-members/@me
 
@@ -1239,6 +1239,9 @@ Returns array of [thread members](#DOCS_RESOURCES_CHANNEL/thread-member-object) 
 ## List Active Threads % GET /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/threads/active
 
 Returns all active threads in the channel, including public and private threads. Threads are ordered by their `id`, in descending order.
+
+> warn
+> This route is deprecated and will be removed in v10. It is replaced by [List Active Guild Threads](#DOCS_RESOURCES_GUILD/list-active-threads).
 
 ###### Response Body
 
