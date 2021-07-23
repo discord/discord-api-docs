@@ -1478,15 +1478,15 @@ Sent when a user in a guild uses a [Slash Command](#DOCS_INTERACTIONS_SLASH_COMM
 
 #### Stage Instance Create
 
-Sent when a [Stage instance](#DOCS_RESOURCES_STAGE_INSTANCE) is created (i.e. the Stage is now "live"). Inner payload is a [Stage instance](#DOCS_RESOURCE_STAGE_INSTANCE/stage-instance-object)
+Sent when a [Stage instance](#DOCS_RESOURCES_STAGE_INSTANCE) is created (i.e. the Stage is now "live"). Inner payload is a [Stage instance](#DOCS_RESOURCES_STAGE_INSTANCE/stage-instance-object)
 
 #### Stage Instance Update
 
-Sent when a [Stage instance](#DOCS_RESOURCES_STAGE_INSTANCE) has been updated. Inner payload is a [Stage instance](#DOCS_RESOURCE_STAGE_INSTANCE/stage-instance-object)
+Sent when a [Stage instance](#DOCS_RESOURCES_STAGE_INSTANCE) has been updated. Inner payload is a [Stage instance](#DOCS_RESOURCES_STAGE_INSTANCE/stage-instance-object)
 
 #### Stage Instance Delete
 
-Sent when a [Stage instance](#DOCS_RESOURCES_STAGE_INSTANCE) has been deleted (i.e. the Stage has been closed). Inner payload is a [Stage instance](#DOCS_RESOURCE_STAGE_INSTANCE/stage-instance-object)
+Sent when a [Stage instance](#DOCS_RESOURCES_STAGE_INSTANCE) has been deleted (i.e. the Stage has been closed). Inner payload is a [Stage instance](#DOCS_RESOURCES_STAGE_INSTANCE/stage-instance-object)
 
 ## Get Gateway % GET /gateway
 
