@@ -239,7 +239,7 @@ In your project settings, you'll want to include the relevant library (e.g. `dis
 
 ![Linked Library](lib-linked-sdk.png)
 
-- From there, you should be able to `#include "discord-files/discord.h`, or whatever the path to that header file is, and have access to the code.
+- From there, you should be able to `#include "discord-files/discord.h"`, or whatever the path to that header file is, and have access to the code.
 
 ## Testing Locally with Two Clients
 
