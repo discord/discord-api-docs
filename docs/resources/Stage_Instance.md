@@ -19,7 +19,7 @@ A _Stage Instance_ holds information about a live stage.
 
 | Level      | Value | Description                                                         |
 | ---------- | ----- | ------------------------------------------------------------------- |
-| PUBLIC     | 1     | The Stage instance is visible publicly on Stage Discovery. |
+| PUBLIC     | 1     | The Stage instance is visible publicly, such as on Stage Discovery. |
 | GUILD_ONLY | 2     | The Stage instance is visible to only guild members.                |
 
 ###### Example Stage Instance
