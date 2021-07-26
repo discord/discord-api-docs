@@ -906,31 +906,32 @@ An application command is the base "command" model that belongs to an applicatio
 | name        | string                                                                                                                                                 | 1-32 lowercase character name matching `^[\w-]{1,32}$`                                                                                   |
 | description | string                                                                                                                                                 | 1-100 character description                                                                                                              |
 | required?   | boolean                                                                                                                                                | if the parameter is required or optional--default `false`                                                                                |
-| choices?    | array of [application command option choice](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object-application-command-option-choice-structure) | choices for `string` and `int` types for the user to pick from                                                                           |
+| choices?    | array of [application command option choice](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object-application-command-option-choice-structure) | choices for `STRING`, `INTEGER`, and `NUMBER` types for the user to pick from                                                            |
 | options?    | array of [application command option](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object-application-command-option-structure)               | if the option is a subcommand or subcommand group type, this nested options will be the parameters                                       |
 
 ###### Application Command Option Type
 
-| Name              | Value |
-| ----------------- | ----- |
-| SUB_COMMAND       | 1     |
-| SUB_COMMAND_GROUP | 2     |
-| STRING            | 3     |
-| INTEGER           | 4     |
-| BOOLEAN           | 5     |
-| USER              | 6     |
-| CHANNEL           | 7     |
-| ROLE              | 8     |
-| MENTIONABLE       | 9     |
+| Name              | Value | Note                                    |
+|-------------------|-------|-----------------------------------------|
+| SUB_COMMAND       | 1     |                                         |
+| SUB_COMMAND_GROUP | 2     |                                         |
+| STRING            | 3     |                                         |
+| INTEGER           | 4     | Any integer between -2^53 and 2^53      |
+| BOOLEAN           | 5     |                                         |
+| USER              | 6     |                                         |
+| CHANNEL           | 7     | Includes all channel types + categories |
+| ROLE              | 8     |                                         |
+| MENTIONABLE       | 9     | Includes users and roles                |
+| NUMBER            | 10    | Any double between -2^53 and 2^53       |
 
 ###### Application Command Option Choice Structure
 
 If you specify `choices` for an option, they are the **only** valid values for a user to pick
 
-| Field | Type              | Description                                         |
-| ----- | ----------------- |---------------------------------------------------- |
-| name  | string            | 1-100 character choice name                         |
-| value | string or integer | value of the choice, up to 100 characters if string |
+| Field | Type                       | Description                                         |
+| ----- | -------------------------- |---------------------------------------------------- |
+| name  | string                     | 1-100 character choice name                         |
+| value | string, integer, or double | value of the choice, up to 100 characters if string |
 
 ### Application Command Permissions Object
 
