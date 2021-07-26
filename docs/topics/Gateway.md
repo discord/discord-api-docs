@@ -861,8 +861,10 @@ Sent when anyone is added to or removed from a thread.  If the current user does
 | id                   | snowflake                                                                      | the id of the thread                                            |
 | guild_id             | snowflake                                                                      | the id of the guild                                             |
 | member_count         | integer                                                                        | the approximate number of members in the thread, capped at 50   |
-| added_members?       | array of [thread member](#DOCS_RESOURCES_CHANNEL/thread-member-object) objects | the users who were added to the thread                          |
+| added_members?\*     | array of [thread member](#DOCS_RESOURCES_CHANNEL/thread-member-object) objects | the users who were added to the thread                          |
 | removed_member_ids?  | array of snowflakes                                                            | the id of the users who were removed from the thread            |
+
+\* In this gateway event, the thread member objects will also include the [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) and [presence](#DOCS_TOPICS_GATEWAY/presence) objects for each added thread member.
 
 #### Channel Pins Update
 
