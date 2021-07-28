@@ -23,6 +23,7 @@ Many of these libraries are represented in the [unofficial, community-driven Dis
 | [discordcr](https://github.com/shardlab/discordcr)           | Crystal    |
 | [Remora.Discord](https://github.com/Nihlus/Remora.Discord)   | C#         |
 | [Discord.Net](https://github.com/RogueException/Discord.Net) | C#         |
+| [Discord.Net Labs](https://github.com/Discord-Net-Labs/Discord.Net-Labs) | C#         |
 | [DSharpPlus](https://github.com/DSharpPlus/DSharpPlus)       | C#         |
 | [coxir](https://github.com/satom99/coxir)                    | Elixir     |
 | [Nostrum](https://github.com/Kraigie/nostrum)                | Elixir     |
