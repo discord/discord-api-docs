@@ -524,6 +524,8 @@ A thread member is used to indicate whether a user has joined a thread or not.
 |----------------|-------------------|-----------------------------------------------------------------|
 | id? \*         | snowflake         | the id of the thread                                            |
 | user_id? \*    | snowflake         | the id of the user                                              |
+| presence?      | partial [presence update](https://discord.com/developers/docs/topics/gateway#presence-update) object | the partial presence of the user
+| member?        | [guild member](https://discord.com/developers/docs/resources/guild#guild-member-object) object | the guild member object of the user | 
 | join_timestamp | ISO8601 timestamp | the time the current user last joined the thread                |
 | flags          | integer           | any user-thread settings, currently only used for notifications |
 
