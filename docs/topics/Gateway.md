@@ -250,8 +250,9 @@ GUILD_BANS (1 << 2)
   - GUILD_BAN_ADD
   - GUILD_BAN_REMOVE
 
-GUILD_EMOJIS (1 << 3)
+GUILD_EMOJIS_AND_STICKERS (1 << 3)
   - GUILD_EMOJIS_UPDATE
+  - GUILD_STICKERS_UPDATE
 
 GUILD_INTEGRATIONS (1 << 4)
   - GUILD_INTEGRATIONS_UPDATE
@@ -494,6 +495,7 @@ Events are payloads sent over the socket to a client that correspond to events i
 | [Guild Ban Add](#DOCS_TOPICS_GATEWAY/guild-ban-add)                                 | user was banned from a guild                                                                                                     |
 | [Guild Ban Remove](#DOCS_TOPICS_GATEWAY/guild-ban-remove)                           | user was unbanned from a guild                                                                                                   |
 | [Guild Emojis Update](#DOCS_TOPICS_GATEWAY/guild-emojis-update)                     | guild emojis were updated                                                                                                        |
+| [Guild Stickers Update](#DOCS_TOPICS_GATEWAY/guild-stickers-update)                 | guild stickers were updated                                                                                                      |
 | [Guild Integrations Update](#DOCS_TOPICS_GATEWAY/guild-integrations-update)         | guild integration was updated                                                                                                    |
 | [Guild Member Add](#DOCS_TOPICS_GATEWAY/guild-member-add)                           | new user joined a guild                                                                                                          |
 | [Guild Member Remove](#DOCS_TOPICS_GATEWAY/guild-member-remove)                     | user was removed from a guild                                                                                                    |
@@ -930,6 +932,17 @@ Sent when a guild's emojis have been updated.
 | guild_id | snowflake | id of the guild                                       |
 | emojis   | array     | array of [emojis](#DOCS_RESOURCES_EMOJI/emoji-object) |
 
+#### Guild Stickers Update
+
+Sent when a guild's stickers have been updated.
+
+###### Guild Stickers Update Event Fields
+
+| Field    | Type      | Description                                                 |
+|----------|-----------|-------------------------------------------------------------|
+| guild_id | snowflake | id of the guild                                             |
+| stickers | array     | array of [stickers](#DOCS_RESOURCES_STICKER/sticker-object) |
+
 #### Guild Integrations Update
 
 Sent when a guild integration is updated.
@@ -1084,7 +1097,7 @@ Sent when a new invite to a channel is created.
 |---------------------|------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------|
 | channel_id          | snowflake                                                                    | the channel the invite is for                                                                                      |
 | code                | string                                                                       | the unique invite [code](#DOCS_RESOURCES_INVITE/invite-object)                                                     |
-| created_at          | timestamp                                                                    | the time at which the invite was created                                                                           |
+| created_at          | ISO8601 timestamp                                                            | the time at which the invite was created                                                                           |
 | guild_id?           | snowflake                                                                    | the guild of the invite                                                                                            |
 | inviter?            | [user](#DOCS_RESOURCES_USER/user-object) object                              | the user that created the invite                                                                                   |
 | max_age             | integer                                                                      | how long the invite is valid for (in seconds)                                                                      |
@@ -1239,7 +1252,7 @@ Active sessions are indicated with an "online", "idle", or "dnd" string per plat
 | name            | string                                                                        | the activity's name                                                                                                       |
 | type            | integer                                                                       | [activity type](#DOCS_TOPICS_GATEWAY/activity-object-activity-types)                                                      |
 | url?            | ?string                                                                       | stream url, is validated when type is 1                                                                                   |
-| created_at      | integer                                                                       | unix timestamp of when the activity was added to the user's session                                                       |
+| created_at      | integer                                                                       | unix timestamp (in milliseconds) of when the activity was added to the user's session                                                       |
 | timestamps?     | [timestamps](#DOCS_TOPICS_GATEWAY/activity-object-activity-timestamps) object | unix timestamps for start and/or end of the game                                                                          |
 | application_id? | snowflake                                                                     | application id for the game                                                                                               |
 | details?        | ?string                                                                       | what the player is currently doing                                                                                        |
@@ -1465,15 +1478,15 @@ Sent when a user in a guild uses a [Slash Command](#DOCS_INTERACTIONS_SLASH_COMM
 
 #### Stage Instance Create
 
-Sent when a [Stage instance](#DOCS_RESOURCES_STAGE_INSTANCE) is created (i.e. the Stage is now "live"). Inner payload is a [Stage instance](#DOCS_RESOURCE_STAGE_INSTANCE/stage-instance-object)
+Sent when a [Stage instance](#DOCS_RESOURCES_STAGE_INSTANCE) is created (i.e. the Stage is now "live"). Inner payload is a [Stage instance](#DOCS_RESOURCES_STAGE_INSTANCE/stage-instance-object)
 
 #### Stage Instance Update
 
-Sent when a [Stage instance](#DOCS_RESOURCES_STAGE_INSTANCE) has been updated. Inner payload is a [Stage instance](#DOCS_RESOURCE_STAGE_INSTANCE/stage-instance-object)
+Sent when a [Stage instance](#DOCS_RESOURCES_STAGE_INSTANCE) has been updated. Inner payload is a [Stage instance](#DOCS_RESOURCES_STAGE_INSTANCE/stage-instance-object)
 
 #### Stage Instance Delete
 
-Sent when a [Stage instance](#DOCS_RESOURCES_STAGE_INSTANCE) has been deleted (i.e. the Stage has been closed). Inner payload is a [Stage instance](#DOCS_RESOURCE_STAGE_INSTANCE/stage-instance-object)
+Sent when a [Stage instance](#DOCS_RESOURCES_STAGE_INSTANCE) has been deleted (i.e. the Stage has been closed). Inner payload is a [Stage instance](#DOCS_RESOURCES_STAGE_INSTANCE/stage-instance-object)
 
 ## Get Gateway % GET /gateway
 

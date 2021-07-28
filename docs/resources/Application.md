@@ -23,7 +23,7 @@
 | primary_sku_id?        | snowflake                                                  | if this application is a game sold on Discord, this field will be the id of the "Game SKU" that is created, if exists      |
 | slug?                  | string                                                     | if this application is a game sold on Discord, this field will be the URL slug that links to the store page                |
 | cover_image?           | string                                                     | the application's default rich presence invite [cover image hash](#DOCS_REFERENCE/image-formatting)                        |
-| flags                  | integer                                                    | the application's public [flags](#DOCS_RESOURCES_APPLICATION/application-application-flags)                                        |
+| flags?                 | integer                                                    | the application's public [flags](#DOCS_RESOURCES_APPLICATION/application-object-application-flags)                                        |
 
 ###### Example Application Object
 

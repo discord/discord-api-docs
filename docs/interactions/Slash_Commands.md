@@ -25,11 +25,11 @@ In this documentation you'll find some notes about limits and caps on certain pa
 
 ## What is a Slash Command
 
-A **Slash Command** is a command that you register for your application. They're made up of a name, description, and a block of `options`, which you can think of like arguments to a function. The name and description help users find your command among many others, and the `options` validate user input as they fill out your command.
+**Slash Commands** (synonymous with application commands) are made up of a name, description, and a block of `options`, which you can think of like arguments to a function. The name and description help users find your command among many others, and the `options` validate user input as they fill out your command.
 
 Your global commands are available in every guild that adds your application. You can also make commands for a specific guild; they're only available in that guild.
 
-An **[Interaction](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-object-interaction-structure)** is the message that your application receives when a user uses a command. It includes the values that the user submitted, as well as some metadata about this particular instance of the command being used: the `guild_id`, `channel_id`, `member` and other fields. You can find all the values in our [data models](#DOCS_INTERACTIONS_SLASH_COMMANDS/data-models-and-types).
+An **[Interaction](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-object)** is the message that your application receives when a user uses a command. It includes the values that the user submitted, as well as some metadata about this particular instance of the command being used: the `guild_id`, `channel_id`, `member` and other fields. You can find all the values in our [data models](#DOCS_INTERACTIONS_SLASH_COMMANDS/data-models-and-types).
 
 ## Slash Commands, Interactions, and Bot Users
 
@@ -119,12 +119,12 @@ json = {
 
 # For authorization, you can use either your bot token
 headers = {
-    "Authorization": "Bot 123456"
+    "Authorization": "Bot <my_bot_token>"
 }
 
 # or a client credentials token for your app with the applications.commands.update scope
 headers = {
-    "Authorization": "Bearer abcdefg"
+    "Authorization": "Bearer <my_credentials_token>"
 }
 
 r = requests.post(url, headers=headers, json=json)
@@ -151,6 +151,8 @@ This command will only be available within the guild that you specified.
 > warn
 > Guild commands update **instantly**. We recommend you use guild commands for quick testing, and global commands when they're ready for public use.
 
+Take a look at the [application command option data structure](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object-application-command-option-structure) for extensive info about the types of `options` you can use.
+
 ## Updating and Deleting a Command
 
 Slash Commands can be deleted and updated by making `DELETE` and `PATCH` calls to the command endpoint. Those endpoints are
@@ -160,11 +162,11 @@ Slash Commands can be deleted and updated by making `DELETE` and `PATCH` calls t
 
 Because Slash Commands have unique names within a scope, we treat `POST` requests for new commands as upserts. That means **making a new command with an already-used name for your application will update the existing command**.
 
-Full documentation of endpoints can be found in [Endpoints](#DOCS_INTERACTIONS_SLASH_COMMANDS/endpoints).
+Full documentation of endpoints can be found [here](#DOCS_INTERACTIONS_SLASH_COMMANDS/endpoints).
 
 ## Receiving an Interaction
 
-When a user uses a Slash Command, your app will receive an **[Interaction](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-object-interaction-structure)**. Your app can receive an interaction in one of two ways:
+When a user uses a Slash Command, your app will receive an **[Interaction](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-object)**. Your app can receive an interaction in one of two ways:
 
 - Via [Interaction Create](#DOCS_TOPICS_GATEWAY/interaction-create) gateway event
 - Via outgoing webhook
@@ -194,7 +196,7 @@ def my_command():
 
 You'll also need to properly set up [Security and Authorization](#DOCS_INTERACTIONS_SLASH_COMMANDS/security-and-authorization) on your endpoint for the URL to be accepted. Once both of those are complete and your URL has been saved, you can start receiving Interactions via webhook! At this point, your app will **no longer receive Interactions over the gateway**. If you want to receive them over the gateway again, simply delete your URL.
 
-An [Interaction](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-object-interaction-structure) includes the `data` that the user sent in the command, as well as some metadata. It looks like this:
+An [Interaction](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-object) includes the `data` that the user sent in the command, as well as some metadata. It looks like this:
 
 ```js
 {
@@ -243,7 +245,7 @@ Interactions--both receiving and responding--are webhooks under the hood. So res
 > warn
 > While interaction responses and followups are webhooks, they respect @everyone's ability to ping @everyone / @here . Nonetheless if your application responds with user data, you should still use [`allowed_mentions`](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object) to filter which mentions in the content actually ping. Other differences include the ability to send named links in the message content (`[text](url)`) and the ability to include up to 10 embeds.
 
-When responding to an interaction received **via webhook**, your server can simply respond to the received `POST` request. You'll want to respond with a `200` status code (if everything went well), as well as specifying a `type` and `data`, which is an [Interaction Response](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-response-object-interaction-response-structure) object:
+When responding to an interaction received **via webhook**, your server can simply respond to the received `POST` request. You'll want to respond with a `200` status code (if everything went well), as well as specifying a `type` and `data`, which is an [Interaction Response](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-response-object) object:
 
 ```py
 @app.route('/', methods=['POST'])
@@ -288,10 +290,10 @@ r = requests.post(url, json=json)
 
 Sometimes, your bot will want to send followup messages to a user after responding to an interaction. Or, you may want to edit your original response. Whether you receive Interactions over the gateway or by outgoing webhook, you can use the following endpoints to edit your initial response or send followup messages:
 
-- `PATCH /webhooks/<application_id>/<interaction_token>/messages/@original` to edit your initial response to an Interaction
-- `DELETE /webhooks/<application_id>/<interaction_token>/messages/@original` to delete your initial response to an Interaction
-- `POST /webhooks/<application_id>/<interaction_token>` to send a new followup message
-- `PATCH /webhooks/<application_id>/<interaction_token>/messages/<message_id>` to edit a message sent with that `token`
+- [`PATCH /webhooks/<application_id>/<interaction_token>/messages/@original`](#DOCS_INTERACTIONS_SLASH_COMMANDS/edit-original-interaction-response) to edit your initial response to an Interaction
+- [`DELETE /webhooks/<application_id>/<interaction_token>/messages/@original`](#DOCS_INTERACTIONS_SLASH_COMMANDS/delete-original-interaction-response) to delete your initial response to an Interaction
+- [`POST /webhooks/<application_id>/<interaction_token>`](#DOCS_INTERACTIONS_SLASH_COMMANDS/create-followup-message) to send a new followup message
+- [`PATCH /webhooks/<application_id>/<interaction_token>/messages/<message_id>`](#DOCS_INTERACTIONS_SLASH_COMMANDS/edit-followup-message) to edit a message sent with that `token`
 
 > info
 > Interactions webhooks share the same rate limit properties as normal webhooks
@@ -310,7 +312,7 @@ Every Interaction is sent with the following headers:
 - `X-Signature-Ed25519` as a signature
 - `X-Signature-Timestamp` as a timestamp
 
-Using your favorite security library, you **must validate the request each time you receive an [interaction](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-object-interaction-structure)**. If the signature fails validation, respond with a `401` error code. Here's a couple code examples:
+Using your favorite security library, you **must validate the request each time you receive an [interaction](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-object)**. If the signature fails validation, respond with a `401` error code. Here's a couple code examples:
 
 ```js
 const nacl = require('tweetnacl');
@@ -344,7 +346,7 @@ verify_key = VerifyKey(bytes.fromhex(PUBLIC_KEY))
 
 signature = request.headers["X-Signature-Ed25519"]
 timestamp = request.headers["X-Signature-Timestamp"]
-body = request.data
+body = request.data.decode("utf-8")
 
 try:
     verify_key.verify(f'{timestamp}{body}'.encode(), bytes.fromhex(signature))
@@ -660,178 +662,175 @@ json = {
 }
 
 headers = {
-    "Authorization": "Bot 123456"
+    "Authorization": "Bot <my_bot_token>"
 }
 
 r = requests.put(url, headers=headers, json=json)
 ```
 
-## Endpoints
+### Endpoints
 
 > info
-> For authorization, all endpoints take either a bot token or client credentials token for your application
+> For authorization, all endpoints take either a [bot token](#DOCS_REFERENCE/authentication) or [client credentials token](#DOCS_TOPICS_OAUTH2/client-credentials-grant) for your application
 
 ## Get Global Application Commands % GET /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/commands
 
-Fetch all of the global commands for your application. Returns an array of [ApplicationCommand](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object-application-command-structure) objects.
+Fetch all of the global commands for your application. Returns an array of [application command](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object) objects.
 
 ## Create Global Application Command % POST /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/commands
 
 > danger
 > Creating a command with the same name as an existing command for your application will overwrite the old command.
 
-Create a new global command. New global commands will be available in all guilds after 1 hour. Returns `201` and an [ApplicationCommand](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object-application-command-structure) object.
+Create a new global command. New global commands will be available in all guilds after 1 hour. Returns `201` and an [application command](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object) object.
 
 ###### JSON Params
 
-| Field       | Type                                                                                            | Description                                      |
-|-------------|-------------------------------------------------------------------------------------------------|--------------------------------------------------|
-| name        | string                                                                                          | 1-32 lowercase character name matching `^[\w-]{1,32}$` |
-| description | string                                                                                          | 1-100 character description                      |
-| options?    | array of [ApplicationCommandOption](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object-application-command-option-structure) | the parameters for the command                   |
-| default_permission? | boolean (default `true`) | whether the command is enabled by default when the app is added to a guild |
+| Field               | Type                                                                                                                                     | Description                                                                |
+| ------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
+| name                | string                                                                                                                                   | 1-32 lowercase character name matching `^[\w-]{1,32}$`                     |
+| description         | string                                                                                                                                   | 1-100 character description                                                |
+| options?            | array of [application command option](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object-application-command-option-structure) | the parameters for the command                                             |
+| default_permission? | boolean (default `true`)                                                                                                                 | whether the command is enabled by default when the app is added to a guild |
 
-## Get Global Application Command % GET /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/commands/{command.id#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommand}
+## Get Global Application Command % GET /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/commands/{command.id#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object}
 
-Fetch a global command for your application. Returns an [ApplicationCommand](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object-application-command-structure) object.
+Fetch a global command for your application. Returns an [application command](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object) object.
 
-## Edit Global Application Command % PATCH /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/commands/{command.id#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommand}
+## Edit Global Application Command % PATCH /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/commands/{command.id#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object}
 
 > info
 > All parameters for this endpoint are optional.
 
-Edit a global command. Updates will be available in all guilds after 1 hour. Returns `200` and an [ApplicationCommand](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object-application-command-structure) object.
+Edit a global command. Updates will be available in all guilds after 1 hour. Returns `200` and an [application command](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object) object.
 
 ###### JSON Params
 
-| Field              | Type                                                                                             | Description                                                                |
-| ------------------ | ------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------- |
-| name               | string                                                                                           | 1-32 lowercase character name matching `^[\w-]{1,32}$`                        |
-| description        | string                                                                                           | 1-100 character description                                                |
-| options            | ?array of [ApplicationCommandOption](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object-application-command-option-structure) | the parameters for the command                                             |
-| default_permission | boolean (default `true`)                                                                         | whether the command is enabled by default when the app is added to a guild |
+| Field               | Type                                                                                                                                     | Description                                                                |
+| ------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
+| name                | string                                                                                                                                   | 1-32 lowercase character name matching `^[\w-]{1,32}$`                     |
+| description         | string                                                                                                                                   | 1-100 character description                                                |
+| options?            | array of [application command option](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object-application-command-option-structure) | the parameters for the command                                             |
+| default_permission? | boolean (default `true`)                                                                                                                 | whether the command is enabled by default when the app is added to a guild |
 
-## Delete Global Application Command % DELETE /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/commands/{command.id#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommand}
+## Delete Global Application Command % DELETE /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/commands/{command.id#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object}
 
 Deletes a global command. Returns `204`.
 
 ## Get Guild Application Commands % GET /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/commands
 
-Fetch all of the guild commands for your application for a specific guild. Returns an array of [ApplicationCommand](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object-application-command-structure) objects.
+Fetch all of the guild commands for your application for a specific guild. Returns an array of [application command](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object) objects.
 
 ## Bulk Overwrite Global Application Commands % PUT /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/commands
 
-Takes a list of application commands, overwriting existing commands that are registered globally for this application. Updates will be available in all guilds after 1 hour. Returns `200` and a list of [ApplicationCommand](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object-application-command-structure) objects. Commands that do not already exist will count toward daily application command create limits.
+Takes a list of application commands, overwriting existing commands that are registered globally for this application. Updates will be available in all guilds after 1 hour. Returns `200` and a list of [application command](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object) objects. Commands that do not already exist will count toward daily application command create limits.
 
 ## Create Guild Application Command % POST /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/commands
 
 > danger
 > Creating a command with the same name as an existing command for your application will overwrite the old command.
 
-Create a new guild command. New guild commands will be available in the guild immediately. Returns `201` and an [ApplicationCommand](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object-application-command-structure) object.  If the command did not already exist, it will count toward daily application command create limits.
+Create a new guild command. New guild commands will be available in the guild immediately. Returns `201` and an [application command](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object) object. If the command did not already exist, it will count toward daily application command create limits.
 
 ###### JSON Params
 
-| Field       | Type                                                                                            | Description                                      |
-|-------------|-------------------------------------------------------------------------------------------------|--------------------------------------------------|
-| name        | string                                                                                          | 1-32 lowercase character name matching `^[\w-]{1,32}$` |
-| description | string                                                                                          | 1-100 character description                      |
-| options?    | array of [ApplicationCommandOption](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object-application-command-option-structure) | the parameters for the command                   |
-| default_permission? | boolean (default `true`) | whether the command is enabled by default when the app is added to a guild |
+| Field               | Type                                                                                                                                     | Description                                                                |
+| ------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
+| name                | string                                                                                                                                   | 1-32 lowercase character name matching `^[\w-]{1,32}$`                     |
+| description         | string                                                                                                                                   | 1-100 character description                                                |
+| options?            | array of [application command option](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object-application-command-option-structure) | the parameters for the command                                             |
+| default_permission? | boolean (default `true`)                                                                                                                 | whether the command is enabled by default when the app is added to a guild |
 
-## Get Guild Application Command % GET /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/commands/{command.id#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommand}
+## Get Guild Application Command % GET /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/commands/{command.id#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object}
 
-Fetch a guild command for your application. Returns an [ApplicationCommand](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object-application-command-structure) object.
+Fetch a guild command for your application. Returns an [application command](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object) object.
 
-## Edit Guild Application Command % PATCH /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/commands/{command.id#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommand}
+## Edit Guild Application Command % PATCH /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/commands/{command.id#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object}
 
 > info
 > All parameters for this endpoint are optional.
 
-Edit a guild command. Updates for guild commands will be available immediately. Returns `200` and an [ApplicationCommand](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object-application-command-structure) object.
+Edit a guild command. Updates for guild commands will be available immediately. Returns `200` and an [application command](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object) object.
 
 ###### JSON Params
 
-| Field              | Type                                                                                             | Description                                                                |
-| ------------------ | ------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------- |
-| name               | string                                                                                           | 1-32 lowercase character name matching `^[\w-]{1,32}$`                          |
-| description        | string                                                                                           | 1-100 character description                                                |
-| options            | ?array of [ApplicationCommandOption](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object-application-command-option-structure) | the parameters for the command                                             |
-| default_permission | boolean (default `true`)                                                                         | whether the command is enabled by default when the app is added to a guild |
+| Field               | Type                                                                                                                                     | Description                                                                |
+| ------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
+| name                | string                                                                                                                                   | 1-32 lowercase character name matching `^[\w-]{1,32}$`                     |
+| description         | string                                                                                                                                   | 1-100 character description                                                |
+| options?            | array of [application command option](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object-application-command-option-structure) | the parameters for the command                                             |
+| default_permission? | boolean (default `true`)                                                                                                                 | whether the command is enabled by default when the app is added to a guild |
 
-
-## Delete Guild Application Command % DELETE /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/commands/{command.id#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommand}
+## Delete Guild Application Command % DELETE /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/commands/{command.id#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object}
 
 Delete a guild command. Returns `204` on success.
 
 ## Bulk Overwrite Guild Application Commands % PUT /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/commands
 
-Takes a list of application commands, overwriting existing commands for the guild. Returns `200` and a list of [ApplicationCommand](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object-application-command-structure) objects.
+Takes a list of application commands, overwriting existing commands for the guild. Returns `200` and a list of [application command](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object) objects.
 
-## Create Interaction Response % POST /interactions/{interaction.id#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction}/{interaction.token#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction}/callback
+## Create Interaction Response % POST /interactions/{interaction.id#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction}/{interaction.token#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-object}/callback
 
-Create a response to an Interaction from the gateway. Takes an [Interaction response](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-response-object-interaction-response-structure).
+Create a response to an Interaction from the gateway. Takes an [interaction response](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-response-object).
 
-## Get Original Interaction Response % GET /webhooks/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/{interaction.token#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction}/messages/@original
+## Get Original Interaction Response % GET /webhooks/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/{interaction.token#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-object}/messages/@original
 
 Returns the initial Interaction response. Functions the same as [Get Webhook Message](#DOCS_RESOURCES_WEBHOOK/get-webhook-message).
 
-## Edit Original Interaction Response % PATCH /webhooks/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/{interaction.token#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction}/messages/@original
+## Edit Original Interaction Response % PATCH /webhooks/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/{interaction.token#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-object}/messages/@original
 
 Edits the initial Interaction response. Functions the same as [Edit Webhook Message](#DOCS_RESOURCES_WEBHOOK/edit-webhook-message).
 
-## Delete Original Interaction Response % DELETE /webhooks/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/{interaction.token#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction}/messages/@original
+## Delete Original Interaction Response % DELETE /webhooks/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/{interaction.token#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-object}/messages/@original
 
 Deletes the initial Interaction response. Returns `204` on success.
 
-## Create Followup Message % POST /webhooks/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/{interaction.token#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction}
+## Create Followup Message % POST /webhooks/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/{interaction.token#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-object}
 
 Create a followup message for an Interaction. Functions the same as [Execute Webhook](#DOCS_RESOURCES_WEBHOOK/execute-webhook), but `wait` is always true, and `flags` can be set to `64` in the body to send an ephemeral message. The `thread_id` query parameter is not required (and is furthermore ignored) when using this endpoint for interaction followups.
 
-## Edit Followup Message % PATCH /webhooks/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/{interaction.token#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}
+## Edit Followup Message % PATCH /webhooks/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/{interaction.token#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-object}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}
 
 Edits a followup message for an Interaction. Functions the same as [Edit Webhook Message](#DOCS_RESOURCES_WEBHOOK/edit-webhook-message).
 
-## Delete Followup Message % DELETE /webhooks/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/{interaction.token#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}
+## Delete Followup Message % DELETE /webhooks/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/{interaction.token#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-object}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}
 
 Deletes a followup message for an Interaction. Returns `204` on success.
 
 ## Get Guild Application Command Permissions % GET /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/commands/permissions
 
-Fetches command permissions for all commands for your application in a guild. Returns an array of [GuildApplicationCommandPermissions](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-permissions-object-guild-application-command-permissions-structure) objects.
+Fetches command permissions for all commands for your application in a guild. Returns an array of [guild application command permissions](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-permissions-object-guild-application-command-permissions-structure) objects.
 
+## Get Application Command Permissions % GET /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/commands/{command.id#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object}/permissions
 
-## Get Application Command Permissions % GET /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/commands/{command.id#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommand}/permissions
+Fetches command permissions for a specific command for your application in a guild. Returns a [guild application command permissions](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-permissions-object-guild-application-command-permissions-structure) object.
 
-Fetches command permissions for a specific command for your application in a guild. Returns a [GuildApplicationCommandPermissions](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-permissions-object-guild-application-command-permissions-structure) object.
-
-## Edit Application Command Permissions % PUT /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/commands/{command.id#DOCS_INTERACTIONS_SLASH_COMMANDS/applicationcommand}/permissions
+## Edit Application Command Permissions % PUT /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/commands/{command.id#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object}/permissions
 
 > warn
 > This endpoint will overwrite existing permissions for the command in that guild
 
 Edits command permissions for a specific command for your application in a guild.
 You can only add up to 10 permission overwrites for a command.
-Returns a [GuildApplicationCommandPermissions](#DOCS_INTERACTIONS_SLASH_COMMANDS/guildapplicationcommandpermissions) object.
+Returns a [GuildApplicationCommandPermissions](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-permissions-object-guild-application-command-permissions-structure) object.
 
 > warn
 > Deleting or renaming a command will permanently delete all permissions for that command
 
 ###### JSON Params
 
-| Field       | Type                                                                                                      | Description                                  |
-| ----------- | --------------------------------------------------------------------------------------------------------- | -------------------------------------------- |
-| permissions | array of [ApplicationCommandPermissions](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-permissions-object-application-command-permissions-structure) | the permissions for the command in the guild |
+| Field       | Type                                                                                                                                                           | Description                                  |
+| ----------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------- |
+| permissions | array of [application command permissions](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-permissions-object-application-command-permissions-structure) | the permissions for the command in the guild |
 
 ## Batch Edit Application Command Permissions % PUT /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/commands/permissions
 
 > warn
 > This endpoint will overwrite all existing permissions for all commands in a guild
 
-Batch edits permissions for all commands in a guild. Takes an array of partial [GuildApplicationCommandPermissions](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-permissions-object-guild-application-command-permissions-structure) objects including `id` and `permissions`.
+Batch edits permissions for all commands in a guild. Takes an array of partial [guild application command permissions](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-permissions-object-guild-application-command-permissions-structure) objects including `id` and `permissions`.
 You can only add up to 10 permission overwrites for a command.
-Returns an array of [GuildApplicationCommandPermissions](#DOCS_INTERACTIONS_SLASH_COMMANDS/guildapplicationcommandpermissions) objects.
-
+Returns an array of [GuildApplicationCommandPermissions](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-permissions-object-guild-application-command-permissions-structure) objects.
 
 ###### Example
 
@@ -849,7 +848,7 @@ json = [
             {
                 "id": ADMIN_ROLE_ID,
                 "type": 1,
-                "permission": true
+                "permission": True
             }
         ]
     },
@@ -859,14 +858,14 @@ json = [
             {
                 "id": ADMIN_ROLE_ID,
                 "type": 1,
-                "permission": false
+                "permission": False
             }
         ]
     }
 ]
 
 headers = {
-    "Authorization": "Bot 123456"
+    "Authorization": "Bot <my_bot_token>"
 }
 
 r = requests.put(url, headers=headers, json=json)
@@ -874,7 +873,7 @@ r = requests.put(url, headers=headers, json=json)
 
 ## Data Models and Types
 
-## Application Command Object
+### Application Command Object
 
 ###### Application Command Structure
 
@@ -883,15 +882,15 @@ r = requests.put(url, headers=headers, json=json)
 
 An application command is the base "command" model that belongs to an application. This is what you are creating when you `POST` a new command.
 
-| Field          | Type                                                                                            | Description                                      |
-|----------------|-------------------------------------------------------------------------------------------------|--------------------------------------------------|
-| id             | snowflake                                                                                       | unique id of the command                         |
-| application_id | snowflake                                                                                       | unique id of the parent application              |
-| guild_id?      | snowflake                                                                                       | guild id of the command, if not global              |
-| name           | string                                                                                          | 1-32 lowercase character name matching `^[\w-]{1,32}$` |
-| description    | string                                                                                          | 1-100 character description                      |
-| options?       | array of [ApplicationCommandOption](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object-application-command-option-structure) | the parameters for the command                   |
-| default_permission? | boolean (default `true`) | whether the command is enabled by default when the app is added to a guild |
+| Field               | Type                                                                                                                                     | Description                                                                |
+| ------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
+| id                  | snowflake                                                                                                                                | unique id of the command                                                   |
+| application_id      | snowflake                                                                                                                                | unique id of the parent application                                        |
+| guild_id?           | snowflake                                                                                                                                | guild id of the command, if not global                                     |
+| name                | string                                                                                                                                   | 1-32 lowercase character name matching `^[\w-]{1,32}$`                     |
+| description         | string                                                                                                                                   | 1-100 character description                                                |
+| options?            | array of [application command option](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object-application-command-option-structure) | the parameters for the command                                             |
+| default_permission? | boolean (default `true`)                                                                                                                 | whether the command is enabled by default when the app is added to a guild |
 
 > warn
 > Required `options` must be listed before optional options
@@ -901,111 +900,111 @@ An application command is the base "command" model that belongs to an applicatio
 > info
 > You can specify a maximum of 25 `choices` per option
 
-| Field       | Type                                                                                                        | Description                                                                                             |
-|-------------|-------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------|
-| type        | int                                                                                                         | value of [ApplicationCommandOptionType](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object-application-command-option-type) |
-| name        | string                                                                                                      | 1-32 lowercase character name matching `^[\w-]{1,32}$`                                                         |
-| description | string                                                                                                      | 1-100 character description                                                                             |
-| required?   | boolean                                                                                                     | if the parameter is required or optional--default `false`                                               |
-| choices?    | array of [ApplicationCommandOptionChoice](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object-application-command-option-choice-structure) | choices for `string` and `int` types for the user to pick from                                          |
-| options?    | array of [ApplicationCommandOption](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object-application-command-option-structure)             | if the option is a subcommand or subcommand group type, this nested options will be the parameters      |
+| Field       | Type                                                                                                                                                   | Description                                                                                                                              |
+| ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| type        | integer                                                                                                                                                | value of [application command option type](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object-application-command-option-type) |
+| name        | string                                                                                                                                                 | 1-32 lowercase character name matching `^[\w-]{1,32}$`                                                                                   |
+| description | string                                                                                                                                                 | 1-100 character description                                                                                                              |
+| required?   | boolean                                                                                                                                                | if the parameter is required or optional--default `false`                                                                                |
+| choices?    | array of [application command option choice](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object-application-command-option-choice-structure) | choices for `STRING`, `INTEGER`, and `NUMBER` types for the user to pick from                                                            |
+| options?    | array of [application command option](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object-application-command-option-structure)               | if the option is a subcommand or subcommand group type, this nested options will be the parameters                                       |
 
 ###### Application Command Option Type
 
-| Name              | Value |
-|-------------------|-------|
-| SUB_COMMAND       | 1     |
-| SUB_COMMAND_GROUP | 2     |
-| STRING            | 3     |
-| INTEGER           | 4     |
-| BOOLEAN           | 5     |
-| USER              | 6     |
-| CHANNEL           | 7     |
-| ROLE              | 8     |
-| MENTIONABLE       | 9     |
+| Name              | Value | Note                                    |
+|-------------------|-------|-----------------------------------------|
+| SUB_COMMAND       | 1     |                                         |
+| SUB_COMMAND_GROUP | 2     |                                         |
+| STRING            | 3     |                                         |
+| INTEGER           | 4     | Any integer between -2^53 and 2^53      |
+| BOOLEAN           | 5     |                                         |
+| USER              | 6     |                                         |
+| CHANNEL           | 7     | Includes all channel types + categories |
+| ROLE              | 8     |                                         |
+| MENTIONABLE       | 9     | Includes users and roles                |
+| NUMBER            | 10    | Any double between -2^53 and 2^53       |
 
 ###### Application Command Option Choice Structure
 
 If you specify `choices` for an option, they are the **only** valid values for a user to pick
 
-| Field | Type          | Description                                     |
-|-------|---------------|-------------------------------------------------|
-| name  | string        | 1-100 character choice name                     |
-| value | string or int | value of the choice, up to 100 characters if string |
+| Field | Type                       | Description                                         |
+| ----- | -------------------------- |---------------------------------------------------- |
+| name  | string                     | 1-100 character choice name                         |
+| value | string, integer, or double | value of the choice, up to 100 characters if string |
 
-
-## Application Command Permissions Object
+### Application Command Permissions Object
 
 ###### Guild Application Command Permissions Structure
 
 Returned when fetching the permissions for a command in a guild.
 
-| Field | Type | Description |
-| ----- | ---- | ----------- |
-| id | snowflake | the id of the command |
-| application_id | snowflake | the id of the application the command belongs to |
-| guild_id | snowflake | the id of the guild |
-| permissions | array of [ApplicationCommandPermissions](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-permissions-object-application-command-permissions-structure) | the permissions for the command in the guild |
+| Field          | Type                                                                                                                                                           | Description                                      |
+| -------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------ |
+| id             | snowflake                                                                                                                                                      | the id of the command                            |
+| application_id | snowflake                                                                                                                                                      | the id of the application the command belongs to |
+| guild_id       | snowflake                                                                                                                                                      | the id of the guild                              |
+| permissions    | array of [application command permissions](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-permissions-object-application-command-permissions-structure) | the permissions for the command in the guild     |
 
 ###### Application Command Permissions Structure
 
 Application command permissions allow you to enable or disable commands for specific users or roles within a guild.
 
-| Field | Type | Description |
-| ----- | ---- | ----------- |
-| id    | snowflake | the id of the role or user |
-| type | [ApplicationCommandPermissionType](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-permissions-object-application-command-permission-type) | role or user |
-| permission | boolean | `true` to allow, `false`, to disallow |
+| Field      | Type                                                                                                                                                | Description                           |
+| ---------- | --------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------- |
+| id         | snowflake                                                                                                                                           |  the id of the role or user           |
+| type       | [application command permission type](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-permissions-object-application-command-permission-type) | role or user                          |
+| permission | boolean                                                                                                                                             | `true` to allow, `false`, to disallow |
 
 ###### Application Command Permission Type
 
 | Name | Value |
-| -----| ----- |
+| ---- | ----- |
 | ROLE | 1     |
 | USER | 2     |
 
-## Interaction Object
+### Interaction Object
 
 An interaction is the base "thing" that is sent when a user invokes a command, and is the same for Slash Commands and other future interaction types (such as [Message Components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS)).
 
 ###### Interaction Structure
 
-| Field          | Type                                                             | Description                                                    |
-|----------------|------------------------------------------------------------------|----------------------------------------------------------------|
-| id             | snowflake                                                        | id of the interaction                                          |
-| application_id | snowflake                                                        | id of the application this interaction is for                  |
-| type           | [InteractionType](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-object-interaction-type)                                                  | the type of interaction                                        |
-| data?\*        | [ApplicationCommandInteractionData](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-object-application-command-interaction-data)                                | the command data payload                                       |
-| guild_id?      | snowflake                                                        | the guild it was sent from                                     |
-| channel_id?    | snowflake                                                        | the channel it was sent from                                   |
-| member?\*\*    | [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) object | guild member data for the invoking user, including permissions |
-| user?          | [user](#DOCS_RESOURCES_USER/user-object) object                  | user object for the invoking user, if invoked in a DM          |
-| token          | string                                                           | a continuation token for responding to the interaction         |
-| version        | int                                                              | read-only property, always `1`                                 |
-| message? | [message](#DOCS_RESOURCES_CHANNEL/message-object) object | for components, the message they were attached to |
+| Field          | Type                                                                                                                              | Description                                                    |
+| -------------- | --------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------- |
+| id             | snowflake                                                                                                                         | id of the interaction                                          |
+| application_id | snowflake                                                                                                                         | id of the application this interaction is for                  |
+| type           | [interaction type](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-object-interaction-type)                                         | the type of interaction                                        |
+| data?\*        | [application command interaction data](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-object-application-command-interaction-data) | the command data payload                                       |
+| guild_id?      | snowflake                                                                                                                         | the guild it was sent from                                     |
+| channel_id?    | snowflake                                                                                                                         | the channel it was sent from                                   |
+| member?\*\*    | [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) object                                                                  | guild member data for the invoking user, including permissions |
+| user?          | [user](#DOCS_RESOURCES_USER/user-object) object                                                                                   | user object for the invoking user, if invoked in a DM          |
+| token          | string                                                                                                                            | a continuation token for responding to the interaction         |
+| version        | integer                                                                                                                           | read-only property, always `1`                                 |
+| message?       | [message](#DOCS_RESOURCES_CHANNEL/message-object) object                                                                          | for components, the message they were attached to              |
 
-\* This is always present on `ApplicationCommand` interaction types. It is optional for future-proofing against new interaction types
+\* This is always present on application command interaction types. It is optional for future-proofing against new interaction types
 
 \*\* `member` is sent when the command is invoked in a guild, and `user` is sent when invoked in a DM
 
 ###### Interaction Request Type
 
-| Name               | Value |
-|--------------------|-------|
-| Ping               | 1     |
-| ApplicationCommand | 2     |
-| MessageComponent   | 3     |
+| Name                | Value |
+| ------------------- | ----- |
+| PING                | 1     |
+| APPLICATION_COMMAND | 2     |
+| MESSAGE_COMPONENT   | 3     |
 
 ###### Application Command Interaction Data Structure
 
-| Field     | Type                                             | Description                        |
-|-----------|--------------------------------------------------|------------------------------------|
-| id        | snowflake                                        | the ID of the invoked command      |
-| name      | string                                           | the name of the invoked command    |
-| resolved? | [ApplicationCommandInteractionDataResolved](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-object-application-command-interaction-data-resolved-structure)        | converted users + roles + channels |
-| options?  | array of [ApplicationCommandInteractionDataOption](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-object-application-command-interaction-data-option-structure) | the params + values from the user  |
-| custom_id | string | for components, the [`custom_id`](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/custom-id) of the component |
-| component_type | int | for components, the [type](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-types) of the component |
+| Field          | Type                                                                                                                                                               | Description                                                                                         |
+| -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------- |
+| id             | snowflake                                                                                                                                                          | the ID of the invoked command                                                                       |
+| name           | string                                                                                                                                                             | the name of the invoked command                                                                     |
+| resolved?      | [application command interaction data resolved](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-object-application-command-interaction-data-resolved-structure)      | converted users + roles + channels                                                                  |
+| options?       | array of [application command interaction data option](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-object-application-command-interaction-data-option-structure) | the params + values from the user                                                                   |
+| custom_id      | string                                                                                                                                                             | for components, the [`custom_id`](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/custom-id) of the component |
+| component_type | integer                                                                                                                                                            | for components, the [type](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-types) of the component  |
 
 ###### Application Command Interaction Data Resolved Structure
 
@@ -1013,11 +1012,11 @@ An interaction is the base "thing" that is sent when a user invokes a command, a
 > If data for a Member is included, data for its corresponding User will also be included.
 
 | Field         | Type                                                                                     | Description                         |
-|---------------|------------------------------------------------------------------------------------------|-------------------------------------|
-| users?        | Map of Snowflakes to [User Objects](#DOCS_RESOURCES_USER/user-object)                    | the IDs and User objects            |
-| members?\*    | Map of Snowflakes to [Partial Member Objects](#DOCS_RESOURCES_GUILD/guild-member-object)  | the IDs and partial Member objects  |
-| roles?        | Map of Snowflakes to [Role Objects](#DOCS_TOPICS_PERMISSIONS/role-object)                 | the IDs and Role objects            |
-| channels?\*\* | Map of Snowflakes to [Partial Channel Objects](#DOCS_RESOURCES_CHANNEL/channel-object)    | the IDs and partial Channel objects |
+| ------------- | ---------------------------------------------------------------------------------------- | ----------------------------------- |
+| users?        | Map of Snowflakes to [user](#DOCS_RESOURCES_USER/user-object) objects                    | the ids and User objects            |
+| members?\*    | Map of Snowflakes to [partial member](#DOCS_RESOURCES_GUILD/guild-member-object) objects | the ids and partial Member objects  |
+| roles?        | Map of Snowflakes to [role](#DOCS_TOPICS_PERMISSIONS/role-object) objects                | the ids and Role objects            |
+| channels?\*\* | Map of Snowflakes to [partial channel](#DOCS_RESOURCES_CHANNEL/channel-object) objects   | the ids and partial Channel objects |
 
 \* Partial `Member` objects are missing `user`, `deaf` and `mute` fields
 
@@ -1029,38 +1028,37 @@ All options have names, and an option can either be a parameter and input value-
 
 `value` and `options` are mutually exclusive.
 
-| Field    | Type                                             | Description                                                                                             |
-|----------|--------------------------------------------------|---------------------------------------------------------------------------------------------------------|
-| name     | string                                           | the name of the parameter                                                                               |
-| type     | int                                              | value of [ApplicationCommandOptionType](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object-application-command-option-type) |
-| value?   | [OptionType](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object-application-command-option-type)                                       | the value of the pair                                                                                   |
-| options? | array of [ApplicationCommandInteractionDataOption](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-object-application-command-interaction-data-option-structure) | present if this option is a group or subcommand                                                         |
+| Field    | Type                                                                                                                                                               | Description                                                                                                                              |
+| -------- |------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| name     | string                                                                                                                                                             | the name of the parameter                                                                                                                |
+| type     | integer                                                                                                                                                            | value of [application command option type](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object-application-command-option-type) |
+| value?   | [application command option type](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object-application-command-option-type)                                    | the value of the pair                                                                                                                    |
+| options? | array of [application command interaction data option](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-object-application-command-interaction-data-option-structure) | present if this option is a group or subcommand                                                                                          |
 
-## Interaction Response Object
+### Interaction Response Object
 
 After receiving an interaction, you must respond to acknowledge it. You can choose to respond with a message immediately using type `4`, or you can choose to send a deferred response with type `5`. If choosing a deferred response, the user will see a loading state for the interaction, and you'll have up to 15 minutes to edit the original deferred response using [Edit Original Interaction Response](#DOCS_INTERACTIONS_SLASH_COMMANDS/edit-original-interaction-response).
 
-![A deferred response tells the user "Bot name is thinking"](deferred-example.png)
+![A deferred response tells the user "{bot.name} is thinking"](deferred-example.png)
 
-Interaction responses can also be public—everyone can see it—or "ephemeral"—only the invoking user can see it. That is determined by setting `flags` to `64` on the [InteractionApplicationCommandCallbackData](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-response-object-interaction-application-command-callback-data-structure).
+Interaction responses can also be public—everyone can see it—or "ephemeral"—only the invoking user can see it. That is determined by setting `flags` to `64` on the [interaction application command callback data](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-response-object-interaction-application-command-callback-data-structure).
 
 ###### Interaction Response Structure
 
-
-| Field | Type                                      | Description                  |
-|-------|-------------------------------------------|------------------------------|
-| type  | [InteractionCallbackType](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-response-object-interaction-callback-type)                   | the type of response         |
-| data? | [InteractionApplicationCommandCallbackData](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-response-object-interaction-application-command-callback-data-structure) | an optional response message |
+| Field | Type                                                                                                                                                                   | Description                  |
+| ----- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------- |
+| type  | [interaction callback type](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-response-object-interaction-callback-type)                                                   | the type of response         |
+| data? | [interaction application command callback data](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-response-object-interaction-application-command-callback-data-structure) | an optional response message |
 
 ###### Interaction Callback Type
 
-| Name                             | Value | Description                                                                 |
-|----------------------------------|-------|-----------------------------------------------------------------------------|
-| Pong                             | 1     | ACK a `Ping`                                                                |
-| ChannelMessageWithSource         | 4     | respond to an interaction with a message                                    |
-| DeferredChannelMessageWithSource | 5     | ACK an interaction and edit a response later, the user sees a loading state |
-| DeferredUpdateMessage\* | 6 | for components, ACK an interaction and edit the original message later; the user does not see a loading state |
-| UpdateMessage\* | 7 | for components, edit the message the component was attached to |
+| Name                                 | Value | Description                                                                                                   |
+| ------------------------------------ | ----- | ------------------------------------------------------------------------------------------------------------- |
+| PONG                                 | 1     | ACK a `Ping`                                                                                                  |
+| CHANNEL_MESSAGE_WITH_SOURCE          | 4     | respond to an interaction with a message                                                                      |
+| DEFERRED_CHANNEL_MESSAGE_WITH_SOURCE | 5     | ACK an interaction and edit a response later, the user sees a loading state                                   |
+| DEFERRED_UPDATE_MESSAGE\*            | 6     | for components, ACK an interaction and edit the original message later; the user does not see a loading state |
+| UPDATE_MESSAGE\*                     | 7     | for components, edit the message the component was attached to                                                |
 
 \* Only valid for [component-based](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/) interactions
 
@@ -1068,24 +1066,30 @@ Interaction responses can also be public—everyone can see it—or "ephemeral"�
 
 Not all message fields are currently supported.
 
-| Name              | Value                                                    | Description                                                                                 |
-|-------------------|----------------------------------------------------------|---------------------------------------------------------------------------------------------|
-| tts?              | boolean                                                  | is the response TTS                                                                         |
-| content?          | string                                                   | message content                                                                             |
-| embeds?           | array of [embeds](#DOCS_RESOURCES_CHANNEL/embed-object)  | supports up to 10 embeds                                                                    |
-| allowed_mentions? | [allowed mentions](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object)                                         | [allowed mentions](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object) object                  |
-| flags?            | int                                                      | set to `64` to make your response ephemeral                                                 |
-| components?       | array of [components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS)| message components    |
+| Name              | Type                                                                | Description                                                                                                                            |
+| ----------------- | ------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
+| tts?              | boolean                                                             | is the response TTS                                                                                                                    |
+| content?          | string                                                              | message content                                                                                                                        |
+| embeds?           | array of [embeds](#DOCS_RESOURCES_CHANNEL/embed-object)             | supports up to 10 embeds                                                                                                               |
+| allowed_mentions? | [allowed mentions](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object) | [allowed mentions](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object) object                                                             |
+| flags?            | integer                                                             | [interaction application command callback data flags](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-response-object-interaction-application-command-callback-data-flags) |
+| components?       | array of [components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/)       | message components                                                                                                                     |
 
-## Message Interaction Object
+###### Interaction Application Command Callback Data Flags
+
+| Name      | Value  | Description                                    |
+| --------- | ------ | ---------------------------------------------- |
+| EPHEMERAL | 1 << 6 | only the user receiving the message can see it |
+
+### Message Interaction Object
 
 This is sent on the [message object](#DOCS_RESOURCES_CHANNEL/message-object) when the message is a response to an Interaction.
 
 ###### Message Interaction Structure
 
-| Name | Value | Description |
-| --- | --- | --- |
-| id           | snowflake                                                        | id of the interaction                                          |
-| type         | [InteractionType](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-object-interaction-type)                                                  | the type of interaction                                        |
-| name | string | the name of the [ApplicationCommand](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object-application-command-structure) |
-| user | [user object](#DOCS_RESOURCES_USER/user-object) | the user who invoked the interaction |
+| Name | Type                                                                                      | Description                                                                                                                       |
+| ---- | ----------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
+| id   | snowflake                                                                                 | id of the interaction                                                                                                             |
+| type | [interaction type](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-object-interaction-type) | the type of interaction                                                                                                           |
+| name | string                                                                                    | the name of the [application command](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object-application-command-structure) |
+| user | [user object](#DOCS_RESOURCES_USER/user-object)                                           | the user who invoked the interaction                                                                                              |

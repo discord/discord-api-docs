@@ -6,18 +6,19 @@ Represents a code that when used, adds a user to a guild or group DM channel.
 
 ###### Invite Structure
 
-| Field                       | Type                                                                         | Description                                                                                                        |
-|-----------------------------|------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------|
-| code                        | string                                                                       | the invite code (unique ID)                                                                                        |
-| guild?                      | partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object                   | the guild this invite is for                                                                                       |
-| channel                     | partial [channel](#DOCS_RESOURCES_CHANNEL/channel-object) object             | the channel this invite is for                                                                                     |
-| inviter?                    | [user](#DOCS_RESOURCES_USER/user-object) object                              | the user who created the invite                                                                                    |
-| target_type?                | integer                                                                      | the [type of target](#DOCS_RESOURCES_INVITE/invite-object-invite-target-types) for this voice channel invite       |
-| target_user?                | [user](#DOCS_RESOURCES_USER/user-object) object                              | the user whose stream to display for this voice channel stream invite                                              |
-| target_application?         | partial [application](#DOCS_RESOURCES_APPLICATION/application-object) object | the embedded application to open for this voice channel embedded application invite                                |
-| approximate_presence_count? | integer                                                                      | approximate count of online members, returned from the `GET /invites/<code>` endpoint when `with_counts` is `true` |
-| approximate_member_count?   | integer                                                                      | approximate count of total members, returned from the `GET /invites/<code>` endpoint when `with_counts` is `true`  |
-| expires_at?                 | ?ISO8601 timestamp                                                           | the expiration date of this invite, returned from the `GET /invites/<code>` endpoint when `with_expiration` is `true`  |
+| Field                       | Type                                                                                | Description                                                                                                                       |
+|-----------------------------|-------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------|
+| code                        | string                                                                              | the invite code (unique ID)                                                                                                       |
+| guild?                      | partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object                          | the guild this invite is for                                                                                                      |
+| channel                     | partial [channel](#DOCS_RESOURCES_CHANNEL/channel-object) object                    | the channel this invite is for                                                                                                    |
+| inviter?                    | [user](#DOCS_RESOURCES_USER/user-object) object                                     | the user who created the invite                                                                                                   |
+| target_type?                | integer                                                                             | the [type of target](#DOCS_RESOURCES_INVITE/invite-object-invite-target-types) for this voice channel invite                      |
+| target_user?                | [user](#DOCS_RESOURCES_USER/user-object) object                                     | the user whose stream to display for this voice channel stream invite                                                             |
+| target_application?         | partial [application](#DOCS_RESOURCES_APPLICATION/application-object) object        | the embedded application to open for this voice channel embedded application invite                                               |
+| approximate_presence_count? | integer                                                                             | approximate count of online members, returned from the `GET /invites/<code>` endpoint when `with_counts` is `true`                |
+| approximate_member_count?   | integer                                                                             | approximate count of total members, returned from the `GET /invites/<code>` endpoint when `with_counts` is `true`                 |
+| expires_at?                 | ?ISO8601 timestamp                                                                  | the expiration date of this invite, returned from the `GET /invites/<code>` endpoint when `with_expiration` is `true`             |
+| stage_instance?             | [invite stage instance](#DOCS_RESOURCES_INVITE/invite-stage-instance-object) object | stage instance data if there is a [public Stage instance](#DOCS_RESOURCES_STAGE_INSTANCE) in the Stage channel this invite is for |
 
 ###### Invite Target Types
 
@@ -91,6 +92,38 @@ Extra information about an invite, will extend the [invite](#DOCS_RESOURCES_INVI
 }
 ```
 
+### Invite Stage Instance Object
+
+###### Invite Stage Instance Structure
+
+| Field             | Type                                                                               | Description                                        |
+|-------------------|------------------------------------------------------------------------------------|----------------------------------------------------|
+| members           | array of partial [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) objects | the members speaking in the Stage                  |
+| participant_count | integer                                                                            | the number of users in the Stage                   |
+| speaker_count     | integer                                                                            | the number of users speaking in the Stage          |
+| topic             | string                                                                             | the topic of the Stage instance (1-120 characters) |
+
+###### Example Invite Stage Instance
+
+```json
+{
+  "topic": "The debate is over: diet is better than regular",
+  "participant_count": 200,
+  "speaker_count": 5 ,
+  "members": [
+    {
+      "roles": [],
+      "nick": "NOT API SUPPORT",
+      "avatar": null,
+      "premium_since": null,
+      "joined_at": "2015-04-26T06:26:56.936000+00:00",
+      "pending": false,
+      "user": {}
+    }
+  ]
+}
+```
+
 ## Get Invite % GET /invites/{invite.code#DOCS_RESOURCES_INVITE/invite-object}
 
 Returns an [invite](#DOCS_RESOURCES_INVITE/invite-object) object for the given code.
@@ -105,3 +138,6 @@ Returns an [invite](#DOCS_RESOURCES_INVITE/invite-object) object for the given c
 ## Delete Invite % DELETE /invites/{invite.code#DOCS_RESOURCES_INVITE/invite-object}
 
 Delete an invite. Requires the `MANAGE_CHANNELS` permission on the channel this invite belongs to, or `MANAGE_GUILD` to remove any invite across the guild. Returns an [invite](#DOCS_RESOURCES_INVITE/invite-object) object on success. Fires a [Invite Delete](#DOCS_TOPICS_GATEWAY/invite-delete) Gateway event.
+
+> info
+> This endpoint supports the `X-Audit-Log-Reason` header.

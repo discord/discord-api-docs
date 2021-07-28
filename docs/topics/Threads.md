@@ -1,12 +1,32 @@
 # Threads
 
-[Threads](#DOCS_RESOURCES_CHANNEL/channel-object) are a new Discord feature, only available in API v9. Bots that do not update to API v9 will not receive gateway events for threads, or things that happen in threads (such as [Message Create](#DOCS_TOPICS_GATEWAY/message-create)). Threads can be thought of as temporary sub-channels inside an existing channel, to help better organize conversation in a busy channel.
+[Threads](#DOCS_RESOURCES_CHANNEL/channel-object) are a new Discord feature. Threads can be thought of as temporary sub-channels inside an existing channel, to help better organize conversation in a busy channel.
 
 Threads have been designed to be very similar to [channel](#DOCS_RESOURCES_CHANNEL/channel-object) objects, and this topic aggregates all of the information about threads, which should all help to make migrating very straightforward.
 
 ## Disclaimer
 
 Threads have not shipped yet, and so everything in this documentation is still subject to change. At a minimum additional status codes will be added for reaching certain limits, and we may implement additional features, especially around moderation tooling, but we don't expect any of those to be breaking changes for what is currently documented.
+
+## Backwards Compatibility
+
+Threads are only available in API v9. Bots that do not update to API v9 will not receive most gateway events for threads, or things that happen in threads (such as [Message Create](#DOCS_TOPICS_GATEWAY/message-create)). Bots on APIv8 will still receive gateway events for Interactions though.
+
+The list of gateway events that may be dropped includes, but is not limited to:
+
+- MESSAGE_CREATE
+- MESSAGE_DELETE
+- MESSAGE_DELETE_BULK
+- MESSAGE_REACTION_ADD
+- MESSAGE_REACTION_REMOVE
+- MESSAGE_REACTION_REMOVE_ALL
+- MESSAGE_REACTION_REMOVE_EMOJI
+- MESSAGE_UPDATE
+- THREAD_CREATE
+- THREAD_UPDATE
+- THREAD_DELETE
+- THREAD_MEMBER_UPDATE
+- THREAD_MEMBERS_UPDATE
 
 ## New Thread Fields
 
@@ -78,7 +98,7 @@ Membership is tracked in an array of [thread member](#DOCS_RESOURCES_CHANNEL/thr
 > info
 > These require the `GUILD_MEMBERS` [Gateway Intent](#DOCS_TOPICS_GATEWAY/gateway-intents)
 
-- An API `GET` call to `/channels/<channel_id>/thread-members` which returns an array of [thread member](#DOCS_RESOURCES_CHANNEL/thread-member-object) objects.
+- An API `GET` call to [`/channels/<channel_id>/thread-members`](#DOCS_RESOURCES_CHANNEL/list-thread-members) which returns an array of [thread member](#DOCS_RESOURCES_CHANNEL/thread-member-object) objects.
 - The [Thread Members Update](#DOCS_TOPICS_GATEWAY/thread-members-update) Gateway Event which will include all users who were added to or removed from a thread by an action.
 
 ## Editing & Deleting Threads
@@ -107,10 +127,10 @@ Threads introduce a few new [message types](#DOCS_RESOURCES_CHANNEL/message-obje
 
 There are four new `GET` routes for enumerating threads in a specific channel:
 
-- `/channels/<channel_id>/threads/active` returns all active threads in a channel that the current user can access, includes public & private threads
-- `/channels/<channel_id>/users/@me/threads/archived/private` returns all archived, private threads in a channel, that the current user has is a member of, sorted by thread id descending
-- `/channels/<channel_id>/threads/archived/public` returns all archived, public threads in a channel, sorted by archive timestamp descending
-- `/channels/<channel_id>/threads/archived/private` returns all archived, private threads in a channel, sorted by archive timestamp descending
+- [`/channels/<channel_id>/threads/active`](#DOCS_RESOURCES_CHANNEL/list-active-threads) returns all active threads in a channel that the current user can access, includes public & private threads
+- [`/channels/<channel_id>/users/@me/threads/archived/private`](#DOCS_RESOURCES_CHANNEL/list-joined-private-archived-threads) returns all archived, private threads in a channel, that the current user has is a member of, sorted by thread id descending
+- [`/channels/<channel_id>/threads/archived/public`](#DOCS_RESOURCES_CHANNEL/list-public-archived-threads) returns all archived, public threads in a channel, sorted by archive timestamp descending
+- [`/channels/<channel_id>/threads/archived/private`](#DOCS_RESOURCES_CHANNEL/list-private-archived-threads) returns all archived, private threads in a channel, sorted by archive timestamp descending
 
 ## Webhooks
 
@@ -134,7 +154,7 @@ When a client is added to a public thread, but has not yet subscribed to threads
 
 ### Gaining access to a channel
 
-When a client gains access to a channel (example: they _gain_ the moderator role, and thus now they have more channels they can view), they won't have any of the threads in memory for that channel (since the gateway only syncs threads that the client has permission to view). To solve this, we send the [Thread List Sync](#DOCS_TOPICS_GATEWAY/thread-list-sync) dispatch to a client when they gain access to a channel! This dispatch includes a `channel_ids` array, which is the id of all the channels whose threads are being synced. This field can be used to first clear out any active threads whose `parent_id` is in the `channel_ids` array, and then injest any threads that were in the dispatch.
+When a client gains access to a channel (example: they _gain_ the moderator role, and thus now they have more channels they can view), they won't have any of the threads in memory for that channel (since the gateway only syncs threads that the client has permission to view). To solve this, we send the [Thread List Sync](#DOCS_TOPICS_GATEWAY/thread-list-sync) dispatch to a client when they gain access to a channel! This dispatch includes a `channel_ids` array, which is the id of all the channels whose threads are being synced. This field can be used to first clear out any active threads whose `parent_id` is in the `channel_ids` array, and then ingest any threads that were in the dispatch.
 
 ### Losing access to a channel
 

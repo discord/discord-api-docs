@@ -236,17 +236,35 @@ Discord utilizes a subset of markdown for rendering message content on its clien
 
 ###### Formats
 
-| Type                    | Structure          | Example                      |
-|-------------------------|--------------------|------------------------------|
-| User                    | <@USER_ID>         | <@80351110224678912>         |
-| User (Nickname)         | <@!USER_ID>        | <@!80351110224678912>        |
-| Channel                 | <#CHANNEL_ID>      | <#103735883630395392>        |
-| Role                    | <@&ROLE_ID>        | <@&165511591545143296>       |
-| Standard Emoji          | Unicode Characters | 💯                           |
-| Custom Emoji            | <:NAME:ID>         | <:mmLol:216154654256398347>  |
-| Custom Emoji (Animated) | <a:NAME:ID>        | <a:b1nzy:392938283556143104> |
+| Type                    | Structure           | Example                      |
+|-------------------------|---------------------|------------------------------|
+| User                    | <@USER_ID>          | <@80351110224678912>         |
+| User (Nickname)         | <@!USER_ID>         | <@!80351110224678912>        |
+| Channel                 | <#CHANNEL_ID>       | <#103735883630395392>        |
+| Role                    | <@&ROLE_ID>         | <@&165511591545143296>       |
+| Standard Emoji          | Unicode Characters  | 💯                           |
+| Custom Emoji            | <:NAME:ID>          | <:mmLol:216154654256398347>  |
+| Custom Emoji (Animated) | <a:NAME:ID>         | <a:b1nzy:392938283556143104> |
+| Unix Timestamp          | <t:TIMESTAMP>       | <t:1618953630>               |
+| Unix Timestamp (Styled) | <t:TIMESTAMP:STYLE> | <t:1618953630:d>             |
 
 Using the markdown for either users, roles, or channels will usually mention the target(s) accordingly, but this can be suppressed using the `allowed_mentions` parameter when creating a message. Standard emoji are currently rendered using [Twemoji](https://twemoji.twitter.com/) for Desktop/Android and Apple's native emoji on iOS.
+
+Timestamps will display the given timestamp in the user's timezone and locale.
+
+###### Timestamp Styles
+
+| Style | Example Output               | Description     |
+| ----- | ---------------------------- | --------------- |
+| t     | 16:20                        | Short Time      |
+| T     | 16:20:30                     | Long Time       |
+| d     | 20/04/2021                   | Short Date      |
+| D     | 20 April 2021                | Long Date       |
+| f \*  | 20 April 2021 16:20          | Short Date/Time |
+| F     | Tuesday, 20 April 2021 16:20 | Long Date/Time  |
+| R     | 2 months ago                 | Relative Time   |
+
+\*default
 
 ## Image Formatting
 
@@ -260,12 +278,13 @@ Discord uses ids and hashes to render images in the client. These hashes can be 
 
 ###### Image Formats
 
-| Name | Extension   |
-|------|-------------|
-| JPEG | .jpg, .jpeg |
-| PNG  | .png        |
-| WebP | .webp       |
-| GIF  | .gif        |
+| Name   | Extension   |
+|--------|-------------|
+| JPEG   | .jpg, .jpeg |
+| PNG    | .png        |
+| WebP   | .webp       |
+| GIF    | .gif        |
+| Lottie | .json       |
 
 ###### CDN Endpoints
 
@@ -282,13 +301,17 @@ Discord uses ids and hashes to render images in the client. These hashes can be 
 | Application Cover      | app-icons/[application_id](#DOCS_RESOURCES_APPLICATION/application-object)/[cover_image](#DOCS_RESOURCES_APPLICATION/application-object).png                                                                                                                      | PNG, JPEG, WebP      |
 | Application Asset      | app-assets/[application_id](#DOCS_RESOURCES_APPLICATION/application-object)/[asset_id](#DOCS_TOPICS_GATEWAY/activity-object-activity-assets).png                                                                                                                  | PNG, JPEG, WebP      |
 | Achievement Icon       | app-assets/[application_id](#DOCS_RESOURCES_APPLICATION/application-object)/achievements/[achievement_id](#DOCS_GAME_SDK_ACHIEVEMENTS/data-models-user-achievement-struct)/icons/[icon_hash](#DOCS_GAME_SDK_ACHIEVEMENTS/data-models-user-achievement-struct).png | PNG, JPEG, WebP      |
+| Sticker Pack Banner    | app-assets/710982414301790216/store/[sticker_pack_banner_asset_id](#DOCS_RESOURCES_STICKER/sticker-pack-object).png                                                                                                                                               | PNG, JPEG, WebP      |
 | Team Icon              | team-icons/[team_id](#DOCS_TOPICS_TEAMS/team-object)/[team_icon](#DOCS_TOPICS_TEAMS/team-object).png                                                                                                                                                              | PNG, JPEG, WebP      |
+| Sticker                | stickers/[sticker_id](#DOCS_RESOURCES_STICKER/sticker-object).png \*\*\* \*\*\*\*                                                                                                                                                                                 | PNG, Lottie          |
 
 \* In the case of endpoints that support GIFs, the hash will begin with `a_` if it is available in GIF format. (example: `a_1269e74af4df7417b13759eae50c83dc`)
 
 \*\* In the case of the Default User Avatar endpoint, the value for `user_discriminator` in the path should be the user's discriminator modulo 5—Test#1337 would be `1337 % 5`, which evaluates to 2.
 
-\*\*\* In the case of the Default User Avatar endpoint, the size of images returned is constant with the "size" querystring parameter being ignored.
+\*\*\* In the case of the Default User Avatar and Sticker endpoints, the size of images returned is constant with the "size" querystring parameter being ignored.
+
+\*\*\*\* In the case of the Sticker endpoint, the sticker will be available as PNG if its [`format_type`](#DOCS_RESOURCES_STICKER/sticker-object) is `PNG` or `APNG`, and as [Lottie](https://airbnb.io/lottie/#/) if its `format_type` is `LOTTIE`.
 
 ## Image Data
 
