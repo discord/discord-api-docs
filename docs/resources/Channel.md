@@ -55,6 +55,7 @@ Represents a guild or DM channel within Discord.
 | GUILD_PUBLIC_THREAD     | 11  | a temporary sub-channel within a GUILD_TEXT channel                                                                                                  |
 | GUILD_PRIVATE_THREAD    | 12  | a temporary sub-channel within a GUILD_TEXT channel that is only viewable by those invited and those with the MANAGE_THREADS permission              |
 | GUILD_STAGE_VOICE       | 13  | a voice channel for [hosting events with an audience](https://support.discord.com/hc/en-us/articles/1500005513722)                                   |
+| DIRECTORY               | 14  | a channel type for Hub servers                                 |
 
 ###### Video Quality Modes
 
