@@ -35,7 +35,7 @@ Represents a guild or DM channel within Discord.
 | default_auto_archive_duration? | integer                                                                    | default duration for newly created threads, in minutes, to automatically archive the thread after recent activity, can be set to: 60, 1440, 4320, 10080                         |
 | permissions?                   | string                                                                     | computed permissions for the invoking user in the channel, including overwrites, only included when part of the `resolved` data received on a slash command interaction         |
 
-\* `rate_limit_per_user` also applies to thread creation. Users can send one message and create one thread during each `rate_limit_per_user` interval. For thread channels, `rate_limit_per_user` is only returned if the field has been changed (this includes when `rate_limit_per_user` is changed to a non-zero value and then back to zero).
+\* `rate_limit_per_user` also applies to thread creation. Users can send one message and create one thread during each `rate_limit_per_user` interval.
 
 ###### Channel Types
 
