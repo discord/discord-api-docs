@@ -1211,7 +1211,7 @@ Creates a new thread that is not connected to an existing message. The created t
 
 \*\* The 3 day and 7 day archive durations require the server to be boosted. The [guild features](#DOCS_RESOURCES_GUILD/guild-object-guild-features) will indicate if that is possible for the guild.
 
-\*\*\* `type` defaults to `PRIVATE_THREAD` in order to match the behavior when thread documentation was first published. This is a bit of a weird default though, and thus is highly likely to change in a future API version, so we would recommend always explicitly setting the `type` parameter.
+\*\*\* In API v9, `type` defaults to `PRIVATE_THREAD` in order to match the behavior when thread documentation was first published. In API v10 this will be changed to be a required field, with no default.
 
 ## Join Thread % PUT /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/thread-members/@me
 
@@ -1239,6 +1239,9 @@ Returns array of [thread members](#DOCS_RESOURCES_CHANNEL/thread-member-object) 
 ## List Active Threads % GET /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/threads/active
 
 Returns all active threads in the channel, including public and private threads. Threads are ordered by their `id`, in descending order.
+
+> warn
+> This route is deprecated and will be removed in v10. It is replaced by [List Active Guild Threads](#DOCS_RESOURCES_GUILD/list-active-threads).
 
 ###### Response Body
 

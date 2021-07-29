@@ -8,12 +8,15 @@ Whenever an admin action is performed on the API, an entry is added to the respe
 
 ###### Audit Log Structure
 
-| Field             | Type                                                                                 | Description                             |
-| ----------------- | ------------------------------------------------------------------------------------ | --------------------------------------- |
-| webhooks          | array of [webhook](#DOCS_RESOURCES_WEBHOOK/webhook-object) objects                   | list of webhooks found in the audit log |
-| users             | array of [user](#DOCS_RESOURCES_USER/user-object) objects                            | list of users found in the audit log    |
-| audit_log_entries | array of [audit log entry](#DOCS_RESOURCES_AUDIT_LOG/audit-log-entry-object) objects | list of audit log entries               |
-| integrations      | array of partial [integration](#DOCS_RESOURCES_GUILD/integration-object) objects     | list of partial integration objects     |
+| Field             | Type                                                                                 | Description                              |
+| ----------------- | ------------------------------------------------------------------------------------ | ---------------------------------------- |
+| webhooks          | array of [webhook](#DOCS_RESOURCES_WEBHOOK/webhook-object) objects                   | list of webhooks found in the audit log  |
+| users             | array of [user](#DOCS_RESOURCES_USER/user-object) objects                            | list of users found in the audit log     |
+| audit_log_entries | array of [audit log entry](#DOCS_RESOURCES_AUDIT_LOG/audit-log-entry-object) objects | list of audit log entries                |
+| integrations      | array of partial [integration](#DOCS_RESOURCES_GUILD/integration-object) objects     | list of partial integration objects      |
+| threads           | array of [channel](#DOCS_RESOURCES_CHANNEL/channel-object) objects                   | list of threads found in the audit log\* |
+
+\* Threads referenced in THREAD_CREATE and THREAD_UPDATE events are included in the threads map, since archived threads might not be kept in memory by clients.
 
 ###### Example Partial Integration Object
 
@@ -88,6 +91,9 @@ Whenever an admin action is performed on the API, an entry is added to the respe
 | STICKER_CREATE           | 90    |
 | STICKER_UPDATE           | 91    |
 | STICKER_DELETE           | 92    |
+| THREAD_CREATE            | 110   |
+| THREAD_UPDATE            | 111   |
+| THREAD_DELETE            | 112   |
 
 ###### Optional Audit Entry Info
 
@@ -179,6 +185,10 @@ Whenever an admin action is performed on the API, an entry is added to the respe
 | asset                         | [sticker](#DOCS_RESOURCES_STICKER/sticker-object)                                                                           | string                                                                               | empty string                                                                                                                                            |
 | available                     | [sticker](#DOCS_RESOURCES_STICKER/sticker-object)                                                                           | boolean                                                                              | availability of sticker changed                                                                                                                         |
 | guild_id                      | [sticker](#DOCS_RESOURCES_STICKER/sticker-object)                                                                           | snowflake                                                                            | guild sticker is in changed                                                                                                                             |
+| archived                      | [thread](#DOCS_RESOURCES_CHANNEL/thread-metadata-object)                                                                    | bool                                                                                 | thread is now archived/unarchived                                                                                                                       |
+| locked                        | [thread](#DOCS_RESOURCES_CHANNEL/thread-metadata-object)                                                                    | bool                                                                                 | thread is now locked/unlocked                                                                                                                           |
+| auto_archive_duration         | [thread](#DOCS_RESOURCES_CHANNEL/thread-metadata-object)                                                                    | integer                                                                              | auto archive duration changed                                                                                                                           |
+| default_auto_archive_duration | [channel](#DOCS_RESOURCES_CHANNEL/channel)                                                                                  | integer                                                                              | default auto archive duration for newly created threads changed                                                                                         |
 
 ###### Example Partial Role Object
 
