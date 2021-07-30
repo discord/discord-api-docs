@@ -254,15 +254,15 @@ Timestamps will display the given timestamp in the user's timezone and locale.
 
 ###### Timestamp Styles
 
-| Style | Example Output               | Description     |
-| ----- | ---------------------------- | --------------- |
-| t     | 16:20                        | Short Time      |
-| T     | 16:20:30                     | Long Time       |
-| d     | 20/04/2021                   | Short Date      |
-| D     | 20 April 2021                | Long Date       |
-| f \*  | 20 April 2021 16:20          | Short Date/Time |
-| F     | Tuesday, 20 April 2021 16:20 | Long Date/Time  |
-| R     | 2 months ago                 | Relative Time   |
+| Style | Example Output                  | Description     |
+| ----- | ------------------------------- | --------------- |
+| t     | 4:20 PM                         | Short Time      |
+| T     | 4:20:30 PM                      | Long Time       |
+| d     | 04/20/2021                      | Short Date      |
+| D     | April 20, 2021                  | Long Date       |
+| f \*  | April 20, 2021 4:20 PM          | Short Date/Time |
+| F     | Tuesday, April 20, 2021 4:20 PM | Long Date/Time  |
+| R     | 2 months ago                    | Relative Time   |
 
 \*default
 
