@@ -1191,10 +1191,10 @@ When called on a `GUILD_TEXT` channel, creates a `GUILD_PUBLIC_THREAD`. When cal
 
 ###### JSON Params
 
-| Field                   | Type    | Description                                                                                                         |
-|-------------------------|---------|---------------------------------------------------------------------------------------------------------------------|
-| name                    | string  | 1-100 character channel name                                                                                        |
-| auto_archive_duration\* | integer | duration in minutes to automatically archive the thread after recent activity, can be set to: 60, 1440, 4320, 10080 |
+| Field                    | Type    | Description                                                                                                         |
+|--------------------------|---------|---------------------------------------------------------------------------------------------------------------------|
+| name                     | string  | 1-100 character channel name                                                                                        |
+| auto_archive_duration?\* | integer | duration in minutes to automatically archive the thread after recent activity, can be set to: 60, 1440, 4320, 10080 |
 
 \* The 3 day and 7 day archive durations require the server to be boosted. The [guild features](#DOCS_RESOURCES_GUILD/guild-object-guild-features) will indicate if a server is able to use those settings.
 
@@ -1207,12 +1207,12 @@ Creates a new thread that is not connected to an existing message. The created t
 
 ###### JSON Params
 
-| Field                     | Type    | Description                                                                                                         |
-|---------------------------|---------|---------------------------------------------------------------------------------------------------------------------|
-| name                      | string  | 1-100 character channel name                                                                                        |
-| auto_archive_duration\*\* | integer | duration in minutes to automatically archive the thread after recent activity, can be set to: 60, 1440, 4320, 10080 |
-| type?\*\*\*               | integer | the [type of thread](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types) to create                                |
-| invitable?                | boolean | whether non-moderators can add other non-moderators to a thread; only available when creating a private thread      |
+| Field                      | Type    | Description                                                                                                         |
+|----------------------------|---------|---------------------------------------------------------------------------------------------------------------------|
+| name                       | string  | 1-100 character channel name                                                                                        |
+| auto_archive_duration?\*\* | integer | duration in minutes to automatically archive the thread after recent activity, can be set to: 60, 1440, 4320, 10080 |
+| type?\*\*\*                | integer | the [type of thread](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types) to create                                |
+| invitable?                 | boolean | whether non-moderators can add other non-moderators to a thread; only available when creating a private thread      |
 
 \* Creating a private thread requires the server to be boosted. The [guild features](#DOCS_RESOURCES_GUILD/guild-object-guild-features) will indicate if that is possible for the guild.
 
