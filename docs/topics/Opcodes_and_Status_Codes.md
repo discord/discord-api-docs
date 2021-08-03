@@ -166,7 +166,7 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 30010  | Maximum number of reactions reached (20)                                                                                      |
 | 30013  | Maximum number of guild channels reached (500)                                                                                |
 | 30015  | Maximum number of attachments in a message reached (10)                                                                       |
-| 30016  | Maximum number of invites reached (1000)                                                                                      |
+| 30016  | Maximum number of invites reached (1000 per `guild` or 1000 per `channel`)                                                    |
 | 30018  | Maximum number of animated emojis reached                                                                                     |
 | 30019  | Maximum number of server members reached                                                                                      |
 | 30030  | Maximum number of server categories has been reached (5)                                                                      |
