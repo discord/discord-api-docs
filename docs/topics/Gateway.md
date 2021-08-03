@@ -999,8 +999,6 @@ Sent when a guild member is updated. This will also fire when the user object of
 | nick?          | ?string                                           | nickname of the user in the guild                                                                                                      |
 | joined_at      | ?ISO8601 timestamp                                 | when the user joined the guild                                                                                                         |
 | premium_since? | ?ISO8601 timestamp                                | when the user starting [boosting](https://support.discord.com/hc/en-us/articles/360028038352-Server-Boosting-) the guild               |
-| deaf?          | boolean                                           | whether the user is deafened in voice channels                                                                                         |
-| mute?          | boolean                                           | whether the user is muted in voice channels                                                                                            |
 | pending?       | boolean                                           | whether the user has not yet passed the guild's [Membership Screening](#DOCS_RESOURCES_GUILD/membership-screening-object) requirements |
 
 #### Guild Members Chunk
