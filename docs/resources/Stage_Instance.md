@@ -102,3 +102,47 @@ Requires the user to be a moderator of the Stage channel.
 
 > info
 > This endpoint supports the `X-Audit-Log-Reason` header.
+
+### Guild Event Object
+
+###### Guild Event Structure
+
+| Field                 | Type                | Description                                                                                            |
+| --------------------- | ------------------- | ------------------------------------------------------------------------------------------------------ |
+| id                    | snowflake           | the id of the stage event                                                                              |
+| guild_id              | snowflake           | the id of the guild the stage event belongs to                                                         |
+| channel_id            | snowflake           | the id of the stage channel the stage event belongs to                                                 |
+| name                  | string              | the name of the stage event                                                                            |
+| description?          | string              | the description of the stage event                                                                     |
+| image                 | ?string             | the image of the stage event                                                                           |
+| scheduled_start_time  | ISO8601             | the time the stage event will start                                                                    |
+| scheduled_end_time    | ?ISO8601            | the time the stage event will end, or `null` if the stage event does not have a sscheduled time to end |
+| privacy_level         | number              | stage event privacy level                                                                              |
+| status                | number              | the status of the stage event                                                                          |
+| entity_type           | number              | the entity type of the stage event                                                                     |
+| entity_id             | ?snowflake          | entity id                                                                                              |
+| entity_metadata       | object              | stage entity metadata                                                                                  |
+| sku_ids               | array of snowflakes | sku ids                                                                                                |
+| skus                  | array               | skus                                                                                                   |
+
+## List Guild Events % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/events
+
+Returns a list of stage events in the guild.
+
+###### Query String Params
+
+| Field            | Type    | Description                                          |
+| ---------------- | ------- | ---------------------------------------------------- |
+| with_user_count? | boolean | the number of users that are interested in the event |
+
+## Create Guild Event % POST /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/events
+
+Create a stage event in the guild.
+
+###### JSON Params
+
+| Field                | Type    | Description                          |
+| -------------------- | ------- | ------------------------------------ |
+| name                 | string  | the name of the stage event          |
+| privacy_level        | integer | the privacy level of the stage event |
+| scheduled_start_time | ISO8601 | the time to schedule the stage event |

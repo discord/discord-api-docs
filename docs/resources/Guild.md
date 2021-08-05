@@ -691,18 +691,6 @@ This endpoint takes a JSON array of parameters in the following format:
 
 Returns all active threads in the guild, including public and private threads. Threads are ordered by their `id`, in descending order.
 
-## List Guild Events % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/events
-
-Returns a list of stage events in the guild.
-
-## Create Guild Event % POST /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/events
-
-Create a guild stage event.
-
-## Delete Guild Event % DELETE /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/events
-
-Delete a guild stage event.
-
 ###### Response Body
 
 | Field    | Type                                                                            | Description                                                                                  |
