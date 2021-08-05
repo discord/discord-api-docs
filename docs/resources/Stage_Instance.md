@@ -116,7 +116,7 @@ Requires the user to be a moderator of the Stage channel.
 | description?          | string              | the description of the stage event                                                                     |
 | image                 | ?string             | the image of the stage event                                                                           |
 | scheduled_start_time  | ISO8601             | the time the stage event will start                                                                    |
-| scheduled_end_time    | ?ISO8601            | the time the stage event will end, or `null` if the stage event does not have a sscheduled time to end |
+| scheduled_end_time    | ?ISO8601            | the time the stage event will end, or `null` if the stage event does not have a scheduled time to end |
 | privacy_level         | number              | stage event privacy level                                                                              |
 | status                | number              | the status of the stage event                                                                          |
 | entity_type           | number              | the entity type of the stage event                                                                     |
