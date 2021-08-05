@@ -103,31 +103,37 @@ Requires the user to be a moderator of the Stage channel.
 > info
 > This endpoint supports the `X-Audit-Log-Reason` header.
 
-### Guild Event Object
+### Guild Stage Event Object
 
-###### Guild Event Structure
+###### Guild Stage Event Structure
 
-| Field                 | Type                | Description                                                                                            |
-| --------------------- | ------------------- | ------------------------------------------------------------------------------------------------------ |
-| id                    | snowflake           | the id of the stage event                                                                              |
-| guild_id              | snowflake           | the id of the guild the stage event belongs to                                                         |
-| channel_id            | snowflake           | the id of the stage channel the stage event belongs to                                                 |
-| name                  | string              | the name of the stage event                                                                            |
-| description?          | string              | the description of the stage event                                                                     |
-| image                 | ?string             | the image of the stage event                                                                           |
-| scheduled_start_time  | ISO8601             | the time the stage event will start                                                                    |
-| scheduled_end_time    | ?ISO8601            | the time the stage event will end, or `null` if the stage event does not have a scheduled time to end |
-| privacy_level         | number              | stage event privacy level                                                                              |
-| status                | number              | the status of the stage event                                                                          |
-| entity_type           | number              | the entity type of the stage event                                                                     |
-| entity_id             | ?snowflake          | entity id                                                                                              |
-| entity_metadata       | object              | stage entity metadata                                                                                  |
-| sku_ids               | array of snowflakes | sku ids                                                                                                |
-| skus                  | array               | skus                                                                                                   |
+| Field                 | Type                                                                                                   | Description                                                                                           |
+| --------------------- | ------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------- |
+| id                    | snowflake                                                                                              | the id of the stage event                                                                             |
+| guild_id              | snowflake                                                                                              | the id of the guild the stage event belongs to                                                        |
+| channel_id            | snowflake                                                                                              | the id of the stage channel the stage event belongs to                                                |
+| name                  | string                                                                                                 | the name of the stage event                                                                           |
+| description?          | string                                                                                                 | the description of the stage event                                                                    |
+| image                 | ?string                                                                                                | the image of the stage event                                                                          |
+| scheduled_start_time  | ISO8601                                                                                                | the time the stage event will start                                                                   |
+| scheduled_end_time    | ?ISO8601                                                                                               | the time the stage event will end, or `null` if the stage event does not have a scheduled time to end |
+| privacy_level         | integer                                                                                                | stage event privacy level                                                                             |
+| status                | integer                                                                                                | the status of the stage event                                                                         |
+| entity_type           | integer                                                                                                | the entity type of the stage event                                                                    |
+| entity_id             | ?snowflake                                                                                             | entity id                                                                                             |
+| entity_metadata       | [stage entity metadata](#DOCS_RESOURCES_STAGE_INSTANCE/guild-event-object-guild-event-entity-metadata) | metadata for the stage event                                                                          |
+| sku_ids               | array of snowflakes                                                                                    | sku ids                                                                                               |
+| skus                  | array                                                                                                  | skus                                                                                                  |
 
-## List Guild Events % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/events
+###### Guild Event Entity Metadata
 
-Returns a list of stage events in the guild.
+| Field       | Type                | Description                       |
+| ----------- | ------------------- | --------------------------------- |
+| speaker_ids | array of snowflakes | the speakers of the stage channel |
+
+## List Guild Stage Events % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/events
+
+Returns a list of [stage events]((#DOCS_RESOURCES_STAGE_INSTANCE/guild-stage-event-object) in the guild.
 
 ###### Query String Params
 
@@ -135,15 +141,17 @@ Returns a list of stage events in the guild.
 | ---------------- | ------- | ---------------------------------------------------- |
 | with_user_count? | boolean | the number of users that are interested in the event |
 
-## Create Guild Event % POST /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/events
+## Create Guild Stage Event % POST /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/events
 
 Create a stage event in the guild.
 
 ###### JSON Params
 
-| Field                | Type    | Description                          |
-| -------------------- | ------- | ------------------------------------ |
-| name                 | string  | the name of the stage event          |
-| privacy_level        | integer | the privacy level of the stage event |
-| scheduled_start_time | ISO8601 | the time to schedule the stage event |
-| description?         | string  | the description of the stage event   |
+| Field                | Type      | Description                              |
+| -------------------- | --------- | ---------------------------------------- |
+| channel_id?          | snowflake | the stage channel id for the stage event |
+| name                 | string    | the name of the stage event              |
+| privacy_level        | integer   | the privacy level of the stage event     |
+| scheduled_start_time | ISO8601   | the time to schedule the stage event     |
+| description?         | string    | the description of the stage event       |
+| entity_type?         | integer   | stage event entity type                  |
