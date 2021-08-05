@@ -146,3 +146,4 @@ Create a stage event in the guild.
 | name                 | string  | the name of the stage event          |
 | privacy_level        | integer | the privacy level of the stage event |
 | scheduled_start_time | ISO8601 | the time to schedule the stage event |
+| description?         | string  | the description of the stage event   |
