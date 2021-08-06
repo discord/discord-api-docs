@@ -17,7 +17,7 @@ A representation of an event in a Guild.
 | scheduled_start_time | ISO8601                                                                                       | the time the event will start                                                             |
 | scheduled_end_time   | ?ISO8601                                                                                      | the time the event will end, or `null` if the event does not have a scheduled time to end |
 | privacy_level        | [privacy level](#DOCS_RESOURCES_STAGE_INSTANCE/stage-instance-object-privacy-level)           | event privacy level                                                                       |
-| status               | integer                                                                                       | the status of the event                                                                   |
+| status               | [event status](#DOCS_RESOURCES_GUILD_EVENT/guild-event-object-guild-event-status)             | the status of the event                                                                   |
 | entity_type          | [entity type](#DOCS_RESOURCES_GUILD_EVENT/guild-event-object-guild-event-entity-type)         | the entity type of the event                                                              |
 | entity_id            | ?snowflake                                                                                    | entity id                                                                                 |
 | entity_metadata      | [entity metadata](#DOCS_RESOURCES_GUILD_EVENT/guild-event-object-guild-event-entity-metadata) | metadata for the event                                                                    |
@@ -25,7 +25,16 @@ A representation of an event in a Guild.
 | skus                 | array                                                                                         | skus                                                                                      |
 | user_count?          | integer                                                                                       | users subscribed to the event                                                             |
 
-###### Guild Event Entity Type
+###### Guild Event Entity Types
+
+| Type      | Value |
+| --------- | ----- |
+| SCHEDULED | 1     |
+| ACTIVE    | 2     |
+| COMPLETED | 3     |
+| CANCELED  | 4     |
+
+###### Guild Event Status
 
 | Type           | Value |
 | -------------- | ----- |
@@ -54,14 +63,14 @@ Create an event in the guild. Returns a [Guild Event](#DOCS_RESOURCES_GUILD_EVEN
 
 ###### JSON Params
 
-| Field                | Type                                                                                | Description                       |
-| -------------------- | ----------------------------------------------------------------------------------- | --------------------------------- |
-| channel_id?          | snowflake                                                                           | the stage channel id of the event |
-| name                 | string                                                                              | the name of the event             |
-| privacy_level        | [privacy level](#DOCS_RESOURCES_STAGE_INSTANCE/stage-instance-object-privacy-level) | the privacy level of the event    |
-| scheduled_start_time | ISO8601                                                                             | the time to schedule the event    |
-| description?         | string                                                                              | the description of the event      |
-| entity_type?         | integer                                                                             | event entity type                 |
+| Field                | Type                                                                                  | Description                       |
+| -------------------- | ------------------------------------------------------------------------------------- | --------------------------------- |
+| channel_id?          | snowflake                                                                             | the stage channel id of the event |
+| name                 | string                                                                                | the name of the event             |
+| privacy_level        | [privacy level](#DOCS_RESOURCES_STAGE_INSTANCE/stage-instance-object-privacy-level)   | the privacy level of the event    |
+| scheduled_start_time | ISO8601                                                                               | the time to schedule the event    |
+| description?         | string                                                                                | the description of the event      |
+| entity_type?         | [entity type](#DOCS_RESOURCES_GUILD_EVENT/guild-event-object-guild-event-entity-type) | event entity type                 |
 
 ## List Guild Events % GET /guild-events
 
@@ -78,3 +87,14 @@ Delete a guild event.
 ## Modify Guild Event % PATCH /guild-events/{event.id#DOCS_RESOURCES_GUILD_EVENT/guild-event-object}
 
 Modify a guild event.
+
+###### JSON Params
+
+| Field                | Type                                                                                  | Description                       |
+| -------------------- | ------------------------------------------------------------------------------------- | --------------------------------- |
+| channel_id?          | snowflake                                                                             | the stage channel id of the event |
+| name                 | string                                                                                | the name of the event             |
+| privacy_level        | [privacy level](#DOCS_RESOURCES_STAGE_INSTANCE/stage-instance-object-privacy-level)   | the privacy level of the event    |
+| scheduled_start_time | ISO8601                                                                               | the time to schedule the event    |
+| description?         | string                                                                                | the description of the event      |
+| entity_type?         | [entity type](#DOCS_RESOURCES_GUILD_EVENT/guild-event-object-guild-event-entity-type) | event entity type                 |
