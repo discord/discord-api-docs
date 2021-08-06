@@ -117,7 +117,7 @@ Requires the user to be a moderator of the Stage channel.
 | image                 | ?string                                                                                                | the image of the stage event                                                                          |
 | scheduled_start_time  | ISO8601                                                                                                | the time the stage event will start                                                                   |
 | scheduled_end_time    | ?ISO8601                                                                                               | the time the stage event will end, or `null` if the stage event does not have a scheduled time to end |
-| privacy_level         | integer                                                                                                | stage event privacy level                                                                             |
+| privacy_level         | [privacy level](#DOCS_RESOURCES_STAGE_INSTANCE/stage-instance-object-privacy-level)                    | stage event privacy level                                                                             |
 | status                | integer                                                                                                | the status of the stage event                                                                         |
 | entity_type           | integer                                                                                                | the entity type of the stage event                                                                    |
 | entity_id             | ?snowflake                                                                                             | entity id                                                                                             |
@@ -147,11 +147,11 @@ Create a stage event in the guild.
 
 ###### JSON Params
 
-| Field                | Type      | Description                              |
-| -------------------- | --------- | ---------------------------------------- |
-| channel_id?          | snowflake | the stage channel id for the stage event |
-| name                 | string    | the name of the stage event              |
-| privacy_level        | integer   | the privacy level of the stage event     |
-| scheduled_start_time | ISO8601   | the time to schedule the stage event     |
-| description?         | string    | the description of the stage event       |
-| entity_type?         | integer   | stage event entity type                  |
+| Field                | Type                                                                                | Description                              |
+| -------------------- | ----------------------------------------------------------------------------------- | ---------------------------------------- |
+| channel_id?          | snowflake                                                                           | the stage channel id for the stage event |
+| name                 | string                                                                              | the name of the stage event              |
+| privacy_level        | [privacy level](#DOCS_RESOURCES_STAGE_INSTANCE/stage-instance-object-privacy-level) | the privacy level of the stage event     |
+| scheduled_start_time | ISO8601                                                                             | the time to schedule the stage event     |
+| description?         | string                                                                              | the description of the stage event       |
+| entity_type?         | integer                                                                             | stage event entity type                  |
