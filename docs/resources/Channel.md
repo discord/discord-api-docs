@@ -243,7 +243,7 @@ Represents a message sent in a channel within Discord.
 | guild_id?                     | snowflake                                                                                                                                       | id of the guild the message was sent in                                                                                                 |
 | author\*                      | [user](#DOCS_RESOURCES_USER/user-object) object                                                                                                 | the author of this message (not guaranteed to be a valid user, see below)                                                               |
 | member?\*\*                   | partial [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) object                                                                        | member properties for this message's author                                                                                             |
-| content                       | string                                                                                                                                          | contents of the message                                                                                                                 |
+| content\*\*\*\*\*\*           | string                                                                                                                                          | contents of the message                                                                                                                 |
 | timestamp                     | ISO8601 timestamp                                                                                                                               | when this message was sent                                                                                                              |
 | edited_timestamp              | ?ISO8601 timestamp                                                                                                                              | when this message was edited (or null if never)                                                                                         |
 | tts                           | boolean                                                                                                                                         | whether this was a TTS message                                                                                                          |
@@ -266,7 +266,7 @@ Represents a message sent in a channel within Discord.
 | referenced_message?\*\*\*\*\* | ?[message object](#DOCS_RESOURCES_CHANNEL/message-object)                                                                                       | the message associated with the message_reference                                                                                       |
 | interaction?                  | [message interaction object](#DOCS_INTERACTIONS_SLASH_COMMANDS/message-interaction-object-message-interaction-structure)                        | sent if the message is a response to an [Interaction](#DOCS_INTERACTIONS_SLASH_COMMANDS/)                                               |
 | thread?                       | [channel](#DOCS_RESOURCES_CHANNEL/channel) object                                                                                               | the thread that was started from this message, includes [thread member](#DOCS_RESOURCES_CHANNEL/thread-member-object) object            |
-| components?                   | Array of [message components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-object)                                                           | sent if the message contains components like buttons, action rows, or other interactive components                                      |
+| components?                   | array of [message components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-object)                                                           | sent if the message contains components like buttons, action rows, or other interactive components                                      |
 | sticker_items?                | array of [message sticker item objects](#DOCS_RESOURCES_STICKER/sticker-item-object)                                                            | sent if the message contains stickers                                                                                                   |
 | stickers?                     | array of [sticker](#DOCS_RESOURCES_STICKER/sticker-object) objects                                                                              | **Deprecated** the stickers sent with the message                                                                                       |
 
@@ -274,11 +274,17 @@ Represents a message sent in a channel within Discord.
 
 \*\* The member object exists in [MESSAGE_CREATE](#DOCS_TOPICS_GATEWAY/message-create) and [MESSAGE_UPDATE](#DOCS_TOPICS_GATEWAY/message-update) events from text-based guild channels, provided that the author of the message is not a webhook. This allows bots to obtain real-time member data without requiring bots to store member state in memory.
 
-\*\*\* The user objects in the mentions array will only have the partial `member` field present in [MESSAGE_CREATE](#DOCS_TOPICS_GATEWAY/message-create) and [MESSAGE_UPDATE](#DOCS_TOPICS_GATEWAY/message-update) events from text-based guild channels.
+\*\*\* The user objects in the mentions array will only have the partial `member` field present in [MESSAGE_CREATE](#DOCS_TOPICS_GATEWAY/message-create) and [MESSAGE_UPDATE](#DOCS_TOPICS_GATEWAY/message-update) events from text-based guild channels. It will be empty for messages with a `type` of `21` (THREAD_STARTER_MESSAGE), but the data can be found within the `message_reference` object.
 
 \*\*\*\* Not all channel mentions in a message will appear in `mention_channels`. Only textual channels that are visible to everyone in a lurkable guild will ever be included. Only crossposted messages (via Channel Following) currently include `mention_channels` at all. If no mentions in the message meet these requirements, this field will not be sent.
 
 \*\*\*\*\* This field is only returned for messages with a `type` of `19` (REPLY) or `21` (THREAD_STARTER_MESSAGE). If the message is a reply but the `referenced_message` field is not present, the backend did not attempt to fetch the message that was being replied to, so its state is unknown. If the field exists but is null, the referenced message was deleted.
+
+The message object within a referenced message doesn't contain the `guild_id` field even if it's in a guild. This data can be found within the `message_reference` object. It also doesn't contain a `member` field, even in guilds.
+
+Referenced messages can't be nested.
+
+\*\*\*\*\*\* The content field will be an empty string for messages with a `type` of `21` (THREAD_STARTER_MESSAGE). This data can be found within the `message_reference` object
 
 ###### Message Types
 
