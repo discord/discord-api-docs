@@ -31,7 +31,7 @@ A representation of an event in a Guild.
 | ------------ | ------------------- | --------------------------------- |
 | speaker_ids? | array of snowflakes | the speakers of the stage channel |
 
-## List Guild events % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/events
+## List Guild #vents % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/events
 
 Returns a list of [Guild Events](#DOCS_RESOURCES_GUILD_EVENT/guild-event-object) in the guild.
 
@@ -41,7 +41,7 @@ Returns a list of [Guild Events](#DOCS_RESOURCES_GUILD_EVENT/guild-event-object)
 | ---------------- | ------- | ----------------------------- |
 | with_user_count? | boolean | users subscribed to the event |
 
-## Create Guild event % POST /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/events
+## Create Guild #vent % POST /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/events
 
 Create an event in the guild. Returns a [Guild Event](#DOCS_RESOURCES_GUILD_EVENT/guild-event-object) object on success.
 
@@ -56,9 +56,9 @@ Create an event in the guild. Returns a [Guild Event](#DOCS_RESOURCES_GUILD_EVEN
 | description?         | string                                                                              | the description of the event      |
 | entity_type?         | integer                                                                             | event entity type                 |
 
-## List Guild Events % GET /guild-events
+## List All Guild Events % GET /guild-events
 
-Returns a list of [Guild Event](#DOCS_RESOURCES_GUILD_EVENT/guild-event-object objects.
+Returns a list of all [Guild Event](#DOCS_RESOURCES_GUILD_EVENT/guild-event-object) objects available to the bot.
 
 ## Get Guild Event % GET /guild-events/{event.id#DOCS_RESOURCES_GUILD_EVENT/guild-event-object}
 
