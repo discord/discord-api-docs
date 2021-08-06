@@ -6,24 +6,31 @@ A representation of an event in a Guild.
 
 ###### Guild Event Structure
 
-| Field                 | Type                                                                                                   | Description                                                                               |
-| --------------------- | ------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------- |
-| id                    | snowflake                                                                                              | the id of the event                                                                       |
-| guild_id              | snowflake                                                                                              | the guild id of the event                                                                 |
-| channel_id            | ?snowflake                                                                                             | the stage channel id of the event                                                         |
-| name                  | string                                                                                                 | the name of the event                                                                     |
-| description?          | string                                                                                                 | the description of the event                                                              |
-| image                 | ?string                                                                                                | the image of the event                                                                    |
-| scheduled_start_time  | ISO8601                                                                                                | the time the event will start                                                             |
-| scheduled_end_time    | ?ISO8601                                                                                               | the time the event will end, or `null` if the event does not have a scheduled time to end |
-| privacy_level         | [privacy level](#DOCS_RESOURCES_STAGE_INSTANCE/stage-instance-object-privacy-level)                    | event privacy level                                                                       |
-| status                | integer                                                                                                | the status of the event                                                                   |
-| entity_type           | integer                                                                                                | the entity type of the event                                                              |
-| entity_id             | ?snowflake                                                                                             | entity id                                                                                 |
-| entity_metadata       | [event entity metadata](#DOCS_RESOURCES_STAGE_INSTANCE/guild-event-object-guild-event-entity-metadata) | metadata for the event                                                                    |
-| sku_ids               | array of snowflakes                                                                                    | sku ids                                                                                   |
-| skus                  | array                                                                                                  | skus                                                                                      |
-| user_count?           | integer                                                                                                | users subscribed to the event                                                             |
+| Field                | Type                                                                                          | Description                                                                               |
+| -------------------- | --------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
+| id                   | snowflake                                                                                     | the id of the event                                                                       |
+| guild_id             | snowflake                                                                                     | the guild id of the event                                                                 |
+| channel_id           | ?snowflake                                                                                    | the stage channel id of the event                                                         |
+| name                 | string                                                                                        | the name of the event                                                                     |
+| description?         | string                                                                                        | the description of the event                                                              |
+| image                | ?string                                                                                       | the image of the event                                                                    |
+| scheduled_start_time | ISO8601                                                                                       | the time the event will start                                                             |
+| scheduled_end_time   | ?ISO8601                                                                                      | the time the event will end, or `null` if the event does not have a scheduled time to end |
+| privacy_level        | [privacy level](#DOCS_RESOURCES_STAGE_INSTANCE/stage-instance-object-privacy-level)           | event privacy level                                                                       |
+| status               | integer                                                                                       | the status of the event                                                                   |
+| entity_type          | [entity type](#DOCS_RESOURCES_GUILD_EVENT/guild-event-object-guild-event-entity-type)         | the entity type of the event                                                              |
+| entity_id            | ?snowflake                                                                                    | entity id                                                                                 |
+| entity_metadata      | [entity metadata](#DOCS_RESOURCES_GUILD_EVENT/guild-event-object-guild-event-entity-metadata) | metadata for the event                                                                    |
+| sku_ids              | array of snowflakes                                                                           | sku ids                                                                                   |
+| skus                 | array                                                                                         | skus                                                                                      |
+| user_count?          | integer                                                                                       | users subscribed to the event                                                             |
+
+###### Guild Event Entity Type
+
+| Type           | Value |
+| -------------- | ----- |
+| NONE           | 0     |
+| STAGE_INSTANCE | 1     |
 
 ###### Guild Event Entity Metadata
 
@@ -31,7 +38,7 @@ A representation of an event in a Guild.
 | ------------ | ------------------- | --------------------------------- |
 | speaker_ids? | array of snowflakes | the speakers of the stage channel |
 
-## List Guild #vents % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/events
+## List Guild Events for Guild % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/events
 
 Returns a list of [Guild Events](#DOCS_RESOURCES_GUILD_EVENT/guild-event-object) in the guild.
 
@@ -56,9 +63,9 @@ Create an event in the guild. Returns a [Guild Event](#DOCS_RESOURCES_GUILD_EVEN
 | description?         | string                                                                              | the description of the event      |
 | entity_type?         | integer                                                                             | event entity type                 |
 
-## List All Guild Events % GET /guild-events
+## List Guild Events % GET /guild-events
 
-Returns a list of all [Guild Event](#DOCS_RESOURCES_GUILD_EVENT/guild-event-object) objects available to the bot.
+Returns a list of [Guild Event](#DOCS_RESOURCES_GUILD_EVENT/guild-event-object) objects available to the bot.
 
 ## Get Guild Event % GET /guild-events/{event.id#DOCS_RESOURCES_GUILD_EVENT/guild-event-object}
 
