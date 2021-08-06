@@ -123,7 +123,8 @@ Requires the user to be a moderator of the Stage channel.
 | entity_id             | ?snowflake                                                                                             | entity id                                                                                             |
 | entity_metadata       | [stage entity metadata](#DOCS_RESOURCES_STAGE_INSTANCE/guild-event-object-guild-event-entity-metadata) | metadata for the stage event                                                                          |
 | sku_ids               | array of snowflakes                                                                                    | sku ids                                                                                               |
-| skus                  | array                                                                                                  | skus                                                                                                  |
+| skus              | array                                                                                                | skus                                   |
+| user_count        | integer                                                                                              | users subscribed to the event          |
 
 ###### Guild Event Entity Metadata
 
