@@ -145,6 +145,7 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 | TICKETED_EVENTS_ENABLED          | guild has enabled ticketed events                                                                                   |
 | MONETIZATION_ENABLED             | guild has enabled monetization                                                                                      |
 | MORE_STICKERS                    | guild has increased custom sticker slots                                                                            |
+| THREADS_ENABLED                  | guild has access to threads                                                                                         |
 | THREE_DAY_THREAD_ARCHIVE         | guild has access to the three day archive time for threads                                                          |
 | SEVEN_DAY_THREAD_ARCHIVE         | guild has access to the seven day archive time for threads                                                          |
 | PRIVATE_THREADS                  | guild has access to create private threads                                                                          |
