@@ -55,3 +55,19 @@ Create an event in the guild. Returns a [Guild Event](#DOCS_RESOURCES_GUILD_EVEN
 | scheduled_start_time | ISO8601                                                                             | the time to schedule the event    |
 | description?         | string                                                                              | the description of the event      |
 | entity_type?         | integer                                                                             | event entity type                 |
+
+## List Guild Events % GET /guild-events
+
+Returns a list of [Guild Event](#DOCS_RESOURCES_GUILD_EVENT/guild-event-object objects.
+
+## Get Guild Event % GET /guild-events/{event.id#DOCS_RESOURCES_GUILD_EVENT/guild-event-object}
+
+Get a guild event. Returns a [Guild Event](#DOCS_RESOURCES_GUILD_EVENT/guild-event-object) object on success.
+
+## Delete Guild Event % DELETE /guild-events/{event.id#DOCS_RESOURCES_GUILD_EVENT/guild-event-object}
+
+Delete a guild event.
+
+## Modify Guild Event % PATCH /guild-events/{event.id#DOCS_RESOURCES_GUILD_EVENT/guild-event-object}
+
+Modify a guild event.
