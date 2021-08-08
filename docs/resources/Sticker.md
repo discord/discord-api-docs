@@ -12,7 +12,8 @@ Represents a sticker that can be sent in messages.
 | pack_id?    | snowflake                                       | for standard stickers, id of the pack the sticker is from                                                                                                            |
 | name        | string                                          | name of the sticker                                                                                                                                                  |
 | description | ?string                                         | description of the sticker                                                                                                                                           |
-| tags\*      | string                                          | autocomplete/suggestion tags for the sticker (max 500 characters) |
+| tags\*      | string                                          | autocomplete/suggestion tags for the sticker (max 500 characters) 
+                    |
 | asset       | string                                          | **Deprecated** previously the sticker asset hash, now an empty string                                                                                                |
 | type        | integer                                         | [type of sticker](#DOCS_RESOURCES_STICKER/sticker-object-sticker-types)                                                                                              |
 | format_type | integer                                         | [type of sticker format](#DOCS_RESOURCES_STICKER/sticker-object-sticker-format-types)                                                                                |
@@ -23,6 +24,7 @@ Represents a sticker that can be sent in messages.
 
 \* A comma separated list of keywords is the format used in this field by standard stickers, but this is just a convention.
 Incidentally the client will always use a name generated from an emoji as the value of this field when creating or modifying a guild sticker.
+
 ###### Sticker Types
 
 | Type     | Value | Description                                                                   |
