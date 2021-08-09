@@ -133,7 +133,7 @@ Create a new sticker for the guild. Send a `multipart/form-data` body. Requires 
 | ----------- | ------------- | -------------------------------------------------------------------------------------------- |
 | name        | string        | name of the sticker (2-30 characters)                                                        |
 | description | string        | description of the sticker (empty or 2-100 characters)                                       |
-| tags        | string        | the Discord name of a unicode emoji representing the sticker's expression (2-200 characters) |
+| tags        | string        | autocomplete/suggestion tags for the sticker (max 200 characters)                            |
 | file        | file contents | the sticker file to upload, must be a PNG, APNG, or Lottie JSON file, max 500 KB             |
 
 ## Modify Guild Sticker % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/stickers/{sticker.id#DOCS_RESOURCES_STICKER/sticker-object}
@@ -152,7 +152,7 @@ Modify the given sticker. Requires the `MANAGE_EMOJIS_AND_STICKERS` permission. 
 | ----------- | ------- | -------------------------------------------------------------------------------------------- |
 | name        | string  | name of the sticker (2-30 characters)                                                        |
 | description | ?string | description of the sticker (2-100 characters)                                                |
-| tags        | string  | the Discord name of a unicode emoji representing the sticker's expression (2-200 characters) |
+| tags        | string  | autocomplete/suggestion tags for the sticker (max 200 characters)                            |
 
 ## Delete Guild Sticker % DELETE /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/stickers/{sticker.id#DOCS_RESOURCES_STICKER/sticker-object}
 
