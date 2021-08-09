@@ -236,6 +236,9 @@ Represents a message sent in a channel within Discord.
 
 ###### Message Structure
 
+> warn
+> `content`, `embeds`, `attachments`, and `components` will require a privileged intent in 2022. [Learn more here](https://support-dev.discord.com/hc/en-us/articles/4404772028055).
+
 | Field                         | Type                                                                                                                                            | Description                                                                                                                             |
 |-------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------|
 | id                            | snowflake                                                                                                                                       | id of the message                                                                                                                       |
