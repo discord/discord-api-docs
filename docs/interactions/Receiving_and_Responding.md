@@ -278,6 +278,7 @@ An interaction is the base "thing" that is sent when a user interacts with your 
 | members?\*    | Map of Snowflakes to [partial member](#DOCS_RESOURCES_GUILD/guild-member-object) objects | the ids and partial Member objects  |
 | roles?        | Map of Snowflakes to [role](#DOCS_TOPICS_PERMISSIONS/role-object) objects                | the ids and Role objects            |
 | channels?\*\* | Map of Snowflakes to [partial channel](#DOCS_RESOURCES_CHANNEL/channel-object) objects   | the ids and partial Channel objects |
+| messages?\*\* | Map of Snowflakes to [partial messages](#DOCS_RESOURCES_CHANNEL/message-object) objects   | the ids and partial Message objects |
 
 \* Partial `Member` objects are missing `user`, `deaf` and `mute` fields
 
