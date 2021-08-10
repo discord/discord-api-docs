@@ -2,7 +2,7 @@
 
 ## User and Message Commands
 
-#### August XX, 2021
+#### August 10, 2021
 
 [User commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/user-commands) and [message commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/message-commands) are now live! These commands appear on context menus for users and messages, with more to come in the future. 
 
