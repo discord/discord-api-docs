@@ -655,7 +655,7 @@ User commands are application commands that appear on the context menu (right cl
 }
 ```
 
-![An example user command. The context menu has an Apps section open to a High Five command](message-command.png)
+![An example user command. The context menu has an Apps section open to a High Five command](user-command.png)
 
 When someone uses a user command, your application will receive an interaction:
 
@@ -739,7 +739,7 @@ Message commands are application commands that appear on the context menu (right
 }
 ```
 
-![An example message command. The context menu has an Apps section open to a Bookmark command](user-command.png)
+![An example message command. The context menu has an Apps section open to a Bookmark command](message-command.png)
 
 When someone uses a message command, your application will receive an interaction:
 
@@ -952,7 +952,9 @@ Returns a [GuildApplicationCommandPermissions](#DOCS_INTERACTIONS_APPLICATION_CO
 > This endpoint will overwrite all existing permissions for all commands in a guild, including slash commands, user commands, and message commands.
 
 Batch edits permissions for all commands in a guild. Takes an array of partial [guild application command permissions](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-permissions-object-guild-application-command-permissions-structure) objects including `id` and `permissions`.
+
 You can only add up to 10 permission overwrites for a command.
+
 Returns an array of [GuildApplicationCommandPermissions](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-permissions-object-guild-application-command-permissions-structure) objects.
 
 ###### Example
@@ -993,167 +995,3 @@ headers = {
 
 r = requests.put(url, headers=headers, json=json)
 ```
-<<<<<<< HEAD:docs/interactions/Slash_Commands.md
-
-## Data Models and Types
-
-### Application Command Object
-
-###### Application Command Structure
-
-> info
-> A command, or each individual subcommand, can have a maximum of 25 `options`
-
-An application command is the base "command" model that belongs to an application. This is what you are creating when you `POST` a new command.
-
-| Field               | Type                                                                                                                                     | Description                                                                |
-| ------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
-| id                  | snowflake                                                                                                                                | unique id of the command                                                   |
-| application_id      | snowflake                                                                                                                                | unique id of the parent application                                        |
-| guild_id?           | snowflake                                                                                                                                | guild id of the command, if not global                                     |
-| name                | string                                                                                                                                   | 1-32 lowercase character name matching `^[\w-]{1,32}$`                     |
-| description         | string                                                                                                                                   | 1-100 character description                                                |
-| options?            | array of [application command option](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object-application-command-option-structure) | the parameters for the command                                             |
-| default_permission? | boolean (default `true`)                                                                                                                 | whether the command is enabled by default when the app is added to a guild |
-
-> warn
-> Required `options` must be listed before optional options
-
-###### Application Command Option Structure
-
-> info
-> You can specify a maximum of 25 `choices` per option
-
-| Field       | Type                                                                                                                                                   | Description                                                                                                                              |
-| ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------- |
-| type        | integer                                                                                                                                                | value of [application command option type](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object-application-command-option-type) |
-| name        | string                                                                                                                                                 | 1-32 lowercase character name matching `^[\w-]{1,32}$`                                                                                   |
-| description | string                                                                                                                                                 | 1-100 character description                                                                                                              |
-| required?   | boolean                                                                                                                                                | if the parameter is required or optional--default `false`                                                                                |
-| choices?    | array of [application command option choice](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object-application-command-option-choice-structure) | choices for `STRING`, `INTEGER`, and `NUMBER` types for the user to pick from                                                            |
-| options?    | array of [application command option](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object-application-command-option-structure)               | if the option is a subcommand or subcommand group type, this nested options will be the parameters                                       |
-
-###### Application Command Option Type
-
-| Name              | Value | Note                                    |
-|-------------------|-------|-----------------------------------------|
-| SUB_COMMAND       | 1     |                                         |
-| SUB_COMMAND_GROUP | 2     |                                         |
-| STRING            | 3     |                                         |
-| INTEGER           | 4     | Any integer between -2^53 and 2^53      |
-| BOOLEAN           | 5     |                                         |
-| USER              | 6     |                                         |
-| CHANNEL           | 7     | Includes all channel types + categories |
-| ROLE              | 8     |                                         |
-| MENTIONABLE       | 9     | Includes users and roles                |
-| NUMBER            | 10    | Any double between -2^53 and 2^53       |
-
-###### Application Command Option Choice Structure
-
-If you specify `choices` for an option, they are the **only** valid values for a user to pick
-
-| Field | Type                       | Description                                         |
-| ----- | -------------------------- |---------------------------------------------------- |
-| name  | string                     | 1-100 character choice name                         |
-| value | string, integer, or double | value of the choice, up to 100 characters if string |
-
-### Application Command Permissions Object
-
-###### Guild Application Command Permissions Structure
-
-Returned when fetching the permissions for a command in a guild.
-
-| Field          | Type                                                                                                                                                           | Description                                      |
-| -------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------ |
-| id             | snowflake                                                                                                                                                      | the id of the command                            |
-| application_id | snowflake                                                                                                                                                      | the id of the application the command belongs to |
-| guild_id       | snowflake                                                                                                                                                      | the id of the guild                              |
-| permissions    | array of [application command permissions](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-permissions-object-application-command-permissions-structure) | the permissions for the command in the guild     |
-
-###### Application Command Permissions Structure
-
-Application command permissions allow you to enable or disable commands for specific users or roles within a guild.
-
-| Field      | Type                                                                                                                                                | Description                           |
-| ---------- | --------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------- |
-| id         | snowflake                                                                                                                                           |  the id of the role or user           |
-| type       | [application command permission type](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-permissions-object-application-command-permission-type) | role or user                          |
-| permission | boolean                                                                                                                                             | `true` to allow, `false`, to disallow |
-
-###### Application Command Permission Type
-
-| Name | Value |
-| ---- | ----- |
-| ROLE | 1     |
-| USER | 2     |
-
-### Application Command Interaction Object
-
-##### Sample Application Command Interaction
-
-```js
-{
-    "type": 2,
-    "token": "A_UNIQUE_TOKEN",
-    "member": {
-        "user": {
-            "id": 53908232506183680,
-            "username": "Mason",
-            "avatar": "a_d5efa99b3eeaa7dd43acca82f5692432",
-            "discriminator": "1337",
-            "public_flags": 131141
-        },
-        "roles": ["539082325061836999"],
-        "premium_since": null,
-        "permissions": "2147483647",
-        "pending": false,
-        "nick": null,
-        "mute": false,
-        "joined_at": "2017-03-13T19:19:14.040000+00:00",
-        "is_pending": false,
-        "deaf": false
-    },
-    "id": "786008729715212338",
-    "guild_id": "290926798626357999",
-    "data": {
-        "options": [{
-            "name": "cardname",
-            "value": "The Gitrog Monster"
-        }],
-        "name": "cardsearch",
-        "id": "771825006014889984"
-    },
-    "channel_id": "645027906669510667"
-}
-```
-
-###### Application Command Interaction Data Resolved Structure
-
-> info
-> If data for a Member is included, data for its corresponding User will also be included.
-
-| Field         | Type                                                                                     | Description                         |
-| ------------- | ---------------------------------------------------------------------------------------- | ----------------------------------- |
-| users?        | Map of Snowflakes to [user](#DOCS_RESOURCES_USER/user-object) objects                    | the ids and User objects            |
-| members?\*    | Map of Snowflakes to [partial member](#DOCS_RESOURCES_GUILD/guild-member-object) objects | the ids and partial Member objects  |
-| roles?        | Map of Snowflakes to [role](#DOCS_TOPICS_PERMISSIONS/role-object) objects                | the ids and Role objects            |
-| channels?\*\* | Map of Snowflakes to [partial channel](#DOCS_RESOURCES_CHANNEL/channel-object) objects   | the ids and partial Channel objects |
-
-\* Partial `Member` objects are missing `user`, `deaf` and `mute` fields
-
-\*\* Partial `Channel` objects only have `id`, `name`, `type` and `permissions` fields
-
-###### Application Command Interaction Data Option Structure
-
-All options have names, and an option can either be a parameter and input value--in which case `value` will be set--or it can denote a subcommand or group--in which case it will contain a top-level key and another array of `options`.
-
-`value` and `options` are mutually exclusive.
-
-| Field    | Type                                                                                                                                                               | Description                                                                                                                              |
-| -------- |------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
-| name     | string                                                                                                                                                             | the name of the parameter                                                                                                                |
-| type     | integer                                                                                                                                                            | value of [application command option type](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object-application-command-option-type) |
-| value?   | [application command option type](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object-application-command-option-type)                                    | the value of the pair                                                                                                                    |
-| options? | array of [application command interaction data option](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-object-application-command-interaction-data-option-structure) | present if this option is a group or subcommand                                                                                          |
-=======
->>>>>>> User and Message Commands:docs/interactions/Application_Commands.md
