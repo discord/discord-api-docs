@@ -835,6 +835,7 @@ Create a new global command. New global commands will be available in all guilds
 | description         | string                                                                                                                                         | 1-100 character description                                                |
 | options?            | array of [application command option](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-structure) | the parameters for the command                                             |
 | default_permission? | boolean (default `true`)                                                                                                                       | whether the command is enabled by default when the app is added to a guild |
+| type?               | one of [application command type](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-types)                | the type of command, defaults `1` if not set                               |
 
 ## Get Global Application Command % GET /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/commands/{command.id#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object}
 
@@ -851,8 +852,8 @@ Edit a global command. Updates will be available in all guilds after 1 hour. Ret
 
 | Field               | Type                                                                                                                                           | Description                                                                |
 | ------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
-| name                | string                                                                                                                                         | 1-32 lowercase character name matching `^[\w-]{1,32}$`                     |
-| description         | string                                                                                                                                         | 1-100 character description                                                |
+| name?               | string                                                                                                                                         | 1-32 lowercase character name matching `^[\w-]{1,32}$`                     |
+| description?        | string                                                                                                                                         | 1-100 character description                                                |
 | options?            | array of [application command option](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-structure) | the parameters for the command                                             |
 | default_permission? | boolean (default `true`)                                                                                                                       | whether the command is enabled by default when the app is added to a guild |
 
@@ -886,6 +887,7 @@ Create a new guild command. New guild commands will be available in the guild im
 | description         | string                                                                                                                                         | 1-100 character description                                                |
 | options?            | array of [application command option](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-structure) | the parameters for the command                                             |
 | default_permission? | boolean (default `true`)                                                                                                                       | whether the command is enabled by default when the app is added to a guild |
+| type?               | one of [application command type](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-types)                | the type of command, defaults `1` if not set                               |
 
 ## Get Guild Application Command % GET /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/commands/{command.id#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object}
 
@@ -902,8 +904,8 @@ Edit a guild command. Updates for guild commands will be available immediately. 
 
 | Field               | Type                                                                                                                                           | Description                                                                |
 | ------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
-| name                | string                                                                                                                                         | 1-32 lowercase character name matching `^[\w-]{1,32}$`                     |
-| description         | string                                                                                                                                         | 1-100 character description                                                |
+| name?               | string                                                                                                                                         | 1-32 lowercase character name matching `^[\w-]{1,32}$`                     |
+| description?        | string                                                                                                                                         | 1-100 character description                                                |
 | options?            | array of [application command option](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-structure) | the parameters for the command                                             |
 | default_permission? | boolean (default `true`)                                                                                                                       | whether the command is enabled by default when the app is added to a guild |
 
