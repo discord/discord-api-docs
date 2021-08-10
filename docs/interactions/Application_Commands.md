@@ -1,6 +1,6 @@
 # Application Commands
 
-Application commands are commands that an application can register to Discord. They generally have a name, description, and a set of options or arguments for a user to fill out. Unlike interactions, which can have dynamic data, application commands are guaranteed to be the same for any user that uses them.
+Application commands are commands that an application can register to Discord. They provide users a first-class way of interacting directly with your application that feels deeply integrated into Discord.
 
 ## Application Command Object
 
@@ -69,9 +69,7 @@ If you specify `choices` for an option, they are the **only** valid values for a
 
 ## Authorizing Your Application
 
-Application commands do not depend on a bot user in the guild; they use the [interactions](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/) model.
-
-Because you can implement commands without a bot, there is a new OAuth2 scope for applications called `applications.commands`.
+Application commands do not depend on a bot user in the guild; they use the [interactions](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/) model. To create commands in a guild, your app must be authorized with the `applications.commands` scope.
 
 > danger
 > **In order to make commands work within a guild, the guild must authorize your application with the `applications.commands` scope. The `bot` scope is not enough.**
@@ -92,9 +90,12 @@ Guild commands are specific to the guild you specify when making them. Guild com
 
 - Your app **cannot** have two global `CHAT_INPUT` commands with the same name
 - Your app **cannot** have two guild `CHAT_INPUT` commands within the same name **on the same guild**
+- Your app **cannot** have two global `USER` commands with the same name
 - Your app **can** have a global and guild `CHAT_INPUT` command with the same name
 - Your app **can** have a global `CHAT_INPUT` and `USER` command with the same name
 - Multiple apps **can** have commands with the same names
+
+This list is non-exhaustive. In general, remember that command names must be unique per application, per type, and within each scope (global and guild).
 
 An app can have the following number of commands:
 
@@ -173,13 +174,13 @@ r = requests.post(url, headers=headers, json=json)
 
 Guild commands are available only within the guild specified on creation. Guild commands update **instantly**. We recommend you use guild commands for quick testing, and global commands when they're ready for public use.
 
-To make a **guild** Slash Command, make a similar HTTP POST call, but scope it to a specific `guild_id`:
+To make a **guild** command, make a similar HTTP POST call, but scope it to a specific `guild_id`:
 
 ```py
 import requests
 
 
-url = "https://discord.com/api/v8/applications/<my_application_id>/commands"
+url = "https://discord.com/api/v8/applications/<my_application_id>/guilds/<guild_id>/commands"
 
 # This is an example USER command, with a type of 2
 json = {
