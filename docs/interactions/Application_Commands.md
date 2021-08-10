@@ -691,7 +691,8 @@ When someone uses a user command, your application will receive an interaction:
                 }
             }
         },
-        "target_id": "809850198683418695"
+        "target_id": "809850198683418695",
+        "type": 2
     },
     "guild_id": "772904309264089089",
     "id": "867794291820986368",
