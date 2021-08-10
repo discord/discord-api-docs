@@ -9,7 +9,7 @@ The first step in implementing OAuth2 is [registering a developer application](#
 ###### OAuth2 URLs
 
 | URL                                         | Description                                                 |
-|---------------------------------------------|-------------------------------------------------------------|
+| ------------------------------------------- | ----------------------------------------------------------- |
 | https://discord.com/api/oauth2/authorize    | Base authorization URL                                      |
 | https://discord.com/api/oauth2/token        | Token URL                                                   |
 | https://discord.com/api/oauth2/token/revoke | [Token Revocation](https://tools.ietf.org/html/rfc7009) URL |
@@ -22,13 +22,13 @@ The first step in implementing OAuth2 is [registering a developer application](#
 These are a list of all the OAuth2 scopes that Discord supports. Some scopes require approval from Discord to use. Requesting them from a user without approval from Discord may cause undocumented/error behavior in the OAuth2 flow.
 
 | Name                         | Description                                                                                                                                                                              |
-|------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| ---------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | activities.read              | allows your app to fetch data from a user's "Now Playing/Recently Played" list - requires Discord approval                                                                               |
 | activities.write             | allows your app to update a user's activity - requires Discord approval (NOT REQUIRED FOR [GAMESDK ACTIVITY MANAGER](#DOCS_GAME_SDK_ACTIVITIES/))                                        |
 | applications.builds.read     | allows your app to read build data for a user's applications                                                                                                                             |
 | applications.builds.upload   | allows your app to upload/update builds for a user's applications - requires Discord approval                                                                                            |
-| applications.commands        | allows your app to use [Slash Commands](#DOCS_INTERACTIONS_SLASH_COMMANDS/) in a guild                                                                                                   |
-| applications.commands.update | allows your app to update its [Slash Commands](#DOCS_INTERACTIONS_SLASH_COMMANDS/) via this bearer token - [client credentials grant](#DOCS_TOPICS_OAUTH2/client-credentials-grant) only |
+| applications.commands        | allows your app to use [commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/) in a guild                                                                                                   |
+| applications.commands.update | allows your app to update its [commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/) via this bearer token - [client credentials grant](#DOCS_TOPICS_OAUTH2/client-credentials-grant) only |
 | applications.entitlements    | allows your app to read entitlements for a user's applications                                                                                                                           |
 | applications.store.update    | allows your app to read and update store data (SKUs, store listings, achievements, etc.) for a user's applications                                                                       |
 | bot                          | for oauth2 bots, this puts the bot in the user's selected guild by default                                                                                                               |
@@ -241,7 +241,7 @@ Bot authorization is a special server-less and callback-less OAuth2 flow that ma
 ###### Bot Auth Parameters
 
 | name                 | description                                                           |
-|----------------------|-----------------------------------------------------------------------|
+| -------------------- | --------------------------------------------------------------------- |
 | client_id            | your app's client id                                                  |
 | scope                | needs to include `bot` for the bot flow                               |
 | permissions          | the [permissions](#DOCS_TOPICS_PERMISSIONS/) you're requesting        |
@@ -381,7 +381,7 @@ Returns info about the current authorization. Requires authentication with a bea
 ###### Response Structure
 
 | Field       | Type                                                                         | Description                                                                       |
-|-------------|------------------------------------------------------------------------------|-----------------------------------------------------------------------------------|
+| ----------- | ---------------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
 | application | partial [application](#DOCS_RESOURCES_APPLICATION/application-object) object | the current application                                                           |
 | scopes      | array of strings                                                             | the scopes the user has authorized the application for                            |
 | expires     | ISO8601 timestamp                                                            | when the access token expires                                                     |
