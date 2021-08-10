@@ -1,5 +1,13 @@
 # Change Log
 
+## User and Message Commands
+
+#### August 10, 2021
+
+[User commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/user-commands) and [message commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/message-commands) are now live! These commands appear on context menus for users and messages, with more to come in the future. 
+
+Context menu commands are a type of application command. The "Slash Commands" documentation page has been renamed to "Application Commands" and split out by type to show this.
+
 ## Select Menu Components
 
 #### June 30, 2021
@@ -40,21 +48,21 @@ This documentation is being published early so bots can have at least two months
 Additionally, API v9 also removes the `/channels/:id/messages/:id/suppress-embeds` route.
 
 
-## Slash Command Permissions
+## Application Command Permissions
 
 #### April 5, 2021
 
-Need to keep some of your Slash Commands safe from prying eyes, or only available to the right people? Slash Commands now support [command permissions](#DOCS_INTERACTIONS_SLASH_COMMANDS/permissions)!
+Need to keep some of your commands safe from prying eyes, or only available to the right people? Commands now support [command permissions](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/permissions)!
 
 You can enable or disable a command (guild or global) for a specific user or role in a guild. For now, users will still be able to see the commands, but won't be able to use them.
 
 New routes have been added to support this functionality:
 
-- [`GET Guild Application Command Permissions`](#DOCS_INTERACTIONS_SLASH_COMMANDS/getguildapplicationcommandpermissions)
-- [`GET Application Command Permissions`](#DOCS_INTERACTIONS_SLASH_COMMANDS/getapplicationcommandpermissions)
-- [`PUT Application Command Permissions`](#DOCS_INTERACTIONS_SLASH_COMMANDS/putapplicationcommandpermissions)
+- [`GET Guild Application Command Permissions`](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/getguildapplicationcommandpermissions)
+- [`GET Application Command Permissions`](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/getapplicationcommandpermissions)
+- [`PUT Application Command Permissions`](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/putapplicationcommandpermissions)
 
-A `default_permission` field has also been added to the [ApplicationCommand](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object-application-command-structure) model. This field allows you to disable commands for everyone in a guild by default, if you prefer to make some of your commands an opt-in experience.
+A `default_permission` field has also been added to the [ApplicationCommand](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-structure) model. This field allows you to disable commands for everyone in a guild by default, if you prefer to make some of your commands an opt-in experience.
 
 ## Large Bot Sharding Lowered to 150,000 Guilds
 
@@ -66,7 +74,7 @@ There have been reports that sessions have higher frequency of errors when start
 
 #### March 5, 2021
 
-Changes to interaction response types have been made to support better designs for Slash Commands:
+Changes to interaction response types have been made to support better designs for application commands:
 
 - Type `2` `Acknowledge` has been deprecated
 - Type `3` `ChannelMessage` has been deprecated
@@ -92,7 +100,7 @@ Permission overwrites in the guild channel creation endpoint are now validated a
 
 #### December 15, 2020
 
-Slash Commands are here! There's a _lot_ to cover, so go check out specific documentation under [Slash Commands](#DOCS_INTERACTIONS_SLASH_COMMANDS/).
+Slash Commands are here! There's a _lot_ to cover, so go check out specific documentation under [Slash Commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/).
 
 Slash Commands include some new features for webhooks as well:
 
