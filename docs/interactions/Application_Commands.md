@@ -778,7 +778,8 @@ When someone uses a message command, your application will receive an interactio
                 }
             }
         },
-        "target_id": "867793854505943041"
+        "target_id": "867793854505943041",
+        "type": 3
     },
     "guild_id": "772904309264089089",
     "id": "867793873336926249",
