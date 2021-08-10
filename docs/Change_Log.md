@@ -1,12 +1,12 @@
 # Change Log
 
-## Context Menu Commands
+## User and Message Commands
 
 #### August XX, 2021
 
-Context menu commands are now live! These commands can be made on users and messages, with more to come in the future (like channels). Context menu commands are a type of application command. The "Slash Commands" documentation page has been renamed to "Application Commands" and split out by type to show this.
+[User commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/user-commands) and [message commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/message-commands) are now live! These commands appear on context menus for users and messages, with more to come in the future. 
 
-Check out how to make context menu commands [here](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/context-menus).
+Context menu commands are a type of application command. The "Slash Commands" documentation page has been renamed to "Application Commands" and split out by type to show this.
 
 ## Select Menu Components
 
