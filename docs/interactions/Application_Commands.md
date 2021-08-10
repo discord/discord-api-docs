@@ -112,7 +112,7 @@ As well as the same amount of guild-specific commands per guild.
 
 Global commands are available on _all_ your app's guilds. Global commands are cached for **1 hour**. That means that new global commands will fan out slowly across all guilds, and will be guaranteed to be updated in an hour.
 
-Global commands have inherent read-repair functionality. That means that if you make an update to a global command, and a user tries to use that command before it has updated for them, Discord will do an internal version check and reject the command, and trigger a faster reload for the guild in which it was used.
+Global commands have inherent read-repair functionality. That means that if you make an update to a global command, and a user tries to use that command before it has updated for them, Discord will do an internal version check and reject the command, and trigger a reload for that command.
 
 To make a **global** command, make an HTTP POST call like this:
 
