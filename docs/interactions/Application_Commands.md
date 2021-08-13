@@ -62,10 +62,10 @@ Application commands are commands that an application can register to Discord. T
 
 If you specify `choices` for an option, they are the **only** valid values for a user to pick
 
-| Field | Type                               | Description                                         |
-| ----- | ---------------------------------- | --------------------------------------------------- |
-| name  | string                             | 1-100 character choice name                         |
-| value | string, integer, double or boolean | value of the choice, up to 100 characters if string |
+| Field | Type                       | Description                                         |
+| ----- | -------------------------- |---------------------------------------------------- |
+| name  | string                     | 1-100 character choice name                         |
+| value | string, integer, or double | value of the choice, up to 100 characters if string |
 
 ###### Application Command Interaction Data Option Structure
 
