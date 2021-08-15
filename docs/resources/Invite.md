@@ -2,10 +2,7 @@
 
 ### Invite Object
 
-Represents a code that when used, adds a user to a guild or group DM channel or adds a user to the inviter's friends list.
-
-> warn
-> All fields except `code` and `inviter` will be null or absent on friend invites.
+Represents a code that when used, adds a user to a guild or group DM channel or adds a user to the inviter's friends list or opens a DM if they are already friends.
 
 ###### Invite Structure
 
