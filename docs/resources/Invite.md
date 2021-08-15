@@ -2,7 +2,10 @@
 
 ### Invite Object
 
-Represents a code that when used, adds a user to a guild or group DM channel.
+Represents a code that when used, adds a user to a guild or group DM channel or adds a user to the inviter's friends list.
+
+> warn
+> All fields except `code` and `inviter` will be null or absent on friend invites.
 
 ###### Invite Structure
 
@@ -10,7 +13,7 @@ Represents a code that when used, adds a user to a guild or group DM channel.
 |-----------------------------|-------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------|
 | code                        | string                                                                              | the invite code (unique ID)                                                                                                       |
 | guild?                      | partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object                          | the guild this invite is for                                                                                                      |
-| channel?                    | partial [channel](#DOCS_RESOURCES_CHANNEL/channel-object) object                    | the channel this invite is for                                                                                                    |
+| channel                     | nullable partial [channel](#DOCS_RESOURCES_CHANNEL/channel-object) object           | the channel this invite is for                                                                                                    |
 | inviter?                    | [user](#DOCS_RESOURCES_USER/user-object) object                                     | the user who created the invite                                                                                                   |
 | target_type?                | integer                                                                             | the [type of target](#DOCS_RESOURCES_INVITE/invite-object-invite-target-types) for this voice channel invite                      |
 | target_user?                | [user](#DOCS_RESOURCES_USER/user-object) object                                     | the user whose stream to display for this voice channel stream invite                                                             |
@@ -27,7 +30,7 @@ Represents a code that when used, adds a user to a guild or group DM channel.
 | STREAM               | 1     |
 | EMBEDDED_APPLICATION | 2     |
 
-###### Example Invite Object
+###### Example Channel Invite Object
 
 ```json
 {
@@ -65,6 +68,21 @@ Represents a code that when used, adds a user to a guild or group DM channel.
   }
 }
 ```
+
+###### Example Friend Invite Object
+```json
+{
+  "code": "nJFammZ7",
+  "inviter": {
+    "id": "103559217914318848",
+    "username": "Jake",
+    "discriminator": "0001",
+    "avatar": "a_0824ead67ecdb214a69502ca9243ed94",
+    "public_flags": 513
+  },
+  "channel": null
+}```
+
 
 ### Invite Metadata Object
 
