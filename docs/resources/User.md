@@ -30,6 +30,9 @@ There are other rules and restrictions not shared here for the sake of spam and 
 | username      | string    | the user's username, not unique across the platform                                                  | identify              |
 | discriminator | string    | the user's 4-digit discord-tag                                                                       | identify              |
 | avatar        | ?string   | the user's [avatar hash](#DOCS_REFERENCE/image-formatting)                                           | identify              |
+| banner        | ?string   | the user's [banner hash](#DOCS_REFERENCE/image-formatting)                                           | identify              |
+| banner_color  | ?string   | the user's **custom** banner background color in hex string                                          | identify              |
+| accent_color  | ?integer  | the user's **custom** banner background color in integer form                                        | identify              |
 | bot?          | boolean   | whether the user belongs to an OAuth2 application                                                    | identify              |
 | system?       | boolean   | whether the user is an Official Discord System user (part of the urgent message system)              | identify              |
 | mfa_enabled?  | boolean   | whether the user has two factor enabled on their account                                             | identify              |
@@ -52,7 +55,10 @@ There are other rules and restrictions not shared here for the sake of spam and 
   "email": "nelly@discord.com",
   "flags": 64,
   "premium_type": 1,
-  "public_flags": 64
+  "public_flags": 64,
+  "banner": null,
+  "banner_color": "#0ca319",
+  "accent_color": 828185
 }
 ```
 
