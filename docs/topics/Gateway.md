@@ -1461,11 +1461,11 @@ Sent when a new [Application Command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/) 
 
 #### Application Command Update
 
-Sent when a [Application Command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/) relevant to the current user is updated. The inner payload is an [ApplicationCommand](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-structure) object, with an optional extra `guild_id` key.
+Sent when an [Application Command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/) relevant to the current user is updated. The inner payload is an [ApplicationCommand](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-structure) object, with an optional extra `guild_id` key.
 
 #### Application Command Delete
 
-Sent when a [Application Command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/) relevant to the current user is deleted. The inner payload is an [ApplicationCommand](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-structure) object, with an optional extra `guild_id` key.
+Sent when an [Application Command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/) relevant to the current user is deleted. The inner payload is an [ApplicationCommand](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-structure) object, with an optional extra `guild_id` key.
 
 ###### Application Command Extra Fields
 
@@ -1477,7 +1477,7 @@ Sent when a [Application Command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/) rele
 
 #### Interaction Create
 
-Sent when a user in a guild uses a [Application Command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/). Inner payload is an [Interaction](#DOCS_INTERACTIONS_RECEVING_AND_RESPONDING/interaction-object-interaction-structure).
+Sent when a user in a guild uses an [Application Command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/). Inner payload is an [Interaction](#DOCS_INTERACTIONS_RECEVING_AND_RESPONDING/interaction-object-interaction-structure).
 
 ### Stage Instances
 
