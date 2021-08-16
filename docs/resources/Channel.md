@@ -515,7 +515,8 @@ The thread metadata object contains a number of thread-specific channel fields t
 | archived              | boolean           | whether the thread is archived                                                                                      |
 | auto_archive_duration | integer           | duration in minutes to automatically archive the thread after recent activity, can be set to: 60, 1440, 4320, 10080 |
 | archive_timestamp     | ISO8601 timestamp | timestamp when the thread's archive status was last changed, used for calculating recent activity                   |
-| locked?               | boolean           | whether the thread is locked; when a thread is locked, only users with MANAGE_THREADS can unarchive it                                            |
+| locked                | boolean           | whether the thread is locked; when a thread is locked, only users with MANAGE_THREADS can unarchive it              |
+| invitable?            | boolean           | whether non-moderators can add other non-moderators to a thread; only available on private threads                  |
 
 ### Thread Member Object
 
@@ -820,9 +821,10 @@ Otherwise, requires the `MANAGE_THREADS` permission. Fires a [Thread Update](#DO
 | Field                   | Type     | Description                                                                                                                                                                                       |
 |-------------------------|----------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | name                    | string   | 1-100 character channel name                                                                                                                                                                      |
-| archived                | boolean  | whether the thread is archived                                                                                                                                                                   |
+| archived                | boolean  | whether the thread is archived                                                                                                                                                                    |
 | auto_archive_duration\* | integer  | duration in minutes to automatically archive the thread after recent activity, can be set to: 60, 1440, 4320, 10080                                                                               |
-| locked                  | boolean  | whether the thread is locked; when a thread is locked, only users with MANAGE_THREADS can unarchive it                                                                                                                          |
+| locked                  | boolean  | whether the thread is locked; when a thread is locked, only users with MANAGE_THREADS can unarchive it                                                                                            |
+| invitable               | boolean  | whether non-moderators can add other non-moderators to a thread; only available on private threads                                                                                                |
 | rate_limit_per_user     | ?integer | amount of seconds a user has to wait before sending another message (0-21600); bots, as well as users with the permission `manage_messages`, `manage_thread`, or `manage_channel`, are unaffected |
 
 \* The 3 day and 7 day archive durations require the server to be boosted. The [guild features](#DOCS_RESOURCES_GUILD/guild-object-guild-features) will indicate if a server is able to use those settings.
@@ -1209,6 +1211,7 @@ Creates a new thread that is not connected to an existing message. The created t
 | name                      | string  | 1-100 character channel name                                                                                        |
 | auto_archive_duration\*\* | integer | duration in minutes to automatically archive the thread after recent activity, can be set to: 60, 1440, 4320, 10080 |
 | type?\*\*\*               | integer | the [type of thread](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types) to create                                |
+| invitable?                | boolean | whether non-moderators can add other non-moderators to a thread; only available when creating a private thread      |
 
 \* Creating a private thread requires the server to be boosted. The [guild features](#DOCS_RESOURCES_GUILD/guild-object-guild-features) will indicate if that is possible for the guild.
 
