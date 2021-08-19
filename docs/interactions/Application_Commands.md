@@ -115,7 +115,7 @@ An app can have the following number of commands:
 - 100 global `CHAT_INPUT` commands
 - 5 global `USER` commands
 - 5 global `MESSAGE` commands
-  
+
 As well as the same amount of guild-specific commands per guild.
 
 > danger
