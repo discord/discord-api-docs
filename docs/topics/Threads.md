@@ -61,7 +61,7 @@ Threads automatically archive after inactivity. "Activity" is defined as sending
 
 ## Permissions
 
-Threads generally inherit permissions from the parent channel. If you can send messages or add reactions in the parent channel, you can do that in a thread as well.
+Threads generally inherit permissions from the parent channel. If you can add reactions in the parent channel, you can do that in a thread as well.
 
 Three new permission bits have been added, `CREATE_PUBLIC_THREADS`, `CREATE_PRIVATE_THREADS`, and `SEND_MESSAGES_IN_THREADS`. Note: `SEND_MESSAGES` has no effect in threads, users must have `SEND_MESSAGES_IN_THREADS` to talk in a thread.
 
