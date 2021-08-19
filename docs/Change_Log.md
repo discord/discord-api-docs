@@ -11,7 +11,7 @@ Thread permissions are being updated and simplified:
 
 A new permission is also being added:
 
-- "Send Messages in Threads", which will allow users to send a message in a thread. The "Send Messages" permission will have no affect in threads, users **must** have "Send Messages in Threads" to send a message in a thread. This allows for setups where a user can participate in a thread, but cannot send a message in a channel (like a thread off an announcement post).
+- "Send Messages in Threads", which will allow users to send a message in a thread. The "Send Messages" permission will have no effect in threads, users **must** have "Send Messages in Threads" to send a message in a thread. This allows for setups where a user can participate in a thread, but cannot send a message in the parent channel (like a thread off an announcement post).
 
 ## User and Message Commands
 
