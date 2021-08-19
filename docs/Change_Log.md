@@ -2,7 +2,7 @@
 
 ## Updated Thread Permissions
 
-#### September 7th, 2021 (most likely)
+#### September 9th, 2021 (most likely)
 
 Thread permissions are being updated and simplified:
 
