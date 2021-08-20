@@ -6,7 +6,7 @@ Application commands are commands that an application can register to Discord. T
 
 ###### Application Command Naming
 
-`CHAT_INPUT` command names and command option names must be a combination of up to 32 letters, digits, the underscore character '_' or the hyphen character '-'. If there is a lowercase variant of any of the letters you must use those. Characters with no lowercase variants and/or uncased letters are still allowed. `USER` and `MESSAGE` commands may be mixed case and can include spaces.
+`CHAT_INPUT` command names and command option names must match the following regex `^[\w-]{1,32}$` with the unicode flag set. If there is a lowercase variant of any letters used, you must use those. Characters with no lowercase variants and/or uncased letters are still allowed. `USER` and `MESSAGE` commands may be mixed case and can include spaces.
 
 ###### Application Command Structure
 
