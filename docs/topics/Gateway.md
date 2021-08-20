@@ -1450,8 +1450,6 @@ Sent when a guild channel's webhook is created, updated, or deleted.
 | guild_id   | snowflake | id of the guild   |
 | channel_id | snowflake | id of the channel |
 
-### Commands
-
 ### Interactions
 
 #### Interaction Create
