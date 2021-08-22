@@ -59,7 +59,7 @@ Returns a list of [Guild Events](#DOCS_RESOURCES_GUILD_EVENT/guild-event-object)
 | ---------------- | ------- | ----------------------------- |
 | with_user_count? | boolean | users subscribed to the event |
 
-## Create Guild #vent % POST /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/events
+## Create Guild Event % POST /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/events
 
 Create a Guild Event in the guild. Returns a [Guild Event](#DOCS_RESOURCES_GUILD_EVENT/guild-event-object) object on success.
 
