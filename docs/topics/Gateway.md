@@ -504,6 +504,9 @@ Events are payloads sent over the socket to a client that correspond to events i
 | [Guild Role Create](#DOCS_TOPICS_GATEWAY/guild-role-create)                         | guild role was created                                                                                                           |
 | [Guild Role Update](#DOCS_TOPICS_GATEWAY/guild-role-update)                         | guild role was updated                                                                                                           |
 | [Guild Role Delete](#DOCS_TOPICS_GATEWAY/guild-role-delete)                         | guild role was deleted                                                                                                           |
+| [Guild Scheduled Event Create](#DOCS_TOPIC_GATEWAY/guild-scheduled-event-create)    | guild event was created                                                                                                          |
+| [Guild Scheduled Event Update](#DOCS_TOPIC_GATEWAY/guild-scheduled-event-update)    | guild event was updated                                                                                                          |
+| [Guild Scheduled Event Delete](#DOCS_TOPIC_GATEWAY/guild-scheduled-event-delete)    | guild event was deleted                                                                                                          |
 | [Integration Create](#DOCS_TOPICS_GATEWAY/integration-create)                       | guild integration was created                                                                                                    |
 | [Integration Update](#DOCS_TOPICS_GATEWAY/integration-update)                       | guild integration was updated                                                                                                    |
 | [Integration Delete](#DOCS_TOPICS_GATEWAY/integration-delete)                       | guild integration was deleted                                                                                                    |
@@ -1052,6 +1055,18 @@ Sent when a guild role is deleted.
 |----------|-----------|-----------------|
 | guild_id | snowflake | id of the guild |
 | role_id  | snowflake | id of the role  |
+
+### Guild Scheduled Event Create
+
+Sent when a guild event is created. The data contain a [Guild Event](#DOCS_RESOURCES_GUILD_EVENT/guild-event-object) object.
+
+### Guild Scheduled Event Update
+
+Sent when a guild event is updated. The data contain a [Guild Event](#DOCS_RESOURCES_GUILD_EVENT/guild-event-object) object.
+
+### Guild Scheduled Event Delete
+
+Sent when a guild event is deleted. The data contain a [Guild Event](#DOCS_RESOURCES_GUILD_EVENT/guild-event-object) object.
 
 ### Integrations
 
