@@ -41,7 +41,6 @@ Many of these libraries are represented in the [unofficial, community-driven Dis
 | [DiscordPHP](https://github.com/discord-php/DiscordPHP)      | PHP        |
 | [RestCord](https://www.restcord.com/)                        | PHP        |
 | [discord.py](https://github.com/Rapptz/discord.py)           | Python     |
-| [disco](https://github.com/b1naryth1ef/disco)                | Python     |
 | [discordrb](https://github.com/shardlab/discordrb)           | Ruby       |
 | [discord-rs](https://github.com/SpaceManiac/discord-rs)      | Rust       |
 | [Serenity](https://github.com/serenity-rs/serenity)          | Rust       |
