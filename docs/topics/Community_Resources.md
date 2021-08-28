@@ -40,7 +40,6 @@ Many of these libraries are represented in the [unofficial, community-driven Dis
 | [discordnim](https://github.com/Krognol/discordnim)          | Nim        |
 | [DiscordPHP](https://github.com/discord-php/DiscordPHP)      | PHP        |
 | [RestCord](https://www.restcord.com/)                        | PHP        |
-| [discord.py](https://github.com/Rapptz/discord.py)           | Python     |
 | [discordrb](https://github.com/shardlab/discordrb)           | Ruby       |
 | [discord-rs](https://github.com/SpaceManiac/discord-rs)      | Rust       |
 | [Serenity](https://github.com/serenity-rs/serenity)          | Rust       |
