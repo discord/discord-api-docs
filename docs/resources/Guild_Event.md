@@ -48,6 +48,7 @@ A representation of an event in a Guild.
 | Field        | Type                | Description                       |
 | ------------ | ------------------- | --------------------------------- |
 | speaker_ids? | array of snowflakes | the speakers of the stage channel |
+| location?    | string              | location of the event             |
 
 ## List Guild Events for Guild % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/events
 
