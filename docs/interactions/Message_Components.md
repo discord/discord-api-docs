@@ -80,7 +80,7 @@ An Action Row is a non-interactive container component for other types of compon
 
 ## Responding to a Component Interaction
 
-Responding to a user interacting with a component is the same as other interaction types, like application commands. You can simply ACK the request, send a followup message, or edit the original message to something new. Check out [Responding to An Interaction](#DOCS_INTERACTIONS_RECEVING_AND_RESPONDING/responding-to-an-interaction) and [interaction response](#DOCS_INTERACTIONS_RECEVING_AND_RESPONDING/interaction-response-object) for more.
+Responding to a user interacting with a component is the same as other interaction types, like application commands. You can simply ACK the request, send a followup message, or edit the original message to something new. Check out [Responding to An Interaction](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/responding-to-an-interaction) and [interaction response](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-response-object) for more.
 
 ## Custom ID
 
@@ -90,7 +90,7 @@ Components, aside from Action Rows, must have a `custom_id` field. This field is
 
 ## Buttons
 
-Buttons are interactive components that render on messages. They can be clicked by users, and send an [interaction](#DOCS_INTERACTIONS_RECEVING_AND_RESPONDING/interaction-object) to your app when clicked.
+Buttons are interactive components that render on messages. They can be clicked by users, and send an [interaction](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object) to your app when clicked.
 
 - Buttons must be sent inside an Action Row
 - An Action Row can contain up to 5 buttons
