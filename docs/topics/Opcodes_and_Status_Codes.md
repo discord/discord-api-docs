@@ -230,6 +230,7 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 90001  | Reaction was blocked                                                                                                          |
 | 130000 | API resource is currently overloaded. Try again a little later                                                                |
 | 150006 | The Stage is already open                                                                                                     |
+| 160002 | Cannot reply without permission to read message history                                                                       |
 | 160004 | A thread has already been created for this message                                                                            |
 | 160005 | Thread is locked                                                                                                              |
 | 160006 | Maximum number of active threads reached                                                                                      |
