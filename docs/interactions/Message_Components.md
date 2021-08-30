@@ -100,15 +100,15 @@ Buttons are interactive components that render on messages. They can be clicked 
 
 ###### Button Structure
 
-| Field      | Type                                                | Description                                                                         |
-| ---------- | --------------------------------------------------- | ----------------------------------------------------------------------------------- |
-| type       | integer                                             | `2` for a button                                                                    |
-| style      | integer                                             | one of [button styles](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/buttons-button-styles) |
-| label?     | string                                              | text that appears on the button, max 80 characters                                  |
-| emoji?     | partial [emoji](#DOCS_RESOURCES_EMOJI/emoji-object) | `name`, `id`, and `animated`                                                        |
-| custom_id? | string                                              | a developer-defined identifier for the button, max 100 characters                   |
-| url?       | string                                              | a url for link-style buttons                                                        |
-| disabled?  | boolean                                             | whether the button is disabled (default `false`)                                    |
+| Field      | Type                                                | Description                                                                               |
+| ---------- | --------------------------------------------------- | ----------------------------------------------------------------------------------------- |
+| type       | integer                                             | `2` for a button                                                                          |
+| style      | integer                                             | one of [button styles](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/button-object-button-styles) |
+| label?     | string                                              | text that appears on the button, max 80 characters                                        |
+| emoji?     | partial [emoji](#DOCS_RESOURCES_EMOJI/emoji-object) | `name`, `id`, and `animated`                                                              |
+| custom_id? | string                                              | a developer-defined identifier for the button, max 100 characters                         |
+| url?       | string                                              | a url for link-style buttons                                                              |
+| disabled?  | boolean                                             | whether the button is disabled (default `false`)                                          |
 
 Buttons come in a variety of styles to convey different types of actions. These styles also define what fields are valid for a button.
 
