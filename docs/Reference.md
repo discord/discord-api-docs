@@ -108,7 +108,7 @@ All HTTP-layer services and protocols (e.g. HTTP, WebSocket) within the Discord 
 
 ## Snowflakes
 
-Discord utilizes Twitter's [snowflake](https://github.com/twitter/snowflake/tree/snowflake-2010) format for uniquely identifiable descriptors (IDs). These IDs are guaranteed to be unique across all of Discord, except in some unique scenarios in which child objects share their parent's ID. Because Snowflake IDs are up to 64 bits in size (e.g. a uint64), they are always returned as strings in the HTTP API to prevent integer overflows in some languages. See [Gateway ETF/JSON](#DOCS_TOPICS_GATEWAY/etfjson) for more information regarding Gateway encoding. Note that Discords only accepts and returns snowflakes in the range from `0` to `9223372036854775807` (both inclusive), these are all values a 63 bit unsigned integer could hold.
+Discord utilizes Twitter's [snowflake](https://github.com/twitter/snowflake/tree/snowflake-2010) format for uniquely identifiable descriptors (IDs). These IDs are guaranteed to be unique across all of Discord, except in some unique scenarios in which child objects share their parent's ID. Snowflake IDs are always returned as strings in the HTTP API to prevent integer overflows in some languages. See [Gateway ETF/JSON](#DOCS_TOPICS_GATEWAY/etfjson) for more information regarding Gateway encoding. Currently Discord will only accept snowflakes in the range from `0` to `9223372036854775807` (bounds included). Note that this may change in the future.
 
 ###### Snowflake ID Broken Down in Binary
 
