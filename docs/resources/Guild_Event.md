@@ -68,7 +68,7 @@ Create a Guild Event in the guild. Returns a [Guild Event](#DOCS_RESOURCES_GUILD
 
 | Field                | Type                                                                                                       | Description                            |
 | -------------------- | ---------------------------------------------------------------------------------------------------------- | -------------------------------------- |
-| channel_id?          | snowflake                                                                                                  | the stage channel id of the event      |
+| channel_id?          | snowflake                                                                                                  | the channel id of the event            |
 | name                 | string                                                                                                     | the name of the event                  |
 | privacy_level        | [privacy level](#DOCS_RESOURCES_STAGE_INSTANCE/stage-instance-object-privacy-level)                        | the privacy level of the event         |
 | scheduled_start_time | ISO8601                                                                                                    | the time to schedule the event         |
