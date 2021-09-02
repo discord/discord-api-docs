@@ -356,7 +356,7 @@ When someone uses a slash command, your application will receive an interaction:
     "token": "A_UNIQUE_TOKEN",
     "member": {
         "user": {
-            "id": 53908232506183680,
+            "id": "53908232506183680",
             "username": "Mason",
             "avatar": "a_d5efa99b3eeaa7dd43acca82f5692432",
             "discriminator": "1337",
