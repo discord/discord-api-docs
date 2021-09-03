@@ -1060,15 +1060,15 @@ Sent when a guild role is deleted.
 
 ### Guild Scheduled Event Create
 
-Sent when a guild event is created. The data contain a [Guild Event](#DOCS_RESOURCES_GUILD_EVENT/guild-event-object) object.
+Sent when a guild event is created. The inner payload is a [Guild Event](#DOCS_RESOURCES_GUILD_EVENT/guild-event-object) object.
 
 ### Guild Scheduled Event Update
 
-Sent when a guild event is updated. The data contain a [Guild Event](#DOCS_RESOURCES_GUILD_EVENT/guild-event-object) object.
+Sent when a guild event is updated. The inner payload is a [Guild Event](#DOCS_RESOURCES_GUILD_EVENT/guild-event-object) object.
 
 ### Guild Scheduled Event Delete
 
-Sent when a guild event is deleted. The data contain a [Guild Event](#DOCS_RESOURCES_GUILD_EVENT/guild-event-object) object.
+Sent when a guild event is deleted. The inner payload is a [Guild Event](#DOCS_RESOURCES_GUILD_EVENT/guild-event-object) object.
 
 ### Guild Scheduled Event User Create
 

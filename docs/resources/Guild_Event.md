@@ -10,7 +10,7 @@ A representation of an event in a Guild.
 | -------------------- | ---------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
 | id                   | snowflake                                                                                                  | the id of the event                                                                       |
 | guild_id             | snowflake                                                                                                  | the guild id of the event                                                                 |
-| channel_id           | ?snowflake                                                                                                 | the stage channel id of the event                                                         |
+| channel_id           | ?snowflake                                                                                                 | the channel id of the event                                                               |
 | name                 | string                                                                                                     | the name of the event                                                                     |
 | description?         | string                                                                                                     | the description of the event                                                              |
 | image                | ?string                                                                                                    | the image of the event                                                                    |
@@ -48,6 +48,7 @@ A representation of an event in a Guild.
 | Field        | Type                | Description                       |
 | ------------ | ------------------- | --------------------------------- |
 | speaker_ids? | array of snowflakes | the speakers of the stage channel |
+| location?    | string              | location of the event             |
 
 ## List Guild Events for Guild % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/events
 
@@ -67,7 +68,7 @@ Create a Guild Event in the guild. Returns a [Guild Event](#DOCS_RESOURCES_GUILD
 
 | Field                | Type                                                                                                       | Description                            |
 | -------------------- | ---------------------------------------------------------------------------------------------------------- | -------------------------------------- |
-| channel_id?          | snowflake                                                                                                  | the stage channel id of the event      |
+| channel_id?          | snowflake                                                                                                  | the channel id of the event            |
 | name                 | string                                                                                                     | the name of the event                  |
 | privacy_level        | [privacy level](#DOCS_RESOURCES_STAGE_INSTANCE/stage-instance-object-privacy-level)                        | the privacy level of the event         |
 | scheduled_start_time | ISO8601                                                                                                    | the time to schedule the event         |
@@ -93,7 +94,7 @@ Modify a Guild Event. Returns the modified [Guild Event](#DOCS_RESOURCES_GUILD_E
 
 | Field                | Type                                                                                                       | Description                            |
 | -------------------- | ---------------------------------------------------------------------------------------------------------- | -------------------------------------- |
-| channel_id           | snowflake                                                                                                  | the stage channel id of the event      |
+| channel_id           | snowflake                                                                                                  | the channel id of the event            |
 | name                 | string                                                                                                     | the name of the event                  |
 | privacy_level        | [privacy level](#DOCS_RESOURCES_STAGE_INSTANCE/stage-instance-object-privacy-level)                        | the privacy level of the event         |
 | scheduled_start_time | ISO8601                                                                                                    | the time to schedule the event         |
