@@ -41,7 +41,7 @@ Many of these libraries are represented in the [unofficial, community-driven Dis
 | [discordnim](https://github.com/Krognol/discordnim)          | Nim        |
 | [DiscordPHP](https://github.com/discord-php/DiscordPHP)      | PHP        |
 | [RestCord](https://www.restcord.com/)                        | PHP        |
-| [discord.py](https://github.com/Rapptz/discord.py)           | Python     |
+| [discord.py](https://github.com/Rapptz/discord.py)*          | Python     |
 | [disco](https://github.com/b1naryth1ef/disco)                | Python     |
 | [discordrb](https://github.com/shardlab/discordrb)           | Ruby       |
 | [discord-rs](https://github.com/SpaceManiac/discord-rs)      | Rust       |
@@ -53,6 +53,8 @@ Many of these libraries are represented in the [unofficial, community-driven Dis
 | [discordeno](https://github.com/discordeno/discordeno)       | TypeScript |
 | [droff](https://github.com/tim-smart/droff)                  | TypeScript |
 | [Harmony](https://github.com/harmonyland/harmony)            | TypeScript |
+
+* Development Discontinued
 
 ## Interactions
 
