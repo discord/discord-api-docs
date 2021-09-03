@@ -507,8 +507,8 @@ Events are payloads sent over the socket to a client that correspond to events i
 | [Guild Scheduled Event Create](#DOCS_TOPIC_GATEWAY/guild-scheduled-event-create)    | guild event was created                                                                                                          |
 | [Guild Scheduled Event Update](#DOCS_TOPIC_GATEWAY/guild-scheduled-event-update)    | guild event was updated                                                                                                          |
 | [Guild Scheduled Event Delete](#DOCS_TOPIC_GATEWAY/guild-scheduled-event-delete)    | guild event was deleted                                                                                                          |
-| [Guild Scheduled Event User Create](#DOCS_TOPIC_GATEWAY/guild-scheduled-event-update) | user subscribed to a guild event                                                                                               |
-| [Guild Scheduled Event User Delete](#DOCS_TOPIC_GATEWAY/guild-scheduled-event-delete) | user unsubscribed from a guild event                                                                                           |
+| [Guild Scheduled Event User Create](#DOCS_TOPIC_GATEWAY/guild-scheduled-event-user-create) | user subscribed to a guild event                                                                                          |
+| [Guild Scheduled Event User Delete](#DOCS_TOPIC_GATEWAY/guild-scheduled-event-user-delete) | user unsubscribed from a guild event                                                                                      |
 | [Integration Create](#DOCS_TOPICS_GATEWAY/integration-create)                       | guild integration was created                                                                                                    |
 | [Integration Update](#DOCS_TOPICS_GATEWAY/integration-update)                       | guild integration was updated                                                                                                    |
 | [Integration Delete](#DOCS_TOPICS_GATEWAY/integration-delete)                       | guild integration was deleted                                                                                                    |
@@ -1068,7 +1068,7 @@ Sent when a guild event is updated. The inner payload is a [Guild Event](#DOCS_R
 
 ### Guild Scheduled Event Delete
 
-Sent when a guild event is deleted. The inner payload is a [Guild Event](#DOCS_RESOURCES_GUILD_EVENT/guild-event-object) object.
+Sent when a guild event is deleted. The inner payload is a [Guild Event](#DOCS_RESOURCES_GUILD_EVENT/guild-event-object) object. See [Guild Scheduled Event Status](#DOCS_RESOURCES_GUILD_EVENT/guild-event-object-guild-scheduled-event-status) to determine how the event was deleted.
 
 ### Guild Scheduled Event User Create
 
