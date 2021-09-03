@@ -32,7 +32,7 @@ A representation of an event in a Guild.
 | NONE           | 0     |
 | STAGE_INSTANCE | 1     |
 | VOICE          | 2     |
-| EXTERNAL       | 3     |
+| LOCATION       | 3     |
 
 ###### Guild Scheduled Event Status
 
