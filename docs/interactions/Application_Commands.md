@@ -20,6 +20,7 @@ Application commands are commands that an application can register to Discord. T
 | description         | string                                                                                                                                         | 1-100 character description for `CHAT_INPUT` commands, empty string for `USER` and `MESSAGE` commands | all         |
 | options?            | array of [application command option](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-structure) | the parameters for the command, max 25                                                                | CHAT_INPUT  |
 | default_permission? | boolean (default `true`)                                                                                                                       | whether the command is enabled by default when the app is added to a guild                            | all         |
+| version             | snowflake                                                                                                                                      | autoincrementing version identifier updated during substantial record changes                         | all         |
 
 ###### Application Command Types
 
