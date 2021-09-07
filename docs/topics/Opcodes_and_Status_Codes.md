@@ -175,6 +175,7 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 30035  | Maximum number of bans for non-guild members have been exceeded                                                               |
 | 30037  | Maximum number of bans fetches has been reached                                                                               |
 | 30039  | Maximum number of stickers reached                                                                                            |
+| 30040  | Maximum number of prune requests has been reached. Try again later                                                            |
 | 40001  | Unauthorized. Provide a valid token and try again                                                                             |
 | 40002  | You need to verify your account in order to perform this action                                                               |
 | 40003  | You are opening direct messages too fast                                                                                      |
@@ -229,6 +230,7 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 90001  | Reaction was blocked                                                                                                          |
 | 130000 | API resource is currently overloaded. Try again a little later                                                                |
 | 150006 | The Stage is already open                                                                                                     |
+| 160002 | Cannot reply without permission to read message history                                                                       |
 | 160004 | A thread has already been created for this message                                                                            |
 | 160005 | Thread is locked                                                                                                              |
 | 160006 | Maximum number of active threads reached                                                                                      |

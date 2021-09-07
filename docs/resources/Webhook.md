@@ -163,7 +163,7 @@ Same as above, except this call does not require authentication.
 
 > warn
 > This endpoint supports both `application/json` and `multipart/form-data` bodies. When uploading files the `multipart/form-data` content type must be used.
-> Note that in multipart form data, the `embed` and `allowed_mentions` fields cannot be used. You can pass a stringified JSON body as a form value as `payload_json` instead.
+> Note that in multipart form data, the `embeds` and `allowed_mentions` fields cannot be used. You can pass a stringified JSON body as a form value as `payload_json` instead.
 > **If you supply a `payload_json` form value, all fields except for `file` fields will be ignored in the form data**.
 
 ###### Query String Params
@@ -227,7 +227,7 @@ When the `content` field is edited, the `mentions` array in the message object w
 
 > warn
 > This endpoint supports both `application/json` and `multipart/form-data` bodies. When uploading files the `multipart/form-data` content type must be used.
-> Note that in multipart form data, the `embed`, `allowed_mentions`, and `attachments` fields cannot be used. You can pass a stringified JSON body as a form value as `payload_json` instead.
+> Note that in multipart form data, the `embeds`, `allowed_mentions`, and `attachments` fields cannot be used. You can pass a stringified JSON body as a form value as `payload_json` instead.
 > **If you supply a `payload_json` form value, all fields except for `file` fields will be ignored in the form data**.
 
 > info
