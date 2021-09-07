@@ -99,7 +99,7 @@ Our API will return semantically valid HTTP response codes based on the success 
 
 ## JSON
 
-Along with the HTTP error code, our API can also return more detailed error codes through a `code` key in the JSON error response. The response will also contain a `message` key containing a more friendly error string.
+Along with the HTTP error code, our API can also return more detailed error codes through a `code` key in the JSON error response. The response will also contain a `message` key containing a more friendly error string. Some of these errors may also send [Schema Errors](#DOCS_REFERENCE/error-messages) in addition to `code` and `message` in an `errors` object.
 
 ###### JSON Error Codes
 
