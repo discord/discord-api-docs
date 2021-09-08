@@ -46,6 +46,7 @@ Many of these libraries are represented in the [unofficial, community-driven Dis
 | [RestCord](https://www.restcord.com/)                        | PHP        |
 | [discord.py](https://github.com/Rapptz/discord.py)           | Python     |
 | [disco](https://github.com/b1naryth1ef/disco)                | Python     |
+| [hata](https://github.com/HuyaneMatsu/hata)                  | Python     |
 | [hikari](https://github.com/hikari-py/hikari)                | Python     |
 | [discordrb](https://github.com/shardlab/discordrb)           | Ruby       |
 | [discord-rs](https://github.com/SpaceManiac/discord-rs)      | Rust       |
