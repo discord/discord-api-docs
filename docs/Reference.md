@@ -81,6 +81,23 @@ In API v8, we've improved error formatting in form error responses. The response
 }
 ```
 
+###### Request Error
+
+```json
+{
+    "code": 50035,
+    "message": "Invalid Form Body",
+    "errors": {
+        "_errors": [
+            {
+                "code": "APPLICATION_COMMAND_TOO_LARGE",
+                "message": "Command exceeds maximum size (4000)"
+            }
+        ]
+    }
+}
+```
+
 ## Authentication
 
 Authenticating with the Discord API can be done in one of two ways:
