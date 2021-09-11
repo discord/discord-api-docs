@@ -671,6 +671,9 @@ Create a new [channel](#DOCS_RESOURCES_CHANNEL/channel-object) object for the gu
 Modify the positions of a set of [channel](#DOCS_RESOURCES_CHANNEL/channel-object) objects for the guild. Requires `MANAGE_CHANNELS` permission. Returns a 204 empty response on success. Fires multiple [Channel Update](#DOCS_TOPICS_GATEWAY/channel-update) Gateway events.
 
 > info
+> Only channels to be modified are required.
+
+> info
 > This endpoint supports the `X-Audit-Log-Reason` header.
 
 This endpoint takes a JSON array of parameters in the following format:
