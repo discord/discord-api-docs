@@ -99,7 +99,7 @@ Our API will return semantically valid HTTP response codes based on the success 
 
 ## JSON
 
-Along with the HTTP error code, our API can also return more detailed error codes through a `code` key in the JSON error response. The response will also contain a `message` key containing a more friendly error string.
+Along with the HTTP error code, our API can also return more detailed error codes through a `code` key in the JSON error response. The response will also contain a `message` key containing a more friendly error string. Some of these errors may include additional details in the form of [Error Messages](#DOCS_REFERENCE/error-messages) provided by an `errors` object.
 
 ###### JSON Error Codes
 
@@ -133,6 +133,8 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 10033  | Unknown store directory layout                                                                                                |
 | 10036  | Unknown redistributable                                                                                                       |
 | 10038  | Unknown gift code                                                                                                             |
+| 10049  | Unknown stream                                                                                                                |
+| 10050  | Unknown premium server subscribe cooldown                                                                                     |
 | 10057  | Unknown guild template                                                                                                        |
 | 10059  | Unknown discoverable server category                                                                                          |
 | 10060  | Unknown sticker                                                                                                               |
@@ -142,6 +144,8 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 10067  | Unknown Stage Instance                                                                                                        |
 | 10068  | Unknown Guild Member Verification Form                                                                                        |
 | 10069  | Unknown Guild Welcome Screen                                                                                                  |
+| 10070  | Unknown Guild Scheduled Event                                                                                                 |
+| 10071  | Unknown Guild Scheduled Event User                                                                                            |
 | 20001  | Bots cannot use this endpoint                                                                                                 |
 | 20002  | Only bots can use this endpoint                                                                                               |
 | 20009  | Explicit content cannot be sent to the desired recipient(s)                                                                   |
@@ -171,6 +175,7 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 30035  | Maximum number of bans for non-guild members have been exceeded                                                               |
 | 30037  | Maximum number of bans fetches has been reached                                                                               |
 | 30039  | Maximum number of stickers reached                                                                                            |
+| 30040  | Maximum number of prune requests has been reached. Try again later                                                            |
 | 40001  | Unauthorized. Provide a valid token and try again                                                                             |
 | 40002  | You need to verify your account in order to perform this action                                                               |
 | 40003  | You are opening direct messages too fast                                                                                      |
@@ -218,11 +223,14 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 50083  | Tried to perform an operation on an archived thread, such as editing a message or adding a user to the thread                 |
 | 50084  | Invalid thread notification settings                                                                                          |
 | 50085  | `before` value is earlier than the thread creation date                                                                       |
+| 50095  | This server is not available in your location                                                                                 |
+| 50097  | This server needs monetization enabled in order to perform this action                                                        |
 | 60003  | Two factor is required for this operation                                                                                     |
 | 80004  | No users with DiscordTag exist                                                                                                |
 | 90001  | Reaction was blocked                                                                                                          |
 | 130000 | API resource is currently overloaded. Try again a little later                                                                |
 | 150006 | The Stage is already open                                                                                                     |
+| 160002 | Cannot reply without permission to read message history                                                                       |
 | 160004 | A thread has already been created for this message                                                                            |
 | 160005 | Thread is locked                                                                                                              |
 | 160006 | Maximum number of active threads reached                                                                                      |
