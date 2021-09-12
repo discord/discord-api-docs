@@ -5,6 +5,21 @@
 
 Some people don't like to read full pages of documentation. Personally, I think those people are missing out. But we want to make sure that we cater to everyone, so here's a list of every Dispatch command and what it does. No frills, no jokes. Okay, maybe some jokes.
 
+## login
+
+Authorizes you to do these things!
+
+###### Arguments
+
+None
+
+###### Example
+
+```
+-> dispatch login
+[2018-09-17][15:26:15][INFO] Already logged in
+```
+
 ## branch create
 
 Creates a new branch. If you have not yet made a master branch, this command will also automatically create a master branch.
@@ -297,19 +312,4 @@ Lists created manifest labels. These labels are created from the JSON config fil
 | -------------------- | -------------------- | -------------------- |
 |  290926444748734465  |  471165178650999608  |        my-game       |
 |  290926444748734465  |  471169990397324288  |      my-game-dlc     |
-```
-
-## login
-
-Authorizes you to do these things! Maybe we should've put this at the top...
-
-###### Arguments
-
-None
-
-###### Example
-
-```
--> dispatch login
-[2018-09-17][15:26:15][INFO] Already logged in
 ```
