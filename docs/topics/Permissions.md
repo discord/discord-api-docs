@@ -179,17 +179,18 @@ Roles represent a set of permissions attached to a group of users. Roles have un
 
 ###### Role Structure
 
-| Field       | Type                                                                         | Description                                      |
-| ----------- | ---------------------------------------------------------------------------- | ------------------------------------------------ |
-| id          | snowflake                                                                    | role id                                          |
-| name        | string                                                                       | role name                                        |
-| color       | integer                                                                      | integer representation of hexadecimal color code |
-| hoist       | boolean                                                                      | if this role is pinned in the user listing       |
-| position    | integer                                                                      | position of this role                            |
-| permissions | string                                                                       | permission bit set                               |
-| managed     | boolean                                                                      | whether this role is managed by an integration   |
-| mentionable | boolean                                                                      | whether this role is mentionable                 |
-| tags?       | [role tags](#DOCS_TOPICS_PERMISSIONS/role-object-role-tags-structure) object | the tags this role has                           |
+| Field       | Type                                                                         | Description                                       |
+| ----------- | ---------------------------------------------------------------------------- | ------------------------------------------------- |
+| id          | snowflake                                                                    | role id                                           |
+| name        | string                                                                       | role name                                         |
+| color       | integer                                                                      | integer representation of hexadecimal color code  |
+| hoist       | boolean                                                                      | if this role is pinned in the user listing        |
+| icon        | ?string                                                                      | role [icon hash](#DOCS_REFERENCE/image-formatting)|
+| position    | integer                                                                      | position of this role                             |
+| permissions | string                                                                       | permission bit set                                |
+| managed     | boolean                                                                      | whether this role is managed by an integration    |
+| mentionable | boolean                                                                      | whether this role is mentionable                  |
+| tags?       | [role tags](#DOCS_TOPICS_PERMISSIONS/role-object-role-tags-structure) object | the tags this role has                            |
 
 Roles without colors (`color == 0`) do not count towards the final computed color in the user list.
 
@@ -209,6 +210,7 @@ Roles without colors (`color == 0`) do not count towards the final computed colo
   "name": "WE DEM BOYZZ!!!!!!",
   "color": 3447003,
   "hoist": true,
+  "icon": "f64c482b807da4f539cff778d174971c",
   "position": 1,
   "permissions": "66321471",
   "managed": false,
