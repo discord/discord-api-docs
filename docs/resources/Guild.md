@@ -148,6 +148,7 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 | THREE_DAY_THREAD_ARCHIVE         | guild has access to the three day archive time for threads                                                          |
 | SEVEN_DAY_THREAD_ARCHIVE         | guild has access to the seven day archive time for threads                                                          |
 | PRIVATE_THREADS                  | guild has access to create private threads                                                                          |
+| ROLE_ICONS                       | guild is able to set role icons                                                                                     |
 
 ###### Example Guild
 
