@@ -182,7 +182,7 @@ Bots can post or publish messages in this type of channel if they have the prope
 
 ###### Example Store Channel
 
-Bots can neither send or read messages from this channel type (as it is a store page).
+Bots can neither send nor read messages in this channel type (as it is a store page).
 
 ```json
 {
