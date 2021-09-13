@@ -210,7 +210,7 @@ Roles without colors (`color == 0`) do not count towards the final computed colo
   "name": "WE DEM BOYZZ!!!!!!",
   "color": 3447003,
   "hoist": true,
-  "icon": "f64c482b807da4f539cff778d174971c",
+  "icon": "cf3ced8600b777c9486c6d8d84fb4327",
   "position": 1,
   "permissions": "66321471",
   "managed": false,
