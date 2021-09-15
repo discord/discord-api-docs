@@ -127,6 +127,9 @@ Create a new sticker for the guild. Send a `multipart/form-data` body. Requires 
 > info
 > This endpoint supports the `X-Audit-Log-Reason` header.
 
+> warn
+> Lottie stickers can only be uploaded on guilds that have either the `VERIFIED` and/or the `PARTNERED` [guild feature](#DOCS_RESOURCES_GUILD/guild-object-guild-features). 
+
 ###### Form Params
 
 | Field       | Type          | Description                                                                                  |
