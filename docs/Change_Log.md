@@ -2,16 +2,16 @@
 
 ## Updated Thread Permissions
 
-#### September 9th, 2021 (most likely)
+#### September 16, 2021
 
-Thread permissions are being updated and simplified:
+Thread permissions have been updated and simplified:
 
-- "Use Public Threads" is becoming "Create Public Threads", which will allow users to create threads in a channel, even if they cannot send messages in that channel
-- "Use Private Threads" is becoming "Create Private Threads", which will allow users to create threads in a channel, even if they cannot send messages in that channel
+- "Use Public Threads" is now "Create Public Threads", which allows users to create threads in a channel, even if they cannot send messages in that channel.
+- "Use Private Threads" is now "Create Private Threads", which allows users to create threads in a channel, even if they cannot send messages in that channel.
 
-A new permission is also being added:
+A new permission has also been added:
 
-- "Send Messages in Threads", which will allow users to send a message in a thread. The "Send Messages" permission will have no effect in threads, users **must** have "Send Messages in Threads" to send a message in a thread. This allows for setups where a user can participate in a thread, but cannot send a message in the parent channel (like a thread off an announcement post).
+- "Send Messages in Threads", which allows users to send a message in a thread. The "Send Messages" permission has no effect in threads: users **must** have "Send Messages in Threads" to send a message in a thread. This allows for setups where a user can participate in a thread, but cannot send a message in the parent channel (like a thread on an announcement post).
 
 ## User and Message Commands
 
