@@ -33,7 +33,7 @@ There are other rules and restrictions not shared here for the sake of spam and 
 | bot?          | boolean   | whether the user belongs to an OAuth2 application                                                    | identify              |
 | system?       | boolean   | whether the user is an Official Discord System user (part of the urgent message system)              | identify              |
 | mfa_enabled?  | boolean   | whether the user has two factor enabled on their account                                             | identify              |
-| banner?       | ?string   | the user's banner, or null if unset                                                                  | identify              |
+| banner?       | ?string   | the user's [banner hash](#DOCS_REFERENCE/image-formatting)                                           | identify              |
 | accent_color? | ?integer  | the user's banner color encoded as an integer representation of hexadecimal color code               | identify              |
 | locale?       | string    | the user's chosen language option                                                                    | identify              |
 | verified?     | boolean   | whether the email on this account has been verified                                                  | email                 |

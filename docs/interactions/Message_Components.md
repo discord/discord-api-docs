@@ -80,7 +80,7 @@ An Action Row is a non-interactive container component for other types of compon
 
 ## Responding to a Component Interaction
 
-Responding to a user interacting with a component is the same as other interaction types, like application commands. You can simply ACK the request, send a followup message, or edit the original message to something new. Check out [Responding to An Interaction](#DOCS_INTERACTIONS_RECEVING_AND_RESPONDING/responding-to-an-interaction) and [interaction response](#DOCS_INTERACTIONS_RECEVING_AND_RESPONDING/interaction-response-object) for more.
+Responding to a user interacting with a component is the same as other interaction types, like application commands. You can simply ACK the request, send a followup message, or edit the original message to something new. Check out [Responding to An Interaction](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/responding-to-an-interaction) and [interaction response](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-response-object) for more.
 
 ## Custom ID
 
@@ -90,7 +90,7 @@ Components, aside from Action Rows, must have a `custom_id` field. This field is
 
 ## Buttons
 
-Buttons are interactive components that render on messages. They can be clicked by users, and send an [interaction](#DOCS_INTERACTIONS_RECEVING_AND_RESPONDING/interaction-object) to your app when clicked.
+Buttons are interactive components that render on messages. They can be clicked by users, and send an [interaction](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object) to your app when clicked.
 
 - Buttons must be sent inside an Action Row
 - An Action Row can contain up to 5 buttons
@@ -100,15 +100,15 @@ Buttons are interactive components that render on messages. They can be clicked 
 
 ###### Button Structure
 
-| Field      | Type                                                | Description                                                                         |
-| ---------- | --------------------------------------------------- | ----------------------------------------------------------------------------------- |
-| type       | integer                                             | `2` for a button                                                                    |
-| style      | integer                                             | one of [button styles](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/buttons-button-styles) |
-| label?     | string                                              | text that appears on the button, max 80 characters                                  |
-| emoji?     | partial [emoji](#DOCS_RESOURCES_EMOJI/emoji-object) | `name`, `id`, and `animated`                                                        |
-| custom_id? | string                                              | a developer-defined identifier for the button, max 100 characters                   |
-| url?       | string                                              | a url for link-style buttons                                                        |
-| disabled?  | boolean                                             | whether the button is disabled (default `false`)                                    |
+| Field      | Type                                                | Description                                                                               |
+| ---------- | --------------------------------------------------- | ----------------------------------------------------------------------------------------- |
+| type       | integer                                             | `2` for a button                                                                          |
+| style      | integer                                             | one of [button styles](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/button-object-button-styles) |
+| label?     | string                                              | text that appears on the button, max 80 characters                                        |
+| emoji?     | partial [emoji](#DOCS_RESOURCES_EMOJI/emoji-object) | `name`, `id`, and `animated`                                                              |
+| custom_id? | string                                              | a developer-defined identifier for the button, max 100 characters                         |
+| url?       | string                                              | a url for link-style buttons                                                              |
+| disabled?  | boolean                                             | whether the button is disabled (default `false`)                                          |
 
 Buttons come in a variety of styles to convey different types of actions. These styles also define what fields are valid for a button.
 

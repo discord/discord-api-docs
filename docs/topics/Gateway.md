@@ -479,9 +479,6 @@ Events are payloads sent over the socket to a client that correspond to events i
 | [Resumed](#DOCS_TOPICS_GATEWAY/resumed)                                             | response to [Resume](#DOCS_TOPICS_GATEWAY/resume)                                                                                |
 | [Reconnect](#DOCS_TOPICS_GATEWAY/reconnect)                                         | server is going away, client should reconnect to gateway and resume                                                              |
 | [Invalid Session](#DOCS_TOPICS_GATEWAY/invalid-session)                             | failure response to [Identify](#DOCS_TOPICS_GATEWAY/identify) or [Resume](#DOCS_TOPICS_GATEWAY/resume) or invalid active session |
-| [Application Command Create](#DOCS_TOPICS_GATEWAY/application-command-create)       | new [Application Command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/) was created                                                  |
-| [Application Command Update](#DOCS_TOPICS_GATEWAY/application-command-update)       | [Application Command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/) was updated                                                      |
-| [Application Command Delete](#DOCS_TOPICS_GATEWAY/application-command-delete)       | [Application Command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/) was deleted                                                      |
 | [Channel Create](#DOCS_TOPICS_GATEWAY/channel-create)                               | new guild channel created                                                                                                        |
 | [Channel Update](#DOCS_TOPICS_GATEWAY/channel-update)                               | channel was updated                                                                                                              |
 | [Channel Delete](#DOCS_TOPICS_GATEWAY/channel-delete)                               | channel was deleted                                                                                                              |
@@ -867,7 +864,7 @@ Sent when anyone is added to or removed from a thread.  If the current user does
 | added_members?\*     | array of [thread member](#DOCS_RESOURCES_CHANNEL/thread-member-object) objects | the users who were added to the thread                          |
 | removed_member_ids?  | array of snowflakes                                                            | the id of the users who were removed from the thread            |
 
-\* In this gateway event, the thread member objects will also include the [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) and [presence](#DOCS_TOPICS_GATEWAY/presence) objects for each added thread member.
+\* In this gateway event, the thread member objects will also include the [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) and nullable [presence](#DOCS_TOPICS_GATEWAY/presence) objects for each added thread member.
 
 #### Channel Pins Update
 
@@ -1453,31 +1450,11 @@ Sent when a guild channel's webhook is created, updated, or deleted.
 | guild_id   | snowflake | id of the guild   |
 | channel_id | snowflake | id of the channel |
 
-### Commands
-
-#### Application Command Create
-
-Sent when a new [Application Command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/) is created, relevant to the current user. The inner payload is an [ApplicationCommand](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-structure) object, with an optional extra `guild_id` key.
-
-#### Application Command Update
-
-Sent when an [Application Command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/) relevant to the current user is updated. The inner payload is an [ApplicationCommand](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-structure) object, with an optional extra `guild_id` key.
-
-#### Application Command Delete
-
-Sent when an [Application Command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/) relevant to the current user is deleted. The inner payload is an [ApplicationCommand](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-structure) object, with an optional extra `guild_id` key.
-
-###### Application Command Extra Fields
-
-| Field     | Type      | Description                       |
-|-----------|-----------|-----------------------------------|
-| guild_id? | snowflake | id of the guild the command is in |
-
 ### Interactions
 
 #### Interaction Create
 
-Sent when a user in a guild uses an [Application Command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/). Inner payload is an [Interaction](#DOCS_INTERACTIONS_RECEVING_AND_RESPONDING/interaction-object-interaction-structure).
+Sent when a user in a guild uses an [Application Command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/). Inner payload is an [Interaction](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-interaction-structure).
 
 ### Stage Instances
 

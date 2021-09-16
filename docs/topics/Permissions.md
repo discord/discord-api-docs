@@ -66,6 +66,7 @@ Below is a table of all current permissions, their integer values in hexadecimal
 | CREATE_PRIVATE_THREADS        | `0x1000000000` `(1 << 36)` | Allows for creating private threads                                                                                                | T            |
 | USE_EXTERNAL_STICKERS         | `0x2000000000` `(1 << 37)` | Allows the usage of custom stickers from other servers                                                                             | T            |
 | SEND_MESSAGES_IN_THREADS      | `0x4000000000` `(1 << 38)` | Allows for sending messages in threads                                                                                             | T            |
+| START_EMBEDDED_ACTIVITIES     | `0x8000000000` `(1 << 39)` | Allows for launching activities (applications with the `EMBEDDED` flag) in a voice channel                                         | V            |
 
 **\* These permissions require the owner account to use [two-factor authentication](#DOCS_TOPICS_OAUTH2/twofactor-authentication-requirement) when used on a guild that has server-wide 2FA enabled.**
 

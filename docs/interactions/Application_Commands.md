@@ -4,8 +4,9 @@ Application commands are commands that an application can register to Discord. T
 
 ## Application Command Object
 
-> info
-> `CHAT_INPUT` command names must be all lowercase matching `^[\w-]{1,32}$`. `USER` and `MESSAGE` commands may be mixed case and can include spaces.
+###### Application Command Naming
+
+`CHAT_INPUT` command names and command option names must match the following regex `^[\w-]{1,32}$` with the unicode flag set. If there is a lowercase variant of any letters used, you must use those. Characters with no lowercase variants and/or uncased letters are still allowed. `USER` and `MESSAGE` commands may be mixed case and can include spaces.
 
 ###### Application Command Structure
 
@@ -19,6 +20,7 @@ Application commands are commands that an application can register to Discord. T
 | description         | string                                                                                                                                         | 1-100 character description for `CHAT_INPUT` commands, empty string for `USER` and `MESSAGE` commands | all         |
 | options?            | array of [application command option](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-structure) | the parameters for the command, max 25                                                                | CHAT_INPUT  |
 | default_permission? | boolean (default `true`)                                                                                                                       | whether the command is enabled by default when the app is added to a guild                            | all         |
+| version             | snowflake                                                                                                                                      | autoincrementing version identifier updated during substantial record changes                         | all         |
 
 ###### Application Command Types
 
@@ -34,14 +36,14 @@ Application commands are commands that an application can register to Discord. T
 > warn
 > Required `options` must be listed before optional options
 
-| Field       | Type                                                                                                                                                         | Description                                                                                        |
-| ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------- |
-| type        | one of [application command option type](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-type)                 | the type of option                                                                                 |
-| name        | string                                                                                                                                                       | 1-32 lowercase character name matching `^[\w-]{1,32}$`                                             |
-| description | string                                                                                                                                                       | 1-100 character description                                                                        |
-| required?   | boolean                                                                                                                                                      | if the parameter is required or optional--default `false`                                          |
-| choices?    | array of [application command option choice](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-choice-structure) | choices for `STRING`, `INTEGER`, and `NUMBER` types for the user to pick from, max 25              |
-| options?    | array of [application command option](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-structure)               | if the option is a subcommand or subcommand group type, this nested options will be the parameters |
+| Field       | Type                                                                                                                                                         | Description                                                                                                            |
+| ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------- |
+| type        | one of [application command option type](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-type)                 | the type of option                                                                                                     |
+| name        | string                                                                                                                                                       | [1-32 character name]((#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-naming)  |
+| description | string                                                                                                                                                       | 1-100 character description                                                                                            |
+| required?   | boolean                                                                                                                                                      | if the parameter is required or optional--default `false`                                                              |
+| choices?    | array of [application command option choice](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-choice-structure) | choices for `STRING`, `INTEGER`, and `NUMBER` types for the user to pick from, max 25                                  |
+| options?    | array of [application command option](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-structure)               | if the option is a subcommand or subcommand group type, this nested options will be the parameters                     |
 
 ###### Application Command Option Type
 
@@ -115,7 +117,7 @@ An app can have the following number of commands:
 - 100 global `CHAT_INPUT` commands
 - 5 global `USER` commands
 - 5 global `MESSAGE` commands
-  
+
 As well as the same amount of guild-specific commands per guild.
 
 > danger
@@ -356,7 +358,7 @@ When someone uses a slash command, your application will receive an interaction:
     "token": "A_UNIQUE_TOKEN",
     "member": {
         "user": {
-            "id": 53908232506183680,
+            "id": "53908232506183680",
             "username": "Mason",
             "avatar": "a_d5efa99b3eeaa7dd43acca82f5692432",
             "discriminator": "1337",
@@ -842,13 +844,13 @@ Create a new global command. New global commands will be available in all guilds
 
 ###### JSON Params
 
-| Field               | Type                                                                                                                                           | Description                                                                |
-| ------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
-| name                | string                                                                                                                                         | 1-32 lowercase character name matching `^[\w-]{1,32}$`                     |
-| description         | string                                                                                                                                         | 1-100 character description                                                |
-| options?            | array of [application command option](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-structure) | the parameters for the command                                             |
-| default_permission? | boolean (default `true`)                                                                                                                       | whether the command is enabled by default when the app is added to a guild |
-| type?               | one of [application command type](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-types)                | the type of command, defaults `1` if not set                               |
+| Field               | Type                                                                                                                                           | Description                                                                                                                              |
+| ------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| name                | string                                                                                                                                         | [1-32 character name]((#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-naming)                    |
+| description         | string                                                                                                                                         | 1-100 character description                                                                                                              |
+| options?            | array of [application command option](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-structure) | the parameters for the command                                                                                                           |
+| default_permission? | boolean (default `true`)                                                                                                                       | whether the command is enabled by default when the app is added to a guild                                                               |
+| type?               | one of [application command type](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-types)                | the type of command, defaults `1` if not set                                                                                             |
 
 ## Get Global Application Command % GET /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/commands/{command.id#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object}
 
@@ -863,12 +865,12 @@ Edit a global command. Updates will be available in all guilds after 1 hour. Ret
 
 ###### JSON Params
 
-| Field               | Type                                                                                                                                           | Description                                                                |
-| ------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
-| name?               | string                                                                                                                                         | 1-32 lowercase character name matching `^[\w-]{1,32}$`                     |
-| description?        | string                                                                                                                                         | 1-100 character description                                                |
-| options?            | array of [application command option](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-structure) | the parameters for the command                                             |
-| default_permission? | boolean (default `true`)                                                                                                                       | whether the command is enabled by default when the app is added to a guild |
+| Field               | Type                                                                                                                                           | Description                                                                                                           |
+| ------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
+| name?               | string                                                                                                                                         | [1-32 character name]((#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-naming) |
+| description?        | string                                                                                                                                         | 1-100 character description                                                                                           |
+| options?            | array of [application command option](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-structure) | the parameters for the command                                                                                        |
+| default_permission? | boolean (default `true`)                                                                                                                       | whether the command is enabled by default when the app is added to a guild                                            |
 
 ## Delete Global Application Command % DELETE /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/commands/{command.id#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object}
 
@@ -876,7 +878,7 @@ Deletes a global command. Returns `204`.
 
 ## Bulk Overwrite Global Application Commands % PUT /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/commands
 
-Takes a list of application commands, overwriting existing commands that are registered globally for this application. Updates will be available in all guilds after 1 hour. Returns `200` and a list of [application command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object) objects. Commands that do not already exist will count toward daily application command create limits.
+Takes a list of application commands, overwriting the existing global command list for this application. Updates will be available in all guilds after 1 hour. Returns `200` and a list of [application command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object) objects. Commands that do not already exist will count toward daily application command create limits.
 
 > danger
 > This will overwrite **all** types of application commands: slash commands, user commands, and message commands.
@@ -894,13 +896,13 @@ Create a new guild command. New guild commands will be available in the guild im
 
 ###### JSON Params
 
-| Field               | Type                                                                                                                                           | Description                                                                |
-| ------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
-| name                | string                                                                                                                                         | 1-32 lowercase character name matching `^[\w-]{1,32}$`                     |
-| description         | string                                                                                                                                         | 1-100 character description                                                |
-| options?            | array of [application command option](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-structure) | the parameters for the command                                             |
-| default_permission? | boolean (default `true`)                                                                                                                       | whether the command is enabled by default when the app is added to a guild |
-| type?               | one of [application command type](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-types)                | the type of command, defaults `1` if not set                               |
+| Field               | Type                                                                                                                                           | Description                                                                                                           |
+| ------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
+| name                | string                                                                                                                                         | [1-32 character name]((#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-naming) |
+| description         | string                                                                                                                                         | 1-100 character description                                                                                           |
+| options?            | array of [application command option](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-structure) | the parameters for the command                                                                                        |
+| default_permission? | boolean (default `true`)                                                                                                                       | whether the command is enabled by default when the app is added to a guild                                            |
+| type?               | one of [application command type](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-types)                | the type of command, defaults `1` if not set                                                                          |
 
 ## Get Guild Application Command % GET /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/commands/{command.id#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object}
 
@@ -915,12 +917,12 @@ Edit a guild command. Updates for guild commands will be available immediately. 
 
 ###### JSON Params
 
-| Field               | Type                                                                                                                                           | Description                                                                |
-| ------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
-| name?               | string                                                                                                                                         | 1-32 lowercase character name matching `^[\w-]{1,32}$`                     |
-| description?        | string                                                                                                                                         | 1-100 character description                                                |
-| options?            | array of [application command option](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-structure) | the parameters for the command                                             |
-| default_permission? | boolean (default `true`)                                                                                                                       | whether the command is enabled by default when the app is added to a guild |
+| Field               | Type                                                                                                                                           | Description                                                                                                           |
+| ------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
+| name?               | string                                                                                                                                         | [1-32 character name]((#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-naming) |
+| description?        | string                                                                                                                                         | 1-100 character description                                                                                           |
+| options?            | array of [application command option](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-structure) | the parameters for the command                                                                                        |
+| default_permission? | boolean (default `true`)                                                                                                                       | whether the command is enabled by default when the app is added to a guild                                            |
 
 ## Delete Guild Application Command % DELETE /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/commands/{command.id#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object}
 
@@ -928,7 +930,7 @@ Delete a guild command. Returns `204` on success.
 
 ## Bulk Overwrite Guild Application Commands % PUT /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/commands
 
-Takes a list of application commands, overwriting existing commands for the guild. Returns `200` and a list of [application command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object) objects.
+Takes a list of application commands, overwriting the existing command list for this application for the targeted guild. Returns `200` and a list of [application command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object) objects.
 
 > danger
 > This will overwrite **all** types of application commands: slash commands, user commands, and message commands.

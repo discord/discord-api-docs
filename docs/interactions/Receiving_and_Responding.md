@@ -75,7 +75,7 @@ For [Message Components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/) it includes ide
 This is sent on the [message object](#DOCS_RESOURCES_CHANNEL/message-object) when the message is a response to an Interaction without an existing message.
 
 > info
-> This means responses to [Message Components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/) do not include this property, instead inlcuding a [message reference](#DOCS_RESOURCES_CHANNEL/message-reference-object-message-reference-structure) object as components _always_ exist on preexisting messages.
+> This means responses to [Message Components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/) do not include this property, instead including a [message reference](#DOCS_RESOURCES_CHANNEL/message-reference-object-message-reference-structure) object as components _always_ exist on preexisting messages.
 
 ###### Message Interaction Structure
 
@@ -241,14 +241,14 @@ Sometimes, your bot will want to send followup messages to a user after respondi
 - [`PATCH /webhooks/<application_id>/<interaction_token>/messages/<message_id>`](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/edit-followup-message) to edit a message sent with that `token`
 
 > info
-> Interactions webhooks share the same rate limit properties as normal webhooks
+> Interactions webhooks share the same rate limit properties as normal webhooks.
 
 Interaction tokens are valid for **15 minutes**, meaning you can respond to an interaction within that amount of time.
 
 ## Security and Authorization
 
 > info
-> Check out our [Community Resources](#DOCS_TOPICS_COMMUNITY_RESOURCES/interactions) for libraries to help you with security in your language of choice
+> Check out our [Community Resources](#DOCS_TOPICS_COMMUNITY_RESOURCES/interactions) for libraries to help you with security in your language of choice.
 
 The internet is a scary place, especially for people hosting open, unauthenticated endpoints. If you are receiving Interactions via outgoing webhook, there are some security steps you **must** take before your app is eligible to receive requests.
 
@@ -301,12 +301,12 @@ except BadSignatureError:
 
 If you are not properly validating this signature header, we will not allow you to save your interactions URL in the Dev Portal. We will also do automated, routine security checks against your endpoint, including purposefully sending you invalid signatures. If you fail the validation, we will remove your interactions URL in the future and alert you via email and System DM.
 
-We highly recommend checking out our [Community Resources](#DOCS_TOPICS_COMMUNITY_RESOURCES/interactions) and the two libraries found there. They not only provide typing for Interactions data models, but also include decorators for API frameworks like Flask and Express to make validation easy.
+We highly recommend checking out our [Community Resources](#DOCS_TOPICS_COMMUNITY_RESOURCES/interactions) and the libraries found there. They not only provide typing for Interactions data models, but also include decorators for API frameworks like Flask and Express to make validation easy.
 
 ### Endpoints
 
 > info
-> For authorization, all endpoints take either a [bot token](#DOCS_REFERENCE/authentication) or [client credentials token](#DOCS_TOPICS_OAUTH2/client-credentials-grant) for your application
+> For authorization, all endpoints take either a [bot token](#DOCS_REFERENCE/authentication) or [client credentials token](#DOCS_TOPICS_OAUTH2/client-credentials-grant) for your application.
 
 ## Create Interaction Response % POST /interactions/{interaction.id#DOCS_INTERACTION_RECEIVING_AND_RESPONDING/interaction}/{interaction.token#DOCS_INTERACTION_RECEIVING_AND_RESPONDING/interaction-object}/callback
 

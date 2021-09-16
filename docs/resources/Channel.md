@@ -182,7 +182,7 @@ Bots can post or publish messages in this type of channel if they have the prope
 
 ###### Example Store Channel
 
-Bots can neither send or read messages from this channel type (as it is a store page).
+Bots can neither send nor read messages in this channel type (as it is a store page).
 
 ```json
 {
@@ -309,9 +309,10 @@ Represents a message sent in a channel within Discord.
 | GUILD_DISCOVERY_GRACE_PERIOD_FINAL_WARNING   | 17    |
 | THREAD_CREATED                               | 18    |
 | REPLY                                        | 19    |
-| APPLICATION_COMMAND                          | 20    |
+| CHAT_INPUT_COMMAND                           | 20    |
 | THREAD_STARTER_MESSAGE                       | 21    |
 | GUILD_INVITE_REMINDER                        | 22    |
+| CONTEXT_MENU_COMMAND                         | 23    |
 
 ###### Message Activity Structure
 
@@ -570,7 +571,7 @@ Embed types are "loosely defined" and, for the most part, are not used by our cl
 
 | Field      | Type    | Description                                                     |
 |------------|---------|-----------------------------------------------------------------|
-| url?       | string  | source url of thumbnail (only supports http(s) and attachments) |
+| url        | string  | source url of thumbnail (only supports http(s) and attachments) |
 | proxy_url? | string  | a proxied url of the thumbnail                                  |
 | height?    | integer | height of thumbnail                                             |
 | width?     | integer | width of thumbnail                                              |
@@ -588,7 +589,7 @@ Embed types are "loosely defined" and, for the most part, are not used by our cl
 
 | Field      | Type    | Description                                                 |
 |------------|---------|-------------------------------------------------------------|
-| url?       | string  | source url of image (only supports http(s) and attachments) |
+| url        | string  | source url of image (only supports http(s) and attachments) |
 | proxy_url? | string  | a proxied url of the image                                  |
 | height?    | integer | height of image                                             |
 | width?     | integer | width of image                                              |
@@ -604,7 +605,7 @@ Embed types are "loosely defined" and, for the most part, are not used by our cl
 
 | Field           | Type   | Description                                                |
 |-----------------|--------|------------------------------------------------------------|
-| name?           | string | name of author                                             |
+| name            | string | name of author                                             |
 | url?            | string | url of author                                              |
 | icon_url?       | string | url of author icon (only supports http(s) and attachments) |
 | proxy_icon_url? | string | a proxied url of author icon                               |
@@ -639,6 +640,9 @@ Embed types are "loosely defined" and, for the most part, are not used by our cl
 | proxy_url     | string    | a proxied url of file                                                               |
 | height?       | ?integer  | height of file (if image)                                                           |
 | width?        | ?integer  | width of file (if image)                                                            |
+| ephemeral? \* | boolean   | whether this attachment is ephemeral                                                |
+
+\* Ephemeral attachments will automatically be removed after a set period of time. Ephemeral attachments on messages are guaranteed to be available as long as the message itself exists.
 
 ### Channel Mention Object
 

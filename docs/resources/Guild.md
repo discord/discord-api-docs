@@ -63,7 +63,7 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 
 ** \*\* These fields are only sent when using the [GET Current User Guilds](#DOCS_RESOURCES_USER/get-current-user-guilds) endpoint and are relative to the requested user **
 
-** \*\*\* This field is deprecated and will be removed in v9 and is replaced by [rtc_region](#DOCS_RESOURCES_CHANNEL/channel-object-channel-structure)**
+** \*\*\* This field is deprecated and is replaced by [channel.rtc_region](#DOCS_RESOURCES_CHANNEL/channel-object-channel-structure)**
 
 ###### Default Message Notification Level
 
@@ -488,7 +488,7 @@ Create a new guild. Returns a [guild](#DOCS_RESOURCES_GUILD/guild-object) object
 > When using the `channels` parameter, the `id` field within each channel object may be set to an integer placeholder, and will be replaced by the API upon consumption. Its purpose is to allow you to create `GUILD_CATEGORY` channels by setting the `parent_id` field on any children to the category's `id` field. Category channels must be listed before any children.
 
 > warn
-> This field `region` is deprecated and will be removed in v9 and is replaced by [rtc_region](#DOCS_RESOURCES_CHANNEL/channel-object-channel-structure).
+> The `region` field is deprecated and is replaced by [channel.rtc_region](#DOCS_RESOURCES_CHANNEL/channel-object-channel-structure).
 
 ###### Example Partial Channel Object
 
@@ -671,7 +671,7 @@ Create a new [channel](#DOCS_RESOURCES_CHANNEL/channel-object) object for the gu
 Modify the positions of a set of [channel](#DOCS_RESOURCES_CHANNEL/channel-object) objects for the guild. Requires `MANAGE_CHANNELS` permission. Returns a 204 empty response on success. Fires multiple [Channel Update](#DOCS_TOPICS_GATEWAY/channel-update) Gateway events.
 
 > info
-> Only channels to be modified are required, with the minimum being a swap between at least two channels.
+> Only channels to be modified are required.
 
 > info
 > This endpoint supports the `X-Audit-Log-Reason` header.
