@@ -1,6 +1,6 @@
 # Guild Scheduled Event
 
-A representation of an event in a Guild.
+A representation of an scheduled event in a [Guild](#DOCS_RESOURCES_GUILD/).
 
 ### Guild Scheduled Event Object
 
@@ -50,9 +50,9 @@ A representation of an event in a Guild.
 | speaker_ids? | array of snowflakes | the speakers of the stage channel |
 | location?    | string              | location of the event             |
 
-## List Guild Scheduled Events for Guild % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/events
+## List Guild Scheduled Events for Guild % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object}/events
 
-Returns a list of [Guild Scheduled Events](#DOCS_RESOURCES_GUILD_EVENT/guild-event-object) in the guild.
+Returns a list of [Guild Scheduled Event](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object) objects in the guild.
 
 ###### Query String Params
 
@@ -60,43 +60,43 @@ Returns a list of [Guild Scheduled Events](#DOCS_RESOURCES_GUILD_EVENT/guild-eve
 | ---------------- | ------- | ----------------------------- |
 | with_user_count? | boolean | users subscribed to the event |
 
-## Create Guild Scheduled Event % POST /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/events
+## Create Guild Scheduled Event % POST /guilds/{guild.id#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object}/events
 
-Create a Guild Event in the guild. Returns a [Guild Event](#DOCS_RESOURCES_GUILD_EVENT/guild-event-object) object on success.
+Create a Guild Scheduled Event in the guild. Returns a [Guild Scheduled Event](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object) object on success.
 
 ###### JSON Params
 
-| Field                | Type                                                                                                                   | Description                            |
-| -------------------- | ---------------------------------------------------------------------------------------------------------------------- | -------------------------------------- |
-| channel_id?          | snowflake                                                                                                              | the channel id of the event            |
-| name                 | string                                                                                                                 | the name of the event                  |
-| privacy_level        | [privacy level](#DOCS_RESOURCES_STAGE_INSTANCE/stage-instance-object-privacy-level)                                    | the privacy level of the event         |
-| scheduled_start_time | ISO8601 timestamp                                                                                                      | the time to schedule the event         |
-| description?         | string                                                                                                                 | the description of the event           |
-| entity_type          | [guild scheduled event entity type](#DOCS_RESOURCES_GUILD_EVENT/guild-event-object-guild-scheduled-event-entity-types) | the scheduled entity type of the event |
+| Field                | Type                                                                                                                             | Description                            |
+| -------------------- | -------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------- |
+| channel_id?          | snowflake                                                                                                                        | the channel id of the event            |
+| name                 | string                                                                                                                           | the name of the event                  |
+| privacy_level        | [privacy level](#DOCS_RESOURCES_STAGE_INSTANCE/stage-instance-object-privacy-level)                                              | the privacy level of the event         |
+| scheduled_start_time | ISO8601 timestamp                                                                                                                | the time to schedule the event         |
+| description?         | string                                                                                                                           | the description of the event           |
+| entity_type          | [guild scheduled event entity type](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-event-object-guild-scheduled-event-entity-types) | the scheduled entity type of the event |
 
-## Get Guild Event % GET /guild-events/{event.id#DOCS_RESOURCES_GUILD_EVENT/guild-event-object}
+## Get Guild Event % GET /guild-events/{event.id#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object}
 
-Get a Guild Scheduled Event. Returns a [Guild Event](#DOCS_RESOURCES_GUILD_EVENT/guild-event-object) object on success.
+Get a Guild Scheduled Event. Returns a [Guild Scheduled Event](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object) object on success.
 
-## Delete Guild Scheduled Event % DELETE /guild-events/{event.id#DOCS_RESOURCES_GUILD_EVENT/guild-event-object}
+## Delete Guild Scheduled Event % DELETE /guild-events/{event.id#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object}
 
 Delete a Guild Scheduled Event. Returns a `204` on success.
 
-## Modify Guild Scheduled Event % PATCH /guild-events/{event.id#DOCS_RESOURCES_GUILD_EVENT/guild-event-object}
+## Modify Guild Scheduled Event % PATCH /guild-events/{event.id#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object}
 
-Modify a Guild Scheduled Event. Returns the modified [Guild Scheduled Event](#DOCS_RESOURCES_GUILD_EVENT/guild-event-object) object on success.
+Modify a Guild Scheduled Event. Returns the modified [Guild Scheduled Event](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object) object on success.
 
 > info
 > All parameters to this endpoint are optional
 
 ###### JSON Params
 
-| Field                | Type                                                                                                                   | Description                            |
-| -------------------- | ---------------------------------------------------------------------------------------------------------------------- | -------------------------------------- |
-| channel_id           | snowflake                                                                                                              | the channel id of the event            |
-| name                 | string                                                                                                                 | the name of the event                  |
-| privacy_level        | [privacy level](#DOCS_RESOURCES_STAGE_INSTANCE/stage-instance-object-privacy-level)                                    | the privacy level of the event         |
-| scheduled_start_time | ISO8601 timestamp                                                                                                      | the time to schedule the event         |
-| description          | string                                                                                                                 | the description of the event           |
-| entity_type          | [guild scheduled event entity type](#DOCS_RESOURCES_GUILD_EVENT/guild-event-object-guild-scheduled-event-entity-types) | the scheduled entity type of the event |
+| Field                | Type                                                                                                                             | Description                            |
+| -------------------- | -------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------- |
+| channel_id           | snowflake                                                                                                                        | the channel id of the event            |
+| name                 | string                                                                                                                           | the name of the event                  |
+| privacy_level        | [privacy level](#DOCS_RESOURCES_STAGE_INSTANCE/stage-instance-object-privacy-level)                                              | the privacy level of the event         |
+| scheduled_start_time | ISO8601 timestamp                                                                                                                | the time to schedule the event         |
+| description          | string                                                                                                                           | the description of the event           |
+| entity_type          | [guild scheduled event entity type](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-event-object-guild-scheduled-event-entity-types) | the scheduled entity type of the event |
