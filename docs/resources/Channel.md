@@ -182,7 +182,7 @@ Bots can post or publish messages in this type of channel if they have the prope
 
 ###### Example Store Channel
 
-Bots can neither send or read messages from this channel type (as it is a store page).
+Bots can neither send nor read messages in this channel type (as it is a store page).
 
 ```json
 {
@@ -640,6 +640,9 @@ Embed types are "loosely defined" and, for the most part, are not used by our cl
 | proxy_url     | string    | a proxied url of file                                                               |
 | height?       | ?integer  | height of file (if image)                                                           |
 | width?        | ?integer  | width of file (if image)                                                            |
+| ephemeral? \* | boolean   | whether this attachment is ephemeral                                                |
+
+\* Ephemeral attachments will automatically be removed after a set period of time. Ephemeral attachments on messages are guaranteed to be available as long as the message itself exists.
 
 ### Channel Mention Object
 

@@ -1,10 +1,23 @@
 # Change Log
 
+## Updated Thread Permissions
+
+#### September 16, 2021
+
+Thread permissions have been updated and simplified:
+
+- "Use Public Threads" is now "Create Public Threads", which allows users to create threads in a channel, even if they cannot send messages in that channel.
+- "Use Private Threads" is now "Create Private Threads", which allows users to create threads in a channel, even if they cannot send messages in that channel.
+
+A new permission has also been added:
+
+- "Send Messages in Threads", which allows users to send a message in a thread. The "Send Messages" permission has no effect in threads: users **must** have "Send Messages in Threads" to send a message in a thread. This allows for setups where a user can participate in a thread, but cannot send a message in the parent channel (like a thread on an announcement post).
+
 ## User and Message Commands
 
 #### August 10, 2021
 
-[User commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/user-commands) and [message commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/message-commands) are now live! These commands appear on context menus for users and messages, with more to come in the future. 
+[User commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/user-commands) and [message commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/message-commands) are now live! These commands appear on context menus for users and messages, with more to come in the future.
 
 Context menu commands are a type of application command. The "Slash Commands" documentation page has been renamed to "Application Commands" and split out by type to show this.
 
@@ -33,7 +46,7 @@ You can now include buttons on messages sent by your app, whether they're bot me
 The addition of message components means new fields and response types:
 
 - An optional `components` field has been added to the [message object](#DOCS_RESOURCES_CHANNEL/message-object)
-- New response types `6` and `7` have been added for [interaction responses](#DOCS_INTERACTIONS_RECEVING_AND_RESPONDING/interaction-response-object-interaction-callback-type), valid only for component-based interactions
+- New response types `6` and `7` have been added for [interaction responses](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-response-object-interaction-callback-type), valid only for component-based interactions
 
 ## API v9
 
@@ -82,13 +95,13 @@ Changes to interaction response types have been made to support better designs f
 
 These deprecated types will be removed and break on **April 9, 2021**.
 
-Additionally, `flags` has been documented on [InteractionApplicationCommandCallbackData](#DOCS_INTERACTIONS_RECEVING_AND_RESPONDING/interaction-response-object-interaction-callback-data-structure). Setting `flags` to `64` will make the interaction response ephemeral.
+Additionally, `flags` has been documented on [InteractionApplicationCommandCallbackData](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-response-object-interaction-callback-data-structure). Setting `flags` to `64` will make the interaction response ephemeral.
 
 ## Slash Commands in DMs
 
 #### February 9, 2021
 
-Slash Commands are now supported in DMs with bots. Due to this change, some of the fields on the [Interaction object](#DOCS_INTERACTIONS_RECEVING_AND_RESPONDING/interaction-object-interaction-structure) have been made optional. Newly optional fields don't reflect any behavior changes in Slash Commands within guilds; they are to support commands in the context of a DM only.
+Slash Commands are now supported in DMs with bots. Due to this change, some of the fields on the [Interaction object](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-interaction-structure) have been made optional. Newly optional fields don't reflect any behavior changes in Slash Commands within guilds; they are to support commands in the context of a DM only.
 
 ## Change to Permission Checking when Creating Channels
 

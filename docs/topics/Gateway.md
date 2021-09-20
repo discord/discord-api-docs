@@ -1454,7 +1454,7 @@ Sent when a guild channel's webhook is created, updated, or deleted.
 
 #### Interaction Create
 
-Sent when a user in a guild uses an [Application Command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/). Inner payload is an [Interaction](#DOCS_INTERACTIONS_RECEVING_AND_RESPONDING/interaction-object-interaction-structure).
+Sent when a user in a guild uses an [Application Command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/). Inner payload is an [Interaction](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-interaction-structure).
 
 ### Stage Instances
 
