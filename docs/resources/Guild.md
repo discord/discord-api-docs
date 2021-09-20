@@ -856,7 +856,7 @@ Create a new [role](#DOCS_TOPICS_PERMISSIONS/role-object) for the guild. Require
 ###### JSON Params
 
 | Field         | Type                                     | Description                                                          | Default                        |
-|---------------|------------------------------------------|----------------------------------------------------------------------|--------------------------------|
+| ------------- | ---------------------------------------- | -------------------------------------------------------------------- | ------------------------------ |
 | name          | string                                   | name of the role                                                     | "new role"                     |
 | permissions   | string                                   | bitwise value of the enabled/disabled permissions                    | @everyone permissions in guild |
 | color         | integer                                  | RGB color value                                                      | 0                              |
@@ -894,7 +894,7 @@ Modify a guild role. Requires the `MANAGE_ROLES` permission. Returns the updated
 ###### JSON Params
 
 | Field         | Type                                     | Description                                                          |
-|---------------|------------------------------------------|----------------------------------------------------------------------|
+| ------------- | ---------------------------------------- | -------------------------------------------------------------------- |
 | name          | string                                   | name of the role                                                     |
 | permissions   | string                                   | bitwise value of the enabled/disabled permissions                    |
 | color         | integer                                  | RGB color value                                                      |
