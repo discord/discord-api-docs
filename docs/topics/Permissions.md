@@ -210,6 +210,7 @@ Roles without colors (`color == 0`) do not count towards the final computed colo
   "color": 3447003,
   "hoist": true,
   "icon": "cf3ced8600b777c9486c6d8d84fb4327",
+  "unicode_emoji": null,
   "position": 1,
   "permissions": "66321471",
   "managed": false,
