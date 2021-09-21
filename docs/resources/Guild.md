@@ -135,19 +135,20 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 | FEATURABLE                       | guild is able to be featured in the directory                                                                       |
 | INVITE_SPLASH                    | guild has access to set an invite splash background                                                                 |
 | MEMBER_VERIFICATION_GATE_ENABLED | guild has enabled [Membership Screening](#DOCS_RESOURCES_GUILD/membership-screening-object)                         |
+| MONETIZATION_ENABLED             | guild has enabled monetization                                                                                      |
+| MORE_STICKERS                    | guild has increased custom sticker slots                                                                            |
 | NEWS                             | guild has access to create news channels                                                                            |
 | PARTNERED                        | guild is partnered                                                                                                  |
 | PREVIEW_ENABLED                  | guild can be previewed before joining via Membership Screening or the directory                                     |
+| PRIVATE_THREADS                  | guild has access to create private threads                                                                          |
+| ROLE_SUBSCRIPTIONS_ENABLED       | guild has enabled role subscriptions                                                                                |
+| SEVEN_DAY_THREAD_ARCHIVE         | guild has access to the seven day archive time for threads                                                          |
+| THREE_DAY_THREAD_ARCHIVE         | guild has access to the three day archive time for threads                                                          |
+| TICKETED_EVENTS_ENABLED          | guild has enabled ticketed events                                                                                   |
 | VANITY_URL                       | guild has access to set a vanity URL                                                                                |
 | VERIFIED                         | guild is verified                                                                                                   |
 | VIP_REGIONS                      | guild has access to set 384kbps bitrate in voice (previously VIP voice servers)                                     |
 | WELCOME_SCREEN_ENABLED           | guild has enabled the welcome screen                                                                                |
-| TICKETED_EVENTS_ENABLED          | guild has enabled ticketed events                                                                                   |
-| MONETIZATION_ENABLED             | guild has enabled monetization                                                                                      |
-| MORE_STICKERS                    | guild has increased custom sticker slots                                                                            |
-| THREE_DAY_THREAD_ARCHIVE         | guild has access to the three day archive time for threads                                                          |
-| SEVEN_DAY_THREAD_ARCHIVE         | guild has access to the seven day archive time for threads                                                          |
-| PRIVATE_THREADS                  | guild has access to create private threads                                                                          |
 
 ###### Example Guild
 
@@ -671,7 +672,7 @@ Create a new [channel](#DOCS_RESOURCES_CHANNEL/channel-object) object for the gu
 Modify the positions of a set of [channel](#DOCS_RESOURCES_CHANNEL/channel-object) objects for the guild. Requires `MANAGE_CHANNELS` permission. Returns a 204 empty response on success. Fires multiple [Channel Update](#DOCS_TOPICS_GATEWAY/channel-update) Gateway events.
 
 > info
-> Only channels to be modified are required.
+> Only channels to be modified are required, with the minimum being a swap between at least two channels.
 
 > info
 > This endpoint supports the `X-Audit-Log-Reason` header.
