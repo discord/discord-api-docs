@@ -318,6 +318,7 @@ Discord uses ids and hashes to render images in the client. These hashes can be 
 | Sticker Pack Banner    | app-assets/710982414301790216/store/[sticker_pack_banner_asset_id](#DOCS_RESOURCES_STICKER/sticker-pack-object).png                                                                                                                                               | PNG, JPEG, WebP      |
 | Team Icon              | team-icons/[team_id](#DOCS_TOPICS_TEAMS/team-object)/[team_icon](#DOCS_TOPICS_TEAMS/team-object).png                                                                                                                                                              | PNG, JPEG, WebP      |
 | Sticker                | stickers/[sticker_id](#DOCS_RESOURCES_STICKER/sticker-object).png \*\*\* \*\*\*\*                                                                                                                                                                                 | PNG, Lottie          |
+| Role Icon              | role-icons/[role_id](#DOCS_TOPICS_PERMISSIONS/role-object)/[role_icon](#DOCS_TOPICS_PERMISSIONS/role-object).png \*                                                                                                                                               | PNG, JPEG, WebP      |
 
 \* In the case of endpoints that support GIFs, the hash will begin with `a_` if it is available in GIF format. (example: `a_1269e74af4df7417b13759eae50c83dc`)
 
