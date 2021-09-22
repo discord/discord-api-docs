@@ -1333,15 +1333,13 @@ curl -x POST -h "Authorization: Bot <your token>" https://discord.com/api/some-r
 
 Here are the routes; they all expect JSON bodies. Also, hey, while you're here. You've got a bot token. You're looking at our API. You should check out all the other [awesome stuff](https://discord.com/developers/docs/intro) you can do with it!
 
-### Create Lobby
-
-`POST https://discord.com/api/v6/lobbies`
+### Create Lobby % POST /lobbies
 
 Creates a new lobby. Returns an object similar to the SDK `Lobby` struct, documented below.
 
-To get a list of valid regions, call the [List Voice Regions](https://discord.com/developers/docs/resources/voice#list-voice-regions) endpoint.
+To get a list of valid regions, see the [List Voice Regions](#DOCS_RESOURCES_VOICE/list-voice-regions) endpoint.
 
-###### Parameters
+###### JSON Params
 
 | name           | type      | description                                                                                          |
 | -------------- | --------- | ---------------------------------------------------------------------------------------------------- |
@@ -1351,7 +1349,7 @@ To get a list of valid regions, call the [List Voice Regions](https://discord.co
 | capacity       | int       | max lobby capacity with a default of 16                                                              |
 | region         | string    | the region in which to make the lobby - defaults to the region of the requesting server's IP address |
 
-###### Return Object
+###### Example Response
 
 ```json
 {
@@ -1369,13 +1367,11 @@ To get a list of valid regions, call the [List Voice Regions](https://discord.co
 }
 ```
 
-### Update Lobby
+### Modify Lobby % PATCH /lobbies/{lobby.id#DOCS_GAME_SDK_LOBBIES/data-models-lobby-struct}
 
-`PATCH https://discord.com/api/v6/lobbies/<lobby_id>`
+Modifies a lobby.
 
-Updates a lobby.
-
-###### Parameters
+###### JSON Params
 
 | name     | type      | description                                                  |
 | -------- | --------- | ------------------------------------------------------------ |
@@ -1383,31 +1379,25 @@ Updates a lobby.
 | metadata | dict      | metadata for the lobby - key/value pairs with types `string` |
 | capacity | int       | max lobby capacity with a default of 16                      |
 
-### Delete Lobby
+### Delete Lobby % DELETE /lobbies/{lobby.id#DOCS_GAME_SDK_LOBBIES/data-models-lobby-struct}
 
-`DELETE https://discord.com/api/v6/lobbies/<lobby_id>`
+Deletes a lobby. Returns a `204` on success.
 
-Deletes a lobby.
+### Modify Lobby Member % PATCH /lobbies/{lobby.id#DOCS_GAME_SDK_LOBBIES/data-models-lobby-struct}/members/{user.id#DOCS_RESOURCES_USER/user-object}
 
-### Update Lobby Member
+Modifies the metadata for a lobby member.
 
-`PATCH https://discord.com/api/v6/lobbies/<lobby_id>/members/<user_id>`
-
-Updates the metadata for a lobby member.
-
-###### Parameters
+###### JSON Params
 
 | name     | type | description                                                         |
 | -------- | ---- | ------------------------------------------------------------------- |
 | metadata | dict | metadata for the lobby member - key/value pairs with types `string` |
 
-### Create Lobby Search
-
-`POST https://discord.com/api/v6/lobbies/search`
+### Create Lobby Search % POST /lobbies/search
 
 Creates a lobby search for matchmaking around given criteria.
 
-###### Parameters
+###### JSON Params
 
 | name           | type                | description                              |
 | -------------- | ------------------- | ---------------------------------------- |
@@ -1451,15 +1441,13 @@ Creates a lobby search for matchmaking around given criteria.
 | STRING | 1     |
 | NUMBER | 2     |
 
-### Send Lobby Data
-
-`POST https://discord.com/api/v6/lobbies/<lobby_id>/send`
+### Send Lobby Data % POST /lobbies/{lobby.id#DOCS_GAME_SDK_LOBBIES/data-models-lobby-struct}/send
 
 Sends a message to the lobby, fanning it out to other lobby members.
 
 This endpoints accepts a UTF8 string. If your message is already a string, you're good to go! If you want to send binary, you can send it to this endpoint as a base64 encoded data uri.
 
-###### Parameters
+###### JSON Params
 
 | name | type   | description                                 |
 | ---- | ------ | ------------------------------------------- |
