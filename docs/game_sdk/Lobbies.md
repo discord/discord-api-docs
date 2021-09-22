@@ -1322,18 +1322,11 @@ OK so this wasn't really a code example, but I think you get how this works.
 
 ## The API Way
 
-Below are the API endpoints and the parameters they accept. If you choose to interface directly with the Discord API, you will need a "Bot token". This is a special authorization token with which your application can access Discord's HTTP API. Head on over to [your app's dashboard](https://discord.com/developers/), and hit the big "Add a Bot User" button. From there, mutter _abra kadabra_ and reveal the token. This token is used as an authorization header against our API like so:
+Below are the API endpoints and the parameters they accept. If you choose to interface directly with the Discord API, you will need a "Bot token". This is a special authorization token with which your application can access Discord's HTTP API. Head on over to [your app's dashboard](https://discord.com/developers/), and hit the big "Add a Bot User" button. From there, mutter _abra kadabra_ and reveal the token. Click [here](#DOCS_REFERENCE/authentication) to see how you can authorize your requests.
 
-```
-curl -x POST -h "Authorization: Bot <your token>" https://discord.com/api/some-route/that-does-a-thing
-```
+Here are the routes; they all expect JSON bodies. Also, hey, while you're here. You've got a bot token. You're looking at our API. You should check out all the other [awesome stuff](#ODCS_INTRO/) you can do with it!
 
-> info
-> Make sure to prepend your token with "Bot"!
-
-Here are the routes; they all expect JSON bodies. Also, hey, while you're here. You've got a bot token. You're looking at our API. You should check out all the other [awesome stuff](https://discord.com/developers/docs/intro) you can do with it!
-
-### Create Lobby % POST /lobbies
+## Create Lobby % POST /lobbies
 
 Creates a new lobby. Returns an object similar to the SDK `Lobby` struct, documented below.
 
@@ -1367,7 +1360,7 @@ To get a list of valid regions, see the [List Voice Regions](#DOCS_RESOURCES_VOI
 }
 ```
 
-### Modify Lobby % PATCH /lobbies/{lobby.id#DOCS_GAME_SDK_LOBBIES/data-models-lobby-struct}
+## Modify Lobby % PATCH /lobbies/{lobby.id#DOCS_GAME_SDK_LOBBIES/data-models-lobby-struct}
 
 Modifies a lobby.
 
@@ -1379,11 +1372,11 @@ Modifies a lobby.
 | metadata | dict      | metadata for the lobby - key/value pairs with types `string` |
 | capacity | int       | max lobby capacity with a default of 16                      |
 
-### Delete Lobby % DELETE /lobbies/{lobby.id#DOCS_GAME_SDK_LOBBIES/data-models-lobby-struct}
+## Delete Lobby % DELETE /lobbies/{lobby.id#DOCS_GAME_SDK_LOBBIES/data-models-lobby-struct}
 
 Deletes a lobby. Returns a `204` on success.
 
-### Modify Lobby Member % PATCH /lobbies/{lobby.id#DOCS_GAME_SDK_LOBBIES/data-models-lobby-struct}/members/{user.id#DOCS_RESOURCES_USER/user-object}
+## Modify Lobby Member % PATCH /lobbies/{lobby.id#DOCS_GAME_SDK_LOBBIES/data-models-lobby-struct}/members/{user.id#DOCS_RESOURCES_USER/user-object}
 
 Modifies the metadata for a lobby member.
 
@@ -1393,7 +1386,7 @@ Modifies the metadata for a lobby member.
 | -------- | ---- | ------------------------------------------------------------------- |
 | metadata | dict | metadata for the lobby member - key/value pairs with types `string` |
 
-### Create Lobby Search % POST /lobbies/search
+## Create Lobby Search % POST /lobbies/search
 
 Creates a lobby search for matchmaking around given criteria.
 
@@ -1441,7 +1434,7 @@ Creates a lobby search for matchmaking around given criteria.
 | STRING | 1     |
 | NUMBER | 2     |
 
-### Send Lobby Data % POST /lobbies/{lobby.id#DOCS_GAME_SDK_LOBBIES/data-models-lobby-struct}/send
+## Send Lobby Data % POST /lobbies/{lobby.id#DOCS_GAME_SDK_LOBBIES/data-models-lobby-struct}/send
 
 Sends a message to the lobby, fanning it out to other lobby members.
 
