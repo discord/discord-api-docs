@@ -87,6 +87,7 @@ All options have names, and an option can either be a parameter and input value-
 | value?   | [application command option type](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-type)                                    | the value of the pair                                                                                                                    |
 | options? | array of [application command interaction data option](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/interaction-object-application-command-interaction-data-option-structure) | present if this option is a group or subcommand                                                                                          |
 
+
 ###### Application Command Autocomplete Interaction Data Option Structure
 
 | Field    | Type    | Description                                                                                                                                    |
