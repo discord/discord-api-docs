@@ -886,7 +886,7 @@ You may create a message as a reply to another message. To do so, include a [`me
 
 ###### Uploading Files
 
-Uploading files requires using the content type `multipart/form-data`. Multiple files may be uploaded at once, and the upload limit is applied to the sum of files in your request, not individual files. Each file must have a valid `Content-Disposition` subpart header with a `filename` parameter and a unique `name` parameter.
+Uploading files requires using the content type `multipart/form-data`. Multiple files may be uploaded at once, and the upload limit is applied to the sum of files in your request, not individual files. Each file must have a valid `Content-Disposition` subpart header with unique `filename` and `name` parameters.
 
 When using this content type, you cannot pass `embeds` as a simple parameter. Instead you must use `payload_json` which contains all the otherwise JSON parameters of your request.
 This means the parameters would be `file` and `payload_json`, where the `payload_json` can provide JSON fields such as `embeds` or `content` which would otherwise be part of the JSON body.
