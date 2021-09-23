@@ -886,13 +886,11 @@ You may create a message as a reply to another message. To do so, include a [`me
 
 ###### Uploading Files
 
-Uploading files requires using the content type `multipart/form-data` and a valid `Content-Disposition` subpart header with a `filename` parameter.
-You can upload multiple files, by providing an index for each file added to the request body. The index is **not** retained to keep order of attachments.
-For instance, to send 3 files you would add 3 form-data subparts with the field names `file0`, `file1`, and `file2`. The upload limit is applied to the sum of files in your request, not individual files.
+Uploading files requires using the content type `multipart/form-data`. Multiple files may be uploaded at once, and the upload limit is applied to the sum of files in your request, not individual files. Each file must have a valid `Content-Disposition` subpart header with a `filename` parameter and a unique `name` parameter.
 
 When using this content type, you cannot pass `embeds` as a simple parameter. Instead you must use `payload_json` which contains all the otherwise JSON parameters of your request.
 This means the parameters would be `file` and `payload_json`, where the `payload_json` can provide JSON fields such as `embeds` or `content` which would otherwise be part of the JSON body.
- **If you supply a `payload_json` form value, all fields except for `file` fields will be ignored in the form data**.
+**If you supply a `payload_json` form value, all fields except for `file` fields will be ignored in the form data**.
 
 > info
 > Note that when sending a message, you must provide a value for at **least one of** `content`, `embeds`, or `file`.
@@ -1051,7 +1049,7 @@ When the `content` field is edited, the `mentions` array in the message object w
 Returns a [message](#DOCS_RESOURCES_CHANNEL/message-object) object. Fires a [Message Update](#DOCS_TOPICS_GATEWAY/message-update) Gateway event.
 
 Refer to [Uploading Files](#DOCS_RESOURCES_CHANNEL/create-message-uploading-files) for details on attachments and `multipart/form-data` requests.
-Any provided files will be **appended** to the message. To remove or replace files you will have to supply an **attachments** parameter which specifies the files to retain on the message after edit.
+Any provided files will be **appended** to the message. To remove or replace files you will have to supply the `attachments` field which specifies the files to retain on the message after edit.
 
 > info
 > For a `file` attachment, the `Content-Disposition` subpart header MUST contain a `filename` parameter.

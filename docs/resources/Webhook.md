@@ -225,7 +225,7 @@ Edits a previously-sent webhook message from the same token. Returns a [message]
 When the `content` field is edited, the `mentions` array in the message object will be reconstructed from scratch based on the new content. The `allowed_mentions` field of the edit request controls how this happens. If there is no explicit `allowed_mentions` in the edit request, the content will be parsed with _default_ allowances, that is, without regard to whether or not an `allowed_mentions` was present in the request that originally created the message.
 
 Refer to [Uploading Files](#DOCS_RESOURCES_CHANNEL/create-message-uploading-files) for details on attachments and `multipart/form-data` requests.
-Any provided files will be **appended** to the message. To remove or replace files you will have to supply an **attachments** parameter which specifies the files to retain on the message after edit.
+Any provided files will be **appended** to the message. To remove or replace files you will have to supply the `attachments` field which specifies the files to retain on the message after edit.
 
 > info
 > For a `file` attachment, the `Content-Disposition` subpart header MUST contain a `filename` parameter.
