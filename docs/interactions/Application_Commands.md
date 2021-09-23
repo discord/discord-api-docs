@@ -53,7 +53,7 @@ Application commands are commands that an application can register to Discord. T
 | SUB_COMMAND       | 1     |                                                   |
 | SUB_COMMAND_GROUP | 2     |                                                   |
 | STRING            | 3     |                                                   |
-| INTEGER           | 4     | Any integer between -2147483647 and 2147483647    |
+| INTEGER           | 4     | Any integer between -2147483648 and 2147483647    |
 | BOOLEAN           | 5     |                                                   |
 | USER              | 6     |                                                   |
 | CHANNEL           | 7     | Includes all channel types + categories           |
