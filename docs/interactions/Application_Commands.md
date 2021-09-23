@@ -69,10 +69,10 @@ Application commands are commands that an application can register to Discord. T
 
 If you specify `choices` for an option, they are the **only** valid values for a user to pick
 
-| Field | Type                         | Description                                         |
-| ----- | ---------------------------- |---------------------------------------------------- |
-| name  | string                       | 1-100 character choice name                         |
-| value | string, integer, or double\* | value of the choice, up to 100 characters if string |
+| Field | Type                        | Description                                         |
+| ----- | --------------------------- |---------------------------------------------------- |
+| name  | string                      | 1-100 character choice name                         |
+| value | string, integer or double\* | value of the choice, up to 100 characters if string |
 
 \* Only `string` is valid for autocomplete interactions.
 
@@ -82,22 +82,22 @@ All options have names, and an option can either be a parameter and input value-
 
 `value` and `options` are mutually exclusive.
 
-| Field    | Type                                                                                                                                                               | Description                                                                                                                              |
-| -------- |------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
-| name     | string                                                                                                                                                             | the name of the parameter                                                                                                                |
-| type     | integer                                                                                                                                                            | value of [application command option type](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-type) |
+| Field    | Type                                                                                                                                                                     | Description                                                                                                                              |
+| -------- |------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| name     | string                                                                                                                                                                   | the name of the parameter                                                                                                                |
+| type     | integer                                                                                                                                                                  | value of [application command option type](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-type) |
 | value?   | [application command option type](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-type)                                    | the value of the pair                                                                                                                    |
 | options? | array of [application command interaction data option](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/interaction-object-application-command-interaction-data-option-structure) | present if this option is a group or subcommand                                                                                          |
 
 
 ###### Application Command Autocomplete Interaction Data Option Structure
 
-| Field    | Type    | Description                                                                                                                                    |
-| -------- |-------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
-| name     | string  | the name of the parameter                                                                                                                      |
-| type     | integer | value of [application command option type](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-type) |
-| value?   | string  | value of the command option                                                                                                                    |
-| focused  | boolean | whether this field is focused by the user                                                                                                      |
+| Field    | Type                       | Description                                                                                                                                    |
+| -------- |--------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| name     | string                     | the name of the parameter                                                                                                                      |
+| type     | integer                    | value of [application command option type](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-type) |
+| value?   | string, integer or double  | value of the command option                                                                                                                    |
+| focused  | boolean                    | whether this field is focused by the user                                                                                                      |
 
 
 ## Authorizing Your Application
