@@ -166,7 +166,7 @@ Refer to [Uploading Files](#DOCS_RESOURCES_CHANNEL/create-message-uploading-file
 > warn
 > This endpoint supports both `application/json` and `multipart/form-data` bodies. When uploading files the `multipart/form-data` content type must be used.
 > Note that in multipart form data, the `embeds` and `allowed_mentions` fields cannot be used. You can pass a stringified JSON body as a form value as `payload_json` instead.
-> **If you supply a `payload_json` form value, all fields except for `file` fields will be ignored in the form data**.
+> **All form fields except for `payload_json` must be file attachments with a valid `Content-Disposition` subpart header**.
 
 ###### Query String Params
 

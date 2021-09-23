@@ -890,7 +890,7 @@ Uploading files requires using the content type `multipart/form-data`. Multiple 
 
 When using this content type, you cannot pass `embeds` as a simple parameter. Instead you must use `payload_json` which contains all the otherwise JSON parameters of your request.
 This means the parameters would be `file` and `payload_json`, where the `payload_json` can provide JSON fields such as `embeds` or `content` which would otherwise be part of the JSON body.
-**If you supply a `payload_json` form value, all fields except for `file` fields will be ignored in the form data**.
+**All form fields except for `payload_json` must be file attachments with a valid `Content-Disposition` subpart header**.
 
 > info
 > Note that when sending a message, you must provide a value for at **least one of** `content`, `embeds`, or `file`.
