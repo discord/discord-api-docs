@@ -210,7 +210,7 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 50026  | Missing required OAuth2 scope                                                                                                 |
 | 50027  | Invalid webhook token provided                                                                                                |
 | 50028  | Invalid role                                                                                                                  |
-| 50033  | "Invalid Recipient(s)"                                                                                                        |
+| 50033  | Invalid Recipient(s)                                                                                                          |
 | 50034  | A message provided was too old to bulk delete                                                                                 |
 | 50035  | Invalid form body (returned for both `application/json` and `multipart/form-data` bodies), or invalid `Content-Type` provided |
 | 50036  | An invite was accepted to a guild the application's bot is not in                                                             |
