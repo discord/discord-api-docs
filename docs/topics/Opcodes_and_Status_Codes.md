@@ -210,7 +210,7 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 50026  | Missing required OAuth2 scope                                                                                                 |
 | 50027  | Invalid webhook token provided                                                                                                |
 | 50028  | Invalid role                                                                                                                  |
-| 50033  | "Invalid Recipient(s)"                                                                                                        |
+| 50033  | Invalid Recipient(s)                                                                                                          |
 | 50034  | A message provided was too old to bulk delete                                                                                 |
 | 50035  | Invalid form body (returned for both `application/json` and `multipart/form-data` bodies), or invalid `Content-Type` provided |
 | 50036  | An invite was accepted to a guild the application's bot is not in                                                             |
@@ -226,6 +226,7 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 50085  | `before` value is earlier than the thread creation date                                                                       |
 | 50095  | This server is not available in your location                                                                                 |
 | 50097  | This server needs monetization enabled in order to perform this action                                                        |
+| 50101  | This server needs more boosts to perform this action                                                                          |
 | 60003  | Two factor is required for this operation                                                                                     |
 | 80004  | No users with DiscordTag exist                                                                                                |
 | 90001  | Reaction was blocked                                                                                                          |
