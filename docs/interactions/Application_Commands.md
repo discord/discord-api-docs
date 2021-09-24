@@ -82,23 +82,17 @@ All options have names, and an option can either be a parameter and input value-
 
 `value` and `options` are mutually exclusive.
 
-| Field    | Type                                                                                                                                                                     | Description                                                                                                                              |
-| -------- |------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
-| name     | string                                                                                                                                                                   | the name of the parameter                                                                                                                |
-| type     | integer                                                                                                                                                                  | value of [application command option type](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-type) |
-| value?   | [application command option type](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-type)                                    | the value of the pair                                                                                                                    |
-| options? | array of [application command interaction data option](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/interaction-object-application-command-interaction-data-option-structure) | present if this option is a group or subcommand                                                                                          |
+| Field       | Type                                                                                                                                                                     | Description                                                                                                                                    |
+| ----------- |------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| name        | string                                                                                                                                                                   | the name of the parameter                                                                                                                      |
+| type        | integer                                                                                                                                                                  | value of [application command option type](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-type) |
+| value?      | [application command option type](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-type)                                    | the value of the pair                                                                                                                          |
+| options?\** | array of [application command interaction data option](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/interaction-object-application-command-interaction-data-option-structure) | present if this option is a group or subcommand                                                                                                |
+| focused\*   | boolean                                                                                                                                                                  | whether this field is focused by the user                                                                                                      |
 
+\* Only represented for autocomplete interactions.
 
-###### Application Command Autocomplete Interaction Data Option Structure
-
-| Field    | Type                       | Description                                                                                                                                    |
-| -------- |--------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
-| name     | string                     | the name of the parameter                                                                                                                      |
-| type     | integer                    | value of [application command option type](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-type) |
-| value?   | string, integer or double  | value of the command option                                                                                                                    |
-| focused  | boolean                    | whether this field is focused by the user                                                                                                      |
-
+\*\* Not represented for autocomplete interactions.
 
 ## Authorizing Your Application
 
