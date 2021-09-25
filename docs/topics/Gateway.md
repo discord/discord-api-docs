@@ -1006,14 +1006,14 @@ Sent when a guild member is updated. This will also fire when the user object of
 
 #### Guild Join Request Delete
 
-Sent when a user left the guild without passing the verification process.
+Sent when a user left the guild without passing the verification screening.
 
 ###### Guild Join Request Delete Event Fields
 
-| Field          | Type                                              | Description                                                                                                                            |
-|----------------|---------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------|
-| guild_id       | snowflake                                         | the id of the guild                                                                                                                    |
-| user_id        | snowflake                                         | the id of the user                                                                                                                      |
+| Field    | Type      | Description         |
+|----------|-----------|---------------------|
+| guild_id | snowflake | the id of the guild |
+| user_id  | snowflake | the id of the user  |
 
 #### Guild Members Chunk
 
