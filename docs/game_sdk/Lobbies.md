@@ -1326,20 +1326,77 @@ Below are the API endpoints and the parameters they accept. If you choose to int
 
 Here are the routes; they all expect JSON bodies. Also, hey, while you're here. You've got a bot token. You're looking at our API. You should check out all the other [awesome stuff](#ODCS_INTRO/) you can do with it!
 
+### Lobby Object
+
+###### Lobby Structure
+
+| Name           | Type                                                          | Description                                                                                          |
+| -------------- | ------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
+| id             | snowflake                                                     | lobby id                                                                                             |
+| type           | [lobby type](#DOCS_GAME_SDK_LOBBIES/lobby-object-lobby-types) | the type of lobby                                                                                    |
+| application_id | string                                                        | your application id                                                                                  |
+| capacity       | integer                                                       | max lobby capacity with a default of 16                                                              |
+| region         | string                                                        | the region in which to make the lobby - defaults to the region of the requesting server's IP address |
+| secret         | string                                                        | the password to the lobby                                                                            |
+| metadata       | dict                                                          | metadata for the lobby - key/value pairs with types `string`                                         |
+| owner_id       | snowflake                                                     | the owner of the lobby                                                                               |
+
+###### Lobby Type
+
+| Name    | Value |
+| ------- | ----- |
+| Private | 1     |
+| Public  | 2     |
+
+###### Search Filter Object
+
+| Name       | Type                                                                                  | Description                                       |
+| ---------- | ------------------------------------------------------------------------------------- | ------------------------------------------------- |
+| key        | string                                                                                | the metadata key to search                        |
+| value      | string                                                                                | the value of the metadata key to validate against |
+| cast       | [search cast type](#DOCS_GAME_SDK_LOBBIES/lobby-object-search-cast-types)             | the type to cast `value` as                       |
+| comparison | [search comparison type](#DOCS_GAME_SDK_LOBBIES/lobby-object-search-comparison-types) | how to compare the metadata values                |
+
+###### Search Comparison Types
+
+| Name                     | Value |
+| ------------------------ | ----- |
+| EQUAL_TO_OR_LESS_THAN    | -2    |
+| LESS_THAN                | -1    |
+| EQUAL                    | 0     |
+| EQUAL_TO_OR_GREATER_THAN | 1     |
+| GREATER_THAN             | 2     |
+| NOT_EQUAL                | 3     |
+
+###### Search Sort Object
+
+| Name       | Type        | Description                                                             |
+| ---------- | ----------- | ----------------------------------------------------------------------- |
+| key        | string      | the metadata key on which to sort lobbies that meet the search criteria |
+| cast       | [search cast type](#DOCS_GAME_SDK_LOBBIES/lobby-object-search-cast-types) | the type to cast `value` as                                             |
+| near_value | string      | the value around which to sort the key                                  |
+
+###### Search Cast Types
+
+| name   | value |
+| ------ | ----- |
+| STRING | 1     |
+| NUMBER | 2     |
+
 ## Create Lobby % POST /lobbies
 
-Creates a new lobby. Returns an object similar to the SDK `Lobby` struct, documented below.
+Creates a new lobby. Returns a [lobby object](#DOCS_GAME_SDK_LOBBIES/lobby-object) on success.
 
 To get a list of valid regions, see the [List Voice Regions](#DOCS_RESOURCES_VOICE/list-voice-regions) endpoint.
 
 ###### JSON Params
 
-| name           | type      | description                                                                                          |
+| Name           | Type      | Description                                                                                          |
 | -------------- | --------- | ---------------------------------------------------------------------------------------------------- |
 | application_id | string    | your application id                                                                                  |
-| type           | LobbyType | the type of lobby                                                                                    |
+| type           | [lobby type](#DOCS_GAME_SDK_LOBBIES/lobby-object-lobby-types) | the type of lobby                                |
 | metadata       | dict      | metadata for the lobby - key/value pairs with types `string`                                         |
-| capacity       | int       | max lobby capacity with a default of 16                                                              |
+| capacity       | integer   | max lobby capacity with a default of 16                                                              |
 | region         | string    | the region in which to make the lobby - defaults to the region of the requesting server's IP address |
 
 ###### Example Response
@@ -1360,29 +1417,29 @@ To get a list of valid regions, see the [List Voice Regions](#DOCS_RESOURCES_VOI
 }
 ```
 
-## Modify Lobby % PATCH /lobbies/{lobby.id#DOCS_GAME_SDK_LOBBIES/data-models-lobby-struct}
+## Modify Lobby % PATCH /lobbies/{lobby.id#DOCS_GAME_SDK_LOBBIES/lobby-object}
 
-Modifies a lobby.
+Modifies a lobby. Returns the modified [lobby object](#DOCS_GAME_SDK_LOBBIES/lobby-object) on success.
 
 ###### JSON Params
 
-| name     | type      | description                                                  |
-| -------- | --------- | ------------------------------------------------------------ |
-| type     | LobbyType | the type of lobby                                            |
-| metadata | dict      | metadata for the lobby - key/value pairs with types `string` |
-| capacity | int       | max lobby capacity with a default of 16                      |
+| Name     | Type                                                          | Description                                                  |
+| -------- | ------------------------------------------------------------- | ------------------------------------------------------------ |
+| type     | [lobby type](#DOCS_GAME_SDK_LOBBIES/lobby-object-lobby-types) | the type of lobby                                            |
+| metadata | dict                                                          | metadata for the lobby - key/value pairs with types `string` |
+| capacity | integer                                                       | max lobby capacity with a default of 16                      |
 
-## Delete Lobby % DELETE /lobbies/{lobby.id#DOCS_GAME_SDK_LOBBIES/data-models-lobby-struct}
+## Delete Lobby % DELETE /lobbies/{lobby.id#DOCS_GAME_SDK_LOBBIES/lobby-object}
 
 Deletes a lobby. Returns a `204` on success.
 
-## Modify Lobby Member % PATCH /lobbies/{lobby.id#DOCS_GAME_SDK_LOBBIES/data-models-lobby-struct}/members/{user.id#DOCS_RESOURCES_USER/user-object}
+## Modify Lobby Member % PATCH /lobbies/{lobby.id#DOCS_GAME_SDK_LOBBIES/lobby-object}/members/{user.id#DOCS_RESOURCES_USER/user-object}
 
 Modifies the metadata for a lobby member.
 
 ###### JSON Params
 
-| name     | type | description                                                         |
+| Name     | Type | Description                                                         |
 | -------- | ---- | ------------------------------------------------------------------- |
 | metadata | dict | metadata for the lobby member - key/value pairs with types `string` |
 
@@ -1395,44 +1452,9 @@ Creates a lobby search for matchmaking around given criteria.
 | name           | type                | description                              |
 | -------------- | ------------------- | ---------------------------------------- |
 | application_id | string              | your application id                      |
-| filter         | SearchFilter object | the filter to check against              |
-| sort           | SearchSort object   | how to sort the results                  |
-| limit          | int                 | limit of lobbies returned, default of 25 |
-
-###### SearchFilter Object
-
-| name       | type             | description                                       |
-| ---------- | ---------------- | ------------------------------------------------- |
-| key        | string           | the metadata key to search                        |
-| value      | string           | the value of the metadata key to validate against |
-| cast       | SearchCast       | the type to cast `value` as                       |
-| comparison | SearchComparison | how to compare the metadata values                |
-
-###### SearchComparison Types
-
-| name                     | value |
-| ------------------------ | ----- |
-| EQUAL_TO_OR_LESS_THAN    | -2    |
-| LESS_THAN                | -1    |
-| EQUAL                    | 0     |
-| EQUAL_TO_OR_GREATER_THAN | 1     |
-| GREATER_THAN             | 2     |
-| NOT_EQUAL                | 3     |
-
-###### SearchSort Object
-
-| name       | type       | description                                                             |
-| ---------- | ---------- | ----------------------------------------------------------------------- |
-| key        | string     | the metadata key on which to sort lobbies that meet the search criteria |
-| cast       | SearchCast | the type to cast `value` as                                             |
-| near_value | string     | the value around which to sort the key                                  |
-
-###### SearchCast Types
-
-| name   | value |
-| ------ | ----- |
-| STRING | 1     |
-| NUMBER | 2     |
+| filter         | [search filter](#DOCS_GAME_SDK_LOBBIES/lobby-object-search-filter-object)       | the filter to check against              |
+| sort           | [search sort object](#DOCS_GAME_SDK_LOBBIES/lobby-object-search-sort-object)         | how to sort the results                  |
+| limit          | integer                 | limit of lobbies returned, default of 25 |
 
 ## Send Lobby Data % POST /lobbies/{lobby.id#DOCS_GAME_SDK_LOBBIES/data-models-lobby-struct}/send
 
