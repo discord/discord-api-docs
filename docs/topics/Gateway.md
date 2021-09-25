@@ -501,6 +501,7 @@ Events are payloads sent over the socket to a client that correspond to events i
 | [Guild Member Remove](#DOCS_TOPICS_GATEWAY/guild-member-remove)                     | user was removed from a guild                                                                                                    |
 | [Guild Member Update](#DOCS_TOPICS_GATEWAY/guild-member-update)                     | guild member was updated                                                                                                         |
 | [Guild Members Chunk](#DOCS_TOPICS_GATEWAY/guild-members-chunk)                     | response to [Request Guild Members](#DOCS_TOPICS_GATEWAY/request-guild-members)                                                  |
+| [Guild Join Request Delete](#DOCS_TOPICS_GATEWAY/guild-join-request-delete)         | user left before passing the verification screening                                                                               |
 | [Guild Role Create](#DOCS_TOPICS_GATEWAY/guild-role-create)                         | guild role was created                                                                                                           |
 | [Guild Role Update](#DOCS_TOPICS_GATEWAY/guild-role-update)                         | guild role was updated                                                                                                           |
 | [Guild Role Delete](#DOCS_TOPICS_GATEWAY/guild-role-delete)                         | guild role was deleted                                                                                                           |
@@ -1002,6 +1003,17 @@ Sent when a guild member is updated. This will also fire when the user object of
 | deaf?          | boolean                                           | whether the user is deafened in voice channels                                                                                         |
 | mute?          | boolean                                           | whether the user is muted in voice channels                                                                                            |
 | pending?       | boolean                                           | whether the user has not yet passed the guild's [Membership Screening](#DOCS_RESOURCES_GUILD/membership-screening-object) requirements |
+
+#### Guild Join Request Delete
+
+Sent when a user left the guild without passing the verification process.
+
+###### Guild Join Request Delete Event Fields
+
+| Field          | Type                                              | Description                                                                                                                            |
+|----------------|---------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------|
+| guild_id       | snowflake                                         | the id of the guild                                                                                                                    |
+| user_id        | snowflake                                         | the id of the user                                                                                                                      |
 
 #### Guild Members Chunk
 
