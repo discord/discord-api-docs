@@ -870,15 +870,17 @@ Create a new [role](#DOCS_TOPICS_PERMISSIONS/role-object) for the guild. Require
 
 ###### JSON Params
 
-| Field         | Type                                     | Description                                                          | Default                        |
-| ------------- | ---------------------------------------- | -------------------------------------------------------------------- | ------------------------------ |
-| name          | string                                   | name of the role                                                     | "new role"                     |
-| permissions   | string                                   | bitwise value of the enabled/disabled permissions                    | @everyone permissions in guild |
-| color         | integer                                  | RGB color value                                                      | 0                              |
-| hoist         | boolean                                  | whether the role should be displayed separately in the sidebar       | false                          |
-| icon          | [image data](#DOCS_REFERENCE/image-data) | the role's icon image (if the guild has the `ROLE_ICONS` feature)    | null                           |
-| unicode_emoji | string                                   | the role's unicode emoji (if the guild has the `ROLE_ICONS` feature) | null                           |
-| mentionable   | boolean                                  | whether the role should be mentionable                               | false                          |
+| Field         | Type                                     | Description                                                            | Default                        |
+| ------------- | ---------------------------------------- | ---------------------------------------------------------------------- | ------------------------------ |
+| name          | string                                   | name of the role                                                       | "new role"                     |
+| permissions   | string                                   | bitwise value of the enabled/disabled permissions                      | @everyone permissions in guild |
+| color         | integer                                  | RGB color value                                                        | 0                              |
+| hoist         | boolean                                  | whether the role should be displayed separately in the sidebar         | false                          |
+| icon          | [image data](#DOCS_REFERENCE/image-data) | the role's icon image (if the guild has the `ROLE_ICONS` feature)      | null                           |
+| unicode_emoji | string                                   | the role's unicode emoji\* (if the guild has the `ROLE_ICONS` feature) | null                           |
+| mentionable   | boolean                                  | whether the role should be mentionable                                 | false                          |
+
+\* You need to send the unicode emoji name without colons.
 
 ## Modify Guild Role Positions % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/roles
 
@@ -908,15 +910,17 @@ Modify a guild role. Requires the `MANAGE_ROLES` permission. Returns the updated
 
 ###### JSON Params
 
-| Field         | Type                                     | Description                                                          |
-| ------------- | ---------------------------------------- | -------------------------------------------------------------------- |
-| name          | string                                   | name of the role                                                     |
-| permissions   | string                                   | bitwise value of the enabled/disabled permissions                    |
-| color         | integer                                  | RGB color value                                                      |
-| hoist         | boolean                                  | whether the role should be displayed separately in the sidebar       |
-| icon          | [image data](#DOCS_REFERENCE/image-data) | the role's icon image (if the guild has the `ROLE_ICONS` feature)    |
-| unicode_emoji | string                                   | the role's unicode emoji (if the guild has the `ROLE_ICONS` feature) |
-| mentionable   | boolean                                  | whether the role should be mentionable                               |
+| Field         | Type                                     | Description                                                            |
+| ------------- | ---------------------------------------- | ---------------------------------------------------------------------- |
+| name          | string                                   | name of the role                                                       |
+| permissions   | string                                   | bitwise value of the enabled/disabled permissions                      |
+| color         | integer                                  | RGB color value                                                        |
+| hoist         | boolean                                  | whether the role should be displayed separately in the sidebar         |
+| icon          | [image data](#DOCS_REFERENCE/image-data) | the role's icon image (if the guild has the `ROLE_ICONS` feature)      |
+| unicode_emoji | string                                   | the role's unicode emoji\* (if the guild has the `ROLE_ICONS` feature) |
+| mentionable   | boolean                                  | whether the role should be mentionable                                 |
+
+\* You need to send the unicode emoji name without colons.
 
 ## Delete Guild Role % DELETE /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/roles/{role.id#DOCS_TOPICS_PERMISSIONS/role-object}
 
