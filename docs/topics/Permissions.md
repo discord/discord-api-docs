@@ -217,3 +217,19 @@ Roles without colors (`color == 0`) do not count towards the final computed colo
   "mentionable": false
 }
 ```
+###### Example Role with Unicode Emoji as icon
+
+```json
+{
+  "id": "41771983423143936",
+  "name": "WE DEM BOYZZ!!!!!!",
+  "color": 3447003,
+  "hoist": true,
+  "icon": null,
+  "unicode_emoji": "thinking",
+  "position": 1,
+  "permissions": "66321471",
+  "managed": false,
+  "mentionable": false
+}
+```
