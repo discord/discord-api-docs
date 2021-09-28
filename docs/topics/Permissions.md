@@ -184,7 +184,7 @@ Roles represent a set of permissions attached to a group of users. Roles have un
 | color         | integer                                                                      | integer representation of hexadecimal color code  |
 | hoist         | boolean                                                                      | if this role is pinned in the user listing        |
 | icon          | ?string                                                                      | role [icon hash](#DOCS_REFERENCE/image-formatting)|
-| unicode_emoji | ?string                                                                      | role unicode emoji                                |
+| unicode_emoji | ?string                                                                      | role unicode emoji name without colons            |
 | position      | integer                                                                      | position of this role                             |
 | permissions   | string                                                                       | permission bit set                                |
 | managed       | boolean                                                                      | whether this role is managed by an integration    |
