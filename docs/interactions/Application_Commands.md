@@ -45,6 +45,7 @@ Application commands are commands that an application can register to Discord. T
 | required?   | boolean                                                                                                                                                      | if the parameter is required or optional--default `false`                                                              |
 | choices?    | array of [application command option choice](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-choice-structure) | choices for `STRING`, `INTEGER`, and `NUMBER` types for the user to pick from, max 25                                  |
 | options?    | array of [application command option](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-structure)               | if the option is a subcommand or subcommand group type, this nested options will be the parameters                     |
+| channel_types?    | array of [channel types](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types)                                                                               | if the option is a channel type, the channels shown will be restricted to these types                            |
 
 ###### Application Command Option Type
 

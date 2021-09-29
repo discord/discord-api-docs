@@ -39,7 +39,7 @@ Below is a table of all current permissions, their integer values in hexadecimal
 | PRIORITY_SPEAKER              | `0x0000000100` `(1 << 8)`  | Allows for using priority speaker in a voice channel                                                                               | V            |
 | STREAM                        | `0x0000000200` `(1 << 9)`  | Allows the user to go live                                                                                                         | V            |
 | VIEW_CHANNEL                  | `0x0000000400` `(1 << 10)` | Allows guild members to view a channel, which includes reading messages in text channels                                           | T, V, S      |
-| SEND_MESSAGES                 | `0x0000000800` `(1 << 11)` | Allows for sending messages in a channel                                                                                           | T            |
+| SEND_MESSAGES                 | `0x0000000800` `(1 << 11)` | Allows for sending messages in a channel (does not allow sending messages in threads)                                              | T            |
 | SEND_TTS_MESSAGES             | `0x0000001000` `(1 << 12)` | Allows for sending of `/tts` messages                                                                                              | T            |
 | MANAGE_MESSAGES \*            | `0x0000002000` `(1 << 13)` | Allows for deletion of other users messages                                                                                        | T            |
 | EMBED_LINKS                   | `0x0000004000` `(1 << 14)` | Links sent by users with this permission will be auto-embedded                                                                     | T            |
@@ -62,9 +62,10 @@ Below is a table of all current permissions, their integer values in hexadecimal
 | USE_APPLICATION_COMMANDS      | `0x0080000000` `(1 << 31)` | Allows members to use application commands, including slash commands and context menu commands.                                    | T            |
 | REQUEST_TO_SPEAK              | `0x0100000000` `(1 << 32)` | Allows for requesting to speak in stage channels. (_This permission is under active development and may be changed or removed._)   | S            |
 | MANAGE_THREADS \*             | `0x0400000000` `(1 << 34)` | Allows for deleting and archiving threads, and viewing all private threads                                                         | T            |
-| USE_PUBLIC_THREADS            | `0x0800000000` `(1 << 35)` | Allows for creating and participating in threads                                                                                   | T            |
-| USE_PRIVATE_THREADS           | `0x1000000000` `(1 << 36)` | Allows for creating and participating in private threads                                                                           | T            |
+| CREATE_PUBLIC_THREADS         | `0x0800000000` `(1 << 35)` | Allows for creating threads                                                                                                        | T            |
+| CREATE_PRIVATE_THREADS        | `0x1000000000` `(1 << 36)` | Allows for creating private threads                                                                                                | T            |
 | USE_EXTERNAL_STICKERS         | `0x2000000000` `(1 << 37)` | Allows the usage of custom stickers from other servers                                                                             | T            |
+| SEND_MESSAGES_IN_THREADS      | `0x4000000000` `(1 << 38)` | Allows for sending messages in threads                                                                                             | T            |
 | START_EMBEDDED_ACTIVITIES     | `0x8000000000` `(1 << 39)` | Allows for launching activities (applications with the `EMBEDDED` flag) in a voice channel                                         | V            |
 
 **\* These permissions require the owner account to use [two-factor authentication](#DOCS_TOPICS_OAUTH2/twofactor-authentication-requirement) when used on a guild that has server-wide 2FA enabled.**
@@ -162,13 +163,9 @@ There may be other cases in which certain permissions implicitly deny or allow o
 
 ## Inherited Permissions (Threads)
 
-Threads inherit permissions from the parent channel (the channel they were created in).
+Threads inherit permissions from the parent channel (the channel they were created in), with one exception: The `SEND_MESSAGES` permission is not inherited, users must have `SEND_MESSAGES_IN_THREADS` to send a message in a thread, which allows for users to participate in threads in places like announcement channels.
 
 Users must have the `VIEW_CHANNEL` permission to view _any_ threads in the channel, even if they are directly mentioned or added to the thread.
-
-Users can **create** a thread if they have _both_ the `SEND_MESSAGES` permission and the appropriate threads permission (`USE_PUBLIC_THREADS` for public threads, `USE_PRIVATE_THREADS` for private threads) on the parent channel.
-
-Users can **participate** in a thread if they have _either_ the `SEND_MESSAGES` permission or the appropriate threads permission (`USE_PUBLIC_THREADS` for public threads, `USE_PRIVATE_THREADS` for private threads) on the parent channel.
 
 ## Permission Syncing
 
@@ -180,17 +177,19 @@ Roles represent a set of permissions attached to a group of users. Roles have un
 
 ###### Role Structure
 
-| Field       | Type                                                                         | Description                                      |
-| ----------- | ---------------------------------------------------------------------------- | ------------------------------------------------ |
-| id          | snowflake                                                                    | role id                                          |
-| name        | string                                                                       | role name                                        |
-| color       | integer                                                                      | integer representation of hexadecimal color code |
-| hoist       | boolean                                                                      | if this role is pinned in the user listing       |
-| position    | integer                                                                      | position of this role                            |
-| permissions | string                                                                       | permission bit set                               |
-| managed     | boolean                                                                      | whether this role is managed by an integration   |
-| mentionable | boolean                                                                      | whether this role is mentionable                 |
-| tags?       | [role tags](#DOCS_TOPICS_PERMISSIONS/role-object-role-tags-structure) object | the tags this role has                           |
+| Field         | Type                                                                         | Description                                       |
+| ------------- | ---------------------------------------------------------------------------- | ------------------------------------------------- |
+| id            | snowflake                                                                    | role id                                           |
+| name          | string                                                                       | role name                                         |
+| color         | integer                                                                      | integer representation of hexadecimal color code  |
+| hoist         | boolean                                                                      | if this role is pinned in the user listing        |
+| icon          | ?string                                                                      | role [icon hash](#DOCS_REFERENCE/image-formatting)|
+| unicode_emoji | ?string                                                                      | role unicode emoji                                |
+| position      | integer                                                                      | position of this role                             |
+| permissions   | string                                                                       | permission bit set                                |
+| managed       | boolean                                                                      | whether this role is managed by an integration    |
+| mentionable   | boolean                                                                      | whether this role is mentionable                  |
+| tags?         | [role tags](#DOCS_TOPICS_PERMISSIONS/role-object-role-tags-structure) object | the tags this role has                            |
 
 Roles without colors (`color == 0`) do not count towards the final computed color in the user list.
 
@@ -210,6 +209,8 @@ Roles without colors (`color == 0`) do not count towards the final computed colo
   "name": "WE DEM BOYZZ!!!!!!",
   "color": 3447003,
   "hoist": true,
+  "icon": "cf3ced8600b777c9486c6d8d84fb4327",
+  "unicode_emoji": null,
   "position": 1,
   "permissions": "66321471",
   "managed": false,
