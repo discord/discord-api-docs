@@ -88,12 +88,12 @@ All options have names, and an option can either be a parameter and input value-
 | name        | string                                                                                                                                                                   | the name of the parameter                                                                                                                      |
 | type        | integer                                                                                                                                                                  | value of [application command option type](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-type) |
 | value?      | [application command option type](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-type)                                    | the value of the pair                                                                                                                          |
-| options?\** | array of [application command interaction data option](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/interaction-object-application-command-interaction-data-option-structure) | present if this option is a group or subcommand                                                                                                |
-| focused\*   | boolean                                                                                                                                                                  | whether this field is focused by the user                                                                                                      |
+| options?\*  | array of [application command interaction data option](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/interaction-object-application-command-interaction-data-option-structure) | present if this option is a group or subcommand                                                                                                |
+| focused\*\* | boolean                                                                                                                                                                  | whether this field is focused by the user                                                                                                      |
 
-\* Only represented for autocomplete interactions.
+\* Not represented for autocomplete interactions.
 
-\*\* Not represented for autocomplete interactions.
+\*\* Only represented for autocomplete interactions.
 
 ## Authorizing Your Application
 
