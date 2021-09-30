@@ -281,7 +281,7 @@ A partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object. Represents an Offl
 | -------------- | ----------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
 | user?          | [user](#DOCS_RESOURCES_USER/user-object) object | the user this guild member represents                                                                                                  |
 | nick?          | ?string                                         | this users guild nickname                                                                                                              |
-| avatar         | ?string                                         | the member's [guild avatar hash](#DOCS_REFERENCE/image-formatting)                                                                     |
+| avatar?        | ?string                                         | the member's [guild avatar hash](#DOCS_REFERENCE/image-formatting)                                                                     |
 | roles          | array of snowflakes                             | array of [role](#DOCS_TOPICS_PERMISSIONS/role-object) object ids                                                                       |
 | joined_at      | ISO8601 timestamp                               | when the user joined the guild                                                                                                         |
 | premium_since? | ?ISO8601 timestamp                              | when the user started [boosting](https://support.discord.com/hc/en-us/articles/360028038352-Server-Boosting-) the guild                |
