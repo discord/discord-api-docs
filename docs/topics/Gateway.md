@@ -250,8 +250,9 @@ GUILD_BANS (1 << 2)
   - GUILD_BAN_ADD
   - GUILD_BAN_REMOVE
 
-GUILD_EMOJIS (1 << 3)
+GUILD_EMOJIS_AND_STICKERS (1 << 3)
   - GUILD_EMOJIS_UPDATE
+  - GUILD_STICKERS_UPDATE
 
 GUILD_INTEGRATIONS (1 << 4)
   - GUILD_INTEGRATIONS_UPDATE
@@ -322,6 +323,9 @@ If you specify an `intent` value in your `IDENTIFY` payload that is *disallowed*
 Bots in under 100 guilds can enable these intents in the bot tab of the developer dashboard. Verified bots can get access to privileged intents when getting verified, or by writing into support after getting verified.
 
 ### Privileged Intents
+
+> warn
+> Message content will become a privileged intent in 2022. [Learn more here](https://support-dev.discord.com/hc/en-us/articles/4404772028055).
 
 Some intents are defined as "Privileged" due to the sensitive nature of the data. Those intents are:
 
@@ -488,6 +492,8 @@ Events are Dispatch payloads that correspond to changes in Discord state.
 | [Application Command Create](#DOCS_TOPICS_GATEWAY/application-command-create)       | new [Slash Command](#DOCS_INTERACTIONS_SLASH_COMMANDS/) was created                                                              |
 | [Application Command Update](#DOCS_TOPICS_GATEWAY/application-command-update)       | [Slash Command](#DOCS_INTERACTIONS_SLASH_COMMANDS/) was updated                                                                  |
 | [Application Command Delete](#DOCS_TOPICS_GATEWAY/application-command-delete)       | [Slash Command](#DOCS_INTERACTIONS_SLASH_COMMANDS/) was deleted                                                                  |
+| [Reconnect](#DOCS_TOPICS_GATEWAY/reconnect)                                         | server is going away, client should reconnect to gateway and resume                                                              |
+| [Invalid Session](#DOCS_TOPICS_GATEWAY/invalid-session)                             | failure response to [Identify](#DOCS_TOPICS_GATEWAY/identify) or [Resume](#DOCS_TOPICS_GATEWAY/resume) or invalid active session |
 | [Channel Create](#DOCS_TOPICS_GATEWAY/channel-create)                               | new guild channel created                                                                                                        |
 | [Channel Update](#DOCS_TOPICS_GATEWAY/channel-update)                               | channel was updated                                                                                                              |
 | [Channel Delete](#DOCS_TOPICS_GATEWAY/channel-delete)                               | channel was deleted                                                                                                              |
@@ -504,6 +510,7 @@ Events are Dispatch payloads that correspond to changes in Discord state.
 | [Guild Ban Add](#DOCS_TOPICS_GATEWAY/guild-ban-add)                                 | user was banned from a guild                                                                                                     |
 | [Guild Ban Remove](#DOCS_TOPICS_GATEWAY/guild-ban-remove)                           | user was unbanned from a guild                                                                                                   |
 | [Guild Emojis Update](#DOCS_TOPICS_GATEWAY/guild-emojis-update)                     | guild emojis were updated                                                                                                        |
+| [Guild Stickers Update](#DOCS_TOPICS_GATEWAY/guild-stickers-update)                 | guild stickers were updated                                                                                                      |
 | [Guild Integrations Update](#DOCS_TOPICS_GATEWAY/guild-integrations-update)         | guild integration was updated                                                                                                    |
 | [Guild Member Add](#DOCS_TOPICS_GATEWAY/guild-member-add)                           | new user joined a guild                                                                                                          |
 | [Guild Member Remove](#DOCS_TOPICS_GATEWAY/guild-member-remove)                     | user was removed from a guild                                                                                                    |
@@ -515,7 +522,7 @@ Events are Dispatch payloads that correspond to changes in Discord state.
 | [Integration Create](#DOCS_TOPICS_GATEWAY/integration-create)                       | guild integration was created                                                                                                    |
 | [Integration Update](#DOCS_TOPICS_GATEWAY/integration-update)                       | guild integration was updated                                                                                                    |
 | [Integration Delete](#DOCS_TOPICS_GATEWAY/integration-delete)                       | guild integration was deleted                                                                                                    |
-| [Interaction Create](#DOCS_TOPICS_GATEWAY/interaction-create)                       | user used an interaction, such as a [Slash Command](#DOCS_INTERACTIONS_SLASH_COMMANDS/)                                          |
+| [Interaction Create](#DOCS_TOPICS_GATEWAY/interaction-create)                       | user used an interaction, such as an [Application Command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/)                             |
 | [Invite Create](#DOCS_TOPICS_GATEWAY/invite-create)                                 | invite to a channel was created                                                                                                  |
 | [Invite Delete](#DOCS_TOPICS_GATEWAY/invite-delete)                                 | invite to a channel was deleted                                                                                                  |
 | [Message Create](#DOCS_TOPICS_GATEWAY/message-create)                               | message was created                                                                                                              |
@@ -709,7 +716,7 @@ Sent by the client to indicate a presence or status update.
 |------------|-------------------------------------------------------------------|---------------------------------------------------------------------------------------------|
 | since      | ?integer                                                          | unix time (in milliseconds) of when the client went idle, or null if the client is not idle |
 | activities | array of [activity](#DOCS_TOPICS_GATEWAY/activity-object) objects | the user's activities                                                                       |
-| status     | string                                                            | the user's new [status](#DOCS_TOPICS_GATEWAY/update-status-status-types)                    |
+| status     | string                                                            | the user's new [status](#DOCS_TOPICS_GATEWAY/update-presence-status-types)                  |
 | afk        | boolean                                                           | whether or not the client is afk                                                            |
 
 ###### Status Types
@@ -856,7 +863,7 @@ Sent when the current user _gains_ access to a channel.
 
 #### Thread Member Update
 
-Sent when the [thread member](#DOCS_RESOURCES_CHANNEL/thread-member-object) object for the current user is updated.  The inner payload is a [thread member](#DOCS_RESOURCES_CHANNEL/thread-member-object) object.
+Sent when the [thread member](#DOCS_RESOURCES_CHANNEL/thread-member-object) object for the current user is updated. The inner payload is a [thread member](#DOCS_RESOURCES_CHANNEL/thread-member-object) object. This event is documented for completeness, but unlikely to be used by most bots. For bots, this event largely is just a signal that you are a member of the thread. See the [threads docs](#DOCS_TOPICS_THREADS) for more details.
 
 #### Thread Members Update
 
@@ -869,8 +876,10 @@ Sent when anyone is added to or removed from a thread.  If the current user does
 | id                   | snowflake                                                                      | the id of the thread                                            |
 | guild_id             | snowflake                                                                      | the id of the guild                                             |
 | member_count         | integer                                                                        | the approximate number of members in the thread, capped at 50   |
-| added_members?       | array of [thread member](#DOCS_RESOURCES_CHANNEL/thread-member-object) objects | the users who were added to the thread                          |
+| added_members?\*     | array of [thread member](#DOCS_RESOURCES_CHANNEL/thread-member-object) objects | the users who were added to the thread                          |
 | removed_member_ids?  | array of snowflakes                                                            | the id of the users who were removed from the thread            |
+
+\* In this gateway event, the thread member objects will also include the [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) and nullable [presence](#DOCS_TOPICS_GATEWAY/presence) objects for each added thread member.
 
 #### Channel Pins Update
 
@@ -940,6 +949,17 @@ Sent when a guild's emojis have been updated.
 | guild_id | snowflake | id of the guild                                       |
 | emojis   | array     | array of [emojis](#DOCS_RESOURCES_EMOJI/emoji-object) |
 
+#### Guild Stickers Update
+
+Sent when a guild's stickers have been updated.
+
+###### Guild Stickers Update Event Fields
+
+| Field    | Type      | Description                                                 |
+|----------|-----------|-------------------------------------------------------------|
+| guild_id | snowflake | id of the guild                                             |
+| stickers | array     | array of [stickers](#DOCS_RESOURCES_STICKER/sticker-object) |
+
 #### Guild Integrations Update
 
 Sent when a guild integration is updated.
@@ -992,7 +1012,8 @@ Sent when a guild member is updated. This will also fire when the user object of
 | roles          | array of snowflakes                               | user role ids                                                                                                                          |
 | user           | a [user](#DOCS_RESOURCES_USER/user-object) object | the user                                                                                                                               |
 | nick?          | ?string                                           | nickname of the user in the guild                                                                                                      |
-| joined_at      | ?ISO8601 timestamp                                 | when the user joined the guild                                                                                                         |
+| avatar         | ?string                                           | the member's [guild avatar hash](#DOCS_REFERENCE/image-formatting)
+| joined_at      | ?ISO8601 timestamp                                | when the user joined the guild                                                                                                         |
 | premium_since? | ?ISO8601 timestamp                                | when the user starting [boosting](https://support.discord.com/hc/en-us/articles/360028038352-Server-Boosting-) the guild               |
 | deaf?          | boolean                                           | whether the user is deafened in voice channels                                                                                         |
 | mute?          | boolean                                           | whether the user is muted in voice channels                                                                                            |
@@ -1094,7 +1115,7 @@ Sent when a new invite to a channel is created.
 |---------------------|------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------|
 | channel_id          | snowflake                                                                    | the channel the invite is for                                                                                      |
 | code                | string                                                                       | the unique invite [code](#DOCS_RESOURCES_INVITE/invite-object)                                                     |
-| created_at          | timestamp                                                                    | the time at which the invite was created                                                                           |
+| created_at          | ISO8601 timestamp                                                            | the time at which the invite was created                                                                           |
 | guild_id?           | snowflake                                                                    | the guild of the invite                                                                                            |
 | inviter?            | [user](#DOCS_RESOURCES_USER/user-object) object                              | the user that created the invite                                                                                   |
 | max_age             | integer                                                                      | how long the invite is valid for (in seconds)                                                                      |
@@ -1249,7 +1270,7 @@ Active sessions are indicated with an "online", "idle", or "dnd" string per plat
 | name            | string                                                                        | the activity's name                                                                                                       |
 | type            | integer                                                                       | [activity type](#DOCS_TOPICS_GATEWAY/activity-object-activity-types)                                                      |
 | url?            | ?string                                                                       | stream url, is validated when type is 1                                                                                   |
-| created_at      | integer                                                                       | unix timestamp of when the activity was added to the user's session                                                       |
+| created_at      | integer                                                                       | unix timestamp (in milliseconds) of when the activity was added to the user's session                                                       |
 | timestamps?     | [timestamps](#DOCS_TOPICS_GATEWAY/activity-object-activity-timestamps) object | unix timestamps for start and/or end of the game                                                                          |
 | application_id? | snowflake                                                                     | application id for the game                                                                                               |
 | details?        | ?string                                                                       | what the player is currently doing                                                                                        |
@@ -1445,45 +1466,25 @@ Sent when a guild channel's webhook is created, updated, or deleted.
 | guild_id   | snowflake | id of the guild   |
 | channel_id | snowflake | id of the channel |
 
-### Commands
-
-#### Application Command Create
-
-Sent when a new [Slash Command](#DOCS_INTERACTIONS_SLASH_COMMANDS/) is created, relevant to the current user. The inner payload is an [ApplicationCommand](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object-application-command-structure) object, with an optional extra `guild_id` key.
-
-#### Application Command Update
-
-Sent when a [Slash Command](#DOCS_INTERACTIONS_SLASH_COMMANDS/) relevant to the current user is updated. The inner payload is an [ApplicationCommand](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object-application-command-structure) object, with an optional extra `guild_id` key.
-
-#### Application Command Delete
-
-Sent when a [Slash Command](#DOCS_INTERACTIONS_SLASH_COMMANDS/) relevant to the current user is deleted. The inner payload is an [ApplicationCommand](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object-application-command-structure) object, with an optional extra `guild_id` key.
-
-###### Application Command Extra Fields
-
-| Field     | Type      | Description                       |
-|-----------|-----------|-----------------------------------|
-| guild_id? | snowflake | id of the guild the command is in |
-
 ### Interactions
 
 #### Interaction Create
 
-Sent when a user in a guild uses a [Slash Command](#DOCS_INTERACTIONS_SLASH_COMMANDS/). Inner payload is an [Interaction](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-object-interaction-structure).
+Sent when a user in a guild uses an [Application Command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/). Inner payload is an [Interaction](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-interaction-structure).
 
 ### Stage Instances
 
 #### Stage Instance Create
 
-Sent when a [Stage instance](#DOCS_RESOURCES_STAGE_INSTANCE) is created (i.e. the Stage is now "live"). Inner payload is a [Stage instance](#DOCS_RESOURCE_STAGE_INSTANCE/stage-instance-object)
+Sent when a [Stage instance](#DOCS_RESOURCES_STAGE_INSTANCE) is created (i.e. the Stage is now "live"). Inner payload is a [Stage instance](#DOCS_RESOURCES_STAGE_INSTANCE/stage-instance-object)
 
 #### Stage Instance Update
 
-Sent when a [Stage instance](#DOCS_RESOURCES_STAGE_INSTANCE) has been updated. Inner payload is a [Stage instance](#DOCS_RESOURCE_STAGE_INSTANCE/stage-instance-object)
+Sent when a [Stage instance](#DOCS_RESOURCES_STAGE_INSTANCE) has been updated. Inner payload is a [Stage instance](#DOCS_RESOURCES_STAGE_INSTANCE/stage-instance-object)
 
 #### Stage Instance Delete
 
-Sent when a [Stage instance](#DOCS_RESOURCES_STAGE_INSTANCE) has been deleted (i.e. the Stage has been closed). Inner payload is a [Stage instance](#DOCS_RESOURCE_STAGE_INSTANCE/stage-instance-object)
+Sent when a [Stage instance](#DOCS_RESOURCES_STAGE_INSTANCE) has been deleted (i.e. the Stage has been closed). Inner payload is a [Stage instance](#DOCS_RESOURCES_STAGE_INSTANCE/stage-instance-object)
 
 ## Get Gateway % GET /gateway
 

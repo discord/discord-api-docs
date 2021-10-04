@@ -81,6 +81,23 @@ In API v8, we've improved error formatting in form error responses. The response
 }
 ```
 
+###### Request Error
+
+```json
+{
+    "code": 50035,
+    "message": "Invalid Form Body",
+    "errors": {
+        "_errors": [
+            {
+                "code": "APPLICATION_COMMAND_TOO_LARGE",
+                "message": "Command exceeds maximum size (4000)"
+            }
+        ]
+    }
+}
+```
+
 ## Authentication
 
 Authenticating with the Discord API can be done in one of two ways:
@@ -226,10 +243,6 @@ Certain endpoints in the API are documented to accept booleans for their query s
 
 Discord's Gateway API is used for maintaining persistent, stateful websocket connections between your client and our servers. These connections are used for sending and receiving real-time events your client can use to track and update local state. The Gateway API uses secure websocket connections as specified in [RFC 6455](https://tools.ietf.org/html/rfc6455). For information on opening Gateway connections, please see the [Gateway API](#DOCS_TOPICS_GATEWAY/gateways) section.
 
-> warn
-> A bot must connect to and identify with a gateway at least once before it can use the [Create Message](#DOCS_RESOURCES_CHANNEL/create-message) endpoint.
-> If your only requirement is to send messages to a channel, consider using a [Webhook](#DOCS_RESOURCES_WEBHOOK) instead.
-
 ## Message Formatting
 
 Discord utilizes a subset of markdown for rendering message content on its clients, while also adding some custom functionality to enable things like mentioning users and channels. This functionality uses the following formats:
@@ -278,12 +291,13 @@ Discord uses ids and hashes to render images in the client. These hashes can be 
 
 ###### Image Formats
 
-| Name | Extension   |
-|------|-------------|
-| JPEG | .jpg, .jpeg |
-| PNG  | .png        |
-| WebP | .webp       |
-| GIF  | .gif        |
+| Name   | Extension   |
+|--------|-------------|
+| JPEG   | .jpg, .jpeg |
+| PNG    | .png        |
+| WebP   | .webp       |
+| GIF    | .gif        |
+| Lottie | .json       |
 
 ###### CDN Endpoints
 
@@ -294,19 +308,26 @@ Discord uses ids and hashes to render images in the client. These hashes can be 
 | Guild Splash           | splashes/[guild_id](#DOCS_RESOURCES_GUILD/guild-object)/[guild_splash](#DOCS_RESOURCES_GUILD/guild-object).png                                                                                                                                                    | PNG, JPEG, WebP      |
 | Guild Discovery Splash | discovery-splashes/[guild_id](#DOCS_RESOURCES_GUILD/guild-object)/[guild_discovery_splash](#DOCS_RESOURCES_GUILD/guild-object).png                                                                                                                                | PNG, JPEG, WebP      |
 | Guild Banner           | banners/[guild_id](#DOCS_RESOURCES_GUILD/guild-object)/[guild_banner](#DOCS_RESOURCES_GUILD/guild-object).png                                                                                                                                                     | PNG, JPEG, WebP      |
+| User Banner            | banners/[user_id](#DOCS_RESOURCES_USER/user-object)/[user_banner](#DOCS_RESOURCES_USER/user-object).png \*                                                                                                                                                        | PNG, JPEG, WebP, GIF |
 | Default User Avatar    | embed/avatars/[user_discriminator](#DOCS_RESOURCES_USER/user-object).png \*\* \*\*\*                                                                                                                                                                              | PNG                  |
 | User Avatar            | avatars/[user_id](#DOCS_RESOURCES_USER/user-object)/[user_avatar](#DOCS_RESOURCES_USER/user-object).png \*                                                                                                                                                        | PNG, JPEG, WebP, GIF |
+| Guild Member Avatar    | guilds/[guild_id](#DOCS_RESOURCES_GUILD/guild-object)/users/[user_id](#DOCS_RESOURCES_USER/user-object)/avatars/[member_avatar](#DOCS_RESOURCES_GUILD/guild-member-object).png \*                                                                                 | PNG, JPEG, WebP, GIF |
 | Application Icon       | app-icons/[application_id](#DOCS_RESOURCES_APPLICATION/application-object)/[icon](#DOCS_RESOURCES_APPLICATION/application-object).png                                                                                                                             | PNG, JPEG, WebP      |
 | Application Cover      | app-icons/[application_id](#DOCS_RESOURCES_APPLICATION/application-object)/[cover_image](#DOCS_RESOURCES_APPLICATION/application-object).png                                                                                                                      | PNG, JPEG, WebP      |
 | Application Asset      | app-assets/[application_id](#DOCS_RESOURCES_APPLICATION/application-object)/[asset_id](#DOCS_TOPICS_GATEWAY/activity-object-activity-assets).png                                                                                                                  | PNG, JPEG, WebP      |
 | Achievement Icon       | app-assets/[application_id](#DOCS_RESOURCES_APPLICATION/application-object)/achievements/[achievement_id](#DOCS_GAME_SDK_ACHIEVEMENTS/data-models-user-achievement-struct)/icons/[icon_hash](#DOCS_GAME_SDK_ACHIEVEMENTS/data-models-user-achievement-struct).png | PNG, JPEG, WebP      |
+| Sticker Pack Banner    | app-assets/710982414301790216/store/[sticker_pack_banner_asset_id](#DOCS_RESOURCES_STICKER/sticker-pack-object).png                                                                                                                                               | PNG, JPEG, WebP      |
 | Team Icon              | team-icons/[team_id](#DOCS_TOPICS_TEAMS/team-object)/[team_icon](#DOCS_TOPICS_TEAMS/team-object).png                                                                                                                                                              | PNG, JPEG, WebP      |
+| Sticker                | stickers/[sticker_id](#DOCS_RESOURCES_STICKER/sticker-object).png \*\*\* \*\*\*\*                                                                                                                                                                                 | PNG, Lottie          |
+| Role Icon              | role-icons/[role_id](#DOCS_TOPICS_PERMISSIONS/role-object)/[role_icon](#DOCS_TOPICS_PERMISSIONS/role-object).png \*                                                                                                                                               | PNG, JPEG, WebP      |
 
 \* In the case of endpoints that support GIFs, the hash will begin with `a_` if it is available in GIF format. (example: `a_1269e74af4df7417b13759eae50c83dc`)
 
 \*\* In the case of the Default User Avatar endpoint, the value for `user_discriminator` in the path should be the user's discriminator modulo 5—Test#1337 would be `1337 % 5`, which evaluates to 2.
 
-\*\*\* In the case of the Default User Avatar endpoint, the size of images returned is constant with the "size" querystring parameter being ignored.
+\*\*\* In the case of the Default User Avatar and Sticker endpoints, the size of images returned is constant with the "size" querystring parameter being ignored.
+
+\*\*\*\* In the case of the Sticker endpoint, the sticker will be available as PNG if its [`format_type`](#DOCS_RESOURCES_STICKER/sticker-object) is `PNG` or `APNG`, and as [Lottie](https://airbnb.io/lottie/#/) if its `format_type` is `LOTTIE`.
 
 ## Image Data
 

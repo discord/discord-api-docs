@@ -163,7 +163,7 @@ Same as above, except this call does not require authentication.
 
 > warn
 > This endpoint supports both `application/json` and `multipart/form-data` bodies. When uploading files the `multipart/form-data` content type must be used.
-> Note that in multipart form data, the `embed` and `allowed_mentions` fields cannot be used. You can pass a stringified JSON body as a form value as `payload_json` instead.
+> Note that in multipart form data, the `embeds` and `allowed_mentions` fields cannot be used. You can pass a stringified JSON body as a form value as `payload_json` instead.
 > **If you supply a `payload_json` form value, all fields except for `file` fields will be ignored in the form data**.
 
 ###### Query String Params
@@ -185,7 +185,9 @@ Same as above, except this call does not require authentication.
 | embeds           | array of up to 10 [embed](#DOCS_RESOURCES_CHANNEL/embed-object) objects              | embedded `rich` content                                      | one of content, file, embeds |
 | payload_json     | string                                                                               | JSON encoded body of non-file params                         | `multipart/form-data` only   |
 | allowed_mentions | [allowed mention object](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object)            | allowed mentions for the message                             | false                        |
-| components       | array of [message component](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-object) | the components to include with the message                   | false                        |
+| components\*     | array of [message component](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-object) | the components to include with the message                   | false                        |
+
+\* Requires an application-owned webhook
 
 > info
 > For the webhook embed objects, you can set every field except `type` (it will be `rich` regardless of if you try to set it), `provider`, `video`, and any `height`, `width`, or `proxy_url` values for images.
@@ -225,7 +227,7 @@ When the `content` field is edited, the `mentions` array in the message object w
 
 > warn
 > This endpoint supports both `application/json` and `multipart/form-data` bodies. When uploading files the `multipart/form-data` content type must be used.
-> Note that in multipart form data, the `embed`, `allowed_mentions`, and `attachments` fields cannot be used. You can pass a stringified JSON body as a form value as `payload_json` instead.
+> Note that in multipart form data, the `embeds`, `allowed_mentions`, and `attachments` fields cannot be used. You can pass a stringified JSON body as a form value as `payload_json` instead.
 > **If you supply a `payload_json` form value, all fields except for `file` fields will be ignored in the form data**.
 
 > info
@@ -241,7 +243,9 @@ When the `content` field is edited, the `mentions` array in the message object w
 | payload_json     | string                                                                               | JSON encoded body of non-file params (multipart/form-data only) |
 | allowed_mentions | [allowed mention object](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object)            | allowed mentions for the message                                |
 | attachments      | array of [attachment](#DOCS_RESOURCES_CHANNEL/attachment-object) objects             | attached files to keep                                          |
-| components       | array of [message component](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-object) | the components to include with the message                      |
+| components\*     | array of [message component](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-object) | the components to include with the message                      |
+
+\* Requires an application-owned webhook
 
 # Delete Webhook Message % DELETE /webhooks/{webhook.id#DOCS_RESOURCES_WEBHOOK/webhook-object}/{webhook.token#DOCS_RESOURCES_WEBHOOK/webhook-object}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}
 

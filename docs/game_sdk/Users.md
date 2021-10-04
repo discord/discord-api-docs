@@ -43,7 +43,7 @@ This manager helps retrieve basic user information for any user on Discord.
 > info
 > Before calling this function, you'll need to wait for the [OnCurrentUserUpdate](#DOCS_GAME_SDK_USERS/on-current-user-update) callback to fire after instantiating the User manager.
 
-Fetch information about the currently connected user account. If you're interested in getting more detailed information about a user—for example, their email—check out our [GetCurrentUser](#DOCS_RESROUCES_USER/get-current-user) API endpoint. You'll want to call this with an authorization header of `Bearer <token>`, where `<token>` is the token retrieved from a standard [OAuth2 Authorization Code Grant](#DOCS_TOPICS_OAUTH2/authorization-code-grant) flow.
+Fetch information about the currently connected user account. If you're interested in getting more detailed information about a user—for example, their email—check out our [GetCurrentUser](#DOCS_RESOURCES_USER/get-current-user) API endpoint. You'll want to call this with an authorization header of `Bearer <token>`, where `<token>` is the token retrieved from a standard [OAuth2 Authorization Code Grant](#DOCS_TOPICS_OAUTH2/authorization-code-grant) flow.
 
 Returns a `Discord.User`.
 

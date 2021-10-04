@@ -16,8 +16,8 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 | discovery_splash              | ?string                                                                                 | [discovery splash hash](#DOCS_REFERENCE/image-formatting); only present for guilds with the "DISCOVERABLE" feature                          |
 | owner? \*\*                   | boolean                                                                                 | true if [the user](#DOCS_RESOURCES_USER/get-current-user-guilds) is the owner of the guild                                                  |
 | owner_id                      | snowflake                                                                               | id of owner                                                                                                                                 |
-| permissions? \*\*             | string                                                                                  | total permissions for [the user](#DOCS_RESOURCES_USER/get-current-user-guilds) in the guild (excludes overwrites)                            |
-| region? \*\*\*                   | ?string                                                                                 | [voice region](#DOCS_RESOURCES_VOICE/voice-region-object) id for the guild (deprecated)                                                           |
+| permissions? \*\*             | string                                                                                  | total permissions for [the user](#DOCS_RESOURCES_USER/get-current-user-guilds) in the guild (excludes overwrites)                           |
+| region? \*\*\*                | ?string                                                                                 | [voice region](#DOCS_RESOURCES_VOICE/voice-region-object) id for the guild (deprecated)                                                     |
 | afk_channel_id                | ?snowflake                                                                              | id of afk channel                                                                                                                           |
 | afk_timeout                   | integer                                                                                 | afk timeout in seconds                                                                                                                      |
 | widget_enabled?               | boolean                                                                                 | true if the server widget is enabled                                                                                                        |
@@ -42,7 +42,7 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 | channels? \*                  | array of [channel](#DOCS_RESOURCES_CHANNEL/channel-object) objects                      | channels in the guild                                                                                                                       |
 | threads? \*                   | array of [channel](#DOCS_RESOURCES_CHANNEL/channel-object) objects                      | all active threads in the guild that current user has permission to view                                                                    |
 | presences? \*                 | array of partial [presence update](#DOCS_TOPICS_GATEWAY/presence-update) objects        | presences of the members in the guild, will only include non-offline members if the size is greater than `large threshold`                  |
-| max_presences?                | ?integer                                                                                | the maximum number of presences for the guild (the default value, currently 25000, is in effect when `null` is returned)                    |
+| max_presences?                | ?integer                                                                                | the maximum number of presences for the guild (`null` is always returned, apart from the largest of guilds)                                 |
 | max_members?                  | integer                                                                                 | the maximum number of members for the guild                                                                                                 |
 | vanity_url_code               | ?string                                                                                 | the vanity url code for the guild                                                                                                           |
 | description                   | ?string                                                                                 | the description of a Community guild                                                                                                        |
@@ -57,12 +57,13 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 | welcome_screen?               | [welcome screen](#DOCS_RESOURCES_GUILD/welcome-screen-object) object                    | the welcome screen of a Community guild, shown to new members, returned in an [Invite](#DOCS_RESOURCES_INVITE/invite-object)'s guild object |
 | nsfw_level                    | integer                                                                                 | [guild NSFW level](#DOCS_RESOURCES_GUILD/guild-object-guild-nsfw-level)                                                                     |
 | stage_instances? \*           | array of [stage instance](#DOCS_RESOURCES_STAGE_INSTANCE/stage-instance-object) objects | Stage instances in the guild                                                                                                                |
+| stickers?                     | array of [sticker](#DOCS_RESOURCES_STICKER/sticker-object) objects                      | custom guild stickers                                                                                                                       |
 
 ** \* These fields are only sent within the [GUILD_CREATE](#DOCS_TOPICS_GATEWAY/guild-create) event **
 
 ** \*\* These fields are only sent when using the [GET Current User Guilds](#DOCS_RESOURCES_USER/get-current-user-guilds) endpoint and are relative to the requested user **
 
-** \*\*\* This field is deprecated and will be removed in v9 and is replaced by [rtc_region](#DOCS_RESOURCES_CHANNEL/channel-object-channel-structure)**
+** \*\*\* This field is deprecated and is replaced by [channel.rtc_region](#DOCS_RESOURCES_CHANNEL/channel-object-channel-structure)**
 
 ###### Default Message Notification Level
 
@@ -134,16 +135,20 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 | FEATURABLE                       | guild is able to be featured in the directory                                                                       |
 | INVITE_SPLASH                    | guild has access to set an invite splash background                                                                 |
 | MEMBER_VERIFICATION_GATE_ENABLED | guild has enabled [Membership Screening](#DOCS_RESOURCES_GUILD/membership-screening-object)                         |
+| MONETIZATION_ENABLED             | guild has enabled monetization                                                                                      |
+| MORE_STICKERS                    | guild has increased custom sticker slots                                                                            |
 | NEWS                             | guild has access to create news channels                                                                            |
 | PARTNERED                        | guild is partnered                                                                                                  |
 | PREVIEW_ENABLED                  | guild can be previewed before joining via Membership Screening or the directory                                     |
+| PRIVATE_THREADS                  | guild has access to create private threads                                                                          |
+| ROLE_ICONS                       | guild is able to set role icons                                                                                     |
+| SEVEN_DAY_THREAD_ARCHIVE         | guild has access to the seven day archive time for threads                                                          |
+| THREE_DAY_THREAD_ARCHIVE         | guild has access to the three day archive time for threads                                                          |
+| TICKETED_EVENTS_ENABLED          | guild has enabled ticketed events                                                                                   |
 | VANITY_URL                       | guild has access to set a vanity URL                                                                                |
 | VERIFIED                         | guild is verified                                                                                                   |
 | VIP_REGIONS                      | guild has access to set 384kbps bitrate in voice (previously VIP voice servers)                                     |
 | WELCOME_SCREEN_ENABLED           | guild has enabled the welcome screen                                                                                |
-| TICKETED_EVENTS_ENABLED          | guild has enabled ticketed events                                                                                   |
-| MONETIZATION_ENABLED             | guild has enabled monetization                                                                                      |
-| MORE_STICKERS                    | guild has increased custom sticker slots                                                                            |
 
 ###### Example Guild
 
@@ -276,13 +281,14 @@ A partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object. Represents an Offl
 | -------------- | ----------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
 | user?          | [user](#DOCS_RESOURCES_USER/user-object) object | the user this guild member represents                                                                                                  |
 | nick?          | ?string                                         | this users guild nickname                                                                                                              |
+| avatar         | ?string                                         | the member's [guild avatar hash](#DOCS_REFERENCE/image-formatting)                                                                     |
 | roles          | array of snowflakes                             | array of [role](#DOCS_TOPICS_PERMISSIONS/role-object) object ids                                                                       |
 | joined_at      | ISO8601 timestamp                               | when the user joined the guild                                                                                                         |
 | premium_since? | ?ISO8601 timestamp                              | when the user started [boosting](https://support.discord.com/hc/en-us/articles/360028038352-Server-Boosting-) the guild                |
 | deaf           | boolean                                         | whether the user is deafened in voice channels                                                                                         |
 | mute           | boolean                                         | whether the user is muted in voice channels                                                                                            |
 | pending?       | boolean                                         | whether the user has not yet passed the guild's [Membership Screening](#DOCS_RESOURCES_GUILD/membership-screening-object) requirements |
-| permissions?   | string                                          | total permissions of the member in the channel, including overwrites, returned when in the interaction object                           |
+| permissions?   | string                                          | total permissions of the member in the channel, including overwrites, returned when in the interaction object                          |
 
 > info
 > The field `user` won't be included in the member object attached to `MESSAGE_CREATE` and `MESSAGE_UPDATE` gateway events.
@@ -296,6 +302,7 @@ A partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object. Represents an Offl
 {
   "user": {},
   "nick": "NOT API SUPPORT",
+  "avatar": null,
   "roles": [],
   "joined_at": "2015-04-26T06:26:56.936000+00:00",
   "deaf": false,
@@ -353,7 +360,7 @@ A partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object. Represents an Offl
 | name        | string                                          | the name of the app                                          |
 | icon        | ?string                                         | the [icon hash](#DOCS_REFERENCE/image-formatting) of the app |
 | description | string                                          | the description of the app                                   |
-| summary     | string                                          | the description of the app                                   |
+| summary     | string                                          | the summary of the app                                       |
 | bot?        | [user](#DOCS_RESOURCES_USER/user-object) object | the bot associated with this application                     |
 
 ### Ban Object
@@ -484,7 +491,7 @@ Create a new guild. Returns a [guild](#DOCS_RESOURCES_GUILD/guild-object) object
 > When using the `channels` parameter, the `id` field within each channel object may be set to an integer placeholder, and will be replaced by the API upon consumption. Its purpose is to allow you to create `GUILD_CATEGORY` channels by setting the `parent_id` field on any children to the category's `id` field. Category channels must be listed before any children.
 
 > warn
-> This field `region` is deprecated and will be removed in v9 and is replaced by [rtc_region](#DOCS_RESOURCES_CHANNEL/channel-object-channel-structure).
+> The `region` field is deprecated and is replaced by [channel.rtc_region](#DOCS_RESOURCES_CHANNEL/channel-object-channel-structure).
 
 ###### Example Partial Channel Object
 
@@ -602,6 +609,9 @@ Modify a guild's settings. Requires the `MANAGE_GUILD` permission. Returns the u
 > info
 > All parameters to this endpoint are optional
 
+> info
+> This endpoint supports the `X-Audit-Log-Reason` header.
+
 ###### JSON Params
 
 | Field                         | Type                                                                                | Description                                                                                                                  |
@@ -641,6 +651,9 @@ Create a new [channel](#DOCS_RESOURCES_CHANNEL/channel-object) object for the gu
 > info
 > All parameters to this endpoint are optional excluding 'name'
 
+> info
+> This endpoint supports the `X-Audit-Log-Reason` header.
+
 ###### JSON Params
 
 | Field                 | Type                                                                   | Description                                                                                                                                                                     |
@@ -661,7 +674,10 @@ Create a new [channel](#DOCS_RESOURCES_CHANNEL/channel-object) object for the gu
 Modify the positions of a set of [channel](#DOCS_RESOURCES_CHANNEL/channel-object) objects for the guild. Requires `MANAGE_CHANNELS` permission. Returns a 204 empty response on success. Fires multiple [Channel Update](#DOCS_TOPICS_GATEWAY/channel-update) Gateway events.
 
 > info
-> Only channels to be modified are required, with the minimum being a swap between at least two channels.
+> Only channels to be modified are required.
+
+> info
+> This endpoint supports the `X-Audit-Log-Reason` header.
 
 This endpoint takes a JSON array of parameters in the following format:
 
@@ -673,6 +689,17 @@ This endpoint takes a JSON array of parameters in the following format:
 | position         | ?integer   | sorting position of the channel                                                  |
 | lock_permissions | ?boolean   | syncs the permission overwrites with the new parent, if moving to a new category |
 | parent_id        | ?snowflake | the new parent ID for the channel that is moved                                  |
+
+## List Active Threads % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/threads/active
+
+Returns all active threads in the guild, including public and private threads. Threads are ordered by their `id`, in descending order.
+
+###### Response Body
+
+| Field    | Type                                                                            | Description                                                                                  |
+|----------|---------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------|
+| threads  | array of [channel](#DOCS_RESOURCES_CHANNEL/channel-object) objects              | the active threads                                                                           |
+| members  | array of [thread members](#DOCS_RESOURCES_CHANNEL/thread-member-object) objects | a thread member object for each returned thread the current user has joined                  |
 
 ## Get Guild Member % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/members/{user.id#DOCS_RESOURCES_USER/user-object}
 
@@ -741,6 +768,9 @@ Modify attributes of a [guild member](#DOCS_RESOURCES_GUILD/guild-member-object)
 > info
 > All parameters to this endpoint are optional and nullable. When moving members to channels, the API user _must_ have permissions to both connect to the channel and have the `MOVE_MEMBERS` permission.
 
+> info
+> This endpoint supports the `X-Audit-Log-Reason` header.
+
 ###### JSON Params
 
 | Field      | Type                | Description                                                                                            | Permission       |
@@ -751,9 +781,28 @@ Modify attributes of a [guild member](#DOCS_RESOURCES_GUILD/guild-member-object)
 | deaf       | boolean             | whether the user is deafened in voice channels. Will throw a 400 if the user is not in a voice channel | DEAFEN_MEMBERS   |
 | channel_id | snowflake           | id of channel to move user to (if they are connected to voice)                                         | MOVE_MEMBERS     |
 
+## Modify Current Member % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/members/@me
+
+Modifies the current member in a guild. Returns a 200 with the updated member object on success. Fires a [Guild Member Update](#DOCS_TOPICS_GATEWAY/guild-member-update) Gateway event.
+
+> info
+> This endpoint supports the `X-Audit-Log-Reason` header.
+
+###### JSON Params
+
+| Field | Type    | Description                    | Permission      |
+| ----- | ------- | ------------------------------ | --------------- |
+| ?nick | ?string | value to set users nickname to | CHANGE_NICKNAME |
+
 ## Modify Current User Nick % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/members/@me/nick
 
+> danger
+> Deprecated in favor of [Modify Current Member](#DOCS_RESOURCES_GUILD/modify-current-member).
+
 Modifies the nickname of the current user in a guild. Returns a 200 with the nickname on success. Fires a [Guild Member Update](#DOCS_TOPICS_GATEWAY/guild-member-update) Gateway event.
+
+> info
+> This endpoint supports the `X-Audit-Log-Reason` header.
 
 ###### JSON Params
 
@@ -765,13 +814,22 @@ Modifies the nickname of the current user in a guild. Returns a 200 with the nic
 
 Adds a role to a [guild member](#DOCS_RESOURCES_GUILD/guild-member-object). Requires the `MANAGE_ROLES` permission. Returns a 204 empty response on success. Fires a [Guild Member Update](#DOCS_TOPICS_GATEWAY/guild-member-update) Gateway event.
 
+> info
+> This endpoint supports the `X-Audit-Log-Reason` header.
+
 ## Remove Guild Member Role % DELETE /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/members/{user.id#DOCS_RESOURCES_USER/user-object}/roles/{role.id#DOCS_TOPICS_PERMISSIONS/role-object}
 
 Removes a role from a [guild member](#DOCS_RESOURCES_GUILD/guild-member-object). Requires the `MANAGE_ROLES` permission. Returns a 204 empty response on success. Fires a [Guild Member Update](#DOCS_TOPICS_GATEWAY/guild-member-update) Gateway event.
 
+> info
+> This endpoint supports the `X-Audit-Log-Reason` header.
+
 ## Remove Guild Member % DELETE /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/members/{user.id#DOCS_RESOURCES_USER/user-object}
 
 Remove a member from a guild. Requires `KICK_MEMBERS` permission. Returns a 204 empty response on success. Fires a [Guild Member Remove](#DOCS_TOPICS_GATEWAY/guild-member-remove) Gateway event.
+
+> info
+> This endpoint supports the `X-Audit-Log-Reason` header.
 
 ## Get Guild Bans % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/bans
 
@@ -786,18 +844,21 @@ Returns a [ban](#DOCS_RESOURCES_GUILD/ban-object) object for the given user or a
 Create a guild ban, and optionally delete previous messages sent by the banned user. Requires the `BAN_MEMBERS` permission. Returns a 204 empty response on success. Fires a [Guild Ban Add](#DOCS_TOPICS_GATEWAY/guild-ban-add) Gateway event.
 
 > info
-> Supplying a reason in the JSON body will override `X-Audit-Log-Reason` header if both are provided.
+> This endpoint supports the `X-Audit-Log-Reason` header.
 
 ###### JSON Params
 
 | Field                | Type    | Description                                 |
 | -------------------- | ------- | ------------------------------------------- |
 | delete_message_days? | integer | number of days to delete messages for (0-7) |
-| reason?              | string  | reason for the ban                          |
+| reason?              | string  | reason for the ban (deprecated)             |
 
 ## Remove Guild Ban % DELETE /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/bans/{user.id#DOCS_RESOURCES_USER/user-object}
 
 Remove the ban for a user. Requires the `BAN_MEMBERS` permissions. Returns a 204 empty response on success. Fires a [Guild Ban Remove](#DOCS_TOPICS_GATEWAY/guild-ban-remove) Gateway event.
+
+> info
+> This endpoint supports the `X-Audit-Log-Reason` header.
 
 ## Get Guild Roles % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/roles
 
@@ -807,19 +868,27 @@ Returns a list of [role](#DOCS_TOPICS_PERMISSIONS/role-object) objects for the g
 
 Create a new [role](#DOCS_TOPICS_PERMISSIONS/role-object) for the guild. Requires the `MANAGE_ROLES` permission. Returns the new [role](#DOCS_TOPICS_PERMISSIONS/role-object) object on success. Fires a [Guild Role Create](#DOCS_TOPICS_GATEWAY/guild-role-create) Gateway event. All JSON params are optional.
 
+> info
+> This endpoint supports the `X-Audit-Log-Reason` header.
+
 ###### JSON Params
 
-| Field       | Type    | Description                                                    | Default                        |
-| ----------- | ------- | -------------------------------------------------------------- | ------------------------------ |
-| name        | string  | name of the role                                               | "new role"                     |
-| permissions | string  | bitwise value of the enabled/disabled permissions              | @everyone permissions in guild |
-| color       | integer | RGB color value                                                | 0                              |
-| hoist       | boolean | whether the role should be displayed separately in the sidebar | false                          |
-| mentionable | boolean | whether the role should be mentionable                         | false                          |
+| Field         | Type                                     | Description                                                                                                                           | Default                        |
+| ------------- | ---------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------ |
+| name          | string                                   | name of the role                                                                                                                      | "new role"                     |
+| permissions   | string                                   | bitwise value of the enabled/disabled permissions                                                                                     | @everyone permissions in guild |
+| color         | integer                                  | RGB color value                                                                                                                       | 0                              |
+| hoist         | boolean                                  | whether the role should be displayed separately in the sidebar                                                                        | false                          |
+| icon          | [image data](#DOCS_REFERENCE/image-data) | the role's icon image (if the guild has the `ROLE_ICONS` feature)                                                                     | null                           |
+| unicode_emoji | string                                   | the role's unicode emoji as a [standard emoji](#DOCS_TOPICS_REFERENCE/message-formatting) (if the guild has the `ROLE_ICONS` feature) | null                           |
+| mentionable   | boolean                                  | whether the role should be mentionable                                                                                                | false                          |
 
 ## Modify Guild Role Positions % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/roles
 
 Modify the positions of a set of [role](#DOCS_TOPICS_PERMISSIONS/role-object) objects for the guild. Requires the `MANAGE_ROLES` permission. Returns a list of all of the guild's [role](#DOCS_TOPICS_PERMISSIONS/role-object) objects on success. Fires multiple [Guild Role Update](#DOCS_TOPICS_GATEWAY/guild-role-update) Gateway events.
+
+> info
+> This endpoint supports the `X-Audit-Log-Reason` header.
 
 This endpoint takes a JSON array of parameters in the following format:
 
@@ -837,19 +906,27 @@ Modify a guild role. Requires the `MANAGE_ROLES` permission. Returns the updated
 > info
 > All parameters to this endpoint are optional and nullable.
 
+> info
+> This endpoint supports the `X-Audit-Log-Reason` header.
+
 ###### JSON Params
 
-| Field       | Type    | Description                                                    |
-| ----------- | ------- | -------------------------------------------------------------- |
-| name        | string  | name of the role                                               |
-| permissions | string  | bitwise value of the enabled/disabled permissions              |
-| color       | integer | RGB color value                                                |
-| hoist       | boolean | whether the role should be displayed separately in the sidebar |
-| mentionable | boolean | whether the role should be mentionable                         |
+| Field         | Type                                     | Description                                                                                                                           |
+| ------------- | ---------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| name          | string                                   | name of the role                                                                                                                      |
+| permissions   | string                                   | bitwise value of the enabled/disabled permissions                                                                                     |
+| color         | integer                                  | RGB color value                                                                                                                       |
+| hoist         | boolean                                  | whether the role should be displayed separately in the sidebar                                                                        |
+| icon          | [image data](#DOCS_REFERENCE/image-data) | the role's icon image (if the guild has the `ROLE_ICONS` feature)                                                                     |
+| unicode_emoji | string                                   | the role's unicode emoji as a [standard emoji](#DOCS_TOPICS_REFERENCE/message-formatting) (if the guild has the `ROLE_ICONS` feature) |
+| mentionable   | boolean                                  | whether the role should be mentionable                                                                                                |
 
 ## Delete Guild Role % DELETE /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/roles/{role.id#DOCS_TOPICS_PERMISSIONS/role-object}
 
 Delete a guild role. Requires the `MANAGE_ROLES` permission. Returns a 204 empty response on success. Fires a [Guild Role Delete](#DOCS_TOPICS_GATEWAY/guild-role-delete) Gateway event.
+
+> info
+> This endpoint supports the `X-Audit-Log-Reason` header.
 
 ## Get Guild Prune Count % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/prune
 
@@ -871,7 +948,7 @@ Begin a prune operation. Requires the `KICK_MEMBERS` permission. Returns an obje
 By default, prune will not remove users with roles. You can optionally include specific roles in your prune by providing the `include_roles` parameter. Any inactive user that has a subset of the provided role(s) will be included in the prune and users with additional roles will not.
 
 > info
-> Supplying a reason in the JSON body will override `X-Audit-Log-Reason` header if both are provided.
+> This endpoint supports the `X-Audit-Log-Reason` header.
 
 ###### JSON Params
 
@@ -880,7 +957,7 @@ By default, prune will not remove users with roles. You can optionally include s
 | days                | integer             | number of days to prune (1-30)                             | 7       |
 | compute_prune_count | boolean             | whether 'pruned' is returned, discouraged for large guilds | true    |
 | include_roles       | array of snowflakes | role(s) to include                                         | none    |
-| reason?             | string              | reason for the prune                                       |         |
+| reason?             | string              | reason for the prune (deprecated)                          |         |
 
 ## Get Guild Voice Regions % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/regions
 
@@ -898,6 +975,9 @@ Returns a list of [integration](#DOCS_RESOURCES_GUILD/integration-object) object
 
 Delete the attached [integration](#DOCS_RESOURCES_GUILD/integration-object) object for the guild. Deletes any associated webhooks and kicks the associated bot if there is one. Requires the `MANAGE_GUILD` permission. Returns a 204 empty response on success. Fires a [Guild Integrations Update](#DOCS_TOPICS_GATEWAY/guild-integrations-update) Gateway event.
 
+> info
+> This endpoint supports the `X-Audit-Log-Reason` header.
+
 ## Get Guild Widget Settings % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/widget
 
 Returns a [guild widget](#DOCS_RESOURCES_GUILD/guild-widget-object) object. Requires the `MANAGE_GUILD` permission.
@@ -905,6 +985,9 @@ Returns a [guild widget](#DOCS_RESOURCES_GUILD/guild-widget-object) object. Requ
 ## Modify Guild Widget % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/widget
 
 Modify a [guild widget](#DOCS_RESOURCES_GUILD/guild-widget-object) object for the guild. All attributes may be passed in with JSON and modified. Requires the `MANAGE_GUILD` permission. Returns the updated [guild widget](#DOCS_RESOURCES_GUILD/guild-widget-object) object.
+
+> info
+> This endpoint supports the `X-Audit-Log-Reason` header.
 
 ## Get Guild Widget % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/widget.json
 
@@ -989,6 +1072,9 @@ Modify the guild's [Welcome Screen](#DOCS_RESOURCES_GUILD/welcome-screen-object)
 
 > info
 > All parameters to this endpoint are optional and nullable
+
+> info
+> This endpoint supports the `X-Audit-Log-Reason` header.
 
 ###### JSON Params
 

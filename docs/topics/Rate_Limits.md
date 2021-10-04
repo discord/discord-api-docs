@@ -13,7 +13,7 @@ Because we may change rate limits at any time and rate limits can be different p
 
 ## Header Format
 
-For every API request made, we return optional HTTP response headers containing the rate limit encountered during your request.
+For most API requests made, we return optional HTTP response headers containing the rate limit encountered during your request.
 
 ###### Rate Limit Header Examples
 
@@ -96,3 +96,5 @@ All applications should make reasonable attempts to avoid making invalid request
 - **429** responses are avoided by inspecting the rate limit headers documented above and by not making requests on exhausted buckets until after they have reset	
 
 Large applications, especially those that can potentially make 10,000 requests per 10 minutes (a sustained 16 to 17 requests per second), should consider logging and tracking the rate of invalid requests to avoid reaching this hard limit.
+
+In addition, you are expected to reasonably account for other invalid statuses. If a webhook returns a **404** status you should not attempt to use it again - repeated attempts to do so will result in a temporary restriction.

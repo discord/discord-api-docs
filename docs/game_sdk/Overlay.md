@@ -6,6 +6,9 @@
 > warn
 > Game approval submissions are currently paused due to unforeseen circumstances. We apologize for the inconvenience. [Click here for more info.](https://support-dev.discord.com/hc/en-us/articles/360041437171)
 
+> warn
+> The overlay is only supported on Windows for DirectX or OpenGL games. Linux, Mac, and games using Vulkan are not supported. [Click here for more info.](https://support.discord.com/hc/en-us/articles/217659737-Games-Overlay-101)
+
 Discord comes with an awesome built-in overlay, and you may want to make use of it for your game. This manager will help you do just that! It:
 
 - Gives you the current state of the overlay for the user
