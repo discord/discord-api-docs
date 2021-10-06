@@ -419,6 +419,8 @@ command
 
 ----
 
+VALID
+
 command
 |
 |__ subcommand-group
@@ -429,11 +431,21 @@ command
     |
     |__ subcommand
 
+----
+
+VALID
+
+command
+|
+|__ subcommand-group
+    |
+    |__ subcommand
+|
+|__ subcommand
 
 -------
 
 INVALID
-
 
 command
 |
