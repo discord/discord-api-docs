@@ -6,7 +6,7 @@ For [Slash Commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/slash-commands), it
 
 For [User Commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/user-commands) and [Message Commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/message-commands), it includes the resolved user or message on which the action was taken.
 
-For [Message Components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/) it includes identifying information about the component that was used. It will also include some metadata about how the interaction was triggered: the `guild_id`, `channel_id`, `member` and other fields. You can find all the values in our [data models](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/data-models-and-types).
+For [Message Components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/) it includes identifying information about the component that was used. It will also include some metadata about how the interaction was triggered: the `guild_id`, `channel_id`, `member` and other fields. You can find all the values in our data models below.
 
 ### Interaction Object
 
