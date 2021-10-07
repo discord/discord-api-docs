@@ -71,11 +71,9 @@ for (const [name, raw] of docFiles) {
 		if (multilineCode || !line.startsWith("#")) continue;
 		const anchor = line
 			.split("%")[0]
-			.trim()
 			.replace(/[^ A-Z0-9]/gi, "")
 			.trim()
-			.replaceAll(/ +/g, " ")
-			.replaceAll(" ", "-")
+			.replace(/ +/g, "-")
 			.toLowerCase();
 		if (line.startsWith("# ") || line.startsWith("## ") || line.startsWith("### ") || line.startsWith("#### ")) {
 			parentAnchor = `${anchor}-`;
