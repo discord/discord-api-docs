@@ -1,5 +1,5 @@
-import { readdirSync, statSync, readFileSync } from "fs";
-import path from "path";
+import { readdirSync, statSync, readFileSync } from "node:fs";
+import path from "node:path";
 import chalk from "chalk";
 import * as github from "@actions/core";
 const cwd = process.env.GITHUB_ACTIONS ? process.env.GITHUB_WORKSPACE! : process.cwd();
