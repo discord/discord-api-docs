@@ -18,7 +18,7 @@
   "homepage": "https://github.com/discord/discord-api-docs#readme",
   "scripts": {
     "build": "tsc --build",
-    "lint": "eslint ci ",
+    "lint": "eslint ci",
     "lint:fix": "eslint ci --fix",
     "test:links": "node dist/ci/checkLinks.js"
   },
