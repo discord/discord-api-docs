@@ -76,7 +76,7 @@ If you don't want to register all your event handlers at initialization, you can
 ## Updating Presence
 
 > warn
-> Deprecated in favor of [Discord GameSDK ActivityManager.UpdateActivity()](#DOCS_GAME_SDK_ACTIVITIES/update-activity)
+> Deprecated in favor of [Discord GameSDK ActivityManager.UpdateActivity()](#DOCS_GAME_SDK_ACTIVITIES/updateactivity)
 
 The core of Discord's Rich Presence SDK is the `Discord_UpdatePresence()` function. This is what sends your game data up to Discord to be seen and used by others. You should call `Discord_UpdatePresence()` any time something important in the presence payload changes.
 
@@ -173,7 +173,7 @@ impaired eyesight to understand the potential layout of this information in a us
 ## Joining
 
 > warn
-> Deprecated in favor of [Discord GameSDK ActivityManager.OnActivityJoin](#DOCS_GAME_SDK_ACTIVITIES/on-activity-join) and [Discord GameSDK ActivityManager.OnActivityJoinRequest](#DOCS_GAME_SDK_ACTIVITIES/on-activity-join-request)
+> Deprecated in favor of [Discord GameSDK ActivityManager.OnActivityJoin](#DOCS_GAME_SDK_ACTIVITIES/onactivityjoin) and [Discord GameSDK ActivityManager.OnActivityJoinRequest](#DOCS_GAME_SDK_ACTIVITIES/onactivityjoinrequest)
 
 #### Relevant Callbacks:
 
@@ -236,7 +236,7 @@ The Ask to Join request persists for 30 seconds after the request is received, r
 ## Spectating
 
 > warn
-> Deprecated in favor of [Discord GameSDK ActivityManager.OnActivitySpectate](#DOCS_GAME_SDK_ACTIVITIES/on-activity-spectate)
+> Deprecated in favor of [Discord GameSDK ActivityManager.OnActivitySpectate](#DOCS_GAME_SDK_ACTIVITIES/onactivityspectate)
 
 #### Relevant Callbacks:
 
@@ -286,7 +286,7 @@ All fields in the `DiscordRichPresence` object are entirely optional. Anything y
 
 Included with the launch of Rich Presence is an overhaul of Discord's Developer Dashboard. We want to make Rich Presence as easy as possible to use. Our first step is helping you ditch your CDN. You're welcome.
 
-OK, well, not entirely. But! Discord _will_ host any and all artwork that you need to have the very richest of presences. Upload an image, tag it with a key—preferably one you can remember—and **bam**. It's ready for Rich Presence use. Head over to your [applications page](#APPLICATIONS/top) to check it out!
+OK, well, not entirely. But! Discord _will_ host any and all artwork that you need to have the very richest of presences. Upload an image, tag it with a key—preferably one you can remember—and **bam**. It's ready for Rich Presence use. Head over to your [applications page](#APPLICATIONS) to check it out!
 
 > warn
 > **Asset keys are automatically normalized to lowercase**. Be mindful of this when referring to them in your code.

@@ -4,7 +4,7 @@ OAuth2 enables application developers to build applications that utilize authent
 
 ## Shared Resources
 
-The first step in implementing OAuth2 is [registering a developer application](#APPLICATIONS/top) and retrieving your client ID and client secret. Most people who will be implementing OAuth2 will want to find and utilize a library in the language of their choice. For those implementing OAuth2 from scratch, please see [RFC 6749](https://tools.ietf.org/html/rfc6749) for details. After you create your application with Discord, make sure that you have your `client_id` and `client_secret` handy. The next step is to figure out which OAuth2 flow is right for your purposes.
+The first step in implementing OAuth2 is [registering a developer application](#APPLICATIONS) and retrieving your client ID and client secret. Most people who will be implementing OAuth2 will want to find and utilize a library in the language of their choice. For those implementing OAuth2 from scratch, please see [RFC 6749](https://tools.ietf.org/html/rfc6749) for details. After you create your application with Discord, make sure that you have your `client_id` and `client_secret` handy. The next step is to figure out which OAuth2 flow is right for your purposes.
 
 ###### OAuth2 URLs
 
@@ -228,7 +228,7 @@ So, what are bot accounts?
 
 ### Bot vs User Accounts
 
-Discord's API provides a separate type of user account dedicated to automation, called a bot account. Bot accounts can be created through the [applications page](#APPLICATIONS/top), and are authenticated using a token (rather than a username and password). Unlike the normal OAuth2 flow, bot accounts have full access to all API routes without using bearer tokens, and can connect to the [Real Time Gateway](#DOCS_TOPICS_GATEWAY/gateways). Automating normal user accounts (generally called "self-bots") outside of the OAuth2/bot API is forbidden, and can result in account termination if found.
+Discord's API provides a separate type of user account dedicated to automation, called a bot account. Bot accounts can be created through the [applications page](#APPLICATIONS), and are authenticated using a token (rather than a username and password). Unlike the normal OAuth2 flow, bot accounts have full access to all API routes without using bearer tokens, and can connect to the [Real Time Gateway](#DOCS_TOPICS_GATEWAY/gateways). Automating normal user accounts (generally called "self-bots") outside of the OAuth2/bot API is forbidden, and can result in account termination if found.
 
 Bot accounts have a few differences in comparison to normal user accounts, namely:
 
@@ -332,7 +332,7 @@ When receiving the access code on redirect, there will be additional querystring
 
 ### Two-Factor Authentication Requirement
 
-For bots with [elevated permissions](#DOCS_TOPICS_PERMISSIONS/bitwise-permission-flags) (permissions with a `*` next to them), we enforce two-factor authentication on the owner's account when added to guilds that have server-wide 2FA enabled.
+For bots with [elevated permissions](#DOCS_TOPICS_PERMISSIONS/permissions-bitwise-permission-flags) (permissions with a `*` next to them), we enforce two-factor authentication on the owner's account when added to guilds that have server-wide 2FA enabled.
 
 ## Webhooks
 

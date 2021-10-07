@@ -25,7 +25,7 @@ All gateway events in Discord are tagged with an opcode that denotes the payload
 | Code | Description           | Explanation                                                                                                                                                                                                                      |
 |------|-----------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | 4000 | Unknown error         | We're not sure what went wrong. Try reconnecting?                                                                                                                                                                                |
-| 4001 | Unknown opcode        | You sent an invalid [Gateway opcode](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/gateway-opcodes) or an invalid payload for an opcode. Don't do that!                                                                                  |
+| 4001 | Unknown opcode        | You sent an invalid [Gateway opcode](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/gateway-gateway-opcodes) or an invalid payload for an opcode. Don't do that!                                                                          |
 | 4002 | Decode error          | You sent an invalid [payload](#DOCS_TOPICS_GATEWAY/sending-payloads) to us. Don't do that!                                                                                                                                       |
 | 4003 | Not authenticated     | You sent us a payload prior to [identifying](#DOCS_TOPICS_GATEWAY/identify).                                                                                                                                                     |
 | 4004 | Authentication failed | The account token sent with your [identify payload](#DOCS_TOPICS_GATEWAY/identify) is incorrect.                                                                                                                                 |
@@ -63,7 +63,7 @@ Our voice gateways have their own set of opcodes and close codes.
 
 | Code | Description              | Explanation                                                                                                                                      |
 |------|--------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------|
-| 4001 | Unknown opcode           | You sent an invalid [opcode](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice-opcodes).                                                               |
+| 4001 | Unknown opcode           | You sent an invalid [opcode](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice-voice-opcodes).                                                         |
 | 4002 | Failed to decode payload | You sent a invalid payload in your [identifying](#DOCS_TOPICS_GATEWAY/identify) to the Gateway.                                                  |
 | 4003 | Not authenticated        | You sent a payload before [identifying](#DOCS_TOPICS_GATEWAY/identify) with the Gateway.                                                         |
 | 4004 | Authentication failed    | The token you sent in your [identify](#DOCS_TOPICS_GATEWAY/identify) payload is incorrect.                                                       |
