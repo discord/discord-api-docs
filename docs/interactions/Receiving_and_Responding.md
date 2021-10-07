@@ -232,6 +232,28 @@ json = {
 r = requests.post(url, json=json)
 ```
 
+To respond to an autocompletion interaction, make a `POST` request like this.
+```py
+url = "https://discord.com/api/v9/interactions/<interaction_id>/<interaction_token>/callback"
+
+json = {
+    "type": 8,
+    "data": {
+        "choices": [
+            {
+                "name": "A user visible choice display name",
+                "value": "a_user_invisible_choice_value"
+            },
+            {
+                "name": "A second user visible choice display name",
+                "value": "a_second_user_invisible_choice_value"
+            }
+        ]
+    },
+}
+r = requests.post(url, json=json)
+```
+
 > info
 > Interaction `tokens` are valid for **15 minutes** and can be used to send followup messages but you **must send an initial response within 3 seconds of receiving the event**.  If the 3 second deadline is exceeded, the token will be invalidated.
 
