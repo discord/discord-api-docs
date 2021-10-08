@@ -18,15 +18,15 @@ You can also mark achievements as `secret` and `secure`. "Secret" achievements w
 
 ###### Achievement Struct
 
-| Name           | Type      | Description                                                                                                                      |
-| -------------- | --------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| application_id | snowflake | the unique id of the application                                                                                                 |
-| name           | object    | the name of the achievement as an [achievement locale object](#DOCS_GAME_SDK_ACHIEVEMENTS/achievement-locale-object)             |
-| description    | object    | the user-facing achievement description as an [achievement locale object](#DOCS_GAME_SDK_ACHIEVEMENTS/achievement-locale-object) |
-| secret         | boolean   | if the achievement is secret                                                                                                     |
-| secure         | boolean   | if the achievement is secure                                                                                                     |
-| id             | snowflake | the unique id of the achievement                                                                                                 |
-| icon_hash      | string    | [the hash of the icon](#DOCS_REFERENCE/image-formatting)                                                                         |
+| Name           | Type    | Description                                                                                                                      |
+| -------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| application_id | Int64   | the unique id of the application                                                                                                 |
+| name           | object  | the name of the achievement as an [achievement locale object](#DOCS_GAME_SDK_ACHIEVEMENTS/achievement-locale-object)             |
+| description    | object  | the user-facing achievement description as an [achievement locale object](#DOCS_GAME_SDK_ACHIEVEMENTS/achievement-locale-object) |
+| secret         | boolean | if the achievement is secret                                                                                                     |
+| secure         | boolean | if the achievement is secure                                                                                                     |
+| id             | Int64   | the unique id of the achievement                                                                                                 |
+| icon_hash      | string  | [the hash of the icon](#DOCS_REFERENCE/image-formatting)                                                                         |
 
 ###### Achievement Locale Object
 
