@@ -15,7 +15,7 @@ https://discord.com/api
 
 
 > danger
-> Clients are expected to see new fields on API objects regardless of versioning. Additions are not considered a breaking change and should be ignored until it's documented.
+> Clients are expected to see new fields on API objects regardless of versioning. Additions are not considered to be a breaking change and should be ignored until documented.
 
 Discord exposes different versions of our API. You can specify which version to use by including it in the request path like `https://discord.com/api/v{version_number}`. Omitting the version number from the route will route requests to the current default version (marked below accordingly). You can find the change log for the newest API version [here](https://discord.com/developers/docs/change-log).
 
