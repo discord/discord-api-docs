@@ -13,6 +13,10 @@ https://discord.com/api
 > danger
 > Some API and Gateway versions are now non-functioning, and are labeled as discontinued in the table below for posterity. Trying to use these versions will fail and return 400 Bad Request.
 
+
+> danger
+> Clients are expected to see new fields on API objects regardless of versioning. Additions are not considered a breaking change and should be ignored until it's documented.
+
 Discord exposes different versions of our API. You can specify which version to use by including it in the request path like `https://discord.com/api/v{version_number}`. Omitting the version number from the route will route requests to the current default version (marked below accordingly). You can find the change log for the newest API version [here](https://discord.com/developers/docs/change-log).
 
 ###### API Versions
@@ -219,6 +223,11 @@ Clients should operate on events and results from the API in as much of an idemp
 
 ## HTTP API
 
+
+### Cloudflare
+
+Discord may add certain rules on their cloudflare firewall to adjust with malicous behavior or reduce API load. Cloudflare blocks typically send html instead of json. Developers are expected to check the status page to find more information on these.
+
 ### User Agent
 
 Clients using the HTTP API must provide a valid [User Agent](https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.43) which specifies information about the client library and version in the following format:
@@ -230,6 +239,7 @@ User-Agent: DiscordBot ($url, $versionNumber)
 ```
 
 Clients may append more information and metadata to the _end_ of this string as they wish.
+Certain User Agents from generic applications like browsers may be banned from accessing the API.
 
 ### Rate Limiting
 
