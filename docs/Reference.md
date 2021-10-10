@@ -226,7 +226,7 @@ Clients should operate on events and results from the API in as much of an idemp
 
 ### Cloudflare
 
-Discord may add certain rules on their cloudflare firewall to adjust with malicous behavior or reduce API load. Cloudflare blocks typically send html instead of json. Developers are expected to check the status page to find more information on these.
+Discord may add certain rules on their Cloudflare firewall to prevent malicious behavior or reduce API load. Cloudflare blocks typically send html instead of json. Developers are expected to check the status page to find more information on these.
 
 ### User Agent
 
