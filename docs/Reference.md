@@ -239,7 +239,7 @@ User-Agent: DiscordBot ($url, $versionNumber)
 ```
 
 Clients may append more information and metadata to the _end_ of this string as they wish.
-Certain User Agents from generic applications like browsers may be banned from accessing the API.
+Requests that do not have a valid User Agent following this format may be blocked.
 
 ### Rate Limiting
 
