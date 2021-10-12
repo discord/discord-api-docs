@@ -21,12 +21,12 @@ Important note: Not all event fields are documented, in particular, fields prefi
 
 ###### Gateway Payload Structure
 
-| Field | Type                    | Description                                                                     |
-|-------|-------------------------|---------------------------------------------------------------------------------|
-| op    | integer                 | [opcode](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/gateway-opcodes) for the payload |
-| d     | ?mixed (any JSON value) | event data                                                                      |
-| s     | ?integer \*             | sequence number, used for resuming sessions and heartbeats                      |
-| t     | ?string \*              | the event name for this payload                                                 |
+| Field | Type                    | Description                                                                             |
+|-------|-------------------------|-----------------------------------------------------------------------------------------|
+| op    | integer                 | [opcode](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/gateway-gateway-opcodes) for the payload |
+| d     | ?mixed (any JSON value) | event data                                                                              |
+| s     | ?integer \*             | sequence number, used for resuming sessions and heartbeats                              |
+| t     | ?string \*              | the event name for this payload                                                         |
 
 \* `s` and `t` are `null` when `op` is not `0` (Gateway Dispatch Opcode).
 
@@ -203,7 +203,7 @@ If successful, the gateway will respond by replaying all missed events in order,
 
 ### Disconnections
 
-If the gateway ever issues a disconnect to your client, it will provide a close event code that you can use to properly handle the disconnection. A full list of these close codes can be found in the [Response Codes](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/gateway-close-event-codes) documentation.
+If the gateway ever issues a disconnect to your client, it will provide a close event code that you can use to properly handle the disconnection. A full list of these close codes can be found in the [Response Codes](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/gateway-gateway-close-event-codes) documentation.
 
 When you close the connection to the gateway with the close code 1000 or 1001, your session will be invalidated and your bot will appear offline. If you simply close the TCP connection, or use a different close code, the bot session will remain active and timeout after a few minutes. This can be useful for a reconnect, which will resume the previous session.
 

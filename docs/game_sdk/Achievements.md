@@ -18,15 +18,15 @@ You can also mark achievements as `secret` and `secure`. "Secret" achievements w
 
 ###### Achievement Struct
 
-| name           | type    | description                                                                                                                      |
-| -------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| application_id | Int64   | the unique id of the application                                                                                                 |
-| name           | object  | the name of the achievement as an [achievement locale object](#DOCS_GAME_SDK_ACHIEVEMENTS/achievement-locale-object)             |
-| description    | object  | the user-facing achievement description as an [achievement locale object](#DOCS_GAME_SDK_ACHIEVEMENTS/achievement-locale-object) |
-| secret         | boolean | if the achievement is secret                                                                                                     |
-| secure         | boolean | if the achievement is secure                                                                                                     |
-| id             | Int64   | the unique id of the achievement                                                                                                 |
-| icon_hash      | string  | [the hash of the icon](#DOCS_REFERENCE/image-formatting)                                                                         |
+| name           | type    | description                                                                                                                                  |
+| -------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| application_id | Int64   | the unique id of the application                                                                                                             |
+| name           | object  | the name of the achievement as an [achievement locale object](#DOCS_GAME_SDK_ACHIEVEMENTS/data-models-achievement-locale-object)             |
+| description    | object  | the user-facing achievement description as an [achievement locale object](#DOCS_GAME_SDK_ACHIEVEMENTS/data-models-achievement-locale-object) |
+| secret         | boolean | if the achievement is secret                                                                                                                 |
+| secure         | boolean | if the achievement is secure                                                                                                                 |
+| id             | Int64   | the unique id of the achievement                                                                                                             |
+| icon_hash      | string  | [the hash of the icon](#DOCS_REFERENCE/image-formatting)                                                                                     |
 
 ###### Achievement Locale Object
 
@@ -379,7 +379,7 @@ Updates the UserAchievement record for a given user. Use this endpoint to update
 
 `GET https://discord.com/api/v6/users/@me/applications/<application_id>/achievements`
 
-Returns a list of achievements for the user whose token you're making the request with. This endpoint will **NOT** accept the Bearer token for your application generated via the [Client Crendentials Grant](#DOCS_TOPICS_OAUTH2/client-credentials-grant). You will need the _user's_ bearer token, gotten via either the [Authorization Code OAuth2 Grant](#DOCS_TOPICS_OAUTH2/authorization-code-grant) or via the SDK with [GetOAuth2Token](#DOCS_GAME_SDK_APPLICATIONS/get-oauth2-token). This endpoint has a rate limit of 2 requests per 5 seconds per application per user.
+Returns a list of achievements for the user whose token you're making the request with. This endpoint will **NOT** accept the Bearer token for your application generated via the [Client Crendentials Grant](#DOCS_TOPICS_OAUTH2/client-credentials-grant). You will need the _user's_ bearer token, gotten via either the [Authorization Code OAuth2 Grant](#DOCS_TOPICS_OAUTH2/authorization-code-grant) or via the SDK with [GetOAuth2Token](#DOCS_GAME_SDK_APPLICATIONS/getoauth2token). This endpoint has a rate limit of 2 requests per 5 seconds per application per user.
 
 > info
 > This endpoint will _not_ return any achievements marked as `secret` that the user has not yet completed.
