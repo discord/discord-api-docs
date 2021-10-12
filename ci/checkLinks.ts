@@ -8,33 +8,69 @@ function importDirectory(directory: string, extension: string, subdirectories = 
 	try {
 		const output = new Map<string, string>();
 		const files = readdirSync(directory);
-		const requestedFiles = files.filter((name) => name.endsWith(extension));
-		for (const file of requestedFiles) {
-			const currentPath = path.join(directory, file);
-			try {
-				const read = readFileSync(currentPath, "utf8");
-				output.set(`/${file}`, read);
-			} catch {
-				// Discard error, file is not a file, but a directory
-			}
-		}
-		if (subdirectories) {
-			for (const possibleDir of files) {
-				const dirPath = `/${possibleDir}`;
-				const currentPath = path.join(directory, dirPath);
-				if (statSync(currentPath).isDirectory()) {
-					const subdir = importDirectory(currentPath, extension, subdirectories);
-					if (!subdir) continue;
-					for (const [name, read] of subdir) {
-						output.set(`${dirPath}${name}`, read);
-					}
+		for (const fileOrPath of files) {
+			const currentPath = path.join(directory, fileOrPath);
+			if (statSync(currentPath).isDirectory()) {
+				if (!subdirectories) continue;
+				const subdir = importDirectory(currentPath, extension, subdirectories);
+				if (!subdir) continue;
+				for (const [name, read] of subdir) {
+					output.set(`/${fileOrPath}${name}`, read);
 				}
+				continue;
 			}
+			if (!fileOrPath.endsWith(extension)) continue;
+			const read = readFileSync(currentPath, "utf8");
+			output.set(`/${fileOrPath}`, read);
 		}
 		return output;
 	} catch {
 		// Directory likely does not exist, we should be able to safely discard this error
 		return null;
+	}
+}
+
+function printResults(resultMap: Map<string, github.AnnotationProperties[]>): void {
+	let output = "\n";
+	let total = 0;
+	for (const [resultFile, resultArr] of resultMap) {
+		if (resultArr.length <= 0) continue;
+		const filePath = path.join(cwd, resultFile);
+		output += `${chalk.underline(filePath)}\n`;
+		output += resultArr.reduce<string>((result, props) => {
+			total += 1;
+			return `${result}  ${props.startLine ?? ""}:${props.startColumn ?? ""}-${props.endColumn ?? ""}  ${chalk.yellow(
+				"warning"
+			)}  ${props.title ?? ""}\n`;
+		}, "");
+		output += "\n";
+	}
+	output += "\n";
+	if (total > 0) {
+		output += chalk.red.bold(`\u2716 ${total} problem${total === 1 ? "" : "s"}\n`);
+	}
+	console.log(output);
+}
+
+function annotateResults(resultMap: Map<string, github.AnnotationProperties[]>): void {
+	let total = 0;
+	for (const [resultFile, resultArr] of resultMap) {
+		if (resultArr.length <= 0) continue;
+		github.startGroup(resultFile);
+		for (const result of resultArr) {
+			total += 1;
+			console.log(
+				`::warning file=${resultFile},title=Invalid Link,line=${result.startLine ?? 0},endLine=${
+					result.startLine ?? 0
+				},col=${result.startColumn ?? 0},endColumn=${result.endColumn ?? result.startColumn ?? 0}::${
+					result.title ?? "Invalid Link"
+				}`
+			);
+		}
+		github.endGroup();
+	}
+	if (total > 0) {
+		github.setFailed("One or more links are invalid!");
 	}
 }
 
@@ -101,7 +137,7 @@ for (const [name, raw] of docFiles) {
 			if (line.trim().length > 3 && line.trim().endsWith("```")) multilineCode = !multilineCode;
 		}
 		if (multilineCode) return;
-		const matches = line.matchAll(/(?<![!`])\[.+?\]\((?!(?:https?)|(?:mailto))(.+?)\)(?!`)/g);
+		const matches = line.matchAll(/(?<![!`])\[.+?\]\((?!https?|mailto)(.+?)\)(?!`)/g);
 
 		for (const match of matches) {
 			const split = match[1].split("#")[1].split("/");
@@ -128,50 +164,6 @@ for (const [name, raw] of docFiles) {
 			}
 		}
 	});
-}
-
-function printResults(resultMap: Map<string, github.AnnotationProperties[]>): void {
-	let output = "\n";
-	let total = 0;
-	for (const [resultFile, resultArr] of resultMap) {
-		if (resultArr.length <= 0) continue;
-		const filePath = path.join(cwd, resultFile);
-		output += `${chalk.underline(filePath)}\n`;
-		output += resultArr.reduce<string>((result, props) => {
-			total += 1;
-			return `${result}  ${props.startLine ?? ""}:${props.startColumn ?? ""}-${props.endColumn ?? ""}  ${chalk.yellow(
-				"warning"
-			)}  ${props.title ?? ""}\n`;
-		}, "");
-		output += "\n";
-	}
-	output += "\n";
-	if (total > 0) {
-		output += chalk.red.bold(`\u2716 ${total} problem${total === 1 ? "" : "s"}\n`);
-	}
-	console.log(output);
-}
-
-function annotateResults(resultMap: Map<string, github.AnnotationProperties[]>): void {
-	let total = 0;
-	for (const [resultFile, resultArr] of resultMap) {
-		if (resultArr.length <= 0) continue;
-		github.startGroup(resultFile);
-		for (const result of resultArr) {
-			total += 1;
-			console.log(
-				`::warning file=${resultFile},title=Invalid Link,line=${result.startLine ?? 0},endLine=${
-					result.startLine ?? 0
-				},col=${result.startColumn ?? 0},endColumn=${result.endColumn ?? result.startColumn ?? 0}::${
-					result.title ?? "Invalid Link"
-				}`
-			);
-		}
-		github.endGroup();
-	}
-	if (total > 0) {
-		github.setFailed("One or more links are invalid!");
-	}
 }
 
 if (results.size > 0) {
