@@ -62,7 +62,7 @@ Below is a table of all current permissions, their integer values in hexadecimal
 | USE_APPLICATION_COMMANDS      | `0x0080000000` `(1 << 31)` | Allows members to use application commands, including slash commands and context menu commands.                                    | T            |
 | REQUEST_TO_SPEAK              | `0x0100000000` `(1 << 32)` | Allows for requesting to speak in stage channels. (_This permission is under active development and may be changed or removed._)   | S            |
 | MANAGE_THREADS \*             | `0x0400000000` `(1 << 34)` | Allows for deleting and archiving threads, and viewing all private threads                                                         | T            |
-| CREATE_PUBLIC_THREADS         | `0x0800000000` `(1 << 35)` | Allows for creating public threads                                                                                                 | T            |
+| CREATE_PUBLIC_THREADS         | `0x0800000000` `(1 << 35)` | Allows for creating public or announcement threads                                                                                 | T            |
 | CREATE_PRIVATE_THREADS        | `0x1000000000` `(1 << 36)` | Allows for creating private threads                                                                                                | T            |
 | USE_EXTERNAL_STICKERS         | `0x2000000000` `(1 << 37)` | Allows the usage of custom stickers from other servers                                                                             | T            |
 | SEND_MESSAGES_IN_THREADS      | `0x4000000000` `(1 << 38)` | Allows for sending messages in threads                                                                                             | T            |
