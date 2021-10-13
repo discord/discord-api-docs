@@ -232,6 +232,8 @@ json = {
 r = requests.post(url, json=json)
 ```
 
+### Responding to Autocomplete Interactions
+
 To respond to an autocompletion interaction, make a `POST` request like this.
 ```py
 url = "https://discord.com/api/v9/interactions/<interaction_id>/<interaction_token>/callback"
