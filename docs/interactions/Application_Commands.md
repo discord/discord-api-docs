@@ -70,12 +70,13 @@ Application commands are commands that an application can register to Discord. T
 
 If you specify `choices` for an option, they are the **only** valid values for a user to pick
 
-| Field | Type                        | Description                                         |
-| ----- | --------------------------- |---------------------------------------------------- |
-| name  | string                      | 1-100 character choice name                         |
-| value | string, integer or double\* | value of the choice, up to 100 characters if string |
+| Field | Type                               | Description                                         |
+| ----- | ---------------------------------- | --------------------------------------------------- |
+| name  | string                             | 1-100 character choice name                         |
+| value | string, integer, or double \* \*\* | value of the choice, up to 100 characters if string |
 
-\* Only `string` is valid for autocomplete interactions.
+\* Type of `value` depends on the [option type](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-type) that the choice belongs to.
+\*\* Only `string` is valid for [autocomplete interactions](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/responding-to-an-interaction-responding-to-autocomplete-interactions).
 
 ###### Application Command Interaction Data Option Structure
 
