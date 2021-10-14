@@ -21,12 +21,12 @@ Important note: Not all event fields are documented, in particular, fields prefi
 
 ###### Gateway Payload Structure
 
-| Field | Type                    | Description                                                                     |
-|-------|-------------------------|---------------------------------------------------------------------------------|
-| op    | integer                 | [opcode](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/gateway-opcodes) for the payload |
-| d     | ?mixed (any JSON value) | event data                                                                      |
-| s     | ?integer \*             | sequence number, used for resuming sessions and heartbeats                      |
-| t     | ?string \*              | the event name for this payload                                                 |
+| Field | Type                    | Description                                                                             |
+|-------|-------------------------|-----------------------------------------------------------------------------------------|
+| op    | integer                 | [opcode](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/gateway-gateway-opcodes) for the payload |
+| d     | ?mixed (any JSON value) | event data                                                                              |
+| s     | ?integer \*             | sequence number, used for resuming sessions and heartbeats                              |
+| t     | ?string \*              | the event name for this payload                                                         |
 
 \* `s` and `t` are `null` when `op` is not `0` (Gateway Dispatch Opcode).
 
@@ -203,7 +203,7 @@ If successful, the gateway will respond by replaying all missed events in order,
 
 ### Disconnections
 
-If the gateway ever issues a disconnect to your client, it will provide a close event code that you can use to properly handle the disconnection. A full list of these close codes can be found in the [Response Codes](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/gateway-close-event-codes) documentation.
+If the gateway ever issues a disconnect to your client, it will provide a close event code that you can use to properly handle the disconnection. A full list of these close codes can be found in the [Response Codes](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/gateway-gateway-close-event-codes) documentation.
 
 When you close the connection to the gateway with the close code 1000 or 1001, your session will be invalidated and your bot will appear offline. If you simply close the TCP connection, or use a different close code, the bot session will remain active and timeout after a few minutes. This can be useful for a reconnect, which will resume the previous session.
 
@@ -316,9 +316,9 @@ Any [events not defined in an intent](#DOCS_TOPICS_GATEWAY/commands-and-events-g
 
 [Thread Members Update](#DOCS_TOPICS_GATEWAY/thread-members-update) by default only includes if the current user was added to or removed from a thread.  To receive these updates for other users, request the `GUILD_MEMBERS` [Gateway Intent](#DOCS_TOPICS_GATEWAY/gateway-intents).
 
-If you specify an `intent` value in your `IDENTIFY` payload that is *invalid*, the socket will close with a [`4013` close code](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/gateway-gateway-close-event-codes). An invalid intent is one that is not meaningful and not documented above.
+If you specify an `intents` value in your `IDENTIFY` payload that is *invalid*, the socket will close with a [`4013` close code](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/gateway-gateway-close-event-codes). An invalid intent is one that is not meaningful and not documented above.
 
-If you specify an `intent` value in your `IDENTIFY` payload that is *disallowed*, the socket will close with a [`4014` close code](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/gateway-gateway-close-event-codes). A disallowed intent is a privileged intent that has not been approved for your bot.
+If you specify an `intents` value in your `IDENTIFY` payload that is *disallowed*, the socket will close with a [`4014` close code](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/gateway-gateway-close-event-codes). A disallowed intent is a privileged intent that has not been approved for your bot.
 
 Bots in under 100 guilds can enable these intents in the bot tab of the developer dashboard. Verified bots can get access to privileged intents when getting verified, or by writing into support after getting verified.
 
@@ -997,7 +997,8 @@ Sent when a guild member is updated. This will also fire when the user object of
 | roles          | array of snowflakes                               | user role ids                                                                                                                          |
 | user           | a [user](#DOCS_RESOURCES_USER/user-object) object | the user                                                                                                                               |
 | nick?          | ?string                                           | nickname of the user in the guild                                                                                                      |
-| joined_at      | ?ISO8601 timestamp                                 | when the user joined the guild                                                                                                         |
+| avatar         | ?string                                           | the member's [guild avatar hash](#DOCS_REFERENCE/image-formatting)
+| joined_at      | ?ISO8601 timestamp                                | when the user joined the guild                                                                                                         |
 | premium_since? | ?ISO8601 timestamp                                | when the user starting [boosting](https://support.discord.com/hc/en-us/articles/360028038352-Server-Boosting-) the guild               |
 | deaf?          | boolean                                           | whether the user is deafened in voice channels                                                                                         |
 | mute?          | boolean                                           | whether the user is muted in voice channels                                                                                            |

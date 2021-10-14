@@ -281,13 +281,14 @@ A partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object. Represents an Offl
 | -------------- | ----------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
 | user?          | [user](#DOCS_RESOURCES_USER/user-object) object | the user this guild member represents                                                                                                  |
 | nick?          | ?string                                         | this users guild nickname                                                                                                              |
+| avatar?        | ?string                                         | the member's [guild avatar hash](#DOCS_REFERENCE/image-formatting)                                                                     |
 | roles          | array of snowflakes                             | array of [role](#DOCS_TOPICS_PERMISSIONS/role-object) object ids                                                                       |
 | joined_at      | ISO8601 timestamp                               | when the user joined the guild                                                                                                         |
 | premium_since? | ?ISO8601 timestamp                              | when the user started [boosting](https://support.discord.com/hc/en-us/articles/360028038352-Server-Boosting-) the guild                |
 | deaf           | boolean                                         | whether the user is deafened in voice channels                                                                                         |
 | mute           | boolean                                         | whether the user is muted in voice channels                                                                                            |
 | pending?       | boolean                                         | whether the user has not yet passed the guild's [Membership Screening](#DOCS_RESOURCES_GUILD/membership-screening-object) requirements |
-| permissions?   | string                                          | total permissions of the member in the channel, including overwrites, returned when in the interaction object                           |
+| permissions?   | string                                          | total permissions of the member in the channel, including overwrites, returned when in the interaction object                          |
 
 > info
 > The field `user` won't be included in the member object attached to `MESSAGE_CREATE` and `MESSAGE_UPDATE` gateway events.
@@ -301,6 +302,7 @@ A partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object. Represents an Offl
 {
   "user": {},
   "nick": "NOT API SUPPORT",
+  "avatar": null,
   "roles": [],
   "joined_at": "2015-04-26T06:26:56.936000+00:00",
   "deaf": false,
@@ -779,7 +781,23 @@ Modify attributes of a [guild member](#DOCS_RESOURCES_GUILD/guild-member-object)
 | deaf       | boolean             | whether the user is deafened in voice channels. Will throw a 400 if the user is not in a voice channel | DEAFEN_MEMBERS   |
 | channel_id | snowflake           | id of channel to move user to (if they are connected to voice)                                         | MOVE_MEMBERS     |
 
+## Modify Current Member % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/members/@me
+
+Modifies the current member in a guild. Returns a 200 with the updated member object on success. Fires a [Guild Member Update](#DOCS_TOPICS_GATEWAY/guild-member-update) Gateway event.
+
+> info
+> This endpoint supports the `X-Audit-Log-Reason` header.
+
+###### JSON Params
+
+| Field | Type    | Description                    | Permission      |
+| ----- | ------- | ------------------------------ | --------------- |
+| ?nick | ?string | value to set users nickname to | CHANGE_NICKNAME |
+
 ## Modify Current User Nick % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/members/@me/nick
+
+> danger
+> Deprecated in favor of [Modify Current Member](#DOCS_RESOURCES_GUILD/modify-current-member).
 
 Modifies the nickname of the current user in a guild. Returns a 200 with the nickname on success. Fires a [Guild Member Update](#DOCS_TOPICS_GATEWAY/guild-member-update) Gateway event.
 
@@ -855,15 +873,15 @@ Create a new [role](#DOCS_TOPICS_PERMISSIONS/role-object) for the guild. Require
 
 ###### JSON Params
 
-| Field         | Type                                     | Description                                                          | Default                        |
-| ------------- | ---------------------------------------- | -------------------------------------------------------------------- | ------------------------------ |
-| name          | string                                   | name of the role                                                     | "new role"                     |
-| permissions   | string                                   | bitwise value of the enabled/disabled permissions                    | @everyone permissions in guild |
-| color         | integer                                  | RGB color value                                                      | 0                              |
-| hoist         | boolean                                  | whether the role should be displayed separately in the sidebar       | false                          |
-| icon          | [image data](#DOCS_REFERENCE/image-data) | the role's icon image (if the guild has the `ROLE_ICONS` feature)    | null                           |
-| unicode_emoji | string                                   | the role's unicode emoji (if the guild has the `ROLE_ICONS` feature) | null                           |
-| mentionable   | boolean                                  | whether the role should be mentionable                               | false                          |
+| Field         | Type                                     | Description                                                                                                                    | Default                        |
+| ------------- | ---------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------ |
+| name          | string                                   | name of the role                                                                                                               | "new role"                     |
+| permissions   | string                                   | bitwise value of the enabled/disabled permissions                                                                              | @everyone permissions in guild |
+| color         | integer                                  | RGB color value                                                                                                                | 0                              |
+| hoist         | boolean                                  | whether the role should be displayed separately in the sidebar                                                                 | false                          |
+| icon          | [image data](#DOCS_REFERENCE/image-data) | the role's icon image (if the guild has the `ROLE_ICONS` feature)                                                              | null                           |
+| unicode_emoji | string                                   | the role's unicode emoji as a [standard emoji](#DOCS_REFERENCE/message-formatting) (if the guild has the `ROLE_ICONS` feature) | null                           |
+| mentionable   | boolean                                  | whether the role should be mentionable                                                                                         | false                          |
 
 ## Modify Guild Role Positions % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/roles
 
@@ -893,15 +911,15 @@ Modify a guild role. Requires the `MANAGE_ROLES` permission. Returns the updated
 
 ###### JSON Params
 
-| Field         | Type                                     | Description                                                          |
-| ------------- | ---------------------------------------- | -------------------------------------------------------------------- |
-| name          | string                                   | name of the role                                                     |
-| permissions   | string                                   | bitwise value of the enabled/disabled permissions                    |
-| color         | integer                                  | RGB color value                                                      |
-| hoist         | boolean                                  | whether the role should be displayed separately in the sidebar       |
-| icon          | [image data](#DOCS_REFERENCE/image-data) | the role's icon image (if the guild has the `ROLE_ICONS` feature)    |
-| unicode_emoji | string                                   | the role's unicode emoji (if the guild has the `ROLE_ICONS` feature) |
-| mentionable   | boolean                                  | whether the role should be mentionable                               |
+| Field         | Type                                     | Description                                                                                                                    |
+| ------------- | ---------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| name          | string                                   | name of the role                                                                                                               |
+| permissions   | string                                   | bitwise value of the enabled/disabled permissions                                                                              |
+| color         | integer                                  | RGB color value                                                                                                                |
+| hoist         | boolean                                  | whether the role should be displayed separately in the sidebar                                                                 |
+| icon          | [image data](#DOCS_REFERENCE/image-data) | the role's icon image (if the guild has the `ROLE_ICONS` feature)                                                              |
+| unicode_emoji | string                                   | the role's unicode emoji as a [standard emoji](#DOCS_REFERENCE/message-formatting) (if the guild has the `ROLE_ICONS` feature) |
+| mentionable   | boolean                                  | whether the role should be mentionable                                                                                         |
 
 ## Delete Guild Role % DELETE /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/roles/{role.id#DOCS_TOPICS_PERMISSIONS/role-object}
 

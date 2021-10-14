@@ -103,7 +103,7 @@ Your game is off and running, and we couldn't be more proud. As it flourishes an
 
 ## What Comes Next
 
-Your game's success is in your own hands now. Continue to build your community and keep them informed with updates. Consider integrating more deeply with Discord to deliver cool features to your players; we recommend [Rich Presence Game Invites](#DOCS_GAME_SDK_ACTIVITIES/). They feel like magic. Drop new content by creating DLC and IAP for your game, run fun tournaments based on [HypeSquad Membership](#DOCS_GAME_SDK_USERS/current-user-has-flag), give something cool to [Discord Nitro Subscribers](#DOCS_GAME_SDK_USERS/get-current-user-premium-status) because they're awesome. Or maybe, just maybe, think about your next upcoming game?
+Your game's success is in your own hands now. Continue to build your community and keep them informed with updates. Consider integrating more deeply with Discord to deliver cool features to your players; we recommend [Rich Presence Game Invites](#DOCS_GAME_SDK_ACTIVITIES/). They feel like magic. Drop new content by creating DLC and IAP for your game, run fun tournaments based on [HypeSquad Membership](#DOCS_GAME_SDK_USERS/currentuserhasflag), give something cool to [Discord Nitro Subscribers](#DOCS_GAME_SDK_USERS/getcurrentuserpremiumtype) because they're awesome. Or maybe, just maybe, think about your next upcoming game?
 
 We'd love to help you with that one, too.
 

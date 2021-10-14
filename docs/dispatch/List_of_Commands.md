@@ -234,12 +234,12 @@ Displays a preview of the install paths that a build will put files in, for a gi
 
 ###### Arguments
 
-| name             | values                                                                        | description                                                                                           |
-| ---------------- | ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
-| config_file      | filename                                                                      | the [JSON config file](#DOCS_DISPATCH_BRANCHES_AND_BUILDS/setting-up-our-first-build) for the build   |
-| application_root | file path                                                                     | the directory that dispatch will treat as the local root for operations—`.` for the current directory |
-| --locale         | [locale](#DOCS_DISPATCH_FIELD_VALES/predefined-field-values-accepted-locales) | the build locale to preview                                                                           |
-| --platform       | [platform](#DOCS_DISPATCH_FIELD_VALUES/manifest-platform-values)              | the build platform to preview                                                                         |
+| name             | values                                                                         | description                                                                                           |
+| ---------------- | ------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------- |
+| config_file      | filename                                                                       | the [JSON config file](#DOCS_DISPATCH_BRANCHES_AND_BUILDS/setting-up-our-first-build) for the build   |
+| application_root | file path                                                                      | the directory that dispatch will treat as the local root for operations—`.` for the current directory |
+| --locale         | [locale](#DOCS_DISPATCH_FIELD_VALUES/predefined-field-values-accepted-locales) | the build locale to preview                                                                           |
+| --platform       | [platform](#DOCS_DISPATCH_FIELD_VALUES/manifests-platform-values)              | the build platform to preview                                                                         |
 
 ###### Example
 
