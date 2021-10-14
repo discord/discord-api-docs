@@ -6,7 +6,7 @@
 
 Thread permissions have been updated and simplified:
 
-- "Use Public Threads" is now "Create Public Threads", which allows users to create public threads in a channel, even if they cannot send messages in that channel.
+- "Use Public Threads" is now "Create Public Threads", which allows users to create public or anouncement threads in a channel, even if they cannot send messages in that channel.
 - "Use Private Threads" is now "Create Private Threads", which allows users to create private threads in a channel, even if they cannot send messages in that channel.
 
 A new permission has also been added:
