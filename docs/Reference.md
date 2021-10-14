@@ -338,3 +338,103 @@ data:image/jpeg;base64,BASE64_ENCODED_JPEG_IMAGE_DATA
 ```
 
 Ensure you use the proper content type (`image/jpeg`, `image/png`, `image/gif`) that matches the image data being provided.
+
+## Uploading Files
+
+When creating or editing a message, it is possible to attach files to the message. To add a file to the request, the standard `application/json` body must be replaced by a `multipart/form-data` body. The otherwise json body can instead be provided using a special `payload_json` parameter in addition to a number of `file` parameters.
+
+The file upload limit applies to the entire request, not individual files in a request. This limit depends on the **Boost Tier** of a Guild and is 8 MiB by default.
+
+All `file` parameters must include a valid `Content-Disposition` subpart header with a `filename` and unique `name` parameter. Each file parameter must be uniquely named in the format `file[n]` such as `file0`, `file1`, or simply `file`. The suffixed index can be used as a *pseudo-snowflake* in the `attachments` json parameter that is supplied in `payload_json` to add a `description`.
+
+Images can also be referenced in embeds using the `attachments://filename` URL. An example payload is provided below.
+
+### Editing Attachments
+
+All files added to a request, as described above, will be appended to the message in a `PATCH` request. The `attachments` json parameter has a special behavior for edit, as it is used for both removing attachments from the message as well as adding descriptions for new attachments added by the request.
+
+The `attachments` json parameter lists all files that should be **retained** on the message after the edit request. Any files that are not listed will be removed.
+
+###### Example Request Bodies (multipart/form-data)
+
+Note that these examples are small sections of an HTTP request to demonstrate behaviour of this endpoint - client libraries will set their own form boundaries, `boundary` is just an example. For more information, refer to the [multipart/form-data spec](https://tools.ietf.org/html/rfc7578#section-4).
+
+This example demonstrates usage of the endpoint *without* `payload_json`.
+
+```
+--boundary
+Content-Disposition: form-data; name="content"
+
+Hello, World!
+--boundary
+Content-Disposition: form-data; name="tts"
+
+true
+--boundary--
+```
+
+This example demonstrates usage of the endpoint *with* `payload_json` and all content fields (`content`, `embeds`, `file`) set.
+
+```
+--boundary
+Content-Disposition: form-data; name="payload_json"
+Content-Type: application/json
+
+{
+  "content": "Hello, World!",
+  "embeds": [{
+    "title": "Hello, Embed!",
+    "description": "This is an embedded message.",
+    "thumbnail": {
+      "url": "attachment://myfilename.png"
+    },
+    "image": {
+      "url": "attachment://mygif.gif"
+    }
+  }],
+  "message_reference": {
+    "message_id": "233648473390448641"
+  },
+  "attachments": [{
+      "id": 0,
+      "description": "Image of a cute little cat",
+      "filename": "file.png"
+  }, {
+      "id": 1,
+      "description": "Rickroll gif",
+      "filename": "mygif.gif"
+  }]
+}
+--boundary
+Content-Disposition: form-data; name="file0"; filename="file.png"
+Content-Type: image/png
+
+[image bytes]
+--boundary
+Content-Disposition: form-data; name="file1"; filename="mygif.gif"
+Content-Type: image/gif
+
+[image bytes]
+--boundary--
+```
+
+###### Using Attachments within Embeds
+
+You can upload attachments when creating a message and use those attachments within your embed. To do this, you will want to upload files as part of your `multipart/form-data` body. Make sure that you're uploading files that contain a filename, as you will need a filename to reference against.
+
+> warn
+> Only filenames with proper image extensions are supported for the time being.
+
+In the embed object, you can then set an image to use an attachment as its url with our attachment scheme syntax: `attachment://filename.png`
+
+For example:
+
+```json
+{
+  "embeds": [{
+    "image": {
+      "url": "attachment://screenshot.png"
+    }
+  }]
+}
+```

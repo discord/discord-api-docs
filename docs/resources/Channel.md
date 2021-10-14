@@ -875,6 +875,8 @@ Post a message to a guild text or DM channel. Returns a [message](#DOCS_RESOURCE
 
 You may create a message as a reply to another message. To do so, include a [`message_reference`](#DOCS_RESOURCES_CHANNEL/message-reference-object-message-reference-structure) with a `message_id`. The `channel_id` and `guild_id` in the `message_reference` are optional, but will be validated if provided.
 
+Files must be attached using a `multipart/form-data` body as described in [Uploading Files](#DOCS_REFERENCE/uploading-files).
+
 ###### Limitations
 
 - When operating on a guild channel, the current user must have the `SEND_MESSAGES` permission.
@@ -883,14 +885,6 @@ You may create a message as a reply to another message. To do so, include a [`me
     - The referenced message must exist and cannot be a system message.
 - The maximum request size when sending a message is **8MB**
 - For the embed object, you can set every field except `type` (it will be `rich` regardless of if you try to set it), `provider`, `video`, and any `height`, `width`, or `proxy_url` values for images.
-
-###### Uploading Files
-
-Uploading files requires using the content type `multipart/form-data`. Multiple files may be uploaded at once, and the upload limit is applied to the sum of files in your request, not individual files. Each file must have a valid `Content-Disposition` subpart header with unique `filename` and `name` parameters.
-
-When using this content type, you cannot pass `embeds` as a simple parameter. Instead you must use `payload_json` which contains all the otherwise JSON parameters of your request.
-This means the parameters would be `file` and `payload_json`, where the `payload_json` can provide JSON fields such as `embeds` or `content` which would otherwise be part of the JSON body.
-**All form fields except for `payload_json` must be file attachments with a valid `Content-Disposition` subpart header**.
 
 > info
 > Note that when sending a message, you must provide a value for at **least one of** `content`, `embeds`, or `file`.
@@ -905,6 +899,7 @@ This means the parameters would be `file` and `payload_json`, where the `payload
 | embeds               | array of [embed](#DOCS_RESOURCES_CHANNEL/embed-object) objects                                    | embedded `rich` content (up to 6000 characters)                                                        | one of content, file, embed(s), sticker_ids |
 | embed *(deprecated)* | [embed](#DOCS_RESOURCES_CHANNEL/embed-object) object                                              | embedded `rich` content, deprecated in favor of `embeds`                                               | one of content, file, embed(s), sticker_ids |
 | payload_json         | string                                                                                            | JSON encoded body of non-file params                                                                   | `multipart/form-data` only                  |
+| attachments          | array of partial [attachment](#DOCS_RESOURCES_CHANNEL/attachment-object) objects                  | attachment objects with filename and description                                                          | false                                       |
 | allowed_mentions     | [allowed mention object](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object)                         | allowed mentions for the message                                                                       | false                                       |
 | message_reference    | [message reference](#DOCS_RESOURCES_CHANNEL/message-reference-object-message-reference-structure) | include to make your message a reply                                                                   | false                                       |
 | components           | array of [message component](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-object) objects      | the components to include with the message                                                             | false                                       |
@@ -923,80 +918,7 @@ This means the parameters would be `file` and `payload_json`, where the `payload
 }
 ```
 
-###### Example Request Bodies (multipart/form-data)
-
-Note that these examples are small sections of an HTTP request to demonstrate behaviour of this endpoint - client libraries will set their own form boundaries, `boundary` is just an example. For more information, refer to the [multipart/form-data spec](https://tools.ietf.org/html/rfc7578#section-4).
-
-This example demonstrates usage of the endpoint *without* `payload_json`.
-
-```
---boundary
-Content-Disposition: form-data; name="content"
-
-Hello, World!
---boundary
-Content-Disposition: form-data; name="tts"
-
-true
---boundary--
-```
-
-This example demonstrates usage of the endpoint *with* `payload_json` and all content fields (`content`, `embeds`, `file`) set.
-
-```
---boundary
-Content-Disposition: form-data; name="payload_json"
-Content-Type: application/json
-
-{
-  "content": "Hello, World!",
-  "embeds": [{
-    "title": "Hello, Embed!",
-    "description": "This is an embedded message.",
-    "thumbnail": {
-      "url": "attachment://myfilename.png"
-    },
-    "image": {
-      "url": "attachment://mygif.gif"
-    }
-  }],
-  "message_reference": {
-    "message_id": "233648473390448641"
-  }
-}
---boundary
-Content-Disposition: form-data; name="file0"; filename="myfilename.png"
-Content-Type: image/png
-
-[image bytes]
---boundary
-Content-Disposition: form-data; name="file1"; filename="mygif.gif"
-Content-Type: image/gif
-
-[image bytes]
---boundary--
-```
-
-###### Using Attachments within Embeds
-
-You can upload attachments when creating a message and use those attachments within your embed. To do this, you will want to upload files as part of your `multipart/form-data` body. Make sure that you're uploading files that contain a filename, as you will need a filename to reference against.
-
-> warn
-> Only filenames with proper image extensions are supported for the time being.
-
-In the embed object, you can then set an image to use an attachment as its url with our attachment scheme syntax: `attachment://filename.png`
-
-For example:
-
-```json
-{
-  "embeds": [{
-    "image": {
-      "url": "attachment://screenshot.png"
-    }
-  }]
-}
-```
+Examples for file uploads are available in [Uploading Files](#DOCS_REFERENCE/uploading-files).
 
 ## Crosspost Message % POST /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}/crosspost
 
@@ -1048,16 +970,8 @@ When the `content` field is edited, the `mentions` array in the message object w
 
 Returns a [message](#DOCS_RESOURCES_CHANNEL/message-object) object. Fires a [Message Update](#DOCS_TOPICS_GATEWAY/message-update) Gateway event.
 
-Refer to [Uploading Files](#DOCS_RESOURCES_CHANNEL/create-message-uploading-files) for details on attachments and `multipart/form-data` requests.
+Refer to [Uploading Files](#DOCS_REFERENCE/uploading-files) for details on attachments and `multipart/form-data` requests.
 Any provided files will be **appended** to the message. To remove or replace files you will have to supply the `attachments` field which specifies the files to retain on the message after edit.
-
-> info
-> For a `file` attachment, the `Content-Disposition` subpart header MUST contain a `filename` parameter.
-
-> warn
-> This endpoint supports both `application/json` and `multipart/form-data` bodies. When uploading files the `multipart/form-data` content type must be used.
-> Note that in multipart form data, the `embeds`, `allowed_mentions`, and `attachments` fields cannot be used. You can pass a stringified JSON body as a form value as `payload_json` instead.
-> **If you supply a `payload_json` form value, all fields except for `file` fields will be ignored in the form data**.
 
 > info
 > All parameters to this endpoint are optional and nullable.
@@ -1073,7 +987,7 @@ Any provided files will be **appended** to the message. To remove or replace fil
 | file                 | file contents                                                                        | the contents of the file being sent/edited                                                                                              |
 | payload_json         | string                                                                               | JSON encoded body of non-file params (multipart/form-data only)                                                                         |
 | allowed_mentions     | [allowed mention object](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object)            | allowed mentions for the message                                                                                                        |
-| attachments          | array of [attachment](#DOCS_RESOURCES_CHANNEL/attachment-object) objects             | attached files to keep                                                                                                                  |
+| attachments          | array of [attachment](#DOCS_RESOURCES_CHANNEL/attachment-object) objects             | attached files to keep and possible descriptions for new files                                                                                     |
 | components           | array of [message component](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-object) | the components to include with the message                                                                                              |
 
 ## Delete Message % DELETE /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}

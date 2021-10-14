@@ -155,18 +155,10 @@ Same as above, except this call does not require authentication.
 
 ## Execute Webhook % POST /webhooks/{webhook.id#DOCS_RESOURCES_WEBHOOK/webhook-object}/{webhook.token#DOCS_RESOURCES_WEBHOOK/webhook-object}
 
-Refer to [Uploading Files](#DOCS_RESOURCES_CHANNEL/create-message-uploading-files) for details on attachments and `multipart/form-data` requests.
+Refer to [Uploading Files](#DOCS_REFERENCE/uploading-files) for details on attachments and `multipart/form-data` requests.
 
 > info
 > Note that when sending a message, you must provide a value for at **least one of** `content`, `embeds`, or `file`.
-
-> info
-> For a `file` attachment, the `Content-Disposition` subpart header MUST contain a `filename` parameter.
-
-> warn
-> This endpoint supports both `application/json` and `multipart/form-data` bodies. When uploading files the `multipart/form-data` content type must be used.
-> Note that in multipart form data, the `embeds` and `allowed_mentions` fields cannot be used. You can pass a stringified JSON body as a form value as `payload_json` instead.
-> **All form fields except for `payload_json` must be file attachments with a valid `Content-Disposition` subpart header**.
 
 ###### Query String Params
 
@@ -186,6 +178,7 @@ Refer to [Uploading Files](#DOCS_RESOURCES_CHANNEL/create-message-uploading-file
 | file             | file contents                                                                        | the contents of the file being sent                          | one of content, file, embeds |
 | embeds           | array of up to 10 [embed](#DOCS_RESOURCES_CHANNEL/embed-object) objects              | embedded `rich` content                                      | one of content, file, embeds |
 | payload_json     | string                                                                               | JSON encoded body of non-file params                         | `multipart/form-data` only   |
+| attachments          | array of partial [attachment](#DOCS_RESOURCES_CHANNEL/attachment-object) objects | attachment objects with filename and description                    | false                        |
 | allowed_mentions | [allowed mention object](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object)            | allowed mentions for the message                             | false                        |
 | components\*     | array of [message component](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-object) | the components to include with the message                   | false                        |
 
@@ -224,16 +217,8 @@ Edits a previously-sent webhook message from the same token. Returns a [message]
 
 When the `content` field is edited, the `mentions` array in the message object will be reconstructed from scratch based on the new content. The `allowed_mentions` field of the edit request controls how this happens. If there is no explicit `allowed_mentions` in the edit request, the content will be parsed with _default_ allowances, that is, without regard to whether or not an `allowed_mentions` was present in the request that originally created the message.
 
-Refer to [Uploading Files](#DOCS_RESOURCES_CHANNEL/create-message-uploading-files) for details on attachments and `multipart/form-data` requests.
+Refer to [Uploading Files](#DOCS_REFERENCE/uploading-files) for details on attachments and `multipart/form-data` requests.
 Any provided files will be **appended** to the message. To remove or replace files you will have to supply the `attachments` field which specifies the files to retain on the message after edit.
-
-> info
-> For a `file` attachment, the `Content-Disposition` subpart header MUST contain a `filename` parameter.
-
-> warn
-> This endpoint supports both `application/json` and `multipart/form-data` bodies. When uploading files the `multipart/form-data` content type must be used.
-> Note that in multipart form data, the `embeds`, `allowed_mentions`, and `attachments` fields cannot be used. You can pass a stringified JSON body as a form value as `payload_json` instead.
-> **If you supply a `payload_json` form value, all fields except for `file` fields will be ignored in the form data**.
 
 > info
 > All parameters to this endpoint are optional and nullable.
@@ -247,7 +232,7 @@ Any provided files will be **appended** to the message. To remove or replace fil
 | file             | file contents                                                                        | the contents of the file being sent/edited                      |
 | payload_json     | string                                                                               | JSON encoded body of non-file params (multipart/form-data only) |
 | allowed_mentions | [allowed mention object](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object)            | allowed mentions for the message                                |
-| attachments      | array of [attachment](#DOCS_RESOURCES_CHANNEL/attachment-object) objects             | attached files to keep                                          |
+| attachments      | array of partial [attachment](#DOCS_RESOURCES_CHANNEL/attachment-object) objects     | attached files to keep and possible descriptions for new files                          |
 | components\*     | array of [message component](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-object) | the components to include with the message                      |
 
 \* Requires an application-owned webhook
