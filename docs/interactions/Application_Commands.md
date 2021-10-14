@@ -77,7 +77,8 @@ If you specify `choices` for an option, they are the **only** valid values for a
 
 \* Type of `value` depends on the [option type](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-type) that the choice belongs to.
 
-\*\* Only `string` is valid for [autocomplete interactions](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/responding-to-an-interaction-responding-to-autocomplete-interactions).
+\*\* Only `string` is valid for [autocomplete interactions](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/responding-to-autocomplete-interactions).
+
 
 ###### Application Command Interaction Data Option Structure
 

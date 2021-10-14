@@ -183,7 +183,8 @@ Not all message fields are currently supported.
 | allowed_mentions? | [allowed mentions](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object)                                     | [allowed mentions](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object) object                                                                 |
 | flags?            | integer                                                                                                 | [interaction callback data flags](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-response-object-interaction-callback-data-flags) |
 | components?       | array of [components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/)                                           | message components                                                                                                                         |
-| choices?          | array of [choices](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-option-choice-structure) | autocomplete choices (limited to 25 choices)                                                                                               |
+| choices?          | array of [choices](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-choice-structure) | autocomplete choices (limited to 25 choices)                                                                                               |
+
 
 ###### Interaction Callback Data Flags
 
