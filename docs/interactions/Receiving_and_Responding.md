@@ -16,7 +16,7 @@ For [Message Components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/) it includes ide
 | -------------- | ------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------- |
 | id             | snowflake                                                                                                     | id of the interaction                                          |
 | application_id | snowflake                                                                                                     | id of the application this interaction is for                  |
-| type           | [interaction type](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-interaction-type)           | the type of interaction                                        |
+| type           | [interaction type](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-objtestingect-interaction-type)           | the type of interaction                                        |
 | data?\*        | [interaction data](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-interaction-data-structure) | the command data payload                                       |
 | guild_id?      | snowflake                                                                                                     | the guild it was sent from                                     |
 | channel_id?    | snowflake                                                                                                     | the channel it was sent from                                   |
