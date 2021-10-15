@@ -78,7 +78,7 @@ There are other rules and restrictions not shared here for the sake of spam and 
 | 1 << 16 | Verified Bot                 |
 | 1 << 17 | Early Verified Bot Developer |
 | 1 << 18 | Discord Certified Moderator  |
-| 1 << 20 | Known Spammer                |
+| 1 << 20 | Spammer                      |
 
 ###### Premium Types
 
