@@ -175,14 +175,15 @@ Refer to [Uploading Files](#DOCS_REFERENCE/uploading-files) for details on attac
 | username         | string                                                                               | override the default username of the webhook                 | false                        |
 | avatar_url       | string                                                                               | override the default avatar of the webhook                   | false                        |
 | tts              | boolean                                                                              | true if this is a TTS message                                | false                        |
-| file             | file contents                                                                        | the contents of the file being sent                          | one of content, file, embeds |
 | embeds           | array of up to 10 [embed](#DOCS_RESOURCES_CHANNEL/embed-object) objects              | embedded `rich` content                                      | one of content, file, embeds |
-| payload_json     | string                                                                               | JSON encoded body of non-file params                         | `multipart/form-data` only   |
-| attachments          | array of partial [attachment](#DOCS_RESOURCES_CHANNEL/attachment-object) objects | attachment objects with filename and description                    | false                        |
 | allowed_mentions | [allowed mention object](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object)            | allowed mentions for the message                             | false                        |
-| components\*     | array of [message component](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-object) | the components to include with the message                   | false                        |
+| components \*    | array of [message component](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-object) | the components to include with the message                   | false                        |
+| file \*\*        | file contents                                                                        | the contents of the file being sent                          | one of content, file, embeds |
+| payload_json \*\*| string                                                                               | JSON encoded body of non-file params                         | `multipart/form-data` only   |
+| attachments \*\* | array of partial [attachment](#DOCS_RESOURCES_CHANNEL/attachment-object) objects     | attachment objects with filename and description             | false                        |
 
 \* Requires an application-owned webhook
+\*\* See [Uploading Files](#DOCS_REFERENCE/uploading-files) for details.
 
 > info
 > For the webhook embed objects, you can set every field except `type` (it will be `rich` regardless of if you try to set it), `provider`, `video`, and any `height`, `width`, or `proxy_url` values for images.
@@ -229,13 +230,14 @@ Any provided files will be **appended** to the message. To remove or replace fil
 | ---------------- | ------------------------------------------------------------------------------------ | --------------------------------------------------------------- |
 | content          | string                                                                               | the message contents (up to 2000 characters)                    |
 | embeds           | array of up to 10 [embed](#DOCS_RESOURCES_CHANNEL/embed-object) objects              | embedded `rich` content                                         |
-| file             | file contents                                                                        | the contents of the file being sent/edited                      |
-| payload_json     | string                                                                               | JSON encoded body of non-file params (multipart/form-data only) |
 | allowed_mentions | [allowed mention object](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object)            | allowed mentions for the message                                |
-| attachments      | array of partial [attachment](#DOCS_RESOURCES_CHANNEL/attachment-object) objects     | attached files to keep and possible descriptions for new files                          |
-| components\*     | array of [message component](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-object) | the components to include with the message                      |
+| components \*    | array of [message component](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-object) | the components to include with the message                      |
+| file \*\*        | file contents                                                                        | the contents of the file being sent/edited                      |
+| payload_json \*\*| string                                                                               | JSON encoded body of non-file params (multipart/form-data only) |
+| attachments \*\* | array of partial [attachment](#DOCS_RESOURCES_CHANNEL/attachment-object) objects     | attached files to keep and possible descriptions for new files  |
 
 \* Requires an application-owned webhook
+\*\* See [Uploading Files](#DOCS_REFERENCE/uploading-files) for details.
 
 # Delete Webhook Message % DELETE /webhooks/{webhook.id#DOCS_RESOURCES_WEBHOOK/webhook-object}/{webhook.token#DOCS_RESOURCES_WEBHOOK/webhook-object}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}
 
