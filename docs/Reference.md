@@ -345,7 +345,7 @@ When creating or editing a message, it is possible to attach files to the messag
 
 The file upload limit applies to the entire request, not individual files in a request. This limit depends on the **Boost Tier** of a Guild and is 8 MiB by default.
 
-All `file` parameters must include a valid `Content-Disposition` subpart header with a `filename` and unique `name` parameter. Each file parameter must be uniquely named in the format `file[n]` such as `file0`, `file1`, or simply `file`. The suffixed index can be used as a *pseudo-snowflake* in the `attachments` json parameter that is supplied in `payload_json` to add a `description`.
+All `file` parameters must include a valid `Content-Disposition` subpart header with a `filename` and unique `name` parameter. Each file parameter must be uniquely named in the format `file[n]` such as `file0`, `file1`, or `file42`. The suffixed index `n` is the *snowflake placeholder* for the `attachments` json parameter that is supplied in `payload_json`.
 
 Images can also be referenced in embeds using the `attachments://filename` URL. An example payload is provided below.
 
@@ -353,7 +353,7 @@ Images can also be referenced in embeds using the `attachments://filename` URL. 
 
 All files added to a request, as described above, will be appended to the message in a `PATCH` request. The `attachments` json parameter has a special behavior for edit, as it is used for both removing attachments from the message as well as adding descriptions for new attachments added by the request.
 
-The `attachments` json parameter lists all files that should be **retained** on the message after the edit request. Any files that are not listed will be removed.
+The `attachments` json parameter lists all files that should be attached to the message after the edit, including all new files added and the respective snowflake placeholders. To remove attachments, simply exclude them from this list.
 
 ###### Example Request Bodies (multipart/form-data)
 
