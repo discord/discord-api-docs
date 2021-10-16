@@ -345,7 +345,7 @@ When creating or editing a message, it is possible to attach files to the messag
 
 The file upload limit applies to the entire request, not individual files in a request. This limit depends on the **Boost Tier** of a Guild and is 8 MiB by default.
 
-All `file` parameters must include a valid `Content-Disposition` subpart header with a `filename` and unique `name` parameter. Each file parameter must be uniquely named in the format `file[n]` such as `file0`, `file1`, or `file42`. The suffixed index `n` is the *snowflake placeholder* for the `attachments` json parameter that is supplied in `payload_json`.
+All `file` parameters must include a valid `Content-Disposition` subpart header with a `filename` and unique `name` parameter. Each file parameter must be uniquely named in the format `file[n]` such as `file0`, `file1`, or `file42`. The suffixed index `n` is the *snowflake placeholder* for the `attachments` json parameter that is supplied in `payload_json` (or [Callback Data Payloads](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-response-object-interaction-callback-data-structure)).
 
 Images can also be referenced in embeds using the `attachments://filename` URL. An example payload is provided below.
 
