@@ -630,6 +630,9 @@ Embed types are "loosely defined" and, for the most part, are not used by our cl
 
 ###### Attachment Structure
 
+> info
+> For the `attachments` array in Message Create/Edit requests, only the `id` is required.
+
 | Field         | Type      | Description                                                                         |
 |---------------|-----------|-------------------------------------------------------------------------------------|
 | id            | snowflake | attachment id                                                                       |
