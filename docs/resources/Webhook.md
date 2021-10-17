@@ -178,7 +178,7 @@ Refer to [Uploading Files](#DOCS_REFERENCE/uploading-files) for details on attac
 | embeds           | array of up to 10 [embed](#DOCS_RESOURCES_CHANNEL/embed-object) objects              | embedded `rich` content                                      | one of content, file, embeds |
 | allowed_mentions | [allowed mention object](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object)            | allowed mentions for the message                             | false                        |
 | components \*    | array of [message component](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-object) | the components to include with the message                   | false                        |
-| file \*\*        | file contents                                                                        | the contents of the file being sent                          | one of content, file, embeds |
+| file[n] \*\*     | file contents                                                                        | the contents of the file being sent                          | one of content, file, embeds |
 | payload_json \*\*| string                                                                               | JSON encoded body of non-file params                         | `multipart/form-data` only   |
 | attachments \*\* | array of partial [attachment](#DOCS_RESOURCES_CHANNEL/attachment-object) objects     | attachment objects with filename and description             | false                        |
 
@@ -221,6 +221,9 @@ When the `content` field is edited, the `mentions` array in the message object w
 Refer to [Uploading Files](#DOCS_REFERENCE/uploading-files) for details on attachments and `multipart/form-data` requests.
 Any provided files will be **appended** to the message. To remove or replace files you will have to supply the `attachments` field which specifies the files to retain on the message after edit.
 
+> warn
+> Starting with API v10, the `attachments` array must contain all attachments that should be present after edit, including **retained and new** attachments provided in the request body.
+
 > info
 > All parameters to this endpoint are optional and nullable.
 
@@ -232,7 +235,7 @@ Any provided files will be **appended** to the message. To remove or replace fil
 | embeds           | array of up to 10 [embed](#DOCS_RESOURCES_CHANNEL/embed-object) objects              | embedded `rich` content                                         |
 | allowed_mentions | [allowed mention object](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object)            | allowed mentions for the message                                |
 | components \*    | array of [message component](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-object) | the components to include with the message                      |
-| file \*\*        | file contents                                                                        | the contents of the file being sent/edited                      |
+| file[n] \*\*     | file contents                                                                        | the contents of the file being sent/edited                      |
 | payload_json \*\*| string                                                                               | JSON encoded body of non-file params (multipart/form-data only) |
 | attachments \*\* | array of partial [attachment](#DOCS_RESOURCES_CHANNEL/attachment-object) objects     | attached files to keep and possible descriptions for new files  |
 

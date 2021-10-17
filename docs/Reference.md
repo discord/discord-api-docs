@@ -341,11 +341,11 @@ Ensure you use the proper content type (`image/jpeg`, `image/png`, `image/gif`) 
 
 ## Uploading Files
 
-When creating or editing a message, it is possible to attach files to the message. To add a file to the request, the standard `application/json` body must be replaced by a `multipart/form-data` body. The otherwise json body can instead be provided using a special `payload_json` parameter in addition to a number of `file` parameters.
+When creating or editing a message, it is possible to attach files to the message. To add a file to the request, the standard `application/json` body must be replaced by a `multipart/form-data` body. The otherwise json body can instead be provided using a special `payload_json` parameter in addition to a number of `file[n]` parameters.
+
+All `file[n]` parameters must include a valid `Content-Disposition` subpart header with a `filename` and unique `name` parameter. Each file parameter must be uniquely named in the format `file[n]` such as `file[0]`, `file[1]`, or `file[42]`. The suffixed index `n` is the *snowflake placeholder* for the `attachments` json parameter that is supplied in `payload_json` (or [Callback Data Payloads](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-response-object-interaction-callback-data-structure)).
 
 The file upload limit applies to the entire request, not individual files in a request. This limit depends on the **Boost Tier** of a Guild and is 8 MiB by default.
-
-All `file` parameters must include a valid `Content-Disposition` subpart header with a `filename` and unique `name` parameter. Each file parameter must be uniquely named in the format `file[n]` such as `file0`, `file1`, or `file42`. The suffixed index `n` is the *snowflake placeholder* for the `attachments` json parameter that is supplied in `payload_json` (or [Callback Data Payloads](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-response-object-interaction-callback-data-structure)).
 
 Images can also be referenced in embeds using the `attachments://filename` URL. An example payload is provided below.
 
@@ -373,7 +373,7 @@ true
 --boundary--
 ```
 
-This example demonstrates usage of the endpoint *with* `payload_json` and all content fields (`content`, `embeds`, `file`) set.
+This example demonstrates usage of the endpoint *with* `payload_json` and all content fields (`content`, `embeds`, `file[n]`) set.
 
 ```
 --boundary
@@ -406,12 +406,12 @@ Content-Type: application/json
   }]
 }
 --boundary
-Content-Disposition: form-data; name="file0"; filename="file.png"
+Content-Disposition: form-data; name="file[0]"; filename="file.png"
 Content-Type: image/png
 
 [image bytes]
 --boundary
-Content-Disposition: form-data; name="file1"; filename="mygif.gif"
+Content-Disposition: form-data; name="file[1]"; filename="mygif.gif"
 Content-Type: image/gif
 
 [image bytes]

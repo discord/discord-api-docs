@@ -172,8 +172,8 @@ There are a number of ways you can respond to an interaction:
 
 Not all message fields are currently supported.
 
-| Name              | Type                                                                | Description                                                                                                                                             |
-| ----------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Name              | Type                                                                             | Description                                                                                                                                |
+| ----------------- | -------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
 | tts?              | boolean                                                                          | is the response TTS                                                                                                                        |
 | content?          | string                                                                           | message content                                                                                                                            |
 | embeds?           | array of [embeds](#DOCS_RESOURCES_CHANNEL/embed-object)                          | supports up to 10 embeds                                                                                                                   |

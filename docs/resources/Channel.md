@@ -888,7 +888,7 @@ Files must be attached using a `multipart/form-data` body as described in [Uploa
 - For the embed object, you can set every field except `type` (it will be `rich` regardless of if you try to set it), `provider`, `video`, and any `height`, `width`, or `proxy_url` values for images.
 
 > info
-> Note that when sending a message, you must provide a value for at **least one of** `content`, `embeds`, or `file`.
+> Note that when sending a message, you must provide a value for at **least one of** `content`, `embeds`, or `file[n]`.
 
 ###### JSON/Form Params
 
@@ -902,7 +902,7 @@ Files must be attached using a `multipart/form-data` body as described in [Uploa
 | message_reference    | [message reference](#DOCS_RESOURCES_CHANNEL/message-reference-object-message-reference-structure) | include to make your message a reply                                                                   | false                                       |
 | components           | array of [message component](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-object) objects      | the components to include with the message                                                             | false                                       |
 | sticker_ids          | array of snowflakes                                                                               | IDs of up to 3 [stickers](#DOCS_RESOURCES_STICKER/sticker-object) in the server to send in the message | one of content, file, embed(s), sticker_ids |
-| file \*              | file contents                                                                                     | the contents of the file being sent                                                                    | one of content, file, embed(s), sticker_ids |
+| file[n] \*           | file contents                                                                                     | the contents of the file being sent                                                                    | one of content, file, embed(s), sticker_ids |
 | payload_json \*      | string                                                                                            | JSON encoded body of non-file params                                                                   | `multipart/form-data` only                  |
 | attachments \*       | array of partial [attachment](#DOCS_RESOURCES_CHANNEL/attachment-object) objects                  | attachment objects with filename and description                                                       | false                                       |
 
@@ -975,6 +975,9 @@ Returns a [message](#DOCS_RESOURCES_CHANNEL/message-object) object. Fires a [Mes
 
 Refer to [Uploading Files](#DOCS_REFERENCE/uploading-files) for details on attachments and `multipart/form-data` requests.
 Any provided files will be **appended** to the message. To remove or replace files you will have to supply the `attachments` field which specifies the files to retain on the message after edit.
+
+> warn
+> Starting with API v10, the `attachments` array must contain all attachments that should be present after edit, including **retained and new** attachments provided in the request body.
 
 > info
 > All parameters to this endpoint are optional and nullable.
