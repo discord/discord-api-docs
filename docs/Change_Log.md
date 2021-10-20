@@ -4,7 +4,7 @@
 
 #### October 20, 2021
 
-Guild owners and members with the Administrator permission may now use permissions even when `default_permission` is set to `false`.
+Guild owners and members with the Administrator permission may now use commands even when `default_permission` is set to `false`.
 
 ## Updated Thread Permissions
 
