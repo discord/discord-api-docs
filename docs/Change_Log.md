@@ -1,5 +1,11 @@
 # Change Log
 
+## Application Command Permissions Change
+
+#### October 20, 2021
+
+Guild owners and members with the Administrator permission may now use permissions even when `default_permission` is set to `false`.
+
 ## Updated Thread Permissions
 
 #### September 16, 2021
