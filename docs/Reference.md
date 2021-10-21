@@ -341,7 +341,7 @@ Ensure you use the proper content type (`image/jpeg`, `image/png`, `image/gif`) 
 
 ## Uploading Files
 
-When creating or editing a message, it is possible to attach files to the message. To add a file to the request, the standard `application/json` body must be replaced by a `multipart/form-data` body. The otherwise json body can instead be provided using a special `payload_json` parameter in addition to a number of `files[n]` parameters.
+Some endpoints support file attachments, indicated by the `files[n]` parameter. To add a file to the request, the standard `application/json` body must be replaced by a `multipart/form-data` body. The otherwise json body can instead be provided using a special `payload_json` parameter in addition to a number of `files[n]` parameters.
 
 All `files[n]` parameters must include a valid `Content-Disposition` subpart header with a `filename` and unique `name` parameter. Each file parameter must be uniquely named in the format `files[n]` such as `files[0]`, `files[1]`, or `files[42]`. The suffixed index `n` is the *snowflake placeholder* for the `attachments` json parameter that is supplied in `payload_json` (or [Callback Data Payloads](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-response-object-interaction-callback-data-structure)).
 
@@ -349,7 +349,7 @@ The file upload limit applies to the entire request, not individual files in a r
 
 Images can also be referenced in embeds using the `attachments://filename` URL. An example payload is provided below.
 
-### Editing Attachments
+### Editing Message Attachments
 
 All files added to a request, as described above, will be appended to the message in a `PATCH` request. The `attachments` json parameter has a special behavior for edit, as it is used for both removing attachments from the message as well as adding descriptions for new attachments added by the request.
 
