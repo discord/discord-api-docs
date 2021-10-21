@@ -178,7 +178,7 @@ Refer to [Uploading Files](#DOCS_REFERENCE/uploading-files) for details on attac
 | embeds           | array of up to 10 [embed](#DOCS_RESOURCES_CHANNEL/embed-object) objects              | embedded `rich` content                                      | one of content, file, embeds |
 | allowed_mentions | [allowed mention object](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object)            | allowed mentions for the message                             | false                        |
 | components \*    | array of [message component](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-object) | the components to include with the message                   | false                        |
-| file[n] \*\*     | file contents                                                                        | the contents of the file being sent                          | one of content, file, embeds |
+| files[n] \*\*    | file contents                                                                        | the contents of the file being sent                          | one of content, file, embeds |
 | payload_json \*\*| string                                                                               | JSON encoded body of non-file params                         | `multipart/form-data` only   |
 | attachments \*\* | array of partial [attachment](#DOCS_RESOURCES_CHANNEL/attachment-object) objects     | attachment objects with filename and description             | false                        |
 
@@ -235,7 +235,7 @@ Any provided files will be **appended** to the message. To remove or replace fil
 | embeds           | array of up to 10 [embed](#DOCS_RESOURCES_CHANNEL/embed-object) objects              | embedded `rich` content                                         |
 | allowed_mentions | [allowed mention object](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object)            | allowed mentions for the message                                |
 | components \*    | array of [message component](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-object) | the components to include with the message                      |
-| file[n] \*\*     | file contents                                                                        | the contents of the file being sent/edited                      |
+| files[n] \*\*    | file contents                                                                        | the contents of the file being sent/edited                      |
 | payload_json \*\*| string                                                                               | JSON encoded body of non-file params (multipart/form-data only) |
 | attachments \*\* | array of partial [attachment](#DOCS_RESOURCES_CHANNEL/attachment-object) objects     | attached files to keep and possible descriptions for new files  |
 

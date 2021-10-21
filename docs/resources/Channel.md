@@ -891,7 +891,7 @@ Files must be attached using a `multipart/form-data` body as described in [Uploa
 - For the embed object, you can set every field except `type` (it will be `rich` regardless of if you try to set it), `provider`, `video`, and any `height`, `width`, or `proxy_url` values for images.
 
 > info
-> Note that when sending a message, you must provide a value for at **least one of** `content`, `embeds`, or `file[n]`.
+> Note that when sending a message, you must provide a value for at **least one of** `content`, `embeds`, or `files[n]`.
 
 ###### JSON/Form Params
 
@@ -905,7 +905,7 @@ Files must be attached using a `multipart/form-data` body as described in [Uploa
 | message_reference    | [message reference](#DOCS_RESOURCES_CHANNEL/message-reference-object-message-reference-structure) | include to make your message a reply                                                                   | false                                       |
 | components           | array of [message component](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-object) objects      | the components to include with the message                                                             | false                                       |
 | sticker_ids          | array of snowflakes                                                                               | IDs of up to 3 [stickers](#DOCS_RESOURCES_STICKER/sticker-object) in the server to send in the message | one of content, file, embed(s), sticker_ids |
-| file[n] \*           | file contents                                                                                     | the contents of the file being sent                                                                    | one of content, file, embed(s), sticker_ids |
+| files[n] \*          | file contents                                                                                     | the contents of the file being sent                                                                    | one of content, file, embed(s), sticker_ids |
 | payload_json \*      | string                                                                                            | JSON encoded body of non-file params                                                                   | `multipart/form-data` only                  |
 | attachments \*       | array of partial [attachment](#DOCS_RESOURCES_CHANNEL/attachment-object) objects                  | attachment objects with filename and description                                                       | false                                       |
 
@@ -995,7 +995,7 @@ Any provided files will be **appended** to the message. To remove or replace fil
 | flags                | integer                                                                              | edit the [flags](#DOCS_RESOURCES_CHANNEL/message-object-message-flags) of a message (only `SUPPRESS_EMBEDS` can currently be set/unset) |
 | allowed_mentions     | [allowed mention object](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object)            | allowed mentions for the message                                                                                                        |
 | components           | array of [message component](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-object) | the components to include with the message                                                                                              |
-| file[n] \*           | file contents                                                                        | the contents of the file being sent/edited                                                                                              |
+| filse[n] \*          | file contents                                                                        | the contents of the file being sent/edited                                                                                              |
 | payload_json \*      | string                                                                               | JSON encoded body of non-file params (multipart/form-data only)                                                                         |
 | attachments \*       | array of [attachment](#DOCS_RESOURCES_CHANNEL/attachment-object) objects             | attached files to keep and possible descriptions for new files                                                                          |
 
