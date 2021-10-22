@@ -280,7 +280,7 @@ Need to keep some of your commands safe from prying eyes, or only available to t
 > info
 > For now, if you don't have permission to use a command, they'll show up in the command picker as disabled and unusable. They will **not** be hidden.
 
-You can also set a `default_permission` on your commands if you want them to be disabled by default when your app is added to a new guild. Setting `default_permission` to `false` will disallow _anyone_ in a guild from using the command—even Administrators and guild owners—unless a specific overwrite is configured. It will also disable the command from being usable in DMs.
+You can also set a `default_permission` on your commands if you want them to be disabled by default when your app is added to a new guild. Setting `default_permission` to `false` will disallow _anyone_ in a guild from using the command—except Administrators and guild owners—unless a specific overwrite is configured. It will also disable the command from being usable in DMs.
 
 For example, this command will not be usable by anyone in any guilds by default:
 
