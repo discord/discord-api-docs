@@ -172,14 +172,17 @@ There are a number of ways you can respond to an interaction:
 
 Not all message fields are currently supported.
 
-| Name              | Type                                                                | Description                                                                                                                                |
-| ----------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
-| tts?              | boolean                                                             | is the response TTS                                                                                                                        |
-| content?          | string                                                              | message content                                                                                                                            |
-| embeds?           | array of [embeds](#DOCS_RESOURCES_CHANNEL/embed-object)             | supports up to 10 embeds                                                                                                                   |
-| allowed_mentions? | [allowed mentions](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object) | [allowed mentions](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object) object                                                                 |
-| flags?            | integer                                                             | [interaction callback data flags](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-response-object-interaction-callback-data-flags) |
-| components?       | array of [components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/)       | message components                                                                                                                         |
+| Name              | Type                                                                             | Description                                                                                                                                |
+| ----------------- | -------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| tts?              | boolean                                                                          | is the response TTS                                                                                                                        |
+| content?          | string                                                                           | message content                                                                                                                            |
+| embeds?           | array of [embeds](#DOCS_RESOURCES_CHANNEL/embed-object)                          | supports up to 10 embeds                                                                                                                   |
+| allowed_mentions? | [allowed mentions](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object)              | [allowed mentions](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object) object                                                                 |
+| flags?            | integer                                                                          | [interaction callback data flags](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-response-object-interaction-callback-data-flags) |
+| components?       | array of [components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/)                    | message components                                                                                                                         |
+| attachments? \*   | array of partial [attachment](#DOCS_RESOURCES_CHANNEL/attachment-object) objects | attachment objects with filename and description                                                                                           |
+
+\* See [Uploading Files](#DOCS_REFERENCE/uploading-files) for details.
 
 ###### Interaction Callback Data Flags
 
@@ -311,6 +314,7 @@ We highly recommend checking out our [Community Resources](#DOCS_TOPICS_COMMUNIT
 ## Create Interaction Response % POST /interactions/{interaction.id#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction}/{interaction.token#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object}/callback
 
 Create a response to an Interaction from the gateway. Takes an [interaction response](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-response-object).
+This endpoint also supports file attachments similar to the webhook endpoints. Refer to [Uploading Files](#DOCS_REFERENCE/uploading-files) for details on uploading files and `multipart/form-data` requests.
 
 ## Get Original Interaction Response % GET /webhooks/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/{interaction.token#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object}/messages/@original
 
