@@ -37,15 +37,21 @@ Application commands are commands that an application can register to Discord. T
 > warn
 > Required `options` must be listed before optional options
 
-| Field       | Type                                                                                                                                                         | Description                                                                                                            |
-| ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------- |
-| type        | one of [application command option type](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-type)                 | the type of option                                                                                                     |
-| name        | string                                                                                                                                                       | [1-32 character name](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-naming)   |
-| description | string                                                                                                                                                       | 1-100 character description                                                                                            |
-| required?   | boolean                                                                                                                                                      | if the parameter is required or optional--default `false`                                                              |
-| choices?    | array of [application command option choice](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-choice-structure) | choices for `STRING`, `INTEGER`, and `NUMBER` types for the user to pick from, max 25                                  |
-| options?    | array of [application command option](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-structure)               | if the option is a subcommand or subcommand group type, this nested options will be the parameters                     |
-| channel_types?    | array of [channel types](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types)                                                                               | if the option is a channel type, the channels shown will be restricted to these types                            |
+| Field             | Type                                                                                                                                                         | Description                                                                                                            |
+| ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------- |
+| type              | one of [application command option type](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-type)                 | the type of option                                                                                                     |
+| name              | string                                                                                                                                                       | [1-32 character name](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-naming)   |
+| description       | string                                                                                                                                                       | 1-100 character description                                                                                            |
+| required?         | boolean                                                                                                                                                      | if the parameter is required or optional--default `false`                                                              |
+| choices?          | array of [application command option choice](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-choice-structure) | choices for `STRING`, `INTEGER`, and `NUMBER` types for the user to pick from, max 25                                  |
+| autocomplete? \*  | boolean                                                                                                                                                      | enable autocomplete interactions for this option                                                                       |
+| options?          | array of [application command option](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-structure)               | if the option is a subcommand or subcommand group type, this nested options will be the parameters                     |
+| channel_types?    | array of [channel types](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types)                                                                               | if the option is a channel type, the channels shown will be restricted to these types                                  |
+
+\* `autocomplete` may not be set to true if `choices` are present.
+
+> note
+> Options using `autocomplete` are not confined to only use choices given by the application.
 
 ###### Application Command Option Type
 
@@ -79,12 +85,13 @@ All options have names, and an option can either be a parameter and input value-
 
 `value` and `options` are mutually exclusive.
 
-| Field    | Type                                                                                                                                                                             | Description                                                                                                                                      |
+| Field    | Type                                                                                                                                                                             | Description                                                                                                                                    |
 | -------- |--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
 | name     | string                                                                                                                                                                           | the name of the parameter                                                                                                                      |
 | type     | integer                                                                                                                                                                          | value of [application command option type](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-type) |
 | value?   | [application command option type](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-type)                                            | the value of the pair                                                                                                                          |
 | options? | array of [application command interaction data option](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-interaction-data-option-structure) | present if this option is a group or subcommand                                                                                                |
+| focused? | boolean                                                                                                                                                                          | true if this option is the currently focused option for autocomplete                                                                           |
 
 ## Authorizing Your Application
 
@@ -841,6 +848,32 @@ When someone uses a message command, your application will receive an interactio
 }
 ```
 
+## Autocomplete
+
+Autocomplete interactions allow application command option values to be completed by the application as the user types out a command invocation.
+
+> info
+> Autocomplete choices are only suggestions, and the user may still fill in whatever value they choose.
+
+```json
+{
+  "type": 4,
+  "data": {
+    "id": "816437322781949972",
+    "name": "airhorn",
+    "type": 1,
+    "version": "847194950382780532",
+    "options": [
+      {
+        "type": 3,
+        "name": "variant",
+        "value": "data a user is typ",
+        "focused": true
+      }
+    ]
+  }
+}
+```
 
 ### Endpoints
 
