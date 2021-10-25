@@ -212,6 +212,12 @@ Add a new webhook to your GitHub repo (in the repo's settings), and use this end
 
 Returns a previously-sent webhook message from the same token. Returns a [message](#DOCS_RESOURCES_CHANNEL/message-object) object on success.
 
+###### Query String Params
+
+| Field     | Type      | Description                        | Required |
+| --------- | --------- | ---------------------------------- | -------- |
+| thread_id | snowflake | id of the thread the message is in | false    |
+
 ## Edit Webhook Message % PATCH /webhooks/{webhook.id#DOCS_RESOURCES_WEBHOOK/webhook-object}/{webhook.token#DOCS_RESOURCES_WEBHOOK/webhook-object}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}
 
 Edits a previously-sent webhook message from the same token. Returns a [message](#DOCS_RESOURCES_CHANNEL/message-object) object on success.
@@ -226,6 +232,12 @@ Any provided files will be **appended** to the message. To remove or replace fil
 
 > info
 > All parameters to this endpoint are optional and nullable.
+
+###### Query String Params
+
+| Field     | Type      | Description                        | Required |
+| --------- | --------- | ---------------------------------- | -------- |
+| thread_id | snowflake | id of the thread the message is in | false    |
 
 ###### JSON/Form Params
 
@@ -245,3 +257,9 @@ Any provided files will be **appended** to the message. To remove or replace fil
 # Delete Webhook Message % DELETE /webhooks/{webhook.id#DOCS_RESOURCES_WEBHOOK/webhook-object}/{webhook.token#DOCS_RESOURCES_WEBHOOK/webhook-object}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}
 
 Deletes a message that was created by the webhook. Returns a 204 NO CONTENT response on success.
+
+###### Query String Params
+
+| Field     | Type      | Description                        | Required |
+| --------- | --------- | ---------------------------------- | -------- |
+| thread_id | snowflake | id of the thread the message is in | false    |
