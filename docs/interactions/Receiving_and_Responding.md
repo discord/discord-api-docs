@@ -170,9 +170,12 @@ There are a number of ways you can respond to an interaction:
 
 \* Only valid for [component-based](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/) interactions
 
-###### Interaction Callback Data Structure (Messages)
+###### Interaction Callback Data Structure
+
+###### Messages
 
 Not all message fields are currently supported.
+
 
 | Name              | Type                                                                             | Description                                                                                                                                |
 | ----------------- | -------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
@@ -186,7 +189,7 @@ Not all message fields are currently supported.
 
 \* See [Uploading Files](#DOCS_REFERENCE/uploading-files) for details.
 
-###### Interaction Callback Data Structure (Autocomplete)
+###### Autocomplete
 
 | Name     | Type                                                                                                                               | Description                              |
 | -------- | ---------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------- |
