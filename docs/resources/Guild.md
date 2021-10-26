@@ -636,6 +636,7 @@ Modify a guild's settings. Requires the `MANAGE_GUILD` permission. Returns the u
 | preferred_locale              | ?string                                                                             | the preferred locale of a Community guild used in server discovery and notices from Discord; defaults to "en-US"             |
 | features                      | array of [guild feature](#DOCS_RESOURCES_GUILD/guild-object-guild-features) strings | enabled guild features                                                                                                       |
 | description                   | ?string                                                                             | the description for the guild, if the guild is discoverable                                                                  |
+| premium_progress_bar_enabled  | boolean                                                                             | whether the boosts progress bar should be enabled.                                                                           |
 
 ## Delete Guild % DELETE /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}
 
