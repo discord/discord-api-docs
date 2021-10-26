@@ -188,9 +188,9 @@ Not all message fields are currently supported.
 
 ###### Interaction Callback Data Structure (Autocomplete)
 
-| Name     | Type                                                                                                    | Description                              |
-| -------- | ------------------------------------------------------------------------------------------------------- | ---------------------------------------- |
-| choices  | array of [choices](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-option-choice-structure) | autocomplete choices (max of 25 choices) |
+| Name     | Type                                                                                                                               | Description                              |
+| -------- | ---------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------- |
+| choices  | array of [choices](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-choice-structure) | autocomplete choices (max of 25 choices) |
 
 ###### Interaction Callback Data Flags
 
