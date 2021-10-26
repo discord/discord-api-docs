@@ -58,7 +58,7 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 | nsfw_level                    | integer                                                                                 | [guild NSFW level](#DOCS_RESOURCES_GUILD/guild-object-guild-nsfw-level)                                                                     |
 | stage_instances? \*           | array of [stage instance](#DOCS_RESOURCES_STAGE_INSTANCE/stage-instance-object) objects | Stage instances in the guild                                                                                                                |
 | stickers?                     | array of [sticker](#DOCS_RESOURCES_STICKER/sticker-object) objects                      | custom guild stickers                                                                                                                       |
-| premium_progress_bar_enabled  | boolean                                                                                 | true if server boosts progress bar is enabled
+| premium_progress_bar_enabled  | boolean                                                                                 | true if server boosts progress bar is enabled                                                                                               |
 
 ** \* These fields are only sent within the [GUILD_CREATE](#DOCS_TOPICS_GATEWAY/guild-create) event **
 
