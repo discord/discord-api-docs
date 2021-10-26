@@ -792,7 +792,7 @@ Modifies the current member in a guild. Returns a 200 with the updated member ob
 
 | Field | Type    | Description                    | Permission      |
 | ----- | ------- | ------------------------------ | --------------- |
-| ?nick | ?string | value to set users nickname to | CHANGE_NICKNAME |
+| nick? | ?string | value to set users nickname to | CHANGE_NICKNAME |
 
 ## Modify Current User Nick % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/members/@me/nick
 
@@ -808,7 +808,7 @@ Modifies the nickname of the current user in a guild. Returns a 200 with the nic
 
 | Field | Type    | Description                    | Permission      |
 | ----- | ------- | ------------------------------ | --------------- |
-| ?nick | ?string | value to set users nickname to | CHANGE_NICKNAME |
+| nick? | ?string | value to set users nickname to | CHANGE_NICKNAME |
 
 ## Add Guild Member Role % PUT /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/members/{user.id#DOCS_RESOURCES_USER/user-object}/roles/{role.id#DOCS_TOPICS_PERMISSIONS/role-object}
 
@@ -897,7 +897,7 @@ This endpoint takes a JSON array of parameters in the following format:
 | Field     | Type      | Description                  |
 | --------- | --------- | ---------------------------- |
 | id        | snowflake | role                         |
-| ?position | ?integer  | sorting position of the role |
+| position? | ?integer  | sorting position of the role |
 
 ## Modify Guild Role % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/roles/{role.id#DOCS_TOPICS_PERMISSIONS/role-object}
 
