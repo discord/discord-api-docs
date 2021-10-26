@@ -1444,7 +1444,7 @@ Sent when a guild's voice server is updated. This is sent when initially connect
 
 Sent when a guild channel's webhook is created, updated, or deleted.
 
-###### Webhook Update Event Fields
+###### Webhooks Update Event Fields
 
 | Field      | Type      | Description       |
 |------------|-----------|-------------------|
