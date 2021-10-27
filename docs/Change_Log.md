@@ -2,6 +2,10 @@
 
 ## Application Command Permissions Change
 
+#### October 27, 2021
+
+Autocomplete interactions are now available, allowing application commands to provide server completed options. Check out [the autocomplete interaction docs](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/autocomplete) for more information.
+
 #### October 20, 2021
 
 Guild owners and members with the Administrator permission may now use application commands even when `default_permission` is set to `false`.
