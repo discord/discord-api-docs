@@ -850,10 +850,12 @@ When someone uses a message command, your application will receive an interactio
 
 ## Autocomplete
 
-Autocomplete interactions allow application command option values to be completed by the application as the user types out a command invocation.
+Autocomplete interactions allow your application to dynamically return option suggestions to a user as they type.
 
-> info
-> Autocomplete choices are only suggestions, and the user may still fill in whatever value they choose.
+An autocomplete interaction **can return partial data** for option values. Your application will receive partial data for any existing user input, as long as that input passes client-side validation. For example, you may receive partial strings, but not invalid numbers. The option the user is currently typing will be sent with a `focused: true` boolean field.
+
+> warn
+> This validation is **client-side only**.
 
 ```json
 {
