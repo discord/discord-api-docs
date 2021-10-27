@@ -1,10 +1,12 @@
 # Change Log
 
-## Application Command Permissions Change
+## Application Command Autocomplete Interactions
 
 #### October 27, 2021
 
 Autocomplete interactions are now available, allowing application commands to provide server completed options. Check out [the autocomplete interaction docs](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/autocomplete) for more information.
+
+## Application Command Permissions Change
 
 #### October 20, 2021
 
