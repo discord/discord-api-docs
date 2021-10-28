@@ -104,7 +104,7 @@ If you are experiencing repeated CloudFlare bans from the Discord API within nor
 
 ## Invalid Request Limit aka CloudFlare bans
 
-IP addresses that make too many invalid HTTP requests are automatically and temporarily restricted from accessing the Discord API. Currently, this limit is **10,000 per 10 minutes**. An invalid request is one that results in **401**, **403**, or **429** statuses.	HTTP 429 responses with the header `X-RateLimit-Scope: shared` do not count towards your request limit. 
+IP addresses that make too many invalid HTTP requests are automatically and temporarily restricted from accessing the Discord API. Currently, this limit is **10,000 per 10 minutes**. An invalid request is one that results in **401**, **403**, or **429** statuses. HTTP 429 responses with the header `X-RateLimit-Scope: shared` do not count towards your request limit.
 
 All applications should make reasonable attempts to avoid making invalid requests. For example:	
 
