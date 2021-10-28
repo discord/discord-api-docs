@@ -1,10 +1,12 @@
 # Rate Limits
 
-Discord's API rate limits requests in order to prevent abuse and overload of our services. Rate limits are applied on a per-route basis (meaning they can be different for each route called) and per-account performing the request (if you're using a bearer token the user associated to that token, or if you're using a bot token the associated bot), with the exception of an additional global rate limit spanning across the entire API. Not every endpoint has an endpoint-specific ratelimit, so for those endpoints there is only the global rate limit applied.
+Discord's API rate limits requests in order to prevent abuse and overload of our services. Rate limits are generally applied on a per-route basis (meaning they can be different for each route called) and per-account performing the request (if you're using a bearer token the user associated to that token, or if you're using a bot token the associated bot), with the exception of an additional global rate limit spanning across the entire API. Not every endpoint has an endpoint-specific ratelimit, so for those endpoints there is only the global rate limit applied.
 
 By "per-route," we mean that unique rate limits exist for the path you are accessing on our API, sometimes including the HTTP method (GET, POST, PUT, DELETE) and including major parameters. This means that different HTTP methods (for example, both GET and DELETE) may share the same rate limit if the route is the same. Additionally, rate limits take into account major parameters in the URL. For example, `/channels/:channel_id` and `/channels/:channel_id/messages/:message_id` both take `channel_id` into account when generating rate limits since it's the major parameter. Currently, the only major parameters are `channel_id`, `guild_id`, and `webhook_id + webhook_token`.
 
 "Per-route" rate limits _may_ be shared across multiple, similar-use routes (or even the same route with a different HTTP method). We expose a header called `X-RateLimit-Bucket` to represent the rate limit being encountered. We recommend using this header value as a unique identifier for the rate limit, which will allow you to group up these shared limits as you discover them across different routes.
+
+Some endpoints are also protected by "shared" rate limits, meaning the rate limit is applied to the shared resource, rather than the specific endpoint or account. These endpoints will return `X-RateLimit-Scope: shared` instead of the normal bucket headers when they are triggered. In these cases you should still respect the `Retry-After` header for the route.
 
 Because we may change rate limits at any time and rate limits can be different per application, _rate limits should not be hard coded into your bot/application_. In order to properly support our dynamic rate limits, your bot/application should parse for our rate limits in response headers and locally prevent exceeding the limits as they change.
 
@@ -30,6 +32,7 @@ X-RateLimit-Bucket: abcd1234
 - **X-RateLimit-Reset** - Epoch time (seconds since 00:00:00 UTC on January 1, 1970) at which the rate limit resets
 - **X-RateLimit-Reset-After** - Total time (in seconds) of when the current rate limit bucket will reset. Can have decimals to match previous millisecond ratelimit precision
 - **X-RateLimit-Bucket** - A unique string denoting the rate limit being encountered (non-inclusive of major parameters in the route path)
+- **X-RateLimit-Scope** - Returned with the value `shared` on a HTTP 429 response if the rate limit was applied for a shared resource rather than solely for the authenticated account.
 
 ## Exceeding A Rate Limit
 
@@ -77,6 +80,20 @@ Note that the normal rate-limiting headers will be sent in this response. The ra
 }
 ```
 
+###### Example Shared Rate Limit Response
+
+```
+< HTTP/1.1 429 TOO MANY REQUESTS
+< Content-Type: application/json
+< Retry-After: 65
+< X-RateLimit-Scope: shared
+{
+  "retry_after": 64.57,
+  "message": "The write action you are performing on the channel has hit the write rate limit.",
+  "code": 20028
+}
+```
+
 ## Global Rate Limit
 
 All bots can make up to 50 requests per second to our API. This is independent of any individual rate limit on a route. If your bot gets big enough, based on its functionality, it may be impossible to stay below 50 requests per second during normal operations.
@@ -87,7 +104,7 @@ If you are experiencing repeated CloudFlare bans from the Discord API within nor
 
 ## Invalid Request Limit aka CloudFlare bans
 
-IP addresses that make too many invalid HTTP requests are automatically and temporarily restricted from accessing the Discord API. Currently, this limit is **10,000 per 10 minutes**. An invalid request is one that results in **401**, **403**, or **429** statuses.	
+IP addresses that make too many invalid HTTP requests are automatically and temporarily restricted from accessing the Discord API. Currently, this limit is **10,000 per 10 minutes**. An invalid request is one that results in **401**, **403**, or **429** statuses.	HTTP 429 responses with the header `X-RateLimit-Scope: shared` do not count towards your request limit. 
 
 All applications should make reasonable attempts to avoid making invalid requests. For example:	
 
