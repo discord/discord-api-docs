@@ -995,7 +995,7 @@ Any provided files will be **appended** to the message. To remove or replace fil
 | flags                | integer                                                                              | edit the [flags](#DOCS_RESOURCES_CHANNEL/message-object-message-flags) of a message (only `SUPPRESS_EMBEDS` can currently be set/unset) |
 | allowed_mentions     | [allowed mention object](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object)            | allowed mentions for the message                                                                                                        |
 | components           | array of [message component](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-object) | the components to include with the message                                                                                              |
-| filse[n] \*          | file contents                                                                        | the contents of the file being sent/edited                                                                                              |
+| files[n] \*          | file contents                                                                        | the contents of the file being sent/edited                                                                                              |
 | payload_json \*      | string                                                                               | JSON encoded body of non-file params (multipart/form-data only)                                                                         |
 | attachments \*       | array of [attachment](#DOCS_RESOURCES_CHANNEL/attachment-object) objects             | attached files to keep and possible descriptions for new files                                                                          |
 
@@ -1176,6 +1176,10 @@ Removes the current user from a thread. Also requires the thread is not archived
 ## Remove Thread Member % DELETE /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/thread-members/{user.id#DOCS_RESOURCES_USER/user-object}
 
 Removes another member from a thread. Requires the `MANAGE_THREADS` permission, or the creator of the thread if it is a `GUILD_PRIVATE_THREAD`. Also requires the thread is not archived. Returns a 204 empty response on success. Fires a [Thread Members Update](#DOCS_TOPICS_GATEWAY/thread-members-update) Gateway event.
+
+## Get Thread Member % GET /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/thread-members/{user.id#DOCS_RESOURCES_USER/user-object}
+
+Returns a [thread member](#DOCS_RESOURCES_CHANNEL/thread-member-object) object for the specified user if they are a member of the thread, returns a 404 response otherwise.
 
 ## List Thread Members % GET /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/thread-members
 
