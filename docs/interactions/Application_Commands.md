@@ -49,8 +49,6 @@ Application commands are commands that an application can register to Discord. T
 | min_value?        | integer for `INTEGER` options, double for `NUMBER` options                                                                                                   | if the option is an `INTEGER` or `NUMBER` type, the minimum value permitted                                            |
 | max_value?        | integer for `INTEGER` options, double for `NUMBER` options                                                                                                   | if the option is an `INTEGER` or `NUMBER` type, the maximum value permitted                                            |
 | autocomplete? \*  | boolean                                                                                                                                                      | enable autocomplete interactions for this option                                                                       |
-| options?          | array of [application command option](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-structure)               | if the option is a subcommand or subcommand group type, this nested options will be the parameters                     |
-| channel_types?    | array of [channel types](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types)                                                                               | if the option is a channel type, the channels shown will be restricted to these types                                  |
 
 \* `autocomplete` may not be set to true if `choices` are present.
 
