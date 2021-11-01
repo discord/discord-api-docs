@@ -48,6 +48,14 @@ Application commands are commands that an application can register to Discord. T
 | channel_types?    | array of [channel types](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types)                                                                               | if the option is a channel type, the channels shown will be restricted to these types                                  |
 | min_value?        | integer for `INTEGER` options, double for `NUMBER` options                                                                                                   | if the option is an `INTEGER` or `NUMBER` type, the minimum value permitted                                            |
 | max_value?        | integer for `INTEGER` options, double for `NUMBER` options                                                                                                   | if the option is an `INTEGER` or `NUMBER` type, the maximum value permitted                                            |
+| autocomplete? \*  | boolean                                                                                                                                                      | enable autocomplete interactions for this option                                                                       |
+| options?          | array of [application command option](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-structure)               | if the option is a subcommand or subcommand group type, this nested options will be the parameters                     |
+| channel_types?    | array of [channel types](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types)                                                                               | if the option is a channel type, the channels shown will be restricted to these types                                  |
+
+\* `autocomplete` may not be set to true if `choices` are present.
+
+> note
+> Options using `autocomplete` are not confined to only use choices given by the application.
 
 ###### Application Command Option Type
 
@@ -81,12 +89,13 @@ All options have names, and an option can either be a parameter and input value-
 
 `value` and `options` are mutually exclusive.
 
-| Field    | Type                                                                                                                                                                             | Description                                                                                                                                      |
+| Field    | Type                                                                                                                                                                             | Description                                                                                                                                    |
 | -------- |--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
 | name     | string                                                                                                                                                                           | the name of the parameter                                                                                                                      |
 | type     | integer                                                                                                                                                                          | value of [application command option type](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-type) |
 | value?   | [application command option type](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-type)                                            | the value of the pair                                                                                                                          |
 | options? | array of [application command interaction data option](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-interaction-data-option-structure) | present if this option is a group or subcommand                                                                                                |
+| focused? | boolean                                                                                                                                                                          | true if this option is the currently focused option for autocomplete                                                                           |
 
 ## Authorizing Your Application
 
@@ -270,7 +279,7 @@ Need to keep some of your commands safe from prying eyes, or only available to t
 > info
 > For now, if you don't have permission to use a command, they'll show up in the command picker as disabled and unusable. They will **not** be hidden.
 
-You can also set a `default_permission` on your commands if you want them to be disabled by default when your app is added to a new guild. Setting `default_permission` to `false` will disallow _anyone_ in a guild from using the command—even Administrators and guild owners—unless a specific overwrite is configured. It will also disable the command from being usable in DMs.
+You can also set a `default_permission` on your commands if you want them to be disabled by default when your app is added to a new guild. Setting `default_permission` to `false` will disallow _anyone_ in a guild from using the command—except Administrators and guild owners—unless a specific overwrite is configured. It will also disable the command from being usable in DMs.
 
 For example, this command will not be usable by anyone in any guilds by default:
 
@@ -843,6 +852,34 @@ When someone uses a message command, your application will receive an interactio
 }
 ```
 
+## Autocomplete
+
+Autocomplete interactions allow your application to dynamically return option suggestions to a user as they type.
+
+An autocomplete interaction **can return partial data** for option values. Your application will receive partial data for any existing user input, as long as that input passes client-side validation. For example, you may receive partial strings, but not invalid numbers. The option the user is currently typing will be sent with a `focused: true` boolean field.
+
+> warn
+> This validation is **client-side only**.
+
+```json
+{
+  "type": 4,
+  "data": {
+    "id": "816437322781949972",
+    "name": "airhorn",
+    "type": 1,
+    "version": "847194950382780532",
+    "options": [
+      {
+        "type": 3,
+        "name": "variant",
+        "value": "data a user is typ",
+        "focused": true
+      }
+    ]
+  }
+}
+```
 
 ### Endpoints
 

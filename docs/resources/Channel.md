@@ -630,10 +630,14 @@ Embed types are "loosely defined" and, for the most part, are not used by our cl
 
 ###### Attachment Structure
 
+> info
+> For the `attachments` array in Message Create/Edit requests, only the `id` is required.
+
 | Field         | Type      | Description                                                                         |
 |---------------|-----------|-------------------------------------------------------------------------------------|
 | id            | snowflake | attachment id                                                                       |
 | filename      | string    | name of file attached                                                               |
+| description?  | string    | description for the file                                                            |
 | content_type? | string    | the attachment's [media type](https://en.wikipedia.org/wiki/Media_type)             |
 | size          | integer   | size of file in bytes                                                               |
 | url           | string    | source url of file                                                                  |
@@ -873,6 +877,10 @@ Returns a specific message in the channel. If operating on a guild channel, this
 
 Post a message to a guild text or DM channel. Returns a [message](#DOCS_RESOURCES_CHANNEL/message-object) object. Fires a [Message Create](#DOCS_TOPICS_GATEWAY/message-create) Gateway event. See [message formatting](#DOCS_REFERENCE/message-formatting) for more information on how to properly format messages.
 
+You may create a message as a reply to another message. To do so, include a [`message_reference`](#DOCS_RESOURCES_CHANNEL/message-reference-object-message-reference-structure) with a `message_id`. The `channel_id` and `guild_id` in the `message_reference` are optional, but will be validated if provided.
+
+Files must be attached using a `multipart/form-data` body as described in [Uploading Files](#DOCS_REFERENCE/uploading-files).
+
 ###### Limitations
 
 - When operating on a guild channel, the current user must have the `SEND_MESSAGES` permission.
@@ -881,20 +889,9 @@ Post a message to a guild text or DM channel. Returns a [message](#DOCS_RESOURCE
     - The referenced message must exist and cannot be a system message.
 - The maximum request size when sending a message is **8MB**
 - For the embed object, you can set every field except `type` (it will be `rich` regardless of if you try to set it), `provider`, `video`, and any `height`, `width`, or `proxy_url` values for images.
-- **Files can only be uploaded when using the `multipart/form-data` content type.**
-
-You may create a message as a reply to another message. To do so, include a [`message_reference`](#DOCS_RESOURCES_CHANNEL/message-reference-object-message-reference-structure) with a `message_id`. The `channel_id` and `guild_id` in the `message_reference` are optional, but will be validated if provided.
 
 > info
-> Note that when sending a message, you must provide a value for at **least one of** `content`, `embeds`, or `file`.
-
-> info
-> For a `file` attachment, the `Content-Disposition` subpart header MUST contain a `filename` parameter.
-
-> warn
-> This endpoint supports both `application/json` and `multipart/form-data` bodies. When uploading files the `multipart/form-data` content type must be used.
-> Note that in multipart form data, the `embeds` and `allowed_mentions` fields cannot be used. You can pass a stringified JSON body as a form value as `payload_json` instead.
-> **If you supply a `payload_json` form value, all fields except for `file` fields will be ignored in the form data**.
+> Note that when sending a message, you must provide a value for at **least one of** `content`, `embeds`, or `files[n]`.
 
 ###### JSON/Form Params
 
@@ -902,14 +899,17 @@ You may create a message as a reply to another message. To do so, include a [`me
 | -------------------- | ------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ | ------------------------------------------- |
 | content              | string                                                                                            | the message contents (up to 2000 characters)                                                           | one of content, file, embed(s), sticker_ids |
 | tts                  | boolean                                                                                           | true if this is a TTS message                                                                          | false                                       |
-| file                 | file contents                                                                                     | the contents of the file being sent                                                                    | one of content, file, embed(s), sticker_ids |
 | embeds               | array of [embed](#DOCS_RESOURCES_CHANNEL/embed-object) objects                                    | embedded `rich` content (up to 6000 characters)                                                        | one of content, file, embed(s), sticker_ids |
 | embed *(deprecated)* | [embed](#DOCS_RESOURCES_CHANNEL/embed-object) object                                              | embedded `rich` content, deprecated in favor of `embeds`                                               | one of content, file, embed(s), sticker_ids |
-| payload_json         | string                                                                                            | JSON encoded body of non-file params                                                                   | `multipart/form-data` only                  |
 | allowed_mentions     | [allowed mention object](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object)                         | allowed mentions for the message                                                                       | false                                       |
 | message_reference    | [message reference](#DOCS_RESOURCES_CHANNEL/message-reference-object-message-reference-structure) | include to make your message a reply                                                                   | false                                       |
 | components           | array of [message component](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-object) objects      | the components to include with the message                                                             | false                                       |
 | sticker_ids          | array of snowflakes                                                                               | IDs of up to 3 [stickers](#DOCS_RESOURCES_STICKER/sticker-object) in the server to send in the message | one of content, file, embed(s), sticker_ids |
+| files[n] \*          | file contents                                                                                     | the contents of the file being sent                                                                    | one of content, file, embed(s), sticker_ids |
+| payload_json \*      | string                                                                                            | JSON encoded body of non-file params                                                                   | `multipart/form-data` only                  |
+| attachments \*       | array of partial [attachment](#DOCS_RESOURCES_CHANNEL/attachment-object) objects                  | attachment objects with filename and description                                                       | false                                       |
+
+\* See [Uploading Files](#DOCS_REFERENCE/uploading-files) for details.
 
 ###### Example Request Body (application/json)
 
@@ -924,69 +924,7 @@ You may create a message as a reply to another message. To do so, include a [`me
 }
 ```
 
-###### Example Request Bodies (multipart/form-data)
-
-Note that these examples are small sections of an HTTP request to demonstrate behaviour of this endpoint - client libraries will set their own form boundaries, `boundary` is just an example. For more information, refer to the [multipart/form-data spec](https://tools.ietf.org/html/rfc7578#section-4).
-
-This example demonstrates usage of the endpoint *without* `payload_json`.
-
-```
---boundary
-Content-Disposition: form-data; name="content"
-
-Hello, World!
---boundary
-Content-Disposition: form-data; name="tts"
-
-true
---boundary--
-```
-
-This example demonstrates usage of the endpoint *with* `payload_json` and all content fields (`content`, `embeds`, `file`) set.
-
-```
---boundary
-Content-Disposition: form-data; name="payload_json"
-Content-Type: application/json
-
-{
-  "content": "Hello, World!",
-  "embeds": [{
-    "title": "Hello, Embed!",
-    "description": "This is an embedded message."
-  }],
-  "message_reference": {
-    "message_id": "233648473390448641"
-  }
-}
---boundary
-Content-Disposition: form-data; name="file"; filename="myfilename.png"
-Content-Type: image/png
-
-[image bytes]
---boundary--
-```
-
-###### Using Attachments within Embeds
-
-You can upload attachments when creating a message and use those attachments within your embed. To do this, you will want to upload files as part of your `multipart/form-data` body. Make sure that you're uploading files that contain a filename, as you will need a filename to reference against.
-
-> warn
-> Only filenames with proper image extensions are supported for the time being.
-
-In the embed object, you can then set an image to use an attachment as its url with our attachment scheme syntax: `attachment://filename.png`
-
-For example:
-
-```json
-{
-  "embeds": [{
-    "image": {
-      "url": "attachment://screenshot.png"
-    }
-  }]
-}
-```
+Examples for file uploads are available in [Uploading Files](#DOCS_REFERENCE/uploading-files).
 
 ## Crosspost Message % POST /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}/crosspost
 
@@ -1038,13 +976,11 @@ When the `content` field is edited, the `mentions` array in the message object w
 
 Returns a [message](#DOCS_RESOURCES_CHANNEL/message-object) object. Fires a [Message Update](#DOCS_TOPICS_GATEWAY/message-update) Gateway event.
 
-> info
-> For a `file` attachment, the `Content-Disposition` subpart header MUST contain a `filename` parameter.
+Refer to [Uploading Files](#DOCS_REFERENCE/uploading-files) for details on attachments and `multipart/form-data` requests.
+Any provided files will be **appended** to the message. To remove or replace files you will have to supply the `attachments` field which specifies the files to retain on the message after edit.
 
 > warn
-> This endpoint supports both `application/json` and `multipart/form-data` bodies. When uploading files the `multipart/form-data` content type must be used.
-> Note that in multipart form data, the `embeds`, `allowed_mentions`, and `attachments` fields cannot be used. You can pass a stringified JSON body as a form value as `payload_json` instead.
-> **If you supply a `payload_json` form value, all fields except for `file` fields will be ignored in the form data**.
+> Starting with API v10, the `attachments` array must contain all attachments that should be present after edit, including **retained and new** attachments provided in the request body.
 
 > info
 > All parameters to this endpoint are optional and nullable.
@@ -1057,11 +993,13 @@ Returns a [message](#DOCS_RESOURCES_CHANNEL/message-object) object. Fires a [Mes
 | embeds               | array of [embed](#DOCS_RESOURCES_CHANNEL/embed-object) objects                       | embedded `rich` content (up to 6000 characters)                                                                                         |
 | embed *(deprecated)* | [embed](#DOCS_RESOURCES_CHANNEL/embed-object) object                                 | embedded `rich` content, deprecated in favor of `embeds`                                                                                |
 | flags                | integer                                                                              | edit the [flags](#DOCS_RESOURCES_CHANNEL/message-object-message-flags) of a message (only `SUPPRESS_EMBEDS` can currently be set/unset) |
-| file                 | file contents                                                                        | the contents of the file being sent/edited                                                                                              |
-| payload_json         | string                                                                               | JSON encoded body of non-file params (multipart/form-data only)                                                                         |
 | allowed_mentions     | [allowed mention object](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object)            | allowed mentions for the message                                                                                                        |
-| attachments          | array of [attachment](#DOCS_RESOURCES_CHANNEL/attachment-object) objects             | attached files to keep                                                                                                                  |
 | components           | array of [message component](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-object) | the components to include with the message                                                                                              |
+| files[n] \*          | file contents                                                                        | the contents of the file being sent/edited                                                                                              |
+| payload_json \*      | string                                                                               | JSON encoded body of non-file params (multipart/form-data only)                                                                         |
+| attachments \*       | array of [attachment](#DOCS_RESOURCES_CHANNEL/attachment-object) objects             | attached files to keep and possible descriptions for new files                                                                          |
+
+\* See [Uploading Files](#DOCS_REFERENCE/uploading-files) for details.
 
 ## Delete Message % DELETE /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}
 
@@ -1238,6 +1176,10 @@ Removes the current user from a thread. Also requires the thread is not archived
 ## Remove Thread Member % DELETE /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/thread-members/{user.id#DOCS_RESOURCES_USER/user-object}
 
 Removes another member from a thread. Requires the `MANAGE_THREADS` permission, or the creator of the thread if it is a `GUILD_PRIVATE_THREAD`. Also requires the thread is not archived. Returns a 204 empty response on success. Fires a [Thread Members Update](#DOCS_TOPICS_GATEWAY/thread-members-update) Gateway event.
+
+## Get Thread Member % GET /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/thread-members/{user.id#DOCS_RESOURCES_USER/user-object}
+
+Returns a [thread member](#DOCS_RESOURCES_CHANNEL/thread-member-object) object for the specified user if they are a member of the thread, returns a 404 response otherwise.
 
 ## List Thread Members % GET /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/thread-members
 
