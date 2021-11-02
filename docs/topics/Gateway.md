@@ -1069,7 +1069,7 @@ Sent when a guild scheduled event is updated. The inner payload is a [Guild Sche
 
 ### Guild Scheduled Event Delete
 
-Sent when a guild scheduled event is deleted. The inner payload is a [Guild Scheduled Event](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object) object. See [Guild Scheduled Event Status](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled_event-object-guild-scheduled-event-status) to determine how the event was deleted.
+Sent when a guild scheduled event is deleted. The inner payload is a [Guild Scheduled Event](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object) object. See [Guild Scheduled Event Status](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object-guild-scheduled-event-status) to determine how the event was deleted.
 
 ### Guild Scheduled Event User Create
 
