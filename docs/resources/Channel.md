@@ -283,7 +283,7 @@ Represents a message sent in a channel within Discord.
 
 \*\*\*\*\* This field is only returned for messages with a `type` of `19` (REPLY) or `21` (THREAD_STARTER_MESSAGE). If the message is a reply but the `referenced_message` field is not present, the backend did not attempt to fetch the message that was being replied to, so its state is unknown. If the field exists but is null, the referenced message was deleted.
 
-\*\*\*\*\*\* If your bot or app is not approved for message content these fields will either be an empty string or empty array, depending on the data type. **These restrictions will not apply to message objects received via interaction payloads** (Only for verified bots.)
+\*\*\*\*\*\* If the Message Content Intent is not enabled for your bot, these fields will either be an empty string or empty array, depending on the data type. These fields are still always accessible for messages the bot sends, messages the bot receives in DMs or messages in which the bot is mentioned. [Learn more here](https://support-dev.discord.com/hc/en-us/articles/4404772028055).
 
 ###### Message Types
 
