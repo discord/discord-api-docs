@@ -21,12 +21,12 @@ Important note: Not all event fields are documented, in particular, fields prefi
 
 ###### Gateway Payload Structure
 
-| Field | Type                    | Description                                                                     |
-|-------|-------------------------|---------------------------------------------------------------------------------|
-| op    | integer                 | [opcode](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/gateway-opcodes) for the payload |
-| d     | ?mixed (any JSON value) | event data                                                                      |
-| s     | ?integer \*             | sequence number, used for resuming sessions and heartbeats                      |
-| t     | ?string \*              | the event name for this payload                                                 |
+| Field | Type                    | Description                                                                             |
+|-------|-------------------------|-----------------------------------------------------------------------------------------|
+| op    | integer                 | [opcode](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/gateway-gateway-opcodes) for the payload |
+| d     | ?mixed (any JSON value) | event data                                                                              |
+| s     | ?integer \*             | sequence number, used for resuming sessions and heartbeats                              |
+| t     | ?string \*              | the event name for this payload                                                         |
 
 \* `s` and `t` are `null` when `op` is not `0` (Gateway Dispatch Opcode).
 
@@ -203,7 +203,7 @@ If successful, the gateway will respond by replaying all missed events in order,
 
 ### Disconnections
 
-If the gateway ever issues a disconnect to your client, it will provide a close event code that you can use to properly handle the disconnection. A full list of these close codes can be found in the [Response Codes](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/gateway-close-event-codes) documentation.
+If the gateway ever issues a disconnect to your client, it will provide a close event code that you can use to properly handle the disconnection. A full list of these close codes can be found in the [Response Codes](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/gateway-gateway-close-event-codes) documentation.
 
 When you close the connection to the gateway with the close code 1000 or 1001, your session will be invalidated and your bot will appear offline. If you simply close the TCP connection, or use a different close code, the bot session will remain active and timeout after a few minutes. This can be useful for a reconnect, which will resume the previous session.
 
@@ -316,13 +316,16 @@ Any [events not defined in an intent](#DOCS_TOPICS_GATEWAY/commands-and-events-g
 
 [Thread Members Update](#DOCS_TOPICS_GATEWAY/thread-members-update) by default only includes if the current user was added to or removed from a thread.  To receive these updates for other users, request the `GUILD_MEMBERS` [Gateway Intent](#DOCS_TOPICS_GATEWAY/gateway-intents).
 
-If you specify an `intent` value in your `IDENTIFY` payload that is *invalid*, the socket will close with a [`4013` close code](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/gateway-gateway-close-event-codes). An invalid intent is one that is not meaningful and not documented above.
+If you specify an `intents` value in your `IDENTIFY` payload that is *invalid*, the socket will close with a [`4013` close code](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/gateway-gateway-close-event-codes). An invalid intent is one that is not meaningful and not documented above.
 
-If you specify an `intent` value in your `IDENTIFY` payload that is *disallowed*, the socket will close with a [`4014` close code](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/gateway-gateway-close-event-codes). A disallowed intent is a privileged intent that has not been approved for your bot.
+If you specify an `intents` value in your `IDENTIFY` payload that is *disallowed*, the socket will close with a [`4014` close code](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/gateway-gateway-close-event-codes). A disallowed intent is a privileged intent that has not been approved for your bot.
 
 Bots in under 100 guilds can enable these intents in the bot tab of the developer dashboard. Verified bots can get access to privileged intents when getting verified, or by writing into support after getting verified.
 
 ### Privileged Intents
+
+> warn
+> Message content will become a privileged intent in 2022. [Learn more here](https://support-dev.discord.com/hc/en-us/articles/4404772028055).
 
 Some intents are defined as "Privileged" due to the sensitive nature of the data. Those intents are:
 
@@ -476,9 +479,6 @@ Events are payloads sent over the socket to a client that correspond to events i
 | [Resumed](#DOCS_TOPICS_GATEWAY/resumed)                                             | response to [Resume](#DOCS_TOPICS_GATEWAY/resume)                                                                                |
 | [Reconnect](#DOCS_TOPICS_GATEWAY/reconnect)                                         | server is going away, client should reconnect to gateway and resume                                                              |
 | [Invalid Session](#DOCS_TOPICS_GATEWAY/invalid-session)                             | failure response to [Identify](#DOCS_TOPICS_GATEWAY/identify) or [Resume](#DOCS_TOPICS_GATEWAY/resume) or invalid active session |
-| [Application Command Create](#DOCS_TOPICS_GATEWAY/application-command-create)       | new [Slash Command](#DOCS_INTERACTIONS_SLASH_COMMANDS/) was created                                                              |
-| [Application Command Update](#DOCS_TOPICS_GATEWAY/application-command-update)       | [Slash Command](#DOCS_INTERACTIONS_SLASH_COMMANDS/) was updated                                                                  |
-| [Application Command Delete](#DOCS_TOPICS_GATEWAY/application-command-delete)       | [Slash Command](#DOCS_INTERACTIONS_SLASH_COMMANDS/) was deleted                                                                  |
 | [Channel Create](#DOCS_TOPICS_GATEWAY/channel-create)                               | new guild channel created                                                                                                        |
 | [Channel Update](#DOCS_TOPICS_GATEWAY/channel-update)                               | channel was updated                                                                                                              |
 | [Channel Delete](#DOCS_TOPICS_GATEWAY/channel-delete)                               | channel was deleted                                                                                                              |
@@ -512,7 +512,7 @@ Events are payloads sent over the socket to a client that correspond to events i
 | [Integration Create](#DOCS_TOPICS_GATEWAY/integration-create)                       | guild integration was created                                                                                                    |
 | [Integration Update](#DOCS_TOPICS_GATEWAY/integration-update)                       | guild integration was updated                                                                                                    |
 | [Integration Delete](#DOCS_TOPICS_GATEWAY/integration-delete)                       | guild integration was deleted                                                                                                    |
-| [Interaction Create](#DOCS_TOPICS_GATEWAY/interaction-create)                       | user used an interaction, such as a [Slash Command](#DOCS_INTERACTIONS_SLASH_COMMANDS/)                                          |
+| [Interaction Create](#DOCS_TOPICS_GATEWAY/interaction-create)                       | user used an interaction, such as an [Application Command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/)                             |
 | [Invite Create](#DOCS_TOPICS_GATEWAY/invite-create)                                 | invite to a channel was created                                                                                                  |
 | [Invite Delete](#DOCS_TOPICS_GATEWAY/invite-delete)                                 | invite to a channel was deleted                                                                                                  |
 | [Message Create](#DOCS_TOPICS_GATEWAY/message-create)                               | message was created                                                                                                              |
@@ -706,7 +706,7 @@ Sent by the client to indicate a presence or status update.
 |------------|-------------------------------------------------------------------|---------------------------------------------------------------------------------------------|
 | since      | ?integer                                                          | unix time (in milliseconds) of when the client went idle, or null if the client is not idle |
 | activities | array of [activity](#DOCS_TOPICS_GATEWAY/activity-object) objects | the user's activities                                                                       |
-| status     | string                                                            | the user's new [status](#DOCS_TOPICS_GATEWAY/update-status-status-types)                    |
+| status     | string                                                            | the user's new [status](#DOCS_TOPICS_GATEWAY/update-presence-status-types)                  |
 | afk        | boolean                                                           | whether or not the client is afk                                                            |
 
 ###### Status Types
@@ -869,7 +869,7 @@ Sent when anyone is added to or removed from a thread.  If the current user does
 | added_members?\*     | array of [thread member](#DOCS_RESOURCES_CHANNEL/thread-member-object) objects | the users who were added to the thread                          |
 | removed_member_ids?  | array of snowflakes                                                            | the id of the users who were removed from the thread            |
 
-\* In this gateway event, the thread member objects will also include the [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) and [presence](#DOCS_TOPICS_GATEWAY/presence) objects for each added thread member.
+\* In this gateway event, the thread member objects will also include the [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) and nullable [presence](#DOCS_TOPICS_GATEWAY/presence) objects for each added thread member.
 
 #### Channel Pins Update
 
@@ -1002,7 +1002,8 @@ Sent when a guild member is updated. This will also fire when the user object of
 | roles          | array of snowflakes                               | user role ids                                                                                                                          |
 | user           | a [user](#DOCS_RESOURCES_USER/user-object) object | the user                                                                                                                               |
 | nick?          | ?string                                           | nickname of the user in the guild                                                                                                      |
-| joined_at      | ?ISO8601 timestamp                                 | when the user joined the guild                                                                                                         |
+| avatar         | ?string                                           | the member's [guild avatar hash](#DOCS_REFERENCE/image-formatting)
+| joined_at      | ?ISO8601 timestamp                                | when the user joined the guild                                                                                                         |
 | premium_since? | ?ISO8601 timestamp                                | when the user starting [boosting](https://support.discord.com/hc/en-us/articles/360028038352-Server-Boosting-) the guild               |
 | deaf?          | boolean                                           | whether the user is deafened in voice channels                                                                                         |
 | mute?          | boolean                                           | whether the user is muted in voice channels                                                                                            |
@@ -1364,14 +1365,17 @@ Active sessions are indicated with an "online", "idle", or "dnd" string per plat
 
 ###### Activity Flags
 
-| Name         | Value  |
-|--------------|--------|
-| INSTANCE     | 1 << 0 |
-| JOIN         | 1 << 1 |
-| SPECTATE     | 1 << 2 |
-| JOIN_REQUEST | 1 << 3 |
-| SYNC         | 1 << 4 |
-| PLAY         | 1 << 5 |
+| Name                        | Value  |
+|-----------------------------|--------|
+| INSTANCE                    | 1 << 0 |
+| JOIN                        | 1 << 1 |
+| SPECTATE                    | 1 << 2 |
+| JOIN_REQUEST                | 1 << 3 |
+| SYNC                        | 1 << 4 |
+| PLAY                        | 1 << 5 |
+| PARTY_PRIVACY_FRIENDS       | 1 << 6 |
+| PARTY_PRIVACY_VOICE_CHANNEL | 1 << 7 |
+| EMBEDDED                    | 1 << 8 |
 
 ###### Activity Buttons
 
@@ -1489,31 +1493,11 @@ Sent when a guild channel's webhook is created, updated, or deleted.
 | guild_id   | snowflake | id of the guild   |
 | channel_id | snowflake | id of the channel |
 
-### Commands
-
-#### Application Command Create
-
-Sent when a new [Slash Command](#DOCS_INTERACTIONS_SLASH_COMMANDS/) is created, relevant to the current user. The inner payload is an [ApplicationCommand](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object-application-command-structure) object, with an optional extra `guild_id` key.
-
-#### Application Command Update
-
-Sent when a [Slash Command](#DOCS_INTERACTIONS_SLASH_COMMANDS/) relevant to the current user is updated. The inner payload is an [ApplicationCommand](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object-application-command-structure) object, with an optional extra `guild_id` key.
-
-#### Application Command Delete
-
-Sent when a [Slash Command](#DOCS_INTERACTIONS_SLASH_COMMANDS/) relevant to the current user is deleted. The inner payload is an [ApplicationCommand](#DOCS_INTERACTIONS_SLASH_COMMANDS/application-command-object-application-command-structure) object, with an optional extra `guild_id` key.
-
-###### Application Command Extra Fields
-
-| Field     | Type      | Description                       |
-|-----------|-----------|-----------------------------------|
-| guild_id? | snowflake | id of the guild the command is in |
-
 ### Interactions
 
 #### Interaction Create
 
-Sent when a user in a guild uses a [Slash Command](#DOCS_INTERACTIONS_SLASH_COMMANDS/). Inner payload is an [Interaction](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-object-interaction-structure).
+Sent when a user in a guild uses an [Application Command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/). Inner payload is an [Interaction](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-interaction-structure).
 
 ### Stage Instances
 

@@ -25,7 +25,7 @@ All gateway events in Discord are tagged with an opcode that denotes the payload
 | Code | Description           | Explanation                                                                                                                                                                                                                      |
 |------|-----------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | 4000 | Unknown error         | We're not sure what went wrong. Try reconnecting?                                                                                                                                                                                |
-| 4001 | Unknown opcode        | You sent an invalid [Gateway opcode](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/gateway-opcodes) or an invalid payload for an opcode. Don't do that!                                                                                  |
+| 4001 | Unknown opcode        | You sent an invalid [Gateway opcode](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/gateway-gateway-opcodes) or an invalid payload for an opcode. Don't do that!                                                                          |
 | 4002 | Decode error          | You sent an invalid [payload](#DOCS_TOPICS_GATEWAY/sending-payloads) to us. Don't do that!                                                                                                                                       |
 | 4003 | Not authenticated     | You sent us a payload prior to [identifying](#DOCS_TOPICS_GATEWAY/identify).                                                                                                                                                     |
 | 4004 | Authentication failed | The account token sent with your [identify payload](#DOCS_TOPICS_GATEWAY/identify) is incorrect.                                                                                                                                 |
@@ -63,7 +63,7 @@ Our voice gateways have their own set of opcodes and close codes.
 
 | Code | Description              | Explanation                                                                                                                                      |
 |------|--------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------|
-| 4001 | Unknown opcode           | You sent an invalid [opcode](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice-opcodes).                                                               |
+| 4001 | Unknown opcode           | You sent an invalid [opcode](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice-voice-opcodes).                                                         |
 | 4002 | Failed to decode payload | You sent a invalid payload in your [identifying](#DOCS_TOPICS_GATEWAY/identify) to the Gateway.                                                  |
 | 4003 | Not authenticated        | You sent a payload before [identifying](#DOCS_TOPICS_GATEWAY/identify) with the Gateway.                                                         |
 | 4004 | Authentication failed    | The token you sent in your [identify](#DOCS_TOPICS_GATEWAY/identify) payload is incorrect.                                                       |
@@ -99,7 +99,7 @@ Our API will return semantically valid HTTP response codes based on the success 
 
 ## JSON
 
-Along with the HTTP error code, our API can also return more detailed error codes through a `code` key in the JSON error response. The response will also contain a `message` key containing a more friendly error string.
+Along with the HTTP error code, our API can also return more detailed error codes through a `code` key in the JSON error response. The response will also contain a `message` key containing a more friendly error string. Some of these errors may include additional details in the form of [Error Messages](#DOCS_REFERENCE/error-messages) provided by an `errors` object.
 
 ###### JSON Error Codes
 
@@ -171,10 +171,12 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 30019  | Maximum number of server members reached                                                                                      |
 | 30030  | Maximum number of server categories has been reached (5)                                                                      |
 | 30031  | Guild already has a template                                                                                                  |
-| 30033  | Max number of thread participants has been reached                                                                            |
+| 30033  | Max number of thread participants has been reached (1000)                                                                     |
 | 30035  | Maximum number of bans for non-guild members have been exceeded                                                               |
 | 30037  | Maximum number of bans fetches has been reached                                                                               |
 | 30039  | Maximum number of stickers reached                                                                                            |
+| 30040  | Maximum number of prune requests has been reached. Try again later                                                            |
+| 30042  | Maximum number of guild widget settings updates has been reached. Try again later                                             |
 | 40001  | Unauthorized. Provide a valid token and try again                                                                             |
 | 40002  | You need to verify your account in order to perform this action                                                               |
 | 40003  | You are opening direct messages too fast                                                                                      |
@@ -208,7 +210,7 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 50026  | Missing required OAuth2 scope                                                                                                 |
 | 50027  | Invalid webhook token provided                                                                                                |
 | 50028  | Invalid role                                                                                                                  |
-| 50033  | "Invalid Recipient(s)"                                                                                                        |
+| 50033  | Invalid Recipient(s)                                                                                                          |
 | 50034  | A message provided was too old to bulk delete                                                                                 |
 | 50035  | Invalid form body (returned for both `application/json` and `multipart/form-data` bodies), or invalid `Content-Type` provided |
 | 50036  | An invite was accepted to a guild the application's bot is not in                                                             |
@@ -224,11 +226,13 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 50085  | `before` value is earlier than the thread creation date                                                                       |
 | 50095  | This server is not available in your location                                                                                 |
 | 50097  | This server needs monetization enabled in order to perform this action                                                        |
+| 50101  | This server needs more boosts to perform this action                                                                          |
 | 60003  | Two factor is required for this operation                                                                                     |
 | 80004  | No users with DiscordTag exist                                                                                                |
 | 90001  | Reaction was blocked                                                                                                          |
 | 130000 | API resource is currently overloaded. Try again a little later                                                                |
 | 150006 | The Stage is already open                                                                                                     |
+| 160002 | Cannot reply without permission to read message history                                                                       |
 | 160004 | A thread has already been created for this message                                                                            |
 | 160005 | Thread is locked                                                                                                              |
 | 160006 | Maximum number of active threads reached                                                                                      |
