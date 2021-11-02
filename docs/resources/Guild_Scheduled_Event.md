@@ -11,6 +11,7 @@ A representation of an scheduled event in a [Guild](#DOCS_RESOURCES_GUILD/).
 | id                   | snowflake                                                                                                  | the id of the event                                                                       |
 | guild_id             | snowflake                                                                                                  | the guild id of the event                                                                 |
 | channel_id           | ?snowflake                                                                                                 | the channel id of the event                                                               |
+| creator_id           | snowflake                                                                                                  | the id of the user that created the event                                                 |
 | name                 | string                                                                                                     | the name of the event                                                                     |
 | description?         | string                                                                                                     | the description of the event                                                              |
 | image                | ?string                                                                                                    | the image of the event                                                                    |
@@ -22,6 +23,7 @@ A representation of an scheduled event in a [Guild](#DOCS_RESOURCES_GUILD/).
 | entity_id            | ?snowflake                                                                                                 | entity id                                                                                 |
 | entity_metadata      | [entity metadata](#DOCS_RESOURCES_GUILD_EVENT/guild-event-object-guild-event-entity-metadata)              | metadata for the event                                                                    |
 | sku_ids              | array of snowflakes                                                                                        | sku ids                                                                                   |
+| creator?             | [user](#DOCS_RESOURCES_USER/user-object) object                                                            | the creator of the event                                                                  |
 | skus                 | array                                                                                                      | skus                                                                                      |
 | user_count?          | integer                                                                                                    | users subscribed to the event                                                             |
 
