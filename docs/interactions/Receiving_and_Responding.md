@@ -274,20 +274,29 @@ Every Interaction is sent with the following headers:
 Using your favorite security library, you **must validate the request each time you receive an [interaction](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object)**. If the signature fails validation, respond with a `401` error code. Here's a couple code examples:
 
 ```js
-const nacl = require('tweetnacl');
+const crypto = require('crypto');
 
 // Your public key can be found on your application in the Developer Portal
 const PUBLIC_KEY = 'APPLICATION_PUBLIC_KEY';
+
+const IMPORTED_PUBLIC_KEY=await crypto.webcrypto.subtle.importKey(
+  "raw",
+  Buffer.from(process.env.PUBLIC_KEY, "hex"),
+  { name: "NODE-ED25519", namedCurve: "NODE-ED25519", public: true },
+  false,
+  ["verify"]) 
 
 const signature = req.get('X-Signature-Ed25519');
 const timestamp = req.get('X-Signature-Timestamp');
 const body = req.rawBody; // rawBody is expected to be a string, not raw bytes
 
-const isVerified = nacl.sign.detached.verify(
-  Buffer.from(timestamp + body),
-  Buffer.from(signature, 'hex'),
-  Buffer.from(PUBLIC_KEY, 'hex')
-);
+
+const isVerified = await crypto.webcrypto.subtle.verify(
+            "NODE-ED25519",
+            IMPORTED_PUBLIC_KEY,
+            Buffer.from(signature, "hex"),
+            Buffer.from(timestamp + body)
+        );
 
 if (!isVerified) {
   return res.status(401).end('invalid request signature');
