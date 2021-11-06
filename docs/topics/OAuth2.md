@@ -375,7 +375,7 @@ Any user that wishes to add your webhook to their channel will need to go throug
 
 ## Get Current Bot Application Information % GET /oauth2/applications/@me
 
-Returns the bot's [application](#DOCS_RESOURCES_APPLICATION/application-object) object with `flags`.
+Returns the bot's [application](#DOCS_RESOURCES_APPLICATION/application-object) object.
 
 ## Get Current Authorization Information % GET /oauth2/@me
 
