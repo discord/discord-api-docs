@@ -281,7 +281,7 @@ const PUBLIC_KEY = 'APPLICATION_PUBLIC_KEY';
 
 const IMPORTED_PUBLIC_KEY=await crypto.webcrypto.subtle.importKey(
   "raw",
-  Buffer.from(process.env.PUBLIC_KEY, "hex"),
+  Buffer.from(PUBLIC_KEY, "hex"),
   { name: "NODE-ED25519", namedCurve: "NODE-ED25519", public: true },
   false,
   ["verify"]) 
