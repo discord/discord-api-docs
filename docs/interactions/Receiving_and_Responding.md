@@ -231,6 +231,8 @@ If you are receiving Interactions over the gateway, you will **also need to resp
 To respond to a gateway Interaction, make a `POST` request like this. `interaction_id` is the unique id of that individual Interaction from the received payload. `interaction_token` is the unique token for that interaction from the received payload. **This endpoint is only valid for Interactions received over the gateway. Otherwise, respond to the `POST` request to issue an initial response.**
 
 ```py
+import requests
+
 url = "https://discord.com/api/v8/interactions/<interaction_id>/<interaction_token>/callback"
 
 json = {
