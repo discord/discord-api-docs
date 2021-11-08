@@ -194,8 +194,8 @@ You can specify scopes with the `scope` parameter, which is a list of [OAuth2 sc
 ###### Client Credentials Token Request Example
 
 ```python
-import requests
 import base64
+import requests
 
 API_ENDPOINT = 'https://discord.com/api/v8'
 CLIENT_ID = '332269999912132097'
