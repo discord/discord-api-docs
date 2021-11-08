@@ -86,7 +86,7 @@ Note that the normal rate-limiting headers will be sent in this response. The ra
 }
 ```
 
-###### Example Global Rate Limit Response
+###### Example Exceeded Global Rate Limit Response
 
 ```
 < HTTP/1.1 429 TOO MANY REQUESTS
