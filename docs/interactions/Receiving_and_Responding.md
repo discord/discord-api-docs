@@ -292,11 +292,11 @@ const body = req.rawBody; // rawBody is expected to be a string, not raw bytes
 
 
 const isVerified = await crypto.webcrypto.subtle.verify(
-            "NODE-ED25519",
-            IMPORTED_PUBLIC_KEY,
-            Buffer.from(signature, "hex"),
-            Buffer.from(timestamp + body)
-        );
+  "NODE-ED25519",
+  IMPORTED_PUBLIC_KEY,
+  Buffer.from(signature, "hex"),
+  Buffer.from(timestamp + body)
+);
 
 if (!isVerified) {
   return res.status(401).end('invalid request signature');
