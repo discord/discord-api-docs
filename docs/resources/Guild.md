@@ -278,18 +278,19 @@ A partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object. Represents an Offl
 
 ###### Guild Member Structure
 
-| Field          | Type                                            | Description                                                                                                                            |
-| -------------- | ----------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
-| user?          | [user](#DOCS_RESOURCES_USER/user-object) object | the user this guild member represents                                                                                                  |
-| nick?          | ?string                                         | this users guild nickname                                                                                                              |
-| avatar?        | ?string                                         | the member's [guild avatar hash](#DOCS_REFERENCE/image-formatting)                                                                     |
-| roles          | array of snowflakes                             | array of [role](#DOCS_TOPICS_PERMISSIONS/role-object) object ids                                                                       |
-| joined_at      | ISO8601 timestamp                               | when the user joined the guild                                                                                                         |
-| premium_since? | ?ISO8601 timestamp                              | when the user started [boosting](https://support.discord.com/hc/en-us/articles/360028038352-Server-Boosting-) the guild                |
-| deaf           | boolean                                         | whether the user is deafened in voice channels                                                                                         |
-| mute           | boolean                                         | whether the user is muted in voice channels                                                                                            |
-| pending?       | boolean                                         | whether the user has not yet passed the guild's [Membership Screening](#DOCS_RESOURCES_GUILD/membership-screening-object) requirements |
-| permissions?   | string                                          | total permissions of the member in the channel, including overwrites, returned when in the interaction object                          |
+| Field                         | Type                                            | Description                                                                                                                              |
+| ----------------------------- | ----------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| user?                         | [user](#DOCS_RESOURCES_USER/user-object) object | the user this guild member represents                                                                                                    |
+| nick?                         | ?string                                         | this users guild nickname                                                                                                                |
+| avatar?                       | ?string                                         | the member's [guild avatar hash](#DOCS_REFERENCE/image-formatting)                                                                       |
+| roles                         | array of snowflakes                             | array of [role](#DOCS_TOPICS_PERMISSIONS/role-object) object ids                                                                         |
+| joined_at                     | ISO8601 timestamp                               | when the user joined the guild                                                                                                           |
+| premium_since?                | ?ISO8601 timestamp                              | when the user started [boosting](https://support.discord.com/hc/en-us/articles/360028038352-Server-Boosting-) the guild                  |
+| deaf                          | boolean                                         | whether the user is deafened in voice channels                                                                                           |
+| mute                          | boolean                                         | whether the user is muted in voice channels                                                                                              |
+| pending?                      | boolean                                         | whether the user has not yet passed the guild's [Membership Screening](#DOCS_RESOURCES_GUILD/membership-screening-object) requirements   |
+| permissions?                  | string                                          | total permissions of the member in the channel, including overwrites, returned when in the interaction object                            |
+| communication_disabled_until? | ?ISO8601 timestamp                              | till when the user is time-outed. This will leave the user completely unable to interact with the server till this time has been reached |
 
 > info
 > The field `user` won't be included in the member object attached to `MESSAGE_CREATE` and `MESSAGE_UPDATE` gateway events.
