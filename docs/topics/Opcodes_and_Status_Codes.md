@@ -244,6 +244,7 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 170005 | Lottie animation maximum dimensions exceeded                                                                                  |
 | 170006 | Sticker frame rate is either too small or too large                                                                           |
 | 170007 | Sticker animation duration exceeds maximum of 5 seconds                                                                       |
+| 180001 | Exactly one guild_id query parameter is required                                                                              |
 
 ###### Example JSON Error Response
 
