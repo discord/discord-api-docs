@@ -290,7 +290,7 @@ A partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object. Represents an Offl
 | mute                          | boolean                                         | whether the user is muted in voice channels                                                                                              |
 | pending?                      | boolean                                         | whether the user has not yet passed the guild's [Membership Screening](#DOCS_RESOURCES_GUILD/membership-screening-object) requirements   |
 | permissions?                  | string                                          | total permissions of the member in the channel, including overwrites, returned when in the interaction object                            |
-| communication_disabled_until? | ?ISO8601 timestamp                              | timestamp of when the time out will be removed; until then, they cannot interact with the server |
+| communication_disabled_until? | ?ISO8601 timestamp                              | timestamp of when the time out will be removed; until then, they cannot interact with the guild |
 
 > info
 > The field `user` won't be included in the member object attached to `MESSAGE_CREATE` and `MESSAGE_UPDATE` gateway events.
