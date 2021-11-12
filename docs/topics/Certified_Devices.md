@@ -6,7 +6,7 @@ Baked into Discord is the ability for hardware manufacturers to tell us a little
 
 I'm glad you asked!
 
-1. [Create an application](https://discord.com/developers/applications/me) for your hardware vendor—save the Client ID!
+1. [Create an application](#APPLICATIONS) for your hardware vendor—save the Client ID!
 2. Talk to Discord via one simple HTTP or WebSocket call
 3. Send us a [`SET_CERTIFIED_DEVICES`](#DOCS_TOPICS_RPC/setcertifieddevices) WebSocket payload or equivalent HTTP POST whenever the state of the device changes
 
