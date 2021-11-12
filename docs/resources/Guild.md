@@ -278,19 +278,19 @@ A partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object. Represents an Offl
 
 ###### Guild Member Structure
 
-| Field                         | Type                                            | Description                                                                                                                              |
-| ----------------------------- | ----------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
-| user?                         | [user](#DOCS_RESOURCES_USER/user-object) object | the user this guild member represents                                                                                                    |
-| nick?                         | ?string                                         | this users guild nickname                                                                                                                |
-| avatar?                       | ?string                                         | the member's [guild avatar hash](#DOCS_REFERENCE/image-formatting)                                                                       |
-| roles                         | array of snowflakes                             | array of [role](#DOCS_TOPICS_PERMISSIONS/role-object) object ids                                                                         |
-| joined_at                     | ISO8601 timestamp                               | when the user joined the guild                                                                                                           |
-| premium_since?                | ?ISO8601 timestamp                              | when the user started [boosting](https://support.discord.com/hc/en-us/articles/360028038352-Server-Boosting-) the guild                  |
-| deaf                          | boolean                                         | whether the user is deafened in voice channels                                                                                           |
-| mute                          | boolean                                         | whether the user is muted in voice channels                                                                                              |
-| pending?                      | boolean                                         | whether the user has not yet passed the guild's [Membership Screening](#DOCS_RESOURCES_GUILD/membership-screening-object) requirements   |
-| permissions?                  | string                                          | total permissions of the member in the channel, including overwrites, returned when in the interaction object                            |
-| communication_disabled_until? | ?ISO8601 timestamp                              | timestamp of when the time out will be removed; until then, they cannot interact with the guild |
+| Field                         | Type                                            | Description                                                                                                                            |
+| ----------------------------- | ----------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
+| user?                         | [user](#DOCS_RESOURCES_USER/user-object) object | the user this guild member represents                                                                                                  |
+| nick?                         | ?string                                         | this users guild nickname                                                                                                              |
+| avatar?                       | ?string                                         | the member's [guild avatar hash](#DOCS_REFERENCE/image-formatting)                                                                     |
+| roles                         | array of snowflakes                             | array of [role](#DOCS_TOPICS_PERMISSIONS/role-object) object ids                                                                       |
+| joined_at                     | ISO8601 timestamp                               | when the user joined the guild                                                                                                         |
+| premium_since?                | ?ISO8601 timestamp                              | when the user started [boosting](https://support.discord.com/hc/en-us/articles/360028038352-Server-Boosting-) the guild                |
+| deaf                          | boolean                                         | whether the user is deafened in voice channels                                                                                         |
+| mute                          | boolean                                         | whether the user is muted in voice channels                                                                                            |
+| pending?                      | boolean                                         | whether the user has not yet passed the guild's [Membership Screening](#DOCS_RESOURCES_GUILD/membership-screening-object) requirements |
+| permissions?                  | string                                          | total permissions of the member in the channel, including overwrites, returned when in the interaction object                          |
+| communication_disabled_until? | ?ISO8601 timestamp                              | timestamp of when the time out will be removed; until then, they cannot interact with the guild                                        |
 
 > info
 > The field `user` won't be included in the member object attached to `MESSAGE_CREATE` and `MESSAGE_UPDATE` gateway events.
@@ -775,13 +775,14 @@ Modify attributes of a [guild member](#DOCS_RESOURCES_GUILD/guild-member-object)
 
 ###### JSON Params
 
-| Field      | Type                | Description                                                                                            | Permission       |
-| ---------- | ------------------- | ------------------------------------------------------------------------------------------------------ | ---------------- |
-| nick       | string              | value to set users nickname to                                                                         | MANAGE_NICKNAMES |
-| roles      | array of snowflakes | array of role ids the member is assigned                                                               | MANAGE_ROLES     |
-| mute       | boolean             | whether the user is muted in voice channels. Will throw a 400 if the user is not in a voice channel    | MUTE_MEMBERS     |
-| deaf       | boolean             | whether the user is deafened in voice channels. Will throw a 400 if the user is not in a voice channel | DEAFEN_MEMBERS   |
-| channel_id | snowflake           | id of channel to move user to (if they are connected to voice)                                         | MOVE_MEMBERS     |
+| Field                        | Type                | Description                                                                                            | Permission       |
+| ---------------------------- | ------------------- | ------------------------------------------------------------------------------------------------------ | ---------------- |
+| nick                         | string              | value to set users nickname to                                                                         | MANAGE_NICKNAMES |
+| roles                        | array of snowflakes | array of role ids the member is assigned                                                               | MANAGE_ROLES     |
+| mute                         | boolean             | whether the user is muted in voice channels. Will throw a 400 if the user is not in a voice channel    | MUTE_MEMBERS     |
+| deaf                         | boolean             | whether the user is deafened in voice channels. Will throw a 400 if the user is not in a voice channel | DEAFEN_MEMBERS   |
+| channel_id                   | snowflake           | id of channel to move user to (if they are connected to voice)                                         | MOVE_MEMBERS     |
+| communication_disabled_until | ?ISO8601 timestamp  | how long the user can not interact with the guild; set to null to remove timeout                       | KICK_MEMBERS     |
 
 ## Modify Current Member % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/members/@me
 
