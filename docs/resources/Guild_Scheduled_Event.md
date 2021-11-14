@@ -41,7 +41,7 @@ A representation of a scheduled event in a [guild](#DOCS_RESOURCES_GUILD/).
 | NONE           | 0     |
 | STAGE_INSTANCE | 1     |
 | VOICE          | 2     |
-| LOCATION       | 3     |
+| EXTERNAL       | 3     |
 
 ###### Guild Scheduled Event Status
 
