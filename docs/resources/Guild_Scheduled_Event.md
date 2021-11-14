@@ -21,7 +21,7 @@ A representation of a scheduled event in a [guild](#DOCS_RESOURCES_GUILD/).
 | status               | [event status](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object-guild-scheduled-event-status)                | the status of the scheduled event                                                                   |
 | entity_type          | [scheduled entity type](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object-guild-scheduled-event-entity-types) | the entity type of the scheduled event                                                              |
 | entity_id            | ?snowflake                                                                                                                     | entity id                                                                                           |
-| entity_metadata      | [entity metadata](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object-guild-scheduled-event-entity-metadata)    | the entity metadata for the scheduled event                                                         |
+| entity_metadata      | ?[entity metadata](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object-guild-scheduled-event-entity-metadata)   | the entity metadata for the scheduled event                                                         |
 | sku_ids              | array of snowflakes                                                                                                            | sku ids                                                                                             |
 | creator?             | [user](#DOCS_RESOURCES_USER/user-object) object                                                                                | the creator of the scheduled event                                                                  |
 | skus                 | array of SKUs                                                                                                                  | skus                                                                                                |
@@ -59,7 +59,7 @@ A representation of a scheduled event in a [guild](#DOCS_RESOURCES_GUILD/).
 | speaker_ids? | array of snowflakes | the speakers of the stage channel |
 | location?    | string              | location of the event             |
 
-## List Scheduled Events for Guild % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object}/scheduled-events
+## List Scheduled Events for Guild % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/scheduled-events
 
 Returns a list of [guild scheduled event](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object) objects for the given guild.
 
@@ -69,7 +69,7 @@ Returns a list of [guild scheduled event](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/
 | ---------------- | ------- | ----------------------------- |
 | with_user_count? | boolean | users subscribed to the event |
 
-## Create Guild Scheduled Event % POST /guilds/{guild.id#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object}/scheduled-events
+## Create Guild Scheduled Event % POST /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/scheduled-events
 
 Create a guild scheduled event in the guild. Returns a [guild scheduled event](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object) object on success.
 
@@ -82,14 +82,15 @@ Create a guild scheduled event in the guild. Returns a [guild scheduled event](#
 | name                 | string                                                                                                                      | the name of the scheduled event                                                 |
 | privacy_level        | [privacy level](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object-guild-scheduled-event-privacy-level)     | the privacy level of the scheduled event                                        |
 | scheduled_start_time | ISO8601 timestamp                                                                                                           | the time to schedule the scheduled event                                        |
+| scheduled_end_time?  | ISO8601 timestamp                                                                                                           | the time when the scheduled event is scheduled to end                           |
 | description?         | string                                                                                                                      | the description of the scheduled event                                          |
-| entity_type          | [event entity type](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object-guild-scheduled-event-entity-types)  | the entity type of the scheduled event                                          |
+| entity_type          | [entity type](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object-guild-scheduled-event-entity-types)        | the entity type of the scheduled event                                          |
 
-## Get Guild Scheduled Event % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object}/scheduled-events/{guild_scheduled_event.id}
+## Get Guild Scheduled Event % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/scheduled-events/{guild_scheduled_event.id#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object}
 
 Get a guild scheduled event. Returns a [guild scheduled event](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object) object on success.
 
-## Modify Guild Scheduled Event % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object}/scheduled-events/{guild_scheduled_event.id}
+## Modify Guild Scheduled Event % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/scheduled-events/{guild_scheduled_event.id#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object}
 
 Modify a guild scheduled event. Returns the modified [guild scheduled event](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object) object on success.
 
@@ -105,14 +106,15 @@ Modify a guild scheduled event. Returns the modified [guild scheduled event](#DO
 | name                 | string                                                                                                                      | the name of the scheduled event                                                 |
 | privacy_level        | [privacy level](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object-guild-scheduled-event-privacy-level)     | the privacy level of the scheduled event                                        |
 | scheduled_start_time | ISO8601 timestamp                                                                                                           | the time to schedule the scheduled event                                        |
+| scheduled_end_time   | ISO8601 timestamp                                                                                                           | the time when the scheduled event is scheduled to end                           |
 | description          | string                                                                                                                      | the description of the scheduled event                                          |
 | entity_type          | [event entity type](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object-guild-scheduled-event-entity-types)  | the entity type of the scheduled event                                          |
 
-## Delete Guild Scheduled Event % DELETE /guilds/{guild.id#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object}/scheduled-events/{guild_scheduled_event.id}
+## Delete Guild Scheduled Event % DELETE /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/scheduled-events/{guild_scheduled_event.id#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object}
 
 Delete a guild scheduled event. Returns a `204` on success.
 
-## Get Guild Scheduled Event Users % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object}/scheduled-events/{guild_scheduled_event.id}/users
+## Get Guild Scheduled Event Users % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/scheduled-events/{guild_scheduled_event.id#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object}/users
 
 Get a list of users RSVP'd to the guild scheduled event. Returns a list of [user](#DOCS_RESOURCES_USER/user-object) objects on success.
 
