@@ -504,11 +504,11 @@ Events are payloads sent over the socket to a client that correspond to events i
 | [Guild Role Create](#DOCS_TOPICS_GATEWAY/guild-role-create)                         | guild role was created                                                                                                           |
 | [Guild Role Update](#DOCS_TOPICS_GATEWAY/guild-role-update)                         | guild role was updated                                                                                                           |
 | [Guild Role Delete](#DOCS_TOPICS_GATEWAY/guild-role-delete)                         | guild role was deleted                                                                                                           |
-| [Guild Scheduled Event Create](#DOCS_TOPICS_GATEWAY/guild-scheduled-event-create)    | guild scheduled event was created                                                                                               |
-| [Guild Scheduled Event Update](#DOCS_TOPICS_GATEWAY/guild-scheduled-event-update)    | guild scheduled event was updated                                                                                               |
-| [Guild Scheduled Event Delete](#DOCS_TOPICS_GATEWAY/guild-scheduled-event-delete)    | guild scheduled event was deleted                                                                                               |
-| [Guild Scheduled Event User Create](#DOCS_TOPICS_GATEWAY/guild-scheduled-event-user-create) | user subscribed to a guild scheduled event                                                                               |
-| [Guild Scheduled Event User Delete](#DOCS_TOPICS_GATEWAY/guild-scheduled-event-user-delete) | user unsubscribed from a guild scheduled event                                                                           |
+| [Guild Scheduled Event Create](#DOCS_TOPICS_GATEWAY/guild-scheduled-event-create) | guild scheduled event was created                                                                                               |
+| [Guild Scheduled Event Update](#DOCS_TOPICS_GATEWAY/guild-scheduled-event-update) | guild scheduled event was updated                                                                                               |
+| [Guild Scheduled Event Delete](#DOCS_TOPICS_GATEWAY/guild-scheduled-event-delete) | guild scheduled event was deleted                                                                                               |
+| [Guild Scheduled Event User Add](#DOCS_TOPICS_GATEWAY/guild-scheduled-event-user-add)       | user subscribed to a guild scheduled event                                                                               |
+| [Guild Scheduled Event User Remove](#DOCS_TOPICS_GATEWAY/guild-scheduled-event-user-remove) | user unsubscribed from a guild scheduled event                                                                           |
 | [Integration Create](#DOCS_TOPICS_GATEWAY/integration-create)                       | guild integration was created                                                                                                    |
 | [Integration Update](#DOCS_TOPICS_GATEWAY/integration-update)                       | guild integration was updated                                                                                                    |
 | [Integration Delete](#DOCS_TOPICS_GATEWAY/integration-delete)                       | guild integration was deleted                                                                                                    |
@@ -1061,19 +1061,19 @@ Sent when a guild role is deleted.
 
 ### Guild Scheduled Event Create
 
-Sent when a guild scheduled event is created. The inner payload is a [Guild Scheduled Event](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object) object.
+Sent when a guild scheduled event is created. The inner payload is a [guild scheduled event](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object) object.
 
 ### Guild Scheduled Event Update
 
-Sent when a guild scheduled event is updated. The inner payload is a [Guild Scheduled Event](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object) object.
+Sent when a guild scheduled event is updated. The inner payload is a [guild scheduled event](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object) object.
 
 ### Guild Scheduled Event Delete
 
-Sent when a guild scheduled event is deleted. The inner payload is a [Guild Scheduled Event](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object) object. See [Guild Scheduled Event Status](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object-guild-scheduled-event-status) to determine how the event was deleted.
+Sent when a guild scheduled event is deleted. The inner payload is a [guild scheduled event](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object) object. See [Guild Scheduled Event Status](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object-guild-scheduled-event-status) to determine how the event was deleted.
 
-### Guild Scheduled Event User Create
+### Guild Scheduled Event User Add
 
-Sent when a user has subscribed to a Guild Scheduled Event.
+Sent when a user has subscribed to a guild scheduled event.
 
 ###### Guild Scheduled Event User Create Event Fields
 
@@ -1081,17 +1081,19 @@ Sent when a user has subscribed to a Guild Scheduled Event.
 | ------------------------ | --------- | ------------------------------- |
 | guild_scheduled_event_id | snowflake | id of the guild scheduled event |
 | user_id                  | snowflake | id of the user                  |
+| guild_id                 | snowflake | id of the guild                 |
 
-### Guild Scheduled Event User Delete
+### Guild Scheduled Event User Remove
 
-Sent when a user has unsubscribed from a Guild Scheduled Event.
+Sent when a user has unsubscribed from a guild scheduled event.
 
-###### Guild Scheduled Event User Delete Event Fields
+###### Guild Scheduled Event User Remove Event Fields
 
 | Field                    | Type      | Description                     |
 | ------------------------ | --------- | ------------------------------- |
 | guild_scheduled_event_id | snowflake | id of the guild scheduled event |
 | user_id                  | snowflake | id of the user                  |
+| guild_id                 | snowflake | id of the guild                 |
 
 ### Integrations
 
