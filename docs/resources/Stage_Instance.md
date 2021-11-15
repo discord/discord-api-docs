@@ -8,9 +8,9 @@ A _Stage Instance_ holds information about a live stage.
 
 | Field                 | Type      | Description                                                                                                   |
 | --------------------- | --------- | ------------------------------------------------------------------------------------------------------------- |
-| id                    | snowflake | The id of this Stage instance                                                                                 |
-| guild_id              | snowflake | The guild id of the associated Stage channel                                                                  |
-| channel_id            | snowflake | The id of the associated Stage channel                                                                        |
+| id                    | snowflake | The ID of this Stage instance                                                                                 |
+| guild_id              | snowflake | The guild ID of the associated Stage channel                                                                  |
+| channel_id            | snowflake | The ID of the associated Stage channel                                                                        |
 | topic                 | string    | The topic of the Stage instance (1-120 characters)                                                            |
 | privacy_level         | integer   | The [privacy level](#DOCS_RESOURCES_STAGE_INSTANCE/stage-instance-object-privacy-level) of the Stage instance |
 | discoverable_disabled | boolean   | Whether or not Stage Discovery is disabled                                                                    |
@@ -70,7 +70,7 @@ Requires the user to be a moderator of the Stage channel.
 
 | Field          | Type      | Description                                                                                                                        |
 | -------------- | --------- | ---------------------------------------------------------------------------------------------------------------------------------- |
-| channel_id     | snowflake | The id of the Stage channel                                                                                                        |
+| channel_id     | snowflake | The ID of the Stage channel                                                                                                        |
 | topic          | string    | The topic of the Stage instance (1-120 characters)                                                                                 |
 | privacy_level? | integer   | The [privacy level](#DOCS_RESOURCES_STAGE_INSTANCE/stage-instance-object-privacy-level) of the Stage instance (default GUILD_ONLY) |
 

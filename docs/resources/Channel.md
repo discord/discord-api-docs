@@ -8,25 +8,25 @@ Represents a guild or DM channel within Discord.
 
 | Field                          | Type                                                                       | Description                                                                                                                                                                                     |
 |--------------------------------|----------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| id                             | snowflake                                                                  | the id of this channel                                                                                                                                                                          |
+| id                             | snowflake                                                                  | the ID of this channel                                                                                                                                                                          |
 | type                           | integer                                                                    | the [type of channel](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types)                                                                                                                     |
-| guild_id?                      | snowflake                                                                  | the id of the guild (may be missing for some channel objects received over gateway guild dispatches)                                                                                            |
+| guild_id?                      | snowflake                                                                  | the ID of the guild (may be missing for some channel objects received over gateway guild dispatches)                                                                                            |
 | position?                      | integer                                                                    | sorting position of the channel                                                                                                                                                                 |
 | permission_overwrites?         | array of [overwrite](#DOCS_RESOURCES_CHANNEL/overwrite-object) objects     | explicit permission overwrites for members and roles                                                                                                                                            |
 | name?                          | string                                                                     | the name of the channel (1-100 characters)                                                                                                                                                      |
 | topic?                         | ?string                                                                    | the channel topic (0-1024 characters)                                                                                                                                                           |
 | nsfw?                          | boolean                                                                    | whether the channel is nsfw                                                                                                                                                                     |
-| last_message_id?               | ?snowflake                                                                 | the id of the last message sent in this channel (may not point to an existing or valid message)                                                                                                 |
+| last_message_id?               | ?snowflake                                                                 | the ID of the last message sent in this channel (may not point to an existing or valid message)                                                                                                 |
 | bitrate?                       | integer                                                                    | the bitrate (in bits) of the voice channel                                                                                                                                                      |
 | user_limit?                    | integer                                                                    | the user limit of the voice channel                                                                                                                                                             |
 | rate_limit_per_user?\*         | integer                                                                    | amount of seconds a user has to wait before sending another message (0-21600); bots, as well as users with the permission `manage_messages` or `manage_channel`, are unaffected                 |
 | recipients?                    | array of [user](#DOCS_RESOURCES_USER/user-object) objects                  | the recipients of the DM                                                                                                                                                                        |
 | icon?                          | ?string                                                                    | icon hash                                                                                                                                                                                       |
-| owner_id?                      | snowflake                                                                  | id of the creator of the group DM or thread                                                                                                                                                     |
-| application_id?                | snowflake                                                                  | application id of the group DM creator if it is bot-created                                                                                                                                     |
-| parent_id?                     | ?snowflake                                                                 | for guild channels: id of the parent category for a channel (each parent category can contain up to 50 channels), for threads: id of the text channel this thread was created                   |
+| owner_id?                      | snowflake                                                                  | ID of the creator of the group DM or thread                                                                                                                                                     |
+| application_id?                | snowflake                                                                  | application ID of the group DM creator if it is bot-created                                                                                                                                     |
+| parent_id?                     | ?snowflake                                                                 | for guild channels: ID of the parent category for a channel (each parent category can contain up to 50 channels), for threads: ID of the text channel this thread was created                   |
 | last_pin_timestamp?            | ?ISO8601 timestamp                                                         | when the last pinned message was pinned. This may be `null` in events such as `GUILD_CREATE` when a message is not pinned.                                                                      |
-| rtc_region?                    | ?string                                                                    | [voice region](#DOCS_RESOURCES_VOICE/voice-region-object) id for the voice channel, automatic when set to null                                                                                  |
+| rtc_region?                    | ?string                                                                    | [voice region](#DOCS_RESOURCES_VOICE/voice-region-object) ID for the voice channel, automatic when set to null                                                                                  |
 | video_quality_mode?            | integer                                                                    | the camera [video quality mode](#DOCS_RESOURCES_CHANNEL/channel-object-video-quality-modes) of the voice channel, 1 when not present                                                            |
 | message_count?                 | integer                                                                    | an approximate count of messages in a thread, stops counting at 50                                                                                                                              |
 | member_count?                  | integer                                                                    | an approximate count of users in a thread, stops counting at 50                                                                                                                                 |
@@ -241,9 +241,9 @@ Represents a message sent in a channel within Discord.
 
 | Field                         | Type                                                                                                                                            | Description                                                                                                                                     |
 |-------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------|
-| id                            | snowflake                                                                                                                                       | id of the message                                                                                                                               |
-| channel_id                    | snowflake                                                                                                                                       | id of the channel the message was sent in                                                                                                       |
-| guild_id?                     | snowflake                                                                                                                                       | id of the guild the message was sent in                                                                                                         |
+| id                            | snowflake                                                                                                                                       | ID of the message                                                                                                                               |
+| channel_id                    | snowflake                                                                                                                                       | ID of the channel the message was sent in                                                                                                       |
+| guild_id?                     | snowflake                                                                                                                                       | ID of the guild the message was sent in                                                                                                         |
 | author\*                      | [user](#DOCS_RESOURCES_USER/user-object) object                                                                                                 | the author of this message (not guaranteed to be a valid user, see below)                                                                       |
 | member?\*\*                   | partial [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) object                                                                        | member properties for this message's author                                                                                                     |
 | content                       | string                                                                                                                                          | contents of the message                                                                                                                         |
@@ -339,7 +339,7 @@ Represents a message sent in a channel within Discord.
 | SUPPRESS_EMBEDS        | 1 << 2 | do not include any embeds when serializing this message                           |
 | SOURCE_MESSAGE_DELETED | 1 << 3 | the source message for this crosspost has been deleted (via Channel Following)    |
 | URGENT                 | 1 << 4 | this message came from the urgent message system                                  |
-| HAS_THREAD             | 1 << 5 | this message has an associated thread, with the same id as the message            |
+| HAS_THREAD             | 1 << 5 | this message has an associated thread, with the same ID as the message            |
 | EPHEMERAL              | 1 << 6 | this message is only visible to the user who invoked the Interaction              |
 | LOADING                | 1 << 7 | this message is an Interaction Response and the bot is "thinking"                 |
 
@@ -435,9 +435,9 @@ Represents a message sent in a channel within Discord.
 
 | Field               | Type      | Description                                                                                                                             |
 |---------------------|-----------|-----------------------------------------------------------------------------------------------------------------------------------------|
-| message_id?         | snowflake | id of the originating message                                                                                                           |
-| channel_id? \*      | snowflake | id of the originating message's channel                                                                                                 |
-| guild_id?           | snowflake | id of the originating message's guild                                                                                                   |
+| message_id?         | snowflake | ID of the originating message                                                                                                           |
+| channel_id? \*      | snowflake | ID of the originating message's channel                                                                                                 |
+| guild_id?           | snowflake | ID of the originating message's guild                                                                                                   |
 | fail_if_not_exists? | boolean   | when sending, whether to error if the referenced message doesn't exist instead of sending as a normal (non-reply) message, default true |
 
 \* `channel_id` is optional when creating a reply, but will always be present when receiving an event/response that includes this data model.
@@ -479,8 +479,8 @@ There are multiple message types that have a message_reference object.  Since me
 
 | Field      | Type      | Description               |
 |------------|-----------|---------------------------|
-| channel_id | snowflake | source channel id         |
-| webhook_id | snowflake | created target webhook id |
+| channel_id | snowflake | source channel ID         |
+| webhook_id | snowflake | created target webhook ID |
 
 ### Reaction Object
 
@@ -500,7 +500,7 @@ See [permissions](#DOCS_TOPICS_PERMISSIONS/permissions) for more information abo
 
 | Field | Type      | Description                   |
 |-------|-----------|-------------------------------|
-| id    | snowflake | role or user id               |
+| id    | snowflake | role or user ID               |
 | type  | int       | either 0 (role) or 1 (member) |
 | allow | string    | permission bit set            |
 | deny  | string    | permission bit set            |
@@ -527,8 +527,8 @@ A thread member is used to indicate whether a user has joined a thread or not.
 
 | Field          | Type              | Description                                                     |
 |----------------|-------------------|-----------------------------------------------------------------|
-| id? \*         | snowflake         | the id of the thread                                            |
-| user_id? \*    | snowflake         | the id of the user                                              |
+| id? \*         | snowflake         | the ID of the thread                                            |
+| user_id? \*    | snowflake         | the ID of the user                                              |
 | join_timestamp | ISO8601 timestamp | the time the current user last joined the thread                |
 | flags          | integer           | any user-thread settings, currently only used for notifications |
 
@@ -635,7 +635,7 @@ Embed types are "loosely defined" and, for the most part, are not used by our cl
 
 | Field         | Type      | Description                                                                         |
 |---------------|-----------|-------------------------------------------------------------------------------------|
-| id            | snowflake | attachment id                                                                       |
+| id            | snowflake | attachment ID                                                                       |
 | filename      | string    | name of file attached                                                               |
 | description?  | string    | description for the file                                                            |
 | content_type? | string    | the attachment's [media type](https://en.wikipedia.org/wiki/Media_type)             |
@@ -654,8 +654,8 @@ Embed types are "loosely defined" and, for the most part, are not used by our cl
 
 | Field    | Type      | Description                                                                 |
 |----------|-----------|-----------------------------------------------------------------------------|
-| id       | snowflake | id of the channel                                                           |
-| guild_id | snowflake | id of the guild containing the channel                                      |
+| id       | snowflake | ID of the channel                                                           |
+| guild_id | snowflake | ID of the guild containing the channel                                      |
 | type     | integer   | the [type of channel](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types) |
 | name     | string    | the name of the channel                                                     |
 
@@ -815,7 +815,7 @@ Requires the `MANAGE_CHANNELS` permission for the guild. Fires a [Channel Update
 | bitrate                       | ?integer                                                                | the bitrate (in bits) of the voice channel; 8000 to 96000 (128000 for VIP servers)                                                                                              | Voice                    |
 | user_limit                    | ?integer                                                                | the user limit of the voice channel; 0 refers to no limit, 1 to 99 refers to a user limit                                                                                       | Voice                    |
 | permission_overwrites         | ?array of [overwrite](#DOCS_RESOURCES_CHANNEL/overwrite-object) objects | channel or category-specific permissions                                                                                                                                        | All                      |
-| parent_id                     | ?snowflake                                                              | id of the new parent category for a channel                                                                                                                                     | Text, News, Store, Voice |
+| parent_id                     | ?snowflake                                                              | ID of the new parent category for a channel                                                                                                                                     | Text, News, Store, Voice |
 | rtc_region                    | ?string                                                                 | channel [voice region](#DOCS_RESOURCES_VOICE/voice-region-object) id, automatic when set to null                                                                                | Voice                    |
 | video_quality_mode            | ?integer                                                                | the camera [video quality mode](#DOCS_RESOURCES_CHANNEL/channel-object-video-quality-modes) of the voice channel                                                                | Voice                    |
 | default_auto_archive_duration | ?integer                                                                | the default duration that the clients use (not the API) for newly created threads in the channel, in minutes, to automatically archive the thread after recent activity         | Text, News               |
@@ -1024,7 +1024,7 @@ Any message IDs given that do not exist or are invalid will count towards the mi
 
 | Field    | Type                | Description                               |
 |----------|---------------------|-------------------------------------------|
-| messages | array of snowflakes | an array of message ids to delete (2-100) |
+| messages | array of snowflakes | an array of message IDs to delete (2-100) |
 
 ## Edit Channel Permissions % PUT /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/permissions/{overwrite.id#DOCS_RESOURCES_CHANNEL/overwrite-object}
 
@@ -1061,8 +1061,8 @@ Create a new [invite](#DOCS_RESOURCES_INVITE/invite-object) object for the chann
 | temporary             | boolean   | whether this invite only grants temporary membership                                                                                      | false            |
 | unique                | boolean   | if true, don't try to reuse a similar invite (useful for creating many unique one time use invites)                                       | false            |
 | target_type           | integer   | the [type of target](#DOCS_RESOURCES_INVITE/invite-object-invite-target-types) for this voice channel invite                              |                  |
-| target_user_id        | snowflake | the id of the user whose stream to display for this invite, required if `target_type` is 1, the user must be streaming in the channel     |                  |
-| target_application_id | snowflake | the id of the embedded application to open for this invite, required if `target_type` is 2, the application must have the `EMBEDDED` flag |                  |
+| target_user_id        | snowflake | the ID of the user whose stream to display for this invite, required if `target_type` is 1, the user must be streaming in the channel     |                  |
+| target_application_id | snowflake | the ID of the embedded application to open for this invite, required if `target_type` is 2, the application must have the `EMBEDDED` flag |                  |
 
 ## Delete Channel Permission % DELETE /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/permissions/{overwrite.id#DOCS_RESOURCES_CHANNEL/overwrite-object}
 
@@ -1079,7 +1079,7 @@ Follow a News Channel to send messages to a target channel. Requires the `MANAGE
 
 | Field              | Type      | Description          |
 |--------------------|-----------|----------------------|
-| webhook_channel_id | snowflake | id of target channel |
+| webhook_channel_id | snowflake | ID of target channel |
 
 ## Trigger Typing Indicator % POST /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/typing
 
@@ -1252,7 +1252,7 @@ Returns archived threads in the channel that are of [type](#DOCS_RESOURCES_CHANN
 
 | Field   | Type      | Description                                  |
 |---------|-----------|----------------------------------------------|
-| before? | snowflake | returns threads before this id               |
+| before? | snowflake | returns threads before this ID               |
 | limit?  | integer   | optional maximum number of threads to return |
 
 ###### Response Body

@@ -10,10 +10,10 @@ Used to represent a webhook.
 
 | Field           | Type                                                             | Description                                                                                                   |
 | --------------- | ---------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
-| id              | snowflake                                                        | the id of the webhook                                                                                         |
+| id              | snowflake                                                        | the ID of the webhook                                                                                         |
 | type            | integer                                                          | the [type](#DOCS_RESOURCES_WEBHOOK/webhook-object-webhook-types) of the webhook                               |
-| guild_id?       | ?snowflake                                                       | the guild id this webhook is for, if any                                                                      |
-| channel_id      | ?snowflake                                                       | the channel id this webhook is for, if any                                                                    |
+| guild_id?       | ?snowflake                                                       | the guild ID this webhook is for, if any                                                                      |
+| channel_id      | ?snowflake                                                       | the channel ID this webhook is for, if any                                                                    |
 | user?           | [user](#DOCS_RESOURCES_USER/user-object) object                  | the user this webhook was created by (not returned when getting a webhook with its token)                     |
 | name            | ?string                                                          | the default name of the webhook                                                                               |
 | avatar          | ?string                                                          | the default user avatar [hash](#DOCS_REFERENCE/image-formatting) of the webhook                               |
@@ -139,7 +139,7 @@ Modify a webhook. Requires the `MANAGE_WEBHOOKS` permission. Returns the updated
 | ---------- | ----------------------------------------- | -------------------------------------------------- |
 | name       | string                                    | the default name of the webhook                    |
 | avatar     | ?[image data](#DOCS_REFERENCE/image-data) | image for the default webhook avatar               |
-| channel_id | snowflake                                 | the new channel id this webhook should be moved to |
+| channel_id | snowflake                                 | the new channel ID this webhook should be moved to |
 
 ## Modify Webhook with Token % PATCH /webhooks/{webhook.id#DOCS_RESOURCES_WEBHOOK/webhook-object}/{webhook.token#DOCS_RESOURCES_WEBHOOK/webhook-object}
 
@@ -162,10 +162,10 @@ Refer to [Uploading Files](#DOCS_REFERENCE/uploading-files) for details on attac
 
 ###### Query String Params
 
-| Field | Type    | Description                                                                                                                                                                                  | Required |
-| ----- | ------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
-| wait  | boolean | waits for server confirmation of message send before response, and returns the created message body (defaults to `false`; when `false` a message that is not saved does not return an error) | false    |
-| thread_id | snowflake | Send a message to the specified thread within a webhook's channel. The thread will automatically be unarchived. | false    |
+| Field     | Type      | Description                                                                                                                                                                                  | Required |
+| --------- | --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
+| wait      | boolean   | waits for server confirmation of message send before response, and returns the created message body (defaults to `false`; when `false` a message that is not saved does not return an error) | false    |
+| thread_id | snowflake | Send a message to the specified thread within a webhook's channel. The thread will automatically be unarchived.                                                                              | false    |
 
 ###### JSON/Form Params
 
@@ -196,7 +196,7 @@ Refer to [Slack's documentation](https://api.slack.com/incoming-webhooks) for mo
 
 | Field     | Type      | Description                                                                                                                                           | Required |
 | --------- | --------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
-| thread_id | snowflake | id of the thread to send the message in                                                                                                               | false    |
+| thread_id | snowflake | ID of the thread to send the message in                                                                                                               | false    |
 | wait      | boolean   | waits for server confirmation of message send before response (defaults to `true`; when `false` a message that is not saved does not return an error) | false    |
 
 ## Execute GitHub-Compatible Webhook % POST /webhooks/{webhook.id#DOCS_RESOURCES_WEBHOOK/webhook-object}/{webhook.token#DOCS_RESOURCES_WEBHOOK/webhook-object}/github
@@ -207,7 +207,7 @@ Add a new webhook to your GitHub repo (in the repo's settings), and use this end
 
 | Field     | Type      | Description                                                                                                                                           | Required |
 | --------- | --------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
-| thread_id | snowflake | id of the thread to send the message in                                                                                                               | false    |
+| thread_id | snowflake | ID of the thread to send the message in                                                                                                               | false    |
 | wait      | boolean   | waits for server confirmation of message send before response (defaults to `true`; when `false` a message that is not saved does not return an error) | false    |
 
 ## Get Webhook Message % GET /webhooks/{webhook.id#DOCS_RESOURCES_WEBHOOK/webhook-object}/{webhook.token#DOCS_RESOURCES_WEBHOOK/webhook-object}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}
@@ -218,7 +218,7 @@ Returns a previously-sent webhook message from the same token. Returns a [messag
 
 | Field     | Type      | Description                        | Required |
 | --------- | --------- | ---------------------------------- | -------- |
-| thread_id | snowflake | id of the thread the message is in | false    |
+| thread_id | snowflake | ID of the thread the message is in | false    |
 
 ## Edit Webhook Message % PATCH /webhooks/{webhook.id#DOCS_RESOURCES_WEBHOOK/webhook-object}/{webhook.token#DOCS_RESOURCES_WEBHOOK/webhook-object}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}
 
@@ -264,4 +264,4 @@ Deletes a message that was created by the webhook. Returns a 204 NO CONTENT resp
 
 | Field     | Type      | Description                        | Required |
 | --------- | --------- | ---------------------------------- | -------- |
-| thread_id | snowflake | id of the thread the message is in | false    |
+| thread_id | snowflake | ID of the thread the message is in | false    |

@@ -20,12 +20,12 @@ You can also mark achievements as `secret` and `secure`. "Secret" achievements w
 
 | name           | type    | description                                                                                                                                  |
 | -------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
-| application_id | Int64   | the unique id of the application                                                                                                             |
+| application_id | Int64   | the unique ID of the application                                                                                                             |
 | name           | object  | the name of the achievement as an [achievement locale object](#DOCS_GAME_SDK_ACHIEVEMENTS/data-models-achievement-locale-object)             |
 | description    | object  | the user-facing achievement description as an [achievement locale object](#DOCS_GAME_SDK_ACHIEVEMENTS/data-models-achievement-locale-object) |
 | secret         | boolean | if the achievement is secret                                                                                                                 |
 | secure         | boolean | if the achievement is secure                                                                                                                 |
-| id             | Int64   | the unique id of the achievement                                                                                                             |
+| id             | Int64   | the unique ID of the achievement                                                                                                             |
 | icon_hash      | string  | [the hash of the icon](#DOCS_REFERENCE/image-formatting)                                                                                     |
 
 ###### Achievement Locale Object
@@ -39,8 +39,8 @@ You can also mark achievements as `secret` and `secure`. "Secret" achievements w
 
 | name            | type   | description                                                                                |
 | --------------- | ------ | ------------------------------------------------------------------------------------------ |
-| UserId          | Int64  | the unique id of the user working on the achievement                                       |
-| AchievementId   | Int64  | the unique id of the achievement                                                           |
+| UserId          | Int64  | the unique ID of the user working on the achievement                                       |
+| AchievementId   | Int64  | the unique ID of the achievement                                                           |
 | PercentComplete | UInt8  | how far along the user is to completing the achievement (0-100)                            |
 | UnlockedAt      | string | the timestamp at which the user completed the achievement (PercentComplete was set to 100) |
 
@@ -54,7 +54,7 @@ Returns `Discord.Result` via callback.
 
 | name            | type  | description                            |
 | --------------- | ----- | -------------------------------------- |
-| achievementId   | Int64 | the id of the achievement to update    |
+| achievementId   | Int64 | the ID of the achievement to update    |
 | percentComplete | UInt8 | the user's updated percentage progress |
 
 ###### Example
@@ -156,7 +156,7 @@ Gets the user achievement for the given achievement id. If you keep a hardcoded 
 
 | name          | type  | description                      |
 | ------------- | ----- | -------------------------------- |
-| achievementId | Int64 | the id of the achievement to get |
+| achievementId | Int64 | the ID of the achievement to get |
 
 ###### Example
 

@@ -86,7 +86,7 @@ Returns a `Relationship`.
 
 | name   | type  | description                 |
 | ------ | ----- | --------------------------- |
-| userId | Int64 | the id of the user to fetch |
+| userId | Int64 | the ID of the user to fetch |
 
 ###### Example
 

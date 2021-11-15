@@ -250,7 +250,7 @@ Bot authorization is a special server-less and callback-less OAuth2 flow that ma
 
 | name                 | description                                                           |
 | -------------------- | --------------------------------------------------------------------- |
-| client_id            | your app's client id                                                  |
+| client_id            | your app's client ID                                                  |
 | scope                | needs to include `bot` for the bot flow                               |
 | permissions          | the [permissions](#DOCS_TOPICS_PERMISSIONS/) you're requesting        |
 | guild_id             | pre-fills the dropdown picker with a guild for the user               |

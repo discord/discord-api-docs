@@ -21,7 +21,7 @@ Yup, that's it. You give us the real-time info about any connected devices, and 
 | Name      | Value                | Required  |
 | --------- | -------------------- | --------- |
 | v         | `1`                  | All       |
-| client_id | your app's client id | All       |
+| client_id | your app's client ID | All       |
 | encoding  | `json`               | WebSocket |
 
 You can send event updates to the following URIs:

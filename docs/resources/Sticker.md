@@ -8,8 +8,8 @@ Represents a sticker that can be sent in messages.
 
 | Field       | Type                                            | Description                                                                                                                                                          |
 | ----------- | ----------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| id          | snowflake                                       | [id of the sticker](#DOCS_REFERENCE/image-formatting)                                                                                                                |
-| pack_id?    | snowflake                                       | for standard stickers, id of the pack the sticker is from                                                                                                            |
+| id          | snowflake                                       | [ID of the sticker](#DOCS_REFERENCE/image-formatting)                                                                                                                |
+| pack_id?    | snowflake                                       | for standard stickers, ID of the pack the sticker is from                                                                                                            |
 | name        | string                                          | name of the sticker                                                                                                                                                  |
 | description | ?string                                         | description of the sticker                                                                                                                                           |
 | tags\*      | string                                          | autocomplete/suggestion tags for the sticker (max 200 characters)                                                                                                    |
@@ -17,7 +17,7 @@ Represents a sticker that can be sent in messages.
 | type        | integer                                         | [type of sticker](#DOCS_RESOURCES_STICKER/sticker-object-sticker-types)                                                                                              |
 | format_type | integer                                         | [type of sticker format](#DOCS_RESOURCES_STICKER/sticker-object-sticker-format-types)                                                                                |
 | available?  | boolean                                         | whether this guild sticker can be used, may be false due to loss of Server Boosts                                                                                    |
-| guild_id?   | snowflake                                       | id of the guild that owns this sticker                                                                                                                               |
+| guild_id?   | snowflake                                       | ID of the guild that owns this sticker                                                                                                                               |
 | user?       | [user](#DOCS_RESOURCES_USER/user-object) object | the user that uploaded the guild sticker                                                                                                                             |
 | sort_value? | integer                                         | the standard sticker's sort order within its pack                                                                                                                    |
 
@@ -63,7 +63,7 @@ The smallest amount of data required to render a sticker. A partial sticker obje
 
 | Field       | Type      | Description                                                                           |
 | ----------- | --------- | ------------------------------------------------------------------------------------- |
-| id          | snowflake | id of the sticker                                                                     |
+| id          | snowflake | ID of the sticker                                                                     |
 | name        | string    | name of the sticker                                                                   |
 | format_type | integer   | [type of sticker format](#DOCS_RESOURCES_STICKER/sticker-object-sticker-format-types) |
 
@@ -75,13 +75,13 @@ Represents a pack of standard stickers.
 
 | Field             | Type                                                               | Description                                                               |
 | ----------------  | ------------------------------------------------------------------ | ------------------------------------------------------------------------- |
-| id                | snowflake                                                          | id of the sticker pack                                                    |
+| id                | snowflake                                                          | ID of the sticker pack                                                    |
 | stickers          | array of [sticker](#DOCS_RESOURCES_STICKER/sticker-object) objects | the stickers in the pack                                                  |
 | name              | string                                                             | name of the sticker pack                                                  |
-| sku_id            | snowflake                                                          | id of the pack's SKU                                                      |
-| cover_sticker_id? | snowflake                                                          | id of a sticker in the pack which is shown as the pack's icon             |
+| sku_id            | snowflake                                                          | ID of the pack's SKU                                                      |
+| cover_sticker_id? | snowflake                                                          | ID of a sticker in the pack which is shown as the pack's icon             |
 | description       | string                                                             | description of the sticker pack                                           |
-| banner_asset_id   | snowflake                                                          | id of the sticker pack's [banner image](#DOCS_REFERENCE/image-formatting) |
+| banner_asset_id   | snowflake                                                          | ID of the sticker pack's [banner image](#DOCS_REFERENCE/image-formatting) |
 
 ###### Example Sticker Pack
 

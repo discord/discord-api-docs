@@ -28,7 +28,7 @@ Discord is like a book; it's better with pictures. The image manager helps you f
 | name | type      | description                                     |
 | ---- | --------- | ----------------------------------------------- |
 | Type | ImageType | the source of the image                         |
-| Id   | Int64     | the id of the user whose avatar you want to get |
+| Id   | Int64     | the ID of the user whose avatar you want to get |
 | Size | UInt32    | the resolution at which you want the image      |
 
 ## Fetch

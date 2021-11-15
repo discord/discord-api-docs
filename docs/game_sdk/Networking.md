@@ -144,7 +144,7 @@ Returns `void`.
 
 | name      | type   | description                     |
 | --------- | ------ | ------------------------------- |
-| peerId    | UInt64 | the peer id to connect to       |
+| peerId    | UInt64 | the peer ID to connect to       |
 | channelId | byte   | the channel on which to connect |
 | data      | byte[] | the data to send                |
 
@@ -220,7 +220,7 @@ Fires when you receive data from another user. This callback will only fire if y
 
 | name      | type   | description                |
 | --------- | ------ | -------------------------- |
-| peerId    | UInt64 | the peer id of the sender  |
+| peerId    | UInt64 | the peer ID of the sender  |
 | channelId | byte   | the channel it was sent on |
 | data      | byte[] | the data sent              |
 

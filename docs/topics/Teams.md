@@ -58,10 +58,10 @@ Go team!
 | field         | type                                                                              | description                            |
 | ------------- | --------------------------------------------------------------------------------- | -------------------------------------- |
 | icon          | ?string                                                                           | a hash of the image of the team's icon |
-| id            | snowflake                                                                         | the unique id of the team              |
+| id            | snowflake                                                                         | the unique ID of the team              |
 | members       | array of [team member](#DOCS_TOPICS_TEAMS/data-models-team-member-object) objects | the members of the team                |
 | name          | string                                                                            | the name of the team                   |
-| owner_user_id | snowflake                                                                         | the user id of the current team owner  |
+| owner_user_id | snowflake                                                                         | the user ID of the current team owner  |
 
 ###### Team Member Object
 
@@ -69,8 +69,8 @@ Go team!
 | ---------------- | ------------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
 | membership_state | integer                                                 | the user's [membership state](#DOCS_TOPICS_TEAMS/data-models-membership-state-enum) on the team |
 | permissions      | array of strings                                        | will always be `["*"]`                                                                          |
-| team_id          | snowflake                                               | the id of the parent team of which they are a member                                            |
-| user             | partial [user](#DOCS_RESOURCES_USER/user-object) object | the avatar, discriminator, id, and username of the user                                         |
+| team_id          | snowflake                                               | the ID of the parent team of which they are a member                                            |
+| user             | partial [user](#DOCS_RESOURCES_USER/user-object) object | the avatar, discriminator, ID, and username of the user                                         |
 
 ###### Membership State Enum
 

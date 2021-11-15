@@ -16,7 +16,7 @@ For more detailed information and documentation around the Rich Presence feature
 
 | name          | type   | description                   |
 | ------------- | ------ | ----------------------------- |
-| Id            | Int64  | the user's id                 |
+| Id            | Int64  | the user's ID                 |
 | Username      | string | their name                    |
 | Discriminator | string | the user's unique discrim     |
 | Avatar        | string | the hash of the user's avatar |
@@ -26,7 +26,7 @@ For more detailed information and documentation around the Rich Presence feature
 
 | name          | type               | description                                                     |
 | ------------- | ------------------ | --------------------------------------------------------------- |
-| ApplicationId | Int64              | your application id - this is a read-only field                 |
+| ApplicationId | Int64              | your application ID - this is a read-only field                 |
 | Name          | string             | name of the application - this is a read-only field             |
 | State         | string             | the player's current party status                               |
 | Details       | string             | what the player is currently doing                              |
@@ -156,7 +156,7 @@ Returns `void`.
 
 | name    | type   | description              |
 | ------- | ------ | ------------------------ |
-| steamId | UInt32 | your game's Steam app id |
+| steamId | UInt32 | your game's Steam app ID |
 
 ###### Example
 
@@ -263,7 +263,7 @@ Returns a `Discord.Result` via callback.
 
 | name   | type                     | description                                 |
 | ------ | ------------------------ | ------------------------------------------- |
-| userId | Int64                    | the user id of the person who asked to join |
+| userId | Int64                    | the user ID of the person who asked to join |
 | reply  | ActivityJoinRequestReply | No, Yes, or Ignore                          |
 
 ###### Example
@@ -292,7 +292,7 @@ Returns a `Discord.Result` via callback.
 
 | name    | type               | description                                           |
 | ------- | ------------------ | ----------------------------------------------------- |
-| userId  | Int64              | the id of the user to invite                          |
+| userId  | Int64              | the ID of the user to invite                          |
 | type    | ActivityActionType | marks the invite as an invitation to join or spectate |
 | content | string             | a message to send along with the invite               |
 
@@ -323,7 +323,7 @@ Returns a `Discord.Result` via callback.
 
 | name   | type  | description                        |
 | ------ | ----- | ---------------------------------- |
-| userId | Int64 | the id of the user who invited you |
+| userId | Int64 | the ID of the user who invited you |
 
 ###### Example
 

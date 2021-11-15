@@ -79,5 +79,5 @@
 | \${DATALOCALLOW} | %USERPROFILE%\AppData\LocalLow                                                      | ~/Library/Application Support | \$XDG_DATA_HOME     |
 | \${SAVEDGAMES}   | %USERPROFILE%\Saved Games                                                           | (not supported)               | (not supported)     |
 | \${INSTALLDIR}   | the game's install directory                                                        | (same)                        | (same)              |
-| \${USERID}       | the user's id - use within a path to define saves for multiple users                | (same)                        | (same)              |
-| \${BRANCHID}     | the id of the game branch - use within a path to define saves for multiple branches | (same)                        | (same)              |
+| \${USERID}       | the user's ID - use within a path to define saves for multiple users                | (same)                        | (same)              |
+| \${BRANCHID}     | the ID of the game branch - use within a path to define saves for multiple branches | (same)                        | (same)              |

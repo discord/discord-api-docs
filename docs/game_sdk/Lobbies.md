@@ -65,7 +65,7 @@ lobbyManager.CreateLobby(txn, (Discord.Result result, ref Discord.Lobby lobby) =
 
 | name     | type      | description                            |
 | -------- | --------- | -------------------------------------- |
-| Id       | Int64     | the unique id of the lobby             |
+| Id       | Int64     | the unique ID of the lobby             |
 | Type     | LobbyType | if the lobby is public or private      |
 | OwnerId  | Int64     | the userId of the lobby owner          |
 | Secret   | string    | the password to the lobby              |
@@ -150,7 +150,7 @@ Returns `void`.
 
 | name   | type  | description             |
 | ------ | ----- | ----------------------- |
-| userId | Int64 | the new owner's user id |
+| userId | Int64 | the new owner's user ID |
 
 ###### Example
 
@@ -820,7 +820,7 @@ Returns `Int32`.
 | name    | type  | description                            |
 | ------- | ----- | -------------------------------------- |
 | lobbyId | Int64 | the lobby the member belongs to        |
-| userId  | Int64 | the id of the user to get metadata for |
+| userId  | Int64 | the ID of the user to get metadata for |
 
 ###### Example
 
@@ -843,7 +843,7 @@ Returns `string`.
 | name    | type  | description                            |
 | ------- | ----- | -------------------------------------- |
 | lobbyId | Int64 | the lobby the member belongs to        |
-| userId  | Int64 | the id of the user to get metadata for |
+| userId  | Int64 | the ID of the user to get metadata for |
 | index   | Int32 | the index of metadata to access        |
 
 ###### Example
@@ -867,7 +867,7 @@ Returns `string`.
 | name    | type   | description                            |
 | ------- | ------ | -------------------------------------- |
 | lobbyId | Int64  | the lobby the member belongs to        |
-| userId  | Int64  | the id of the user to get metadata for |
+| userId  | Int64  | the ID of the user to get metadata for |
 | key     | string | the metadata key to access             |
 
 ###### Example
@@ -893,7 +893,7 @@ Returns `Discord.Result` via callback.
 | name        | type                   | description                       |
 | ----------- | ---------------------- | --------------------------------- |
 | lobbyId     | Int64                  | lobby the member belongs to       |
-| userId      | Int64                  | id of the user                    |
+| userId      | Int64                  | ID of the user                    |
 | transaction | LobbyMemberTransaction | transaction with the changed data |
 
 ###### Example
@@ -1345,7 +1345,7 @@ To get a list of valid regions, call the [List Voice Regions](https://discord.co
 
 | name           | type      | description                                                                                          |
 | -------------- | --------- | ---------------------------------------------------------------------------------------------------- |
-| application_id | string    | your application id                                                                                  |
+| application_id | string    | your application ID                                                                                  |
 | type           | LobbyType | the type of lobby                                                                                    |
 | metadata       | dict      | metadata for the lobby - key/value pairs with types `string`                                         |
 | capacity       | int       | max lobby capacity with a default of 16                                                              |
@@ -1411,7 +1411,7 @@ Creates a lobby search for matchmaking around given criteria.
 
 | name           | type                | description                              |
 | -------------- | ------------------- | ---------------------------------------- |
-| application_id | string              | your application id                      |
+| application_id | string              | your application ID                      |
 | filter         | SearchFilter object | the filter to check against              |
 | sort           | SearchSort object   | how to sort the results                  |
 | limit          | int                 | limit of lobbies returned, default of 25 |

@@ -140,7 +140,7 @@ typedef struct DiscordRichPresence {
 | largeImageText | char\*   | tooltip for the largeImageKey                                                                              | "Blade's Edge Arena", "Numbani", "Danger Zone"             |
 | smallImageKey  | char\*   | name of the uploaded image for the small profile artwork                                                   | "rogue"                                                    |
 | smallImageText | char\*   | tooltip for the smallImageKey                                                                              | "Rogue - Level 100"                                        |
-| partyId        | char\*   | id of the player's party, lobby, or group                                                                  | "ae488379-351d-4a4f-ad32-2b9b01c91657"                     |
+| partyId        | char\*   | ID of the player's party, lobby, or group                                                                  | "ae488379-351d-4a4f-ad32-2b9b01c91657"                     |
 | partySize      | int      | current size of the player's party, lobby, or group                                                        | 1                                                          |
 | partyMax       | int      | maximum size of the player's party, lobby, or group                                                        | 5                                                          |
 | matchSecret    | char\*   | (for future use) unique hashed string for a player's match                                                 | MmhuZToxMjMxMjM6cWl3amR3MWlqZA==                           |

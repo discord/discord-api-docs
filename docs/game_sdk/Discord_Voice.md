@@ -212,7 +212,7 @@ Returns `bool`.
 
 | name   | type  | description                 |
 | ------ | ----- | --------------------------- |
-| userId | Int64 | the id of the user to check |
+| userId | Int64 | the ID of the user to check |
 
 ###### Example
 
@@ -234,7 +234,7 @@ Returns `void`.
 
 | name   | type  | description                     |
 | ------ | ----- | ------------------------------- |
-| userId | Int64 | the id of the user to mute      |
+| userId | Int64 | the ID of the user to mute      |
 | mute   | bool  | true for mute, false for unmute |
 
 ###### Example
@@ -258,7 +258,7 @@ Returns `byte`.
 
 | name   | type  | description                 |
 | ------ | ----- | --------------------------- |
-| userId | Int64 | the id of the user to check |
+| userId | Int64 | the ID of the user to check |
 
 ###### Example
 
@@ -278,7 +278,7 @@ Returns `void`.
 
 | name   | type  | description                                       |
 | ------ | ----- | ------------------------------------------------- |
-| userId | Int64 | the id of the user to change                      |
+| userId | Int64 | the ID of the user to change                      |
 | volume | byte  | the volume at which to set the user, `0` to `200` |
 
 ###### Example

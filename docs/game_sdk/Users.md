@@ -14,7 +14,7 @@ This manager helps retrieve basic user information for any user on Discord.
 
 | name          | type   | description                   |
 | ------------- | ------ | ----------------------------- |
-| Id            | Int64  | the user's id                 |
+| Id            | Int64  | the user's ID                 |
 | Username      | string | their name                    |
 | Discriminator | string | the user's unique discrim     |
 | Avatar        | string | the hash of the user's avatar |
@@ -68,7 +68,7 @@ Returns a `Discord.Result` and `ref Discord.User` via callback.
 
 | name   | type  | description                 |
 | ------ | ----- | --------------------------- |
-| userId | Int64 | the id of the user to fetch |
+| userId | Int64 | the ID of the user to fetch |
 
 ###### Example
 

@@ -47,7 +47,7 @@ Deletes a branch.
 | name           | values | description                    |
 | -------------- | ------ | ------------------------------ |
 | application_id | int    | your application ID/client ID  |
-| branch_id      | int    | the id of the branch to delete |
+| branch_id      | int    | the ID of the branch to delete |
 
 ###### Example
 
@@ -83,8 +83,8 @@ Promotes the live build of one branch to another.
 | name             | values | description                       |
 | ---------------- | ------ | --------------------------------- |
 | application_id   | int    | your application ID/client ID     |
-| branch_id        | int    | the id of the branch to promote   |
-| target_branch_id | int    | the id of the branch to overwrite |
+| branch_id        | int    | the ID of the branch to promote   |
+| target_branch_id | int    | the ID of the branch to overwrite |
 
 ###### Example
 
@@ -101,7 +101,7 @@ Deletes a build from a branch.
 | name           | values | description                   |
 | -------------- | ------ | ----------------------------- |
 | application_id | int    | your application ID/client ID |
-| build_id       | int    | the id of the build to delete |
+| build_id       | int    | the ID of the build to delete |
 
 ###### Example
 
@@ -138,7 +138,7 @@ Lists the builds available on the given branch.
 | name           | values | description                   |
 | -------------- | ------ | ----------------------------- |
 | application_id | int    | your application ID/client ID |
-| branch_id      | int    | the id of the branch to check |
+| branch_id      | int    | the ID of the branch to check |
 
 ###### Example
 
@@ -159,8 +159,8 @@ Marks a given build as the live build for a given branch.
 | name           | values | description                    |
 | -------------- | ------ | ------------------------------ |
 | application_id | int    | your application ID/client ID  |
-| branch_id      | int    | the id of the branch to check  |
-| build_id       | int    | the id of the build to publish |
+| branch_id      | int    | the ID of the branch to check  |
+| build_id       | int    | the ID of the build to publish |
 
 ###### Example
 
@@ -176,7 +176,7 @@ Pushes a new build to the given branch. The JSON config file tells Dispatch how 
 
 | name             | values    | description                                                                                           |
 | ---------------- | --------- | ----------------------------------------------------------------------------------------------------- |
-| branch_id        | int       | the id of the branch to check                                                                         |
+| branch_id        | int       | the ID of the branch to check                                                                         |
 | config_file      | filename  | the [JSON config file](#DOCS_DISPATCH_BRANCHES_AND_BUILDS/setting-up-our-first-build) for the build   |
 | application_root | file path | the directory that dispatch will treat as the local root for operations—`.` for the current directory |
 | -c               | flag      | forces a re-chunk of files even if the edited file timestamp hasn't changed                           |
@@ -199,7 +199,7 @@ Downloads the build for the given application id and branch id to the given inst
 | name           | values                                                                        | description                    |
 | -------------- | ----------------------------------------------------------------------------- | ------------------------------ |
 | application_id | int                                                                           | your application ID/client ID  |
-| branch_id      | int                                                                           | the id of the branch to check  |
+| branch_id      | int                                                                           | the ID of the branch to check  |
 | install_path   | file path                                                                     | the path to install to         |
 | --platform     | [platform](#DOCS_DISPATCH_FIELD_VALUES/manifests-platform-values)              | the build platform to download |
 | --locale       | [locale](#DOCS_DISPATCH_FIELD_VALUES/predefined-field-values-accepted-locales) | the build locale to download   |
@@ -219,7 +219,7 @@ Mark a build as corrupted.
 | name           | values | description                    |
 | -------------- | ------ | ------------------------------ |
 | application_id | int    | your application ID/client ID  |
-| build_id       | int    | the id of the build to corrupt |
+| build_id       | int    | the ID of the build to corrupt |
 
 ###### Example
 
@@ -256,8 +256,8 @@ Repairs an application build.
 | name             | values                                                           | description                                                                                           |
 | ---------------- | ---------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
 | application_id   | int                                                              | your application ID/client ID                                                                         |
-| branch_id        | int                                                              | the id of the branch to check                                                                         |
-| build_id         | int                                                              | the id of the build to repair                                                                         |
+| branch_id        | int                                                              | the ID of the branch to check                                                                         |
+| build_id         | int                                                              | the ID of the build to repair                                                                         |
 | application_root | file path                                                        | the directory that dispatch will treat as the local root for operations—`.` for the current directory |
 | --platform       | [platform](#DOCS_DISPATCH_FIELD_VALUES/manifests-platform-values) | the build platform to repair                                                                          |
 

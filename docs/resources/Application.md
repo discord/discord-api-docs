@@ -6,7 +6,7 @@
 
 | Field                  | Type                                                       | Description                                                                                                                |
 |------------------------|------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------|
-| id                     | snowflake                                                  | the id of the app                                                                                                          |
+| id                     | snowflake                                                  | the ID of the app                                                                                                          |
 | name                   | string                                                     | the name of the app                                                                                                        |
 | icon                   | ?string                                                    | the [icon hash](#DOCS_REFERENCE/image-formatting) of the app                                                               |
 | description            | string                                                     | the description of the app                                                                                                 |
@@ -17,13 +17,13 @@
 | privacy_policy_url?    | string                                                     | the url of the app's privacy policy                                                                                        |
 | owner?                 | partial [user](#DOCS_RESOURCES_USER/user-object) object    | partial user object containing info on the owner of the application                                                        |
 | summary                | string                                                     | if this application is a game sold on Discord, this field will be the summary field for the store page of its primary sku  |
-| verify_key             | string                                                     | the hex encoded key for verification in interactions and the GameSDK's [GetTicket](#DOCS_GAME_SDK_APPLICATIONS/getticket) |
+| verify_key             | string                                                     | the hex encoded key for verification in interactions and the GameSDK's [GetTicket](#DOCS_GAME_SDK_APPLICATIONS/getticket)  |
 | team                   | ?[team](#DOCS_TOPICS_TEAMS/data-models-team-object) object | if the application belongs to a team, this will be a list of the members of that team                                      |
 | guild_id?              | snowflake                                                  | if this application is a game sold on Discord, this field will be the guild to which it has been linked                    |
 | primary_sku_id?        | snowflake                                                  | if this application is a game sold on Discord, this field will be the id of the "Game SKU" that is created, if exists      |
 | slug?                  | string                                                     | if this application is a game sold on Discord, this field will be the URL slug that links to the store page                |
 | cover_image?           | string                                                     | the application's default rich presence invite [cover image hash](#DOCS_REFERENCE/image-formatting)                        |
-| flags?                 | integer                                                    | the application's public [flags](#DOCS_RESOURCES_APPLICATION/application-object-application-flags)                                        |
+| flags?                 | integer                                                    | the application's public [flags](#DOCS_RESOURCES_APPLICATION/application-object-application-flags)                         |
 
 ###### Example Application Object
 

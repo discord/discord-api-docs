@@ -108,7 +108,7 @@ You should begin your integration by setting up this callback to help you debug.
 | 8    | NotFetched                      | couldn't fetch what you wanted                                                                  |
 | 9    | NotFound                        | what you're looking for doesn't exist                                                           |
 | 10   | Conflict                        | user already has a network connection open on that channel                                      |
-| 11   | InvalidSecret                   | activity secrets must be unique and not match party id                                          |
+| 11   | InvalidSecret                   | activity secrets must be unique and not match party ID                                          |
 | 12   | InvalidJoinSecret               | join request for that user does not exist                                                       |
 | 13   | NoEligibleActivity              | you accidentally set an `ApplicationId` in your `UpdateActivity()` payload                      |
 | 14   | InvalidInvite                   | your game invite is no longer valid                                                             |
@@ -168,7 +168,7 @@ Returns a new `Discord`.
 
 | name     | type        | description                                         |
 |----------|-------------|-----------------------------------------------------|
-| clientId | Int64       | your application's client id                        |
+| clientId | Int64       | your application's client ID                        |
 | flags    | CreateFlags | the creation parameters for the SDK, outlined above |
 
 ###### Example

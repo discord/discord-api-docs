@@ -14,8 +14,8 @@ For [Message Components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/) it includes ide
 
 | Field          | Type                                                                                                          | Description                                                    |
 | -------------- | ------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------- |
-| id             | snowflake                                                                                                     | id of the interaction                                          |
-| application_id | snowflake                                                                                                     | id of the application this interaction is for                  |
+| id             | snowflake                                                                                                     | ID of the interaction                                          |
+| application_id | snowflake                                                                                                     | ID of the application this interaction is for                  |
 | type           | [interaction type](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-interaction-type)           | the type of interaction                                        |
 | data?\*        | [interaction data](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-interaction-data-structure) | the command data payload                                       |
 | guild_id?      | snowflake                                                                                                     | the guild it was sent from                                     |
@@ -51,7 +51,7 @@ For [Message Components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/) it includes ide
 | custom_id?      | string                                                                                                                                                                           | the [`custom_id`](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/custom-id) of the component                                                                                                   | Component                                                                                                                                          |
 | component_type? | integer                                                                                                                                                                          | the [type](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-object-component-types) of the component                                                                                   | Component                                                                                                                                          |
 | values?         | array of [select option values](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/select-menu-object-select-option-structure)                                                                | the values the user selected                                                                                                                                                          | Component (Select)                                                                                                                                 |
-| target_id?      | snowflake                                                                                                                                                                        | id the of user or message targetted by a [user](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/user-commands) or [message](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/message-commands) command | [User Command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/user-commands), [Message Command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/message-commands) |
+| target_id?      | snowflake                                                                                                                                                                        | ID the of user or message targetted by a [user](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/user-commands) or [message](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/message-commands) command | [User Command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/user-commands), [Message Command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/message-commands) |
 
 
 ###### Resolved Data Structure
@@ -61,11 +61,11 @@ For [Message Components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/) it includes ide
 
 | Field         | Type                                                                                     | Description                         |
 | ------------- | ---------------------------------------------------------------------------------------- | ----------------------------------- |
-| users?        | Map of Snowflakes to [user](#DOCS_RESOURCES_USER/user-object) objects                    | the ids and User objects            |
-| members?\*    | Map of Snowflakes to [partial member](#DOCS_RESOURCES_GUILD/guild-member-object) objects | the ids and partial Member objects  |
-| roles?        | Map of Snowflakes to [role](#DOCS_TOPICS_PERMISSIONS/role-object) objects                | the ids and Role objects            |
-| channels?\*\* | Map of Snowflakes to [partial channel](#DOCS_RESOURCES_CHANNEL/channel-object) objects   | the ids and partial Channel objects |
-| messages?     | Map of Snowflakes to [partial messages](#DOCS_RESOURCES_CHANNEL/message-object) objects  | the ids and partial Message objects |
+| users?        | Map of Snowflakes to [user](#DOCS_RESOURCES_USER/user-object) objects                    | the IDs and User objects            |
+| members?\*    | Map of Snowflakes to [partial member](#DOCS_RESOURCES_GUILD/guild-member-object) objects | the IDs and partial Member objects  |
+| roles?        | Map of Snowflakes to [role](#DOCS_TOPICS_PERMISSIONS/role-object) objects                | the IDs and Role objects            |
+| channels?\*\* | Map of Snowflakes to [partial channel](#DOCS_RESOURCES_CHANNEL/channel-object) objects   | the IDs and partial Channel objects |
+| messages?     | Map of Snowflakes to [partial messages](#DOCS_RESOURCES_CHANNEL/message-object) objects  | the IDs and partial Message objects |
 
 \* Partial `Member` objects are missing `user`, `deaf` and `mute` fields
 
@@ -82,7 +82,7 @@ This is sent on the [message object](#DOCS_RESOURCES_CHANNEL/message-object) whe
 
 | Name | Type                                                                                                | Description                                                                                                                             |
 | ---- | --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
-| id   | snowflake                                                                                           | id of the interaction                                                                                                                   |
+| id   | snowflake                                                                                           | ID of the interaction                                                                                                                   |
 | type | [interaction type](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-interaction-type) | the type of interaction                                                                                                                 |
 | name | string                                                                                              | the name of the [application command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-structure) |
 | user | [user object](#DOCS_RESOURCES_USER/user-object)                                                     | the user who invoked the interaction                                                                                                    |

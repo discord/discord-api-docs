@@ -26,7 +26,7 @@ There are other rules and restrictions not shared here for the sake of spam and 
 
 | Field         | Type      | Description                                                                                          | Required OAuth2 Scope |
 | ------------- | --------- | ---------------------------------------------------------------------------------------------------- | --------------------- |
-| id            | snowflake | the user's id                                                                                        | identify              |
+| id            | snowflake | the user's ID                                                                                        | identify              |
 | username      | string    | the user's username, not unique across the platform                                                  | identify              |
 | discriminator | string    | the user's 4-digit discord-tag                                                                       | identify              |
 | avatar        | ?string   | the user's [avatar hash](#DOCS_REFERENCE/image-formatting)                                           | identify              |
@@ -98,7 +98,7 @@ The connection object that the user has attached.
 
 | Field         | Type    | Description                                                                              |
 | ------------- | ------- | ---------------------------------------------------------------------------------------- |
-| id            | string  | id of the connection account                                                             |
+| id            | string  | ID of the connection account                                                             |
 | name          | string  | the username of the connection account                                                   |
 | type          | string  | the service of the connection (twitch, youtube)                                          |
 | revoked?      | boolean | whether the connection is revoked                                                        |

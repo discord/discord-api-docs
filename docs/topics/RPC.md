@@ -153,7 +153,7 @@ We also have an RPC token system to bypass the user authorization modal. This is
 | Field     | Type                                                                         | Description                                                               |
 | --------- | ---------------------------------------------------------------------------- | ------------------------------------------------------------------------- |
 | scopes    | array of [OAuth2 scopes](#DOCS_TOPICS_OAUTH2/shared-resources-oauth2-scopes) | scopes to authorize                                                       |
-| client_id | string                                                                       | OAuth2 application id                                                     |
+| client_id | string                                                                       | OAuth2 application ID                                                     |
 | rpc_token | string                                                                       | one-time use RPC token                                                    |
 | username  | string                                                                       | username to create a guest account with if the user does not have Discord |
 
@@ -213,7 +213,7 @@ Used to authenticate an existing client with your app.
 | ----------- | ---------------- | ------------------------ |
 | description | string           | application description  |
 | icon        | string           | hash of the icon         |
-| id          | snowflake        | application client id    |
+| id          | snowflake        | application client ID    |
 | rpc_origins | array of strings | array of rpc origin urls |
 | name        | string           | application name         |
 
@@ -307,7 +307,7 @@ Used to get a guild the client is in.
 
 | Field    | Type                                                                       | Description                                           |
 | -------- | -------------------------------------------------------------------------- | ----------------------------------------------------- |
-| id       | string                                                                     | guild id                                              |
+| id       | string                                                                     | guild ID                                              |
 | name     | string                                                                     | guild name                                            |
 | icon_url | string                                                                     | guild icon url                                        |
 | members  | array of [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) objects | members of the guild (deprecated; always empty array) |
@@ -353,8 +353,8 @@ Used to get a channel the client is in.
 
 | Field        | Type                                                                     | Description                                                      |
 | ------------ | ------------------------------------------------------------------------ | ---------------------------------------------------------------- |
-| id           | string                                                                   | channel id                                                       |
-| guild_id     | string                                                                   | channel's guild id                                               |
+| id           | string                                                                   | channel ID                                                       |
+| guild_id     | string                                                                   | channel's guild ID                                               |
 | name         | string                                                                   | channel name                                                     |
 | type         | integer                                                                  | channel type (guild text: 0, guild voice: 2, dm: 1, group dm: 3) |
 | topic        | string                                                                   | (text) channel topic                                             |
@@ -427,7 +427,7 @@ Used to get a guild's channels the client is in.
 
 | Field    | Type   | Description                         |
 | -------- | ------ | ----------------------------------- |
-| guild_id | string | id of the guild to get channels for |
+| guild_id | string | ID of the guild to get channels for |
 
 ###### Get Channels Response Structure
 
@@ -478,7 +478,7 @@ Used to change voice settings of users in voice channels
 
 | Field   | Type                                                           | Description                                              |
 | ------- | -------------------------------------------------------------- | -------------------------------------------------------- |
-| user_id | string                                                         | user id                                                  |
+| user_id | string                                                         | user ID                                                  |
 | pan?    | [pan](#DOCS_TOPICS_RPC/setuservoicesettings-pan-object) object | set the pan of the user                                  |
 | volume? | integer                                                        | set the volume of user (defaults to 100, min 0, max 200) |
 | mute?   | boolean                                                        | set the mute state of the user                           |
@@ -542,7 +542,7 @@ Used to join and leave voice channels, group dms, or dms. Returns the [Get Chann
 
 | Field      | Type    | Description                                                     |
 | ---------- | ------- | --------------------------------------------------------------- |
-| channel_id | string  | channel id to join (or `null` to leave)                         |
+| channel_id | string  | channel ID to join (or `null` to leave)                         |
 | timeout    | integer | asynchronously join channel with time to wait before timing out |
 | force      | boolean | forces a user to join a voice channel                           |
 
@@ -616,7 +616,7 @@ Used to join and leave text channels, group dms, or dms. Returns the [Get Channe
 
 | Field      | Type    | Description                                                     |
 | ---------- | ------- | --------------------------------------------------------------- |
-| channel_id | string  | channel id to join (or `null` to leave)                         |
+| channel_id | string  | channel ID to join (or `null` to leave)                         |
 | timeout    | integer | asynchronously join channel with time to wait before timing out |
 
 #### GET_VOICE_SETTINGS
@@ -640,7 +640,7 @@ Used to join and leave text channels, group dms, or dms. Returns the [Get Channe
 
 | Field             | Type             | Description                                                                |
 | ----------------- | ---------------- | -------------------------------------------------------------------------- |
-| device_id         | string           | device id                                                                  |
+| device_id         | string           | device ID                                                                  |
 | volume            | float            | input voice level (min: 0, max: 100)                                       |
 | available_devices | array of objects | array of _read-only_ device objects containing `id` and `name` string keys |
 
@@ -648,7 +648,7 @@ Used to join and leave text channels, group dms, or dms. Returns the [Get Channe
 
 | Field             | Type             | Description                                                                |
 | ----------------- | ---------------- | -------------------------------------------------------------------------- |
-| device_id         | string           | device id                                                                  |
+| device_id         | string           | device ID                                                                  |
 | volume            | float            | output voice level (min: 0, max: 200)                                      |
 | available_devices | array of objects | array of _read-only_ device objects containing `id` and `name` string keys |
 
@@ -993,7 +993,7 @@ Used to update a user's Rich Presence.
 
 | Field    | Type                                                    | Description                             |
 | -------- | ------------------------------------------------------- | --------------------------------------- |
-| pid      | integer                                                 | the application's process id            |
+| pid      | integer                                                 | the application's process ID            |
 | activity | [activity](#DOCS_TOPICS_GATEWAY/activity-object) object | the rich presence to assign to the user |
 
 ###### Example Set Activity Payload
@@ -1040,7 +1040,7 @@ Used to accept an Ask to Join request.
 
 | Field   | Type      | Description                   |
 | ------- | --------- | ----------------------------- |
-| user_id | snowflake | the id of the requesting user |
+| user_id | snowflake | the ID of the requesting user |
 
 ###### Example Send Activity Join Invite Payload
 
@@ -1062,7 +1062,7 @@ Used to reject an Ask to Join request.
 
 | Field   | Type      | Description                   |
 | ------- | --------- | ----------------------------- |
-| user_id | snowflake | the id of the requesting user |
+| user_id | snowflake | the ID of the requesting user |
 
 ###### Example Close Activity Request Payload
 
@@ -1152,7 +1152,7 @@ Used to reject an Ask to Join request.
 
 | Field  | Type                                                       | Description                                            |
 | ------ | ---------------------------------------------------------- | ------------------------------------------------------ |
-| guild  | partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object | guild with requested id                                |
+| guild  | partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object | guild with requested ID                                |
 | online | integer                                                    | number of online users in guild (deprecated; always 0) |
 
 ###### Example Guild Status Dispatch Payload
@@ -1180,7 +1180,7 @@ No arguments
 
 | Field | Type   | Description       |
 | ----- | ------ | ----------------- |
-| id    | string | guild id          |
+| id    | string | guild ID          |
 | name  | string | name of the guild |
 
 ###### Example Guild Create Dispatch Payload
@@ -1204,7 +1204,7 @@ No arguments
 
 | Field | Type    | Description                                                      |
 | ----- | ------- | ---------------------------------------------------------------- |
-| id    | string  | channel id                                                       |
+| id    | string  | channel ID                                                       |
 | name  | string  | name of the channel                                              |
 | type  | integer | channel type (guild text: 0, guild voice: 2, dm: 1, group dm: 3) |
 
@@ -1230,8 +1230,8 @@ No arguments
 
 | Field      | Type   | Description                    |
 | ---------- | ------ | ------------------------------ |
-| channel_id | string | id of channel (`null` if none) |
-| guild_id   | string | id of guild (`null` if none)   |
+| channel_id | string | ID of channel (`null` if none) |
+| guild_id   | string | ID of guild (`null` if none)   |
 
 ###### Example Voice Channel Select Dispatch Payload
 
@@ -1311,7 +1311,7 @@ Dispatches channel voice state objects
 
 | Field      | Type   | Description                           |
 | ---------- | ------ | ------------------------------------- |
-| channel_id | string | id of channel to listen to updates of |
+| channel_id | string | ID of channel to listen to updates of |
 
 ###### Example Voice State Dispatch Payload
 
@@ -1398,7 +1398,7 @@ Dispatches message objects, with the exception of deletions, which only contains
 
 | Field      | Type   | Description                           |
 | ---------- | ------ | ------------------------------------- |
-| channel_id | string | id of channel to listen to updates of |
+| channel_id | string | ID of channel to listen to updates of |
 
 ###### Example Message Dispatch Payload
 
@@ -1447,13 +1447,13 @@ Dispatches message objects, with the exception of deletions, which only contains
 
 | Field      | Type   | Description                           |
 | ---------- | ------ | ------------------------------------- |
-| channel_id | string | id of channel to listen to updates of |
+| channel_id | string | ID of channel to listen to updates of |
 
 ###### Speaking Dispatch Data Structure
 
 | Field   | Type   | Description                             |
 | ------- | ------ | --------------------------------------- |
-| user_id | string | id of user who started/stopped speaking |
+| user_id | string | ID of user who started/stopped speaking |
 
 ###### Example Speaking Dispatch Payload
 
@@ -1475,7 +1475,7 @@ No arguments. This event requires the `rpc.notifications.read` [OAuth2 scope](#D
 
 | Field      | Type                                                     | Description                               |
 | ---------- | -------------------------------------------------------- | ----------------------------------------- |
-| channel_id | string                                                   | id of channel where notification occurred |
+| channel_id | string                                                   | ID of channel where notification occurred |
 | message    | [message](#DOCS_RESOURCES_CHANNEL/message-object) object | message that generated this notification  |
 | icon_url   | string                                                   | icon url of the notification              |
 | title      | string                                                   | title of the notification                 |

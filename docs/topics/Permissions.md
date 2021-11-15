@@ -179,7 +179,7 @@ Roles represent a set of permissions attached to a group of users. Roles have un
 
 | Field          | Type                                                                         | Description                                       |
 | -------------- | ---------------------------------------------------------------------------- | ------------------------------------------------- |
-| id             | snowflake                                                                    | role id                                           |
+| id             | snowflake                                                                    | role ID                                           |
 | name           | string                                                                       | role name                                         |
 | color          | integer                                                                      | integer representation of hexadecimal color code  |
 | hoist          | boolean                                                                      | if this role is pinned in the user listing        |
@@ -197,8 +197,8 @@ Roles without colors (`color == 0`) do not count towards the final computed colo
 
 | Field               | Type      | Description                                         |
 | ------------------- | --------- | --------------------------------------------------- |
-| bot_id?             | snowflake | the id of the bot this role belongs to              |
-| integration_id?     | snowflake | the id of the integration this role belongs to      |
+| bot_id?             | snowflake | the ID of the bot this role belongs to              |
+| integration_id?     | snowflake | the ID of the integration this role belongs to      |
 | premium_subscriber? | null      | whether this is the guild's premium subscriber role |
 
 ###### Example Role
