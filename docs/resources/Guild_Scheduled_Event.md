@@ -9,8 +9,8 @@ A representation of a scheduled event in a [guild](#DOCS_RESOURCES_GUILD/).
 | Field                | Type                                                                                                                           | Description                                                                                         |
 | -------------------- | ------------------------------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------- |
 | id                   | snowflake                                                                                                                      | the id of the scheduled event                                                                       |
-| guild_id             | snowflake                                                                                                                      | the guild id of the scheduled event                                                                 |
-| channel_id           | ?snowflake                                                                                                                     | the channel id of the scheduled event                                                               |
+| guild_id             | snowflake                                                                                                                      | the guild id which the scheduled event belongs to                                                   |
+| channel_id           | ?snowflake                                                                                                                     | the channel id in which the scheduled event will be hosted, or `null` if [scheduled entity type](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object-guild-scheduled-event-entity-types) is `EXTERNAL` |
 | creator_id?          | snowflake                                                                                                                      | the id of the user that created the scheduled event                                                 |
 | name                 | string                                                                                                                         | the name of the scheduled event                                                                     |
 | description?         | string                                                                                                                         | the description of the scheduled event                                                              |
@@ -19,20 +19,18 @@ A representation of a scheduled event in a [guild](#DOCS_RESOURCES_GUILD/).
 | scheduled_end_time   | ?ISO8601 timestamp                                                                                                             | the time the scheduled event will end, or `null` if the event does not have a scheduled time to end |
 | privacy_level        | [privacy level](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object-guild-scheduled-event-privacy-level)        | the privacy level of the scheduled event                                                            |
 | status               | [event status](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object-guild-scheduled-event-status)                | the status of the scheduled event                                                                   |
-| entity_type          | [scheduled entity type](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object-guild-scheduled-event-entity-types) | the entity type of the scheduled event                                                              |
-| entity_id            | ?snowflake                                                                                                                     | entity id                                                                                           |
+| entity_type          | [scheduled entity type](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object-guild-scheduled-event-entity-types) | the type of hosting entity associated with a scheduled event, e.g. voice channel or stage channel   |
+| entity_id            | ?snowflake                                                                                                                     | any additional id of the hosting entity associated with event, e.g. [stage instance id](#DOCS_RESOURCES_STAGE_INSTANCE/stage-instance-object)) |
 | entity_metadata      | ?[entity metadata](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object-guild-scheduled-event-entity-metadata)   | the entity metadata for the scheduled event                                                         |
-| sku_ids              | array of snowflakes                                                                                                            | sku ids                                                                                             |
 | creator?             | [user](#DOCS_RESOURCES_USER/user-object) object                                                                                | the creator of the scheduled event                                                                  |
-| skus                 | array of SKUs                                                                                                                  | skus                                                                                                |
-| user_count?          | integer                                                                                                                        | users subscribed to the scheduled event                                                             |
+| user_count?          | integer                                                                                                                        | the number of users subscribed to the scheduled event                                               |
 
 ###### Guild Scheduled Event Privacy Level
 
-| Level      | Value | Description                                                    |
-| ---------- | ----- | -------------------------------------------------------------- |
-| PUBLIC     | 1     | the guild scheduled event is public and available in discovery |
-| GUILD_ONLY | 2     | the guild scheduled event is only accessable to guild members  |
+| Level      | Value | Description                                              |
+| ---------- | ----- | -------------------------------------------------------- |
+| PUBLIC     | 1     | the scheduled event is public and available in discovery |
+| GUILD_ONLY | 2     | the scheduled event is only accessible to guild members  |
 
 ###### Guild Scheduled Event Entity Types
 
@@ -65,9 +63,9 @@ Returns a list of [guild scheduled event](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/
 
 ###### Query String Params
 
-| Field            | Type    | Description                   |
-| ---------------- | ------- | ----------------------------- |
-| with_user_count? | boolean | users subscribed to the event |
+| Field            | Type    | Description                                      |
+| ---------------- | ------- | ------------------------------------------------ |
+| with_user_count? | boolean | include number of users subscribed to each event |
 
 ## Create Guild Scheduled Event % POST /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/scheduled-events
 
@@ -131,6 +129,6 @@ Get a list of users RSVP'd to the guild scheduled event. Returns a list of [user
 
 ###### Response Structure
 
-| Field         | Type                                                                         |
-| ------------- | ---------------------------------------------------------------------------- |
+| Field         | Type                                                                                                            |
+| ------------- | --------------------------------------------------------------------------------------------------------------- |
 | users         | array of [user](#DOCS_RESOURCES_USER/user-object) objects with an optional `guild_member` property for each user|
