@@ -302,9 +302,18 @@ DIRECT_MESSAGE_REACTIONS (1 << 13)
 
 DIRECT_MESSAGE_TYPING (1 << 14)
   - TYPING_START
+
+GUILD_SCHEDULED_EVENTS (1 << 16)
+  - GUILD_SCHEDULED_EVENT_CREATE
+  - GUILD_SCHEDULED_EVENT_UPDATE
+  - GUILD_SCHEDULED_EVENT_DELETE
+  - GUILD_SCHEDULED_EVENT_USER_ADD **
+  - GUILD_SCHEDULED_EVENT_USER_REMOVE ** 
 ```
 
 \* [Thread Members Update](#DOCS_TOPICS_GATEWAY/thread-members-update) contains different data depending on which intents are used.
+
+\*\* [Guild Scheduled Event User Add](#DOCS_TOPICS_GATEWAY/guild-scheduled-event-user-add) and [Guild Scheduled Event User Remove](#DOCS_TOPICS_GATEWAY/guild-scheduled-event-user-remove) are currently experimental and not officially supported.
 
 ### Caveats
 
@@ -504,6 +513,11 @@ Events are payloads sent over the socket to a client that correspond to events i
 | [Guild Role Create](#DOCS_TOPICS_GATEWAY/guild-role-create)                         | guild role was created                                                                                                           |
 | [Guild Role Update](#DOCS_TOPICS_GATEWAY/guild-role-update)                         | guild role was updated                                                                                                           |
 | [Guild Role Delete](#DOCS_TOPICS_GATEWAY/guild-role-delete)                         | guild role was deleted                                                                                                           |
+| [Guild Scheduled Event Create](#DOCS_TOPICS_GATEWAY/guild-scheduled-event-create) | guild scheduled event was created                                                                                               |
+| [Guild Scheduled Event Update](#DOCS_TOPICS_GATEWAY/guild-scheduled-event-update) | guild scheduled event was updated                                                                                               |
+| [Guild Scheduled Event Delete](#DOCS_TOPICS_GATEWAY/guild-scheduled-event-delete) | guild scheduled event was deleted                                                                                               |
+| [Guild Scheduled Event User Add](#DOCS_TOPICS_GATEWAY/guild-scheduled-event-user-add)       | user subscribed to a guild scheduled event                                                                               |
+| [Guild Scheduled Event User Remove](#DOCS_TOPICS_GATEWAY/guild-scheduled-event-user-remove) | user unsubscribed from a guild scheduled event                                                                           |
 | [Integration Create](#DOCS_TOPICS_GATEWAY/integration-create)                       | guild integration was created                                                                                                    |
 | [Integration Update](#DOCS_TOPICS_GATEWAY/integration-update)                       | guild integration was updated                                                                                                    |
 | [Integration Delete](#DOCS_TOPICS_GATEWAY/integration-delete)                       | guild integration was deleted                                                                                                    |
@@ -519,9 +533,9 @@ Events are payloads sent over the socket to a client that correspond to events i
 | [Message Reaction Remove All](#DOCS_TOPICS_GATEWAY/message-reaction-remove-all)     | all reactions were explicitly removed from a message                                                                             |
 | [Message Reaction Remove Emoji](#DOCS_TOPICS_GATEWAY/message-reaction-remove-emoji) | all reactions for a given emoji were explicitly removed from a message                                                           |
 | [Presence Update](#DOCS_TOPICS_GATEWAY/presence-update)                             | user was updated                                                                                                                 |
-| [Stage Instance Create](#DOCS_TOPICS_GATEWAY/stage-instance-create)                 | stage instance was created                                                                                                      |
-| [Stage Instance Delete](#DOCS_TOPICS_GATEWAY/stage-instance-delete)                 | stage instance was deleted or closed                                                                                            |
-| [Stage Instance Update](#DOCS_TOPICS_GATEWAY/stage-instance-update)                 | stage instance was updated                                                                                                        |
+| [Stage Instance Create](#DOCS_TOPICS_GATEWAY/stage-instance-create)                 | stage instance was created                                                                                                       |
+| [Stage Instance Delete](#DOCS_TOPICS_GATEWAY/stage-instance-delete)                 | stage instance was deleted or closed                                                                                             |
+| [Stage Instance Update](#DOCS_TOPICS_GATEWAY/stage-instance-update)                 | stage instance was updated                                                                                                       |
 | [Typing Start](#DOCS_TOPICS_GATEWAY/typing-start)                                   | user started typing in a channel                                                                                                 |
 | [User Update](#DOCS_TOPICS_GATEWAY/user-update)                                     | properties about the user changed                                                                                                |
 | [Voice State Update](#DOCS_TOPICS_GATEWAY/voice-state-update)                       | someone joined, left, or moved a voice channel                                                                                   |
@@ -1053,6 +1067,48 @@ Sent when a guild role is deleted.
 |----------|-----------|-----------------|
 | guild_id | snowflake | id of the guild |
 | role_id  | snowflake | id of the role  |
+
+### Guild Scheduled Event Create
+
+Sent when a guild scheduled event is created. The inner payload is a [guild scheduled event](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object) object.
+
+### Guild Scheduled Event Update
+
+Sent when a guild scheduled event is updated. The inner payload is a [guild scheduled event](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object) object.
+
+### Guild Scheduled Event Delete
+
+Sent when a guild scheduled event is deleted. The inner payload is a [guild scheduled event](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object) object. See [Guild Scheduled Event Status](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object-guild-scheduled-event-status) to determine how the event was deleted.
+
+### Guild Scheduled Event User Add
+
+Sent when a user has subscribed to a guild scheduled event.
+
+> info
+> NOTE: this event is currently experimental and not officially supported
+
+###### Guild Scheduled Event User Add Event Fields
+
+| Field                    | Type      | Description                     |
+| ------------------------ | --------- | ------------------------------- |
+| guild_scheduled_event_id | snowflake | id of the guild scheduled event |
+| user_id                  | snowflake | id of the user                  |
+| guild_id                 | snowflake | id of the guild                 |
+
+### Guild Scheduled Event User Remove
+
+Sent when a user has unsubscribed from a guild scheduled event.
+
+> info
+> NOTE: this event is currently experimental and not officially supported
+
+###### Guild Scheduled Event User Remove Event Fields
+
+| Field                    | Type      | Description                     |
+| ------------------------ | --------- | ------------------------------- |
+| guild_scheduled_event_id | snowflake | id of the guild scheduled event |
+| user_id                  | snowflake | id of the user                  |
+| guild_id                 | snowflake | id of the guild                 |
 
 ### Integrations
 
