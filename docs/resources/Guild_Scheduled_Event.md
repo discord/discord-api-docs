@@ -14,7 +14,6 @@ A representation of a scheduled event in a [guild](#DOCS_RESOURCES_GUILD/).
 | creator_id?          | snowflake                                                                                                                      | the id of the user that created the scheduled event                                                 |
 | name                 | string                                                                                                                         | the name of the scheduled event                                                                     |
 | description?         | string                                                                                                                         | the description of the scheduled event                                                              |
-| image                | ?string                                                                                                                        | the image of the scheduled event                                                                    |
 | scheduled_start_time | ISO8601 timestamp                                                                                                              | the time the scheduled event will start                                                             |
 | scheduled_end_time   | ?ISO8601 timestamp                                                                                                             | the time the scheduled event will end, or `null` if the event does not have a scheduled time to end |
 | privacy_level        | [privacy level](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object-guild-scheduled-event-privacy-level)        | the privacy level of the scheduled event                                                            |
@@ -22,7 +21,7 @@ A representation of a scheduled event in a [guild](#DOCS_RESOURCES_GUILD/).
 | entity_type          | [scheduled entity type](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object-guild-scheduled-event-entity-types) | the type of hosting entity associated with a scheduled event, e.g. voice channel or stage channel   |
 | entity_id            | ?snowflake                                                                                                                     | any additional id of the hosting entity associated with event, e.g. [stage instance id](#DOCS_RESOURCES_STAGE_INSTANCE/stage-instance-object)) |
 | entity_metadata      | ?[entity metadata](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object-guild-scheduled-event-entity-metadata)   | the entity metadata for the scheduled event                                                         |
-| creator?             | [user](#DOCS_RESOURCES_USER/user-object) object                                                                                | the creator of the scheduled event                                                                  |
+| creator?             | [user](#DOCS_RESOURCES_USER/user-object) object                                                                                | the user that created the scheduled event                                                           |
 | user_count?          | integer                                                                                                                        | the number of users subscribed to the scheduled event                                               |
 
 ###### Guild Scheduled Event Privacy Level
@@ -70,6 +69,9 @@ Returns a list of [guild scheduled event](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/
 ## Create Guild Scheduled Event % POST /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/scheduled-events
 
 Create a guild scheduled event in the guild. Returns a [guild scheduled event](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object) object on success.
+
+> info
+> A guild can have a maximum of 100 events with `SCHEDULED` or `ACTIVE` status at any time.
 
 ###### JSON Params
 
@@ -129,6 +131,6 @@ Get a list of users RSVP'd to the guild scheduled event. Returns a list of [user
 
 ###### Response Structure
 
-| Field         | Type                                                                                                            |
-| ------------- | --------------------------------------------------------------------------------------------------------------- |
-| users         | array of [user](#DOCS_RESOURCES_USER/user-object) objects with an optional `guild_member` property for each user|
+| Field         | Type                                                                                                             |
+| ------------- | ---------------------------------------------------------------------------------------------------------------- |
+| users         | array of [user](#DOCS_RESOURCES_USER/user-object) objects with an optional `guild_member` property for each user |
