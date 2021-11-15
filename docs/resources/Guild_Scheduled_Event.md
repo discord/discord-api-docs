@@ -97,11 +97,14 @@ Modify a guild scheduled event. Returns the modified [guild scheduled event](#DO
 > info
 > All parameters to this endpoint are optional
 
+> info
+> To start or end an event, use this endpoint to modify the event's [status](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object-guild-scheduled-event-status) field.
+
 ###### JSON Params
 
 | Field                | Type                                                                                                                        | Description                                                                     |
 | -------------------- | --------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
-| channel_id           | snowflake                                                                                                                   | the channel id of the scheduled event, if for a stage instance of voice channel |
+| channel_id           | snowflake                                                                                                                   | the channel id of the scheduled event, required if [entity_type](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object-guild-scheduled-event-entity-types) is `STAGE_INSTANCE` or `VOICE`
 | entity_metadata      | [entity metadata](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object-guild-scheduled-event-entity-metadata) | the entity metadata of the scheduled event                                      |
 | name                 | string                                                                                                                      | the name of the scheduled event                                                 |
 | privacy_level        | [privacy level](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object-guild-scheduled-event-privacy-level)     | the privacy level of the scheduled event                                        |
@@ -109,6 +112,7 @@ Modify a guild scheduled event. Returns the modified [guild scheduled event](#DO
 | scheduled_end_time   | ISO8601 timestamp                                                                                                           | the time when the scheduled event is scheduled to end                           |
 | description          | string                                                                                                                      | the description of the scheduled event                                          |
 | entity_type          | [event entity type](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object-guild-scheduled-event-entity-types)  | the entity type of the scheduled event                                          |
+| status               | [event status](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object-guild-scheduled-event-status)             | the status of the scheduled event                                               |
 
 ## Delete Guild Scheduled Event % DELETE /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/scheduled-events/{guild_scheduled_event.id#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object}
 
@@ -116,7 +120,7 @@ Delete a guild scheduled event. Returns a `204` on success.
 
 ## Get Guild Scheduled Event Users % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/scheduled-events/{guild_scheduled_event.id#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object}/users
 
-Get a list of users RSVP'd to the guild scheduled event. Returns a list of [user](#DOCS_RESOURCES_USER/user-object) objects on success.
+Get a list of users RSVP'd to the guild scheduled event. Returns a list of [user](#DOCS_RESOURCES_USER/user-object) objects on success with an optional `guild_member` property for each user if `with_member` query parameter is passed in.
 
 ###### Query String Params
 
@@ -124,3 +128,9 @@ Get a list of users RSVP'd to the guild scheduled event. Returns a list of [user
 | ------------ | ------- | ------------------------------------------------------------------------------ | ------- |
 | limit?       | number  | how many users to receive from the event                                       | 100     |
 | with_member? | boolean | include guild member data. attaches `guild_member` property to the user object | false   |
+
+###### Response Structure
+
+| Field         | Type                                                                         |
+| ------------- | ---------------------------------------------------------------------------- |
+| users         | array of [user](#DOCS_RESOURCES_USER/user-object) objects with an optional `guild_member` property for each user|

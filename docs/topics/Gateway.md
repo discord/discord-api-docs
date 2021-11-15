@@ -302,9 +302,18 @@ DIRECT_MESSAGE_REACTIONS (1 << 13)
 
 DIRECT_MESSAGE_TYPING (1 << 14)
   - TYPING_START
+
+GUILD_SCHEDULED_EVENTS (1 << 16)
+  - GUILD_SCHEDULED_EVENT_CREATE
+  - GUILD_SCHEDULED_EVENT_UPDATE
+  - GUILD_SCHEDULED_EVENT_DELETE
+  - GUILD_SCHEDULED_EVENT_USER_ADD **
+  - GUILD_SCHEDULED_EVENT_USER_REMOVE ** 
 ```
 
 \* [Thread Members Update](#DOCS_TOPICS_GATEWAY/thread-members-update) contains different data depending on which intents are used.
+
+\*\* [Guild Scheduled Event User Add](#DOCS_TOPICS_GATEWAY/guild-scheduled-event-user-add) and [Guild Scheduled Event User Remove](#DOCS_TOPICS_GATEWAY/guild-scheduled-event-user-remove) are currently experimental and not officially supported.
 
 ### Caveats
 
@@ -1075,7 +1084,10 @@ Sent when a guild scheduled event is deleted. The inner payload is a [guild sche
 
 Sent when a user has subscribed to a guild scheduled event.
 
-###### Guild Scheduled Event User Create Event Fields
+> info
+> NOTE: this event is currently experimental and not officially supported
+
+###### Guild Scheduled Event User Add Event Fields
 
 | Field                    | Type      | Description                     |
 | ------------------------ | --------- | ------------------------------- |
@@ -1086,6 +1098,9 @@ Sent when a user has subscribed to a guild scheduled event.
 ### Guild Scheduled Event User Remove
 
 Sent when a user has unsubscribed from a guild scheduled event.
+
+> info
+> NOTE: this event is currently experimental and not officially supported
 
 ###### Guild Scheduled Event User Remove Event Fields
 
