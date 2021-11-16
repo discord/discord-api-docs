@@ -69,6 +69,30 @@ Shared structure of a text- and news guild channel.
 
 \*\* News channels cannot have a `rate_limit_per_user` field - it is by virtue always 0 and isn't included.
 
+###### DM Channel
+
+| Field               | Type                                                      | Description                                                                                                                |
+|---------------------|-----------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------|
+| id                  | snowflake                                                 | the id of this channel                                                                                                     |
+| type                | integer                                                   | the [type of channel](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types)                                                |
+| last_message_id     | ?snowflake                                                | the id of the last message sent in this channel (may not point to an existing or valid message)                            |
+| recipients          | array of [user](#DOCS_RESOURCES_USER/user-object) objects | the recipients of the DM                                                                                                   |
+| last_pin_timestamp? | ?ISO8601 timestamp                                        | when the last pinned message was pinned. This may be `null` in events such as `GUILD_CREATE` when a message is not pinned. |
+
+###### Group Channel
+
+| Field               | Type                                                      | Description                                                                                                                |
+|---------------------|-----------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------|
+| id                  | snowflake                                                 | the id of this channel                                                                                                     |
+| type                | integer                                                   | the [type of channel](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types)                                                |
+| name                | string                                                    | the name of the channel (1-100 characters)                                                                                 |
+| last_message_id     | ?snowflake                                                | the id of the last message sent in this channel (may not point to an existing or valid message)                            |
+| recipients          | array of [user](#DOCS_RESOURCES_USER/user-object) objects | the recipients of the DM                                                                                                   |
+| icon                | ?string                                                   | icon hash                                                                                                                  |
+| owner_id            | snowflake                                                 | id of the creator of the group DM                                                                                          |
+| application_id?     | snowflake                                                 | application id of the group DM creator if it is bot-created                                                                |
+| last_pin_timestamp? | ?ISO8601 timestamp                                        | when the last pinned message was pinned. This may be `null` in events such as `GUILD_CREATE` when a message is not pinned. |
+
 ###### Thread Channel
 
 | Field                  | Type                                                                       | Description                                                                                                                                                                                     |
