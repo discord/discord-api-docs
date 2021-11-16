@@ -30,7 +30,7 @@ Represents a guild or DM channel within Discord - including stores, categories a
 | AUTO | 1     | Discord chooses the quality for optimal performance |
 | FULL | 2     | 720p                                                |
 
-#### Channel Structures
+#### Channel Structure
 
 The channel object itself can be split into several structures depending on its [channel type](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types), think of a general channel object from the API as a union of all of these structures with fields that not all structures share being optional.
 
@@ -120,7 +120,9 @@ Shared structure for a category- and store channel that both do not allow sendin
 | nsfw                  | boolean                                                                | whether the channel is nsfw                                                                                               |
 | parent_id             | ?snowflake                                                             | always null for category- and store channels                                                                                         |
 
-###### Example Guild Text Channel
+#### Example
+
+###### Guild Text Channel
 
 ```json
 {
@@ -139,7 +141,7 @@ Shared structure for a category- and store channel that both do not allow sendin
 }
 ```
 
-###### Example Guild News Channel
+###### Guild News Channel
 
 Bots can post or publish messages in this type of channel if they have the proper permissions. These are called "Announcement Channels" in the client.
 
@@ -159,7 +161,7 @@ Bots can post or publish messages in this type of channel if they have the prope
 }
 ```
 
-###### Example Guild Voice Channel
+###### Guild Voice Channel
 
 ```json
 {
@@ -177,7 +179,7 @@ Bots can post or publish messages in this type of channel if they have the prope
 }
 ```
 
-###### Example DM Channel
+###### DM Channel
 
 ```json
 {
@@ -195,7 +197,7 @@ Bots can post or publish messages in this type of channel if they have the prope
 }
 ```
 
-###### Example Group DM Channel
+###### Group DM Channel
 
 ```json
 {
@@ -222,7 +224,7 @@ Bots can post or publish messages in this type of channel if they have the prope
 }
 ```
 
-###### Example Channel Category
+###### Channel Category
 
 ```json
 {
@@ -237,7 +239,7 @@ Bots can post or publish messages in this type of channel if they have the prope
 }
 ```
 
-###### Example Store Channel
+###### Store Channel
 
 Bots can neither send nor read messages in this channel type (as it is a store page).
 
@@ -254,7 +256,7 @@ Bots can neither send nor read messages in this channel type (as it is a store p
 }
 ```
 
-###### Example Thread Channel
+###### Thread Channel
 
 [Threads](#DOCS_TOPICS_THREADS) can be either `archived` or `active`.  Archived threads are generally immutable.  To send a message or add a reaction, a thread must first be unarchived.  The API will helpfully automatically unarchive a thread when sending a message in that thread.
 
