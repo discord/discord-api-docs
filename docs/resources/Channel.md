@@ -4,6 +4,32 @@
 
 Represents a guild or DM channel within Discord - including stores, categories and threads.
 
+###### Channel Types
+
+> warn
+> Type 10, 11 and 12 are only available in API v9.
+
+| Type                    | ID  | Description                                                                                                                                          |
+| ----------------------- | --- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| GUILD_TEXT              | 0   | a text channel within a server                                                                                                                       |
+| DM                      | 1   | a direct message between users                                                                                                                       |
+| GUILD_VOICE             | 2   | a voice channel within a server                                                                                                                      |
+| GROUP_DM                | 3   | a direct message between multiple users                                                                                                              |
+| GUILD_CATEGORY          | 4   | an [organizational category](https://support.discord.com/hc/en-us/articles/115001580171-Channel-Categories-101) that contains up to 50 channels      |
+| GUILD_NEWS              | 5   | a channel that [users can follow and crosspost into their own server](https://support.discord.com/hc/en-us/articles/360032008192)                    |
+| GUILD_STORE             | 6   | a channel in which game developers can [sell their game on Discord](https://discord.com/developers/docs/game-and-server-management/special-channels) |
+| GUILD_NEWS_THREAD       | 10  | a temporary sub-channel within a GUILD_NEWS channel                                                                                                  |
+| GUILD_PUBLIC_THREAD     | 11  | a temporary sub-channel within a GUILD_TEXT channel                                                                                                  |
+| GUILD_PRIVATE_THREAD    | 12  | a temporary sub-channel within a GUILD_TEXT channel that is only viewable by those invited and those with the MANAGE_THREADS permission              |
+| GUILD_STAGE_VOICE       | 13  | a voice channel for [hosting events with an audience](https://support.discord.com/hc/en-us/articles/1500005513722)                                   |
+
+###### Video Quality Modes
+
+| Mode | Value | Description                                         |
+| ---- | ----- | --------------------------------------------------- |
+| AUTO | 1     | Discord chooses the quality for optimal performance |
+| FULL | 2     | 720p                                                |
+
 #### Channel Structures
 
 The channel object itself can be split into several structures depending on its [channel type](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types), think of a general channel object from the API as a union of all of these structures with fields that not all structures share being optional.
@@ -93,32 +119,6 @@ Shared structure for a category- and store channel that both do not allow sendin
 | name                  | string                                                                 | the name of the channel (1-100 characters)                                                                                |
 | nsfw                  | boolean                                                                | whether the channel is nsfw                                                                                               |
 | parent_id             | ?snowflake                                                             | always null for category- and store channels                                                                                         |
-
-###### Channel Types
-
-> warn
-> Type 10, 11 and 12 are only available in API v9.
-
-| Type                    | ID  | Description                                                                                                                                          |
-| ----------------------- | --- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
-| GUILD_TEXT              | 0   | a text channel within a server                                                                                                                       |
-| DM                      | 1   | a direct message between users                                                                                                                       |
-| GUILD_VOICE             | 2   | a voice channel within a server                                                                                                                      |
-| GROUP_DM                | 3   | a direct message between multiple users                                                                                                              |
-| GUILD_CATEGORY          | 4   | an [organizational category](https://support.discord.com/hc/en-us/articles/115001580171-Channel-Categories-101) that contains up to 50 channels      |
-| GUILD_NEWS              | 5   | a channel that [users can follow and crosspost into their own server](https://support.discord.com/hc/en-us/articles/360032008192)                    |
-| GUILD_STORE             | 6   | a channel in which game developers can [sell their game on Discord](https://discord.com/developers/docs/game-and-server-management/special-channels) |
-| GUILD_NEWS_THREAD       | 10  | a temporary sub-channel within a GUILD_NEWS channel                                                                                                  |
-| GUILD_PUBLIC_THREAD     | 11  | a temporary sub-channel within a GUILD_TEXT channel                                                                                                  |
-| GUILD_PRIVATE_THREAD    | 12  | a temporary sub-channel within a GUILD_TEXT channel that is only viewable by those invited and those with the MANAGE_THREADS permission              |
-| GUILD_STAGE_VOICE       | 13  | a voice channel for [hosting events with an audience](https://support.discord.com/hc/en-us/articles/1500005513722)                                   |
-
-###### Video Quality Modes
-
-| Mode | Value | Description                                         |
-| ---- | ----- | --------------------------------------------------- |
-| AUTO | 1     | Discord chooses the quality for optimal performance |
-| FULL | 2     | 720p                                                |
 
 ###### Example Guild Text Channel
 
