@@ -12,8 +12,8 @@ A representation of a scheduled event in a [guild](#DOCS_RESOURCES_GUILD/).
 | guild_id             | snowflake                                                                                                                      | the guild id which the scheduled event belongs to                                                   |
 | channel_id           | ?snowflake                                                                                                                     | the channel id in which the scheduled event will be hosted, or `null` if [scheduled entity type](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object-guild-scheduled-event-entity-types) is `EXTERNAL` |
 | creator_id?          | snowflake                                                                                                                      | the id of the user that created the scheduled event                                                 |
-| name                 | string                                                                                                                         | the name of the scheduled event                                                                     |
-| description?         | string                                                                                                                         | the description of the scheduled event                                                              |
+| name                 | string                                                                                                                         | the name of the scheduled event (1-100 characters)                                                  |
+| description?         | string                                                                                                                         | the description of the scheduled event (1-1000 characters)                                          |
 | scheduled_start_time | ISO8601 timestamp                                                                                                              | the time the scheduled event will start                                                             |
 | scheduled_end_time   | ?ISO8601 timestamp                                                                                                             | the time the scheduled event will end, or `null` if the event does not have a scheduled time to end |
 | privacy_level        | [privacy level](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object-guild-scheduled-event-privacy-level)        | the privacy level of the scheduled event                                                            |
@@ -51,9 +51,9 @@ A representation of a scheduled event in a [guild](#DOCS_RESOURCES_GUILD/).
 
 ###### Guild Scheduled Event Entity Metadata
 
-| Field        | Type                | Description                       |
-| ------------ | ------------------- | --------------------------------- |
-| location?    | string              | location of the event             |
+| Field        | Type                | Description                               |
+| ------------ | ------------------- | ----------------------------------------- |
+| location?    | string              | location of the event (1-100 characters)  |
 
 ## List Scheduled Events for Guild % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/scheduled-events
 
