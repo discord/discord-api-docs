@@ -53,7 +53,6 @@ A representation of a scheduled event in a [guild](#DOCS_RESOURCES_GUILD/).
 
 | Field        | Type                | Description                               |
 | ------------ | ------------------- | ----------------------------------------- |
-| speaker_ids? | array of snowflakes | the speakers of the stage channel         |
 | location?    | string              | location of the event (1-100 characters)  |
 
 ## List Scheduled Events for Guild % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/scheduled-events
