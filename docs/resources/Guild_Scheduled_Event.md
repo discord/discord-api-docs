@@ -24,7 +24,8 @@ A representation of a scheduled event in a [guild](#DOCS_RESOURCES_GUILD/).
 | creator?              | [user](#DOCS_RESOURCES_USER/user-object) object                                                                                | the user that created the scheduled event                                                           |
 | user_count?           | integer                                                                                                                        | the number of users subscribed to the scheduled event                                               |
 
-\* `creator_id` will be null and `creator` will not be included for events created before October 25th, 2021, when the concept of `creator_id` was introduced and tracked.
+> note
+> `creator_id` will be null and `creator` will not be included for events created before October 25th, 2021, when the concept of `creator_id` was introduced and tracked.
 
 \** See [field requirements by entity type](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object-field-requirements-by-entity-type) to understand the relationship between `entity_type` and the following fields: `channel_id`, `entity_metadata`, and `scheduled_end_time` 
 
@@ -44,9 +45,9 @@ A representation of a scheduled event in a [guild](#DOCS_RESOURCES_GUILD/).
 
 ###### Field Requirements By Entity Type
 
-The following matrix describes field requirements based on current entity type.
+The following table shows field requirements based on current entity type.
 
-`non-null` : This field is required to be a non-null value
+`value` : This field is required to be a non-null value
 
 `null`     : This field is required to be null
 
@@ -139,7 +140,7 @@ Get a guild scheduled event. Returns a [guild scheduled event](#DOCS_RESOURCES_G
 ###### Query String Params
 
 > warn
-> The with_user_count query param was introduced on Thursday Nov 18, 2021 after the initial publication of this documentation to remain consitent with other guild scheduled events endpoints
+> The `with_user_count` query param was introduced on Thursday Nov 18, 2021 after the initial publication of this documentation to remain consitent with other guild scheduled events endpoints
 
 | Field            | Type    | Description                                      |
 | ---------------- | ------- | ------------------------------------------------ |
