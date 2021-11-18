@@ -1,5 +1,18 @@
 # Change Log
 
+## Guild Scheduled Events
+
+#### Nov 18, 2021
+
+- Breaking change for return type for `GET /guilds/{guild.id}/scheduled-events/{guild_scheduled_event.id}/users`
+- Add `with_user_count` query param for `GET /guilds/{guild.id}/scheduled-events/{guild_scheduled_event.id}`
+- Return additional `creator` field by default in response for `GET /guilds/{guild.id}/scheduled-events/{guild_scheduled_event.id}`
+- More details and clarification for the guild scheduled events feature.
+
+#### Nov 15, 2021
+
+Add new documentation for recently released Guild Scheduled Events feature.
+
 ## Application Command Autocomplete Interactions
 
 #### October 27, 2021
