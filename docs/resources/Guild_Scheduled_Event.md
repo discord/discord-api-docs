@@ -55,9 +55,9 @@ The following table shows field requirements based on current entity type.
 
 | Entity Type    | channel_id | entity_metadata | scheduled_end_time |
 | -------------- | ---------- | --------------- | ------------------ |
-| STAGE_INSTANCE |  non-null  |      null       |         -          |
-| VOICE          |  non-null  |      null       |         -          |
-| EXTERNAL       |    null    |    non-null *   |      non-null      |
+| STAGE_INSTANCE |    value   |      null       |         -          |
+| VOICE          |    value   |      null       |         -          |
+| EXTERNAL       |    null    |     value *     |       value        |
 
 \* `entity_metadata` with a non-null `location` must be provided
 
