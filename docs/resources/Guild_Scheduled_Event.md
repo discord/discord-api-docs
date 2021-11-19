@@ -225,7 +225,7 @@ Any event with `'status': SCHEDULED` after a certain time interval (on the order
 NOTE: `entity_type` is expressed by name rather than value for readability
 
 > info
-> A user must be a member of the guild and not banned from the guild. These two requirements must be met before other permissions are considered.
+> A user must be a member of the guild in order to access events for that guild.
 
 ### Permissions to create an event with entity_type: STAGE_INSTANCE
 
@@ -238,19 +238,19 @@ NOTE: `entity_type` is expressed by name rather than value for readability
 
 #### Read Permissions (GET)
 
-- `READ_MESSAGES` for `channel_id` associated with the event
+- `VIEW_CHANNEL` for `channel_id` associated with the event
 
 ### Permissions to create an event with entity_type: VOICE
 
 #### Write Permissions (CREATE / UPDATE)
 
 - `MANAGE_EVENTS` at the guild level or `MANAGE_EVENTS` for the `channel_id` associated with the event
-- `READ_MESSAGES` for `channel_id` associated with event
+- `VIEW_CHANNEL` for `channel_id` associated with event
 - `CONNECT` for `channel_id` associated with event
 
 #### Read Permissions (GET)
 
-- `READ_MESSAGES` for `channel_id` associated with the event
+- `VIEW_CHANNEL` for `channel_id` associated with the event
 
 
 ### Permissions to create an event with entity_type: EXTERNAL
