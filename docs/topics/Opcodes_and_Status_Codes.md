@@ -231,6 +231,7 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 60003  | Two factor is required for this operation                                                                                     |
 | 80004  | No users with DiscordTag exist                                                                                                |
 | 90001  | Reaction was blocked                                                                                                          |
+| 10070  | Unknown Guild Scheduled Event                                                                                                 |
 | 130000 | API resource is currently overloaded. Try again a little later                                                                |
 | 150006 | The Stage is already open                                                                                                     |
 | 160002 | Cannot reply without permission to read message history                                                                       |
@@ -245,6 +246,8 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 170005 | Lottie animation maximum dimensions exceeded                                                                                  |
 | 170006 | Sticker frame rate is either too small or too large                                                                           |
 | 170007 | Sticker animation duration exceeds maximum of 5 seconds                                                                       |
+| 180000 | Cannot update a finished event                                                                                                |
+| 180002 | Failed to create stage needed for stage event                                                                                 |
 
 ###### Example JSON Error Response
 
