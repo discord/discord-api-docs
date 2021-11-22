@@ -152,7 +152,7 @@ Input text is a modal component accepting text input from users.
 | style        | integer | one of [input text styles](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/input-text-object-input-text-styles) |
 | label        | string  | text that appears on top of the input text field, max 80 characters                                   |
 | placeholder? | string  | placeholder for the text input                                                                        |
-| min_length?  | int     | minimal length oftext input                                                                           |
+| min_length?  | int     | minimal length of text input                                                                          |
 | max_length?  | int     | maximal length of text input                                                                          |
 
 Input text components come in two styles for short or longer texts.
