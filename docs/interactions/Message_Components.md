@@ -164,7 +164,7 @@ Input text components come in two styles for short or longer texts.
 | Short     | 1     | Intended for short single-line text |
 | Paragraph | 2     | Intended for much longer inputs     |
 
-###### Sample Input Text Response
+###### Sample Input Text Component
 ```json
 {
     type: 4.
