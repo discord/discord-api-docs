@@ -151,7 +151,7 @@ Input text is a modal component accepting text input from users.
 | type         | integer | `4` for a text input field                                                                            |
 | style        | integer | one of [input text styles](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/input-text-object-input-text-styles) |
 | label        | string  | text that appears on top of the input text field, max 80 characters                                   |
-| placeholder? | string  | a developer-defined placeholder for the text input                                                    |
+| placeholder? | string  | placeholder for the text input                                                                        |
 | min_length?  | int     | minimal length oftext input                                                                           |
 | max_length?  | int     | maximal length of text input                                                                          |
 
