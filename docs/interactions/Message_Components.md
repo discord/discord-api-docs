@@ -171,8 +171,8 @@ Input text components come in two styles for short or longer texts.
     style: 1,
     custom_id: 'input_1',
     label: 'What is Your Name?',
-    placeholder: 'Reveal your secrets'
-    min_length: 1
+    placeholder: 'Reveal your secrets',
+    min_length: 1,
     max_length: 64
 }
 ```
