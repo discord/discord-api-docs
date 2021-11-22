@@ -38,6 +38,7 @@ For [Message Components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/) it includes ide
 | APPLICATION_COMMAND              | 2     |
 | MESSAGE_COMPONENT                | 3     |
 | APPLICATION_COMMAND_AUTOCOMPLETE | 4     |
+| MODAL_SUBMIT                     | 5     |
 
 ###### Interaction Data Structure
 
@@ -167,8 +168,11 @@ There are a number of ways you can respond to an interaction:
 | DEFERRED_UPDATE_MESSAGE\*               | 6     | for components, ACK an interaction and edit the original message later; the user does not see a loading state |
 | UPDATE_MESSAGE\*                        | 7     | for components, edit the message the component was attached to                                                |
 | APPLICATION_COMMAND_AUTOCOMPLETE_RESULT | 8     | respond to an autocomplete interaction with suggested choices                                                 |
+| MODAL\*\*                               | 9     | respond to an interaction with an modal for a user to fill-out                                                |
 
 \* Only valid for [component-based](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/) interactions
+
+\*\* You can't respond to a [MODAL_SUBMIT](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-interaction-type) with a new `MODAL`.
 
 ###### Interaction Callback Data Structure
 

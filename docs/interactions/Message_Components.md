@@ -31,11 +31,12 @@ The top-level `components` field is an array of [Action Row](#DOCS_INTERACTIONS_
 
 ###### Component Types
 
-| Type | Name        | Description                            |
-| ---- | ----------- | -------------------------------------- |
-| 1    | Action Row  | A container for other components       |
-| 2    | Button      | A button object                        |
-| 3    | Select Menu | A select menu for picking from choices |
+| Type | Name        | Description                                |
+| ---- | ----------- | ------------------------------------------ |
+| 1    | Action Row  | A container for other components           |
+| 2    | Button      | A button object                            |
+| 3    | Select Menu | A select menu for picking from choices     |
+| 4    | Input Text  | A text box for inserting written responses |
 
 ###### Example Component
 
@@ -129,6 +130,36 @@ Buttons come in a variety of styles to convey different types of actions. These 
 ![An image showing the different button styles](button-styles.png)
 
 When a user clicks on a button, your app will receive an [interaction](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object) including the message the button was on:
+
+## Input Text
+
+Input text is a modal component accepting text input from users.
+
+- input_text must be sent inside an Action Row
+- An Action Row can exactly 1 input_text components
+
+### Input Text Object
+
+###### Input Text Structure
+
+| Field        | Type                                                | Description                                                                                           |
+| ------------ | ------- | ----------------------------------------------------------------------------------------------------- |
+| type         | integer | `4` for a text input field                                                                            |
+| style        | integer | one of [input text styles](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/input-text-object-input-text-styles) |
+| label        | string  | text that appears on top of the input text field, max 80 characters                                   |
+| placeholder? | string  | a developer-defined identifier for the button, max 100 characters                                     |
+| min_length?  | int     | minimal text input                                                                                    |
+| max_length?  | int     | maximal length of text input                                                                          |
+
+Input text components come in two styles for short or longer texts.
+
+###### Input Text Styles
+
+| Name      | Value | Description                         |
+| --------- | ----- | ----------------------------------- |
+| Short     | 1     | Intended for short single-line text |
+| Paragraph | 2     | Intended for much longer inputs     |
+
 
 ### Component Interaction Object
 
