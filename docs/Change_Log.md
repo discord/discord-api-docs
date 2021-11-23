@@ -2,6 +2,10 @@
 
 ## Guild Scheduled Events
 
+#### Nov 23, 2021
+
+- Add official support for `guild_scheduled_events` field on `Guild` resource sent with `GUILD_CREATE` event
+
 #### Nov 18, 2021
 
 - Breaking change for return type for `GET /guilds/{guild.id}/scheduled-events/{guild_scheduled_event.id}/users`
