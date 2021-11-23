@@ -140,7 +140,7 @@ When a user clicks on a button, your app will receive an [interaction](#DOCS_INT
 Input text is a modal component accepting text input from users.
 
 - `input_text` must be sent inside an Action Row
-- An Action Row can exactly 1 `input_text` components
+- An Action Row can have exactly 1 `input_text` component
 
 ### Input Text Object
 
