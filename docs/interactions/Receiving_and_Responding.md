@@ -168,7 +168,7 @@ There are a number of ways you can respond to an interaction:
 | DEFERRED_UPDATE_MESSAGE\*               | 6     | for components, ACK an interaction and edit the original message later; the user does not see a loading state |
 | UPDATE_MESSAGE\*                        | 7     | for components, edit the message the component was attached to                                                |
 | APPLICATION_COMMAND_AUTOCOMPLETE_RESULT | 8     | respond to an autocomplete interaction with suggested choices                                                 |
-| MODAL\*\*                               | 9     | respond to an interaction with an modal for a user to fill-out                                                |
+| MODAL\*\*                               | 9     | respond to an interaction with a modal for a user to fill-out                                                |
 
 \* Only valid for [component-based](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/) interactions
 
