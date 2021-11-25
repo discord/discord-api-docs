@@ -35,11 +35,11 @@ The top-level `components` field is an array of [Action Row](#DOCS_INTERACTIONS_
 
 ###### Component Types
 
-| Type | Name        | Description                                |
-| ---- | ----------- | ------------------------------------------ |
-| 1    | Action Row  | A container for other components           |
-| 2    | Button      | A button object                            |
-| 3    | Select Menu | A select menu for picking from choices     |
+| Type | Name        | Description                                          |
+| ---- | ----------- | ---------------------------------------------------- |
+| 1    | Action Row  | A container for other components                     |
+| 2    | Button      | A button object                                      |
+| 3    | Select Menu | A select menu for picking from choices               |
 | 4    | Input Text  | A text box for inserting written responses in modals |
 
 ###### Example Component
