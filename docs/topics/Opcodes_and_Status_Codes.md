@@ -174,6 +174,7 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 30033  | Max number of thread participants has been reached (1000)                                                                     |
 | 30035  | Maximum number of bans for non-guild members have been exceeded                                                               |
 | 30037  | Maximum number of bans fetches has been reached                                                                               |
+| 30038  | Maximum number of uncompleted guild scheduled events reached (100)                                                            |
 | 30039  | Maximum number of stickers reached                                                                                            |
 | 30040  | Maximum number of prune requests has been reached. Try again later                                                            |
 | 30042  | Maximum number of guild widget settings updates has been reached. Try again later                                             |
@@ -244,6 +245,8 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 170005 | Lottie animation maximum dimensions exceeded                                                                                  |
 | 170006 | Sticker frame rate is either too small or too large                                                                           |
 | 170007 | Sticker animation duration exceeds maximum of 5 seconds                                                                       |
+| 180000 | Cannot update a finished event                                                                                                |
+| 180002 | Failed to create stage needed for stage event                                                                                 |
 
 ###### Example JSON Error Response
 
