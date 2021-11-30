@@ -133,7 +133,7 @@ Once connected, the client should immediately receive an [Opcode 10 Hello](#DOCS
 
 ### Heartbeating
 
-After receiving [Opcode 10 Hello](#DOCS_TOPICS_GATEWAY/hello), the client may begin sending [Opcode 1 Heartbeat](#DOCS_TOPICS_GATEWAY/heartbeat) payloads after `heartbeat_interval * rng` (see below) milliseconds, and every `heartbeat_interval` milliseconds thereafter. You may send heartbeats before this interval elapses, but you should avoid doing so unless necessary. There is already tolerance in the `heartbeat_interval` that will cover network latency, so you do not need to account for it in your own implementation - waiting the precise interval will suffice.
+After receiving [Opcode 10 Hello](#DOCS_TOPICS_GATEWAY/hello), the client may begin sending [Opcode 1 Heartbeat](#DOCS_TOPICS_GATEWAY/heartbeat) payloads after `heartbeat_interval * jitter` milliseconds (where jitter is between 0 and 1), and every `heartbeat_interval` milliseconds thereafter. You may send heartbeats before this interval elapses, but you should avoid doing so unless necessary. There is already tolerance in the `heartbeat_interval` that will cover network latency, so you do not need to account for it in your own implementation - waiting the precise interval will suffice.
 
 The gateway may request a heartbeat from the client in some situations by sending an [Opcode 1 Heartbeat](#DOCS_TOPICS_GATEWAY/heartbeat). When this occurs, the client should immediately send an [Opcode 1 Heartbeat](#DOCS_TOPICS_GATEWAY/heartbeat) without waiting the remainder of the current interval.
 
@@ -151,9 +151,6 @@ If a client does not receive a heartbeat ack between its attempts at sending hea
 
 > info
 > In the event of a service outage where you stay connected to the gateway, you should continue to heartbeat and receive ACKs. The gateway will eventually respond and issue a session once it's able to.
-
-> info
-> The `rng` value in delay for the initial heartbeat should be randomly generated as a value between `0.0` and `1.0`
 
 ### Identifying
 
