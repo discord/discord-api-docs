@@ -148,6 +148,7 @@ Input text is a modal component accepting text input from users.
 | Field        | Type                                                | Description                                                                                           |
 | ------------ | ------- | ----------------------------------------------------------------------------------------------------- |
 | type         | integer | `4` for a text input field                                                                            |
+| custom_id    | string  | a developer-defined identifier for the input text component, max 100 characters                       |
 | style        | integer | one of [input text styles](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/input-text-object-input-text-styles) |
 | label        | string  | text that appears on top of the input text field, max 80 characters                                   |
 | placeholder? | string  | placeholder for the text input                                                                        |
@@ -321,15 +322,15 @@ Select menus support single-select and multi-select behavior, meaning you can pr
 
 ###### Select Menu Structure
 
-| Field        | Type                                                                                                        | Description                                                               |
-| ------------ | ----------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------- |
-| type         | integer                                                                                                     | `3` for a select menu                                                     |
-| custom_id    | string                                                                                                      | a developer-defined identifier for the button, max 100 characters         |
-| options      | array of [select options](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/select-menu-object-select-option-structure) | the choices in the select, max 25                                         |
-| placeholder? | string                                                                                                      | custom placeholder text if nothing is selected, max 100 characters        |
-| min_values?  | integer                                                                                                     | the minimum number of items that must be chosen; default 1, min 0, max 25 |
-| max_values?  | integer                                                                                                     | the maximum number of items that can be chosen; default 1, max 25         |
-| disabled?    | boolean                                                                                                     | disable the select, default false                                         |
+| Field        | Type                                                                                                        | Description                                                                 |
+| ------------ | ----------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------- |
+| type         | integer                                                                                                     | `3` for a select menu                                                       |
+| custom_id    | string                                                                                                      | a developer-defined identifier for the select component, max 100 characters |
+| options      | array of [select options](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/select-menu-object-select-option-structure) | the choices in the select, max 25                                           |
+| placeholder? | string                                                                                                      | custom placeholder text if nothing is selected, max 100 characters          |
+| min_values?  | integer                                                                                                     | the minimum number of items that must be chosen; default 1, min 0, max 25   |
+| max_values?  | integer                                                                                                     | the maximum number of items that can be chosen; default 1, max 25           |
+| disabled?    | boolean                                                                                                     | disable the select, default false                                           |
 
 ###### Select Option Structure
 
