@@ -111,6 +111,11 @@ Returns the list of sticker packs available to Nitro subscribers.
 | ------------- | ---------------------------------------------------------------------------- |
 | sticker_packs | array of [sticker pack](#DOCS_RESOURCES_STICKER/sticker-pack-object) objects |
 
+
+## Get Nitro Sticker Pack % GET /sticker-packs/{pack.id#DOCS_RESOURCES_STICKER/sticker-pack-object}
+
+Returns a [sticker pack](#DOCS_RESOURCES_STICKER/sticker-pack-object) for the given ID.
+
 ## List Guild Stickers % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/stickers
 
 Returns an array of [sticker](#DOCS_RESOURCES_STICKER/sticker-object) objects for the given guild. Includes `user` fields if the bot has the `MANAGE_EMOJIS_AND_STICKERS` permission.
