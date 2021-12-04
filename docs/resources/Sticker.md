@@ -114,7 +114,7 @@ Returns the list of sticker packs available to Nitro subscribers.
 
 ## Get Nitro Sticker Pack % GET /sticker-packs/{pack.id#DOCS_RESOURCES_STICKER/sticker-pack-object}
 
-Returns a [sticker pack](#DOCS_RESOURCES_STICKER/sticker-pack-object) for the given ID.
+Returns a [sticker pack](#DOCS_RESOURCES_STICKER/sticker-pack-object) object for the given ID.
 
 ## List Guild Stickers % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/stickers
 
