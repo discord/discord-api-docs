@@ -139,9 +139,6 @@ Get a guild scheduled event. Returns a [guild scheduled event](#DOCS_RESOURCES_G
 
 ###### Query String Params
 
-> warn
-> The `with_user_count` query param was introduced on Thursday Nov 18, 2021 after the initial publication of this documentation to remain consitent with other guild scheduled events endpoints
-
 | Field            | Type    | Description                                      |
 | ---------------- | ------- | ------------------------------------------------ |
 | with_user_count? | boolean | include number of users subscribed to this event |
@@ -178,9 +175,6 @@ Modify a guild scheduled event. Returns the modified [guild scheduled event](#DO
 Delete a guild scheduled event. Returns a `204` on success.
 
 ## Get Guild Scheduled Event Users % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/scheduled-events/{guild_scheduled_event.id#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object}/users
-
-> warn
-> A breaking change was introduced for this endpoint on Thursday Nov 18, 2021 after the initial publication of this documentation in which the return type was changed in response to developer feedback. We apologize for the inconvenience and additional work this creates for developers.
 
 Get a list of guild scheduled event users subscribed to a guild scheduled event. Returns a list of [guild scheduled event user](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-user-object) objects on success. Guild member data, if it exists, is included if the `with_member` query parameter is set.
 
@@ -225,7 +219,8 @@ Any event with `'status': SCHEDULED` after a certain time interval (on the order
 NOTE: `entity_type` is expressed by name rather than value for readability
 
 > info
-> A user must be a member of the guild in order to access events for that guild.
+> A user must be a member of the guild in order to access events for that guild unless the guild is lurkable. If a guild is lurkable,
+> events in that guild may be visible to lurkers depending on the event type and the permissions of any channels associated with the event.
 
 ### Permissions to create an event with entity_type: STAGE_INSTANCE
 
