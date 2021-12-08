@@ -513,9 +513,9 @@ Events are payloads sent over the socket to a client that correspond to events i
 | [Guild Role Create](#DOCS_TOPICS_GATEWAY/guild-role-create)                         | guild role was created                                                                                                           |
 | [Guild Role Update](#DOCS_TOPICS_GATEWAY/guild-role-update)                         | guild role was updated                                                                                                           |
 | [Guild Role Delete](#DOCS_TOPICS_GATEWAY/guild-role-delete)                         | guild role was deleted                                                                                                           |
-| [Guild Scheduled Event Create](#DOCS_TOPICS_GATEWAY/guild-scheduled-event-create) | guild scheduled event was created                                                                                               |
-| [Guild Scheduled Event Update](#DOCS_TOPICS_GATEWAY/guild-scheduled-event-update) | guild scheduled event was updated                                                                                               |
-| [Guild Scheduled Event Delete](#DOCS_TOPICS_GATEWAY/guild-scheduled-event-delete) | guild scheduled event was deleted                                                                                               |
+| [Guild Scheduled Event Create](#DOCS_TOPICS_GATEWAY/guild-scheduled-event-create)   | guild scheduled event was created                                                                                                |
+| [Guild Scheduled Event Update](#DOCS_TOPICS_GATEWAY/guild-scheduled-event-update)   | guild scheduled event was updated                                                                                                |
+| [Guild Scheduled Event Delete](#DOCS_TOPICS_GATEWAY/guild-scheduled-event-delete)   | guild scheduled event was deleted                                                                                                |
 | [Guild Scheduled Event User Add](#DOCS_TOPICS_GATEWAY/guild-scheduled-event-user-add)       | user subscribed to a guild scheduled event                                                                               |
 | [Guild Scheduled Event User Remove](#DOCS_TOPICS_GATEWAY/guild-scheduled-event-user-remove) | user unsubscribed from a guild scheduled event                                                                           |
 | [Integration Create](#DOCS_TOPICS_GATEWAY/integration-create)                       | guild integration was created                                                                                                    |
@@ -1078,14 +1078,11 @@ Sent when a guild scheduled event is updated. The inner payload is a [guild sche
 
 ### Guild Scheduled Event Delete
 
-Sent when a guild scheduled event is deleted. The inner payload is a [guild scheduled event](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object) object. See [Guild Scheduled Event Status](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object-guild-scheduled-event-status) to determine how the event was deleted.
+Sent when a guild scheduled event is deleted. The inner payload is a [guild scheduled event](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object) object.
 
 ### Guild Scheduled Event User Add
 
 Sent when a user has subscribed to a guild scheduled event.
-
-> info
-> NOTE: this event is currently experimental and not officially supported
 
 ###### Guild Scheduled Event User Add Event Fields
 
@@ -1098,9 +1095,6 @@ Sent when a user has subscribed to a guild scheduled event.
 ### Guild Scheduled Event User Remove
 
 Sent when a user has unsubscribed from a guild scheduled event.
-
-> info
-> NOTE: this event is currently experimental and not officially supported
 
 ###### Guild Scheduled Event User Remove Event Fields
 
