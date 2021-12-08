@@ -145,7 +145,7 @@ Input text is a modal component accepting text input from users.
 
 ###### Input Text Structure
 
-| Field        | Type                                                | Description                                                                                           |
+| Field        | Type    | Description                                                                                           |
 | ------------ | ------- | ----------------------------------------------------------------------------------------------------- |
 | type         | integer | `4` for a text input field                                                                            |
 | custom_id    | string  | a developer-defined identifier for the input text component, max 100 characters                       |
