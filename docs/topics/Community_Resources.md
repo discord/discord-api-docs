@@ -17,7 +17,7 @@ Many of these libraries are represented in the [unofficial, community-driven Dis
 | Name                                                         | Language   |
 | ------------------------------------------------------------ | ---------- |
 | [orca](https://github.com/cee-studio/orca)                   | C          |
-| [Discord.Net](https://github.com/RogueException/Discord.Net) | C#         |
+| [Discord.Net](https://github.com/discord-net/Discord.Net) | C#         |
 | [DSharpPlus](https://github.com/DSharpPlus/DSharpPlus)       | C#         |
 | [Remora.Discord](https://github.com/Nihlus/Remora.Discord)   | C#         |
 | [aegis.cpp](https://github.com/zeroxs/aegis.cpp)             | C++        |
