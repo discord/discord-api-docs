@@ -27,7 +27,7 @@ A representation of a scheduled event in a [guild](#DOCS_RESOURCES_GUILD/).
 
 \* `creator_id` will be null and `creator` will not be included for events created before October 25th, 2021, when the concept of `creator_id` was introduced and tracked.
 
-\** See [field requirements by entity type](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object-field-requirements-by-entity-type) to understand the relationship between `entity_type` and the following fields: `channel_id`, `entity_metadata`, and `scheduled_end_time` 
+\** See [field requirements by entity type](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object-field-requirements-by-entity-type) to understand the relationship between `entity_type` and the following fields: `channel_id`, `entity_metadata`, and `scheduled_end_time`
 
 ###### Guild Scheduled Event Privacy Level
 
@@ -88,7 +88,7 @@ SCHEDULED --> CANCELED
 | ------------ | ------------------- | ---------------------------------------- |
 | location? *  | string              | location of the event (1-100 characters) |
 
-\* [required](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object-guild-scheduled-event-entity-metadata) for events with `'entity_type': EXTERNAL` 
+\* [required](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object-guild-scheduled-event-entity-metadata) for events with `'entity_type': EXTERNAL`
 
 ### Guild Scheduled Event User Object
 
@@ -117,6 +117,9 @@ Create a guild scheduled event in the guild. Returns a [guild scheduled event](#
 
 > info
 > A guild can have a maximum of 100 events with `SCHEDULED` or `ACTIVE` status at any time.
+
+> info
+> This endpoint supports the `X-Audit-Log-Reason` header.
 
 ###### JSON Params
 
@@ -149,6 +152,9 @@ Modify a guild scheduled event. Returns the modified [guild scheduled event](#DO
 
 > info
 > To start or end an event, use this endpoint to modify the event's [status](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object-guild-scheduled-event-status) field.
+
+> info
+> This endpoint supports the `X-Audit-Log-Reason` header.
 
 ###### JSON Params
 
