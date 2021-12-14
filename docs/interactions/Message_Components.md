@@ -29,8 +29,10 @@ The top-level `components` field is an array of [Action Row](#DOCS_INTERACTIONS_
 | max_values?  | integer                                                                                                     | the maximum number of items that can be chosen; default 1, max 25                         | [Select Menus](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/select-menus)                                                                                                                                                                                                    |
 | components?  | array of [components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-object)                               | a list of child components                                                                | [Action Rows](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/action-rows)                                                                                                                                                                                                      |
 | title?       | string                                                                                                      | title of the modal                                                                        | [Interaction Callback Type Modal](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-response-object-interaction-callback-type)                                                                                                                                  |
-| min_length?  | integer                                                                                                     | the minimum length of the text input                                                      | [Input Text](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/input-text)                                                                                                                                                                                                        |
+| min_length?  | integer                                                                                                     | the minimum length of the text input, defaults to  0                                      | [Input Text](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/input-text)                                                                                                                                                                                                        |
 | max_length?  | integer                                                                                                     | the maximum length of the text input                                                      | [Input Text](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/input-text)                                                                                                                                                                                                        |
+| required?    | boolean                                                                                                     | whether the text input is required                                                        | [Input Text](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/input-text)                                                                                                                                                                                                        |
+| value?       | string                                                                                                      | pre-filled value for text input                                                           | [Input Text](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/input-text)                                                                                                                                                                                                        |
 
 ###### Component Types
 
@@ -154,6 +156,8 @@ Input text is a modal component accepting text input from users.
 | placeholder? | string  | placeholder for the text input                                                                        |
 | min_length?  | integer | minimal length of text input                                                                          |
 | max_length?  | integer | maximal length of text input                                                                          |
+| required?    | boolean | whether this text input is required                                                                   |
+| value?       | string  | pre-given value                                                                                       |
 
 Input text components come in two styles for short or longer texts.
 
@@ -172,8 +176,10 @@ Input text components come in two styles for short or longer texts.
     "custom_id": "input_1",
     "label": "What is Your Name?",
     "placeholder": "Reveal your secrets",
-    "min_length": 1,
-    "max_length": 64
+    "min_length": 0,
+    "max_length": 64,
+    "required": true,
+    "value": "Wumpus"
 }
 ```
 
