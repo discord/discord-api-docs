@@ -927,7 +927,7 @@ Edit a global command. Updates will be available in all guilds after 1 hour. Ret
 
 ## Delete Global Application Command % DELETE /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/commands/{command.id#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object}
 
-Deletes a global command. Returns `204`.
+Deletes a global command. Returns `204 No Content` on success.
 
 ## Bulk Overwrite Global Application Commands % PUT /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/commands
 
@@ -979,7 +979,7 @@ Edit a guild command. Updates for guild commands will be available immediately. 
 
 ## Delete Guild Application Command % DELETE /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/commands/{command.id#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object}
 
-Delete a guild command. Returns `204` on success.
+Delete a guild command. Returns `204 No Content` on success.
 
 ## Bulk Overwrite Guild Application Commands % PUT /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/commands
 
