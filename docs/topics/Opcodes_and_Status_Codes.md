@@ -154,6 +154,7 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 20018  | Only the owner of this account can perform this action                                                                        |
 | 20022  | This message cannot be edited due to announcement rate limits                                                                 |
 | 20028  | The channel you are writing has hit the write rate limit                                                                      |
+| 20029  | The write action you are performing on the server has hit the write rate limit                                                |
 | 20031  | Your Stage topic, server name, server description, or channel names contain words that are not allowed                        |
 | 20035  | Guild premium subscription level too low                                                                                      |
 | 30001  | Maximum number of guilds reached (100)                                                                                        |
@@ -219,6 +220,7 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 50045  | File uploaded exceeds the maximum size                                                                                        |
 | 50046  | Invalid file uploaded                                                                                                         |
 | 50054  | Cannot self-redeem this gift                                                                                                  |
+| 50055  | Invalid Guild                                                                                                                 |
 | 50070  | Payment source required to redeem gift                                                                                        |
 | 50074  | Cannot delete a channel required for Community guilds                                                                         |
 | 50081  | Invalid sticker sent                                                                                                          |

@@ -58,7 +58,8 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 | nsfw_level                    | integer                                                                                                      | [guild NSFW level](#DOCS_RESOURCES_GUILD/guild-object-guild-nsfw-level)                                                                     |
 | stage_instances? \*           | array of [stage instance](#DOCS_RESOURCES_STAGE_INSTANCE/stage-instance-object) objects                      | Stage instances in the guild                                                                                                                |
 | stickers?                     | array of [sticker](#DOCS_RESOURCES_STICKER/sticker-object) objects                                           | custom guild stickers                                                                                                                       |
-| guild_scheduled_events \*     | array of [guild scheduled event](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object) objects | the scheduled events in the guild                                                                                                           |
+| guild_scheduled_events? \*    | array of [guild scheduled event](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object) objects | the scheduled events in the guild                                                                                                           |
+| premium_progress_bar_enabled  | boolean                                                                                                      | whether the guild has the boost progress bar enabled                                                                                        |
 
 ** \* These fields are only sent within the [GUILD_CREATE](#DOCS_TOPICS_GATEWAY/guild-create) event **
 
@@ -602,7 +603,7 @@ Returns the [guild](#DOCS_RESOURCES_GUILD/guild-object) object for the given id.
 
 ## Get Guild Preview % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/preview
 
-Returns the [guild preview](#DOCS_RESOURCES_GUILD/guild-preview-object) object for the given id. If the user is not in the guild, then the guild must be lurkable (it must be Discoverable or have a [live public stage](#DOCS_RESOURCES_STAGE_INSTANCE/definitions)).
+Returns the [guild preview](#DOCS_RESOURCES_GUILD/guild-preview-object) object for the given id. If the user is not in the guild, then the guild must be lurkable.
 
 ## Modify Guild % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}
 
@@ -637,6 +638,7 @@ Modify a guild's settings. Requires the `MANAGE_GUILD` permission. Returns the u
 | preferred_locale              | ?string                                                                             | the preferred locale of a Community guild used in server discovery and notices from Discord; defaults to "en-US"             |
 | features                      | array of [guild feature](#DOCS_RESOURCES_GUILD/guild-object-guild-features) strings | enabled guild features                                                                                                       |
 | description                   | ?string                                                                             | the description for the guild, if the guild is discoverable                                                                  |
+| premium_progress_bar_enabled  | boolean                                                                             | whether the guild's boost progress bar should be enabled.                                                                           |
 
 ## Delete Guild % DELETE /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}
 
@@ -794,7 +796,7 @@ Modifies the current member in a guild. Returns a 200 with the updated member ob
 
 | Field | Type    | Description                    | Permission      |
 | ----- | ------- | ------------------------------ | --------------- |
-| ?nick | ?string | value to set users nickname to | CHANGE_NICKNAME |
+| nick? | ?string | value to set users nickname to | CHANGE_NICKNAME |
 
 ## Modify Current User Nick % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/members/@me/nick
 
@@ -810,7 +812,7 @@ Modifies the nickname of the current user in a guild. Returns a 200 with the nic
 
 | Field | Type    | Description                    | Permission      |
 | ----- | ------- | ------------------------------ | --------------- |
-| ?nick | ?string | value to set users nickname to | CHANGE_NICKNAME |
+| nick? | ?string | value to set users nickname to | CHANGE_NICKNAME |
 
 ## Add Guild Member Role % PUT /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/members/{user.id#DOCS_RESOURCES_USER/user-object}/roles/{role.id#DOCS_TOPICS_PERMISSIONS/role-object}
 
@@ -899,7 +901,7 @@ This endpoint takes a JSON array of parameters in the following format:
 | Field     | Type      | Description                  |
 | --------- | --------- | ---------------------------- |
 | id        | snowflake | role                         |
-| ?position | ?integer  | sorting position of the role |
+| position? | ?integer  | sorting position of the role |
 
 ## Modify Guild Role % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/roles/{role.id#DOCS_TOPICS_PERMISSIONS/role-object}
 
