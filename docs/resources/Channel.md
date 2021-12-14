@@ -887,7 +887,7 @@ Files must be attached using a `multipart/form-data` body as described in [Uploa
 - When sending a message with `tts` (text-to-speech) set to `true`, the current user must have the `SEND_TTS_MESSAGES` permission.
 - When creating a message as a reply to another message, the current user must have the `READ_MESSAGE_HISTORY` permission.
     - The referenced message must exist and cannot be a system message.
-- The maximum request size when sending a message is **8MB**
+- The maximum request size when sending a message is **8MiB**
 - For the embed object, you can set every field except `type` (it will be `rich` regardless of if you try to set it), `provider`, `video`, and any `height`, `width`, or `proxy_url` values for images.
 
 > info
@@ -1132,10 +1132,11 @@ When called on a `GUILD_TEXT` channel, creates a `GUILD_PUBLIC_THREAD`. When cal
 
 ###### JSON Params
 
-| Field                    | Type    | Description                                                                                                         |
-|--------------------------|---------|---------------------------------------------------------------------------------------------------------------------|
-| name                     | string  | 1-100 character channel name                                                                                        |
-| auto_archive_duration?\* | integer | duration in minutes to automatically archive the thread after recent activity, can be set to: 60, 1440, 4320, 10080 |
+| Field                    | Type     | Description                                                                                                         |
+|--------------------------|----------|---------------------------------------------------------------------------------------------------------------------|
+| name                     | string   | 1-100 character channel name                                                                                        |
+| auto_archive_duration?\* | integer  | duration in minutes to automatically archive the thread after recent activity, can be set to: 60, 1440, 4320, 10080 |
+| rate_limit_per_user?     | ?integer | amount of seconds a user has to wait before sending another message (0-21600)                                       |
 
 \* The 3 day and 7 day archive durations require the server to be boosted. The [guild features](#DOCS_RESOURCES_GUILD/guild-object-guild-features) will indicate if a server is able to use those settings.
 
@@ -1148,12 +1149,14 @@ Creates a new thread that is not connected to an existing message. The created t
 
 ###### JSON Params
 
-| Field                      | Type    | Description                                                                                                         |
-|----------------------------|---------|---------------------------------------------------------------------------------------------------------------------|
-| name                       | string  | 1-100 character channel name                                                                                        |
-| auto_archive_duration?\*\* | integer | duration in minutes to automatically archive the thread after recent activity, can be set to: 60, 1440, 4320, 10080 |
-| type?\*\*\*                | integer | the [type of thread](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types) to create                                |
-| invitable?                 | boolean | whether non-moderators can add other non-moderators to a thread; only available when creating a private thread      |
+| Field                      | Type     | Description                                                                                                         |
+|----------------------------|----------|---------------------------------------------------------------------------------------------------------------------|
+| name                       | string   | 1-100 character channel name                                                                                        |
+| auto_archive_duration?\*\* | integer  | duration in minutes to automatically archive the thread after recent activity, can be set to: 60, 1440, 4320, 10080 |
+| type?\*\*\*                | integer  | the [type of thread](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types) to create                                |
+| invitable?                 | boolean  | whether non-moderators can add other non-moderators to a thread; only available when creating a private thread      |
+| rate_limit_per_user?       | ?integer | amount of seconds a user has to wait before sending another message (0-21600)                                       |
+
 
 \* Creating a private thread requires the server to be boosted. The [guild features](#DOCS_RESOURCES_GUILD/guild-object-guild-features) will indicate if that is possible for the guild.
 
@@ -1167,7 +1170,7 @@ Adds the current user to a thread. Also requires the thread is not archived. Ret
 
 ## Add Thread Member % PUT /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/thread-members/{user.id#DOCS_RESOURCES_USER/user-object}
 
-Adds another member to a thread. Requires the ability to send messages in the thread. Also requires the thread is not archived. Returns a 204 empty response on success. Fires a [Thread Members Update](#DOCS_TOPICS_GATEWAY/thread-members-update) Gateway event.
+Adds another member to a thread. Requires the ability to send messages in the thread. Also requires the thread is not archived. Returns a 204 empty response if the member is successfully added or was already a member of the thread. Fires a [Thread Members Update](#DOCS_TOPICS_GATEWAY/thread-members-update) Gateway event.
 
 ## Leave Thread % DELETE /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/thread-members/@me
 

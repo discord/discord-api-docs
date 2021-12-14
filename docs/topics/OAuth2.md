@@ -37,6 +37,7 @@ These are a list of all the OAuth2 scopes that Discord supports. Some scopes req
 | gdm.join                     | allows your app to [join users to a group dm](#DOCS_RESOURCES_CHANNEL/group-dm-add-recipient)                                                                                            |
 | guilds                       | allows [/users/@me/guilds](#DOCS_RESOURCES_USER/get-current-user-guilds) to return basic information about all of a user's guilds                                                        |
 | guilds.join                  | allows [/guilds/{guild.id}/members/{user.id}](#DOCS_RESOURCES_GUILD/add-guild-member) to be used for joining users to a guild                                                            |
+| guilds.members.read          | allows [/users/@me/guilds/{guild.id}/member](#DOCS_RESOURCES_USER/get-current-user-guild-member) to return a user's member information in a guild                                        |
 | identify                     | allows [/users/@me](#DOCS_RESOURCES_USER/get-current-user) without `email`                                                                                                               |
 | messages.read                | for local rpc server api access, this allows you to read messages from all client channels (otherwise restricted to channels/guilds your app creates)                                    |
 | relationships.read           | allows your app to know a user's friends and implicit relationships - requires Discord approval                                                                                          |
@@ -91,6 +92,8 @@ https://nicememe.website/?code=NhhvTDYsFcdgNLnnLijcl7Ku7bEEeee&state=15773059ghq
 ###### Access Token Exchange Example
 
 ```python
+import requests
+
 API_ENDPOINT = 'https://discord.com/api/v8'
 CLIENT_ID = '332269999912132097'
 CLIENT_SECRET = '937it3ow87i4ery69876wqire'
@@ -136,6 +139,8 @@ Having the user's access token allows your application to make certain requests 
 ###### Refresh Token Exchange Example
 
 ```python
+import requests
+
 API_ENDPOINT = 'https://discord.com/api/v8'
 CLIENT_ID = '332269999912132097'
 CLIENT_SECRET = '937it3ow87i4ery69876wqire'
@@ -191,6 +196,7 @@ You can specify scopes with the `scope` parameter, which is a list of [OAuth2 sc
 
 ```python
 import base64
+import requests
 
 API_ENDPOINT = 'https://discord.com/api/v8'
 CLIENT_ID = '332269999912132097'
@@ -375,7 +381,7 @@ Any user that wishes to add your webhook to their channel will need to go throug
 
 ## Get Current Bot Application Information % GET /oauth2/applications/@me
 
-Returns the bot's [application](#DOCS_RESOURCES_APPLICATION/application-object) object without `flags`.
+Returns the bot's [application](#DOCS_RESOURCES_APPLICATION/application-object) object.
 
 ## Get Current Authorization Information % GET /oauth2/@me
 

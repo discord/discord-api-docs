@@ -182,7 +182,8 @@ Refer to [Uploading Files](#DOCS_REFERENCE/uploading-files) for details on attac
 | payload_json \*\*| string                                                                               | JSON encoded body of non-file params                         | `multipart/form-data` only   |
 | attachments \*\* | array of partial [attachment](#DOCS_RESOURCES_CHANNEL/attachment-object) objects     | attachment objects with filename and description             | false                        |
 
-\* Requires an application-owned webhook
+\* Requires an application-owned webhook.
+
 \*\* See [Uploading Files](#DOCS_REFERENCE/uploading-files) for details.
 
 > info
@@ -194,9 +195,10 @@ Refer to [Slack's documentation](https://api.slack.com/incoming-webhooks) for mo
 
 ###### Query String Params
 
-| Field | Type    | Description                                                                                                                                           | Required |
-| ----- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
-| wait  | boolean | waits for server confirmation of message send before response (defaults to `true`; when `false` a message that is not saved does not return an error) | false    |
+| Field     | Type      | Description                                                                                                                                           | Required |
+| --------- | --------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
+| thread_id | snowflake | id of the thread to send the message in                                                                                                               | false    |
+| wait      | boolean   | waits for server confirmation of message send before response (defaults to `true`; when `false` a message that is not saved does not return an error) | false    |
 
 ## Execute GitHub-Compatible Webhook % POST /webhooks/{webhook.id#DOCS_RESOURCES_WEBHOOK/webhook-object}/{webhook.token#DOCS_RESOURCES_WEBHOOK/webhook-object}/github
 
@@ -204,13 +206,20 @@ Add a new webhook to your GitHub repo (in the repo's settings), and use this end
 
 ###### Query String Params
 
-| Field | Type    | Description                                                                                                                                           | Required |
-| ----- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
-| wait  | boolean | waits for server confirmation of message send before response (defaults to `true`; when `false` a message that is not saved does not return an error) | false    |
+| Field     | Type      | Description                                                                                                                                           | Required |
+| --------- | --------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
+| thread_id | snowflake | id of the thread to send the message in                                                                                                               | false    |
+| wait      | boolean   | waits for server confirmation of message send before response (defaults to `true`; when `false` a message that is not saved does not return an error) | false    |
 
 ## Get Webhook Message % GET /webhooks/{webhook.id#DOCS_RESOURCES_WEBHOOK/webhook-object}/{webhook.token#DOCS_RESOURCES_WEBHOOK/webhook-object}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}
 
 Returns a previously-sent webhook message from the same token. Returns a [message](#DOCS_RESOURCES_CHANNEL/message-object) object on success.
+
+###### Query String Params
+
+| Field     | Type      | Description                        | Required |
+| --------- | --------- | ---------------------------------- | -------- |
+| thread_id | snowflake | id of the thread the message is in | false    |
 
 ## Edit Webhook Message % PATCH /webhooks/{webhook.id#DOCS_RESOURCES_WEBHOOK/webhook-object}/{webhook.token#DOCS_RESOURCES_WEBHOOK/webhook-object}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}
 
@@ -227,6 +236,12 @@ Any provided files will be **appended** to the message. To remove or replace fil
 > info
 > All parameters to this endpoint are optional and nullable.
 
+###### Query String Params
+
+| Field     | Type      | Description                        | Required |
+| --------- | --------- | ---------------------------------- | -------- |
+| thread_id | snowflake | id of the thread the message is in | false    |
+
 ###### JSON/Form Params
 
 | Field            | Type                                                                                 | Description                                                     |
@@ -239,9 +254,16 @@ Any provided files will be **appended** to the message. To remove or replace fil
 | payload_json \*\*| string                                                                               | JSON encoded body of non-file params (multipart/form-data only) |
 | attachments \*\* | array of partial [attachment](#DOCS_RESOURCES_CHANNEL/attachment-object) objects     | attached files to keep and possible descriptions for new files  |
 
-\* Requires an application-owned webhook
+\* Requires an application-owned webhook.
+
 \*\* See [Uploading Files](#DOCS_REFERENCE/uploading-files) for details.
 
 # Delete Webhook Message % DELETE /webhooks/{webhook.id#DOCS_RESOURCES_WEBHOOK/webhook-object}/{webhook.token#DOCS_RESOURCES_WEBHOOK/webhook-object}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}
 
 Deletes a message that was created by the webhook. Returns a `204 No Content` response on success.
+
+###### Query String Params
+
+| Field     | Type      | Description                        | Required |
+| --------- | --------- | ---------------------------------- | -------- |
+| thread_id | snowflake | id of the thread the message is in | false    |
