@@ -154,10 +154,10 @@ Input text is a modal component accepting text input from users.
 | style        | integer | one of [input text styles](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/input-text-object-input-text-styles) |
 | label        | string  | text that appears on top of the input text field, max 80 characters                                   |
 | placeholder? | string  | placeholder for the text input                                                                        |
-| min_length?  | integer | minimal length of text input                                                                          |
+| min_length?  | integer | minimal length of text input, defaults to `0`                                                         |
 | max_length?  | integer | maximal length of text input                                                                          |
-| required?    | boolean | whether this text input is required                                                                   |
-| value?       | string  | pre-given value                                                                                       |
+| required?    | boolean | whether this text input is required, defaults to `true`                                               |
+| value?       | string  | pre-filled value                                                                                      |
 
 Input text components come in two styles for short or longer texts.
 
@@ -254,6 +254,102 @@ Input text components come in two styles for short or longer texts.
     "data": {
         "custom_id": "click_one",
         "component_type": 2
+    },
+    "channel_id": "345626669114982999",
+    "application_id": "290926444748734465"
+}
+```
+
+###### Sample Modal Component Interaction
+
+```json
+{
+    "version": 1,
+    "type": 5,
+    "token": "unique_interaction_token",
+    "message": {
+        "type": 0,
+        "tts": false,
+        "timestamp": "2021-05-19T02:12:51.710000+00:00",
+        "pinned": false,
+        "mentions": [],
+        "mention_roles": [],
+        "mention_everyone": false,
+        "id": "844397162624450620",
+        "flags": 0,
+        "embeds": [],
+        "edited_timestamp": null,
+        "content": "This is a message with components.",
+        "components": [
+            {
+                "type": 1,
+                "components": [
+                    {
+                        "type": 2,
+                        "label": "Click me!",
+                        "style": 1,
+                        "custom_id": "click_one"
+                    }
+                ]
+            }
+        ],
+        "channel_id": "345626669114982402",
+        "author": {
+            "username": "Mason",
+            "public_flags": 131141,
+            "id": "53908232506183680",
+            "discriminator": "1337",
+            "avatar": "a_d5efa99b3eeaa7dd43acca82f5692432"
+        },
+        "attachments": []
+    },
+    "member": {
+        "user": {
+            "username": "Mason",
+            "public_flags": 131141,
+            "id": "53908232506183680",
+            "discriminator": "1337",
+            "avatar": "a_d5efa99b3eeaa7dd43acca82f5692432"
+        },
+        "roles": [
+            "290926798626357999"
+        ],
+        "premium_since": null,
+        "permissions": "17179869183",
+        "pending": false,
+        "nick": null,
+        "mute": false,
+        "joined_at": "2017-03-13T19:19:14.040000+00:00",
+        "is_pending": false,
+        "deaf": false,
+        "avatar": null
+    },
+    "id": "846462639134605312",
+    "guild_id": "290926798626357999",
+    "data": {
+        "custom_id": "modaltest",
+        "components": [
+            {
+                "type": 1,
+                "components": [
+                    {
+                        "value": "Wumpus",
+                        "type": 4,
+                        "custom_id": "name"
+                    }
+                ]
+            },
+            {
+                "type": 1,
+                "components": [
+                    {
+                        "value": "I'm a fluffy Wumpus.\n\nPoggers, I can use multiline.",
+                        "type": 4,
+                        "custom_id": "about"
+                    }
+                ]
+            }
+        ]
     },
     "channel_id": "345626669114982999",
     "application_id": "290926444748734465"
