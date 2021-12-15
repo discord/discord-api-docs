@@ -307,13 +307,11 @@ GUILD_SCHEDULED_EVENTS (1 << 16)
   - GUILD_SCHEDULED_EVENT_CREATE
   - GUILD_SCHEDULED_EVENT_UPDATE
   - GUILD_SCHEDULED_EVENT_DELETE
-  - GUILD_SCHEDULED_EVENT_USER_ADD **
-  - GUILD_SCHEDULED_EVENT_USER_REMOVE **
+  - GUILD_SCHEDULED_EVENT_USER_ADD
+  - GUILD_SCHEDULED_EVENT_USER_REMOVE
 ```
 
 \* [Thread Members Update](#DOCS_TOPICS_GATEWAY/thread-members-update) contains different data depending on which intents are used.
-
-\*\* [Guild Scheduled Event User Add](#DOCS_TOPICS_GATEWAY/guild-scheduled-event-user-add) and [Guild Scheduled Event User Remove](#DOCS_TOPICS_GATEWAY/guild-scheduled-event-user-remove) are currently experimental and not officially supported.
 
 ### Caveats
 
