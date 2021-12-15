@@ -148,6 +148,7 @@ An [Interaction](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object)
 - [Message Commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/message-commands-example-interaction)
 - [Message Components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-interaction-object-sample-component-interaction)
 - [Select Menu Message Components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/select-menu-object-select-menu-interaction)
+- [Modals](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-interaction-object-sample-modal-component-interaction)
 
 An explanation of all the fields can be found in our [data models](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object).
 
