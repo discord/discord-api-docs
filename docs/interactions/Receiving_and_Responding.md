@@ -80,7 +80,7 @@ For [Message Components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/) it includes ide
 | type\*        | integer | the [type](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-object-component-types) of the component |
 | custom_id     | string  | the [custom_id](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/custom-id) of the component                 |
 
-\* For now the [type](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-object-component-types) will always be `4`
+\* For now the [type](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-object-component-types) will always be `4`.
 
 ### Message Interaction Object
 
@@ -181,7 +181,7 @@ There are a number of ways you can respond to an interaction:
 | APPLICATION_COMMAND_AUTOCOMPLETE_RESULT | 8     | respond to an autocomplete interaction with suggested choices                                                 |
 | MODAL\*\*                               | 9     | respond to an interaction with a modal for a user to fill-out                                                 |
 
-\* Only valid for [component-based](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/) interactions
+\* Only valid for [component-based](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/) interactions.
 
 \*\* You can't respond to a [MODAL_SUBMIT](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-interaction-type) with a new `MODAL`.
 
