@@ -81,7 +81,7 @@ Represents a pack of standard stickers.
 | sku_id            | snowflake                                                          | id of the pack's SKU                                                      |
 | cover_sticker_id? | snowflake                                                          | id of a sticker in the pack which is shown as the pack's icon             |
 | description       | string                                                             | description of the sticker pack                                           |
-| banner_asset_id   | snowflake                                                          | id of the sticker pack's [banner image](#DOCS_REFERENCE/image-formatting) |
+| banner_asset_id?  | snowflake                                                          | id of the sticker pack's [banner image](#DOCS_REFERENCE/image-formatting) |
 
 ###### Example Sticker Pack
 
