@@ -157,6 +157,9 @@ Returns a list of partial [guild](#DOCS_RESOURCES_GUILD/guild-object) objects th
 > info
 > This endpoint returns 200 guilds by default, which is the maximum number of guilds a non-bot user can join. Therefore, pagination is **not needed** for integrations that need to get a list of the users' guilds.
 
+> info
+> This endpoint supports the [with_counts](#DOCS_RESOURCES_GUILD/get-guild-query-string-params) query parameter.
+
 ###### Query String Params
 
 | Field  | Type      | Description                            | Required | Default |
