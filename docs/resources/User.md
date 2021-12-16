@@ -165,6 +165,10 @@ Returns a list of partial [guild](#DOCS_RESOURCES_GUILD/guild-object) objects th
 | after  | snowflake | get guilds after this guild ID         | false    | absent  |
 | limit  | integer   | max number of guilds to return (1-200) | false    | 200     |
 
+## Get Current User Guild Member % GET /users/@me/guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/member
+
+Returns a [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) object for the current user. Requires the `guilds.members.read` OAuth2 scope.
+
 ## Leave Guild % DELETE /users/@me/guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}
 
 Leave a guild. Returns a 204 empty response on success.
