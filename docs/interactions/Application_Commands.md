@@ -69,6 +69,7 @@ Application commands are commands that an application can register to Discord. T
 | ROLE              | 8     |                                         |
 | MENTIONABLE       | 9     | Includes users and roles                |
 | NUMBER            | 10    | Any double between -2^53 and 2^53       |
+| ATTACHMENT        | 11    |                                         |
 
 ###### Application Command Option Choice Structure
 
