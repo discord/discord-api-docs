@@ -1003,7 +1003,7 @@ Sent when a guild member is updated. This will also fire when the user object of
 | deaf?                         | boolean                                           | whether the user is deafened in voice channels                                                                                         |
 | mute?                         | boolean                                           | whether the user is muted in voice channels                                                                                            |
 | pending?                      | boolean                                           | whether the user has not yet passed the guild's [Membership Screening](#DOCS_RESOURCES_GUILD/membership-screening-object) requirements |
-| communication_disabled_until? | ?ISO8601 timestamp                                | whether and how long the user can not interact with the guild                                                                          |
+| communication_disabled_until? | ?ISO8601 timestamp                                | when the user's timeout will expire and the user's interaction in the guild is re-enabled, null if the user is not timed out           |
 
 #### Guild Members Chunk
 
