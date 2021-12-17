@@ -88,10 +88,10 @@ All options have names, and an option can either be a parameter and input value-
 `value` and `options` are mutually exclusive.
 
 | Field    | Type                                                                                                                                                                             | Description                                                                                                                                    |
-| -------- |--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| -------- |----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------| ---------------------------------------------------------------------------------------------------------------------------------------------- |
 | name     | string                                                                                                                                                                           | the name of the parameter                                                                                                                      |
 | type     | integer                                                                                                                                                                          | value of [application command option type](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-type) |
-| value?   | [application command option type](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-type)                                            | the value of the pair                                                                                                                          |
+| value?   | string, integer, or double                                                                                                                                                       | the value of the option resulting from user input                                                                                              |
 | options? | array of [application command interaction data option](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-interaction-data-option-structure) | present if this option is a group or subcommand                                                                                                |
 | focused? | boolean                                                                                                                                                                          | true if this option is the currently focused option for autocomplete                                                                           |
 
@@ -277,7 +277,7 @@ Need to keep some of your commands safe from prying eyes, or only available to t
 > info
 > For now, if you don't have permission to use a command, they'll show up in the command picker as disabled and unusable. They will **not** be hidden.
 
-You can also set a `default_permission` on your commands if you want them to be disabled by default when your app is added to a new guild. Setting `default_permission` to `false` will disallow _anyone_ in a guild from using the command—except Administrators and guild owners—unless a specific overwrite is configured. It will also disable the command from being usable in DMs.
+You can also set a `default_permission` on your commands if you want them to be disabled by default when your app is added to a new guild. Setting `default_permission` to `false` will disallow _anyone_ in a guild from using the command, unless a specific overwrite is configured. It will also disable the command from being usable in DMs.
 
 For example, this command will not be usable by anyone in any guilds by default:
 
@@ -927,7 +927,7 @@ Edit a global command. Updates will be available in all guilds after 1 hour. Ret
 
 ## Delete Global Application Command % DELETE /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/commands/{command.id#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object}
 
-Deletes a global command. Returns `204`.
+Deletes a global command. Returns `204 No Content` on success.
 
 ## Bulk Overwrite Global Application Commands % PUT /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/commands
 
@@ -979,7 +979,7 @@ Edit a guild command. Updates for guild commands will be available immediately. 
 
 ## Delete Guild Application Command % DELETE /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/commands/{command.id#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object}
 
-Delete a guild command. Returns `204` on success.
+Delete a guild command. Returns `204 No Content` on success.
 
 ## Bulk Overwrite Guild Application Commands % PUT /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/commands
 

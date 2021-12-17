@@ -69,6 +69,7 @@ Below is a table of all current permissions, their integer values in hexadecimal
 | START_EMBEDDED_ACTIVITIES     | `0x0000008000000000` `(1L << 39)` | Allows for launching activities (applications with the `EMBEDDED` flag) in a voice channel                                                                  | V            |
 | MODERATE_MEMBERS              | `0x0000010000000000` `(1L << 40)` | When you put a user in timeout they will not be able to send messages in chat, reply within threads, react to messages, or speak in voice or stage channels |              |
 
+
 **\* These permissions require the owner account to use [two-factor authentication](#DOCS_TOPICS_OAUTH2/twofactor-authentication-requirement) when used on a guild that has server-wide 2FA enabled.**
 
 Note that these internal permission names may be referred to differently by the Discord client. For example, "Manage Permissions" refers to MANAGE_ROLES and "Use Voice Activity" refers to USE_VAD.
