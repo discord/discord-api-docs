@@ -1,16 +1,28 @@
 # Change Log
 
+## Guild Scheduled Events
+
+#### Nov 23, 2021
+
+- Add official support for `guild_scheduled_events` field on `Guild` resource sent with `GUILD_CREATE` event
+
+#### Nov 18, 2021
+
+- Breaking change for return type for `GET /guilds/{guild.id}/scheduled-events/{guild_scheduled_event.id}/users`
+- Add `with_user_count` query param for `GET /guilds/{guild.id}/scheduled-events/{guild_scheduled_event.id}`
+- Return additional `creator` field by default in response for `GET /guilds/{guild.id}/scheduled-events/{guild_scheduled_event.id}`
+- More details and clarification for the guild scheduled events feature.
+- Document support for `before` and `after` query params for `GET /guilds/{guild.id}/scheduled-events/{guild_scheduled_event.id}/users`
+
+#### Nov 15, 2021
+
+Add new documentation for recently released Guild Scheduled Events feature.
+
 ## Application Command Autocomplete Interactions
 
 #### October 27, 2021
 
 Autocomplete interactions are now available, allowing application commands to provide server completed options. Check out [the autocomplete interaction docs](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/autocomplete) for more information.
-
-## Application Command Permissions Change
-
-#### October 20, 2021
-
-Guild owners and members with the Administrator permission may now use application commands even when `default_permission` is set to `false`.
 
 ## Updated Thread Permissions
 
