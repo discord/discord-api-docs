@@ -778,14 +778,14 @@ Modify attributes of a [guild member](#DOCS_RESOURCES_GUILD/guild-member-object)
 
 ###### JSON Params
 
-| Field                        | Type                | Description                                                                                                                  | Permission       |
-| ---------------------------- | ------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ---------------- |
-| nick                         | string              | value to set users nickname to                                                                                               | MANAGE_NICKNAMES |
-| roles                        | array of snowflakes | array of role ids the member is assigned                                                                                     | MANAGE_ROLES     |
-| mute                         | boolean             | whether the user is muted in voice channels. Will throw a 400 if the user is not in a voice channel                          | MUTE_MEMBERS     |
-| deaf                         | boolean             | whether the user is deafened in voice channels. Will throw a 400 if the user is not in a voice channel                       | DEAFEN_MEMBERS   |
-| channel_id                   | snowflake           | id of channel to move user to (if they are connected to voice)                                                               | MOVE_MEMBERS     |
-| communication_disabled_until | ?ISO8601 timestamp  | when the user's timeout will expire and the user's interaction in the guild is re-enabled, null if the user is not timed out | MODERATE_MEMBERS |
+| Field                        | Type                | Description                                                                                                                                            | Permission       |
+| ---------------------------- | ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------------- |
+| nick                         | string              | value to set users nickname to                                                                                                                         | MANAGE_NICKNAMES |
+| roles                        | array of snowflakes | array of role ids the member is assigned                                                                                                               | MANAGE_ROLES     |
+| mute                         | boolean             | whether the user is muted in voice channels. Will throw a 400 if the user is not in a voice channel                                                    | MUTE_MEMBERS     |
+| deaf                         | boolean             | whether the user is deafened in voice channels. Will throw a 400 if the user is not in a voice channel                                                 | DEAFEN_MEMBERS   |
+| channel_id                   | snowflake           | id of channel to move user to (if they are connected to voice)                                                                                         | MOVE_MEMBERS     |
+| communication_disabled_until | ?ISO8601 timestamp  | when the user's timeout will expire and the user's interaction in the guild is re-enabled (up to 28 days in the future), set to null to remove timeout | MODERATE_MEMBERS |
 
 ## Modify Current Member % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/members/@me
 
