@@ -3,7 +3,7 @@
 
 #### Dec 20, 2021
 
-Add new documentation for recently released guild member timeout feature.
+Add new documentation for the recently released guild member timeout feature.
 
 ## Guild Scheduled Events
 
