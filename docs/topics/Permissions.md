@@ -224,5 +224,4 @@ Roles without colors (`color == 0`) do not count towards the final computed colo
 
 ## Permissions For Timed Out Members
 
-Timed out members will temporarily lose all permissions except `VIEW_CHANNEL` and `READ_MESSAGE_HISTORY`.
-This is not guaranteed for admin users with `ADMINISTRATOR` permissions.
+Timed out members will temporarily lose all permissions except `VIEW_CHANNEL` and `READ_MESSAGE_HISTORY`. Owners and admin users with `ADMINISTRATOR` permissions are exempt.
