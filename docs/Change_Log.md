@@ -1,10 +1,11 @@
 # Change Log
-
-## Guild Scheduled Events
+## Guild Member Timeouts
 
 #### Dec 20, 2021
 
 Add new documentation for recently released guild member timeout feature.
+
+## Guild Scheduled Events
 
 #### Nov 23, 2021
 
