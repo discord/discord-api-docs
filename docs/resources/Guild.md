@@ -758,7 +758,7 @@ For guilds with [Membership Screening](#DOCS_RESOURCES_GUILD/membership-screenin
 | Field        | Type                | Description                                                                                                              | Permission       |
 | ------------ | ------------------- | ------------------------------------------------------------------------------------------------------------------------ | ---------------- |
 | access_token | string              | an oauth2 access token granted with the `guilds.join` to the bot's application for the user you want to add to the guild |                  |
-| nick         | string              | value to set users nickname to                                                                                           | MANAGE_NICKNAMES |
+| nick         | string              | value to set user's nickname to                                                                                          | MANAGE_NICKNAMES |
 | roles        | array of snowflakes | array of role ids the member is assigned                                                                                 | MANAGE_ROLES     |
 | mute         | boolean             | whether the user is muted in voice channels                                                                              | MUTE_MEMBERS     |
 | deaf         | boolean             | whether the user is deafened in voice channels                                                                           | DEAFEN_MEMBERS   |
@@ -780,7 +780,7 @@ Modify attributes of a [guild member](#DOCS_RESOURCES_GUILD/guild-member-object)
 
 | Field                        | Type                | Description                                                                                                                                                                                                                              | Permission       |
 | ---------------------------- | ------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------- |
-| nick                         | string              | value to set users nickname to                                                                                                                                                                                                           | MANAGE_NICKNAMES |
+| nick                         | string              | value to set user's nickname to                                                                                                                                                                                                          | MANAGE_NICKNAMES |
 | roles                        | array of snowflakes | array of role ids the member is assigned                                                                                                                                                                                                 | MANAGE_ROLES     |
 | mute                         | boolean             | whether the user is muted in voice channels. Will throw a 400 if the user is not in a voice channel                                                                                                                                      | MUTE_MEMBERS     |
 | deaf                         | boolean             | whether the user is deafened in voice channels. Will throw a 400 if the user is not in a voice channel                                                                                                                                   | DEAFEN_MEMBERS   |
@@ -796,9 +796,9 @@ Modifies the current member in a guild. Returns a 200 with the updated member ob
 
 ###### JSON Params
 
-| Field | Type    | Description                    | Permission      |
-| ----- | ------- | ------------------------------ | --------------- |
-| nick? | ?string | value to set users nickname to | CHANGE_NICKNAME |
+| Field | Type    | Description                     | Permission      |
+| ----- | ------- | ------------------------------- | --------------- |
+| nick? | ?string | value to set user's nickname to | CHANGE_NICKNAME |
 
 ## Modify Current User Nick % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/members/@me/nick
 
@@ -812,9 +812,9 @@ Modifies the nickname of the current user in a guild. Returns a 200 with the nic
 
 ###### JSON Params
 
-| Field | Type    | Description                    | Permission      |
-| ----- | ------- | ------------------------------ | --------------- |
-| nick? | ?string | value to set users nickname to | CHANGE_NICKNAME |
+| Field | Type    | Description                     | Permission      |
+| ----- | ------- | ------------------------------- | --------------- |
+| nick? | ?string | value to set user's nickname to | CHANGE_NICKNAME |
 
 ## Add Guild Member Role % PUT /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/members/{user.id#DOCS_RESOURCES_USER/user-object}/roles/{role.id#DOCS_TOPICS_PERMISSIONS/role-object}
 
