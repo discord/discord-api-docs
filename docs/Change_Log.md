@@ -2,6 +2,10 @@
 
 ## Guild Scheduled Events
 
+#### Dec 20, 2021
+
+Add new documentation for recently released guild member timeout feature.
+
 #### Nov 23, 2021
 
 - Add official support for `guild_scheduled_events` field on `Guild` resource sent with `GUILD_CREATE` event
