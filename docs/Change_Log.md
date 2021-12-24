@@ -1,5 +1,11 @@
 # Change Log
 
+## Guild Member Timeouts
+
+#### Dec 20, 2021
+
+Add new documentation for the recently released guild member timeout feature.
+
 ## Guild Scheduled Events
 
 #### Nov 23, 2021
@@ -16,7 +22,7 @@
 
 #### Nov 15, 2021
 
-Add new documentation for recently released Guild Scheduled Events feature.
+Add new documentation for the recently released Guild Scheduled Events feature.
 
 ## Application Command Autocomplete Interactions
 
