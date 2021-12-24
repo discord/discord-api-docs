@@ -183,7 +183,7 @@ There are a number of ways you can respond to an interaction:
 
 \* Only valid for [component-based](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/) interactions.
 
-\*\* You can't respond to a [MODAL_SUBMIT](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-interaction-type) with a new `MODAL`.
+\*\* Not valid for [MODAL_SUBMIT](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-interaction-type) and [PING](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-interaction-type).
 
 ###### Interaction Callback Data Structure
 
