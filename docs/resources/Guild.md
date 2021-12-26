@@ -230,6 +230,7 @@ A partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object. Represents an Offl
 | approximate_member_count   | integer                                                                             | approximate number of members in this guild                 |
 | approximate_presence_count | integer                                                                             | approximate number of online members in this guild          |
 | description                | ?string                                                                             | the description for the guild, if the guild is discoverable |
+| stickers                   | array of [sticker](#DOCS_RESOURCES_STICKER/sticker-object) object                   | custom guild stickers                                      |
 
 ###### Example Guild Preview
 
