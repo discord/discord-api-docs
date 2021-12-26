@@ -256,7 +256,7 @@ A partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object. Represents an Offl
   "approximate_member_count": 60814,
   "approximate_presence_count": 20034,
   "description": "The official place to report Discord Bugs!",
-  "stickers":[]
+  "stickers": []
 }
 ```
 
