@@ -74,11 +74,11 @@ For [Message Components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/) it includes ide
 
 ###### Partial Input Text Structure
 
-| Field         | Type                                          | Description                                                   |
+| Field         | Type    | Description                                                                                         |
 | ------------- | ------- | --------------------------------------------------------------------------------------------------- |
 | value         | string  | value of input text component, will be an empty string if no value submitted                        |
 | type\*        | integer | the [type](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-object-component-types) of the component |
-| custom_id     | string  | the [custom_id](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/custom-id) of the component                 |
+| custom_id     | string  | the [custom_id](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/custom-id) of the component                   |
 
 \* For now the [type](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-object-component-types) will always be `4`.
 
