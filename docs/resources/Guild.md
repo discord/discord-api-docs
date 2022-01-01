@@ -999,6 +999,17 @@ Modify a [guild widget](#DOCS_RESOURCES_GUILD/guild-widget-object) object for th
 
 Returns the widget for the guild.
 
+###### Get Guild Widget Structure
+
+| Field                      | Type                                                                                | Description                                                 |
+| -------------------------- | ----------------------------------------------------------------------------------- | ----------------------------------------------------------- |
+| id                 | snowflake                                                                         | guild id                                                             |
+| name               | string                                                                            | guild name (2-100 characters)                                        |
+| instant_invite     | ?string                                                                           | instant invite for the guilds specified widget invite channel        |
+| channels           | array of partial [channel](#DOCS_RESOURCES_CHANNEL/channel-object) objects        | voice and stage channels which are accessible by @everyone           |
+| members            | array of partial [user](#DOCS_RESOURCES_USER/user-object) objects                 | special widget user objects that includes users presence (Limit 100) |
+| presence_count     | integer                                                                           | number of online members in this guild                               |
+
 ###### Example Get Guild Widget
 
 ```json
