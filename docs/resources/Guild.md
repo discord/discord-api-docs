@@ -1042,6 +1042,8 @@ Returns the widget for the guild.
   "presence_count": 1
 }
 ```
+> warn
+> The Fields `id`, `discriminator` and `avatar` are anonymized to prevent abuse.
 
 ## Get Guild Vanity URL % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/vanity-url
 
