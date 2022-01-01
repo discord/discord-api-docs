@@ -188,7 +188,7 @@ Get a list of guild scheduled event users subscribed to a guild scheduled event.
 
 | Field        | Type      | Description                                                                    | Default |
 | ------------ | -------   | ------------------------------------------------------------------------------ | ------- |
-| limit?       | number    | how many users to receive from the event                                       | 100     |
+| limit?       | number    | number of users to return (up to maximum 100)                                  | 100     |
 | with_member? | boolean   | include guild member data if it exists                                         | false   |
 | before? *    | snowflake | consider only users before given user id                                       | null    |
 | after? *     | snowflake | consider only users after given user id                                        | null    |
