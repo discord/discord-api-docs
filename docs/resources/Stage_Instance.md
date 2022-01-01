@@ -13,7 +13,7 @@ A _Stage Instance_ holds information about a live stage.
 | channel_id            | snowflake | The id of the associated Stage channel                                                                        |
 | topic                 | string    | The topic of the Stage instance (1-120 characters)                                                            |
 | privacy_level         | integer   | The [privacy level](#DOCS_RESOURCES_STAGE_INSTANCE/stage-instance-object-privacy-level) of the Stage instance |
-| discoverable_disabled | boolean   | Whether or not Stage Discovery is disabled (deprecated)	                                                                   |
+| discoverable_disabled | boolean   | Whether or not Stage Discovery is disabled (deprecated)                                                       |
 
 ###### Privacy Level
 
