@@ -1043,7 +1043,7 @@ Returns the widget for the guild.
 }
 ```
 > warn
-> The Fields `id`, `discriminator` and `avatar` are anonymized to prevent abuse.
+> The fields `id`, `discriminator` and `avatar` are anonymized to prevent abuse.
 
 ## Get Guild Vanity URL % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/vanity-url
 
