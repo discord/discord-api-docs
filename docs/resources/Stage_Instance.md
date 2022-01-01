@@ -31,7 +31,7 @@ A _Stage Instance_ holds information about a live stage.
   "channel_id": "733488538393510049",
   "topic": "Testing Testing, 123",
   "privacy_level": 1,
-  "discoverable_disabled": false,
+  "discoverable_disabled": false
 }
 ```
 
