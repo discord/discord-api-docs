@@ -13,13 +13,12 @@ A _Stage Instance_ holds information about a live stage.
 | channel_id            | snowflake | The id of the associated Stage channel                                                                        |
 | topic                 | string    | The topic of the Stage instance (1-120 characters)                                                            |
 | privacy_level         | integer   | The [privacy level](#DOCS_RESOURCES_STAGE_INSTANCE/stage-instance-object-privacy-level) of the Stage instance |
-| discoverable_disabled | boolean   | Whether or not Stage Discovery is disabled                                                                    |
 
 ###### Privacy Level
 
 | Level      | Value | Description                                                         |
 | ---------- | ----- | ------------------------------------------------------------------- |
-| PUBLIC     | 1     | The Stage instance is visible publicly, such as on Stage Discovery. |
+| PUBLIC     | 1     | The Stage instance is visible publicly. |
 | GUILD_ONLY | 2     | The Stage instance is visible to only guild members.                |
 
 ###### Example Stage Instance
@@ -30,8 +29,7 @@ A _Stage Instance_ holds information about a live stage.
   "guild_id": "197038439483310086",
   "channel_id": "733488538393510049",
   "topic": "Testing Testing, 123",
-  "privacy_level": 1,
-  "discoverable_disabled": false
+  "privacy_level": 1
 }
 ```
 
