@@ -58,7 +58,8 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 | nsfw_level                    | integer                                                                                                      | [guild NSFW level](#DOCS_RESOURCES_GUILD/guild-object-guild-nsfw-level)                                                                     |
 | stage_instances? \*           | array of [stage instance](#DOCS_RESOURCES_STAGE_INSTANCE/stage-instance-object) objects                      | Stage instances in the guild                                                                                                                |
 | stickers?                     | array of [sticker](#DOCS_RESOURCES_STICKER/sticker-object) objects                                           | custom guild stickers                                                                                                                       |
-| guild_scheduled_events \*     | array of [guild scheduled event](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object) objects | the scheduled events in the guild                                                                                                           |
+| guild_scheduled_events? \*    | array of [guild scheduled event](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object) objects | the scheduled events in the guild                                                                                                           |
+| premium_progress_bar_enabled  | boolean                                                                                                      | whether the guild has the boost progress bar enabled                                                                                        |
 
 ** \* These fields are only sent within the [GUILD_CREATE](#DOCS_TOPICS_GATEWAY/guild-create) event **
 
@@ -280,18 +281,19 @@ A partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object. Represents an Offl
 
 ###### Guild Member Structure
 
-| Field          | Type                                            | Description                                                                                                                            |
-| -------------- | ----------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
-| user?          | [user](#DOCS_RESOURCES_USER/user-object) object | the user this guild member represents                                                                                                  |
-| nick?          | ?string                                         | this users guild nickname                                                                                                              |
-| avatar?        | ?string                                         | the member's [guild avatar hash](#DOCS_REFERENCE/image-formatting)                                                                     |
-| roles          | array of snowflakes                             | array of [role](#DOCS_TOPICS_PERMISSIONS/role-object) object ids                                                                       |
-| joined_at      | ISO8601 timestamp                               | when the user joined the guild                                                                                                         |
-| premium_since? | ?ISO8601 timestamp                              | when the user started [boosting](https://support.discord.com/hc/en-us/articles/360028038352-Server-Boosting-) the guild                |
-| deaf           | boolean                                         | whether the user is deafened in voice channels                                                                                         |
-| mute           | boolean                                         | whether the user is muted in voice channels                                                                                            |
-| pending?       | boolean                                         | whether the user has not yet passed the guild's [Membership Screening](#DOCS_RESOURCES_GUILD/membership-screening-object) requirements |
-| permissions?   | string                                          | total permissions of the member in the channel, including overwrites, returned when in the interaction object                          |
+| Field                         | Type                                            | Description                                                                                                                                                                                                                          |
+| ----------------------------- | ----------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| user?                         | [user](#DOCS_RESOURCES_USER/user-object) object | the user this guild member represents                                                                                                                                                                                                |
+| nick?                         | ?string                                         | this user's guild nickname                                                                                                                                                                                                           |
+| avatar?                       | ?string                                         | the member's [guild avatar hash](#DOCS_REFERENCE/image-formatting)                                                                                                                                                                   |
+| roles                         | array of snowflakes                             | array of [role](#DOCS_TOPICS_PERMISSIONS/role-object) object ids                                                                                                                                                                     |
+| joined_at                     | ISO8601 timestamp                               | when the user joined the guild                                                                                                                                                                                                       |
+| premium_since?                | ?ISO8601 timestamp                              | when the user started [boosting](https://support.discord.com/hc/en-us/articles/360028038352-Server-Boosting-) the guild                                                                                                              |
+| deaf                          | boolean                                         | whether the user is deafened in voice channels                                                                                                                                                                                       |
+| mute                          | boolean                                         | whether the user is muted in voice channels                                                                                                                                                                                          |
+| pending?                      | boolean                                         | whether the user has not yet passed the guild's [Membership Screening](#DOCS_RESOURCES_GUILD/membership-screening-object) requirements                                                                                               |
+| permissions?                  | string                                          | total permissions of the member in the channel, including overwrites, returned when in the interaction object                                                                                                                        |
+| communication_disabled_until? | ?ISO8601 timestamp                              | when the user's [timeout](https://support.discord.com/hc/en-us/articles/4413305239191-Time-Out-FAQ) will expire and the user will be able to communicate in the guild again, null or a time in the past if the user is not timed out |
 
 > info
 > The field `user` won't be included in the member object attached to `MESSAGE_CREATE` and `MESSAGE_UPDATE` gateway events.
@@ -603,7 +605,7 @@ Returns the [guild](#DOCS_RESOURCES_GUILD/guild-object) object for the given id.
 
 ## Get Guild Preview % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/preview
 
-Returns the [guild preview](#DOCS_RESOURCES_GUILD/guild-preview-object) object for the given id. If the user is not in the guild, then the guild must be lurkable (it must be Discoverable or have a [live public stage](#DOCS_RESOURCES_STAGE_INSTANCE/definitions)).
+Returns the [guild preview](#DOCS_RESOURCES_GUILD/guild-preview-object) object for the given id. If the user is not in the guild, then the guild must be lurkable.
 
 ## Modify Guild % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}
 
@@ -638,6 +640,7 @@ Modify a guild's settings. Requires the `MANAGE_GUILD` permission. Returns the u
 | preferred_locale              | ?string                                                                             | the preferred locale of a Community guild used in server discovery and notices from Discord; defaults to "en-US"             |
 | features                      | array of [guild feature](#DOCS_RESOURCES_GUILD/guild-object-guild-features) strings | enabled guild features                                                                                                       |
 | description                   | ?string                                                                             | the description for the guild, if the guild is discoverable                                                                  |
+| premium_progress_bar_enabled  | boolean                                                                             | whether the guild's boost progress bar should be enabled.                                                                           |
 
 ## Delete Guild % DELETE /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}
 
@@ -756,7 +759,7 @@ For guilds with [Membership Screening](#DOCS_RESOURCES_GUILD/membership-screenin
 | Field        | Type                | Description                                                                                                              | Permission       |
 | ------------ | ------------------- | ------------------------------------------------------------------------------------------------------------------------ | ---------------- |
 | access_token | string              | an oauth2 access token granted with the `guilds.join` to the bot's application for the user you want to add to the guild |                  |
-| nick         | string              | value to set users nickname to                                                                                           | MANAGE_NICKNAMES |
+| nick         | string              | value to set user's nickname to                                                                                          | MANAGE_NICKNAMES |
 | roles        | array of snowflakes | array of role ids the member is assigned                                                                                 | MANAGE_ROLES     |
 | mute         | boolean             | whether the user is muted in voice channels                                                                              | MUTE_MEMBERS     |
 | deaf         | boolean             | whether the user is deafened in voice channels                                                                           | DEAFEN_MEMBERS   |
@@ -776,13 +779,14 @@ Modify attributes of a [guild member](#DOCS_RESOURCES_GUILD/guild-member-object)
 
 ###### JSON Params
 
-| Field      | Type                | Description                                                                                            | Permission       |
-| ---------- | ------------------- | ------------------------------------------------------------------------------------------------------ | ---------------- |
-| nick       | string              | value to set users nickname to                                                                         | MANAGE_NICKNAMES |
-| roles      | array of snowflakes | array of role ids the member is assigned                                                               | MANAGE_ROLES     |
-| mute       | boolean             | whether the user is muted in voice channels. Will throw a 400 if the user is not in a voice channel    | MUTE_MEMBERS     |
-| deaf       | boolean             | whether the user is deafened in voice channels. Will throw a 400 if the user is not in a voice channel | DEAFEN_MEMBERS   |
-| channel_id | snowflake           | id of channel to move user to (if they are connected to voice)                                         | MOVE_MEMBERS     |
+| Field                        | Type                | Description                                                                                                                                                                                                                              | Permission       |
+| ---------------------------- | ------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------- |
+| nick                         | string              | value to set user's nickname to                                                                                                                                                                                                          | MANAGE_NICKNAMES |
+| roles                        | array of snowflakes | array of role ids the member is assigned                                                                                                                                                                                                 | MANAGE_ROLES     |
+| mute                         | boolean             | whether the user is muted in voice channels. Will throw a 400 if the user is not in a voice channel                                                                                                                                      | MUTE_MEMBERS     |
+| deaf                         | boolean             | whether the user is deafened in voice channels. Will throw a 400 if the user is not in a voice channel                                                                                                                                   | DEAFEN_MEMBERS   |
+| channel_id                   | snowflake           | id of channel to move user to (if they are connected to voice)                                                                                                                                                                           | MOVE_MEMBERS     |
+| communication_disabled_until | ?ISO8601 timestamp  | when the user's [timeout](https://support.discord.com/hc/en-us/articles/4413305239191-Time-Out-FAQ) will expire and the user will be able to communicate in the guild again (up to 28 days in the future), set to null to remove timeout | MODERATE_MEMBERS |
 
 ## Modify Current Member % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/members/@me
 
@@ -793,9 +797,9 @@ Modifies the current member in a guild. Returns a 200 with the updated member ob
 
 ###### JSON Params
 
-| Field | Type    | Description                    | Permission      |
-| ----- | ------- | ------------------------------ | --------------- |
-| ?nick | ?string | value to set users nickname to | CHANGE_NICKNAME |
+| Field | Type    | Description                     | Permission      |
+| ----- | ------- | ------------------------------- | --------------- |
+| nick? | ?string | value to set user's nickname to | CHANGE_NICKNAME |
 
 ## Modify Current User Nick % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/members/@me/nick
 
@@ -809,9 +813,9 @@ Modifies the nickname of the current user in a guild. Returns a 200 with the nic
 
 ###### JSON Params
 
-| Field | Type    | Description                    | Permission      |
-| ----- | ------- | ------------------------------ | --------------- |
-| ?nick | ?string | value to set users nickname to | CHANGE_NICKNAME |
+| Field | Type    | Description                     | Permission      |
+| ----- | ------- | ------------------------------- | --------------- |
+| nick? | ?string | value to set user's nickname to | CHANGE_NICKNAME |
 
 ## Add Guild Member Role % PUT /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/members/{user.id#DOCS_RESOURCES_USER/user-object}/roles/{role.id#DOCS_TOPICS_PERMISSIONS/role-object}
 
@@ -900,7 +904,7 @@ This endpoint takes a JSON array of parameters in the following format:
 | Field     | Type      | Description                  |
 | --------- | --------- | ---------------------------- |
 | id        | snowflake | role                         |
-| ?position | ?integer  | sorting position of the role |
+| position? | ?integer  | sorting position of the role |
 
 ## Modify Guild Role % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/roles/{role.id#DOCS_TOPICS_PERMISSIONS/role-object}
 

@@ -133,7 +133,7 @@ Once connected, the client should immediately receive an [Opcode 10 Hello](#DOCS
 
 ### Heartbeating
 
-After receiving [Opcode 10 Hello](#DOCS_TOPICS_GATEWAY/hello), the client may begin sending [Opcode 1 Heartbeat](#DOCS_TOPICS_GATEWAY/heartbeat) payloads after `heartbeat_interval * random.random()` milliseconds, and every `heartbeat_interval` milliseconds thereafter. You may send heartbeats before this interval elapses, but you should avoid doing so unless necessary. There is already tolerance in the `heartbeat_interval` that will cover network latency, so you do not need to account for it in your own implementation - waiting the precise interval will suffice.
+After receiving [Opcode 10 Hello](#DOCS_TOPICS_GATEWAY/hello), the client may begin sending [Opcode 1 Heartbeat](#DOCS_TOPICS_GATEWAY/heartbeat) payloads after `heartbeat_interval * jitter` milliseconds (where jitter is a random value between 0 and 1), and every `heartbeat_interval` milliseconds thereafter. You may send heartbeats before this interval elapses, but you should avoid doing so unless necessary. There is already tolerance in the `heartbeat_interval` that will cover network latency, so you do not need to account for it in your own implementation - waiting the precise interval will suffice.
 
 The gateway may request a heartbeat from the client in some situations by sending an [Opcode 1 Heartbeat](#DOCS_TOPICS_GATEWAY/heartbeat). When this occurs, the client should immediately send an [Opcode 1 Heartbeat](#DOCS_TOPICS_GATEWAY/heartbeat) without waiting the remainder of the current interval.
 
@@ -307,13 +307,11 @@ GUILD_SCHEDULED_EVENTS (1 << 16)
   - GUILD_SCHEDULED_EVENT_CREATE
   - GUILD_SCHEDULED_EVENT_UPDATE
   - GUILD_SCHEDULED_EVENT_DELETE
-  - GUILD_SCHEDULED_EVENT_USER_ADD **
-  - GUILD_SCHEDULED_EVENT_USER_REMOVE ** 
+  - GUILD_SCHEDULED_EVENT_USER_ADD
+  - GUILD_SCHEDULED_EVENT_USER_REMOVE
 ```
 
 \* [Thread Members Update](#DOCS_TOPICS_GATEWAY/thread-members-update) contains different data depending on which intents are used.
-
-\*\* [Guild Scheduled Event User Add](#DOCS_TOPICS_GATEWAY/guild-scheduled-event-user-add) and [Guild Scheduled Event User Remove](#DOCS_TOPICS_GATEWAY/guild-scheduled-event-user-remove) are currently experimental and not officially supported.
 
 ### Caveats
 
@@ -513,9 +511,9 @@ Events are payloads sent over the socket to a client that correspond to events i
 | [Guild Role Create](#DOCS_TOPICS_GATEWAY/guild-role-create)                         | guild role was created                                                                                                           |
 | [Guild Role Update](#DOCS_TOPICS_GATEWAY/guild-role-update)                         | guild role was updated                                                                                                           |
 | [Guild Role Delete](#DOCS_TOPICS_GATEWAY/guild-role-delete)                         | guild role was deleted                                                                                                           |
-| [Guild Scheduled Event Create](#DOCS_TOPICS_GATEWAY/guild-scheduled-event-create) | guild scheduled event was created                                                                                               |
-| [Guild Scheduled Event Update](#DOCS_TOPICS_GATEWAY/guild-scheduled-event-update) | guild scheduled event was updated                                                                                               |
-| [Guild Scheduled Event Delete](#DOCS_TOPICS_GATEWAY/guild-scheduled-event-delete) | guild scheduled event was deleted                                                                                               |
+| [Guild Scheduled Event Create](#DOCS_TOPICS_GATEWAY/guild-scheduled-event-create)   | guild scheduled event was created                                                                                                |
+| [Guild Scheduled Event Update](#DOCS_TOPICS_GATEWAY/guild-scheduled-event-update)   | guild scheduled event was updated                                                                                                |
+| [Guild Scheduled Event Delete](#DOCS_TOPICS_GATEWAY/guild-scheduled-event-delete)   | guild scheduled event was deleted                                                                                                |
 | [Guild Scheduled Event User Add](#DOCS_TOPICS_GATEWAY/guild-scheduled-event-user-add)       | user subscribed to a guild scheduled event                                                                               |
 | [Guild Scheduled Event User Remove](#DOCS_TOPICS_GATEWAY/guild-scheduled-event-user-remove) | user unsubscribed from a guild scheduled event                                                                           |
 | [Integration Create](#DOCS_TOPICS_GATEWAY/integration-create)                       | guild integration was created                                                                                                    |
@@ -862,7 +860,14 @@ Sent when the current user _gains_ access to a channel.
 
 #### Thread Member Update
 
-Sent when the [thread member](#DOCS_RESOURCES_CHANNEL/thread-member-object) object for the current user is updated. The inner payload is a [thread member](#DOCS_RESOURCES_CHANNEL/thread-member-object) object. This event is documented for completeness, but unlikely to be used by most bots. For bots, this event largely is just a signal that you are a member of the thread. See the [threads docs](#DOCS_TOPICS_THREADS) for more details.
+Sent when the [thread member](#DOCS_RESOURCES_CHANNEL/thread-member-object) object for the current user is updated. The inner payload is a [thread member](#DOCS_RESOURCES_CHANNEL/thread-member-object) object with an extra `guild_id` field. This event is documented for completeness, but unlikely to be used by most bots. For bots, this event largely is just a signal that you are a member of the thread. See the [threads docs](#DOCS_TOPICS_THREADS) for more details.
+
+###### Thread Member Update Event Extra Fields
+
+| Field     | Type         | Description              |
+|-----------|--------------|--------------------------|
+| guild_id  | snowflake    | the id of the guild      |
+
 
 #### Thread Members Update
 
@@ -1005,18 +1010,19 @@ Sent when a guild member is updated. This will also fire when the user object of
 
 ###### Guild Member Update Event Fields
 
-| Field          | Type                                              | Description                                                                                                                            |
-|----------------|---------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------|
-| guild_id       | snowflake                                         | the id of the guild                                                                                                                    |
-| roles          | array of snowflakes                               | user role ids                                                                                                                          |
-| user           | a [user](#DOCS_RESOURCES_USER/user-object) object | the user                                                                                                                               |
-| nick?          | ?string                                           | nickname of the user in the guild                                                                                                      |
-| avatar         | ?string                                           | the member's [guild avatar hash](#DOCS_REFERENCE/image-formatting)
-| joined_at      | ?ISO8601 timestamp                                | when the user joined the guild                                                                                                         |
-| premium_since? | ?ISO8601 timestamp                                | when the user starting [boosting](https://support.discord.com/hc/en-us/articles/360028038352-Server-Boosting-) the guild               |
-| deaf?          | boolean                                           | whether the user is deafened in voice channels                                                                                         |
-| mute?          | boolean                                           | whether the user is muted in voice channels                                                                                            |
-| pending?       | boolean                                           | whether the user has not yet passed the guild's [Membership Screening](#DOCS_RESOURCES_GUILD/membership-screening-object) requirements |
+| Field                         | Type                                              | Description                                                                                                                                                                                                                          |
+| ----------------------------- | ------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| guild_id                      | snowflake                                         | the id of the guild                                                                                                                                                                                                                  |
+| roles                         | array of snowflakes                               | user role ids                                                                                                                                                                                                                        |
+| user                          | a [user](#DOCS_RESOURCES_USER/user-object) object | the user                                                                                                                                                                                                                             |
+| nick?                         | ?string                                           | nickname of the user in the guild                                                                                                                                                                                                    |
+| avatar                        | ?string                                           | the member's [guild avatar hash](#DOCS_REFERENCE/image-formatting)                                                                                                                                                                   |
+| joined_at                     | ?ISO8601 timestamp                                | when the user joined the guild                                                                                                                                                                                                       |
+| premium_since?                | ?ISO8601 timestamp                                | when the user starting [boosting](https://support.discord.com/hc/en-us/articles/360028038352-Server-Boosting-) the guild                                                                                                             |
+| deaf?                         | boolean                                           | whether the user is deafened in voice channels                                                                                                                                                                                       |
+| mute?                         | boolean                                           | whether the user is muted in voice channels                                                                                                                                                                                          |
+| pending?                      | boolean                                           | whether the user has not yet passed the guild's [Membership Screening](#DOCS_RESOURCES_GUILD/membership-screening-object) requirements                                                                                               |
+| communication_disabled_until? | ?ISO8601 timestamp                                | when the user's [timeout](https://support.discord.com/hc/en-us/articles/4413305239191-Time-Out-FAQ) will expire and the user will be able to communicate in the guild again, null or a time in the past if the user is not timed out |
 
 #### Guild Members Chunk
 
@@ -1078,14 +1084,11 @@ Sent when a guild scheduled event is updated. The inner payload is a [guild sche
 
 ### Guild Scheduled Event Delete
 
-Sent when a guild scheduled event is deleted. The inner payload is a [guild scheduled event](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object) object. See [Guild Scheduled Event Status](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object-guild-scheduled-event-status) to determine how the event was deleted.
+Sent when a guild scheduled event is deleted. The inner payload is a [guild scheduled event](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object) object.
 
 ### Guild Scheduled Event User Add
 
 Sent when a user has subscribed to a guild scheduled event.
-
-> info
-> NOTE: this event is currently experimental and not officially supported
 
 ###### Guild Scheduled Event User Add Event Fields
 
@@ -1098,9 +1101,6 @@ Sent when a user has subscribed to a guild scheduled event.
 ### Guild Scheduled Event User Remove
 
 Sent when a user has unsubscribed from a guild scheduled event.
-
-> info
-> NOTE: this event is currently experimental and not officially supported
 
 ###### Guild Scheduled Event User Remove Event Fields
 
@@ -1503,7 +1503,7 @@ Sent when a guild's voice server is updated. This is sent when initially connect
 
 Sent when a guild channel's webhook is created, updated, or deleted.
 
-###### Webhook Update Event Fields
+###### Webhooks Update Event Fields
 
 | Field      | Type      | Description       |
 |------------|-----------|-------------------|
