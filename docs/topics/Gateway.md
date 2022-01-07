@@ -1365,12 +1365,12 @@ Active sessions are indicated with an "online", "idle", or "dnd" string per plat
 
 ###### Activity Assets
 
-| Field        | Type   | Description                                                       |
-|--------------|--------|-------------------------------------------------------------------|
-| large_image? | string | the id for a large asset of the activity, usually a snowflake     |
-| large_text?  | string | text displayed when hovering over the large image of the activity |
-| small_image? | string | the id for a small asset of the activity, usually a snowflake     |
-| small_text?  | string | text displayed when hovering over the small image of the activity |
+| Field        | Type   | Description                                                                    |
+|--------------|--------|--------------------------------------------------------------------------------|
+| large_image? | string | the id for a large asset of the activity, usually a snowflake, or an image URL |
+| large_text?  | string | text displayed when hovering over the large image of the activity              |
+| small_image? | string | the id for a small asset of the activity, usually a snowflake, or an image URL |
+| small_text?  | string | text displayed when hovering over the small image of the activity              |
 
 ###### Activity Secrets
 
