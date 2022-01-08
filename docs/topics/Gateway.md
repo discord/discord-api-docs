@@ -1372,6 +1372,21 @@ Active sessions are indicated with an "online", "idle", or "dnd" string per plat
 | small_image? | string | the id for a small asset of the activity, usually a snowflake, or an image URL |
 | small_text?  | string | text displayed when hovering over the small image of the activity              |
 
+> note
+> Creating an activity with an image URL requires the full URL, fetching an image from an activity requires constructing the URL using the image prefixes seen below.
+
+###### Activity Asset Image Prefixes
+
+The `large_image` and `small_image` activity asset fields can resolve to an external image, denoted by a prefix separated with colons:
+
+| Type              | Prefix  | Image URL                                                       |
+|-------------------|---------|-----------------------------------------------------------------|
+| Application Asset |         | An [Application Asset](#DOCS_REFERENCE/image-formatting) URL    |
+| External Image    | mp      | https://media.discordapp.net/{image}                            |
+| Spotify           | spotify | https://i.scdn.co/image/{image}                                 |
+| Twitch            | twitch  | https://static-cdn.jtvnw.net/previews-ttv/live_user_{image}.png |
+| YouTube           | youtube | https://i.ytimg.com/vi/{image}/hqdefault_live.jpg               |
+
 ###### Activity Secrets
 
 | Field     | Type   | Description                               |
