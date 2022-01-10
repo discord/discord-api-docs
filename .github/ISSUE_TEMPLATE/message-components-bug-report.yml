@@ -1,6 +1,5 @@
 name: Message Components Bug Report
 description: A bug has been found in Discord's Message Components.
-title: "bug"
 labels: ["message components"]
 body:
 - type: markdown

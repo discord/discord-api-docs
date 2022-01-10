@@ -1,6 +1,5 @@
 name: Slash Commands Bug Report
 description: A bug has been found in Discord's Slash Commands and Interactions.
-title: "bug"
 labels: ["slash commands"]
 body:
 - type: markdown

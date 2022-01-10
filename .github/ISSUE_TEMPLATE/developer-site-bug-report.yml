@@ -1,6 +1,5 @@
 name: API Bug Report
 description: A bug has been found in Discord's API, Gateway, OAuth2, SDK, etc.
-title: 'Bug'
 labels: ["bug"]
 body:
 - type: markdown
