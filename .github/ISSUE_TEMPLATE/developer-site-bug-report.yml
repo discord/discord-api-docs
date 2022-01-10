@@ -1,5 +1,5 @@
 name: Developer Site Bug Report
-description: A bug has been found in Discord's API, Gateway, OAuth2, SDK, etc.
+description: A bug has been found with Discord's Developer site or documentation.
 labels: ["bug"]
 body:
 - type: markdown
