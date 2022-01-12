@@ -20,7 +20,6 @@ Represents a code that when used, adds a user to a guild or group DM channel.
 | expires_at?                 | ?ISO8601 timestamp                                                                                 | the expiration date of this invite, returned from the `GET /invites/<code>` endpoint when `with_expiration` is `true`                |
 | stage_instance?             | [invite stage instance](#DOCS_RESOURCES_INVITE/invite-stage-instance-object) object                | stage instance data if there is a [public Stage instance](#DOCS_RESOURCES_STAGE_INSTANCE) in the Stage channel this invite is for |
 | guild_scheduled_event?      | [guild scheduled event](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object) object | guild scheduled event data, only included if `guild_scheduled_event_id` contains a valid guild scheduled event id                    |
-| type                     | integer                                                                                               | the type of channel the invite belongs too                                                                                           |
 
 ###### Invite Target Types
 
