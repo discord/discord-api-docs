@@ -12,21 +12,21 @@ For [Message Components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/) it includes ide
 
 ###### Interaction Structure
 
-| Field          | Type                                                                                                          | Description                                                    |
-| -------------- | ------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------- |
-| id             | snowflake                                                                                                     | id of the interaction                                          |
-| application_id | snowflake                                                                                                     | id of the application this interaction is for                  |
-| type           | [interaction type](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-interaction-type)           | the type of interaction                                        |
-| data?\*        | [interaction data](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-interaction-data-structure) | the command data payload                                       |
-| guild_id?      | snowflake                                                                                                     | the guild it was sent from                                     |
-| channel_id?    | snowflake                                                                                                     | the channel it was sent from                                   |
-| member?\*\*    | [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) object                                              | guild member data for the invoking user, including permissions |
-| user?          | [user](#DOCS_RESOURCES_USER/user-object) object                                                               | user object for the invoking user, if invoked in a DM          |
-| token          | string                                                                                                        | a continuation token for responding to the interaction         |
-| version        | integer                                                                                                       | read-only property, always `1`                                 |
-| message?       | [message](#DOCS_RESOURCES_CHANNEL/message-object) object                                                      | for components, the message they were attached to              |
-| locale?\*\*\*  | string                                                                                                        | the selected language of the invoking user                     |
-| guild_locale?  | string                                                                                                        | the guild's preferred locale, if invoked in a guild            |
+| Field          | Type                                                                                                          | Description                                                                               |
+| -------------- | ------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
+| id             | snowflake                                                                                                     | id of the interaction                                                                     |
+| application_id | snowflake                                                                                                     | id of the application this interaction is for                                             |
+| type           | [interaction type](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-interaction-type)           | the type of interaction                                                                   |
+| data?\*        | [interaction data](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-interaction-data-structure) | the command data payload                                                                  |
+| guild_id?      | snowflake                                                                                                     | the guild it was sent from                                                                |
+| channel_id?    | snowflake                                                                                                     | the channel it was sent from                                                              |
+| member?\*\*    | [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) object                                              | guild member data for the invoking user, including permissions                            |
+| user?          | [user](#DOCS_RESOURCES_USER/user-object) object                                                               | user object for the invoking user, if invoked in a DM                                     |
+| token          | string                                                                                                        | a continuation token for responding to the interaction                                    |
+| version        | integer                                                                                                       | read-only property, always `1`                                                            |
+| message?       | [message](#DOCS_RESOURCES_CHANNEL/message-object) object                                                      | for components, the message they were attached to                                         |
+| locale?\*\*\*  | string                                                                                                        | the selected [language](#DOCS_REFERENCE/locales) of the invoking user                     |
+| guild_locale?  | string                                                                                                        | the [guild's preferred locale](#DOCS_RESOURCES_GUILD/guild-object), if invoked in a guild |
 
 \* This is always present on application command and message component interaction types. It is optional for future-proofing against new interaction types
 
