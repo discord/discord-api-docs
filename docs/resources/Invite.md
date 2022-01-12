@@ -90,7 +90,7 @@ Extra information about an invite, will extend the [invite](#DOCS_RESOURCES_INVI
 | max_age    | integer                                         | duration (in seconds) after which the invite expires |
 | temporary  | boolean                                         | whether this invite only grants temporary membership |
 | created_at | ISO8601 timestamp                               | when this invite was created                         |
-| type       | integer                                         | the type of channel the invite belongs too           |
+| type       | integer                                         | the type of channel this invite belongs to           |
 
 ###### Example Invite Metadata
 
