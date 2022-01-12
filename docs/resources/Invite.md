@@ -28,13 +28,6 @@ Represents a code that when used, adds a user to a guild or group DM channel.
 | STREAM               | 1     |
 | EMBEDDED_APPLICATION | 2     |
 
-###### Invite Types
-
-| Type                 | Value |
-|----------------------|-------|
-| GUILD                | 0     |
-| GROUP_DM             | 1     |
-
 ###### Example Invite Object
 
 ```json
@@ -90,6 +83,13 @@ Extra information about an invite, will extend the [invite](#DOCS_RESOURCES_INVI
 | temporary  | boolean                                         | whether this invite only grants temporary membership |
 | created_at | ISO8601 timestamp                               | when this invite was created                         |
 | type       | integer                                         | the type of channel this invite belongs to           |
+
+###### Invite Types
+
+| Type                 | Value |
+|----------------------|-------|
+| GUILD                | 0     |
+| GROUP_DM             | 1     |
 
 ###### Example Invite Metadata
 
