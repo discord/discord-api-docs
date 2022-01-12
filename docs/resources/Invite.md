@@ -42,7 +42,9 @@ Represents a code that when used, adds a user to a guild or group DM channel.
     "icon": null,
     "features": ["NEWS", "DISCOVERABLE"],
     "verification_level": 2,
-    "vanity_url_code": null
+    "vanity_url_code": null,
+    "nsfw": false,
+    "nsfw_level": 0
   },
   "channel": {
     "id": "165176875973476352",
