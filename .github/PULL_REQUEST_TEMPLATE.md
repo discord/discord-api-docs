@@ -15,4 +15,4 @@ If you believe that your pull request fulfills these requirements, please submit
 - [ ] This PR adds clarification to complicated/unclear explanations.
 - [ ] This PR adds more helpful context to incomplete documentation.
 - [ ] This PR fixes spelling and grammatical errors.
-- [ ] These changes reflect the current default version of the API.
+- [ ] These changes reflect the latest version of the API.
