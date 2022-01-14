@@ -279,44 +279,15 @@ Application command permissions allow you to enable or disable commands for spec
 > warn
 > This method is deprecated. See [Default Permissions](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/default-permissions) for more info.
 
-Need to keep some of your commands safe from prying eyes, or only available to the right people? Commands support permission overwrites! For both guild _and_ global commands of all types, you can enable or disable a specific user or role in a guild from using a command.
-
-> info
-> For now, if you don't have permission to use a command, they'll show up in the command picker as disabled and unusable. They will **not** be hidden.
-You can also set a `default_permission` on your commands if you want them to be disabled by default when your app is added to a new guild. Setting `default_permission` to `false` will disallow _anyone_ in a guild from using the command, unless a specific overwrite is configured. It will also disable the command from being usable in DMs.
-
-For example, this command will not be usable by anyone in any guilds by default:
-
+To restrict a command to member [permissions](#DOCS_TOPICS_PERMISSIONS/permissions) set the `default_member_permissions` field.
+For example, this command will only be usable by member with [ADD_REACTIONS](#DOCS_TOPICS_PERMISSIONS/permissions) permissions.
 ```json
 {
     "name": "permissions_test",
-    "description": "A test of default permissions",
+    "description": "A test of default member permission",
     "type": 1,
-    "default_permission": false
+    "defaul_member_permissions": "64"
 }
-```
-
-To enable it just for a moderator role:
-
-```py
-MODERATOR_ROLE_ID = "<moderator_role_id>"
-url = "https://discord.com/api/v8/applications/<my_application_id>/guilds/<my_guild_id>/commands/<my_command_id>/permissions"
-\* For `all channels` the id is guild_id-1
-
-json = {
-    "permissions": [
-        {
-            "id": MODERATOR_ROLE_ID,
-            "type": 1,
-            "permission": True
-        }
-    ]
-}
-
-headers = {
-    "Authorization": "Bot <my_bot_token>"
-}
-r = requests.put(url, headers=headers, json=json)
 ```
 
 ## Slash Commands
