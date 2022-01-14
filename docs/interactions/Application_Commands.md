@@ -276,34 +276,6 @@ Application command permissions allow you to enable or disable commands for spec
 | USER    | 2     |
 | CHANNEL | 3     |
 
-Need to keep some of your commands safe from prying eyes, or only available to the right people?
-
-To disable a global command in DMs, set `dm_permission` to false. Guild commands can't be used in DMs.
-
-For example, this command will not be usable by anyone outside of guilds by default:
-
-```json
-{
-    "name": "permissions_test",
-    "description": "A test of dm permission",
-    "type": 1,
-    "dm_permission": false
-}
-```
-
-To restrict a command to member [permissions](#DOCS_TOPICS_PERMISSIONS/permissions) set the `default_member_permissions` field.
-
-For example, this command will only be usable by member with [ADD_REACTIONS](#DOCS_TOPICS_PERMISSIONS/permissions) permissions.
-
-```json
-{
-    "name": "permissions_test",
-    "description": "A test of default member permission",
-    "type": 1,
-    "defaul_member_permissions": "64"
-}
-```
-
 ## Slash Commands
 
 Slash commands—the `CHAT_INPUT` type—are a type of application command. They're made up of a name, description, and a block of `options`, which you can think of like arguments to a function. The name and description help users find your command among many others, and the `options` validate user input as they fill out your command.
@@ -867,6 +839,36 @@ An autocomplete interaction **can return partial data** for option values. Your 
       }
     ]
   }
+}
+```
+
+### Default Permissions
+
+Need to keep some of your commands safe from prying eyes, or only available to the right people?
+
+To disable a global command in DMs, set `dm_permission` to false. Guild commands can't be used in DMs.
+
+For example, this command will not be usable by anyone outside of guilds by default:
+
+```json
+{
+    "name": "permissions_test",
+    "description": "A test of dm permission",
+    "type": 1,
+    "dm_permission": false
+}
+```
+
+To restrict a command to member [permissions](#DOCS_TOPICS_PERMISSIONS/permissions) set the `default_member_permissions` field.
+
+For example, this command will only be usable by member with [ADD_REACTIONS](#DOCS_TOPICS_PERMISSIONS/permissions) permissions.
+
+```json
+{
+    "name": "permissions_test",
+    "description": "A test of default member permission",
+    "type": 1,
+    "defaul_member_permissions": "64"
 }
 ```
 
