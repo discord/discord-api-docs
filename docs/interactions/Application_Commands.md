@@ -262,16 +262,19 @@ Application command permissions allow you to enable or disable commands for spec
 
 | Field      | Type                                                                                                                                                      | Description                           |
 | ---------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------- |
-| id         | snowflake                                                                                                                                                 | the id of the role or user            |
-| type       | [application command permission type](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-permissions-object-application-command-permission-type) | role or user                          |
+| id \*      | snowflake                                                                                                                                                 | the id of the role, channel or user   |
+| type       | [application command permission type](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-permissions-object-application-command-permission-type) | role, channel or user                 |
 | permission | boolean                                                                                                                                                   | `true` to allow, `false`, to disallow |
+
+\* For `all channels` the id is guild_id - 1
 
 ###### Application Command Permission Type
 
-| Name | Value |
-| ---- | ----- |
-| ROLE | 1     |
-| USER | 2     |
+| Name    | Value |
+| ------- | ----- |
+| ROLE    | 1     |
+| USER    | 2     |
+| CHANNEL | 3     |
 
 Need to keep some of your commands safe from prying eyes, or only available to the right people? Commands support permission overwrites! For both guild _and_ global commands of all types, you can enable or disable a specific user or role in a guild from using a command.
 
