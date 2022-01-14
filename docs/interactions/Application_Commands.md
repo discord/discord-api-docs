@@ -868,7 +868,7 @@ For example, this command will only be usable by member with [ADD_REACTIONS](#DO
     "name": "permissions_test",
     "description": "A test of default member permission",
     "type": 1,
-    "defaul_member_permissions": "64"
+    "default_member_permissions": "64"
 }
 ```
 
