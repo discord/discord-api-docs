@@ -1,5 +1,15 @@
 # Change Log
 
+## Application Commands Permissions
+
+#### Jan 2021
+
+- Breaking changes for `PUT /applications/{application.id}/guilds/{guild.id}/commands/{command.id}/permissions`
+- Breaking changes for `PUT /applications/{application.id}/guilds/{guild.id}/commands/permission`
+- Both routes are deprecated
+- Added `dm_permission` and `default_member_permissions` to application command structure.
+- Deprecated `default_permission` on application command structure.
+
 ## Guild Member Timeouts
 
 #### Dec 20, 2021
