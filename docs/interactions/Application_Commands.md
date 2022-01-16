@@ -999,6 +999,9 @@ Fetches command permissions for a specific command for your application in a gui
 ## Edit Application Command Permissions % PUT /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/commands/{command.id#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object}/permissions
 
 > warn
+> Accesing this endpoint with a bot token is deprecated and returns an error when the guild has command permissions v2.
+
+> warn
 > This endpoint will overwrite existing permissions for the command in that guild
 
 Edits command permissions for a specific command for your application in a guild.
@@ -1017,7 +1020,7 @@ Returns a [GuildApplicationCommandPermissions](#DOCS_INTERACTIONS_APPLICATION_CO
 ## Batch Edit Application Command Permissions % PUT /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/commands/permissions
 
 > warn
-> This endpoint is deprecated and returns an error when command permissions v2 is enabled.
+> This endpoint is deprecated and returns an error when the guild has command permissions v2.
 
 > warn
 > This endpoint will overwrite all existing permissions for all commands in a guild, including slash commands, user commands, and message commands.
