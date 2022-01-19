@@ -30,10 +30,10 @@ You can also mark achievements as `secret` and `secure`. "Secret" achievements w
 
 ###### Achievement Locale Object
 
-| Name           | Description                                                                                                                                             |
-| -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| default        | the default locale for the achievement                                                                                                                  |
-| localizations? | object of [accepted locales](#DOCS_DISPATCH_FIELD_VALUES/predefined-field-values-accepted-locales) as the key and achievement translations as the value |
+| Name           | Description                                                                                       |
+| -------------- | ------------------------------------------------------------------------------------------------- |
+| default        | the default locale for the achievement                                                            |
+| localizations? | object of [locales](#DOCS_REFERENCE/locales) as the key and achievement translations as the value |
 
 ###### User Achievement Struct
 
