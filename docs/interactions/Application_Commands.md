@@ -276,8 +276,8 @@ Application command permissions allow you to enable or disable commands for spec
 | USER    | 2     |
 | CHANNEL | 3     |
 
-> warn
-> This method is deprecated. See [Default Permissions](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/default-permissions) for more info.
+> info
+> To set default permissions, see [Default Permissions](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/default-permissions) for more info.
 
 Need to keep some of your commands safe from prying eyes, or only available to the right people? Commands support permission overwrites! For both guild _and_ global commands of all types, you can enable or disable a specific user or role in a guild from using a command.
 
