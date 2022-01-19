@@ -103,6 +103,9 @@ Create a new webhook. Requires the `MANAGE_WEBHOOKS` permission. Returns a [webh
 
 - Webhook names cannot be: 'clyde'
 
+> info
+> This endpoint supports the `X-Audit-Log-Reason` header.
+
 ###### JSON Params
 
 | Field   | Type                                      | Description                           |
@@ -133,6 +136,9 @@ Modify a webhook. Requires the `MANAGE_WEBHOOKS` permission. Returns the updated
 > info
 > All parameters to this endpoint are optional
 
+> info
+> This endpoint supports the `X-Audit-Log-Reason` header.
+
 ###### JSON Params
 
 | Field      | Type                                      | Description                                        |
@@ -148,6 +154,9 @@ Same as above, except this call does not require authentication, does not accept
 ## Delete Webhook % DELETE /webhooks/{webhook.id#DOCS_RESOURCES_WEBHOOK/webhook-object}
 
 Delete a webhook permanently. Requires the `MANAGE_WEBHOOKS` permission. Returns a `204 No Content` response on success.
+
+> info
+> This endpoint supports the `X-Audit-Log-Reason` header.
 
 ## Delete Webhook with Token % DELETE /webhooks/{webhook.id#DOCS_RESOURCES_WEBHOOK/webhook-object}/{webhook.token#DOCS_RESOURCES_WEBHOOK/webhook-object}
 
