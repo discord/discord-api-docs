@@ -908,6 +908,7 @@ Files must be attached using a `multipart/form-data` body as described in [Uploa
 | files[n] \*          | file contents                                                                                     | the contents of the file being sent                                                                    | one of content, file, embed(s), sticker_ids |
 | payload_json \*      | string                                                                                            | JSON encoded body of non-file params                                                                   | `multipart/form-data` only                  |
 | attachments \*       | array of partial [attachment](#DOCS_RESOURCES_CHANNEL/attachment-object) objects                  | attachment objects with filename and description                                                       | false                                       |
+| flags                | integer                                  | [message flags](#DOCS_RESOURCES_CHANNEL/message-object-message-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field) | false |
 
 \* See [Uploading Files](#DOCS_REFERENCE/uploading-files) for details.
 
