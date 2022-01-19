@@ -1039,7 +1039,7 @@ Returns a [guild widget setting](#DOCS_RESOURCES_GUILD/guild-widget-settings-obj
 
 ## Modify Guild Widget % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/widget
 
-Modify a [guild widget](#DOCS_RESOURCES_GUILD/guild-widget-settings-object) object for the guild. All attributes may be passed in with JSON and modified. Requires the `MANAGE_GUILD` permission. Returns the updated [guild widget](#DOCS_RESOURCES_GUILD/guild-widget-settings-object) object.
+Modify a [guild widget settings](#DOCS_RESOURCES_GUILD/guild-widget-settings-object) object for the guild. All attributes may be passed in with JSON and modified. Requires the `MANAGE_GUILD` permission. Returns the updated [guild widget](#DOCS_RESOURCES_GUILD/guild-widget-settings-object) object.
 
 > info
 > This endpoint supports the `X-Audit-Log-Reason` header.
