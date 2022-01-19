@@ -347,7 +347,7 @@ All `files[n]` parameters must include a valid `Content-Disposition` subpart hea
 
 The file upload limit applies to the entire request, not individual files in a request. This limit depends on the **Boost Tier** of a Guild and is 8 MiB by default.
 
-Images can also be referenced in embeds using the `attachment://filename` URL. An example payload is provided below.
+Images can also be referenced in embeds using the `attachment://filename` URL. The `filename` for these URLs must be ASCII alphanumeric with underscores, dashes, or dots. An example payload is provided below.
 
 ### Editing Message Attachments
 
