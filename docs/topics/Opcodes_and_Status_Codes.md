@@ -230,7 +230,7 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 50083  | Tried to perform an operation on an archived thread, such as editing a message or adding a user to the thread                 |
 | 50084  | Invalid thread notification settings                                                                                          |
 | 50085  | `before` value is earlier than the thread creation date                                                                       |
-| 50086  | Community updates channels and rules channels cannot be changed to announcement channels                                      |
+| 50086  | Community server channels must be text channels                                                                               |
 | 50095  | This server is not available in your location                                                                                 |
 | 50097  | This server needs monetization enabled in order to perform this action                                                        |
 | 50101  | This server needs more boosts to perform this action                                                                          |
