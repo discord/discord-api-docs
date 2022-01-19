@@ -230,6 +230,7 @@ A partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object. Represents an Offl
 | approximate_member_count   | integer                                                                             | approximate number of members in this guild                 |
 | approximate_presence_count | integer                                                                             | approximate number of online members in this guild          |
 | description                | ?string                                                                             | the description for the guild, if the guild is discoverable |
+| stickers                   | array of [sticker](#DOCS_RESOURCES_STICKER/sticker-object) objects                   | custom guild stickers                                      |
 
 ###### Example Guild Preview
 
@@ -254,7 +255,8 @@ A partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object. Represents an Offl
   ],
   "approximate_member_count": 60814,
   "approximate_presence_count": 20034,
-  "description": "The official place to report Discord Bugs!"
+  "description": "The official place to report Discord Bugs!",
+  "stickers": []
 }
 ```
 
