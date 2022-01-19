@@ -289,6 +289,9 @@ A partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object. Represents an Offl
 | members            | array of partial [user](#DOCS_RESOURCES_USER/user-object) objects                 | special widget user objects that includes users presence (Limit 100) |
 | presence_count     | integer                                                                           | number of online members in this guild                               |
 
+> warn
+> The fields `id`, `discriminator` and `avatar` are anonymized to prevent abuse.
+
 ###### Example Get Guild Widget
 
 ```json
@@ -321,8 +324,6 @@ A partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object. Represents an Offl
   "presence_count": 1
 }
 ```
-> warn
-> The fields `id`, `discriminator` and `avatar` are anonymized to prevent abuse.
 
 ### Guild Member Object
 
