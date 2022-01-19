@@ -35,7 +35,7 @@ There are other rules and restrictions not shared here for the sake of spam and 
 | mfa_enabled?  | boolean   | whether the user has two factor enabled on their account                                             | identify              |
 | banner?       | ?string   | the user's [banner hash](#DOCS_REFERENCE/image-formatting)                                           | identify              |
 | accent_color? | ?integer  | the user's banner color encoded as an integer representation of hexadecimal color code               | identify              |
-| locale?       | string    | the user's chosen language option                                                                    | identify              |
+| locale?       | string    | the user's chosen [language option](#DOCS_REFERENCE/locales)                                         | identify              |
 | verified?     | boolean   | whether the email on this account has been verified                                                  | email                 |
 | email?        | ?string   | the user's email                                                                                     | email                 |
 | flags?        | integer   | the [flags](#DOCS_RESOURCES_USER/user-object-user-flags) on a user's account                         | identify              |

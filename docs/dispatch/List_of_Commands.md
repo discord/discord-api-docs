@@ -196,13 +196,13 @@ Downloads the build for the given application id and branch id to the given inst
 
 ###### Arguments
 
-| name           | values                                                                        | description                    |
-| -------------- | ----------------------------------------------------------------------------- | ------------------------------ |
-| application_id | int                                                                           | your application ID/client ID  |
-| branch_id      | int                                                                           | the id of the branch to check  |
-| install_path   | file path                                                                     | the path to install to         |
-| --platform     | [platform](#DOCS_DISPATCH_FIELD_VALUES/manifests-platform-values)              | the build platform to download |
-| --locale       | [locale](#DOCS_DISPATCH_FIELD_VALUES/predefined-field-values-accepted-locales) | the build locale to download   |
+| name           | values                                                            | description                    |
+| -------------- | ----------------------------------------------------------------- | ------------------------------ |
+| application_id | int                                                               | your application ID/client ID  |
+| branch_id      | int                                                               | the id of the branch to check  |
+| install_path   | file path                                                         | the path to install to         |
+| --platform     | [platform](#DOCS_DISPATCH_FIELD_VALUES/manifests-platform-values) | the build platform to download |
+| --locale       | [locale](#DOCS_REFERENCE/locales)                                 | the build locale to download   |
 
 ###### Example
 
@@ -234,12 +234,12 @@ Displays a preview of the install paths that a build will put files in, for a gi
 
 ###### Arguments
 
-| name             | values                                                                         | description                                                                                           |
-| ---------------- | ------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------- |
-| config_file      | filename                                                                       | the [JSON config file](#DOCS_DISPATCH_BRANCHES_AND_BUILDS/setting-up-our-first-build) for the build   |
-| application_root | file path                                                                      | the directory that dispatch will treat as the local root for operations—`.` for the current directory |
-| --locale         | [locale](#DOCS_DISPATCH_FIELD_VALUES/predefined-field-values-accepted-locales) | the build locale to preview                                                                           |
-| --platform       | [platform](#DOCS_DISPATCH_FIELD_VALUES/manifests-platform-values)              | the build platform to preview                                                                         |
+| name             | values                                                            | description                                                                                           |
+| ---------------- | ----------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
+| config_file      | filename                                                          | the [JSON config file](#DOCS_DISPATCH_BRANCHES_AND_BUILDS/setting-up-our-first-build) for the build   |
+| application_root | file path                                                         | the directory that dispatch will treat as the local root for operations—`.` for the current directory |
+| --locale         | [locale](#DOCS_REFERENCE/locales)                                 | the build locale to preview                                                                           |
+| --platform       | [platform](#DOCS_DISPATCH_FIELD_VALUES/manifests-platform-values) | the build platform to preview                                                                         |
 
 ###### Example
 
