@@ -325,9 +325,6 @@ We highly recommend checking out our [Community Resources](#DOCS_TOPICS_COMMUNIT
 
 ### Endpoints
 
-> info
-> For authorization, all endpoints take either a [bot token](#DOCS_REFERENCE/authentication) or [client credentials token](#DOCS_TOPICS_OAUTH2/client-credentials-grant) for your application.
-
 ## Create Interaction Response % POST /interactions/{interaction.id#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction}/{interaction.token#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object}/callback
 
 Create a response to an Interaction from the gateway. Takes an [interaction response](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-response-object).
