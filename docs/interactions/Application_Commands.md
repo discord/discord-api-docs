@@ -1040,7 +1040,7 @@ Fetches command permissions for a specific command for your application in a gui
 ## Edit Application Command Permissions % PUT /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/commands/{command.id#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object}/permissions
 
 > warn
-> Endpoint is deprecated
+> Endpoint is deprecated, you need a user bearer token to modify permissions if the guild is using the permission system v2.
 
 > warn
 > This endpoint will overwrite existing permissions for the command in that guild
@@ -1061,7 +1061,7 @@ Returns a [GuildApplicationCommandPermissions](#DOCS_INTERACTIONS_APPLICATION_CO
 ## Batch Edit Application Command Permissions % PUT /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/commands/permissions
 
 > warn
-> Endpoint is deprecated
+> Endpoint is deprecated, you need a user bearer token to modify permissions if the guild is using the permission system v2.
 
 > warn
 > This endpoint will overwrite all existing permissions for all commands in a guild, including slash commands, user commands, and message commands.
