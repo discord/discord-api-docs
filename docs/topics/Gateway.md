@@ -1365,12 +1365,21 @@ Active sessions are indicated with an "online", "idle", or "dnd" string per plat
 
 ###### Activity Assets
 
-| Field        | Type   | Description                                                       |
-|--------------|--------|-------------------------------------------------------------------|
-| large_image? | string | the id for a large asset of the activity, usually a snowflake     |
-| large_text?  | string | text displayed when hovering over the large image of the activity |
-| small_image? | string | the id for a small asset of the activity, usually a snowflake     |
-| small_text?  | string | text displayed when hovering over the small image of the activity |
+| Field        | Type   | Description                                                                           |
+|--------------|--------|---------------------------------------------------------------------------------------|
+| large_image? | string | see [Activity Asset Image](#DOCS_TOPICS_GATEWAY/activity-object-activity-asset-image) |
+| large_text?  | string | text displayed when hovering over the large image of the activity                     |
+| small_image? | string | see [Activity Asset Image](#DOCS_TOPICS_GATEWAY/activity-object-activity-asset-image) |
+| small_text?  | string | text displayed when hovering over the small image of the activity                     |
+
+###### Activity Asset Image
+
+Activity asset images are arbitrary strings which usually contain snowflake IDs or prefixed image IDs. Treat data within this field carefully, as it is user-specifiable and not sanitized.
+
+| Type              | Format                   | Image URL                                                                  |
+|-------------------|--------------------------|----------------------------------------------------------------------------|
+| Application Asset | `{application_asset_id}` | see [Application Asset Image Formatting](#DOCS_REFERENCE/image-formatting) |
+| Media Proxy Image | `mp:{image_id}`          | `https://media.discordapp.net/{image_id}`                                  |
 
 ###### Activity Secrets
 
