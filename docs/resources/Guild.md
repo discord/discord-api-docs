@@ -1046,7 +1046,7 @@ Modify a [guild widget settings](#DOCS_RESOURCES_GUILD/guild-widget-settings-obj
 
 ## Get Guild Widget % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/widget.json
 
-Returns the widget for the guild.
+Returns the [widget](#DOCS_RESOURCES_GUILD/get-guild-widget-object) for the guild.
 
 ## Get Guild Vanity URL % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/vanity-url
 
