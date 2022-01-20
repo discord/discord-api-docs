@@ -92,7 +92,7 @@ This is sent on the [message object](#DOCS_RESOURCES_CHANNEL/message-object) whe
 | user | [user object](#DOCS_RESOURCES_USER/user-object)                                                     | the user who invoked the interaction                                                                                                    |
 | member?* | [partial member](#DOCS_RESOURCES_GUILD/guild-member-object) objects                             | the member who invoked the interaction in the guild                                                                                       |
 
-\* Partial `Member` objects only have `roles`, `mute`, `joined_at`, `hoisted_role` and `deaf` fields. Only sent in `MESSAGE_CREATE` [Gateway Event](#DOCS_TOPICS_GATEWAY/message-create)
+\* Partial `Member` objects only have `roles`, `premium_since`, `pending`, `nick`, `mute`, `joined_at`, `hoisted_role`, `deaf`, `communication_disabled_until`, and `avatar` fields. Only sent in `MESSAGE_CREATE` [Gateway Event](#DOCS_TOPICS_GATEWAY/message-create)
 
 
 ## Interactions and Bot Users
