@@ -854,10 +854,7 @@ When someone uses a message command, your application will receive an interactio
 
 Autocomplete interactions allow your application to dynamically return option suggestions to a user as they type.
 
-An autocomplete interaction **can return partial data** for option values. Your application will receive partial data for any existing user input, as long as that input passes client-side validation. For example, you may receive partial strings, but not invalid numbers. The option the user is currently typing will be sent with a `focused: true` boolean field.
-
-> warn
-> This validation is **client-side only**.
+An autocomplete interaction **can return partial data** for option values. Your application will receive partial data for any existing user input. For options with `focused: true`, the value will not be validated as the user is actively writing the inputs, which may also include empty strings and invalid numbers. All other options which fail server-side validation are omitted (empty strings may fall back to `0` for NUMBER and INTEGER options).
 
 ```json
 {
