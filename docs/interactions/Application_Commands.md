@@ -856,7 +856,7 @@ Autocomplete interactions allow your application to dynamically return option su
 
 An autocomplete interaction **can return partial data** for option values. Your application will receive partial data for any existing user input. For options with `focused: true`, the value will not be validated as the user is actively writing the inputs, which may also include empty strings and invalid numbers. All other options are omitted if they fail server-side validation, even if they are set as `required: true`.
 
-To enable autocomplete for a command option, you must configure it with `autcomplete: true`. The only option types which currently support `autocomplete` are `STRING`, `INTEGER`, and `NUMBER`. Autocomplete options cannot configure `choices`, since they are provided by the interaction response instead.
+To enable autocomplete for a command option, you must configure it with `autocomplete: true`. The only option types which currently support `autocomplete` are `STRING`, `INTEGER`, and `NUMBER`. Autocomplete options cannot configure `choices`, since they are provided by the interaction response instead.
 
 While typing a command with autocomplete, the client will cache the responses for option values to avoid sending the same request twice.
 
