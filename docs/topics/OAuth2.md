@@ -4,7 +4,7 @@ OAuth2 enables application developers to build applications that utilize authent
 
 ## Shared Resources
 
-The first step in implementing OAuth2 is [registering a developer application](#APPLICATIONS/top) and retrieving your client ID and client secret. Most people who will be implementing OAuth2 will want to find and utilize a library in the language of their choice. For those implementing OAuth2 from scratch, please see [RFC 6749](https://tools.ietf.org/html/rfc6749) for details. After you create your application with Discord, make sure that you have your `client_id` and `client_secret` handy. The next step is to figure out which OAuth2 flow is right for your purposes.
+The first step in implementing OAuth2 is [registering a developer application](#APPLICATIONS) and retrieving your client ID and client secret. Most people who will be implementing OAuth2 will want to find and utilize a library in the language of their choice. For those implementing OAuth2 from scratch, please see [RFC 6749](https://tools.ietf.org/html/rfc6749) for details. After you create your application with Discord, make sure that you have your `client_id` and `client_secret` handy. The next step is to figure out which OAuth2 flow is right for your purposes.
 
 ###### OAuth2 URLs
 
@@ -15,7 +15,7 @@ The first step in implementing OAuth2 is [registering a developer application](#
 | https://discord.com/api/oauth2/token/revoke | [Token Revocation](https://tools.ietf.org/html/rfc7009) URL |
 
 > warn
-> In accordance with the relevant RFCs, the token and token revocation URLs will **only** accept a content type of `x-www-form-urlencoded`. JSON content is not permitted and will return an error.
+> In accordance with the relevant RFCs, the token and token revocation URLs will **only** accept a content type of `application/x-www-form-urlencoded`. JSON content is not permitted and will return an error.
 
 ###### OAuth2 Scopes
 
@@ -37,6 +37,7 @@ These are a list of all the OAuth2 scopes that Discord supports. Some scopes req
 | gdm.join                     | allows your app to [join users to a group dm](#DOCS_RESOURCES_CHANNEL/group-dm-add-recipient)                                                                                            |
 | guilds                       | allows [/users/@me/guilds](#DOCS_RESOURCES_USER/get-current-user-guilds) to return basic information about all of a user's guilds                                                        |
 | guilds.join                  | allows [/guilds/{guild.id}/members/{user.id}](#DOCS_RESOURCES_GUILD/add-guild-member) to be used for joining users to a guild                                                            |
+| guilds.members.read          | allows [/users/@me/guilds/{guild.id}/member](#DOCS_RESOURCES_USER/get-current-user-guild-member) to return a user's member information in a guild                                        |
 | identify                     | allows [/users/@me](#DOCS_RESOURCES_USER/get-current-user) without `email`                                                                                                               |
 | messages.read                | for local rpc server api access, this allows you to read messages from all client channels (otherwise restricted to channels/guilds your app creates)                                    |
 | relationships.read           | allows your app to know a user's friends and implicit relationships - requires Discord approval                                                                                          |
@@ -91,6 +92,8 @@ https://nicememe.website/?code=NhhvTDYsFcdgNLnnLijcl7Ku7bEEeee&state=15773059ghq
 ###### Access Token Exchange Example
 
 ```python
+import requests
+
 API_ENDPOINT = 'https://discord.com/api/v8'
 CLIENT_ID = '332269999912132097'
 CLIENT_SECRET = '937it3ow87i4ery69876wqire'
@@ -136,6 +139,8 @@ Having the user's access token allows your application to make certain requests 
 ###### Refresh Token Exchange Example
 
 ```python
+import requests
+
 API_ENDPOINT = 'https://discord.com/api/v8'
 CLIENT_ID = '332269999912132097'
 CLIENT_SECRET = '937it3ow87i4ery69876wqire'
@@ -191,6 +196,7 @@ You can specify scopes with the `scope` parameter, which is a list of [OAuth2 sc
 
 ```python
 import base64
+import requests
 
 API_ENDPOINT = 'https://discord.com/api/v8'
 CLIENT_ID = '332269999912132097'
@@ -228,7 +234,7 @@ So, what are bot accounts?
 
 ### Bot vs User Accounts
 
-Discord's API provides a separate type of user account dedicated to automation, called a bot account. Bot accounts can be created through the [applications page](#APPLICATIONS/top), and are authenticated using a token (rather than a username and password). Unlike the normal OAuth2 flow, bot accounts have full access to all API routes without using bearer tokens, and can connect to the [Real Time Gateway](#DOCS_TOPICS_GATEWAY/gateways). Automating normal user accounts (generally called "self-bots") outside of the OAuth2/bot API is forbidden, and can result in account termination if found.
+Discord's API provides a separate type of user account dedicated to automation, called a bot account. Bot accounts can be created through the [applications page](#APPLICATIONS), and are authenticated using a token (rather than a username and password). Unlike the normal OAuth2 flow, bot accounts have full access to all API routes without using bearer tokens, and can connect to the [Real Time Gateway](#DOCS_TOPICS_GATEWAY/gateways). Automating normal user accounts (generally called "self-bots") outside of the OAuth2/bot API is forbidden, and can result in account termination if found.
 
 Bot accounts have a few differences in comparison to normal user accounts, namely:
 
@@ -332,7 +338,7 @@ When receiving the access code on redirect, there will be additional querystring
 
 ### Two-Factor Authentication Requirement
 
-For bots with [elevated permissions](#DOCS_TOPICS_PERMISSIONS/bitwise-permission-flags) (permissions with a `*` next to them), we enforce two-factor authentication on the owner's account when added to guilds that have server-wide 2FA enabled.
+For bots with [elevated permissions](#DOCS_TOPICS_PERMISSIONS/permissions-bitwise-permission-flags) (permissions with a `*` next to them), we enforce two-factor authentication on the owner's account when added to guilds that have server-wide 2FA enabled.
 
 ## Webhooks
 
@@ -375,7 +381,7 @@ Any user that wishes to add your webhook to their channel will need to go throug
 
 ## Get Current Bot Application Information % GET /oauth2/applications/@me
 
-Returns the bot's [application](#DOCS_RESOURCES_APPLICATION/application-object) object without `flags`.
+Returns the bot's [application](#DOCS_RESOURCES_APPLICATION/application-object) object.
 
 ## Get Current Authorization Information % GET /oauth2/@me
 

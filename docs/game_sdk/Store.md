@@ -3,8 +3,8 @@
 > info
 > Need help with the SDK? Talk to us in the [Discord Developers Server](https://discord.gg/discord-developers)!
 
-> warn
-> Game approval submissions are currently paused due to unforeseen circumstances. We apologize for the inconvenience. [Click here for more info.](https://support-dev.discord.com/hc/en-us/articles/360041437171)
+> danger
+> Selling SKUs on Discord is now deprecated, and will be discontinued on March 1, 2022. [Read here for more info.](https://support-dev.discord.com/hc/en-us/articles/4414590563479)
 
 If your game has DLC or offers in-app purchases, this manager is for you! The Store Manager allows you to fetch a users' entitlements, as well as being notified when a user is granted an entitlement from a purchase flow for your game.
 
@@ -519,7 +519,7 @@ curl -X DELETE https://discord.com/api/v6/applications/461618159171141643/entitl
 
 ## Create Purchase Discount % PUT /store/skus/{sku.id#DOCS_GAME_SDK_STORE/data-models-sku-struct}/discounts/{user.id#DOCS_RESOURCES_USER/user-object}
 
-Creates a discount for the given user on their next purchase of the given SKU. You should call this endpoint from your backend server just before calling [StartPurchase](#DOCS_GAME_SDK_STORE/start-purchase) for the SKU you wish to discount. The user will then see a discounted price for that SKU at time of payment. The discount is automatically consumed after successful purchase or if the TTL expires.
+Creates a discount for the given user on their next purchase of the given SKU. You should call this endpoint from your backend server just before calling [StartPurchase](#DOCS_GAME_SDK_STORE/startpurchase) for the SKU you wish to discount. The user will then see a discounted price for that SKU at time of payment. The discount is automatically consumed after successful purchase or if the TTL expires.
 
 ###### Parameters
 

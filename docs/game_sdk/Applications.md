@@ -3,8 +3,8 @@
 > info
 > Need help with the SDK? Talk to us in the [Discord Developers Server](https://discord.gg/discord-developers)!
 
-> warn
-> Game approval submissions are currently paused due to unforeseen circumstances. We apologize for the inconvenience. [Click here for more info.](https://support-dev.discord.com/hc/en-us/articles/360041437171)
+> danger
+> Selling SKUs on Discord is now deprecated, and will be discontinued on March 1, 2022. [Read here for more info.](https://support-dev.discord.com/hc/en-us/articles/4414590563479)
 
 Many games run their own backend servers for things like user authentication. If one of those many games is yours, then we've got something for you! This manager gives you access to a bearer token for the currently connected Discord user, which you can send off to your server to do user authentication.
 
@@ -29,7 +29,7 @@ This manager also includes a couple useful helper functions, like getting the lo
 | name           | type                                                                                                                     | description                                              |
 | -------------- | ------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------- |
 | application_id | Int64                                                                                                                    | the application id for the ticket                        |
-| user           | [User](#DOCS_GAME_SDK_USER/data-models-user-struct)                                                                      | the user for the ticket                                  |
+| user           | [User](#DOCS_GAME_SDK_USERS/data-models-user-struct)                                                                      | the user for the ticket                                  |
 | entitlements   | list of partial [Entitlements](#DOCS_GAME_SDK_STORE/data-models-entitlement-struct) structs that contain just the SKU id | the list of the user's entitlements for this application |
 | timestamp      | string                                                                                                                   | the ISO 8601 timestamp for the ticket                    |
 
