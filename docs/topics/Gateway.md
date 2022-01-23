@@ -1261,7 +1261,7 @@ Sent when a user explicitly removes all reactions from a message.
 
 Sent when a bot removes all instances of a given emoji from the reactions of a message.
 
-###### Message Reaction Remove Emoji
+###### Message Reaction Remove Emoji Event Fields
 
 | Field      | Type                                                       | Description                |
 |------------|------------------------------------------------------------|----------------------------|
