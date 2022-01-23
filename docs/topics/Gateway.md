@@ -1376,6 +1376,8 @@ Active sessions are indicated with an "online", "idle", or "dnd" string per plat
 
 Activity asset images are arbitrary strings which usually contain snowflake IDs or prefixed image IDs. Treat data within this field carefully, as it is user-specifiable and not sanitized.
 
+To use an external image via media proxy, specify the URL as the field's value when sending. You will only receive the `mp:` prefix via the gateway.
+
 | Type              | Format                   | Image URL                                                                  |
 |-------------------|--------------------------|----------------------------------------------------------------------------|
 | Application Asset | `{application_asset_id}` | see [Application Asset Image Formatting](#DOCS_REFERENCE/image-formatting) |
