@@ -45,12 +45,12 @@ For more detailed information and documentation around the Rich Presence feature
 
 ###### ActivityAssets Struct
 
-| name       | type   | description                    |
-| ---------- | ------ | ------------------------------ |
-| LargeImage | string | keyname of an asset to display |
-| LargeText  | string | hover text for the large image |
-| SmallImage | string | keyname of an asset to display |
-| SmallText  | string | hover text for the small image |
+| name       | type   | description                                                                           |
+| ---------- | ------ | ------------------------------------------------------------------------------------- |
+| LargeImage | string | see [Activity Asset Image](#DOCS_TOPICS_GATEWAY/activity-object-activity-asset-image) |
+| LargeText  | string | hover text for the large image                                                        |
+| SmallImage | string | see [Activity Asset Image](#DOCS_TOPICS_GATEWAY/activity-object-activity-asset-image) |
+| SmallText  | string | hover text for the small image                                                        |
 
 ###### ActivityParty Struct
 
@@ -192,9 +192,9 @@ var activity = new Discord.Activity
   },
   Assets =
   {
-      LargeImage = "foo largeImageKey", // Larger Image Asset Key
+      LargeImage = "foo largeImageKey", // Larger Image Asset Value
       LargeText = "foo largeImageText", // Large Image Tooltip
-      SmallImage = "foo smallImageKey", // Small Image Asset Key
+      SmallImage = "foo smallImageKey", // Small Image Asset Value
       SmallText = "foo smallImageText", // Small Image Tooltip
   },
   Party =
