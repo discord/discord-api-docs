@@ -53,7 +53,8 @@ Many of these libraries are represented in the [unofficial, community-driven Dis
 | [Serenity](https://github.com/serenity-rs/serenity)          | Rust       |
 | [Twilight](https://github.com/twilight-rs/twilight)          | Rust       |
 | [AckCord](https://github.com/Katrix/AckCord)                 | Scala      |
-| [Sword](https://github.com/SketchMaster2001/Sword)           | Swift      |
+| [Swiftcord](https://github.com/SketchMaster2001/Swiftcord)   | Swift      |
+| [Sword](https://github.com/Azoy/Sword)                       | Swift      |
 | [Detritus](https://github.com/detritusjs/client)             | TypeScript |
 | [discordeno](https://github.com/discordeno/discordeno)       | TypeScript |
 | [droff](https://github.com/tim-smart/droff)                  | TypeScript |
