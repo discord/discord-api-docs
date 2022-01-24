@@ -256,14 +256,16 @@ Discord utilizes a subset of markdown for rendering message content on its clien
 | Channel                 | <#CHANNEL_ID>       | <#103735883630395392>        |
 | Role                    | <@&ROLE_ID>         | <@&165511591545143296>       |
 | Standard Emoji          | Unicode Characters  | 💯                           |
-| Custom Emoji            | <:NAME:ID>          | <:mmLol:216154654256398347>  |
-| Custom Emoji (Animated) | <a:NAME:ID>         | <a:b1nzy:392938283556143104> |
+| Custom Emoji            | <:NAME:ID>          | <:mmLol:216154654256398347>\*  |
+| Custom Emoji (Animated) | <a:NAME:ID>         | <a:b1nzy:392938283556143104>\* |
 | Unix Timestamp          | <t:TIMESTAMP>       | <t:1618953630>               |
 | Unix Timestamp (Styled) | <t:TIMESTAMP:STYLE> | <t:1618953630:d>             |
 
 Using the markdown for either users, roles, or channels will usually mention the target(s) accordingly, but this can be suppressed using the `allowed_mentions` parameter when creating a message. Standard emoji are currently rendered using [Twemoji](https://twemoji.twitter.com/) for Desktop/Android and Apple's native emoji on iOS.
 
 Timestamps will display the given timestamp in the user's timezone and locale.
+
+\* Getting the ID for an emoji can be done by typing ``\:emojiname:`` Bot users may send animated emojis, as well as external emojis (external meaning from a server other than where the message containing the emoji is sent).  External emojis will only be rendered if the bot is a member of that server.
 
 ###### Timestamp Styles
 
