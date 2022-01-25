@@ -31,6 +31,7 @@ Many of these libraries are represented in the [unofficial, community-driven Dis
 | [Nostrum](https://github.com/Kraigie/nostrum)                | Elixir     |
 | [DiscordGo](https://github.com/bwmarrin/discordgo)           | Go         |
 | [DisGord](https://github.com/andersfylling/disgord)          | Go         |
+| [Postcord](https://github.com/Postcord)                      | Go         |
 | [catnip](https://github.com/mewna/catnip)                    | Java       |
 | [Discord4J](https://discord4j.com/)                          | Java       |
 | [Javacord](https://github.com/Javacord/Javacord)             | Java       |
@@ -71,6 +72,7 @@ Many of these libraries are represented in the [unofficial, community-driven Dis
   - [nyxx_interactions](https://github.com/l7ssha/Nyxx)
 - Go
   - [discord-interactions-go](https://github.com/bsdlp/discord-interactions-go)
+  - [Postcord/router](https://github.com/Postcord/router)
 - Javascript
   - [discord-interactions-js](https://github.com/discord/discord-interactions-js)
   - [discord-slash-commands](https://github.com/MeguminSama/discord-slash-commands) and its [Deno fork](https://deno.land/x/discord_slash_commands)
