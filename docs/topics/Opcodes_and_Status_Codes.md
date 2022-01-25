@@ -182,6 +182,7 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 30039  | Maximum number of stickers reached                                                                                            |
 | 30040  | Maximum number of prune requests has been reached. Try again later                                                            |
 | 30042  | Maximum number of guild widget settings updates has been reached. Try again later                                             |
+| 30046  | Maximum number of edits to messages older than 1 hour reached. Try again later                                                |
 | 40001  | Unauthorized. Provide a valid token and try again                                                                             |
 | 40002  | You need to verify your account in order to perform this action                                                               |
 | 40003  | You are opening direct messages too fast                                                                                      |
