@@ -65,6 +65,8 @@ Many of these libraries are represented in the [unofficial, community-driven Dis
 
 [Interactions](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/) are the great, new way of making a Discord bot. The following open-source libraries provide help for the security and authentication checks that are mandatory if you are receiving Interactions via outgoing webhook. They also include some types for the Interactions data models.
 
+- C#
+  - [Discord.Net.Rest](https://github.com/discord-net/Discord.Net)
 - Clojure
   - [ring-discord-auth](https://github.com/JohnnyJayJay/ring-discord-auth)
 - Dart
