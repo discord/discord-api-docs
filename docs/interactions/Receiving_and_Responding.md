@@ -90,9 +90,7 @@ This is sent on the [message object](#DOCS_RESOURCES_CHANNEL/message-object) whe
 | type | [interaction type](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-interaction-type) | the type of interaction                                                                                                                 |
 | name | string                                                                                              | the name of the [application command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-structure) |
 | user | [user object](#DOCS_RESOURCES_USER/user-object)                                                     | the user who invoked the interaction                                                                                                    |
-| member?* | [partial member](#DOCS_RESOURCES_GUILD/guild-member-object) objects                             | the member who invoked the interaction in the guild                                                                                       |
-
-\* Partial `Member` objects only have `roles`, `premium_since`, `pending`, `nick`, `mute`, `joined_at`, `hoisted_role`, `deaf`, `communication_disabled_until`, and `avatar` fields. Only sent in `MESSAGE_CREATE` [Gateway Event](#DOCS_TOPICS_GATEWAY/message-create)
+| member? | [partial member](#DOCS_RESOURCES_GUILD/guild-member-object) object                                  | the member who invoked the interaction in the guild                                                                                     |
 
 
 ## Interactions and Bot Users
