@@ -46,7 +46,7 @@ Many of these libraries are represented in the [unofficial, community-driven Dis
 | [RestCord](https://www.restcord.com/)                        | PHP        |
 | [discord.py](https://github.com/Rapptz/discord.py)           | Python     |
 | [disco](https://github.com/b1naryth1ef/disco)                | Python     |
-| [disnake](https://github.com/EQUENOS/disnake)                | Python     |
+| [disnake](https://github.com/DisnakeDev/disnake)             | Python     |
 | [hikari](https://github.com/hikari-py/hikari)                | Python     |
 | [nextcord](https://github.com/nextcord/nextcord)             | Python     |
 | [pycord](https://github.com/Pycord-Development/pycord)       | Python     |
