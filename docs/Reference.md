@@ -265,7 +265,7 @@ Using the markdown for either users, roles, or channels will usually mention the
 
 Timestamps will display the given timestamp in the user's timezone and locale.
 
-\* Getting the ID for an emoji can be done by typing ``\:emojiname:``. Bot users may send animated emojis, as well as external emojis (external meaning from a server other than where the message containing the emoji is sent). Unlike Webhooks, External emojis will only be rendered if the bot is a member of that server.
+\* Getting the ID for an emoji can be done by typing ``\:emojiname:``. Bot users may send animated emojis, as well as external emojis (external meaning from a server other than where the message containing the emoji is sent). Unlike webhooks, external emojis will only be rendered if the bot is a member of that server.
 
 ###### Timestamp Styles
 
