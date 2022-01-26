@@ -21,7 +21,7 @@ Represents a guild or DM channel within Discord.
 | user_limit?                    | integer                                                                    | the user limit of the voice channel                                                                                                                                                             |
 | rate_limit_per_user?\*         | integer                                                                    | amount of seconds a user has to wait before sending another message (0-21600); bots, as well as users with the permission `manage_messages` or `manage_channel`, are unaffected                 |
 | recipients?                    | array of [user](#DOCS_RESOURCES_USER/user-object) objects                  | the recipients of the DM                                                                                                                                                                        |
-| icon?                          | ?string                                                                    | icon hash                                                                                                                                                                                       |
+| icon?                          | ?string                                                                    | icon hash of the group DM                                                                                                                                                                       |
 | owner_id?                      | snowflake                                                                  | id of the creator of the group DM or thread                                                                                                                                                     |
 | application_id?                | snowflake                                                                  | application id of the group DM creator if it is bot-created                                                                                                                                     |
 | parent_id?                     | ?snowflake                                                                 | for guild channels: id of the parent category for a channel (each parent category can contain up to 50 channels), for threads: id of the text channel this thread was created                   |
@@ -332,16 +332,17 @@ Represents a message sent in a channel within Discord.
 
 ###### Message Flags
 
-| Flag                   | Value  | Description                                                                       |
-|------------------------|--------|-----------------------------------------------------------------------------------|
-| CROSSPOSTED            | 1 << 0 | this message has been published to subscribed channels (via Channel Following)    |
-| IS_CROSSPOST           | 1 << 1 | this message originated from a message in another channel (via Channel Following) |
-| SUPPRESS_EMBEDS        | 1 << 2 | do not include any embeds when serializing this message                           |
-| SOURCE_MESSAGE_DELETED | 1 << 3 | the source message for this crosspost has been deleted (via Channel Following)    |
-| URGENT                 | 1 << 4 | this message came from the urgent message system                                  |
-| HAS_THREAD             | 1 << 5 | this message has an associated thread, with the same id as the message            |
-| EPHEMERAL              | 1 << 6 | this message is only visible to the user who invoked the Interaction              |
-| LOADING                | 1 << 7 | this message is an Interaction Response and the bot is "thinking"                 |
+| Flag                                   | Value  | Description                                                                       |
+|----------------------------------------|--------|-----------------------------------------------------------------------------------|
+| CROSSPOSTED                            | 1 << 0 | this message has been published to subscribed channels (via Channel Following)    |
+| IS_CROSSPOST                           | 1 << 1 | this message originated from a message in another channel (via Channel Following) |
+| SUPPRESS_EMBEDS                        | 1 << 2 | do not include any embeds when serializing this message                           |
+| SOURCE_MESSAGE_DELETED                 | 1 << 3 | the source message for this crosspost has been deleted (via Channel Following)    |
+| URGENT                                 | 1 << 4 | this message came from the urgent message system                                  |
+| HAS_THREAD                             | 1 << 5 | this message has an associated thread, with the same id as the message            |
+| EPHEMERAL                              | 1 << 6 | this message is only visible to the user who invoked the Interaction              |
+| LOADING                                | 1 << 7 | this message is an Interaction Response and the bot is "thinking"                 |
+| FAILED_TO_MENTION_SOME_ROLES_IN_THREAD | 1 << 8 | this message failed to mention some roles and add their members to the thread     |
 
 ###### Example Message
 
@@ -518,6 +519,7 @@ The thread metadata object contains a number of thread-specific channel fields t
 | archive_timestamp     | ISO8601 timestamp | timestamp when the thread's archive status was last changed, used for calculating recent activity                   |
 | locked                | boolean           | whether the thread is locked; when a thread is locked, only users with MANAGE_THREADS can unarchive it              |
 | invitable?            | boolean           | whether non-moderators can add other non-moderators to a thread; only available on private threads                  |
+| create_timestamp?     | ISO8601 timestamp | timestamp when the thread was created; only populated for threads created after 2022-01-09                          |
 
 ### Thread Member Object
 
@@ -778,7 +780,7 @@ All of the following limits are measured inclusively. Leading and trailing white
 | [footer.text](#DOCS_RESOURCES_CHANNEL/embed-object-embed-footer-structure) | 2048 characters                                                                      |
 | [author.name](#DOCS_RESOURCES_CHANNEL/embed-object-embed-author-structure) | 256 characters                                                                       |
 
-Additionally, the characters in all `title`, `description`, `field.name`, `field.value`, `footer.text`, and `author.name` fields must not exceed 6000 characters in total. Violating any of these constraints will result in a `Bad Request` response.
+Additionally, the combined sum of characters in all `title`, `description`, `field.name`, `field.value`, `footer.text`, and `author.name` fields across all embeds attached to a message must not exceed 6000 characters. Violating any of these constraints will result in a `Bad Request` response.
 
 ## Get Channel % GET /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}
 
@@ -895,19 +897,20 @@ Files must be attached using a `multipart/form-data` body as described in [Uploa
 
 ###### JSON/Form Params
 
-| Field                | Type                                                                                              | Description                                                                                            | Required                                    |
-| -------------------- | ------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ | ------------------------------------------- |
-| content              | string                                                                                            | the message contents (up to 2000 characters)                                                           | one of content, file, embed(s), sticker_ids |
-| tts                  | boolean                                                                                           | true if this is a TTS message                                                                          | false                                       |
-| embeds               | array of [embed](#DOCS_RESOURCES_CHANNEL/embed-object) objects                                    | embedded `rich` content (up to 6000 characters)                                                        | one of content, file, embed(s), sticker_ids |
-| embed *(deprecated)* | [embed](#DOCS_RESOURCES_CHANNEL/embed-object) object                                              | embedded `rich` content, deprecated in favor of `embeds`                                               | one of content, file, embed(s), sticker_ids |
-| allowed_mentions     | [allowed mention object](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object)                         | allowed mentions for the message                                                                       | false                                       |
-| message_reference    | [message reference](#DOCS_RESOURCES_CHANNEL/message-reference-object-message-reference-structure) | include to make your message a reply                                                                   | false                                       |
-| components           | array of [message component](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-object) objects      | the components to include with the message                                                             | false                                       |
-| sticker_ids          | array of snowflakes                                                                               | IDs of up to 3 [stickers](#DOCS_RESOURCES_STICKER/sticker-object) in the server to send in the message | one of content, file, embed(s), sticker_ids |
-| files[n] \*          | file contents                                                                                     | the contents of the file being sent                                                                    | one of content, file, embed(s), sticker_ids |
-| payload_json \*      | string                                                                                            | JSON encoded body of non-file params                                                                   | `multipart/form-data` only                  |
-| attachments \*       | array of partial [attachment](#DOCS_RESOURCES_CHANNEL/attachment-object) objects                  | attachment objects with filename and description                                                       | false                                       |
+| Field                | Type                                                                                              | Description                                                                                                                                                                 | Required                                    |
+| -------------------- | ------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------- |
+| content              | string                                                                                            | the message contents (up to 2000 characters)                                                                                                                                | one of content, file, embed(s), sticker_ids |
+| tts                  | boolean                                                                                           | true if this is a TTS message                                                                                                                                               | false                                       |
+| embeds               | array of [embed](#DOCS_RESOURCES_CHANNEL/embed-object) objects                                    | embedded `rich` content (up to 6000 characters)                                                                                                                             | one of content, file, embed(s), sticker_ids |
+| embed *(deprecated)* | [embed](#DOCS_RESOURCES_CHANNEL/embed-object) object                                              | embedded `rich` content, deprecated in favor of `embeds`                                                                                                                    | one of content, file, embed(s), sticker_ids |
+| allowed_mentions     | [allowed mention object](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object)                         | allowed mentions for the message                                                                                                                                            | false                                       |
+| message_reference    | [message reference](#DOCS_RESOURCES_CHANNEL/message-reference-object-message-reference-structure) | include to make your message a reply                                                                                                                                        | false                                       |
+| components           | array of [message component](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-object) objects      | the components to include with the message                                                                                                                                  | false                                       |
+| sticker_ids          | array of snowflakes                                                                               | IDs of up to 3 [stickers](#DOCS_RESOURCES_STICKER/sticker-object) in the server to send in the message                                                                      | one of content, file, embed(s), sticker_ids |
+| files[n] \*          | file contents                                                                                     | the contents of the file being sent                                                                                                                                         | one of content, file, embed(s), sticker_ids |
+| payload_json \*      | string                                                                                            | JSON encoded body of non-file params                                                                                                                                        | `multipart/form-data` only                  |
+| attachments \*       | array of partial [attachment](#DOCS_RESOURCES_CHANNEL/attachment-object) objects                  | attachment objects with filename and description                                                                                                                            | false                                       |
+| flags                | integer                                                                                           | [message flags](#DOCS_RESOURCES_CHANNEL/message-object-message-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field) (only `SUPPRESS_EMBEDS` can be set) | false                                       |
 
 \* See [Uploading Files](#DOCS_REFERENCE/uploading-files) for details.
 

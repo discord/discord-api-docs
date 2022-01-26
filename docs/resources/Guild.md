@@ -230,6 +230,7 @@ A partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object. Represents an Offl
 | approximate_member_count   | integer                                                                             | approximate number of members in this guild                 |
 | approximate_presence_count | integer                                                                             | approximate number of online members in this guild          |
 | description                | ?string                                                                             | the description for the guild, if the guild is discoverable |
+| stickers                   | array of [sticker](#DOCS_RESOURCES_STICKER/sticker-object) objects                   | custom guild stickers                                      |
 
 ###### Example Guild Preview
 
@@ -254,25 +255,75 @@ A partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object. Represents an Offl
   ],
   "approximate_member_count": 60814,
   "approximate_presence_count": 20034,
-  "description": "The official place to report Discord Bugs!"
+  "description": "The official place to report Discord Bugs!",
+  "stickers": []
 }
 ```
 
-### Guild Widget Object
+### Guild Widget Settings Object
 
-###### Guild Widget Structure
+###### Guild Widget Settings Structure
 
 | Field      | Type       | Description                   |
 | ---------- | ---------- | ----------------------------- |
 | enabled    | boolean    | whether the widget is enabled |
 | channel_id | ?snowflake | the widget channel id         |
 
-###### Example Guild Widget
+###### Example Guild Widget Settings
 
 ```json
 {
   "enabled": true,
   "channel_id": "41771983444115456"
+}
+```
+
+### Get Guild Widget Object
+
+###### Get Guild Widget Structure
+
+| Field                      | Type                                                                                | Description                                                 |
+| -------------------------- | ----------------------------------------------------------------------------------- | ----------------------------------------------------------- |
+| id                 | snowflake                                                                         | guild id                                                             |
+| name               | string                                                                            | guild name (2-100 characters)                                        |
+| instant_invite     | ?string                                                                           | instant invite for the guilds specified widget invite channel        |
+| channels           | array of partial [channel](#DOCS_RESOURCES_CHANNEL/channel-object) objects        | voice and stage channels which are accessible by @everyone           |
+| members            | array of partial [user](#DOCS_RESOURCES_USER/user-object) objects                 | special widget user objects that includes users presence (Limit 100) |
+| presence_count     | integer                                                                           | number of online members in this guild                               |
+
+> warn
+> The fields `id`, `discriminator` and `avatar` are anonymized to prevent abuse.
+
+###### Example Get Guild Widget
+
+```json
+{
+  "id": "290926798626999250",
+  "name": "Test Server",
+  "instant_invite": "https://discord.com/invite/abcdefg",
+  "channels": [
+    {
+      "id": "705216630279993882",
+      "name": "elephant",
+      "position": 2
+    },
+    {
+      "id": "669583461748992190",
+      "name": "groovy-music",
+      "position": 1
+    }
+  ],
+  "members": [
+    {
+      "id": "0",
+      "username": "1234",
+      "discriminator": "0000",
+      "avatar": null,
+      "status": "online",
+      "avatar_url": "https://cdn.discordapp.com/widget-avatars/FfvURgcr3Za92K3JtoCppqnYMppMDc5B-Rll74YrGCU/C-1DyBZPQ6t5q2RuATFuMFgq0_uEMZVzd_6LbGN_uJKvZflobA9diAlTjhf6CAESLLeTuu4dLuHFWOb_PNLteooNfhC4C6k5QgAGuxEOP12tVVVCvX6t64k14PMXZrGTDq8pWZhukP40Wg"
+    }
+  ],
+  "presence_count": 1
 }
 ```
 
@@ -986,51 +1037,18 @@ Delete the attached [integration](#DOCS_RESOURCES_GUILD/integration-object) obje
 
 ## Get Guild Widget Settings % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/widget
 
-Returns a [guild widget](#DOCS_RESOURCES_GUILD/guild-widget-object) object. Requires the `MANAGE_GUILD` permission.
+Returns a [guild widget settings](#DOCS_RESOURCES_GUILD/guild-widget-settings-object) object. Requires the `MANAGE_GUILD` permission.
 
 ## Modify Guild Widget % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/widget
 
-Modify a [guild widget](#DOCS_RESOURCES_GUILD/guild-widget-object) object for the guild. All attributes may be passed in with JSON and modified. Requires the `MANAGE_GUILD` permission. Returns the updated [guild widget](#DOCS_RESOURCES_GUILD/guild-widget-object) object.
+Modify a [guild widget settings](#DOCS_RESOURCES_GUILD/guild-widget-settings-object) object for the guild. All attributes may be passed in with JSON and modified. Requires the `MANAGE_GUILD` permission. Returns the updated [guild widget](#DOCS_RESOURCES_GUILD/guild-widget-settings-object) object.
 
 > info
 > This endpoint supports the `X-Audit-Log-Reason` header.
 
 ## Get Guild Widget % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/widget.json
 
-Returns the widget for the guild.
-
-###### Example Get Guild Widget
-
-```json
-{
-  "id": "290926798626999250",
-  "name": "Test Server",
-  "instant_invite": "https://discord.com/invite/abcdefg",
-  "channels": [
-    {
-      "id": "705216630279993882",
-      "name": "elephant",
-      "position": 2
-    },
-    {
-      "id": "669583461748992190",
-      "name": "groovy-music",
-      "position": 1
-    }
-  ],
-  "members": [
-    {
-      "id": "0",
-      "username": "1234",
-      "discriminator": "0000",
-      "avatar": null,
-      "status": "online",
-      "avatar_url": "https://cdn.discordapp.com/widget-avatars/FfvURgcr3Za92K3JtoCppqnYMppMDc5B-Rll74YrGCU/C-1DyBZPQ6t5q2RuATFuMFgq0_uEMZVzd_6LbGN_uJKvZflobA9diAlTjhf6CAESLLeTuu4dLuHFWOb_PNLteooNfhC4C6k5QgAGuxEOP12tVVVCvX6t64k14PMXZrGTDq8pWZhukP40Wg"
-    }
-  ],
-  "presence_count": 1
-}
-```
+Returns the [widget](#DOCS_RESOURCES_GUILD/get-guild-widget-object) for the guild.
 
 ## Get Guild Vanity URL % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/vanity-url
 
@@ -1070,7 +1088,7 @@ Returns a PNG image widget for the guild. Requires no permissions or authenticat
 
 ## Get Guild Welcome Screen % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/welcome-screen
 
-Returns the [Welcome Screen](#DOCS_RESOURCES_GUILD/welcome-screen-object) object for the guild.
+Returns the [Welcome Screen](#DOCS_RESOURCES_GUILD/welcome-screen-object) object for the guild. Requires the `MANAGE_GUILD` permission.
 
 ## Modify Guild Welcome Screen % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/welcome-screen
 

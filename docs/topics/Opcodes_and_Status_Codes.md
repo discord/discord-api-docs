@@ -182,6 +182,7 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 30039  | Maximum number of stickers reached                                                                                            |
 | 30040  | Maximum number of prune requests has been reached. Try again later                                                            |
 | 30042  | Maximum number of guild widget settings updates has been reached. Try again later                                             |
+| 30046  | Maximum number of edits to messages older than 1 hour reached. Try again later                                                |
 | 40001  | Unauthorized. Provide a valid token and try again                                                                             |
 | 40002  | You need to verify your account in order to perform this action                                                               |
 | 40003  | You are opening direct messages too fast                                                                                      |
@@ -224,12 +225,14 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 50046  | Invalid file uploaded                                                                                                         |
 | 50054  | Cannot self-redeem this gift                                                                                                  |
 | 50055  | Invalid Guild                                                                                                                 |
+| 50068  | Invalid message type                                                                                                          |
 | 50070  | Payment source required to redeem gift                                                                                        |
 | 50074  | Cannot delete a channel required for Community guilds                                                                         |
 | 50081  | Invalid sticker sent                                                                                                          |
 | 50083  | Tried to perform an operation on an archived thread, such as editing a message or adding a user to the thread                 |
 | 50084  | Invalid thread notification settings                                                                                          |
 | 50085  | `before` value is earlier than the thread creation date                                                                       |
+| 50086  | Community server channels must be text channels                                                                               |
 | 50095  | This server is not available in your location                                                                                 |
 | 50097  | This server needs monetization enabled in order to perform this action                                                        |
 | 50101  | This server needs more boosts to perform this action                                                                          |
