@@ -2,11 +2,11 @@
 
 ## Application Commands Permissions
 
-#### Jan 2021
+#### XXX 2021
 
 - Breaking changes for `PUT /applications/{application.id}/guilds/{guild.id}/commands/{command.id}/permissions`
 - Breaking changes for `PUT /applications/{application.id}/guilds/{guild.id}/commands/permission`
-- Both routes are deprecated
+- Both routes are undergoing a change and requires `applications.commands.permissions.update` OAuth2 scope if the target guild uses the new application commands permissions system.
 - Added `dm_permission` and `default_member_permissions` to application command structure.
 - Deprecated `default_permission` on application command structure.
 
