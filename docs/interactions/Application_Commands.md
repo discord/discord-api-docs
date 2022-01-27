@@ -1040,7 +1040,7 @@ Fetches command permissions for all commands for your application in a guild. Re
 
 Fetches command permissions for a specific command for your application in a guild. Returns a [guild application command permissions](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-permissions-object-guild-application-command-permissions-structure) object.
 
-## Edit Application Command Permissions % PUT /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/commands/{command.id#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object}/permissions
+## Edit Guild Application Command Permissions % PUT /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/commands/{command.id#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object}/permissions
 
 > warn
 > Endpoint is undergoing a change. Requires the `applications.commands.permissions.update` OAuth2 scope if the guild uses the new application commands permissions system.
@@ -1061,7 +1061,7 @@ Returns a [GuildApplicationCommandPermissions](#DOCS_INTERACTIONS_APPLICATION_CO
 | ----------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------- |
 | permissions | array of [application command permissions](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-permissions-object-application-command-permissions-structure) | the permissions for the command in the guild |
 
-## Batch Edit Application Command Permissions % PUT /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/commands/permissions
+## Batch Edit Guild Application Command Permissions % PUT /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/commands/permissions
 
 > warn
 > Endpoint is undergoing a change. Requires the `applications.commands.permissions.update` OAuth2 scope if the guild uses the new application commands permissions system.
