@@ -11,5 +11,6 @@
 1. Subjective wording changes.
 1. Modifications to the overall structure and format of the API docs.
 1. Additions that replicate or needlessly restructure current documentation.
+1. Additions that document unreleased product functionality.
 
 By submitting pull requests to this repository, you waive any rights or ownership of the included contents to Discord. Contributions to this repository must conform to the [Discord App TOS](https://discord.com/terms).
