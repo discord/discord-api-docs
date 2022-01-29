@@ -822,7 +822,7 @@ Requires the `MANAGE_CHANNELS` permission for the guild. Fires a [Channel Update
 | video_quality_mode            | ?integer                                                                        | the camera [video quality mode](#DOCS_RESOURCES_CHANNEL/channel-object-video-quality-modes) of the voice channel                                                                | Voice                    |
 | default_auto_archive_duration | ?integer                                                                        | the default duration that the clients use (not the API) for newly created threads in the channel, in minutes, to automatically archive the thread after recent activity         | Text, News               |
 
-\* In each overwrite object, the `allow` and `deny` keys can be ommitted or set to `null`, which both default to `"0"`.
+\* In each overwrite object, the `allow` and `deny` keys can be omitted or set to `null`, which both default to `"0"`.
 
 ###### JSON Params (Thread)
 
