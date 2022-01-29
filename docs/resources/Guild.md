@@ -725,7 +725,7 @@ Create a new [channel](#DOCS_RESOURCES_CHANNEL/channel-object) object for the gu
 | parent_id               | snowflake                                                                      | id of the parent category for a channel                                                                                                                                         |
 | nsfw                    | boolean                                                                        | whether the channel is nsfw                                                                                                                                                     |
 
-\* In each overwrite object, the `allow` and `deny` keys can be ommitted or set to `null`, which both default to `"0"`.
+\* In each overwrite object, the `allow` and `deny` keys can be omitted or set to `null`, which both default to `"0"`.
 
 ## Modify Guild Channel Positions % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/channels
 
