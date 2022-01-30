@@ -321,7 +321,7 @@ We highly recommend checking out our [Community Resources](#DOCS_TOPICS_COMMUNIT
 ### Endpoints
 
 > info
-> The endpoints below are not bound to the application's [Global Rate Limit](#DOCS_TOPICS_RATE-LIMITS/global-rate-limit).
+> The endpoints below are not bound to the application's [Global Rate Limit](#DOCS_TOPICS_RATE_LIMITS/global-rate-limit).
 
 ## Create Interaction Response % POST /interactions/{interaction.id#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction}/{interaction.token#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object}/callback
 

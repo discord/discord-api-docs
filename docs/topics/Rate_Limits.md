@@ -109,7 +109,7 @@ Global rate limit issues generally show up as repeatedly getting banned from the
 
 If you are experiencing repeated CloudFlare bans from the Discord API within normal operations of your bot, you can reach out to support to see if you qualify for increased global rate limits. You can contact Discord support using [https://dis.gd/contact](https://dis.gd/contact).
 
-[Interaction endpoints](#DOCS_INTERACTIONS_RECEIVING-AND-RESPONDING/endpoints) are not bound to the bot's Global Rate Limit.
+[Interaction endpoints](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/endpoints) are not bound to the bot's Global Rate Limit.
 
 ## Invalid Request Limit aka CloudFlare bans
 
