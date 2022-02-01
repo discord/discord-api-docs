@@ -1,5 +1,9 @@
 # Store Channels
 
+> danger
+> Selling SKUs on Discord is now deprecated, and will be discontinued on March 1, 2022. [Read here for more info.](https://support-dev.discord.com/hc/en-us/articles/4414590563479)
+
+
 One of the new flagship features of Verified Servers and Game Servers are the ability to host your store pages directly in your server. We know that community is everything for games, and that your server is already the place where your community lives. Rather than the friction and impersonality of traditional storefronts, you can let your fans find your game in the cozy comfort of their home (your server!).
 
 In order to create a store channel for your game, you'll need to make sure you've followed [the Walkthrough](#DOCS_GAME_AND_SERVER_MANAGEMENT_HOW_TO_GET_YOUR_GAME_ON_DISCORD/) up to `Getting Approved`. If you've done that, you'll see in your server that you can create a new channel type: `Store`.
@@ -27,7 +31,7 @@ We know that your server and community are at the heart of your game's success o
 
 # Announcement Channels
 
-As part of our ongoing effort to help you build your game community, all [Community servers](https://dis.gd/communityservers) (along with [Developer License](#DOCS_GAME_AND_SERVER_MANAGEMENT_HOW_TO_GET_YOUR_GAME_ON_DISCORD/your-server-your-kingdom) servers) have the ability to create Announcement Channels!
+As part of our ongoing effort to help you build your game community, all [Community servers](https://dis.gd/communityservers) have the ability to create Announcement Channels!
 
 Unlike a regular text channel, Announcement Channels comes with a “Follow” button that allows your superfans to hook and connect your channel into their own personal servers. Now, select messages in your Announcement Channels can be "published" in your players' friend servers as regular messages, allowing them to get the latest updates of their favorite game in the places they hang out most. Because these posts appear and function as messages, it means that everyone in your superfan’s server can find them, discuss them live, and receive them as mobile notifications, if they have this setting enabled.
 
