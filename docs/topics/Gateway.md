@@ -59,7 +59,7 @@ When initially creating and handshaking connections to the Gateway, a user can c
 
 While using ETF there are some additional constraints to note:
 
-- Snowflake IDs are transmitted as 64-bit integers over ETF.
+- Snowflake IDs are transmitted as 64-bit integers or strings over ETF.
 - The client must not send compressed messages to the server.
 - Payloads must use string keys, atom keys will lead to a 4002 decode error.
 
