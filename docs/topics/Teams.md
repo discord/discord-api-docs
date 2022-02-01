@@ -63,7 +63,7 @@ Go team!
 | name          | string                                                                            | the name of the team                   |
 | owner_user_id | snowflake                                                                         | the user id of the current team owner  |
 
-###### Team Members Object
+###### Team Member Object
 
 | field            | type                                                    | description                                                                                     |
 | ---------------- | ------------------------------------------------------- | ----------------------------------------------------------------------------------------------- |

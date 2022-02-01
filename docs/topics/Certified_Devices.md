@@ -6,9 +6,9 @@ Baked into Discord is the ability for hardware manufacturers to tell us a little
 
 I'm glad you asked!
 
-1. [Create an application](https://discord.com/developers/applications/me) for your hardware vendor—save the Client ID!
+1. [Create an application](#APPLICATIONS) for your hardware vendor—save the Client ID!
 2. Talk to Discord via one simple HTTP or WebSocket call
-3. Send us a [`SET_CERTIFIED_DEVICES`](#DOCS_TOPICS_RPC/set-certified-devices) WebSocket payload or equivalent HTTP POST whenever the state of the device changes
+3. Send us a [`SET_CERTIFIED_DEVICES`](#DOCS_TOPICS_RPC/setcertifieddevices) WebSocket payload or equivalent HTTP POST whenever the state of the device changes
 
 Yup, that's it. You give us the real-time info about any connected devices, and we'll handle the rest to make sure that anyone using your device will have an awesome experience. Your device will also have a `CERTIFIED` badge in Discord's audio settings, and really, who doesn't love badges?
 
@@ -191,7 +191,7 @@ The socket will respond with a `200 OK` status code and the following JSON.
 | name  | string | name of the model |
 | url   | string | url for the model |
 
-###### Device Types
+###### Device Type
 
 | Type         | Value         |
 | ------------ | ------------- |
