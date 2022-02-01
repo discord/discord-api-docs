@@ -59,7 +59,7 @@ When initially creating and handshaking connections to the Gateway, a user can c
 
 While using ETF there are some additional constraints to note:
 
-- Snowflake IDs are transmitted as 64-bit integers or strings over ETF.
+- Snowflake IDs are transmitted as 64-bit integers over ETF.
 - The client must not send compressed messages to the server.
 - Payloads must use string keys, atom keys will lead to a 4002 decode error.
 
@@ -835,7 +835,9 @@ Sent when a channel relevant to the current user is deleted. The inner payload i
 
 #### Thread Create
 
-Sent when a thread is created, relevant to the current user, or when the current user is added to a thread. The inner payload is a [channel](#DOCS_RESOURCES_CHANNEL/channel-object) object.  When being added to an existing private thread, includes a [thread member](#DOCS_RESOURCES_CHANNEL/thread-member-object) object.
+Sent when a thread is created, relevant to the current user, or when the current user is added to a thread. The inner payload is a [channel](#DOCS_RESOURCES_CHANNEL/channel-object) object.  
+- When a thread is created, includes an additional `newly_created` boolean field.
+- When being added to an existing private thread, includes a [thread member](#DOCS_RESOURCES_CHANNEL/thread-member-object) object.
 
 #### Thread Update
 
