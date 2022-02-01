@@ -43,7 +43,6 @@ Represents a code that when used, adds a user to a guild or group DM channel.
     "features": ["NEWS", "DISCOVERABLE"],
     "verification_level": 2,
     "vanity_url_code": null,
-    "nsfw": false,
     "nsfw_level": 0
   },
   "channel": {
@@ -82,14 +81,6 @@ Extra information about an invite, will extend the [invite](#DOCS_RESOURCES_INVI
 | max_age    | integer                                         | duration (in seconds) after which the invite expires |
 | temporary  | boolean                                         | whether this invite only grants temporary membership |
 | created_at | ISO8601 timestamp                               | when this invite was created                         |
-| type       | integer                                         | the type of channel this invite belongs to           |
-
-###### Invite Types
-
-| Type                 | Value |
-|----------------------|-------|
-| GUILD                | 0     |
-| GROUP_DM             | 1     |
 
 ###### Example Invite Metadata
 
@@ -99,8 +90,7 @@ Extra information about an invite, will extend the [invite](#DOCS_RESOURCES_INVI
   "max_uses": 0,
   "max_age": 0,
   "temporary": false,
-  "created_at": "2016-03-31T19:15:39.954000+00:00",
-  "type": 0
+  "created_at": "2016-03-31T19:15:39.954000+00:00"
 }
 ```
 
