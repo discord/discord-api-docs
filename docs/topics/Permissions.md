@@ -63,7 +63,7 @@ Below is a table of all current permissions, their integer values in hexadecimal
 | REQUEST_TO_SPEAK              | `0x0000000100000000` `(1 << 32)` | Allows for requesting to speak in stage channels. (_This permission is under active development and may be changed or removed._)                    | S            |
 | MANAGE_EVENTS                 | `0x0000000200000000` `(1 << 33)` | Allows for creating, editing, and deleting scheduled events                                                                                         | V, S         |
 | MANAGE_THREADS \*             | `0x0000000400000000` `(1 << 34)` | Allows for deleting and archiving threads, and viewing all private threads                                                                          | T            |
-| CREATE_PUBLIC_THREADS         | `0x0000000800000000` `(1 << 35)` | Allows for creating threads                                                                                                                         | T            |
+| CREATE_PUBLIC_THREADS         | `0x0000000800000000` `(1 << 35)` | Allows for creating public and announcement threads                                                                                                 | T            |
 | CREATE_PRIVATE_THREADS        | `0x0000001000000000` `(1 << 36)` | Allows for creating private threads                                                                                                                 | T            |
 | USE_EXTERNAL_STICKERS         | `0x0000002000000000` `(1 << 37)` | Allows the usage of custom stickers from other servers                                                                                              | T            |
 | SEND_MESSAGES_IN_THREADS      | `0x0000004000000000` `(1 << 38)` | Allows for sending messages in threads                                                                                                              | T            |
@@ -169,7 +169,7 @@ There may be other cases in which certain permissions implicitly deny or allow o
 
 ## Inherited Permissions (Threads)
 
-Threads inherit permissions from the parent channel (the channel they were created in), with one exception: The `SEND_MESSAGES` permission is not inherited, users must have `SEND_MESSAGES_IN_THREADS` to send a message in a thread, which allows for users to participate in threads in places like announcement channels.
+Threads inherit permissions from the parent channel (the channel they were created in), with one exception: The `SEND_MESSAGES` permission is not inherited; users must have `SEND_MESSAGES_IN_THREADS` to send a message in a thread, which allows for users to participate in threads in places like announcement channels.
 
 Users must have the `VIEW_CHANNEL` permission to view _any_ threads in the channel, even if they are directly mentioned or added to the thread.
 
