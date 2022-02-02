@@ -34,8 +34,5 @@
 		"eslint-plugin-prettier": "^4.0.0",
 		"prettier": "^2.4.1",
 		"typescript": "^4.4.3"
-	},
-	"engines": {
-		"node": "^14.17.0"
 	}
 }
