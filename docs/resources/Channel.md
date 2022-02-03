@@ -512,14 +512,14 @@ The thread metadata object contains a number of thread-specific channel fields t
 
 ###### Thread Metadata Structure
 
-| Field                 | Type              | Description                                                                                                         |
-|-----------------------|-------------------|---------------------------------------------------------------------------------------------------------------------|
-| archived              | boolean           | whether the thread is archived                                                                                      |
-| auto_archive_duration | integer           | duration in minutes to automatically archive the thread after recent activity, can be set to: 60, 1440, 4320, 10080 |
-| archive_timestamp     | ISO8601 timestamp | timestamp when the thread's archive status was last changed, used for calculating recent activity                   |
-| locked                | boolean           | whether the thread is locked; when a thread is locked, only users with MANAGE_THREADS can unarchive it              |
-| invitable?            | boolean           | whether non-moderators can add other non-moderators to a thread; only available on private threads                  |
-| create_timestamp?     | ISO8601 timestamp | timestamp when the thread was created; only populated for threads created after 2022-01-09                          |
+| Field                 | Type               | Description                                                                                                         |
+|-----------------------|--------------------|---------------------------------------------------------------------------------------------------------------------|
+| archived              | boolean            | whether the thread is archived                                                                                      |
+| auto_archive_duration | integer            | duration in minutes to automatically archive the thread after recent activity, can be set to: 60, 1440, 4320, 10080 |
+| archive_timestamp     | ISO8601 timestamp  | timestamp when the thread's archive status was last changed, used for calculating recent activity                   |
+| locked                | boolean            | whether the thread is locked; when a thread is locked, only users with MANAGE_THREADS can unarchive it              |
+| invitable?            | boolean            | whether non-moderators can add other non-moderators to a thread; only available on private threads                  |
+| create_timestamp?     | ?ISO8601 timestamp | timestamp when the thread was created; only populated for threads created after 2022-01-09                          |
 
 ### Thread Member Object
 
