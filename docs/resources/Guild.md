@@ -1054,7 +1054,7 @@ Returns the [widget](#DOCS_RESOURCES_GUILD/get-guild-widget-object) for the guil
 
 ## Get Guild Vanity URL % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/vanity-url
 
-Returns a partial [invite](#DOCS_RESOURCES_INVITE/invite-object) object for guilds with that feature enabled. Requires the `MANAGE_GUILD` permission. `code` will be null if a vanity url for the guild is not set.
+Returns a partial [invite](#DOCS_RESOURCES_INVITE/invite-object) object for guilds with that feature enabled. Requires the `MANAGE_GUILD` permission. `code` will be null if a vanity url for the guild is not set or if the guild has no public text channels
 
 ###### Example Partial Invite Object
 
