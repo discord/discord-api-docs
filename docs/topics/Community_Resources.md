@@ -47,8 +47,8 @@ Many of these libraries are represented in the [unofficial, community-driven Dis
 | [discord.py](https://github.com/Rapptz/discord.py)           | Python     |
 | [disco](https://github.com/b1naryth1ef/disco)                | Python     |
 | [hikari](https://github.com/hikari-py/hikari)                | Python     |
-| [discordrb](https://github.com/shardlab/discordrb)           | Ruby       |
 | [discorb](https://github.com/discorb-lib/discorb)            | Ruby       |
+| [discordrb](https://github.com/shardlab/discordrb)           | Ruby       |
 | [discord-rs](https://github.com/SpaceManiac/discord-rs)      | Rust       |
 | [Serenity](https://github.com/serenity-rs/serenity)          | Rust       |
 | [Twilight](https://github.com/twilight-rs/twilight)          | Rust       |
