@@ -26,51 +26,55 @@ Below is a table of all current permissions, their integer values in hexadecimal
 
 ###### Bitwise Permission Flags
 
-| Permission                    | Value                      | Description                                                                                                                        | Channel Type |
-| ----------------------------- | -------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- | ------------ |
-| CREATE_INSTANT_INVITE         | `0x0000000001` `(1 << 0)`  | Allows creation of instant invites                                                                                                 | T, V, S      |
-| KICK_MEMBERS \*               | `0x0000000002` `(1 << 1)`  | Allows kicking members                                                                                                             |              |
-| BAN_MEMBERS \*                | `0x0000000004` `(1 << 2)`  | Allows banning members                                                                                                             |              |
-| ADMINISTRATOR \*              | `0x0000000008` `(1 << 3)`  | Allows all permissions and bypasses channel permission overwrites                                                                  |              |
-| MANAGE_CHANNELS \*            | `0x0000000010` `(1 << 4)`  | Allows management and editing of channels                                                                                          | T, V, S      |
-| MANAGE_GUILD \*               | `0x0000000020` `(1 << 5)`  | Allows management and editing of the guild                                                                                         |              |
-| ADD_REACTIONS                 | `0x0000000040` `(1 << 6)`  | Allows for the addition of reactions to messages                                                                                   | T            |
-| VIEW_AUDIT_LOG                | `0x0000000080` `(1 << 7)`  | Allows for viewing of audit logs                                                                                                   |              |
-| PRIORITY_SPEAKER              | `0x0000000100` `(1 << 8)`  | Allows for using priority speaker in a voice channel                                                                               | V            |
-| STREAM                        | `0x0000000200` `(1 << 9)`  | Allows the user to go live                                                                                                         | V            |
-| VIEW_CHANNEL                  | `0x0000000400` `(1 << 10)` | Allows guild members to view a channel, which includes reading messages in text channels                                           | T, V, S      |
-| SEND_MESSAGES                 | `0x0000000800` `(1 << 11)` | Allows for sending messages in a channel (does not allow sending messages in threads)                                              | T            |
-| SEND_TTS_MESSAGES             | `0x0000001000` `(1 << 12)` | Allows for sending of `/tts` messages                                                                                              | T            |
-| MANAGE_MESSAGES \*            | `0x0000002000` `(1 << 13)` | Allows for deletion of other users messages                                                                                        | T            |
-| EMBED_LINKS                   | `0x0000004000` `(1 << 14)` | Links sent by users with this permission will be auto-embedded                                                                     | T            |
-| ATTACH_FILES                  | `0x0000008000` `(1 << 15)` | Allows for uploading images and files                                                                                              | T            |
-| READ_MESSAGE_HISTORY          | `0x0000010000` `(1 << 16)` | Allows for reading of message history                                                                                              | T            |
-| MENTION_EVERYONE              | `0x0000020000` `(1 << 17)` | Allows for using the `@everyone` tag to notify all users in a channel, and the `@here` tag to notify all online users in a channel | T            |
-| USE_EXTERNAL_EMOJIS           | `0x0000040000` `(1 << 18)` | Allows the usage of custom emojis from other servers                                                                               | T            |
-| VIEW_GUILD_INSIGHTS           | `0x0000080000` `(1 << 19)` | Allows for viewing guild insights                                                                                                  |              |
-| CONNECT                       | `0x0000100000` `(1 << 20)` | Allows for joining of a voice channel                                                                                              | V, S         |
-| SPEAK                         | `0x0000200000` `(1 << 21)` | Allows for speaking in a voice channel                                                                                             | V            |
-| MUTE_MEMBERS                  | `0x0000400000` `(1 << 22)` | Allows for muting members in a voice channel                                                                                       | V, S         |
-| DEAFEN_MEMBERS                | `0x0000800000` `(1 << 23)` | Allows for deafening of members in a voice channel                                                                                 | V, S         |
-| MOVE_MEMBERS                  | `0x0001000000` `(1 << 24)` | Allows for moving of members between voice channels                                                                                | V, S         |
-| USE_VAD                       | `0x0002000000` `(1 << 25)` | Allows for using voice-activity-detection in a voice channel                                                                       | V            |
-| CHANGE_NICKNAME               | `0x0004000000` `(1 << 26)` | Allows for modification of own nickname                                                                                            |              |
-| MANAGE_NICKNAMES              | `0x0008000000` `(1 << 27)` | Allows for modification of other users nicknames                                                                                   |              |
-| MANAGE_ROLES \*               | `0x0010000000` `(1 << 28)` | Allows management and editing of roles                                                                                             | T, V, S      |
-| MANAGE_WEBHOOKS \*            | `0x0020000000` `(1 << 29)` | Allows management and editing of webhooks                                                                                          | T            |
-| MANAGE_EMOJIS_AND_STICKERS \* | `0x0040000000` `(1 << 30)` | Allows management and editing of emojis and stickers                                                                               |              |
-| USE_APPLICATION_COMMANDS      | `0x0080000000` `(1 << 31)` | Allows members to use application commands, including slash commands and context menu commands.                                    | T            |
-| REQUEST_TO_SPEAK              | `0x0100000000` `(1 << 32)` | Allows for requesting to speak in stage channels. (_This permission is under active development and may be changed or removed._)   | S            |
-| MANAGE_THREADS \*             | `0x0400000000` `(1 << 34)` | Allows for deleting and archiving threads, and viewing all private threads                                                         | T            |
-| CREATE_PUBLIC_THREADS         | `0x0800000000` `(1 << 35)` | Allows for creating threads                                                                                                        | T            |
-| CREATE_PRIVATE_THREADS        | `0x1000000000` `(1 << 36)` | Allows for creating private threads                                                                                                | T            |
-| USE_EXTERNAL_STICKERS         | `0x2000000000` `(1 << 37)` | Allows the usage of custom stickers from other servers                                                                             | T            |
-| SEND_MESSAGES_IN_THREADS      | `0x4000000000` `(1 << 38)` | Allows for sending messages in threads                                                                                             | T            |
-| START_EMBEDDED_ACTIVITIES     | `0x8000000000` `(1 << 39)` | Allows for launching activities (applications with the `EMBEDDED` flag) in a voice channel                                         | V            |
+| Permission                    | Value                            | Description                                                                                                                                         | Channel Type |
+| ----------------------------- | -------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ |
+| CREATE_INSTANT_INVITE         | `0x0000000000000001` `(1 << 0)`  | Allows creation of instant invites                                                                                                                  | T, V, S      |
+| KICK_MEMBERS \*               | `0x0000000000000002` `(1 << 1)`  | Allows kicking members                                                                                                                              |              |
+| BAN_MEMBERS \*                | `0x0000000000000004` `(1 << 2)`  | Allows banning members                                                                                                                              |              |
+| ADMINISTRATOR \*              | `0x0000000000000008` `(1 << 3)`  | Allows all permissions and bypasses channel permission overwrites                                                                                   |              |
+| MANAGE_CHANNELS \*            | `0x0000000000000010` `(1 << 4)`  | Allows management and editing of channels                                                                                                           | T, V, S      |
+| MANAGE_GUILD \*               | `0x0000000000000020` `(1 << 5)`  | Allows management and editing of the guild                                                                                                          |              |
+| ADD_REACTIONS                 | `0x0000000000000040` `(1 << 6)`  | Allows for the addition of reactions to messages                                                                                                    | T            |
+| VIEW_AUDIT_LOG                | `0x0000000000000080` `(1 << 7)`  | Allows for viewing of audit logs                                                                                                                    |              |
+| PRIORITY_SPEAKER              | `0x0000000000000100` `(1 << 8)`  | Allows for using priority speaker in a voice channel                                                                                                | V            |
+| STREAM                        | `0x0000000000000200` `(1 << 9)`  | Allows the user to go live                                                                                                                          | V            |
+| VIEW_CHANNEL                  | `0x0000000000000400` `(1 << 10)` | Allows guild members to view a channel, which includes reading messages in text channels                                                            | T, V, S      |
+| SEND_MESSAGES                 | `0x0000000000000800` `(1 << 11)` | Allows for sending messages in a channel (does not allow sending messages in threads)                                                               | T            |
+| SEND_TTS_MESSAGES             | `0x0000000000001000` `(1 << 12)` | Allows for sending of `/tts` messages                                                                                                               | T            |
+| MANAGE_MESSAGES \*            | `0x0000000000002000` `(1 << 13)` | Allows for deletion of other users messages                                                                                                         | T            |
+| EMBED_LINKS                   | `0x0000000000004000` `(1 << 14)` | Links sent by users with this permission will be auto-embedded                                                                                      | T            |
+| ATTACH_FILES                  | `0x0000000000008000` `(1 << 15)` | Allows for uploading images and files                                                                                                               | T            |
+| READ_MESSAGE_HISTORY          | `0x0000000000010000` `(1 << 16)` | Allows for reading of message history                                                                                                               | T            |
+| MENTION_EVERYONE              | `0x0000000000020000` `(1 << 17)` | Allows for using the `@everyone` tag to notify all users in a channel, and the `@here` tag to notify all online users in a channel                  | T            |
+| USE_EXTERNAL_EMOJIS           | `0x0000000000040000` `(1 << 18)` | Allows the usage of custom emojis from other servers                                                                                                | T            |
+| VIEW_GUILD_INSIGHTS           | `0x0000000000080000` `(1 << 19)` | Allows for viewing guild insights                                                                                                                   |              |
+| CONNECT                       | `0x0000000000100000` `(1 << 20)` | Allows for joining of a voice channel                                                                                                               | V, S         |
+| SPEAK                         | `0x0000000000200000` `(1 << 21)` | Allows for speaking in a voice channel                                                                                                              | V            |
+| MUTE_MEMBERS                  | `0x0000000000400000` `(1 << 22)` | Allows for muting members in a voice channel                                                                                                        | V, S         |
+| DEAFEN_MEMBERS                | `0x0000000000800000` `(1 << 23)` | Allows for deafening of members in a voice channel                                                                                                  | V, S         |
+| MOVE_MEMBERS                  | `0x0000000001000000` `(1 << 24)` | Allows for moving of members between voice channels                                                                                                 | V, S         |
+| USE_VAD                       | `0x0000000002000000` `(1 << 25)` | Allows for using voice-activity-detection in a voice channel                                                                                        | V            |
+| CHANGE_NICKNAME               | `0x0000000004000000` `(1 << 26)` | Allows for modification of own nickname                                                                                                             |              |
+| MANAGE_NICKNAMES              | `0x0000000008000000` `(1 << 27)` | Allows for modification of other users nicknames                                                                                                    |              |
+| MANAGE_ROLES \*               | `0x0000000010000000` `(1 << 28)` | Allows management and editing of roles                                                                                                              | T, V, S      |
+| MANAGE_WEBHOOKS \*            | `0x0000000020000000` `(1 << 29)` | Allows management and editing of webhooks                                                                                                           | T            |
+| MANAGE_EMOJIS_AND_STICKERS \* | `0x0000000040000000` `(1 << 30)` | Allows management and editing of emojis and stickers                                                                                                |              |
+| USE_APPLICATION_COMMANDS      | `0x0000000080000000` `(1 << 31)` | Allows members to use application commands, including slash commands and context menu commands.                                                     | T            |
+| REQUEST_TO_SPEAK              | `0x0000000100000000` `(1 << 32)` | Allows for requesting to speak in stage channels. (_This permission is under active development and may be changed or removed._)                    | S            |
+| MANAGE_EVENTS                 | `0x0000000200000000` `(1 << 33)` | Allows for creating, editing, and deleting scheduled events                                                                                         | V, S         |
+| MANAGE_THREADS \*             | `0x0000000400000000` `(1 << 34)` | Allows for deleting and archiving threads, and viewing all private threads                                                                          | T            |
+| CREATE_PUBLIC_THREADS         | `0x0000000800000000` `(1 << 35)` | Allows for creating public and announcement threads                                                                                                 | T            |
+| CREATE_PRIVATE_THREADS        | `0x0000001000000000` `(1 << 36)` | Allows for creating private threads                                                                                                                 | T            |
+| USE_EXTERNAL_STICKERS         | `0x0000002000000000` `(1 << 37)` | Allows the usage of custom stickers from other servers                                                                                              | T            |
+| SEND_MESSAGES_IN_THREADS      | `0x0000004000000000` `(1 << 38)` | Allows for sending messages in threads                                                                                                              | T            |
+| START_EMBEDDED_ACTIVITIES     | `0x0000008000000000` `(1 << 39)` | Allows for launching activities (applications with the `EMBEDDED` flag) in a voice channel                                                          | V            |
+| MODERATE_MEMBERS \*\*         | `0x0000010000000000` `(1 << 40)` | Allows for timing out users to prevent them from sending or reacting to messages in chat and threads, and from speaking in voice and stage channels |              |
 
 **\* These permissions require the owner account to use [two-factor authentication](#DOCS_TOPICS_OAUTH2/twofactor-authentication-requirement) when used on a guild that has server-wide 2FA enabled.**
 
-Note that these internal permission names may be referred to differently by the Discord client. For example, "Manage Permissions" refers to MANAGE_ROLES and "Use Voice Activity" refers to USE_VAD.
+**\*\* See [Permissions for Timed Out Members](#DOCS_TOPICS_PERMISSIONS/permissions-for-timed-out-members) to understand how permissions are temporarily modified for timed out users.**
+
+Note that these internal permission names may be referred to differently by the Discord client. For example, "Manage Permissions" refers to MANAGE_ROLES, "Use Voice Activity" refers to USE_VAD, and "Timeout Members" refers to MODERATE_MEMBERS.
 
 ## Permission Hierarchy
 
@@ -159,11 +163,13 @@ Permissions in Discord are sometimes implicitly denied or allowed based on logic
 
 Denying `SEND_MESSAGES` implicitly denies `MENTION_EVERYONE`, `SEND_TTS_MESSAGES`, `ATTACH_FILES`, and `EMBED_LINKS`. Again, they are not explicitly denied when doing permissions calculations, but they are ignored because the user cannot do the base action of sending messages.
 
+For voice and stage channels, denying the `CONNECT` permission also implicitly denies other permissions such as `MANAGE_CHANNEL`.
+
 There may be other cases in which certain permissions implicitly deny or allow other permissions. In all cases, it is based on logical conclusions about how a user with certain permissions should or should not interact with Discord.
 
 ## Inherited Permissions (Threads)
 
-Threads inherit permissions from the parent channel (the channel they were created in), with one exception: The `SEND_MESSAGES` permission is not inherited, users must have `SEND_MESSAGES_IN_THREADS` to send a message in a thread, which allows for users to participate in threads in places like announcement channels.
+Threads inherit permissions from the parent channel (the channel they were created in), with one exception: The `SEND_MESSAGES` permission is not inherited; users must have `SEND_MESSAGES_IN_THREADS` to send a message in a thread, which allows for users to participate in threads in places like announcement channels.
 
 Users must have the `VIEW_CHANNEL` permission to view _any_ threads in the channel, even if they are directly mentioned or added to the thread.
 
@@ -217,3 +223,7 @@ Roles without colors (`color == 0`) do not count towards the final computed colo
   "mentionable": false
 }
 ```
+
+## Permissions For Timed Out Members
+
+Timed out members will temporarily lose all permissions except `VIEW_CHANNEL` and `READ_MESSAGE_HISTORY`. Owners and admin users with `ADMINISTRATOR` permissions are exempt.

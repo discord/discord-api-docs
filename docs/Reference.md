@@ -102,7 +102,7 @@ In API v8, we've improved error formatting in form error responses. The response
 
 Authenticating with the Discord API can be done in one of two ways:
 
-1. Using a bot token gained by [registering a bot](#DOCS_TOPICS_OAUTH2/registering-applications), for more information on bots see [bots vs user accounts](#DOCS_TOPICS_OAUTH2/bot-vs-user-accounts).
+1. Using a bot token gained by [registering a bot](#APPLICATIONS), for more information on bots see [bots vs user accounts](#DOCS_TOPICS_OAUTH2/bot-vs-user-accounts).
 2. Using an OAuth2 bearer token gained through the [OAuth2 API](#DOCS_TOPICS_OAUTH2/oauth2).
 
 For all authentication types, authentication is performed with the `Authorization` HTTP header in the format `Authorization: TOKEN_TYPE TOKEN`.
@@ -301,25 +301,26 @@ Discord uses ids and hashes to render images in the client. These hashes can be 
 
 ###### CDN Endpoints
 
-| Type                   | Path                                                                                                                                                                                                                                                              | Supports             |
-|------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------|
-| Custom Emoji           | emojis/[emoji_id](#DOCS_RESOURCES_EMOJI/emoji-object).png                                                                                                                                                                                                         | PNG, JPEG, WebP, GIF |
-| Guild Icon             | icons/[guild_id](#DOCS_RESOURCES_GUILD/guild-object)/[guild_icon](#DOCS_RESOURCES_GUILD/guild-object).png \*                                                                                                                                                      | PNG, JPEG, WebP, GIF |
-| Guild Splash           | splashes/[guild_id](#DOCS_RESOURCES_GUILD/guild-object)/[guild_splash](#DOCS_RESOURCES_GUILD/guild-object).png                                                                                                                                                    | PNG, JPEG, WebP      |
-| Guild Discovery Splash | discovery-splashes/[guild_id](#DOCS_RESOURCES_GUILD/guild-object)/[guild_discovery_splash](#DOCS_RESOURCES_GUILD/guild-object).png                                                                                                                                | PNG, JPEG, WebP      |
-| Guild Banner           | banners/[guild_id](#DOCS_RESOURCES_GUILD/guild-object)/[guild_banner](#DOCS_RESOURCES_GUILD/guild-object).png                                                                                                                                                     | PNG, JPEG, WebP      |
-| User Banner            | banners/[user_id](#DOCS_RESOURCES_USER/user-object)/[user_banner](#DOCS_RESOURCES_USER/user-object).png \*                                                                                                                                                        | PNG, JPEG, WebP, GIF |
-| Default User Avatar    | embed/avatars/[user_discriminator](#DOCS_RESOURCES_USER/user-object).png \*\* \*\*\*                                                                                                                                                                              | PNG                  |
-| User Avatar            | avatars/[user_id](#DOCS_RESOURCES_USER/user-object)/[user_avatar](#DOCS_RESOURCES_USER/user-object).png \*                                                                                                                                                        | PNG, JPEG, WebP, GIF |
-| Guild Member Avatar    | guilds/[guild_id](#DOCS_RESOURCES_GUILD/guild-object)/users/[user_id](#DOCS_RESOURCES_USER/user-object)/avatars/[member_avatar](#DOCS_RESOURCES_GUILD/guild-member-object).png \*                                                                                 | PNG, JPEG, WebP, GIF |
-| Application Icon       | app-icons/[application_id](#DOCS_RESOURCES_APPLICATION/application-object)/[icon](#DOCS_RESOURCES_APPLICATION/application-object).png                                                                                                                             | PNG, JPEG, WebP      |
-| Application Cover      | app-icons/[application_id](#DOCS_RESOURCES_APPLICATION/application-object)/[cover_image](#DOCS_RESOURCES_APPLICATION/application-object).png                                                                                                                      | PNG, JPEG, WebP      |
-| Application Asset      | app-assets/[application_id](#DOCS_RESOURCES_APPLICATION/application-object)/[asset_id](#DOCS_TOPICS_GATEWAY/activity-object-activity-assets).png                                                                                                                  | PNG, JPEG, WebP      |
-| Achievement Icon       | app-assets/[application_id](#DOCS_RESOURCES_APPLICATION/application-object)/achievements/[achievement_id](#DOCS_GAME_SDK_ACHIEVEMENTS/data-models-user-achievement-struct)/icons/[icon_hash](#DOCS_GAME_SDK_ACHIEVEMENTS/data-models-user-achievement-struct).png | PNG, JPEG, WebP      |
-| Sticker Pack Banner    | app-assets/710982414301790216/store/[sticker_pack_banner_asset_id](#DOCS_RESOURCES_STICKER/sticker-pack-object).png                                                                                                                                               | PNG, JPEG, WebP      |
-| Team Icon              | team-icons/[team_id](#DOCS_TOPICS_TEAMS/team-object)/[team_icon](#DOCS_TOPICS_TEAMS/team-object).png                                                                                                                                                              | PNG, JPEG, WebP      |
-| Sticker                | stickers/[sticker_id](#DOCS_RESOURCES_STICKER/sticker-object).png \*\*\* \*\*\*\*                                                                                                                                                                                 | PNG, Lottie          |
-| Role Icon              | role-icons/[role_id](#DOCS_TOPICS_PERMISSIONS/role-object)/[role_icon](#DOCS_TOPICS_PERMISSIONS/role-object).png \*                                                                                                                                               | PNG, JPEG, WebP      |
+| Type                        | Path                                                                                                                                                                                                                                                              | Supports             |
+| --------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------- |
+| Custom Emoji                | emojis/[emoji_id](#DOCS_RESOURCES_EMOJI/emoji-object).png                                                                                                                                                                                                         | PNG, JPEG, WebP, GIF |
+| Guild Icon                  | icons/[guild_id](#DOCS_RESOURCES_GUILD/guild-object)/[guild_icon](#DOCS_RESOURCES_GUILD/guild-object).png \*                                                                                                                                                      | PNG, JPEG, WebP, GIF |
+| Guild Splash                | splashes/[guild_id](#DOCS_RESOURCES_GUILD/guild-object)/[guild_splash](#DOCS_RESOURCES_GUILD/guild-object).png                                                                                                                                                    | PNG, JPEG, WebP      |
+| Guild Discovery Splash      | discovery-splashes/[guild_id](#DOCS_RESOURCES_GUILD/guild-object)/[guild_discovery_splash](#DOCS_RESOURCES_GUILD/guild-object).png                                                                                                                                | PNG, JPEG, WebP      |
+| Guild Banner                | banners/[guild_id](#DOCS_RESOURCES_GUILD/guild-object)/[guild_banner](#DOCS_RESOURCES_GUILD/guild-object).png                                                                                                                                                     | PNG, JPEG, WebP      |
+| User Banner                 | banners/[user_id](#DOCS_RESOURCES_USER/user-object)/[user_banner](#DOCS_RESOURCES_USER/user-object).png \*                                                                                                                                                        | PNG, JPEG, WebP, GIF |
+| Default User Avatar         | embed/avatars/[user_discriminator](#DOCS_RESOURCES_USER/user-object).png \*\* \*\*\*                                                                                                                                                                              | PNG                  |
+| User Avatar                 | avatars/[user_id](#DOCS_RESOURCES_USER/user-object)/[user_avatar](#DOCS_RESOURCES_USER/user-object).png \*                                                                                                                                                        | PNG, JPEG, WebP, GIF |
+| Guild Member Avatar         | guilds/[guild_id](#DOCS_RESOURCES_GUILD/guild-object)/users/[user_id](#DOCS_RESOURCES_USER/user-object)/avatars/[member_avatar](#DOCS_RESOURCES_GUILD/guild-member-object).png \*                                                                                 | PNG, JPEG, WebP, GIF |
+| Application Icon            | app-icons/[application_id](#DOCS_RESOURCES_APPLICATION/application-object)/[icon](#DOCS_RESOURCES_APPLICATION/application-object).png                                                                                                                             | PNG, JPEG, WebP      |
+| Application Cover           | app-icons/[application_id](#DOCS_RESOURCES_APPLICATION/application-object)/[cover_image](#DOCS_RESOURCES_APPLICATION/application-object).png                                                                                                                      | PNG, JPEG, WebP      |
+| Application Asset           | app-assets/[application_id](#DOCS_RESOURCES_APPLICATION/application-object)/[asset_id](#DOCS_TOPICS_GATEWAY/activity-object-activity-assets).png                                                                                                                  | PNG, JPEG, WebP      |
+| Achievement Icon            | app-assets/[application_id](#DOCS_RESOURCES_APPLICATION/application-object)/achievements/[achievement_id](#DOCS_GAME_SDK_ACHIEVEMENTS/data-models-user-achievement-struct)/icons/[icon_hash](#DOCS_GAME_SDK_ACHIEVEMENTS/data-models-user-achievement-struct).png | PNG, JPEG, WebP      |
+| Sticker Pack Banner         | app-assets/710982414301790216/store/[sticker_pack_banner_asset_id](#DOCS_RESOURCES_STICKER/sticker-pack-object).png                                                                                                                                               | PNG, JPEG, WebP      |
+| Team Icon                   | team-icons/[team_id](#DOCS_TOPICS_TEAMS/data-models-team-object)/[team_icon](#DOCS_TOPICS_TEAMS/data-models-team-object).png                                                                                                                                      | PNG, JPEG, WebP      |
+| Sticker                     | stickers/[sticker_id](#DOCS_RESOURCES_STICKER/sticker-object).png \*\*\* \*\*\*\*                                                                                                                                                                                 | PNG, Lottie          |
+| Role Icon                   | role-icons/[role_id](#DOCS_TOPICS_PERMISSIONS/role-object)/[role_icon](#DOCS_TOPICS_PERMISSIONS/role-object).png \*                                                                                                                                               | PNG, JPEG, WebP      |
+| Guild Scheduled Event Cover | guild-events/[scheduled_event_id](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object)/[scheduled_event_cover_image](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object).png                                                       | PNG, JPEG, WebP      |
 
 \* In the case of endpoints that support GIFs, the hash will begin with `a_` if it is available in GIF format. (example: `a_1269e74af4df7417b13759eae50c83dc`)
 
@@ -338,3 +339,138 @@ data:image/jpeg;base64,BASE64_ENCODED_JPEG_IMAGE_DATA
 ```
 
 Ensure you use the proper content type (`image/jpeg`, `image/png`, `image/gif`) that matches the image data being provided.
+
+## Uploading Files
+
+Some endpoints support file attachments, indicated by the `files[n]` parameter. To add a file to the request, the standard `application/json` body must be replaced by a `multipart/form-data` body. The otherwise json body can instead be provided using a special `payload_json` parameter in addition to a number of `files[n]` parameters.
+
+All `files[n]` parameters must include a valid `Content-Disposition` subpart header with a `filename` and unique `name` parameter. Each file parameter must be uniquely named in the format `files[n]` such as `files[0]`, `files[1]`, or `files[42]`. The suffixed index `n` is the *snowflake placeholder* for the `attachments` json parameter that is supplied in `payload_json` (or [Callback Data Payloads](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-response-object-interaction-callback-data-structure)).
+
+The file upload limit applies to the entire request, not individual files in a request. This limit depends on the **Boost Tier** of a Guild and is 8 MiB by default.
+
+Images can also be referenced in embeds using the `attachment://filename` URL. The `filename` for these URLs must be ASCII alphanumeric with underscores, dashes, or dots. An example payload is provided below.
+
+### Editing Message Attachments
+
+All files added to a request, as described above, will be appended to the message in a `PATCH` request. The `attachments` json parameter has a special behavior for edit, as it is used for both removing attachments from the message as well as adding descriptions for new attachments added by the request.
+
+The `attachments` json parameter lists all files that should be attached to the message after the edit, including all new files added and the respective snowflake placeholders. To remove attachments, simply exclude them from this list.
+
+###### Example Request Bodies (multipart/form-data)
+
+Note that these examples are small sections of an HTTP request to demonstrate behaviour of this endpoint - client libraries will set their own form boundaries, `boundary` is just an example. For more information, refer to the [multipart/form-data spec](https://tools.ietf.org/html/rfc7578#section-4).
+
+This example demonstrates usage of the endpoint *without* `payload_json`.
+
+```
+--boundary
+Content-Disposition: form-data; name="content"
+
+Hello, World!
+--boundary
+Content-Disposition: form-data; name="tts"
+
+true
+--boundary--
+```
+
+This example demonstrates usage of the endpoint *with* `payload_json` and all content fields (`content`, `embeds`, `files[n]`) set.
+
+```
+--boundary
+Content-Disposition: form-data; name="payload_json"
+Content-Type: application/json
+
+{
+  "content": "Hello, World!",
+  "embeds": [{
+    "title": "Hello, Embed!",
+    "description": "This is an embedded message.",
+    "thumbnail": {
+      "url": "attachment://myfilename.png"
+    },
+    "image": {
+      "url": "attachment://mygif.gif"
+    }
+  }],
+  "message_reference": {
+    "message_id": "233648473390448641"
+  },
+  "attachments": [{
+      "id": 0,
+      "description": "Image of a cute little cat",
+      "filename": "file.png"
+  }, {
+      "id": 1,
+      "description": "Rickroll gif",
+      "filename": "mygif.gif"
+  }]
+}
+--boundary
+Content-Disposition: form-data; name="files[0]"; filename="file.png"
+Content-Type: image/png
+
+[image bytes]
+--boundary
+Content-Disposition: form-data; name="files[1]"; filename="mygif.gif"
+Content-Type: image/gif
+
+[image bytes]
+--boundary--
+```
+
+###### Using Attachments within Embeds
+
+You can upload attachments when creating a message and use those attachments within your embed. To do this, you will want to upload files as part of your `multipart/form-data` body. Make sure that you're uploading files that contain a filename, as you will need a filename to reference against.
+
+> warn
+> Only filenames with proper image extensions are supported for the time being.
+
+In the embed object, you can then set an image to use an attachment as its url with our attachment scheme syntax: `attachment://filename.png`
+
+For example:
+
+```json
+{
+  "embeds": [{
+    "image": {
+      "url": "attachment://screenshot.png"
+    }
+  }]
+}
+```
+
+## Locales
+
+| Locale | Language Name           |
+| ------ | ----------------------- |
+| en-US  | English (United States) |
+| en-GB  | English (Great Britain) |
+| bg     | Bulgarian               |
+| zh-CN  | Chinese (China)         |
+| zh-TW  | Chinese (Taiwan)        |
+| hr     | Croatian                |
+| cs     | Czech                   |
+| da     | Danish                  |
+| nl     | Dutch                   |
+| fi     | Finnish                 |
+| fr     | French                  |
+| de     | German                  |
+| el     | Greek                   |
+| hi     | Hindi                   |
+| hu     | Hungarian               |
+| it     | Italian                 |
+| ja     | Japanese                |
+| ko     | Korean                  |
+| lt     | Lithuanian              |
+| no     | Norwegian               |
+| pl     | Polish                  |
+| pt-BR  | Portuguese (Brazil)     |
+| ro     | Romanian                |
+| ru     | Russian                 |
+| es-ES  | Spanish (Spain)         |
+| sv-SE  | Swedish                 |
+| th     | Thai                    |
+| tr     | Turkish                 |
+| uk     | Ukrainian               |
+| vi     | Vietnamese              |

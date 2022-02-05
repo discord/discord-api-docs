@@ -1,17 +1,47 @@
 # Change Log
 
+## Guild Member Timeouts
+
+#### Dec 20, 2021
+
+Add new documentation for the recently released guild member timeout feature.
+
+## Guild Scheduled Events
+
+#### Nov 23, 2021
+
+- Add official support for `guild_scheduled_events` field on `Guild` resource sent with `GUILD_CREATE` event
+
+#### Nov 18, 2021
+
+- Breaking change for return type for `GET /guilds/{guild.id}/scheduled-events/{guild_scheduled_event.id}/users`
+- Add `with_user_count` query param for `GET /guilds/{guild.id}/scheduled-events/{guild_scheduled_event.id}`
+- Return additional `creator` field by default in response for `GET /guilds/{guild.id}/scheduled-events/{guild_scheduled_event.id}`
+- More details and clarification for the guild scheduled events feature.
+- Document support for `before` and `after` query params for `GET /guilds/{guild.id}/scheduled-events/{guild_scheduled_event.id}/users`
+
+#### Nov 15, 2021
+
+Add new documentation for the recently released Guild Scheduled Events feature.
+
+## Application Command Autocomplete Interactions
+
+#### October 27, 2021
+
+Autocomplete interactions are now available, allowing application commands to provide server completed options. Check out [the autocomplete interaction docs](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/autocomplete) for more information.
+
 ## Updated Thread Permissions
 
 #### September 16, 2021
 
 Thread permissions have been updated and simplified:
 
-- "Use Public Threads" is now "Create Public Threads", which allows users to create threads in a channel, even if they cannot send messages in that channel.
-- "Use Private Threads" is now "Create Private Threads", which allows users to create threads in a channel, even if they cannot send messages in that channel.
+- "Use Public Threads" is now "Create Public Threads", which allows users to create public threads and announcement threads in a channel, even if they cannot send messages in that channel.
+- "Use Private Threads" is now "Create Private Threads", which allows users to create private threads in a channel, even if they cannot send messages in that channel.
 
 A new permission has also been added:
 
-- "Send Messages in Threads", which allows users to send a message in a thread. The "Send Messages" permission has no effect in threads: users **must** have "Send Messages in Threads" to send a message in a thread. This allows for setups where a user can participate in a thread, but cannot send a message in the parent channel (like a thread on an announcement post).
+- "Send Messages in Threads", which allows users to send a message in a thread. The "Send Messages" permission has no effect in threads: users **must** have "Send Messages in Threads" to send a message in a thread. This allows for setups where a user can participate in a thread but cannot send a message in the parent channel (like a thread on an announcement post).
 
 ## User and Message Commands
 
@@ -71,9 +101,9 @@ You can enable or disable a command (guild or global) for a specific user or rol
 
 New routes have been added to support this functionality:
 
-- [`GET Guild Application Command Permissions`](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/getguildapplicationcommandpermissions)
-- [`GET Application Command Permissions`](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/getapplicationcommandpermissions)
-- [`PUT Application Command Permissions`](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/putapplicationcommandpermissions)
+- [`GET Guild Application Command Permissions`](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/get-guild-application-command-permissions)
+- [`GET Application Command Permissions`](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/get-application-command-permissions)
+- [`PUT Application Command Permissions`](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/batch-edit-application-command-permissions)
 
 A `default_permission` field has also been added to the [ApplicationCommand](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-structure) model. This field allows you to disable commands for everyone in a guild by default, if you prefer to make some of your commands an opt-in experience.
 
@@ -268,7 +298,7 @@ Fixed a bug from the 2.5.5 release that caused network handshakes to fail, resul
 
 #### November 14, 2019
 
-We've shipped some updates to the GameSDK, including support for Linux as well as the IL2CPP backend system for Unity. These changes also fixed a bug in the [`SetUserAchievement()`](#DOCS_GAME_SDK_ACHIEVEMENTS/set-user-achievement) method.
+We've shipped some updates to the GameSDK, including support for Linux as well as the IL2CPP backend system for Unity. These changes also fixed a bug in the [`SetUserAchievement()`](#DOCS_GAME_SDK_ACHIEVEMENTS/setuserachievement) method.
 
 Get the latest at the top of the [Getting Started](#DOCS_GAME_SDK_SDK_STARTER_GUIDE/step-1-get-the-thing) documentation. If you're looking for help interacting with the GameSDK or want to report a bug, join us on the [official Discord](https://discord.gg/discord-developers).
 
@@ -282,7 +312,7 @@ News Channels are now changed to [Announcement Channels](#DOCS_GAME_AND_SERVER_M
 
 #### August 12, 2019
 
-You can now get more precise rate limit reset times, via a new request header. Check out the [rate limits](#DOCS_TOPICS_RATE_LIMITS/more-precise-rate-limit-resets) documentation for more information.
+You can now get more precise rate limit reset times, via a new request header. Check out the [rate limits](#DOCS_TOPICS_RATE_LIMITS/) documentation for more information.
 
 ## Bot Tokens for Achievements
 
@@ -294,7 +324,7 @@ You can now use Bot tokens for authorization headers against the HTTP API for [A
 
 #### June 19, 2019
 
-Additional information around Teams has been added to both the API and the documentation. The [Teams](#DOCS_TOPICS_TEAMS/api-stuff) page now includes information about the team and team member objects. Additionally, the [Get Current Application Information](#DOCS_TOPICS_OAUTH2/get-current-application-information) endpoint now returns a `team` object if that application belongs to a team. That documentation has also been updated to includes fields that were missing for applications that are games sold on Discord.
+Additional information around Teams has been added to both the API and the documentation. The [Teams](#DOCS_TOPICS_TEAMS/teams) page now includes information about the team and team member objects. Additionally, the [Get Current Application Information](#DOCS_TOPICS_OAUTH2/get-current-bot-application-information) endpoint now returns a `team` object if that application belongs to a team. That documentation has also been updated to includes fields that were missing for applications that are games sold on Discord.
 
 ## Added Info Around Nitro Boosting Experiment
 
@@ -362,7 +392,7 @@ The [Get Guild Emoji](#DOCS_RESOURCES_EMOJI/get-guild-emoji) response now also i
 
 #### January 23, 2018
 
-The [Accept Invite](#DOCS_RESOURCES_INVITE/accept-invite) endpoint is deprecated starting today, and will be discontinued on March 23, 2018. The [Add Guild Member](#DOCS_RESOURCES_GUILD/add-guild-member) endpoint should be used in its place.
+The [Accept Invite](#DOCS_RESOURCES_INVITE/) endpoint is deprecated starting today, and will be discontinued on March 23, 2018. The [Add Guild Member](#DOCS_RESOURCES_GUILD/add-guild-member) endpoint should be used in its place.
 
 ## Semi-Breaking Change: Very Large Bot Sharding
 
@@ -386,7 +416,7 @@ For more information, check out our [Rich Presence site](https://discord.com/ric
 
 #### October 16, 2017
 
-[API](#DOCS_REFERENCE/api-versioning) and [Gateway](#DOCS_TOPICS_GATEWAY/gateway-protocol-versions) versions below v6 are now discontinued after being previously deprecated. Version 6 is now the default API and Gateway version. Attempting to use a version below 6 will result in an error.
+[API](#DOCS_REFERENCE/api-versioning) and [Gateway](#DOCS_TOPICS_GATEWAY/gateways-gateway-versions) versions below v6 are now discontinued after being previously deprecated. Version 6 is now the default API and Gateway version. Attempting to use a version below 6 will result in an error.
 
 ## New Feature: Channel Categories
 
@@ -404,7 +434,7 @@ Changes have been made throughout the documentation to reflect the addition of c
 
 #### August 16, 2017
 
-The `type` field in the [activity object](#DOCS_TOPICS_GATEWAY/activity-object) for [Gateway Status Update](#DOCS_TOPICS_GATEWAY/update-status) and [Presence Update](#DOCS_TOPICS_GATEWAY/presence-update) payloads is no longer optional when the activity object is not null.
+The `type` field in the [activity object](#DOCS_TOPICS_GATEWAY/activity-object) for [Gateway Status Update](#DOCS_TOPICS_GATEWAY/update-presence) and [Presence Update](#DOCS_TOPICS_GATEWAY/presence-update) payloads is no longer optional when the activity object is not null.
 
 ## Breaking Change: Default Channels
 
@@ -420,7 +450,7 @@ We are also rolling out a change in conjunction that will allow Discord to remem
 
 #### July 24, 2017
 
-Audit logs are here! Well, they've been here all along, but now we've got [documentation](#DOCS_AUDIT_LOG/audit-logs) about them. Check it out, but remember: with great power comes great responsibility.
+Audit logs are here! Well, they've been here all along, but now we've got [documentation](#DOCS_RESOURCES_AUDIT_LOG/) about them. Check it out, but remember: with great power comes great responsibility.
 
 ## Breaking Change: Version 6
 
@@ -432,5 +462,5 @@ Audit logs are here! Well, they've been here all along, but now we've got [docum
   - `recipient` is now `recipients`, an array of [user](#DOCS_RESOURCES_USER/user-object) objects
 - [Message](#DOCS_RESOURCES_CHANNEL/message-object) Object
   - [`type`](#DOCS_RESOURCES_CHANNEL/message-object-message-types) added to support system messages
-- [Status Update](#DOCS_TOPICS_GATEWAY/update-status-gateway-status-update-structure) Object
+- [Status Update](#DOCS_TOPICS_GATEWAY/update-presence-gateway-presence-update-structure) Object
   - `idle_since` renamed to `since`

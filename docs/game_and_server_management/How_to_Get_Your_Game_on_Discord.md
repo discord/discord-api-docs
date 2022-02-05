@@ -1,7 +1,7 @@
 # How to Get Your Game on Discord
 
-> warn
-> Game approval submissions are currently paused due to unforeseen circumstances. We apologize for the inconvenience. [Click here for more info.](https://support-dev.discord.com/hc/en-us/articles/360041437171)
+> danger
+> Selling SKUs on Discord is now deprecated, and will be discontinued on March 1, 2022. [Read here for more info.](https://support-dev.discord.com/hc/en-us/articles/4414590563479)
 
 Welcome, adventurer! If you're here, you want to find out how to get your game up and running on Discord and learn about our awesome Server Commerce features. You've come to the right place, so let's get started.
 
@@ -103,7 +103,7 @@ Your game is off and running, and we couldn't be more proud. As it flourishes an
 
 ## What Comes Next
 
-Your game's success is in your own hands now. Continue to build your community and keep them informed with updates. Consider integrating more deeply with Discord to deliver cool features to your players; we recommend [Rich Presence Game Invites](#DOCS_GAME_SDK_ACTIVITIES/). They feel like magic. Drop new content by creating DLC and IAP for your game, run fun tournaments based on [HypeSquad Membership](#DOCS_GAME_SDK_USERS/current-user-has-flag), give something cool to [Discord Nitro Subscribers](#DOCS_GAME_SDK_USERS/get-current-user-premium-status) because they're awesome. Or maybe, just maybe, think about your next upcoming game?
+Your game's success is in your own hands now. Continue to build your community and keep them informed with updates. Consider integrating more deeply with Discord to deliver cool features to your players; we recommend [Rich Presence Game Invites](#DOCS_GAME_SDK_ACTIVITIES/). They feel like magic. Drop new content by creating DLC and IAP for your game, run fun tournaments based on [HypeSquad Membership](#DOCS_GAME_SDK_USERS/currentuserhasflag), give something cool to [Discord Nitro Subscribers](#DOCS_GAME_SDK_USERS/getcurrentuserpremiumtype) because they're awesome. Or maybe, just maybe, think about your next upcoming game?
 
 We'd love to help you with that one, too.
 

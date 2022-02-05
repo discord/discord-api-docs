@@ -17,9 +17,9 @@ Many of these libraries are represented in the [unofficial, community-driven Dis
 | Name                                                         | Language   |
 | ------------------------------------------------------------ | ---------- |
 | [orca](https://github.com/cee-studio/orca)                   | C          |
-| [Remora.Discord](https://github.com/Nihlus/Remora.Discord)   | C#         |
-| [Discord.Net](https://github.com/RogueException/Discord.Net) | C#         |
+| [Discord.Net](https://github.com/discord-net/Discord.Net)    | C#         |
 | [DSharpPlus](https://github.com/DSharpPlus/DSharpPlus)       | C#         |
+| [Remora.Discord](https://github.com/Nihlus/Remora.Discord)   | C#         |
 | [aegis.cpp](https://github.com/zeroxs/aegis.cpp)             | C++        |
 | [D++](https://github.com/brainboxdotcc/DPP)                  | C++        |
 | [Discord++](https://github.com/DiscordPP/discordpp)          | C++        |
@@ -46,7 +46,10 @@ Many of these libraries are represented in the [unofficial, community-driven Dis
 | [RestCord](https://www.restcord.com/)                        | PHP        |
 | [discord.py](https://github.com/Rapptz/discord.py)           | Python     |
 | [disco](https://github.com/b1naryth1ef/disco)                | Python     |
+| [disnake](https://github.com/DisnakeDev/disnake)             | Python     |
 | [hikari](https://github.com/hikari-py/hikari)                | Python     |
+| [nextcord](https://github.com/nextcord/nextcord)             | Python     |
+| [pycord](https://github.com/Pycord-Development/pycord)       | Python     |
 | [discorb](https://github.com/discorb-lib/discorb)            | Ruby       |
 | [discordrb](https://github.com/shardlab/discordrb)           | Ruby       |
 | [discord-rs](https://github.com/SpaceManiac/discord-rs)      | Rust       |
