@@ -28,6 +28,11 @@ The top-level `components` field is an array of [Action Row](#DOCS_INTERACTIONS_
 | min_values?  | integer                                                                                                     | the minimum number of items that must be chosen; default 1, min 0, max 25                 | [Select Menus](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/select-menus)                                                           |
 | max_values?  | integer                                                                                                     | the maximum number of items that can be chosen; default 1, max 25                         | [Select Menus](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/select-menus)                                                           |
 | components?  | array of [components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-object)                               | a list of child components                                                                | [Action Rows](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/action-rows)                                                             |
+| label?       | string                                                                                                      | the label for this component                                                              | [Text Inputs](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/text-inputs)                                                             |
+| min_length?  | integer                                                                                                     | the minimum input length for a text input                                                 | [Text Inputs](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/text-inputs)                                                             |
+| max_length?  | integer                                                                                                     | the maximum input length for a text input                                                 | [Text Inputs](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/text-inputs)                                                             |
+| required?    | boolean                                                                                                     | whether this component is required to be filled                                           | [Text Inputs](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/text-inputs)                                                             |
+| value?       | string                                                                                                      | a pre-filled value for this component                                                     | [Text Inputs](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/text-inputs)                                                             |
 
 ###### Component Types
 
@@ -418,3 +423,50 @@ Select menus support single-select and multi-select behavior, meaning you can pr
     "version": 1
 }
 ```
+
+## Text Inputs
+
+Text inputs are an interactive component that render on modals. They can be used to collect short-form or long-form text.
+
+###### Text Input Example
+
+```json
+// this is a modal
+{
+  "title": "My Cool Modal",
+  "custom_id": "cool_modal",
+  "components": [{
+    "type": 1,
+    "components": [{
+      "type": 4,
+      "custom_id": "name",
+      "label": "Name",
+      "style": 1,
+      "min_length": 1,
+      "max_length": 4000,
+      "placeholder": "John",
+      "required": true
+    }]
+  }]
+}
+```
+
+###### Text Input Structure
+
+| Field        | Type                                                                                                        | Description                                                      |
+| ------------ | ----------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------- |
+| type         | integer                                                                                                     | `4` for a text input                                             |
+| custom_id    | string                                                                                                      | a developer-defined identifier for the input, max 100 characters |
+| style        | [Text Input Style](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/text-input-styles)                                 | the style of this input                                          |
+| label?       | string                                                                                                      | the label for this component                                     |
+| min_length?  | integer                                                                                                     | the minimum input length for a text input                        |
+| max_length?  | integer                                                                                                     | the maximum input length for a text input                        |
+| required?    | boolean                                                                                                     | whether this component is required to be filled                  |
+| value?       | string                                                                                                      | a pre-filled value for this component                            |
+
+###### Text Input Styles
+
+| Name      | Value | Description         |
+| --------- | ----- | ------------------- |
+| Short     | 1     | A single-line input |
+| Paragraph | 2     | A multi-line input  |
