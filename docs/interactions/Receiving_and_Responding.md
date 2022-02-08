@@ -211,7 +211,7 @@ Not all message fields are currently supported.
 | ---------- | ------------------------------------------------------------- | --------------------------------------------------------------------------- |
 | custom_id  | string                                                        | a developer-defined identifier for the component, max 100 characters        |
 | title      | string                                                        | the title of the popup modal                                                |
-| components | array of [components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/) | the components that make up the modal                                       |
+| components | array of [components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/) | between 1 and 5 (inclusive) components that make up the modal               |
 
 > warn
 > While interaction responses and followups are webhooks, they respect @everyone's ability to ping @everyone / @here . Nonetheless if your application responds with user data, you should still use [`allowed_mentions`](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object) to filter which mentions in the content actually ping. Other differences include the ability to send named links in the message content (`[text](url)`).
