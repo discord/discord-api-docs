@@ -1,5 +1,11 @@
 # Change Log
 
+## Interaction Modals
+
+#### Feb 8, 2022
+
+Interaction modals are now available, allowing applications to prompt users for further detailed input. Check out [the modal docs](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-response-object-modal) for more information.
+
 ## Guild Member Timeouts
 
 #### Dec 20, 2021

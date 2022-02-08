@@ -155,8 +155,10 @@ for (const [name, raw] of docFiles) {
 
 			if (!anchor) continue;
 			if (!validLinks.get(page)!.includes(anchor)) {
+				const suggestions = validLinks.get(page)!.filter((a) => a.includes(anchor));
+				const suggestionText = suggestions.length > 0 ? ` Did you mean one of (${suggestions.join(", ")})?` : "";
 				ownResults.push({
-					title: `Anchor ${chalk.cyan(anchor)} does not exist on ${chalk.blueBright(page)}`,
+					title: `Anchor ${chalk.cyan(anchor)} does not exist on ${chalk.blueBright(page)}${suggestionText}`,
 					startLine: lineNum + 1,
 					startColumn: match.index,
 					endColumn: (match.index ?? 0) + match[0].length,
