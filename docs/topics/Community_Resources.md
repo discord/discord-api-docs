@@ -49,7 +49,6 @@ Many of these libraries are represented in the [unofficial, community-driven Dis
 | [disnake](https://github.com/DisnakeDev/disnake)             | Python     |
 | [hikari](https://github.com/hikari-py/hikari)                | Python     |
 | [nextcord](https://github.com/nextcord/nextcord)             | Python     |
-| [pycord](https://github.com/Pycord-Development/pycord)       | Python     |
 | [discordrb](https://github.com/shardlab/discordrb)           | Ruby       |
 | [discord-rs](https://github.com/SpaceManiac/discord-rs)      | Rust       |
 | [Serenity](https://github.com/serenity-rs/serenity)          | Rust       |
