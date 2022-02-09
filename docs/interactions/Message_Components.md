@@ -41,6 +41,7 @@ The top-level `components` field is an array of [Action Row](#DOCS_INTERACTIONS_
 | 1    | Action Row  | A container for other components       |
 | 2    | Button      | A button object                        |
 | 3    | Select Menu | A select menu for picking from choices |
+| 4    | Text Input  | A text input object                    |
 
 ###### Example Component
 
