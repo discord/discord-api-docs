@@ -28,6 +28,18 @@ Represents a code that when used, adds a user to a guild or group DM channel.
 | STREAM               | 1     |
 | EMBEDDED_APPLICATION | 2     |
 
+###### Invite Target Applications
+
+| Activity             | id                     |        
+|----------------------|------------------------|        
+| Poker Night          | 755827207812677713     |        
+| Chess In The Park    | 832012774040141894     |        
+| Checkers In The Park | 832013003968348200     |
+| Ocho                 | 832025144389533716     |
+| SpellCast            | 852509694341283871     |
+| Letter League        | 879863686565621790     |
+| Sketch Heads         | 902271654783242291     |
+
 ###### Example Invite Object
 
 ```json
