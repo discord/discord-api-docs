@@ -458,7 +458,7 @@ Text inputs are an interactive component that render on modals. They can be used
 | type         | integer | `4` for a text input                                                                        |
 | custom_id    | string  | a developer-defined identifier for the input, max 100 characters                            |
 | style        | integer | the [Text Input Style](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/text-inputs-text-input-styles) |
-| label?       | string  | the label for this component                                                                |
+| label        | string  | the label for this component                                                                |
 | min_length?  | integer | the minimum input length for a text input, min 0, max 4000                                  |
 | max_length?  | integer | the maximum input length for a text input, min 1, max 4000                                  |
 | required?    | boolean | whether this component is required to be filled, default false                              |
