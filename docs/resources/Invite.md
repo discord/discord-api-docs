@@ -94,7 +94,10 @@ Extra information about an invite, will extend the [invite](#DOCS_RESOURCES_INVI
 }
 ```
 
-### Invite Stage Instance Object (deprecated)
+### Invite Stage Instance Object
+
+> warn
+> This is deprecated.
 
 ###### Invite Stage Instance Structure
 
