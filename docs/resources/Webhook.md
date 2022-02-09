@@ -268,7 +268,7 @@ Any provided files will be **appended** to the message. To remove or replace fil
 
 \*\* See [Uploading Files](#DOCS_REFERENCE/uploading-files) for details.
 
-# Delete Webhook Message % DELETE /webhooks/{webhook.id#DOCS_RESOURCES_WEBHOOK/webhook-object}/{webhook.token#DOCS_RESOURCES_WEBHOOK/webhook-object}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}
+## Delete Webhook Message % DELETE /webhooks/{webhook.id#DOCS_RESOURCES_WEBHOOK/webhook-object}/{webhook.token#DOCS_RESOURCES_WEBHOOK/webhook-object}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}
 
 Deletes a message that was created by the webhook. Returns a `204 No Content` response on success.
 
