@@ -193,6 +193,7 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 40032  | Target user is not connected to voice                                                                                         |
 | 40033  | This message has already been crossposted                                                                                     |
 | 40041  | An application command with that name already exists                                                                          |
+| 40060  | Interaction has already been acknowledged                                                                                     |
 | 50001  | Missing access                                                                                                                |
 | 50002  | Invalid account type                                                                                                          |
 | 50003  | Cannot execute action on a DM channel                                                                                         |
