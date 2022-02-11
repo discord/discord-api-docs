@@ -907,10 +907,10 @@ Create a guild ban, and optionally delete previous messages sent by the banned u
 
 ###### JSON Params
 
-| Field                | Type    | Description                                 |
-| -------------------- | ------- | ------------------------------------------- |
-| delete_message_days? | integer | number of days to delete messages for (0-7) |
-| reason?              | string  | reason for the ban (deprecated)             |
+| Field                | Type    | Description                                 | Default |
+| -------------------- | ------- | ------------------------------------------- | ------- |
+| delete_message_days? | integer | number of days to delete messages for (0-7) | 0       |
+| reason?              | string  | reason for the ban (deprecated)             |         |
 
 ## Remove Guild Ban % DELETE /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/bans/{user.id#DOCS_RESOURCES_USER/user-object}
 
