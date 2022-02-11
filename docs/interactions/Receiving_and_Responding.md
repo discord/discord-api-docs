@@ -28,7 +28,7 @@ For [Message Components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/) it includes ide
 | locale?\*\*\*  | string                                                                                                        | the selected [language](#DOCS_REFERENCE/locales) of the invoking user                     |
 | guild_locale?  | string                                                                                                        | the [guild's preferred locale](#DOCS_RESOURCES_GUILD/guild-object), if invoked in a guild |
 
-\* This is always present on application command and message component interaction types. It is optional for future-proofing against new interaction types
+\* This is always present on application command, message component, and modal submit interaction types. It is optional for future-proofing against new interaction types
 
 \*\* `member` is sent when the interaction is invoked in a guild, and `user` is sent when invoked in a DM
 
