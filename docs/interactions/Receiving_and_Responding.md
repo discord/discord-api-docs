@@ -349,7 +349,7 @@ Edits the initial Interaction response. Functions the same as [Edit Webhook Mess
 
 ## Delete Original Interaction Response % DELETE /webhooks/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/{interaction.token#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object}/messages/@original
 
-Deletes the initial Interaction response. Returns `204 No Content` on success.
+Deletes the initial Interaction response. Returns `204 No Content` on success. Does not support ephemeral followups.
 
 ## Create Followup Message % POST /webhooks/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/{interaction.token#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object}
 
