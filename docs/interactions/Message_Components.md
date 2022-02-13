@@ -462,7 +462,7 @@ Text inputs are an interactive component that render on modals. They can be used
 | label        | string  | the label for this component                                                                |
 | min_length?  | integer | the minimum input length for a text input, min 0, max 4000                                  |
 | max_length?  | integer | the maximum input length for a text input, min 1, max 4000                                  |
-| required?    | boolean | whether this component is required to be filled, default false                              |
+| required?    | boolean | whether this component is required to be filled, default true                               |
 | value?       | string  | a pre-filled value for this component, max 4000 characters                                  |
 | placeholder? | string  | custom placeholder text if the input is empty, max 100 characters                           |
 
