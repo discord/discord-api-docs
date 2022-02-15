@@ -109,6 +109,8 @@ Global rate limit issues generally show up as repeatedly getting banned from the
 
 If you are experiencing repeated CloudFlare bans from the Discord API within normal operations of your bot, you can reach out to support to see if you qualify for increased global rate limits. You can contact Discord support using [https://dis.gd/contact](https://dis.gd/contact).
 
+[Interaction endpoints](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/endpoints) are not bound to the bot's Global Rate Limit.
+
 ## Invalid Request Limit aka CloudFlare bans
 
 IP addresses that make too many invalid HTTP requests are automatically and temporarily restricted from accessing the Discord API. Currently, this limit is **10,000 per 10 minutes**. An invalid request is one that results in **401**, **403**, or **429** statuses.	
