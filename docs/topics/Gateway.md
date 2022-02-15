@@ -909,7 +909,9 @@ This event can be sent in three different scenarios:
 2.  When a Guild becomes available again to the client.
 3.  When the current user joins a new Guild.
 
-The inner payload is a [guild](#DOCS_RESOURCES_GUILD/guild-object) object, with all the extra fields specified.
+The inner payload is a [guild](#DOCS_RESOURCES_GUILD/guild-object) object, with all the extra fields specified. For guilds that became available to the client either
+after an outage or from the [Ready](#DOCS_TOPICS_GATEWAY/ready) event, the `unavailable` field is set to `false`. If `unavailable` field is not included, the user has 
+joined a new guild.
 
 > warn
 > If your bot does not have the `GUILD_PRESENCES` [Gateway Intent](#DOCS_TOPICS_GATEWAY/gateway-intents), or if the guild has over 75k members, members and presences returned in this event will only contain your bot and users in voice channels.
