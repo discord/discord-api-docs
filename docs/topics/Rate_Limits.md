@@ -30,12 +30,12 @@ X-RateLimit-Bucket: abcd1234
 - **X-RateLimit-Reset** - Epoch time (seconds since 00:00:00 UTC on January 1, 1970) at which the rate limit resets
 - **X-RateLimit-Reset-After** - Total time (in seconds) of when the current rate limit bucket will reset. Can have decimals to match previous millisecond ratelimit precision
 - **X-RateLimit-Bucket** - A unique string denoting the rate limit being encountered (non-inclusive of major parameters in the route path)
-- **X-RateLimit-Global** - Returned only on HTTP 429 responses if the rate limit headers returned are of the global rate limit (not per-route)
+- **X-RateLimit-Global** - Returned only on HTTP 429 responses if the rate limit encountered is the global rate limit (not per-route)
 - **X-RateLimit-Scope** - Returned only on HTTP 429 responses. Value can be `user` (per user limit), `global` (per user global limit), or `shared` (per resource limit)
 
 ## Exceeding A Rate Limit
 
-In the case that a rate limit is exceeded, the API will return a HTTP 429 response code with a JSON body.
+In the case that a rate limit is exceeded, the API will return a HTTP 429 response code with a JSON body. Your application should rely on the `Retry-After` header or `retry_after` field to determine when to retry the request.
 
 ###### Rate Limit Response Structure
 
@@ -45,7 +45,7 @@ In the case that a rate limit is exceeded, the API will return a HTTP 429 respon
 | retry_after | float            | The number of seconds to wait before submitting another request. |
 | global      | boolean          | A value indicating if you are being globally rate limited or not |
 
-Note that the normal rate-limiting headers will be sent in this response. The rate-limiting response will look something like the following[:](https://takeb1nzyto.space/)
+Note that normal route rate-limiting headers will also be sent in this response. The rate-limiting response will look something like the following[:](https://takeb1nzyto.space/)
 
 ###### Example Exceeded User Rate Limit Response
 
@@ -72,7 +72,7 @@ Note that the normal rate-limiting headers will be sent in this response. The ra
 ```
 < HTTP/1.1 429 TOO MANY REQUESTS
 < Content-Type: application/json
-< Retry-After: 65
+< Retry-After: 1337
 < X-RateLimit-Limit: 10
 < X-RateLimit-Remaining: 9
 < X-RateLimit-Reset: 1470173023.123
@@ -81,7 +81,7 @@ Note that the normal rate-limiting headers will be sent in this response. The ra
 < X-RateLimit-Scope: shared
 {
   "message": "The resource is being rate limited.",
-  "retry_after": 64.57,
+  "retry_after": 1336.57,
   "global": false
 }
 ```
