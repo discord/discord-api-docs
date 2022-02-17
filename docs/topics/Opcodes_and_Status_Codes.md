@@ -143,6 +143,7 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 10060  | Unknown sticker                                                                                                               |
 | 10062  | Unknown interaction                                                                                                           |
 | 10063  | Unknown application command                                                                                                   |
+| 10065  | Unknown voice state                                                                                                           |
 | 10066  | Unknown application command permissions                                                                                       |
 | 10067  | Unknown Stage Instance                                                                                                        |
 | 10068  | Unknown Guild Member Verification Form                                                                                        |
