@@ -872,7 +872,7 @@ An autocomplete interaction **can return partial data** for option values. Your 
       {
         "type": 3,
         "name": "variant",
-        "value": "data a user is typ",
+        "value": "data a user is type",
         "focused": true
       }
     ]
