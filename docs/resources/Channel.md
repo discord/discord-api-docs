@@ -628,6 +628,24 @@ Embed types are "loosely defined" and, for the most part, are not used by our cl
 | value   | string  | value of the field                              |
 | inline? | boolean | whether or not this field should display inline |
 
+###### Embed Limits
+
+To facilitate showing rich content, rich embeds do not follow the traditional limits of message content. However, some limits are still in place to prevent excessively large embeds. The following table describes the limits:
+
+All of the following limits are measured inclusively. Leading and trailing whitespace characters are not included (they are trimmed automatically).
+
+| Field                                                                      | Limit                                                                                |
+|----------------------------------------------------------------------------|--------------------------------------------------------------------------------------|
+| title                                                                      | 256 characters                                                                       |
+| description                                                                | 4096 characters                                                                      |
+| fields                                                                     | Up to 25 [field](#DOCS_RESOURCES_CHANNEL/embed-object-embed-field-structure) objects |
+| [field.name](#DOCS_RESOURCES_CHANNEL/embed-object-embed-field-structure)   | 256 characters                                                                       |
+| [field.value](#DOCS_RESOURCES_CHANNEL/embed-object-embed-field-structure)  | 1024 characters                                                                      |
+| [footer.text](#DOCS_RESOURCES_CHANNEL/embed-object-embed-footer-structure) | 2048 characters                                                                      |
+| [author.name](#DOCS_RESOURCES_CHANNEL/embed-object-embed-author-structure) | 256 characters                                                                       |
+
+Additionally, the combined sum of characters in all `title`, `description`, `field.name`, `field.value`, `footer.text`, and `author.name` fields across all embeds attached to a message must not exceed 6000 characters. Violating any of these constraints will result in a `Bad Request` response.
+
 ### Attachment Object
 
 ###### Attachment Structure
@@ -761,26 +779,6 @@ user 125 in the content.
   }
 }
 ```
-
-## Embed Limits
-
-To facilitate showing rich content, rich embeds do not follow the traditional limits of message content. However, some limits are still in place to prevent excessively large embeds. The following table describes the limits:
-
-###### Limits
-
-All of the following limits are measured inclusively. Leading and trailing whitespace characters are not included (they are trimmed automatically).
-
-| Field                                                                      | Limit                                                                                |
-|----------------------------------------------------------------------------|--------------------------------------------------------------------------------------|
-| title                                                                      | 256 characters                                                                       |
-| description                                                                | 4096 characters                                                                      |
-| fields                                                                     | Up to 25 [field](#DOCS_RESOURCES_CHANNEL/embed-object-embed-field-structure) objects |
-| [field.name](#DOCS_RESOURCES_CHANNEL/embed-object-embed-field-structure)   | 256 characters                                                                       |
-| [field.value](#DOCS_RESOURCES_CHANNEL/embed-object-embed-field-structure)  | 1024 characters                                                                      |
-| [footer.text](#DOCS_RESOURCES_CHANNEL/embed-object-embed-footer-structure) | 2048 characters                                                                      |
-| [author.name](#DOCS_RESOURCES_CHANNEL/embed-object-embed-author-structure) | 256 characters                                                                       |
-
-Additionally, the combined sum of characters in all `title`, `description`, `field.name`, `field.value`, `footer.text`, and `author.name` fields across all embeds attached to a message must not exceed 6000 characters. Violating any of these constraints will result in a `Bad Request` response.
 
 ## Get Channel % GET /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}
 
