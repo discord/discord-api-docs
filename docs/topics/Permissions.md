@@ -186,7 +186,7 @@ Roles represent a set of permissions attached to a group of users. Roles have na
 | Field          | Type                                                                         | Description                                       |
 | -------------- | ---------------------------------------------------------------------------- | ------------------------------------------------- |
 | id             | snowflake                                                                    | role id                                           |
-| name           | string                                                                       | role name                                         |
+| name           | string                                                                       | role name (1-100 characters)                      |
 | color          | integer                                                                      | integer representation of hexadecimal color code  |
 | hoist          | boolean                                                                      | if this role is pinned in the user listing        |
 | icon?          | ?string                                                                      | role [icon hash](#DOCS_REFERENCE/image-formatting)|
