@@ -59,7 +59,7 @@ When a Stage channel has no speakers for a certain period of time (on the order 
 
 ## Create Stage Instance % POST /stage-instances
 
-Creates a new Stage instance associated to a Stage channel.
+Creates a new Stage instance associated to a Stage channel. Returns that [Stage instance](#DOCS_RESOURCES_STAGE_INSTANCE/stage-instance-object-stage-instance-structure).
 
 Requires the user to be a moderator of the Stage channel.
 
@@ -80,7 +80,7 @@ Gets the stage instance associated with the Stage channel, if it exists.
 
 ## Modify Stage Instance % PATCH /stage-instances/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}
 
-Updates fields of an existing Stage instance.
+Updates fields of an existing Stage instance. Returns the updated [Stage instance](#DOCS_RESOURCES_STAGE_INSTANCE/stage-instance-object-stage-instance-structure).
 
 Requires the user to be a moderator of the Stage channel.
 
@@ -96,7 +96,7 @@ Requires the user to be a moderator of the Stage channel.
 
 ## Delete Stage Instance % DELETE /stage-instances/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}
 
-Deletes the Stage instance.
+Deletes the Stage instance. Returns `204 No Content`.
 
 Requires the user to be a moderator of the Stage channel.
 
