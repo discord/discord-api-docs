@@ -1,0 +1,11 @@
+# automatically normalize line endings
+* text=auto
+
+.git* text
+*.json text
+*.js text
+*.md text linguist-detectable
+*.{yml,yaml} text
+
+*.png binary
+*.{jpeg,jpg} binary

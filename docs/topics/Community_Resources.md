@@ -16,14 +16,17 @@ Many of these libraries are represented in the [unofficial, community-driven Dis
 
 | Name                                                         | Language   |
 | ------------------------------------------------------------ | ---------- |
-| [discljord](https://github.com/igjoshua/discljord)           | Clojure    |
+| [orca](https://github.com/cee-studio/orca)                   | C          |
+| [Discord.Net](https://github.com/discord-net/Discord.Net)    | C#         |
+| [DSharpPlus](https://github.com/DSharpPlus/DSharpPlus)       | C#         |
+| [Remora.Discord](https://github.com/Nihlus/Remora.Discord)   | C#         |
 | [aegis.cpp](https://github.com/zeroxs/aegis.cpp)             | C++        |
 | [D++](https://github.com/brainboxdotcc/DPP)                  | C++        |
+| [Discord++](https://github.com/DiscordPP/discordpp)          | C++        |
 | [Sleepy Discord](https://github.com/yourWaifu/sleepy-discord)| C++        |
+| [discljord](https://github.com/igjoshua/discljord)           | Clojure    |
 | [discordcr](https://github.com/shardlab/discordcr)           | Crystal    |
-| [Remora.Discord](https://github.com/Nihlus/Remora.Discord)   | C#         |
-| [Discord.Net](https://github.com/RogueException/Discord.Net) | C#         |
-| [DSharpPlus](https://github.com/DSharpPlus/DSharpPlus)       | C#         |
+| [nyxx](https://github.com/l7ssha/Nyxx)                       | Dart       |
 | [coxir](https://github.com/satom99/coxir)                    | Elixir     |
 | [Nostrum](https://github.com/Kraigie/nostrum)                | Elixir     |
 | [DiscordGo](https://github.com/bwmarrin/discordgo)           | Go         |
@@ -36,12 +39,17 @@ Many of these libraries are represented in the [unofficial, community-driven Dis
 | [Eris](https://github.com/abalabahaha/eris)                  | JavaScript |
 | [Discord.jl](https://github.com/Xh4H/Discord.jl)             | Julia      |
 | [Discordia](https://github.com/SinisterRectus/Discordia)     | Lua        |
+| [lacord](https://github.com/Mehgugs/lacord)                  | Lua        |
 | [Dimscord](https://github.com/krisppurg/dimscord)            | Nim        |
 | [discordnim](https://github.com/Krognol/discordnim)          | Nim        |
 | [DiscordPHP](https://github.com/discord-php/DiscordPHP)      | PHP        |
 | [RestCord](https://www.restcord.com/)                        | PHP        |
 | [discord.py](https://github.com/Rapptz/discord.py)           | Python     |
 | [disco](https://github.com/b1naryth1ef/disco)                | Python     |
+| [disnake](https://github.com/DisnakeDev/disnake)             | Python     |
+| [hikari](https://github.com/hikari-py/hikari)                | Python     |
+| [nextcord](https://github.com/nextcord/nextcord)             | Python     |
+| [pycord](https://github.com/Pycord-Development/pycord)       | Python     |
 | [discordrb](https://github.com/shardlab/discordrb)           | Ruby       |
 | [discord-rs](https://github.com/SpaceManiac/discord-rs)      | Rust       |
 | [Serenity](https://github.com/serenity-rs/serenity)          | Rust       |
@@ -55,10 +63,12 @@ Many of these libraries are represented in the [unofficial, community-driven Dis
 
 ## Interactions
 
-[Interactions and Slash Commands](#DOCS_INTERACTIONS_SLASH_COMMANDS/) are the great, new way of making a Discord bot. The following open-source libraries provide help for the security and authentication checks that are mandatory if you are receiving Interactions via outgoing webhook. They also include some types for the Interactions data models.
+[Interactions](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/) are the great, new way of making a Discord bot. The following open-source libraries provide help for the security and authentication checks that are mandatory if you are receiving Interactions via outgoing webhook. They also include some types for the Interactions data models.
 
 - Clojure
   - [ring-discord-auth](https://github.com/JohnnyJayJay/ring-discord-auth)
+- Dart
+  - [nyxx_interactions](https://github.com/l7ssha/Nyxx)
 - Go
   - [discord-interactions-go](https://github.com/bsdlp/discord-interactions-go)
 - Javascript
@@ -101,7 +111,7 @@ Using Discord's [Dispatch](#DOCS_DISPATCH_DISPATCH_AND_YOU) tool for game develo
 [Gateway Intents](#DOCS_TOPICS_GATEWAY/gateway-intents) are pretty confusing at first. If you're not sure what to send in your [identify payload](#DOCS_TOPICS_GATEWAY/identify), then these tools may be of help:
 
 - [ziad87's Intent Calculator](https://ziad87.net/intents/)
-- [Larko's Intent Calculator](https://intents.aymdj.me/)
+- [Larko's Intent Calculator](https://discord-intents-calculator.vercel.app/)
 
 ## Embed Visualizer
 

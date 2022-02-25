@@ -4,10 +4,6 @@
 
 Threads have been designed to be very similar to [channel](#DOCS_RESOURCES_CHANNEL/channel-object) objects, and this topic aggregates all of the information about threads, which should all help to make migrating very straightforward.
 
-## Disclaimer
-
-Threads have not shipped yet, and so everything in this documentation is still subject to change. At a minimum additional status codes will be added for reaching certain limits, and we may implement additional features, especially around moderation tooling, but we don't expect any of those to be breaking changes for what is currently documented.
-
 ## Backwards Compatibility
 
 Threads are only available in API v9. Bots that do not update to API v9 will not receive most gateway events for threads, or things that happen in threads (such as [Message Create](#DOCS_TOPICS_GATEWAY/message-create)). Bots on APIv8 will still receive gateway events for Interactions though.
@@ -51,7 +47,7 @@ Private threads behave similar to Group DMs, but in a Guild. Private threads are
 
 Every thread can be either active or archived. Changing a thread from archived -> active is referred to as unarchiving the thread. Threads that have `locked` set to true can only be unarchived by a user with the `MANAGE_THREADS` permission.
 
-Besides helping to de-clutter the UI for users, archiving exists to limit the working set of threads that need to be kept around. Since the number of archived threads can be quite large, keeping all of them in memory may be quite prohibitive. Therefore guilds are capped at a certain number of active threads, and only active threads can be manipulated. Users cannot edit messages, add reactions, use slash commands, or join archived threads. The only operation that should happen within an archived thread is messages being deleted. Sending a message will automatically unarchive the thread, unless the thread has been locked by a moderator.
+Besides helping to de-clutter the UI for users, archiving exists to limit the working set of threads that need to be kept around. Since the number of archived threads can be quite large, keeping all of them in memory may be quite prohibitive. Therefore guilds are capped at a certain number of active threads, and only active threads can be manipulated. Users cannot edit messages, add reactions, use application commands, or join archived threads. The only operation that should happen within an archived thread is messages being deleted. Sending a message will automatically unarchive the thread, unless the thread has been locked by a moderator.
 
 Because of this constraint, the gateway protocol is designed to ensure that bots are able to have an accurate view of the full set of active threads, but archived threads are not synced up-front via the gateway.
 
@@ -61,9 +57,9 @@ Threads automatically archive after inactivity. "Activity" is defined as sending
 
 ## Permissions
 
-Threads generally inherit permissions from the parent channel. If you can send messages or add reactions in the parent channel, you can do that in a thread as well.
+Threads generally inherit permissions from the parent channel (e.g. if you can add reactions in the parent channel, you can do that in a thread as well).
 
-Two new permission bits will be added, `USE_PUBLIC_THREADS` and `USE_PRIVATE_THREADS`. Users can _create_ a thread if they have BOTH the `SEND_MESSAGES` permission and the appropriate `USE_THREADS` permission. Users can _send messages_ in a thread if they have EITHER the `SEND_MESSAGES` permission or the appropriate `USE_THREADS` permission.
+Three new permission bits have been added, `CREATE_PUBLIC_THREADS`, `CREATE_PRIVATE_THREADS`, and `SEND_MESSAGES_IN_THREADS`. Note: `SEND_MESSAGES` has no effect in threads; users must have `SEND_MESSAGES_IN_THREADS` to talk in a thread.
 
 Private threads are similar to Group DMs, but in a guild: You must be invited to the thread to be able to view or participate in it, or be a moderator (`MANAGE_THREADS` permission).
 
@@ -127,7 +123,7 @@ Threads introduce a few new [message types](#DOCS_RESOURCES_CHANNEL/message-obje
 
 There are four new `GET` routes for enumerating threads in a specific channel:
 
-- [`/channels/<channel_id>/threads/active`](#DOCS_RESOURCES_CHANNEL/list-active-threads) returns all active threads in a channel that the current user can access, includes public & private threads
+- [`/guilds/<guild_id>/threads/active`](#DOCS_RESOURCES_GUILD/list-active-threads) returns all active threads in a guild that the current user can access, includes public & private threads
 - [`/channels/<channel_id>/users/@me/threads/archived/private`](#DOCS_RESOURCES_CHANNEL/list-joined-private-archived-threads) returns all archived, private threads in a channel, that the current user has is a member of, sorted by thread id descending
 - [`/channels/<channel_id>/threads/archived/public`](#DOCS_RESOURCES_CHANNEL/list-public-archived-threads) returns all archived, public threads in a channel, sorted by archive timestamp descending
 - [`/channels/<channel_id>/threads/archived/private`](#DOCS_RESOURCES_CHANNEL/list-private-archived-threads) returns all archived, private threads in a channel, sorted by archive timestamp descending
@@ -158,6 +154,10 @@ When a client gains access to a channel (example: they _gain_ the moderator role
 
 ### Losing access to a channel
 
-When a client loses access to a channel, the gateway does not send them a [Thread Delete](#DOCS_TOPICS_GATEWAY/thread-delete) event or any equivalent. They will still receive _an_ event when this happens, it just will not be a thread-specific event. Usually the event wil be [Guild Role Update](#DOCS_TOPICS_GATEWAY/guild-role-update), [Guild Member Update](#DOCS_TOPICS_GATEWAY/guild-members-update) or [Channel Update](#DOCS_TOPICS_GATEWAY/channel-update). It will be some event that caused the permissions on a channel to change. So _if_ a bot wanted to simulate a "lost access to thread" event, it is entirely possible, albeit quite complicated to handle all cases correctly. Under the hood, Discord's clients actually don't worry about this detail. Instead, when performing an action, the client checks permissions first (which implicitly checks if the client has access to the parent channel too, since threads inherit permissions), that way _even if_ the client has some stale data, it does not end up acting on it.
+When a client loses access to a channel, the gateway does not send them a [Thread Delete](#DOCS_TOPICS_GATEWAY/thread-delete) event or any equivalent. They will still receive _an_ event when this happens, it just will not be a thread-specific event. Usually the event wil be [Guild Role Update](#DOCS_TOPICS_GATEWAY/guild-role-update), [Guild Member Update](#DOCS_TOPICS_GATEWAY/guild-member-update) or [Channel Update](#DOCS_TOPICS_GATEWAY/channel-update). It will be some event that caused the permissions on a channel to change. So _if_ a bot wanted to simulate a "lost access to thread" event, it is entirely possible, albeit quite complicated to handle all cases correctly. Under the hood, Discord's clients actually don't worry about this detail. Instead, when performing an action, the client checks permissions first (which implicitly checks if the client has access to the parent channel too, since threads inherit permissions), that way _even if_ the client has some stale data, it does not end up acting on it.
 
 Additionally, when a client loses access to a channel they are not removed from the thread. Users may want to temporarily shut down access to a server or channel. Removing someone from all threads when that happens would not be a good experience, so we've chosen not to go that route. Users will still be reported as members of a thread, even if they no longer have access to the parent channel. They will **not** receive new gateway events for those threads though, with one exception: If a client is removed from a thread _after_ losing access to the parent channel, they will still receive a [Thread Members Update](#DOCS_TOPICS_GATEWAY/thread-members-update) dispatch.
+
+### Unarchiving a thread
+
+Discord's clients only load active threads into memory on start. So when a thread is unarchived, there is no guarantee that the client has either the thread or whether they are a member, in memory. As such, the Gateway sends a [Thread Update](#DOCS_TOPICS_GATEWAY/thread-update) first, which contains the full channel object. And then sends a [Thread Member Update](#DOCS_TOPICS_GATEWAY/thread-member-update) to each member of the thread, so those clients know they are a member, and what their notification setting is. This event is not that valuable for bots right now, but is going to be received by bots, so is documented here none the less.

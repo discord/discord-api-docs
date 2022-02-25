@@ -3,8 +3,8 @@
 > info
 > Need help with the SDK? Talk to us in the [Discord Developers Server](https://discord.gg/discord-developers)!
 
-> warn
-> Game approval submissions are currently paused due to unforeseen circumstances. We apologize for the inconvenience. [Click here for more info.](https://support-dev.discord.com/hc/en-us/articles/360041437171)
+> danger
+> Selling SKUs on Discord is now deprecated, and will be discontinued on March 1, 2022. [Read here for more info.](https://support-dev.discord.com/hc/en-us/articles/4414590563479)
 
 This manager helps retrieve basic user information for any user on Discord.
 
@@ -41,9 +41,9 @@ This manager helps retrieve basic user information for any user on Discord.
 ## GetCurrentUser
 
 > info
-> Before calling this function, you'll need to wait for the [OnCurrentUserUpdate](#DOCS_GAME_SDK_USERS/on-current-user-update) callback to fire after instantiating the User manager.
+> Before calling this function, you'll need to wait for the [OnCurrentUserUpdate](#DOCS_GAME_SDK_USERS/oncurrentuserupdate) callback to fire after instantiating the User manager.
 
-Fetch information about the currently connected user account. If you're interested in getting more detailed information about a user—for example, their email—check out our [GetCurrentUser](#DOCS_RESROUCES_USER/get-current-user) API endpoint. You'll want to call this with an authorization header of `Bearer <token>`, where `<token>` is the token retrieved from a standard [OAuth2 Authorization Code Grant](#DOCS_TOPICS_OAUTH2/authorization-code-grant) flow.
+Fetch information about the currently connected user account. If you're interested in getting more detailed information about a user—for example, their email—check out our [GetCurrentUser](#DOCS_RESOURCES_USER/get-current-user) API endpoint. You'll want to call this with an authorization header of `Bearer <token>`, where `<token>` is the token retrieved from a standard [OAuth2 Authorization Code Grant](#DOCS_TOPICS_OAUTH2/authorization-code-grant) flow.
 
 Returns a `Discord.User`.
 
@@ -84,7 +84,7 @@ userManager.GetUser(userId, (Discord.Result result, ref Discord.User user) =>
 
 ## GetCurrentUserPremiumType
 
-Get the [PremiumType](#DOCS_GAME_SDK_USER/data-models-premiumtype-enum) for the currently connected user.
+Get the [PremiumType](#DOCS_GAME_SDK_USERS/data-models-premiumtype-enum) for the currently connected user.
 
 Returns `Discord.PremiumType`.
 
@@ -115,15 +115,15 @@ switch (premiumType)
 
 ## CurrentUserHasFlag
 
-See whether or not the current user has a certain [UserFlag](#DOCS_GAME_SDK_USER/data-models-userflag-enum) on their account.
+See whether or not the current user has a certain [UserFlag](#DOCS_GAME_SDK_USERS/data-models-userflag-enum) on their account.
 
 Returns `bool`.
 
 ###### Parameters
 
-| name | type                                                      | description                             |
-| ---- | --------------------------------------------------------- | --------------------------------------- |
-| flag | [UserFlag](#DOCS_GAME_SDK_USER/data-models-userflag-enum) | the flag to check on the user's account |
+| name | type                                                       | description                             |
+| ---- | ---------------------------------------------------------- | --------------------------------------- |
+| flag | [UserFlag](#DOCS_GAME_SDK_USERS/data-models-userflag-enum) | the flag to check on the user's account |
 
 ###### Example
 

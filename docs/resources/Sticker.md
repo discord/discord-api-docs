@@ -12,7 +12,7 @@ Represents a sticker that can be sent in messages.
 | pack_id?    | snowflake                                       | for standard stickers, id of the pack the sticker is from                                                                                                            |
 | name        | string                                          | name of the sticker                                                                                                                                                  |
 | description | ?string                                         | description of the sticker                                                                                                                                           |
-| tags        | string                                          | for guild stickers, the Discord name of a unicode emoji representing the sticker's expression. for standard stickers, a comma-separated list of related expressions. |
+| tags\*      | string                                          | autocomplete/suggestion tags for the sticker (max 200 characters)                                                                                                    |
 | asset       | string                                          | **Deprecated** previously the sticker asset hash, now an empty string                                                                                                |
 | type        | integer                                         | [type of sticker](#DOCS_RESOURCES_STICKER/sticker-object-sticker-types)                                                                                              |
 | format_type | integer                                         | [type of sticker format](#DOCS_RESOURCES_STICKER/sticker-object-sticker-format-types)                                                                                |
@@ -20,6 +20,9 @@ Represents a sticker that can be sent in messages.
 | guild_id?   | snowflake                                       | id of the guild that owns this sticker                                                                                                                               |
 | user?       | [user](#DOCS_RESOURCES_USER/user-object) object | the user that uploaded the guild sticker                                                                                                                             |
 | sort_value? | integer                                         | the standard sticker's sort order within its pack                                                                                                                    |
+
+\* A comma separated list of keywords is the format used in this field by standard stickers, but this is just a convention.
+Incidentally the client will always use a name generated from an emoji as the value of this field when creating or modifying a guild sticker.
 
 ###### Sticker Types
 
@@ -78,7 +81,7 @@ Represents a pack of standard stickers.
 | sku_id            | snowflake                                                          | id of the pack's SKU                                                      |
 | cover_sticker_id? | snowflake                                                          | id of a sticker in the pack which is shown as the pack's icon             |
 | description       | string                                                             | description of the sticker pack                                           |
-| banner_asset_id   | snowflake                                                          | id of the sticker pack's [banner image](#DOCS_REFERENCE/image-formatting) |
+| banner_asset_id?  | snowflake                                                          | id of the sticker pack's [banner image](#DOCS_REFERENCE/image-formatting) |
 
 ###### Example Sticker Pack
 
@@ -123,13 +126,16 @@ Create a new sticker for the guild. Send a `multipart/form-data` body. Requires 
 > info
 > This endpoint supports the `X-Audit-Log-Reason` header.
 
+> warn
+> Lottie stickers can only be uploaded on guilds that have either the `VERIFIED` and/or the `PARTNERED` [guild feature](#DOCS_RESOURCES_GUILD/guild-object-guild-features). 
+
 ###### Form Params
 
 | Field       | Type          | Description                                                                                  |
 | ----------- | ------------- | -------------------------------------------------------------------------------------------- |
 | name        | string        | name of the sticker (2-30 characters)                                                        |
 | description | string        | description of the sticker (empty or 2-100 characters)                                       |
-| tags        | string        | the Discord name of a unicode emoji representing the sticker's expression (2-200 characters) |
+| tags        | string        | autocomplete/suggestion tags for the sticker (max 200 characters)                            |
 | file        | file contents | the sticker file to upload, must be a PNG, APNG, or Lottie JSON file, max 500 KB             |
 
 ## Modify Guild Sticker % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/stickers/{sticker.id#DOCS_RESOURCES_STICKER/sticker-object}
@@ -148,7 +154,7 @@ Modify the given sticker. Requires the `MANAGE_EMOJIS_AND_STICKERS` permission. 
 | ----------- | ------- | -------------------------------------------------------------------------------------------- |
 | name        | string  | name of the sticker (2-30 characters)                                                        |
 | description | ?string | description of the sticker (2-100 characters)                                                |
-| tags        | string  | the Discord name of a unicode emoji representing the sticker's expression (2-200 characters) |
+| tags        | string  | autocomplete/suggestion tags for the sticker (max 200 characters)                            |
 
 ## Delete Guild Sticker % DELETE /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/stickers/{sticker.id#DOCS_RESOURCES_STICKER/sticker-object}
 

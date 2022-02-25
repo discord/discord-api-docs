@@ -6,28 +6,11 @@ There are several different types of components; this documentation will outline
 
 ## What is a Component
 
-Components are a new field on the [message object](#DOCS_RESOURCES_CHANNEL/message-object), so you can use them whether you're sending messages or responding to a [slash command](#DOCS_INTERACTIONS_SLASH_COMMANDS/) or other interaction.
+Components are a new field on the [message object](#DOCS_RESOURCES_CHANNEL/message-object), so you can use them whether you're sending messages or responding to a [slash command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/) or other interaction.
 
 The top-level `components` field is an array of [Action Row](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/action-rows) components.
 
 ### Component Object
-
-###### Component Structure
-
-| Field        | Type                                                                                                        | Description                                                                               | Valid For                                                                                                                    |
-| ------------ | ----------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
-| type         | integer                                                                                                     | [component type](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-object-component-types)  | all types                                                                                                                    |
-| custom_id?   | string                                                                                                      | a developer-defined identifier for the component, max 100 characters                      | [Buttons](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/buttons), [Select Menus](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/select-menus) |
-| disabled?    | boolean                                                                                                     | whether the component is disabled, default `false`                                        | [Buttons](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/buttons), [Select Menus](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/select-menus) |
-| style?       | integer                                                                                                     | one of [button styles](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/button-object-button-styles) | [Buttons](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/buttons)                                                                     |
-| label?       | string                                                                                                      | text that appears on the button, max 80 characters                                        | [Buttons](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/buttons)                                                                     |
-| emoji?       | partial [emoji](#DOCS_RESOURCES_EMOJI/emoji-object)                                                         | `name`, `id`, and `animated`                                                              | [Buttons](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/buttons)                                                                     |
-| url?         | string                                                                                                      | a url for link-style buttons                                                              | [Buttons](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/buttons)                                                                     |
-| options      | array of [select options](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/select-menu-object-select-option-structure) | the choices in the select, max 25                                                         | [Select Menus](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/select-menus)                                                           |
-| placeholder? | string                                                                                                      | custom placeholder text if nothing is selected, max 100 characters                        | [Select Menus](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/select-menus)                                                           |
-| min_values?  | integer                                                                                                     | the minimum number of items that must be chosen; default 1, min 0, max 25                 | [Select Menus](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/select-menus)                                                           |
-| max_values?  | integer                                                                                                     | the maximum number of items that can be chosen; default 1, max 25                         | [Select Menus](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/select-menus)                                                           |
-| components?  | array of [components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-object)                               | a list of child components                                                                | [Action Rows](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/action-rows)                                                             |
 
 ###### Component Types
 
@@ -36,6 +19,9 @@ The top-level `components` field is an array of [Action Row](#DOCS_INTERACTIONS_
 | 1    | Action Row  | A container for other components       |
 | 2    | Button      | A button object                        |
 | 3    | Select Menu | A select menu for picking from choices |
+| 4    | Text Input  | A text input object                    |
+
+The structure of each component type is described in detail below.
 
 ###### Example Component
 
@@ -80,10 +66,7 @@ An Action Row is a non-interactive container component for other types of compon
 
 ## Responding to a Component Interaction
 
-Responding to a user interacting with a component is the same as other interaction types, like slash commands. You can simply ACK the request, send a followup message, or edit the original message to something new. Check out [Responding to An Interaction](#DOCS_INTERACTIONS_SLASH_COMMANDS/responding-to-an-interaction) and [interaction response](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-response-object) for more.
-
-> danger
-> Your application should take care to validate data sent in component interactions. For example, ensuring that the `custom_id` originates from the received message. In the future this information will be validated by the API.
+Responding to a user interacting with a component is the same as other interaction types, like application commands. You can simply ACK the request, send a followup message, or edit the original message to something new. Check out [Responding to An Interaction](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/responding-to-an-interaction) and [interaction response](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-response-object) for more.
 
 ## Custom ID
 
@@ -93,7 +76,7 @@ Components, aside from Action Rows, must have a `custom_id` field. This field is
 
 ## Buttons
 
-Buttons are interactive components that render on messages. They can be clicked by users, and send an [interaction](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-object) to your app when clicked.
+Buttons are interactive components that render on messages. They can be clicked by users, and send an [interaction](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object) to your app when clicked.
 
 - Buttons must be sent inside an Action Row
 - An Action Row can contain up to 5 buttons
@@ -103,21 +86,21 @@ Buttons are interactive components that render on messages. They can be clicked 
 
 ###### Button Structure
 
-| Field      | Type                                                | Description                                                                         |
-| ---------- | --------------------------------------------------- | ----------------------------------------------------------------------------------- |
-| type       | integer                                             | `2` for a button                                                                    |
-| style      | integer                                             | one of [button styles](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/buttons-button-styles) |
-| label?     | string                                              | text that appears on the button, max 80 characters                                  |
-| emoji?     | partial [emoji](#DOCS_RESOURCES_EMOJI/emoji-object) | `name`, `id`, and `animated`                                                        |
-| custom_id? | string                                              | a developer-defined identifier for the button, max 100 characters                   |
-| url?       | string                                              | a url for link-style buttons                                                        |
-| disabled?  | boolean                                             | whether the button is disabled (default `false`)                                    |
+| Field      | Type                                                | Description                                                                               |
+| ---------- | --------------------------------------------------- | ----------------------------------------------------------------------------------------- |
+| type       | integer                                             | `2` for a button                                                                          |
+| style      | integer                                             | one of [button styles](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/button-object-button-styles) |
+| label?     | string                                              | text that appears on the button, max 80 characters                                        |
+| emoji?     | partial [emoji](#DOCS_RESOURCES_EMOJI/emoji-object) | `name`, `id`, and `animated`                                                              |
+| custom_id? | string                                              | a developer-defined identifier for the button, max 100 characters                         |
+| url?       | string                                              | a url for link-style buttons                                                              |
+| disabled?  | boolean                                             | whether the button is disabled (default `false`)                                          |
 
 Buttons come in a variety of styles to convey different types of actions. These styles also define what fields are valid for a button.
 
 - Non-link buttons **must** have a `custom_id`, and cannot have a `url`
 - Link buttons **must** have a `url`, and cannot have a `custom_id`
-- Link buttons do not send an [interaction](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-object) to your app when clicked
+- Link buttons do not send an [interaction](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object) to your app when clicked
 
 ###### Button Styles
 
@@ -131,9 +114,11 @@ Buttons come in a variety of styles to convey different types of actions. These 
 
 ![An image showing the different button styles](button-styles.png)
 
-When a user clicks on a button, your app will receive an [interaction](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-object) including the message the button was on:
+When a user clicks on a button, your app will receive an [interaction](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object) including the message the button was on:
 
-###### Button Interaction
+### Component Interaction Object
+
+###### Sample Component Interaction
 
 ```json
 {
@@ -214,7 +199,7 @@ Select menus are another interactive component that renders on messages. On desk
 
 ![A select menu open on desktop](desktop-select.png)
 
-Select menus support single-select and multi-select behavior, meaning you can prompt a user to choose just one item from a list, or multiple. When a user finishes making their choice by clicking out of the dropdown or closing the half-sheet, your app will receive an [interaction](#DOCS_INTERACTIONS_SLASH_COMMANDS/interaction-object-interaction-structure).
+Select menus support single-select and multi-select behavior, meaning you can prompt a user to choose just one item from a list, or multiple. When a user finishes making their choice by clicking out of the dropdown or closing the half-sheet, your app will receive an [interaction](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-interaction-structure).
 
 - Select menus must be sent inside an Action Row
 - An Action Row can contain only one select menu
@@ -288,13 +273,13 @@ Select menus support single-select and multi-select behavior, meaning you can pr
 
 ###### Select Option Structure
 
-| Field        | Type                                                       | Description                                                |
-| ------------ | ---------------------------------------------------------- | ---------------------------------------------------------- |
-| label        | string                                                     | the user-facing name of the option, max 25 characters      |
-| value        | string                                                     | the dev-define value of the option, max 100 characters     |
-| description? | string                                                     | an additional description of the option, max 50 characters |
-| emoji?       | partial [emoji](#DOCS_RESOURCES_EMOJI/emoji-object) object | `id`, `name`, and `animated`                               |
-| default?     | boolean                                                    | will render this option as selected by default             |
+| Field        | Type                                                       | Description                                                 |
+| ------------ | ---------------------------------------------------------- | ----------------------------------------------------------- |
+| label        | string                                                     | the user-facing name of the option, max 100 characters      |
+| value        | string                                                     | the dev-define value of the option, max 100 characters      |
+| description? | string                                                     | an additional description of the option, max 100 characters |
+| emoji?       | partial [emoji](#DOCS_RESOURCES_EMOJI/emoji-object) object | `id`, `name`, and `animated`                                |
+| default?     | boolean                                                    | will render this option as selected by default              |
 
 ###### Select Menu Interaction
 
@@ -419,3 +404,51 @@ Select menus support single-select and multi-select behavior, meaning you can pr
     "version": 1
 }
 ```
+
+## Text Inputs
+
+Text inputs are an interactive component that render on modals. They can be used to collect short-form or long-form text.
+
+###### Text Input Example
+
+```json
+// this is a modal
+{
+  "title": "My Cool Modal",
+  "custom_id": "cool_modal",
+  "components": [{
+    "type": 1,
+    "components": [{
+      "type": 4,
+      "custom_id": "name",
+      "label": "Name",
+      "style": 1,
+      "min_length": 1,
+      "max_length": 4000,
+      "placeholder": "John",
+      "required": true
+    }]
+  }]
+}
+```
+
+###### Text Input Structure
+
+| Field        | Type    | Description                                                                                 |
+| ------------ | ------- | ------------------------------------------------------------------------------------------- |
+| type         | integer | `4` for a text input                                                                        |
+| custom_id    | string  | a developer-defined identifier for the input, max 100 characters                            |
+| style        | integer | the [Text Input Style](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/text-inputs-text-input-styles) |
+| label        | string  | the label for this component                                                                |
+| min_length?  | integer | the minimum input length for a text input, min 0, max 4000                                  |
+| max_length?  | integer | the maximum input length for a text input, min 1, max 4000                                  |
+| required?    | boolean | whether this component is required to be filled, default true                               |
+| value?       | string  | a pre-filled value for this component, max 4000 characters                                  |
+| placeholder? | string  | custom placeholder text if the input is empty, max 100 characters                           |
+
+###### Text Input Styles
+
+| Name      | Value | Description         |
+| --------- | ----- | ------------------- |
+| Short     | 1     | A single-line input |
+| Paragraph | 2     | A multi-line input  |

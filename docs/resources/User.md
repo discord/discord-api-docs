@@ -33,7 +33,9 @@ There are other rules and restrictions not shared here for the sake of spam and 
 | bot?          | boolean   | whether the user belongs to an OAuth2 application                                                    | identify              |
 | system?       | boolean   | whether the user is an Official Discord System user (part of the urgent message system)              | identify              |
 | mfa_enabled?  | boolean   | whether the user has two factor enabled on their account                                             | identify              |
-| locale?       | string    | the user's chosen language option                                                                    | identify              |
+| banner?       | ?string   | the user's [banner hash](#DOCS_REFERENCE/image-formatting)                                           | identify              |
+| accent_color? | ?integer  | the user's banner color encoded as an integer representation of hexadecimal color code               | identify              |
+| locale?       | string    | the user's chosen [language option](#DOCS_REFERENCE/locales)                                         | identify              |
 | verified?     | boolean   | whether the email on this account has been verified                                                  | email                 |
 | email?        | ?string   | the user's email                                                                                     | email                 |
 | flags?        | integer   | the [flags](#DOCS_RESOURCES_USER/user-object-user-flags) on a user's account                         | identify              |
@@ -51,6 +53,8 @@ There are other rules and restrictions not shared here for the sake of spam and 
   "verified": true,
   "email": "nelly@discord.com",
   "flags": 64,
+  "banner": "06c16474723fe537c283b8efa61a30c8",
+  "accent_color": 16711680,
   "premium_type": 1,
   "public_flags": 64
 }
@@ -58,22 +62,23 @@ There are other rules and restrictions not shared here for the sake of spam and 
 
 ###### User Flags
 
-| Value   | Description                  |
-| ------- | ---------------------------- |
-| 0       | None                         |
-| 1 << 0  | Discord Employee             |
-| 1 << 1  | Partnered Server Owner       |
-| 1 << 2  | HypeSquad Events             |
-| 1 << 3  | Bug Hunter Level 1           |
-| 1 << 6  | House Bravery                |
-| 1 << 7  | House Brilliance             |
-| 1 << 8  | House Balance                |
-| 1 << 9  | Early Supporter              |
-| 1 << 10 | Team User                    |
-| 1 << 14 | Bug Hunter Level 2           |
-| 1 << 16 | Verified Bot                 |
-| 1 << 17 | Early Verified Bot Developer |
-| 1 << 18 | Discord Certified Moderator  |
+| Value   | Name                     | Description                                                                                                                                    |
+| ------- | ------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| 0       | None                     | None                                                                                                                                           |
+| 1 << 0  | STAFF                    | Discord Employee                                                                                                                               |
+| 1 << 1  | PARTNER                  | Partnered Server Owner                                                                                                                         |
+| 1 << 2  | HYPESQUAD                | HypeSquad Events Coordinator                                                                                                                   |
+| 1 << 3  | BUG_HUNTER_LEVEL_1       | Bug Hunter Level 1                                                                                                                             |
+| 1 << 6  | HYPESQUAD_ONLINE_HOUSE_1 | House Bravery Member                                                                                                                           |
+| 1 << 7  | HYPESQUAD_ONLINE_HOUSE_2 | House Brilliance Member                                                                                                                        |
+| 1 << 8  | HYPESQUAD_ONLINE_HOUSE_3 | House Balance Member                                                                                                                           |
+| 1 << 9  | PREMIUM_EARLY_SUPPORTER  | Early Nitro Supporter                                                                                                                          |
+| 1 << 10 | TEAM_PSEUDO_USER         | User is a [team](#DOCS_TOPICS_TEAMS/)                                                                                                          |
+| 1 << 14 | BUG_HUNTER_LEVEL_2       | Bug Hunter Level 2                                                                                                                             |
+| 1 << 16 | VERIFIED_BOT             | Verified Bot                                                                                                                                   |
+| 1 << 17 | VERIFIED_DEVELOPER       | Early Verified Bot Developer                                                                                                                   |
+| 1 << 18 | CERTIFIED_MODERATOR      | Discord Certified Moderator                                                                                                                    |
+| 1 << 19 | BOT_HTTP_INTERACTIONS    | Bot uses only [HTTP interactions](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/receiving-an-interaction) and is shown in the online member list |
 
 ###### Premium Types
 
@@ -91,17 +96,17 @@ The connection object that the user has attached.
 
 ###### Connection Structure
 
-| Field         | Type    | Description                                                                               |
-| ------------- | ------- | ----------------------------------------------------------------------------------------- |
-| id            | string  | id of the connection account                                                              |
-| name          | string  | the username of the connection account                                                    |
-| type          | string  | the service of the connection (twitch, youtube)                                           |
-| revoked?      | boolean | whether the connection is revoked                                                         |
-| integrations? | array   | an array of partial [server integrations](#DOCS_RESOURCES_GUILD/integration-object)       |
-| verified      | boolean | whether the connection is verified                                                        |
-| friend_sync   | boolean | whether friend sync is enabled for this connection                                        |
-| show_activity | boolean | whether activities related to this connection will be shown in presence updates           |
-| visibility    | integer | [visibility](#DOCS_RESOURCES_USER/connection-object-visibility-types) of this connection  |
+| Field         | Type    | Description                                                                              |
+| ------------- | ------- | ---------------------------------------------------------------------------------------- |
+| id            | string  | id of the connection account                                                             |
+| name          | string  | the username of the connection account                                                   |
+| type          | string  | the service of the connection (twitch, youtube)                                          |
+| revoked?      | boolean | whether the connection is revoked                                                        |
+| integrations? | array   | an array of partial [server integrations](#DOCS_RESOURCES_GUILD/integration-object)      |
+| verified      | boolean | whether the connection is verified                                                       |
+| friend_sync   | boolean | whether friend sync is enabled for this connection                                       |
+| show_activity | boolean | whether activities related to this connection will be shown in presence updates          |
+| visibility    | integer | [visibility](#DOCS_RESOURCES_USER/connection-object-visibility-types) of this connection |
 
 ###### Visibility Types
 
@@ -159,6 +164,10 @@ Returns a list of partial [guild](#DOCS_RESOURCES_GUILD/guild-object) objects th
 | before | snowflake | get guilds before this guild ID        | false    | absent  |
 | after  | snowflake | get guilds after this guild ID         | false    | absent  |
 | limit  | integer   | max number of guilds to return (1-200) | false    | 200     |
+
+## Get Current User Guild Member % GET /users/@me/guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/member
+
+Returns a [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) object for the current user. Requires the `guilds.members.read` OAuth2 scope.
 
 ## Leave Guild % DELETE /users/@me/guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}
 

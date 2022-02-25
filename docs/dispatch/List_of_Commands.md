@@ -5,6 +5,21 @@
 
 Some people don't like to read full pages of documentation. Personally, I think those people are missing out. But we want to make sure that we cater to everyone, so here's a list of every Dispatch command and what it does. No frills, no jokes. Okay, maybe some jokes.
 
+## login
+
+Authorizes you to do these things!
+
+###### Arguments
+
+None
+
+###### Example
+
+```
+-> dispatch login
+[2018-09-17][15:26:15][INFO] Already logged in
+```
+
 ## branch create
 
 Creates a new branch. If you have not yet made a master branch, this command will also automatically create a master branch.
@@ -181,13 +196,13 @@ Downloads the build for the given application id and branch id to the given inst
 
 ###### Arguments
 
-| name           | values                                                                        | description                    |
-| -------------- | ----------------------------------------------------------------------------- | ------------------------------ |
-| application_id | int                                                                           | your application ID/client ID  |
-| branch_id      | int                                                                           | the id of the branch to check  |
-| install_path   | file path                                                                     | the path to install to         |
-| --platform     | [platform](#DOCS_DISPATCH_FIELD_VALUES/manifest-platform-values)              | the build platform to download |
-| --locale       | [locale](#DOCS_DISPATCH_FIELD_VALES/predefined-field-values-accepted-locales) | the build locale to download   |
+| name           | values                                                            | description                    |
+| -------------- | ----------------------------------------------------------------- | ------------------------------ |
+| application_id | int                                                               | your application ID/client ID  |
+| branch_id      | int                                                               | the id of the branch to check  |
+| install_path   | file path                                                         | the path to install to         |
+| --platform     | [platform](#DOCS_DISPATCH_FIELD_VALUES/manifests-platform-values) | the build platform to download |
+| --locale       | [locale](#DOCS_REFERENCE/locales)                                 | the build locale to download   |
 
 ###### Example
 
@@ -219,12 +234,12 @@ Displays a preview of the install paths that a build will put files in, for a gi
 
 ###### Arguments
 
-| name             | values                                                                        | description                                                                                           |
-| ---------------- | ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
-| config_file      | filename                                                                      | the [JSON config file](#DOCS_DISPATCH_BRANCHES_AND_BUILDS/setting-up-our-first-build) for the build   |
-| application_root | file path                                                                     | the directory that dispatch will treat as the local root for operations—`.` for the current directory |
-| --locale         | [locale](#DOCS_DISPATCH_FIELD_VALES/predefined-field-values-accepted-locales) | the build locale to preview                                                                           |
-| --platform       | [platform](#DOCS_DISPATCH_FIELD_VALUES/manifest-platform-values)              | the build platform to preview                                                                         |
+| name             | values                                                            | description                                                                                           |
+| ---------------- | ----------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
+| config_file      | filename                                                          | the [JSON config file](#DOCS_DISPATCH_BRANCHES_AND_BUILDS/setting-up-our-first-build) for the build   |
+| application_root | file path                                                         | the directory that dispatch will treat as the local root for operations—`.` for the current directory |
+| --locale         | [locale](#DOCS_REFERENCE/locales)                                 | the build locale to preview                                                                           |
+| --platform       | [platform](#DOCS_DISPATCH_FIELD_VALUES/manifests-platform-values) | the build platform to preview                                                                         |
 
 ###### Example
 
@@ -244,7 +259,7 @@ Repairs an application build.
 | branch_id        | int                                                              | the id of the branch to check                                                                         |
 | build_id         | int                                                              | the id of the build to repair                                                                         |
 | application_root | file path                                                        | the directory that dispatch will treat as the local root for operations—`.` for the current directory |
-| --platform       | [platform](#DOCS_DISPATCH_FIELD_VALUES/manifest-platform-values) | the build platform to repair                                                                          |
+| --platform       | [platform](#DOCS_DISPATCH_FIELD_VALUES/manifests-platform-values) | the build platform to repair                                                                          |
 
 ###### Example
 
@@ -261,7 +276,7 @@ Runs the launch setup for an application.
 | name             | values                                                           | description                                                                                           |
 | ---------------- | ---------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
 | application_root | file path                                                        | the directory that dispatch will treat as the local root for operations—`.` for the current directory |
-| --platform       | [platform](#DOCS_DISPATCH_FIELD_VALUES/manifest-platform-values) | the build platform to do the launch setup                                                             |
+| --platform       | [platform](#DOCS_DISPATCH_FIELD_VALUES/manifests-platform-values) | the build platform to do the launch setup                                                             |
 
 ###### Example
 
@@ -297,19 +312,4 @@ Lists created manifest labels. These labels are created from the JSON config fil
 | -------------------- | -------------------- | -------------------- |
 |  290926444748734465  |  471165178650999608  |        my-game       |
 |  290926444748734465  |  471169990397324288  |      my-game-dlc     |
-```
-
-## login
-
-Authorizes you to do these things! Maybe we should've put this at the top...
-
-###### Arguments
-
-None
-
-###### Example
-
-```
--> dispatch login
-[2018-09-17][15:26:15][INFO] Already logged in
 ```
