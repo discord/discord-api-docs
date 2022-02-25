@@ -667,9 +667,6 @@ Modify a guild's settings. Requires the `MANAGE_GUILD` permission. Returns the u
 > info
 > This endpoint supports the `X-Audit-Log-Reason` header.
 
-> warn
-> Attempting to omit the `COMMUNITY` feature when it was previously present will fail unless the bot has administrator, Attempting to add this feature when it was not present beforehand will also fail for the same reason.
-
 ###### JSON Params
 
 | Field                         | Type                                                                                | Description                                                                                                                                 |
