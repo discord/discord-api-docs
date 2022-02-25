@@ -39,7 +39,7 @@
 }
 ```
 
-###### Gateway Reaction Standard Emoji Example
+###### Standard Emoji Example
 
 ```json
 {
@@ -48,7 +48,7 @@
 }
 ```
 
-###### Gateway Reaction Custom Emoji Examples
+###### Custom Emoji Examples
 
 >info
 >In `MESSAGE_REACTION_ADD` gateway events `animated` will be returned for animated emoji.

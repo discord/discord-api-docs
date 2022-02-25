@@ -34,7 +34,7 @@ Currently, the SDK does not support this. Party slot information is determined b
 
 #### Q: Can I send images via the payload rather than uploading them to my Developer Dashboard?
 
-Unfortunately, the SDK does not support this feature right now. However, we hear your desires! We know that a lot of games, like customization-heavy RPGs, would benefit greatly from being able to programmatically upload assets. It may be something we tackle in the future.
+Yes! In addition to uploading an asset and specifying its name, you can also specify an external image URL for us to proxy. For more information, see [Activity Asset Image](#DOCS_TOPICS_GATEWAY/activity-object-activity-asset-image).
 
 #### Q: Can I change something in the SDK for my own purposes?
 

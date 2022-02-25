@@ -2,6 +2,14 @@
 
 This repo contains the official Discord API documentation, which can be viewed online [HERE](https://discord.com/developers/docs/intro). Before submitting pull-requests, please remember to _fully_ read the [Contributing](CONTRIBUTING.md) guidelines.
 
+This repository reflects the Discord API as it is meant to be accessed by third-party applications.  It omits features and capabilities that are not generally available, or are not fully supported for third-party usage.
+
+We welcome your contributions!
+
+- Issue tracker: Discord API bugs
+- Discussions: Discord API feature and improvement requests
+- Pull Requests: See [Contributing.md](https://github.com/discord/discord-api-docs/blob/master/CONTRIBUTING.md)
+
 ## Markdown Syntax
 
 This repository uses special markdown syntax that helps style the resulting web version of the documentation.
