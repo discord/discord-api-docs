@@ -1102,11 +1102,11 @@ Modify the [discovery metadata](#DOCS_RESOURCES_DISCOVERY/discovery-metadata-obj
 
 ###### JSON Params
 
-| Field                         | Type                                                                         | Description                                                 | Default |
-| ----------------------------- | ---------------------------------------------------------------------------- | ----------------------------------------------------------- | ------- |
-| primary_category_id           | [discovery category](#DOCS_RESOURCES_DISCOVERY/discovery-category-object) id | the id of the primary discovery category                    | 0       |
-| keywords                      | array of strings                                                             | up to 10 discovery search keywords                          | null    |
-| emoji_discoverability_enabled | boolean                                                                      | whether guild info is shown when custom emojis are clicked  | true    |
+| Field                         | Type                                                                         | Description                                                                                    | Default |
+| ----------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- | ------- |
+| primary_category_id           | [discovery category](#DOCS_RESOURCES_DISCOVERY/discovery-category-object) id | the id of the primary discovery category                                                       | 0       |
+| keywords                      | array of strings                                                             | up to 10 discovery search keywords                                                             | null    |
+| emoji_discoverability_enabled | boolean                                                                      | whether guild info should be shown when custom emojis and stickers from this guild are clicked | true    |
 
 ## Add Guild Discovery Subcategory % POST /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/discovery-categories/{category.id#DOCS_RESOURCES_DISCOVERY/discovery-category-object}
 
