@@ -1123,6 +1123,10 @@ Add a [discovery subcategory](#DOCS_RESOURCES_DISCOVERY/discovery-category-objec
 
 Removes a [discovery subcategory](#DOCS_RESOURCES_DISCOVERY/discovery-category-object) from the guild. Requires the `MANAGE_GUILD` permission. Returns a 204 No Content on success.
 
+## Get Guild Discovery Requirements % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/discovery-requirements
+
+Returns the [discovery requirements](#DOCS_RESOURCES_DISCOVERY/discovery-requirements-object) object for the guild. Requires the `MANAGE_GUILD` permission.
+
 ## Get Guild Welcome Screen % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/welcome-screen
 
 Returns the [Welcome Screen](#DOCS_RESOURCES_GUILD/welcome-screen-object) object for the guild. If the welcome screen is not enabled, the `MANAGE_GUILD` permission is required.
