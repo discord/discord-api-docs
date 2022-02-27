@@ -1108,16 +1108,9 @@ Modify the [discovery metadata](#DOCS_RESOURCES_DISCOVERY/discovery-metadata-obj
 | keywords                      | array of strings                                                             | up to 10 discovery search keywords                                                             | null    |
 | emoji_discoverability_enabled | boolean                                                                      | whether guild info should be shown when custom emojis and stickers from this guild are clicked | true    |
 
-## Add Guild Discovery Subcategory % POST /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/discovery-categories/{category.id#DOCS_RESOURCES_DISCOVERY/discovery-category-object}
+## Add Guild Discovery Subcategory % PUT /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/discovery-categories/{category.id#DOCS_RESOURCES_DISCOVERY/discovery-category-object}
 
-Add a [discovery subcategory](#DOCS_RESOURCES_DISCOVERY/discovery-category-object) to the guild. Requires the `MANAGE_GUILD` permission.
-
-###### Response Body
-
-| Field       | Type                                                                         | Description                               |
-| ----------- | ---------------------------------------------------------------------------- | ----------------------------------------- |
-| guild_id    | snowflake                                                                    | the guild id the subcategory was added to |
-| category_id | [discovery category](#DOCS_RESOURCES_DISCOVERY/discovery-category-object) id | the id of the subcategory added           |
+Add a [discovery subcategory](#DOCS_RESOURCES_DISCOVERY/discovery-category-object) to the guild. Requires the `MANAGE_GUILD` permission. Returns a 204 No Content on success.
 
 ## Remove Guild Discovery Subcategory % DELETE /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/discovery-categories/{category.id#DOCS_RESOURCES_DISCOVERY/discovery-category-object}
 
