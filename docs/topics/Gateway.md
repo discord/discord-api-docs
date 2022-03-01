@@ -10,8 +10,9 @@ Important note: Not all event fields are documented, in particular, fields prefi
 
 | Version | Status                           |
 |---------|----------------------------------|
+| 10      | Available                        |
 | 9       | Available                        |
-| 8       | Available                        |
+| 8       | Deprecated                       |
 | 7       | Doesn't look like anything to me |
 | 6       | Deprecated                       |
 | 5       | Discontinued                     |
