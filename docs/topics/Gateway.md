@@ -1310,10 +1310,10 @@ Active sessions are indicated with an "online", "idle", or "dnd" string per plat
 
 | Field           | Type                                                                          | Description                                                                                                               |
 |-----------------|-------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------|
-| name            | string                                                                        | the activity's name                                                                                                       |
+| name?           | string                                                                        | the activity's name                                                                                                       |
 | type            | integer                                                                       | [activity type](#DOCS_TOPICS_GATEWAY/activity-object-activity-types)                                                      |
 | url?            | ?string                                                                       | stream url, is validated when type is 1                                                                                   |
-| created_at      | integer                                                                       | unix timestamp (in milliseconds) of when the activity was added to the user's session                                                       |
+| created_at      | integer                                                                       | unix timestamp (in milliseconds) of when the activity was added to the user's session                                     |
 | timestamps?     | [timestamps](#DOCS_TOPICS_GATEWAY/activity-object-activity-timestamps) object | unix timestamps for start and/or end of the game                                                                          |
 | application_id? | snowflake                                                                     | application id for the game                                                                                               |
 | details?        | ?string                                                                       | what the player is currently doing                                                                                        |
