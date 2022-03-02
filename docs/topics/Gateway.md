@@ -1326,7 +1326,7 @@ Active sessions are indicated with an "online", "idle", or "dnd" string per plat
 | flags?          | integer                                                                       | [activity flags](#DOCS_TOPICS_GATEWAY/activity-object-activity-flags) `OR`d together, describes what the payload includes |
 | buttons?        | array of [buttons](#DOCS_TOPICS_GATEWAY/activity-object-activity-buttons)     | the custom buttons shown in the Rich Presence (max 2)                                                                     |
 
-\* `name` will be missing if the activity is of type `4`.
+\* This field will be missing if the activity is of type `4`.
 
 > info
 > Bots are only able to send `name`, `type`, and optionally `url`.
