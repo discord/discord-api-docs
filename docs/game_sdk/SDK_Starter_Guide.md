@@ -159,7 +159,7 @@ Next, we need to link these files within our project so that we can reference th
 
     "H:\\Unreal Projects\\gamesdktest\\Source\\gamesdktest\\discord-files\\"
 
-    You should get this value programatically
+    You should get this value programmatically
 */
 PublicIncludePaths.Add(ABSOLUTE_PATH_TO_DISCORD_FILES_DIRECTORY)
 
@@ -168,7 +168,7 @@ PublicIncludePaths.Add(ABSOLUTE_PATH_TO_DISCORD_FILES_DIRECTORY)
 
     "H:\\Unreal Projects\\gamesdktest\\Binaries\\Win64\\discord_game_sdk.dll.lib"
 
-    You should get this value programatically
+    You should get this value programmatically
 */
 PublicAdditionalLibraries.Add(ABSOLUTE_PATH_TO_LIB_FILE)
 ```
