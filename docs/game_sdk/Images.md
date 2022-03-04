@@ -65,7 +65,7 @@ imageManager.Fetch(handle, false, (result, returnedHandle) =>
 
 ## GetDimensions
 
-Get's the dimensions for the given user's avatar's source image.
+Gets the dimensions for the given user's avatar's source image.
 
 Returns `Discord.ImageDimensions`.
 

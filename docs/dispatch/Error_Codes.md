@@ -19,7 +19,7 @@ This page outlines some of the common errors codes that may be encountered when 
 | 2064 | Failed to Patch File       | Attempted to patch the game while running: ensure the game process is entirely ended, try restarting Discord, try disabling antivirus          |
 | 2065 | No Manifests               | Ensure that your manifests are properly selected in the Developer Portal for your SKU                                                          |
 | 2069 | API Error                  | Intermittent API issues. Wait, escalate to #dispatch in the dev server if it persists                                                          |
-| 2070 | Bad Reponse                | Intermittent API issues. Wait, escalate to #dispatch in the dev server if it persists                                                          |
+| 2070 | Bad Response                | Intermittent API issues. Wait, escalate to #dispatch in the dev server if it persists                                                          |
 | 2073 | Not Entitled               | Check that your manifests are properly configured in the Developer Portal. Have the user install the game from the Library, not the store page |
 | 2076 | Two Clients Patching       | User has multiple Discords open trying to patch the same game; only use one                                                                    |
 | 9001 | Unknown                    | Catch-all error code. Escalate to #dispatch in dev server with repro steps/as much info as possible                                            |

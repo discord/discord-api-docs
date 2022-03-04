@@ -468,7 +468,7 @@ There are multiple message types that have a message_reference object.  Since me
 - These messages have `message_id` and `channel_id`, and `guild_id` if it is in a guild, with data of the message that was replied to. The channel_id and guild_id will be the same as the reply.
 - Replies are created by including a message_reference when sending a message. When sending, only `message_id` is required.
 
-###### Thread starter messsage
+###### Thread starter message
 
 - These are the first message in a public thread.  They point back to the message in the parent channel from which the thread was started (type 21)
 - These messages have `message_id`, `channel_id`, and `guild_id`.
@@ -534,7 +534,7 @@ A thread member is used to indicate whether a user has joined a thread or not.
 | join_timestamp | ISO8601 timestamp | the time the current user last joined the thread                |
 | flags          | integer           | any user-thread settings, currently only used for notifications |
 
-** \* These fields are ommitted on the member sent within each thread in the [GUILD_CREATE](#DOCS_TOPICS_GATEWAY/guild-create) event **
+** \* These fields are omitted on the member sent within each thread in the [GUILD_CREATE](#DOCS_TOPICS_GATEWAY/guild-create) event **
 
 ### Embed Object
 
