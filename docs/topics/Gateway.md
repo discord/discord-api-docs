@@ -1380,10 +1380,13 @@ Activity asset images are arbitrary strings which usually contain snowflake IDs 
 
 To use an external image via media proxy, specify the URL as the field's value when sending. You will only receive the `mp:` prefix via the gateway.
 
-| Type              | Format                   | Image URL                                                                  |
-|-------------------|--------------------------|----------------------------------------------------------------------------|
-| Application Asset | `{application_asset_id}` | see [Application Asset Image Formatting](#DOCS_REFERENCE/image-formatting) |
-| Media Proxy Image | `mp:{image_id}`          | `https://media.discordapp.net/{image_id}`                                  |
+| Type                   | Format                   | Image URL                                                                  |
+| ---------------------- | ------------------------ | -------------------------------------------------------------------------- |
+| Application Asset      | `{application_asset_id}` | see [Application Asset Image Formatting](#DOCS_REFERENCE/image-formatting) |
+| Media Proxy Image      | `mp:{image_id}`          | `https://media.discordapp.net/{image_id}`                                  |
+| Twitch Stream Preview  | `twitch:{user_id}`       | `https://static-cdn.jtvnw.net/previews-ttv/live_user_{user_id}.png`        |
+| YouTube Stream Preview | `youtube:{video_id}`     | `https://i.ytimg.com/vi/{video_id}/hqdefault_live.jpg`                     |
+| Spotify Album Cover    | `spotify:{cover_id}`     | `https://i.scdn.co/image/{cover_id}`                                       |
 
 ###### Activity Secrets
 
