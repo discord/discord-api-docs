@@ -79,4 +79,4 @@
 | 1 << 16 | VERIFICATION_PENDING_GUILD_LIMIT | Indicates unusual growth of an app that prevents verification | 
 | 1 << 17 | EMBEDDED                         | Indicates if an app is embedded within the Discord client (currently unavailable publicly) |
 | 1 << 18 | GATEWAY_MESSAGE_CONTENT          | Permission required for bots in **100 or more servers** to receive [message content](https://support-dev.discord.com/hc/en-us/articles/4404772028055) |
-| 1 << 19 | GATEWAY_MESSAGE_CONTENT_LIMITED  | Permission required for bots in under 100 servers to receive [message content](https://support-dev.discord.com/hc/en-us/articles/4404772028055), found under Bot Settings |
+| 1 << 19 | GATEWAY_MESSAGE_CONTENT_LIMITED  | Permission required for bots in under 100 servers to receive [message content](https://support-dev.discord.com/hc/en-us/articles/4404772028055), found in Bot Settings |
