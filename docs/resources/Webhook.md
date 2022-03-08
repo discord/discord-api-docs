@@ -99,9 +99,11 @@ Used to represent a webhook.
 
 ## Create Webhook % POST /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/webhooks
 
-Create a new webhook. Requires the `MANAGE_WEBHOOKS` permission. Returns a [webhook](#DOCS_RESOURCES_WEBHOOK/webhook-object) object on success. Webhook names follow our naming restrictions that can be found in our [Usernames and Nicknames](#DOCS_RESOURCES_USER/usernames-and-nicknames) documentation, with the following additional stipulations:
+Creates a new webhook and returns a [webhook](#DOCS_RESOURCES_WEBHOOK/webhook-object) object on success. Requires the `MANAGE_WEBHOOKS` permission.
 
-- Webhook names cannot be: 'clyde'
+An error will be returned if a webhook name (`name`) is invalid. A name is valid if it:
+- Does not contain the substring "**clyde**" (case-insensitive)
+- Follows the restrictions for nicknames in the [Usernames and Nicknames](#DOCS_RESOURCES_USER/usernames-and-nicknames) documentation, with the exception that webhook names can be up to 80 characters in length
 
 > info
 > This endpoint supports the `X-Audit-Log-Reason` header.
