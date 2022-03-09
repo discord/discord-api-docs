@@ -667,6 +667,9 @@ Modify a guild's settings. Requires the `MANAGE_GUILD` permission. Returns the u
 > info
 > This endpoint supports the `X-Audit-Log-Reason` header.
 
+> warn
+> Attempting to add or remove the `COMMUNITY` [guild feature](#DOCS_RESOURCES_GUILD/guild-object-guild-features) requires the `ADMINISTRATOR` permission.
+
 ###### JSON Params
 
 | Field                         | Type                                                                                | Description                                                                                                                                 |
