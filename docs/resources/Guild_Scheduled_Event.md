@@ -23,7 +23,7 @@ A representation of a scheduled event in a [guild](#DOCS_RESOURCES_GUILD/).
 | entity_metadata **    | ?[entity metadata](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object-guild-scheduled-event-entity-metadata)   | additional metadata for the guild scheduled event                                                                                                                                                                     |
 | creator?              | [user](#DOCS_RESOURCES_USER/user-object) object                                                                                | the user that created the scheduled event                                                                                                                                                                             |
 | user_count?           | integer                                                                                                                        | the number of users subscribed to the scheduled event                                                                                                                                                                 |
-| image                 | ?string                                                                                                                        | the [cover image hash](#DOCS_REFERENCE/image-formatting) of the scheduled event                                                                                                                                       |
+| image?                | ?string                                                                                                                        | the [cover image hash](#DOCS_REFERENCE/image-formatting) of the scheduled event                                                                                                                                       |
 
 
 \* `creator_id` will be null and `creator` will not be included for events created before October 25th, 2021, when the concept of `creator_id` was introduced and tracked.
@@ -124,19 +124,21 @@ Create a guild scheduled event in the guild. Returns a [guild scheduled event](#
 
 ###### JSON Params
 
-| Field                | Type                                                                                                                        | Description                                                                                |
-| -------------------- | --------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------ |
-| channel_id? *        | snowflake *                                                                                                                 | the channel id of the scheduled event.                                                     |
-| entity_metadata?     | [entity metadata](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object-guild-scheduled-event-entity-metadata) | the entity metadata of the scheduled event                                                 |
-| name                 | string                                                                                                                      | the name of the scheduled event                                                            |
-| privacy_level        | [privacy level](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object-guild-scheduled-event-privacy-level)     | the privacy level of the scheduled event                                                   |
-| scheduled_start_time | ISO8601 timestamp                                                                                                           | the time to schedule the scheduled event                                                   |
-| scheduled_end_time?  | ISO8601 timestamp                                                                                                           | the time when the scheduled event is scheduled to end                                      |
-| description?         | string                                                                                                                      | the description of the scheduled event                                                     |
-| entity_type          | [entity type](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object-guild-scheduled-event-entity-types)        | the entity type of the scheduled event                                                     |
-| image?               | [image data](#DOCS_REFERENCE/image-data)                                                                                    | the cover image of the scheduled event                                                     |
+| Field                  | Type                                                                                                                        | Description                                                                                |
+| ---------------------- | --------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------ |
+| channel_id? *          | snowflake *                                                                                                                 | the channel id of the scheduled event.                                                     |
+| entity_metadata? **    | [entity metadata](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object-guild-scheduled-event-entity-metadata) | the entity metadata of the scheduled event                                                 |
+| name                   | string                                                                                                                      | the name of the scheduled event                                                            |
+| privacy_level          | [privacy level](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object-guild-scheduled-event-privacy-level)     | the privacy level of the scheduled event                                                   |
+| scheduled_start_time   | ISO8601 timestamp                                                                                                           | the time to schedule the scheduled event                                                   |
+| scheduled_end_time? ** | ISO8601 timestamp                                                                                                           | the time when the scheduled event is scheduled to end                                      |
+| description?           | string                                                                                                                      | the description of the scheduled event                                                     |
+| entity_type            | [entity type](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object-guild-scheduled-event-entity-types)        | the entity type of the scheduled event                                                     |
+| image?                 | [image data](#DOCS_REFERENCE/image-data)                                                                                    | the cover image of the scheduled event                                                     |
 
 \* Optional for events with `'entity_type': EXTERNAL`
+
+\*\* Required for events with `'entity_type': EXTERNAL`
 
 ## Get Guild Scheduled Event % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/scheduled-events/{guild_scheduled_event.id#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object}
 
@@ -158,20 +160,23 @@ Modify a guild scheduled event. Returns the modified [guild scheduled event](#DO
 > info
 > This endpoint supports the `X-Audit-Log-Reason` header.
 
+> info
+> This endpoint silently discards `entity_metadata` for non-`EXTERNAL` events.
+
 ###### JSON Params
 
-| Field                 | Type                                                                                                                        | Description                                                                                |
-| --------------------- | --------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------ |
-| channel_id? *         | ?snowflake                                                                                                                  | the channel id of the scheduled event, set to `null` if changing entity type to `EXTERNAL` |
-| entity_metadata?      | [entity metadata](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object-guild-scheduled-event-entity-metadata) | the entity metadata of the scheduled event                                                 |
-| name?                 | string                                                                                                                      | the name of the scheduled event                                                            |
-| privacy_level?        | [privacy level](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object-guild-scheduled-event-privacy-level)     | the privacy level of the scheduled event                                                   |
-| scheduled_start_time? | ISO8601 timestamp                                                                                                           | the time to schedule the scheduled event                                                   |
-| scheduled_end_time? * | ISO8601 timestamp                                                                                                           | the time when the scheduled event is scheduled to end                                      |
-| description?          | string                                                                                                                      | the description of the scheduled event                                                     |
-| entity_type? *        | [event entity type](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object-guild-scheduled-event-entity-types)  | the entity type of the scheduled event                                                     |
-| status?               | [event status](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object-guild-scheduled-event-status)             | the status of the scheduled event                                                          |
-| image?                | [image data](#DOCS_REFERENCE/image-data)                                                                                    | the cover image of the scheduled event                                                     |
+| Field                 | Type                                                                                                                         | Description                                                                                |
+| --------------------- | --------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- |
+| channel_id? *         | ?snowflake                                                                                                                   | the channel id of the scheduled event, set to `null` if changing entity type to `EXTERNAL` |
+| entity_metadata?      | ?[entity metadata](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object-guild-scheduled-event-entity-metadata) | the entity metadata of the scheduled event                                                 |
+| name?                 | string                                                                                                                       | the name of the scheduled event                                                            |
+| privacy_level?        | [privacy level](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object-guild-scheduled-event-privacy-level)      | the privacy level of the scheduled event                                                   |
+| scheduled_start_time? | ISO8601 timestamp                                                                                                            | the time to schedule the scheduled event                                                   |
+| scheduled_end_time? * | ISO8601 timestamp                                                                                                            | the time when the scheduled event is scheduled to end                                      |
+| description?          | ?string                                                                                                                      | the description of the scheduled event                                                     |
+| entity_type? *        | [event entity type](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object-guild-scheduled-event-entity-types)   | the entity type of the scheduled event                                                     |
+| status?               | [event status](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object-guild-scheduled-event-status)              | the status of the scheduled event                                                          |
+| image?                | [image data](#DOCS_REFERENCE/image-data)                                                                                     | the cover image of the scheduled event                                                     |
 
 \* If updating `entity_type` to `EXTERNAL`:
 
