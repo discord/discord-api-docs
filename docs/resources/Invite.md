@@ -43,7 +43,8 @@ Represents a code that when used, adds a user to a guild or group DM channel.
     "features": ["NEWS", "DISCOVERABLE"],
     "verification_level": 2,
     "vanity_url_code": null,
-    "nsfw_level": 0
+    "nsfw_level": 0,
+    "premium_subscription_count": 5
   },
   "channel": {
     "id": "165176875973476352",
