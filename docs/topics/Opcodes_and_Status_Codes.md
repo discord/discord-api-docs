@@ -202,7 +202,7 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 50005  | Cannot edit a message authored by another user                                                                                |
 | 50006  | Cannot send an empty message                                                                                                  |
 | 50007  | Cannot send messages to this user                                                                                             |
-| 50008  | Cannot send messages in a voice channel                                                                                       |
+| 50008  | Cannot send messages in a non-text channel                                                                                    |
 | 50009  | Channel verification level is too high for you to gain access                                                                 |
 | 50010  | OAuth2 application does not have a bot                                                                                        |
 | 50011  | OAuth2 application limit reached                                                                                              |
