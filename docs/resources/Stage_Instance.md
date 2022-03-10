@@ -6,14 +6,15 @@ A _Stage Instance_ holds information about a live stage.
 
 ###### Stage Instance Structure
 
-| Field                 | Type      | Description                                                                                                   |
-| --------------------- | --------- | ------------------------------------------------------------------------------------------------------------- |
-| id                    | snowflake | The id of this Stage instance                                                                                 |
-| guild_id              | snowflake | The guild id of the associated Stage channel                                                                  |
-| channel_id            | snowflake | The id of the associated Stage channel                                                                        |
-| topic                 | string    | The topic of the Stage instance (1-120 characters)                                                            |
-| privacy_level         | integer   | The [privacy level](#DOCS_RESOURCES_STAGE_INSTANCE/stage-instance-object-privacy-level) of the Stage instance |
-| discoverable_disabled | boolean   | Whether or not Stage Discovery is disabled (deprecated)                                                       |
+| Field                    | Type       | Description                                                                                                   |
+| ------------------------ | ---------- | ------------------------------------------------------------------------------------------------------------- |
+| id                       | snowflake  | The id of this Stage instance                                                                                 |
+| guild_id                 | snowflake  | The guild id of the associated Stage channel                                                                  |
+| channel_id               | snowflake  | The id of the associated Stage channel                                                                        |
+| topic                    | string     | The topic of the Stage instance (1-120 characters)                                                            |
+| privacy_level            | integer    | The [privacy level](#DOCS_RESOURCES_STAGE_INSTANCE/stage-instance-object-privacy-level) of the Stage instance |
+| discoverable_disabled    | boolean    | Whether or not Stage Discovery is disabled (deprecated)                                                       |
+| guild_scheduled_event_id | ?snowflake | The id of the scheduled event for this Stage instance                                                         |
 
 ###### Privacy Level
 
@@ -31,7 +32,8 @@ A _Stage Instance_ holds information about a live stage.
   "channel_id": "733488538393510049",
   "topic": "Testing Testing, 123",
   "privacy_level": 1,
-  "discoverable_disabled": false
+  "discoverable_disabled": false,
+  "guild_scheduled_event_id": "947656305244532806"
 }
 ```
 
@@ -59,7 +61,7 @@ When a Stage channel has no speakers for a certain period of time (on the order 
 
 ## Create Stage Instance % POST /stage-instances
 
-Creates a new Stage instance associated to a Stage channel.
+Creates a new Stage instance associated to a Stage channel. Returns that [Stage instance](#DOCS_RESOURCES_STAGE_INSTANCE/stage-instance-object-stage-instance-structure).
 
 Requires the user to be a moderator of the Stage channel.
 
@@ -80,7 +82,7 @@ Gets the stage instance associated with the Stage channel, if it exists.
 
 ## Modify Stage Instance % PATCH /stage-instances/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}
 
-Updates fields of an existing Stage instance.
+Updates fields of an existing Stage instance. Returns the updated [Stage instance](#DOCS_RESOURCES_STAGE_INSTANCE/stage-instance-object-stage-instance-structure).
 
 Requires the user to be a moderator of the Stage channel.
 
@@ -96,7 +98,7 @@ Requires the user to be a moderator of the Stage channel.
 
 ## Delete Stage Instance % DELETE /stage-instances/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}
 
-Deletes the Stage instance.
+Deletes the Stage instance. Returns `204 No Content`.
 
 Requires the user to be a moderator of the Stage channel.
 

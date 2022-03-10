@@ -38,7 +38,7 @@ This manager also includes a couple useful helper functions, like getting the lo
 > info
 > Value from environment variable `DISCORD_CURRENT_LOCALE`
 
-Get's the locale the current user has Discord set to.
+Gets the locale the current user has Discord set to.
 
 Returns a `string`.
 

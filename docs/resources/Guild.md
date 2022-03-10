@@ -667,6 +667,9 @@ Modify a guild's settings. Requires the `MANAGE_GUILD` permission. Returns the u
 > info
 > This endpoint supports the `X-Audit-Log-Reason` header.
 
+> warn
+> Attempting to add or remove the `COMMUNITY` [guild feature](#DOCS_RESOURCES_GUILD/guild-object-guild-features) requires the `ADMINISTRATOR` permission.
+
 ###### JSON Params
 
 | Field                         | Type                                                                                | Description                                                                                                                                 |
@@ -932,15 +935,15 @@ Create a new [role](#DOCS_TOPICS_PERMISSIONS/role-object) for the guild. Require
 
 ###### JSON Params
 
-| Field         | Type                                     | Description                                                                                                                    | Default                        |
-| ------------- | ---------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------ |
-| name          | string                                   | name of the role (1-100 characters)                                                                                            | "new role"                     |
-| permissions   | string                                   | bitwise value of the enabled/disabled permissions                                                                              | @everyone permissions in guild |
-| color         | integer                                  | RGB color value                                                                                                                | 0                              |
-| hoist         | boolean                                  | whether the role should be displayed separately in the sidebar                                                                 | false                          |
-| icon          | [image data](#DOCS_REFERENCE/image-data) | the role's icon image (if the guild has the `ROLE_ICONS` feature)                                                              | null                           |
-| unicode_emoji | string                                   | the role's unicode emoji as a [standard emoji](#DOCS_REFERENCE/message-formatting) (if the guild has the `ROLE_ICONS` feature) | null                           |
-| mentionable   | boolean                                  | whether the role should be mentionable                                                                                         | false                          |
+| Field         | Type                                      | Description                                                                                                                    | Default                        |
+| ------------- | ----------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------ |
+| name          | string                                    | name of the role (1-100 characters)                                                                                            | "new role"                     |
+| permissions   | string                                    | bitwise value of the enabled/disabled permissions                                                                              | @everyone permissions in guild |
+| color         | integer                                   | RGB color value                                                                                                                | 0                              |
+| hoist         | boolean                                   | whether the role should be displayed separately in the sidebar                                                                 | false                          |
+| icon          | ?[image data](#DOCS_REFERENCE/image-data) | the role's icon image (if the guild has the `ROLE_ICONS` feature)                                                              | null                           |
+| unicode_emoji | ?string                                   | the role's unicode emoji as a [standard emoji](#DOCS_REFERENCE/message-formatting) (if the guild has the `ROLE_ICONS` feature) | null                           |
+| mentionable   | boolean                                   | whether the role should be mentionable                                                                                         | false                          |
 
 ## Modify Guild Role Positions % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/roles
 
@@ -1112,7 +1115,7 @@ Modify the guild's [Welcome Screen](#DOCS_RESOURCES_GUILD/welcome-screen-object)
 
 ## Modify Current User Voice State % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/voice-states/@me
 
-Updates the current user's voice state.
+Updates the current user's voice state. Returns `204 No Content` on success.
 
 ###### JSON Params
 

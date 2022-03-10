@@ -266,7 +266,7 @@ Select menus support single-select and multi-select behavior, meaning you can pr
 | type         | integer                                                                                                     | `3` for a select menu                                                     |
 | custom_id    | string                                                                                                      | a developer-defined identifier for the button, max 100 characters         |
 | options      | array of [select options](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/select-menu-object-select-option-structure) | the choices in the select, max 25                                         |
-| placeholder? | string                                                                                                      | custom placeholder text if nothing is selected, max 100 characters        |
+| placeholder? | string                                                                                                      | custom placeholder text if nothing is selected, max 150 characters        |
 | min_values?  | integer                                                                                                     | the minimum number of items that must be chosen; default 1, min 0, max 25 |
 | max_values?  | integer                                                                                                     | the maximum number of items that can be chosen; default 1, max 25         |
 | disabled?    | boolean                                                                                                     | disable the select, default false                                         |
