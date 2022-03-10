@@ -50,7 +50,6 @@ Represents a guild or DM channel within Discord.
 | GROUP_DM                | 3   | a direct message between multiple users                                                                                                              |
 | GUILD_CATEGORY          | 4   | an [organizational category](https://support.discord.com/hc/en-us/articles/115001580171-Channel-Categories-101) that contains up to 50 channels      |
 | GUILD_NEWS              | 5   | a channel that [users can follow and crosspost into their own server](https://support.discord.com/hc/en-us/articles/360032008192)                    |
-| GUILD_STORE             | 6   | a channel in which game developers can [sell their game on Discord](https://discord.com/developers/docs/game-and-server-management/special-channels) |
 | GUILD_NEWS_THREAD       | 10  | a temporary sub-channel within a GUILD_NEWS channel                                                                                                  |
 | GUILD_PUBLIC_THREAD     | 11  | a temporary sub-channel within a GUILD_TEXT channel                                                                                                  |
 | GUILD_PRIVATE_THREAD    | 12  | a temporary sub-channel within a GUILD_TEXT channel that is only viewable by those invited and those with the MANAGE_THREADS permission              |
@@ -177,23 +176,6 @@ Bots can post or publish messages in this type of channel if they have the prope
   "guild_id": "290926798629997250",
   "type": 4,
   "id": "399942396007890945"
-}
-```
-
-###### Example Store Channel
-
-Bots can neither send nor read messages in this channel type (as it is a store page).
-
-```json
-{
-  "id": "41771983423143937",
-  "guild_id": "41771983423143937",
-  "name": "buy dota-2",
-  "type": 6,
-  "position": 0,
-  "permission_overwrites": [],
-  "nsfw": false,
-  "parent_id": null
 }
 ```
 
@@ -810,12 +792,12 @@ Requires the `MANAGE_CHANNELS` permission for the guild. Fires a [Channel Update
 | type                          | integer                                                                         | the [type of channel](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types); only conversion between text and news is supported and only in guilds with the "NEWS" feature      | Text, News               |
 | position                      | ?integer                                                                        | the position of the channel in the left-hand listing                                                                                                                            | All                      |
 | topic                         | ?string                                                                         | 0-1024 character channel topic                                                                                                                                                  | Text, News               |
-| nsfw                          | ?boolean                                                                        | whether the channel is nsfw                                                                                                                                                     | Text, News, Store        |
+| nsfw                          | ?boolean                                                                        | whether the channel is nsfw                                                                                                                                                     | Text, News               |
 | rate_limit_per_user           | ?integer                                                                        | amount of seconds a user has to wait before sending another message (0-21600); bots, as well as users with the permission `manage_messages` or `manage_channel`, are unaffected | Text                     |
 | bitrate                       | ?integer                                                                        | the bitrate (in bits) of the voice channel; 8000 to 96000 (128000 for VIP servers)                                                                                              | Voice                    |
 | user_limit                    | ?integer                                                                        | the user limit of the voice channel; 0 refers to no limit, 1 to 99 refers to a user limit                                                                                       | Voice                    |
 | permission_overwrites\*       | ?array of partial [overwrite](#DOCS_RESOURCES_CHANNEL/overwrite-object) objects | channel or category-specific permissions                                                                                                                                        | All                      |
-| parent_id                     | ?snowflake                                                                      | id of the new parent category for a channel                                                                                                                                     | Text, News, Store, Voice |
+| parent_id                     | ?snowflake                                                                      | id of the new parent category for a channel                                                                                                                                     | Text, News, Voice        |
 | rtc_region                    | ?string                                                                         | channel [voice region](#DOCS_RESOURCES_VOICE/voice-region-object) id, automatic when set to null                                                                                | Voice                    |
 | video_quality_mode            | ?integer                                                                        | the camera [video quality mode](#DOCS_RESOURCES_CHANNEL/channel-object-video-quality-modes) of the voice channel                                                                | Voice                    |
 | default_auto_archive_duration | ?integer                                                                        | the default duration that the clients use (not the API) for newly created threads in the channel, in minutes, to automatically archive the thread after recent activity         | Text, News               |
