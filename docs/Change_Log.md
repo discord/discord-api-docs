@@ -1,5 +1,37 @@
 # Change Log
 
+## Interaction Modals and Application Command Attachment Option Type
+
+#### Feb 8, 2022
+
+Interaction modals are now available, allowing applications to prompt users for further detailed input. Check out [the modal docs](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-response-object-modal) for more information.
+
+Application Commands can now add an attachment option type. See [the option type table](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-type) for more information.
+
+## Guild Member Timeouts
+
+#### Dec 20, 2021
+
+Add new documentation for the recently released guild member timeout feature.
+
+## Guild Scheduled Events
+
+#### Nov 23, 2021
+
+- Add official support for `guild_scheduled_events` field on `Guild` resource sent with `GUILD_CREATE` event
+
+#### Nov 18, 2021
+
+- Breaking change for return type for `GET /guilds/{guild.id}/scheduled-events/{guild_scheduled_event.id}/users`
+- Add `with_user_count` query param for `GET /guilds/{guild.id}/scheduled-events/{guild_scheduled_event.id}`
+- Return additional `creator` field by default in response for `GET /guilds/{guild.id}/scheduled-events/{guild_scheduled_event.id}`
+- More details and clarification for the guild scheduled events feature.
+- Document support for `before` and `after` query params for `GET /guilds/{guild.id}/scheduled-events/{guild_scheduled_event.id}/users`
+
+#### Nov 15, 2021
+
+Add new documentation for the recently released Guild Scheduled Events feature.
+
 ## Application Command Autocomplete Interactions
 
 #### October 27, 2021
@@ -12,12 +44,12 @@ Autocomplete interactions are now available, allowing application commands to pr
 
 Thread permissions have been updated and simplified:
 
-- "Use Public Threads" is now "Create Public Threads", which allows users to create threads in a channel, even if they cannot send messages in that channel.
-- "Use Private Threads" is now "Create Private Threads", which allows users to create threads in a channel, even if they cannot send messages in that channel.
+- "Use Public Threads" is now "Create Public Threads", which allows users to create public threads and announcement threads in a channel, even if they cannot send messages in that channel.
+- "Use Private Threads" is now "Create Private Threads", which allows users to create private threads in a channel, even if they cannot send messages in that channel.
 
 A new permission has also been added:
 
-- "Send Messages in Threads", which allows users to send a message in a thread. The "Send Messages" permission has no effect in threads: users **must** have "Send Messages in Threads" to send a message in a thread. This allows for setups where a user can participate in a thread, but cannot send a message in the parent channel (like a thread on an announcement post).
+- "Send Messages in Threads", which allows users to send a message in a thread. The "Send Messages" permission has no effect in threads: users **must** have "Send Messages in Threads" to send a message in a thread. This allows for setups where a user can participate in a thread but cannot send a message in the parent channel (like a thread on an announcement post).
 
 ## User and Message Commands
 

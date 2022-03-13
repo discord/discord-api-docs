@@ -15,7 +15,7 @@ The first step in implementing OAuth2 is [registering a developer application](#
 | https://discord.com/api/oauth2/token/revoke | [Token Revocation](https://tools.ietf.org/html/rfc7009) URL |
 
 > warn
-> In accordance with the relevant RFCs, the token and token revocation URLs will **only** accept a content type of `x-www-form-urlencoded`. JSON content is not permitted and will return an error.
+> In accordance with the relevant RFCs, the token and token revocation URLs will **only** accept a content type of `application/x-www-form-urlencoded`. JSON content is not permitted and will return an error.
 
 ###### OAuth2 Scopes
 
@@ -37,6 +37,7 @@ These are a list of all the OAuth2 scopes that Discord supports. Some scopes req
 | gdm.join                     | allows your app to [join users to a group dm](#DOCS_RESOURCES_CHANNEL/group-dm-add-recipient)                                                                                            |
 | guilds                       | allows [/users/@me/guilds](#DOCS_RESOURCES_USER/get-current-user-guilds) to return basic information about all of a user's guilds                                                        |
 | guilds.join                  | allows [/guilds/{guild.id}/members/{user.id}](#DOCS_RESOURCES_GUILD/add-guild-member) to be used for joining users to a guild                                                            |
+| guilds.members.read          | allows [/users/@me/guilds/{guild.id}/member](#DOCS_RESOURCES_USER/get-current-user-guild-member) to return a user's member information in a guild                                        |
 | identify                     | allows [/users/@me](#DOCS_RESOURCES_USER/get-current-user) without `email`                                                                                                               |
 | messages.read                | for local rpc server api access, this allows you to read messages from all client channels (otherwise restricted to channels/guilds your app creates)                                    |
 | relationships.read           | allows your app to know a user's friends and implicit relationships - requires Discord approval                                                                                          |

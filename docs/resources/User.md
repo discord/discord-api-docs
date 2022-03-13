@@ -15,8 +15,8 @@ Discord enforces the following restrictions for usernames and nicknames:
 
 The following restrictions are additionally enforced for usernames:
 
-1.  Names cannot contain the following substrings: '@', '#', ':', '\```'.
-2.  Names cannot be: 'discordtag', 'everyone', 'here'.
+1.  Usernames cannot contain the following substrings: '@', '#', ':', '\```', 'discord'
+2.  Usernames cannot be: 'everyone', 'here'
 
 There are other rules and restrictions not shared here for the sake of spam and abuse mitigation, but the majority of users won't encounter them. It's important to properly handle all error messages returned by Discord when editing or updating names.
 
@@ -35,7 +35,7 @@ There are other rules and restrictions not shared here for the sake of spam and 
 | mfa_enabled?  | boolean   | whether the user has two factor enabled on their account                                             | identify              |
 | banner?       | ?string   | the user's [banner hash](#DOCS_REFERENCE/image-formatting)                                           | identify              |
 | accent_color? | ?integer  | the user's banner color encoded as an integer representation of hexadecimal color code               | identify              |
-| locale?       | string    | the user's chosen language option                                                                    | identify              |
+| locale?       | string    | the user's chosen [language option](#DOCS_REFERENCE/locales)                                         | identify              |
 | verified?     | boolean   | whether the email on this account has been verified                                                  | email                 |
 | email?        | ?string   | the user's email                                                                                     | email                 |
 | flags?        | integer   | the [flags](#DOCS_RESOURCES_USER/user-object-user-flags) on a user's account                         | identify              |
@@ -164,6 +164,10 @@ Returns a list of partial [guild](#DOCS_RESOURCES_GUILD/guild-object) objects th
 | before | snowflake | get guilds before this guild ID        | false    | absent  |
 | after  | snowflake | get guilds after this guild ID         | false    | absent  |
 | limit  | integer   | max number of guilds to return (1-200) | false    | 200     |
+
+## Get Current User Guild Member % GET /users/@me/guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/member
+
+Returns a [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) object for the current user. Requires the `guilds.members.read` OAuth2 scope.
 
 ## Leave Guild % DELETE /users/@me/guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}
 

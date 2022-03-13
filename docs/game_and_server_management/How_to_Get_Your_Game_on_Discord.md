@@ -1,7 +1,7 @@
 # How to Get Your Game on Discord
 
-> warn
-> Game approval submissions are currently paused due to unforeseen circumstances. We apologize for the inconvenience. [Click here for more info.](https://support-dev.discord.com/hc/en-us/articles/360041437171)
+> danger
+> Selling SKUs on Discord is now deprecated, and will be discontinued on March 1, 2022. [Read here for more info.](https://support-dev.discord.com/hc/en-us/articles/4414590563479)
 
 Welcome, adventurer! If you're here, you want to find out how to get your game up and running on Discord and learn about our awesome Server Commerce features. You've come to the right place, so let's get started.
 

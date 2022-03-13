@@ -13,7 +13,7 @@ Represents a sticker that can be sent in messages.
 | name        | string                                          | name of the sticker                                                                                                                                                  |
 | description | ?string                                         | description of the sticker                                                                                                                                           |
 | tags\*      | string                                          | autocomplete/suggestion tags for the sticker (max 200 characters)                                                                                                    |
-| asset       | string                                          | **Deprecated** previously the sticker asset hash, now an empty string                                                                                                |
+| asset?      | string                                          | **Deprecated** previously the sticker asset hash, now an empty string                                                                                                |
 | type        | integer                                         | [type of sticker](#DOCS_RESOURCES_STICKER/sticker-object-sticker-types)                                                                                              |
 | format_type | integer                                         | [type of sticker format](#DOCS_RESOURCES_STICKER/sticker-object-sticker-format-types)                                                                                |
 | available?  | boolean                                         | whether this guild sticker can be used, may be false due to loss of Server Boosts                                                                                    |
@@ -81,7 +81,7 @@ Represents a pack of standard stickers.
 | sku_id            | snowflake                                                          | id of the pack's SKU                                                      |
 | cover_sticker_id? | snowflake                                                          | id of a sticker in the pack which is shown as the pack's icon             |
 | description       | string                                                             | description of the sticker pack                                           |
-| banner_asset_id   | snowflake                                                          | id of the sticker pack's [banner image](#DOCS_REFERENCE/image-formatting) |
+| banner_asset_id?  | snowflake                                                          | id of the sticker pack's [banner image](#DOCS_REFERENCE/image-formatting) |
 
 ###### Example Sticker Pack
 

@@ -48,7 +48,7 @@ Application commands are commands that an application can register to Discord. T
 | channel_types?    | array of [channel types](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types)                                                                               | if the option is a channel type, the channels shown will be restricted to these types                                  |
 | min_value?        | integer for `INTEGER` options, double for `NUMBER` options                                                                                                   | if the option is an `INTEGER` or `NUMBER` type, the minimum value permitted                                            |
 | max_value?        | integer for `INTEGER` options, double for `NUMBER` options                                                                                                   | if the option is an `INTEGER` or `NUMBER` type, the maximum value permitted                                            |
-| autocomplete? \*  | boolean                                                                                                                                                      | enable autocomplete interactions for this option                                                                       |
+| autocomplete? \*  | boolean                                                                                                                                                      | if autocomplete interactions are enabled for this `STRING`, `INTEGER`, or `NUMBER` type option                         |
 
 \* `autocomplete` may not be set to true if `choices` are present.
 
@@ -57,18 +57,19 @@ Application commands are commands that an application can register to Discord. T
 
 ###### Application Command Option Type
 
-| Name              | Value | Note                                    |
-| ----------------- | ----- | --------------------------------------- |
-| SUB_COMMAND       | 1     |                                         |
-| SUB_COMMAND_GROUP | 2     |                                         |
-| STRING            | 3     |                                         |
-| INTEGER           | 4     | Any integer between -2^53 and 2^53      |
-| BOOLEAN           | 5     |                                         |
-| USER              | 6     |                                         |
-| CHANNEL           | 7     | Includes all channel types + categories |
-| ROLE              | 8     |                                         |
-| MENTIONABLE       | 9     | Includes users and roles                |
-| NUMBER            | 10    | Any double between -2^53 and 2^53       |
+| Name              | Value | Note                                                           |
+| ----------------- | ----- | -------------------------------------------------------------- |
+| SUB_COMMAND       | 1     |                                                                |
+| SUB_COMMAND_GROUP | 2     |                                                                |
+| STRING            | 3     |                                                                |
+| INTEGER           | 4     | Any integer between -2^53 and 2^53                             |
+| BOOLEAN           | 5     |                                                                |
+| USER              | 6     |                                                                |
+| CHANNEL           | 7     | Includes all channel types + categories                        |
+| ROLE              | 8     |                                                                |
+| MENTIONABLE       | 9     | Includes users and roles                                       |
+| NUMBER            | 10    | Any double between -2^53 and 2^53                              |
+| ATTACHMENT        | 11    | [attachment](#DOCS_RESOURCES_CHANNEL/attachment-object) object |
 
 ###### Application Command Option Choice Structure
 
@@ -88,10 +89,10 @@ All options have names, and an option can either be a parameter and input value-
 `value` and `options` are mutually exclusive.
 
 | Field    | Type                                                                                                                                                                             | Description                                                                                                                                    |
-| -------- |--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| -------- |----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------| ---------------------------------------------------------------------------------------------------------------------------------------------- |
 | name     | string                                                                                                                                                                           | the name of the parameter                                                                                                                      |
 | type     | integer                                                                                                                                                                          | value of [application command option type](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-type) |
-| value?   | [application command option type](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-type)                                            | the value of the pair                                                                                                                          |
+| value?   | string, integer, or double                                                                                                                                                       | the value of the option resulting from user input                                                                                              |
 | options? | array of [application command interaction data option](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-interaction-data-option-structure) | present if this option is a group or subcommand                                                                                                |
 | focused? | boolean                                                                                                                                                                          | true if this option is the currently focused option for autocomplete                                                                           |
 
@@ -683,6 +684,9 @@ And, done! The JSON looks a bit complicated, but what we've ended up with is a s
 
 User commands are application commands that appear on the context menu (right click or tap) of users. They're a great way to surface quick actions for your app that target users. They don't take any arguments, and will return the user on whom you clicked or tapped in the interaction response.
 
+> warn
+> A user must have permission to send text messages in the channel they invoke a user command in. If they don't have this permission, they will receive a 'Permission Denied' error from the interaction.
+
 > danger
 > The `description` field is not allowed when creating user commands. However, to avoid breaking changes to data models, `description` will be an **empty string** (instead of `null`) when fetching commands.
 
@@ -854,7 +858,7 @@ When someone uses a message command, your application will receive an interactio
 
 Autocomplete interactions allow your application to dynamically return option suggestions to a user as they type.
 
-An autocomplete interaction **can return partial data** for option values. Your application will receive partial data for any existing user input, as long as that input passes client-side validation. For example, you may receive partial strings, but not invalid numbers. The option the user is currently typing will be sent with a `focused: true` boolean field.
+An autocomplete interaction **can return partial data** for option values. Your application will receive partial data for any existing user input, as long as that input passes client-side validation. For example, you may receive partial strings, but not invalid numbers. The option the user is currently typing will be sent with a `focused: true` boolean field and options the user has already filled will also be sent but without the `focused` field. This is a special case where options that are otherwise required might not be present, due to the user not having filled them yet.
 
 > warn
 > This validation is **client-side only**.
@@ -927,7 +931,7 @@ Edit a global command. Updates will be available in all guilds after 1 hour. Ret
 
 ## Delete Global Application Command % DELETE /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/commands/{command.id#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object}
 
-Deletes a global command. Returns `204`.
+Deletes a global command. Returns `204 No Content` on success.
 
 ## Bulk Overwrite Global Application Commands % PUT /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/commands
 
@@ -979,7 +983,7 @@ Edit a guild command. Updates for guild commands will be available immediately. 
 
 ## Delete Guild Application Command % DELETE /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/commands/{command.id#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object}
 
-Delete a guild command. Returns `204` on success.
+Delete a guild command. Returns `204 No Content` on success.
 
 ## Bulk Overwrite Guild Application Commands % PUT /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/commands
 

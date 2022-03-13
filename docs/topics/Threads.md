@@ -57,9 +57,9 @@ Threads automatically archive after inactivity. "Activity" is defined as sending
 
 ## Permissions
 
-Threads generally inherit permissions from the parent channel. If you can add reactions in the parent channel, you can do that in a thread as well.
+Threads generally inherit permissions from the parent channel (e.g. if you can add reactions in the parent channel, you can do that in a thread as well).
 
-Three new permission bits have been added, `CREATE_PUBLIC_THREADS`, `CREATE_PRIVATE_THREADS`, and `SEND_MESSAGES_IN_THREADS`. Note: `SEND_MESSAGES` has no effect in threads, users must have `SEND_MESSAGES_IN_THREADS` to talk in a thread.
+Three new permission bits have been added, `CREATE_PUBLIC_THREADS`, `CREATE_PRIVATE_THREADS`, and `SEND_MESSAGES_IN_THREADS`. Note: `SEND_MESSAGES` has no effect in threads; users must have `SEND_MESSAGES_IN_THREADS` to talk in a thread.
 
 Private threads are similar to Group DMs, but in a guild: You must be invited to the thread to be able to view or participate in it, or be a moderator (`MANAGE_THREADS` permission).
 
@@ -154,7 +154,7 @@ When a client gains access to a channel (example: they _gain_ the moderator role
 
 ### Losing access to a channel
 
-When a client loses access to a channel, the gateway does not send them a [Thread Delete](#DOCS_TOPICS_GATEWAY/thread-delete) event or any equivalent. They will still receive _an_ event when this happens, it just will not be a thread-specific event. Usually the event wil be [Guild Role Update](#DOCS_TOPICS_GATEWAY/guild-role-update), [Guild Member Update](#DOCS_TOPICS_GATEWAY/guild-member-update) or [Channel Update](#DOCS_TOPICS_GATEWAY/channel-update). It will be some event that caused the permissions on a channel to change. So _if_ a bot wanted to simulate a "lost access to thread" event, it is entirely possible, albeit quite complicated to handle all cases correctly. Under the hood, Discord's clients actually don't worry about this detail. Instead, when performing an action, the client checks permissions first (which implicitly checks if the client has access to the parent channel too, since threads inherit permissions), that way _even if_ the client has some stale data, it does not end up acting on it.
+When a client loses access to a channel, the gateway does not send them a [Thread Delete](#DOCS_TOPICS_GATEWAY/thread-delete) event or any equivalent. They will still receive _an_ event when this happens, it just will not be a thread-specific event. Usually the event will be [Guild Role Update](#DOCS_TOPICS_GATEWAY/guild-role-update), [Guild Member Update](#DOCS_TOPICS_GATEWAY/guild-member-update) or [Channel Update](#DOCS_TOPICS_GATEWAY/channel-update). It will be some event that caused the permissions on a channel to change. So _if_ a bot wanted to simulate a "lost access to thread" event, it is entirely possible, albeit quite complicated to handle all cases correctly. Under the hood, Discord's clients actually don't worry about this detail. Instead, when performing an action, the client checks permissions first (which implicitly checks if the client has access to the parent channel too, since threads inherit permissions), that way _even if_ the client has some stale data, it does not end up acting on it.
 
 Additionally, when a client loses access to a channel they are not removed from the thread. Users may want to temporarily shut down access to a server or channel. Removing someone from all threads when that happens would not be a good experience, so we've chosen not to go that route. Users will still be reported as members of a thread, even if they no longer have access to the parent channel. They will **not** receive new gateway events for those threads though, with one exception: If a client is removed from a thread _after_ losing access to the parent channel, they will still receive a [Thread Members Update](#DOCS_TOPICS_GATEWAY/thread-members-update) dispatch.
 

@@ -301,25 +301,26 @@ Discord uses ids and hashes to render images in the client. These hashes can be 
 
 ###### CDN Endpoints
 
-| Type                   | Path                                                                                                                                                                                                                                                              | Supports             |
-|------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------|
-| Custom Emoji           | emojis/[emoji_id](#DOCS_RESOURCES_EMOJI/emoji-object).png                                                                                                                                                                                                         | PNG, JPEG, WebP, GIF |
-| Guild Icon             | icons/[guild_id](#DOCS_RESOURCES_GUILD/guild-object)/[guild_icon](#DOCS_RESOURCES_GUILD/guild-object).png \*                                                                                                                                                      | PNG, JPEG, WebP, GIF |
-| Guild Splash           | splashes/[guild_id](#DOCS_RESOURCES_GUILD/guild-object)/[guild_splash](#DOCS_RESOURCES_GUILD/guild-object).png                                                                                                                                                    | PNG, JPEG, WebP      |
-| Guild Discovery Splash | discovery-splashes/[guild_id](#DOCS_RESOURCES_GUILD/guild-object)/[guild_discovery_splash](#DOCS_RESOURCES_GUILD/guild-object).png                                                                                                                                | PNG, JPEG, WebP      |
-| Guild Banner           | banners/[guild_id](#DOCS_RESOURCES_GUILD/guild-object)/[guild_banner](#DOCS_RESOURCES_GUILD/guild-object).png                                                                                                                                                     | PNG, JPEG, WebP      |
-| User Banner            | banners/[user_id](#DOCS_RESOURCES_USER/user-object)/[user_banner](#DOCS_RESOURCES_USER/user-object).png \*                                                                                                                                                        | PNG, JPEG, WebP, GIF |
-| Default User Avatar    | embed/avatars/[user_discriminator](#DOCS_RESOURCES_USER/user-object).png \*\* \*\*\*                                                                                                                                                                              | PNG                  |
-| User Avatar            | avatars/[user_id](#DOCS_RESOURCES_USER/user-object)/[user_avatar](#DOCS_RESOURCES_USER/user-object).png \*                                                                                                                                                        | PNG, JPEG, WebP, GIF |
-| Guild Member Avatar    | guilds/[guild_id](#DOCS_RESOURCES_GUILD/guild-object)/users/[user_id](#DOCS_RESOURCES_USER/user-object)/avatars/[member_avatar](#DOCS_RESOURCES_GUILD/guild-member-object).png \*                                                                                 | PNG, JPEG, WebP, GIF |
-| Application Icon       | app-icons/[application_id](#DOCS_RESOURCES_APPLICATION/application-object)/[icon](#DOCS_RESOURCES_APPLICATION/application-object).png                                                                                                                             | PNG, JPEG, WebP      |
-| Application Cover      | app-icons/[application_id](#DOCS_RESOURCES_APPLICATION/application-object)/[cover_image](#DOCS_RESOURCES_APPLICATION/application-object).png                                                                                                                      | PNG, JPEG, WebP      |
-| Application Asset      | app-assets/[application_id](#DOCS_RESOURCES_APPLICATION/application-object)/[asset_id](#DOCS_TOPICS_GATEWAY/activity-object-activity-assets).png                                                                                                                  | PNG, JPEG, WebP      |
-| Achievement Icon       | app-assets/[application_id](#DOCS_RESOURCES_APPLICATION/application-object)/achievements/[achievement_id](#DOCS_GAME_SDK_ACHIEVEMENTS/data-models-user-achievement-struct)/icons/[icon_hash](#DOCS_GAME_SDK_ACHIEVEMENTS/data-models-user-achievement-struct).png | PNG, JPEG, WebP      |
-| Sticker Pack Banner    | app-assets/710982414301790216/store/[sticker_pack_banner_asset_id](#DOCS_RESOURCES_STICKER/sticker-pack-object).png                                                                                                                                               | PNG, JPEG, WebP      |
-| Team Icon              | team-icons/[team_id](#DOCS_TOPICS_TEAMS/data-models-team-object)/[team_icon](#DOCS_TOPICS_TEAMS/data-models-team-object).png                                                                                                                                      | PNG, JPEG, WebP      |
-| Sticker                | stickers/[sticker_id](#DOCS_RESOURCES_STICKER/sticker-object).png \*\*\* \*\*\*\*                                                                                                                                                                                 | PNG, Lottie          |
-| Role Icon              | role-icons/[role_id](#DOCS_TOPICS_PERMISSIONS/role-object)/[role_icon](#DOCS_TOPICS_PERMISSIONS/role-object).png \*                                                                                                                                               | PNG, JPEG, WebP      |
+| Type                        | Path                                                                                                                                                                                                                                                              | Supports             |
+| --------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------- |
+| Custom Emoji                | emojis/[emoji_id](#DOCS_RESOURCES_EMOJI/emoji-object).png                                                                                                                                                                                                         | PNG, JPEG, WebP, GIF |
+| Guild Icon                  | icons/[guild_id](#DOCS_RESOURCES_GUILD/guild-object)/[guild_icon](#DOCS_RESOURCES_GUILD/guild-object).png \*                                                                                                                                                      | PNG, JPEG, WebP, GIF |
+| Guild Splash                | splashes/[guild_id](#DOCS_RESOURCES_GUILD/guild-object)/[guild_splash](#DOCS_RESOURCES_GUILD/guild-object).png                                                                                                                                                    | PNG, JPEG, WebP      |
+| Guild Discovery Splash      | discovery-splashes/[guild_id](#DOCS_RESOURCES_GUILD/guild-object)/[guild_discovery_splash](#DOCS_RESOURCES_GUILD/guild-object).png                                                                                                                                | PNG, JPEG, WebP      |
+| Guild Banner                | banners/[guild_id](#DOCS_RESOURCES_GUILD/guild-object)/[guild_banner](#DOCS_RESOURCES_GUILD/guild-object).png                                                                                                                                                     | PNG, JPEG, WebP      |
+| User Banner                 | banners/[user_id](#DOCS_RESOURCES_USER/user-object)/[user_banner](#DOCS_RESOURCES_USER/user-object).png \*                                                                                                                                                        | PNG, JPEG, WebP, GIF |
+| Default User Avatar         | embed/avatars/[user_discriminator](#DOCS_RESOURCES_USER/user-object).png \*\* \*\*\*                                                                                                                                                                              | PNG                  |
+| User Avatar                 | avatars/[user_id](#DOCS_RESOURCES_USER/user-object)/[user_avatar](#DOCS_RESOURCES_USER/user-object).png \*                                                                                                                                                        | PNG, JPEG, WebP, GIF |
+| Guild Member Avatar         | guilds/[guild_id](#DOCS_RESOURCES_GUILD/guild-object)/users/[user_id](#DOCS_RESOURCES_USER/user-object)/avatars/[member_avatar](#DOCS_RESOURCES_GUILD/guild-member-object).png \*                                                                                 | PNG, JPEG, WebP, GIF |
+| Application Icon            | app-icons/[application_id](#DOCS_RESOURCES_APPLICATION/application-object)/[icon](#DOCS_RESOURCES_APPLICATION/application-object).png                                                                                                                             | PNG, JPEG, WebP      |
+| Application Cover           | app-icons/[application_id](#DOCS_RESOURCES_APPLICATION/application-object)/[cover_image](#DOCS_RESOURCES_APPLICATION/application-object).png                                                                                                                      | PNG, JPEG, WebP      |
+| Application Asset           | app-assets/[application_id](#DOCS_RESOURCES_APPLICATION/application-object)/[asset_id](#DOCS_TOPICS_GATEWAY/activity-object-activity-assets).png                                                                                                                  | PNG, JPEG, WebP      |
+| Achievement Icon            | app-assets/[application_id](#DOCS_RESOURCES_APPLICATION/application-object)/achievements/[achievement_id](#DOCS_GAME_SDK_ACHIEVEMENTS/data-models-user-achievement-struct)/icons/[icon_hash](#DOCS_GAME_SDK_ACHIEVEMENTS/data-models-user-achievement-struct).png | PNG, JPEG, WebP      |
+| Sticker Pack Banner         | app-assets/710982414301790216/store/[sticker_pack_banner_asset_id](#DOCS_RESOURCES_STICKER/sticker-pack-object).png                                                                                                                                               | PNG, JPEG, WebP      |
+| Team Icon                   | team-icons/[team_id](#DOCS_TOPICS_TEAMS/data-models-team-object)/[team_icon](#DOCS_TOPICS_TEAMS/data-models-team-object).png                                                                                                                                      | PNG, JPEG, WebP      |
+| Sticker                     | stickers/[sticker_id](#DOCS_RESOURCES_STICKER/sticker-object).png \*\*\* \*\*\*\*                                                                                                                                                                                 | PNG, Lottie          |
+| Role Icon                   | role-icons/[role_id](#DOCS_TOPICS_PERMISSIONS/role-object)/[role_icon](#DOCS_TOPICS_PERMISSIONS/role-object).png                                                                                                                                                  | PNG, JPEG, WebP      |
+| Guild Scheduled Event Cover | guild-events/[scheduled_event_id](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object)/[scheduled_event_cover_image](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object).png                                                       | PNG, JPEG, WebP      |
 
 \* In the case of endpoints that support GIFs, the hash will begin with `a_` if it is available in GIF format. (example: `a_1269e74af4df7417b13759eae50c83dc`)
 
@@ -347,7 +348,7 @@ All `files[n]` parameters must include a valid `Content-Disposition` subpart hea
 
 The file upload limit applies to the entire request, not individual files in a request. This limit depends on the **Boost Tier** of a Guild and is 8 MiB by default.
 
-Images can also be referenced in embeds using the `attachment://filename` URL. An example payload is provided below.
+Images can also be referenced in embeds using the `attachment://filename` URL. The `filename` for these URLs must be ASCII alphanumeric with underscores, dashes, or dots. An example payload is provided below.
 
 ### Editing Message Attachments
 
@@ -438,3 +439,38 @@ For example:
   }]
 }
 ```
+
+## Locales
+
+| Locale | Language Name           |
+| ------ | ----------------------- |
+| en-US  | English (United States) |
+| en-GB  | English (Great Britain) |
+| bg     | Bulgarian               |
+| zh-CN  | Chinese (China)         |
+| zh-TW  | Chinese (Taiwan)        |
+| hr     | Croatian                |
+| cs     | Czech                   |
+| da     | Danish                  |
+| nl     | Dutch                   |
+| fi     | Finnish                 |
+| fr     | French                  |
+| de     | German                  |
+| el     | Greek                   |
+| hi     | Hindi                   |
+| hu     | Hungarian               |
+| it     | Italian                 |
+| ja     | Japanese                |
+| ko     | Korean                  |
+| lt     | Lithuanian              |
+| no     | Norwegian               |
+| pl     | Polish                  |
+| pt-BR  | Portuguese (Brazil)     |
+| ro     | Romanian                |
+| ru     | Russian                 |
+| es-ES  | Spanish (Spain)         |
+| sv-SE  | Swedish                 |
+| th     | Thai                    |
+| tr     | Turkish                 |
+| uk     | Ukrainian               |
+| vi     | Vietnamese              |

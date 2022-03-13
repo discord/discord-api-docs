@@ -99,9 +99,14 @@ Used to represent a webhook.
 
 ## Create Webhook % POST /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/webhooks
 
-Create a new webhook. Requires the `MANAGE_WEBHOOKS` permission. Returns a [webhook](#DOCS_RESOURCES_WEBHOOK/webhook-object) object on success. Webhook names follow our naming restrictions that can be found in our [Usernames and Nicknames](#DOCS_RESOURCES_USER/usernames-and-nicknames) documentation, with the following additional stipulations:
+Creates a new webhook and returns a [webhook](#DOCS_RESOURCES_WEBHOOK/webhook-object) object on success. Requires the `MANAGE_WEBHOOKS` permission.
 
-- Webhook names cannot be: 'clyde'
+An error will be returned if a webhook name (`name`) is not valid. A webhook name is valid if:
+- It does not contain the substring '**clyde**' (case-insensitive)
+- It follows the nickname guidelines in the [Usernames and Nicknames](#DOCS_RESOURCES_USER/usernames-and-nicknames) documentation, with an exception that webhook names can be up to 80 characters
+
+> info
+> This endpoint supports the `X-Audit-Log-Reason` header.
 
 ###### JSON Params
 
@@ -133,6 +138,9 @@ Modify a webhook. Requires the `MANAGE_WEBHOOKS` permission. Returns the updated
 > info
 > All parameters to this endpoint are optional
 
+> info
+> This endpoint supports the `X-Audit-Log-Reason` header.
+
 ###### JSON Params
 
 | Field      | Type                                      | Description                                        |
@@ -147,7 +155,10 @@ Same as above, except this call does not require authentication, does not accept
 
 ## Delete Webhook % DELETE /webhooks/{webhook.id#DOCS_RESOURCES_WEBHOOK/webhook-object}
 
-Delete a webhook permanently. Requires the `MANAGE_WEBHOOKS` permission. Returns a 204 NO CONTENT response on success.
+Delete a webhook permanently. Requires the `MANAGE_WEBHOOKS` permission. Returns a `204 No Content` response on success.
+
+> info
+> This endpoint supports the `X-Audit-Log-Reason` header.
 
 ## Delete Webhook with Token % DELETE /webhooks/{webhook.id#DOCS_RESOURCES_WEBHOOK/webhook-object}/{webhook.token#DOCS_RESOURCES_WEBHOOK/webhook-object}
 
@@ -155,7 +166,7 @@ Same as above, except this call does not require authentication.
 
 ## Execute Webhook % POST /webhooks/{webhook.id#DOCS_RESOURCES_WEBHOOK/webhook-object}/{webhook.token#DOCS_RESOURCES_WEBHOOK/webhook-object}
 
-Refer to [Uploading Files](#DOCS_REFERENCE/uploading-files) for details on attachments and `multipart/form-data` requests.
+Refer to [Uploading Files](#DOCS_REFERENCE/uploading-files) for details on attachments and `multipart/form-data` requests. Returns a message or `204 No Content` depending on the `wait` query parameter.
 
 > info
 > Note that when sending a message, you must provide a value for at **least one of** `content`, `embeds`, or `file`.
@@ -169,20 +180,22 @@ Refer to [Uploading Files](#DOCS_REFERENCE/uploading-files) for details on attac
 
 ###### JSON/Form Params
 
-| Field            | Type                                                                                 | Description                                                  | Required                     |
-| ---------------- | ------------------------------------------------------------------------------------ | ------------------------------------------------------------ | ---------------------------- |
-| content          | string                                                                               | the message contents (up to 2000 characters)                 | one of content, file, embeds |
-| username         | string                                                                               | override the default username of the webhook                 | false                        |
-| avatar_url       | string                                                                               | override the default avatar of the webhook                   | false                        |
-| tts              | boolean                                                                              | true if this is a TTS message                                | false                        |
-| embeds           | array of up to 10 [embed](#DOCS_RESOURCES_CHANNEL/embed-object) objects              | embedded `rich` content                                      | one of content, file, embeds |
-| allowed_mentions | [allowed mention object](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object)            | allowed mentions for the message                             | false                        |
-| components \*    | array of [message component](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-object) | the components to include with the message                   | false                        |
-| files[n] \*\*    | file contents                                                                        | the contents of the file being sent                          | one of content, file, embeds |
-| payload_json \*\*| string                                                                               | JSON encoded body of non-file params                         | `multipart/form-data` only   |
-| attachments \*\* | array of partial [attachment](#DOCS_RESOURCES_CHANNEL/attachment-object) objects     | attachment objects with filename and description             | false                        |
+| Field            | Type                                                                                 | Description                                                                                                                                                                 | Required                     |
+| ---------------- | ------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------- |
+| content          | string                                                                               | the message contents (up to 2000 characters)                                                                                                                                | one of content, file, embeds |
+| username         | string                                                                               | override the default username of the webhook                                                                                                                                | false                        |
+| avatar_url       | string                                                                               | override the default avatar of the webhook                                                                                                                                  | false                        |
+| tts              | boolean                                                                              | true if this is a TTS message                                                                                                                                               | false                        |
+| embeds           | array of up to 10 [embed](#DOCS_RESOURCES_CHANNEL/embed-object) objects              | embedded `rich` content                                                                                                                                                     | one of content, file, embeds |
+| allowed_mentions | [allowed mention object](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object)            | allowed mentions for the message                                                                                                                                            | false                        |
+| components \*    | array of [message component](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-object) | the components to include with the message                                                                                                                                  | false                        |
+| files[n] \*\*    | file contents                                                                        | the contents of the file being sent                                                                                                                                         | one of content, file, embeds |
+| payload_json \*\*| string                                                                               | JSON encoded body of non-file params                                                                                                                                        | `multipart/form-data` only   |
+| attachments \*\* | array of partial [attachment](#DOCS_RESOURCES_CHANNEL/attachment-object) objects     | attachment objects with filename and description                                                                                                                            | false                        |
+| flags            | integer                                                                              | [message flags](#DOCS_RESOURCES_CHANNEL/message-object-message-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field) (only `SUPPRESS_EMBEDS` can be set) | false                        |
 
-\* Requires an application-owned webhook
+\* Requires an application-owned webhook.
+
 \*\* See [Uploading Files](#DOCS_REFERENCE/uploading-files) for details.
 
 > info
@@ -253,12 +266,13 @@ Any provided files will be **appended** to the message. To remove or replace fil
 | payload_json \*\*| string                                                                               | JSON encoded body of non-file params (multipart/form-data only) |
 | attachments \*\* | array of partial [attachment](#DOCS_RESOURCES_CHANNEL/attachment-object) objects     | attached files to keep and possible descriptions for new files  |
 
-\* Requires an application-owned webhook
+\* Requires an application-owned webhook.
+
 \*\* See [Uploading Files](#DOCS_REFERENCE/uploading-files) for details.
 
-# Delete Webhook Message % DELETE /webhooks/{webhook.id#DOCS_RESOURCES_WEBHOOK/webhook-object}/{webhook.token#DOCS_RESOURCES_WEBHOOK/webhook-object}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}
+## Delete Webhook Message % DELETE /webhooks/{webhook.id#DOCS_RESOURCES_WEBHOOK/webhook-object}/{webhook.token#DOCS_RESOURCES_WEBHOOK/webhook-object}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}
 
-Deletes a message that was created by the webhook. Returns a 204 NO CONTENT response on success.
+Deletes a message that was created by the webhook. Returns a `204 No Content` response on success.
 
 ###### Query String Params
 
