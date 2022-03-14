@@ -1409,12 +1409,12 @@ Creates a lobby search for matchmaking around given criteria.
 
 ###### Parameters
 
-| name           | type                | description                              |
-| -------------- | ------------------- | ---------------------------------------- |
-| application_id | string              | your application id                      |
-| filter         | SearchFilter object | the filter to check against              |
-| sort           | SearchSort object   | how to sort the results                  |
-| limit          | int                 | limit of lobbies returned, default of 25 |
+| name           | type                          | description                              |
+| -------------- | ----------------------------- | ---------------------------------------- |
+| application_id | string                        | your application id                      |
+| filter         | array of SearchFilter objects | the filter to check against              |
+| sort           | array of SearchSort objects   | how to sort the results                  |
+| limit          | int                           | limit of lobbies returned, default of 25 |
 
 ###### SearchFilter Object
 
