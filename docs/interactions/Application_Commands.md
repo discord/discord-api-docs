@@ -971,7 +971,7 @@ Locale is determined by looking at the `X-Discord-Locale` header, then the `Acce
 ## Get Global Application Commands % GET /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/commands
 
 > warn
-> The objects returned by this endpoint may be augmented with [additional fields if localization is active](#retrieving-localized-commands).
+> The objects returned by this endpoint may be augmented with [additional fields if localization is active](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/retrieving-localized-commands).
 
 Fetch all of the global commands for your application. Returns an array of [application command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object) objects.
 
@@ -1032,7 +1032,7 @@ Takes a list of application commands, overwriting the existing global command li
 ## Get Guild Application Commands % GET /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/commands
 
 > warn
-> The objects returned by this endpoint may be augmented with [additional fields if localization is active](#retrieving-localized-commands).
+> The objects returned by this endpoint may be augmented with [additional fields if localization is active](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/retrieving-localized-commands).
 
 Fetch all of the guild commands for your application for a specific guild. Returns an array of [application command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object) objects.
 
