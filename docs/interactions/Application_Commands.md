@@ -992,6 +992,17 @@ Takes a list of application commands, overwriting the existing command list for 
 > danger
 > This will overwrite **all** types of application commands: slash commands, user commands, and message commands.
 
+###### Bulk Application Command JSON Params
+
+| Field               | Type                                                                                                                                           | Description                                                                                                           |
+| ------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
+| id                | snowflake                                                                                                                                         | application command id, if known |
+| name                | string                                                                                                                                         | [1-32 character name](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-naming)  |
+| description         | string                                                                                                                                         | 1-100 character description                                                                                           |
+| options?            | array of [application command option](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-structure) | the parameters for the command                                                                                        |
+| default_permission? | boolean (default `true`)                                                                                                                       | whether the command is enabled by default when the app is added to a guild                                            |
+| type?               | one of [application command type](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-types)                | the type of command, defaults `1` if not set                                                                          |
+
 ## Get Guild Application Command Permissions % GET /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/commands/permissions
 
 Fetches command permissions for all commands for your application in a guild. Returns an array of [guild application command permissions](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-permissions-object-guild-application-command-permissions-structure) objects.
