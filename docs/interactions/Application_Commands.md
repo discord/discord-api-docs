@@ -17,11 +17,11 @@ Application commands are commands that an application can register to Discord. T
 | application_id             | snowflake                                                                                                                                      | unique id of the parent application                                                                                  | all         |
 | guild_id?                  | snowflake                                                                                                                                      | guild id of the command, if not global                                                                               | all         |
 | name                       | string                                                                                                                                         | [1-32 character name](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-naming) | all         |
-| name_localizations?        | dictionary with keys in [available locales](#DOCS_REFERENCE/locales)                                                                           | Localization dictionary for the `name` field.  Values follow the same restrictions as `name`                         | all         |
+| name_localizations?        | dictionary with keys in [available locales](#DOCS_REFERENCE/locales)                                                                           | Localization dictionary for the `name` field. Values follow the same restrictions as `name`                          | all         |
 | description                | string                                                                                                                                         | 1-100 character description for `CHAT_INPUT` commands, empty string for `USER` and `MESSAGE` commands                | all         |
-| description_localizations? | dictionary with keys in [available locales](#DOCS_REFERENCE/locales)                                                                           | Localization dictionary for the `description` field.  Values follow the same restrictions as `description`           | all         |
+| description_localizations? | dictionary with keys in [available locales](#DOCS_REFERENCE/locales)                                                                           | Localization dictionary for the `description` field. Values follow the same restrictions as `description`            | all         |
 | options?                   | array of [application command option](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-structure) | the parameters for the command, max 25                                                                               | CHAT_INPUT  |
-| default_permission?        | boolean (default `true`)                                                                                                                       | whether the command is enabled by default when the app is added to a guild                                           | all         |
+| default_permission?        | boolean                                                                                                                                        | whether the command is enabled by default when the app is added to a guild (default `true`)                          | all         |
 | version                    | snowflake                                                                                                                                      | autoincrementing version identifier updated during substantial record changes                                        | all         |
 
 
@@ -43,9 +43,9 @@ Application commands are commands that an application can register to Discord. T
 |----------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------|
 | type                       | one of [application command option type](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-type)                 | the type of option                                                                                                   |
 | name                       | string                                                                                                                                                       | [1-32 character name](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-naming) |
-| name_localizations?        | dictionary with keys in [available locales](#DOCS_REFERENCE/locales)                                                                                         | Localization dictionary for the `name` field.  Values follow the same restrictions as `name`                         |
+| name_localizations?        | dictionary with keys in [available locales](#DOCS_REFERENCE/locales)                                                                                         | Localization dictionary for the `name` field. Values follow the same restrictions as `name`                         |
 | description                | string                                                                                                                                                       | 1-100 character description                                                                                          |
-| description_localizations? | dictionary with keys in [available locales](#DOCS_REFERENCE/locales)                                                                                         | Localization dictionary for the `description` field.  Values follow the same restrictions as `description`           |
+| description_localizations? | dictionary with keys in [available locales](#DOCS_REFERENCE/locales)                                                                                         | Localization dictionary for the `description` field. Values follow the same restrictions as `description`           |
 | required?                  | boolean                                                                                                                                                      | if the parameter is required or optional--default `false`                                                            |
 | choices?                   | array of [application command option choice](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-choice-structure) | choices for `STRING`, `INTEGER`, and `NUMBER` types for the user to pick from, max 25                                |
 | options?                   | array of [application command option](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-structure)               | if the option is a subcommand or subcommand group type, these nested options will be the parameters                  |
@@ -82,7 +82,7 @@ If you specify `choices` for an option, they are the **only** valid values for a
 | Field               | Type                                                                 | Description                                                                                  |
 |---------------------|----------------------------------------------------------------------|----------------------------------------------------------------------------------------------|
 | name                | string                                                               | 1-100 character choice name                                                                  |
-| name_localizations? | dictionary with keys in [available locales](#DOCS_REFERENCE/locales) | Localization dictionary for the `name` field.  Values follow the same restrictions as `name` |
+| name_localizations? | dictionary with keys in [available locales](#DOCS_REFERENCE/locales) | Localization dictionary for the `name` field. Values follow the same restrictions as `name` |
 | value               | string, integer, or double \*                                        | value of the choice, up to 100 characters if string                                          |
 
 \* Type of `value` depends on the [option type](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-type) that the choice belongs to.
@@ -896,13 +896,13 @@ An autocomplete interaction **can return partial data** for option values. Your 
 
 ## Localization
 
-Slash commands may be localized, which will cause them to use localized names and descriptions depending on the client's selected language.  This is entirely optional.  Localization is available for names and descriptions of commands, subcommands, and options, as well as the names of choices, by submitting the appropriate `name_localizations` and `description_localizations` fields when creating or updating the application command.
+Slash commands may be localized, which will cause them to use localized names and descriptions depending on the client's selected language. This is entirely optional. Localization is available for names and descriptions of commands, subcommands, and options, as well as the names of choices, by submitting the appropriate `name_localizations` and `description_localizations` fields when creating or updating the application command.
 
-Application commands may be partially localized - not all [available locales](#DOCS_REFERENCE/locales) are required, nor do different fields within a command need to support the same set of locales.  If a locale is not present in a localizations dictionary for a field, users in that locale will see the default value for that field.  It's not necessary to fill out all locales with the default value.  Any localized values that are identical to the default will be ignored.
+Application commands may be partially localized - not all [available locales](#DOCS_REFERENCE/locales) are required, nor do different fields within a command need to support the same set of locales. If a locale is not present in a localizations dictionary for a field, users in that locale will see the default value for that field. It's not necessary to fill out all locales with the default value. Any localized values that are identical to the default will be ignored.
 
 Localized option names are subject to an additional constraint, which is that they must be distinct from all other default option names of that command, as well as all other option names within that locale on that command.
 
-When taking advantage of slash command localization, the interaction payload received by your client will still use default command, subcommand, and option names.  To localize your interaction response, you can determine the client's selected language by using the `locale` key in the interaction payload.
+When taking advantage of slash command localization, the interaction payload received by your client will still use default command, subcommand, and option names. To localize your interaction response, you can determine the client's selected language by using the `locale` key in the interaction payload.
 
 An application command furnished with localizations might look like this:
 
@@ -936,7 +936,7 @@ An application command furnished with localizations might look like this:
 
 ### Retrieving localized commands
 
-While most endpoints that return application command objects will return `name_localizations` and `description_localizations` fields, some will not.  This includes `GET` endpoints that return all of an application's guild or global commands.  Instead, those endpoints will supply additional `name_localized` or `description_localized` fields, which contain only the localization relevant to the requester's locale.
+While most endpoints that return application command objects will return `name_localizations` and `description_localizations` fields, some will not. This includes `GET` endpoints that return all of an application's guild or global commands. Instead, those endpoints will supply additional `name_localized` or `description_localized` fields, which contain only the localization relevant to the requester's locale.
 
 For example, if a batch `GET` request were made with locale `zh-CN`, including the above command, the returned object would look as follows:
 
@@ -977,9 +977,9 @@ Fetch all of the global commands for your application. Returns an array of [appl
 
 ###### Query String Params
 
-| Field               | Type                      | Description                                                                                                                                                                                           |
-|---------------------|---------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| with_localizations? | boolean (default `false`) | Whether to include full localization dictionaries (`name_localizations` and `description_localizations`) in the returned objects, in addition to `name_localized` and `description_localized` fields. |
+| Field               | Type    | Description                                                                                                                                                                                                        |
+|---------------------|---------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| with_localizations? | boolean | Whether to include full localization dictionaries (`name_localizations` and `description_localizations`) in the returned objects, instead of `name_localized` and `description_localized` fields. Default `false`. |
 
 ## Create Global Application Command % POST /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/commands
 
@@ -1038,9 +1038,9 @@ Fetch all of the guild commands for your application for a specific guild. Retur
 
 ###### Query String Params
 
-| Field               | Type                      | Description                                                                                                                                                                                           |
-|---------------------|---------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| with_localizations? | boolean (default `false`) | Whether to include full localization dictionaries (`name_localizations` and `description_localizations`) in the returned objects, in addition to `name_localized` and `description_localized` fields. |
+| Field               | Type    | Description                                                                                                                                                                                                        |
+|---------------------|---------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| with_localizations? | boolean | Whether to include full localization dictionaries (`name_localizations` and `description_localizations`) in the returned objects, instead of `name_localized` and `description_localized` fields. Default `false`. |
 
 ## Create Guild Application Command % POST /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/commands
 
