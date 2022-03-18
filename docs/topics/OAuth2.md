@@ -265,7 +265,7 @@ https://discord.com/api/oauth2/authorize?client_id=157730590492196864&scope=bot&
 
 In the case of bots, the `scope` parameter should be set to `bot`. There's also a new parameter, `permissions`, which is an integer corresponding to the [permission calculations](#DOCS_TOPICS_PERMISSIONS/permissions-bitwise-permission-flags) for the bot. You'll also notice the absence of `response_type` and `redirect_uri`. Bot authorization does not require these parameters because there is no need to retrieve the user's access token.
 
-Additionally, if your bot provides [Application Commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS), you can add `applications.commands` to your scopes, so users can access its commands in the guild.
+Additionally, if your bot provides [Application Commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS), you can add `applications.commands` to the URL's scopes, so that commands will be available in the guild.
 
 When the user navigates to this page, they'll be prompted to add the bot to a guild in which they have proper permissions. On acceptance, the bot will be added. Super easy!
 
