@@ -265,6 +265,8 @@ https://discord.com/api/oauth2/authorize?client_id=157730590492196864&scope=bot&
 
 In the case of bots, the `scope` parameter should be set to `bot`. There's also a new parameter, `permissions`, which is an integer corresponding to the [permission calculations](#DOCS_TOPICS_PERMISSIONS/permissions-bitwise-permission-flags) for the bot. You'll also notice the absence of `response_type` and `redirect_uri`. Bot authorization does not require these parameters because there is no need to retrieve the user's access token.
 
+Additionally, if your bot provides [Application Commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS), you can add `applications.commands` to the URL's scopes, so that commands will be available in the guild.
+
 When the user navigates to this page, they'll be prompted to add the bot to a guild in which they have proper permissions. On acceptance, the bot will be added. Super easy!
 
 If you happen to already know the ID of the guild the user will add your bot to, you can provide this ID in the URL as a `guild_id=GUILD_ID` parameter.
@@ -274,7 +276,7 @@ If your bot is super specific to your private clubhouse, or you just don't like 
 
 ### Advanced Bot Authorization
 
-Devs can extend the bot authorization functionality. You can request additional scopes outside of `bot`, which will prompt a continuation into a complete [authorization code grant flow](#DOCS_TOPICS_OAUTH2/authorization-code-grant) and add the ability to request the user's access token. If you request any scopes outside of `bot`, `response_type` is again mandatory; we will also automatically redirect the user to the first URI in your application's registered list unless `redirect_uri` is specified.
+Devs can extend the bot authorization functionality. You can request additional scopes outside of `bot` and `applications.commands`, which will prompt a continuation into a complete [authorization code grant flow](#DOCS_TOPICS_OAUTH2/authorization-code-grant) and add the ability to request the user's access token. If you request any scopes outside of `bot` and `applications.commands`, `response_type` is again mandatory; we will also automatically redirect the user to the first URI in your application's registered list unless `redirect_uri` is specified.
 
 When receiving the access code on redirect, there will be additional querystring parameters of `guild_id` and `permissions`. The `guild_id` parameter should only be used as a hint as to the relationship between your bot and a guild. To be sure of the relationship between your bot and the guild, consider requiring the Oauth2 code grant in your bot's settings. Enabling it requires anyone adding your bot to a server to go through a full OAuth2 [authorization code grant flow](#DOCS_TOPICS_OAUTH2/authorization-code-grant). When you retrieve the user's access token, you'll also receive information about the guild to which your bot was added:
 
