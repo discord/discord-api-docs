@@ -58,8 +58,7 @@ userManager.OnCurrentUserUpdate += () =>
         Console.WriteLine(currentUser.Username);
         Console.WriteLine(currentUser.Discriminator);
         Console.WriteLine(currentUser.Id);
-    };
-});
+};
 ```
 
 ## Environment Variables
