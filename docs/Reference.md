@@ -468,9 +468,9 @@ For example:
 | bg     | Bulgarian             | български           |
 | ru     | Russian               | Pусский             |
 | uk     | Ukrainian             | Українська          |
-| hi     | Hindi                 | हिन्दी                 |
+| hi     | Hindi                 | हिन्दी              |
 | th     | Thai                  | ไทย                 |
-| zh-CN  | Chinese, China        | 中文                |
-| ja     | Japanese              | 日本語              |
-| zh-TW  | Chinese, Taiwan       | 繁體中文            |
-| ko     | Korean                | 한국어              |
+| zh-CN  | Chinese, China        | 中文                  |
+| ja     | Japanese              | 日本語                 |
+| zh-TW  | Chinese, Taiwan       | 繁體中文                |
+| ko     | Korean                | 한국어                 |
