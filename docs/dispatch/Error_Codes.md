@@ -22,5 +22,5 @@ This page outlines some of the common errors codes that may be encountered when 
 | 2070 | Bad Response               | Intermittent API issues. Wait, escalate in the #dispatch channel of the [Discord Developers Server](https://discord.gg/discord-developers)                                                          |
 | 2073 | Not Entitled               | Check that your manifests are properly configured in the Developer Portal. Have the user install the game from the Library, not the store page |
 | 2076 | Two Clients Patching       | User has multiple Discords open trying to patch the same game; only use one                                                                    |
-| 9001 | Unknown                    | Catch-all error code. Escalate escalate in the #dispatch channel of the [Discord Developers Server](https://discord.gg/discord-developers) with repro steps/as much info as possible                                            |
+| 9001 | Unknown                    | Catch-all error code. Escalate in the #dispatch channel of the [Discord Developers Server](https://discord.gg/discord-developers) with repro steps/as much info as possible                                            |
 
