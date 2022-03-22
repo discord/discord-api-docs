@@ -22,7 +22,7 @@ All gateway events in Discord are tagged with an opcode that denotes the payload
 
 ###### Gateway Close Event Codes
 
-In order to prevent broken reconnect loops, you should consider some close codes as a signal to stop reconnnecting. This can be because your token expired, or your identification is invalid. This table explains what the application defined close codes for the gateway are, and which close codes you should not attempt to reconnect.
+In order to prevent broken reconnect loops, you should consider some close codes as a signal to stop reconnecting. This can be because your token expired, or your identification is invalid. This table explains what the application defined close codes for the gateway are, and which close codes you should not attempt to reconnect.
 
 
 | Code | Description           | Explanation                                                                                                                                                                                                                      | Reconnect |

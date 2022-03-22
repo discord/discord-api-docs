@@ -498,7 +498,7 @@ Fires when the user receives a join or spectate invite.
 // An invite has been received. Consider rendering the user / activity on the UI.
 activityManager.OnActivityInvite += (Discord.ActivityActionType Type, ref Discord.User user, ref Discord.Activity activity2) =>
 {
-      Console.WriteLine("Recieved Invite Type: {0}, from User: {1}, with Activity Name: {2}", Type, user.Username, activity2.Name);
+      Console.WriteLine("Received Invite Type: {0}, from User: {1}, with Activity Name: {2}", Type, user.Username, activity2.Name);
       // activityManager.AcceptInvite(user.Id, result =>
       // {
       //     Console.WriteLine("AcceptInvite {0}", result);
