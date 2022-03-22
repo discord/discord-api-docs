@@ -4,7 +4,7 @@
 > Need help with the SDK? Talk to us in the [Discord Developers Server](https://discord.gg/discord-developers)!
 
 > danger
-> Selling SKUs on Discord is now deprecated, and will be discontinued on March 1, 2022. [Read here for more info.](https://support-dev.discord.com/hc/en-us/articles/4414590563479)
+> Selling SKUs on Discord has now been discontinued as of March 1, 2022. [Read here for more info.](https://support-dev.discord.com/hc/en-us/articles/4414590563479)
 
 We've been told that people playing games want to save their progress as they go, allowing them to come back where they left off and continue their epic journey of power.
 
