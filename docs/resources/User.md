@@ -67,7 +67,7 @@ There are other rules and restrictions not shared here for the sake of spam and 
 | 0       | None                     | None                                                                                                                                           |
 | 1 << 0  | STAFF                    | Discord Employee                                                                                                                               |
 | 1 << 1  | PARTNER                  | Partnered Server Owner                                                                                                                         |
-| 1 << 2  | HYPESQUAD                | HypeSquad Events                                                                                                                               |
+| 1 << 2  | HYPESQUAD                | HypeSquad Events Member                                                                                                                        |
 | 1 << 3  | BUG_HUNTER_LEVEL_1       | Bug Hunter Level 1                                                                                                                             |
 | 1 << 6  | HYPESQUAD_ONLINE_HOUSE_1 | House Bravery Member                                                                                                                           |
 | 1 << 7  | HYPESQUAD_ONLINE_HOUSE_2 | House Brilliance Member                                                                                                                        |
