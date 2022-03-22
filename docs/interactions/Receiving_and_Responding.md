@@ -211,7 +211,7 @@ Not all message fields are currently supported.
 | Name       | Type                                                          | Description                                                                 |
 | ---------- | ------------------------------------------------------------- | --------------------------------------------------------------------------- |
 | custom_id  | string                                                        | a developer-defined identifier for the component, max 100 characters        |
-| title      | string                                                        | the title of the popup modal                                                |
+| title      | string                                                        | the title of the popup modal, max 45 characters                                                |
 | components | array of [components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/) | between 1 and 5 (inclusive) components that make up the modal               |
 
 > warn
