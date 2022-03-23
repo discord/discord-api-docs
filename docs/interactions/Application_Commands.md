@@ -896,7 +896,7 @@ An autocomplete interaction **can return partial data** for option values. Your 
 
 ## Localization
 
-Slash commands may be localized, which will cause them to use localized names and descriptions depending on the client's selected language. This is entirely optional. Localization is available for names and descriptions of commands, subcommands, and options, as well as the names of choices, by submitting the appropriate `name_localizations` and `description_localizations` fields when creating or updating the application command.
+Slash commands can be localized, which will cause them to use localized names and descriptions depending on the client's selected language. This is entirely optional. Localization is available for names and descriptions of commands, subcommands, and options, as well as the names of choices, by submitting the appropriate `name_localizations` and `description_localizations` fields when creating or updating the application command.
 
 Application commands may be partially localized - not all [available locales](#DOCS_REFERENCE/locales) are required, nor do different fields within a command need to support the same set of locales. If a locale is not present in a localizations dictionary for a field, users in that locale will see the default value for that field. It's not necessary to fill out all locales with the default value. Any localized values that are identical to the default will be ignored.
 
@@ -936,7 +936,7 @@ An application command furnished with localizations might look like this:
 
 ### Retrieving localized commands
 
-While most endpoints that return application command objects will return `name_localizations` and `description_localizations` fields, some will not. This includes `GET` endpoints that return all of an application's guild or global commands. Instead, those endpoints will supply additional `name_localized` or `description_localized` fields, which contain only the localization relevant to the requester's locale.
+While most endpoints that return application command objects will return the `name_localizations` and `description_localizations` fields, some will not by default. This includes `GET` endpoints that return all of an application's guild or global commands. Instead, those endpoints will supply additional `name_localized` or `description_localized` fields, which only contain the localization relevant to the requester's locale. (The full dictionaries can still be obtained by supplying the appropriate query argument).
 
 For example, if a batch `GET` request were made with locale `zh-CN`, including the above command, the returned object would look as follows:
 
@@ -977,9 +977,9 @@ Fetch all of the global commands for your application. Returns an array of [appl
 
 ###### Query String Params
 
-| Field               | Type    | Description                                                                                                                                                                                                        |
-|---------------------|---------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| with_localizations? | boolean | Whether to include full localization dictionaries (`name_localizations` and `description_localizations`) in the returned objects, instead of `name_localized` and `description_localized` fields. Default `false`. |
+| Field               | Type    | Description                                                                                                                                                                                                            |
+|---------------------|---------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| with_localizations? | boolean | Whether to include full localization dictionaries (`name_localizations` and `description_localizations`) in the returned objects, instead of the `name_localized` and `description_localized` fields. Default `false`. |
 
 ## Create Global Application Command % POST /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/commands
 
@@ -1038,9 +1038,9 @@ Fetch all of the guild commands for your application for a specific guild. Retur
 
 ###### Query String Params
 
-| Field               | Type    | Description                                                                                                                                                                                                        |
-|---------------------|---------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| with_localizations? | boolean | Whether to include full localization dictionaries (`name_localizations` and `description_localizations`) in the returned objects, instead of `name_localized` and `description_localized` fields. Default `false`. |
+| Field               | Type    | Description                                                                                                                                                                                                            |
+|---------------------|---------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| with_localizations? | boolean | Whether to include full localization dictionaries (`name_localizations` and `description_localizations`) in the returned objects, instead of the `name_localized` and `description_localized` fields. Default `false`. |
 
 ## Create Guild Application Command % POST /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/commands
 
