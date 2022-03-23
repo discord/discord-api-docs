@@ -1183,6 +1183,9 @@ Sent when an invite is deleted.
 
 ### Messages
 
+> warn
+> When handling ephemeral messages, you won't encounter a `guild_id` in the message object. This happens because message events tied to ephemeral messages are sent directly to the user and the bot user who sent the message, rather than through the guild like non-ephemeral messages.
+
 #### Message Create
 
 Sent when a message is created. The inner payload is a [message](#DOCS_RESOURCES_CHANNEL/message-object) object.
