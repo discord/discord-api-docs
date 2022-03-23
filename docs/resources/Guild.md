@@ -61,11 +61,11 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 | guild_scheduled_events? \*    | array of [guild scheduled event](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object) objects | the scheduled events in the guild                                                                                                                                      |
 | premium_progress_bar_enabled  | boolean                                                                                                      | whether the guild has the boost progress bar enabled                                                                                                                   |
 
-** \* These fields are only sent within the [GUILD_CREATE](#DOCS_TOPICS_GATEWAY/guild-create) event **
+\* These fields are only sent within the [GUILD_CREATE](#DOCS_TOPICS_GATEWAY/guild-create) event
 
-** \*\* These fields are only sent when using the [GET Current User Guilds](#DOCS_RESOURCES_USER/get-current-user-guilds) endpoint and are relative to the requested user **
+\*\* These fields are only sent when using the [GET Current User Guilds](#DOCS_RESOURCES_USER/get-current-user-guilds) endpoint and are relative to the requested user
 
-** \*\*\* This field is deprecated and is replaced by [channel.rtc_region](#DOCS_RESOURCES_CHANNEL/channel-object-channel-structure)**
+\*\*\* This field is deprecated and is replaced by [channel.rtc_region](#DOCS_RESOURCES_CHANNEL/channel-object-channel-structure)
 
 ###### Default Message Notification Level
 
