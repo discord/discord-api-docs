@@ -1184,7 +1184,7 @@ Sent when an invite is deleted.
 ### Messages
 
 > warn
-> When handling ephemeral messages, you won't encounter a `guild_id` in the message object. This happens because message events tied to ephemeral messages are sent directly to the user and the bot user who sent the message, rather than through the guild like non-ephemeral messages.
+> Unlike persistent messages, ephemeral messages are sent directly to the user and the bot who sent the message rather than through the guild channel. Because of this, ephemeral messages are tied to the [`DIRECT_MESSAGES` intent](#DOCS_TOPICS_GATEWAY/list-of-intents), and the message object won't include `guild_id` or `member`. 
 
 #### Message Create
 
