@@ -58,6 +58,7 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 | nsfw_level                    | integer                                                                                 | [guild NSFW level](#DOCS_RESOURCES_GUILD/guild-object-guild-nsfw-level)                                                                     |
 | stage_instances? \*           | array of [stage instance](#DOCS_RESOURCES_STAGE_INSTANCE/stage-instance-object) objects | Stage instances in the guild                                                                                                                |
 | stickers?                     | array of [sticker](#DOCS_RESOURCES_STICKER/sticker-object) objects                      | custom guild stickers                                                                                                                       |
+| hub_type                      | ?integer                                                                                | the [type of Student Hub](#DOCS_RESOURCES_GUILD/guild-object-guild-hub-types) the guild is                                                  |
 
 ** \* These fields are only sent within the [GUILD_CREATE](#DOCS_TOPICS_GATEWAY/guild-create) event **
 
@@ -133,9 +134,10 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 | COMMUNITY                        | guild can enable welcome screen, Membership Screening, stage channels and discovery, and receives community updates |
 | DISCOVERABLE                     | guild is able to be discovered in the directory                                                                     |
 | FEATURABLE                       | guild is able to be featured in the directory                                                                       |
-| HAS_DIRECTORY_ENTRY              | guild is in a [Student Hub](https://support.discord.com/hc/en-us/articles/4406046651927-Discord-Student-Hubs-FAQ)   |
+| HAS_DIRECTORY_ENTRY              | guild is listed in a directory channel                                                                              |
 | HUB                              | guild is a [Student Hub](https://support.discord.com/hc/en-us/articles/4406046651927-Discord-Student-Hubs-FAQ)      |
 | INVITE_SPLASH                    | guild has access to set an invite splash background                                                                 |
+| LINKED_TO_HUB                    | guild is in a [Student Hub](https://support.discord.com/hc/en-us/articles/4406046651927-Discord-Student-Hubs-FAQ)   |
 | MEMBER_VERIFICATION_GATE_ENABLED | guild has enabled [Membership Screening](#DOCS_RESOURCES_GUILD/membership-screening-object)                         |
 | NEWS                             | guild has access to create news channels                                                                            |
 | PARTNERED                        | guild is partnered                                                                                                  |
@@ -150,6 +152,14 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 | THREE_DAY_THREAD_ARCHIVE         | guild has access to the three day archive time for threads                                                          |
 | SEVEN_DAY_THREAD_ARCHIVE         | guild has access to the seven day archive time for threads                                                          |
 | PRIVATE_THREADS                  | guild has access to create private threads                                                                          |
+
+###### Guild Hub Types
+
+| Type        | Value |
+|-------------|-------|
+| DEFAULT     | 0     |
+| HIGH_SCHOOL | 1     |
+| COLLEGE     | 2     |
 
 ###### Example Guild
 
