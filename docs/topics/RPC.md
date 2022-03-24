@@ -40,7 +40,7 @@ For WebSocket connections, the connection is always `ws://127.0.0.1:PORT/?v=VERS
 - `PORT` is the port of the RPC Server.
 - `ENCODING` is the type of encoding for this connection to use. `json` and `etf` are supported.
 
-To begin, you'll need to create an app. Head to [your apps](https://discord.com/developers/applications/me) and click the big plus button. When you create an app on our Developers site, you must specify an "RPC Origin" and "Redirect URI" from which to permit connections and authorizations. **The origin you send when connecting and the redirect uri you send when exchanging an authorization code for an access token must match one of the ones entered on the Developers site.**
+To begin, you'll need to create an app. Head to [your apps](#APPLICATIONS) and click the big plus button. When you create an app on our Developers site, you must specify an "RPC Origin" and "Redirect URI" from which to permit connections and authorizations. **The origin you send when connecting and the redirect uri you send when exchanging an authorization code for an access token must match one of the ones entered on the Developers site.**
 
 When establishing a WebSocket connection, we verify the Origin header on connection to prevent client ID spoofing. You will be instantly disconnected if the Origin does not match.
 
@@ -93,7 +93,7 @@ Commands are requests made to the RPC socket by a client.
 
 | Name                                                                   | Description                                                     |
 | ---------------------------------------------------------------------- | --------------------------------------------------------------- |
-| [DISPATCH](#DOCS_TOPICS_RPC/events)                                    | event dispatch                                                  |
+| [DISPATCH](#DOCS_TOPICS_RPC/commands-and-events-rpc-events)            | event dispatch                                                  |
 | [AUTHORIZE](#DOCS_TOPICS_RPC/authorize)                                | used to authorize a new client with your app                    |
 | [AUTHENTICATE](#DOCS_TOPICS_RPC/authenticate)                          | used to authenticate an existing client with your app           |
 | [GET_GUILD](#DOCS_TOPICS_RPC/getguild)                                 | used to retrieve guild information from the client              |
@@ -150,12 +150,12 @@ We also have an RPC token system to bypass the user authorization modal. This is
 
 ###### Authorize Argument Structure
 
-| Field     | Type                                                 | Description                                                               |
-| --------- | ---------------------------------------------------- | ------------------------------------------------------------------------- |
-| scopes    | array of [OAuth2 scopes](#DOCS_TOPICS_OAUTH2/scopes) | scopes to authorize                                                       |
-| client_id | string                                               | OAuth2 application id                                                     |
-| rpc_token | string                                               | one-time use RPC token                                                    |
-| username  | string                                               | username to create a guest account with if the user does not have Discord |
+| Field     | Type                                                                         | Description                                                               |
+| --------- | ---------------------------------------------------------------------------- | ------------------------------------------------------------------------- |
+| scopes    | array of [OAuth2 scopes](#DOCS_TOPICS_OAUTH2/shared-resources-oauth2-scopes) | scopes to authorize                                                       |
+| client_id | string                                                                       | OAuth2 application id                                                     |
+| rpc_token | string                                                                       | one-time use RPC token                                                    |
+| username  | string                                                                       | username to create a guest account with if the user does not have Discord |
 
 ###### Authorize Response Structure
 
@@ -203,7 +203,7 @@ Used to authenticate an existing client with your app.
 | Field       | Type                                                                                    | Description                     |
 | ----------- | --------------------------------------------------------------------------------------- | ------------------------------- |
 | user        | partial [user](#DOCS_RESOURCES_USER/user-object) object                                 | the authed user                 |
-| scopes      | array of [OAuth2 scopes](#DOCS_TOPICS_OAUTH2/scopes)                                    | authorized scopes               |
+| scopes      | array of [OAuth2 scopes](#DOCS_TOPICS_OAUTH2/shared-resources-oauth2-scopes)            | authorized scopes               |
 | expires     | date                                                                                    | expiration date of OAuth2 token |
 | application | [OAuth2 application](#DOCS_TOPICS_RPC/authenticate-oauth2-application-structure) object | application the user authorized |
 
@@ -476,12 +476,12 @@ Used to change voice settings of users in voice channels
 
 ###### Set User Voice Settings Argument and Response Structure
 
-| Field   | Type                                                              | Description                                              |
-| ------- | ----------------------------------------------------------------- | -------------------------------------------------------- |
-| user_id | string                                                            | user id                                                  |
-| pan?    | [pan](#DOCS_TOPICS_RPC/set-user-voice-settings-pan-object) object | set the pan of the user                                  |
-| volume? | integer                                                           | set the volume of user (defaults to 100, min 0, max 200) |
-| mute?   | boolean                                                           | set the mute state of the user                           |
+| Field   | Type                                                           | Description                                              |
+| ------- | -------------------------------------------------------------- | -------------------------------------------------------- |
+| user_id | string                                                         | user id                                                  |
+| pan?    | [pan](#DOCS_TOPICS_RPC/setuservoicesettings-pan-object) object | set the pan of the user                                  |
+| volume? | integer                                                        | set the volume of user (defaults to 100, min 0, max 200) |
+| mute?   | boolean                                                        | set the mute state of the user                           |
 
 > info
 > In the current release, we only support a single modifier of voice settings at a time over RPC.
@@ -536,7 +536,7 @@ Used to change voice settings of users in voice channels
 
 #### SELECT_VOICE_CHANNEL
 
-Used to join and leave voice channels, group dms, or dms. Returns the [Get Channel](#DOCS_TOPICS_RPC/get-channel) response, `null` if none.
+Used to join and leave voice channels, group dms, or dms. Returns the [Get Channel](#DOCS_TOPICS_RPC/getchannel) response, `null` if none.
 
 ###### Select Voice Channel Argument Structure
 
@@ -606,11 +606,11 @@ Used to join and leave voice channels, group dms, or dms. Returns the [Get Chann
 
 #### GET_SELECTED_VOICE_CHANNEL
 
-Used to get the client's current voice channel. There are no arguments for this command. Returns the [Get Channel](#DOCS_TOPICS_RPC/get-channel) response, or `null` if none.
+Used to get the client's current voice channel. There are no arguments for this command. Returns the [Get Channel](#DOCS_TOPICS_RPC/getchannel) response, or `null` if none.
 
 #### SELECT_TEXT_CHANNEL
 
-Used to join and leave text channels, group dms, or dms. Returns the [Get Channel](#DOCS_TOPICS_RPC/get-channel) response, or `null` if none.
+Used to join and leave text channels, group dms, or dms. Returns the [Get Channel](#DOCS_TOPICS_RPC/getchannel) response, or `null` if none.
 
 ###### Select Text Channel Argument Structure
 
@@ -623,18 +623,18 @@ Used to join and leave text channels, group dms, or dms. Returns the [Get Channe
 
 ###### Get Voice Settings Response Structure
 
-| Field                  | Type                                                                                             | Description                       |
-| ---------------------- | ------------------------------------------------------------------------------------------------ | --------------------------------- |
-| input                  | [voice settings input](#DOCS_TOPICS_RPC/get-voice-settings-voice-settings-input-object) object   | input settings                    |
-| output                 | [voice settings output](#DOCS_TOPICS_RPC/get-voice-settings-voice-settings-output-object) object | output settings                   |
-| mode                   | [voice settings mode](#DOCS_TOPICS_RPC/get-voice-settings-voice-settings-mode-object) object     | voice mode settings               |
-| automatic_gain_control | boolean                                                                                          | state of automatic gain control   |
-| echo_cancellation      | boolean                                                                                          | state of echo cancellation        |
-| noise_suppression      | boolean                                                                                          | state of noise suppression        |
-| qos                    | boolean                                                                                          | state of voice quality of service |
-| silence_warning        | boolean                                                                                          | state of silence warning notice   |
-| deaf                   | boolean                                                                                          | state of self-deafen              |
-| mute                   | boolean                                                                                          | state of self-mute                |
+| Field                  | Type                                                                                           | Description                       |
+| ---------------------- | ---------------------------------------------------------------------------------------------- | --------------------------------- |
+| input                  | [voice settings input](#DOCS_TOPICS_RPC/getvoicesettings-voice-settings-input-object) object   | input settings                    |
+| output                 | [voice settings output](#DOCS_TOPICS_RPC/getvoicesettings-voice-settings-output-object) object | output settings                   |
+| mode                   | [voice settings mode](#DOCS_TOPICS_RPC/getvoicesettings-voice-settings-mode-object) object     | voice mode settings               |
+| automatic_gain_control | boolean                                                                                        | state of automatic gain control   |
+| echo_cancellation      | boolean                                                                                        | state of echo cancellation        |
+| noise_suppression      | boolean                                                                                        | state of noise suppression        |
+| qos                    | boolean                                                                                        | state of voice quality of service |
+| silence_warning        | boolean                                                                                        | state of silence warning notice   |
+| deaf                   | boolean                                                                                        | state of self-deafen              |
+| mute                   | boolean                                                                                        | state of self-mute                |
 
 ###### Voice Settings Input Object
 
@@ -654,21 +654,21 @@ Used to join and leave text channels, group dms, or dms. Returns the [Get Channe
 
 ###### Voice Settings Mode Object
 
-| Field          | Type                                                                    | Description                                                         |
-| -------------- | ----------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| type           | string                                                                  | voice setting mode type (can be `PUSH_TO_TALK` or `VOICE_ACTIVITY`) |
-| auto_threshold | boolean                                                                 | voice activity threshold automatically sets its threshold           |
-| threshold      | float                                                                   | threshold for voice activity (in dB) (min: -100, max: 0)            |
-| shortcut       | [shortcut key combo](#DOCS_TOPICS_RPC/shortcut-key-combo-object) object | shortcut key combos for PTT                                         |
-| delay          | float                                                                   | the PTT release delay (in ms) (min: 0, max: 2000)                   |
+| Field          | Type                                                                                     | Description                                                         |
+| -------------- | ---------------------------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| type           | string                                                                                   | voice setting mode type (can be `PUSH_TO_TALK` or `VOICE_ACTIVITY`) |
+| auto_threshold | boolean                                                                                  | voice activity threshold automatically sets its threshold           |
+| threshold      | float                                                                                    | threshold for voice activity (in dB) (min: -100, max: 0)            |
+| shortcut       | [shortcut key combo](#DOCS_TOPICS_RPC/getvoicesettings-shortcut-key-combo-object) object | shortcut key combos for PTT                                         |
+| delay          | float                                                                                    | the PTT release delay (in ms) (min: 0, max: 2000)                   |
 
 ###### Shortcut Key Combo Object
 
-| Field | Type    | Description                                                           |
-| ----- | ------- | --------------------------------------------------------------------- |
-| type  | integer | see [key types](#DOCS_TOPICS_RPC/shortcut-key-combo-object-key-types) |
-| code  | integer | key code                                                              |
-| name  | string  | key name                                                              |
+| Field | Type    | Description                                                  |
+| ----- | ------- | ------------------------------------------------------------ |
+| type  | integer | see [key types](#DOCS_TOPICS_RPC/getvoicesettings-key-types) |
+| code  | integer | key code                                                     |
+| name  | string  | key name                                                     |
 
 ###### Key Types
 
@@ -746,18 +746,18 @@ When setting voice settings, all fields are optional. Only passed fields are upd
 
 ###### Set Voice Settings Argument and Response Structure
 
-| Field                  | Type                                                                                             | Description                       |
-| ---------------------- | ------------------------------------------------------------------------------------------------ | --------------------------------- |
-| input                  | [voice settings input](#DOCS_TOPICS_RPC/get-voice-settings-voice-settings-input-object) object   | input settings                    |
-| output                 | [voice settings output](#DOCS_TOPICS_RPC/get-voice-settings-voice-settings-output-object) object | output settings                   |
-| mode                   | [voice settings mode](#DOCS_TOPICS_RPC/get-voice-settings-voice-settings-mode-object) object     | voice mode settings               |
-| automatic_gain_control | boolean                                                                                          | state of automatic gain control   |
-| echo_cancellation      | boolean                                                                                          | state of echo cancellation        |
-| noise_suppression      | boolean                                                                                          | state of noise suppression        |
-| qos                    | boolean                                                                                          | state of voice quality of service |
-| silence_warning        | boolean                                                                                          | state of silence warning notice   |
-| deaf                   | boolean                                                                                          | state of self-deafen              |
-| mute                   | boolean                                                                                          | state of self-mute                |
+| Field                  | Type                                                                                           | Description                       |
+| ---------------------- | ---------------------------------------------------------------------------------------------- | --------------------------------- |
+| input                  | [voice settings input](#DOCS_TOPICS_RPC/getvoicesettings-voice-settings-input-object) object   | input settings                    |
+| output                 | [voice settings output](#DOCS_TOPICS_RPC/getvoicesettings-voice-settings-output-object) object | output settings                   |
+| mode                   | [voice settings mode](#DOCS_TOPICS_RPC/getvoicesettings-voice-settings-mode-object) object     | voice mode settings               |
+| automatic_gain_control | boolean                                                                                        | state of automatic gain control   |
+| echo_cancellation      | boolean                                                                                        | state of echo cancellation        |
+| noise_suppression      | boolean                                                                                        | state of noise suppression        |
+| qos                    | boolean                                                                                        | state of voice quality of service |
+| silence_warning        | boolean                                                                                        | state of silence warning notice   |
+| deaf                   | boolean                                                                                        | state of self-deafen              |
+| mute                   | boolean                                                                                        | state of self-mute                |
 
 ###### Example Set Voice Settings Command Payload
 
@@ -900,20 +900,20 @@ Used to unsubscribe from events. `evt` of the payload should be set to the event
 
 Used by hardware manufacturers to send information about the current state of their certified devices that are connected to Discord.
 
-###### Set Certified Devices Argument Strucure
+###### Set Certified Devices Argument Structure
 
 | Field   | Type                                                                                      | Description                                                   |
 | ------- | ----------------------------------------------------------------------------------------- | ------------------------------------------------------------- |
-| devices | array of [certified device](#DOCS_TOPICS_RPC/set-certified-devices-device-object) objects | a list of devices for your manufacturer, in order of priority |
+| devices | array of [certified device](#DOCS_TOPICS_RPC/setcertifieddevices-device-object) objects | a list of devices for your manufacturer, in order of priority |
 
 ###### Device Object
 
 | Field                     | Type                                                                  | Description                                              |
 | ------------------------- | --------------------------------------------------------------------- | -------------------------------------------------------- |
-| type                      | [device type](#DOCS_TOPICS_RPC/set-certified-devices-device-type)     | the type of device                                       |
+| type                      | [device type](#DOCS_TOPICS_RPC/setcertifieddevices-device-type)       | the type of device                                       |
 | id                        | string                                                                | the device's Windows UUID                                |
-| vendor                    | [vendor](#DOCS_TOPICS_RPC/set-certified-devices-vendor-object) object | the hardware vendor                                      |
-| model                     | [model](#DOCS_TOPICS_RPC/set-certified-devices-model-object) object   | the model of the product                                 |
+| vendor                    | [vendor](#DOCS_TOPICS_RPC/setcertifieddevices-vendor-object) object   | the hardware vendor                                      |
+| model                     | [model](#DOCS_TOPICS_RPC/setcertifieddevices-model-object) object     | the model of the product                                 |
 | related                   | array of strings                                                      | UUIDs of related devices                                 |
 | echo_cancellation?\*      | boolean                                                               | if the device's native echo cancellation is enabled      |
 | noise_suppression?\*      | boolean                                                               | if the device's native noise suppression is enabled      |
@@ -936,7 +936,7 @@ Used by hardware manufacturers to send information about the current state of th
 | name  | string | name of the model |
 | url   | string | url for the model |
 
-###### Device Types
+###### Device Type
 
 | Type         | Value         |
 | ------------ | ------------- |
@@ -1250,7 +1250,7 @@ No arguments
 
 ###### Voice Settings Argument Structure
 
-No arguments. Dispatches the [Get Voice Settings](#DOCS_TOPICS_RPC/get-voice-settings) response.
+No arguments. Dispatches the [Get Voice Settings](#DOCS_TOPICS_RPC/getvoicesettings) response.
 
 ###### Example Voice Settings Dispatch Payload
 

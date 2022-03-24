@@ -21,31 +21,33 @@ For most API requests made, we return optional HTTP response headers containing 
 X-RateLimit-Limit: 5
 X-RateLimit-Remaining: 0
 X-RateLimit-Reset: 1470173023
+X-RateLimit-Reset-After: 1
 X-RateLimit-Bucket: abcd1234
 ```
 
-- **X-RateLimit-Global** - Returned only on a HTTP 429 response if the rate limit headers returned are of the global rate limit (not per-route)
 - **X-RateLimit-Limit** - The number of requests that can be made
 - **X-RateLimit-Remaining** - The number of remaining requests that can be made
 - **X-RateLimit-Reset** - Epoch time (seconds since 00:00:00 UTC on January 1, 1970) at which the rate limit resets
 - **X-RateLimit-Reset-After** - Total time (in seconds) of when the current rate limit bucket will reset. Can have decimals to match previous millisecond ratelimit precision
 - **X-RateLimit-Bucket** - A unique string denoting the rate limit being encountered (non-inclusive of major parameters in the route path)
+- **X-RateLimit-Global** - Returned only on HTTP 429 responses if the rate limit encountered is the global rate limit (not per-route)
+- **X-RateLimit-Scope** - Returned only on HTTP 429 responses. Value can be `user` (per user limit), `global` (per user global limit), or `shared` (per resource limit)
 
 ## Exceeding A Rate Limit
 
-In the case that a rate limit is exceeded, the API will return a HTTP 429 response code with a JSON body.
+In the case that a rate limit is exceeded, the API will return a HTTP 429 response code with a JSON body. Your application should rely on the `Retry-After` header or `retry_after` field to determine when to retry the request.
 
 ###### Rate Limit Response Structure
 
 | Field       | Type             | Description                                                      |
 |-------------|------------------|------------------------------------------------------------------|
 | message     | string           | A message saying you are being rate limited.                     |
-| retry_after | float | The number of seconds to wait before submitting another request. |
+| retry_after | float            | The number of seconds to wait before submitting another request. |
 | global      | boolean          | A value indicating if you are being globally rate limited or not |
 
-Note that the normal rate-limiting headers will be sent in this response. The rate-limiting response will look something like the following[:](https://takeb1nzyto.space/)
+Note that normal route rate-limiting headers will also be sent in this response. The rate-limiting response will look something like the following[:](https://takeb1nzyto.space/)
 
-###### Example Rate Limit Response
+###### Example Exceeded User Rate Limit Response
 
 ```
 < HTTP/1.1 429 TOO MANY REQUESTS
@@ -56,6 +58,7 @@ Note that the normal rate-limiting headers will be sent in this response. The ra
 < X-RateLimit-Reset: 1470173023.123
 < X-RateLimit-Reset-After: 64.57
 < X-RateLimit-Bucket: abcd1234
+< X-RateLimit-Scope: user
 {
   "message": "You are being rate limited.",
   "retry_after": 64.57,
@@ -63,13 +66,34 @@ Note that the normal rate-limiting headers will be sent in this response. The ra
 }
 ```
 
-###### Example Global Rate Limit Response
+
+###### Example Exceeded Resource Rate Limit Response
+
+```
+< HTTP/1.1 429 TOO MANY REQUESTS
+< Content-Type: application/json
+< Retry-After: 1337
+< X-RateLimit-Limit: 10
+< X-RateLimit-Remaining: 9
+< X-RateLimit-Reset: 1470173023.123
+< X-RateLimit-Reset-After: 64.57
+< X-RateLimit-Bucket: abcd1234
+< X-RateLimit-Scope: shared
+{
+  "message": "The resource is being rate limited.",
+  "retry_after": 1336.57,
+  "global": false
+}
+```
+
+###### Example Exceeded Global Rate Limit Response
 
 ```
 < HTTP/1.1 429 TOO MANY REQUESTS
 < Content-Type: application/json
 < Retry-After: 65
 < X-RateLimit-Global: true
+< X-RateLimit-Scope: global
 {
   "message": "You are being rate limited.",
   "retry_after": 64.57,
@@ -85,6 +109,8 @@ Global rate limit issues generally show up as repeatedly getting banned from the
 
 If you are experiencing repeated CloudFlare bans from the Discord API within normal operations of your bot, you can reach out to support to see if you qualify for increased global rate limits. You can contact Discord support using [https://dis.gd/contact](https://dis.gd/contact).
 
+[Interaction endpoints](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/endpoints) are not bound to the bot's Global Rate Limit.
+
 ## Invalid Request Limit aka CloudFlare bans
 
 IP addresses that make too many invalid HTTP requests are automatically and temporarily restricted from accessing the Discord API. Currently, this limit is **10,000 per 10 minutes**. An invalid request is one that results in **401**, **403**, or **429** statuses.	
@@ -93,7 +119,7 @@ All applications should make reasonable attempts to avoid making invalid request
 
 - **401** responses are avoided by providing a valid token in the authorization header when required and by stopping further requests after a token becomes invalid	
 - **403** responses are avoided by inspecting role or channel permissions and by not making requests that are restricted by such permissions	
-- **429** responses are avoided by inspecting the rate limit headers documented above and by not making requests on exhausted buckets until after they have reset	
+- **429** responses are avoided by inspecting the rate limit headers documented above and by not making requests on exhausted buckets until after they have reset. *429 errors returned with `X-RateLimit-Scope: shared` are not counted against you.*
 
 Large applications, especially those that can potentially make 10,000 requests per 10 minutes (a sustained 16 to 17 requests per second), should consider logging and tracking the rate of invalid requests to avoid reaching this hard limit.
 

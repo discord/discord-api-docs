@@ -16,7 +16,7 @@
 | terms_of_service_url?  | string                                                     | the url of the app's terms of service                                                                                      |
 | privacy_policy_url?    | string                                                     | the url of the app's privacy policy                                                                                        |
 | owner?                 | partial [user](#DOCS_RESOURCES_USER/user-object) object    | partial user object containing info on the owner of the application                                                        |
-| summary                | string                                                     | if this application is a game sold on Discord, this field will be the summary field for the store page of its primary sku  |
+| summary                | string                                                     | **deprecated**: previously if this application was a game sold on Discord, this field would be the summary field for the store page of its primary SKU; now an empty string  |
 | verify_key             | string                                                     | the hex encoded key for verification in interactions and the GameSDK's [GetTicket](#DOCS_GAME_SDK_APPLICATIONS/getticket) |
 | team                   | ?[team](#DOCS_TOPICS_TEAMS/data-models-team-object) object | if the application belongs to a team, this will be a list of the members of that team                                      |
 | guild_id?              | snowflake                                                  | if this application is a game sold on Discord, this field will be the guild to which it has been linked                    |
@@ -70,11 +70,13 @@
 
 ###### Application Flags
 
-| Value   | Flag                             | 
-|---------|----------------------------------| 
-| 1 << 12 | GATEWAY_PRESENCE                 |
-| 1 << 13 | GATEWAY_PRESENCE_LIMITED         |
-| 1 << 14 | GATEWAY_GUILD_MEMBERS            |
-| 1 << 15 | GATEWAY_GUILD_MEMBERS_LIMITED    |
-| 1 << 16 | VERIFICATION_PENDING_GUILD_LIMIT |
-| 1 << 17 | EMBEDDED                         |
+| Value   | Name                             | Description                  |
+|---------|----------------------------------|------------------------------|
+| 1 << 12 | GATEWAY_PRESENCE                 | Intent required for bots in **100 or more servers** to receive [`presence_update` events](#DOCS_TOPICS_GATEWAY/presence-update) |
+| 1 << 13 | GATEWAY_PRESENCE_LIMITED         | Intent required for bots in under 100 servers to receive [`presence_update` events](#DOCS_TOPICS_GATEWAY/presence-update), found in Bot Settings |
+| 1 << 14 | GATEWAY_GUILD_MEMBERS            | Intent required for bots in **100 or more servers** to receive member-related events like `guild_member_add`. See list of member-related events [under `GUILD_MEMBERS`](#DOCS_TOPICS_GATEWAY/list-of-intents) |
+| 1 << 15 | GATEWAY_GUILD_MEMBERS_LIMITED    | Intent required for bots in under 100 servers to receive member-related events like `guild_member_add`, found in Bot Settings. See list of member-related events [under `GUILD_MEMBERS`](#DOCS_TOPICS_GATEWAY/list-of-intents)
+| 1 << 16 | VERIFICATION_PENDING_GUILD_LIMIT | Indicates unusual growth of an app that prevents verification | 
+| 1 << 17 | EMBEDDED                         | Indicates if an app is embedded within the Discord client (currently unavailable publicly) |
+| 1 << 18 | GATEWAY_MESSAGE_CONTENT          | Intent required for bots in **100 or more servers** to receive [message content](https://support-dev.discord.com/hc/en-us/articles/4404772028055) |
+| 1 << 19 | GATEWAY_MESSAGE_CONTENT_LIMITED  | Intent required for bots in under 100 servers to receive [message content](https://support-dev.discord.com/hc/en-us/articles/4404772028055), found in Bot Settings |
