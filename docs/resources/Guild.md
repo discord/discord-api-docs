@@ -387,7 +387,7 @@ A partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object. Represents an Offl
 | revoked? \*             | boolean                                                                                              | has this integration been revoked                                               |
 | application?            | [application](#DOCS_RESOURCES_GUILD/integration-application-object) object                           | The bot/OAuth2 application for discord integrations                             |
 
-** \* These fields are not provided for discord bot integrations. **
+\* These fields are not provided for discord bot integrations.
 
 ###### Integration Expire Behaviors
 
