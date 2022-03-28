@@ -276,7 +276,7 @@ Select menus support single-select and multi-select behavior, meaning you can pr
 | Field        | Type                                                       | Description                                                 |
 | ------------ | ---------------------------------------------------------- | ----------------------------------------------------------- |
 | label        | string                                                     | the user-facing name of the option, max 100 characters      |
-| value        | string                                                     | the dev-define value of the option, max 100 characters      |
+| value        | string                                                     | the dev-defined value of the option, max 100 characters     |
 | description? | string                                                     | an additional description of the option, max 100 characters |
 | emoji?       | partial [emoji](#DOCS_RESOURCES_EMOJI/emoji-object) object | `id`, `name`, and `animated`                                |
 | default?     | boolean                                                    | will render this option as selected by default              |
