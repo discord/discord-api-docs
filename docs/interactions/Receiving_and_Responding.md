@@ -208,6 +208,9 @@ Not all message fields are currently supported.
 
 ###### Modal
 
+> warn
+> The list of modal components is currently limited to components of type 4 (Text Input).
+
 | Name       | Type                                                          | Description                                                                 |
 | ---------- | ------------------------------------------------------------- | --------------------------------------------------------------------------- |
 | custom_id  | string                                                        | a developer-defined identifier for the component, max 100 characters        |
