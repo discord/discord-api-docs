@@ -415,7 +415,6 @@ A partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object. Represents an Offl
 | name        | string                                          | the name of the app                                                    |
 | icon        | ?string                                         | the [icon hash](#DOCS_REFERENCE/image-formatting) of the app           |
 | description | string                                          | the description of the app                                             |
-| summary     | string                                          | **deprecated**: previously the summary of the app; now an empty string |
 | bot?        | [user](#DOCS_RESOURCES_USER/user-object) object | the bot associated with this application                               |
 
 ### Ban Object
