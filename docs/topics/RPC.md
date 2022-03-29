@@ -900,7 +900,7 @@ Used to unsubscribe from events. `evt` of the payload should be set to the event
 
 Used by hardware manufacturers to send information about the current state of their certified devices that are connected to Discord.
 
-###### Set Certified Devices Argument Strucure
+###### Set Certified Devices Argument Structure
 
 | Field   | Type                                                                                      | Description                                                   |
 | ------- | ----------------------------------------------------------------------------------------- | ------------------------------------------------------------- |

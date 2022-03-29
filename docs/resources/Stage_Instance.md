@@ -70,11 +70,14 @@ Requires the user to be a moderator of the Stage channel.
 
 ###### JSON Params
 
-| Field          | Type      | Description                                                                                                                        |
-| -------------- | --------- | ---------------------------------------------------------------------------------------------------------------------------------- |
-| channel_id     | snowflake | The id of the Stage channel                                                                                                        |
-| topic          | string    | The topic of the Stage instance (1-120 characters)                                                                                 |
-| privacy_level? | integer   | The [privacy level](#DOCS_RESOURCES_STAGE_INSTANCE/stage-instance-object-privacy-level) of the Stage instance (default GUILD_ONLY) |
+| Field                       | Type      | Description                                                                                                                        |
+| --------------------------- | --------- | ---------------------------------------------------------------------------------------------------------------------------------- |
+| channel_id                  | snowflake | The id of the Stage channel                                                                                                        |
+| topic                       | string    | The topic of the Stage instance (1-120 characters)                                                                                 |
+| privacy_level?              | integer   | The [privacy level](#DOCS_RESOURCES_STAGE_INSTANCE/stage-instance-object-privacy-level) of the Stage instance (default GUILD_ONLY) |
+| send_start_notification? \* | boolean   | Notify @everyone that a Stage instance has started                                                                                 |
+
+\* The stage moderator must have the `MENTION_EVERYONE` permission for this notification to be sent.
 
 ## Get Stage Instance % GET /stage-instances/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}
 

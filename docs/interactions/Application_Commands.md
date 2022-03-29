@@ -10,17 +10,19 @@ Application commands are commands that an application can register to Discord. T
 
 ###### Application Command Structure
 
-| Field               | Type                                                                                                                                           | Description                                                                                                          | Valid Types |
-|---------------------|------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------|-------------|
-| id                  | snowflake                                                                                                                                      | unique id of the command                                                                                             | all         |
-| type?               | one of [application command type](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-types)                | the type of command, defaults `1` if not set                                                                         | all         |
-| application_id      | snowflake                                                                                                                                      | unique id of the parent application                                                                                  | all         |
-| guild_id?           | snowflake                                                                                                                                      | guild id of the command, if not global                                                                               | all         |
-| name                | string                                                                                                                                         | [1-32 character name](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-naming) | all         |
-| description         | string                                                                                                                                         | 1-100 character description for `CHAT_INPUT` commands, empty string for `USER` and `MESSAGE` commands                | all         |
-| options?            | array of [application command option](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-structure) | the parameters for the command, max 25                                                                               | CHAT_INPUT  |
-| default_permission? | boolean (default `true`)                                                                                                                       | whether the command is enabled by default when the app is added to a guild                                           | all         |
-| version             | snowflake                                                                                                                                      | autoincrementing version identifier updated during substantial record changes                                        | all         |
+| Field                      | Type                                                                                                                                           | Description                                                                                                          | Valid Types |
+|----------------------------|------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------|-------------|
+| id                         | snowflake                                                                                                                                      | unique id of the command                                                                                             | all         |
+| type?                      | one of [application command type](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-types)                | the type of command, defaults `1` if not set                                                                         | all         |
+| application_id             | snowflake                                                                                                                                      | unique id of the parent application                                                                                  | all         |
+| guild_id?                  | snowflake                                                                                                                                      | guild id of the command, if not global                                                                               | all         |
+| name                       | string                                                                                                                                         | [1-32 character name](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-naming) | all         |
+| name_localizations?        | ?dictionary with keys in [available locales](#DOCS_REFERENCE/locales)                                                                          | Localization dictionary for the `name` field. Values follow the same restrictions as `name`                          | all         |
+| description                | string                                                                                                                                         | 1-100 character description for `CHAT_INPUT` commands, empty string for `USER` and `MESSAGE` commands                | all         |
+| description_localizations? | ?dictionary with keys in [available locales](#DOCS_REFERENCE/locales)                                                                          | Localization dictionary for the `description` field. Values follow the same restrictions as `description`            | all         |
+| options?                   | array of [application command option](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-structure) | the parameters for the command, max 25                                                                               | CHAT_INPUT  |
+| default_permission?        | boolean                                                                                                                                        | whether the command is enabled by default when the app is added to a guild (default `true`)                          | all         |
+| version                    | snowflake                                                                                                                                      | autoincrementing version identifier updated during substantial record changes                                        | all         |
 
 
 ###### Application Command Types
@@ -37,18 +39,20 @@ Application commands are commands that an application can register to Discord. T
 > warn
 > Required `options` must be listed before optional options
 
-| Field             | Type                                                                                                                                                         | Description                                                                                                            |
-| ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------- |
-| type              | one of [application command option type](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-type)                 | the type of option                                                                                                     |
-| name              | string                                                                                                                                                       | [1-32 character name](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-naming)   |
-| description       | string                                                                                                                                                       | 1-100 character description                                                                                            |
-| required?         | boolean                                                                                                                                                      | if the parameter is required or optional--default `false`                                                              |
-| choices?          | array of [application command option choice](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-choice-structure) | choices for `STRING`, `INTEGER`, and `NUMBER` types for the user to pick from, max 25                                  |
-| options?          | array of [application command option](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-structure)               | if the option is a subcommand or subcommand group type, these nested options will be the parameters                    |
-| channel_types?    | array of [channel types](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types)                                                                               | if the option is a channel type, the channels shown will be restricted to these types                                  |
-| min_value?        | integer for `INTEGER` options, double for `NUMBER` options                                                                                                   | if the option is an `INTEGER` or `NUMBER` type, the minimum value permitted                                            |
-| max_value?        | integer for `INTEGER` options, double for `NUMBER` options                                                                                                   | if the option is an `INTEGER` or `NUMBER` type, the maximum value permitted                                            |
-| autocomplete? \*  | boolean                                                                                                                                                      | if autocomplete interactions are enabled for this `STRING`, `INTEGER`, or `NUMBER` type option                         |
+| Field                      | Type                                                                                                                                                         | Description                                                                                                          |
+|----------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------|
+| type                       | one of [application command option type](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-type)                 | the type of option                                                                                                   |
+| name                       | string                                                                                                                                                       | [1-32 character name](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-naming) |
+| name_localizations?        | ?dictionary with keys in [available locales](#DOCS_REFERENCE/locales)                                                                                        | Localization dictionary for the `name` field. Values follow the same restrictions as `name`                          |
+| description                | string                                                                                                                                                       | 1-100 character description                                                                                          |
+| description_localizations? | ?dictionary with keys in [available locales](#DOCS_REFERENCE/locales)                                                                                        | Localization dictionary for the `description` field. Values follow the same restrictions as `description`            |
+| required?                  | boolean                                                                                                                                                      | if the parameter is required or optional--default `false`                                                            |
+| choices?                   | array of [application command option choice](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-choice-structure) | choices for `STRING`, `INTEGER`, and `NUMBER` types for the user to pick from, max 25                                |
+| options?                   | array of [application command option](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-structure)               | if the option is a subcommand or subcommand group type, these nested options will be the parameters                  |
+| channel_types?             | array of [channel types](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types)                                                                               | if the option is a channel type, the channels shown will be restricted to these types                                |
+| min_value?                 | integer for `INTEGER` options, double for `NUMBER` options                                                                                                   | if the option is an `INTEGER` or `NUMBER` type, the minimum value permitted                                          |
+| max_value?                 | integer for `INTEGER` options, double for `NUMBER` options                                                                                                   | if the option is an `INTEGER` or `NUMBER` type, the maximum value permitted                                          |
+| autocomplete? \*           | boolean                                                                                                                                                      | if autocomplete interactions are enabled for this `STRING`, `INTEGER`, or `NUMBER` type option                       |
 
 \* `autocomplete` may not be set to true if `choices` are present.
 
@@ -75,10 +79,11 @@ Application commands are commands that an application can register to Discord. T
 
 If you specify `choices` for an option, they are the **only** valid values for a user to pick
 
-| Field | Type                          | Description                                         |
-| ----- | ----------------------------- | --------------------------------------------------- |
-| name  | string                        | 1-100 character choice name                         |
-| value | string, integer, or double \* | value of the choice, up to 100 characters if string |
+| Field               | Type                                                                  | Description                                                                                  |
+|---------------------|-----------------------------------------------------------------------|----------------------------------------------------------------------------------------------|
+| name                | string                                                                | 1-100 character choice name                                                                  |
+| name_localizations? | ?dictionary with keys in [available locales](#DOCS_REFERENCE/locales) | Localization dictionary for the `name` field. Values follow the same restrictions as `name`  |
+| value               | string, integer, or double \*                                         | value of the choice, up to 100 characters if string                                          |
 
 \* Type of `value` depends on the [option type](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-type) that the choice belongs to.
 
@@ -390,6 +395,8 @@ When someone uses a slash command, your application will receive an interaction:
     },
     "id": "786008729715212338",
     "guild_id": "290926798626357999",
+    "guild_locale": "en-US",
+    "locale": "en-US",
     "data": {
         "options": [{
             "name": "cardname",
@@ -740,7 +747,9 @@ When someone uses a user command, your application will receive an interaction:
         "type": 2
     },
     "guild_id": "772904309264089089",
+    "guild_locale": "en-US",
     "id": "867794291820986368",
+    "locale": "en-US",
     "member": {
         "avatar": null,
         "deaf": false,
@@ -828,7 +837,9 @@ When someone uses a message command, your application will receive an interactio
         "type": 3
     },
     "guild_id": "772904309264089089",
+    "guild_locale": "en-US",
     "id": "867793873336926249",
+    "locale": "en-US",
     "member": {
         "avatar": null,
         "deaf": false,
@@ -883,6 +894,75 @@ An autocomplete interaction **can return partial data** for option values. Your 
 }
 ```
 
+## Localization
+
+Slash commands can be localized, which will cause them to use localized names and descriptions depending on the client's selected language. This is entirely optional. Localization is available for names and descriptions of commands, subcommands, and options, as well as the names of choices, by submitting the appropriate `name_localizations` and `description_localizations` fields when creating or updating the application command.
+
+Application commands may be partially localized - not all [available locales](#DOCS_REFERENCE/locales) are required, nor do different fields within a command need to support the same set of locales. If a locale is not present in a localizations dictionary for a field, users in that locale will see the default value for that field. It's not necessary to fill out all locales with the default value. Any localized values that are identical to the default will be ignored.
+
+Localized option names are subject to an additional constraint, which is that they must be distinct from all other default option names of that command, as well as all other option names within that locale on that command.
+
+When taking advantage of slash command localization, the interaction payload received by your client will still use default command, subcommand, and option names. To localize your interaction response, you can determine the client's selected language by using the `locale` key in the interaction payload.
+
+An application command furnished with localizations might look like this:
+
+```json
+{
+  "name": "birthday",
+  "type": 1,
+  "description": "Wish a friend a happy birthday",
+  "name_localizations": {
+    "zh-CN": "生日",
+    "el": "γενέθλια"
+  },
+  "description_localizations": {
+    "zh-CN": "祝你朋友生日快乐"
+  },
+  "options": [
+    {
+      "name": "age",
+      "type": 4,
+      "description": "Your friend's age",
+      "name_localizations": {
+        "zh-CN": "岁数"
+      },
+      "description_localizations": {
+        "zh-CN": "你朋友的岁数"
+      }
+    }
+  ]
+}
+```
+
+### Retrieving localized commands
+
+While most endpoints that return application command objects will return the `name_localizations` and `description_localizations` fields, some will not by default. This includes `GET` endpoints that return all of an application's guild or global commands. Instead, those endpoints will supply additional `name_localized` or `description_localized` fields, which only contain the localization relevant to the requester's locale. (The full dictionaries can still be obtained by supplying the appropriate query argument).
+
+For example, if a batch `GET` request were made with locale `zh-CN`, including the above command, the returned object would look as follows:
+
+```json
+{
+  "name": "birthday",
+  "type": 1,
+  "description": "Wish a friend a happy birthday",
+  "name_localized": "生日",
+  "description_localized": "祝你朋友生日快乐",
+  "options": [
+    {
+      "name": "age",
+      "type": 4,
+      "description": "Your friend's age",
+      "name_localized": "岁数",
+      "description_localized": "你朋友的岁数",
+    }
+  ]
+}
+```
+
+If the requester's locale is not found in a localizations dictionary, then the corresponding `name_localization` or `description_localization` for that field will also not be present.
+
+Locale is determined by looking at the `X-Discord-Locale` header, then the `Accept-Language` header if not present, then lastly the user settings locale.
+
 ### Endpoints
 
 > info
@@ -890,7 +970,16 @@ An autocomplete interaction **can return partial data** for option values. Your 
 
 ## Get Global Application Commands % GET /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/commands
 
+> warn
+> The objects returned by this endpoint may be augmented with [additional fields if localization is active](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/retrieving-localized-commands).
+
 Fetch all of the global commands for your application. Returns an array of [application command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object) objects.
+
+###### Query String Params
+
+| Field               | Type    | Description                                                                                                                                                                                                            |
+|---------------------|---------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| with_localizations? | boolean | Whether to include full localization dictionaries (`name_localizations` and `description_localizations`) in the returned objects, instead of the `name_localized` and `description_localized` fields. Default `false`. |
 
 ## Create Global Application Command % POST /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/commands
 
@@ -901,13 +990,15 @@ Create a new global command. New global commands will be available in all guilds
 
 ###### JSON Params
 
-| Field               | Type                                                                                                                                           | Description                                                                                                                              |
-| ------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
-| name                | string                                                                                                                                         | [1-32 character name](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-naming)                     |
-| description         | string                                                                                                                                         | 1-100 character description                                                                                                              |
-| options?            | array of [application command option](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-structure) | the parameters for the command                                                                                                           |
-| default_permission? | boolean (default `true`)                                                                                                                       | whether the command is enabled by default when the app is added to a guild                                                               |
-| type?               | one of [application command type](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-types)                | the type of command, defaults `1` if not set                                                                                             |
+| Field                      | Type                                                                                                                                           | Description                                                                                                          |
+|----------------------------|------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------|
+| name                       | string                                                                                                                                         | [1-32 character name](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-naming) |
+| name_localizations?        | ?dictionary with keys in [available locales](#DOCS_REFERENCE/locales)                                                                          | Localization dictionary for the `name` field. Values follow the same restrictions as `name`                          |
+| description                | string                                                                                                                                         | 1-100 character description                                                                                          |
+| description_localizations? | ?dictionary with keys in [available locales](#DOCS_REFERENCE/locales)                                                                          | Localization dictionary for the `description` field. Values follow the same restrictions as `description`            |
+| options?                   | array of [application command option](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-structure) | the parameters for the command                                                                                       |
+| default_permission?        | boolean (default `true`)                                                                                                                       | whether the command is enabled by default when the app is added to a guild                                           |
+| type?                      | one of [application command type](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-types)                | the type of command, defaults `1` if not set                                                                         |
 
 ## Get Global Application Command % GET /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/commands/{command.id#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object}
 
@@ -922,12 +1013,14 @@ Edit a global command. Updates will be available in all guilds after 1 hour. Ret
 
 ###### JSON Params
 
-| Field               | Type                                                                                                                                           | Description                                                                                                           |
-| ------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
-| name?               | string                                                                                                                                         | [1-32 character name](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-naming)  |
-| description?        | string                                                                                                                                         | 1-100 character description                                                                                           |
-| options?            | array of [application command option](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-structure) | the parameters for the command                                                                                        |
-| default_permission? | boolean (default `true`)                                                                                                                       | whether the command is enabled by default when the app is added to a guild                                            |
+| Field                      | Type                                                                                                                                           | Description                                                                                                          |
+|----------------------------|------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------|
+| name?                      | string                                                                                                                                         | [1-32 character name](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-naming) |
+| name_localizations?        | ?dictionary with keys in [available locales](#DOCS_REFERENCE/locales)                                                                          | Localization dictionary for the `name` field. Values follow the same restrictions as `name`                          |
+| description?               | string                                                                                                                                         | 1-100 character description                                                                                          |
+| description_localizations? | ?dictionary with keys in [available locales](#DOCS_REFERENCE/locales)                                                                          | Localization dictionary for the `description` field. Values follow the same restrictions as `description`            |
+| options?                   | array of [application command option](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-structure) | the parameters for the command                                                                                       |
+| default_permission?        | boolean (default `true`)                                                                                                                       | whether the command is enabled by default when the app is added to a guild                                           |
 
 ## Delete Global Application Command % DELETE /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/commands/{command.id#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object}
 
@@ -942,7 +1035,16 @@ Takes a list of application commands, overwriting the existing global command li
 
 ## Get Guild Application Commands % GET /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/commands
 
+> warn
+> The objects returned by this endpoint may be augmented with [additional fields if localization is active](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/retrieving-localized-commands).
+
 Fetch all of the guild commands for your application for a specific guild. Returns an array of [application command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object) objects.
+
+###### Query String Params
+
+| Field               | Type    | Description                                                                                                                                                                                                            |
+|---------------------|---------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| with_localizations? | boolean | Whether to include full localization dictionaries (`name_localizations` and `description_localizations`) in the returned objects, instead of the `name_localized` and `description_localized` fields. Default `false`. |
 
 ## Create Guild Application Command % POST /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/commands
 
@@ -953,13 +1055,15 @@ Create a new guild command. New guild commands will be available in the guild im
 
 ###### JSON Params
 
-| Field               | Type                                                                                                                                           | Description                                                                                                           |
-| ------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
-| name                | string                                                                                                                                         | [1-32 character name](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-naming)  |
-| description         | string                                                                                                                                         | 1-100 character description                                                                                           |
-| options?            | array of [application command option](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-structure) | the parameters for the command                                                                                        |
-| default_permission? | boolean (default `true`)                                                                                                                       | whether the command is enabled by default when the app is added to a guild                                            |
-| type?               | one of [application command type](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-types)                | the type of command, defaults `1` if not set                                                                          |
+| Field                      | Type                                                                                                                                           | Description                                                                                                          |
+|----------------------------|------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------|
+| name                       | string                                                                                                                                         | [1-32 character name](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-naming) |
+| name_localizations?        | ?dictionary with keys in [available locales](#DOCS_REFERENCE/locales)                                                                          | Localization dictionary for the `name` field. Values follow the same restrictions as `name`                          |
+| description                | string                                                                                                                                         | 1-100 character description                                                                                          |
+| description_localizations? | ?dictionary with keys in [available locales](#DOCS_REFERENCE/locales)                                                                          | Localization dictionary for the `description` field. Values follow the same restrictions as `description`            |
+| options?                   | array of [application command option](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-structure) | the parameters for the command                                                                                       |
+| default_permission?        | boolean (default `true`)                                                                                                                       | whether the command is enabled by default when the app is added to a guild                                           |
+| type?                      | one of [application command type](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-types)                | the type of command, defaults `1` if not set                                                                         |
 
 ## Get Guild Application Command % GET /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/commands/{command.id#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object}
 
@@ -974,12 +1078,14 @@ Edit a guild command. Updates for guild commands will be available immediately. 
 
 ###### JSON Params
 
-| Field               | Type                                                                                                                                           | Description                                                                                                           |
-| ------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
-| name?               | string                                                                                                                                         | [1-32 character name](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-naming)  |
-| description?        | string                                                                                                                                         | 1-100 character description                                                                                           |
-| options?            | array of [application command option](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-structure) | the parameters for the command                                                                                        |
-| default_permission? | boolean (default `true`)                                                                                                                       | whether the command is enabled by default when the app is added to a guild                                            |
+| Field                      | Type                                                                                                                                           | Description                                                                                                          |
+|----------------------------|------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------|
+| name?                      | string                                                                                                                                         | [1-32 character name](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-naming) |
+| name_localizations?        | ?dictionary with keys in [available locales](#DOCS_REFERENCE/locales)                                                                          | Localization dictionary for the `name` field. Values follow the same restrictions as `name`                          |
+| description?               | string                                                                                                                                         | 1-100 character description                                                                                          |
+| description_localizations? | ?dictionary with keys in [available locales](#DOCS_REFERENCE/locales)                                                                          | Localization dictionary for the `description` field. Values follow the same restrictions as `description`            |
+| options?                   | array of [application command option](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-structure) | the parameters for the command                                                                                       |
+| default_permission?        | boolean (default `true`)                                                                                                                       | whether the command is enabled by default when the app is added to a guild                                           |
 
 ## Delete Guild Application Command % DELETE /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/commands/{command.id#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object}
 
@@ -991,6 +1097,19 @@ Takes a list of application commands, overwriting the existing command list for 
 
 > danger
 > This will overwrite **all** types of application commands: slash commands, user commands, and message commands.
+
+###### Bulk Application Command JSON Params
+
+| Field                      | Type                                                                                                                                           | Description                                                                                                          |
+|----------------------------|------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------|
+| id                         | snowflake                                                                                                                                      | application command id, if known                                                                                     |
+| name                       | string                                                                                                                                         | [1-32 character name](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-naming) |
+| name_localizations?        | ?dictionary with keys in [available locales](#DOCS_REFERENCE/locales)                                                                          | Localization dictionary for the `name` field. Values follow the same restrictions as `name`                          |
+| description                | string                                                                                                                                         | 1-100 character description                                                                                          |
+| description_localizations? | ?dictionary with keys in [available locales](#DOCS_REFERENCE/locales)                                                                          | Localization dictionary for the `description` field. Values follow the same restrictions as `description`            |
+| options?                   | array of [application command option](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-structure) | the parameters for the command                                                                                       |
+| default_permission?        | boolean (default `true`)                                                                                                                       | whether the command is enabled by default when the app is added to a guild                                           |
+| type?                      | one of [application command type](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-types)                | the type of command, defaults `1` if not set                                                                         |
 
 ## Get Guild Application Command Permissions % GET /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/commands/permissions
 

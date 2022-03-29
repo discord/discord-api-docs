@@ -45,7 +45,7 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 | max_presences?                | ?integer                                                                                                     | the maximum number of presences for the guild (`null` is always returned, apart from the largest of guilds)                                                            |
 | max_members?                  | integer                                                                                                      | the maximum number of members for the guild                                                                                                                            |
 | vanity_url_code               | ?string                                                                                                      | the vanity url code for the guild                                                                                                                                      |
-| description                   | ?string                                                                                                      | the description of a Community guild                                                                                                                                   |
+| description                   | ?string                                                                                                      | the description of a guild                                                                                                                                   |
 | banner                        | ?string                                                                                                      | [banner hash](#DOCS_REFERENCE/image-formatting)                                                                                                                        |
 | premium_tier                  | integer                                                                                                      | [premium tier](#DOCS_RESOURCES_GUILD/guild-object-premium-tier) (Server Boost level)                                                                                   |
 | premium_subscription_count?   | integer                                                                                                      | the number of boosts this guild currently has                                                                                                                          |
@@ -61,11 +61,11 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 | guild_scheduled_events? \*    | array of [guild scheduled event](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object) objects | the scheduled events in the guild                                                                                                                                      |
 | premium_progress_bar_enabled  | boolean                                                                                                      | whether the guild has the boost progress bar enabled                                                                                                                   |
 
-** \* These fields are only sent within the [GUILD_CREATE](#DOCS_TOPICS_GATEWAY/guild-create) event **
+\* These fields are only sent within the [GUILD_CREATE](#DOCS_TOPICS_GATEWAY/guild-create) event
 
-** \*\* These fields are only sent when using the [GET Current User Guilds](#DOCS_RESOURCES_USER/get-current-user-guilds) endpoint and are relative to the requested user **
+\*\* These fields are only sent when using the [GET Current User Guilds](#DOCS_RESOURCES_USER/get-current-user-guilds) endpoint and are relative to the requested user
 
-** \*\*\* This field is deprecated and is replaced by [channel.rtc_region](#DOCS_RESOURCES_CHANNEL/channel-object-channel-structure)**
+\*\*\* This field is deprecated and is replaced by [channel.rtc_region](#DOCS_RESOURCES_CHANNEL/channel-object-channel-structure)
 
 ###### Default Message Notification Level
 
@@ -130,6 +130,7 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 
 | Feature                          | Description                                                                                                         |
 | -------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
+| ANIMATED_BANNER                  | guild has access to set an animated guild banner image                                                              |
 | ANIMATED_ICON                    | guild has access to set an animated guild icon                                                                      |
 | BANNER                           | guild has access to set a guild banner image                                                                        |
 | COMMERCE                         | guild has access to use commerce features (i.e. create store channels)                                              |
@@ -229,7 +230,7 @@ A partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object. Represents an Offl
 | features                   | array of [guild feature](#DOCS_RESOURCES_GUILD/guild-object-guild-features) strings | enabled guild features                                      |
 | approximate_member_count   | integer                                                                             | approximate number of members in this guild                 |
 | approximate_presence_count | integer                                                                             | approximate number of online members in this guild          |
-| description                | ?string                                                                             | the description for the guild, if the guild is discoverable |
+| description                | ?string                                                                             | the description for the guild                               |
 | stickers                   | array of [sticker](#DOCS_RESOURCES_STICKER/sticker-object) objects                   | custom guild stickers                                      |
 
 ###### Example Guild Preview
@@ -387,7 +388,7 @@ A partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object. Represents an Offl
 | revoked? \*             | boolean                                                                                              | has this integration been revoked                                               |
 | application?            | [application](#DOCS_RESOURCES_GUILD/integration-application-object) object                           | The bot/OAuth2 application for discord integrations                             |
 
-** \* These fields are not provided for discord bot integrations. **
+\* These fields are not provided for discord bot integrations.
 
 ###### Integration Expire Behaviors
 
@@ -409,14 +410,13 @@ A partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object. Represents an Offl
 
 ###### Integration Application Structure
 
-| Field       | Type                                            | Description                                                  |
-| ----------- | ----------------------------------------------- | ------------------------------------------------------------ |
-| id          | snowflake                                       | the id of the app                                            |
-| name        | string                                          | the name of the app                                          |
-| icon        | ?string                                         | the [icon hash](#DOCS_REFERENCE/image-formatting) of the app |
-| description | string                                          | the description of the app                                   |
-| summary     | string                                          | the summary of the app                                       |
-| bot?        | [user](#DOCS_RESOURCES_USER/user-object) object | the bot associated with this application                     |
+| Field       | Type                                            | Description                                                            |
+| ----------- | ----------------------------------------------- | ---------------------------------------------------------------------- |
+| id          | snowflake                                       | the id of the app                                                      |
+| name        | string                                          | the name of the app                                                    |
+| icon        | ?string                                         | the [icon hash](#DOCS_REFERENCE/image-formatting) of the app           |
+| description | string                                          | the description of the app                                             |
+| bot?        | [user](#DOCS_RESOURCES_USER/user-object) object | the bot associated with this application                               |
 
 ### Ban Object
 
@@ -672,28 +672,28 @@ Modify a guild's settings. Requires the `MANAGE_GUILD` permission. Returns the u
 
 ###### JSON Params
 
-| Field                         | Type                                                                                | Description                                                                                                                                 |
-| ----------------------------- | ----------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
-| name                          | string                                                                              | guild name                                                                                                                                  |
-| region                        | ?string                                                                             | guild [voice region](#DOCS_RESOURCES_VOICE/voice-region-object) id (deprecated)                                                             |
-| verification_level            | ?integer                                                                            | [verification level](#DOCS_RESOURCES_GUILD/guild-object-verification-level)                                                                 |
-| default_message_notifications | ?integer                                                                            | default [message notification level](#DOCS_RESOURCES_GUILD/guild-object-default-message-notification-level)                                 |
-| explicit_content_filter       | ?integer                                                                            | [explicit content filter level](#DOCS_RESOURCES_GUILD/guild-object-explicit-content-filter-level)                                           |
-| afk_channel_id                | ?snowflake                                                                          | id for afk channel                                                                                                                          |
-| afk_timeout                   | integer                                                                             | afk timeout in seconds                                                                                                                      |
-| icon                          | ?[image data](#DOCS_REFERENCE/image-data)                                           | base64 1024x1024 png/jpeg/gif image for the guild icon (can be animated gif when the server has the `ANIMATED_ICON` feature)                |
-| owner_id                      | snowflake                                                                           | user id to transfer guild ownership to (must be owner)                                                                                      |
-| splash                        | ?[image data](#DOCS_REFERENCE/image-data)                                           | base64 16:9 png/jpeg image for the guild splash (when the server has the `INVITE_SPLASH` feature)                                           |
-| discovery_splash              | ?[image data](#DOCS_REFERENCE/image-data)                                           | base64 16:9 png/jpeg image for the guild discovery splash (when the server has the `DISCOVERABLE` feature)                                  |
-| banner                        | ?[image data](#DOCS_REFERENCE/image-data)                                           | base64 16:9 png/jpeg image for the guild banner (when the server has the `BANNER` feature)                                                  |
-| system_channel_id             | ?snowflake                                                                          | the id of the channel where guild notices such as welcome messages and boost events are posted                                              |
-| system_channel_flags          | integer                                                                             | [system channel flags](#DOCS_RESOURCES_GUILD/guild-object-system-channel-flags)                                                             |
-| rules_channel_id              | ?snowflake                                                                          | the id of the channel where Community guilds display rules and/or guidelines                                                                |
-| public_updates_channel_id     | ?snowflake                                                                          | the id of the channel where admins and moderators of Community guilds receive notices from Discord                                          |
-| preferred_locale              | ?string                                                                             | the preferred [locale](#DOCS_REFERENCE/locales) of a Community guild used in server discovery and notices from Discord; defaults to "en-US" |
-| features                      | array of [guild feature](#DOCS_RESOURCES_GUILD/guild-object-guild-features) strings | enabled guild features                                                                                                                      |
-| description                   | ?string                                                                             | the description for the guild, if the guild is discoverable                                                                                 |
-| premium_progress_bar_enabled  | boolean                                                                             | whether the guild's boost progress bar should be enabled.                                                                                   |
+| Field                         | Type                                                                                | Description                                                                                                                                                       |
+| ----------------------------- | ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| name                          | string                                                                              | guild name                                                                                                                                                        |
+| region                        | ?string                                                                             | guild [voice region](#DOCS_RESOURCES_VOICE/voice-region-object) id (deprecated)                                                                                   |
+| verification_level            | ?integer                                                                            | [verification level](#DOCS_RESOURCES_GUILD/guild-object-verification-level)                                                                                       |
+| default_message_notifications | ?integer                                                                            | default [message notification level](#DOCS_RESOURCES_GUILD/guild-object-default-message-notification-level)                                                       |
+| explicit_content_filter       | ?integer                                                                            | [explicit content filter level](#DOCS_RESOURCES_GUILD/guild-object-explicit-content-filter-level)                                                                 |
+| afk_channel_id                | ?snowflake                                                                          | id for afk channel                                                                                                                                                |
+| afk_timeout                   | integer                                                                             | afk timeout in seconds                                                                                                                                            |
+| icon                          | ?[image data](#DOCS_REFERENCE/image-data)                                           | base64 1024x1024 png/jpeg/gif image for the guild icon (can be animated gif when the server has the `ANIMATED_ICON` feature)                                      |
+| owner_id                      | snowflake                                                                           | user id to transfer guild ownership to (must be owner)                                                                                                            |
+| splash                        | ?[image data](#DOCS_REFERENCE/image-data)                                           | base64 16:9 png/jpeg image for the guild splash (when the server has the `INVITE_SPLASH` feature)                                                                 |
+| discovery_splash              | ?[image data](#DOCS_REFERENCE/image-data)                                           | base64 16:9 png/jpeg image for the guild discovery splash (when the server has the `DISCOVERABLE` feature)                                                        |
+| banner                        | ?[image data](#DOCS_REFERENCE/image-data)                                           | base64 16:9 png/jpeg image for the guild banner (when the server has the `BANNER` feature; can be animated gif when the server has the `ANIMATED_BANNER` feature) |
+| system_channel_id             | ?snowflake                                                                          | the id of the channel where guild notices such as welcome messages and boost events are posted                                                                    |
+| system_channel_flags          | integer                                                                             | [system channel flags](#DOCS_RESOURCES_GUILD/guild-object-system-channel-flags)                                                                                   |
+| rules_channel_id              | ?snowflake                                                                          | the id of the channel where Community guilds display rules and/or guidelines                                                                                      |
+| public_updates_channel_id     | ?snowflake                                                                          | the id of the channel where admins and moderators of Community guilds receive notices from Discord                                                                |
+| preferred_locale              | ?string                                                                             | the preferred [locale](#DOCS_REFERENCE/locales) of a Community guild used in server discovery and notices from Discord; defaults to "en-US"                       |
+| features                      | array of [guild feature](#DOCS_RESOURCES_GUILD/guild-object-guild-features) strings | enabled guild features                                                                                                                                            |
+| description                   | ?string                                                                             | the description for the guild                                                                                                                                     |
+| premium_progress_bar_enabled  | boolean                                                                             | whether the guild's boost progress bar should be enabled                                                                                                          |
 
 ## Delete Guild % DELETE /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}
 
