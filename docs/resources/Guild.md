@@ -409,14 +409,13 @@ A partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object. Represents an Offl
 
 ###### Integration Application Structure
 
-| Field       | Type                                            | Description                                                  |
-| ----------- | ----------------------------------------------- | ------------------------------------------------------------ |
-| id          | snowflake                                       | the id of the app                                            |
-| name        | string                                          | the name of the app                                          |
-| icon        | ?string                                         | the [icon hash](#DOCS_REFERENCE/image-formatting) of the app |
-| description | string                                          | the description of the app                                   |
-| summary     | string                                          | the summary of the app                                       |
-| bot?        | [user](#DOCS_RESOURCES_USER/user-object) object | the bot associated with this application                     |
+| Field       | Type                                            | Description                                                            |
+| ----------- | ----------------------------------------------- | ---------------------------------------------------------------------- |
+| id          | snowflake                                       | the id of the app                                                      |
+| name        | string                                          | the name of the app                                                    |
+| icon        | ?string                                         | the [icon hash](#DOCS_REFERENCE/image-formatting) of the app           |
+| description | string                                          | the description of the app                                             |
+| bot?        | [user](#DOCS_RESOURCES_USER/user-object) object | the bot associated with this application                               |
 
 ### Ban Object
 
