@@ -356,7 +356,10 @@ Edits the initial Interaction response. Functions the same as [Edit Webhook Mess
 
 ## Delete Original Interaction Response % DELETE /webhooks/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/{interaction.token#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object}/messages/@original
 
-Deletes the initial Interaction response. Returns `204 No Content` on success. Does not support ephemeral followups.
+Deletes the initial Interaction response. Returns `204 No Content` on success. 
+
+> danger
+> Does not support ephemeral followups.
 
 ## Create Followup Message % POST /webhooks/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/{interaction.token#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object}
 
@@ -372,4 +375,7 @@ Edits a followup message for an Interaction. Functions the same as [Edit Webhook
 
 ## Delete Followup Message % DELETE /webhooks/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/{interaction.token#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}
 
-Deletes a followup message for an Interaction. Returns `204 No Content` on success. Does not support ephemeral followups.
+Deletes a followup message for an Interaction. Returns `204 No Content` on success. 
+
+> danger
+> Does not support ephemeral followups.
