@@ -407,7 +407,6 @@ Returns info about the current authorization. Requires authentication with a bea
         "name": "AIRHORN SOLUTIONS",
         "icon": "f03590d3eb764081d154a66340ea7d6d",
         "description": "",
-        "summary": "",
         "hook": true,
         "bot_public": true,
         "bot_require_code_grant": false,
