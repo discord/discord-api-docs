@@ -264,9 +264,9 @@ Select menus support single-select and multi-select behavior, meaning you can pr
 | Field        | Type                                                                                                        | Description                                                               |
 | ------------ | ----------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------- |
 | type         | integer                                                                                                     | `3` for a select menu                                                     |
-| custom_id    | string                                                                                                      | a developer-defined identifier for the button, max 100 characters         |
+| custom_id    | string                                                                                                      | a developer-defined identifier for the select menu, max 100 characters    |
 | options      | array of [select options](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/select-menu-object-select-option-structure) | the choices in the select, max 25                                         |
-| placeholder? | string                                                                                                      | custom placeholder text if nothing is selected, max 100 characters        |
+| placeholder? | string                                                                                                      | custom placeholder text if nothing is selected, max 150 characters        |
 | min_values?  | integer                                                                                                     | the minimum number of items that must be chosen; default 1, min 0, max 25 |
 | max_values?  | integer                                                                                                     | the maximum number of items that can be chosen; default 1, max 25         |
 | disabled?    | boolean                                                                                                     | disable the select, default false                                         |
@@ -276,7 +276,7 @@ Select menus support single-select and multi-select behavior, meaning you can pr
 | Field        | Type                                                       | Description                                                 |
 | ------------ | ---------------------------------------------------------- | ----------------------------------------------------------- |
 | label        | string                                                     | the user-facing name of the option, max 100 characters      |
-| value        | string                                                     | the dev-define value of the option, max 100 characters      |
+| value        | string                                                     | the dev-defined value of the option, max 100 characters     |
 | description? | string                                                     | an additional description of the option, max 100 characters |
 | emoji?       | partial [emoji](#DOCS_RESOURCES_EMOJI/emoji-object) object | `id`, `name`, and `animated`                                |
 | default?     | boolean                                                    | will render this option as selected by default              |
@@ -439,7 +439,7 @@ Text inputs are an interactive component that render on modals. They can be used
 | type         | integer | `4` for a text input                                                                        |
 | custom_id    | string  | a developer-defined identifier for the input, max 100 characters                            |
 | style        | integer | the [Text Input Style](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/text-inputs-text-input-styles) |
-| label        | string  | the label for this component                                                                |
+| label        | string  | the label for this component, max 45 characters                                             |
 | min_length?  | integer | the minimum input length for a text input, min 0, max 4000                                  |
 | max_length?  | integer | the maximum input length for a text input, min 1, max 4000                                  |
 | required?    | boolean | whether this component is required to be filled, default true                               |

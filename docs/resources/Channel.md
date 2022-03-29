@@ -13,7 +13,7 @@ Represents a guild or DM channel within Discord.
 | guild_id?                      | snowflake                                                                  | the id of the guild (may be missing for some channel objects received over gateway guild dispatches)                                                                                            |
 | position?                      | integer                                                                    | sorting position of the channel                                                                                                                                                                 |
 | permission_overwrites?         | array of [overwrite](#DOCS_RESOURCES_CHANNEL/overwrite-object) objects     | explicit permission overwrites for members and roles                                                                                                                                            |
-| name?                          | string                                                                     | the name of the channel (1-100 characters)                                                                                                                                                      |
+| name?                          | ?string                                                                    | the name of the channel (1-100 characters)                                                                                                                                                      |
 | topic?                         | ?string                                                                    | the channel topic (0-1024 characters)                                                                                                                                                           |
 | nsfw?                          | boolean                                                                    | whether the channel is nsfw                                                                                                                                                                     |
 | last_message_id?               | ?snowflake                                                                 | the id of the last message sent in this channel (may not point to an existing or valid message)                                                                                                 |
@@ -243,17 +243,17 @@ Represents a message sent in a channel within Discord.
 |-------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------|
 | id                            | snowflake                                                                                                                                       | id of the message                                                                                                                                |
 | channel_id                    | snowflake                                                                                                                                       | id of the channel the message was sent in                                                                                                        |
-| guild_id?                     | snowflake                                                                                                                                       | id of the guild the message was sent in                                                                                                          |
-| author\*                      | [user](#DOCS_RESOURCES_USER/user-object) object                                                                                                 | the author of this message (not guaranteed to be a valid user, see below)                                                                        |
-| member?\*\*                   | partial [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) object                                                                        | member properties for this message's author                                                                                                      |
+| guild_id?\*                     | snowflake                                                                                                                                       | id of the guild the message was sent in                                                                                                          |
+| author\*\*                      | [user](#DOCS_RESOURCES_USER/user-object) object                                                                                                 | the author of this message (not guaranteed to be a valid user, see below)                                                                        |
+| member?\*\*\*                   | partial [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) object                                                                        | member properties for this message's author                                                                                                      |
 | content                       | string                                                                                                                                          | contents of the message                                                                                                                          |
 | timestamp                     | ISO8601 timestamp                                                                                                                               | when this message was sent                                                                                                                       |
 | edited_timestamp              | ?ISO8601 timestamp                                                                                                                              | when this message was edited (or null if never)                                                                                                  |
 | tts                           | boolean                                                                                                                                         | whether this was a TTS message                                                                                                                   |
 | mention_everyone              | boolean                                                                                                                                         | whether this message mentions everyone                                                                                                           |
-| mentions\*\*\*                | array of [user](#DOCS_RESOURCES_USER/user-object) objects, with an additional partial [member](#DOCS_RESOURCES_GUILD/guild-member-object) field | users specifically mentioned in the message                                                                                                      |
+| mentions\*\*\*\*                | array of [user](#DOCS_RESOURCES_USER/user-object) objects, with an additional partial [member](#DOCS_RESOURCES_GUILD/guild-member-object) field | users specifically mentioned in the message                                                                                                      |
 | mention_roles                 | array of [role](#DOCS_TOPICS_PERMISSIONS/role-object) object ids                                                                                | roles specifically mentioned in this message                                                                                                     |
-| mention_channels?\*\*\*\*     | array of [channel mention](#DOCS_RESOURCES_CHANNEL/channel-mention-object) objects                                                              | channels specifically mentioned in this message                                                                                                  |
+| mention_channels?\*\*\*\*\*     | array of [channel mention](#DOCS_RESOURCES_CHANNEL/channel-mention-object) objects                                                              | channels specifically mentioned in this message                                                                                                  |
 | attachments                   | array of [attachment](#DOCS_RESOURCES_CHANNEL/attachment-object) objects                                                                        | any attached files                                                                                                                               |
 | embeds                        | array of [embed](#DOCS_RESOURCES_CHANNEL/embed-object) objects                                                                                  | any embedded content                                                                                                                             |
 | reactions?                    | array of [reaction](#DOCS_RESOURCES_CHANNEL/reaction-object) objects                                                                            | reactions to the message                                                                                                                         |
@@ -266,22 +266,24 @@ Represents a message sent in a channel within Discord.
 | application_id?               | snowflake                                                                                                                                       | if the message is an [Interaction](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/) or application-owned webhook, this is the id of the application |
 | message_reference?            | [message reference](#DOCS_RESOURCES_CHANNEL/message-reference-object-message-reference-structure) object                                        | data showing the source of a crosspost, channel follow add, pin, or reply message                                                                |
 | flags?                        | integer                                                                                                                                         | [message flags](#DOCS_RESOURCES_CHANNEL/message-object-message-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field)          |
-| referenced_message?\*\*\*\*\* | ?[message object](#DOCS_RESOURCES_CHANNEL/message-object)                                                                                       | the message associated with the message_reference                                                                                                |
+| referenced_message?\*\*\*\*\*\* | ?[message object](#DOCS_RESOURCES_CHANNEL/message-object)                                                                                       | the message associated with the message_reference                                                                                                |
 | interaction?                  | [message interaction object](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/message-interaction-object-message-interaction-structure)              | sent if the message is a response to an [Interaction](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/)                                              |
 | thread?                       | [channel](#DOCS_RESOURCES_CHANNEL/channel-object) object                                                                                        | the thread that was started from this message, includes [thread member](#DOCS_RESOURCES_CHANNEL/thread-member-object) object                     |
 | components?                   | Array of [message components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-object)                                                           | sent if the message contains components like buttons, action rows, or other interactive components                                               |
 | sticker_items?                | array of [message sticker item objects](#DOCS_RESOURCES_STICKER/sticker-item-object)                                                            | sent if the message contains stickers                                                                                                            |
 | stickers?                     | array of [sticker](#DOCS_RESOURCES_STICKER/sticker-object) objects                                                                              | **Deprecated** the stickers sent with the message                                                                                                |
 
-\* The author object follows the structure of the user object, but is only a valid user in the case where the message is generated by a user or bot user. If the message is generated by a webhook, the author object corresponds to the webhook's id, username, and avatar. You can tell if a message is generated by a webhook by checking for the `webhook_id` on the message object.
+\* For [MESSAGE_CREATE](#DOCS_TOPICS_GATEWAY/message-create) and [MESSAGE_UPDATE](#DOCS_TOPICS_GATEWAY/message-update) events, the message object may not contain a `guild_id` or `member` field since the events are sent directly to the receiving user and the bot who sent the message, rather than being sent through the guild like non-ephemeral messages.
 
-\*\* The member object exists in [MESSAGE_CREATE](#DOCS_TOPICS_GATEWAY/message-create) and [MESSAGE_UPDATE](#DOCS_TOPICS_GATEWAY/message-update) events from text-based guild channels, provided that the author of the message is not a webhook. This allows bots to obtain real-time member data without requiring bots to store member state in memory.
+\*\* The author object follows the structure of the user object, but is only a valid user in the case where the message is generated by a user or bot user. If the message is generated by a webhook, the author object corresponds to the webhook's id, username, and avatar. You can tell if a message is generated by a webhook by checking for the `webhook_id` on the message object.
 
-\*\*\* The user objects in the mentions array will only have the partial `member` field present in [MESSAGE_CREATE](#DOCS_TOPICS_GATEWAY/message-create) and [MESSAGE_UPDATE](#DOCS_TOPICS_GATEWAY/message-update) events from text-based guild channels.
+\*\*\* The member object exists in [MESSAGE_CREATE](#DOCS_TOPICS_GATEWAY/message-create) and [MESSAGE_UPDATE](#DOCS_TOPICS_GATEWAY/message-update) events from text-based guild channels, provided that the message isn't ephemeral and the author of the message is not a webhook. This allows bots to obtain real-time member data without requiring bots to store member state in memory.
 
-\*\*\*\* Not all channel mentions in a message will appear in `mention_channels`. Only textual channels that are visible to everyone in a lurkable guild will ever be included. Only crossposted messages (via Channel Following) currently include `mention_channels` at all. If no mentions in the message meet these requirements, this field will not be sent.
+\*\*\*\* The user objects in the mentions array will only have the partial `member` field present in [MESSAGE_CREATE](#DOCS_TOPICS_GATEWAY/message-create) and [MESSAGE_UPDATE](#DOCS_TOPICS_GATEWAY/message-update) events from text-based guild channels.
 
-\*\*\*\*\* This field is only returned for messages with a `type` of `19` (REPLY) or `21` (THREAD_STARTER_MESSAGE). If the message is a reply but the `referenced_message` field is not present, the backend did not attempt to fetch the message that was being replied to, so its state is unknown. If the field exists but is null, the referenced message was deleted.
+\*\*\*\*\* Not all channel mentions in a message will appear in `mention_channels`. Only textual channels that are visible to everyone in a lurkable guild will ever be included. Only crossposted messages (via Channel Following) currently include `mention_channels` at all. If no mentions in the message meet these requirements, this field will not be sent.
+
+\*\*\*\*\*\* This field is only returned for messages with a `type` of `19` (REPLY) or `21` (THREAD_STARTER_MESSAGE). If the message is a reply but the `referenced_message` field is not present, the backend did not attempt to fetch the message that was being replied to, so its state is unknown. If the field exists but is null, the referenced message was deleted.
 
 ###### Message Types
 
@@ -468,7 +470,7 @@ There are multiple message types that have a message_reference object.  Since me
 - These messages have `message_id` and `channel_id`, and `guild_id` if it is in a guild, with data of the message that was replied to. The channel_id and guild_id will be the same as the reply.
 - Replies are created by including a message_reference when sending a message. When sending, only `message_id` is required.
 
-###### Thread starter messsage
+###### Thread starter message
 
 - These are the first message in a public thread.  They point back to the message in the parent channel from which the thread was started (type 21)
 - These messages have `message_id`, `channel_id`, and `guild_id`.
@@ -534,7 +536,7 @@ A thread member is used to indicate whether a user has joined a thread or not.
 | join_timestamp | ISO8601 timestamp | the time the current user last joined the thread                |
 | flags          | integer           | any user-thread settings, currently only used for notifications |
 
-** \* These fields are ommitted on the member sent within each thread in the [GUILD_CREATE](#DOCS_TOPICS_GATEWAY/guild-create) event **
+** \* These fields are omitted on the member sent within each thread in the [GUILD_CREATE](#DOCS_TOPICS_GATEWAY/guild-create) event **
 
 ### Embed Object
 
@@ -627,6 +629,24 @@ Embed types are "loosely defined" and, for the most part, are not used by our cl
 | name    | string  | name of the field                               |
 | value   | string  | value of the field                              |
 | inline? | boolean | whether or not this field should display inline |
+
+###### Embed Limits
+
+To facilitate showing rich content, rich embeds do not follow the traditional limits of message content. However, some limits are still in place to prevent excessively large embeds. The following table describes the limits:
+
+All of the following limits are measured inclusively. Leading and trailing whitespace characters are not included (they are trimmed automatically).
+
+| Field                                                                      | Limit                                                                                |
+|----------------------------------------------------------------------------|--------------------------------------------------------------------------------------|
+| title                                                                      | 256 characters                                                                       |
+| description                                                                | 4096 characters                                                                      |
+| fields                                                                     | Up to 25 [field](#DOCS_RESOURCES_CHANNEL/embed-object-embed-field-structure) objects |
+| [field.name](#DOCS_RESOURCES_CHANNEL/embed-object-embed-field-structure)   | 256 characters                                                                       |
+| [field.value](#DOCS_RESOURCES_CHANNEL/embed-object-embed-field-structure)  | 1024 characters                                                                      |
+| [footer.text](#DOCS_RESOURCES_CHANNEL/embed-object-embed-footer-structure) | 2048 characters                                                                      |
+| [author.name](#DOCS_RESOURCES_CHANNEL/embed-object-embed-author-structure) | 256 characters                                                                       |
+
+Additionally, the combined sum of characters in all `title`, `description`, `field.name`, `field.value`, `footer.text`, and `author.name` fields across all embeds attached to a message must not exceed 6000 characters. Violating any of these constraints will result in a `Bad Request` response.
 
 ### Attachment Object
 
@@ -762,26 +782,6 @@ user 125 in the content.
 }
 ```
 
-## Embed Limits
-
-To facilitate showing rich content, rich embeds do not follow the traditional limits of message content. However, some limits are still in place to prevent excessively large embeds. The following table describes the limits:
-
-###### Limits
-
-All of the following limits are measured inclusively. Leading and trailing whitespace characters are not included (they are trimmed automatically).
-
-| Field                                                                      | Limit                                                                                |
-|----------------------------------------------------------------------------|--------------------------------------------------------------------------------------|
-| title                                                                      | 256 characters                                                                       |
-| description                                                                | 4096 characters                                                                      |
-| fields                                                                     | Up to 25 [field](#DOCS_RESOURCES_CHANNEL/embed-object-embed-field-structure) objects |
-| [field.name](#DOCS_RESOURCES_CHANNEL/embed-object-embed-field-structure)   | 256 characters                                                                       |
-| [field.value](#DOCS_RESOURCES_CHANNEL/embed-object-embed-field-structure)  | 1024 characters                                                                      |
-| [footer.text](#DOCS_RESOURCES_CHANNEL/embed-object-embed-footer-structure) | 2048 characters                                                                      |
-| [author.name](#DOCS_RESOURCES_CHANNEL/embed-object-embed-author-structure) | 256 characters                                                                       |
-
-Additionally, the combined sum of characters in all `title`, `description`, `field.name`, `field.value`, `footer.text`, and `author.name` fields across all embeds attached to a message must not exceed 6000 characters. Violating any of these constraints will result in a `Bad Request` response.
-
 ## Get Channel % GET /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}
 
 Get a channel by ID. Returns a [channel](#DOCS_RESOURCES_CHANNEL/channel-object) object.  If the channel is a thread, a [thread member](#DOCS_RESOURCES_CHANNEL/thread-member-object) object is included in the returned result.
@@ -804,7 +804,7 @@ Fires a [Channel Update](#DOCS_TOPICS_GATEWAY/channel-update) Gateway event.
 
 ###### JSON Params (Guild channel)
 
-Requires the `MANAGE_CHANNELS` permission for the guild. Fires a [Channel Update](#DOCS_TOPICS_GATEWAY/channel-update) Gateway event. If modifying a category, individual [Channel Update](#DOCS_TOPICS_GATEWAY/channel-update) events will fire for each child channel that also changes. If modifying permission overwrites, the `MANAGE_ROLES` permission is required. Only permissions your bot has in the guild or channel can be allowed/denied (unless your bot has a `MANAGE_ROLES` overwrite in the channel).
+Requires the `MANAGE_CHANNELS` permission for the guild. Fires a [Channel Update](#DOCS_TOPICS_GATEWAY/channel-update) Gateway event. If modifying a category, individual [Channel Update](#DOCS_TOPICS_GATEWAY/channel-update) events will fire for each child channel that also changes. If modifying permission overwrites, the `MANAGE_ROLES` permission is required. Only permissions your bot has in the guild or parent channel (if applicable) can be allowed/denied (unless your bot has a `MANAGE_ROLES` overwrite in the channel).
 
 | Field                         | Type                                                                            | Description                                                                                                                                                                     | Channel Type             |
 |-------------------------------|---------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------|
@@ -1033,7 +1033,7 @@ Any message IDs given that do not exist or are invalid will count towards the mi
 
 ## Edit Channel Permissions % PUT /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/permissions/{overwrite.id#DOCS_RESOURCES_CHANNEL/overwrite-object}
 
-Edit the channel permission overwrites for a user or role in a channel. Only usable for guild channels. Requires the `MANAGE_ROLES` permission. Only permissions your bot has in the guild or channel can be allowed/denied (unless your bot has a `MANAGE_ROLES` overwrite in the channel). Returns a 204 empty response on success. For more information about permissions, see [permissions](#DOCS_TOPICS_PERMISSIONS/permissions).
+Edit the channel permission overwrites for a user or role in a channel. Only usable for guild channels. Requires the `MANAGE_ROLES` permission. Only permissions your bot has in the guild or parent channel (if applicable) can be allowed/denied (unless your bot has a `MANAGE_ROLES` overwrite in the channel). Returns a 204 empty response on success. For more information about permissions, see [permissions](#DOCS_TOPICS_PERMISSIONS/permissions).
 
 > info
 > This endpoint supports the `X-Audit-Log-Reason` header.

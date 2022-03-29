@@ -111,7 +111,7 @@ for (const [name, raw] of docFiles) {
 			.trim()
 			.replace(/ +/g, "-")
 			.toLowerCase();
-		if (/^#{1,4}(?!#)/.test(line.trim())) {
+		if (/^#{1,5}(?!#)/.test(line.trim())) {
 			parentAnchor = `${anchor}-`;
 			validAnchors.push(anchor);
 			continue;

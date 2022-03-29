@@ -45,7 +45,7 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 | max_presences?                | ?integer                                                                                                     | the maximum number of presences for the guild (`null` is always returned, apart from the largest of guilds)                                                            |
 | max_members?                  | integer                                                                                                      | the maximum number of members for the guild                                                                                                                            |
 | vanity_url_code               | ?string                                                                                                      | the vanity url code for the guild                                                                                                                                      |
-| description                   | ?string                                                                                                      | the description of a Community guild                                                                                                                                   |
+| description                   | ?string                                                                                                      | the description of a guild                                                                                                                                   |
 | banner                        | ?string                                                                                                      | [banner hash](#DOCS_REFERENCE/image-formatting)                                                                                                                        |
 | premium_tier                  | integer                                                                                                      | [premium tier](#DOCS_RESOURCES_GUILD/guild-object-premium-tier) (Server Boost level)                                                                                   |
 | premium_subscription_count?   | integer                                                                                                      | the number of boosts this guild currently has                                                                                                                          |
@@ -61,11 +61,11 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 | guild_scheduled_events? \*    | array of [guild scheduled event](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object) objects | the scheduled events in the guild                                                                                                                                      |
 | premium_progress_bar_enabled  | boolean                                                                                                      | whether the guild has the boost progress bar enabled                                                                                                                   |
 
-** \* These fields are only sent within the [GUILD_CREATE](#DOCS_TOPICS_GATEWAY/guild-create) event **
+\* These fields are only sent within the [GUILD_CREATE](#DOCS_TOPICS_GATEWAY/guild-create) event
 
-** \*\* These fields are only sent when using the [GET Current User Guilds](#DOCS_RESOURCES_USER/get-current-user-guilds) endpoint and are relative to the requested user **
+\*\* These fields are only sent when using the [GET Current User Guilds](#DOCS_RESOURCES_USER/get-current-user-guilds) endpoint and are relative to the requested user
 
-** \*\*\* This field is deprecated and is replaced by [channel.rtc_region](#DOCS_RESOURCES_CHANNEL/channel-object-channel-structure)**
+\*\*\* This field is deprecated and is replaced by [channel.rtc_region](#DOCS_RESOURCES_CHANNEL/channel-object-channel-structure)
 
 ###### Default Message Notification Level
 
@@ -230,7 +230,7 @@ A partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object. Represents an Offl
 | features                   | array of [guild feature](#DOCS_RESOURCES_GUILD/guild-object-guild-features) strings | enabled guild features                                      |
 | approximate_member_count   | integer                                                                             | approximate number of members in this guild                 |
 | approximate_presence_count | integer                                                                             | approximate number of online members in this guild          |
-| description                | ?string                                                                             | the description for the guild, if the guild is discoverable |
+| description                | ?string                                                                             | the description for the guild                               |
 | stickers                   | array of [sticker](#DOCS_RESOURCES_STICKER/sticker-object) objects                   | custom guild stickers                                      |
 
 ###### Example Guild Preview
@@ -388,7 +388,7 @@ A partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object. Represents an Offl
 | revoked? \*             | boolean                                                                                              | has this integration been revoked                                               |
 | application?            | [application](#DOCS_RESOURCES_GUILD/integration-application-object) object                           | The bot/OAuth2 application for discord integrations                             |
 
-** \* These fields are not provided for discord bot integrations. **
+\* These fields are not provided for discord bot integrations.
 
 ###### Integration Expire Behaviors
 
@@ -410,14 +410,13 @@ A partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object. Represents an Offl
 
 ###### Integration Application Structure
 
-| Field       | Type                                            | Description                                                  |
-| ----------- | ----------------------------------------------- | ------------------------------------------------------------ |
-| id          | snowflake                                       | the id of the app                                            |
-| name        | string                                          | the name of the app                                          |
-| icon        | ?string                                         | the [icon hash](#DOCS_REFERENCE/image-formatting) of the app |
-| description | string                                          | the description of the app                                   |
-| summary     | string                                          | the summary of the app                                       |
-| bot?        | [user](#DOCS_RESOURCES_USER/user-object) object | the bot associated with this application                     |
+| Field       | Type                                            | Description                                                            |
+| ----------- | ----------------------------------------------- | ---------------------------------------------------------------------- |
+| id          | snowflake                                       | the id of the app                                                      |
+| name        | string                                          | the name of the app                                                    |
+| icon        | ?string                                         | the [icon hash](#DOCS_REFERENCE/image-formatting) of the app           |
+| description | string                                          | the description of the app                                             |
+| bot?        | [user](#DOCS_RESOURCES_USER/user-object) object | the bot associated with this application                               |
 
 ### Ban Object
 
@@ -668,6 +667,9 @@ Modify a guild's settings. Requires the `MANAGE_GUILD` permission. Returns the u
 > info
 > This endpoint supports the `X-Audit-Log-Reason` header.
 
+> warn
+> Attempting to add or remove the `COMMUNITY` [guild feature](#DOCS_RESOURCES_GUILD/guild-object-guild-features) requires the `ADMINISTRATOR` permission.
+
 ###### JSON Params
 
 | Field                         | Type                                                                                | Description                                                                                                                                                       |
@@ -690,7 +692,7 @@ Modify a guild's settings. Requires the `MANAGE_GUILD` permission. Returns the u
 | public_updates_channel_id     | ?snowflake                                                                          | the id of the channel where admins and moderators of Community guilds receive notices from Discord                                                                |
 | preferred_locale              | ?string                                                                             | the preferred [locale](#DOCS_REFERENCE/locales) of a Community guild used in server discovery and notices from Discord; defaults to "en-US"                       |
 | features                      | array of [guild feature](#DOCS_RESOURCES_GUILD/guild-object-guild-features) strings | enabled guild features                                                                                                                                            |
-| description                   | ?string                                                                             | the description for the guild, if the guild is discoverable                                                                                                       |
+| description                   | ?string                                                                             | the description for the guild                                                                                                                                     |
 | premium_progress_bar_enabled  | boolean                                                                             | whether the guild's boost progress bar should be enabled                                                                                                          |
 
 ## Delete Guild % DELETE /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}
@@ -933,15 +935,15 @@ Create a new [role](#DOCS_TOPICS_PERMISSIONS/role-object) for the guild. Require
 
 ###### JSON Params
 
-| Field         | Type                                     | Description                                                                                                                    | Default                        |
-| ------------- | ---------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------ |
-| name          | string                                   | name of the role                                                                                                               | "new role"                     |
-| permissions   | string                                   | bitwise value of the enabled/disabled permissions                                                                              | @everyone permissions in guild |
-| color         | integer                                  | RGB color value                                                                                                                | 0                              |
-| hoist         | boolean                                  | whether the role should be displayed separately in the sidebar                                                                 | false                          |
-| icon          | [image data](#DOCS_REFERENCE/image-data) | the role's icon image (if the guild has the `ROLE_ICONS` feature)                                                              | null                           |
-| unicode_emoji | string                                   | the role's unicode emoji as a [standard emoji](#DOCS_REFERENCE/message-formatting) (if the guild has the `ROLE_ICONS` feature) | null                           |
-| mentionable   | boolean                                  | whether the role should be mentionable                                                                                         | false                          |
+| Field         | Type                                      | Description                                                                                                                    | Default                        |
+| ------------- | ----------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------ |
+| name          | string                                    | name of the role                                                                                                               | "new role"                     |
+| permissions   | string                                    | bitwise value of the enabled/disabled permissions                                                                              | @everyone permissions in guild |
+| color         | integer                                   | RGB color value                                                                                                                | 0                              |
+| hoist         | boolean                                   | whether the role should be displayed separately in the sidebar                                                                 | false                          |
+| icon          | ?[image data](#DOCS_REFERENCE/image-data) | the role's icon image (if the guild has the `ROLE_ICONS` feature)                                                              | null                           |
+| unicode_emoji | ?string                                   | the role's unicode emoji as a [standard emoji](#DOCS_REFERENCE/message-formatting) (if the guild has the `ROLE_ICONS` feature) | null                           |
+| mentionable   | boolean                                   | whether the role should be mentionable                                                                                         | false                          |
 
 ## Modify Guild Role Positions % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/roles
 
@@ -1113,7 +1115,7 @@ Modify the guild's [Welcome Screen](#DOCS_RESOURCES_GUILD/welcome-screen-object)
 
 ## Modify Current User Voice State % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/voice-states/@me
 
-Updates the current user's voice state.
+Updates the current user's voice state. Returns `204 No Content` on success.
 
 ###### JSON Params
 

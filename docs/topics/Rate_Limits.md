@@ -1,12 +1,15 @@
 # Rate Limits
 
-Discord's API rate limits requests in order to prevent abuse and overload of our services. Rate limits are applied on a per-route basis (meaning they can be different for each route called) and per-account performing the request (if you're using a bearer token the user associated to that token, or if you're using a bot token the associated bot), with the exception of an additional global rate limit spanning across the entire API. Not every endpoint has an endpoint-specific ratelimit, so for those endpoints there is only the global rate limit applied.
+Rate limits exist across Discord's APIs to prevent spam, abuse, and service overload. Limits are applied to individual bots and users both on a per-route basis and globally. Individuals are determined using a request's authentication—for example, a bot token for a bot.
 
-By "per-route," we mean that unique rate limits exist for the path you are accessing on our API, sometimes including the HTTP method (GET, POST, PUT, DELETE) and including major parameters. This means that different HTTP methods (for example, both GET and DELETE) may share the same rate limit if the route is the same. Additionally, rate limits take into account major parameters in the URL. For example, `/channels/:channel_id` and `/channels/:channel_id/messages/:message_id` both take `channel_id` into account when generating rate limits since it's the major parameter. Currently, the only major parameters are `channel_id`, `guild_id`, and `webhook_id + webhook_token`.
+> info
+> Because rate limits depend on a variety of factors and are subject to change, **rate limits should not be hard coded into your app**. Instead, your app should parse [response headers](#DOCS_TOPICS_RATE_LIMITS/header-format-rate-limit-header-examples) to prevent hitting the limit, and to respond accordingly in case you do.
 
-"Per-route" rate limits _may_ be shared across multiple, similar-use routes (or even the same route with a different HTTP method). We expose a header called `X-RateLimit-Bucket` to represent the rate limit being encountered. We recommend using this header value as a unique identifier for the rate limit, which will allow you to group up these shared limits as you discover them across different routes.
+**Per-route rate limits** exist for many individual endpoints, and may include the HTTP method (`GET`, `POST`, `PUT`, or `DELETE`). In some cases, per-route limits will be shared across a set of similar endpoints, indicated in the `X-RateLimit-Bucket` header. It's recommended to use this header as a unique identifier for a rate limit, which will allow you to group shared limits as you encounter them.
 
-Because we may change rate limits at any time and rate limits can be different per application, _rate limits should not be hard coded into your bot/application_. In order to properly support our dynamic rate limits, your bot/application should parse for our rate limits in response headers and locally prevent exceeding the limits as they change.
+During calculation, per-route rate limits often account for top-level resources within the path using an identifier—for example, `guild_id` when calling [`/guilds/{guild.id}/channels`](#DOCS_RESOURCES_GUILD/get-guild-channels). Top-level resources are currently limited to channels (`channel_id`), guilds (`guild_id`), and webhooks (`webhook_id` or `webhook_id + webhook_token`). This means that an endpoint with two different top-level resources may calculate limits independently. As an example, if you exceeded a rate limit when calling one endpoint `/channels/1234`, you could still call another similar endpoint like `/channels/9876` without a problem.
+
+**Global rate limits** apply to the total number of requests a bot or user makes, independent of any per-route limits. You can read more on [global rate limits](#DOCS_TOPICS_RATE_LIMITS/global-rate-limit) below.
 
 > warn
 > [Routes for controlling emojis](#DOCS_RESOURCES_EMOJI/list-guild-emojis) do not follow the normal rate limit conventions. These routes are specifically limited on a per-guild basis to prevent abuse. This means that the quota returned by our APIs may be inaccurate, and you may encounter 429s.
@@ -29,9 +32,9 @@ X-RateLimit-Bucket: abcd1234
 - **X-RateLimit-Remaining** - The number of remaining requests that can be made
 - **X-RateLimit-Reset** - Epoch time (seconds since 00:00:00 UTC on January 1, 1970) at which the rate limit resets
 - **X-RateLimit-Reset-After** - Total time (in seconds) of when the current rate limit bucket will reset. Can have decimals to match previous millisecond ratelimit precision
-- **X-RateLimit-Bucket** - A unique string denoting the rate limit being encountered (non-inclusive of major parameters in the route path)
+- **X-RateLimit-Bucket** - A unique string denoting the rate limit being encountered (non-inclusive of top-level resources in the path)
 - **X-RateLimit-Global** - Returned only on HTTP 429 responses if the rate limit encountered is the global rate limit (not per-route)
-- **X-RateLimit-Scope** - Returned only on HTTP 429 responses. Value can be `user` (per user limit), `global` (per user global limit), or `shared` (per resource limit)
+- **X-RateLimit-Scope** - Returned only on HTTP 429 responses. Value can be `user` (per bot or user limit), `global` (per bot or user global limit), or `shared` (per resource limit)
 
 ## Exceeding A Rate Limit
 
