@@ -3,8 +3,8 @@
 > info
 > Need help with the SDK? Talk to us in the [Discord Developers Server](https://discord.gg/discord-developers)!
 
-> warn
-> Game approval submissions are currently paused due to unforeseen circumstances. We apologize for the inconvenience. [Click here for more info.](https://support-dev.discord.com/hc/en-us/articles/360041437171)
+> danger
+> Selling SKUs on Discord has now been discontinued as of March 1, 2022. [Read here for more info.](https://support-dev.discord.com/hc/en-us/articles/4414590563479)
 
 There's no feeling quite like accomplishing a goal that you've set out to achieve. Is killing 1000 zombies in a game as great an achievement as climbing Mt. Everest? Of course it is, and I didn't even have to leave my house. So get off my back, society.
 
@@ -18,22 +18,22 @@ You can also mark achievements as `secret` and `secure`. "Secret" achievements w
 
 ###### Achievement Struct
 
-| name           | type    | description                                                                                                                      |
-| -------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| application_id | Int64   | the unique id of the application                                                                                                 |
-| name           | object  | the name of the achievement as an [achievement locale object](#DOCS_GAME_SDK_ACHIEVEMENTS/achievement-locale-object)             |
-| description    | object  | the user-facing achievement description as an [achievement locale object](#DOCS_GAME_SDK_ACHIEVEMENTS/achievement-locale-object) |
-| secret         | boolean | if the achievement is secret                                                                                                     |
-| secure         | boolean | if the achievement is secure                                                                                                     |
-| id             | Int64   | the unique id of the achievement                                                                                                 |
-| icon_hash      | string  | [the hash of the icon](#DOCS_REFERENCE/image-formatting)                                                                         |
+| name           | type    | description                                                                                                                                  |
+| -------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| application_id | Int64   | the unique id of the application                                                                                                             |
+| name           | object  | the name of the achievement as an [achievement locale object](#DOCS_GAME_SDK_ACHIEVEMENTS/data-models-achievement-locale-object)             |
+| description    | object  | the user-facing achievement description as an [achievement locale object](#DOCS_GAME_SDK_ACHIEVEMENTS/data-models-achievement-locale-object) |
+| secret         | boolean | if the achievement is secret                                                                                                                 |
+| secure         | boolean | if the achievement is secure                                                                                                                 |
+| id             | Int64   | the unique id of the achievement                                                                                                             |
+| icon_hash      | string  | [the hash of the icon](#DOCS_REFERENCE/image-formatting)                                                                                     |
 
 ###### Achievement Locale Object
 
-| Name           | Description                                                                                                                                             |
-| -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| default        | the default locale for the achievement                                                                                                                  |
-| localizations? | object of [accepted locales](#DOCS_DISPATCH_FIELD_VALUES/predefined-field-values-accepted-locales) as the key and achievement translations as the value |
+| Name           | Description                                                                                       |
+| -------------- | ------------------------------------------------------------------------------------------------- |
+| default        | the default locale for the achievement                                                            |
+| localizations? | object of [locales](#DOCS_REFERENCE/locales) as the key and achievement translations as the value |
 
 ###### User Achievement Struct
 
@@ -195,9 +195,7 @@ curl -x POST -h "Authorization: Bot <your token>" https://discord.com/api/some-r
 > info
 > Make sure to prepend your token with "Bot"!
 
-## Get Achievements
-
-`GET https://discord.com/api/v6/applications/<application_id>/achievements`
+## Get Achievements % GET /applications/{application.id#DOCS_GAME_SDK_SDK_STARTER_GUIDE/get-set-up}/achievements
 
 Returns all achievements for the given application. This endpoint has a rate limit of 5 requests per 5 seconds per application.
 
@@ -221,9 +219,7 @@ Returns all achievements for the given application. This endpoint has a rate lim
 ]
 ```
 
-## Get Achievement
-
-`GET https://discord.com/api/v6/applications/<application_id>/achievements/<achievement_id>`
+## Get Achievement % GET /applications/{application.id#DOCS_GAME_SDK_SDK_STARTER_GUIDE/get-set-up}/achievements/{achievement.id#DOCS_GAME_SDK_ACHIEVEMENTS/data-models-achievement-struct}
 
 Returns the given achievement for the given application. This endpoint has a rate limit of 5 requests per 5 seconds per application.
 
@@ -245,9 +241,7 @@ Returns the given achievement for the given application. This endpoint has a rat
 }
 ```
 
-## Create Achievement
-
-`POST https://discord.com/api/v6/applications/<application_id>/achievements`
+## Create Achievement % POST /applications/{application.id#DOCS_GAME_SDK_SDK_STARTER_GUIDE/get-set-up}/achievements
 
 Creates a new achievement for your application. Applications can have a maximum of 1000 achievements. This endpoint has a rate limit of 5 requests per 5 seconds per application.
 
@@ -295,9 +289,7 @@ Creates a new achievement for your application. Applications can have a maximum 
 }
 ```
 
-## Update Achievement
-
-`PATCH https://discord.com/api/v6/applications/<application_id>/achievements/<achievement_id>`
+## Update Achievement % PATCH /applications/{application.id#DOCS_GAME_SDK_SDK_STARTER_GUIDE/get-set-up}/achievements/{achievement.id#DOCS_GAME_SDK_ACHIEVEMENTS/data-models-achievement-struct}
 
 Updates the achievement for **\_\_ALL USERS\_\_**. This is **NOT** to update a single user's achievement progress; this is to edit the UserAchievement itself. This endpoint has a rate limit of 5 requests per 5 seconds per application.
 
@@ -345,9 +337,7 @@ Updates the achievement for **\_\_ALL USERS\_\_**. This is **NOT** to update a s
 }
 ```
 
-## Delete Achievement
-
-`DELETE https://discord.com/api/v6/applications/<application_id>/achievements/<achievement_id>`
+## Delete Achievement % DELETE /applications/{application.id#DOCS_GAME_SDK_SDK_STARTER_GUIDE/get-set-up}/achievements/{achievement.id#DOCS_GAME_SDK_ACHIEVEMENTS/data-models-achievement-struct}
 
 Deletes the given achievement from your application. This endpoint has a rate limit of 5 requests per 5 seconds per application.
 
@@ -357,9 +347,7 @@ Deletes the given achievement from your application. This endpoint has a rate li
 // 204 No Content
 ```
 
-## Update User Achievement
-
-`PUT https://discord.com/api/v6/users/<user_id>/applications/<application_id>/achievements/<achievement_id>`
+## Update User Achievement % PUT /applications/{application.id#DOCS_GAME_SDK_SDK_STARTER_GUIDE/get-set-up}/achievements/{achievement.id#DOCS_GAME_SDK_ACHIEVEMENTS/data-models-achievement-struct}
 
 Updates the UserAchievement record for a given user. Use this endpoint to update `secure` achievement progress for users. This endpoint has a rate limit of 5 requests per 5 seconds per application.
 
@@ -375,11 +363,9 @@ Updates the UserAchievement record for a given user. Use this endpoint to update
 {}
 ```
 
-## Get User Achievements
+## Get User Achievements % GET /users/@me/applications/{application.id#DOCS_GAME_SDK_SDK_STARTER_GUIDE/get-set-up}/achievements
 
-`GET https://discord.com/api/v6/users/@me/applications/<application_id>/achievements`
-
-Returns a list of achievements for the user whose token you're making the request with. This endpoint will **NOT** accept the Bearer token for your application generated via the [Client Crendentials Grant](#DOCS_TOPICS_OAUTH2/client-credentials-grant). You will need the _user's_ bearer token, gotten via either the [Authorization Code OAuth2 Grant](#DOCS_TOPICS_OAUTH2/authorization-code-grant) or via the SDK with [GetOAuth2Token](#DOCS_GAME_SDK_APPLICATIONS/get-oauth2-token). This endpoint has a rate limit of 2 requests per 5 seconds per application per user.
+Returns a list of achievements for the user whose token you're making the request with. This endpoint will **NOT** accept the Bearer token for your application generated via the [Client Crendentials Grant](#DOCS_TOPICS_OAUTH2/client-credentials-grant). You will need the _user's_ bearer token, gotten via either the [Authorization Code OAuth2 Grant](#DOCS_TOPICS_OAUTH2/authorization-code-grant) or via the SDK with [GetOAuth2Token](#DOCS_GAME_SDK_APPLICATIONS/getoauth2token). This endpoint has a rate limit of 2 requests per 5 seconds per application per user.
 
 > info
 > This endpoint will _not_ return any achievements marked as `secret` that the user has not yet completed.
