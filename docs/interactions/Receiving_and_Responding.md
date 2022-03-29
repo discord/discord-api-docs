@@ -209,7 +209,7 @@ Not all message fields are currently supported.
 ###### Modal
 
 > warn
-> The list of modal components is currently limited to components of type 4 (Text Input).
+> Support for components in modals is currently limited to type 4 (Text Input).
 
 | Name       | Type                                                          | Description                                                                 |
 | ---------- | ------------------------------------------------------------- | --------------------------------------------------------------------------- |
