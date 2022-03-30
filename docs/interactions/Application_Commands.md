@@ -6,7 +6,7 @@ Application commands are commands that an application can register to Discord. T
 
 ###### Application Command Naming
 
-`CHAT_INPUT` command names and command option names must match the following regex `^[\w-]{1,32}$` with the unicode flag set. If there is a lowercase variant of any letters used, you must use those. Characters with no lowercase variants and/or uncased letters are still allowed. `USER` and `MESSAGE` commands may be mixed case and can include spaces.
+`CHAT_INPUT` command names and command option names must match the following regex `^[-_\p{L}\p{N}\p{sc=Deva}\p{sc=Thai}]{1,32}$` with the unicode flag set. If there is a lowercase variant of any letters used, you must use those. Characters with no lowercase variants and/or uncased letters are still allowed. `USER` and `MESSAGE` commands may be mixed case and can include spaces.
 
 ###### Application Command Structure
 
@@ -1009,7 +1009,7 @@ Fetch a global command for your application. Returns an [application command](#D
 > info
 > All parameters for this endpoint are optional.
 
-Edit a global command. Updates will be available in all guilds after 1 hour. Returns `200` and an [application command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object) object.
+Edit a global command. Updates will be available in all guilds after 1 hour. Returns `200` and an [application command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object) object. All fields are optional, but any fields provided will entirely overwrite the existing fields; there is no merge behavior.
 
 ###### JSON Params
 
@@ -1074,7 +1074,7 @@ Fetch a guild command for your application. Returns an [application command](#DO
 > info
 > All parameters for this endpoint are optional.
 
-Edit a guild command. Updates for guild commands will be available immediately. Returns `200` and an [application command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object) object.
+Edit a guild command. Updates for guild commands will be available immediately. Returns `200` and an [application command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object) object. All fields are optional, but any fields provided will entirely overwrite the existing fields; there is no merge behavior.
 
 ###### JSON Params
 
