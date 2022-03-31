@@ -1,5 +1,11 @@
 # Change Log
 
+## Guild Bans Pagination
+
+#### Mar 31, 2022
+
+The `GET /guilds/{guild.id}/bans` endpoint has been migrated to require pagination to improve reliability and stability. Check out the [endpoint docs](#DOCS_RESOURCES_GUILD/get-guild-bans) for more information.
+
 ## Interaction Modals and Application Command Attachment Option Type
 
 #### Feb 8, 2022

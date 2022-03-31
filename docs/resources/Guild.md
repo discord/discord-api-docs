@@ -897,6 +897,16 @@ Remove a member from a guild. Requires `KICK_MEMBERS` permission. Returns a 204 
 
 Returns a list of [ban](#DOCS_RESOURCES_GUILD/ban-object) objects for the users banned from this guild. Requires the `BAN_MEMBERS` permission.
 
+###### Query String Params
+
+| Field        | Type      | Description                                                                    | Default |
+| ------------ | -------   | ------------------------------------------------------------------------------ | ------- |
+| limit?       | number    | number of users to return (up to maximum 1000)                                 | 1000    |
+| before? *    | snowflake | consider only users before given user id                                       | null    |
+| after? *     | snowflake | consider only users after given user id                                        | null    |
+
+\* Provide a user id to `before` and `after` for pagination. Users will always be returned in ascending order by `user_id`. If both `before` and `after` are provided, only `before` is respected.
+
 ## Get Guild Ban % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/bans/{user.id#DOCS_RESOURCES_USER/user-object}
 
 Returns a [ban](#DOCS_RESOURCES_GUILD/ban-object) object for the given user or a 404 not found if the ban cannot be found. Requires the `BAN_MEMBERS` permission.
