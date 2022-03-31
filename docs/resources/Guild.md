@@ -60,7 +60,6 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 | stickers?                     | array of [sticker](#DOCS_RESOURCES_STICKER/sticker-object) objects                                           | custom guild stickers                                                                                                                                                  |
 | guild_scheduled_events? \*    | array of [guild scheduled event](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object) objects | the scheduled events in the guild                                                                                                                                      |
 | premium_progress_bar_enabled  | boolean                                                                                                      | whether the guild has the boost progress bar enabled                                                                                                                   |
-| hub_type                      | ?integer                                                                                                     | the [type of Student Hub](#DOCS_RESOURCES_GUILD/guild-object-guild-hub-types) the guild is                                                                             |
 
 ** \* These fields are only sent within the [GUILD_CREATE](#DOCS_TOPICS_GATEWAY/guild-create) event **
 
@@ -138,9 +137,7 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 | DISCOVERABLE                     | guild is able to be discovered in the directory                                                                     |
 | FEATURABLE                       | guild is able to be featured in the directory                                                                       |
 | HAS_DIRECTORY_ENTRY              | guild is listed in a directory channel                                                                              |
-| HUB                              | guild is a [Student Hub](https://support.discord.com/hc/en-us/articles/4406046651927-Discord-Student-Hubs-FAQ)      |
 | INVITE_SPLASH                    | guild has access to set an invite splash background                                                                 |
-| LINKED_TO_HUB                    | guild is in a [Student Hub](https://support.discord.com/hc/en-us/articles/4406046651927-Discord-Student-Hubs-FAQ)   |
 | MEMBER_VERIFICATION_GATE_ENABLED | guild has enabled [Membership Screening](#DOCS_RESOURCES_GUILD/membership-screening-object)                         |
 | MONETIZATION_ENABLED             | guild has enabled monetization                                                                                      |
 | MORE_STICKERS                    | guild has increased custom sticker slots                                                                            |
@@ -156,14 +153,6 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 | VERIFIED                         | guild is verified                                                                                                   |
 | VIP_REGIONS                      | guild has access to set 384kbps bitrate in voice (previously VIP voice servers)                                     |
 | WELCOME_SCREEN_ENABLED           | guild has enabled the welcome screen                                                                                |
-
-###### Guild Hub Types
-
-| Type        | Value |
-|-------------|-------|
-| DEFAULT     | 0     |
-| HIGH_SCHOOL | 1     |
-| COLLEGE     | 2     |
 
 ###### Example Guild
 
