@@ -1282,7 +1282,7 @@ Sent when a bot removes all instances of a given emoji from the reactions of a m
 > warn
 > If you are using [Gateway Intents](#DOCS_TOPICS_GATEWAY/gateway-intents), you _must_ specify the `GUILD_PRESENCES` intent in order to receive Presence Update events
 
-A user's presence is their current state on a guild. This event is sent when a user's presence or info, such as name or avatar, is updated.
+A user's presence is their current state on a guild. This event is sent when a user's presence is updated.
 
 > warn
 > The user object within this event can be partial, the only field which must be sent is the `id` field, everything else is optional. Along with this limitation, no fields are required, and the types of the fields are **not** validated. Your client should expect any combination of fields and types within this event.
@@ -1480,7 +1480,7 @@ Sent when a user starts typing in a channel.
 
 #### User Update
 
-Sent when properties about the user change. Inner payload is a [user](#DOCS_RESOURCES_USER/user-object) object.
+Sent when properties about the current bot's user change. Inner payload is a [user](#DOCS_RESOURCES_USER/user-object) object.
 
 ### Voice
 
