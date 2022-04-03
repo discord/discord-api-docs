@@ -9,6 +9,7 @@ Represents a code that when used, adds a user to a guild or group DM channel.
 | Field                       | Type                                                                                               | Description                                                                                                                                    |
 | --------------------------- | -------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
 | code                        | string                                                                                             | the invite code (unique ID)                                                                                                                    |
+| type                        | integer                                                                                            | the [type of invite](#DOCS_RESOURCES_INVITE/invite-object-invite-types)                                                                            |
 | guild?                      | partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object                                         | the guild this invite is for                                                                                                                   |
 | channel                     | ?partial [channel](#DOCS_RESOURCES_CHANNEL/channel-object) object                                  | the channel this invite is for                                                                                                                 |
 | inviter?                    | [user](#DOCS_RESOURCES_USER/user-object) object                                                    | the user who created the invite                                                                                                                |
@@ -20,6 +21,13 @@ Represents a code that when used, adds a user to a guild or group DM channel.
 | expires_at?                 | ?ISO8601 timestamp                                                                                 | the expiration date of this invite, returned from the `GET /invites/<code>` endpoint when `with_expiration` is `true`                          |
 | stage_instance?             | [invite stage instance](#DOCS_RESOURCES_INVITE/invite-stage-instance-object) object                | stage instance data if there is a [public Stage instance](#DOCS_RESOURCES_STAGE_INSTANCE) in the Stage channel this invite is for (deprecated) |
 | guild_scheduled_event?      | [guild scheduled event](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object) object | guild scheduled event data, only included if `guild_scheduled_event_id` contains a valid guild scheduled event id                              |
+
+###### Invite Types
+
+| Type     | Value |
+|----------|-------|
+| GUILD    | 0     |
+| GROUP_DM | 1     |
 
 ###### Invite Target Types
 
@@ -33,6 +41,7 @@ Represents a code that when used, adds a user to a guild or group DM channel.
 ```json
 {
   "code": "0vCdhLbwjZZTWZLD",
+  "type": 0,
   "guild": {
     "id": "165176875973476352",
     "name": "CS:GO Fraggers Only",
