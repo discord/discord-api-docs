@@ -30,11 +30,11 @@ Once your team is made, you can start inviting other Discord users to join.
 
 Now that you've got your Team set up, you can start creating apps under it. Teams can own a maximum of 25 apps. To create a new app under a Team, select the Team in the app creation modal. If you want to keep the app under your own ownership, choose `Personal`:
 
-![Screenshot of the Team Application creation modal](team-make-app.png)
+![Screenshot of the Team Application creation modal](https://cdn.discordapp.com/attachments/735068861464051714/960506907725021285/unknown.png)
 
 If you have an existing app that you want to transfer to a Team, you can do that, too! Just go into the app that you want to transfer, hit `Transfer App to Team`, and send the app to its new home.
 
-![Screenshot of where to find the button to transfer an Application to a Team](transfer-app-to-team.png)
+![Screenshot of where to find the button to transfer an Application to a Team](https://cdn.discordapp.com/attachments/735068861464051714/960506192881389588/transfer-app-to-team.png)
 
 > danger
 > Once an app has been transferred to a team, it _cannot_ be transferred back.
