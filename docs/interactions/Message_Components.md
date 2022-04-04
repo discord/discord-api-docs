@@ -409,6 +409,8 @@ Select menus support single-select and multi-select behavior, meaning you can pr
 
 Text inputs are an interactive component that render on modals. They can be used to collect short-form or long-form text.
 
+![A text input in a modal on desktop client](modal-desktop.png)
+
 ###### Text Input Example
 
 ```json
