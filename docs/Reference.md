@@ -265,7 +265,7 @@ Using the markdown for either users, roles, or channels will usually mention the
 
 Timestamps will display the given timestamp in the user's timezone and locale.
 
-\* User mentions with an exclaimation point are deprecated and should be handled like any other user mention.
+\* User mentions with an exclamation mark are deprecated and should be handled like any other user mention.
 
 ###### Timestamp Styles
 
