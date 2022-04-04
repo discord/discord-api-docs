@@ -64,7 +64,6 @@ There are other rules and restrictions not shared here for the sake of spam and 
 
 | Value   | Name                     | Description                                                                                                                                    |
 | ------- | ------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------- |
-| 0       | None                     | None                                                                                                                                           |
 | 1 << 0  | STAFF                    | Discord Employee                                                                                                                               |
 | 1 << 1  | PARTNER                  | Partnered Server Owner                                                                                                                         |
 | 1 << 2  | HYPESQUAD                | HypeSquad Events Member                                                                                                                        |
