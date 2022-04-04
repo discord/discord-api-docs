@@ -303,6 +303,8 @@ DIRECT_MESSAGE_REACTIONS (1 << 13)
 DIRECT_MESSAGE_TYPING (1 << 14)
   - TYPING_START
 
+MESSAGE_CONTENT (1 << 15) **
+
 GUILD_SCHEDULED_EVENTS (1 << 16)
   - GUILD_SCHEDULED_EVENT_CREATE
   - GUILD_SCHEDULED_EVENT_UPDATE
@@ -312,6 +314,8 @@ GUILD_SCHEDULED_EVENTS (1 << 16)
 ```
 
 \* [Thread Members Update](#DOCS_TOPICS_GATEWAY/thread-members-update) contains different data depending on which intents are used.
+
+\*\* `MESSAGE_CONTENT` will become a privileged intent in 2022. [Learn more here](https://support-dev.discord.com/hc/en-us/articles/4404772028055).
 
 ### Caveats
 
