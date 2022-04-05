@@ -87,7 +87,7 @@ https://nicememe.website/?code=NhhvTDYsFcdgNLnnLijcl7Ku7bEEeee&state=15773059ghq
 - `client_secret` - your application's client secret
 - `grant_type` - must be set to `authorization_code`
 - `code` - the code from the querystring
-- `redirect_uri` - your `redirect_uri`
+- `redirect_uri` - the `redirect_uri` associated with this authorization, usually from your authorization URL
 
 ###### Access Token Exchange Example
 
