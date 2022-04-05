@@ -1,24 +1,36 @@
 # Getting started with Discord app development
 
-Discord apps let you customize your servers with interactions and automations. This guide is meant to walk you through building and running your first Discord app using JavaScript (and assumes a basic understanding of [JavaScript](https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web/JavaScript_basics)).
+Discord apps let you customize your servers with interactions and automation. This guide is meant to walk through building and running your first Discord app using JavaScript. At the end of this guide, you’ll have an app that uses slash commands, sends messages, and uses message components.
 
-At the end of this guide, you’ll have an app that sends messages and uses interactive features like slash commands and buttons.
-
-Some resources used in this guide:
-- **[Github repository](https://github.com/shaydewael/discord-getting-started)** where the code from this guide lives along with additional feature-specific examples.
-- **[discord-interactions](https://github.com/discord/discord-interactions-js)**, an NPM package which provides types and helper functions for Discord apps.
-- **[Glitch](https://glitch.com/)**, an online development environment to build and host apps. You could also develop locally with a tool like **[ngrok](https://ngrok.com/)**.
+While this guide is beginner-focused, it assumes a basic understanding of [JavaScript](https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web/JavaScript_basics)).
 
 > info
 > When developing apps, you should build and test in a server that isn’t actively used by others. If you don’t have your own server already, you can [create one for free](https://discord.com/developers/teams).
 
-## Introduction
+### Contents of this guide
+- [Overview](#overview)
+- [Creating an app](#creating-an-app)
+- [Running your app](#running-your-app)
+- [Handling interactivity](#handling-interactivity)
+- [Adding message components](#adding-message-components)
+- [Next steps](#next-steps)
 
-In this guide, we’ll be building an app that lets users play an expanded version of rock paper scissors. Here’s what it’ll look like:
+---
+
+## Overview
+
+In this guide, we’ll be building a Discord app that lets server members play a slightly-enhanced version of rock paper scissors (with 7 choices instead of 3).
+
+### Resources used in this guide
+- **[Github repository](https://github.com/shaydewael/discord-getting-started)** where the code from this guide lives along with additional feature-specific examples.
+- **[discord-interactions](https://github.com/discord/discord-interactions-js)**, an NPM package which provides types and helper functions for Discord apps.
+- **[Glitch](https://glitch.com/)**, an online development environment to build and host apps. You could also develop locally with a tool like **[ngrok](https://ngrok.com/)**.
+
+Here’s what it’ll look like:
 
 ![Demo of example app](getting-started-demo.gif)
 
-The flow for the app can be simplified to the following:
+To make the user flow a bit more explicit:
 1. User 1 initiates a new game and picks their object using the app’s `/challenge` slash command
 2. A message is sent to channel with an invitation to accept the challenge
 3. User 2 accepts the challenge and selects their object
@@ -32,33 +44,33 @@ The first thing we’ll need to do is create an app. Navigate to [the developer 
 
 Enter a name for your app, then click **Create**.
 
-Once you create an app, you’ll land on its **General Overview** page. Here you can view and configure basic information about your app, like its description and icon. You’ll also see an **Application ID** and **Interactions Endpoint URL**, which we’ll use later in the guide.
+Once you create an app, you'll land on the **General Overview** page of the app's settings. Here you can view and configure basic information about the app, like its description and icon. You’ll also see an **Application ID** and **Interactions Endpoint URL**, which we’ll use a bit later in the guide.
 
 ### Configuring a bot
 
-Let’s add a bot user to your app, which allows it to appear in Discord similar to other members. On the left hand sidebar click **Bot**, then the **Add Bot** button.
+Next we'll add a bot user to your app, which allows it to appear in Discord similar to other members. On the left hand sidebar click **Bot**, then the **Add Bot** button.
 
 Once you create a bot, you’ll have an option to update its icon and username. Under that, there’s a **Token** section with a **Reset Token** button.
 
 ![Bot tab in app setings](app-add-bot.png)
 
-Bot tokens carry all of your bot user’s permissions and are used to authorize API requests, making them *highly sensitive*. Make sure to never share your token or check it into any kind of version control.
+Bot tokens are used to authorize API requests and carry all of your bot user’s permissions, making them *highly sensitive*. Make sure to never share your token or check it into any kind of version control.
 
-Go ahead and click Reset Token, and copy the token.
+Go ahead and click **Reset Token**, and save the token somewhere safe.
 
 > warn
-> You won’t be able to view your token again unless you regenerate it, so make sure to keep it somewhere safe (like in a password manager). 
+> You won’t be able to view your token again unless you regenerate it, so make sure to keep it somewhere safe, like in a password manager. 
 
 ### Adding permissions
 
-Before installing your app, you’ll need to grant it the proper permissions. Click on **OAuth2** on the left sidebar, then **URL generator**.
+Apps need approval to perform actions inside of Discord (like installing a slash command or adding emojis). So before installing your app, let's add some permissions. Click on **OAuth2** in the left sidebar, then **URL generator**.
 
 > info
-> The URL generator is a tool to create an authorization link with the permissions your app needs to function. You can use the link to install your app onto your own server, or share with others so they can install it on their own.
+> The URL generator is helpful to create an authorization link with the permissions your app needs to function. You can use the link to install your app onto your server, or share with others so they can install it on their own.
 
 For now, we’ll just add a couple of permissions:
 - `applications.commands` lets your app create commands in guilds its installed
-- `bot` is to add your bot user. After you click bot, you can also enable individual permissions for your bot user. For now, check **Send Messages** and **Use Slash Commands**.
+- `bot` is to enable your bot user. After you click bot, you can also add individual permissions. For now, check **Send Messages** and **Use Slash Commands**.
 
 ![URL generator screenshot](url-generator.png)
 
@@ -66,14 +78,14 @@ Once you add the permissions, you should see a URL you can copy to install your 
 
 ### Installing your app
 
-Go ahead and copy the URL, and paste it into your browser. You’ll be guided through the installation flow, where you should make sure you’re installing the app on a server you can use to develop and test your app.
+Copy the URL from above, and paste it into your browser. You’ll be guided through the installation flow, where you should make sure you’re installing the app on a server you can use to develop and test your app.
 
 When you install the app, you should be able to head over to your server and see that it joined ✨
 
 With your app configured and installed, let’s start developing it.
 
 ## Running your app
-All of the code for the Rock Paper Scissors app can be found in [the Github repository](https://github.com/shaydewael/discord-getting-started). We’ll be using this as a starting point, stepping through different pieces of code.
+All of the code for the example app can be found in [the Github repository](https://github.com/shaydewael/discord-getting-started).
 
 To make development a bit simpler, the app uses [discord-interactions](https://github.com/discord/discord-interactions-js), which provides types and helper functions. If you prefer to use other languages or libraries, there’s [a page with community-built resources](#DOCS_TOPICS_COMMUNITY_RESOURCES) you can browse through.
 
@@ -81,17 +93,37 @@ To make development a bit simpler, the app uses [discord-interactions](https://g
 This guide uses Glitch, which allows you to quickly clone and develop an app within your browser (only recommended for development). There are also instructions on developing locally using ngrok [in the README](https://github.com/shaydewael/discord-getting-started#running-app-locally) if you prefer.
 
 To start, remix (or clone) the Glitch project:
+
 [![Glitch logo](glitch-logo.png)](https://glitch.com/edit/#!/remix/getting-started-discord)
 
-When you remix the project, you'll see a new project with a unique name similar to this:
+When you remix the project, you'll see a new Glitch project with a unique name similar to this:
 
 ![Glitch project overview](glitch-project.png)
 
-Most of the code written in this guide will live in `app.js`. <TODO>
+#### Project structure
+
+All of the files for the project should be on the left-hand side. Here's a glimpse at what is what:
+
+```
+├── examples    -> short, feature-specific sample apps
+│   ├── app.js
+│   ├── button.js
+│   ├── command.js
+│   ├── modal.js
+│   ├── selectMenu.js
+├── .env        -> credentials
+├── app.js      -> main entrypoint for app
+├── commands.js -> slash command payloads + helpers
+├── game.js     -> logic specific to RPS
+├── utils.js    -> utility functions and enums
+├── package.json
+├── README.md
+└── .gitignore
+```
 
 ### Adding credentials
 
-Right now there’s some basic code but before it can run, you’ll need your app’s token and ID from earlier so you can make requests.
+Right now there is some basic code but before it will run, you’ll need your app’s token and ID so you can make requests.
 
 First, copy your bot user’s token from earlier and paste it in your `.env` file as `DISCORD_TOKEN`.
 
@@ -107,8 +139,7 @@ The method is pulling the command payloads from `commands.js` and (imperfectly) 
 > info
 > The test project is only installing guild-scoped commands, which are predictably only installed on specific guilds. To install a command in all servers your app is in, you can create a [global command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS#CREATE_GLOBAL_APPLICATION_COMMAND).
 
-### Running slash commands
-If you go back to your guild and refresh it, you should see the slash command appear. But if you try to run it, nothing will happen because we aren’t handling the event coming from Discord.
+If you go back to your guild and refresh it, you should see the slash command appear. But if you try to run it, nothing will happen because we aren’t handling the request coming from Discord.
 
 Let’s go ahead and set up a handler.
 
@@ -135,7 +166,7 @@ The sample app is setup to handle verification by default:
 - Uses the `PUBLIC_KEY` and [discord-interactions package](https://github.com/discord/discord-interactions-js#usage) with a wrapper function in `utils.js` to make it conform to [Express’s `verify` interface](http://expressjs.com/en/5x/api.html#express.json). This is run on every incoming request to your app
 - Responds to incoming `PING` requests
 
-### Slash command handler
+### Handling slash command requests
 
 With the endpoint verified, go back to your code you’ll see a commented out block required for handling slash commands:
 
