@@ -203,7 +203,7 @@ The `/challenge` command will be how our rock-paper-scissors-style game is initi
 
 The `/challenge` command, exported as `CHALLENGE_COMMAND` in `commands.js`, has an array of `options`. For this app, the options are the different objects a user can select for our game, which is generated using keys of `RPSChoices` in `game.js`.
 
-You can read more about command options [in the documentation](#DOCS_INTERACTIONS_APPLICATION_COMMANDS#APPLICATION_COMMAND_OBJECT_APPLICATION_COMMAND_OPTION_STRUCTURE).
+You can read more about command options [in the documentation](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-structure).
 
 > info
 > While this guide won't touch much on the `game.js` file, feel free to poke around and change commands or the options in the commands.
@@ -254,7 +254,7 @@ This code is doing a few things:
 > warn
 > The sample code uses an object as in-memory storage, but for production apps it's recommended to use a database.
 
-When sending a message with [message components](DOCS_INTERACTIONS_MESSAGE_COMPONENTS/what-is-a-component), the components' payloads are added to a `components` array. Actionable components (like buttons) need to be inside of an [action row](DOCS_INTERACTIONS_MESSAGE_COMPONENTS/action-rows), which you can see in the code sample.
+When sending a message with [message components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/what-is-a-component), the components' payloads are added to a `components` array. Actionable components (like buttons) need to be inside of an [action row](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/action-rows), which you can see in the code sample.
 
 Note the unique `custom_id` sent with message components, in this case `accept_button_` with the active game's ID appended to it. A `custom_id` can be used to handle requests that Discord sends you when someone interacts with the component, which you'll see in a moment.
 
@@ -262,7 +262,7 @@ Now when you run the `/challenge` command and pick an option, your app will send
 
 ### Handling buttons
 
-When users interact with one of your app's message components, Discord will send a request with an [interaction type](DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-interaction-type) of `3` (or the  `MESSAGE_COMPONENT` value when using `discord-interactions`).
+When users interact with one of your app's message components, Discord will send a request with an [interaction type](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-interaction-type) of `3` (or the  `MESSAGE_COMPONENT` value when using `discord-interactions`).
 
 To set up a handler for the button, we’ll check the `type` of interaction, followed by matching the `custom_id`. Paste the following code under the type handler for `APPLICATION_COMMAND`s:
 
