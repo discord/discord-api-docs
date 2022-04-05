@@ -8,12 +8,12 @@ While this guide is beginner-focused, it assumes a basic understanding of [JavaS
 > When developing apps, you should build and test in a server that isn’t actively used by others. If you don’t have your own server already, you can [create one for free](https://discord.com/developers/teams).
 
 ### Guide contents
-- [Overview](#overview)
-- [Creating an app](#creating-an-app)
-- [Running your app](#running-your-app)
-- [Handling interactivity](#handling-interactivity)
-- [Adding message components](#adding-message-components)
-- [Next steps](#next-steps)
+- [Overview](#DOCS_GETTING_STARTED/overview)
+- [Creating an app](#DOCS_GETTING_STARTED/creating-an-app)
+- [Running your app](#DOCS_GETTING_STARTED/running-your-app)
+- [Handling interactivity](#DOCS_GETTING_STARTED/handling-interactivity)
+- [Adding message components](#DOCS_GETTING_STARTED/adding-message-components)
+- [Next steps](#DOCS_GETTING_STARTED/next-steps)
 
 ---
 
@@ -193,7 +193,7 @@ This code is responding to the interaction with a message in the channel it orig
 
 Go to the server that matches your configured `GUILD_ID` and make sure your app’s `/test` slash command works. When you trigger it, it should send “hello world” with a random emoji.
 
-If you don’t want to add any additional interactivity, you could skip to [next steps](#next-steps). But in the following section, we’ll add an additional command that uses slash command options, buttons, and select menus to build the rock-paper-scissors-style game.
+If you don’t want to add any additional interactivity, you could skip to [next steps](#DOCS_GETTING_STARTED/next-steps). But in the following section, we’ll add an additional command that uses slash command options, buttons, and select menus to build the rock-paper-scissors-style game.
 
 ## Adding message components
 
