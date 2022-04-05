@@ -20,9 +20,9 @@ So go do it! Go! Go [make an app](https://discord.com/developers/applications) a
 
 We love games, and we love helping game developers. If YOU have a game that you want to supercharge with Discord, then we have just the thing for you.
 
-#### Your Game On Discord
+#### Your Game With Discord
 
-If you haven’t yet noticed, Discord allows you to [sell your game](https://discord.com/sell-your-game) right from Discord servers! We’ve got a whole suite of tools to help bring your game to life on Discord. Need networking? Have [networking](#DOCS_GAME_SDK_NETWORKING/)! Want a friends list? Take [relationships](#DOCS_GAME_SDK_RELATIONSHIPS/) too!
+We’ve got a whole suite of tools to help bring your game to life with Discord. Need networking? Have [networking](#DOCS_GAME_SDK_NETWORKING/)! Want a friends list? Take [relationships](#DOCS_GAME_SDK_RELATIONSHIPS/) too!
 
 #### Rich Presence
 
