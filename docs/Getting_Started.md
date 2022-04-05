@@ -92,9 +92,7 @@ To make development a bit simpler, the app uses [discord-interactions](https://g
 ### Remix the project
 This guide uses Glitch, which allows you to quickly clone and develop an app within your browser (only recommended for development). There are also instructions on developing locally using ngrok [in the README](https://github.com/shaydewael/discord-getting-started#running-app-locally) if you prefer.
 
-To start, remix (or clone) the Glitch project:
-
-[![Glitch logo](glitch-logo.png)](https://glitch.com/edit/#!/remix/getting-started-discord)
+To start, **[remix (or clone) the Glitch project 🎏](https://glitch.com/edit/#!/remix/getting-started-discord)**
 
 When you remix the project, you'll see a new Glitch project with a unique name similar to this:
 
@@ -160,7 +158,8 @@ On your app’s **General Information** page, there’s an **Interactive Endpoin
 
 Click **Save Changes** and ensure your endpoint is successfully verified.
 
-> 🔐 Verification requires your app to verify signature headers as well as respond to ping events (events with a type of `1`). You can read more about preparing to receive interactions in [the documentation](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING#RECEIVING_AN_INTERACTION).
+> info
+> Verification requires your app to verify signature headers as well as respond to ping events (events with a type of `1`). You can read more about preparing to receive interactions in [the documentation](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING#RECEIVING_AN_INTERACTION).
 
 The sample app is setup to handle verification by default:
 - Uses the `PUBLIC_KEY` and [discord-interactions package](https://github.com/discord/discord-interactions-js#usage) with a wrapper function in `utils.js` to make it conform to [Express’s `verify` interface](http://expressjs.com/en/5x/api.html#express.json). This is run on every incoming request to your app
@@ -239,6 +238,7 @@ if (name === "challenge" && id) {
 }
 ```
 
+> info
 > If you aren’t sure where to paste the code, you can see the full code in `examples/app.js` in the Glitch project or the root `app.js` [on Github](https://github.com/shaydewael/discord-getting-started/blob/main/app.js).
 
 This code is doing a few things:
