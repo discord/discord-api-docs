@@ -225,9 +225,9 @@ To handle the `/challenge` command, add the following code after the `if name ==
 ```javascript
 // "challenge" guild command
 if (name === "challenge" && id) {
-    let userId = req.body.member.user.id;
+    const userId = req.body.member.user.id;
     // User's object choice
-    let objectName = req.body.data.options[0].value;
+    const objectName = req.body.data.options[0].value;
 
     // Create active game using message ID as the game ID
     activeGames[id] = {
