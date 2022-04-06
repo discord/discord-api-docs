@@ -1,6 +1,6 @@
 # Threads
 
-[Threads](#DOCS_RESOURCES_CHANNEL/channel-object) are a new Discord feature. Threads can be thought of as temporary sub-channels inside an existing channel, to help better organize conversation in a busy channel.
+[Threads](#DOCS_RESOURCES_CHANNEL/channel-object) can be thought of as temporary sub-channels inside an existing channel, to help better organize conversation in a busy channel.
 
 Threads have been designed to be very similar to [channel](#DOCS_RESOURCES_CHANNEL/channel-object) objects, and this topic aggregates all of the information about threads, which should all help to make migrating very straightforward.
 
@@ -39,7 +39,7 @@ Additionally, there are a few new fields that are only available on threads:
 
 ## Public & Private Threads
 
-Public threads are viewable by everyone who can view the parent channel of the thread. Public threads must be created from an existing message, but can be "orphaned" if that message is deleted. The created thread and the message it was started from will share the same id. The [type](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types) of thread created matches the [type](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types) of the parent channel. `GUILD_TEXT` channels [create](#DOCS_RESOURCES_CHANNEL/start-thread-with-message) `GUILD_PUBLIC_THREAD` and `GUILD_NEWS` channels [create](#DOCS_RESOURCES_CHANNEL/start-thread-with-message) `GUILD_NEWS_THREAD`.
+Public threads are viewable by everyone who can view the parent channel of the thread. Public threads must be created from an existing message, but can be "orphaned" if that message is deleted. The created thread and the message it was started from will share the same id. The [type](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types) of thread created matches the [type](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types) of the parent channel. `GUILD_TEXT` channels [create](#DOCS_RESOURCES_CHANNEL/start-thread-from-message) `GUILD_PUBLIC_THREAD` and `GUILD_NEWS` channels [create](#DOCS_RESOURCES_CHANNEL/start-thread-from-message) `GUILD_NEWS_THREAD`.
 
 Private threads behave similar to Group DMs, but in a Guild. Private threads are always [created](#DOCS_RESOURCES_CHANNEL/start-thread-without-message) with the `GUILD_PRIVATE_THREAD` [type](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types) and can only be created in `GUILD_TEXT` channels.
 
@@ -161,3 +161,32 @@ Additionally, when a client loses access to a channel they are not removed from 
 ### Unarchiving a thread
 
 Discord's clients only load active threads into memory on start. So when a thread is unarchived, there is no guarantee that the client has either the thread or whether they are a member, in memory. As such, the Gateway sends a [Thread Update](#DOCS_TOPICS_GATEWAY/thread-update) first, which contains the full channel object. And then sends a [Thread Member Update](#DOCS_TOPICS_GATEWAY/thread-member-update) to each member of the thread, so those clients know they are a member, and what their notification setting is. This event is not that valuable for bots right now, but is going to be received by bots, so is documented here none the less.
+
+# Forums
+
+A `GUILD_FORUM` channel is very similar (from an API perspective) to a `GUILD_TEXT` channel, except only threads can be created in that channel; messages cannot be sent directly in that channel.
+
+This feature is still in active development. Many aspects are in flux and subject to change, including (but not limited to):
+- The name of the feature
+- The permissions required to create threads in a forum (currently `SEND_MESSAGES` but may change)
+- The shape of data exposed on the channel objects
+
+> warn
+> Documentation for those features will be published in the future, once they have been finalized. We recommend developers avoid implementing features that are undocumented or are documented as still in flux.
+
+Listed below are some of the important details of forum channels and are safe to implement. Many bots can have reasonable support for the new channel simply by making it aware of the new channel type so it starts processing gateway events for that channel (and thus unlocking things like bots used for moderation):
+
+- Forums are a new channel type `15`.
+- Forums do not allow messages to be sent in them. Endpoints like /channels/channel_id/messages will not work on a forum channel.
+- Threads can be created in a forum channel. All threads in a forum are of type `GUILD_PUBLIC_THREAD`. These threads and messages within the thread have the same gateway events as threads in a normal text channel.
+- The APIs for loading active & archived threads, joining & leaving a thread, and loading who is in a thread are unchanged and work the same for threads in a forum.
+- The API to create a thread in a forum will create _both_ a thread and message in the same call, and as such requires passing in parameters for both the thread and message. The name and behavior of parameters is the same as they are for the existing create thread/message endpoints to simplify integrating with it.
+- The message created by that API call will have the same id as the thread.
+
+Listed below are things that are unlikely to change, but still might:
+
+- The `topic` field on a forum channel is what is shown in the "Guidelines" section visually
+- The `rate_limit_per_user` field currently behaves the same as in a text channel, limiting how frequently threads can be created, _but its behavior may be changed before launching_.
+- Threads in a forum have the same permissions behavior as threads in a text channel, inheriting all permissions from the parent channel, with just one exception: Creating a thread in a forum channel only requires the permission that is currently named `SEND_MESSAGES`.
+- The first message in a forum channel can contain additional markdown for bulleted list and headings.
+- A thread can be pinned within a forum. A thread that is pinned will have the `(1 << 1)` flag set. Archiving a pinned thread will unset the flag. A pinned thread will not auto archive.
