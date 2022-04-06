@@ -70,11 +70,11 @@ Apps need approval to perform actions inside of Discord (like installing a slash
 
 For now, we’ll just add a couple of permissions:
 - `applications.commands` lets your app create commands in guilds its installed
-- `bot` is to enable your bot user. After you click bot, you can also add individual permissions. For now, check **Send Messages** and **Use Slash Commands**.
+- `bot` is to enable your bot user. After you click bot, you can also add individual permissions. For now, just check **Send Messages**.
 
 ![URL generator screenshot](url-generator.png)
 
-Once you add the permissions, you should see a URL you can copy to install your app.
+Once you add the permissions, you should see a URL that you can copy to install your app.
 
 ### Installing your app
 
