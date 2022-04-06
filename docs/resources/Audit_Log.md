@@ -212,7 +212,7 @@ Whenever an admin action is performed on the API, an entry is added to the respe
 
 ## Get Guild Audit Log % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/audit-logs
 
-Returns an [audit log](#DOCS_RESOURCES_AUDIT_LOG/audit-log-object) object for the guild. Requires the 'VIEW_AUDIT_LOG' permission.
+Returns an [audit log](#DOCS_RESOURCES_AUDIT_LOG/audit-log-object) object for the guild. Requires the `VIEW_AUDIT_LOG` permission.
 
 ###### Query String Params
 
