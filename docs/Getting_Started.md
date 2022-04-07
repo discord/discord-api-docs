@@ -140,7 +140,7 @@ With your credentials configured, let's install and handle slash commands.
 ### Installing slash commands
 
 > info
-> To install slash commands, the app is using the [`axios` client](https://axios-http.com/docs/intro) that's instantiated at the top of `app.js`. More information about the HTTP API can be found in [the API reference](#DOCS_REFERENCE).
+> To install slash commands, the app is using [`node-fetch`](https://github.com/node-fetch/node-fetch). You can see the implementation for the installation in `utils.js` within the `DiscordRequest()` function. More information about Discord's REST API can be found in [the API reference](#DOCS_REFERENCE).
 
 If you look in the `listen` callback at the bottom of `app.js`, you’ll see that `HasGuildCommands()` is called. `HasGuildCommands()` is a utility function that checks whether specific slash commands are installed—and if they aren't, installs them. The code for `HasGuildCommands()` is inside of the top-level `commands.js` file.
 
@@ -186,14 +186,14 @@ With the endpoint verified, go back to your code (in `app.js`) and look for the 
 
 ```javascript
 // "test" guild command
-if (name === "test") {
+if (name === 'test') {
     // Send a message into the channel where command was triggered from
     return res.send({
-        "type": InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
-        "data": {
-            // Fetches a random emoji to send from a helper function
-            "content": "hello world " + getRandomEmoji()
-        }
+    type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+    data: {
+        // Fetches a random emoji to send from a helper function
+        content: 'hello world ' + getRandomEmoji(),
+    },
     });
 }
 ```
@@ -224,33 +224,37 @@ To handle the `/challenge` command, add the following code after the `if name ==
 
 ```javascript
 // "challenge" guild command
-if (name === "challenge" && id) {
+if (name === 'challenge' && id) {
     const userId = req.body.member.user.id;
     // User's object choice
     const objectName = req.body.data.options[0].value;
 
     // Create active game using message ID as the game ID
     activeGames[id] = {
-        "id": userId,
-        "objectName": objectName
+        id: userId,
+        objectName,
     };
 
     return res.send({
-        "type": InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
-        "data": {
-            // Fetches a random emoji to send from a helper function
-            "content": `Rock papers scissors challenge from <@${userId}>`,
-            "components": [{
-                "type": ComponentType.ACTION,
-                "components": [{
-                    "type": ComponentType.BUTTON,
-                    // Append the game ID to use later on
-                    "custom_id": `accept_button_${req.body.id}`,
-                    "label": "Accept",
-                    "style": ButtonStyle.PRIMARY
-                }]
-            }]
-        }
+    type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+    data: {
+        // Fetches a random emoji to send from a helper function
+        content: `Rock papers scissors challenge from <@${userId}>`,
+        components: [
+        {
+            type: ComponentType.ACTION,
+            components: [
+            {
+                type: ComponentType.BUTTON,
+                // Append the game ID to use later on
+                custom_id: `accept_button_${req.body.id}`,
+                label: 'Accept',
+                style: ButtonStyle.PRIMARY,
+            },
+            ],
+        },
+        ],
+    },
     });
 }
 ```
@@ -279,46 +283,50 @@ When users interact with a message component, Discord will send a request with a
 To set up a handler for the button, we’ll check the `type` of interaction, followed by matching the `custom_id`. Paste the following code under the type handler for `APPLICATION_COMMAND`s:
 
 ```javascript
-if (type === InteractionType.MESSAGE_COMPONENT){
-    // custom_id set in payload when sending message component
-    const componentId = data.custom_id;
+if (type === InteractionType.MESSAGE_COMPONENT) {
+// custom_id set in payload when sending message component
+const componentId = data.custom_id;
 
-    if (componentId.startsWith('accept_button_')) {
-        // get the associated game ID
-        const gameId = componentId.replace('accept_button_', '');
-        // Delete message with token in request body
-        const url = DiscordAPI(`webhooks/${process.env.APP_ID}/${req.body.token}/messages/${req.body.message.id}`);
-        try {
-            await res.send({
-                "type": InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
-                "data": {
-                    // Fetches a random emoji to send from a helper function
-                    "content": "What's your object of choice?",
-                    // Indicates it'll be an ephemeral message
-                    "flags": 64,
-                    "components": [{
-                        "type": ComponentType.ACTION,
-                        "components": [{
-                            "type": ComponentType.SELECT,
-                            // Append game ID
-                            "custom_id": `select_choice_${gameId}`,
-                            "options": getShuffledOptions()
-                        }]
-                    }]
-                }
-            });
-
-            await client({ url, method: 'delete' });
-            return;
-        } catch (err) {
-            console.error(`Error sending message: ${err}`);
-        }
+  if (componentId.startsWith('accept_button_')) {
+    // get the associated game ID
+    const gameId = componentId.replace('accept_button_', '');
+    // Delete message with token in request body
+    const endpoint = `webhooks/${process.env.APP_ID}/${req.body.token}/messages/${req.body.message.id}`;
+    try {
+      await res.send({
+        type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+        data: {
+          // Fetches a random emoji to send from a helper function
+          content: 'What is your object of choice?',
+          // Indicates it'll be an ephemeral message
+          flags: InteractionResponseFlags.EPHEMERAL,
+          components: [
+            {
+              type: ComponentType.ACTION,
+              components: [
+                {
+                  type: ComponentType.SELECT,
+                  // Append game ID
+                  custom_id: `select_choice_${gameId}`,
+                  options: getShuffledOptions(),
+                },
+              ],
+            },
+          ],
+        },
+      });
+      // Delete previous message
+      await DiscordRequest(endpoint, { method: 'DELETE' });
+    } catch (err) {
+      console.error('Error sending message:', err);
+    }
+  }
 }
 ```
 
 To briefly go over what the above code is doing:
 1. Checks for a `custom_id` that matches what we originally sent (in this case, it starts with `accept_button_`). The custom ID also has the active game ID appended, so we store that in `gameID`.
-2. [Deletes the original message](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/delete-original-interaction-response) with a webhook using the unique interaction `token` in the request body and the `axios` client. This is done to clean up the channel, and so other users can’t click the button.
+2. [Deletes the original message](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/delete-original-interaction-response) calling a webhook using `node-fetch` and passing the unique interaction `token` in the request body. This is done to clean up the channel, and so other users can’t click the button.
 3. Responds to the request by sending a message that contains a select menu with the object choices for the game. The payload should look fairly similar to the previous one, with the exception of the `options` array and `flags: 64`, [which indicates that the message is ephemeral](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/create-followup-message).
 
 The `options` array is populated using the `getShuffledOptions()` method in `game.js`, which manipulates the `RPSChoices` values to conform to the shape of [message component options](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/select-menu-object-select-option-structure).
@@ -330,73 +338,81 @@ The last thing to add is code to handle select menu interactions and send the re
 Since select menus are just another message component, the code to handle interactions with them will be similar to buttons. Modify the code above to handle the select menu:
 
 ```javascript
-if (type === InteractionType.MESSAGE_COMPONENT){
-    // custom_id set in payload when sending message component
-    const componentId = data.custom_id;
+if (type === InteractionType.MESSAGE_COMPONENT) {
+// custom_id set in payload when sending message component
+const componentId = data.custom_id;
 
-    if (componentId.startsWith('accept_button_')) {
-        // get the associated game ID
-        const gameId = componentId.replace('accept_button_', '');
-        // Delete message with token in request body
-        const url = DiscordAPI(`webhooks/${process.env.APP_ID}/${req.body.token}/messages/${req.body.message.id}`);
-        try {
-            await res.send({
-                "type": InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
-                "data": {
-                    // Fetches a random emoji to send from a helper function
-                    "content": "What's your object of choice?",
-                    // Indicates it'll be an ephemeral message
-                    "flags": 64,
-                    "components": [{
-                        "type": ComponentType.ACTION,
-                        "components": [{
-                            "type": ComponentType.SELECT,
-                            // Append game ID
-                            "custom_id": `select_choice_${gameId}`,
-                            "options": getShuffledOptions()
-                        }]
-                    }]
-                }
-            });
-
-            await client({ url, method: 'delete' });
-            return;
-        } catch (err) {
-            console.error(`Error sending message: ${err}`);
-        }
-    } else if (componentId.startsWith('select_choice_')) {
-        // get the associated game ID
-        const gameId = componentId.replace('select_choice_', '');
-
-        if (activeGames[gameId]) {
-            // Get user ID and object choice for responding user
-            const userId = req.body.member.user.id;
-            const objectName = data.values[0];
-            // Calculate result from helper function
-            const resultStr = getResult(activeGames[gameId], {id: userId, objectName});
-
-            // Remove game from storage
-            delete activeGames[gameId];
-            // Update message with token in request body
-            const url = DiscordAPI(`webhooks/${process.env.APP_ID}/${req.body.token}/messages/${req.body.message.id}`);
-
-            try {
-                // Send results
-                await res.send({
-                    "type": InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
-                    "data": { "content": resultStr }
-                });
-
-                await client({ url, method: 'patch', data: {
-                    "content": `Nice choice ${getRandomEmoji()}`,
-                    "components": []
-                }});
-                return;
-            } catch (err) {
-                console.error(`Error sending message: ${err}`);
-            }      
-        }
+  if (componentId.startsWith('accept_button_')) {
+    // get the associated game ID
+    const gameId = componentId.replace('accept_button_', '');
+    // Delete message with token in request body
+    const endpoint = `webhooks/${process.env.APP_ID}/${req.body.token}/messages/${req.body.message.id}`;
+    try {
+      await res.send({
+        type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+        data: {
+          // Fetches a random emoji to send from a helper function
+          content: 'What is your object of choice?',
+          // Indicates it'll be an ephemeral message
+          flags: InteractionResponseFlags.EPHEMERAL,
+          components: [
+            {
+              type: ComponentType.ACTION,
+              components: [
+                {
+                  type: ComponentType.SELECT,
+                  // Append game ID
+                  custom_id: `select_choice_${gameId}`,
+                  options: getShuffledOptions(),
+                },
+              ],
+            },
+          ],
+        },
+      });
+      // Delete previous message
+      await DiscordRequest(endpoint, { method: 'DELETE' });
+    } catch (err) {
+      console.error('Error sending message:', err);
     }
+  } else if (componentId.startsWith('select_choice_')) {
+    // get the associated game ID
+    const gameId = componentId.replace('select_choice_', '');
+
+    if (activeGames[gameId]) {
+      // Get user ID and object choice for responding user
+      const userId = req.body.member.user.id;
+      const objectName = data.values[0];
+      // Calculate result from helper function
+      const resultStr = getResult(activeGames[gameId], {
+        id: userId,
+        objectName,
+      });
+
+      // Remove game from storage
+      delete activeGames[gameId];
+      // Update message with token in request body
+      const endpoint = `webhooks/${process.env.APP_ID}/${req.body.token}/messages/${req.body.message.id}`;
+
+      try {
+        // Send results
+        await res.send({
+          type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+          data: { content: resultStr },
+        });
+        // Update ephemeral message
+        await DiscordRequest(endpoint, {
+          method: 'PATCH',
+          body: {
+            content: "Nice choice " + getRandomEmoji(),
+            components: []
+          }
+        });
+      } catch (err) {
+        console.error('Error sending message:', err);
+      }
+    }
+  }
 }
 ```
 
