@@ -188,5 +188,5 @@ Listed below are things that are unlikely to change, but still might:
 - The `topic` field on a forum channel is what is shown in the "Guidelines" section visually
 - The `rate_limit_per_user` field currently behaves the same as in a text channel, limiting how frequently threads can be created, _but its behavior may be changed before launching_.
 - Threads in a forum have the same permissions behavior as threads in a text channel, inheriting all permissions from the parent channel, with just one exception: Creating a thread in a forum channel only requires the permission that is currently named `SEND_MESSAGES`.
-- The first message in a forum channel can contain additional markdown for bulleted list and headings.
+- The first message in a forum thread can contain additional markdown for bulleted list and headings.
 - A thread can be pinned within a forum. A thread that is pinned will have the `(1 << 1)` flag set. Archiving a pinned thread will unset the flag. A pinned thread will not auto archive.
