@@ -5,7 +5,7 @@ Discord apps let you customize your servers with interactions and automation. Th
 While this guide is beginner-focused, it assumes a basic understanding of [JavaScript](https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web/JavaScript_basics).
 
 > info
-> When developing apps, you should build and test in a server that isn’t actively used by others. If you don’t have your own server already, you can [create one for free](https://discord.com/developers/teams).
+> When developing apps, you should build and test in a server that isn’t actively used by others. If you don’t have your own server already, you can [create one for free](https://support.discord.com/hc/en-us/articles/204849977-How-do-I-create-a-server-).
 
 ### Guide contents
 - [Overview](#DOCS_GETTING_STARTED/overview)
