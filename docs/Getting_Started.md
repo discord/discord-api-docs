@@ -53,7 +53,7 @@ Next we'll add a bot user to your app, which allows it to appear in Discord simi
 
 Once you create a bot, you’ll have an option to update its icon and username. Under that, there’s a **Token** section with a **Reset Token** button.
 
-![Bot tab in app setings](app-add-bot.png)
+![Bot tab in app settings](app-add-bot.png)
 
 Bot tokens are used to authorize API requests and carry all of your bot user’s permissions, making them *highly sensitive*. Make sure to *never* share your token or check it into any kind of version control.
 
