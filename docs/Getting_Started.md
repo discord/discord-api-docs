@@ -22,7 +22,7 @@ While this guide is beginner-focused, it assumes a basic understanding of [JavaS
 In this guide, we’ll be building a Discord app that lets server members play a *slightly*-enhanced version of rock paper scissors (with 7 choices instead of the usual 3).
 
 ### Resources used in this guide
-- **[Github repository](https://github.com/shaydewael/discord-getting-started)** where the code from this guide lives along with additional feature-specific examples.
+- **[Github repository](https://github.com/discord/discord-example-app)** where the code from this guide lives along with additional feature-specific examples.
 - **[discord-interactions](https://github.com/discord/discord-interactions-js)**, an npm package which provides types and helper functions for Discord apps.
 - **[Glitch](https://glitch.com/)**, an online environment that simplifies building and hosting apps during early prototyping and development. You can also develop locally with a tool like **[ngrok](https://ngrok.com/)**.
 
@@ -89,13 +89,13 @@ With your app configured and installed, let’s start developing it.
 
 ## Running your app
 
-All of the code used in the example app can be found in [the Github repository](https://github.com/shaydewael/discord-getting-started).
+All of the code used in the example app can be found in [the Github repository](https://github.com/discord/discord-example-app).
 
 To make development a bit simpler, the app uses [discord-interactions](https://github.com/discord/discord-interactions-js), which provides types and helper functions. If you prefer to use other languages or libraries, there’s [a page with community-built resources](#DOCS_TOPICS_COMMUNITY_RESOURCES) which you can browse through.
 
 ### Remix the project
 
-This guide uses Glitch, which allows you to quickly clone and develop an app from within your browser. There are also instructions on developing locally using ngrok [in the README](https://github.com/shaydewael/discord-getting-started#running-app-locally) if you'd prefer.
+This guide uses Glitch, which allows you to quickly clone and develop an app from within your browser. There are also instructions on developing locally using ngrok [in the README](https://github.com/discord/discord-example-app#running-app-locally) if you'd prefer.
 
 > info
 > While Glitch is great for development and testing, [it has technical limitations](https://help.glitch.com/kb/article/17-technical-restrictions/) so other hosting providers should be considered for production apps.
@@ -168,7 +168,7 @@ In the following example, the link would be `https://vast-thorn-plant.glitch.me`
 ![Glitch share modal](glitch-project-share.png)
 
 > info
-> If you're developing locally, there are instructions for tunneling requests to your local environment [on the Github README](https://github.com/shaydewael/discord-getting-started#running-app-locally).
+> If you're developing locally, there are instructions for tunneling requests to your local environment [on the Github README](https://github.com/discord/discord-example-app#running-app-locally).
 
 With that link copied, go to your app settings from [the developer portal](https://discord.com/developers/applications).
 
@@ -265,7 +265,7 @@ if (name === 'challenge' && id) {
 ```
 
 > info
-> If you aren’t sure where to paste the code, you can see the full code in `examples/app.js` in the Glitch project or the root `app.js` [on Github](https://github.com/shaydewael/discord-getting-started/blob/main/app.js).
+> If you aren’t sure where to paste the code, you can see the full code in `examples/app.js` in the Glitch project or the root `app.js` [on Github](https://github.com/discord/discord-example-app/blob/main/app.js).
 
 The above code is doing a few things:
 1. Parses the request body to get the ID of the user who triggered the slash command (`userId`), and the option (object choice) they selected (`objectName`).
