@@ -62,20 +62,22 @@ Go ahead and click **Reset Token**, and store the token somewhere safe (like in 
 > warn
 > You won’t be able to view your token again unless you regenerate it, so make sure to keep it somewhere safe. 
 
-### Adding permissions
+### Adding scopes and permissions
 
-Apps need approval to perform actions inside of Discord (like installing a slash command or adding emojis). So before installing your app, let's add some permissions. Click on **OAuth2** in the left sidebar, then **URL generator**.
+Apps need approval from installing users to perform actions inside of Discord (like creating a slash command or adding emojis). So before installing your app, let's add some scopes and permissions to request during installation. Click on **OAuth2** in the left sidebar, then **URL generator**.
 
 > info
-> The URL generator helps create an installation link with the permissions your app needs to function. You can use the link to install the app onto your server, or share it with others so they can install it on their own.
+> The URL generator helps create an installation link with the scopes and permissions your app needs to function. You can use the link to install the app onto your server, or share it with others so they can install it on their own.
 
-For now, we’ll just add a couple of permissions:
+For now, we’ll just add two scopes:
 - `applications.commands` lets your app create commands in guilds its installed
-- `bot` is to enable your bot user. After you click bot, you can also add individual permissions. For now, just check **Send Messages**.
+- `bot` is to enable your bot user. After you click bot, you can also add different user permissions to the bot. For now, just check **Send Messages**.
+
+See a list of all [OAuth2 scopes](#DOCS_TOPICS_OAUTH2/shared-resources-oauth2-scopes), or read more on [user permissions](#DOCS_TOPICS_PERMISSIONS) in the documentation.
 
 ![URL generator screenshot](url-generator.png)
 
-Once you add permissions, you should see a URL that you can copy to install your app.
+Once you add scopes, you should see a URL that you can copy to install your app.
 
 ### Installing your app
 
@@ -128,6 +130,9 @@ All of the files for the project are on the left-hand side. Here's a quick glimp
 ### Adding credentials
 
 There's already some code in your `app.js` file, but you’ll need your app’s token and ID to make requests. All of your credentials can be stored directly in the `.env` file.
+
+> warn
+> It bears repeating that you should *never* check any credentials or secrets into source control. The getting started project's `.gitignore` comes pre-loaded with `.env` to prevent it.
 
 First, copy your bot user’s token from earlier and paste it in the **`DISCORD_TOKEN`** variable in your `.env` file.
 
