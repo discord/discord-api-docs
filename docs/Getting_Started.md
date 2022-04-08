@@ -242,14 +242,14 @@ if (name === 'challenge' && id) {
         content: `Rock papers scissors challenge from <@${userId}>`,
         components: [
         {
-            type: ComponentType.ACTION,
+            type: MessageComponentTypes.ACTION_ROW,
             components: [
             {
-                type: ComponentType.BUTTON,
+                type: MessageComponentTypes.BUTTON,
                 // Append the game ID to use later on
                 custom_id: `accept_button_${req.body.id}`,
                 label: 'Accept',
-                style: ButtonStyle.PRIMARY,
+                style: ButtonStyleTypes.PRIMARY,
             },
             ],
         },
@@ -302,10 +302,10 @@ const componentId = data.custom_id;
           flags: InteractionResponseFlags.EPHEMERAL,
           components: [
             {
-              type: ComponentType.ACTION,
+              type: MessageComponentTypes.ACTION_ROW,
               components: [
                 {
-                  type: ComponentType.SELECT,
+                  type: MessageComponentTypes.STRING_SELECT,
                   // Append game ID
                   custom_id: `select_choice_${gameId}`,
                   options: getShuffledOptions(),
@@ -357,10 +357,10 @@ const componentId = data.custom_id;
           flags: InteractionResponseFlags.EPHEMERAL,
           components: [
             {
-              type: ComponentType.ACTION,
+              type: MessageComponentTypes.ACTION_ROW,
               components: [
                 {
-                  type: ComponentType.SELECT,
+                  type: MessageComponentTypes.STRING_SELECT,
                   // Append game ID
                   custom_id: `select_choice_${gameId}`,
                   options: getShuffledOptions(),
@@ -404,7 +404,7 @@ const componentId = data.custom_id;
         await DiscordRequest(endpoint, {
           method: 'PATCH',
           body: {
-            content: "Nice choice " + getRandomEmoji(),
+            content: 'Nice choice ' + getRandomEmoji(),
             components: []
           }
         });
