@@ -24,7 +24,7 @@ In this guide, we’ll be building a Discord app that lets server members play a
 ### Resources used in this guide
 - **[Github repository](https://github.com/shaydewael/discord-getting-started)** where the code from this guide lives along with additional feature-specific examples.
 - **[discord-interactions](https://github.com/discord/discord-interactions-js)**, an npm package which provides types and helper functions for Discord apps.
-- **[Glitch](https://glitch.com/)**, an online development environment to build and host apps. You could also develop locally with a tool like **[ngrok](https://ngrok.com/)**.
+- **[Glitch](https://glitch.com/)**, an online environment that simplifies building and hosting apps during early prototyping and development. You can also develop locally with a tool like **[ngrok](https://ngrok.com/)**.
 
 And here's what the finished app will look like:
 
