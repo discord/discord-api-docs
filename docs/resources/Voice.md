@@ -44,7 +44,7 @@ Used to represent a user's voice connection status.
 
 | Field      | Type    | Description                                                           |
 | ---------- | ------- | --------------------------------------------------------------------- |
-| id         | string  | unique ID for the region                                              |
+| id         | string  | unique ID for the [region](#DOCS_REFERENCE/voice-regions)             |
 | name       | string  | name of the region                                                    |
 | optimal    | boolean | true for a single server that is closest to the current user's client |
 | deprecated | boolean | whether this is a deprecated voice region (avoid switching to these)  |

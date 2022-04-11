@@ -476,3 +476,37 @@ For example:
 | ja     | Japanese              | 日本語                 |
 | zh-TW  | Chinese, Taiwan       | 繁體中文                |
 | ko     | Korean                | 한국어                 |
+
+## Voice Regions
+
+| Region ID     | Region name      |
+| ------------- | ---------------- |
+| atlanta       | Atlanta          |
+| brazil        | Brazil           |
+| buenos-aires  | Buenos Aires     |
+| dubai         | Dubai            |
+| eu-central    | Central Europe   |
+| europe        | Europe           |
+| eu-west       | Western Europe   |
+| frankfurt     | Frankfurt        |
+| hongkong      | Hong Kong        |
+| india         | India            |
+| japan         | Japan            |
+| madrid        | Madrid           |
+| milan         | Milan            |
+| newark        | Newark           |
+| rotterdam     | Rotterdam        |
+| russia        | Russia           |
+| santa-clara   | Santa Clara      |
+| santiago      | Santiago         |
+| seattle       | Seattle          |
+| singapore     | Singapore        |
+| southafrica   | South Africa     |
+| south-korea   | South Korea      |
+| stockholm     | Stockholm        |
+| st-pete       | Saint Petersburg |
+| sydney        | Sydney           |
+| us-central    | US Central       |
+| us-east       | US East          |
+| us-south      | US South         |
+| us-west       | US West          |
