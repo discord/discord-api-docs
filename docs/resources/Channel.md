@@ -16,7 +16,7 @@ Represents a guild or DM channel within Discord.
 | name?                          | ?string                                                                    | the name of the channel (1-100 characters)                                                                                                                                                      |
 | topic?                         | ?string                                                                    | the channel topic (0-1024 characters)                                                                                                                                                           |
 | nsfw?                          | boolean                                                                    | whether the channel is nsfw                                                                                                                                                                     |
-| last_message_id?               | ?snowflake                                                                 | the id of the last message sent in this channel (may not point to an existing or valid message)                                                                                                 |
+| last_message_id?               | ?snowflake                                                                 | the id of the last message sent in this channel (or thread for `GUILD_FORUM` channels) (may not point to an existing or valid message or thread)                                                |
 | bitrate?                       | integer                                                                    | the bitrate (in bits) of the voice channel                                                                                                                                                      |
 | user_limit?                    | integer                                                                    | the user limit of the voice channel                                                                                                                                                             |
 | rate_limit_per_user?\*         | integer                                                                    | amount of seconds a user has to wait before sending another message (0-21600); bots, as well as users with the permission `manage_messages` or `manage_channel`, are unaffected                 |
@@ -34,6 +34,7 @@ Represents a guild or DM channel within Discord.
 | member?                        | a [thread member](#DOCS_RESOURCES_CHANNEL/thread-member-object) object     | thread member object for the current user, if they have joined the thread, only included on certain API endpoints                                                                               |
 | default_auto_archive_duration? | integer                                                                    | default duration that the clients (not the API) will use for newly created threads, in minutes, to automatically archive the thread after recent activity, can be set to: 60, 1440, 4320, 10080 |
 | permissions?                   | string                                                                     | computed permissions for the invoking user in the channel, including overwrites, only included when part of the `resolved` data received on a slash command interaction                         |
+| flags?                         | integer                                                                    | [channel flags](#DOCS_RESOURCES_CHANNEL/channel-object-channel-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field)                                                         |
 
 \* `rate_limit_per_user` also applies to thread creation. Users can send one message and create one thread during each `rate_limit_per_user` interval.
 
@@ -54,7 +55,10 @@ Represents a guild or DM channel within Discord.
 | GUILD_PUBLIC_THREAD     | 11  | a temporary sub-channel within a GUILD_TEXT channel                                                                                                  |
 | GUILD_PRIVATE_THREAD    | 12  | a temporary sub-channel within a GUILD_TEXT channel that is only viewable by those invited and those with the MANAGE_THREADS permission              |
 | GUILD_STAGE_VOICE       | 13  | a voice channel for [hosting events with an audience](https://support.discord.com/hc/en-us/articles/1500005513722)                                   |
-| GUILD_DIRECTORY         | 14  | the channel in a [hub](https://support.discord.com/hc/en-us/articles/4406046651927-Discord-Student-Hubs-FAQ) containing the listed servers   |
+| GUILD_DIRECTORY         | 14  | the channel in a [hub](https://support.discord.com/hc/en-us/articles/4406046651927-Discord-Student-Hubs-FAQ) containing the listed servers           |
+| GUILD_FORUM\*           | 15  | (still in development) a channel that can only contain threads                                                                                       |
+
+\* The `GUILD_FORUM` channel type is still in active development. Avoid implementing any features that are not documented here, since they are subject to change without notice!
 
 ###### Video Quality Modes
 
@@ -62,6 +66,12 @@ Represents a guild or DM channel within Discord.
 | ---- | ----- | --------------------------------------------------- |
 | AUTO | 1     | Discord chooses the quality for optimal performance |
 | FULL | 2     | 720p                                                |
+
+###### Channel Flags
+
+| Flag                                   | Value  | Description                                                                       |
+|----------------------------------------|--------|-----------------------------------------------------------------------------------|
+| PINNED                                 | 1 << 1 | this thread is pinned to the top of its parent forum channel                      |
 
 ###### Example Guild Text Channel
 
@@ -839,7 +849,7 @@ Delete a channel, or close a private message. Requires the `MANAGE_CHANNELS` per
 
 ## Get Channel Messages % GET /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/messages
 
-Returns the messages for a channel. If operating on a guild channel, this endpoint requires the `VIEW_CHANNEL` permission to be present on the current user. If the current user is missing the 'READ_MESSAGE_HISTORY' permission in the channel then this will return no messages (since they cannot read the message history). Returns an array of [message](#DOCS_RESOURCES_CHANNEL/message-object) objects on success.
+Returns the messages for a channel. If operating on a guild channel, this endpoint requires the `VIEW_CHANNEL` permission to be present on the current user. If the current user is missing the `READ_MESSAGE_HISTORY` permission in the channel then this will return no messages (since they cannot read the message history). Returns an array of [message](#DOCS_RESOURCES_CHANNEL/message-object) objects on success.
 
 > info
 > The before, after, and around keys are mutually exclusive, only one may be passed at a time.
@@ -855,7 +865,7 @@ Returns the messages for a channel. If operating on a guild channel, this endpoi
 
 ## Get Channel Message % GET /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}
 
-Returns a specific message in the channel. If operating on a guild channel, this endpoint requires the 'READ_MESSAGE_HISTORY' permission to be present on the current user. Returns a [message](#DOCS_RESOURCES_CHANNEL/message-object) object on success.
+Returns a specific message in the channel. If operating on a guild channel, this endpoint requires the `READ_MESSAGE_HISTORY` permission to be present on the current user. Returns a [message](#DOCS_RESOURCES_CHANNEL/message-object) object on success.
 
 ## Create Message % POST /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/messages
 
@@ -916,13 +926,13 @@ Examples for file uploads are available in [Uploading Files](#DOCS_REFERENCE/upl
 
 ## Crosspost Message % POST /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}/crosspost
 
-Crosspost a message in a News Channel to following channels. This endpoint requires the 'SEND_MESSAGES' permission, if the current user sent the message, or additionally the 'MANAGE_MESSAGES' permission, for all other messages, to be present for the current user.
+Crosspost a message in a News Channel to following channels. This endpoint requires the `SEND_MESSAGES` permission, if the current user sent the message, or additionally the `MANAGE_MESSAGES` permission, for all other messages, to be present for the current user.
 
 Returns a [message](#DOCS_RESOURCES_CHANNEL/message-object) object.
 
 ## Create Reaction % PUT /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}/reactions/{emoji#DOCS_RESOURCES_EMOJI/emoji-object}/@me
 
-Create a reaction for the message. This endpoint requires the 'READ_MESSAGE_HISTORY' permission to be present on the current user. Additionally, if nobody else has reacted to the message using this emoji, this endpoint requires the 'ADD_REACTIONS' permission to be present on the current user. Returns a 204 empty response on success.
+Create a reaction for the message. This endpoint requires the `READ_MESSAGE_HISTORY` permission to be present on the current user. Additionally, if nobody else has reacted to the message using this emoji, this endpoint requires the `ADD_REACTIONS` permission to be present on the current user. Returns a 204 empty response on success.
 The `emoji` must be [URL Encoded](https://en.wikipedia.org/wiki/Percent-encoding) or the request will fail with `10014: Unknown Emoji`. To use custom emoji, you must encode it in the format `name:id` with the emoji name and emoji id.
 
 ## Delete Own Reaction % DELETE /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}/reactions/{emoji#DOCS_RESOURCES_EMOJI/emoji-object}/@me
@@ -932,7 +942,7 @@ The `emoji` must be [URL Encoded](https://en.wikipedia.org/wiki/Percent-encoding
 
 ## Delete User Reaction % DELETE /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}/reactions/{emoji#DOCS_RESOURCES_EMOJI/emoji-object}/{user.id#DOCS_RESOURCES_USER/user-object}
 
-Deletes another user's reaction. This endpoint requires the 'MANAGE_MESSAGES' permission to be present on the current user. Returns a 204 empty response on success.
+Deletes another user's reaction. This endpoint requires the `MANAGE_MESSAGES` permission to be present on the current user. Returns a 204 empty response on success.
 The `emoji` must be [URL Encoded](https://en.wikipedia.org/wiki/Percent-encoding) or the request will fail with `10014: Unknown Emoji`. To use custom emoji, you must encode it in the format `name:id` with the emoji name and emoji id.
 
 ## Get Reactions % GET /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}/reactions/{emoji#DOCS_RESOURCES_EMOJI/emoji-object}
@@ -949,7 +959,7 @@ The `emoji` must be [URL Encoded](https://en.wikipedia.org/wiki/Percent-encoding
 
 ## Delete All Reactions % DELETE /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}/reactions
 
-Deletes all reactions on a message. This endpoint requires the 'MANAGE_MESSAGES' permission to be present on the current user. Fires a [Message Reaction Remove All](#DOCS_TOPICS_GATEWAY/message-reaction-remove-all) Gateway event.
+Deletes all reactions on a message. This endpoint requires the `MANAGE_MESSAGES` permission to be present on the current user. Fires a [Message Reaction Remove All](#DOCS_TOPICS_GATEWAY/message-reaction-remove-all) Gateway event.
 
 ## Delete All Reactions for Emoji % DELETE /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}/reactions/{emoji#DOCS_RESOURCES_EMOJI/emoji-object}
 
@@ -1109,11 +1119,11 @@ Adds a recipient to a Group DM using their access token.
 
 Removes a recipient from a Group DM.
 
-## Start Thread with Message % POST /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}/threads
+## Start Thread from Message % POST /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}/threads
 
 Creates a new thread from an existing message. Returns a [channel](#DOCS_RESOURCES_CHANNEL/channel-object) on success, and a 400 BAD REQUEST on invalid parameters. Fires a [Thread Create](#DOCS_TOPICS_GATEWAY/thread-create) Gateway event.
 
-When called on a `GUILD_TEXT` channel, creates a `GUILD_PUBLIC_THREAD`. When called on a `GUILD_NEWS` channel, creates a `GUILD_NEWS_THREAD`. The id of the created thread will be the same as the id of the message, and as such a message can only have a single thread created from it.
+When called on a `GUILD_TEXT` channel, creates a `GUILD_PUBLIC_THREAD`. When called on a `GUILD_NEWS` channel, creates a `GUILD_NEWS_THREAD`. Does not work on a [`GUILD_FORUM`](#DOCS_RESOURCES_CHANNEL/start-thread-in-forum-channel) channel. The id of the created thread will be the same as the id of the source message, and as such a message can only have a single thread created from it.
 
 > info
 > This endpoint supports the `X-Audit-Log-Reason` header.
@@ -1130,7 +1140,7 @@ When called on a `GUILD_TEXT` channel, creates a `GUILD_PUBLIC_THREAD`. When cal
 
 ## Start Thread without Message % POST /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/threads
 
-Creates a new thread that is not connected to an existing message. The created thread defaults to a `GUILD_PRIVATE_THREAD`\*. Returns a [channel](#DOCS_RESOURCES_CHANNEL/channel-object) on success, and a 400 BAD REQUEST on invalid parameters. Fires a [Thread Create](#DOCS_TOPICS_GATEWAY/thread-create) Gateway event.
+Creates a new thread that is not connected to an existing message. Returns a [channel](#DOCS_RESOURCES_CHANNEL/channel-object) on success, and a 400 BAD REQUEST on invalid parameters. Fires a [Thread Create](#DOCS_TOPICS_GATEWAY/thread-create) Gateway event.
 
 > info
 > This endpoint supports the `X-Audit-Log-Reason` header.
@@ -1150,7 +1160,53 @@ Creates a new thread that is not connected to an existing message. The created t
 
 \*\* The 3 day and 7 day archive durations require the server to be boosted. The [guild features](#DOCS_RESOURCES_GUILD/guild-object-guild-features) will indicate if that is possible for the guild.
 
-\*\*\* In API v9, `type` defaults to `PRIVATE_THREAD` in order to match the behavior when thread documentation was first published. In API v10 this will be changed to be a required field, with no default.
+\*\*\* In API v9, `type` defaults to `GUILD_PRIVATE_THREAD` in order to match the behavior when thread documentation was first published. In API v10 this will be changed to be a required field, with no default.
+
+## Start Thread in Forum Channel % POST /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/threads
+
+Creates a new thread in a forum channel, and sends a message within the created thread. Returns a [channel](#DOCS_RESOURCES_CHANNEL/channel-object) on success, and a 400 BAD REQUEST on invalid parameters. Fires a [Thread Create](#DOCS_TOPICS_GATEWAY/thread-create) and [Message Create](#DOCS_TOPICS_GATEWAY/message-create) Gateway event.
+
+- The type of the created thread is `GUILD_PUBLIC_THREAD`.
+- See [message formatting](#DOCS_REFERENCE/message-formatting) for more information on how to properly format messages.
+- The current user must have the `SEND_MESSAGES` permission (`CREATE_PUBLIC_THREADS` is ignored).
+- The maximum request size when sending a message is **8MiB**.
+- For the embed object, you can set every field except `type` (it will be `rich` regardless of if you try to set it), `provider`, `video`, and any `height`, `width`, or `proxy_url` values for images.
+- Examples for file uploads are available in [Uploading Files](#DOCS_REFERENCE/uploading-files).
+- Files must be attached using a `multipart/form-data` body as described in [Uploading Files](#DOCS_REFERENCE/uploading-files).
+- Note that when sending a message, you must provide a value for at **least one of** `content`, `embeds`, or `files[n]`.
+
+> warn
+> Discord may strip certain characters from message content, like invalid unicode characters or characters which cause unexpected message formatting. If you are passing user-generated strings into message content, consider sanitizing the data to prevent unexpected behavior and utilizing `allowed_mentions` to prevent unexpected mentions.
+
+> info
+> This endpoint supports the `X-Audit-Log-Reason` header.
+
+###### JSON Params (For the Thread)
+
+| Field                      | Type     | Description                                                                                                         |
+|----------------------------|----------|---------------------------------------------------------------------------------------------------------------------|
+| name                       | string   | 1-100 character channel name                                                                                        |
+| auto_archive_duration?\*   | integer  | duration in minutes to automatically archive the thread after recent activity, can be set to: 60, 1440, 4320, 10080 |
+| rate_limit_per_user?       | ?integer | amount of seconds a user has to wait before sending another message (0-21600)                                       |
+
+\* The 3 day and 7 day archive durations require the server to be boosted. The [guild features](#DOCS_RESOURCES_GUILD/guild-object-guild-features) will indicate if that is possible for the guild.
+
+###### JSON Params (For the Message)
+
+| Field                | Type                                                                                              | Description                                                                                                                                                                 | Required                                    |
+| -------------------- | ------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------- |
+| content              | string                                                                                            | the message contents (up to 2000 characters)                                                                                                                                | one of content, file, embed(s), sticker_ids |
+| embeds               | array of [embed](#DOCS_RESOURCES_CHANNEL/embed-object) objects                                    | embedded `rich` content (up to 6000 characters)                                                                                                                             | one of content, file, embed(s), sticker_ids |
+| embed *(deprecated)* | [embed](#DOCS_RESOURCES_CHANNEL/embed-object) object                                              | embedded `rich` content, deprecated in favor of `embeds`                                                                                                                    | one of content, file, embed(s), sticker_ids |
+| allowed_mentions     | [allowed mention object](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object)                         | allowed mentions for the message                                                                                                                                            | false                                       |
+| components           | array of [message component](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-object) objects      | the components to include with the message                                                                                                                                  | false                                       |
+| sticker_ids          | array of snowflakes                                                                               | IDs of up to 3 [stickers](#DOCS_RESOURCES_STICKER/sticker-object) in the server to send in the message                                                                      | one of content, file, embed(s), sticker_ids |
+| files[n] \*          | file contents                                                                                     | the contents of the file being sent                                                                                                                                         | one of content, file, embed(s), sticker_ids |
+| payload_json \*      | string                                                                                            | JSON encoded body of non-file params                                                                                                                                        | `multipart/form-data` only                  |
+| attachments \*       | array of partial [attachment](#DOCS_RESOURCES_CHANNEL/attachment-object) objects                  | attachment objects with filename and description                                                                                                                            | false                                       |
+| flags                | integer                                                                                           | [message flags](#DOCS_RESOURCES_CHANNEL/message-object-message-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field) (only `SUPPRESS_EMBEDS` can be set) | false                                       |
+
+\* See [Uploading Files](#DOCS_REFERENCE/uploading-files) for details.
 
 ## Join Thread % PUT /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/thread-members/@me
 

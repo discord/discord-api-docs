@@ -150,6 +150,7 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 10069  | Unknown Guild Welcome Screen                                                                                                  |
 | 10070  | Unknown Guild Scheduled Event                                                                                                 |
 | 10071  | Unknown Guild Scheduled Event User                                                                                            |
+| 10087  | Unknown Tag                                                                                                                   |
 | 20001  | Bots cannot use this endpoint                                                                                                 |
 | 20002  | Only bots can use this endpoint                                                                                               |
 | 20009  | Explicit content cannot be sent to the desired recipient(s)                                                                   |
@@ -184,6 +185,8 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 30040  | Maximum number of prune requests has been reached. Try again later                                                            |
 | 30042  | Maximum number of guild widget settings updates has been reached. Try again later                                             |
 | 30046  | Maximum number of edits to messages older than 1 hour reached. Try again later                                                |
+| 30047  | Maximum number of pinned threads in a forum channel has been reached                                                          |
+| 30048  | Maximum number of tags in a forum channel has been reached                                                                    |
 | 40001  | Unauthorized. Provide a valid token and try again                                                                             |
 | 40002  | You need to verify your account in order to perform this action                                                               |
 | 40003  | You are opening direct messages too fast                                                                                      |
@@ -195,6 +198,7 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 40033  | This message has already been crossposted                                                                                     |
 | 40041  | An application command with that name already exists                                                                          |
 | 40060  | Interaction has already been acknowledged                                                                                     |
+| 40061  | Tag names must be unique                                                                                                      |
 | 50001  | Missing access                                                                                                                |
 | 50002  | Invalid account type                                                                                                          |
 | 50003  | Cannot execute action on a DM channel                                                                                         |
