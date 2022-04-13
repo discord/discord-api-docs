@@ -8,7 +8,7 @@
 
 Welcome to Discord’s APIs, software development kits (**“SDKs”**), and associated documentation (collectively, **"APIs"**). 
 
-Throughout this document, we use the word **_“Terms”_** to refer to the terms below, terms within the accompanying API and SDK documentation, our [Discord Developer Policy](#DOCS_POLICY/), and any applicable policies and guidelines. If there is a conflict between these terms and additional terms applicable to a given API, the additional terms will control for that conflict. 
+Throughout this document, we use the word **_“Terms”_** to refer to the terms below, terms within the accompanying API and SDK documentation, our [Discord Developer Policy](#DOCS_POLICIES_AND_AGREEMENTS_DEVELOPER_POLICY), and any applicable policies and guidelines. If there is a conflict between these terms and additional terms applicable to a given API, the additional terms will control for that conflict. 
 
 # Section 1: Acceptance of the Terms and Registration
 
