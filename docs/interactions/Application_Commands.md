@@ -902,7 +902,7 @@ Application commands may be partially localized - not all [available locales](#D
 
 Localized option names are subject to an additional constraint, which is that they must be distinct from all other default option names of that command, as well as all other option names within that locale on that command.
 
-When taking advantage of application command localization, the interaction payload received by your client will still use default command, subcommand, and option names. To localize your interaction response, you can determine the client's selected language by using the `locale` key in the interaction payload.
+When taking advantage of command localization, the interaction payload received by your client will still use default command, subcommand, and option names. To localize your interaction response, you can determine the client's selected language by using the `locale` key in the interaction payload.
 
 An application command furnished with localizations might look like this:
 
