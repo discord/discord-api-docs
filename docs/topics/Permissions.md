@@ -1,12 +1,16 @@
 # Permissions
 
-Permissions in Discord are a way to limit and grant certain abilities to users. A set of base permissions can be configured at the guild level for different roles. When these roles are attached to users, they grant or revoke specific privileges within the guild. Along with the guild-level permissions, Discord also supports permission overwrites that can be assigned to individual guild roles or guild members on a per-channel basis.
+Permissions are a way to limit and grant certain abilities to users in Discord. A set of base permissions can be configured at the guild level for different roles. When these roles are attached to users, they grant or revoke specific privileges within the guild. Along with the guild-level permissions, Discord also supports permission overwrites that can be assigned to individual roles or members on a per-channel basis.
 
-Permissions are stored within a variable-length integer serialized into a string, and are calculated using bitwise operations. For example, the permission value `123` will be serialized as `"123"`. For long-term stability, we recommend deserializing the permissions using your languages' Big Integer libraries. The total permissions integer can be determined by ORing together each individual value, and flags can be checked using AND operations.
+> info
+> [Application command permissions](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/permissions) allow you to enable or disable specific commands for entire channels in addition to individual roles or users.
 
-In API v8, all permissions—including `allow` and `deny` fields in overwrites—are serialized as strings. There are also no longer `_new` permission fields; all new permissions are rolled back into the base field.
+Permissions are stored in a variable-length integer serialized into a string, and are calculated using bitwise operations. For example, the permission value `123` will be serialized as `"123"`. For long-term stability, it's recommended to deserialize the permissions using your preferred languages' Big Integer libraries. The total permissions integer can be determined by OR-ing (`|`) together each individual value, and flags can be checked using AND (`&`) operations.
 
-In API v6, the `permissions`, `allow`, and `deny` fields in roles and overwrites are still serialized as a number; however, these numbers shall not grow beyond 31 bits. During the remaining lifetime of API v6, all new permission bits will only be introduced in `permissions_new`, `allow_new`, and `deny_new`. These `_new` fields are just for response serialization; requests with these fields should continue to use the original `permissions`, `allow`, and `deny` fields, which accept both string or number values.
+In API v8 and above, all permissions are serialized as strings, including the `allow` and `deny` fields in overwrites. Any new permissions are rolled back into the base field.
+
+> info
+> In [API v6 (now deprecated)](#DOCS_REFERENCE), the `permissions`, `allow`, and `deny` fields in roles and overwrites are still serialized as a number; however, these numbers shall not grow beyond 31 bits. During the remaining lifetime of API v6, all new permission bits will only be introduced in `permissions_new`, `allow_new`, and `deny_new`. These `_new` fields are just for response serialization; requests with these fields should continue to use the original `permissions`, `allow`, and `deny` fields, which accept both string or number values.
 
 ```python
 # Permissions value that can Send Messages (0x800) and Add Reactions (0x40):
@@ -74,7 +78,7 @@ Below is a table of all current permissions, their integer values in hexadecimal
 
 **\*\* See [Permissions for Timed Out Members](#DOCS_TOPICS_PERMISSIONS/permissions-for-timed-out-members) to understand how permissions are temporarily modified for timed out users.**
 
-Note that these internal permission names may be referred to differently by the Discord client. For example, "Manage Permissions" refers to MANAGE_ROLES, "Use Voice Activity" refers to USE_VAD, and "Timeout Members" refers to MODERATE_MEMBERS.
+Note that permission names may be referred to differently in the Discord client. For example, "Manage Permissions" refers to MANAGE_ROLES, "Use Voice Activity" refers to USE_VAD, and "Timeout Members" refers to MODERATE_MEMBERS.
 
 ## Permission Hierarchy
 
@@ -89,7 +93,7 @@ Otherwise, permissions do not obey the role hierarchy. For example, a user has t
 
 ## Permission Overwrites
 
-Certain permissions can be applied to roles or directly to members on a channel-level by using permission overwrites. Applicable permissions are indicated by a **T** for text channels, **V** for voice channels, or **S** for stage channels in the table above.
+Overwrites can be used to apply certain permissions to roles or members on a channel-level. Applicable permissions are indicated by a **T** for text channels, **V** for voice channels, or **S** for stage channels in the table above.
 
 When using overwrites, there are cases where permission collisions could occur for a user; that is to say, the user may have certain overwrites with permissions that contradict each other or their guild-level role permissions. With this in mind, permissions are applied to users in the following hierarchy:
 

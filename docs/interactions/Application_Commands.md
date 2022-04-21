@@ -21,11 +21,13 @@ Application commands are commands that an application can register to Discord. T
 | description                 | string                                                                                                                                         | Description for `CHAT_INPUT` commands, 1-100 characters. Empty string for `USER` and `MESSAGE` commands                | all         |
 | description_localizations?  | ?dictionary with keys in [available locales](#DOCS_REFERENCE/locales)                                                                          | Localization dictionary for `description` field. Values follow the same restrictions as `description`            | all         |
 | options?                    | array of [application command option](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-structure) | Parameters for the command, max of 25                                                                               | CHAT_INPUT  |
-| default_permission?         | boolean                                                                                                                                        | Indicates whether the command is enabled by default when the app is added to a guild, defaults to `true`                          | all         |
-| default_member_permissions? | string                                                                                                                                         | Set of [permissions](#DOCS_TOPICS_PERMISSIONS) combined using the bitwise OR (`|`) operator, converted to a string | all         |
+| default_member_permissions? | ?string                                                                                                                                         | Set of [permissions](#DOCS_TOPICS_PERMISSIONS) combined using the bitwise OR (`|`) operator, serialized as a string | all         |
 | dm_permission?              | boolean                                                                                                                                        | Indicates whether the command is available in DMs with the app, only for globally-scoped commands | all         |
+| default_permission?         | ?boolean                                                                                                                                        | Not recommended for use as field will soon be deprecated. Indicates whether the command is enabled by default when the app is added to a guild, defaults to `true`                          | all         |
 | version                     | snowflake                                                                                                                                      | Autoincrementing version identifier updated during substantial record changes                                        | all         |
 
+> danger
+> `default_permission` will soon be deprecated. You should instead set `default_member_permissions` to `"0"` to disable the command by default.
 
 ###### Application Command Types
 
@@ -291,12 +293,16 @@ Application command permissions allow you to enable or disable commands for spec
 | USER    | 2     |
 | CHANNEL | 3     |
 
-To allow for fine-tuned access to commands, permission overwrites are supported for guild and global commands of all types. Guild members and apps with the proper permissions can allow/deny specific users and roles from using a command, or enable/disable commands for entire channels. [TODO: link somewhere with more info]
+To allow for fine-tuned access to commands, permission overwrites are supported for guild and global commands of all types. Guild members and apps with the proper permissions can allow/deny specific users and roles from using a command, or enable/disable commands for entire channels.
+
+Similar to how threads [inherit user and role permissions from the parent channel](#DOCS_TOPICS_THREADS/permissions), any command overwrites for a channel will apply to any threads within it.
 
 > info
 > If you don't have permission to use a command, they'll show up in the command picker as disabled and unusable. They will **not** be hidden.
 
-You can also set a `default_permission` on your commands if you want them to be disabled by default when your app is added to a new guild. Setting `default_permission` to `false` will disallow _anyone_ in a guild from using the command, unless a specific overwrite is configured. It will also disable the command from being usable in DMs.
+The `default_member_permissions` field to set default permissions a user must have to use the command when your app is added to a new guild. The value for `default_member_permissions` is a bitwise OR-ed set of [permissions](#DOCS_TOPICS_PERMISSIONS/permissions-bitwise-permission-flags), expressed to a string. Setting it to `"0"` will disallow _anyone_ in a guild from using the command, unless a specific overwrite is configured.
+
+You can also use the `dm_permission` flag to control whether a global command can be run in DMs with your app.
 
 For example, this command will not be usable by anyone in any guilds by default:
 
@@ -305,28 +311,41 @@ For example, this command will not be usable by anyone in any guilds by default:
     "name": "permissions_test",
     "description": "A test of default permissions",
     "type": 1,
-    "default_permission": false
+    "default_member_permissions": "0"
 }
 ```
 
-To enable it just for a moderator role:
+Or this would enable it just for users that have the `MANAGE_GUILD` permission:
 
 ```py
-MODERATOR_ROLE_ID = "<moderator_role_id>"
+permissions = str(1 << 5)
+
+command = {
+    "name": "permissions_test",
+    "description": "A test of default permissions",
+    "type": 1,
+    "default_member_permissions": permissions
+}
+```
+
+And the following would disable a command for a specific channel:
+
+```py
+A_SPECIFIC_CHANNEL = "<channel_id>"
 url = "https://discord.com/api/v8/applications/<my_application_id>/guilds/<my_guild_id>/commands/<my_command_id>/permissions"
 
 json = {
     "permissions": [
         {
-            "id": MODERATOR_ROLE_ID,
-            "type": 1,
-            "permission": True
+            "id": A_SPECIFIC_CHANNEL,
+            "type": 3,
+            "permission": False
         }
     ]
 }
 
 headers = {
-    "Authorization": "Bot <my_bot_token>"
+    "Authorization": "Bearer <my_bot_token>"
 }
 
 r = requests.put(url, headers=headers, json=json)
@@ -1010,7 +1029,9 @@ Create a new global command. New global commands will be available in all guilds
 | description                | string                                                                                                                                         | 1-100 character description                                                                                          |
 | description_localizations? | ?dictionary with keys in [available locales](#DOCS_REFERENCE/locales)                                                                          | Localization dictionary for the `description` field. Values follow the same restrictions as `description`            |
 | options?                   | array of [application command option](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-structure) | the parameters for the command                                                                                       |
-| default_permission?        | boolean (default `true`)                                                                                                                       | whether the command is enabled by default when the app is added to a guild                                           |
+| default_member_permissions? | ?string                                                                                                                                       | Set of [permissions](#DOCS_TOPICS_PERMISSIONS) combined using the bitwise OR (`|`) operator, serialized as a string |
+| dm_permission?              | boolean                                                                                                                                       | Indicates whether the command is available in DMs with the app, only for globally-scoped commands |
+| default_permission?        | boolean (default `true`)                                                                                                                       | Replaced by `default_member_permissions` and will be deprecated in the future. Indicates whether the command is enabled by default when the app is added to a guild.                                           |                                          |
 | type?                      | one of [application command type](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-types)                | the type of command, defaults `1` if not set                                                                         |
 
 ## Get Global Application Command % GET /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/commands/{command.id#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object}
@@ -1033,7 +1054,9 @@ Edit a global command. Updates will be available in all guilds after 1 hour. Ret
 | description?               | string                                                                                                                                         | 1-100 character description                                                                                          |
 | description_localizations? | ?dictionary with keys in [available locales](#DOCS_REFERENCE/locales)                                                                          | Localization dictionary for the `description` field. Values follow the same restrictions as `description`            |
 | options?                   | array of [application command option](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-structure) | the parameters for the command                                                                                       |
-| default_permission?        | boolean (default `true`)                                                                                                                       | whether the command is enabled by default when the app is added to a guild                                           |
+| default_member_permissions? | ?string                                                                                                                                       | Set of [permissions](#DOCS_TOPICS_PERMISSIONS) combined using the bitwise OR (`|`) operator, serialized as a string |
+| dm_permission?              | boolean                                                                                                                                       | Indicates whether the command is available in DMs with the app |
+| default_permission?        | boolean (default `true`)                                                                                                                       | Replaced by `default_member_permissions` and will be deprecated in the future. Indicates whether the command is enabled by default when the app is added to a guild.                                           |                                        |
 
 ## Delete Global Application Command % DELETE /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/commands/{command.id#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object}
 
@@ -1075,7 +1098,8 @@ Create a new guild command. New guild commands will be available in the guild im
 | description                | string                                                                                                                                         | 1-100 character description                                                                                          |
 | description_localizations? | ?dictionary with keys in [available locales](#DOCS_REFERENCE/locales)                                                                          | Localization dictionary for the `description` field. Values follow the same restrictions as `description`            |
 | options?                   | array of [application command option](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-structure) | the parameters for the command                                                                                       |
-| default_permission?        | boolean (default `true`)                                                                                                                       | whether the command is enabled by default when the app is added to a guild                                           |
+| default_member_permissions? | ?string                                                                                                                                       | Set of [permissions](#DOCS_TOPICS_PERMISSIONS) combined using the bitwise OR (`|`) operator, serialized as a string |
+| default_permission?        | boolean (default `true`)                                                                                                                       | Replaced by `default_member_permissions` and will be deprecated in the future. Indicates whether the command is enabled by default when the app is added to a guild.                                           |                                        |
 | type?                      | one of [application command type](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-types)                | the type of command, defaults `1` if not set                                                                         |
 
 ## Get Guild Application Command % GET /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/commands/{command.id#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object}
@@ -1098,7 +1122,9 @@ Edit a guild command. Updates for guild commands will be available immediately. 
 | description?               | string                                                                                                                                         | 1-100 character description                                                                                          |
 | description_localizations? | ?dictionary with keys in [available locales](#DOCS_REFERENCE/locales)                                                                          | Localization dictionary for the `description` field. Values follow the same restrictions as `description`            |
 | options?                   | array of [application command option](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-structure) | the parameters for the command                                                                                       |
-| default_permission?        | boolean (default `true`)                                                                                                                       | whether the command is enabled by default when the app is added to a guild                                           |
+| default_member_permissions? | ?string                                                                                                                                       | Set of [permissions](#DOCS_TOPICS_PERMISSIONS) combined using the bitwise OR (`|`) operator, serialized as a string |
+| dm_permission?              | boolean                                                                                                                                       | Indicates whether the command is available in DMs with the app, only for globally-scoped commands |
+| default_permission?        | boolean (default `true`)                                                                                                                       | Replaced by `default_member_permissions` and will be deprecated in the future. Indicates whether the command is enabled by default when the app is added to a guild.                                           |                                      |
 
 ## Delete Guild Application Command % DELETE /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/commands/{command.id#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object}
 
@@ -1120,9 +1146,11 @@ Takes a list of application commands, overwriting the existing command list for 
 | name_localizations?        | ?dictionary with keys in [available locales](#DOCS_REFERENCE/locales)                                                                          | Localization dictionary for the `name` field. Values follow the same restrictions as `name`                          |
 | description                | string                                                                                                                                         | 1-100 character description                                                                                          |
 | description_localizations? | ?dictionary with keys in [available locales](#DOCS_REFERENCE/locales)                                                                          | Localization dictionary for the `description` field. Values follow the same restrictions as `description`            |
-| options?                   | array of [application command option](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-structure) | the parameters for the command                                                                                       |
-| default_permission?        | boolean (default `true`)                                                                                                                       | whether the command is enabled by default when the app is added to a guild                                           |
-| type?                      | one of [application command type](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-types)                | the type of command, defaults `1` if not set                                                                         |
+| options?                   | array of [application command option](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-structure) | Parameters for the command                                                                                       |
+| default_member_permissions? | ?string                                                                                                                                       | Set of [permissions](#DOCS_TOPICS_PERMISSIONS) combined using the bitwise OR (`|`) operator, serialized as a string |
+| dm_permission?              | boolean                                                                                                                                       | Indicates whether the command is available in DMs with the app, only for globally-scoped commands |
+| default_permission?        | boolean (default `true`)                                                                                                                       | Replaced by `default_member_permissions` and will be deprecated in the future. Indicates whether the command is enabled by default when the app is added to a guild.                                           |
+| type?                      | one of [application command type](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-types)                | The type of command, defaults `1` if not set                                                                         |
 
 ## Get Guild Application Command Permissions % GET /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/commands/permissions
 
@@ -1159,7 +1187,3 @@ Returns a [GuildApplicationCommandPermissions](#DOCS_INTERACTIONS_APPLICATION_CO
 
 > danger
 > This endpoint has been deprecated [TODO - link to changelog]. Instead, you can [edit each application command permissions](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/edit-application-command-permissions) (though you should be careful to handle any [rate limits](#DOCS_TOPICS_RATE_LIMITS)).
-
-Batch edits permissions for all commands in a guild. Takes an array of partial [guild application command permissions](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-permissions-object-guild-application-command-permissions-structure) objects including `id` and `permissions`.
-
-Returns an array of [GuildApplicationCommandPermissions](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-permissions-object-guild-application-command-permissions-structure) objects.
