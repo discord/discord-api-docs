@@ -10,19 +10,21 @@ Application commands are commands that an application can register to Discord. T
 
 ###### Application Command Structure
 
-| Field                      | Type                                                                                                                                           | Description                                                                                                          | Valid Types |
-|----------------------------|------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------|-------------|
-| id                         | snowflake                                                                                                                                      | unique id of the command                                                                                             | all         |
-| type?                      | one of [application command type](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-types)                | the type of command, defaults `1` if not set                                                                         | all         |
-| application_id             | snowflake                                                                                                                                      | unique id of the parent application                                                                                  | all         |
-| guild_id?                  | snowflake                                                                                                                                      | guild id of the command, if not global                                                                               | all         |
-| name                       | string                                                                                                                                         | [1-32 character name](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-naming) | all         |
-| name_localizations?        | ?dictionary with keys in [available locales](#DOCS_REFERENCE/locales)                                                                          | Localization dictionary for the `name` field. Values follow the same restrictions as `name`                          | all         |
-| description                | string                                                                                                                                         | 1-100 character description for `CHAT_INPUT` commands, empty string for `USER` and `MESSAGE` commands                | all         |
-| description_localizations? | ?dictionary with keys in [available locales](#DOCS_REFERENCE/locales)                                                                          | Localization dictionary for the `description` field. Values follow the same restrictions as `description`            | all         |
-| options?                   | array of [application command option](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-structure) | the parameters for the command, max 25                                                                               | CHAT_INPUT  |
-| default_permission?        | boolean                                                                                                                                        | whether the command is enabled by default when the app is added to a guild (default `true`)                          | all         |
-| version                    | snowflake                                                                                                                                      | autoincrementing version identifier updated during substantial record changes                                        | all         |
+| Field                       | Type                                                                                                                                           | Description                                                                                                          | Valid Types |
+|-----------------------------|------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------|-------------|
+| id                          | snowflake                                                                                                                                      | Unique ID of command                                                                                             | all         |
+| type?                       | one of [application command type](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-types)                | [Type of command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-types), defaults to `1`                                                                      | all         |
+| application_id              | snowflake                                                                                                                                      | ID of the parent application                                                                                  | all         |
+| guild_id?                   | snowflake                                                                                                                                      | Guild ID of the command, only for guild-scoped commands                                                                               | all         |
+| name                        | string                                                                                                                                         | [Name of command]((#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-naming)), 1-32 characters | all         |
+| name_localizations?         | ?dictionary with keys in [available locales](#DOCS_REFERENCE/locales)                                                                          | Localization dictionary for `name` field. Values follow the same restrictions as `name`                          | all         |
+| description                 | string                                                                                                                                         | Description for `CHAT_INPUT` commands, 1-100 characters. Empty string for `USER` and `MESSAGE` commands                | all         |
+| description_localizations?  | ?dictionary with keys in [available locales](#DOCS_REFERENCE/locales)                                                                          | Localization dictionary for `description` field. Values follow the same restrictions as `description`            | all         |
+| options?                    | array of [application command option](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-structure) | Parameters for the command, max of 25                                                                               | CHAT_INPUT  |
+| default_permission?         | boolean                                                                                                                                        | Indicates whether the command is enabled by default when the app is added to a guild, defaults to `true`                          | all         |
+| default_member_permissions? | string                                                                                                                                         | Set of [permissions](#DOCS_TOPICS_PERMISSIONS) combined using the bitwise OR (`|`) operator, converted to a string | all         |
+| dm_permission?              | boolean                                                                                                                                        | Indicates whether the command is available in DMs with the app, only for globally-scoped commands | all         |
+| version                     | snowflake                                                                                                                                      | Autoincrementing version identifier updated during substantial record changes                                        | all         |
 
 
 ###### Application Command Types
@@ -244,9 +246,19 @@ Commands can be deleted and updated by making `DELETE` and `PATCH` calls to the 
 
 Because commands have unique names within a type and scope, we treat `POST` requests for new commands as upserts. That means **making a new command with an already-used name for your application will update the existing command**.
 
-Full documentation of endpoints can be found [here](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/endpoints).
+Full documentation of endpoints can be found [below](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/endpoints).
 
 ## Permissions
+
+Application command permissions allow your app to enable or disable commands for up to 100 specific users, roles, and channels within a guild.
+
+> warn
+> Command permissions can only be edited using a Bearer token. Authenticating with a bot token will result in an error.
+
+To modify a command's permissions, your app can call the [Edit Application Command Permissions endpoint](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/edit-application-command-permissions) using a Bearer token that has been authorized with the [`applications.commands.permissions.update`](TODO - link) scope from a user with sufficient permissions. For permissions to be considered sufficient, all of the following must be true for **the authenticating user** (not your app or bot user):
+- Has [permissions to Manage Guild and Manage Roles](#DOCS_TOPICS_PERMISSIONS) for the relevant guild
+- Has ability to run the command being edited
+- Has permission to manage the resources that will be affected (roles, users, and/or channels depending on the [permission types](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-permissions-object-application-command-permission-type))
 
 ### Application Command Permissions Object
 
@@ -259,29 +271,30 @@ Returned when fetching the permissions for a command in a guild.
 | id             | snowflake                                                                                                                                                            | the id of the command                            |
 | application_id | snowflake                                                                                                                                                            | the id of the application the command belongs to |
 | guild_id       | snowflake                                                                                                                                                            | the id of the guild                              |
-| permissions    | array of [application command permissions](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-permissions-object-application-command-permissions-structure) | the permissions for the command in the guild     |
+| permissions    | array of [application command permissions](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-permissions-object-application-command-permissions-structure) | the permissions for the command in the guild, up to 100     |
 
 ###### Application Command Permissions Structure
 
-Application command permissions allow you to enable or disable commands for specific users or roles within a guild.
+Application command permissions allow you to enable or disable commands for specific users, roles, or channels within a guild.
 
-| Field      | Type                                                                                                                                                      | Description                           |
-| ---------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------- |
-| id         | snowflake                                                                                                                                                 | the id of the role or user            |
-| type       | [application command permission type](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-permissions-object-application-command-permission-type) | role or user                          |
-| permission | boolean                                                                                                                                                   | `true` to allow, `false`, to disallow |
+| Field      | Type                                                                                                                                                      | Description                              |
+| ---------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------- |
+| id         | snowflake                                                                                                                                                 | the ID of the role, user, or channel     |
+| type       | [application command permission type](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-permissions-object-application-command-permission-type) | role (`1`), user (`2`), or channel (`3`) |
+| permission | boolean                                                                                                                                                   | `true` to allow, `false`, to disallow    |
 
 ###### Application Command Permission Type
 
-| Name | Value |
-| ---- | ----- |
-| ROLE | 1     |
-| USER | 2     |
+| Name    | Value |
+| ------- | ----- |
+| ROLE    | 1     |
+| USER    | 2     |
+| CHANNEL | 3     |
 
-Need to keep some of your commands safe from prying eyes, or only available to the right people? Commands support permission overwrites! For both guild _and_ global commands of all types, you can enable or disable a specific user or role in a guild from using a command.
+To allow for fine-tuned access to commands, permission overwrites are supported for guild and global commands of all types. Guild members and apps with the proper permissions can allow/deny specific users and roles from using a command, or enable/disable commands for entire channels. [TODO: link somewhere with more info]
 
 > info
-> For now, if you don't have permission to use a command, they'll show up in the command picker as disabled and unusable. They will **not** be hidden.
+> If you don't have permission to use a command, they'll show up in the command picker as disabled and unusable. They will **not** be hidden.
 
 You can also set a `default_permission` on your commands if you want them to be disabled by default when your app is added to a new guild. Setting `default_permission` to `false` will disallow _anyone_ in a guild from using the command, unless a specific overwrite is configured. It will also disable the command from being usable in DMs.
 
@@ -1124,12 +1137,17 @@ Fetches command permissions for a specific command for your application in a gui
 > warn
 > This endpoint will overwrite existing permissions for the command in that guild
 
+> info
+> This endpoint requires authentication with a Bearer token that has permission to manage the guild and its roles. For more information, read [TODO - link to section]
+
 Edits command permissions for a specific command for your application in a guild.
-You can only add up to 10 permission overwrites for a command.
+
+You can add up to 100 permission overwrites for a command.
+
 Returns a [GuildApplicationCommandPermissions](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-permissions-object-guild-application-command-permissions-structure) object.
 
 > warn
-> Deleting or renaming a command will permanently delete all permissions for that command
+> Deleting or renaming a command will permanently delete all permissions for the command
 
 ###### JSON Params
 
@@ -1139,50 +1157,9 @@ Returns a [GuildApplicationCommandPermissions](#DOCS_INTERACTIONS_APPLICATION_CO
 
 ## Batch Edit Application Command Permissions % PUT /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/commands/permissions
 
-> warn
-> This endpoint will overwrite all existing permissions for all commands in a guild, including slash commands, user commands, and message commands.
+> danger
+> This endpoint has been deprecated [TODO - link to changelog]. Instead, you can [edit each application command permissions](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/edit-application-command-permissions) (though you should be careful to handle any [rate limits](#DOCS_TOPICS_RATE_LIMITS)).
 
 Batch edits permissions for all commands in a guild. Takes an array of partial [guild application command permissions](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-permissions-object-guild-application-command-permissions-structure) objects including `id` and `permissions`.
 
-You can only add up to 10 permission overwrites for a command.
-
 Returns an array of [GuildApplicationCommandPermissions](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-permissions-object-guild-application-command-permissions-structure) objects.
-
-###### Example
-
-```py
-FIRST_COMMAND_ID = "<first_command_id>"
-SECOND_COMMAND_ID = "<second_command_id>"
-ADMIN_ROLE_ID = "<admin_role_id>"
-
-url = "https://discord.com/api/v8/applications/<my_application_id>/guilds/<my_guild_id>/commands/permissions"
-
-json = [
-    {
-        "id": FIRST_COMMAND_ID,
-        "permissions": [
-            {
-                "id": ADMIN_ROLE_ID,
-                "type": 1,
-                "permission": True
-            }
-        ]
-    },
-    {
-        "id": SECOND_COMMAND_ID,
-        "permissions": [
-            {
-                "id": ADMIN_ROLE_ID,
-                "type": 1,
-                "permission": False
-            }
-        ]
-    }
-]
-
-headers = {
-    "Authorization": "Bot <my_bot_token>"
-}
-
-r = requests.put(url, headers=headers, json=json)
-```

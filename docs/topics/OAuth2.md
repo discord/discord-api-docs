@@ -28,7 +28,8 @@ These are a list of all the OAuth2 scopes that Discord supports. Some scopes req
 | applications.builds.read     | allows your app to read build data for a user's applications                                                                                                                             |
 | applications.builds.upload   | allows your app to upload/update builds for a user's applications - requires Discord approval                                                                                            |
 | applications.commands        | allows your app to use [commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/) in a guild                                                                                                   |
-| applications.commands.update | allows your app to update its [commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/) via this bearer token - [client credentials grant](#DOCS_TOPICS_OAUTH2/client-credentials-grant) only |
+| applications.commands.update | allows your app to update its [commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/) using a Bearer token - [client credentials grant](#DOCS_TOPICS_OAUTH2/client-credentials-grant) only |
+| applications.commands.permissions.update | allows your app to update [permissions for its commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/permissions) using a Bearer token - [client credentials grant](#DOCS_TOPICS_OAUTH2/client-credentials-grant) only |
 | applications.entitlements    | allows your app to read entitlements for a user's applications                                                                                                                           |
 | applications.store.update    | allows your app to read and update store data (SKUs, store listings, achievements, etc.) for a user's applications                                                                       |
 | bot                          | for oauth2 bots, this puts the bot in the user's selected guild by default                                                                                                               |
@@ -234,7 +235,7 @@ So, what are bot accounts?
 
 ### Bot vs User Accounts
 
-Discord's API provides a separate type of user account dedicated to automation, called a bot account. Bot accounts can be created through the [applications page](#APPLICATIONS), and are authenticated using a token (rather than a username and password). Unlike the normal OAuth2 flow, bot accounts have full access to all API routes without using bearer tokens, and can connect to the [Real Time Gateway](#DOCS_TOPICS_GATEWAY/gateways). Automating normal user accounts (generally called "self-bots") outside of the OAuth2/bot API is forbidden, and can result in account termination if found.
+Discord's API provides a separate type of user account dedicated to automation, called a bot account. Bot accounts can be created through the [applications page](#APPLICATIONS), and are authenticated using a token (rather than a username and password). Unlike the normal OAuth2 flow, bot accounts have full access to most API routes without using bearer tokens, and can connect to the [Real Time Gateway](#DOCS_TOPICS_GATEWAY/gateways). Automating normal user accounts (generally called "self-bots") outside of the OAuth2/bot API is forbidden, and can result in account termination if found.
 
 Bot accounts have a few differences in comparison to normal user accounts, namely:
 
