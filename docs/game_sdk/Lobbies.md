@@ -1385,8 +1385,6 @@ Deletes a lobby.
 
 ## Update Lobby Member % PATCH /lobbies/{lobby.id#DOCS_GAME_SDK_LOBBIES/data-models-lobby-struct}/members/{user.id#DOCS_RESOURCES_USER/user-object}
 
-`PATCH https://discord.com/api/v6/lobbies/<lobby_id>/members/<user_id>`
-
 Updates the metadata for a lobby member.
 
 ###### Parameters
