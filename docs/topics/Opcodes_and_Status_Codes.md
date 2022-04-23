@@ -34,7 +34,7 @@ In order to prevent broken reconnect loops, you should consider some close codes
 | 4004 | Authentication failed | The account token sent with your [identify payload](#DOCS_TOPICS_GATEWAY/identify) is incorrect.                                                                                                                                 | false     |
 | 4005 | Already authenticated | You sent more than one identify payload. Don't do that!                                                                                                                                                                          | true      |
 | 4007 | Invalid `seq`         | The sequence sent when [resuming](#DOCS_TOPICS_GATEWAY/resume) the session was invalid. Reconnect and start a new session.                                                                                                       | true      |
-| 4008 | Rate limited          | Woah nelly! You're sending payloads to us too quickly. Slow it down! You will be disconnected on receiving this.                                                                                                                 | true      |
+| 4008 | Rate limited          | Woah nelly! You're sending payloads to us too quickly. Slow it down!                                                                                                                                                             | true      |
 | 4009 | Session timed out     | Your session timed out. Reconnect and start a new one.                                                                                                                                                                           | true      |
 | 4010 | Invalid shard         | You sent us an invalid [shard when identifying](#DOCS_TOPICS_GATEWAY/sharding).                                                                                                                                                  | false     |
 | 4011 | Sharding required     | The session would have handled too many guilds - you are required to [shard](#DOCS_TOPICS_GATEWAY/sharding) your connection in order to connect.                                                                                 | false     |
@@ -60,7 +60,7 @@ Our voice gateways have their own set of opcodes and close codes.
 | 7    | Resume              | client            | Resume a connection.                                     |
 | 8    | Hello               | server            | Time to wait between sending heartbeats in milliseconds. |
 | 9    | Resumed             | server            | Acknowledge a successful session resume.                 |
-| 13   | Client Disconnect   | server            | A client has disconnected from the voice channel         |
+| 13   | Client Disconnect   | server            | A client has disconnected from the voice channel.        |
 
 ###### Voice Close Event Codes
 
