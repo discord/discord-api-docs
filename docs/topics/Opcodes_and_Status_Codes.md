@@ -152,7 +152,6 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 10071  | Unknown Guild Scheduled Event User                                                                                            |
 | 10087  | Unknown Tag                                                                                                                   |
 | 20001  | Bots cannot use this endpoint                                                                                                 |
-| 20002  | Only bots can use this endpoint                                                                                               |
 | 20009  | Explicit content cannot be sent to the desired recipient(s)                                                                   |
 | 20012  | You are not authorized to perform this action on this application                                                             |
 | 20016  | This action cannot be performed due to slowmode rate limit                                                                    |
@@ -163,7 +162,6 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 20031  | Your Stage topic, server name, server description, or channel names contain words that are not allowed                        |
 | 20035  | Guild premium subscription level too low                                                                                      |
 | 30001  | Maximum number of guilds reached (100)                                                                                        |
-| 30002  | Maximum number of friends reached (1000)                                                                                      |
 | 30003  | Maximum number of pins reached for the channel (50)                                                                           |
 | 30004  | Maximum number of recipients reached (10)                                                                                     |
 | 30005  | Maximum number of guild roles reached (250)                                                                                   |
@@ -213,7 +211,6 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 50012  | Invalid OAuth2 state                                                                                                          |
 | 50013  | You lack permissions to perform that action                                                                                   |
 | 50014  | Invalid authentication token provided                                                                                         |
-| 50015  | Note was too long                                                                                                             |
 | 50016  | Provided too few or too many messages to delete. Must provide at least 2 and fewer than 100 messages to delete                |
 | 50019  | A message can only be pinned to the channel it was sent in                                                                    |
 | 50020  | Invite code was either invalid or taken                                                                                       |
@@ -223,17 +220,14 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 50026  | Missing required OAuth2 scope                                                                                                 |
 | 50027  | Invalid webhook token provided                                                                                                |
 | 50028  | Invalid role                                                                                                                  |
-| 50033  | Invalid Recipient(s)                                                                                                          |
+| 50033  | Invalid recipient(s)                                                                                                          |
 | 50034  | A message provided was too old to bulk delete                                                                                 |
 | 50035  | Invalid form body (returned for both `application/json` and `multipart/form-data` bodies), or invalid `Content-Type` provided |
-| 50036  | An invite was accepted to a guild the application's bot is not in                                                             |
 | 50041  | Invalid API version provided                                                                                                  |
 | 50045  | File uploaded exceeds the maximum size                                                                                        |
 | 50046  | Invalid file uploaded                                                                                                         |
-| 50054  | Cannot self-redeem this gift                                                                                                  |
 | 50055  | Invalid Guild                                                                                                                 |
 | 50068  | Invalid message type                                                                                                          |
-| 50070  | Payment source required to redeem gift                                                                                        |
 | 50074  | Cannot delete a channel required for Community guilds                                                                         |
 | 50081  | Invalid sticker sent                                                                                                          |
 | 50083  | Tried to perform an operation on an archived thread, such as editing a message or adding a user to the thread                 |
