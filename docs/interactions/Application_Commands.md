@@ -27,7 +27,7 @@ Application commands are commands that an application can register to Discord. T
 | version                     | snowflake                                                                                                                                      | Autoincrementing version identifier updated during substantial record changes                                        | all         |
 
 > danger
-> `default_permission` will soon be deprecated. You should instead set `default_member_permissions` to `"0"` to disable the command by default.
+> `default_permission` will soon be deprecated. You should instead set `default_member_permissions` to `"0"` to disable the command by default and/or `dm_permission` to `true` to allow globally-scoped commands to be run inside of DMs with your app
 
 ###### Application Command Types
 
@@ -257,7 +257,7 @@ Application command permissions allow your app to enable or disable commands for
 > warn
 > Command permissions can only be edited using a Bearer token. Authenticating with a bot token will result in an error.
 
-To modify a command's permissions, your app can call the [Edit Application Command Permissions endpoint](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/edit-application-command-permissions) using a Bearer token that has been authorized with the [`applications.commands.permissions.update`](TODO - link) scope from a user with sufficient permissions. For permissions to be considered sufficient, all of the following must be true for **the authenticating user** (not your app or bot user):
+To modify a command's permissions, your app can call the [Edit Application Command Permissions endpoint](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/edit-application-command-permissions) using a Bearer token that has been authorized with the [`applications.commands.permissions.update`](#DOCS_TOPICS_OAUTH2/oauth2-scopes) scope from a user with sufficient permissions. For permissions to be considered sufficient, all of the following must be true for **the authenticating user** (not your app or bot user):
 - Has [permissions to Manage Guild and Manage Roles](#DOCS_TOPICS_PERMISSIONS) for the relevant guild
 - Has ability to run the command being edited
 - Has permission to manage the resources that will be affected (roles, users, and/or channels depending on the [permission types](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-permissions-object-application-command-permission-type))
@@ -281,9 +281,18 @@ Application command permissions allow you to enable or disable commands for spec
 
 | Field      | Type                                                                                                                                                      | Description                              |
 | ---------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------- |
-| id         | snowflake                                                                                                                                                 | the ID of the role, user, or channel     |
+| id         | snowflake                                                                                                                                                 | ID of the role, user, or channel. can also be a [permission constant](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-permissions-constants)    |
 | type       | [application command permission type](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-permissions-object-application-command-permission-type) | role (`1`), user (`2`), or channel (`3`) |
 | permission | boolean                                                                                                                                                   | `true` to allow, `false`, to disallow    |
+
+###### Application Command Permissions Constants
+
+The following constants can be used within the `id` field for command permissions payloads.
+
+| Permission                    | Value                            | Type      | Description                   |
+| ----------------------------- | -------------------------------- | ----------| ----------------------------- |
+| `@everyone`                   | `guild_id`                       | snowflake | All members in a guild        |
+| All Channels                  | `guild_id - 1`                   | snowflake | All channels in a guild       |
 
 ###### Application Command Permission Type
 
@@ -1166,7 +1175,7 @@ Fetches command permissions for a specific command for your application in a gui
 > This endpoint will overwrite existing permissions for the command in that guild
 
 > info
-> This endpoint requires authentication with a Bearer token that has permission to manage the guild and its roles. For more information, read [TODO - link to section]
+> This endpoint requires authentication with a Bearer token that has permission to manage the guild and its roles. For more information, read the [about command permissions above](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/permissions)
 
 Edits command permissions for a specific command for your application in a guild.
 
