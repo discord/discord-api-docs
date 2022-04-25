@@ -27,7 +27,7 @@ Application commands are commands that an application can register to Discord. T
 | version                     | snowflake                                                                                                                                      | Autoincrementing version identifier updated during substantial record changes                                                                                      | all         |
 
 > danger
-> `default_permission` will soon be deprecated. You should instead set `default_member_permissions` to `"0"` to disable the command by default and/or `dm_permission` to `true` to allow globally-scoped commands to be run inside of DMs with your app
+> `default_permission` will soon be deprecated. You can instead set `default_member_permissions` to `"0"` to disable the command by default and/or set `dm_permission` to `true` to allow globally-scoped commands to be run inside of DMs with your app
 
 ###### Application Command Types
 
