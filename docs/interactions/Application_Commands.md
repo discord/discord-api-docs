@@ -1,6 +1,8 @@
 # Application Commands
 
-Application commands are commands that an application can register to Discord. They provide users a first-class way of interacting directly with your application that feels deeply integrated into Discord.
+Application commands are native ways to interact with apps in the Discord client. There are 3 types of commands accessible within different interfaces—the message input, a message's context menu, or a user's context menu.
+
+![Interface for the different command types](command-types.png)
 
 ## Application Command Object
 
@@ -15,7 +17,6 @@ Application commands are commands that an application can register to Discord. T
 | id                          | snowflake                                                                                                                                      | Unique ID of command                                                                                                                                               | all         |
 | type?                       | one of [application command type](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-types)                | [Type of command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-types), defaults to `1`                                   | all         |
 | application_id              | snowflake                                                                                                                                      | ID of the parent application                                                                                                                                       | all         |
-| guild_id?                   | snowflake                                                                                                                                      | Guild ID of the command, only for guild-scoped commands                                                                                                            | all         |
 | name                        | string                                                                                                                                         | [Name of command]((#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-naming)), 1-32 characters                                | all         |
 | name_localizations?         | ?dictionary with keys in [available locales](#DOCS_REFERENCE/locales)                                                                          | Localization dictionary for `name` field. Values follow the same restrictions as `name`                                                                            | all         |
 | description                 | string                                                                                                                                         | Description for `CHAT_INPUT` commands, 1-100 characters. Empty string for `USER` and `MESSAGE` commands                                                            | all         |
@@ -252,14 +253,16 @@ Full documentation of endpoints can be found [below](#DOCS_INTERACTIONS_APPLICAT
 
 ## Permissions
 
-Application command permissions allow your app to enable or disable commands for up to 100 specific users, roles, and channels within a guild. Command permissions can also be updated by users in the client if they have the necessary permissions.
+Application command permissions allow your app to enable or disable commands for up to 100 users, roles, and channels within a guild. Command permissions can also be updated by users in the client if they have the necessary permissions.
 
 > warn
 > Command permissions can only be updated using a [Bearer token](#DOCS_TOPICS_OAUTH2/client-credentials-grant). Authenticating with a bot token will result in an error.
 
-To retrieve or update a command's permissions, your app can call the [`/applications/{application.id}/guilds/{guild.idt}/commands/{command.id}/permissions endpoint`](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/edit-application-command-permissions) using a Bearer token that must be authorized with the [`applications.commands.permissions.update`](#DOCS_TOPICS_OAUTH2/shared-resources-oauth2-scopes) scope from a user with sufficient permissions. For their permissions to be considered sufficient here, all of the following must be true for **the authenticating user** (not your app or bot user):
-- Has [permission to Manage Guild and Manage Roles](#DOCS_TOPICS_PERMISSIONS) for the relevant guild
-- Has ability to run the command being edited
+A command's current permissions can be retrieved using the [`GET /applications/{application.id}/guilds/{guild.id}/commands/{command.id}/permissions`](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/get-application-command-permissions) endpoint. The response will include an array called `permissions` with associated IDs and permission types.
+
+Command permissions can be updated with the [`PUT /applications/{application.id}/guilds/{guild.id}/commands/{command.id}/permissions endpoint`](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/edit-application-command-permissions) endpoint. To call the endpoint, apps must use a Bearer token that's authorized with the [`applications.commands.permissions.update`](#DOCS_TOPICS_OAUTH2/shared-resources-oauth2-scopes) scope from a user with sufficient permissions. For their permissions to be considered sufficient, all of the following must be true for **the authenticating user** (not your app or bot user):
+- Has [permission to Manage Guild and Manage Roles](#DOCS_TOPICS_PERMISSIONS) in the guild where the command is being edited
+- Has the ability to run the command being edited
 - Has permission to manage the resources that will be affected (roles, users, and/or channels depending on the [permission types](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-permissions-object-application-command-permission-type))
 
 ### Application Command Permissions Object
@@ -287,7 +290,7 @@ Application command permissions allow you to enable or disable commands for spec
 
 ###### Application Command Permissions Constants
 
-The following constants can be used within the `id` field for command permissions payloads.
+The following constants can be used in the `id` field for command permissions payloads.
 
 | Permission   | Value          | Type      | Description             |
 | ------------ | -------------- | --------- | ----------------------- |
@@ -304,14 +307,20 @@ The following constants can be used within the `id` field for command permission
 
 To allow for fine-tuned access to commands, application command permissions are supported for guild and global commands of all types. Guild members and apps with the [necessary permissions](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/permissions) can allow or deny specific users and roles from using a command, or toggle commands for entire channels.
 
-Similar to how threads [inherit user and role permissions from the parent channel](#DOCS_TOPICS_THREADS/permissions), any command overwrites for a channel will apply to all threads it contains.
+Similar to how threads [inherit user and role permissions from the parent channel](#DOCS_TOPICS_THREADS/permissions), any command permissions for a channel will apply to the threads it contains.
 
 > info
-> If you don't have permission to use a command, they'll show up in the command picker as disabled and unusable. They will **not** be hidden.
+> If you don't have permission to use a command, they'll show up in the command picker as disabled and unusable. They will **not** currently be hidden (though they will in the future).
 
-The `default_member_permissions` field to set the permissions a user must have to use the command. The value for `default_member_permissions` is a bitwise OR-ed set of [permissions](#DOCS_TOPICS_PERMISSIONS/permissions-bitwise-permission-flags), serialized as a string. Setting it to `"0"` will disallow _anyone_ in a guild from using the command, unless a specific overwrite is configured.
+###### Adding Default Permissions
+
+Default permissions can be added to added to a command during creation using the `default_member_permissions` and `dm_permission` fields. Adding default permissions doesn't require any Bearer token since it's configured during command creation and isn't targeting specific roles, users, or channels.
+
+The `default_member_permissions` field can be used when creating a command to set the permissions a user must have to use the command. The value for `default_member_permissions` is a bitwise OR-ed set of [permissions](#DOCS_TOPICS_PERMISSIONS/permissions-bitwise-permission-flags), serialized as a string. Setting it to `"0"` will disallow _anyone_ in a guild from using the command, unless a specific overwrite is configured.
 
 You can also use the `dm_permission` flag to control whether a global command can be run in DMs with your app. The `dm_permission` flag isn't available for guild commands.
+
+###### Example of editing permissions
 
 As an example, the following command would not be usable by anyone in any guilds by default:
 
