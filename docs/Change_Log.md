@@ -17,7 +17,7 @@ Release of Permissions v2, which adds more control and security around applicati
 - New [constant (`guild_id - 1`)](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-permissions-constants) to represent `@everyone` in command permissions
 - Adds `default_member_permissions` which is a bitwise OR-ed set of [permissions](#DOCS_TOPICS_PERMISSIONS/permissions-bitwise-permission-flags), expressed as a string. This replaces the `default_permission` field, which will soon be deprecated.
 - Adds `dm_permission` which is a boolean flag to indicate whether a command is available in DMs (only for global application commands).
-- Adds `APPLICATION_COMMAND_PERMISSION_UPDATE` [gateway](#DOCS_TOPICS_GATEWAY) and [audit log](#DOCS_RESOURCES_AUDIT_LOG) events.
+- Adds `APPLICATION_COMMAND_PERMISSION_UPDATE` [gateway](#DOCS_TOPICS_GATEWAY/application-commands-permissions-update) and [audit log](#DOCS_RESOURCES_AUDIT_LOG) events.
 
 ## Forum Channels
 
