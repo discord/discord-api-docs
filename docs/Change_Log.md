@@ -2,7 +2,7 @@
 
 ## Application Command Permissions v2
 
-#### TBD, 2022
+#### Apr 27, 2022
 
 Release of Permissions v2, which adds more control and security around application commands. You can read the major changes below, and [the updated documentation](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/permissions) for implementation details.
 
@@ -11,13 +11,13 @@ Release of Permissions v2, which adds more control and security around applicati
 - [`applications.commands.permissions.update`](#DOCS_TOPICS_OAUTH2/oauth2-scopes) scope now required to edit command permissions
 - Deprecates batch editing endpoint ([`PUT /applications/{application.id}/guilds/{guild.id}/commands/permissions`](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/batch-edit-application-command-permissions)) for command permissions 
 
-#### Other major changes
+#### Other changes
 - Adds new [`CHANNEL` command permission type](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-permissions-object-application-command-permission-type)
 - Increases permission limit from `10` to `100`
 - New [constant (`guild_id - 1`)](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-permissions-constants) to represent `@everyone` in command permissions
 - Adds `default_member_permissions` which is a bitwise OR-ed set of [permissions](#DOCS_TOPICS_PERMISSIONS/permissions-bitwise-permission-flags), expressed as a string. This replaces the `default_permission` field, which will soon be deprecated.
 - Adds `dm_permission` which is a boolean flag to indicate whether a command is available in DMs (only for global application commands).
-- Adds `APPLICATION_COMMAND_PERMISSION_UPDATE` [gateway](#DOCS_TOPICS_GATEWAY/application-commands-permissions-update) and [audit log](#DOCS_RESOURCES_AUDIT_LOG) events.
+- Adds `APPLICATION_COMMAND_PERMISSIONS_UPDATE` [gateway](#DOCS_TOPICS_GATEWAY/application-commands-permissions-update) event, and `APPLICATION_COMMAND_PERMISSION_UPDATE` [audit log](#DOCS_RESOURCES_AUDIT_LOG) events.
 
 ## Forum Channels
 
