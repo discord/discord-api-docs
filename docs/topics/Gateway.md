@@ -824,7 +824,7 @@ The inner `d` key is a boolean that indicates whether the session may be resumab
 
 #### Application Commands Permissions Update
 
-`APPLICATION_COMMAND_PERMISSIONS_UPDATE` event, sent when an application command's permissions are updated. The inner payload is an [application command permissions](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/guild-application-command-permissions-structure) object.
+`APPLICATION_COMMAND_PERMISSIONS_UPDATE` event, sent when an application command's permissions are updated. The inner payload is an [application command permissions](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-permissions-object-guild-application-command-permissions-structure) object.
 
 ### Channels
 
