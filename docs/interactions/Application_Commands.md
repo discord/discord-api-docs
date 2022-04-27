@@ -1,6 +1,6 @@
 # Application Commands
 
-Application commands are native ways to interact with apps in the Discord client. There are 3 types of commands accessible within different interfaces—the message input, a message's context menu, and a user's context menu.
+Application commands are native ways to interact with apps in the Discord client. There are 3 types of commands accessible in different interfaces: the chat input, a message's context menu (top-right menu or right-clicking in a message), and a user's context menu (right-clicking on a user).
 
 ![Interface for the different command types](command-types.png)
 
@@ -249,7 +249,7 @@ Commands can be deleted and updated by making `DELETE` and `PATCH` calls to the 
 
 Because commands have unique names within a type and scope, we treat `POST` requests for new commands as upserts. That means **making a new command with an already-used name for your application will update the existing command**.
 
-Full documentation of endpoints can be found [below](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/endpoints).
+Detailed documentation about application command endpoints and their parameters are [in the endpoints section](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/endpoints).
 
 ## Permissions
 
@@ -1188,7 +1188,7 @@ Edits command permissions for a specific command for your application in a guild
 You can add up to 100 permission overwrites for a command.
 
 > info
-> This endpoint requires authentication with a Bearer token that has permission to manage the guild and its roles. For more information, read [about command permissions above](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/permissions)
+> This endpoint requires authentication with a Bearer token that has permission to manage the guild and its roles. For more information, read above about [application command permissions](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/permissions).
 
 > warn
 > Deleting or renaming a command will permanently delete all permissions for the command
@@ -1202,4 +1202,4 @@ You can add up to 100 permission overwrites for a command.
 ## Batch Edit Application Command Permissions % PUT /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/commands/permissions
 
 > danger
-> This endpoint has been deprecated with [Application Command Permissions v2](#DOCS_CHANGE_LOG/updated-command-permissions). Instead, you can [edit each application command permissions](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/edit-application-command-permissions) (though you should be careful to handle any potential [rate limits](#DOCS_TOPICS_RATE_LIMITS)).
+> This endpoint has been deprecated with [updates to command permissions (Permissions v2)](#DOCS_CHANGE_LOG/updated-command-permissions). Instead, you can [edit each application command permissions](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/edit-application-command-permissions) (though you should be careful to handle any potential [rate limits](#DOCS_TOPICS_RATE_LIMITS)).
