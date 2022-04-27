@@ -363,7 +363,7 @@ json = {
 }
 
 headers = {
-    "Authorization": "Bearer <my_bot_token>"
+    "Authorization": "Bearer <my_bearer_token>"
 }
 
 r = requests.put(url, headers=headers, json=json)
