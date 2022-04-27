@@ -18,7 +18,7 @@ Application command permissions have been updated to add more granular control a
 - Increases permission limit from `10` to `100`
 - New [constant (`guild_id - 1`)](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-permissions-object-application-command-permissions-constants) to represent all channels in command permissions
 - Adds `default_member_permissions` which is a bitwise OR-ed set of [permissions](#DOCS_TOPICS_PERMISSIONS/permissions-bitwise-permission-flags), expressed as a string. This replaces the `default_permission` field, which will soon be deprecated.
-- Adds `dm_permission` which is a boolean flag to indicate whether a command is available in DMs (only for global application commands).
+- Adds `dm_permission` which is a nullable boolean flag to indicate whether a command is available in DMs (only for global application commands).
 - Adds `APPLICATION_COMMAND_PERMISSIONS_UPDATE` [gateway](#DOCS_TOPICS_GATEWAY/application-commands-permissions-update) event, and `APPLICATION_COMMAND_PERMISSION_UPDATE` [audit log](#DOCS_RESOURCES_AUDIT_LOG) event.
 
 ## Forum Channels
