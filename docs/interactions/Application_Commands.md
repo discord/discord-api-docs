@@ -266,6 +266,12 @@ Command permissions can be updated with the [`PUT /applications/{application.id}
 - Has the ability to run the command being edited
 - Has permission to manage the resources that will be affected (roles, users, and/or channels depending on the [permission types](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-permissions-object-application-command-permission-type))
 
+### Syncing and Unsyncing Permissions
+
+The command permissions interface can be accessed in the client by navigating to `Server Settings` > `Integrations`, then clicking `Manage` to the right of an installed app. At the top of the interface, users can edit permissions for a specific user, role, or channel. By default, these top-level permissions will apply to all of an app's commands. However, each permission can also be unsynced and customized for individual commands to provide more granular control.
+
+When the permissions for a specific command are unsynced, meaning it doesn't align with the top-level permissions, the interface will display "Not Synced" to users.
+
 ### Application Command Permissions Object
 
 ###### Guild Application Command Permissions Structure
@@ -285,7 +291,7 @@ Application command permissions allow you to enable or disable commands for spec
 
 | Field      | Type                                                                                                                                                      | Description                                                                                                                                              |
 | ---------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| id         | snowflake                                                                                                                                                 | ID of the role, user, or channel. can also be a [permission constant](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-permissions-object-application-command-permissions-constants) |
+| id         | snowflake                                                                                                                                                 | ID of the role, user, or channel. It can also be a [permission constant](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-permissions-object-application-command-permissions-constants) |
 | type       | [application command permission type](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-permissions-object-application-command-permission-type) | role (`1`), user (`2`), or channel (`3`)                                                                                                                 |
 | permission | boolean                                                                                                                                                   | `true` to allow, `false`, to disallow                                                                                                                    |
 
@@ -313,7 +319,7 @@ Similar to how threads [inherit user and role permissions from the parent channe
 > info
 > If you don't have permission to use a command, they'll show up in the command picker as disabled and unusable. They will **not** currently be hidden (though they will in the future).
 
-###### Adding Default Permissions
+###### Using Default Permissions
 
 Default permissions can be added to added to a command during creation using the `default_member_permissions` and `dm_permission` fields. Adding default permissions doesn't require any Bearer token since it's configured during command creation and isn't targeting specific roles, users, or channels.
 
