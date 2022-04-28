@@ -1,15 +1,18 @@
 # Hosting a Reddit API Discord app on Cloudflare workers
 
-When building Discord apps, you can receive common events from the client as [webhooks](https://discord.com/developers/docs/resources/webhook). Discord will call a pre-configured HTTPS endpoint, and send details on the event in a JSON payload.
+When building Discord apps, your app can receive common events from the client as [webhooks](#DOCS_RESOURCES_WEBHOOK) when users interact with your app through interactions like [application commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS) or [message components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS).
 
-This tutorial walks you through building a webhook-based Discord app powered by r/aww:
+Discord will send these events to a pre-configured HTTPS endpoint (called an Interactions Endpoint URL in an app's configuration) as a JSON payload with details about the event.
+
+This tutorial walks through building a Discord app powered by [`r/aww`](https://www.reddit.com/r/aww) using JavaScript:
 
 ![Demo of Reddit API app](cloudflare-tutorial-demo.gif)
 
 All of the code for this app can be found **[on Github](https://github.com/JustinBeckwith/awwbotcf)**.
 
-Features and technologies used in the tutorial:
-- [Discord Interactions API](https://discord.com/developers/docs/interactions/receiving-and-responding)
+### Features and technologies used
+
+- [Discord Interactions API](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING) (specifically slash commands)
 - [Cloudflare Workers](https://workers.cloudflare.com/) for hosting
 - [Reddit API](https://www.reddit.com/dev/api/) to send messages back to the user
 
