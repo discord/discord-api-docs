@@ -1333,7 +1333,7 @@ curl -x POST -h "Authorization: Bot <your token>" https://discord.com/api/some-r
 
 Here are the routes; they all expect JSON bodies. Also, hey, while you're here. You've got a bot token. You're looking at our API. You should check out all the other [awesome stuff](https://discord.com/developers/docs/intro) you can do with it!
 
-### Create Lobby % POST /lobbies
+## Create Lobby % POST /lobbies
 
 Creates a new lobby. Returns an object similar to the SDK `Lobby` struct, documented below.
 
@@ -1367,7 +1367,7 @@ To get a list of valid regions, call the [List Voice Regions](https://discord.co
 }
 ```
 
-### Update Lobby % PATCH /lobbies/{lobby.id#DOCS_LOBBIES/data-models-lobby-struct}
+## Update Lobby % PATCH /lobbies/{lobby.id#DOCS_LOBBIES/data-models-lobby-struct}
 
 Updates a lobby.
 
@@ -1379,13 +1379,11 @@ Updates a lobby.
 | metadata | dict      | metadata for the lobby - key/value pairs with types `string` |
 | capacity | int       | max lobby capacity with a default of 16                      |
 
-### Delete Lobby % DELETE /lobbies/{lobby.id#DOCS_GAME_SDK_LOBBIES/data-models-lobby-struct}
+## Delete Lobby % DELETE /lobbies/{lobby.id#DOCS_GAME_SDK_LOBBIES/data-models-lobby-struct}
 
 Deletes a lobby.
 
-### Update Lobby Member % PATCH /lobbies/{lobby.id#DOCS_GAME_SDK_LOBBIES/data-models-lobby-struct}/members/{user.id#DOCS_RESOURCES_USER/user-object}
-
-`PATCH https://discord.com/api/v6/lobbies/<lobby_id>/members/<user_id>`
+## Update Lobby Member % PATCH /lobbies/{lobby.id#DOCS_GAME_SDK_LOBBIES/data-models-lobby-struct}/members/{user.id#DOCS_RESOURCES_USER/user-object}
 
 Updates the metadata for a lobby member.
 
@@ -1395,7 +1393,7 @@ Updates the metadata for a lobby member.
 | -------- | ---- | ------------------------------------------------------------------- |
 | metadata | dict | metadata for the lobby member - key/value pairs with types `string` |
 
-### Create Lobby Search % POST /lobbies/search
+## Create Lobby Search % POST /lobbies/search
 
 Creates a lobby search for matchmaking around given criteria.
 
@@ -1443,7 +1441,7 @@ Creates a lobby search for matchmaking around given criteria.
 | STRING | 1     |
 | NUMBER | 2     |
 
-### Send Lobby Data % POST /lobbies/{lobby.id#DOCS_GAME_SDK_LOBBIES/data-models-lobby-struct}/send
+## Send Lobby Data % POST /lobbies/{lobby.id#DOCS_GAME_SDK_LOBBIES/data-models-lobby-struct}/send
 
 Sends a message to the lobby, fanning it out to other lobby members.
 
