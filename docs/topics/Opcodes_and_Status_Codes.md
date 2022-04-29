@@ -235,7 +235,7 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 50068  | Invalid message type                                                                                                          |
 | 50070  | Payment source required to redeem gift                                                                                        |
 | 50074  | Cannot delete a channel required for Community guilds                                                                         |
-| 50080  | Cannot edit a message with stickers                                                                                           |
+| 50080  | Cannot edit stickers within a message                                                                                         |
 | 50081  | Invalid sticker sent                                                                                                          |
 | 50083  | Tried to perform an operation on an archived thread, such as editing a message or adding a user to the thread                 |
 | 50084  | Invalid thread notification settings                                                                                          |
