@@ -401,7 +401,7 @@ Content-Type: application/json
   "attachments": [{
       "id": 0,
       "description": "Image of a cute little cat",
-      "filename": "file.png"
+      "filename": "myfilename.png"
   }, {
       "id": 1,
       "description": "Rickroll gif",
@@ -409,7 +409,7 @@ Content-Type: application/json
   }]
 }
 --boundary
-Content-Disposition: form-data; name="files[0]"; filename="file.png"
+Content-Disposition: form-data; name="files[0]"; filename="myfilename.png"
 Content-Type: image/png
 
 [image bytes]
