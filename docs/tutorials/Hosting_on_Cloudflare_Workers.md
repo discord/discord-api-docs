@@ -16,6 +16,8 @@ All of the code for this app can be found **[on Github](https://github.com/Justi
 - [Cloudflare Workers](https://workers.cloudflare.com/) for hosting
 - [Reddit API](https://www.reddit.com/dev/api/) to send messages back to the user
 
+---
+
 ## Creating an app on Discord
 
 To start, we'll create the app through the [Discord Developer Dashboard](https://discord.com/developers/applications):
@@ -26,7 +28,7 @@ To start, we'll create the app through the [Discord Developer Dashboard](https:/
 
 ![IDs found in app settings](cloudflare-general-overview.png)
 
-- Now click on the `Bot` tab, and create a bot! Choose the same name as your app.
+- Now click on the `Bot` tab on the left sidebar, and create a bot! You can choose the same name as your app.
 - Grab the `token` for your bot, and store it somewhere safe (I like to put these tokens in a password manager like [1password](https://1password.com/) or [lastpass](https://www.lastpass.com/)).
 
 > warn
