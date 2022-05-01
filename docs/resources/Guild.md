@@ -153,6 +153,7 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 | VERIFIED                         | guild is verified                                                                                                   |
 | VIP_REGIONS                      | guild has access to set 384kbps bitrate in voice (previously VIP voice servers)                                     |
 | WELCOME_SCREEN_ENABLED           | guild has enabled the welcome screen                                                                                |
+| AUTO_MODERATION                  | guild has enabled the auto moderation system                                                                        |
 
 ###### Example Guild
 

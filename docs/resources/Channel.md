@@ -308,7 +308,7 @@ Represents a message sent in a channel within Discord.
 | THREAD_STARTER_MESSAGE                       | 21    |
 | GUILD_INVITE_REMINDER                        | 22    |
 | CONTEXT_MENU_COMMAND                         | 23    |
-| AUTO_MODERATION_MESSAGE                      | 24    |
+| AUTO_MODERATION_ACTION                       | 24    |
 
 ###### Message Activity Structure
 
@@ -564,7 +564,7 @@ Embed types are "loosely defined" and, for the most part, are not used by our cl
 | gifv                       | animated gif image embed rendered as a video embed |
 | article                    | article embed                                      |
 | link                       | link embed                                         |
-| auto_moderation_message    | embed for auto moderation alerts                   |
+| auto_moderation_message    | embed containing blocked content by automod        |
 
 ###### Embed Thumbnail Structure
 
