@@ -308,6 +308,7 @@ Represents a message sent in a channel within Discord.
 | THREAD_STARTER_MESSAGE                       | 21    |
 | GUILD_INVITE_REMINDER                        | 22    |
 | CONTEXT_MENU_COMMAND                         | 23    |
+| AUTO_MODERATION_MESSAGE                      | 24    |
 
 ###### Message Activity Structure
 
@@ -555,14 +556,15 @@ A thread member is used to indicate whether a user has joined a thread or not.
 
 Embed types are "loosely defined" and, for the most part, are not used by our clients for rendering. Embed attributes power what is rendered. Embed types should be considered deprecated and might be removed in a future API version.
 
-| Type    | Description                                        |
-|---------|----------------------------------------------------|
-| rich    | generic embed rendered from embed attributes       |
-| image   | image embed                                        |
-| video   | video embed                                        |
-| gifv    | animated gif image embed rendered as a video embed |
-| article | article embed                                      |
-| link    | link embed                                         |
+| Type                       | Description                                        |
+|----------------------------|----------------------------------------------------|
+| rich                       | generic embed rendered from embed attributes       |
+| image                      | image embed                                        |
+| video                      | video embed                                        |
+| gifv                       | animated gif image embed rendered as a video embed |
+| article                    | article embed                                      |
+| link                       | link embed                                         |
+| auto_moderation_message    | embed for auto moderation alerts                   |
 
 ###### Embed Thumbnail Structure
 
