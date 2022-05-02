@@ -280,10 +280,13 @@ Returned when fetching the permissions for a command in a guild.
 
 | Field          | Type                                                                                                                                                                 | Description                                          |
 | -------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------- |
-| id             | snowflake                                                                                                                                                            | ID of the command                                    |
+| id             | snowflake                                                                                                                                                            | ID of the command or the application ID              |
 | application_id | snowflake                                                                                                                                                            | ID of the application the command belongs to         |
 | guild_id       | snowflake                                                                                                                                                            | ID of the guild                                      |
 | permissions    | array of [application command permissions](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-permissions-object-application-command-permissions-structure) | Permissions for the command in the guild, max of 100 |
+
+When the `id` field is the application ID instead of a command ID, the permissions apply to all commands.
+
 
 ###### Application Command Permissions Structure
 
