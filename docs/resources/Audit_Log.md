@@ -99,6 +99,9 @@ Whenever an admin action is performed on the API, an entry is added to the respe
 | THREAD_UPDATE                         | 111   |
 | THREAD_DELETE                         | 112   |
 | APPLICATION_COMMAND_PERMISSION_UPDATE | 121   |
+| AUTO_MODERATION_RULE_CREATE           | 140   |
+| AUTO_MODERATION_RULE_UPDATE           | 141   |
+| AUTO_MODERATION_RULE_DELETE           | 142   |
 
 ###### Optional Audit Entry Info
 
