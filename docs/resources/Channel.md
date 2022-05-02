@@ -564,7 +564,7 @@ Embed types are "loosely defined" and, for the most part, are not used by our cl
 | gifv                       | animated gif image embed rendered as a video embed |
 | article                    | article embed                                      |
 | link                       | link embed                                         |
-| auto_moderation_message    | embed containing blocked content by automod        |
+| auto_moderation_message    | automod alert embed                                |
 
 ###### Embed Thumbnail Structure
 
