@@ -79,7 +79,7 @@ $ wrangler secret put DISCORD_TEST_GUILD_ID
 > info
 > This depends on the beta version of the `wrangler` package, which better supports ESM on Cloudflare Workers.
 
-Let's start by cloning the repository and installing dependencies. This requires at least v16 of [Node.js](TODO):
+Let's start by cloning the repository and installing dependencies. This requires at least v16 of [Node.js](https://nodejs.org/en/):
 
 ```
 $ npm install
