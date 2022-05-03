@@ -285,7 +285,7 @@ Returned when fetching the permissions for a command in a guild.
 | guild_id       | snowflake                                                                                                                                                            | ID of the guild                                      |
 | permissions    | array of [application command permissions](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-permissions-object-application-command-permissions-structure) | Permissions for the command in the guild, max of 100 |
 
-When the `id` field is the application ID instead of a command ID, the permissions apply to all commands.
+When the `id` field is the application ID instead of a command ID, the permissions apply to all commands that do not contain explicit overwrites.
 
 
 ###### Application Command Permissions Structure
