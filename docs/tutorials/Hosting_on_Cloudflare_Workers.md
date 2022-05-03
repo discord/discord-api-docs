@@ -205,7 +205,7 @@ $ npm run ngrok
 
 ![ngrok forwarding address](cloudflare-ngrok.png)
 
-This is going to bounce requests off of an external endpoint, and foward them to your machine. Copy the HTTPS link provided by the tool. It should look something like `https://8098-24-22-245-250.ngrok.io`.
+This is going to bounce requests off of an external endpoint, and forward them to your machine. Copy the HTTPS link provided by the tool. It should look something like `https://8098-24-22-245-250.ngrok.io`.
 
 Now head back to the Discord Developer Dashboard, and update the `Interactions Endpoint URL` for your app:
 
