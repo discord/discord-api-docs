@@ -8,7 +8,7 @@ This tutorial walks through building a Discord app powered by [`r/aww`](https://
 
 ![Demo of Reddit API app](cloudflare-tutorial-demo.gif)
 
-All of the code for this app can be found **[on Github](https://github.com/JustinBeckwith/awwbotcf)**.
+All of the code for this app can be found **[on Github](https://github.com/discord/cloudflare-sample-app)**.
 
 ### Features and technologies used
 
@@ -79,11 +79,35 @@ $ wrangler secret put DISCORD_TEST_GUILD_ID
 > info
 > This depends on the beta version of the `wrangler` package, which better supports ESM on Cloudflare Workers.
 
-Let's start by cloning the repository and installing dependencies. This requires at least v16 of Node.js:
+Let's start by cloning the repository and installing dependencies. This requires at least v16 of [Node.js](TODO):
 
 ```
 $ npm install
 ```
+
+### Project structure
+
+A brief look at the cloned app's project structure:
+
+```
+├── .github/workflows/ci.yaml -> Github Action configuration
+├── src
+│   ├── commands.js           -> JSON payloads for commands
+│   ├── reddit.js             -> Interactions with the Reddit API
+│   ├── register.js           -> Sets up commands with the Discord API
+│   ├── server.js             -> Discord app logic and routing
+├── test
+|   ├── test.js               -> Tests for app
+├── wrangler.toml             -> Configuration for Cloudflare workers
+├── package.json
+├── README.md
+├── renovate.json             -> Configuration for repo automation
+├── .eslintrc.json
+├── .prettierignore
+├── .prettierrc.json
+└── .gitignore
+```
+### Registering commands
 
 Before testing our app, we need to register our desired slash commands. For this app, we'll have a `/awwww` command, and a `/invite` command. The name and description for these are kept separate in `commands.js`:
 
@@ -157,6 +181,8 @@ async function registerCommands(url) {
 await registerGlobalCommands();
 ```
 
+### Running the server
+
 This command needs to be run locally, once before getting started:
 
 ```
@@ -168,6 +194,8 @@ We're finally ready to run this code locally! Let's start by running our local d
 ```
 $ npm run dev
 ```
+
+### Setting up ngrok
 
 When a user types a slash command, Discord will send an HTTP request to a public endpoint. During local development this can be a little challenging, so we're going to use [a tool called `ngrok`](https://ngrok.com/) to create an HTTP tunnel.
 
@@ -303,6 +331,9 @@ router.post('/', async (request, env) => {
 ```
 
 ## Next steps
+
+> info
+> In case you need to reference any of the code, you can find the repo [on Github](https://github.com/discord/cloudflare-sample-app)
 
 With your app built and deployed, you can start customizing it to be your own:
 - Use **[message components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS)** in your app to add more interactivity (like buttons and select menus).
