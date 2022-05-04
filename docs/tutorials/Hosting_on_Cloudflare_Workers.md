@@ -45,9 +45,12 @@ Now we'll configure the bot with [permissions](#DOCS_TOPICS_PERMISSIONS) require
 
 - Paste the URL into the browser and follow the OAuth flow, selecting the server where you'd like to develop and test your bot.
 
-## Creating your cloudflare worker
+## Creating your Cloudflare Worker
 
 Cloudflare Workers are a convenient way to host Discord apps due to the free tier, simple development model, and automatically managed environment (no VMs!).
+
+> warn
+> When using Cloudflare Workers, your app won't be able to access non-ephemeral CDN media. For example, trying to fetch an image like `https://cdn.discordapp.com/attachments/<GUILD_ID>/<CHANNEL_ID>/my_image.png` would result in a `403` error. Cloudflare Workers are still able to access ephemeral CDN media.
 
 - Visit the [Cloudflare Dashboard](https://dash.cloudflare.com/)
 - Click on the `Workers` tab, and create a new service using the same name as your Discord bot
