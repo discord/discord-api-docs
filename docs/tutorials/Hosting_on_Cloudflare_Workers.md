@@ -49,7 +49,7 @@ Now we'll configure the bot with [permissions](#DOCS_TOPICS_PERMISSIONS) require
 
 Cloudflare Workers are a convenient way to host Discord apps due to the free tier, simple development model, and automatically managed environment (no VMs!).
 
-- Visit the [Cloudflare dashboard](https://dash.cloudflare.com/)
+- Visit the [Cloudflare Dashboard](https://dash.cloudflare.com/)
 - Click on the `Workers` tab, and create a new service using the same name as your Discord bot
 - Make sure to [install the Wrangler CLI](https://developers.cloudflare.com/workers/cli-wrangler/install-update/) and set it up.
 
