@@ -1141,19 +1141,20 @@ Creates a new thread that is not connected to an existing message. Returns a [ch
 > info
 > This endpoint supports the `X-Audit-Log-Reason` header.
 
+> info
+> Creating a private thread requires the server to be boosted. The [guild features](#DOCS_RESOURCES_GUILD/guild-object-guild-features) will indicate if that is possible for the guild.
+
 ###### JSON Params
 
 | Field                  | Type     | Description                                                                                                         |
 |------------------------|----------|---------------------------------------------------------------------------------------------------------------------|
 | name                   | string   | 1-100 character channel name                                                                                        |
 | auto_archive_duration? | integer  | duration in minutes to automatically archive the thread after recent activity, can be set to: 60, 1440, 4320, 10080 |
-| type?\* \*\*           | integer  | the [type of thread](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types) to create                                |
+| type?\*                | integer  | the [type of thread](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types) to create                                |
 | invitable?             | boolean  | whether non-moderators can add other non-moderators to a thread; only available when creating a private thread      |
 | rate_limit_per_user?   | ?integer | amount of seconds a user has to wait before sending another message (0-21600)                                       |
 
-\* Creating a private thread requires the server to be boosted. The [guild features](#DOCS_RESOURCES_GUILD/guild-object-guild-features) will indicate if that is possible for the guild.
-
-\*\* In API v9, `type` defaults to `GUILD_PRIVATE_THREAD` in order to match the behavior when thread documentation was first published. In a future API version this will be changed to be a required field, with no default.
+\* `type` currently defaults to `GUILD_PRIVATE_THREAD` in order to match the behavior when thread documentation was first published. In a future API version this will be changed to be a required field, with no default.
 
 ## Start Thread in Forum Channel % POST /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/threads
 
