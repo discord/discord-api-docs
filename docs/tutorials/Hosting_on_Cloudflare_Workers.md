@@ -1,4 +1,4 @@
-# Hosting a Reddit API Discord app on Cloudflare workers
+# Hosting a Reddit API Discord app on Cloudflare Workers
 
 When building Discord apps, your app can receive common events from the client as [webhooks](#DOCS_RESOURCES_WEBHOOK) when users interact with your app through interactions like [application commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS) or [message components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS).
 
