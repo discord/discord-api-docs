@@ -98,7 +98,7 @@ A brief look at the cloned app's project structure:
 │   ├── server.js             -> Discord app logic and routing
 ├── test
 |   ├── test.js               -> Tests for app
-├── wrangler.toml             -> Configuration for Cloudflare workers
+├── wrangler.toml             -> Configuration for Cloudflare Workers
 ├── package.json
 ├── README.md
 ├── renovate.json             -> Configuration for repo automation
