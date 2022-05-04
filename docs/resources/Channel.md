@@ -1157,7 +1157,7 @@ Creates a new thread that is not connected to an existing message. Returns a [ch
 
 ## Start Thread in Forum Channel % POST /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/threads
 
-Creates a new thread in a forum channel, and sends a message within the created thread. Returns a [channel](#DOCS_RESOURCES_CHANNEL/channel-object) on success, and a 400 BAD REQUEST on invalid parameters. Fires a [Thread Create](#DOCS_TOPICS_GATEWAY/thread-create) and [Message Create](#DOCS_TOPICS_GATEWAY/message-create) Gateway event.
+Creates a new thread in a forum channel, and sends a message within the created thread. Returns a [channel](#DOCS_RESOURCES_CHANNEL/channel-object), with a nested [message](#DOCS_RESOURCES_CHANNEL/message-object) object, on success, and a 400 BAD REQUEST on invalid parameters. Fires a [Thread Create](#DOCS_TOPICS_GATEWAY/thread-create) and [Message Create](#DOCS_TOPICS_GATEWAY/message-create) Gateway event.
 
 - The type of the created thread is `GUILD_PUBLIC_THREAD`.
 - See [message formatting](#DOCS_REFERENCE/message-formatting) for more information on how to properly format messages.
@@ -1174,16 +1174,17 @@ Creates a new thread in a forum channel, and sends a message within the created 
 > info
 > This endpoint supports the `X-Audit-Log-Reason` header.
 
-###### JSON Params (For the Thread)
+###### JSON/Form Params
 
-| Field                  | Type     | Description                                                                                                         |
-|------------------------|----------|---------------------------------------------------------------------------------------------------------------------|
-| name                   | string   | 1-100 character channel name                                                                                        |
-| auto_archive_duration? | integer  | duration in minutes to automatically archive the thread after recent activity, can be set to: 60, 1440, 4320, 10080 |
-| rate_limit_per_user?   | ?integer | amount of seconds a user has to wait before sending another message (0-21600)                                       |
+| Field                    | Type                                                                                                                             | Description                                                                                                         |
+|--------------------------|----------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------|
+| name                     | string                                                                                                                           | 1-100 character channel name                                                                                        |
+| auto_archive_duration?\* | integer                                                                                                                          | duration in minutes to automatically archive the thread after recent activity, can be set to: 60, 1440, 4320, 10080 |
+| rate_limit_per_user?     | ?integer                                                                                                                         | amount of seconds a user has to wait before sending another message (0-21600)                                       |
+| message                  | a [forum thread message params](#DOCS_RESOURCES_CHANNEL/start-thread-in-forum-channel-forum-thread-message-params-object) object | contents of the first message in the forum thread                                                                   |
 
 
-###### JSON Params (For the Message)
+###### Forum Thread Message Params Object
 
 | Field                | Type                                                                                              | Description                                                                                                                                                                 | Required                                    |
 | -------------------- | ------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------- |
