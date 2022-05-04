@@ -1189,7 +1189,7 @@ Fetches permissions for a specific command for your application in a guild. Retu
 > warn
 > This endpoint will overwrite existing permissions for the command in that guild
 
-Edits command permissions for a specific command for your application in a guild and returns a [GuildApplicationCommandPermissions](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-permissions-object-guild-application-command-permissions-structure) object.
+Edits command permissions for a specific command for your application in a guild and returns a [guild application command permissions](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-permissions-object-guild-application-command-permissions-structure) object.
 
 You can add up to 100 permission overwrites for a command.
 
