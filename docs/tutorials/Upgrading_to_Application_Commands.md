@@ -21,7 +21,7 @@ There are three types of application commands: slash commands, user commands, an
 
 ### Slash commands
 
-[Slash commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/slash-commands) are the most common type of command. They are accessed by typing the command’s name prefixed with a backslash (`/`) or by using the plus button (+) to the left of the message input.
+[Slash commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/slash-commands) are the most common type of command. They are accessed by typing the command’s name prefixed with a forward slash (`/`) or by using the plus button (+) to the left of the message input.
 
 Slash commands can appear in channels and DMs, so they’re helpful when an action is tied to a channel, a server, or nothing at all.
 
