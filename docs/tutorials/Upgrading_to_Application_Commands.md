@@ -125,11 +125,34 @@ As mentioned above, these include information relevant to handling the command l
 Since slash commands (`CHAT_INPUT` commands) are run in the context of a channel, you’ll notice that their payloads don’t contain any information about specific messages. If your app needs the message content, you can use [message commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/message-commands) which *do* include the message content.
 
 Below is a sample payload for a global slash command:
+
 ```
 {
-    "name": "dino",
+    "name": "rock",
     "type": 1,
-    "description": "Shows a dinosaur",
+    "description": "Sends a picture of a rock",
+    "options": [
+        {
+            "name": "type",
+            "description": "Type of rock",
+            "type": 3,
+            "required": False,
+            "choices": [
+                {
+                    "name": "Igneous",
+                    "value": "rock_igneous"
+                },
+                {
+                    "name": "Sedimentary",
+                    "value": "rock_sedimentary"
+                },
+                {
+                    "name": "Metamorphic",
+                    "value": "rock_metamorphic"
+                }
+            ]
+        }
+    ]
  }
 ```
 
