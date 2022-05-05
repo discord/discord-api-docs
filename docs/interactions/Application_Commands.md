@@ -2,7 +2,7 @@
 
 Application commands are native ways to interact with apps in the Discord client. There are 3 types of commands accessible in different interfaces: the chat input, a message's context menu (top-right menu or right-clicking in a message), and a user's context menu (right-clicking on a user).
 
-![Interface for the different command types](command-types.png)
+![Client interfaces showing the different types of application commands](command-types.png)
 
 ## Application Command Object
 
