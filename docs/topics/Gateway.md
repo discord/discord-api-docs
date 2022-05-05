@@ -332,7 +332,7 @@ Bots in under 100 guilds can enable these intents in the bot tab of the develope
 ### Privileged Intents
 
 > warn
-> Message content will become a privileged intent in 2022. [Learn more here](https://support-dev.discord.com/hc/en-us/articles/4404772028055).
+> Message content will become a privileged intent in Aug 2022. [Learn more here](https://support-dev.discord.com/hc/en-us/articles/4404772028055) or read the guide on [upgrading to commands](#DOCS_TUTORIALS_UPGRADING_TO_APPLICATION_COMMANDS).
 
 Some intents are defined as "Privileged" due to the sensitive nature of the data. Those intents are:
 
