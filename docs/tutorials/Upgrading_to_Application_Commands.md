@@ -73,6 +73,40 @@ Subcommands use the same `options` field as passing parameters, but with a type 
 
 If your app currently relies on permissioning, using command permissions can be a way to port them. It also cleans up the command picker UI for users, making it easier for them to find your app’s commands that are most relevant to them.
 
+### Example payload
+
+Below is a sample payload to create a global slash command with an optional parameter:
+
+```
+{
+    "name": "rock",
+    "type": 1,
+    "description": "Sends a picture of a rock",
+    "options": [
+        {
+            "name": "type",
+            "description": "Type of rock",
+            "type": 3,
+            "required": True,
+            "choices": [
+                {
+                    "name": "Igneous",
+                    "value": "rock_igneous"
+                },
+                {
+                    "name": "Sedimentary",
+                    "value": "rock_sedimentary"
+                },
+                {
+                    "name": "Metamorphic",
+                    "value": "rock_metamorphic"
+                }
+            ]
+        }
+    ]
+ }
+```
+
 #### Default permissions
 
 When [creating](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/create-global-application-command) or [updating](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/edit-global-application-command) a command, you can use the `default_member_permissions` field to restrict the command to a set of bitwise permissions that reflect the default permission flags a user must be granted in order to use the command. 
@@ -126,42 +160,51 @@ As mentioned above, these include information relevant to handling the command l
 
 Since slash commands (`CHAT_INPUT` commands) are run in the context of a channel, you’ll notice that their payloads don’t contain any information about specific messages. If your app needs the message content, you can use [message commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/message-commands) which *do* include the message content.
 
-Below is a sample payload for a global slash command:
-
-```
-{
-    "name": "rock",
-    "type": 1,
-    "description": "Sends a picture of a rock",
-    "options": [
-        {
-            "name": "type",
-            "description": "Type of rock",
-            "type": 3,
-            "required": False,
-            "choices": [
-                {
-                    "name": "Igneous",
-                    "value": "rock_igneous"
-                },
-                {
-                    "name": "Sedimentary",
-                    "value": "rock_sedimentary"
-                },
-                {
-                    "name": "Metamorphic",
-                    "value": "rock_metamorphic"
-                }
-            ]
-        }
-    ]
- }
-```
-
 > info
 > In the getting started guide’s repository, there’s a code sample showing [how to create and handle commands using JavaScript](https://github.com/discord/discord-example-app/blob/main/examples/command.js).
 
-To determine how your app should handle the incoming command-related interaction, you can look at th-e `name` field inside of `data` and route the command accordingly. Details about the full interactions object your app receives can be found in the [Interactions documentation](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object).
+Below is an example payload your app would receive when a user invoked a global command with an option:
+
+```
+{
+    "type": 2,
+    "token": "A_UNIQUE_TOKEN",
+    "member": {
+        "user": {
+            "id": "A_USER_ID",
+            "username": "A_USERNAME",
+            "avatar": "GUILD_AVATAR_HASH",
+            "discriminator": "1337",
+            "public_flags": 131141
+        },
+        "roles": ["12345678"],
+        "premium_since": null,
+        "permissions": "2147483647",
+        "pending": false,
+        "nick": null,
+        "mute": false,
+        "joined_at": "2019-04-14T12:14:14.000000+00:00",
+        "is_pending": false,
+        "deaf": false
+    },
+    "id": "INTERACTION_ID",
+    "application_id": "YOUR_APP_ID",
+    "guild_id": "A_GUILD_ID",
+    "guild_locale": "en-US",
+    "locale": "en-US",
+    "data": {
+        "options": [{
+            "name": "Igneous",
+            "value": "rock_igneous"
+        }],
+        "name": "rock",
+        "id": "APPLICATION_COMMAND_ID"
+    },
+    "channel_id": "ASSOCIATED_CHANNEL_ID"
+}
+```
+
+To determine how your app should handle an incoming command-related interaction, you can look in the `data` object which contains all of the command-specific information (including any options a user selected). Details about the full interactions object your app receives can be found in the [Interactions documentation](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object).
 
 ### After this section
 
