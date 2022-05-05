@@ -24,7 +24,7 @@ In this guide, we’ll be building a Discord app that lets server members play a
 ### Resources used in this guide
 - **[Github repository](https://github.com/discord/discord-example-app)** where the code from this guide lives along with additional feature-specific examples.
 - **[discord-interactions](https://github.com/discord/discord-interactions-js)**, an npm package which provides types and helper functions for Discord apps.
-- **[Glitch](https://glitch.com/)**, an online environment that simplifies building and hosting apps during early prototyping and development. You can also develop locally with a tool like **[ngrok](https://ngrok.com/)**.
+- **[Glitch](https://glitch.com/)** or **[Replit](https://replit.com/)** (depending on preference). These are both online environments that simplify building and hosting apps during early prototyping and development. You can also develop locally with a tool like **[ngrok](https://ngrok.com/)**.
 
 And here's what the finished app will look like:
 
@@ -93,18 +93,28 @@ All of the code used in the example app can be found in [the Github repository](
 
 To make development a bit simpler, the app uses [discord-interactions](https://github.com/discord/discord-interactions-js), which provides types and helper functions. If you prefer to use other languages or libraries, there’s [a page with community-built resources](#DOCS_TOPICS_COMMUNITY_RESOURCES) which you can browse through.
 
-### Remix the project
+### Fork the project
 
-This guide uses Glitch, which allows you to quickly clone and develop an app from within your browser. There are also instructions on developing locally using ngrok [in the README](https://github.com/discord/discord-example-app#running-app-locally) if you'd prefer.
+This guide includes instructions for both Glitch and Replit, depending on which environment you prefer using. Both of these allow you to quickly fork and develop an app from within your browser. There are also instructions on developing locally using ngrok [in the README](https://github.com/discord/discord-example-app#running-app-locally) if you'd prefer.
 
 > info
-> While Glitch is great for development and testing, [it has technical limitations](https://help.glitch.com/kb/article/17-technical-restrictions/) so other hosting providers should be considered for production apps.
+> While Glitch and Replit are great for development and testing, other hosting providers should be considered for production apps.
 
-To start, **[remix (or clone) the Glitch project 🎏](https://glitch.com/edit/#!/remix/getting-started-discord)**
+#### Using Glitch
+
+To start, **[remix (or fork) the Glitch project 🎏](https://glitch.com/edit/#!/remix/getting-started-discord)**
 
 When you remix the project, you'll see a new Glitch project with a unique name similar to this:
 
 ![Glitch project overview](glitch-project.png)
+
+#### Using Replit
+
+To start, **[go to the Replit project 🌀](https://replit.com/@shaydewael/discord-example-app)** and click **Fork repl**.
+
+After you fork the project, you'll be brought to your own fork with a URL corresponding to your username.
+
+![Replit project overview](replit-project.png)
 
 #### Project structure
 
@@ -117,7 +127,7 @@ All of the files for the project are on the left-hand side. Here's a quick glimp
 │   ├── command.js
 │   ├── modal.js
 │   ├── selectMenu.js
-├── .env        -> your credentials and IDs
+├── .env        -> your credentials and IDs (not on Replit)
 ├── app.js      -> main entrypoint for app
 ├── commands.js -> slash command payloads + helpers
 ├── game.js     -> logic specific to RPS
@@ -129,16 +139,16 @@ All of the files for the project are on the left-hand side. Here's a quick glimp
 
 ### Adding credentials
 
-There's already some code in your `app.js` file, but you’ll need your app’s token and ID to make requests. All of your credentials can be stored directly in the `.env` file.
+There's already some code in your `app.js` file, but you’ll need your app’s token and ID to make requests. All of your credentials can be stored directly in your app credentials—`.env` file for Glitch, and the Secrets tab for Replit.
 
 > warn
 > It bears repeating that you should *never* check any credentials or secrets into source control. The getting started project's `.gitignore` comes pre-loaded with `.env` to prevent it.
 
-First, copy your bot user’s token from earlier and paste it in the **`DISCORD_TOKEN`** variable in your `.env` file.
+First, copy your bot user’s token from earlier and paste it in the **`DISCORD_TOKEN`** variable in your credentials.
 
-Next, navigate to your app settings in the developer portal and copy the **App ID** and **Public Key** from the **General Overview** page. Paste the values in your `.env` file as **`APP_ID`** and **`PUBLIC_KEY`**.
+Next, navigate to your app settings in the developer portal and copy the **App ID** and **Public Key** from the **General Overview** page. Paste the values in your credentials as **`APP_ID`** and **`PUBLIC_KEY`**.
 
-Finally, fetch your guild ID by navigating to the server where you installed your app. Copy the first number in the URL after `channels/` (for example, in the URL `https://discord.com/channels/12345/678910`, the server ID would be `12345`). Save this value as **`GUILD_ID`** in your `.env` file.
+Finally, fetch your guild ID by navigating to the server where you installed your app. Copy the first number in the URL after `channels/` (for example, in the URL `https://discord.com/channels/12345/678910`, the server ID would be `12345`). Save this value as **`GUILD_ID`** in your credentials.
 
 With your credentials configured, let's install and handle slash commands.
 
@@ -160,15 +170,28 @@ If you go back to your guild and refresh it, you should see the slash command ap
 
 To enable your app to receive slash command requests (and other interactions), Discord needs a public URL to send them. This URL can be configured in your app settings as **Interaction Endpoint URL**.
 
-### Adding interaction endpoint URL
-Glitch projects have a public URL exposed by default. Copy your project's URL by clicking **Share** in the top right, then copying the live project link at the bottom of the modal.
+> info
+> If you're developing locally, there are instructions for tunneling requests to your local environment [on the Github README](https://github.com/discord/discord-example-app#running-app-locally).
+
+### Fetching a Public URL
+
+Glitch and Replit projects have a public URL exposed by default, which we'll use as the Interaction Endpoint URL.
+
+#### Using Glitch Public URL
+
+Copy your project's URL by clicking **Share** in the top right, then copying the live project link at the bottom of the modal.
 
 In the following example, the link would be `https://vast-thorn-plant.glitch.me`:
 
 ![Glitch share modal](glitch-project-share.png)
 
-> info
-> If you're developing locally, there are instructions for tunneling requests to your local environment [on the Github README](https://github.com/discord/discord-example-app#running-app-locally).
+#### Using Replit Public URL
+
+Copy your project's URL in the live preview on the right.
+
+In the [screenshot above](#DOCS_GETTING_STARTED_USING_REPLIT), the link would be `https://discord-example-app.your-username.repl.co`.
+
+### Configuring the Interaction Endpoint URL
 
 With that link copied, go to your app settings from [the developer portal](https://discord.com/developers/applications).
 
@@ -265,7 +288,7 @@ if (name === 'challenge' && id) {
 ```
 
 > info
-> If you aren’t sure where to paste the code, you can see the full code in `examples/app.js` in the Glitch project or the root `app.js` [on Github](https://github.com/discord/discord-example-app/blob/main/app.js).
+> If you aren’t sure where to paste the code, you can see the full code in `examples/app.js` in the Glitch project, Replit project, or the root `app.js` [on Github](https://github.com/discord/discord-example-app/blob/main/app.js).
 
 The above code is doing a few things:
 1. Parses the request body to get the ID of the user who triggered the slash command (`userId`), and the option (object choice) they selected (`objectName`).
@@ -438,5 +461,6 @@ Congrats on building your first Discord app! 🤖
 Hopefully you learned a bit about Discord apps, how to configure them, and how to make them interactive. From here, you can continue building out your app or explore what else is possible:
 - Read **[the documentation](#DOCS_INTRO)** for in-depth information about API features
 - Browse the `examples/` folder in this project for smaller, feature-specific code examples
+- Follow the tutorial on [hosting an app on Cloudflare Workers](#DOCS_TUTORIALS_HOSTING_ON_CLOUDFLARE_WORKERS)
 - Join the **[Discord Developers server](https://discord.gg/discord-developers)** to ask questions about the API, attend events hosted by the Discord API team, and interact with other devs
 - Check out **[community resources](#DOCS_TOPICS_COMMUNITY_RESOURCES)** for language-specific tools maintained by community members
