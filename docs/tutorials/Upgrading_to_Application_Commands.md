@@ -126,7 +126,7 @@ Permissions for specific roles, users, and channels can be updated by your app i
 
 ## Handling Commands
 
-Commands use the [interactions model](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING) rather than WebSocket-based gateways. The interactions model uses HTTP requests to send your app relevant information only when a Discord user triggers one of your app’s interactions.
+Commands use the [interactions model](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING) rather than the WebSocket gateway. The interactions model uses HTTP requests to send your app relevant information only when a Discord user triggers one of your app’s interactions.
 
 > warn
 > If you continue using gateway events, you’ll still receive message events but the payload will have empty string or array data for message content-related fields—like `content`, `embeds`, `attachments`, and `components`. You can read more about the changes to these events [in the original announcement](https://support-dev.discord.com/hc/en-us/articles/4404772028055-Message-Content-Privileged-Intent-for-Verified-Bots).
