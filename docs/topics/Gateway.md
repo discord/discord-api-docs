@@ -916,7 +916,23 @@ This event can be sent in three different scenarios:
 2.  When a Guild becomes available again to the client.
 3.  When the current user joins a new Guild.
 
-The inner payload is a [guild](#DOCS_RESOURCES_GUILD/guild-object) object, with all the extra fields specified.
+The inner payload is a [guild](#DOCS_RESOURCES_GUILD/guild-object) object, with the following extra fields:
+
+###### Guild Create Extra Fields
+
+| Field                  | Type                                                                                                         | Description                                                                                                                |
+| ---------------------- | ------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------- |
+| joined_at              | ISO8601 timestamp                                                                                            | when this guild was joined at                                                                                              |
+| large                  | boolean                                                                                                      | true if this is considered a large guild                                                                                   |
+| unavailable            | boolean                                                                                                      | true if this guild is unavailable due to an outage                                                                         |
+| member_count           | integer                                                                                                      | total number of members in this guild                                                                                      |
+| voice_states           | array of partial [voice state](#DOCS_RESOURCES_VOICE/voice-state-object) objects                             | states of members currently in voice channels; lacks the `guild_id` key                                                    |
+| members?               | array of [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) objects                                   | users in the guild                                                                                                         |
+| channels               | array of [channel](#DOCS_RESOURCES_CHANNEL/channel-object) objects                                           | channels in the guild                                                                                                      |
+| threads                | array of [channel](#DOCS_RESOURCES_CHANNEL/channel-object) objects                                           | all active threads in the guild that current user has permission to view                                                   |
+| presences?             | array of partial [presence update](#DOCS_TOPICS_GATEWAY/presence-update) objects                             | presences of the members in the guild, will only include non-offline members if the size is greater than `large threshold` |
+| stage_instances        | array of [stage instance](#DOCS_RESOURCES_STAGE_INSTANCE/stage-instance-object) objects                      | Stage instances in the guild                                                                                               |
+| guild_scheduled_events | array of [guild scheduled event](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object) objects | the scheduled events in the guild                                                                                          |
 
 > warn
 > If your bot does not have the `GUILD_PRESENCES` [Gateway Intent](#DOCS_TOPICS_GATEWAY/gateway-intents), or if the guild has over 75k members, members and presences returned in this event will only contain your bot and users in voice channels.
