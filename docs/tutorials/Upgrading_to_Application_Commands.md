@@ -42,7 +42,7 @@ Slash commands can appear in channels and DMs, so they’re helpful when an acti
 Commands can be registered via HTTP requests after an app is authorized with the `applications.commands` scope. Since commands aren’t tied to bot users, being authorized with the `bot` scope isn’t sufficient. Any commands created before an app is added to a server will automatically be installed.
 
 > info
-> There is a section on [designing commands](TODO) below implementation details that may be helpful as you start mapping out different commands
+> There is a section on [designing commands](#DOCS_TUTORIALS_UPGRADING_TO_APPLICATION_COMMANDS/designing-for-commands) below implementation details that may be helpful as you start mapping out different commands
 
 The API endpoint to register (or create) commands is different depending on its scope:
 - **[Global commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/making-a-global-command)** are available in all of the servers where your app is installed, and can be created using the [`/applications/{YOUR APP ID}/commands` endpoint](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/create-global-application-command). 
@@ -94,7 +94,7 @@ Commands use the [interactions model](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDIN
 > warn
 > If you continue using gateway events, you’ll still receive message events but the payload will have empty string or array data for message content-related fields—like `content`, `embeds`, `attachments`, and `components`. You can read more about the changes to these events [in the original announcement](https://support-dev.discord.com/hc/en-us/articles/4404772028055-Message-Content-Privileged-Intent-for-Verified-Bots).
 
-For commands, this means that each time one of your commands is used, your app will receive information like the command name and the user who triggered it. More information about this information is below in the section on [parsing command payloads](TODO).
+For commands, this means that each time one of your commands is used, your app will receive information like the command name and the user who triggered it. More information about this information is below in the section on [parsing command payloads](#DOCS_TUTORIALS_UPGRADING_TO_APPLICATION_COMMANDS/parsing-command-payloads).
 
 ### Adding an interactions endpoint URL
 
