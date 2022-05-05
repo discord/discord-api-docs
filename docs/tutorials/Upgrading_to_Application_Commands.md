@@ -13,6 +13,8 @@ Before diving in, it’s worth noting that with the message content changes, app
 
 And for apps that use message content in ways that can’t be ported to commands, you should review the [message content intent review policy](https://support-dev.discord.com/hc/en-us/articles/5324827539479) to see if you’re eligible to apply for the privileged intent.
 
+---
+
 ## Types of commands
 
 There are three types of application commands: slash commands, user commands, and message commands. When building your app, whether migrating or starting from scratch, consider which type of command(s) makes sense for a given feature of your app.
