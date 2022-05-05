@@ -112,7 +112,7 @@ When you remix the project, you'll see a new Glitch project with a unique name s
 
 To start, **[go to the Replit project 🌀](https://replit.com/@shaydewael/discord-example-app)** and click **Fork repl**.
 
-After you fork the project, you'll be brought to your own fork with a URL corresponding to your username.
+After you fork the project, you'll be brought to your own fork with a URL corresponding to your username. For Replit, when you're ready to start your app, you should press the `Run` button at the top of your project.
 
 ![Replit project overview](replit-project.png)
 
