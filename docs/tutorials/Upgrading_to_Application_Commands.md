@@ -41,13 +41,13 @@ Slash commands can appear in channels and DMs, so they’re helpful when an acti
 
 ## Registering Commands
 
-Commands can be registered via HTTP requests after an app is authorized with the `applications.commands` scope. Since commands aren’t tied to bot users, being authorized with the `bot` scope isn’t sufficient. Any commands created before an app is added to a server will automatically be installed.
+Commands can be registered via HTTP requests after an app is authorized with the `applications.commands` scope. Since commands aren’t tied to bot users, being authorized with the `bot` scope isn’t sufficient. 
 
 > info
 > There is a section on [designing commands](#DOCS_TUTORIALS_UPGRADING_TO_APPLICATION_COMMANDS/designing-for-commands) below implementation details that may be helpful as you start mapping out different commands
 
 The API endpoint to register (or create) commands is different depending on its scope:
-- **[Global commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/making-a-global-command)** are available in all of the servers where your app is installed, and can be created using the [`/applications/{YOUR APP ID}/commands` endpoint](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/create-global-application-command). 
+- **[Global commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/making-a-global-command)** are available in all of the servers where your app is installed, and can be created using the [`/applications/{YOUR APP ID}/commands` endpoint](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/create-global-application-command). All of your app's global commands will automatically be added to the servers your app is installed in, regardless of whether they were registered before or after installation. 
 - **[Guild commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/making-a-guild-command)** are only available in the servers you explicitly add them to via the API, making them useful for features available only to a subset of guilds. They can be created using the [`/applications/{YOUR APP ID}/guilds/{A GUILD ID}/commands` endpoint](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/create-guild-application-command).
 
 > info
@@ -115,7 +115,7 @@ In addition, the `dm_permission` flag can be used to control whether a global co
 
 #### Updating Permissions
 
-Permissions for specific roles, users, and channels can be updated by your app if you have the `applications.commands.permissions.update` scope and a Bearer token that’s authenticated by a user with the necessary user permissions. Details about updating a command’s permissions are [in the documentation](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/permissions).
+Permissions for specific roles, users, and channels can be updated by your app if you have the `applications.commands.permissions.update` scope and a [Bearer token](#DOCS_TOPICS_OAUTH2) that’s authenticated by a user with the necessary user permissions. Details about updating a command’s permissions are [in the documentation](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/permissions).
 
 ### After This Section
 
