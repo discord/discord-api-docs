@@ -210,7 +210,7 @@ You can also inform users about changes within the servers your app is installed
 
 The following is an example of an app update that may be sent to communicate the new way to access commands. Depending on the different features your app adopts (like options, subcommands, permissions, etc.), an update message or changelog entry will look very different.
 
-![Example message updating users about a new feature](examples-feature-update.png)
+![Example message updating users about a new feature](examples-update-message.png)
 
 ### Adding reactive education
 
