@@ -189,7 +189,7 @@ In the following example, the link would be `https://vast-thorn-plant.glitch.me`
 
 Copy your project's URL in the live preview on the right.
 
-In the [screenshot above](#DOCS_GETTING_STARTED_USING_REPLIT), the link would be `https://discord-example-app.your-username.repl.co`.
+In the [screenshot above](#DOCS_GETTING_STARTED/using-replit), the link would be `https://discord-example-app.your-username.repl.co`.
 
 ### Configuring the Interaction Endpoint URL
 
