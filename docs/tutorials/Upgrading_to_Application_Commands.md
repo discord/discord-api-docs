@@ -69,7 +69,7 @@ Subcommands use the same `options` field as passing parameters, but with a type 
 
 ### Restricting Command Use
 
-[Application command permissions](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/permissions) allow users and apps to restrict command usage in a server. When commands are restricted for a user, they’re greyed out in the client (though in the future they won’t appear at all).
+[Application command permissions](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/permissions) allow users and apps to restrict command usage in a server. When commands are restricted for a user, they won't appear for them in the client.
 
 If your app currently relies on permissioning, using command permissions can be a way to port them. It also cleans up the command picker UI for users, making it easier for them to find your app’s commands that are most relevant to them.
 
