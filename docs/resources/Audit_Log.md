@@ -102,6 +102,7 @@ Whenever an admin action is performed on the API, an entry is added to the respe
 | AUTO_MODERATION_RULE_CREATE           | 140   |
 | AUTO_MODERATION_RULE_UPDATE           | 141   |
 | AUTO_MODERATION_RULE_DELETE           | 142   |
+| AUTO_MODERATION_BLOCK_MESSAGE         | 143   |
 
 ###### Optional Audit Entry Info
 
