@@ -2,7 +2,7 @@
 
 ## Audit Logs
 
-Whenever an administrative action is performed in a guild, an entry is added to its audit log. Viewing audit logs requires the `VIEW_AUDIT_LOG` permission and can be accessed by apps using the [`GET /guilds/{guild.id}/audit-logs` endpoint](#DOCS_RESOURCES_AUDIT_LOG/get-guild-audit-log), or by users in the guild's Server Settings.
+Whenever an administrative action is performed in a guild, an entry is added to its audit log. Viewing audit logs requires the `VIEW_AUDIT_LOG` permission and can be accessed by apps using the [`GET /guilds/{guild.id}/audit-logs` endpoint](#DOCS_RESOURCES_AUDIT_LOG/get-guild-audit-log), or by users in the guild's Server Settings. Audit log entries are stored for 45 days.
 
 When an app is performing an administrative action using the APIs, it can specify a reason for the action by including the `X-Audit-Log-Reason` request header. This header supports URL-encoded UTF-8 characters.
 
@@ -10,16 +10,16 @@ When an app is performing an administrative action using the APIs, it can specif
 
 ###### Audit Log Structure
 
-| Field                  | Type                                                                                                         | Description                                           |
-| ---------------------- | ------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------- |
-| audit_log_entries      | array of [audit log entry](#DOCS_RESOURCES_AUDIT_LOG/audit-log-entry-object) objects                         | list of audit log entries                             |
-| guild_scheduled_events | array of [guild scheduled event](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object) objects | list of guild scheduled events found in the audit log |
-| integrations           | array of partial [integration](#DOCS_RESOURCES_GUILD/integration-object) objects                             | list of partial integration objects                   |
-| threads                | array of [channel](#DOCS_RESOURCES_CHANNEL/channel-object) objects                                           | list of threads found in the audit log\*              |
-| users                  | array of [user](#DOCS_RESOURCES_USER/user-object) objects                                                    | list of users found in the audit log                  |
-| webhooks               | array of [webhook](#DOCS_RESOURCES_WEBHOOK/webhook-object) objects                                           | list of webhooks found in the audit log               |
+| Field                  | Type                                                                                                         | Description                                                 |
+| ---------------------- | ------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------- |
+| audit_log_entries      | array of [audit log entry](#DOCS_RESOURCES_AUDIT_LOG/audit-log-entry-object) objects                         | list of audit log entries, sorted from most to least recent |
+| guild_scheduled_events | array of [guild scheduled event](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object) objects | list of guild scheduled events found in the audit log       |
+| integrations           | array of partial [integration](#DOCS_RESOURCES_GUILD/integration-object) objects                             | list of partial integration objects                         |
+| threads                | array of thread-specific [channel](#DOCS_RESOURCES_CHANNEL/channel-object) objects                           | list of threads found in the audit log\*                    |
+| users                  | array of [user](#DOCS_RESOURCES_USER/user-object) objects                                                    | list of users found in the audit log                        |
+| webhooks               | array of [webhook](#DOCS_RESOURCES_WEBHOOK/webhook-object) objects                                           | list of webhooks found in the audit log                     |
 
-\* Threads referenced in `THREAD_CREATE` and `THREAD_UPDATE` events are included in the threads map, since archived threads might not be kept in memory by clients.
+\* Threads referenced in `THREAD_CREATE` and `THREAD_UPDATE` events are included in the threads map since archived threads might not be kept in memory by clients.
 
 ###### Example Partial Integration Object
 
@@ -31,7 +31,8 @@ When an app is performing an administrative action using the APIs, it can specif
   "account": {
     "name": "twitchusername",
     "id": "1234567"
-  }
+  },
+  "application_id": "94651234501213162"
 }
 ```
 
@@ -41,13 +42,13 @@ When an app is performing an administrative action using the APIs, it can specif
 
 | Field       | Type                                                                                                    | Description                                           |
 | ----------- | ------------------------------------------------------------------------------------------------------- | ----------------------------------------------------- |
-| target_id   | ?string                                                                                                 | id of the affected entity (webhook, user, role, etc.) |
+| target_id   | ?string                                                                                                 | ID of the affected entity (webhook, user, role, etc.) |
 | changes?    | array of [audit log change](#DOCS_RESOURCES_AUDIT_LOG/audit-log-change-object) objects                  | changes made to the target_id                         |
-| user_id     | ?snowflake                                                                                              | the user who made the changes                         |
-| id          | snowflake                                                                                               | id of the entry                                       |
+| user_id     | ?snowflake                                                                                              | user or app that made the changes                     |
+| id          | snowflake                                                                                               | ID of the entry                                       |
 | action_type | [audit log event](#DOCS_RESOURCES_AUDIT_LOG/audit-log-entry-object-audit-log-events)                    | type of action that occurred                          |
 | options?    | [optional audit entry info](#DOCS_RESOURCES_AUDIT_LOG/audit-log-entry-object-optional-audit-entry-info) | additional info for certain action types              |
-| reason?     | string                                                                                                  | the reason for the change (0-512 characters)          |
+| reason?     | string                                                                                                  | reason for the change (1-512 characters)              |
 
 ###### Audit Log Events
 
@@ -106,12 +107,13 @@ When an app is performing an administrative action using the APIs, it can specif
 
 | Field              | Type      | Description                                                     | Action Type                                                                                                                        |
 | ------------------ | --------- | --------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
+| application_id     | snowflake | ID of the app whose permissions were targeted                   | APPLICATION_COMMAND_PERMISSION_UPDATE                                                                                              |
 | channel_id         | snowflake | channel in which the entities were targeted                     | MEMBER_MOVE & MESSAGE_PIN & MESSAGE_UNPIN & MESSAGE_DELETE & STAGE_INSTANCE_CREATE & STAGE_INSTANCE_UPDATE & STAGE_INSTANCE_DELETE |
 | count              | string    | number of entities that were targeted                           | MESSAGE_DELETE & MESSAGE_BULK_DELETE & MEMBER_DISCONNECT & MEMBER_MOVE                                                             |
 | delete_member_days | string    | number of days after which inactive members were kicked         | MEMBER_PRUNE                                                                                                                       |
-| id                 | snowflake | id of the overwritten entity                                    | CHANNEL_OVERWRITE_CREATE & CHANNEL_OVERWRITE_UPDATE & CHANNEL_OVERWRITE_DELETE                                                     |
+| id                 | snowflake | ID of the overwritten entity                                    | CHANNEL_OVERWRITE_CREATE & CHANNEL_OVERWRITE_UPDATE & CHANNEL_OVERWRITE_DELETE                                                     |
 | members_removed    | string    | number of members removed by the prune                          | MEMBER_PRUNE                                                                                                                       |
-| message_id         | snowflake | id of the message that was targeted                             | MESSAGE_PIN & MESSAGE_UNPIN                                                                                                        |
+| message_id         | snowflake | ID of the message that was targeted                             | MESSAGE_PIN & MESSAGE_UNPIN                                                                                                        |
 | role_name          | string    | name of the role if type is "0" (not present if type is "1")    | CHANNEL_OVERWRITE_CREATE & CHANNEL_OVERWRITE_UPDATE & CHANNEL_OVERWRITE_DELETE                                                     |
 | type               | string    | type of overwritten entity - "0" for "role" or "1" for "member" | CHANNEL_OVERWRITE_CREATE & CHANNEL_OVERWRITE_UPDATE & CHANNEL_OVERWRITE_DELETE                                                     |
 
@@ -135,7 +137,7 @@ When an app is performing an administrative action using the APIs, it can specif
 | afk_channel_id                | [guild](#DOCS_RESOURCES_GUILD/guild-object)                                                                                                                                                    | snowflake                                                                                                           | afk channel changed                                                                                                                                     |
 | afk_timeout                   | [guild](#DOCS_RESOURCES_GUILD/guild-object)                                                                                                                                                    | integer                                                                                                             | afk timeout duration changed                                                                                                                            |
 | allow                         | [role](#DOCS_TOPICS_PERMISSIONS/role-object)                                                                                                                                                   | string                                                                                                              | a permission on a text or voice channel was allowed for a role                                                                                          |
-| application_id                | [channel](#DOCS_RESOURCES_CHANNEL/channel-object)                                                                                                                                              | snowflake                                                                                                           | application id of the added or removed webhook or bot                                                                                                   |
+| application_id                | [channel](#DOCS_RESOURCES_CHANNEL/channel-object)                                                                                                                                              | snowflake                                                                                                           | application ID of the added or removed webhook or bot                                                                                                   |
 | archived                      | [thread](#DOCS_RESOURCES_CHANNEL/thread-metadata-object)                                                                                                                                       | bool                                                                                                                | thread is now archived/unarchived                                                                                                                       |
 | asset                         | [sticker](#DOCS_RESOURCES_STICKER/sticker-object)                                                                                                                                              | string                                                                                                              | empty string                                                                                                                                            |
 | auto_archive_duration         | [thread](#DOCS_RESOURCES_CHANNEL/thread-metadata-object)                                                                                                                                       | integer                                                                                                             | auto archive duration changed                                                                                                                           |
@@ -220,9 +222,11 @@ Returns an [audit log](#DOCS_RESOURCES_AUDIT_LOG/audit-log-object) object for th
 
 ###### Query String Params
 
+The following parameters can be used to filter which and how many audit log entries are returned.
+
 | Field       | Type      | Description                                                                                      |
 | ----------- | --------- | ------------------------------------------------------------------------------------------------ |
 | user_id     | snowflake | filter the log for actions made by a user                                                        |
 | action_type | integer   | the type of [audit log event](#DOCS_RESOURCES_AUDIT_LOG/audit-log-entry-object-audit-log-events) |
-| before      | snowflake | filter the log before a certain entry id                                                         |
+| before      | snowflake | filter the log before a certain entry ID                                                         |
 | limit       | integer   | how many entries are returned (default 50, minimum 1, maximum 100)                               |
