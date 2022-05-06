@@ -2,7 +2,9 @@
 
 ## Audit Logs
 
-Whenever an admin action is performed on the API, an entry is added to the respective guild's audit log. You can specify the reason by attaching the `X-Audit-Log-Reason` request header. This header supports url encoded utf8 characters.
+Whenever an administrative action is performed in a guild, an entry is added to its audit log. Viewing audit logs requires the `VIEW_AUDIT_LOG` permission and can be accessed by apps using the [`GET /guilds/{guild.id}/audit-logs` endpoint](#DOCS_RESOURCES_AUDIT_LOG/get-guild-audit-log), or by users in the guild's Server Settings.
+
+When an app is performing an administrative action using the APIs, it can specify a reason for the action by including the `X-Audit-Log-Reason` request header. This header supports URL-encoded UTF-8 characters.
 
 ### Audit Log Object
 
@@ -17,7 +19,7 @@ Whenever an admin action is performed on the API, an entry is added to the respe
 | users                  | array of [user](#DOCS_RESOURCES_USER/user-object) objects                                                    | list of users found in the audit log                  |
 | webhooks               | array of [webhook](#DOCS_RESOURCES_WEBHOOK/webhook-object) objects                                           | list of webhooks found in the audit log               |
 
-\* Threads referenced in THREAD_CREATE and THREAD_UPDATE events are included in the threads map, since archived threads might not be kept in memory by clients.
+\* Threads referenced in `THREAD_CREATE` and `THREAD_UPDATE` events are included in the threads map, since archived threads might not be kept in memory by clients.
 
 ###### Example Partial Integration Object
 
