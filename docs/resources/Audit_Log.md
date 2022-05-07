@@ -38,7 +38,7 @@ When an app is performing an administrative action using the APIs, it can specif
 
 ### Audit Log Entry Object
 
-Each audit log entry represents a single administrative action, indicated by the `action_type`. Each entry contains one to many changes in the `changes` array that affected a resource in Discord—whether that's a user, channel, app, emoji, or something else.
+Each audit log entry represents a single administrative action (or event), indicated by the `action_type`. Each entry contains one to many changes in the `changes` array that affected a resource in Discord—whether that's a user, channel, app, emoji, or something else.
 
 The information (and structure) of a single entry will be different depending on the action type, the changes made, and the context of those changes. For example, when a member is added or removed from a role (`MEMBER_ROLE_UPDATE` action), there is only one change: the member is either added or removed from a specific role. But when a channel is created (`CHANNEL_CREATE` action), there are many changes in the audit log entry including but not limited to properties like the name, type of channel, and permission overwrites added during creation.
 
@@ -55,6 +55,8 @@ The information (and structure) of a single entry will be different depending on
 | reason?     | string                                                                                                  | reason for the change (1-512 characters)              |
 
 ###### Audit Log Events
+
+<TODO: object updated?>
 
 | Event                                 | Value | Description                                                                                      |
 | ------------------------------------- | ----- | ------------------------------------------------------------------------------------------------ |
@@ -126,7 +128,7 @@ The information (and structure) of a single entry will be different depending on
 ###### Audit Log Change Structure
 
 > info
-> If `new_value` is not present in the change object, while `old_value` is, that means the property that was changed has been reset, or set to `null`
+> If `new_value` is not present in the change object while `old_value` is, it indicates that the changed property has been reset or set to `null`.
 
 | Field      | Type                                                                            | Description                                                                                            |
 | ---------- | ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ |
@@ -136,7 +138,28 @@ The information (and structure) of a single entry will be different depending on
 
 ###### Audit Log Change Key
 
-| Object Changed | Keys | 
+<TODO: is emoji included?>
+<TODO: resource?>
+<TODO: are types needed or can that be deferred to resource docs?>
+<TODO: keys are different than resource -- example channel_id for invite (when in object, does it just use _ delimiter as indicator for property?). note and explain>
+<TODO: what is this info was pulled up into above table with Resource and change keys (or change keys diff than resource)>
+
+| Object Changed | Change Keys |
+| ---------------- | ---- |
+| [Channel](#DOCS_RESOURCES_CHANNEL/channel-object)  | TODO |
+| [Command Permissions](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-permissions-object-application-command-permissions-structure) | snowflake <TODO: explain> |
+| [Emoji](#DOCS_RESOURCES_EMOJI/emoji-object) | TODO |
+| [Guild](#DOCS_RESOURCES_GUILD/guild-object) | TODO |
+| [Guild Scheduled Event](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object) | TODO |
+| [Invite](#DOCS_RESOURCES_INVITE/invite-object) | TODO |
+| [Invite Metadata](#DOCS_RESOURCES_INVITE/invite-metadata-object) <TODO: combine with above?> | TODO |
+| [Member](#DOCS_RESOURCES_GUILD/guild-member-object) | TODO |
+| [Stage Instance](#DOCS_RESOURCES_STAGE_INSTANCE/stage-instance-object) | TODO |
+| [Sticker](#DOCS_RESOURCES_STICKER/sticker-object) | TODO |
+| [Thread](#DOCS_RESOURCES_CHANNEL/thread-metadata-object) | TODO |
+| [Role](#DOCS_TOPICS_PERMISSIONS/role-object) | TODO |
+| [Webhook](#DOCS_RESOURCES_WEBHOOK/webhook-object) | TODO |
+
 
 | Name                          | Object Changed                                                                                                                                                                                 | Type                                                                                                                | Description                                                                                                                                             |
 | ----------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -223,7 +246,7 @@ The information (and structure) of a single entry will be different depending on
 
 ## Get Guild Audit Log % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/audit-logs
 
-Returns an [audit log](#DOCS_RESOURCES_AUDIT_LOG/audit-log-object) object for the guild. Requires the `VIEW_AUDIT_LOG` permission.
+Returns an [audit log](#DOCS_RESOURCES_AUDIT_LOG/audit-log-object) object for the guild. Requires the [`VIEW_AUDIT_LOG`](#DOCS_TOPICS_PERMISSIONS/permissions-bitwise-permission-flags) permission.
 
 ###### Query String Params
 
