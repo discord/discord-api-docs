@@ -52,56 +52,56 @@ When an app is performing an administrative action using the APIs, it can specif
 
 ###### Audit Log Events
 
-| Event                                 | Value |
-| ------------------------------------- | ----- |
-| GUILD_UPDATE                          | 1     |
-| CHANNEL_CREATE                        | 10    |
-| CHANNEL_UPDATE                        | 11    |
-| CHANNEL_DELETE                        | 12    |
-| CHANNEL_OVERWRITE_CREATE              | 13    |
-| CHANNEL_OVERWRITE_UPDATE              | 14    |
-| CHANNEL_OVERWRITE_DELETE              | 15    |
-| MEMBER_KICK                           | 20    |
-| MEMBER_PRUNE                          | 21    |
-| MEMBER_BAN_ADD                        | 22    |
-| MEMBER_BAN_REMOVE                     | 23    |
-| MEMBER_UPDATE                         | 24    |
-| MEMBER_ROLE_UPDATE                    | 25    |
-| MEMBER_MOVE                           | 26    |
-| MEMBER_DISCONNECT                     | 27    |
-| BOT_ADD                               | 28    |
-| ROLE_CREATE                           | 30    |
-| ROLE_UPDATE                           | 31    |
-| ROLE_DELETE                           | 32    |
-| INVITE_CREATE                         | 40    |
-| INVITE_UPDATE                         | 41    |
-| INVITE_DELETE                         | 42    |
-| WEBHOOK_CREATE                        | 50    |
-| WEBHOOK_UPDATE                        | 51    |
-| WEBHOOK_DELETE                        | 52    |
-| EMOJI_CREATE                          | 60    |
-| EMOJI_UPDATE                          | 61    |
-| EMOJI_DELETE                          | 62    |
-| MESSAGE_DELETE                        | 72    |
-| MESSAGE_BULK_DELETE                   | 73    |
-| MESSAGE_PIN                           | 74    |
-| MESSAGE_UNPIN                         | 75    |
-| INTEGRATION_CREATE                    | 80    |
-| INTEGRATION_UPDATE                    | 81    |
-| INTEGRATION_DELETE                    | 82    |
-| STAGE_INSTANCE_CREATE                 | 83    |
-| STAGE_INSTANCE_UPDATE                 | 84    |
-| STAGE_INSTANCE_DELETE                 | 85    |
-| STICKER_CREATE                        | 90    |
-| STICKER_UPDATE                        | 91    |
-| STICKER_DELETE                        | 92    |
-| GUILD_SCHEDULED_EVENT_CREATE          | 100   |
-| GUILD_SCHEDULED_EVENT_UPDATE          | 101   |
-| GUILD_SCHEDULED_EVENT_DELETE          | 102   |
-| THREAD_CREATE                         | 110   |
-| THREAD_UPDATE                         | 111   |
-| THREAD_DELETE                         | 112   |
-| APPLICATION_COMMAND_PERMISSION_UPDATE | 121   |
+| Event                                 | Value | Description                                                                                      |
+| ------------------------------------- | ----- | ------------------------------------------------------------------------------------------------ |
+| GUILD_UPDATE                          | 1     | Server settings were updated                                                                     |
+| CHANNEL_CREATE                        | 10    | Channel was created                                                                              |
+| CHANNEL_UPDATE                        | 11    | Channel settings were updated                                                                    |
+| CHANNEL_DELETE                        | 12    | Channel was deleted                                                                              |
+| CHANNEL_OVERWRITE_CREATE              | 13    | Permission overwrite was added to a channel                                                      |
+| CHANNEL_OVERWRITE_UPDATE              | 14    | Permission overwrite was updated for a channel                                                   |
+| CHANNEL_OVERWRITE_DELETE              | 15    | Permission overwrite was deleted from a channel                                                  |
+| MEMBER_KICK                           | 20    | Member was removed from server                                                                   |
+| MEMBER_PRUNE                          | 21    | Members were pruned from server                                                                  |
+| MEMBER_BAN_ADD                        | 22    | Member was banned from server                                                                    |
+| MEMBER_BAN_REMOVE                     | 23    | Server ban was lifted for a member                                                               |
+| MEMBER_UPDATE                         | 24    | Member was updated in server (includes info like nickname, and actions like timeouts and muting) |
+| MEMBER_ROLE_UPDATE                    | 25    | Member was added or removed from a role                                                          |
+| MEMBER_MOVE                           | 26    | Member was moved to a different voice channel                                                    |
+| MEMBER_DISCONNECT                     | 27    | Member was disconnected from a voice channel                                                     |
+| BOT_ADD                               | 28    | Bot user was added to server                                                                     |
+| ROLE_CREATE                           | 30    | Role was created                                                                                 |
+| ROLE_UPDATE                           | 31    | Role was edited                                                                                  |
+| ROLE_DELETE                           | 32    | Role was deleted                                                                                 |
+| INVITE_CREATE                         | 40    | Server invite was created                                                                        |
+| INVITE_UPDATE                         | 41    | <TODO: not sure this is ever fired>                                                              |
+| INVITE_DELETE                         | 42    | Server invite was deleted                                                                        |
+| WEBHOOK_CREATE                        | 50    | Webhook was created                                                                              |
+| WEBHOOK_UPDATE                        | 51    | Webhook properties or channel were updated                                                       |
+| WEBHOOK_DELETE                        | 52    | Webhook was deleted                                                                              |
+| EMOJI_CREATE                          | 60    | Emoji was created                                                                                |
+| EMOJI_UPDATE                          | 61    | Emoji name was updated                                                                           |
+| EMOJI_DELETE                          | 62    | Emoji was deleted                                                                                |
+| MESSAGE_DELETE                        | 72    | Single message was deleted                                                                       |
+| MESSAGE_BULK_DELETE                   | 73    | Multiple messages deleted                                                                        |
+| MESSAGE_PIN                           | 74    | Messaged was pinned to a channel                                                                 |
+| MESSAGE_UNPIN                         | 75    | Message was unpinned from a channel                                                              |
+| INTEGRATION_CREATE                    | 80    | App was added to server                                                                          |
+| INTEGRATION_UPDATE                    | 81    | App was updated (as an example, its scopes were updated)                                         |
+| INTEGRATION_DELETE                    | 82    | App was removed from server                                                                      |
+| STAGE_INSTANCE_CREATE                 | 83    | Stage instance was created (stage channel becomes live)                                          |
+| STAGE_INSTANCE_UPDATE                 | 84    | Stage instace details were updated                                                               |
+| STAGE_INSTANCE_DELETE                 | 85    | Stage instance was deleted (stage channel no longer live)                                        |
+| STICKER_CREATE                        | 90    | Sticker was created                                                                              |
+| STICKER_UPDATE                        | 91    | Sticker details were updated                                                                     |
+| STICKER_DELETE                        | 92    | Sticker was deleted                                                                              |
+| GUILD_SCHEDULED_EVENT_CREATE          | 100   | Event was created                                                                                |
+| GUILD_SCHEDULED_EVENT_UPDATE          | 101   | Event was updated                                                                                |
+| GUILD_SCHEDULED_EVENT_DELETE          | 102   | Event was cancelled                                                                              |
+| THREAD_CREATE                         | 110   | Thread was created in a channel                                                                  |
+| THREAD_UPDATE                         | 111   | Thread was updated                                                                               |
+| THREAD_DELETE                         | 112   | Thread was deleted                                                                               |
+| APPLICATION_COMMAND_PERMISSION_UPDATE | 121   | Permissions were updated for a command                                                           |
 
 ###### Optional Audit Entry Info
 
@@ -132,6 +132,8 @@ When an app is performing an administrative action using the APIs, it can specif
 
 ###### Audit Log Change Key
 
+| Object Changed | Keys | 
+
 | Name                          | Object Changed                                                                                                                                                                                 | Type                                                                                                                | Description                                                                                                                                             |
 | ----------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | afk_channel_id                | [guild](#DOCS_RESOURCES_GUILD/guild-object)                                                                                                                                                    | snowflake                                                                                                           | afk channel changed                                                                                                                                     |
@@ -148,7 +150,6 @@ When an app is performing an administrative action using the APIs, it can specif
 | channel_id                    | [invite](#DOCS_RESOURCES_INVITE/invite-object) or [guild scheduled event](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object)                                                  | snowflake                                                                                                           | channel for invite code or guild scheduled event changed                                                                                                |
 | code                          | [invite](#DOCS_RESOURCES_INVITE/invite-object)                                                                                                                                                 | string                                                                                                              | invite code changed                                                                                                                                     |
 | color                         | [role](#DOCS_TOPICS_PERMISSIONS/role-object)                                                                                                                                                   | integer                                                                                                             | role color changed                                                                                                                                      |
-| command_id                    | [application command permission](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-permissions-object)                                                                               | snowflake                                                                                                           | permissions for a command were updated                                                                                                                  |
 | communication_disabled_until  | [member](#DOCS_RESOURCES_GUILD/guild-member-object)                                                                                                                                            | ISO8601 timestamp                                                                                                   | member timeout state changed                                                                                                                            |
 | deaf                          | [member](#DOCS_RESOURCES_GUILD/guild-member-object)                                                                                                                                            | boolean                                                                                                             | user server deafened/undeafened                                                                                                                         |
 | default_auto_archive_duration | [channel](#DOCS_RESOURCES_CHANNEL/channel-object)                                                                                                                                              | integer                                                                                                             | default auto archive duration for newly created threads changed                                                                                         |
@@ -204,8 +205,8 @@ When an app is performing an administrative action using the APIs, it can specif
 | verification_level            | [guild](#DOCS_RESOURCES_GUILD/guild-object)                                                                                                                                                    | integer                                                                                                             | required verification level changed                                                                                                                     |
 | widget_channel_id             | [guild](#DOCS_RESOURCES_GUILD/guild-object)                                                                                                                                                    | snowflake                                                                                                           | channel id of the server widget changed                                                                                                                 |
 | widget_enabled                | [guild](#DOCS_RESOURCES_GUILD/guild-object)                                                                                                                                                    | boolean                                                                                                             | server widget enabled/disable                                                                                                                           |
-| \$add                         | [guild](#DOCS_RESOURCES_GUILD/guild-object)                                                                                                                                                    | array of partial [role](#DOCS_TOPICS_PERMISSIONS/role-object) objects                                               | new role added                                                                                                                                          |
-| \$remove                      | [guild](#DOCS_RESOURCES_GUILD/guild-object)                                                                                                                                                    | array of partial [role](#DOCS_TOPICS_PERMISSIONS/role-object) objects                                               | role removed                                                                                                                                            |
+| \$add                         | [guild](#DOCS_RESOURCES_GUILD/guild-object)                                                                                                                                                    | array of partial [role](#DOCS_TOPICS_PERMISSIONS/role-object) objects                                               | user added to role                                                                                                                                      |
+| \$remove                      | [guild](#DOCS_RESOURCES_GUILD/guild-object)                                                                                                                                                    | array of partial [role](#DOCS_TOPICS_PERMISSIONS/role-object) objects                                               | user removed from role                                                                                                                                  |
 
 ###### Example Partial Role Object
 
