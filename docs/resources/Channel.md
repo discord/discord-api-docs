@@ -47,7 +47,7 @@ Represents a guild or DM channel within Discord.
 | ----------------------- | --- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
 | GUILD_TEXT              | 0   | a text channel within a server                                                                                                                       |
 | DM                      | 1   | a direct message between users                                                                                                                       |
-| GUILD_VOICE             | 2   | a voice (text-based) channel within a server                                                                                                         |
+| GUILD_VOICE             | 2   | a voice channel containing a chat within a server                                                                                                    |
 | GROUP_DM                | 3   | a direct message between multiple users                                                                                                              |
 | GUILD_CATEGORY          | 4   | an [organizational category](https://support.discord.com/hc/en-us/articles/115001580171-Channel-Categories-101) that contains up to 50 channels      |
 | GUILD_NEWS              | 5   | a channel that [users can follow and crosspost into their own server](https://support.discord.com/hc/en-us/articles/360032008192)                    |
@@ -114,24 +114,21 @@ Bots can post or publish messages in this type of channel if they have the prope
 
 ###### Example Guild Voice Channel
 
-> warn
-> Text in Voice: Guild Voice channels contain chats, are considered text-based channels, but do not support threads and pinned messages.
-
 ```json
 {
   "id": "155101607195836416",
-  "guild_id": "41771983423143937",
-  "name": "ROCKET CHEESE",
+  "last_message_id": "174629835082649376",
   "type": 2,
-  "nsfw": false,
+  "name": "ROCKET CHEESE",
   "position": 5,
-  "permission_overwrites": [],
-  "rate_limit_per_user": 1,
+  "parent_id": null,
   "bitrate": 64000,
   "user_limit": 0,
-  "last_message_id": "174629835082649376",
-  "parent_id": null,
-  "rtc_region": null
+  "rtc_region": null,
+  "guild_id": "41771983423143937",
+  "permission_overwrites": [],
+  "rate_limit_per_user": 0,
+  "nsfw": false,
 }
 ```
 
