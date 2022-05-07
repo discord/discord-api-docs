@@ -2,9 +2,9 @@
 
 ## Audit Logs
 
-Whenever an administrative action is performed in a guild, an entry is added to its audit log. Viewing audit logs requires the `VIEW_AUDIT_LOG` permission and can be accessed by apps using the [`GET /guilds/{guild.id}/audit-logs` endpoint](#DOCS_RESOURCES_AUDIT_LOG/get-guild-audit-log), or by users in the guild's Server Settings. Audit log entries are stored for 45 days.
+Whenever an administrative action is performed in a guild, an entry is added to its audit log. Viewing audit logs requires the `VIEW_AUDIT_LOG` permission and can be fetched by apps using the [`GET /guilds/{guild.id}/audit-logs` endpoint](#DOCS_RESOURCES_AUDIT_LOG/get-guild-audit-log), or viewed by users in the guild's Server Settings. All audit log entries are stored for 45 days.
 
-When an app is performing an administrative action using the APIs, it can specify a reason for the action by including the `X-Audit-Log-Reason` request header. This header supports URL-encoded UTF-8 characters.
+When an app is performing an administrative action using the APIs, it can specify a reason for the action using the `X-Audit-Log-Reason` request header, which will be stored as the [entry's](#DOCS_RESOURCES_AUDIT_LOG/audit-log-entry-object) `reason` field. The `X-Audit-Log-Reason` header supports URL-encoded UTF-8 characters.
 
 ### Audit Log Object
 
@@ -12,12 +12,12 @@ When an app is performing an administrative action using the APIs, it can specif
 
 | Field                  | Type                                                                                                         | Description                                                 |
 | ---------------------- | ------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------- |
-| audit_log_entries      | array of [audit log entry](#DOCS_RESOURCES_AUDIT_LOG/audit-log-entry-object) objects                         | list of audit log entries, sorted from most to least recent |
-| guild_scheduled_events | array of [guild scheduled event](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object) objects | list of guild scheduled events found in the audit log       |
-| integrations           | array of partial [integration](#DOCS_RESOURCES_GUILD/integration-object) objects                             | list of partial integration objects                         |
-| threads                | array of thread-specific [channel](#DOCS_RESOURCES_CHANNEL/channel-object) objects                           | list of threads found in the audit log\*                    |
-| users                  | array of [user](#DOCS_RESOURCES_USER/user-object) objects                                                    | list of users found in the audit log                        |
-| webhooks               | array of [webhook](#DOCS_RESOURCES_WEBHOOK/webhook-object) objects                                           | list of webhooks found in the audit log                     |
+| audit_log_entries      | array of [audit log entry](#DOCS_RESOURCES_AUDIT_LOG/audit-log-entry-object) objects                         | List of audit log entries, sorted from most to least recent |
+| guild_scheduled_events | array of [guild scheduled event](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object) objects | List of guild scheduled events found in the audit log       |
+| integrations           | array of partial [integration](#DOCS_RESOURCES_GUILD/integration-object) objects                             | List of partial integration objects                         |
+| threads                | array of thread-specific [channel](#DOCS_RESOURCES_CHANNEL/channel-object) objects                           | List of threads found in the audit log\*                    |
+| users                  | array of [user](#DOCS_RESOURCES_USER/user-object) objects                                                    | List of users found in the audit log                        |
+| webhooks               | array of [webhook](#DOCS_RESOURCES_WEBHOOK/webhook-object) objects                                           | List of webhooks found in the audit log                     |
 
 \* Threads referenced in `THREAD_CREATE` and `THREAD_UPDATE` events are included in the threads map since archived threads might not be kept in memory by clients.
 
@@ -40,88 +40,90 @@ When an app is performing an administrative action using the APIs, it can specif
 
 Each audit log entry represents a single administrative action (or event), indicated by the `action_type`. Each entry contains one to many changes in the `changes` array that affected a resource in Discord—whether that's a user, channel, app, emoji, or something else.
 
-The information (and structure) of a single entry will be different depending on the action type, the changes made, and the context of those changes. For example, when a member is added or removed from a role (`MEMBER_ROLE_UPDATE` action), there is only one change: the member is either added or removed from a specific role. But when a channel is created (`CHANNEL_CREATE` action), there are many changes in the audit log entry including but not limited to properties like the name, type of channel, and permission overwrites added during creation.
+The information (and structure) of a single entry will be different depending on the action type, the changes made, and the context of those changes. For example, when a member is added or removed from a role (`MEMBER_ROLE_UPDATE` event), there is only one change: the member is either added or removed from a specific role. But when a channel is created (`CHANNEL_CREATE` event), there are many changes in the audit log entry including but not limited to properties like the name, type of channel, and permission overwrites added during creation.
+
+<TODO: note about reason header>
 
 ###### Audit Log Entry Structure
 
 | Field       | Type                                                                                                    | Description                                           |
 | ----------- | ------------------------------------------------------------------------------------------------------- | ----------------------------------------------------- |
 | target_id   | ?string                                                                                                 | ID of the affected entity (webhook, user, role, etc.) |
-| changes?    | array of [audit log change](#DOCS_RESOURCES_AUDIT_LOG/audit-log-change-object) objects                  | changes made to the target_id                         |
-| user_id     | ?snowflake                                                                                              | user or app that made the changes                     |
+| changes?    | array of [audit log change](#DOCS_RESOURCES_AUDIT_LOG/audit-log-change-object) objects                  | Changes made to the target_id                         |
+| user_id     | ?snowflake                                                                                              | User or app that made the changes                     |
 | id          | snowflake                                                                                               | ID of the entry                                       |
-| action_type | [audit log event](#DOCS_RESOURCES_AUDIT_LOG/audit-log-entry-object-audit-log-events)                    | type of action that occurred                          |
-| options?    | [optional audit entry info](#DOCS_RESOURCES_AUDIT_LOG/audit-log-entry-object-optional-audit-entry-info) | additional info for certain action types              |
-| reason?     | string                                                                                                  | reason for the change (1-512 characters)              |
+| action_type | [audit log event](#DOCS_RESOURCES_AUDIT_LOG/audit-log-entry-object-audit-log-events)                    | Type of action that occurred                          |
+| options?    | [optional audit entry info](#DOCS_RESOURCES_AUDIT_LOG/audit-log-entry-object-optional-audit-entry-info) | Additional info for certain action types              |
+| reason?     | string                                                                                                  | Reason for the change (1-512 characters)              |
 
 ###### Audit Log Events
 
-<TODO: object updated?>
+<TODO: object updated? if so, include description here and link to keys below; move to last column>
 
-| Event                                 | Value | Description                                                                                      |
-| ------------------------------------- | ----- | ------------------------------------------------------------------------------------------------ |
-| GUILD_UPDATE                          | 1     | Server settings were updated                                                                     |
-| CHANNEL_CREATE                        | 10    | Channel was created                                                                              |
-| CHANNEL_UPDATE                        | 11    | Channel settings were updated                                                                    |
-| CHANNEL_DELETE                        | 12    | Channel was deleted                                                                              |
-| CHANNEL_OVERWRITE_CREATE              | 13    | Permission overwrite was added to a channel                                                      |
-| CHANNEL_OVERWRITE_UPDATE              | 14    | Permission overwrite was updated for a channel                                                   |
-| CHANNEL_OVERWRITE_DELETE              | 15    | Permission overwrite was deleted from a channel                                                  |
-| MEMBER_KICK                           | 20    | Member was removed from server                                                                   |
-| MEMBER_PRUNE                          | 21    | Members were pruned from server                                                                  |
-| MEMBER_BAN_ADD                        | 22    | Member was banned from server                                                                    |
-| MEMBER_BAN_REMOVE                     | 23    | Server ban was lifted for a member                                                               |
-| MEMBER_UPDATE                         | 24    | Member was updated in server (includes info like nickname, and actions like timeouts and muting) |
-| MEMBER_ROLE_UPDATE                    | 25    | Member was added or removed from a role                                                          |
-| MEMBER_MOVE                           | 26    | Member was moved to a different voice channel                                                    |
-| MEMBER_DISCONNECT                     | 27    | Member was disconnected from a voice channel                                                     |
-| BOT_ADD                               | 28    | Bot user was added to server <TODO: check this>                                                  |
-| ROLE_CREATE                           | 30    | Role was created                                                                                 |
-| ROLE_UPDATE                           | 31    | Role was edited                                                                                  |
-| ROLE_DELETE                           | 32    | Role was deleted                                                                                 |
-| INVITE_CREATE                         | 40    | Server invite was created                                                                        |
-| INVITE_UPDATE                         | 41    | <TODO: not sure this is ever fired>                                                              |
-| INVITE_DELETE                         | 42    | Server invite was deleted                                                                        |
-| WEBHOOK_CREATE                        | 50    | Webhook was created                                                                              |
-| WEBHOOK_UPDATE                        | 51    | Webhook properties or channel were updated                                                       |
-| WEBHOOK_DELETE                        | 52    | Webhook was deleted                                                                              |
-| EMOJI_CREATE                          | 60    | Emoji was created                                                                                |
-| EMOJI_UPDATE                          | 61    | Emoji name was updated                                                                           |
-| EMOJI_DELETE                          | 62    | Emoji was deleted                                                                                |
-| MESSAGE_DELETE                        | 72    | Single message was deleted                                                                       |
-| MESSAGE_BULK_DELETE                   | 73    | Multiple messages deleted                                                                        |
-| MESSAGE_PIN                           | 74    | Messaged was pinned to a channel                                                                 |
-| MESSAGE_UNPIN                         | 75    | Message was unpinned from a channel                                                              |
-| INTEGRATION_CREATE                    | 80    | App was added to server                                                                          |
-| INTEGRATION_UPDATE                    | 81    | App was updated (as an example, its scopes were updated)                                         |
-| INTEGRATION_DELETE                    | 82    | App was removed from server                                                                      |
-| STAGE_INSTANCE_CREATE                 | 83    | Stage instance was created (stage channel becomes live)                                          |
-| STAGE_INSTANCE_UPDATE                 | 84    | Stage instace details were updated                                                               |
-| STAGE_INSTANCE_DELETE                 | 85    | Stage instance was deleted (stage channel no longer live)                                        |
-| STICKER_CREATE                        | 90    | Sticker was created                                                                              |
-| STICKER_UPDATE                        | 91    | Sticker details were updated                                                                     |
-| STICKER_DELETE                        | 92    | Sticker was deleted                                                                              |
-| GUILD_SCHEDULED_EVENT_CREATE          | 100   | Event was created                                                                                |
-| GUILD_SCHEDULED_EVENT_UPDATE          | 101   | Event was updated                                                                                |
-| GUILD_SCHEDULED_EVENT_DELETE          | 102   | Event was cancelled                                                                              |
-| THREAD_CREATE                         | 110   | Thread was created in a channel                                                                  |
-| THREAD_UPDATE                         | 111   | Thread was updated                                                                               |
-| THREAD_DELETE                         | 112   | Thread was deleted                                                                               |
-| APPLICATION_COMMAND_PERMISSION_UPDATE | 121   | Permissions were updated for a command                                                           |
+| Event                                 | Value | Object(s) Changed | Description                                               |
+| ------------------------------------- | ----- | ----------------- | --------------------------------------------------------- |
+| GUILD_UPDATE                          | 1     | TODO              | Server settings were updated                              |
+| CHANNEL_CREATE                        | 10    | TODO              | Channel was created                                       |
+| CHANNEL_UPDATE                        | 11    | TODO              | Channel settings were updated                             |
+| CHANNEL_DELETE                        | 12    | TODO              | Channel was deleted                                       |
+| CHANNEL_OVERWRITE_CREATE              | 13    | TODO              | Permission overwrite was added to a channel               |
+| CHANNEL_OVERWRITE_UPDATE              | 14    | TODO              | Permission overwrite was updated for a channel            |
+| CHANNEL_OVERWRITE_DELETE              | 15    | TODO              | Permission overwrite was deleted from a channel           |
+| MEMBER_KICK                           | 20    | TODO              | Member was removed from server                            |
+| MEMBER_PRUNE                          | 21    | TODO              | Members were pruned from server                           |
+| MEMBER_BAN_ADD                        | 22    | TODO              | Member was banned from server                             |
+| MEMBER_BAN_REMOVE                     | 23    | TODO              | Server ban was lifted for a member                        |
+| MEMBER_UPDATE                         | 24    | TODO              | Member was updated in server                              |
+| MEMBER_ROLE_UPDATE                    | 25    | TODO              | Member was added or removed from a role                   |
+| MEMBER_MOVE                           | 26    | TODO              | Member was moved to a different voice channel             |
+| MEMBER_DISCONNECT                     | 27    | TODO              | Member was disconnected from a voice channel              |
+| BOT_ADD                               | 28    | TODO              | Bot user was added to server <TODO: check this>           |
+| ROLE_CREATE                           | 30    | TODO              | Role was created                                          |
+| ROLE_UPDATE                           | 31    | TODO              | Role was edited                                           |
+| ROLE_DELETE                           | 32    | TODO              | Role was deleted                                          |
+| INVITE_CREATE                         | 40    | TODO              | Server invite was created                                 |
+| INVITE_UPDATE                         | 41    | TODO              | <TODO: not sure this is ever fired>                       |
+| INVITE_DELETE                         | 42    | TODO              | Server invite was deleted                                 |
+| WEBHOOK_CREATE                        | 50    | TODO              | Webhook was created                                       |
+| WEBHOOK_UPDATE                        | 51    | TODO              | Webhook properties or channel were updated                |
+| WEBHOOK_DELETE                        | 52    | TODO              | Webhook was deleted                                       |
+| EMOJI_CREATE                          | 60    | TODO              | Emoji was created                                         |
+| EMOJI_UPDATE                          | 61    | TODO              | Emoji name was updated                                    |
+| EMOJI_DELETE                          | 62    | TODO              | Emoji was deleted                                         |
+| MESSAGE_DELETE                        | 72    | TODO              | Single message was deleted                                |
+| MESSAGE_BULK_DELETE                   | 73    | TODO              | Multiple messages deleted                                 |
+| MESSAGE_PIN                           | 74    | TODO              | Messaged was pinned to a channel                          |
+| MESSAGE_UNPIN                         | 75    | TODO              | Message was unpinned from a channel                       |
+| INTEGRATION_CREATE                    | 80    | TODO              | App was added to server                                   |
+| INTEGRATION_UPDATE                    | 81    | TODO              | App was updated (as an example, its scopes were updated)  |
+| INTEGRATION_DELETE                    | 82    | TODO              | App was removed from server                               |
+| STAGE_INSTANCE_CREATE                 | 83    | TODO              | Stage instance was created (stage channel becomes live)   |
+| STAGE_INSTANCE_UPDATE                 | 84    | TODO              | Stage instace details were updated                        |
+| STAGE_INSTANCE_DELETE                 | 85    | TODO              | Stage instance was deleted (stage channel no longer live) |
+| STICKER_CREATE                        | 90    | TODO              | Sticker was created                                       |
+| STICKER_UPDATE                        | 91    | TODO              | Sticker details were updated                              |
+| STICKER_DELETE                        | 92    | TODO              | Sticker was deleted                                       |
+| GUILD_SCHEDULED_EVENT_CREATE          | 100   | TODO              | Event was created                                         |
+| GUILD_SCHEDULED_EVENT_UPDATE          | 101   | TODO              | Event was updated                                         |
+| GUILD_SCHEDULED_EVENT_DELETE          | 102   | TODO              | Event was cancelled                                       |
+| THREAD_CREATE                         | 110   | TODO              | Thread was created in a channel                           |
+| THREAD_UPDATE                         | 111   | TODO              | Thread was updated                                        |
+| THREAD_DELETE                         | 112   | TODO              | Thread was deleted                                        |
+| APPLICATION_COMMAND_PERMISSION_UPDATE | 121   | TODO              | Permissions were updated for a command                    |
 
 ###### Optional Audit Entry Info
 
-| Field              | Type      | Description                                                     | Action Type                                                                                                                        |
-| ------------------ | --------- | --------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
-| application_id     | snowflake | ID of the app whose permissions were targeted                   | APPLICATION_COMMAND_PERMISSION_UPDATE                                                                                              |
-| channel_id         | snowflake | channel in which the entities were targeted                     | MEMBER_MOVE & MESSAGE_PIN & MESSAGE_UNPIN & MESSAGE_DELETE & STAGE_INSTANCE_CREATE & STAGE_INSTANCE_UPDATE & STAGE_INSTANCE_DELETE |
-| count              | string    | number of entities that were targeted                           | MESSAGE_DELETE & MESSAGE_BULK_DELETE & MEMBER_DISCONNECT & MEMBER_MOVE                                                             |
-| delete_member_days | string    | number of days after which inactive members were kicked         | MEMBER_PRUNE                                                                                                                       |
-| id                 | snowflake | ID of the overwritten entity                                    | CHANNEL_OVERWRITE_CREATE & CHANNEL_OVERWRITE_UPDATE & CHANNEL_OVERWRITE_DELETE                                                     |
-| members_removed    | string    | number of members removed by the prune                          | MEMBER_PRUNE                                                                                                                       |
-| message_id         | snowflake | ID of the message that was targeted                             | MESSAGE_PIN & MESSAGE_UNPIN                                                                                                        |
-| role_name          | string    | name of the role if type is "0" (not present if type is "1")    | CHANNEL_OVERWRITE_CREATE & CHANNEL_OVERWRITE_UPDATE & CHANNEL_OVERWRITE_DELETE                                                     |
-| type               | string    | type of overwritten entity - "0" for "role" or "1" for "member" | CHANNEL_OVERWRITE_CREATE & CHANNEL_OVERWRITE_UPDATE & CHANNEL_OVERWRITE_DELETE                                                     |
+| Field              | Type      | Description                                                      | Event Type                                                                                                                         |
+| ------------------ | --------- | ---------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
+| application_id     | snowflake | ID of the app whose permissions were targeted                    | APPLICATION_COMMAND_PERMISSION_UPDATE                                                                                              |
+| channel_id         | snowflake | Channel in which the entities were targeted                      | MEMBER_MOVE & MESSAGE_PIN & MESSAGE_UNPIN & MESSAGE_DELETE & STAGE_INSTANCE_CREATE & STAGE_INSTANCE_UPDATE & STAGE_INSTANCE_DELETE |
+| count              | string    | Number of entities that were targeted                            | MESSAGE_DELETE & MESSAGE_BULK_DELETE & MEMBER_DISCONNECT & MEMBER_MOVE                                                             |
+| delete_member_days | string    | Number of days after which inactive members were kicked          | MEMBER_PRUNE                                                                                                                       |
+| id                 | snowflake | ID of the overwritten entity                                     | CHANNEL_OVERWRITE_CREATE & CHANNEL_OVERWRITE_UPDATE & CHANNEL_OVERWRITE_DELETE                                                     |
+| members_removed    | string    | Number of members removed by the prune                           | MEMBER_PRUNE                                                                                                                       |
+| message_id         | snowflake | ID of the message that was targeted                              | MESSAGE_PIN & MESSAGE_UNPIN                                                                                                        |
+| role_name          | string    | Name of the role if type is `"0"` (not present if type is `"1"`) | CHANNEL_OVERWRITE_CREATE & CHANNEL_OVERWRITE_UPDATE & CHANNEL_OVERWRITE_DELETE                                                     |
+| type               | string    | Type of overwritten entity - role (`"0"`) or member (`"1"`)      | CHANNEL_OVERWRITE_CREATE & CHANNEL_OVERWRITE_UPDATE & CHANNEL_OVERWRITE_DELETE                                                     |
 
 ### Audit Log Change Object
 
@@ -132,11 +134,12 @@ The information (and structure) of a single entry will be different depending on
 
 | Field      | Type                                                                            | Description                                                                                            |
 | ---------- | ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ |
-| new_value? | [mixed](#DOCS_RESOURCES_AUDIT_LOG/audit-log-change-object-audit-log-change-key) | new value of the key                                                                                   |
-| old_value? | [mixed](#DOCS_RESOURCES_AUDIT_LOG/audit-log-change-object-audit-log-change-key) | old value of the key                                                                                   |
-| key        | string                                                                          | name of audit log [change key](#DOCS_RESOURCES_AUDIT_LOG/audit-log-change-object-audit-log-change-key) |
+| new_value? | [mixed](#DOCS_RESOURCES_AUDIT_LOG/audit-log-change-object-audit-log-change-key) | New value of the key                                                                                   |
+| old_value? | [mixed](#DOCS_RESOURCES_AUDIT_LOG/audit-log-change-object-audit-log-change-key) | Old value of the key                                                                                   |
+| key        | string                                                                          | Name of audit log [change key](#DOCS_RESOURCES_AUDIT_LOG/audit-log-change-object-audit-log-change-key) |
 
 ###### Audit Log Change Key
+<TODO: description about change key types>
 
 <TODO: is emoji included?>
 <TODO: resource?>
@@ -144,21 +147,21 @@ The information (and structure) of a single entry will be different depending on
 <TODO: keys are different than resource -- example channel_id for invite (when in object, does it just use _ delimiter as indicator for property?). note and explain>
 <TODO: what is this info was pulled up into above table with Resource and change keys (or change keys diff than resource)>
 
-| Object Changed | Change Keys |
-| ---------------- | ---- |
-| [Channel](#DOCS_RESOURCES_CHANNEL/channel-object)  | TODO |
+| Object Changed                                                                                                                                  | Change Keys               |
+| ----------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------- |
+| [Channel](#DOCS_RESOURCES_CHANNEL/channel-object)                                                                                               | TODO                      |
 | [Command Permissions](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-permissions-object-application-command-permissions-structure) | snowflake <TODO: explain> |
-| [Emoji](#DOCS_RESOURCES_EMOJI/emoji-object) | TODO |
-| [Guild](#DOCS_RESOURCES_GUILD/guild-object) | TODO |
-| [Guild Scheduled Event](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object) | TODO |
-| [Invite](#DOCS_RESOURCES_INVITE/invite-object) | TODO |
-| [Invite Metadata](#DOCS_RESOURCES_INVITE/invite-metadata-object) <TODO: combine with above?> | TODO |
-| [Member](#DOCS_RESOURCES_GUILD/guild-member-object) | TODO |
-| [Stage Instance](#DOCS_RESOURCES_STAGE_INSTANCE/stage-instance-object) | TODO |
-| [Sticker](#DOCS_RESOURCES_STICKER/sticker-object) | TODO |
-| [Thread](#DOCS_RESOURCES_CHANNEL/thread-metadata-object) | TODO |
-| [Role](#DOCS_TOPICS_PERMISSIONS/role-object) | TODO |
-| [Webhook](#DOCS_RESOURCES_WEBHOOK/webhook-object) | TODO |
+| [Emoji](#DOCS_RESOURCES_EMOJI/emoji-object)                                                                                                     | TODO                      |
+| [Guild](#DOCS_RESOURCES_GUILD/guild-object)                                                                                                     | TODO                      |
+| [Guild Scheduled Event](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object)                                                     | TODO                      |
+| [Invite](#DOCS_RESOURCES_INVITE/invite-object)                                                                                                  | TODO                      |
+| [Invite Metadata](#DOCS_RESOURCES_INVITE/invite-metadata-object) <TODO: combine with above?>                                                    | TODO                      |
+| [Member](#DOCS_RESOURCES_GUILD/guild-member-object)                                                                                             | TODO                      |
+| [Stage Instance](#DOCS_RESOURCES_STAGE_INSTANCE/stage-instance-object)                                                                          | TODO                      |
+| [Sticker](#DOCS_RESOURCES_STICKER/sticker-object)                                                                                               | TODO                      |
+| [Thread](#DOCS_RESOURCES_CHANNEL/thread-metadata-object)                                                                                        | TODO                      |
+| [Role](#DOCS_TOPICS_PERMISSIONS/role-object)                                                                                                    | TODO                      |
+| [Webhook](#DOCS_RESOURCES_WEBHOOK/webhook-object)                                                                                               | TODO                      |
 
 
 | Name                          | Object Changed                                                                                                                                                                                 | Type                                                                                                                | Description                                                                                                                                             |
@@ -252,9 +255,9 @@ Returns an [audit log](#DOCS_RESOURCES_AUDIT_LOG/audit-log-object) object for th
 
 The following parameters can be used to filter which and how many audit log entries are returned.
 
-| Field       | Type      | Description                                                                                      |
-| ----------- | --------- | ------------------------------------------------------------------------------------------------ |
-| user_id     | snowflake | filter the log for actions made by a user                                                        |
-| action_type | integer   | the type of [audit log event](#DOCS_RESOURCES_AUDIT_LOG/audit-log-entry-object-audit-log-events) |
-| before      | snowflake | filter the log before a certain entry ID                                                         |
-| limit       | integer   | how many entries are returned (default 50, minimum 1, maximum 100)                               |
+| Field       | Type      | Description                                                                                                 |
+| ----------- | --------- | ----------------------------------------------------------------------------------------------------------- |
+| user_id     | snowflake | Entries from a specific user ID                                                                             |
+| action_type | integer   | Entries for a specific [audit log event](#DOCS_RESOURCES_AUDIT_LOG/audit-log-entry-object-audit-log-events) |
+| before      | snowflake | Entries that preceded a specific audit log entry ID                                                         |
+| limit       | integer   | Maximum number of entries (between 1-100) to return, defaults to 50                                         |
