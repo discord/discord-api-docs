@@ -38,6 +38,10 @@ When an app is performing an administrative action using the APIs, it can specif
 
 ### Audit Log Entry Object
 
+Each audit log entry represents a single administrative action, indicated by the `action_type`. Each entry contains one to many changes in the `changes` array that affected a resource in Discord—whether that's a user, channel, app, emoji, or something else.
+
+The information (and structure) of a single entry will be different depending on the action type, the changes made, and the context of those changes. For example, when a member is added or removed from a role (`MEMBER_ROLE_UPDATE` action), there is only one change: the member is either added or removed from a specific role. But when a channel is created (`CHANNEL_CREATE` action), there are many changes in the audit log entry including but not limited to properties like the name, type of channel, and permission overwrites added during creation.
+
 ###### Audit Log Entry Structure
 
 | Field       | Type                                                                                                    | Description                                           |
@@ -69,7 +73,7 @@ When an app is performing an administrative action using the APIs, it can specif
 | MEMBER_ROLE_UPDATE                    | 25    | Member was added or removed from a role                                                          |
 | MEMBER_MOVE                           | 26    | Member was moved to a different voice channel                                                    |
 | MEMBER_DISCONNECT                     | 27    | Member was disconnected from a voice channel                                                     |
-| BOT_ADD                               | 28    | Bot user was added to server                                                                     |
+| BOT_ADD                               | 28    | Bot user was added to server <TODO: check this>                                                  |
 | ROLE_CREATE                           | 30    | Role was created                                                                                 |
 | ROLE_UPDATE                           | 31    | Role was edited                                                                                  |
 | ROLE_DELETE                           | 32    | Role was deleted                                                                                 |
