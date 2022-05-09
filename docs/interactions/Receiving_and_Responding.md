@@ -12,21 +12,21 @@ For [Message Components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/) it includes ide
 
 ###### Interaction Structure
 
-| Field          | Type                                                                                                          | Description                                                                               |
-| -------------- | ------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
-| id             | snowflake                                                                                                     | id of the interaction                                                                     |
-| application_id | snowflake                                                                                                     | id of the application this interaction is for                                             |
-| type           | [interaction type](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-interaction-type)           | the type of interaction                                                                   |
-| data?\*        | [interaction data](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-interaction-data-structure) | the command data payload                                                                  |
-| guild_id?      | snowflake                                                                                                     | the guild it was sent from                                                                |
-| channel_id?    | snowflake                                                                                                     | the channel it was sent from                                                              |
-| member?\*\*    | [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) object                                              | guild member data for the invoking user, including permissions                            |
-| user?          | [user](#DOCS_RESOURCES_USER/user-object) object                                                               | user object for the invoking user, if invoked in a DM                                     |
-| token          | string                                                                                                        | a continuation token for responding to the interaction                                    |
-| version        | integer                                                                                                       | read-only property, always `1`                                                            |
-| message?       | [message](#DOCS_RESOURCES_CHANNEL/message-object) object                                                      | for components, the message they were attached to                                         |
-| locale?\*\*\*  | string                                                                                                        | the selected [language](#DOCS_REFERENCE/locales) of the invoking user                     |
-| guild_locale?  | string                                                                                                        | the [guild's preferred locale](#DOCS_RESOURCES_GUILD/guild-object), if invoked in a guild |
+| Field          | Type                                                                                                | Description                                                                               |
+| -------------- | --------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
+| id             | snowflake                                                                                           | id of the interaction                                                                     |
+| application_id | snowflake                                                                                           | id of the application this interaction is for                                             |
+| type           | [interaction type](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-interaction-type) | the type of interaction                                                                   |
+| data?\*        | [interaction data](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-interaction-data) | the interaction data payload                                                              |
+| guild_id?      | snowflake                                                                                           | the guild it was sent from                                                                |
+| channel_id?    | snowflake                                                                                           | the channel it was sent from                                                              |
+| member?\*\*    | [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) object                                    | guild member data for the invoking user, including permissions                            |
+| user?          | [user](#DOCS_RESOURCES_USER/user-object) object                                                     | user object for the invoking user, if invoked in a DM                                     |
+| token          | string                                                                                              | a continuation token for responding to the interaction                                    |
+| version        | integer                                                                                             | read-only property, always `1`                                                            |
+| message?       | [message](#DOCS_RESOURCES_CHANNEL/message-object) object                                            | for components, the message they were attached to                                         |
+| locale?\*\*\*  | string                                                                                              | the selected [language](#DOCS_REFERENCE/locales) of the invoking user                     |
+| guild_locale?  | string                                                                                              | the [guild's preferred locale](#DOCS_RESOURCES_GUILD/guild-object), if invoked in a guild |
 
 \* This is always present on application command, message component, and modal submit interaction types. It is optional for future-proofing against new interaction types
 
@@ -44,22 +44,24 @@ For [Message Components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/) it includes ide
 | APPLICATION_COMMAND_AUTOCOMPLETE | 4     |
 | MODAL_SUBMIT                     | 5     |
 
-###### Interaction Data Structure
+###### Interaction Data
 
-| Field           | Type                                                                                                                                                                             | Description                                                                                                                                                                           | Interaction Type                                                                                                                                   |
-| --------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
-| id              | snowflake                                                                                                                                                                        | the [`ID`](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-structure) of the invoked command                                                   | Application Command                                                                                                                                |
-| name            | string                                                                                                                                                                           | the [`name`](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-structure) of the invoked command                                                 | Application Command                                                                                                                                |
-| type            | integer                                                                                                                                                                          | the [`type`](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-structure) of the invoked command                                                 | Application Command                                                                                                                                |
-| resolved?       | [resolved data](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-resolved-data-structure)                                                                          | converted users + roles + channels + attachments                                                                                                                                      | Application Command                                                                                                                                |
-| options?        | array of [application command interaction data option](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-interaction-data-option-structure) | the params + values from the user                                                                                                                                                     | Application Command                                                                                                                                |
-| guild_id?       | snowflake                                                                                                                                                                        | the id of the guild the command is registered to                                                                                                                                      | Application Command                                                                                                                                |
-| custom_id?      | string                                                                                                                                                                           | the [`custom_id`](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/custom-id) of the component                                                                                                   | Component, Modal Submit                                                                                                                            |
-| component_type? | integer                                                                                                                                                                          | the [type](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-object-component-types) of the component                                                                                   | Component                                                                                                                                          |
-| values?         | array of [select option values](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/select-menu-object-select-option-structure)                                                                | the values the user selected                                                                                                                                                          | Component (Select)                                                                                                                                 |
-| target_id?      | snowflake                                                                                                                                                                        | id the of user or message targeted by a [user](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/user-commands) or [message](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/message-commands) command  | [User Command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/user-commands), [Message Command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/message-commands) |
-| components?     | array of [message components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/message-components)                                                                                          | the values submitted by the user                                                                                                                                                      | Modal Submit                                                                                                                                       |
+###### Application Command Data Structure
 
+> info
+> Sent in response to both APPLICATION_COMMAND and APPLICATION_COMMAND_AUTOCOMPLETE interactions. 
+
+| Field      | Type                                                                                                                                                                             | Description                                                                                                                                                                          |
+| ---------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| id         | snowflake                                                                                                                                                                        | the [`ID`](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-structure) of the invoked command                                                  |
+| name       | string                                                                                                                                                                           | the [`name`](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-structure) of the invoked command                                                |
+| type       | integer                                                                                                                                                                          | the [`type`](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-structure) of the invoked command                                                |
+| resolved?  | [resolved data](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-resolved-data-structure)                                                                          | converted users + roles + channels + attachments                                                                                                                                     |
+| options?\* | array of [application command interaction data option](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-interaction-data-option-structure) | the params + values from the user                                                                                                                                                    |
+| guild_id?  | snowflake                                                                                                                                                                        | the id of the guild the command is registered to                                                                                                                                     |
+| target_id? | snowflake                                                                                                                                                                        | id the of user or message targeted by a [user](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/user-commands) or [message](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/message-commands) command |
+
+\* This [can be partial](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/autocomplete) when in response to APPLICATION_COMMAND_AUTOCOMPLETE
 
 ###### Resolved Data Structure
 
@@ -79,6 +81,23 @@ For [Message Components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/) it includes ide
 
 \*\* Partial `Channel` objects only have `id`, `name`, `type` and `permissions` fields. Threads will also have `thread_metadata` and `parent_id` fields.
 
+###### Message Component Data Structure
+
+| Field          | Type                                                                                                              | Description                                                                                                     |
+| -------------- | ----------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
+| custom_id      | string                                                                                                            | the [`custom_id`](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/custom-id) of the component                             |
+| component_type | integer                                                                                                           | the [type](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-object-component-types) of the component             |
+| values?\*      | array of [select option values](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/select-menu-object-select-option-structure) | values the user selected in a [select menu](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/select-menu-object) component |
+
+\* This is always present on a select menu component
+
+###### Modal Submit Data Structure
+
+| Field      | Type                                                                                    | Description                                                                     |
+| ---------- | --------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
+| custom_id  | string                                                                                  | the [`custom_id`](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/custom-id) of the modal |
+| components | array of [message components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/message-components) | the values submitted by the user                                                |
+
 ### Message Interaction Object
 
 This is sent on the [message object](#DOCS_RESOURCES_CHANNEL/message-object) when the message is a response to an Interaction without an existing message.
@@ -88,12 +107,12 @@ This is sent on the [message object](#DOCS_RESOURCES_CHANNEL/message-object) whe
 
 ###### Message Interaction Structure
 
-| Name | Type                                                                                                | Description                                                                                                                             |
-| ---- | --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
-| id   | snowflake                                                                                           | id of the interaction                                                                                                                   |
-| type | [interaction type](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-interaction-type) | the type of interaction                                                                                                                 |
-| name | string                                                                                              | the name of the [application command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-structure) |
-| user | [user object](#DOCS_RESOURCES_USER/user-object)                                                     | the user who invoked the interaction                                                                                                    |
+| Name    | Type                                                                                                | Description                                                                                                                             |
+| ------- | --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
+| id      | snowflake                                                                                           | id of the interaction                                                                                                                   |
+| type    | [interaction type](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-interaction-type) | the type of interaction                                                                                                                 |
+| name    | string                                                                                              | the name of the [application command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-structure) |
+| user    | [user object](#DOCS_RESOURCES_USER/user-object)                                                     | the user who invoked the interaction                                                                                                    |
 | member? | [partial member](#DOCS_RESOURCES_GUILD/guild-member-object) object                                  | the member who invoked the interaction in the guild                                                                                     |
 
 
@@ -203,20 +222,20 @@ Not all message fields are currently supported.
 
 ###### Autocomplete
 
-| Name     | Type                                                                                                                               | Description                              |
-| -------- | ---------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------- |
-| choices  | array of [choices](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-choice-structure) | autocomplete choices (max of 25 choices) |
+| Name    | Type                                                                                                                               | Description                              |
+| ------- | ---------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------- |
+| choices | array of [choices](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-choice-structure) | autocomplete choices (max of 25 choices) |
 
 ###### Modal
 
 > warn
 > Support for components in modals is currently limited to type 4 (Text Input).
 
-| Name       | Type                                                          | Description                                                                 |
-| ---------- | ------------------------------------------------------------- | --------------------------------------------------------------------------- |
-| custom_id  | string                                                        | a developer-defined identifier for the component, max 100 characters        |
-| title      | string                                                        | the title of the popup modal, max 45 characters                                                |
-| components | array of [components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/) | between 1 and 5 (inclusive) components that make up the modal               |
+| Name       | Type                                                          | Description                                                          |
+| ---------- | ------------------------------------------------------------- | -------------------------------------------------------------------- |
+| custom_id  | string                                                        | a developer-defined identifier for the component, max 100 characters |
+| title      | string                                                        | the title of the popup modal, max 45 characters                      |
+| components | array of [components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/) | between 1 and 5 (inclusive) components that make up the modal        |
 
 > warn
 > While interaction responses and followups are webhooks, they respect @everyone's ability to ping @everyone / @here . Nonetheless if your application responds with user data, you should still use [`allowed_mentions`](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object) to filter which mentions in the content actually ping. Other differences include the ability to send named links in the message content (`[text](url)`).
