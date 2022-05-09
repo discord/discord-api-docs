@@ -58,58 +58,60 @@ The information (and structure) of a single entry will be different depending on
 
 ###### Audit Log Events
 
-<TODO: object updated? if so, include description here and link to keys below; move to last column>
+The table below documents audit log events, and their corresponding `action_type` values, that your app may receive.
 
-| Event                                 | Value | Object(s) Changed | Description                                               |
-| ------------------------------------- | ----- | ----------------- | --------------------------------------------------------- |
-| GUILD_UPDATE                          | 1     | TODO              | Server settings were updated                              |
-| CHANNEL_CREATE                        | 10    | TODO              | Channel was created                                       |
-| CHANNEL_UPDATE                        | 11    | TODO              | Channel settings were updated                             |
-| CHANNEL_DELETE                        | 12    | TODO              | Channel was deleted                                       |
-| CHANNEL_OVERWRITE_CREATE              | 13    | TODO              | Permission overwrite was added to a channel               |
-| CHANNEL_OVERWRITE_UPDATE              | 14    | TODO              | Permission overwrite was updated for a channel            |
-| CHANNEL_OVERWRITE_DELETE              | 15    | TODO              | Permission overwrite was deleted from a channel           |
-| MEMBER_KICK                           | 20    | TODO              | Member was removed from server                            |
-| MEMBER_PRUNE                          | 21    | TODO              | Members were pruned from server                           |
-| MEMBER_BAN_ADD                        | 22    | TODO              | Member was banned from server                             |
-| MEMBER_BAN_REMOVE                     | 23    | TODO              | Server ban was lifted for a member                        |
-| MEMBER_UPDATE                         | 24    | TODO              | Member was updated in server                              |
-| MEMBER_ROLE_UPDATE                    | 25    | TODO              | Member was added or removed from a role                   |
-| MEMBER_MOVE                           | 26    | TODO              | Member was moved to a different voice channel             |
-| MEMBER_DISCONNECT                     | 27    | TODO              | Member was disconnected from a voice channel              |
-| BOT_ADD                               | 28    | TODO              | Bot user was added to server <TODO: check this>           |
-| ROLE_CREATE                           | 30    | TODO              | Role was created                                          |
-| ROLE_UPDATE                           | 31    | TODO              | Role was edited                                           |
-| ROLE_DELETE                           | 32    | TODO              | Role was deleted                                          |
-| INVITE_CREATE                         | 40    | TODO              | Server invite was created                                 |
-| INVITE_UPDATE                         | 41    | TODO              | <TODO: not sure this is ever fired>                       |
-| INVITE_DELETE                         | 42    | TODO              | Server invite was deleted                                 |
-| WEBHOOK_CREATE                        | 50    | TODO              | Webhook was created                                       |
-| WEBHOOK_UPDATE                        | 51    | TODO              | Webhook properties or channel were updated                |
-| WEBHOOK_DELETE                        | 52    | TODO              | Webhook was deleted                                       |
-| EMOJI_CREATE                          | 60    | TODO              | Emoji was created                                         |
-| EMOJI_UPDATE                          | 61    | TODO              | Emoji name was updated                                    |
-| EMOJI_DELETE                          | 62    | TODO              | Emoji was deleted                                         |
-| MESSAGE_DELETE                        | 72    | TODO              | Single message was deleted                                |
-| MESSAGE_BULK_DELETE                   | 73    | TODO              | Multiple messages deleted                                 |
-| MESSAGE_PIN                           | 74    | TODO              | Messaged was pinned to a channel                          |
-| MESSAGE_UNPIN                         | 75    | TODO              | Message was unpinned from a channel                       |
-| INTEGRATION_CREATE                    | 80    | TODO              | App was added to server                                   |
-| INTEGRATION_UPDATE                    | 81    | TODO              | App was updated (as an example, its scopes were updated)  |
-| INTEGRATION_DELETE                    | 82    | TODO              | App was removed from server                               |
-| STAGE_INSTANCE_CREATE                 | 83    | TODO              | Stage instance was created (stage channel becomes live)   |
-| STAGE_INSTANCE_UPDATE                 | 84    | TODO              | Stage instace details were updated                        |
-| STAGE_INSTANCE_DELETE                 | 85    | TODO              | Stage instance was deleted (stage channel no longer live) |
-| STICKER_CREATE                        | 90    | TODO              | Sticker was created                                       |
-| STICKER_UPDATE                        | 91    | TODO              | Sticker details were updated                              |
-| STICKER_DELETE                        | 92    | TODO              | Sticker was deleted                                       |
-| GUILD_SCHEDULED_EVENT_CREATE          | 100   | TODO              | Event was created                                         |
-| GUILD_SCHEDULED_EVENT_UPDATE          | 101   | TODO              | Event was updated                                         |
-| GUILD_SCHEDULED_EVENT_DELETE          | 102   | TODO              | Event was cancelled                                       |
-| THREAD_CREATE                         | 110   | TODO              | Thread was created in a channel                           |
-| THREAD_UPDATE                         | 111   | TODO              | Thread was updated                                        |
-| THREAD_DELETE                         | 112   | TODO              | Thread was deleted                                        |
-| APPLICATION_COMMAND_PERMISSION_UPDATE | 121   | TODO              | Permissions were updated for a command                    |
+The object changed column corresponds with that object's change keys, which are documented in the [Change Object](#TODO) section. An `N/A` means there isn't a `changes` array in the event's entry (though there is still a `target_id` for the affected entity).
+
+| Event                                 | Value |                                                           | Description                                                                                                                                     | Object Changed |
+| ------------------------------------- | ----- | --------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
+| GUILD_UPDATE                          | 1     | Server settings were updated                              | [Guild](#DOCS_RESOURCES_GUILD/guild-object)                                                                                                     |
+| CHANNEL_CREATE                        | 10    | Channel was created                                       | [Channel](#DOCS_RESOURCES_CHANNEL/channel-object)                                                                                               |
+| CHANNEL_UPDATE                        | 11    | Channel settings were updated                             | [Channel](#DOCS_RESOURCES_CHANNEL/channel-object)                                                                                               |
+| CHANNEL_DELETE                        | 12    | Channel was deleted                                       | [Channel](#DOCS_RESOURCES_CHANNEL/channel-object)                                                                                               |
+| CHANNEL_OVERWRITE_CREATE              | 13    | Permission overwrite was added to a channel               | [Channel Overwrite](#DOCS_RESOURCES_CHANNEL/overwrite-object)                                                                                   |
+| CHANNEL_OVERWRITE_UPDATE              | 14    | Permission overwrite was updated for a channel            | [Channel Overwrite](#DOCS_RESOURCES_CHANNEL/overwrite-object)                                                                                   |
+| CHANNEL_OVERWRITE_DELETE              | 15    | Permission overwrite was deleted from a channel           | [Channel Overwrite](#DOCS_RESOURCES_CHANNEL/overwrite-object)                                                                                   |
+| MEMBER_KICK                           | 20    | Member was removed from server                            | N/A                                                                                                                                             |
+| MEMBER_PRUNE                          | 21    | Members were pruned from server                           | N/A                                                                                                                                             |
+| MEMBER_BAN_ADD                        | 22    | Member was banned from server                             | N/A                                                                                                                                             |
+| MEMBER_BAN_REMOVE                     | 23    | Server ban was lifted for a member                        | N/A                                                                                                                                             |
+| MEMBER_UPDATE                         | 24    | Member was updated in server                              | [Member](#DOCS_RESOURCES_GUILD/guild-member-object)                                                                                             |
+| MEMBER_ROLE_UPDATE                    | 25    | Member was added or removed from a role                   | [Role](#DOCS_TOPICS_PERMISSIONS/role-object)                                                                                                    |
+| MEMBER_MOVE                           | 26    | Member was moved to a different voice channel             | N/A                                                                                                                                             |
+| MEMBER_DISCONNECT                     | 27    | Member was disconnected from a voice channel              | N/A                                                                                                                                             |
+| BOT_ADD                               | 28    | Bot user was added to server                              | N/A                                                                                                                                             |
+| ROLE_CREATE                           | 30    | Role was created                                          | [Role](#DOCS_TOPICS_PERMISSIONS/role-object)                                                                                                    |
+| ROLE_UPDATE                           | 31    | Role was edited                                           | [Role](#DOCS_TOPICS_PERMISSIONS/role-object)                                                                                                    |
+| ROLE_DELETE                           | 32    | Role was deleted                                          | [Role](#DOCS_TOPICS_PERMISSIONS/role-object)                                                                                                    |
+| INVITE_CREATE                         | 40    | Server invite was created                                 | [Invite](#DOCS_RESOURCES_INVITE/invite-object) and [Invite Metadata](#DOCS_RESOURCES_INVITE/invite-metadata-object)                             |
+| INVITE_UPDATE                         | 41    | <TODO: not sure this is ever fired>                       | [Invite](#DOCS_RESOURCES_INVITE/invite-object) and [Invite Metadata](#DOCS_RESOURCES_INVITE/invite-metadata-object)                             |
+| INVITE_DELETE                         | 42    | Server invite was deleted                                 | [Invite](#DOCS_RESOURCES_INVITE/invite-object) and [Invite Metadata](#DOCS_RESOURCES_INVITE/invite-metadata-object)                             |
+| WEBHOOK_CREATE                        | 50    | Webhook was created                                       | [Webhook](#DOCS_RESOURCES_WEBHOOK/webhook-object)                                                                                               |
+| WEBHOOK_UPDATE                        | 51    | Webhook properties or channel were updated                | [Webhook](#DOCS_RESOURCES_WEBHOOK/webhook-object)                                                                                               |
+| WEBHOOK_DELETE                        | 52    | Webhook was deleted                                       | [Webhook](#DOCS_RESOURCES_WEBHOOK/webhook-object)                                                                                               |
+| EMOJI_CREATE                          | 60    | Emoji was created                                         | [Emoji](#DOCS_RESOURCES_EMOJI/emoji-object)                                                                                                     |
+| EMOJI_UPDATE                          | 61    | Emoji name was updated                                    | [Emoji](#DOCS_RESOURCES_EMOJI/emoji-object)                                                                                                     |
+| EMOJI_DELETE                          | 62    | Emoji was deleted                                         | [Emoji](#DOCS_RESOURCES_EMOJI/emoji-object)                                                                                                     |
+| MESSAGE_DELETE                        | 72    | Single message was deleted                                | N/A                                                                                                                                             |
+| MESSAGE_BULK_DELETE                   | 73    | Multiple messages were deleted                            | N/A                                                                                                                                             |
+| MESSAGE_PIN                           | 74    | Messaged was pinned to a channel                          | N/A                                                                                                                                             |
+| MESSAGE_UNPIN                         | 75    | Message was unpinned from a channel                       | N/A                                                                                                                                             |
+| INTEGRATION_CREATE                    | 80    | App was added to server                                   | [Integration](#DOCS_RESOURCES_GUILD/integration-object)                                                                                         |
+| INTEGRATION_UPDATE                    | 81    | App was updated (as an example, its scopes were updated)  | [Integration](#DOCS_RESOURCES_GUILD/integration-object)                                                                                         |
+| INTEGRATION_DELETE                    | 82    | App was removed from server                               | [Integration](#DOCS_RESOURCES_GUILD/integration-object)                                                                                         |
+| STAGE_INSTANCE_CREATE                 | 83    | Stage instance was created (stage channel becomes live)   | [Stage Instance](#DOCS_RESOURCES_STAGE_INSTANCE/stage-instance-object)                                                                          |
+| STAGE_INSTANCE_UPDATE                 | 84    | Stage instace details were updated                        | [Stage Instance](#DOCS_RESOURCES_STAGE_INSTANCE/stage-instance-object)                                                                          |
+| STAGE_INSTANCE_DELETE                 | 85    | Stage instance was deleted (stage channel no longer live) | [Stage Instance](#DOCS_RESOURCES_STAGE_INSTANCE/stage-instance-object)                                                                          |
+| STICKER_CREATE                        | 90    | Sticker was created                                       | [Sticker](#DOCS_RESOURCES_STICKER/sticker-object)                                                                                               |
+| STICKER_UPDATE                        | 91    | Sticker details were updated                              | [Sticker](#DOCS_RESOURCES_STICKER/sticker-object)                                                                                               |
+| STICKER_DELETE                        | 92    | Sticker was deleted                                       | [Sticker](#DOCS_RESOURCES_STICKER/sticker-object)                                                                                               |
+| GUILD_SCHEDULED_EVENT_CREATE          | 100   | Event was created                                         | [Guild Scheduled Event](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object)                                                     |
+| GUILD_SCHEDULED_EVENT_UPDATE          | 101   | Event was updated                                         | [Guild Scheduled Event](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object)                                                     |
+| GUILD_SCHEDULED_EVENT_DELETE          | 102   | Event was cancelled                                       | [Guild Scheduled Event](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object)                                                     |
+| THREAD_CREATE                         | 110   | Thread was created in a channel                           | [Thread](#DOCS_RESOURCES_CHANNEL/thread-metadata-object)                                                                                        |
+| THREAD_UPDATE                         | 111   | Thread was updated                                        | [Thread](#DOCS_RESOURCES_CHANNEL/thread-metadata-object)                                                                                        |
+| THREAD_DELETE                         | 112   | Thread was deleted                                        | [Thread](#DOCS_RESOURCES_CHANNEL/thread-metadata-object)                                                                                        |
+| APPLICATION_COMMAND_PERMISSION_UPDATE | 121   | Permissions were updated for a command                    | [Command Permissions](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-permissions-object-application-command-permissions-structure) |
 
 ###### Optional Audit Entry Info
 
@@ -126,6 +128,8 @@ The information (and structure) of a single entry will be different depending on
 | type               | string    | Type of overwritten entity - role (`"0"`) or member (`"1"`)      | CHANNEL_OVERWRITE_CREATE & CHANNEL_OVERWRITE_UPDATE & CHANNEL_OVERWRITE_DELETE                                                     |
 
 ### Audit Log Change Object
+
+<TODO: indicated with object changed above>
 
 ###### Audit Log Change Structure
 
