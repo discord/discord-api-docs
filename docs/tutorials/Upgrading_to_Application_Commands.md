@@ -9,7 +9,7 @@ This guide is intended to provide developers with apps currently using message c
 > info
 > If you are developing an app for the first time, the [commands documentation](#DOCS_INTERACTIONS_APPLICATION_COMMANDS) may be a more helpful resource for you.
 
-Before diving in, it’s worth noting that with the message content changes, apps can still access message content in their DMs with users, as well as when messages are sent that directly `@mentions` their bot user (since there is clear user intent).
+Before diving in, it’s worth noting that with the message content changes, apps can still access message content in their DMs with users, as well as when messages are sent that directly `@mentions` their bot user (since there is clear user intent that the bot can read those messages).
 
 And for apps that use message content in ways that can’t be ported to commands, you should review the [message content intent review policy](https://support-dev.discord.com/hc/en-us/articles/5324827539479) to see if you’re eligible to apply for the privileged intent.
 
@@ -21,7 +21,7 @@ There are three types of application commands: slash commands, user commands, an
 
 ### Slash Commands
 
-[Slash commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/slash-commands) are the most common type of command. They are accessed by typing the command’s name prefixed with a forward slash (`/`) or by using the plus button (+) to the left of the message input.
+[Slash commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/slash-commands) are the most common type of command. They are accessed by typing a forward slash (`/`) followed by the command’s name, or by using the plus button (+) to the left of the message input.
 
 Slash commands can appear in channels and DMs, so they’re helpful when an action is tied to a channel, a server, or nothing at all.
 
@@ -49,9 +49,6 @@ Commands can be registered via HTTP requests after an app is authorized with the
 The API endpoint to register (or create) commands is different depending on its scope:
 - **[Global commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/making-a-global-command)** are available in all of the servers where your app is installed, and can be created using the [`/applications/{YOUR APP ID}/commands` endpoint](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/create-global-application-command). All of your app's global commands will automatically be added to the servers your app is installed in, regardless of whether they were registered before or after installation. 
 - **[Guild commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/making-a-guild-command)** are only available in the servers you explicitly add them to via the API, making them useful for features available only to a subset of guilds. They can be created using the [`/applications/{YOUR APP ID}/guilds/{A GUILD ID}/commands` endpoint](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/create-guild-application-command).
-
-> info
-> Guild commands are often used during development since they’re available immediately after calling the create endpoint, whereas global commands can take up to an hour to update.
 
 While most apps won’t need to register more than a handful of commands, apps can have up to 100 global slash commands and 100 guild slash commands with unique names. They can also have 5 global user commands and 5 global message commands. Different limitations apply for global and guild commands, which can be found [in the documentation](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/registering-a-command).
 
@@ -126,7 +123,7 @@ Permissions for specific roles, users, and channels can be updated by your app i
 
 ## Handling Commands
 
-Commands use the [interactions model](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING) rather than the WebSocket gateway. The interactions model uses HTTP requests to send your app relevant information only when a Discord user triggers one of your app’s interactions.
+Commands use the [interactions model](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING) through HTTP-based outgoing webhooks or the WebSocket-based [Interaction Create gateway event](#DOCS_TOPICS_GATEWAY/interaction-create). Regardless of the transit method used to arrive, your app will receive relevant information when a Discord user triggers one of your app’s interactions.
 
 > warn
 > If you continue using gateway events, you’ll still receive message events but the payload will have empty string or array data for message content-related fields—like `content`, `embeds`, `attachments`, and `components`. You can read more about the changes to these events [in the original announcement](https://support-dev.discord.com/hc/en-us/articles/4404772028055-Message-Content-Privileged-Intent-for-Verified-Bots).
@@ -134,6 +131,9 @@ Commands use the [interactions model](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDIN
 For commands, this means that each time one of your commands is used, your app will receive information like the command name and the user who triggered it. More information about this information is below in the section on [parsing command payloads](#DOCS_TUTORIALS_UPGRADING_TO_APPLICATION_COMMANDS/parsing-command-payloads).
 
 ### Adding an Interactions Endpoint URL
+
+> info
+> This step is specific to receiving interactions over HTTP. If you prefer to use [Gateways](#DOCS_TOPICS_GATEWAY/interaction-create), this step won't be applicable to your app.
 
 Before your app can receive interactions, you’ll need to set up an **Interaction Endpoint URL** in your app settings. This endpoint should be a public URL where Discord can send all interactions-related requests.
 
