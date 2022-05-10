@@ -65,24 +65,6 @@ The inner data payload of an interaction can vary drastically from interaction t
 
 \* This [can be partial](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/autocomplete) when in response to APPLICATION_COMMAND_AUTOCOMPLETE
 
-###### Resolved Data Structure
-
-> info
-> If data for a Member is included, data for its corresponding User will also be included.
-
-| Field         | Type                                                                                     | Description                         |
-| ------------- | ---------------------------------------------------------------------------------------- | ----------------------------------- |
-| users?        | Map of Snowflakes to [user](#DOCS_RESOURCES_USER/user-object) objects                    | the ids and User objects            |
-| members?\*    | Map of Snowflakes to [partial member](#DOCS_RESOURCES_GUILD/guild-member-object) objects | the ids and partial Member objects  |
-| roles?        | Map of Snowflakes to [role](#DOCS_TOPICS_PERMISSIONS/role-object) objects                | the ids and Role objects            |
-| channels?\*\* | Map of Snowflakes to [partial channel](#DOCS_RESOURCES_CHANNEL/channel-object) objects   | the ids and partial Channel objects |
-| messages?     | Map of Snowflakes to [partial messages](#DOCS_RESOURCES_CHANNEL/message-object) objects  | the ids and partial Message objects |
-| attachments?  | Map of Snowflakes to [attachment](#DOCS_RESOURCES_CHANNEL/attachment-object) objects     | the ids and attachment objects      |
-
-\* Partial `Member` objects are missing `user`, `deaf` and `mute` fields
-
-\*\* Partial `Channel` objects only have `id`, `name`, `type` and `permissions` fields. Threads will also have `thread_metadata` and `parent_id` fields.
-
 ###### Message Component Data Structure
 
 | Field          | Type                                                                                                              | Description                                                                                                     |
@@ -100,6 +82,23 @@ The inner data payload of an interaction can vary drastically from interaction t
 | custom_id  | string                                                                                  | the [`custom_id`](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/custom-id) of the modal |
 | components | array of [message components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/message-components) | the values submitted by the user                                                |
 
+###### Resolved Data Structure
+
+> info
+> If data for a Member is included, data for its corresponding User will also be included.
+
+| Field         | Type                                                                                     | Description                         |
+| ------------- | ---------------------------------------------------------------------------------------- | ----------------------------------- |
+| users?        | Map of Snowflakes to [user](#DOCS_RESOURCES_USER/user-object) objects                    | the ids and User objects            |
+| members?\*    | Map of Snowflakes to [partial member](#DOCS_RESOURCES_GUILD/guild-member-object) objects | the ids and partial Member objects  |
+| roles?        | Map of Snowflakes to [role](#DOCS_TOPICS_PERMISSIONS/role-object) objects                | the ids and Role objects            |
+| channels?\*\* | Map of Snowflakes to [partial channel](#DOCS_RESOURCES_CHANNEL/channel-object) objects   | the ids and partial Channel objects |
+| messages?     | Map of Snowflakes to [partial messages](#DOCS_RESOURCES_CHANNEL/message-object) objects  | the ids and partial Message objects |
+| attachments?  | Map of Snowflakes to [attachment](#DOCS_RESOURCES_CHANNEL/attachment-object) objects     | the ids and attachment objects      |
+
+\* Partial `Member` objects are missing `user`, `deaf` and `mute` fields
+
+\*\* Partial `Channel` objects only have `id`, `name`, `type` and `permissions` fields. Threads will also have `thread_metadata` and `parent_id` fields.
 ### Message Interaction Object
 
 This is sent on the [message object](#DOCS_RESOURCES_CHANNEL/message-object) when the message is a response to an Interaction without an existing message.
