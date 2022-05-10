@@ -34,6 +34,7 @@ These are a list of all the OAuth2 scopes that Discord supports. Some scopes req
 | bot                          | for oauth2 bots, this puts the bot in the user's selected guild by default                                                                                                               |
 | connections                  | allows [/users/@me/connections](#DOCS_RESOURCES_USER/get-user-connections) to return linked third-party accounts                                                                         |
 | email                        | enables [/users/@me](#DOCS_RESOURCES_USER/get-current-user) to return an `email`                                                                                                         |
+| dm_channels.read             | allows your app to see information about the user's DMs and group DMs                                                                                                                    |
 | gdm.join                     | allows your app to [join users to a group dm](#DOCS_RESOURCES_CHANNEL/group-dm-add-recipient)                                                                                            |
 | guilds                       | allows [/users/@me/guilds](#DOCS_RESOURCES_USER/get-current-user-guilds) to return basic information about all of a user's guilds                                                        |
 | guilds.join                  | allows [/guilds/{guild.id}/members/{user.id}](#DOCS_RESOURCES_GUILD/add-guild-member) to be used for joining users to a guild                                                            |
@@ -46,6 +47,7 @@ These are a list of all the OAuth2 scopes that Discord supports. Some scopes req
 | rpc.notifications.read       | for local rpc server access, this allows you to receive notifications pushed out to the user - requires Discord approval                                                                 |
 | rpc.voice.read               | for local rpc server access, this allows you to read a user's voice settings and listen for voice events - requires Discord approval                                                     |
 | rpc.voice.write              | for local rpc server access, this allows you to update a user's voice settings - requires Discord approval                                                                               |
+| voice                        | allows your app to connect to voice on user's behalf and see all the voice members                                                                                                       |
 | webhook.incoming             | this generates a webhook that is returned in the oauth token response for authorization code grants                                                                                      |
 
 > info
