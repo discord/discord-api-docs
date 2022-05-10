@@ -1195,11 +1195,19 @@ Sent when an invite is deleted.
 
 #### Message Create
 
-Sent when a message is created. The inner payload is a [message](#DOCS_RESOURCES_CHANNEL/message-object) object.
+Sent when a message is created. The inner payload is a [message](#DOCS_RESOURCES_CHANNEL/message-object) object with the following extra fields:
+
+###### Message Create Extra Fields
+
+| Field     | Type                                                                                                                                            | Description                                                                                            |
+| --------- | ----------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ |
+| guild_id? | snowflake                                                                                                                                       | id of the guild the message was sent in - unless it is an ephemeral message                            |
+| member?   | partial [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) object                                                                        | member properties for this message's author. Missing for ephemeral messages and messages from webhooks |
+| mentions  | array of [user](#DOCS_RESOURCES_USER/user-object) objects, with an additional partial [member](#DOCS_RESOURCES_GUILD/guild-member-object) field | users specifically mentioned in the message                                                            |
 
 #### Message Update
 
-Sent when a message is updated. The inner payload is a [message](#DOCS_RESOURCES_CHANNEL/message-object) object.
+Sent when a message is updated. The inner payload is a [message](#DOCS_RESOURCES_CHANNEL/message-object) object with the same extra fields as [MESSAGE_CREATE](#DOCS_TOPICS_GATEWAY/message-create).
 
 > warn
 > Unlike creates, message updates may contain only a subset of the full message object payload (but will always contain an id and channel_id).
