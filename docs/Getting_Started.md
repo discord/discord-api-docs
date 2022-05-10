@@ -138,7 +138,7 @@ First, copy your bot user’s token from earlier and paste it in the **`DISCORD_
 
 Next, navigate to your app settings in the developer portal and copy the **App ID** and **Public Key** from the **General Overview** page. Paste the values in your `.env` file as **`APP_ID`** and **`PUBLIC_KEY`**.
 
-Finally, fetch your guild ID by navigating to the server where you installed your app. Copy the first number in the URL after `channels/` (for example, in the URL `https://discord.com/channels/12345/678910`, the server ID would be `12345`). Save this value as **`GUILD_ID`** in your `.env` file.
+Finally, fetch your guild ID by navigating to the server where you installed your app. Copy the first number in the URL after `channels/` (for example, in the URL `https://discord.com/channels/12345/678910`, the guild ID would be `12345`). Save this value as **`GUILD_ID`** in your `.env` file.
 
 With your credentials configured, let's install and handle slash commands.
 
