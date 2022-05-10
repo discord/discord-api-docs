@@ -46,6 +46,8 @@ For [Message Components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/) it includes ide
 
 ###### Interaction Data
 
+The inner data payload of an interaction can vary drastically from interaction to interaction but is guaranteed based on the [type of interaction](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-interaction-type). As mentioned in the table above, `PING` interactions *never* have a `data` property. For all other types of interactions, the structure of the inner `data` payload can be found below, split by type.
+
 ###### Application Command Data Structure
 
 > info
