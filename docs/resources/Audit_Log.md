@@ -56,11 +56,14 @@ Apps can specify why an administrative action is being taken by passing an `X-Au
 | options?    | [optional audit entry info](#DOCS_RESOURCES_AUDIT_LOG/audit-log-entry-object-optional-audit-entry-info) | Additional info for certain action types              |
 | reason?     | string                                                                                                  | Reason for the change (1-512 characters)              |
 
+> warn
+> For `APPLICATION_COMMAND_PERMISSION_UPDATE` events, the `target_id` is the app ID since the `changes` array may contain several permission changes for different individual entities
+
 ###### Audit Log Events
 
 The table below documents audit log events, and their corresponding `action_type` values, that your app may receive.
 
-The **Object Changed** column corresponds with that object's [change keys](#DOCS_RESOURCES_AUDIT_LOG/audit-log-change-object-audit-log-change-key) section. A `N/A` value means that there isn't a `changes` array in the entry, though other fields like the `target_id` still exist.
+The **Object Changed** column corresponds with that object's [change keys](#DOCS_RESOURCES_AUDIT_LOG/audit-log-change-object-audit-log-change-key) section. A `N/A` value means that there isn't a `changes` array in the entry, though other fields like the `target_id` still exist, and many have fields in the [`options` array](#DOCS_RESOURCES_AUDIT_LOG/audit-log-entry-object-optional-audit-entry-info).
 
 | Event                                 | Value | Description                                               | Object Changed                                                                                                                                 |
 | ------------------------------------- | ----- | --------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -143,7 +146,7 @@ Many audit log events include a `changes` array in their [entry object](#DOCS_RE
 | ---------- | ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ |
 | new_value? | [mixed](#DOCS_RESOURCES_AUDIT_LOG/audit-log-change-object-audit-log-change-key) | New value of the key                                                                                   |
 | old_value? | [mixed](#DOCS_RESOURCES_AUDIT_LOG/audit-log-change-object-audit-log-change-key) | Old value of the key                                                                                   |
-| key        | string                                                                          | Name of audit log [change key](#DOCS_RESOURCES_AUDIT_LOG/audit-log-change-object-audit-log-change-key) |
+| key        | string                                                                          | Name of the changed entity (one of the [change keys](#DOCS_RESOURCES_AUDIT_LOG/audit-log-change-object-audit-log-change-key)) |
 
 ###### Audit Log Change Key
 
@@ -170,7 +173,7 @@ The following table details the possible keys in the `changes` array for the rep
 | [Role](#DOCS_TOPICS_PERMISSIONS/role-object)                                                                                                     | `allow`, `color`, `deny`, `hoist`, `icon_hash`, `mentionable`, `name`, `permissions`, `unicode_emoji`                                                                                                                                                                                                                                                                                                                                                                                  |
 | [Webhook](#DOCS_RESOURCES_WEBHOOK/webhook-object)                                                                                                | `application_id`, `avatar_hash`, `channel_id`, `name`, `type`                                                                                                                                                                                                                                                                                                                                                                                                                          |
 
-\* `APPLICATION_COMMAND_PERMISSIONS_UPDATE` events use a snowflake as the change key. The `changes` array contains separate objects for previous and updated permissions (with keys `old_value` and `new_value`), rather than having the two fields in the same object.
+\* `APPLICATION_COMMAND_PERMISSIONS_UPDATE` events use a snowflake as the change key. The `changes` array contains objects with a `key` field representing the entity whose command was affected (role, channel, or user ID), a previous permissions object (with an `old_value` key), and an updated permissions object (with a `new_value` key).
 
 \*\* `MEMBER_ROLE_UPDATE` events use `$add` and `$remove` as the change keys. `new_value` is an array of objects that contain the role `id` and `name`.
 
