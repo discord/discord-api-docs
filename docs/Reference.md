@@ -231,8 +231,8 @@ User-Agent: DiscordBot ($url, $versionNumber)
 
 Clients may append more information and metadata to the _end_ of this string as they wish.
 
->warn
->Client requests that do not have a valid User Agent specified may or may not be blocked and lead to a CloudFlare error.
+> warn
+> Client requests that do not have a valid User Agent specified may be blocked and lead to a CloudFlare error page.
 
 ### Rate Limiting
 
