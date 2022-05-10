@@ -63,7 +63,10 @@ Apps can specify why an administrative action is being taken by passing an `X-Au
 
 The table below documents audit log events, and their corresponding `action_type` values, that your app may receive.
 
-The **Object Changed** column corresponds with that object that's changed. Though there are exceptions, the possible keys in the `changes` array usually correspond to the object's fields, which can be found in its linked documentation.
+The **Object Changed** column corresponds with which object's values may be included in the entry. Though there are exceptions (which are noted in the table), the possible keys in the `changes` array correspond to the object's fields. The descriptions and types for those fields can be found in its linked documentation.
+
+> info
+> You should assume that your app may run into any field for the changed object. However, in most cases only a subset of those fields will be present in the `changes` array.
 
 If no object is noted, it means that there isn't a `changes` array in the entry, though other fields like the `target_id` still exist and many have fields in the [`options` array](#DOCS_RESOURCES_AUDIT_LOG/audit-log-entry-object-optional-audit-entry-info).
 
@@ -147,25 +150,25 @@ Many audit log events include a `changes` array in their [entry object](#DOCS_RE
 > info
 > If `new_value` is not present in the change object while `old_value` is, it indicates that the changed property has been reset or set to `null`.
 
-| Field      | Type                                                                            | Description                                                                                                                   |
-| ---------- | ------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
-| new_value? | [mixed](#DOCS_RESOURCES_AUDIT_LOG/audit-log-change-object-audit-log-change-key) | New value of the key                                                                                                          |
-| old_value? | [mixed](#DOCS_RESOURCES_AUDIT_LOG/audit-log-change-object-audit-log-change-key) | Old value of the key                                                                                                          |
+| Field      | Type                                                                            | Description                |
+| ---------- | ------------------------------------------------------------------------------- | -------------------------- |
+| new_value? | [mixed](#DOCS_RESOURCES_AUDIT_LOG/audit-log-change-object-audit-log-change-key) | New value of the key       |
+| old_value? | [mixed](#DOCS_RESOURCES_AUDIT_LOG/audit-log-change-object-audit-log-change-key) | Old value of the key       |
 | key        | string                                                                          | Name of the changed entity |
 
 ###### Audit Log Change Key Exceptions
 
-For most objects, the change keys can be any field included on the object, and the types and descriptions can be found in the respective documentation. The following table details possible exceptions to this pattern for select objects. 
+For most objects, the change keys can be any field included on the object, and the types and descriptions can be found in the respective documentation. The following table details possible exceptions to this pattern. 
 
 > info
 > IDs that aren't in the object's payload refer to nested IDs. For example, the `channel_id` change key for invite objects corresponds to its `channel` object's `id` field.
 
 | Object Changed                                                                                                                                   | Change Key Exceptions                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------- |
-| [Command Permission](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-permissions-object-application-command-permissions-structure)\* | only snowflake                           |
+| [Command Permission](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-permissions-object-application-command-permissions-structure)\* | only snowflake as key                    |
 | [Invite](#DOCS_RESOURCES_INVITE/invite-object) and [Invite Metadata](#DOCS_RESOURCES_INVITE/invite-metadata-object)                              | `channel_id` instead of a channel object |
-| [Partial Role](#DOCS_TOPICS_PERMISSIONS/role-object)\*\*                                                                                         | onlu `$add` and `$remove`                |
-| [Webhook](#DOCS_RESOURCES_WEBHOOK/webhook-object)                                                                                                | `avatar_hash`                            |
+| [Partial Role](#DOCS_TOPICS_PERMISSIONS/role-object)\*\*                                                                                         | only `$add` and `$remove` keys           |
+| [Webhook](#DOCS_RESOURCES_WEBHOOK/webhook-object)                                                                                                | additional `avatar_hash` key             |
 
 \* `APPLICATION_COMMAND_PERMISSIONS_UPDATE` events use a snowflake as the change key. The `changes` array contains objects with a `key` field representing the entity whose command was affected (role, channel, or user ID), a previous permissions object (with an `old_value` key), and an updated permissions object (with a `new_value` key).
 
