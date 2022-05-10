@@ -823,16 +823,14 @@ When setting `archived` to `false`, when `locked` is also `false`, only the `SEN
 
 Otherwise, requires the `MANAGE_THREADS` permission. Fires a [Thread Update](#DOCS_TOPICS_GATEWAY/thread-update) Gateway event. Requires the thread to have `archived` set to `false` or be set to `false` in the request.
 
-| Field                   | Type     | Description                                                                                                                                                                                       |
-|-------------------------|----------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| name                    | string   | 1-100 character channel name                                                                                                                                                                      |
-| archived                | boolean  | whether the thread is archived                                                                                                                                                                    |
-| auto_archive_duration\* | integer  | duration in minutes to automatically archive the thread after recent activity, can be set to: 60, 1440, 4320, 10080                                                                               |
-| locked                  | boolean  | whether the thread is locked; when a thread is locked, only users with MANAGE_THREADS can unarchive it                                                                                            |
-| invitable               | boolean  | whether non-moderators can add other non-moderators to a thread; only available on private threads                                                                                                |
-| rate_limit_per_user     | ?integer | amount of seconds a user has to wait before sending another message (0-21600); bots, as well as users with the permission `manage_messages`, `manage_thread`, or `manage_channel`, are unaffected |
-
-\* The 3 day and 7 day archive durations require the server to be boosted. The [guild features](#DOCS_RESOURCES_GUILD/guild-object-guild-features) will indicate if a server is able to use those settings.
+| Field                 | Type     | Description                                                                                                                                                                                       |
+|-----------------------|----------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| name                  | string   | 1-100 character channel name                                                                                                                                                                      |
+| archived              | boolean  | whether the thread is archived                                                                                                                                                                    |
+| auto_archive_duration | integer  | duration in minutes to automatically archive the thread after recent activity, can be set to: 60, 1440, 4320, 10080                                                                               |
+| locked                | boolean  | whether the thread is locked; when a thread is locked, only users with MANAGE_THREADS can unarchive it                                                                                            |
+| invitable             | boolean  | whether non-moderators can add other non-moderators to a thread; only available on private threads                                                                                                |
+| rate_limit_per_user   | ?integer | amount of seconds a user has to wait before sending another message (0-21600); bots, as well as users with the permission `manage_messages`, `manage_thread`, or `manage_channel`, are unaffected |
 
 ## Delete/Close Channel % DELETE /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}
 
@@ -1130,13 +1128,11 @@ When called on a `GUILD_TEXT` channel, creates a `GUILD_PUBLIC_THREAD`. When cal
 
 ###### JSON Params
 
-| Field                    | Type     | Description                                                                                                         |
-|--------------------------|----------|---------------------------------------------------------------------------------------------------------------------|
-| name                     | string   | 1-100 character channel name                                                                                        |
-| auto_archive_duration?\* | integer  | duration in minutes to automatically archive the thread after recent activity, can be set to: 60, 1440, 4320, 10080 |
-| rate_limit_per_user?     | ?integer | amount of seconds a user has to wait before sending another message (0-21600)                                       |
-
-\* The 3 day and 7 day archive durations require the server to be boosted. The [guild features](#DOCS_RESOURCES_GUILD/guild-object-guild-features) will indicate if a server is able to use those settings.
+| Field                  | Type     | Description                                                                                                         |
+|------------------------|----------|---------------------------------------------------------------------------------------------------------------------|
+| name                   | string   | 1-100 character channel name                                                                                        |
+| auto_archive_duration? | integer  | duration in minutes to automatically archive the thread after recent activity, can be set to: 60, 1440, 4320, 10080 |
+| rate_limit_per_user?   | ?integer | amount of seconds a user has to wait before sending another message (0-21600)                                       |
 
 ## Start Thread without Message % POST /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/threads
 
@@ -1145,26 +1141,24 @@ Creates a new thread that is not connected to an existing message. Returns a [ch
 > info
 > This endpoint supports the `X-Audit-Log-Reason` header.
 
+> info
+> Creating a private thread requires the server to be boosted. The [guild features](#DOCS_RESOURCES_GUILD/guild-object-guild-features) will indicate if that is possible for the guild.
+
 ###### JSON Params
 
-| Field                      | Type     | Description                                                                                                         |
-|----------------------------|----------|---------------------------------------------------------------------------------------------------------------------|
-| name                       | string   | 1-100 character channel name                                                                                        |
-| auto_archive_duration?\*\* | integer  | duration in minutes to automatically archive the thread after recent activity, can be set to: 60, 1440, 4320, 10080 |
-| type?\*\*\*                | integer  | the [type of thread](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types) to create                                |
-| invitable?                 | boolean  | whether non-moderators can add other non-moderators to a thread; only available when creating a private thread      |
-| rate_limit_per_user?       | ?integer | amount of seconds a user has to wait before sending another message (0-21600)                                       |
+| Field                  | Type     | Description                                                                                                         |
+|------------------------|----------|---------------------------------------------------------------------------------------------------------------------|
+| name                   | string   | 1-100 character channel name                                                                                        |
+| auto_archive_duration? | integer  | duration in minutes to automatically archive the thread after recent activity, can be set to: 60, 1440, 4320, 10080 |
+| type?\*                | integer  | the [type of thread](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types) to create                                |
+| invitable?             | boolean  | whether non-moderators can add other non-moderators to a thread; only available when creating a private thread      |
+| rate_limit_per_user?   | ?integer | amount of seconds a user has to wait before sending another message (0-21600)                                       |
 
-
-\* Creating a private thread requires the server to be boosted. The [guild features](#DOCS_RESOURCES_GUILD/guild-object-guild-features) will indicate if that is possible for the guild.
-
-\*\* The 3 day and 7 day archive durations require the server to be boosted. The [guild features](#DOCS_RESOURCES_GUILD/guild-object-guild-features) will indicate if that is possible for the guild.
-
-\*\*\* In API v9, `type` defaults to `GUILD_PRIVATE_THREAD` in order to match the behavior when thread documentation was first published. In API v10 this will be changed to be a required field, with no default.
+\* `type` currently defaults to `GUILD_PRIVATE_THREAD` in order to match the behavior when thread documentation was first published. In a future API version this will be changed to be a required field, with no default.
 
 ## Start Thread in Forum Channel % POST /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/threads
 
-Creates a new thread in a forum channel, and sends a message within the created thread. Returns a [channel](#DOCS_RESOURCES_CHANNEL/channel-object) on success, and a 400 BAD REQUEST on invalid parameters. Fires a [Thread Create](#DOCS_TOPICS_GATEWAY/thread-create) and [Message Create](#DOCS_TOPICS_GATEWAY/message-create) Gateway event.
+Creates a new thread in a forum channel, and sends a message within the created thread. Returns a [channel](#DOCS_RESOURCES_CHANNEL/channel-object), with a nested [message](#DOCS_RESOURCES_CHANNEL/message-object) object, on success, and a 400 BAD REQUEST on invalid parameters. Fires a [Thread Create](#DOCS_TOPICS_GATEWAY/thread-create) and [Message Create](#DOCS_TOPICS_GATEWAY/message-create) Gateway event.
 
 - The type of the created thread is `GUILD_PUBLIC_THREAD`.
 - See [message formatting](#DOCS_REFERENCE/message-formatting) for more information on how to properly format messages.
@@ -1181,17 +1175,17 @@ Creates a new thread in a forum channel, and sends a message within the created 
 > info
 > This endpoint supports the `X-Audit-Log-Reason` header.
 
-###### JSON Params (For the Thread)
+###### JSON/Form Params
 
-| Field                      | Type     | Description                                                                                                         |
-|----------------------------|----------|---------------------------------------------------------------------------------------------------------------------|
-| name                       | string   | 1-100 character channel name                                                                                        |
-| auto_archive_duration?\*   | integer  | duration in minutes to automatically archive the thread after recent activity, can be set to: 60, 1440, 4320, 10080 |
-| rate_limit_per_user?       | ?integer | amount of seconds a user has to wait before sending another message (0-21600)                                       |
+| Field                    | Type                                                                                                                             | Description                                                                                                         |
+|--------------------------|----------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------|
+| name                     | string                                                                                                                           | 1-100 character channel name                                                                                        |
+| auto_archive_duration?\* | integer                                                                                                                          | duration in minutes to automatically archive the thread after recent activity, can be set to: 60, 1440, 4320, 10080 |
+| rate_limit_per_user?     | ?integer                                                                                                                         | amount of seconds a user has to wait before sending another message (0-21600)                                       |
+| message                  | a [forum thread message params](#DOCS_RESOURCES_CHANNEL/start-thread-in-forum-channel-forum-thread-message-params-object) object | contents of the first message in the forum thread                                                                   |
 
-\* The 3 day and 7 day archive durations require the server to be boosted. The [guild features](#DOCS_RESOURCES_GUILD/guild-object-guild-features) will indicate if that is possible for the guild.
 
-###### JSON Params (For the Message)
+###### Forum Thread Message Params Object
 
 | Field                | Type                                                                                              | Description                                                                                                                                                                 | Required                                    |
 | -------------------- | ------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------- |

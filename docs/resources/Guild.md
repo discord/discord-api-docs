@@ -146,8 +146,6 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 | PREVIEW_ENABLED                  | guild can be previewed before joining via Membership Screening or the directory                                     |
 | PRIVATE_THREADS                  | guild has access to create private threads                                                                          |
 | ROLE_ICONS                       | guild is able to set role icons                                                                                     |
-| SEVEN_DAY_THREAD_ARCHIVE         | guild has access to the seven day archive time for threads                                                          |
-| THREE_DAY_THREAD_ARCHIVE         | guild has access to the three day archive time for threads                                                          |
 | TICKETED_EVENTS_ENABLED          | guild has enabled ticketed events                                                                                   |
 | VANITY_URL                       | guild has access to set a vanity URL                                                                                |
 | VERIFIED                         | guild is verified                                                                                                   |
@@ -375,7 +373,7 @@ A partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object. Represents an Offl
 | id                      | snowflake                                                                                            | integration id                                                                  |
 | name                    | string                                                                                               | integration name                                                                |
 | type                    | string                                                                                               | integration type (twitch, youtube, or discord)                                  |
-| enabled                 | boolean                                                                                              | is this integration enabled                                                     |
+| enabled? \*             | boolean                                                                                              | is this integration enabled                                                     |
 | syncing? \*             | boolean                                                                                              | is this integration syncing                                                     |
 | role_id? \*             | snowflake                                                                                            | id that this integration uses for "subscribers"                                 |
 | enable_emoticons? \*    | boolean                                                                                              | whether emoticons should be synced for this integration (twitch only currently) |
