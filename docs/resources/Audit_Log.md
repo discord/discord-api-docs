@@ -57,7 +57,7 @@ Apps can specify why an administrative action is being taken by passing an `X-Au
 | reason?     | string                                                                                                  | Reason for the change (1-512 characters)              |
 
 > warn
-> For `APPLICATION_COMMAND_PERMISSION_UPDATE` events, the `target_id` is the app ID since the `changes` array may contain several permission changes for different individual entities
+> For `APPLICATION_COMMAND_PERMISSION_UPDATE` events, the `target_id` is the app ID since the `changes` array may contain several permission changes for different individual entities.
 
 ###### Audit Log Events
 
