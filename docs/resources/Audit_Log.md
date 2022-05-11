@@ -139,32 +139,32 @@ If no object is noted, there won't be a `changes` array in the entry, though oth
 
 ### Audit Log Change Object
 
-Many audit log events include a `changes` array in their [entry object](#DOCS_RESOURCES_AUDIT_LOG/audit-log-entry-object-audit-log-entry-structure). The structure for the individual changes varies based on the event type and its changed objects, so apps shouldn't depend on a single pattern of handling audit log events.
+Many audit log events include a `changes` array in their [entry object](#DOCS_RESOURCES_AUDIT_LOG/audit-log-entry-object-audit-log-entry-structure). The [structure for the individual changes](#DOCS_RESOURCES_AUDIT_LOG/audit-log-change-object-audit-log-change-structure) varies based on the event type and its changed objects, so apps shouldn't depend on a single pattern of handling audit log events.
 
 ###### Audit Log Change Structure
 
-> warn
-> `APPLICATION_COMMAND_PERMISSIONS_UPDATE` and `MEMBER_ROLE_UPDATE` events don't follow the same pattern as other audit log events. Details can be found in the [change exceptions](#DOCS_RESOURCES_AUDIT_LOG/audit-log-change-object-audit-log-change-exceptions) section.
-
-| Field      | Type                                                                            | Description                                                                                                                            |
-| ---------- | ------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
-| new_value? | [mixed](#DOCS_RESOURCES_AUDIT_LOG/audit-log-change-object-audit-log-change-key) | New value of the key                                                                                                                   |
-| old_value? | [mixed](#DOCS_RESOURCES_AUDIT_LOG/audit-log-change-object-audit-log-change-key) | Old value of the key                                                                                                                   |
-| key        | string                                                                          | Name of the changed entity, with a few [exceptions](#DOCS_RESOURCES_AUDIT_LOG/audit-log-change-object-audit-log-change-exceptions) |
+Some events don't follow the same pattern as other audit log events. Details about these exceptions are explained in [the next section](#DOCS_RESOURCES_AUDIT_LOG/audit-log-change-object-audit-log-change-exceptions).
 
 > info
 > If `new_value` is not present in the change object while `old_value` is, it indicates that the property has been reset or set to `null`. If `old_value` isn't included, it indicated that the property was previously `null`.
+
+
+| Field      | Type                                | Description                                                                                                                        |
+| ---------- | ----------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
+| new_value? | mixed (matches object field's type) | New value of the key                                                                                                               |
+| old_value? | mixed (matches object field's type) | Old value of the key                                                                                                               |
+| key        | string                              | Name of the changed entity, with a few [exceptions](#DOCS_RESOURCES_AUDIT_LOG/audit-log-change-object-audit-log-change-exceptions) |
 
 ###### Audit Log Change Exceptions
 
 For most objects, the change keys may be any field on the changed object. The following table details the exceptions to this pattern. 
 
-| Object Changed                                                                                                                                 | Change Key Exceptions        | Change Object Exceptions                                                                                                                                                                                                                                    |
-| ---------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [Command Permission](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-permissions-object-application-command-permissions-structure) | snowflake as key             | The `changes` array contains objects with a `key` field representing the entity whose command was affected (role, channel, or user ID), a previous permissions object (with an `old_value` key), and an updated permissions object (with a `new_value` key) |
-| [Invite](#DOCS_RESOURCES_INVITE/invite-object) and [Invite Metadata](#DOCS_RESOURCES_INVITE/invite-metadata-object)                            | Additional `channel_id` key  |                                                                                                                                                                                                                                                             |
-| [Partial Role](#DOCS_TOPICS_PERMISSIONS/role-object)                                                                                           | `$add` and `$remove` as keys | `new_value` is an array of objects that contain the role `id` and `name`                                                                                                                                                                                    |
-| [Webhook](#DOCS_RESOURCES_WEBHOOK/webhook-object)                                                                                              | Additional `avatar_hash` key |                                                                                                                                                                                                                                                             |
+| Object Changed                                                                                                                                 | Change Key Exceptions                   | Change Object Exceptions                                                                                                                                                                                                                                    |
+| ---------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [Command Permission](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-permissions-object-application-command-permissions-structure) | snowflake as key                        | The `changes` array contains objects with a `key` field representing the entity whose command was affected (role, channel, or user ID), a previous permissions object (with an `old_value` key), and an updated permissions object (with a `new_value` key) |
+| [Invite](#DOCS_RESOURCES_INVITE/invite-object) and [Invite Metadata](#DOCS_RESOURCES_INVITE/invite-metadata-object)                            | Additional `channel_id` key             |                                                                                                                                                                                                                                                             |
+| [Partial Role](#DOCS_TOPICS_PERMISSIONS/role-object)                                                                                           | `$add` and `$remove` as keys            | `new_value` is an array of objects that contain the role `id` and `name`                                                                                                                                                                                    |
+| [Webhook](#DOCS_RESOURCES_WEBHOOK/webhook-object)                                                                                              | `avatar_hash` key (instead of `avatar`) |                                                                                                                                                                                                                                                             |
 
 ## Get Guild Audit Log % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/audit-logs
 
