@@ -114,7 +114,7 @@ The **Object Changed** column corresponds with that object's [change keys](#DOCS
 | THREAD_CREATE                         | 110   | Thread was created in a channel                           | [Thread](#DOCS_RESOURCES_CHANNEL/thread-metadata-object)                                                                                       |
 | THREAD_UPDATE                         | 111   | Thread was updated                                        | [Thread](#DOCS_RESOURCES_CHANNEL/thread-metadata-object)                                                                                       |
 | THREAD_DELETE                         | 112   | Thread was deleted                                        | [Thread](#DOCS_RESOURCES_CHANNEL/thread-metadata-object)                                                                                       |
-| APPLICATION_COMMAND_PERMISSION_UPDATE | 121   | Permissions were updated for a command                    | [Command Permission](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-permissions-object-application-command-permissions-structure) |
+| APPLICATION_COMMAND_PERMISSION_UPDATE | 121   | Permissions were updated for a command                    | [Command Permission](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-permissions-object-guild-application-command-permissions-structure) |
 
 ###### Optional Audit Entry Info
 
