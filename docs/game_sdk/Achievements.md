@@ -18,29 +18,24 @@ You can also mark achievements as `secret` and `secure`. "Secret" achievements w
 
 ###### Achievement Struct
 
-| name           | type    | description                                                                                                                                  |
-| -------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
-| application_id | Int64   | the unique id of the application                                                                                                             |
-| name           | object  | the name of the achievement as an [achievement locale object](#DOCS_GAME_SDK_ACHIEVEMENTS/data-models-achievement-locale-object)             |
-| description    | object  | the user-facing achievement description as an [achievement locale object](#DOCS_GAME_SDK_ACHIEVEMENTS/data-models-achievement-locale-object) |
-| secret         | boolean | if the achievement is secret                                                                                                                 |
-| secure         | boolean | if the achievement is secure                                                                                                                 |
-| id             | Int64   | the unique id of the achievement                                                                                                             |
-| icon_hash      | string  | [the hash of the icon](#DOCS_REFERENCE/image-formatting)                                                                                     |
-
-###### Achievement Locale Object
-
-| Name           | Description                                                                                       |
-| -------------- | ------------------------------------------------------------------------------------------------- |
-| default        | the default locale for the achievement                                                            |
-| localizations? | object of [locales](#DOCS_REFERENCE/locales) as the key and achievement translations as the value |
+| name                      | type                                                                  | description                                          |
+| ------------------------- | --------------------------------------------------------------------- | ---------------------------------------------------- |
+| application_id            | Int64                                                                 | Unique ID of the application                         |
+| name                      | string                                                                | Name of the achievement                              |
+| name_localizations        | ?dictionary with keys as [available locales](#DOCS_REFERENCE/locales) | Localization dictionary for the `name` field         |
+| description               | string                                                                | Description of the achievment                        |
+| description_localizations | ?dictionary with keys as [available locales](#DOCS_REFERENCE/locales) | Localization dictionary for the `description` field  |
+| secret                    | boolean                                                               | If the achievement is secret                         |
+| secure                    | boolean                                                               | If the achievement is secure                         |
+| id                        | Int64                                                                 | Unique ID of the achievement                         |
+| icon_hash                 | string                                                                | [Hash of the icon](#DOCS_REFERENCE/image-formatting) |
 
 ###### User Achievement Struct
 
 | name            | type   | description                                                                                |
 | --------------- | ------ | ------------------------------------------------------------------------------------------ |
-| UserId          | Int64  | the unique id of the user working on the achievement                                       |
-| AchievementId   | Int64  | the unique id of the achievement                                                           |
+| UserId          | Int64  | the unique ID of the user working on the achievement                                       |
+| AchievementId   | Int64  | the unique ID of the achievement                                                           |
 | PercentComplete | UInt8  | how far along the user is to completing the achievement (0-100)                            |
 | UnlockedAt      | string | the timestamp at which the user completed the achievement (PercentComplete was set to 100) |
 
@@ -54,7 +49,7 @@ Returns `Discord.Result` via callback.
 
 | name            | type  | description                            |
 | --------------- | ----- | -------------------------------------- |
-| achievementId   | Int64 | the id of the achievement to update    |
+| achievementId   | Int64 | the ID of the achievement to update    |
 | percentComplete | UInt8 | the user's updated percentage progress |
 
 ###### Example
@@ -150,13 +145,13 @@ achievementManager.FetchUserAchievements((res) =>
 
 ## GetUserAchievement
 
-Gets the user achievement for the given achievement id. If you keep a hardcoded mapping of achievement <--> id in your codebase, this will be better than iterating over each achievement. Make sure to call `FetchUserAchievements()` first still!
+Gets the user achievement for the given achievement id. If you keep a hardcoded mapping of achievement <--> ID in your codebase, this will be better than iterating over each achievement. Make sure to call `FetchUserAchievements()` first still!
 
 ###### Parameters
 
 | name          | type  | description                      |
 | ------------- | ----- | -------------------------------- |
-| achievementId | Int64 | the id of the achievement to get |
+| achievementId | Int64 | the ID of the achievement to get |
 
 ###### Example
 

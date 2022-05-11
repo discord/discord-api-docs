@@ -901,7 +901,7 @@ Files must be attached using a `multipart/form-data` body as described in [Uploa
 | components           | array of [message component](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-object) objects      | the components to include with the message                                                                                                                                  | false                                       |
 | sticker_ids          | array of snowflakes                                                                               | IDs of up to 3 [stickers](#DOCS_RESOURCES_STICKER/sticker-object) in the server to send in the message                                                                      | one of content, file, embed(s), sticker_ids |
 | files[n] \*          | file contents                                                                                     | the contents of the file being sent                                                                                                                                         | one of content, file, embed(s), sticker_ids |
-| payload_json \*      | string                                                                                            | JSON encoded body of non-file params                                                                                                                                        | `multipart/form-data` only                  |
+| payload_json \*      | string                                                                                            | JSON-encoded body of non-file params                                                                                                                                        | `multipart/form-data` only                  |
 | attachments \*       | array of partial [attachment](#DOCS_RESOURCES_CHANNEL/attachment-object) objects                  | attachment objects with filename and description                                                                                                                            | false                                       |
 | flags                | integer                                                                                           | [message flags](#DOCS_RESOURCES_CHANNEL/message-object-message-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field) (only `SUPPRESS_EMBEDS` can be set) | false                                       |
 
@@ -1228,21 +1228,6 @@ Returns array of [thread members](#DOCS_RESOURCES_CHANNEL/thread-member-object) 
 
 > warn
 > This endpoint is restricted according to whether the `GUILD_MEMBERS` [Privileged Intent](#DOCS_TOPICS_GATEWAY/privileged-intents) is enabled for your application.
-
-## List Active Threads % GET /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/threads/active
-
-Returns all active threads in the channel, including public and private threads. Threads are ordered by their `id`, in descending order.
-
-> warn
-> This route is deprecated and will be removed in v10. It is replaced by [List Active Guild Threads](#DOCS_RESOURCES_GUILD/list-active-threads).
-
-###### Response Body
-
-| Field    | Type                                                                            | Description                                                                                  |
-|----------|---------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------|
-| threads  | array of [channel](#DOCS_RESOURCES_CHANNEL/channel-object) objects              | the active threads                                                                           |
-| members  | array of [thread members](#DOCS_RESOURCES_CHANNEL/thread-member-object) objects | a thread member object for each returned thread the current user has joined                  |
-| has_more | boolean                                                                         | whether there are potentially additional threads that could be returned on a subsequent call |
 
 ## List Public Archived Threads % GET /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/threads/archived/public
 

@@ -5,7 +5,7 @@
 ###### Application Structure
 
 | Field                  | Type                                                                       | Description                                                                                                               |
-|------------------------|----------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------|
+| ---------------------- | -------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
 | id                     | snowflake                                                                  | the id of the app                                                                                                         |
 | name                   | string                                                                     | the name of the app                                                                                                       |
 | icon                   | ?string                                                                    | the [icon hash](#DOCS_REFERENCE/image-formatting) of the app                                                              |
@@ -16,6 +16,7 @@
 | terms_of_service_url?  | string                                                                     | the url of the app's terms of service                                                                                     |
 | privacy_policy_url?    | string                                                                     | the url of the app's privacy policy                                                                                       |
 | owner?                 | partial [user](#DOCS_RESOURCES_USER/user-object) object                    | partial user object containing info on the owner of the application                                                       |
+| summary *(deprecated)* | string                                                                     | **deprecated and will be removed in v11** returns empty string                                                            |
 | verify_key             | string                                                                     | the hex encoded key for verification in interactions and the GameSDK's [GetTicket](#DOCS_GAME_SDK_APPLICATIONS/getticket) |
 | team                   | ?[team](#DOCS_TOPICS_TEAMS/data-models-team-object) object                 | if the application belongs to a team, this will be a list of the members of that team                                     |
 | guild_id?              | snowflake                                                                  | if this application is a game sold on Discord, this field will be the guild to which it has been linked                   |
@@ -48,7 +49,7 @@
   },
   "primary_sku_id": "172150183260323840",
   "slug": "test",
-  "summary": "This is a game",
+  "summary": "", // field will be removed in v11
   "team": {
     "icon": "dd9b7dcfdf5351b9c3de0fe167bacbe1",
     "id": "531992624043786253",
@@ -73,12 +74,12 @@
 ###### Application Flags
 
 | Value   | Name                             | Description                                                                                                                                                                                                                    |
-|---------|----------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| ------- | -------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | 1 << 12 | GATEWAY_PRESENCE                 | Intent required for bots in **100 or more servers** to receive [`presence_update` events](#DOCS_TOPICS_GATEWAY/presence-update)                                                                                                |
 | 1 << 13 | GATEWAY_PRESENCE_LIMITED         | Intent required for bots in under 100 servers to receive [`presence_update` events](#DOCS_TOPICS_GATEWAY/presence-update), found in Bot Settings                                                                               |
 | 1 << 14 | GATEWAY_GUILD_MEMBERS            | Intent required for bots in **100 or more servers** to receive member-related events like `guild_member_add`. See list of member-related events [under `GUILD_MEMBERS`](#DOCS_TOPICS_GATEWAY/list-of-intents)                  |
 | 1 << 15 | GATEWAY_GUILD_MEMBERS_LIMITED    | Intent required for bots in under 100 servers to receive member-related events like `guild_member_add`, found in Bot Settings. See list of member-related events [under `GUILD_MEMBERS`](#DOCS_TOPICS_GATEWAY/list-of-intents) |
-| 1 << 16 | VERIFICATION_PENDING_GUILD_LIMIT | Indicates unusual growth of an app that prevents verification                                                                                                                                                                  | 
+| 1 << 16 | VERIFICATION_PENDING_GUILD_LIMIT | Indicates unusual growth of an app that prevents verification                                                                                                                                                                  |
 | 1 << 17 | EMBEDDED                         | Indicates if an app is embedded within the Discord client (currently unavailable publicly)                                                                                                                                     |
 | 1 << 18 | GATEWAY_MESSAGE_CONTENT          | Intent required for bots in **100 or more servers** to receive [message content](https://support-dev.discord.com/hc/en-us/articles/4404772028055)                                                                              |
 | 1 << 19 | GATEWAY_MESSAGE_CONTENT_LIMITED  | Intent required for bots in under 100 servers to receive [message content](https://support-dev.discord.com/hc/en-us/articles/4404772028055), found in Bot Settings                                                             |
@@ -88,6 +89,6 @@
 ###### Install Params Structure
 
 | Field       | Type             | Description                                                                                                |
-|-------------|------------------|------------------------------------------------------------------------------------------------------------|
+| ----------- | ---------------- | ---------------------------------------------------------------------------------------------------------- |
 | scopes      | array of strings | the [scopes](#DOCS_TOPICS_OAUTH2/shared-resources-oauth2-scopes) to add the application to the server with |
 | permissions | string           | the [permissions](#DOCS_TOPICS_PERMISSIONS) to request for the bot role                                    |

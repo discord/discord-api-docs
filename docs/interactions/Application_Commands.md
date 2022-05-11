@@ -160,7 +160,7 @@ To make a **global** command, make an HTTP POST call like this:
 import requests
 
 
-url = "https://discord.com/api/v8/applications/<my_application_id>/commands"
+url = "https://discord.com/api/v10/applications/<my_application_id>/commands"
 
 # This is an example CHAT_INPUT or Slash Command, with a type of 1
 json = {
@@ -220,7 +220,7 @@ To make a **guild** command, make a similar HTTP POST call, but scope it to a sp
 import requests
 
 
-url = "https://discord.com/api/v8/applications/<my_application_id>/guilds/<guild_id>/commands"
+url = "https://discord.com/api/v10/applications/<my_application_id>/guilds/<guild_id>/commands"
 
 # This is an example USER command, with a type of 2
 json = {
@@ -360,7 +360,7 @@ And the following would disable a command for a specific channel:
 
 ```py
 A_SPECIFIC_CHANNEL = "<channel_id>"
-url = "https://discord.com/api/v8/applications/<application_id>/guilds/<my_guild_id>/commands/<my_command_id>/permissions"
+url = "https://discord.com/api/v10/applications/<application_id>/guilds/<my_guild_id>/commands/<my_command_id>/permissions"
 
 json = {
     "permissions": [

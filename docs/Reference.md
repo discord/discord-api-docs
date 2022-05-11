@@ -13,7 +13,7 @@ https://discord.com/api
 > danger
 > Some API and Gateway versions are now non-functioning, and are labeled as discontinued in the table below for posterity. Trying to use these versions will fail and return 400 Bad Request.
 
-Discord exposes different versions of our API. You can specify which version to use by including it in the request path like `https://discord.com/api/v{version_number}`. Omitting the version number from the route will route requests to the current default version (marked below accordingly). You can find the change log for the newest API version [here](https://discord.com/developers/docs/change-log).
+Discord exposes different versions of our API. You should specify which version to use by including it in the request path like `https://discord.com/api/v{version_number}`. Omitting the version number from the route will route requests to the current default version (marked below). You can find the change log for the newest API version [here](https://discord.com/developers/docs/change-log).
 
 ###### API Versions
 
@@ -29,7 +29,7 @@ Discord exposes different versions of our API. You can specify which version to 
 
 ## Error Messages
 
-In API v8, we've improved error formatting in form error responses. The response will tell you which json key contains the error, the error code, and a human readable error message. We will be frequently adding new error messages, so a complete list of errors is not feasible and would be almost instantly out of date. Here are some examples instead:
+In API v8, we've improved error formatting in form error responses. The response will tell you which JSON key contains the error, the error code, and a human readable error message. We will be frequently adding new error messages, so a complete list of errors is not feasible and would be almost instantly out of date. Here are some examples instead:
 
 ###### Array Error
 
@@ -347,23 +347,21 @@ Ensure you use the proper content type (`image/jpeg`, `image/png`, `image/gif`) 
 
 ## Uploading Files
 
-Some endpoints support file attachments, indicated by the `files[n]` parameter. To add a file to the request, the standard `application/json` body must be replaced by a `multipart/form-data` body. The otherwise json body can instead be provided using a special `payload_json` parameter in addition to a number of `files[n]` parameters.
+Some endpoints support file attachments, indicated by the `files[n]` parameter. To add file(s), the standard `application/json` body must be replaced by a `multipart/form-data` body. The JSON message body can optionally be provided using the `payload_json` parameter.
 
-All `files[n]` parameters must include a valid `Content-Disposition` subpart header with a `filename` and unique `name` parameter. Each file parameter must be uniquely named in the format `files[n]` such as `files[0]`, `files[1]`, or `files[42]`. The suffixed index `n` is the *snowflake placeholder* for the `attachments` json parameter that is supplied in `payload_json` (or [Callback Data Payloads](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-response-object-interaction-callback-data-structure)).
+All `files[n]` parameters must include a valid `Content-Disposition` subpart header with a `filename` and unique `name` parameter. Each file parameter must be uniquely named in the format `files[n]` such as `files[0]`, `files[1]`, or `files[42]`. The suffixed index `n` is the *snowflake placeholder* for the `attachments` JSON parameter which can be supplied in the `payload_json` parameter (or [Callback Data Payloads](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-response-object-interaction-callback-data-structure)).
 
-The file upload limit applies to the entire request, not individual files in a request. This limit depends on the **Boost Tier** of a Guild and is 8 MiB by default.
+The file upload limit applies to all files in a request rather than each individual file. This limit depends on the **Boost Tier** of a guild, and is 8 MiB by default.
 
 Images can also be referenced in embeds using the `attachment://filename` URL. The `filename` for these URLs must be ASCII alphanumeric with underscores, dashes, or dots. An example payload is provided below.
 
 ### Editing Message Attachments
 
-All files added to a request, as described above, will be appended to the message in a `PATCH` request. The `attachments` json parameter has a special behavior for edit, as it is used for both removing attachments from the message as well as adding descriptions for new attachments added by the request.
-
-The `attachments` json parameter lists all files that should be attached to the message after the edit, including all new files added and the respective snowflake placeholders. To remove attachments, simply exclude them from this list.
+The `attachments` JSON parameter includes all files that will be appended to the message, including new files and their respective snowflake placeholders. When making a `PATCH` request, only the files added to `attachments` will be appended the message. Any previously-added files which aren't included will be removed.
 
 ###### Example Request Bodies (multipart/form-data)
 
-Note that these examples are small sections of an HTTP request to demonstrate behaviour of this endpoint - client libraries will set their own form boundaries, `boundary` is just an example. For more information, refer to the [multipart/form-data spec](https://tools.ietf.org/html/rfc7578#section-4).
+Note that these examples are small sections of an HTTP request to demonstrate behaviour of this endpoint - client libraries will set their own form boundaries (`boundary` is just an example). For more information, refer to the [multipart/form-data spec](https://tools.ietf.org/html/rfc7578#section-4).
 
 This example demonstrates usage of the endpoint *without* `payload_json`.
 
