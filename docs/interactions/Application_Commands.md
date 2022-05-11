@@ -317,7 +317,7 @@ To allow for fine-tuned access to commands, application command permissions are 
 Similar to how threads [inherit user and role permissions from the parent channel](#DOCS_TOPICS_THREADS/permissions), any command permissions for a channel will apply to the threads it contains.
 
 > info
-> If you don't have permission to use a command, they will not show up in the command picker. Members with the Administrator permission can use all commands.
+> If you don't have permission to use a command, it will not show up in the command picker. Members with the Administrator permission can use all commands.
 
 ###### Using Default Permissions
 
