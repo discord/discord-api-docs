@@ -53,7 +53,7 @@ Apps can specify why an administrative action is being taken by passing an `X-Au
 | user_id     | ?snowflake                                                                                              | User or app that made the changes                     |
 | id          | snowflake                                                                                               | ID of the entry                                       |
 | action_type | [audit log event](#DOCS_RESOURCES_AUDIT_LOG/audit-log-entry-object-audit-log-events)                    | Type of action that occurred                          |
-| options?    | [optional audit entry info](#DOCS_RESOURCES_AUDIT_LOG/audit-log-entry-object-optional-audit-entry-info) | Additional info for certain action types              |
+| options?    | [optional audit entry info](#DOCS_RESOURCES_AUDIT_LOG/audit-log-entry-object-optional-audit-entry-info) | Additional info for certain event types               |
 | reason?     | string                                                                                                  | Reason for the change (1-512 characters)              |
 
 > warn
@@ -155,23 +155,16 @@ Many audit log events include a `changes` array in their [entry object](#DOCS_RE
 > info
 > If `new_value` is not present in the change object while `old_value` is, it indicates that the property has been reset or set to `null`. If `old_value` isn't included, it indicated that the property was previously `null`.
 
-###### Audit Log Change Key Exceptions
+###### Audit Log Change Exceptions
 
 For most objects, the change keys can be any field on the changed object. The following table details the exceptions to this pattern. 
 
-> info
-> IDs that aren't in the object's payload refer to nested IDs. For example, the `channel_id` change key for invite objects corresponds to its `channel` object's `id` field.
-
-| Object Changed                                                                                                                                   | Change Key Exceptions                           |
-| ------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------- |
-| [Command Permission](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-permissions-object-application-command-permissions-structure)\* | only snowflake as key (see note below)          |
-| [Invite](#DOCS_RESOURCES_INVITE/invite-object) and [Invite Metadata](#DOCS_RESOURCES_INVITE/invite-metadata-object)                              | includes `channel_id` key                       |
-| [Partial Role](#DOCS_TOPICS_PERMISSIONS/role-object)\*\*                                                                                         | only `$add` and `$remove` keys (see note below) |
-| [Webhook](#DOCS_RESOURCES_WEBHOOK/webhook-object)                                                                                                | includes `avatar_hash` key                      |
-
-\* `APPLICATION_COMMAND_PERMISSIONS_UPDATE` events use a snowflake as the change key. The `changes` array contains objects with a `key` field representing the entity whose command was affected (role, channel, or user ID), a previous permissions object (with an `old_value` key), and an updated permissions object (with a `new_value` key).
-
-\*\* `MEMBER_ROLE_UPDATE` events use `$add` and `$remove` as the change keys. `new_value` is an array of objects that contain the role `id` and `name`.
+| Object Changed                                                                                                                                 | Change Key Exceptions        | Change Object Details                                                                                                                                                                                                                                       |
+| ---------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [Command Permission](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-permissions-object-application-command-permissions-structure) | snowflake as key             | The `changes` array contains objects with a `key` field representing the entity whose command was affected (role, channel, or user ID), a previous permissions object (with an `old_value` key), and an updated permissions object (with a `new_value` key) |
+| [Invite](#DOCS_RESOURCES_INVITE/invite-object) and [Invite Metadata](#DOCS_RESOURCES_INVITE/invite-metadata-object)                            | Additional `channel_id` key  |                                                                                                                                                                                                                                                             |
+| [Partial Role](#DOCS_TOPICS_PERMISSIONS/role-object)                                                                                           | `$add` and `$remove` as keys | `new_value` is an array of objects that contain the role `id` and `name`                                                                                                                                                                                    |
+| [Webhook](#DOCS_RESOURCES_WEBHOOK/webhook-object)                                                                                              | Additional `avatar_hash` key |                                                                                                                                                                                                                                                             |
 
 ## Get Guild Audit Log % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/audit-logs
 
