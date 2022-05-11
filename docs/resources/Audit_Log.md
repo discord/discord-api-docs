@@ -146,7 +146,7 @@ Many audit log events include a `changes` array in their [entry object](#DOCS_RE
 | ---------- | ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ |
 | new_value? | [mixed](#DOCS_RESOURCES_AUDIT_LOG/audit-log-change-object-audit-log-change-key) | New value of the key                                                                                   |
 | old_value? | [mixed](#DOCS_RESOURCES_AUDIT_LOG/audit-log-change-object-audit-log-change-key) | Old value of the key                                                                                   |
-| key        | string                                                                          | Name of the changed entity (one of the [change keys](#DOCS_RESOURCES_AUDIT_LOG/audit-log-change-object-audit-log-change-key)) |
+| key        | string                                                                          | Name of the changed entity (one of the [change keys](#DOCS_RESOURCES_AUDIT_LOG/audit-log-change-object-audit-log-change-key)), with exceptions |
 
 ###### Audit Log Change Key
 
