@@ -63,12 +63,12 @@ Apps can specify why an administrative action is being taken by passing an `X-Au
 
 The table below lists audit log events and values (the `action_type` field) that your app may receive.
 
-The **Object Changed** column notes which object's values may be included in the entry. Though there are exceptions (which are noted in the table), possible keys in the `changes` array typically correspond to the object's fields. The descriptions and types for those fields can be found in the linked documentation for the object.
+The **Object Changed** column notes which object's values may be included in the entry. Though there are exceptions, possible keys in the `changes` array typically correspond to the object's fields. The descriptions and types for those fields can be found in the linked documentation for the object.
 
 If no object is noted, there won't be a `changes` array in the entry, though other fields like the `target_id` still exist and many have fields in the [`options` array](#DOCS_RESOURCES_AUDIT_LOG/audit-log-entry-object-optional-audit-entry-info).
 
 > info
-> You should assume that your app may run into any field for the changed object. However, in most cases only a subset of those fields will be present in the `changes` array.
+> You should assume that your app may run into any field for the changed object, though none are guaranteed to be present. In most cases only a subset of the object's fields will be in the `changes` array.
 
 | Event                                 | Value | Description                                               | Object Changed                                                                                                                                   |
 | ------------------------------------- | ----- | --------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
@@ -144,7 +144,7 @@ Many audit log events include a `changes` array in their [entry object](#DOCS_RE
 ###### Audit Log Change Structure
 
 > warn
-> `APPLICATION_COMMAND_PERMISSIONS_UPDATE` and `MEMBER_ROLE_UPDATE` events don't follow the same pattern as other audit log events. Details can be found in the [change key exceptions](#DOCS_RESOURCES_AUDIT_LOG/audit-log-change-object-audit-log-change-exceptions) section.
+> `APPLICATION_COMMAND_PERMISSIONS_UPDATE` and `MEMBER_ROLE_UPDATE` events don't follow the same pattern as other audit log events. Details can be found in the [change exceptions](#DOCS_RESOURCES_AUDIT_LOG/audit-log-change-object-audit-log-change-exceptions) section.
 
 | Field      | Type                                                                            | Description                                                                                                                            |
 | ---------- | ------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
@@ -157,7 +157,7 @@ Many audit log events include a `changes` array in their [entry object](#DOCS_RE
 
 ###### Audit Log Change Exceptions
 
-For most objects, the change keys can be any field on the changed object. The following table details the exceptions to this pattern. 
+For most objects, the change keys may be any field on the changed object. The following table details the exceptions to this pattern. 
 
 | Object Changed                                                                                                                                 | Change Key Exceptions        | Change Object Exceptions                                                                                                                                                                                                                                    |
 | ---------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
