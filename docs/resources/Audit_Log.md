@@ -38,11 +38,11 @@ When an app is performing an eligible action using the APIs, it can pass an `X-A
 
 ### Audit Log Entry Object
 
-Each audit log entry represents a single administrative action (or [event](#DOCS_RESOURCES_AUDIT_LOG/audit-log-entry-object-audit-log-events)), indicated by `action_type`. Each entry contains one to many changes in the `changes` array that affected an entity in Discord—whether that's a user, channel, guild, emoji, or something else.
+Each audit log entry represents a single administrative action (or [event](#DOCS_RESOURCES_AUDIT_LOG/audit-log-entry-object-audit-log-events)), indicated by `action_type`. Most entries contain one to many changes in the `changes` array that affected an entity in Discord—whether that's a user, channel, guild, emoji, or something else.
 
-The information (and structure) of an entry's changes will be different depending on its type. For example, in `MEMBER_ROLE_UPDATE` events there is only one change: a member is either added or removed from a specific role. However, in `CHANNEL_CREATE` events there are many changes, including but not limited to the channel's name, type, and permission overwrites added. More details are in the [change object](#DOCS_RESOURCES_AUDIT_LOG/audit-log-change-object) section.
+The information (and structure) of an entry's changes will be different depending on its type. For example, in `MEMBER_ROLE_UPDATE` events there is only one change: a member is either added or removed from a specific role. However, in `CHANNEL_CREATE` events there are many changes, including (but not limited to) the channel's name, type, and permission overwrites added. More details are in the [change object](#DOCS_RESOURCES_AUDIT_LOG/audit-log-change-object) section.
 
-Apps can specify why an administrative action is being taken by passing an `X-Audit-Log-Reason` request header, which will be stored as the audit log entry's `reason` field. The `X-Audit-Log-Reason` header supports 1-512 URL-encoded UTF-8 characters. The entry's reason is visible to users in the client and when fetching audit log entries with the API.
+Apps can specify why an administrative action is being taken by passing an `X-Audit-Log-Reason` request header, which will be stored as the audit log entry's `reason` field. The `X-Audit-Log-Reason` header supports 1-512 URL-encoded UTF-8 characters. Reasons are visible to users in the client and to apps when fetching audit log entries with the API.
 
 ###### Audit Log Entry Structure
 
@@ -57,19 +57,18 @@ Apps can specify why an administrative action is being taken by passing an `X-Au
 | reason?     | string                                                                                                  | Reason for the change (1-512 characters)              |
 
 > warn
-> For `APPLICATION_COMMAND_PERMISSION_UPDATE` events, the `target_id` is the app ID since the `changes` array may contain several permission changes for different individual entities
+> For `APPLICATION_COMMAND_PERMISSION_UPDATE` events, the `target_id` is the command ID or the app ID since the `changes` array represents the entire `permissions` property on the [guild permissions](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-permissions-object-guild-application-command-permissions-structure) object.
 
 ###### Audit Log Events
 
-The table below documents audit log events, and their corresponding `action_type` values, that your app may receive.
+The table below lists audit log events and values (the `action_type` field) that your app may receive.
 
-The **Object Changed** column corresponds with which object's values may be included in the entry. Though there are exceptions (which are noted in the table), the possible keys in the `changes` array correspond to the object's fields. The descriptions and types for those fields can be found in its linked documentation.
+The **Object Changed** column notes which object's values may be included in the entry. Though there are exceptions (which are noted in the table), possible keys in the `changes` array typically correspond to the object's fields. The descriptions and types for those fields can be found in the linked documentation for the object.
+
+If no object is noted, there won't be a `changes` array in the entry, though other fields like the `target_id` still exist and many have fields in the [`options` array](#DOCS_RESOURCES_AUDIT_LOG/audit-log-entry-object-optional-audit-entry-info).
 
 > info
 > You should assume that your app may run into any field for the changed object. However, in most cases only a subset of those fields will be present in the `changes` array.
-
-If no object is noted, it means that there isn't a `changes` array in the entry, though other fields like the `target_id` still exist and many have fields in the [`options` array](#DOCS_RESOURCES_AUDIT_LOG/audit-log-entry-object-optional-audit-entry-info).
-
 
 | Event                                 | Value | Description                                               | Object Changed                                                                                                                                   |
 | ------------------------------------- | ----- | --------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
@@ -126,7 +125,7 @@ If no object is noted, it means that there isn't a `changes` array in the entry,
 
 ###### Optional Audit Entry Info
 
-| Field              | Type      | Description                                                      | Event Type                                                                                                                         |
+| Field              | Type      | Description                                                      | Event Types                                                                                                                        |
 | ------------------ | --------- | ---------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
 | application_id     | snowflake | ID of the app whose permissions were targeted                    | APPLICATION_COMMAND_PERMISSION_UPDATE                                                                                              |
 | channel_id         | snowflake | Channel in which the entities were targeted                      | MEMBER_MOVE & MESSAGE_PIN & MESSAGE_UNPIN & MESSAGE_DELETE & STAGE_INSTANCE_CREATE & STAGE_INSTANCE_UPDATE & STAGE_INSTANCE_DELETE |
@@ -145,30 +144,30 @@ Many audit log events include a `changes` array in their [entry object](#DOCS_RE
 ###### Audit Log Change Structure
 
 > warn
-> `APPLICATION_COMMAND_PERMISSIONS_UPDATE` and `MEMBER_ROLE_UPDATE` events don't follow the same pattern as other audit log events. Details can be found in the [change key](#DOCS_RESOURCES_AUDIT_LOG/audit-log-change-object-audit-log-change-key-exceptions) section.
+> `APPLICATION_COMMAND_PERMISSIONS_UPDATE` and `MEMBER_ROLE_UPDATE` events don't follow the same pattern as other audit log events. Details can be found in the [change key exceptions](#DOCS_RESOURCES_AUDIT_LOG/audit-log-change-object-audit-log-change-key-exceptions) section.
+
+| Field      | Type                                                                            | Description                                                                                                                            |
+| ---------- | ------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
+| new_value? | [mixed](#DOCS_RESOURCES_AUDIT_LOG/audit-log-change-object-audit-log-change-key) | New value of the key                                                                                                                   |
+| old_value? | [mixed](#DOCS_RESOURCES_AUDIT_LOG/audit-log-change-object-audit-log-change-key) | Old value of the key                                                                                                                   |
+| key        | string                                                                          | Name of the changed entity, with a few [exceptions](#DOCS_RESOURCES_AUDIT_LOG/audit-log-change-object-audit-log-change-key-exceptions) |
 
 > info
-> If `new_value` is not present in the change object while `old_value` is, it indicates that the changed property has been reset or set to `null`.
-
-| Field      | Type                                                                            | Description                |
-| ---------- | ------------------------------------------------------------------------------- | -------------------------- |
-| new_value? | [mixed](#DOCS_RESOURCES_AUDIT_LOG/audit-log-change-object-audit-log-change-key) | New value of the key       |
-| old_value? | [mixed](#DOCS_RESOURCES_AUDIT_LOG/audit-log-change-object-audit-log-change-key) | Old value of the key       |
-| key        | string                                                                          | Name of the changed entity |
+> If `new_value` is not present in the change object while `old_value` is, it indicates that the property has been reset or set to `null`. If `old_value` isn't included, it indicated that the property was previously `null`.
 
 ###### Audit Log Change Key Exceptions
 
-For most objects, the change keys can be any field included on the object, and the types and descriptions can be found in the respective documentation. The following table details possible exceptions to this pattern. 
+For most objects, the change keys can be any field on the changed object. The following table details the exceptions to this pattern. 
 
 > info
 > IDs that aren't in the object's payload refer to nested IDs. For example, the `channel_id` change key for invite objects corresponds to its `channel` object's `id` field.
 
-| Object Changed                                                                                                                                   | Change Key Exceptions                    |
-| ------------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------- |
-| [Command Permission](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-permissions-object-application-command-permissions-structure)\* | only snowflake as key                    |
-| [Invite](#DOCS_RESOURCES_INVITE/invite-object) and [Invite Metadata](#DOCS_RESOURCES_INVITE/invite-metadata-object)                              | `channel_id` instead of a channel object |
-| [Partial Role](#DOCS_TOPICS_PERMISSIONS/role-object)\*\*                                                                                         | only `$add` and `$remove` keys           |
-| [Webhook](#DOCS_RESOURCES_WEBHOOK/webhook-object)                                                                                                | additional `avatar_hash` key             |
+| Object Changed                                                                                                                                   | Change Key Exceptions                           |
+| ------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------- |
+| [Command Permission](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-permissions-object-application-command-permissions-structure)\* | only snowflake as key (see note below)          |
+| [Invite](#DOCS_RESOURCES_INVITE/invite-object) and [Invite Metadata](#DOCS_RESOURCES_INVITE/invite-metadata-object)                              | includes `channel_id` key                       |
+| [Partial Role](#DOCS_TOPICS_PERMISSIONS/role-object)\*\*                                                                                         | only `$add` and `$remove` keys (see note below) |
+| [Webhook](#DOCS_RESOURCES_WEBHOOK/webhook-object)                                                                                                | includes `avatar_hash` key                      |
 
 \* `APPLICATION_COMMAND_PERMISSIONS_UPDATE` events use a snowflake as the change key. The `changes` array contains objects with a `key` field representing the entity whose command was affected (role, channel, or user ID), a previous permissions object (with an `old_value` key), and an updated permissions object (with a `new_value` key).
 
