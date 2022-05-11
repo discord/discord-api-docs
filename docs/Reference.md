@@ -232,7 +232,7 @@ User-Agent: DiscordBot ($url, $versionNumber)
 Clients may append more information and metadata to the _end_ of this string as they wish.
 
 > warn
-> Client requests that do not have a valid User Agent specified may be blocked and lead to a Cloudflare error response.
+> Client requests that do not have a valid User Agent specified may be blocked and return a [Cloudflare error](https://support.cloudflare.com/hc/en-us/articles/360029779472-Troubleshooting-Cloudflare-1XXX-errors).
 
 ### Rate Limiting
 
