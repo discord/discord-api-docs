@@ -22,7 +22,7 @@ Discord exposes different versions of our API. You should specify which version 
 | 10      | Available                        |         |
 | 9       | Available                        |         |
 | 8       | Deprecated                       |         |
-| 7       | Doesn't look like anything to me |         |
+| 7       | Deprecated                       |         |
 | 6       | Deprecated                       | ✓       |
 | 5       | Discontinued                     |         |
 | 4       | Discontinued                     |         |
