@@ -145,7 +145,7 @@ achievementManager.FetchUserAchievements((res) =>
 
 ## GetUserAchievement
 
-Gets the user achievement for the given achievement id. If you keep a hardcoded mapping of achievement <--> ID in your codebase, this will be better than iterating over each achievement. Make sure to call `FetchUserAchievements()` first still!
+Gets the user achievement for the given achievement id. If you keep a hardcoded mapping of `achievement <--> ID` in your codebase, this will be better than iterating over each achievement. Make sure to call `FetchUserAchievements()` first still!
 
 ###### Parameters
 
