@@ -49,7 +49,7 @@
   },
   "primary_sku_id": "172150183260323840",
   "slug": "test",
-  "summary": "", // field will be removed in v11
+  "summary": "",
   "team": {
     "icon": "dd9b7dcfdf5351b9c3de0fe167bacbe1",
     "id": "531992624043786253",
