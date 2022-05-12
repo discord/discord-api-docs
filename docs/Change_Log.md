@@ -21,7 +21,7 @@
 - API v10 will become the default version **in early 2023**
 - API v6 and v7 will be decommissioned **in early 2023**
 - Message content is becoming a priviledged intent for verified bots in 75+ servers **on August 31, 2022**. Read details in [the FAQ](https://support-dev.discord.com/hc/en-us/articles/4404772028055-Message-Content-Privileged-Intent-FAQ) or follow [the guide](#DOCS_TUTORIALS_UPGRADING_TO_APPLICATION_COMMANDS) on updating your app.
-- The `summary` field for applications will stop being sent in the next API version (v11)
+- The `summary` field for applications will be removed in the next API version (v11)
 
 ## Updated Command Permissions
 
