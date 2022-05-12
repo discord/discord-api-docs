@@ -262,7 +262,7 @@ Represents a message sent in a channel within Discord.
 | referenced_message?\*\*\*\*\*\* | ?[message object](#DOCS_RESOURCES_CHANNEL/message-object)                                                                                       | the message associated with the message_reference                                                                                                |
 | interaction?                  | [message interaction object](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/message-interaction-object-message-interaction-structure)              | sent if the message is a response to an [Interaction](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/)                                              |
 | thread?                       | [channel](#DOCS_RESOURCES_CHANNEL/channel-object) object                                                                                        | the thread that was started from this message, includes [thread member](#DOCS_RESOURCES_CHANNEL/thread-member-object) object                     |
-| components?                   | Array of [message components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-object)                                                           | sent if the message contains components like buttons, action rows, or other interactive components                                               |
+| components?                   | array of [message components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-object)                                                           | sent if the message contains components like buttons, action rows, or other interactive components                                               |
 | sticker_items?                | array of [message sticker item objects](#DOCS_RESOURCES_STICKER/sticker-item-object)                                                            | sent if the message contains stickers                                                                                                            |
 | stickers?                     | array of [sticker](#DOCS_RESOURCES_STICKER/sticker-object) objects                                                                              | **Deprecated** the stickers sent with the message                                                                                                |
 
@@ -825,17 +825,15 @@ When setting `archived` to `false`, when `locked` is also `false`, only the `SEN
 
 Otherwise, requires the `MANAGE_THREADS` permission. Fires a [Thread Update](#DOCS_TOPICS_GATEWAY/thread-update) Gateway event. Requires the thread to have `archived` set to `false` or be set to `false` in the request.
 
-| Field                   | Type     | Description                                                                                                                                                                                       |
-|-------------------------|----------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| name                    | string   | 1-100 character channel name                                                                                                                                                                      |
-| archived                | boolean  | whether the thread is archived                                                                                                                                                                    |
-| auto_archive_duration\* | integer  | duration in minutes to automatically archive the thread after recent activity, can be set to: 60, 1440, 4320, 10080                                                                               |
-| locked                  | boolean  | whether the thread is locked; when a thread is locked, only users with MANAGE_THREADS can unarchive it                                                                                            |
-| invitable               | boolean  | whether non-moderators can add other non-moderators to a thread; only available on private threads                                                                                                |
-| rate_limit_per_user     | ?integer | amount of seconds a user has to wait before sending another message (0-21600); bots, as well as users with the permission `manage_messages`, `manage_thread`, or `manage_channel`, are unaffected |
-| flags?                  | integer  | [channel flags](#DOCS_RESOURCES_CHANNEL/channel-object-channel-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field); `PINNED` can only be set for threads in forum channels   |
-
-\* The 3 day and 7 day archive durations require the server to be boosted. The [guild features](#DOCS_RESOURCES_GUILD/guild-object-guild-features) will indicate if a server is able to use those settings.
+| Field                 | Type     | Description                                                                                                                                                                                       |
+|-----------------------|----------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| name                  | string   | 1-100 character channel name                                                                                                                                                                      |
+| archived              | boolean  | whether the thread is archived                                                                                                                                                                    |
+| auto_archive_duration | integer  | duration in minutes to automatically archive the thread after recent activity, can be set to: 60, 1440, 4320, 10080                                                                               |
+| locked                | boolean  | whether the thread is locked; when a thread is locked, only users with MANAGE_THREADS can unarchive it                                                                                            |
+| invitable             | boolean  | whether non-moderators can add other non-moderators to a thread; only available on private threads                                                                                                |
+| rate_limit_per_user   | ?integer | amount of seconds a user has to wait before sending another message (0-21600); bots, as well as users with the permission `manage_messages`, `manage_thread`, or `manage_channel`, are unaffected |
+| flags?                | integer  | [channel flags](#DOCS_RESOURCES_CHANNEL/channel-object-channel-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field); `PINNED` can only be set for threads in forum channels   |
 
 ## Delete/Close Channel % DELETE /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}
 
@@ -891,7 +889,7 @@ Files must be attached using a `multipart/form-data` body as described in [Uploa
 - For the embed object, you can set every field except `type` (it will be `rich` regardless of if you try to set it), `provider`, `video`, and any `height`, `width`, or `proxy_url` values for images.
 
 > info
-> Note that when sending a message, you must provide a value for at **least one of** `content`, `embeds`, or `files[n]`.
+> Note that when sending a message, you must provide a value for **at least one of** `content`, `embeds`, `files[n]`, or `sticker_ids`.
 
 ###### JSON/Form Params
 
@@ -906,7 +904,7 @@ Files must be attached using a `multipart/form-data` body as described in [Uploa
 | components           | array of [message component](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-object) objects      | the components to include with the message                                                                                                                                  | false                                       |
 | sticker_ids          | array of snowflakes                                                                               | IDs of up to 3 [stickers](#DOCS_RESOURCES_STICKER/sticker-object) in the server to send in the message                                                                      | one of content, file, embed(s), sticker_ids |
 | files[n] \*          | file contents                                                                                     | the contents of the file being sent                                                                                                                                         | one of content, file, embed(s), sticker_ids |
-| payload_json \*      | string                                                                                            | JSON encoded body of non-file params                                                                                                                                        | `multipart/form-data` only                  |
+| payload_json \*      | string                                                                                            | JSON-encoded body of non-file params                                                                                                                                        | `multipart/form-data` only                  |
 | attachments \*       | array of partial [attachment](#DOCS_RESOURCES_CHANNEL/attachment-object) objects                  | attachment objects with filename and description                                                                                                                            | false                                       |
 | flags                | integer                                                                                           | [message flags](#DOCS_RESOURCES_CHANNEL/message-object-message-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field) (only `SUPPRESS_EMBEDS` can be set) | false                                       |
 
@@ -1133,13 +1131,11 @@ When called on a `GUILD_TEXT` channel, creates a `GUILD_PUBLIC_THREAD`. When cal
 
 ###### JSON Params
 
-| Field                    | Type     | Description                                                                                                         |
-|--------------------------|----------|---------------------------------------------------------------------------------------------------------------------|
-| name                     | string   | 1-100 character channel name                                                                                        |
-| auto_archive_duration?\* | integer  | duration in minutes to automatically archive the thread after recent activity, can be set to: 60, 1440, 4320, 10080 |
-| rate_limit_per_user?     | ?integer | amount of seconds a user has to wait before sending another message (0-21600)                                       |
-
-\* The 3 day and 7 day archive durations require the server to be boosted. The [guild features](#DOCS_RESOURCES_GUILD/guild-object-guild-features) will indicate if a server is able to use those settings.
+| Field                  | Type     | Description                                                                                                         |
+|------------------------|----------|---------------------------------------------------------------------------------------------------------------------|
+| name                   | string   | 1-100 character channel name                                                                                        |
+| auto_archive_duration? | integer  | duration in minutes to automatically archive the thread after recent activity, can be set to: 60, 1440, 4320, 10080 |
+| rate_limit_per_user?   | ?integer | amount of seconds a user has to wait before sending another message (0-21600)                                       |
 
 ## Start Thread without Message % POST /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/threads
 
@@ -1148,22 +1144,20 @@ Creates a new thread that is not connected to an existing message. Returns a [ch
 > info
 > This endpoint supports the `X-Audit-Log-Reason` header.
 
+> info
+> Creating a private thread requires the server to be boosted. The [guild features](#DOCS_RESOURCES_GUILD/guild-object-guild-features) will indicate if that is possible for the guild.
+
 ###### JSON Params
 
-| Field                      | Type     | Description                                                                                                         |
-|----------------------------|----------|---------------------------------------------------------------------------------------------------------------------|
-| name                       | string   | 1-100 character channel name                                                                                        |
-| auto_archive_duration?\*\* | integer  | duration in minutes to automatically archive the thread after recent activity, can be set to: 60, 1440, 4320, 10080 |
-| type?\*\*\*                | integer  | the [type of thread](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types) to create                                |
-| invitable?                 | boolean  | whether non-moderators can add other non-moderators to a thread; only available when creating a private thread      |
-| rate_limit_per_user?       | ?integer | amount of seconds a user has to wait before sending another message (0-21600)                                       |
+| Field                  | Type     | Description                                                                                                         |
+|------------------------|----------|---------------------------------------------------------------------------------------------------------------------|
+| name                   | string   | 1-100 character channel name                                                                                        |
+| auto_archive_duration? | integer  | duration in minutes to automatically archive the thread after recent activity, can be set to: 60, 1440, 4320, 10080 |
+| type?\*                | integer  | the [type of thread](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types) to create                                |
+| invitable?             | boolean  | whether non-moderators can add other non-moderators to a thread; only available when creating a private thread      |
+| rate_limit_per_user?   | ?integer | amount of seconds a user has to wait before sending another message (0-21600)                                       |
 
-
-\* Creating a private thread requires the server to be boosted. The [guild features](#DOCS_RESOURCES_GUILD/guild-object-guild-features) will indicate if that is possible for the guild.
-
-\*\* The 3 day and 7 day archive durations require the server to be boosted. The [guild features](#DOCS_RESOURCES_GUILD/guild-object-guild-features) will indicate if that is possible for the guild.
-
-\*\*\* In API v9, `type` defaults to `GUILD_PRIVATE_THREAD` in order to match the behavior when thread documentation was first published. In API v10 this will be changed to be a required field, with no default.
+\* `type` currently defaults to `GUILD_PRIVATE_THREAD` in order to match the behavior when thread documentation was first published. In a future API version this will be changed to be a required field, with no default.
 
 ## Start Thread in Forum Channel % POST /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/threads
 
@@ -1193,7 +1187,6 @@ Creates a new thread in a forum channel, and sends a message within the created 
 | rate_limit_per_user?     | ?integer                                                                                                                         | amount of seconds a user has to wait before sending another message (0-21600)                                       |
 | message                  | a [forum thread message params](#DOCS_RESOURCES_CHANNEL/start-thread-in-forum-channel-forum-thread-message-params-object) object | contents of the first message in the forum thread                                                                   |
 
-\* The 3 day and 7 day archive durations require the server to be boosted. The [guild features](#DOCS_RESOURCES_GUILD/guild-object-guild-features) will indicate if that is possible for the guild.
 
 ###### Forum Thread Message Params Object
 
@@ -1238,21 +1231,6 @@ Returns array of [thread members](#DOCS_RESOURCES_CHANNEL/thread-member-object) 
 
 > warn
 > This endpoint is restricted according to whether the `GUILD_MEMBERS` [Privileged Intent](#DOCS_TOPICS_GATEWAY/privileged-intents) is enabled for your application.
-
-## List Active Threads % GET /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/threads/active
-
-Returns all active threads in the channel, including public and private threads. Threads are ordered by their `id`, in descending order.
-
-> warn
-> This route is deprecated and will be removed in v10. It is replaced by [List Active Guild Threads](#DOCS_RESOURCES_GUILD/list-active-threads).
-
-###### Response Body
-
-| Field    | Type                                                                            | Description                                                                                  |
-|----------|---------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------|
-| threads  | array of [channel](#DOCS_RESOURCES_CHANNEL/channel-object) objects              | the active threads                                                                           |
-| members  | array of [thread members](#DOCS_RESOURCES_CHANNEL/thread-member-object) objects | a thread member object for each returned thread the current user has joined                  |
-| has_more | boolean                                                                         | whether there are potentially additional threads that could be returned on a subsequent call |
 
 ## List Public Archived Threads % GET /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/threads/archived/public
 
