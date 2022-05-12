@@ -212,6 +212,9 @@ When you close the connection to the gateway with the close code 1000 or 1001, y
 > info
 > Intents are optionally supported on the v6 gateway but required as of v8
 
+> info
+> Starting in v10, `MESSAGE_CONTENT` (`1 << 15`) is required to receive fields with content (`content`, `attachments`, `embeds`, and `components`). This doesn't apply for DMs, messages your bot sends, or messages in which your bot is mentioned. `MESSAGE_CONTENT` is not currently required for previous API versions.
+
 Maintaining a stateful application can be difficult when it comes to the amount of data you're expected to process, especially at scale. Gateway Intents are a system to help you lower that computational burden.
 
 When [identifying](#DOCS_TOPICS_GATEWAY/identifying) to the gateway, you can specify an `intents` parameter which allows you to conditionally subscribe to pre-defined "intents", groups of events defined by Discord. If you do not specify a certain intent, you will not receive any of the gateway events that are batched into that group. The valid intents are:
@@ -304,7 +307,6 @@ DIRECT_MESSAGE_TYPING (1 << 14)
   - TYPING_START
 
 MESSAGE_CONTENT (1 << 15)
-  - <TODO???>
 
 GUILD_SCHEDULED_EVENTS (1 << 16)
   - GUILD_SCHEDULED_EVENT_CREATE
@@ -335,7 +337,7 @@ Bots in under 100 guilds can enable these intents in the bot tab of the develope
 ### Privileged Intents
 
 > warn
-> Message content will become a privileged intent in Aug 2022. [Learn more here](https://support-dev.discord.com/hc/en-us/articles/4404772028055) or read the guide on [upgrading to commands](#DOCS_TUTORIALS_UPGRADING_TO_APPLICATION_COMMANDS).
+> Message content (`MESSAGE_CONTENT`) will become a privileged intent in Aug 2022. [Learn more here](https://support-dev.discord.com/hc/en-us/articles/4404772028055) or read the guide on [upgrading to commands](#DOCS_TUTORIALS_UPGRADING_TO_APPLICATION_COMMANDS).
 
 Some intents are defined as "Privileged" due to the sensitive nature of the data. Those intents are:
 

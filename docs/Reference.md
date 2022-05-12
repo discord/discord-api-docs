@@ -347,17 +347,18 @@ Ensure you use the proper content type (`image/jpeg`, `image/png`, `image/gif`) 
 
 ## Uploading Files
 
+> info
+> A file upload size limit applies to *all* files in a request (rather than each individual file). While the limit depends on the **Boost Tier** of a guild, it is `8 MiB` by default.
+
 Some endpoints support file attachments, indicated by the `files[n]` parameter. To add file(s), the standard `application/json` body must be replaced by a `multipart/form-data` body. The JSON message body can optionally be provided using the `payload_json` parameter.
 
-All `files[n]` parameters must include a valid `Content-Disposition` subpart header with a `filename` and unique `name` parameter. Each file parameter must be uniquely named in the format `files[n]` such as `files[0]`, `files[1]`, or `files[42]`. The suffixed index `n` is the *snowflake placeholder* for the `attachments` JSON parameter which can be supplied in the `payload_json` parameter (or [Callback Data Payloads](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-response-object-interaction-callback-data-structure)).
-
-The file upload limit applies to all files in a request rather than each individual file. This limit depends on the **Boost Tier** of a guild, and is 8 MiB by default.
+All `files[n]` parameters must include a valid `Content-Disposition` subpart header with a `filename` and unique `name` parameter. Each file parameter must be uniquely named in the format `files[n]` such as `files[0]`, `files[1]`, or `files[42]`. The suffixed index `n` is the *snowflake placeholder* that can be used in the `attachments` field, which can be passed to the `payload_json` parameter (or [Callback Data Payloads](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-response-object-interaction-callback-data-structure)).
 
 Images can also be referenced in embeds using the `attachment://filename` URL. The `filename` for these URLs must be ASCII alphanumeric with underscores, dashes, or dots. An example payload is provided below.
 
 ### Editing Message Attachments
 
-The `attachments` JSON parameter includes all files that will be appended to the message, including new files and their respective snowflake placeholders. When making a `PATCH` request, only the files added to `attachments` will be appended the message. Any previously-added files which aren't included will be removed.
+The `attachments` JSON parameter includes all files that will be appended to the message, including new files and their respective snowflake placeholders (referenced above). When making a `PATCH` request, only files listed in the `attachments` parameter will be appended to the message. Any previously-added files that aren't included will be removed.
 
 ###### Example Request Bodies (multipart/form-data)
 
@@ -424,12 +425,12 @@ Content-Type: image/gif
 
 ###### Using Attachments within Embeds
 
-You can upload attachments when creating a message and use those attachments within your embed. To do this, you will want to upload files as part of your `multipart/form-data` body. Make sure that you're uploading files that contain a filename, as you will need a filename to reference against.
+You can upload attachments when creating a message and use those attachments within your embed. To do this, you will want to upload files as part of your `multipart/form-data` body. Make sure that you're uploading files which contain a filename, as you will need to reference it in your payload.
 
 > warn
-> Only filenames with proper image extensions are supported for the time being.
+> Only filenames with [supported image extensions](#DOCS_REFERENCE/image-formatting-image-formats) may be used at this time.
 
-In the embed object, you can then set an image to use an attachment as its url with our attachment scheme syntax: `attachment://filename.png`
+Within an embed object, you can set an image to use an attachment as its URL with the attachment scheme syntax: `attachment://filename.png`
 
 For example:
 
