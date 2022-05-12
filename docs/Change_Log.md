@@ -11,7 +11,7 @@
 - `GET /channels/{channel.id}/threads/active` is decomissioned in favor of [`GET/guilds/{guild.id}/threads/active`](#DOCS_RESOURCES_GUILD/list-active-threads).
 - Starting in v10, you must specify the message content intent (using `1 << 15`). See more in the [Gateway Intents documentation](#DOCS_TOPICS_GATEWAY/gateway-intents).
 - To specify a reason for an administrative action in audit logs, apps must now pass the `X-Audit-Log-Reason` rather than the `reason` parameter. Read more in the [Audit Logs documentation](#DOCS_RESOURCES_AUDIT_LOG).
-- Message routes (like [`POST /channels/{channel.id}/messages`](#DOCS_RESOURCES_CHANNEL/create-message)) now use the `embeds` (an array of embed objects) instead of `embed`.
+- Message routes (like [`POST /channels/{channel.id}/messages`](#DOCS_RESOURCES_CHANNEL/create-message)) now use the `embeds` field (an array of embed objects) instead of `embed`.
 - The `summary` field for [applications](#DOCS_RESOURCES_APPLICATION) now returns an empty string for all API versions.
 - The `name` and `description` fields for [Achievements](#DOCS_GAME_SDK_ACHIEVEMENTS/data-models-achievement-struct) are now strings, and localization info is now passed in new `name_localizations` and `description_localizations` dictionaries. This change standardizes localization to match [Application Commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/localization). Read details in the [Achievements documentation](#DOCS_GAME_SDK_ACHIEVEMENTS/data-models-achievement-struct).
 - Requests to v10 and higher will no longer be supported on `discordapp.com` (this does **not** affect `cdn.discordapp.com`)
