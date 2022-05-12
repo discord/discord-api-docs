@@ -9,7 +9,7 @@
 
 - API v8 is now deprecated.
 - `GET /channels/{channel.id}/threads/active` is decomissioned in favor of [`GET/guilds/{guild.id}/threads/active`](#DOCS_RESOURCES_GUILD/list-active-threads).
-- Starting in v10, you must specify the message content intent (using `1 << 15`). See more in the [Gateway Intents documentation](#DOCS_TOPICS_GATEWAY/gateway-intents).
+- Starting in v10, you must specify the message content intent (`1 << 15`) to receive content-related fields in message dispatches. See more in the [Gateway Intents documentation](#DOCS_TOPICS_GATEWAY/gateway-intents).
 - To specify a reason for an administrative action in audit logs, apps must now pass the `X-Audit-Log-Reason` rather than the `reason` parameter. Read more in the [Audit Logs documentation](#DOCS_RESOURCES_AUDIT_LOG).
 - Message routes (like [`POST /channels/{channel.id}/messages`](#DOCS_RESOURCES_CHANNEL/create-message)) now use the `embeds` field (an array of embed objects) instead of `embed`.
 - The `summary` field for [applications](#DOCS_RESOURCES_APPLICATION) now returns an empty string for all API versions.
