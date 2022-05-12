@@ -18,10 +18,10 @@ Discord exposes different versions of our API. You should specify which version 
 ###### API Versions
 
 | Version | Status                           | Default |
-|---------|----------------------------------|---------|
+| ------- | -------------------------------- | ------- |
 | 10      | Available                        |         |
 | 9       | Available                        |         |
-| 8       | Available                        |         |
+| 8       | Deprecated                       |         |
 | 7       | Doesn't look like anything to me |         |
 | 6       | Deprecated                       | ✓       |
 | 5       | Discontinued                     |         |
@@ -30,7 +30,7 @@ Discord exposes different versions of our API. You should specify which version 
 
 ## Error Messages
 
-In API v8, we've improved error formatting in form error responses. The response will tell you which JSON key contains the error, the error code, and a human readable error message. We will be frequently adding new error messages, so a complete list of errors is not feasible and would be almost instantly out of date. Here are some examples instead:
+Starting in API v8, we've improved error formatting in form error responses. The response will tell you which JSON key contains the error, the error code, and a human readable error message. We will be frequently adding new error messages, so a complete list of errors is not feasible and would be almost instantly out of date. Here are some examples instead:
 
 ###### Array Error
 
@@ -138,7 +138,7 @@ Discord utilizes Twitter's [snowflake](https://github.com/twitter/snowflake/tree
 ###### Snowflake ID Format Structure (Left to Right)
 
 | Field               | Bits     | Number of bits | Description                                                                  | Retrieval                           |
-|---------------------|----------|----------------|------------------------------------------------------------------------------|-------------------------------------|
+| ------------------- | -------- | -------------- | ---------------------------------------------------------------------------- | ----------------------------------- |
 | Timestamp           | 63 to 22 | 42 bits        | Milliseconds since Discord Epoch, the first second of 2015 or 1420070400000. | `(snowflake >> 22) + 1420070400000` |
 | Internal worker ID  | 21 to 17 | 5 bits         |                                                                              | `(snowflake & 0x3E0000) >> 17`      |
 | Internal process ID | 16 to 12 | 5 bits         |                                                                              | `(snowflake & 0x1F000) >> 12`       |
@@ -203,7 +203,7 @@ Resource fields that are optional have names that are suffixed with a question m
 ###### Example Nullable and Optional Fields
 
 | Field                        | Type    |
-|------------------------------|---------|
+| ---------------------------- | ------- |
 | optional_field?              | string  |
 | nullable_field               | ?string |
 | optional_and_nullable_field? | ?string |
@@ -254,12 +254,12 @@ Discord utilizes a subset of markdown for rendering message content on its clien
 ###### Formats
 
 | Type                    | Structure           | Example                      |
-|-------------------------|---------------------|------------------------------|
+| ----------------------- | ------------------- | ---------------------------- |
 | User                    | <@USER_ID>          | <@80351110224678912>         |
 | User \*                 | <@!USER_ID>         | <@!80351110224678912>        |
 | Channel                 | <#CHANNEL_ID>       | <#103735883630395392>        |
 | Role                    | <@&ROLE_ID>         | <@&165511591545143296>       |
-| Standard Emoji          | Unicode Characters  | 💯                           |
+| Standard Emoji          | Unicode Characters  | 💯                            |
 | Custom Emoji            | <:NAME:ID>          | <:mmLol:216154654256398347>  |
 | Custom Emoji (Animated) | <a:NAME:ID>         | <a:b1nzy:392938283556143104> |
 | Unix Timestamp          | <t:TIMESTAMP>       | <t:1618953630>               |
@@ -298,7 +298,7 @@ Discord uses ids and hashes to render images in the client. These hashes can be 
 ###### Image Formats
 
 | Name   | Extension   |
-|--------|-------------|
+| ------ | ----------- |
 | JPEG   | .jpg, .jpeg |
 | PNG    | .png        |
 | WebP   | .webp       |
@@ -473,9 +473,9 @@ For example:
 | bg     | Bulgarian             | български           |
 | ru     | Russian               | Pусский             |
 | uk     | Ukrainian             | Українська          |
-| hi     | Hindi                 | हिन्दी              |
+| hi     | Hindi                 | हिन्दी                 |
 | th     | Thai                  | ไทย                 |
-| zh-CN  | Chinese, China        | 中文                  |
-| ja     | Japanese              | 日本語                 |
-| zh-TW  | Chinese, Taiwan       | 繁體中文                |
-| ko     | Korean                | 한국어                 |
+| zh-CN  | Chinese, China        | 中文                |
+| ja     | Japanese              | 日本語              |
+| zh-TW  | Chinese, Taiwan       | 繁體中文            |
+| ko     | Korean                | 한국어              |
