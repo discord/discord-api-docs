@@ -7,7 +7,7 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 ###### Guild Structure
 
 > info
-> Previously, fields specific to the [GUILD_CREATE](#DOCS_TOPICS_GATEWAY/guild-create) event were documented here. They have now been moved there.
+> Fields specific to the `GUILD_CREATE` event are listed in the [Gateway documentation](#DOCS_TOPICS_GATEWAY/guild-create).
 
 | Field                         | Type                                                                                                         | Description                                                                                                                                                            |
 | ----------------------------- | ------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
