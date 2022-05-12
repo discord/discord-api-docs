@@ -318,7 +318,7 @@ GUILD_SCHEDULED_EVENTS (1 << 16)
 
 \* [Thread Members Update](#DOCS_TOPICS_GATEWAY/thread-members-update) contains different data depending on which intents are used.
 
-\*\* `MESSAGE_CONTENT` is a special case as it doesn't represent individual events, but rather affects the data sent for any event that could contain message content.
+\*\* `MESSAGE_CONTENT` is a special case as it doesn't represent individual events, but rather affects the data sent for most events that could contain message content fields (`content`, `attachments`, `embeds`, and `components`).
 
 ### Caveats
 

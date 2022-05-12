@@ -5,7 +5,7 @@
 #### May 12, 2022
 
 > info
-> API v10 was made available [February 14, 2022](https://github.com/discord/discord-api-docs/discussions/4510). May 12 just indicates the date for this changelog entry.
+> API v10 was made available in [Feb 2022](https://github.com/discord/discord-api-docs/discussions/4510). May 12 just indicates the date for this changelog entry.
 
 - API v8 is now deprecated.
 - `GET /channels/{channel.id}/threads/active` is decomissioned in favor of [`GET/guilds/{guild.id}/threads/active`](#DOCS_RESOURCES_GUILD/list-active-threads).
@@ -14,13 +14,12 @@
 - Message routes (like [`POST /channels/{channel.id}/messages`](#DOCS_RESOURCES_CHANNEL/create-message)) now use the `embeds` (an array of embed objects) instead of `embed`.
 - The `summary` field for [applications](#DOCS_RESOURCES_APPLICATION) now returns an empty string for all API versions.
 - The `name` and `description` fields for [Achievements](#DOCS_GAME_SDK_ACHIEVEMENTS/data-models-achievement-struct) are now strings, and localization info is now passed in new `name_localizations` and `description_localizations` dictionaries. This change standardizes localization to match [Application Commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/localization). Read details in the [Achievements documentation](#DOCS_GAME_SDK_ACHIEVEMENTS/data-models-achievement-struct).
-- Requests to v10 and higher will no longer be supported on `discordapp.com` (this does **not** affect `cdn.discordapp.com`)
-
+- Requests to v10 and higher will no longer be supported on `discordapp.com`ß (this does **not** affect `cdn.discordapp.com`)
 
 ## Upcoming changes
 
 - API v10 will become the default version **in early 2023**
-- API v6 will be decommissioned **in early 2023**
+- API v6 and v7 will be decommissioned **in early 2023**
 - Message content is becoming a priviledged intent for verified bots in 75+ servers **on August 31, 2022**. Read details in [the FAQ](https://support-dev.discord.com/hc/en-us/articles/4404772028055-Message-Content-Privileged-Intent-FAQ) or follow [the guide](#DOCS_TUTORIALS_UPGRADING_TO_APPLICATION_COMMANDS) on updating your app.
 - The `summary` field for applications will stop being sent in the next API version (v11)
 
