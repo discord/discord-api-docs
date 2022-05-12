@@ -750,7 +750,7 @@ This endpoint takes a JSON array of parameters in the following format:
 | lock_permissions | ?boolean   | syncs the permission overwrites with the new parent, if moving to a new category |
 | parent_id        | ?snowflake | the new parent ID for the channel that is moved                                  |
 
-## List Active Threads % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/threads/active
+## List Active Guild Threads % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/threads/active
 
 Returns all active threads in the guild, including public and private threads. Threads are ordered by their `id`, in descending order.
 

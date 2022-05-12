@@ -250,7 +250,7 @@ To respond to a gateway Interaction, make a `POST` request like this. `interacti
 ```py
 import requests
 
-url = "https://discord.com/api/v8/interactions/<interaction_id>/<interaction_token>/callback"
+url = "https://discord.com/api/v10/interactions/<interaction_id>/<interaction_token>/callback"
 
 json = {
     "type": 4,

@@ -97,7 +97,7 @@ https://nicememe.website/?code=NhhvTDYsFcdgNLnnLijcl7Ku7bEEeee&state=15773059ghq
 ```python
 import requests
 
-API_ENDPOINT = 'https://discord.com/api/v8'
+API_ENDPOINT = 'https://discord.com/api/v10'
 CLIENT_ID = '332269999912132097'
 CLIENT_SECRET = '937it3ow87i4ery69876wqire'
 REDIRECT_URI = 'https://nicememe.website'
@@ -144,7 +144,7 @@ Having the user's access token allows your application to make certain requests 
 ```python
 import requests
 
-API_ENDPOINT = 'https://discord.com/api/v8'
+API_ENDPOINT = 'https://discord.com/api/v10'
 CLIENT_ID = '332269999912132097'
 CLIENT_SECRET = '937it3ow87i4ery69876wqire'
 REDIRECT_URI = 'https://nicememe.website'
@@ -201,7 +201,7 @@ You can specify scopes with the `scope` parameter, which is a list of [OAuth2 sc
 import base64
 import requests
 
-API_ENDPOINT = 'https://discord.com/api/v8'
+API_ENDPOINT = 'https://discord.com/api/v10'
 CLIENT_ID = '332269999912132097'
 CLIENT_SECRET = '937it3ow87i4ery69876wqire'
 
