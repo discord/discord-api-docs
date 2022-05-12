@@ -349,7 +349,7 @@ Ensure you use the proper content type (`image/jpeg`, `image/png`, `image/gif`) 
 ## Uploading Files
 
 > info
-> A file upload size limit applies to *all* files in a request (rather than each individual file). While the limit depends on the **Boost Tier** of a guild, it is `8 MiB` by default.
+> A file upload size limit applies to *all* files in a request (rather than each individual file). While the limit depends on the [**Boost Tier**](https://support.discord.com/hc/en-us/articles/360028038352-Server-Boosting-FAQ-#h_419c3bd5-addd-4989-b7cf-c7957ef92583) of a guild, it is `8 MiB` by default.
 
 Some endpoints support file attachments, indicated by the `files[n]` parameter. To add file(s), the standard `application/json` body must be replaced by a `multipart/form-data` body. The JSON message body can optionally be provided using the `payload_json` parameter.
 
