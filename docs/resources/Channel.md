@@ -886,7 +886,7 @@ Files must be attached using a `multipart/form-data` body as described in [Uploa
 - For the embed object, you can set every field except `type` (it will be `rich` regardless of if you try to set it), `provider`, `video`, and any `height`, `width`, or `proxy_url` values for images.
 
 > info
-> Note that when sending a message, you must provide a value for at **least one of** `content`, `embeds`, `files[n]`, or `sticker_ids`.
+> Note that when sending a message, you must provide a value for **at least one of** `content`, `embeds`, `files[n]`, or `sticker_ids`.
 
 ###### JSON/Form Params
 
