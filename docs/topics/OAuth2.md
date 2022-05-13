@@ -34,6 +34,7 @@ These are a list of all the OAuth2 scopes that Discord supports. Some scopes req
 | applications.store.update                | allows your app to read and update store data (SKUs, store listings, achievements, etc.) for a user's applications                                                                      |
 | bot                                      | for oauth2 bots, this puts the bot in the user's selected guild by default                                                                                                              |
 | connections                              | allows [/users/@me/connections](#DOCS_RESOURCES_USER/get-user-connections) to return linked third-party accounts                                                                        |
+| dm_channels.read                         | allows your app to see information about the user's DMs and group DMs - requires Discord approval                                                                                       |
 | email                                    | enables [/users/@me](#DOCS_RESOURCES_USER/get-current-user) to return an `email`                                                                                                        |
 | gdm.join                                 | allows your app to [join users to a group dm](#DOCS_RESOURCES_CHANNEL/group-dm-add-recipient)                                                                                           |
 | guilds                                   | allows [/users/@me/guilds](#DOCS_RESOURCES_USER/get-current-user-guilds) to return basic information about all of a user's guilds                                                       |
@@ -47,6 +48,7 @@ These are a list of all the OAuth2 scopes that Discord supports. Some scopes req
 | rpc.notifications.read                   | for local rpc server access, this allows you to receive notifications pushed out to the user - requires Discord approval                                                                |
 | rpc.voice.read                           | for local rpc server access, this allows you to read a user's voice settings and listen for voice events - requires Discord approval                                                    |
 | rpc.voice.write                          | for local rpc server access, this allows you to update a user's voice settings - requires Discord approval                                                                              |
+| voice                                    | allows your app to connect to voice on user's behalf and see all the voice members - requires Discord approval                                                                          |
 | webhook.incoming                         | this generates a webhook that is returned in the oauth token response for authorization code grants                                                                                     |
 
 > info
@@ -95,7 +97,7 @@ https://nicememe.website/?code=NhhvTDYsFcdgNLnnLijcl7Ku7bEEeee&state=15773059ghq
 ```python
 import requests
 
-API_ENDPOINT = 'https://discord.com/api/v8'
+API_ENDPOINT = 'https://discord.com/api/v10'
 CLIENT_ID = '332269999912132097'
 CLIENT_SECRET = '937it3ow87i4ery69876wqire'
 REDIRECT_URI = 'https://nicememe.website'
@@ -142,7 +144,7 @@ Having the user's access token allows your application to make certain requests 
 ```python
 import requests
 
-API_ENDPOINT = 'https://discord.com/api/v8'
+API_ENDPOINT = 'https://discord.com/api/v10'
 CLIENT_ID = '332269999912132097'
 CLIENT_SECRET = '937it3ow87i4ery69876wqire'
 REDIRECT_URI = 'https://nicememe.website'
@@ -199,7 +201,7 @@ You can specify scopes with the `scope` parameter, which is a list of [OAuth2 sc
 import base64
 import requests
 
-API_ENDPOINT = 'https://discord.com/api/v8'
+API_ENDPOINT = 'https://discord.com/api/v10'
 CLIENT_ID = '332269999912132097'
 CLIENT_SECRET = '937it3ow87i4ery69876wqire'
 
