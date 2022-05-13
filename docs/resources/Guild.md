@@ -498,6 +498,64 @@ Giving the member a role will bypass Membership Screening as well as the guild's
 > warn
 > We are making significant changes to the Membership Screening API specifically related to getting and editing the Membership Screening object. Long story short is that it can be improved. As such, we have removed those documentation. There will **not be** any changes to how pending members work, as outlined above. That behavior will stay the same.
 
+### AutoMod Rule Object
+
+###### AutoMod Rule Structure
+
+| Field            | Type                | Description                                                                                            |
+| ---------------- | ------------------- | ------------------------------------------------------------------------------------------------------ |
+| name             | string              | the auto-mod rule name                                                                                 |
+| trigger_type     | integer             | the auto-mod rule [trigger type](#DOCS_RESOURCES_GUILD/automod-rule-object-automod-rule-trigger-types) |
+| event_type       | integer             | the auto-mod rule [event type](#DOCS_RESOURCES_GUILD/automod-rule-object-automod-rule-event-types)     |
+| actions          | array               | the auto-mod rule [actions](#DOCS_RESOURCES_GUILD/automod-rule-object-automod-rule-actions)            |
+| trigger_metadata | object              | the auto-mod rule keywords, up to 1000                                                                 |
+| enabled          | boolean             | whether the auto-mod rule is enabled                                                                   |
+| exempt_roles     | array of snowflakes | the role ids that should not be affected by the rule                                                   |
+| exempt_channels  | array of snowflakes | the channel ids that should not be affected by the rule                                                |
+| position         | integer             | the auto-mod rule position between all the rules                                                       |
+
+###### AutoMod Rule Trigger Types
+
+| Type             | Value   | Description              |
+| ---------------- | ------- | ------------------------ |
+| KEYWORD_FILTER   | 1       | filter of specific words |
+
+###### AutoMod Event Types
+
+| Type             | Value   | Description                              |
+| ---------------- | ------- | ---------------------------------------- |
+| MESSAGE_SEND     | 1       | when a member sends a message on a guild |
+
+###### AutoMod Rule Actions
+
+| Type             | Value   | Description                                           |
+| ---------------- | ------- | ----------------------------------------------------- |
+| BLOCK_MESSAGE    | 1       | blocks the content of a message according to the rule |
+| SEND_AN_ALERT    | 2       | sends an alert with the message to a specific channel |
+
+###### Example AutoMod Rule
+
+```json
+{
+  "name": "Keyword Filter 1",
+  "trigger_type": 1,
+  "event_type": 1,
+  "actions": [
+    {
+      "type": 1,
+      "metadata": {}
+    }
+  ],
+  "trigger_metadata": {
+    "keyword_filter": ["cat*", "*cat", "*ana*"]
+  },
+  "enabled": true,
+  "exempt_roles": [],
+  "exempt_channels": [],
+  "position": 0
+}
+```
+
 ## Create Guild % POST /guilds
 
 Create a new guild. Returns a [guild](#DOCS_RESOURCES_GUILD/guild-object) object on success. Fires a [Guild Create](#DOCS_TOPICS_GATEWAY/guild-create) Gateway event.
