@@ -520,7 +520,7 @@ Giving the member a role will bypass Membership Screening as well as the guild's
 | ---------------- | ------- | ------------------------ |
 | KEYWORD_FILTER   | 1       | filter of specific words |
 
-###### AutoMod Event Types
+###### AutoMod Rule Event Types
 
 | Type             | Value   | Description                              |
 | ---------------- | ------- | ---------------------------------------- |
