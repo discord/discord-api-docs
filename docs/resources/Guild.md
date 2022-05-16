@@ -502,17 +502,17 @@ Giving the member a role will bypass Membership Screening as well as the guild's
 
 ###### AutoMod Rule Structure
 
-| Field            | Type                | Description                                                                                            |
-| ---------------- | ------------------- | ------------------------------------------------------------------------------------------------------ |
-| name             | string              | the auto-mod rule name                                                                                 |
-| trigger_type     | integer             | the auto-mod rule [trigger type](#DOCS_RESOURCES_GUILD/automod-rule-object-automod-rule-trigger-types) |
-| event_type       | integer             | the auto-mod rule [event type](#DOCS_RESOURCES_GUILD/automod-rule-object-automod-rule-event-types)     |
-| actions          | array               | the auto-mod rule [actions](#DOCS_RESOURCES_GUILD/automod-rule-object-automod-rule-actions)            |
-| trigger_metadata | object              | the auto-mod rule keywords, up to 1000                                                                 |
-| enabled          | boolean             | whether the auto-mod rule is enabled                                                                   |
-| exempt_roles     | array of snowflakes | the role ids that should not be affected by the rule                                                   |
-| exempt_channels  | array of snowflakes | the channel ids that should not be affected by the rule                                                |
-| position         | integer             | the auto-mod rule position between all the rules                                                       |
+| Field            | Type                | Description                                                                                   |
+| ---------------- | ------------------- | --------------------------------------------------------------------------------------------- |
+| name             | string              | the rule name                                                                                 |
+| trigger_type     | integer             | the rule [trigger type](#DOCS_RESOURCES_GUILD/automod-rule-object-automod-rule-trigger-types) |
+| event_type       | integer             | the rule [event type](#DOCS_RESOURCES_GUILD/automod-rule-object-automod-rule-event-types)     |
+| actions          | array               | the rule [actions](#DOCS_RESOURCES_GUILD/automod-rule-object-automod-rule-actions)            |
+| trigger_metadata | object              | the rule keywords, up to 1000                                                                 |
+| enabled          | boolean             | whether the rule is enabled                                                                   |
+| exempt_roles     | array of snowflakes | the role ids that should not be affected by the rule                                          |
+| exempt_channels  | array of snowflakes | the channel ids that should not be affected by the rule                                       |
+| position         | integer             | the rule position between all the rules                                                       |
 
 ###### AutoMod Rule Trigger Types
 
