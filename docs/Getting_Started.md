@@ -1,8 +1,8 @@
-# Getting started with Discord app development
+# Getting started with Discord App Development
 
-Discord apps let you customize your servers with interactions and automation. This guide is meant to walk through building and running your first Discord app using JavaScript. At the end of this guide, you’ll have an app with a bot user that uses slash commands, sends messages, and interacts with message components.
+Discord applications let you customize your servers with interactions and automation. This guide is meant to walk through building and running your first Discord app using JavaScript. At the end of this guide, you’ll have an app with a bot user that uses slash commands, sends messages, and interacts with message components.
 
-While this guide is beginner-focused, it assumes a basic understanding of [JavaScript](https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web/JavaScript_basics).
+While this guide is beginner-focused, it assumes you to have a basic understanding of [JavaScript](https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web/JavaScript_basics).
 
 > info
 > When developing apps, you should build and test in a server that isn’t actively used by others. If you don’t have your own server already, you can [create one for free](https://support.discord.com/hc/en-us/articles/204849977-How-do-I-create-a-server-).
@@ -23,19 +23,19 @@ And here's what the finished app will look like:
 ![Demo of example app](getting-started-demo.gif)
 
 To make the user flow a bit more explicit:
-1. User 1 initiates a new game and picks their object using the app’s `/challenge` slash command
-2. A message is sent to channel with a button inviting others to accept the challenge
-3. User 2 presses the **Accept** button
-4. User 2 is sent an ephemeral message where they select their object of choice
-5. The result of the game is posted back into the original channel for all to see
+1. User 1 initiates a new game and picks their object using the app’s `/challenge` slash command.
+2. A message is sent to channel with a button inviting others to accept the challenge.
+3. User 2 presses the **Accept** button to accept the challenge.
+4. User 2 is sent an ephemeral message where they select their object of choice.
+5. The result of the game is posted back into the original channel for all to see.
 
 ## Creating an app
 
-The first thing we’ll need to do is create an app. Navigate to [the developer dashboard](https://discord.com/developers/applications), then click **New Application** in the upper right corner.
+The first thing we’ll need to do is to create an app. Navigate to the [developer dashboard](https://discord.com/developers/applications), then click on the **New Application** Tab in the upper right corner.
 
 ![App creation modal](app-create-modal.png)
 
-Enter a name for your app, then click **Create**.
+Enter a name for your application, then click **Create**.
 
 Once you create an app, you'll land on the **General Overview** page of the app's settings. Here you can view and configure basic information about the app, like its description and icon. You’ll also see an **Application ID** and **Interactions Endpoint URL**, which we’ll use a bit later in the guide.
 
@@ -47,7 +47,7 @@ Once you create a bot, you’ll have an option to update its icon and username. 
 
 ![Bot tab in app settings](app-add-bot.png)
 
-Bot tokens are used to authorize API requests and carry all of your bot user’s permissions, making them *highly sensitive*. Make sure to *never* share your token or check it into any kind of version control.
+Bot tokens are used to authorize API requests and carry all of your bot user’s permissions, making them *highly sensitive*. Make sure to *never* share your token, make it public or check it into any kind of version control.
 
 Go ahead and click **Reset Token**, and store the token somewhere safe (like in a password manager).
 
@@ -56,7 +56,7 @@ Go ahead and click **Reset Token**, and store the token somewhere safe (like in 
 
 ### Adding scopes and permissions
 
-Apps need approval from installing users to perform actions inside of Discord (like creating a slash command or adding emojis). So before installing your app, let's add some scopes and permissions to request during installation. Click on **OAuth2** in the left sidebar, then **URL generator**.
+Apps need approval from installing users to perform actions inside of their Discord server (like creating a slash command or adding emojis). So before installing your app, let's add some scopes and permissions to request during installation. Click on **OAuth2** in the left sidebar, then **URL Generator**.
 
 > info
 > The URL generator helps create an installation link with the scopes and permissions your app needs to function. You can use the link to install the app onto your server, or share it with others so they can install it on their own.
@@ -87,7 +87,7 @@ To make development a bit simpler, the app uses [discord-interactions](https://g
 
 ### Remix the project
 
-This guide uses Glitch, which allows you to quickly clone and develop an app from within your browser. There are also instructions on developing locally using ngrok [in the README](https://github.com/discord/discord-example-app#running-app-locally) if you'd prefer.
+This guide uses Glitch, which allows you to quickly clone and develop an app from within your browser. There are also instructions given on developing locally, using ngrok [in the README](https://github.com/discord/discord-example-app#running-app-locally) if you'd prefer.
 
 > info
 > While Glitch is great for development and testing, [it has technical limitations](https://help.glitch.com/kb/article/17-technical-restrictions/) so other hosting providers should be considered for production apps.
@@ -98,9 +98,9 @@ When you remix the project, you'll see a new Glitch project with a unique name s
 
 ![Glitch project overview](glitch-project.png)
 
-#### Project structure
+#### Project Structure
 
-All of the files for the project are on the left-hand side. Here's a quick glimpse at the structure:
+All of the files for the project are on the left-hand side. Here's a quick glimpse at the structure of the project:
 
 ```
 ├── examples    -> short, feature-specific sample apps
