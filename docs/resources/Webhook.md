@@ -97,9 +97,13 @@ Used to represent a webhook.
 }
 ```
 
-## Create Webhook % POST /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/webhooks
+## Create Webhook 
 
 Creates a new webhook and returns a [webhook](#DOCS_RESOURCES_WEBHOOK/webhook-object) object on success. Requires the `MANAGE_WEBHOOKS` permission.
+
+```
+% POST /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/webhooks
+```
 
 An error will be returned if a webhook name (`name`) is not valid. A webhook name is valid if:
 - It does not contain the substring '**clyde**' (case-insensitive)
@@ -115,25 +119,44 @@ An error will be returned if a webhook name (`name`) is not valid. A webhook nam
 | name    | string                                    | name of the webhook (1-80 characters) |
 | avatar? | ?[image data](#DOCS_REFERENCE/image-data) | image for the default webhook avatar  |
 
-## Get Channel Webhooks % GET /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/webhooks
+## Get Channel Webhooks 
 
 Returns a list of channel [webhook](#DOCS_RESOURCES_WEBHOOK/webhook-object) objects. Requires the `MANAGE_WEBHOOKS` permission.
 
-## Get Guild Webhooks % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/webhooks
+```
+% GET /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/webhooks
+```
+
+## Get Guild Webhooks 
 
 Returns a list of guild [webhook](#DOCS_RESOURCES_WEBHOOK/webhook-object) objects. Requires the `MANAGE_WEBHOOKS` permission.
 
-## Get Webhook % GET /webhooks/{webhook.id#DOCS_RESOURCES_WEBHOOK/webhook-object}
+```
+% GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/webhooks
+```
+
+## Get Webhook 
 
 Returns the new [webhook](#DOCS_RESOURCES_WEBHOOK/webhook-object) object for the given id.
+```
+% GET /webhooks/{webhook.id#DOCS_RESOURCES_WEBHOOK/webhook-object}
+```
 
-## Get Webhook with Token % GET /webhooks/{webhook.id#DOCS_RESOURCES_WEBHOOK/webhook-object}/{webhook.token#DOCS_RESOURCES_WEBHOOK/webhook-object}
+## Get Webhook with Token 
 
 Same as above, except this call does not require authentication and returns no user in the webhook object.
 
-## Modify Webhook % PATCH /webhooks/{webhook.id#DOCS_RESOURCES_WEBHOOK/webhook-object}
+```
+% GET /webhooks/{webhook.id#DOCS_RESOURCES_WEBHOOK/webhook-object}/{webhook.token#DOCS_RESOURCES_WEBHOOK/webhook-object}
+```
+
+## Modify Webhook 
 
 Modify a webhook. Requires the `MANAGE_WEBHOOKS` permission. Returns the updated [webhook](#DOCS_RESOURCES_WEBHOOK/webhook-object) object on success.
+
+```
+% PATCH /webhooks/{webhook.id#DOCS_RESOURCES_WEBHOOK/webhook-object}
+```
 
 > info
 > All parameters to this endpoint are optional
@@ -149,24 +172,40 @@ Modify a webhook. Requires the `MANAGE_WEBHOOKS` permission. Returns the updated
 | avatar     | ?[image data](#DOCS_REFERENCE/image-data) | image for the default webhook avatar               |
 | channel_id | snowflake                                 | the new channel id this webhook should be moved to |
 
-## Modify Webhook with Token % PATCH /webhooks/{webhook.id#DOCS_RESOURCES_WEBHOOK/webhook-object}/{webhook.token#DOCS_RESOURCES_WEBHOOK/webhook-object}
+## Modify Webhook with Token 
 
 Same as above, except this call does not require authentication, does not accept a `channel_id` parameter in the body, and does not return a user in the webhook object.
 
-## Delete Webhook % DELETE /webhooks/{webhook.id#DOCS_RESOURCES_WEBHOOK/webhook-object}
+```
+% PATCH /webhooks/{webhook.id#DOCS_RESOURCES_WEBHOOK/webhook-object}/{webhook.token#DOCS_RESOURCES_WEBHOOK/webhook-object}
+```
+
+## Delete Webhook 
 
 Delete a webhook permanently. Requires the `MANAGE_WEBHOOKS` permission. Returns a `204 No Content` response on success.
+
+```
+% DELETE /webhooks/{webhook.id#DOCS_RESOURCES_WEBHOOK/webhook-object}
+```
 
 > info
 > This endpoint supports the `X-Audit-Log-Reason` header.
 
-## Delete Webhook with Token % DELETE /webhooks/{webhook.id#DOCS_RESOURCES_WEBHOOK/webhook-object}/{webhook.token#DOCS_RESOURCES_WEBHOOK/webhook-object}
+## Delete Webhook with Token 
 
 Same as above, except this call does not require authentication.
 
-## Execute Webhook % POST /webhooks/{webhook.id#DOCS_RESOURCES_WEBHOOK/webhook-object}/{webhook.token#DOCS_RESOURCES_WEBHOOK/webhook-object}
+```
+% DELETE /webhooks/{webhook.id#DOCS_RESOURCES_WEBHOOK/webhook-object}/{webhook.token#DOCS_RESOURCES_WEBHOOK/webhook-object}
+```
+
+## Execute Webhook 
 
 Refer to [Uploading Files](#DOCS_REFERENCE/uploading-files) for details on attachments and `multipart/form-data` requests. Returns a message or `204 No Content` depending on the `wait` query parameter.
+
+```
+% POST /webhooks/{webhook.id#DOCS_RESOURCES_WEBHOOK/webhook-object}/{webhook.token#DOCS_RESOURCES_WEBHOOK/webhook-object}
+```
 
 > info
 > Note that when sending a message, you must provide a value for at **least one of** `content`, `embeds`, or `file`.
@@ -201,10 +240,14 @@ Refer to [Uploading Files](#DOCS_REFERENCE/uploading-files) for details on attac
 > info
 > For the webhook embed objects, you can set every field except `type` (it will be `rich` regardless of if you try to set it), `provider`, `video`, and any `height`, `width`, or `proxy_url` values for images.
 
-## Execute Slack-Compatible Webhook % POST /webhooks/{webhook.id#DOCS_RESOURCES_WEBHOOK/webhook-object}/{webhook.token#DOCS_RESOURCES_WEBHOOK/webhook-object}/slack
+## Execute Slack-Compatible Webhook 
 
 Refer to [Slack's documentation](https://api.slack.com/incoming-webhooks) for more information. We do not support Slack's `channel`, `icon_emoji`, `mrkdwn`, or `mrkdwn_in` properties.
 
+```
+% POST /webhooks/{webhook.id#DOCS_RESOURCES_WEBHOOK/webhook-object}/{webhook.token#DOCS_RESOURCES_WEBHOOK/webhook-object}/slack
+```
+
 ###### Query String Params
 
 | Field     | Type      | Description                                                                                                                                           | Required |
@@ -212,10 +255,14 @@ Refer to [Slack's documentation](https://api.slack.com/incoming-webhooks) for mo
 | thread_id | snowflake | id of the thread to send the message in                                                                                                               | false    |
 | wait      | boolean   | waits for server confirmation of message send before response (defaults to `true`; when `false` a message that is not saved does not return an error) | false    |
 
-## Execute GitHub-Compatible Webhook % POST /webhooks/{webhook.id#DOCS_RESOURCES_WEBHOOK/webhook-object}/{webhook.token#DOCS_RESOURCES_WEBHOOK/webhook-object}/github
+## Execute GitHub-Compatible Webhook 
 
 Add a new webhook to your GitHub repo (in the repo's settings), and use this endpoint as the "Payload URL." You can choose what events your Discord channel receives by choosing the "Let me select individual events" option and selecting individual events for the new webhook you're configuring.
 
+```
+% POST /webhooks/{webhook.id#DOCS_RESOURCES_WEBHOOK/webhook-object}/{webhook.token#DOCS_RESOURCES_WEBHOOK/webhook-object}/github
+```
+
 ###### Query String Params
 
 | Field     | Type      | Description                                                                                                                                           | Required |
@@ -223,9 +270,13 @@ Add a new webhook to your GitHub repo (in the repo's settings), and use this end
 | thread_id | snowflake | id of the thread to send the message in                                                                                                               | false    |
 | wait      | boolean   | waits for server confirmation of message send before response (defaults to `true`; when `false` a message that is not saved does not return an error) | false    |
 
-## Get Webhook Message % GET /webhooks/{webhook.id#DOCS_RESOURCES_WEBHOOK/webhook-object}/{webhook.token#DOCS_RESOURCES_WEBHOOK/webhook-object}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}
+## Get Webhook Message 
 
 Returns a previously-sent webhook message from the same token. Returns a [message](#DOCS_RESOURCES_CHANNEL/message-object) object on success.
+
+```
+% GET /webhooks/{webhook.id#DOCS_RESOURCES_WEBHOOK/webhook-object}/{webhook.token#DOCS_RESOURCES_WEBHOOK/webhook-object}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}
+```
 
 ###### Query String Params
 
@@ -233,9 +284,13 @@ Returns a previously-sent webhook message from the same token. Returns a [messag
 | --------- | --------- | ---------------------------------- | -------- |
 | thread_id | snowflake | id of the thread the message is in | false    |
 
-## Edit Webhook Message % PATCH /webhooks/{webhook.id#DOCS_RESOURCES_WEBHOOK/webhook-object}/{webhook.token#DOCS_RESOURCES_WEBHOOK/webhook-object}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}
+## Edit Webhook Message 
 
 Edits a previously-sent webhook message from the same token. Returns a [message](#DOCS_RESOURCES_CHANNEL/message-object) object on success.
+
+```
+% PATCH /webhooks/{webhook.id#DOCS_RESOURCES_WEBHOOK/webhook-object}/{webhook.token#DOCS_RESOURCES_WEBHOOK/webhook-object}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}
+```
 
 When the `content` field is edited, the `mentions` array in the message object will be reconstructed from scratch based on the new content. The `allowed_mentions` field of the edit request controls how this happens. If there is no explicit `allowed_mentions` in the edit request, the content will be parsed with _default_ allowances, that is, without regard to whether or not an `allowed_mentions` was present in the request that originally created the message.
 
@@ -270,9 +325,13 @@ Any provided files will be **appended** to the message. To remove or replace fil
 
 \*\* See [Uploading Files](#DOCS_REFERENCE/uploading-files) for details.
 
-## Delete Webhook Message % DELETE /webhooks/{webhook.id#DOCS_RESOURCES_WEBHOOK/webhook-object}/{webhook.token#DOCS_RESOURCES_WEBHOOK/webhook-object}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}
+## Delete Webhook Message 
 
 Deletes a message that was created by the webhook. Returns a `204 No Content` response on success.
+
+```
+% DELETE /webhooks/{webhook.id#DOCS_RESOURCES_WEBHOOK/webhook-object}/{webhook.token#DOCS_RESOURCES_WEBHOOK/webhook-object}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}
+```
 
 ###### Query String Params
 
