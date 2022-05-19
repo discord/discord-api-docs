@@ -10,19 +10,21 @@ can be setup to automatically execute whenever a rule is triggered.
 
 | Field            | Type                | Description                                                                                                            |
 | ---------------- | ------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| id               | snowflake           | the id of this rule                                                                                                    |
 | name             | string              | the name                                                                                                               |
 | event_type       | integer             | the [event type](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-event-types)                              |
 | trigger_type     | integer             | the [trigger type](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-trigger-types)                          |
 | trigger_metadata | object              | the [trigger metadata](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-trigger-types)                      |
 | actions          | array               | the [actions](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-action-object) which will execute when rule is triggered |
 | enabled          | boolean             | whether the rule is enabled                                                                                            |
-| exempt_roles     | array of snowflakes | the role ids that should not be affected by the rule (Maximum of 20)                                                                  |
-| exempt_channels  | array of snowflakes | the channel ids that should not be affected by the rule (Maximum of 50)                                                               |
+| exempt_roles     | array of snowflakes | the role ids that should not be affected by the rule (Maximum of 20)                                                   |
+| exempt_channels  | array of snowflakes | the channel ids that should not be affected by the rule (Maximum of 50)                                                |
 
 ###### Example Auto Moderation Rule
 
 ```json
 {
+  "id": "969707018069872670",
   "name": "Keyword Filter 1",
   "trigger_type": 1,
   "event_type": 1,
