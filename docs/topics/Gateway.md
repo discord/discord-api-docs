@@ -866,6 +866,15 @@ Sent when a rule is deleted. The inner payload is an [auto moderation rule](#DOC
 
 Sent when an rule is triggered and an action is executed (e.g. message is blocked). The inner payload is an [auto moderation action](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-action-object) object.
 
+###### Auto Moderation Action Execution Event Fields
+
+| Field               | Type                                                                                           | Description                                                   |
+| ------------------- | ---------------------------------------------------------------------------------------------- | ------------------------------------------------------------- |
+| action              | [auto moderation action](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-action-object) object | the action which was executed                                 |
+| guild_id            | snowflake                                                                                      | the id of the guild in which action was executed              |
+
+**TODO**: Add more fields which will be exposed here after they are finalized
+
 ### Channels
 
 #### Channel Create
