@@ -35,7 +35,7 @@ can be setup to automatically execute whenever a rule is triggered.
     },
     {
       "type": 2,
-      "metadata": { "channel_id": "123456789123456789"}
+      "metadata": { "channel_id": "123456789123456789" }
     }
   ],
   "trigger_metadata": {
