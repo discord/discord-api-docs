@@ -56,8 +56,6 @@ Characterizes what type of information will be checked to determine whether a ru
 | SPAM                 | 3       | check if content represents generic spam                                        |
 | DEFAULT_KEYWORD_LIST | 4       | check if any words from built in pre-determined lists of words exist in content |
 
-> info
-> Automod rules are limited to 1 rule per trigger type, with the exception of `KEYWORDS` which can have multiple.
 ###### Trigger Metadata
 
 Additional data needed to figure out whether a rule should be triggered. Different fields are relevant based on the
@@ -97,3 +95,71 @@ An action which will execute whenever a rule is triggered.
 ### Auto Moderation Permissions Requirements
 
 Users are required to have the `MANAGE_GUILD` permission to access all Auto Moderation resources.
+
+### Auto Moderation Limits Per Trigger Type
+
+Users are required to have the `MANAGE_GUILD` permission to access all Auto Moderation resources.
+
+| Type                 | Max Per Guild |
+| -------------------- | ------------- |
+| KEYWORDS             | 3             |
+| HARMFUL_LINKS        | 1             |
+| SPAM                 | 1             |
+| DEFAULT_KEYWORD_LIST | 1             |
+
+## List Auto Moderation Rules for Guild % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/auto-moderation/rules
+
+Get a list of all rules curerntly configured for guild. Returns a list of [auto moderation rule](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object) objects for the given guild.
+
+> info
+> Requires `MANAGE_GUILD` [permissions](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-permission-requirements)
+
+## Get Auto Moderation Rule % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/auto-moderation/rules/{auto_moderation_rule.id#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object}
+
+Get a single rule. Returns an [auto moderation rule](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object) object.
+
+> info
+> Requires `MANAGE_GUILD` [permissions](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-permission-requirements)
+
+## Create Auto Moderation Rule % POST /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/auto-moderation/rules
+
+Create a new rule. Returns an [auto moderation rule](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object) on success.
+
+> info
+> Requires `MANAGE_GUILD` [permissions](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-permission-requirements)
+
+**TODO**
+Add params
+
+###### JSON Params
+
+| Field                  | Type                                                                                                                        | Description                                                                                |
+| ---------------------- | --------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------ |
+
+> info
+> See [Auto Moderation Limits Per Trigger Type](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-limits-per-trigger-type) for limits on how many rules of each trigger type can be created per guild.
+
+
+## Modify Auto Moderation Rule % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/auto-moderation/rules/{auto_moderation_rule.id#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object}
+
+Modify an existing rule. Returns an [auto moderation rule](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object) on success.
+
+> info
+> Requires `MANAGE_GUILD` [permissions](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-permission-requirements)
+
+**TODO**
+Add params
+
+###### JSON Params
+
+| Field                  | Type                                                                                                                        | Description                                                                                |
+| ---------------------- | --------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------ |
+
+## Delete Auto Moderation Rule % DELETE /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/auto-moderation/rules/{auto_moderation_rule.id#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object}
+
+Delete a rule. Returns a `204` on success.
+
+> info
+> Requires `MANAGE_GUILD` [permissions](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-permission-requirements)
+
+
