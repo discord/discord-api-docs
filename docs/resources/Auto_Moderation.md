@@ -81,7 +81,7 @@ An action which will execute whenever a rule is triggered.
 
 | Field                     | Type                                                                                      | Description                                                               |
 | ------------------------- | ----------------------------------------------------------------------------------------- | ------------------------------------------------------------------------- |
-| action_type               | [action type](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-action-object-action-types) | the type of action                                                        |
+| type                      | [action type](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-action-object-action-types) | the type of action                                                        |
 | metadata                  | **TODO**                                                                                  | additional metadata needed during execution for this specific action type |
 
 
@@ -91,3 +91,8 @@ An action which will execute whenever a rule is triggered.
 | ------------------ | ------- | --------------------------------------------------------------- |
 | BLOCK_MESSAGE      | 1       | blocks the content of a message according to the rule           |
 | LOG_TO_CHANNEL     | 2       | records original message in a specified channel                 |
+
+
+### Auto Moderation Permissions Requirements
+
+Users are required to have the `MANAGE_GUILD` permission to access all Auto Moderation resources.

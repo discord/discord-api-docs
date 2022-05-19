@@ -848,6 +848,8 @@ The inner `d` key is a boolean that indicates whether the session may be resumab
 
 ### Auto Moderation
 
+All auto moderation related events are currently only sent to bot users which have the `MANAGE_GUILD` permission.
+
 #### Auto Moderation Rule Create
 
 Sent when a rule is created. The inner payload is an [auto moderation rule](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object) object.
