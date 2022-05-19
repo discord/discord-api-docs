@@ -128,6 +128,9 @@ There's already some code in your `app.js` file, but you’ll need your app’s 
 
 First, copy your bot user’s token from earlier and paste it in the **`DISCORD_TOKEN`** variable in your `.env` file.
 
+> info
+> .env is such a file where all your sensitive crenditials and data stored, cannot be accessed by anyone even if it is public i.e. it remains safe within the user's environment.
+
 Next, navigate to your app settings in the developer portal and copy the **App ID** and **Public Key** from the **General Overview** page. Paste the values in your `.env` file as **`APP_ID`** and **`PUBLIC_KEY`**.
 
 Finally, fetch your guild ID by navigating to the server where you installed your app. Copy the first number in the URL after `channels/` (for example, in the URL `https://discord.com/channels/12345/678910`, the guild ID would be `12345`). Save this value as **`GUILD_ID`** in your `.env` file.
@@ -427,9 +430,9 @@ Finally, the results are sent in channel using the `CHANNEL_MESSAGE_WITH_SOURCE`
 
 Congrats on building your first Discord app! 🤖
 
-Hopefully you learned a bit about Discord apps, how to configure them, and how to make them interactive. From here, you can continue building out your app or explore what else is possible:
+Hopefully you have learned a bit about Discord apps, how to configure them, and how to make them interactive. From here, you can continue building out your app or explore what else is possible:
 - Read **[the documentation](#DOCS_INTRO)** for in-depth information about API features
 - Browse the `examples/` folder in this project for smaller, feature-specific code examples
 - Check out **[community resources](#DOCS_TOPICS_COMMUNITY_RESOURCES)** for language-specific tools maintained by community members
 - Read our tutorial on [hosting Discord apps on Cloudflare Workers](#DOCS_TUTORIALS_HOSTING_ON_CLOUDFLARE_WORKERS)
-- Join the **[Discord Developers server](https://discord.gg/discord-developers)** to ask questions about the API, attend events hosted by the Discord API team, and interact with other devs
+- Join the **[Discord Developers server](https://discord.gg/discord-developers)** to ask questions about the API, attend events hosted by the Discord API team, and interact with other devs.
