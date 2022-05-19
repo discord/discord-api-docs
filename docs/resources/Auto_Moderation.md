@@ -49,12 +49,12 @@ can be setup to automatically execute whenever a rule is triggered.
 
 Characterizes what type of information will be checked to determine whether a rule is triggered.
 
-| Type                 | Value   | Description                                                                       |
-| ----------------     | ------- | --------------------------------------------------------------------------------- |
-| KEYWORDS             | 1       | check if any words from a user defined list of keywords exist in content          |
-| HARMFUL_LINKS        | 2       | check if any known harmful links exist in content                                 |
-| SPAM                 | 3       | check if content represents generic spam                                          |
-| DEFAULT_KEYWORD_LIST | 4       | check if any words from built in pre-determined lists of words exist in content   |
+| Type                 | Value   | Description                                                                     |
+| -------------------- | ------- | ------------------------------------------------------------------------------- |
+| KEYWORDS             | 1       | check if any words from a user defined list of keywords exist in content        |
+| HARMFUL_LINKS        | 2       | check if any known harmful links exist in content                               |
+| SPAM                 | 3       | check if content represents generic spam                                        |
+| DEFAULT_KEYWORD_LIST | 4       | check if any words from built in pre-determined lists of words exist in content |
 
 
 ###### Trigger Metadata
