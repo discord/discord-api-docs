@@ -14,16 +14,26 @@ Discord does not maintain official SDKs.  The following table is an inexhaustive
 
 | Name                                                         | Language   |
 | ------------------------------------------------------------ | ---------- |
-| [Discord.Net](https://github.com/discord-net/Discord.Net)    | C#         |
-| [DSharpPlus](https://github.com/DSharpPlus/DSharpPlus)       | C#         |
+| [D++](https://github.com/brainboxdotcc/DPP)                  | C++        |
+| [Discljord](https://github.com/discljord/discljord)          | Clojure    |
+| [Discordcr](https://github.com/shardlab/discordcr)           | Crystal    |
+| [Nyxx](https://github.com/nyxx-discord/nyxx)                 | Dart       |
+| [Discord.Net](https://github.com/discord-net/Discord.Net)    | .Net       |
+| [DSharpPlus](https://github.com/DSharpPlus/DSharpPlus)       | .Net       |
+| [Coxir](https://github.com/satom99/coxir)                    | Elixir     |
+| [Nostrum](https://github.com/Kraigie/nostrum)                | Elixir     |
 | [DiscordGo](https://github.com/bwmarrin/discordgo)           | Go         |
+| [Disgord](https://github.com/andersfylling/disgord)          | Go         |
 | [Discord4J](https://discord4j.com/)                          | Java       |
 | [Javacord](https://github.com/Javacord/Javacord)             | Java       |
 | [JDA](https://github.com/DV8FromTheWorld/JDA)                | Java       |
 | [discord.js](https://github.com/discordjs/discord.js)        | JavaScript |
 | [Eris](https://github.com/abalabahaha/eris)                  | JavaScript |
+| [Discord.jl](https://github.com/Xh4H/Discord.jl)             | Julia      |
 | [Discordia](https://github.com/SinisterRectus/Discordia)     | Lua        |
+| [Dimscord](https://github.com/krisppurg/dimscord)            | Nim        |
 | [DiscordPHP](https://github.com/discord-php/DiscordPHP)      | PHP        |
+| [Restcord](https://github.com/restcord/restcord)             | PHP        |
 | [discord.py](https://github.com/Rapptz/discord.py)           | Python     |
 | [disnake](https://github.com/DisnakeDev/disnake)             | Python     |
 | [hikari](https://github.com/hikari-py/hikari)                | Python     |
@@ -31,6 +41,11 @@ Discord does not maintain official SDKs.  The following table is an inexhaustive
 | [pycord](https://github.com/Pycord-Development/pycord)       | Python     |
 | [discordrb](https://github.com/shardlab/discordrb)           | Ruby       |
 | [Serenity](https://github.com/serenity-rs/serenity)          | Rust       |
+| [Twilight](https://github.com/twilight-rs/twilight)          | Rust       |
+| [Ackcord](https://github.com/Katrix/AckCord)                 | Scala      |
+| [SwiftDiscord](https://github.com/fwcd/swift-discord)        | Swift      |
+| [Detritus](https://github.com/detritusjs/client)             | Typescript |
+
 
 ## Interactions
 
