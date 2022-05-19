@@ -94,7 +94,7 @@ An action which will execute whenever a rule is triggered.
 | LOG_TO_CHANNEL     | 2       | records original message in a specified channel                 |
 
 
-### Auto Moderation Permissions Requirements
+### Auto Moderation Permission Requirements
 
 Users are required to have the `MANAGE_GUILD` permission to access all Auto Moderation resources.
 
