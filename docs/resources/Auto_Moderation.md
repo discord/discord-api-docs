@@ -16,8 +16,8 @@ can be setup to automatically execute whenever a rule is triggered.
 | trigger_metadata | object              | the [trigger metadata](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-trigger-types)                      |
 | actions          | array               | the [actions](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-action-object) which will execute when rule is triggered |
 | enabled          | boolean             | whether the rule is enabled                                                                                            |
-| exempt_roles     | array of snowflakes | the role ids that should not be affected by the rule                                                                   |
-| exempt_channels  | array of snowflakes | the channel ids that should not be affected by the rule                                                                |
+| exempt_roles     | array of snowflakes | the role ids that should not be affected by the rule (Maximum of 20)                                                                  |
+| exempt_channels  | array of snowflakes | the channel ids that should not be affected by the rule (Maximum of 50)                                                               |
 
 ###### Example Auto Moderation Rule
 
@@ -56,7 +56,8 @@ Characterizes what type of information will be checked to determine whether a ru
 | SPAM                 | 3       | check if content represents generic spam                                        |
 | DEFAULT_KEYWORD_LIST | 4       | check if any words from built in pre-determined lists of words exist in content |
 
-
+> info
+> Automod rules are limited to 1 rule per trigger type, with the exception of `KEYWORDS` which can have multiple.
 ###### Trigger Metadata
 
 Additional data needed to figure out whether a rule should be triggered. Different fields are relevant based on the
