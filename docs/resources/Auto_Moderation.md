@@ -134,13 +134,18 @@ Create a new rule. Returns an [auto moderation rule](#DOCS_RESOURCES_AUTO_MODERA
 > info
 > Requires `MANAGE_GUILD` [permissions](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-permission-requirements)
 
-**TODO**
-Add params
-
 ###### JSON Params
 
-| Field                  | Type                                                                                                                        | Description                                                                                |
-| ---------------------- | --------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------ |
+| Field            | Type                | Description                                                                                                            |
+| ---------------- | ------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| name             | string              | the name                                                                                                               |
+| event_type       | integer             | the [event type](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-event-types)                              |
+| trigger_type     | integer             | the [trigger type](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-trigger-types)                          |
+| trigger_metadata | object              | the [trigger metadata](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-trigger-types)                      |
+| actions          | array               | the [actions](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-action-object) which will execute when rule is triggered |
+| enabled?         | boolean             | whether the rule is enabled (False by default)                                                                         |
+| exempt_roles?    | array of snowflakes | the role ids that should not be affected by the rule (Maximum of 20)                                                   |
+| exempt_channels? | array of snowflakes | the channel ids that should not be affected by the rule (Maximum of 50)                                                |
 
 > info
 > See [Auto Moderation Limits Per Trigger Type](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-limits-per-trigger-type) for limits on how many rules of each trigger type can be created per guild.
@@ -151,15 +156,23 @@ Add params
 Modify an existing rule. Returns an [auto moderation rule](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object) on success.
 
 > info
-> Requires `MANAGE_GUILD` [permissions](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-permission-requirements)
+> Requires `MANAGE_GUILD` [permissions](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-permission-requirements).
 
-**TODO**
-Add params
+> info
+> All parameters for this endpoint are optional.
 
 ###### JSON Params
 
-| Field                  | Type                                                                                                                        | Description                                                                                |
-| ---------------------- | --------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------ |
+| Field            | Type                | Description                                                                                                            |
+| ---------------- | ------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| name             | string              | the name                                                                                                               |
+| event_type       | integer             | the [event type](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-event-types)                              |
+| trigger_metadata | object              | the [trigger metadata](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-trigger-types)                      |
+| actions          | array               | the [actions](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-action-object) which will execute when rule is triggered |
+| enabled          | boolean             | whether the rule is enabled                                                                                            |
+| exempt_roles     | array of snowflakes | the role ids that should not be affected by the rule (Maximum of 20)                                                   |
+| exempt_channels  | array of snowflakes | the channel ids that should not be affected by the rule (Maximum of 50)                                                |
+
 
 ## Delete Auto Moderation Rule % DELETE /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/auto-moderation/rules/{auto_moderation_rule.id#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object}
 
