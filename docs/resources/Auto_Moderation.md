@@ -27,7 +27,9 @@ can be setup to automatically execute whenever a rule is triggered.
 ```json
 {
   "id": "969707018069872670",
+  "guild_id": "613425648685547541",
   "name": "Keyword Filter 1",
+  "creator_id": "423457898095789043",
   "trigger_type": 1,
   "event_type": 1,
   "actions": [
