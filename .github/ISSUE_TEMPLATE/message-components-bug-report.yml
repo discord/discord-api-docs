@@ -47,3 +47,10 @@ body:
       description: What is the browser/library/client you are using? What operating system and version?
     validations:
       required: true
+  - type: textarea
+    id: additionalContext
+    attributes:
+      label: Additional Context
+      description: Additional Context/Informations
+    validations:
+      required: true
