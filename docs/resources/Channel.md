@@ -41,7 +41,7 @@ Represents a guild or DM channel within Discord.
 ###### Channel Types
 
 > warn
-> Type 10, 11 and 12 are only available in API v9.
+> Type 10, 11 and 12 are only available in API v9 and higher.
 
 | Type                    | ID  | Description                                                                                                                                          |
 | ----------------------- | --- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -281,7 +281,7 @@ Represents a message sent in a channel within Discord.
 ###### Message Types
 
 > warn
-> Type `19` and `20` are only in API v8. In v6, they are still type `0`.  Type `21` is only in API v9.
+> Type `19` and `20` are only in API v8 and higher. In v6, they are still type `0`.  Type `21` is only in API v9 and higher.
 
 | Type                                         | Value |
 |----------------------------------------------|-------|
