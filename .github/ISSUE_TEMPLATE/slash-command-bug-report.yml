@@ -51,6 +51,6 @@ body:
     id: additionalContext
     attributes:
       label: Additional Context
-      description: Additional Context/Informations
+      description: Additional Context
     validations:
       required: false
