@@ -13,15 +13,16 @@ https://discord.com/api
 > danger
 > Some API and Gateway versions are now non-functioning, and are labeled as discontinued in the table below for posterity. Trying to use these versions will fail and return 400 Bad Request.
 
-Discord exposes different versions of our API. You can specify which version to use by including it in the request path like `https://discord.com/api/v{version_number}`. Omitting the version number from the route will route requests to the current default version (marked below accordingly). You can find the change log for the newest API version [here](https://discord.com/developers/docs/change-log).
+Discord exposes different versions of our API. You should specify which version to use by including it in the request path like `https://discord.com/api/v{version_number}`. Omitting the version number from the route will route requests to the current default version (marked below). You can find the change log for the newest API version [here](https://discord.com/developers/docs/change-log).
 
 ###### API Versions
 
 | Version | Status                           | Default |
-|---------|----------------------------------|---------|
+| ------- | -------------------------------- | ------- |
+| 10      | Available                        |         |
 | 9       | Available                        |         |
-| 8       | Available                        |         |
-| 7       | Doesn't look like anything to me |         |
+| 8       | Deprecated                       |         |
+| 7       | Deprecated                       |         |
 | 6       | Deprecated                       | ✓       |
 | 5       | Discontinued                     |         |
 | 4       | Discontinued                     |         |
@@ -29,7 +30,7 @@ Discord exposes different versions of our API. You can specify which version to 
 
 ## Error Messages
 
-In API v8, we've improved error formatting in form error responses. The response will tell you which json key contains the error, the error code, and a human readable error message. We will be frequently adding new error messages, so a complete list of errors is not feasible and would be almost instantly out of date. Here are some examples instead:
+Starting in API v8, we've improved error formatting in form error responses. The response will tell you which JSON key contains the error, the error code, and a human readable error message. We will be frequently adding new error messages, so a complete list of errors is not feasible and would be almost instantly out of date. Here are some examples instead:
 
 ###### Array Error
 
@@ -137,7 +138,7 @@ Discord utilizes Twitter's [snowflake](https://github.com/twitter/snowflake/tree
 ###### Snowflake ID Format Structure (Left to Right)
 
 | Field               | Bits     | Number of bits | Description                                                                  | Retrieval                           |
-|---------------------|----------|----------------|------------------------------------------------------------------------------|-------------------------------------|
+| ------------------- | -------- | -------------- | ---------------------------------------------------------------------------- | ----------------------------------- |
 | Timestamp           | 63 to 22 | 42 bits        | Milliseconds since Discord Epoch, the first second of 2015 or 1420070400000. | `(snowflake >> 22) + 1420070400000` |
 | Internal worker ID  | 21 to 17 | 5 bits         |                                                                              | `(snowflake & 0x3E0000) >> 17`      |
 | Internal process ID | 16 to 12 | 5 bits         |                                                                              | `(snowflake & 0x1F000) >> 12`       |
@@ -202,7 +203,7 @@ Resource fields that are optional have names that are suffixed with a question m
 ###### Example Nullable and Optional Fields
 
 | Field                        | Type    |
-|------------------------------|---------|
+| ---------------------------- | ------- |
 | optional_field?              | string  |
 | nullable_field               | ?string |
 | optional_and_nullable_field? | ?string |
@@ -231,6 +232,9 @@ User-Agent: DiscordBot ($url, $versionNumber)
 
 Clients may append more information and metadata to the _end_ of this string as they wish.
 
+> warn
+> Client requests that do not have a valid User Agent specified may be blocked and return a [Cloudflare error](https://support.cloudflare.com/hc/en-us/articles/360029779472-Troubleshooting-Cloudflare-1XXX-errors).
+
 ### Rate Limiting
 
 The HTTP API implements a process for limiting and preventing excessive requests in accordance with [RFC 6585](https://tools.ietf.org/html/rfc6585#section-4). API users that regularly hit and ignore rate limits will have their API keys revoked, and be blocked from the platform. For more information on rate limiting of requests, please see the [Rate Limits](#DOCS_TOPICS_RATE_LIMITS/rate-limits) section.
@@ -250,12 +254,12 @@ Discord utilizes a subset of markdown for rendering message content on its clien
 ###### Formats
 
 | Type                    | Structure           | Example                      |
-|-------------------------|---------------------|------------------------------|
+| ----------------------- | ------------------- | ---------------------------- |
 | User                    | <@USER_ID>          | <@80351110224678912>         |
 | User \*                 | <@!USER_ID>         | <@!80351110224678912>        |
 | Channel                 | <#CHANNEL_ID>       | <#103735883630395392>        |
 | Role                    | <@&ROLE_ID>         | <@&165511591545143296>       |
-| Standard Emoji          | Unicode Characters  | 💯                           |
+| Standard Emoji          | Unicode Characters  | 💯                            |
 | Custom Emoji            | <:NAME:ID>          | <:mmLol:216154654256398347>  |
 | Custom Emoji (Animated) | <a:NAME:ID>         | <a:b1nzy:392938283556143104> |
 | Unix Timestamp          | <t:TIMESTAMP>       | <t:1618953630>               |
@@ -294,7 +298,7 @@ Discord uses ids and hashes to render images in the client. These hashes can be 
 ###### Image Formats
 
 | Name   | Extension   |
-|--------|-------------|
+| ------ | ----------- |
 | JPEG   | .jpg, .jpeg |
 | PNG    | .png        |
 | WebP   | .webp       |
@@ -344,23 +348,22 @@ Ensure you use the proper content type (`image/jpeg`, `image/png`, `image/gif`) 
 
 ## Uploading Files
 
-Some endpoints support file attachments, indicated by the `files[n]` parameter. To add a file to the request, the standard `application/json` body must be replaced by a `multipart/form-data` body. The otherwise json body can instead be provided using a special `payload_json` parameter in addition to a number of `files[n]` parameters.
+> info
+> A file upload size limit applies to *all* files in a request (rather than each individual file). While the limit depends on the [**Boost Tier**](https://support.discord.com/hc/en-us/articles/360028038352-Server-Boosting-FAQ-#h_419c3bd5-addd-4989-b7cf-c7957ef92583) of a guild, it is `8 MiB` by default.
 
-All `files[n]` parameters must include a valid `Content-Disposition` subpart header with a `filename` and unique `name` parameter. Each file parameter must be uniquely named in the format `files[n]` such as `files[0]`, `files[1]`, or `files[42]`. The suffixed index `n` is the *snowflake placeholder* for the `attachments` json parameter that is supplied in `payload_json` (or [Callback Data Payloads](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-response-object-interaction-callback-data-structure)).
+Some endpoints support file attachments, indicated by the `files[n]` parameter. To add file(s), the standard `application/json` body must be replaced by a `multipart/form-data` body. The JSON message body can optionally be provided using the `payload_json` parameter.
 
-The file upload limit applies to the entire request, not individual files in a request. This limit depends on the **Boost Tier** of a Guild and is 8 MiB by default.
+All `files[n]` parameters must include a valid `Content-Disposition` subpart header with a `filename` and unique `name` parameter. Each file parameter must be uniquely named in the format `files[n]` such as `files[0]`, `files[1]`, or `files[42]`. The suffixed index `n` is the *snowflake placeholder* that can be used in the `attachments` field, which can be passed to the `payload_json` parameter (or [Callback Data Payloads](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-response-object-interaction-callback-data-structure)).
 
 Images can also be referenced in embeds using the `attachment://filename` URL. The `filename` for these URLs must be ASCII alphanumeric with underscores, dashes, or dots. An example payload is provided below.
 
 ### Editing Message Attachments
 
-All files added to a request, as described above, will be appended to the message in a `PATCH` request. The `attachments` json parameter has a special behavior for edit, as it is used for both removing attachments from the message as well as adding descriptions for new attachments added by the request.
-
-The `attachments` json parameter lists all files that should be attached to the message after the edit, including all new files added and the respective snowflake placeholders. To remove attachments, simply exclude them from this list.
+The `attachments` JSON parameter includes all files that will be appended to the message, including new files and their respective snowflake placeholders (referenced above). When making a `PATCH` request, only files listed in the `attachments` parameter will be appended to the message. Any previously-added files that aren't included will be removed.
 
 ###### Example Request Bodies (multipart/form-data)
 
-Note that these examples are small sections of an HTTP request to demonstrate behaviour of this endpoint - client libraries will set their own form boundaries, `boundary` is just an example. For more information, refer to the [multipart/form-data spec](https://tools.ietf.org/html/rfc7578#section-4).
+Note that these examples are small sections of an HTTP request to demonstrate behaviour of this endpoint - client libraries will set their own form boundaries (`boundary` is just an example). For more information, refer to the [multipart/form-data spec](https://tools.ietf.org/html/rfc7578#section-4).
 
 This example demonstrates usage of the endpoint *without* `payload_json`.
 
@@ -423,12 +426,12 @@ Content-Type: image/gif
 
 ###### Using Attachments within Embeds
 
-You can upload attachments when creating a message and use those attachments within your embed. To do this, you will want to upload files as part of your `multipart/form-data` body. Make sure that you're uploading files that contain a filename, as you will need a filename to reference against.
+You can upload attachments when creating a message and use those attachments within your embed. To do this, you will want to upload files as part of your `multipart/form-data` body. Make sure that you're uploading files which contain a filename, as you will need to reference it in your payload.
 
 > warn
-> Only filenames with proper image extensions are supported for the time being.
+> Only filenames with [supported image extensions](#DOCS_REFERENCE/image-formatting-image-formats) may be used at this time.
 
-In the embed object, you can then set an image to use an attachment as its url with our attachment scheme syntax: `attachment://filename.png`
+Within an embed object, you can set an image to use an attachment as its URL with the attachment scheme syntax: `attachment://filename.png`
 
 For example:
 
@@ -470,9 +473,9 @@ For example:
 | bg     | Bulgarian             | български           |
 | ru     | Russian               | Pусский             |
 | uk     | Ukrainian             | Українська          |
-| hi     | Hindi                 | हिन्दी              |
+| hi     | Hindi                 | हिन्दी                 |
 | th     | Thai                  | ไทย                 |
-| zh-CN  | Chinese, China        | 中文                  |
-| ja     | Japanese              | 日本語                 |
-| zh-TW  | Chinese, Taiwan       | 繁體中文                |
-| ko     | Korean                | 한국어                 |
+| zh-CN  | Chinese, China        | 中文                |
+| ja     | Japanese              | 日本語              |
+| zh-TW  | Chinese, Taiwan       | 繁體中文            |
+| ko     | Korean                | 한국어              |

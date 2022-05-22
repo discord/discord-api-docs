@@ -61,7 +61,7 @@ The inner data payload of an interaction can vary drastically from interaction t
 | resolved?  | [resolved data](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-resolved-data-structure)                                                                          | converted users + roles + channels + attachments                                                                                                                                     |
 | options?\* | array of [application command interaction data option](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-interaction-data-option-structure) | the params + values from the user                                                                                                                                                    |
 | guild_id?  | snowflake                                                                                                                                                                        | the id of the guild the command is registered to                                                                                                                                     |
-| target_id? | snowflake                                                                                                                                                                        | id the of user or message targeted by a [user](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/user-commands) or [message](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/message-commands) command |
+| target_id? | snowflake                                                                                                                                                                        | id of the user or message targeted by a [user](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/user-commands) or [message](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/message-commands) command |
 
 \* This [can be partial](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/autocomplete) when in response to APPLICATION_COMMAND_AUTOCOMPLETE
 
@@ -270,7 +270,7 @@ To respond to a gateway Interaction, make a `POST` request like this. `interacti
 ```py
 import requests
 
-url = "https://discord.com/api/v8/interactions/<interaction_id>/<interaction_token>/callback"
+url = "https://discord.com/api/v10/interactions/<interaction_id>/<interaction_token>/callback"
 
 json = {
     "type": 4,

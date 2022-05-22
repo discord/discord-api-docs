@@ -212,9 +212,12 @@ When you close the connection to the gateway with the close code 1000 or 1001, y
 > info
 > Intents are optionally supported on the v6 gateway but required as of v8
 
+> info
+> Starting in v10, `MESSAGE_CONTENT` (`1 << 15`) is required to receive non-empty values for content fields (`content`, `attachments`, `embeds`, and `components`). This doesn't apply for DMs, messages your bot sends, or messages in which your bot is mentioned. `MESSAGE_CONTENT` is not currently required for previous API versions.
+
 Maintaining a stateful application can be difficult when it comes to the amount of data you're expected to process, especially at scale. Gateway Intents are a system to help you lower that computational burden.
 
-When [identifying](#DOCS_TOPICS_GATEWAY/identifying) to the gateway, you can specify an `intents` parameter which allows you to conditionally subscribe to pre-defined "intents", groups of events defined by Discord. If you do not specify a certain intent, you will not receive any of the gateway events that are batched into that group. The valid intents are:
+When [identifying](#DOCS_TOPICS_GATEWAY/identifying) to the gateway, you can specify an `intents` parameter which allows you to conditionally subscribe to pre-defined "intents", groups of events (or event data) defined by Discord. If you do not specify a certain intent, you will not receive any of the gateway events that are batched into that group. The valid intents are:
 
 ### List of Intents
 
@@ -303,6 +306,8 @@ DIRECT_MESSAGE_REACTIONS (1 << 13)
 DIRECT_MESSAGE_TYPING (1 << 14)
   - TYPING_START
 
+MESSAGE_CONTENT (1 << 15) **
+
 GUILD_SCHEDULED_EVENTS (1 << 16)
   - GUILD_SCHEDULED_EVENT_CREATE
   - GUILD_SCHEDULED_EVENT_UPDATE
@@ -312,6 +317,8 @@ GUILD_SCHEDULED_EVENTS (1 << 16)
 ```
 
 \* [Thread Members Update](#DOCS_TOPICS_GATEWAY/thread-members-update) contains different data depending on which intents are used.
+
+\*\* `MESSAGE_CONTENT` is a special case as it doesn't represent individual events, but rather affects the data sent for most events that could contain message content fields (`content`, `attachments`, `embeds`, and `components`).
 
 ### Caveats
 
@@ -332,7 +339,7 @@ Bots in under 100 guilds can enable these intents in the bot tab of the develope
 ### Privileged Intents
 
 > warn
-> Message content will become a privileged intent in 2022. [Learn more here](https://support-dev.discord.com/hc/en-us/articles/4404772028055).
+> `MESSAGE_CONTENT` will become a privileged intent in Aug 2022. [Learn more here](https://support-dev.discord.com/hc/en-us/articles/4404772028055) or read the guide on [upgrading to commands](#DOCS_TUTORIALS_UPGRADING_TO_APPLICATION_COMMANDS).
 
 Some intents are defined as "Privileged" due to the sensitive nature of the data. Those intents are:
 
@@ -916,7 +923,23 @@ This event can be sent in three different scenarios:
 2.  When a Guild becomes available again to the client.
 3.  When the current user joins a new Guild.
 
-The inner payload is a [guild](#DOCS_RESOURCES_GUILD/guild-object) object, with all the extra fields specified.
+The inner payload is a [guild](#DOCS_RESOURCES_GUILD/guild-object) object, with the following extra fields:
+
+###### Guild Create Extra Fields
+
+| Field                  | Type                                                                                                         | Description                                                                                                                |
+| ---------------------- | ------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------- |
+| joined_at              | ISO8601 timestamp                                                                                            | when this guild was joined at                                                                                              |
+| large                  | boolean                                                                                                      | true if this is considered a large guild                                                                                   |
+| unavailable            | boolean                                                                                                      | true if this guild is unavailable due to an outage                                                                         |
+| member_count           | integer                                                                                                      | total number of members in this guild                                                                                      |
+| voice_states           | array of partial [voice state](#DOCS_RESOURCES_VOICE/voice-state-object) objects                             | states of members currently in voice channels; lacks the `guild_id` key                                                    |
+| members                | array of [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) objects                                   | users in the guild                                                                                                         |
+| channels               | array of [channel](#DOCS_RESOURCES_CHANNEL/channel-object) objects                                           | channels in the guild                                                                                                      |
+| threads                | array of [channel](#DOCS_RESOURCES_CHANNEL/channel-object) objects                                           | all active threads in the guild that current user has permission to view                                                   |
+| presences              | array of partial [presence update](#DOCS_TOPICS_GATEWAY/presence-update) objects                             | presences of the members in the guild, will only include non-offline members if the size is greater than `large threshold` |
+| stage_instances        | array of [stage instance](#DOCS_RESOURCES_STAGE_INSTANCE/stage-instance-object) objects                      | Stage instances in the guild                                                                                               |
+| guild_scheduled_events | array of [guild scheduled event](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object) objects | the scheduled events in the guild                                                                                          |
 
 > warn
 > If your bot does not have the `GUILD_PRESENCES` [Gateway Intent](#DOCS_TOPICS_GATEWAY/gateway-intents), or if the guild has over 75k members, members and presences returned in this event will only contain your bot and users in voice channels.

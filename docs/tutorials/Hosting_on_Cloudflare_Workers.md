@@ -212,7 +212,7 @@ This is going to bounce requests off of an external endpoint, and forward them t
 
 Now head back to the Discord Developer Dashboard, and update the `Interactions Endpoint URL` for your app:
 
-![Interactions Endpoint URL](cloudflare-url-generator.png)
+![Interactions Endpoint URL](cloudflare-interactions-endpoint.png)
 
 This is the process we'll use for local testing and development. When you've published your app to Cloudflare, you will **want to update this field to use your Cloudflare Worker URL.**
 
