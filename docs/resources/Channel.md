@@ -888,7 +888,7 @@ Files must be attached using a `multipart/form-data` body as described in [Uploa
 ###### JSON/Form Params
 
 > info
-> When creating a message, apps must provide a value for **at least one of** `content`, `embeds`, `files[n]`, or `sticker_ids`. 
+> When creating a message, apps must provide a value for **at least one of** `content`, `embeds`, `sticker_ids`, or `files[n]`. 
 
 | Field                 | Type                                                                                              | Description                                                                                                                                                                 |
 | --------------------- | ------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
