@@ -53,4 +53,4 @@ body:
       label: Additional Context
       description: Additional Context/Informations
     validations:
-      required: true
+      required: false
