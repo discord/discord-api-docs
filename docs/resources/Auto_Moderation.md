@@ -11,7 +11,7 @@ can be setup to automatically execute whenever a rule is triggered.
 | Field            | Type                | Description                                                                                                            |
 | ---------------- | ------------------- | ---------------------------------------------------------------------------------------------------------------------- |
 | id               | snowflake           | the id of this rule                                                                                                    |
-| guild_id         | snowflake           | the guild which the rule belongs to                                                                                    |
+| guild_id         | snowflake           | the guild which this rule belongs to                                                                                   |
 | name             | string              | the name                                                                                                               |
 | creator_id       | snowflake           | the user which first created this rule                                                                                 |
 | event_type       | integer             | the [event type](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-event-types)                              |
