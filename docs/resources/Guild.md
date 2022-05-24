@@ -267,9 +267,9 @@ A partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object. Represents an Offl
 }
 ```
 
-### Get Guild Widget Object
+### Guild Widget Object
 
-###### Get Guild Widget Structure
+###### Guild Widget Structure
 
 | Field                      | Type                                                                                | Description                                                 |
 | -------------------------- | ----------------------------------------------------------------------------------- | ----------------------------------------------------------- |
@@ -283,7 +283,7 @@ A partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object. Represents an Offl
 > warn
 > The fields `id`, `discriminator` and `avatar` are anonymized to prevent abuse.
 
-###### Example Get Guild Widget
+###### Example Guild Widget
 
 ```json
 {
