@@ -888,7 +888,7 @@ Files must be attached using a `multipart/form-data` body as described in [Uploa
 ###### JSON/Form Params
 
 > info
-> When creating a message, apps must provide a value for **at least one of** `content`, `embeds`, `files[n]`, or `sticker_ids`. 
+> When creating a message, apps must provide a value for **at least one of** `content`, `embeds`, `sticker_ids`, or `files[n]`. 
 
 | Field                 | Type                                                                                              | Description                                                                                                                                                                 |
 | --------------------- | ------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -905,7 +905,7 @@ Files must be attached using a `multipart/form-data` body as described in [Uploa
 | attachments?          | array of partial [attachment](#DOCS_RESOURCES_CHANNEL/attachment-object) objects                  | Attachment objects with filename and description. See [Uploading Files](#DOCS_REFERENCE/uploading-files)                                                                    |
 | flags?                | integer                                                                                           | [Message flags](#DOCS_RESOURCES_CHANNEL/message-object-message-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field) (only `SUPPRESS_EMBEDS` can be set) |
 
-\* At least one of `content`, `embeds`, `files[n]`, or `sticker_ids` is required.
+\* At least one of `content`, `embeds`, `sticker_ids`, or `files[n]` is required.
 
 ###### Example Request Body (application/json)
 
