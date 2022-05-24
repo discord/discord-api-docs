@@ -98,3 +98,4 @@ Webhooks and embeds might seem like black magic. That's because they are, but le
 If you're working on a project that interacts with our API, you might find an API types module useful as it provides type inspection/completion for the Discord API.
 
 - [discord.js API Types](https://github.com/discordjs/discord-api-types)
+- [dasgo Go Types](https://github.com/switchupcb/dasgo)
