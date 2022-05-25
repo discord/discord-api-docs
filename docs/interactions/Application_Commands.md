@@ -276,7 +276,7 @@ When the permissions for a specific command are unsynced, meaning it doesn't ali
 
 ###### Guild Application Command Permissions Structure
 
-Returned when fetching the permissions for a command in a guild.
+Returned when fetching the permissions for an app's command(s) in a guild.
 
 | Field          | Type                                                                                                                                                                 | Description                                          |
 | -------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------- |
