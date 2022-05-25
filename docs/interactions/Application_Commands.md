@@ -332,7 +332,7 @@ You can also use the `dm_permission` flag to control whether a global command ca
 
 ###### Example of editing permissions
 
-As an example, the following command would not be usable by anyone in any guilds by default:
+As an example, the following command would not be usable by anyone except admins in any guilds by default:
 
 ```json
 {
