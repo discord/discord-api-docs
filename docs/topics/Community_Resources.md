@@ -59,6 +59,7 @@ Discord does not maintain official SDKs.  The following table is an inexhaustive
   - [caddy-discord-interactions-verifier](https://github.com/CarsonHoffman/caddy-discord-interactions-verifier)
   - [Rauf's Slash Command Generator](https://rauf.wtf/slash)
   - [Autocode Slash Command Builder](https://autocode.com/tools/discord/command-builder/)
+  - [Bsati's Slash Command Builder](https://bsati.github.io/dc-app-command-builder/)
 
 ## Game SDK Tools
 

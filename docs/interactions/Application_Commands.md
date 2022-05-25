@@ -150,7 +150,7 @@ As well as the same amount of guild-specific commands per guild.
 
 ### Making a Global Command
 
-Global commands are available on _all_ your app's guilds. Global commands are cached for **1 hour**. That means that new global commands will fan out slowly across all guilds, and will be guaranteed to be updated in an hour.
+Global commands are available on _all_ your app's guilds.
 
 Global commands have inherent read-repair functionality. That means that if you make an update to a global command, and a user tries to use that command before it has updated for them, Discord will do an internal version check and reject the command, and trigger a reload for that command.
 
@@ -160,7 +160,7 @@ To make a **global** command, make an HTTP POST call like this:
 import requests
 
 
-url = "https://discord.com/api/v8/applications/<my_application_id>/commands"
+url = "https://discord.com/api/v10/applications/<my_application_id>/commands"
 
 # This is an example CHAT_INPUT or Slash Command, with a type of 1
 json = {
@@ -220,7 +220,7 @@ To make a **guild** command, make a similar HTTP POST call, but scope it to a sp
 import requests
 
 
-url = "https://discord.com/api/v8/applications/<my_application_id>/guilds/<guild_id>/commands"
+url = "https://discord.com/api/v10/applications/<my_application_id>/guilds/<guild_id>/commands"
 
 # This is an example USER command, with a type of 2
 json = {
@@ -276,14 +276,16 @@ When the permissions for a specific command are unsynced, meaning it doesn't ali
 
 ###### Guild Application Command Permissions Structure
 
-Returned when fetching the permissions for a command in a guild.
+Returned when fetching the permissions for an app's command(s) in a guild.
 
 | Field          | Type                                                                                                                                                                 | Description                                          |
 | -------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------- |
-| id             | snowflake                                                                                                                                                            | ID of the command                                    |
+| id             | snowflake                                                                                                                                                            | ID of the command or the application ID              |
 | application_id | snowflake                                                                                                                                                            | ID of the application the command belongs to         |
 | guild_id       | snowflake                                                                                                                                                            | ID of the guild                                      |
 | permissions    | array of [application command permissions](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-permissions-object-application-command-permissions-structure) | Permissions for the command in the guild, max of 100 |
+
+When the `id` field is the application ID instead of a command ID, the permissions apply to all commands that do not contain explicit overwrites.
 
 ###### Application Command Permissions Structure
 
@@ -317,7 +319,10 @@ To allow for fine-tuned access to commands, application command permissions are 
 Similar to how threads [inherit user and role permissions from the parent channel](#DOCS_TOPICS_THREADS/permissions), any command permissions for a channel will apply to the threads it contains.
 
 > info
-> If you don't have permission to use a command, they'll show up in the command picker as disabled and unusable. They will **not** currently be hidden (though they will in the future).
+> If you don't have permission to use a command, it will not show up in the command picker. Members with the Administrator permission can use all commands.
+
+> warn
+> Currently, on Android clients, commands that users don't have access to will appear in the command picker, but will be disabled and unusable. Global commands can also take up to an hour to update for Android users.
 
 ###### Using Default Permissions
 
@@ -329,7 +334,7 @@ You can also use the `dm_permission` flag to control whether a global command ca
 
 ###### Example of editing permissions
 
-As an example, the following command would not be usable by anyone in any guilds by default:
+As an example, the following command would not be usable by anyone except admins in any guilds by default:
 
 ```json
 {
@@ -357,7 +362,7 @@ And the following would disable a command for a specific channel:
 
 ```py
 A_SPECIFIC_CHANNEL = "<channel_id>"
-url = "https://discord.com/api/v8/applications/<application_id>/guilds/<my_guild_id>/commands/<my_command_id>/permissions"
+url = "https://discord.com/api/v10/applications/<application_id>/guilds/<my_guild_id>/commands/<my_command_id>/permissions"
 
 json = {
     "permissions": [
@@ -1043,7 +1048,7 @@ Fetch all of the global commands for your application. Returns an array of [appl
 > danger
 > Creating a command with the same name as an existing command for your application will overwrite the old command.
 
-Create a new global command. New global commands will be available in all guilds after 1 hour. Returns `201` and an [application command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object) object.
+Create a new global command. Returns `201` and an [application command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object) object.
 
 ###### JSON Params
 
@@ -1068,7 +1073,7 @@ Fetch a global command for your application. Returns an [application command](#D
 > info
 > All parameters for this endpoint are optional.
 
-Edit a global command. Updates will be available in all guilds after 1 hour. Returns `200` and an [application command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object) object. All fields are optional, but any fields provided will entirely overwrite the existing values of those fields.
+Edit a global command. Returns `200` and an [application command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object) object. All fields are optional, but any fields provided will entirely overwrite the existing values of those fields.
 
 ###### JSON Params
 
@@ -1089,7 +1094,7 @@ Deletes a global command. Returns `204 No Content` on success.
 
 ## Bulk Overwrite Global Application Commands % PUT /applications/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/commands
 
-Takes a list of application commands, overwriting the existing global command list for this application. Updates will be available in all guilds after 1 hour. Returns `200` and a list of [application command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object) objects. Commands that do not already exist will count toward daily application command create limits.
+Takes a list of application commands, overwriting the existing global command list for this application. Returns `200` and a list of [application command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object) objects. Commands that do not already exist will count toward daily application command create limits.
 
 > danger
 > This will overwrite **all** types of application commands: slash commands, user commands, and message commands.

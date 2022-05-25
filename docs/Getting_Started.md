@@ -7,14 +7,6 @@ While this guide is beginner-focused, it assumes a basic understanding of [JavaS
 > info
 > When developing apps, you should build and test in a server that isn’t actively used by others. If you don’t have your own server already, you can [create one for free](https://support.discord.com/hc/en-us/articles/204849977-How-do-I-create-a-server-).
 
-### Guide contents
-- [Overview](#DOCS_GETTING_STARTED/overview)
-- [Creating an app](#DOCS_GETTING_STARTED/creating-an-app)
-- [Running your app](#DOCS_GETTING_STARTED/running-your-app)
-- [Handling interactivity](#DOCS_GETTING_STARTED/handling-interactivity)
-- [Adding message components](#DOCS_GETTING_STARTED/adding-message-components)
-- [Next steps](#DOCS_GETTING_STARTED/next-steps)
-
 ---
 
 ## Overview
@@ -138,7 +130,7 @@ First, copy your bot user’s token from earlier and paste it in the **`DISCORD_
 
 Next, navigate to your app settings in the developer portal and copy the **App ID** and **Public Key** from the **General Overview** page. Paste the values in your `.env` file as **`APP_ID`** and **`PUBLIC_KEY`**.
 
-Finally, fetch your guild ID by navigating to the server where you installed your app. Copy the first number in the URL after `channels/` (for example, in the URL `https://discord.com/channels/12345/678910`, the server ID would be `12345`). Save this value as **`GUILD_ID`** in your `.env` file.
+Finally, fetch your guild ID by navigating to the server where you installed your app. Copy the first number in the URL after `channels/` (for example, in the URL `https://discord.com/channels/12345/678910`, the guild ID would be `12345`). Save this value as **`GUILD_ID`** in your `.env` file.
 
 With your credentials configured, let's install and handle slash commands.
 
@@ -438,5 +430,6 @@ Congrats on building your first Discord app! 🤖
 Hopefully you learned a bit about Discord apps, how to configure them, and how to make them interactive. From here, you can continue building out your app or explore what else is possible:
 - Read **[the documentation](#DOCS_INTRO)** for in-depth information about API features
 - Browse the `examples/` folder in this project for smaller, feature-specific code examples
-- Join the **[Discord Developers server](https://discord.gg/discord-developers)** to ask questions about the API, attend events hosted by the Discord API team, and interact with other devs
 - Check out **[community resources](#DOCS_TOPICS_COMMUNITY_RESOURCES)** for language-specific tools maintained by community members
+- Read our tutorial on [hosting Discord apps on Cloudflare Workers](#DOCS_TUTORIALS_HOSTING_ON_CLOUDFLARE_WORKERS)
+- Join the **[Discord Developers server](https://discord.gg/discord-developers)** to ask questions about the API, attend events hosted by the Discord API team, and interact with other devs
