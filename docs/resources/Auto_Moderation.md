@@ -55,19 +55,35 @@ can be setup to automatically execute whenever a rule is triggered.
 
 Characterizes what type of information will be checked to determine whether a rule is triggered.
 
-| Type                 | Value   | Description                                                                     |
-| -------------------- | ------- | ------------------------------------------------------------------------------- |
-| KEYWORDS             | 1       | check if any words from a user defined list of keywords exist in content        |
-| HARMFUL_LINKS        | 2       | check if any known harmful links exist in content                               |
-| SPAM                 | 3       | check if content represents generic spam                                        |
-| DEFAULT_KEYWORD_LIST | 4       | check if any words from built in pre-determined lists of words exist in content |
+| Type                 | Value   | Description                                                           |
+| -------------------- | ------- | --------------------------------------------------------------------- |
+| KEYWORD              | 1       | check if content contains words from a user defined list of keywords  |
+| HARMFUL_LINK         | 2       | check if content contains any harmful links                           |
+| SPAM                 | 3       | check if content represents generic spam                              |
+| KEYWORD_PRESET       | 4       | check if content contains words from internal pre-determined wordsets |
 
 ###### Trigger Metadata
 
-Additional data needed to figure out whether a rule should be triggered. Different fields are relevant based on the
+Additional data used to determine whether a rule should be triggered. Different fields are relevant based on the
 value of [trigger_type](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-trigger-types).
 
-**TODO**
+| Field          | Type                                                                                                | Associated Trigger Types      | Description                                                               | 
+| -------------- | --------------------------------------------------------------------------------------------------- | ----------------------------- | ------------------------------------------------------------------------- |
+| keyword_filter | array of strings                                                                                    | KEYWORD                       | substrings to match in content                                            |
+| keyword_lists  | array of [wordset types](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-wordset-types) | KEYWORD_PRESET                | additional metadata needed during execution for this specific action type |
+
+
+###### Wordset Types
+
+> warn
+> These string values will most likely be changed to integer values before official API launch
+
+| Type             | Value          | Description                                                  |
+| ---------------- | -------------- | ------------------------------------------------------------ |
+| PROFANITY        | PROFANITY      | Words that may be considered forms of swearing or cursing    |
+| SEXUAL_CONTENT   | SEXUAL_CONTENT | Words that refer to sexually explicit behavior or activity   |
+| SLURS            | SLURS          | Personal insults or words that may be considered hate speech |
+
 
 ###### Event Types
 
@@ -84,19 +100,28 @@ An action which will execute whenever a rule is triggered.
 
 ###### Auto Moderation Action Structure
 
-| Field                     | Type                                                                                      | Description                                                               |
-| ------------------------- | ----------------------------------------------------------------------------------------- | ------------------------------------------------------------------------- |
-| type                      | [action type](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-action-object-action-types) | the type of action                                                        |
-| metadata                  | **TODO**                                                                                  | additional metadata needed during execution for this specific action type |
+| Field    | Type                                                                                             | Description                                                               |
+| -------- | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------- |
+| type     | [action type](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-action-object-action-types)        | the type of action                                                        |
+| metadata | [action metadata](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-action-object-action-metadata) | additional metadata needed during execution for this specific action type |
 
 
 ###### Action Types
 
-| Type                  | Value   | Description                                                     |
-| --------------------- | ------- | --------------------------------------------------------------- |
-| BLOCK_MESSAGE         | 1       | blocks the content of a message according to the rule           |
-| SEND_ALERT_MESSAGE    | 2       | records original message in a specified channel                 |
+| Type                  | Value   | Description                                           |
+| --------------------- | ------- | ----------------------------------------------------- |
+| BLOCK_MESSAGE         | 1       | blocks the content of a message according to the rule |
+| SEND_ALERT_MESSAGE    | 2       | logs user content to a specified channel              |
 
+
+###### Action Metadata
+
+Additional data used when an action is executed. Different fields are relevant based on
+value of [action type](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-action-object-action-types).
+
+| Field      | Type       | Associated Action Types | Description                                    | 
+| ---------- | ---------- | ----------------------- | ---------------------------------------------- |
+| channel_id | snowflake  | SEND_ALERT_MESSAGE      | channel to which user content should be logged |
 
 ### Auto Moderation Permission Requirements
 
@@ -104,14 +129,14 @@ Users are required to have the `MANAGE_GUILD` permission to access all Auto Mode
 
 ### Auto Moderation Limits Per Trigger Type
 
-Users are required to have the `MANAGE_GUILD` permission to access all Auto Moderation resources.
+Number of rules allowed per trigger type in each guild.
 
-| Type                 | Max Per Guild |
-| -------------------- | ------------- |
-| KEYWORDS             | 3             |
-| HARMFUL_LINKS        | 1             |
-| SPAM                 | 1             |
-| DEFAULT_KEYWORD_LIST | 1             |
+| Type           | Max Per Guild |
+| -------------- | ------------- |
+| KEYWORD        | 3             |
+| HARMFUL_LINK   | 1             |
+| SPAM           | 1             |
+| KEYWORD_PRESET | 1             |
 
 ## List Auto Moderation Rules for Guild % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/auto-moderation/rules
 
