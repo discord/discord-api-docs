@@ -271,7 +271,7 @@ Timestamps will display the given timestamp in the user's timezone and locale.
 
 \* User mentions with an exclamation mark are deprecated and should be handled like any other user mention.
 
-\*\* For custom emojis, the emoji's name isn't required for rendering the emoji and may be replaced with an underscore. For example `<:_:392938283556143104>`
+\*\* For custom emojis, the emoji's name isn't required for rendering the emoji and may be replaced. For example: <:_:392938283556143104>`
 
 ###### Timestamp Styles
 
