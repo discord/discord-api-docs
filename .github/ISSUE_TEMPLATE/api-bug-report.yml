@@ -16,7 +16,7 @@ body:
     id: steps
     attributes:
       label: Steps to Reproduce
-      description: Provide clear and concise steps for us to reliably reproduce this issue.
+      description: Include specific cURL requests that we can copy and paste to replicate your issue. Provide specific, clear, and concise steps for us to reliably reproduce this issue.
     validations:
       required: true
   - type: textarea
