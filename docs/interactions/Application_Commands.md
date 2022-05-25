@@ -287,7 +287,6 @@ Returned when fetching the permissions for a command in a guild.
 
 When the `id` field is the application ID instead of a command ID, the permissions apply to all commands that do not contain explicit overwrites.
 
-
 ###### Application Command Permissions Structure
 
 Application command permissions allow you to enable or disable commands for specific users, roles, or channels within a guild.
