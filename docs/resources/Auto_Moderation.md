@@ -92,10 +92,10 @@ An action which will execute whenever a rule is triggered.
 
 ###### Action Types
 
-| Type               | Value   | Description                                                     |
-| ------------------ | ------- | --------------------------------------------------------------- |
-| BLOCK_MESSAGE      | 1       | blocks the content of a message according to the rule           |
-| LOG_TO_CHANNEL     | 2       | records original message in a specified channel                 |
+| Type                  | Value   | Description                                                     |
+| --------------------- | ------- | --------------------------------------------------------------- |
+| BLOCK_MESSAGE         | 1       | blocks the content of a message according to the rule           |
+| SEND_ALERT_MESSAGE    | 2       | records original message in a specified channel                 |
 
 
 ### Auto Moderation Permission Requirements
