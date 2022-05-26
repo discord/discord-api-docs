@@ -51,7 +51,7 @@ While the `data` field is guaranteed to be present for all [interaction types](#
 ###### Application Command Data Structure
 
 > info
-> Sent in response to both APPLICATION_COMMAND and APPLICATION_COMMAND_AUTOCOMPLETE interactions. 
+> Sent in response to both `APPLICATION_COMMAND` and `APPLICATION_COMMAND_AUTOCOMPLETE` interactions. 
 
 | Field      | Type                                                                                                                                                                             | Description                                                                                                                                                                          |
 | ---------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
