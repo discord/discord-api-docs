@@ -73,7 +73,7 @@ While the `data` field is guaranteed to be present for all [interaction types](#
 | component_type | integer                                                                                                           | the [type](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-object-component-types) of the component             |
 | values?\*      | array of [select option values](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/select-menu-object-select-option-structure) | values the user selected in a [select menu](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/select-menu-object) component |
 
-\* This is always present on a select menu component
+\* This is always present for select menu components
 
 ###### Modal Submit Data Structure
 
