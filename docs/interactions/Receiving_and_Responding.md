@@ -99,6 +99,7 @@ While the `data` field is guaranteed to be present for all [interaction types](#
 \* Partial `Member` objects are missing `user`, `deaf` and `mute` fields
 
 \*\* Partial `Channel` objects only have `id`, `name`, `type` and `permissions` fields. Threads will also have `thread_metadata` and `parent_id` fields.
+
 ### Message Interaction Object
 
 This is sent on the [message object](#DOCS_RESOURCES_CHANNEL/message-object) when the message is a response to an Interaction without an existing message.
