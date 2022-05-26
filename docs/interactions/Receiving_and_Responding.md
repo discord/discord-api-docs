@@ -63,7 +63,7 @@ While the `data` field is guaranteed to be present for all [interaction types](#
 | guild_id?  | snowflake                                                                                                                                                                        | the id of the guild the command is registered to                                                                                                                                     |
 | target_id? | snowflake                                                                                                                                                                        | id of the user or message targeted by a [user](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/user-commands) or [message](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/message-commands) command |
 
-\* This [can be partial](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/autocomplete) when in response to APPLICATION_COMMAND_AUTOCOMPLETE
+\* This [can be partial](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/autocomplete) when in response to `APPLICATION_COMMAND_AUTOCOMPLETE`
 
 ###### Message Component Data Structure
 
