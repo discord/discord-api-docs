@@ -171,6 +171,9 @@ Refer to [Uploading Files](#DOCS_REFERENCE/uploading-files) for details on attac
 > info
 > Note that when sending a message, you must provide a value for at **least one of** `content`, `embeds`, or `file`.
 
+> info
+> If the webhook channel is a forum channel, you must provide either `thread_id` in the query string params, or `thread_name` in the JSON/form params. If `thread_id` is provided, the message will send in that thread. If `thread_name` is provided, a thread with that name will be created in the forum channel.
+
 ###### Query String Params
 
 | Field | Type    | Description                                                                                                                                                                                  | Required |
@@ -193,6 +196,7 @@ Refer to [Uploading Files](#DOCS_REFERENCE/uploading-files) for details on attac
 | payload_json \*\*| string                                                                               | JSON encoded body of non-file params                                                                                                                                        | `multipart/form-data` only   |
 | attachments \*\* | array of partial [attachment](#DOCS_RESOURCES_CHANNEL/attachment-object) objects     | attachment objects with filename and description                                                                                                                            | false                        |
 | flags            | integer                                                                              | [message flags](#DOCS_RESOURCES_CHANNEL/message-object-message-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field) (only `SUPPRESS_EMBEDS` can be set) | false                        |
+| thread_name            | string                                                                              | name of thread to create (requires the webhook channel to be a forum channel) | false                        |
 
 \* Requires an application-owned webhook.
 
