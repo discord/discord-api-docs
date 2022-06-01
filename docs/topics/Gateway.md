@@ -2,20 +2,7 @@
 
 Gateways are Discord's form of real-time communication over secure WebSockets. Clients will receive events and data over the gateway they are connected to and send data over the REST API. The API for interacting with Gateways is complex and fairly unforgiving, therefore it's highly recommended you read _all_ of the following documentation before writing a custom implementation.
 
-The Discord Gateway has a versioning system separate from the HTTP APIs. The documentation herein is only for the latest version in the following table, unless otherwise specified.
-
 Important note: Not all event fields are documented, in particular, fields prefixed with an underscore are considered _internal fields_ and should not be relied on. We may change the format at any time.
-
-###### Gateway Versions
-
-| Version | Status                           |
-| ------- | -------------------------------- |
-| 9       | Available                        |
-| 8       | Available                        |
-| 7       | Doesn't look like anything to me |
-| 6       | Deprecated                       |
-| 5       | Discontinued                     |
-| 4       | Discontinued                     |
 
 ## Payloads
 
@@ -110,13 +97,13 @@ def on_websocket_message(msg):
 
 | Field     | Type    | Description                                   | Accepted Values                                                        |
 | --------- | ------- | --------------------------------------------- | ---------------------------------------------------------------------- |
-| v         | integer | Gateway Version to use                        | see [Gateway versions](#DOCS_TOPICS_GATEWAY/gateways-gateway-versions) |
+| v         | integer | API Version to use                            | see [API versions](#DOCS_TOPICS_REFERENCE/api-versioning-api-versions) |
 | encoding  | string  | The encoding of received gateway packets      | `json` or `etf`                                                        |
 | compress? | string  | The (optional) compression of gateway packets | `zlib-stream`                                                          |
 
 The first step in establishing connectivity to the gateway is requesting a valid websocket endpoint from the API. This can be done through either the [Get Gateway](#DOCS_TOPICS_GATEWAY/get-gateway) or the [Get Gateway Bot](#DOCS_TOPICS_GATEWAY/get-gateway-bot) endpoint.
 
-With the resulting payload, you can now open a websocket connection to the "url" (or endpoint) specified. Generally, it is a good idea to explicitly pass the gateway version and encoding. For example, we may connect to `wss://gateway.discord.gg/?v=9&encoding=json`.
+With the resulting payload, you can now open a websocket connection to the "url" (or endpoint) specified. Generally, it is a good idea to explicitly pass the API version and encoding. For example, we may connect to `wss://gateway.discord.gg/?v=9&encoding=json`.
 
 Once connected, the client should immediately receive an [Opcode 10 Hello](#DOCS_TOPICS_GATEWAY/hello) payload, with information on the connection's heartbeat interval:
 
@@ -348,9 +335,9 @@ Some intents are defined as "Privileged" due to the sensitive nature of the data
 
 To specify these intents in your `IDENTIFY` payload, you must visit your application page in the Developer Portal and enable the toggle for each Privileged Intent that you wish to use. If your bot qualifies for [verification](https://dis.gd/bot-verification), you must first [verify your bot](https://support.discord.com/hc/en-us/articles/360040720412-Bot-Verification-and-Data-Whitelisting) and request access to these intents during the verification process. If your bot is already verified and you need to request additional privileged intents, [contact support](https://dis.gd/support).
 
-Events under the `GUILD_PRESENCES` and `GUILD_MEMBERS` intents are turned **off by default on all gateway versions**. If you are using **Gateway v6**, you will receive those events if you are authorized to receive them and have enabled the intents in the Developer Portal. You do not need to use Intents on Gateway v6 to receive these events; you just need to enable the flags.
+Events under the `GUILD_PRESENCES` and `GUILD_MEMBERS` intents are turned **off by default on all API versions**. If you are using **API v6**, you will receive those events if you are authorized to receive them and have enabled the intents in the Developer Portal. You do not need to use Intents on API v6 to receive these events; you just need to enable the flags.
 
-If you are using **Gateway v8** or above, Intents are mandatory and must be specified when identifying.
+If you are using **API v8** or above, Intents are mandatory and must be specified when identifying.
 
 In addition to the gateway restrictions described here, Discord's REST API is also affected by Privileged Intents. Specifically, to use the [List Guild Members](#DOCS_RESOURCES_GUILD/list-guild-members) endpoint, you must have the `GUILD_MEMBERS` intent enabled for your application. This behavior is independent of whether the intent is set during `IDENTIFY`.
 
@@ -784,7 +771,7 @@ The ready event is dispatched when a client has completed the initial handshake 
 
 | Field       | Type                                                                                 | Description                                                                                                   |
 | ----------- | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------- |
-| v           | integer                                                                              | [gateway version](#DOCS_TOPICS_GATEWAY/gateways-gateway-versions)                                             |
+| v           | integer                                                                              | [API version](#DOCS_TOPICS_REFERENCE/api-versioning-api-versions)                                    |
 | user        | [user](#DOCS_RESOURCES_USER/user-object) object                                      | information about the user including email                                                                    |
 | guilds      | array of [Unavailable Guild](#DOCS_RESOURCES_GUILD/unavailable-guild-object) objects | the guilds the user is in                                                                                     |
 | session_id  | string                                                                               | used for resuming connections                                                                                 |
