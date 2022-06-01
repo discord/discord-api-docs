@@ -95,11 +95,11 @@ def on_websocket_message(msg):
 
 ###### Gateway URL Query String Params
 
-| Field     | Type    | Description                                   | Accepted Values                                                        |
-| --------- | ------- | --------------------------------------------- | ---------------------------------------------------------------------- |
-| v         | integer | API Version to use                            | see [API versions](#DOCS_TOPICS_REFERENCE/api-versioning-api-versions) |
-| encoding  | string  | The encoding of received gateway packets      | `json` or `etf`                                                        |
-| compress? | string  | The (optional) compression of gateway packets | `zlib-stream`                                                          |
+| Field     | Type    | Description                                   | Accepted Values                                                 |
+| --------- | ------- | --------------------------------------------- | --------------------------------------------------------------- |
+| v         | integer | API Version to use                            | see [API versions](#DOCS_REFERENCE/api-versioning-api-versions) |
+| encoding  | string  | The encoding of received gateway packets      | `json` or `etf`                                                 |
+| compress? | string  | The (optional) compression of gateway packets | `zlib-stream`                                                   |
 
 The first step in establishing connectivity to the gateway is requesting a valid websocket endpoint from the API. This can be done through either the [Get Gateway](#DOCS_TOPICS_GATEWAY/get-gateway) or the [Get Gateway Bot](#DOCS_TOPICS_GATEWAY/get-gateway-bot) endpoint.
 
@@ -771,7 +771,7 @@ The ready event is dispatched when a client has completed the initial handshake 
 
 | Field       | Type                                                                                 | Description                                                                                                   |
 | ----------- | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------- |
-| v           | integer                                                                              | [API version](#DOCS_TOPICS_REFERENCE/api-versioning-api-versions)                                    |
+| v           | integer                                                                              | [API version](#DOCS_REFERENCE/api-versioning-api-versions)                                                   |
 | user        | [user](#DOCS_RESOURCES_USER/user-object) object                                      | information about the user including email                                                                    |
 | guilds      | array of [Unavailable Guild](#DOCS_RESOURCES_GUILD/unavailable-guild-object) objects | the guilds the user is in                                                                                     |
 | session_id  | string                                                                               | used for resuming connections                                                                                 |
