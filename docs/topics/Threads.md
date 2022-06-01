@@ -6,7 +6,7 @@ Threads have been designed to be very similar to [channel](#DOCS_RESOURCES_CHANN
 
 ## Backwards Compatibility
 
-Threads are only available in API v9 and above. Bots that do not update to API v9 or above will not receive most gateway events for threads, or things that happen in threads (such as [Message Create](#DOCS_TOPICS_GATEWAY/message-create)). Bots on APIv8 will still receive gateway events for Interactions though.
+Threads are only available in API v9 and above. Bots that do not update to API v9 or above will not receive most gateway events for threads, or things that happen in threads (such as [Message Create](#DOCS_TOPICS_GATEWAY/message-create)). Bots on API v8 will still receive gateway events for Interactions.
 
 The list of gateway events that may be dropped includes, but is not limited to:
 
