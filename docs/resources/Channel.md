@@ -47,7 +47,7 @@ Represents a guild or DM channel within Discord.
 | ----------------------- | --- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
 | GUILD_TEXT              | 0   | a text channel within a server                                                                                                                       |
 | DM                      | 1   | a direct message between users                                                                                                                       |
-| GUILD_VOICE             | 2   | a voice channel containing a chat within a server                                                                                                    |
+| GUILD_VOICE             | 2   | a voice channel within a server                                                                                                                      |
 | GROUP_DM                | 3   | a direct message between multiple users                                                                                                              |
 | GUILD_CATEGORY          | 4   | an [organizational category](https://support.discord.com/hc/en-us/articles/115001580171-Channel-Categories-101) that contains up to 50 channels      |
 | GUILD_NEWS              | 5   | a channel that [users can follow and crosspost into their own server](https://support.discord.com/hc/en-us/articles/360032008192)                    |
