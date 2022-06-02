@@ -103,7 +103,7 @@ def on_websocket_message(msg):
 
 The first step in establishing connectivity to the gateway is requesting a valid websocket endpoint from the API. This can be done through either the [Get Gateway](#DOCS_TOPICS_GATEWAY/get-gateway) or the [Get Gateway Bot](#DOCS_TOPICS_GATEWAY/get-gateway-bot) endpoint.
 
-With the resulting payload, you can now open a websocket connection to the "url" (or endpoint) specified. Generally, it is a good idea to explicitly pass the API version and encoding. For example, we may connect to `wss://gateway.discord.gg/?v=9&encoding=json`.
+With the resulting payload, you can now open a websocket connection to the "url" (or endpoint) specified. Generally, it is a good idea to explicitly pass the API version and encoding. For example, we may connect to `wss://gateway.discord.gg/?v=10&encoding=json`.
 
 Once connected, the client should immediately receive an [Opcode 10 Hello](#DOCS_TOPICS_GATEWAY/hello) payload, with information on the connection's heartbeat interval:
 
