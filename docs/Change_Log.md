@@ -476,7 +476,7 @@ For more information, check out our [Rich Presence site](https://discord.com/ric
 
 #### October 16, 2017
 
-[API](#DOCS_REFERENCE/api-versioning) and [Gateway](#DOCS_TOPICS_GATEWAY/gateways-gateway-versions) versions below v6 are now discontinued after being previously deprecated. Version 6 is now the default API and Gateway version. Attempting to use a version below 6 will result in an error.
+[API](#DOCS_REFERENCE/api-versioning) and Gateway versions below v6 are now discontinued after being previously deprecated. Version 6 is now the default API and Gateway version. Attempting to use a version below 6 will result in an error.
 
 ## New Feature: Channel Categories
 
