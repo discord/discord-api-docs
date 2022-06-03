@@ -265,6 +265,7 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 170007 | Sticker animation duration exceeds maximum of 5 seconds                                                                       |
 | 180000 | Cannot update a finished event                                                                                                |
 | 180002 | Failed to create stage needed for stage event                                                                                 |
+| 220003 | Webhooks can only create threads in forum channels                                                                            |
 
 ###### Example JSON Error Response
 
