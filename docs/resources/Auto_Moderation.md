@@ -112,6 +112,7 @@ An action which will execute whenever a rule is triggered.
 | --------------------- | ------- | ----------------------------------------------------- |
 | BLOCK_MESSAGE         | 1       | blocks the content of a message according to the rule |
 | SEND_ALERT_MESSAGE    | 2       | logs user content to a specified channel              |
+| TIMEOUT               | 3       | times out user for specified duration                 |
 
 
 ###### Action Metadata
