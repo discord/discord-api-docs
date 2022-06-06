@@ -988,7 +988,7 @@ Modify a guild role. Requires the `MANAGE_ROLES` permission. Returns the updated
 
 ## Modify Guild MFA Level % POST /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/mfa
 
-Modify a guild mfa level. Requires guild ownership. Returns the updated [level](#DOCS_RESOURCES_GUILD/guild-object-mfa-level) on success. Fires a [Guild Update](#DOCS_TOPICS_GATEWAY/guild-update) Gateway event.
+Modify a guild's MFA level. Requires guild ownership. Returns the updated [level](#DOCS_RESOURCES_GUILD/guild-object-mfa-level) on success. Fires a [Guild Update](#DOCS_TOPICS_GATEWAY/guild-update) Gateway event.
 
 ###### JSON Params
 
