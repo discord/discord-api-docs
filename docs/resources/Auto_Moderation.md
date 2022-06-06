@@ -122,7 +122,11 @@ value of [action type](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-action-ob
 
 | Field      | Type       | Associated Action Types | Description                                    | 
 | ---------- | ---------- | ----------------------- | ---------------------------------------------- |
-| channel_id | snowflake  | SEND_ALERT_MESSAGE      | channel to which user content should be logged |
+| channel_id            | snowflake  | SEND_ALERT_MESSAGE      | channel to which user content should be logged              |
+| duration_seconds      | snowflake  | SEND_ALERT_MESSAGE      | timeout duration in seconds                                 |
+
+>info
+>Only trigger type 1 is permitted to use `duration_seconds` in metadata
 
 ### Auto Moderation Permission Requirements
 
