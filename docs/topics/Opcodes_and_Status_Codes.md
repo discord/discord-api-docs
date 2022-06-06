@@ -215,6 +215,7 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 50014  | Invalid authentication token provided                                                                                         |
 | 50015  | Note was too long                                                                                                             |
 | 50016  | Provided too few or too many messages to delete. Must provide at least 2 and fewer than 100 messages to delete                |
+| 50017  | Invalid MFA Level                                                                                                             |
 | 50019  | A message can only be pinned to the channel it was sent in                                                                    |
 | 50020  | Invite code was either invalid or taken                                                                                       |
 | 50021  | Cannot execute action on a system message                                                                                     |
