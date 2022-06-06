@@ -994,7 +994,7 @@ Modify a guild's MFA level. Requires guild ownership. Returns the updated [level
 
 | Field         | Type                                     | Description                                                                                                                    |
 | ------------- | ---------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
-| level         | int                                      | [mfa level](#DOCS_RESOURCES_GUILD/guild-object-mfa-level)                                                                      |
+| level         | int                                      | [MFA level](#DOCS_RESOURCES_GUILD/guild-object-mfa-level)                                                                      |
 
 ## Delete Guild Role % DELETE /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/roles/{role.id#DOCS_TOPICS_PERMISSIONS/role-object}
 
