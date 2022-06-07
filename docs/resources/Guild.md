@@ -730,9 +730,6 @@ Modify the positions of a set of [channel](#DOCS_RESOURCES_CHANNEL/channel-objec
 > info
 > Only channels to be modified are required.
 
-> info
-> This endpoint supports the `X-Audit-Log-Reason` header.
-
 This endpoint takes a JSON array of parameters in the following format:
 
 ###### JSON Params
