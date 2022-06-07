@@ -100,18 +100,16 @@ Head over to https://id.heroku.com/login and log in to your account, or [set up 
 After logging in, at the top right corner of your account dashboard, click New > Create new app. You can then name it whatever you want.
 
 ### Adding a Procfile
- 
-```bash
-# Procfile contents (startup)
-worker node index.js
-```
 
 For your app to work with Heroku, you'll need to add a `Procfile`. **Create a new file called `Procfile`** where you will add a short script that Heroku will run when starting up your app.
 
 > info
 > The script in your `Procfile` will vary depending on what language you're coding in.
 
-// TODO: what should be added to Procfile for bakerbot????
+```bash
+# Procfile contents for bakerbot (startup)
+worker node index.js
+```
 
 ## Connecting Heroku to GitHub
 
@@ -149,17 +147,13 @@ The next step is to **add a buildpack to your app**. The buildpack is responsibl
 
 Congratulations, your bot is now ready to go live! 😄
 
-// TODO: how to make the bot go live?
+Just toggle the dyno on and the script in Procfile (node index.js) will run on start.
 
 ## Maintenance and how to monitor
 
-Once you successfully connect your app to your bot's repo, you'll notice a new window in the dashboard.
-
-// TODO: what window is this referring to?
+Once you successfully connect your app to your bot's repo, you'll notice a new window in the dashboard called Dyno formation.
 
 A **Dyno** is a virtualized Linux container that executes the code in `Procfile` - think of it as a mini computer dedicated to running your bot. By default, Heroku gives 550 free dyno hours per application per month. [This is just enough to keep your bot online 24/7] If your app will need additional hours, you can look at Heroku's [pricing page](https://www.heroku.com/pricing).
-
-// TODO: I think this dyno part should come earlier? I'm not sure what it's trying to say here
 
 ![View logs](heroku-logs.png)
 
