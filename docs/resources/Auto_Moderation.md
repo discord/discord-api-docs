@@ -120,10 +120,10 @@ An action which will execute whenever a rule is triggered.
 Additional data used when an action is executed. Different fields are relevant based on
 value of [action type](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-action-object-action-types).
 
-| Field      | Type       | Associated Action Types | Description                                    | 
-| ---------- | ---------- | ----------------------- | ---------------------------------------------- |
-| channel_id            | snowflake  | SEND_ALERT_MESSAGE      | channel to which user content should be logged              |
-| duration_seconds      | snowflake  | SEND_ALERT_MESSAGE      | timeout duration in seconds                                 |
+| Field                | Type       | Associated Action Types | Description                                    | 
+| -------------------- | ---------- | ----------------------- | ---------------------------------------------- |
+| channel_id           | snowflake  | SEND_ALERT_MESSAGE      | channel to which user content should be logged |
+| duration_seconds     | integer    | TIMEOUT                 | timeout duration in seconds                    |
 
 >info
 >Only trigger type 1 is permitted to use `duration_seconds` in metadata
