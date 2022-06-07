@@ -1,23 +1,19 @@
 # Hosting Heroku-Baker
 
-![bread](./src/img/baking.gif)
+Running your app locally can be helpful for development but once it's is ready for production, you should consider using a hosting provider. This tutorial guides you through deploying, managing, and monitoring a Discord app on [Heroku](https://www.heroku.com/).
 
-Running your app locally can be helpful for development, but once your app is ready for production and especially being added to more and more servers, you should consider using a hosting provider.
+The app we're building bakes bread (with varying degrees of success) through a Discord app. The source code for the app can be found [on Github](https://github.com/jcheonsa/heroku-baker).
 
-This tutorial will walk you through:
-- Building and deploying a simple Discord app to Heroku
-- How to manage your app with Heroku’s dashboard
-- Maintenance and monitoring your app
+![Discord app for tutorial](heroku-baking.gif)
 
-## Table of Contents
+### Features and technologies used
 
-* [Setting up Heroku](#setting-up-heroku)
-* [Cloning and Configuring sample app](#cloning-and-configuring-sample-app)
-* [Connecting Heroku to Github](#connecting-heroku-to-github)
-* [Configuring app in Heroku](#configuring-app-in-heroku)
-* [Maintenance and monitoring](#maintenance-and-how-to-monitor)
+- [Slash commands](https://discord.com/developers/docs/interactions/application-commands)
+- [Interactive buttons](https://discord.com/developers/docs/interactions/message-components#buttons)
+- [Discord.JS v13](https://discord.js.org/#/)
+- [Heroku](https://www.heroku.com/)
 
-## Project structure
+### Project structure
 
 ```
 ├── commands        -> sample commands
@@ -42,35 +38,16 @@ This tutorial will walk you through:
 └── .gitignore
 ```
 
-## Features
+## Cloning and configuring baker bot
 
-- Bakes bread (with varying degrees of success)
-- Basic [slash command](https://discord.com/developers/docs/interactions/application-commands) handling
-- [Buttons](https://discord.com/developers/docs/interactions/message-components#buttons)
-- Caching system
-
-## Requirements
-
-- [Node](https://nodejs.org/en/)
-- [NPM](https://www.npmjs.com/)
-- [Discord.JS v13](https://discord.js.org/#/)
-- [Discord-api-types](https://www.npmjs.com/package/discord-api-types)
-- [@Discord.JS REST](https://www.npmjs.com/package/@discordjs/rest)
-- [dotenv](https://www.npmjs.com/package/dotenv)
-
-## Setting up Heroku
-Next, you should set up an account for Heroku. Head over to https://www.heroku.com/ and log in to your account, or set up a new account if you don’t have one.
-
-![img](./src/img/login.png)
-
-After logging in, at the top right corner of your account dashboard, click New > Create new app. You can then name it whatever you want.
-
-## Cloning and Configuring sample bot
-If you do not have your own application to deploy, you can continue to follow the steps in this readme.
-
-If your application does not have a git repository set up, you can refer to the steps here to get that all set up: [LINK](https://git-scm.com/book/en/v2/Getting-Started-First-Time-Git-Setup)
+If you have your own application to deploy, you can skip the `baker-bot` setup. However, you'll still need to add a `Procfile`, which specifies which commands are run when your Heroku app starts up. You can read about `Procfile`s in [Heroku's documentation](https://devcenter.heroku.com/articles/procfile).
 
 ### Prepping required components
+
+> INFO
+> If you don't have git configured, you can read [the Git reference](https://git-scm.com/book/en/v2/Getting-Started-First-Time-Git-Setup)
+
+To configure your app locally, first clone the repository and install the dependencies.
 
 ```bash
 # Clone the respository
@@ -80,72 +57,112 @@ git clone https://github.com/jcheonsa/heroku-baker
 cd heroku-baker
 
 # Install the dependencies
-npm install .
+npm install
 ```
-First off, clone the sample-app. 
 
-1) open/create the `.env` in Heroku-Baker's root directory
-2) `npm install` will install all dependencies located in the package.json in a folder called `/node_modules`
-3) configure the `TOKEN`, `GUILD_ID` and `CLIENT_ID`
+After your dependencies are installed, you'll create your app and configure Heroku.
 
-### Fetching your bot's credentials
-![img](./src/img/token.png)
+### Creating your app and fetching credentials
 
-After cloning the project and installing all of the dependencies, you're going to need to add your Discord API `TOKEN` in the `.env` file as well as the `GUILD_ID` and `CLIENT_ID`. Your `.env` should include the following for this bot to operate properly:
+Before creating your app, rename `.sample.env` to `.env` in in the `heroku-baker` directory. Your `.env` should include the following for this bot to operate properly:
+
 ```
 TOKEN=
 GUILD_ID=
 CLIENT_ID=
 ```
-https://discord.com/developers/applications to create your own Heroku-Baker clone and get your token. Enabling Developer Mode in your Discord client will let you right-click and get the IDs for your guild (`GUILD_ID`) and bot application (`CLIENT_ID`).
 
-![img](./src/img/cloudflare-url-generator.png)
->OAuth NOTE: Ensure that your app has the appropriate scopes for `application.commands` and `bot`.
+> info
+> Enabling Developer Mode in your Discord client will let you right-click fetch the IDs for your guild (`GUILD_ID`) and bot application (`CLIENT_ID`).
 
+To create your Discord app, go to the [app configuration](https://discord.com/developers/applications) and click **New Application** in the upper-right corner.
+
+Then click on the **Bot** tab and create a bot. Generate and copy the bot token into your `.env` file.
+
+![Discord bot token](heroku-token.png)
+
+After your bot is created, go to **OAuth2** on the sidebar and copy the **Client ID** into your `.env` file.
+
+Then click **URL Generator**. Add the `applications.commands` and `bot` scopes.
+
+![OAuth2 URL Generator](cloudflare-url-generator.png)
+
+To install your app, copy and paste the URL in your browser and follow the installation flow. Make sure to install the app into a server where you can test and develop. Once your app is installed copy the **Guild ID** for the server where you installed your app.
+
+## Setting up Heroku
+
+The first thing you should do is set up an account for Heroku.
+
+Head over to https://id.heroku.com/login and log in to your account, or [set up a new account](https://signup.heroku.com/) if you don’t have one.
+
+![Heroku login](heroku-login.png)
+
+After logging in, at the top right corner of your account dashboard, click New > Create new app. You can then name it whatever you want.
+
+### Adding a Procfile
+ 
 ```bash
 # Procfile contents (startup)
 worker node index.js
 ```
-Then **create a new file called `Procfile`** where you will add a short script that Heroku will run when starting up your app. 
+
+For your app to work with Heroku, you'll need to add a `Procfile`. **Create a new file called `Procfile`** where you will add a short script that Heroku will run when starting up your app.
+
+> info
 > The script in your `Procfile` will vary depending on what language you're coding in.
+
+// TODO: what should be added to Procfile for bakerbot????
 
 ## Connecting Heroku to GitHub
 
-![img](./src/img/connectGH.png)
+After creating the application in Heroku, you will be met with some options in the **Deploy** tab. From here, you have several deployment method options to choose from
 
-After creating the application in Heroku, you will be met with some options in the **Deploy** tab. From here, you have several deployment method options to choose from, we'll look to **Connect this app to GitHub**.
+![Heroku dashboard](heroku-connectGH.png)
+
+Click **Connect this app to GitHub**.
  
->NOTE that you can only connect Heroku apps to a single GitHub repository. 
+> INFO
+> that you can only connect Heroku apps to a single GitHub repository. 
 
 From there, you will be able to manage the app's deployment method:
 
-![img](./src/img/deploy.png)
+![img](heroku-deploy.png)
 
 Selecting a branch and enabling **Automatic Deploys** for your app will deploy a new version of this app every time a push occurs. **Manual Deploys** would require you to select a specific branch before updates go live for your bot. 
 
->If you want to do this with the Heroku CLI, there are separate steps in the dashboard you can follow to accomlish this as well. [LINK](https://devcenter.heroku.com/articles/heroku-cli)
+> INFO
+> If you want to do this with the Heroku CLI, there are [separate steps in the dashboard](https://devcenter.heroku.com/articles/heroku-cli) you can follow to accomlish this.
 
 ## Configuring app in Heroku
 
 Before your app can go online, you'll have to configure your Heroku environment with your Discord bot's credentials.
 
-Config vars allow you to set environment-specific variables and configurations for the app. These will persist throughout the different guilds your bot is operating in, and make it so you won’t need to store these variables in source code. Additionally, all config vars are encrypted. With that said, add your bot’s `TOKEN` and any other tokens or API keys it may require to operate properly to the list of config vars.
+Config variables allow you to set environment-specific variables and configurations for the app. These will persist throughout the different guilds your bot is operating in, and make it so you won’t need to store these variables in source code. Additionally, all config vars are encrypted. With that said, add your bot’s `TOKEN` and any other tokens or API keys it may require to operate properly to the list of config vars.
 
-![img](./src/img/configVars.png)
+![Configuring your](heroku-configVars.png)
+
 You'll notice that there isn't anything you have to change in your source code. Amazin'
-
-![img](./src/img/buildpack.png)
 
 The next step is to **add a buildpack to your app**. The buildpack is responsible for compiling your deployed code and installing any dependencies, meaning the one you select will also depend on how you built your bot. Since Heroku-Baker is a node app, we'll need to add the nodeJS buildpack.
 
-Congratulations, your bot is now ready to go live!
+![Adding a buildpack](heroku-buildpack.png)
+
+Congratulations, your bot is now ready to go live! 😄
+
+// TODO: how to make the bot go live?
 
 ## Maintenance and how to monitor
 
-You'll notice a new window in the dashboard once you have successfully connected your app to your bot's repo. A **Dyno** is a virtualized Linux container that executes the code in `Procfile` - think of it as a mini computer dedicated to running your bot. By default, Heroku gives 550 free dyno hours per application per month. [This is just enough to keep your bot online 24/7] If your app will need additional hours, you can look at Heroku's [pricing page](https://www.heroku.com/pricing).
+Once you successfully connect your app to your bot's repo, you'll notice a new window in the dashboard.
 
-![img](./src/img/view%20logs.png)
+// TODO: what window is this referring to?
+
+A **Dyno** is a virtualized Linux container that executes the code in `Procfile` - think of it as a mini computer dedicated to running your bot. By default, Heroku gives 550 free dyno hours per application per month. [This is just enough to keep your bot online 24/7] If your app will need additional hours, you can look at Heroku's [pricing page](https://www.heroku.com/pricing).
+
+// TODO: I think this dyno part should come earlier? I'm not sure what it's trying to say here
+
+![View logs](heroku-logs.png)
 
 Status and updates for the dyno, any deploys as well as specific logs from your bot will be available in the **View Logs** tab. if a shard ever goes off or your bot crashes, the app will automatically restart. These events will also be [logged](https://devcenter.heroku.com/articles/logging).
 
-![img](./src/img/dynos.png)
+![Dyno configuration](heroku-dynos.png)
