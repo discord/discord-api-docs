@@ -13,6 +13,8 @@ The app we're building bakes bread (with varying degrees of success) through a D
 - [Discord.JS v13](https://discord.js.org/#/)
 - [Heroku](https://www.heroku.com/)
 
+---
+
 ### Project structure
 
 ```
