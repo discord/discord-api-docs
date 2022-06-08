@@ -162,3 +162,12 @@ Just toggle the dyno on and the script in Procfile (node index.js) will run on s
 Status and updates for the dyno, any deploys as well as specific logs from your bot will be available in the **View Logs** tab. if a shard ever goes off or your bot crashes, the app will automatically restart. These events will also be [logged](https://devcenter.heroku.com/articles/logging).
 
 ![Dyno configuration](heroku-dynos.png)
+
+## Next steps
+
+> If you need to reference any of the code, you can find the repo [on GitHub](url)
+With your app deployed on Heroku, you can start customizing it to be your own:
+
+- Use [message components](https://discord.com/developers/docs/interactions/message-components) in your app to add more interactivity (like buttons and select menus).
+- Take a look at different [public APIs](https://github.com/public-apis/public-apis) on GitHub.
+- Join the [Discord Developers server](https://discord.gg/discord-developers) to ask questions about the API, attend events hosted by the Discord API team, and interact with other developers.
