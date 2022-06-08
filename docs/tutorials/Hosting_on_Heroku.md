@@ -1,4 +1,4 @@
-# Hosting Heroku-Baker
+# Hosting on Heroku
 
 Running your app locally can be helpful for development but once it's is ready for production, you should consider using a hosting provider. This tutorial guides you through deploying, managing, and monitoring a Discord app on [Heroku](https://www.heroku.com/).
 
@@ -124,7 +124,7 @@ Click **Connect this app to GitHub**.
 
 From there, you will be able to manage the app's deployment method:
 
-![img](heroku-deploy.png)
+![Heroku deployment](heroku-deploy.png)
 
 Selecting a branch and enabling **Automatic Deploys** for your app will deploy a new version of this app every time a push occurs. **Manual Deploys** would require you to select a specific branch before updates go live for your bot. 
 
@@ -137,7 +137,7 @@ Before your app can go online, you'll have to configure your Heroku environment 
 
 Config variables allow you to set environment-specific variables and configurations for the app. These will persist throughout the different guilds your bot is operating in, and make it so you won’t need to store these variables in source code. Additionally, all config vars are encrypted. With that said, add your bot’s `TOKEN` and any other tokens or API keys it may require to operate properly to the list of config vars.
 
-![Configuring your](heroku-configVars.png)
+![Configuring variables in Heroku](heroku-configVars.png)
 
 You'll notice that there isn't anything you have to change in your source code. Amazin'
 
