@@ -874,12 +874,13 @@ Sent when an rule is triggered and an action is executed (e.g. message is blocke
 | action                  | [auto moderation action](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-action-object) object | the action which was executed                                                      |
 | rule_id                 | snowflake                                                                                      | the id of the rule which action belongs to                                         |
 | rule_trigger_type       | [trigger_type](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-trigger-types)      | the trigger type of rule which was triggered                                       |
+| user_id                 | snowflake                                                                                      | the id of the user which generated the content which triggered the rule            |
 | channel_id              | ?snowflake                                                                                     | the id of the channel in which user content was posted                             |
 | message_id              | ?snowflake                                                                                     | the id of any user message which content belongs to *                              |
 | alert_system_message_id | ?snowflake                                                                                     | the id of any system auto moderation messages posted as a result of this action ** |
 | content                 | string                                                                                         | the user generated text content                                                    |
-| matched_keyword         | ?string                                                                                        | the word or phrase configured in rule that triggered rule                          |
-| matched_content         | ?string                                                                                        | the substring in content that triggered rule                                       |
+| matched_keyword         | ?string                                                                                        | the word or phrase configured in the rule that triggered the rule                  |
+| matched_content         | ?string                                                                                        | the substring in content that triggered the rule                                   |
 
 
 \* `message_id` will not exist if message was blocked by automod or content was not part of any message
