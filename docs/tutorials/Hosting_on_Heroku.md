@@ -2,7 +2,7 @@
 
 Running your app locally can be helpful for development but once it's is ready for production, you should consider using a hosting provider. This tutorial guides you through deploying, managing, and monitoring a Discord app on [Heroku](https://www.heroku.com/).
 
-The app we're building bakes bread (with varying degrees of success) through a Discord app. The source code for the app can be found [on Github](https://github.com/jcheonsa/heroku-baker).
+The app we're building bakes bread (with varying degrees of success) through a Discord app. The source code for the app can be found [on Github](https://github.com/discord/heroku-sample-app).
 
 ![Discord app for tutorial](heroku-baking.gif)
 
@@ -53,10 +53,10 @@ To configure your app locally, first clone the repository and install the depend
 
 ```bash
 # Clone the respository
-git clone https://github.com/jcheonsa/heroku-baker
+git clone heroku-sample-app
 
 # Enter into the directory
-cd heroku-baker
+cd heroku-sample-app
 
 # Install the dependencies
 npm install
@@ -165,7 +165,7 @@ Status and updates for the dyno, any deploys as well as specific logs from your 
 
 ## Next steps
 
-> If you need to reference any of the code, you can find the repo [on GitHub](url)
+> If you need to reference any of the code, you can find the repo [on GitHub](https://github.com/discord/heroku-sample-app)
 With your app deployed on Heroku, you can start customizing it to be your own:
 
 - Use [message components](https://discord.com/developers/docs/interactions/message-components) in your app to add more interactivity (like buttons and select menus).
