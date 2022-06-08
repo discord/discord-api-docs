@@ -69,14 +69,11 @@ value of [trigger_type](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-obj
 
 | Field          | Type                                                                                                              | Associated Trigger Types | Description                                                               | 
 | -------------- | ----------------------------------------------------------------------------------------------------------------- | ------------------------ | ------------------------------------------------------------------------- |
-| keyword_filter | array of strings                                                                                                  | KEYWORD                  | substrings to match in content                                            |
-| presets        | array of [keyword preset types](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-keyword-preset-types) | KEYWORD_PRESET           | additional metadata needed during execution for this specific action type |
+| keyword_filter | array of strings                                                                                                  | KEYWORD                  | substrings which will be searched for in content                          |
+| presets        | array of [keyword preset types](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-keyword-preset-types) | KEYWORD_PRESET           | the internally pre-defined wordsets which will be searched for in content |
 
 
 ###### Keyword Preset Types
-
-> warn
-> These string values will most likely be changed to integer values before official API launch
 
 | Type             | Value | Description                                                  |
 | ---------------- | ----- | ------------------------------------------------------------ |
