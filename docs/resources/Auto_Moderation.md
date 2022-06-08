@@ -55,34 +55,34 @@ can be setup to automatically execute whenever a rule is triggered.
 
 Characterizes what type of information will be checked to determine whether a rule is triggered.
 
-| Type                 | Value   | Description                                                           |
-| -------------------- | ------- | --------------------------------------------------------------------- |
-| KEYWORD              | 1       | check if content contains words from a user defined list of keywords  |
-| HARMFUL_LINK         | 2       | check if content contains any harmful links                           |
-| SPAM                 | 3       | check if content represents generic spam                              |
-| KEYWORD_PRESET       | 4       | check if content contains words from internal pre-determined wordsets |
+| Type                 | Value   | Description                                                          |
+| -------------------- | ------- | -------------------------------------------------------------------- |
+| KEYWORD              | 1       | check if content contains words from a user defined list of keywords |
+| HARMFUL_LINK         | 2       | check if content contains any harmful links                          |
+| SPAM                 | 3       | check if content represents generic spam                             |
+| KEYWORD_PRESET       | 4       | check if content contains words from internal pre-defined wordsets   |
 
 ###### Trigger Metadata
 
 Additional data used to determine whether a rule should be triggered. Different fields are relevant based on the
 value of [trigger_type](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-trigger-types).
 
-| Field          | Type                                                                                                | Associated Trigger Types      | Description                                                               | 
-| -------------- | --------------------------------------------------------------------------------------------------- | ----------------------------- | ------------------------------------------------------------------------- |
-| keyword_filter | array of strings                                                                                    | KEYWORD                       | substrings to match in content                                            |
-| keyword_lists  | array of [wordset types](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-wordset-types) | KEYWORD_PRESET                | additional metadata needed during execution for this specific action type |
+| Field          | Type                                                                                                              | Associated Trigger Types | Description                                                               | 
+| -------------- | ----------------------------------------------------------------------------------------------------------------- | ------------------------ | ------------------------------------------------------------------------- |
+| keyword_filter | array of strings                                                                                                  | KEYWORD                  | substrings to match in content                                            |
+| presets        | array of [keyword preset types](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-keyword-preset-types) | KEYWORD_PRESET           | additional metadata needed during execution for this specific action type |
 
 
-###### Wordset Types
+###### Keyword Preset Types
 
 > warn
 > These string values will most likely be changed to integer values before official API launch
 
-| Type             | Value          | Description                                                  |
-| ---------------- | -------------- | ------------------------------------------------------------ |
-| PROFANITY        | PROFANITY      | Words that may be considered forms of swearing or cursing    |
-| SEXUAL_CONTENT   | SEXUAL_CONTENT | Words that refer to sexually explicit behavior or activity   |
-| SLURS            | SLURS          | Personal insults or words that may be considered hate speech |
+| Type             | Value | Description                                                  |
+| ---------------- | ----- | ------------------------------------------------------------ |
+| PROFANITY        | 1     | Words that may be considered forms of swearing or cursing    |
+| SEXUAL_CONTENT   | 2     | Words that refer to sexually explicit behavior or activity   |
+| SLURS            | 3     | Personal insults or words that may be considered hate speech |
 
 
 ###### Event Types
@@ -112,7 +112,7 @@ An action which will execute whenever a rule is triggered.
 | --------------------- | ------- | ----------------------------------------------------- |
 | BLOCK_MESSAGE         | 1       | blocks the content of a message according to the rule |
 | SEND_ALERT_MESSAGE    | 2       | logs user content to a specified channel              |
-| TIMEOUT               | 3       | times out user for specified duration                 |
+| TIMEOUT               | 3       | timeout user for specified duration                   |
 
 
 ###### Action Metadata
@@ -120,10 +120,13 @@ An action which will execute whenever a rule is triggered.
 Additional data used when an action is executed. Different fields are relevant based on
 value of [action type](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-action-object-action-types).
 
-| Field                | Type       | Associated Action Types | Description                                    | 
-| -------------------- | ---------- | ----------------------- | ---------------------------------------------- |
-| channel_id           | snowflake  | SEND_ALERT_MESSAGE      | channel to which user content should be logged |
-| duration_seconds     | integer    | TIMEOUT                 | timeout duration in seconds                    |
+| Field            | Type       | Associated Action Types | Description                                    | 
+| ---------------- | ---------- | ----------------------- | ---------------------------------------------- |
+| channel_id       | snowflake  | SEND_ALERT_MESSAGE      | channel to which user content should be logged |
+| duration_seconds | integer    | TIMEOUT                 | timeout duration in seconds *                  |
+
+\* Maximum of 2419200 seconds (4 weeks)
+
 
 >info
 >Only trigger type 1 is permitted to use `duration_seconds` in metadata
