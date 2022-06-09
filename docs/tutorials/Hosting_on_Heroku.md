@@ -146,7 +146,8 @@ Before your app can go online, you'll have to configure your Heroku environment 
 
 ### Adding app credentials
 
-Config variables allow you to set environment-specific variables and configurations for the app. These will persist throughout the different guilds your bot is operating in, and make it so you won’t need to store these variables in source code. Additionally, all config vars are encrypted. 
+> INFO
+> If you're developing your app locally, you can store your credentials in a `.env` file (see `.sample.env` for an example)
 
 With that said, in the **Settings** tab, add your bot’s `TOKEN`, `GUILD_ID`, `CLIENT_ID`, and any other tokens or API keys it may require to operate properly to the list of config vars.
 
