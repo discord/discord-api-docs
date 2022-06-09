@@ -175,8 +175,6 @@ In the **Overview** tab, click **Configure Dynos** then the **Edit dyno formatio
 
 ![Dyno configuration](heroku-dynos.png)
 
-You can go in the guild you installed your app in and run any of its slash commands.
-
 ## Maintenance and how to monitor
 
 ![View logs](heroku-logs.png)
@@ -185,7 +183,13 @@ Status and updates for the dyno, any deploys as well as specific logs from your 
 
 ## Next steps
 
+> INFO
 > If you need to reference any of the code, you can find the repo [on GitHub](https://github.com/discord/heroku-sample-app)
+
+You can play around with the app by navigating to the guild you installed it in. First `/setup` the necessary roles and channels, then start baking with the `/start` command. Good luck and don't set the oven on fire!
+
+To see details on all commands, look in the [`commands` folder](https://github.com/discord/heroku-sample-app/tree/main/commands) in the sample repository.
+
 With your app deployed on Heroku, you can start customizing it to be your own:
 
 - Use [message components](https://discord.com/developers/docs/interactions/message-components) in your app to add more interactivity (like buttons and select menus).
