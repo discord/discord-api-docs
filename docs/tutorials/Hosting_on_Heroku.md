@@ -49,11 +49,11 @@ If you have your own application to deploy, you can skip the `baker-bot` setup. 
 > INFO
 > If you don't have git configured, you can read [the Git reference](https://git-scm.com/book/en/v2/Getting-Started-First-Time-Git-Setup)
 
-To configure your app locally, first clone the repository and install the dependencies.
+To configure your app locally, first clone or fork the repository and install its dependencies.
 
 ```bash
 # Clone the respository
-git clone heroku-sample-app
+git clone https://github.com/discord/heroku-sample-app.git
 
 # Enter into the directory
 cd heroku-sample-app
@@ -64,9 +64,9 @@ npm install
 
 After your dependencies are installed, you'll create your app and configure Heroku.
 
-### Creating your app and fetching credentials
+### Creating your Discord app
 
-Before creating your app, rename `.sample.env` to `.env` in in the `heroku-baker` directory. Your `.env` should include the following for this bot to operate properly:
+In the `heroku-baker` directory, there is a `.sample.env` file that contains the credentials baker bot needs to run:
 
 ```
 TOKEN=
@@ -74,22 +74,26 @@ GUILD_ID=
 CLIENT_ID=
 ```
 
+These credentials will be added to your Heroku app later in the tutorial, or to a new `.env` file if you're developing locally.
+
 > info
 > Enabling Developer Mode in your Discord client will let you right-click fetch the IDs for your guild (`GUILD_ID`) and bot application (`CLIENT_ID`).
 
 To create your Discord app, go to the [app configuration](https://discord.com/developers/applications) and click **New Application** in the upper-right corner.
 
-Then click on the **Bot** tab and create a bot. Generate and copy the bot token into your `.env` file.
+Then click on the **Bot** tab and create a bot. Generate the bot token and save it in a safe place.
 
 ![Discord bot token](heroku-token.png)
 
-After your bot is created, go to **OAuth2** on the sidebar and copy the **Client ID** into your `.env` file.
+After your bot is created, go to **OAuth2** on the sidebar and copy the **Client ID** for later.
 
 Then click **URL Generator**. Add the `applications.commands` and `bot` scopes.
 
 ![OAuth2 URL Generator](cloudflare-url-generator.png)
 
-To install your app, copy and paste the URL in your browser and follow the installation flow. Make sure to install the app into a server where you can test and develop. Once your app is installed copy the **Guild ID** for the server where you installed your app.
+To install your app, copy and paste the URL in your browser and follow the installation flow. Make sure to install the app into a server where you can test and develop.
+
+Once your app is installed copy the **Guild ID** for the server where you installed your app.
 
 ## Setting up Heroku
 
@@ -146,10 +150,10 @@ Before your app can go online, you'll have to configure your Heroku environment 
 
 ### Adding app credentials
 
+In the **Settings** tab, add your bot’s `TOKEN`, `GUILD_ID`, `CLIENT_ID` from [the section above](#DOCS_TUTORIALS/hosting-on-heroku#creating-your-discord-app), and any other tokens or API keys you want for your own app.
+
 > INFO
 > If you're developing your app locally, you can store your credentials in a `.env` file (see `.sample.env` for an example)
-
-With that said, in the **Settings** tab, add your bot’s `TOKEN`, `GUILD_ID`, `CLIENT_ID`, and any other tokens or API keys it may require to operate properly to the list of config vars.
 
 ![Configuring variables in Heroku](heroku-configVars.png)
 
