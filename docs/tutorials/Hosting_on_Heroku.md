@@ -144,6 +144,8 @@ Selecting a branch and enabling **Automatic Deploys** for your app will deploy a
 
 Before your app can go online, you'll have to configure your Heroku environment with your Discord bot's credentials.
 
+### Adding app credentials
+
 Config variables allow you to set environment-specific variables and configurations for the app. These will persist throughout the different guilds your bot is operating in, and make it so you won’t need to store these variables in source code. Additionally, all config vars are encrypted. 
 
 With that said, in the **Settings** tab, add your bot’s `TOKEN`, `GUILD_ID`, `CLIENT_ID`, and any other tokens or API keys it may require to operate properly to the list of config vars.
@@ -151,6 +153,8 @@ With that said, in the **Settings** tab, add your bot’s `TOKEN`, `GUILD_ID`, `
 ![Configuring variables in Heroku](heroku-configVars.png)
 
 You'll notice that there isn't anything you have to change in your source code. Amazin'
+
+### Adding a buildpack and configuring a dyno
 
 The next step is to **add a buildpack to your app**. The buildpack is responsible for compiling your deployed code and installing any dependencies, meaning the one you select will also depend on how you built your bot. Since Heroku-Baker is a node app, we'll need to add the nodeJS buildpack.
 
