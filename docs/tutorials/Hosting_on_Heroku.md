@@ -106,16 +106,23 @@ After logging in, at the top right corner of your account dashboard, click New >
 For your app to work with Heroku, you'll need to add a `Procfile`. **Create a new file called `Procfile`** where you will add a short script that Heroku will run when starting up your app.
 
 > info
-> The script in your `Procfile` will vary depending on what language you're coding in.
+> For folks following the tutorial and using the [sample repo](https://github.com/discord/heroku-sample-app), the `Procfile` will already be configured appropriately. Otherwise, the script in your `Procfile` will vary depending on what language you're coding in.
 
 ```bash
 # Procfile contents for bakerbot (startup)
 worker node index.js
 ```
 
+You now have an empty application for Heroku that's ready to be linked to your repository.
+
 ## Connecting Heroku to GitHub
 
-After creating the application in Heroku, you will be met with some options in the **Deploy** tab. From here, you have several deployment method options to choose from
+In this tutorial, we'll use a Github repository as the source for the Heroku app. Before you can deploy, you should [push your project to Github](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-new-repository).
+
+> INFO
+> If you prefer to deploy from your local app, you can [use the Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli)
+
+After you have your GitHub repo and Heroku application set up, you will be met with some options in the **Deploy** tab. From here, you have several deployment method options to choose from
 
 ![Heroku dashboard](heroku-connectGH.png)
 
@@ -131,13 +138,15 @@ From there, you will be able to manage the app's deployment method:
 Selecting a branch and enabling **Automatic Deploys** for your app will deploy a new version of this app every time a push occurs. **Manual Deploys** would require you to select a specific branch before updates go live for your bot. 
 
 > INFO
-> If you want to do this with the Heroku CLI, there are [separate steps in the dashboard](https://devcenter.heroku.com/articles/heroku-cli) you can follow to accomlish this.
+> If you want to do this with the Heroku CLI, there are [separate steps in the dashboard](https://devcenter.heroku.com/articles/heroku-cli) you can follow to accomplish this.
 
 ## Configuring app in Heroku
 
 Before your app can go online, you'll have to configure your Heroku environment with your Discord bot's credentials.
 
-Config variables allow you to set environment-specific variables and configurations for the app. These will persist throughout the different guilds your bot is operating in, and make it so you won’t need to store these variables in source code. Additionally, all config vars are encrypted. With that said, add your bot’s `TOKEN` and any other tokens or API keys it may require to operate properly to the list of config vars.
+Config variables allow you to set environment-specific variables and configurations for the app. These will persist throughout the different guilds your bot is operating in, and make it so you won’t need to store these variables in source code. Additionally, all config vars are encrypted. 
+
+With that said, in the **Settings** tab, add your bot’s `TOKEN`, `GUILD_ID`, `CLIENT_ID`, and any other tokens or API keys it may require to operate properly to the list of config vars.
 
 ![Configuring variables in Heroku](heroku-configVars.png)
 
@@ -153,15 +162,17 @@ A **Dyno** is a virtualized Linux container that executes the code in `Procfile`
 
 Congratulations, your bot is now ready to go live! 😄
 
-Just toggle the dyno on and the script in Procfile (node index.js) will run on start.
+In the **Overview** tab, click **Configure Dynos** then the **Edit dyno formation** button to toggle the dyno on. The script in Procfile (`node index.js`) will then run on start.
+
+![Dyno configuration](heroku-dynos.png)
+
+You can go in the guild you installed your app in and run any of its slash commands.
 
 ## Maintenance and how to monitor
 
 ![View logs](heroku-logs.png)
 
 Status and updates for the dyno, any deploys as well as specific logs from your bot will be available in the **View Logs** tab. if a shard ever goes off or your bot crashes, the app will automatically restart. These events will also be [logged](https://devcenter.heroku.com/articles/logging).
-
-![Dyno configuration](heroku-dynos.png)
 
 ## Next steps
 
