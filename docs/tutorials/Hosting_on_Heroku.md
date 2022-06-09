@@ -76,7 +76,7 @@ CLIENT_ID=
 
 These credentials will be added to your Heroku app later in the tutorial, or to a new `.env` file if you're developing locally.
 
-> info
+> INFO
 > Enabling Developer Mode in your Discord client will let you right-click fetch the IDs for your guild (`GUILD_ID`) and bot application (`CLIENT_ID`).
 
 To create your Discord app, go to the [app configuration](https://discord.com/developers/applications) and click **New Application** in the upper-right corner.
@@ -109,7 +109,7 @@ After logging in, at the top right corner of your account dashboard, click New >
 
 For your app to work with Heroku, you'll need to add a `Procfile`. **Create a new file called `Procfile`** where you will add a short script that Heroku will run when starting up your app.
 
-> info
+> INFO
 > For folks following the tutorial and using the [sample repo](https://github.com/discord/heroku-sample-app), the `Procfile` will already be configured appropriately. Otherwise, the script in your `Procfile` will vary depending on what language you're coding in.
 
 ```bash
