@@ -53,7 +53,7 @@ To configure your app locally, first clone the repository and install the depend
 
 ```bash
 # Clone the respository
-git clone heroku-sample-app
+git clone https://github.com/discord/heroku-sample-app.git
 
 # Enter into the directory
 cd heroku-sample-app
