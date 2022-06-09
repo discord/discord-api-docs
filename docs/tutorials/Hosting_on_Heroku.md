@@ -87,7 +87,7 @@ Then click on the **Bot** tab and create a bot. Generate the bot token and save 
 
 After your bot is created, go to **OAuth2** on the sidebar and copy the **Client ID** for later.
 
-Then click **URL Generator**. Add the `applications.commands` and `bot` scopes.
+Then click **URL Generator**. Add the `applications.commands`, `Manage Roles` and `bot` scopes.
 
 ![OAuth2 URL Generator](cloudflare-url-generator.png)
 
