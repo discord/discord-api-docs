@@ -114,7 +114,7 @@ For your app to work with Heroku, you'll need to add a `Procfile`. **Create a ne
 
 ```bash
 # Procfile contents for bakerbot (startup)
-worker node index.js
+worker: node index.js
 ```
 
 You now have an empty application for Heroku that's ready to be linked to your repository.
