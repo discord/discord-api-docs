@@ -87,7 +87,7 @@ Then click on the **Bot** tab and create a bot. Generate the bot token and save 
 
 After your bot is created, go to **OAuth2** on the sidebar and copy the **Client ID** for later.
 
-Then click **URL Generator**. Add the `applications.commands`, `Manage Roles` and `bot` scopes.
+Then click **URL Generator**. Add the `applications.commands` and `bot` scopes, as well as the permission `Manage Roles`.
 
 ![OAuth2 URL Generator](cloudflare-url-generator.png)
 
@@ -114,7 +114,7 @@ For your app to work with Heroku, you'll need to add a `Procfile`. **Create a ne
 
 ```bash
 # Procfile contents for bakerbot (startup)
-worker node index.js
+worker: node index.js
 ```
 
 You now have an empty application for Heroku that's ready to be linked to your repository.
