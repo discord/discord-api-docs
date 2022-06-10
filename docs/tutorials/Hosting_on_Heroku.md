@@ -2,7 +2,7 @@
 
 Running your app locally can be helpful for development but once it's is ready for production, you should consider using a hosting provider. This tutorial guides you through deploying, managing, and monitoring a Discord app on [Heroku](https://www.heroku.com/).
 
-The app we're building bakes bread (with varying degrees of success) through a Discord app. The source code for the app can be found [on Github](https://github.com/discord/heroku-sample-app).
+The app we're building bakes bread (with varying degrees of success) through a Discord app. The source code for the app can be found [on GitHub](https://github.com/discord/heroku-sample-app).
 
 ![Discord app for tutorial](heroku-baking.gif)
 
