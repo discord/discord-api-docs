@@ -121,7 +121,7 @@ You now have an empty application for Heroku that's ready to be linked to your r
 
 ## Connecting Heroku to GitHub
 
-In this tutorial, we'll use a Github repository as the source for the Heroku app. Before you can deploy, you should [push your project to Github](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-new-repository).
+In this tutorial, we'll use a GitHub repository as the source for the Heroku app. Before you can deploy, you should [push your project to GitHub](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-new-repository).
 
 > INFO
 > If you prefer to deploy from your local app, you can [use the Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli)
