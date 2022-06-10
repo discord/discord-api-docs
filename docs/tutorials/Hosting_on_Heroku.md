@@ -150,7 +150,7 @@ Before your app can go online, you'll have to configure your Heroku environment 
 
 ### Adding app credentials
 
-In the **Settings** tab, add your bot’s `TOKEN`, `GUILD_ID`, `CLIENT_ID` from [the section above](#DOCS_TUTORIALS/hosting-on-heroku#creating-your-discord-app), and any other tokens or API keys you want for your own app.
+In the **Settings** tab, add your bot’s `TOKEN`, `GUILD_ID`, `CLIENT_ID` from [the section above](#creating-your-discord-app), and any other tokens or API keys you want for your own app.
 
 > INFO
 > If you're developing your app locally, you can store your credentials in a `.env` file (see `.sample.env` for an example)
