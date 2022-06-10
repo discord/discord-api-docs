@@ -86,11 +86,12 @@ Using Discord's [Dispatch](#DOCS_DISPATCH_DISPATCH_AND_YOU) tool for game develo
 - [ziad87's Intent Calculator](https://ziad87.net/intents/)
 - [Larko's Intent Calculator](https://discord-intents-calculator.vercel.app/)
 
-## Embed Visualizer
+## Embed Visualizers
 
-Webhooks and embeds might seem like black magic. That's because they are, but let us help you demystify them a bit. This sweet embed visualizer lets you play around with JSON data and see exactly how it will look embedded in Discord. It even includes a webhook mode!
+Webhooks and embeds might seem like black magic. That's because they are, but let us help you demystify them a bit. These tools can help you test how embeds will appear inside of Discord:
 
 - [Autocode Embed Builder](https://autocode.com/tools/discord/embed-builder/)
+- [JohnyTheCarrot's Embed Previewer](https://github.com/JohnyTheCarrot/discord-embed-previewer) (Browser Extension)
 
 ## API Types
 
