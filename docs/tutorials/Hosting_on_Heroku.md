@@ -167,7 +167,7 @@ The next step is to **add a buildpack to your app**. The buildpack is responsibl
 
 Once you successfully connect your app to your bot's repo, you'll notice a new window in the dashboard called **Dyno formation**.
 
-A **Dyno** is a virtualized Linux container that executes the code in `Procfile` - think of it as a mini computer dedicated to running your bot. By default, Heroku gives 550 free dyno hours per application per month. [This is just enough to keep your bot online 24/7] If your app will need additional hours, you can look at Heroku's [pricing page](https://www.heroku.com/pricing).
+A **Dyno** is a virtualized Linux container that executes the code in `Procfile` - think of it as a mini computer dedicated to running your bot. By default, Heroku gives 450 free dyno hours per application per month. [Not quite enough to keep your bot online 24/7] If your app will need additional hours, you can look at Heroku's [pricing page](https://www.heroku.com/pricing).
 
 Congratulations, your bot is now ready to go live! 😄
 
