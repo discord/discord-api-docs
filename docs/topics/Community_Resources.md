@@ -12,25 +12,25 @@ Discord does not maintain official SDKs.  The following table is an inexhaustive
 
 ###### Discord Libraries
 
-| Name                                                         | Language   |
-| ------------------------------------------------------------ | ---------- |
-| [Discord.Net](https://github.com/discord-net/Discord.Net)    | C#         |
-| [DSharpPlus](https://github.com/DSharpPlus/DSharpPlus)       | C#         |
-| [DiscordGo](https://github.com/bwmarrin/discordgo)           | Go         |
-| [Discord4J](https://discord4j.com/)                          | Java       |
-| [Javacord](https://github.com/Javacord/Javacord)             | Java       |
-| [JDA](https://github.com/DV8FromTheWorld/JDA)                | Java       |
-| [discord.js](https://github.com/discordjs/discord.js)        | JavaScript |
-| [Eris](https://github.com/abalabahaha/eris)                  | JavaScript |
-| [Discordia](https://github.com/SinisterRectus/Discordia)     | Lua        |
-| [DiscordPHP](https://github.com/discord-php/DiscordPHP)      | PHP        |
-| [discord.py](https://github.com/Rapptz/discord.py)           | Python     |
-| [disnake](https://github.com/DisnakeDev/disnake)             | Python     |
-| [hikari](https://github.com/hikari-py/hikari)                | Python     |
-| [nextcord](https://github.com/nextcord/nextcord)             | Python     |
-| [pycord](https://github.com/Pycord-Development/pycord)       | Python     |
-| [discordrb](https://github.com/shardlab/discordrb)           | Ruby       |
-| [Serenity](https://github.com/serenity-rs/serenity)          | Rust       |
+| Name                                                      | Language   |
+| --------------------------------------------------------- | ---------- |
+| [Discord.Net](https://github.com/discord-net/Discord.Net) | C#         |
+| [DSharpPlus](https://github.com/DSharpPlus/DSharpPlus)    | C#         |
+| [DiscordGo](https://github.com/bwmarrin/discordgo)        | Go         |
+| [Discord4J](https://discord4j.com/)                       | Java       |
+| [Javacord](https://github.com/Javacord/Javacord)          | Java       |
+| [JDA](https://github.com/DV8FromTheWorld/JDA)             | Java       |
+| [discord.js](https://github.com/discordjs/discord.js)     | JavaScript |
+| [Eris](https://github.com/abalabahaha/eris)               | JavaScript |
+| [Discordia](https://github.com/SinisterRectus/Discordia)  | Lua        |
+| [DiscordPHP](https://github.com/discord-php/DiscordPHP)   | PHP        |
+| [discord.py](https://github.com/Rapptz/discord.py)        | Python     |
+| [disnake](https://github.com/DisnakeDev/disnake)          | Python     |
+| [hikari](https://github.com/hikari-py/hikari)             | Python     |
+| [nextcord](https://github.com/nextcord/nextcord)          | Python     |
+| [pycord](https://github.com/Pycord-Development/pycord)    | Python     |
+| [discordrb](https://github.com/shardlab/discordrb)        | Ruby       |
+| [Serenity](https://github.com/serenity-rs/serenity)       | Rust       |
 
 ## Interactions
 
@@ -97,4 +97,7 @@ Webhooks and embeds might seem like black magic. That's because they are, but le
 
 If you're working on a project that interacts with our API, you might find an API types module useful as it provides type inspection/completion for the Discord API.
 
-- [discord.js API Types](https://github.com/discordjs/discord-api-types)
+| Name                                                                   | Language   |
+| ---------------------------------------------------------------------- | ---------- |
+| [dasgo](https://github.com/switchupcb/dasgo)                           | Go         |
+| [discord.js API Types](https://github.com/discordjs/discord-api-types) | JavaScript |

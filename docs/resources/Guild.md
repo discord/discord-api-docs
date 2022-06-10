@@ -730,9 +730,6 @@ Modify the positions of a set of [channel](#DOCS_RESOURCES_CHANNEL/channel-objec
 > info
 > Only channels to be modified are required.
 
-> info
-> This endpoint supports the `X-Audit-Log-Reason` header.
-
 This endpoint takes a JSON array of parameters in the following format:
 
 ###### JSON Params
@@ -985,6 +982,16 @@ Modify a guild role. Requires the `MANAGE_ROLES` permission. Returns the updated
 | icon          | [image data](#DOCS_REFERENCE/image-data) | the role's icon image (if the guild has the `ROLE_ICONS` feature)                                                              |
 | unicode_emoji | string                                   | the role's unicode emoji as a [standard emoji](#DOCS_REFERENCE/message-formatting) (if the guild has the `ROLE_ICONS` feature) |
 | mentionable   | boolean                                  | whether the role should be mentionable                                                                                         |
+
+## Modify Guild MFA Level % POST /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/mfa
+
+Modify a guild's MFA level. Requires guild ownership. Returns the updated [level](#DOCS_RESOURCES_GUILD/guild-object-mfa-level) on success. Fires a [Guild Update](#DOCS_TOPICS_GATEWAY/guild-update) Gateway event.
+
+###### JSON Params
+
+| Field         | Type                                     | Description                                                                                                                    |
+| ------------- | ---------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| level         | integer                                  | [MFA level](#DOCS_RESOURCES_GUILD/guild-object-mfa-level)                                                                      |
 
 ## Delete Guild Role % DELETE /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/roles/{role.id#DOCS_TOPICS_PERMISSIONS/role-object}
 
