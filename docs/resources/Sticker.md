@@ -29,7 +29,9 @@ Incidentally the client will always use a name generated from an emoji as the va
 | Type     | Value | Description                                                                   |
 | -------- | ----- | ----------------------------------------------------------------------------- |
 | STANDARD | 1     | an official sticker in a pack, part of Nitro or in a removed purchasable pack |
-| GUILD    | 2     | a sticker uploaded to a Boosted guild for the guild's members                 |
+| GUILD    | 2     | a sticker uploaded to a guild for the guild's members \*                      |
+
+\* Guilds have 5 free sticker slots by default, to add more the guild needs at least level 1 Boost.
 
 ###### Sticker Format Types
 
