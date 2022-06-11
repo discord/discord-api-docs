@@ -259,6 +259,9 @@ Used to authenticate an existing client with your app.
 
 Used to get a list of guilds the client is in.
 
+> info
+> This only contains the `id`, `name` and `icon_url` for the [Guild]](#DOCS_RESOURCES_GUILD/guild-object)
+
 ###### Get Guilds Response Structure
 
 | Field  | Type                                                                 | Description               |
