@@ -109,20 +109,26 @@ The connection object that the user has attached.
 
 ###### Services
 
-| Value       | Name                |
-| ----------- | ------------------- |
-| battlenet   | Battle.net          |
-| epicgames   | Epic Games          |
-| facebook    | Facebook            |
-| github      | GitHub              |
-| playstation | PlayStation Network |
-| reddit      | Reddit              |
-| spotify     | Spotify             |
-| steam       | Steam               |
-| twitch      | Twitch              |
-| twitter     | Twitter             |
-| xbox        | Xbox                |
-| youtube     | YouTube             |
+| Value              | Name                |
+| ------------------ | ------------------- |
+| battlenet          | Battle.net          |
+| epicgames          | Epic Games          |
+| facebook           | Facebook            |
+| github             | GitHub              |
+| instagram \*       | Instagram           |
+| leagueoflegends \* | League of Legends   |
+| playstation        | PlayStation Network |
+| reddit             | Reddit              |
+| samsung \*         | Samsung Galaxy      |
+| spotify            | Spotify             |
+| skype \*           | Skype               |
+| steam              | Steam               |
+| twitch             | Twitch              |
+| twitter            | Twitter             |
+| xbox               | Xbox                |
+| youtube            | YouTube             |
+
+\* Users can no longer connect to these services, but the connections weren't removed from the users that already had it.
 
 ###### Visibility Types
 
