@@ -126,7 +126,7 @@ The connection object that the user has attached.
 | xbox               | Xbox                |
 | youtube            | YouTube             |
 
-\* Users can no longer connect to these services, but the connections weren't removed from the users that already had it.
+\* Users can no longer connect acccounts from these services, but the connections weren't removed from the users that had them.
 
 ###### Visibility Types
 
