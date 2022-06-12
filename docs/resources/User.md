@@ -112,6 +112,7 @@ The connection object that the user has attached.
 | Value       | Name                |
 | ----------- | ------------------- |
 | battlenet   | Battle.net          |
+| epicgames   | Epic Games          |
 | facebook    | Facebook            |
 | github      | GitHub              |
 | playstation | PlayStation Network |
