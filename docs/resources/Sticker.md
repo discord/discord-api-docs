@@ -29,7 +29,7 @@ Incidentally the client will always use a name generated from an emoji as the va
 | Type     | Value | Description                                                                   |
 | -------- | ----- | ----------------------------------------------------------------------------- |
 | STANDARD | 1     | an official sticker in a pack, part of Nitro or in a removed purchasable pack |
-| GUILD    | 2     | a sticker uploaded to a Boosted guild for the guild's members                 |
+| GUILD    | 2     | a sticker uploaded to a guild for the guild's members                         |
 
 ###### Sticker Format Types
 
@@ -122,6 +122,8 @@ Returns a [sticker](#DOCS_RESOURCES_STICKER/sticker-object) object for the given
 ## Create Guild Sticker % POST /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/stickers
 
 Create a new sticker for the guild. Send a `multipart/form-data` body. Requires the `MANAGE_EMOJIS_AND_STICKERS` permission. Returns the new [sticker](#DOCS_RESOURCES_STICKER/sticker-object) object on success.
+
+Every guilds has five free sticker slots by default, and each Boost level will grant access to more slots.
 
 > info
 > This endpoint supports the `X-Audit-Log-Reason` header.
