@@ -110,7 +110,9 @@ An action which will execute whenever a rule is triggered.
 | --------------------- | ------- | ----------------------------------------------------- |
 | BLOCK_MESSAGE         | 1       | blocks the content of a message according to the rule |
 | SEND_ALERT_MESSAGE    | 2       | logs user content to a specified channel              |
-| TIMEOUT               | 3       | timeout user for specified duration                   |
+| TIMEOUT               | 3       | timeout user for a specified duration *               |
+
+\* `MODERATE_MEMBERS` permission is required to use this action type
 
 
 ###### Action Metadata
