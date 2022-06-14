@@ -154,9 +154,9 @@ This is a minimal `IDENTIFY` payload. `IDENTIFY` supports additional optional fi
     "token": "my_token",
     "intents": 513,
     "properties": {
-      "$os": "linux",
-      "$browser": "my_library",
-      "$device": "my_library"
+      "os": "linux",
+      "browser": "my_library",
+      "device": "my_library"
     }
   }
 }
