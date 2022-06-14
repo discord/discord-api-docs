@@ -1,6 +1,16 @@
 # Change Log
 
+## Auto Moderation
+
+#### Jun 16, 2022
+
+Add new Auto Moderation feature which enables guilds to moderate message content based on keywords, harmful links, and unwanted spam. This change includes:
+- access to endpoint for creating, updating, deleting rules
+- new gateway events emitted when rules are updated and when automod performs an action, with associated intents for subscribing to these events
+- new audit log entries when rules are updated or automod peforms certain actions
+
 ## Updated Command Permissions
+
 
 #### Apr 27, 2022
 

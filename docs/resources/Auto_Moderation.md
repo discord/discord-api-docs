@@ -134,6 +134,7 @@ value of [action type](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-action-ob
 ### Auto Moderation Permission Requirements
 
 Users are required to have the `MANAGE_GUILD` permission to access all Auto Moderation resources.
+Some [action types](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-action-object-action-types) require additional permissions, e.g. the `TIMEOUT` action type requires an additional `MODERATE_MEMBERS` permission.
 
 ### Auto Moderation Limits Per Trigger Type
 
