@@ -559,9 +559,9 @@ Used to trigger the initial handshake with the gateway.
 
 | Field     | Type   | Description           |
 | --------- | ------ | --------------------- |
-| \$os      | string | your operating system |
-| \$browser | string | your library name     |
-| \$device  | string | your library name     |
+| os        | string | your operating system |
+| browser   | string | your library name     |
+| device    | string | your library name     |
 
 ###### Example Identify
 
@@ -571,9 +571,9 @@ Used to trigger the initial handshake with the gateway.
   "d": {
     "token": "my_token",
     "properties": {
-      "$os": "linux",
-      "$browser": "disco",
-      "$device": "disco"
+      "os": "linux",
+      "browser": "disco",
+      "device": "disco"
     },
     "compress": true,
     "large_threshold": 250,
