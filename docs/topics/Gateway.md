@@ -720,6 +720,7 @@ Sent by the client to indicate a presence or status update.
 | idle      | AFK                            |
 | invisible | Invisible and shown as offline |
 | offline   | Offline                        |
+| streaming | Streaming in Twitch or YouTube |
 
 ###### Example Gateway Presence Update
 
