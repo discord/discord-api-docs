@@ -157,7 +157,7 @@ An action which will execute whenever a rule is triggered.
 | SEND_ALERT_MESSAGE    | 2       | logs user content to a specified channel              |
 | TIMEOUT               | 3       | timeout user for a specified duration *               |
 
-\* `MODERATE_MEMBERS` permission is required to use this action type
+\* A `TIMEOUT` action can only be setup for `KEYWORD` rules. `MODERATE_MEMBERS` permission is required to use the `TIMEOUT` action type.
 
 
 ###### Action Metadata
@@ -172,9 +172,6 @@ value of [action type](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-action-ob
 
 \* Maximum of 2419200 seconds (4 weeks)
 
-
->info
->Only `KEYWORD` rules can have a `TIMEOUT` action.
 
 ### Auto Moderation Permission Requirements
 
