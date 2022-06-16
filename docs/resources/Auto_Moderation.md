@@ -1,8 +1,6 @@
 # Auto Moderation
 
-Auto Moderation is a per [guild](#DOCS_RESOURCES_GUILD/) feature which allows the configuration of a set of rules
-to trigger based on some criteria, e.g. a message contains a specific keyword. Certain actions, such as blocking a message,
-can be setup to automatically execute whenever a rule is triggered.
+Auto Moderation is a per [guild](#DOCS_RESOURCES_GUILD/) feature which allows the configuration of a set of rules to trigger based on some criteria, e.g. a message contains a specific keyword. Certain actions, such as blocking a message, can be setup to automatically execute whenever a rule is triggered.
 
 ### Auto Moderation Rule Object
 
@@ -129,7 +127,7 @@ value of [action type](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-action-ob
 
 
 >info
->Only trigger type 1 is permitted to use `duration_seconds` in metadata
+>Only `KEYWORD` rules can have a `TIMEOUT` action.
 
 ### Auto Moderation Permission Requirements
 
