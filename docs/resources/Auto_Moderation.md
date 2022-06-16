@@ -53,14 +53,17 @@ Rules can be configured to automatically execute actions whenever they trigger. 
 
 ###### Trigger Types
 
+> info
+> The `HARMFUL_LINK` and `SPAM` trigger types are not yet released, so they cannot be used in most servers.
+
 Characterizes the type of content which can trigger the rule.
 
-| Type                 | Value   | Description                                                          |
-| -------------------- | ------- | -------------------------------------------------------------------- |
-| KEYWORD              | 1       | check if content contains words from a user defined list of keywords |
-| HARMFUL_LINK         | 2       | check if content contains any harmful links                          |
-| SPAM                 | 3       | check if content represents generic spam                             |
-| KEYWORD_PRESET       | 4       | check if content contains words from internal pre-defined wordsets   |
+| Type                 | Value   | Description                                                          | Max per Guild |
+| -------------------- | ------- | -------------------------------------------------------------------- | ------------- |
+| KEYWORD              | 1       | check if content contains words from a user defined list of keywords | 3             |
+| HARMFUL_LINK         | 2       | check if content contains any harmful links                          | 1             |
+| SPAM                 | 3       | check if content represents generic spam                             | 1             |
+| KEYWORD_PRESET       | 4       | check if content contains words from internal pre-defined wordsets   | 1             |
 
 ###### Trigger Metadata
 
@@ -135,7 +138,6 @@ Use the `*` wildcard symbol at the beginning and end of a keyword to define how 
 | the mat | **the mat** |
 
 
-
 ### Auto Moderation Action Object
 
 An action which will execute whenever a rule is triggered.
@@ -178,17 +180,6 @@ value of [action type](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-action-ob
 Users are required to have the `MANAGE_GUILD` permission to access all Auto Moderation resources.
 Some [action types](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-action-object-action-types) require additional permissions, e.g. the `TIMEOUT` action type requires an additional `MODERATE_MEMBERS` permission.
 
-### Auto Moderation Limits Per Trigger Type
-
-Number of rules allowed per trigger type in each guild.
-
-| Type           | Max Per Guild |
-| -------------- | ------------- |
-| KEYWORD        | 3             |
-| HARMFUL_LINK   | 1             |
-| SPAM           | 1             |
-| KEYWORD_PRESET | 1             |
-
 ## List Auto Moderation Rules for Guild % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/auto-moderation/rules
 
 Get a list of all rules currently configured for guild. Returns a list of [auto moderation rule](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object) objects for the given guild.
@@ -226,7 +217,7 @@ Create a new rule. Returns an [auto moderation rule](#DOCS_RESOURCES_AUTO_MODERA
 \* Can be omitted based on `trigger_type`. See the `Associated Trigger Types` column in [trigger metadata](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-trigger-types) to understand which `trigger_type` values require `trigger_metadata` to be set.
 
 > info
-> See [Auto Moderation Limits Per Trigger Type](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-limits-per-trigger-type) for limits on how many rules of each trigger type can be created per guild.
+> See [Trigger Types](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-trigger-types) for limits on how many rules of each trigger type can be created per guild.
 
 
 ## Modify Auto Moderation Rule % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/auto-moderation/rules/{auto_moderation_rule.id#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object}
@@ -259,5 +250,3 @@ Delete a rule. Returns a `204` on success.
 
 > info
 > Requires `MANAGE_GUILD` [permissions](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-permission-requirements)
-
-
