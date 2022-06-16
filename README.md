@@ -36,4 +36,4 @@ Here are some Discord servers that can help you out with everything Discord-API 
 
 The [Official Discord Developers server](https://discord.gg/discord-developers) has plenty of help channels with knowledgeable people and Discord's developers to get you help with something you need, and get updates straight from the developers. However do keep in mind this is a purely on-topic server. If you are looking for a community, join the server below.
 
-The [Unofficial Discord API server](https://discord.gg/discord-api) is a common hangout for discord libraries and bot developers alike. It's a great starting point for those looking to dive in and learn bot creation with the Discord API.
+The [Unofficial Discord API server](https://discord.gg/discord-api) is a common hangout server for bot developers. It's a great starting point for those looking to dive in and learn how to make discord bots with the Discord API.
