@@ -8,19 +8,19 @@ can be setup to automatically execute whenever a rule is triggered.
 
 ###### Auto Moderation Rule Structure
 
-| Field            | Type                                                                                     | Description                                                                                            |
-| ---------------- | ---------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------|
-| id               | snowflake                                                                                | the id of this rule                                                                                    |
-| guild_id         | snowflake                                                                                | the guild which this rule belongs to                                                                   |
-| name             | string                                                                                   | the rule name                                                                                          |
-| creator_id       | snowflake                                                                                | the user which first created this rule                                                                 |
-| event_type       | integer                                                                                  | the rule [event type](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-event-types)         |
-| trigger_type     | integer                                                                                  | the rule [trigger type](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-trigger-types)     |
-| trigger_metadata | object                                                                                   | the rule [trigger metadata](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-trigger-types) |
-| actions          | array of [action](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-action-object) objects | the actions which will execute when the rule is triggered                                              |
-| enabled          | boolean                                                                                  | whether the rule is enabled                                                                            |
-| exempt_roles     | array of snowflakes                                                                      | the role ids that should not be affected by the rule (Maximum of 20)                                   |
-| exempt_channels  | array of snowflakes                                                                      | the channel ids that should not be affected by the rule (Maximum of 50)                                |
+| Field            | Type                                                                                     | Description                                                                                               |
+| ---------------- | ---------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- |
+| id               | snowflake                                                                                | the id of this rule                                                                                       |
+| guild_id         | snowflake                                                                                | the guild which this rule belongs to                                                                      |
+| name             | string                                                                                   | the rule name                                                                                             |
+| creator_id       | snowflake                                                                                | the user which first created this rule                                                                    |
+| event_type       | integer                                                                                  | the rule [event type](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-event-types)            |
+| trigger_type     | integer                                                                                  | the rule [trigger type](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-trigger-types)        |
+| trigger_metadata | object                                                                                   | the rule [trigger metadata](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-trigger-metadata) |
+| actions          | array of [action](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-action-object) objects | the actions which will execute when the rule is triggered                                                 |
+| enabled          | boolean                                                                                  | whether the rule is enabled                                                                               |
+| exempt_roles     | array of snowflakes                                                                      | the role ids that should not be affected by the rule (Maximum of 20)                                      |
+| exempt_channels  | array of snowflakes                                                                      | the channel ids that should not be affected by the rule (Maximum of 50)                                   |
 
 ###### Example Auto Moderation Rule
 
