@@ -86,9 +86,9 @@ value of [trigger_type](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-obj
 
 Indicates in what event context a rule should be checked.
 
-| Type             | Value   | Description                              |
-| ---------------- | ------- | ---------------------------------------- |
-| MESSAGE_SEND     | 1       | when a member sends a message on a guild |
+| Type             | Value   | Description                                         |
+| ---------------- | ------- | --------------------------------------------------- |
+| MESSAGE_SEND     | 1       | when a member sends or edits a message in the guild |
 
 
 ### Auto Moderation Action Object
