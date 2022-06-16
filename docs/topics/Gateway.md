@@ -564,7 +564,7 @@ Used to trigger the initial handshake with the gateway.
 | device | string | your library name     |
 
 > warn
-> These fields originally were $ prefixed (i.e: $browser) but this syntax is deprecated. While they are currently still work, it is recommended to move to non-prefixed fields.
+> These fields originally were $ prefixed (i.e: $browser) but this syntax is deprecated. While they currently still work, it is recommended to move to non-prefixed fields.
 
 ###### Example Identify
 
