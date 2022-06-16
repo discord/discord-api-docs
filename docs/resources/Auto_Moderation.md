@@ -1,6 +1,8 @@
 # Auto Moderation
 
-Auto Moderation is a per [guild](#DOCS_RESOURCES_GUILD/) feature which allows the configuration of a set of rules to trigger based on some criteria, e.g. a message contains a specific keyword. Certain actions, such as blocking a message, can be setup to automatically execute whenever a rule is triggered.
+Auto Moderation is a feature which allows each [guild](#DOCS_RESOURCES_GUILD/) to set up rules that trigger based on some criteria. For example, a rule can trigger whenever a message contains a specific keyword.
+
+Rules can be configured to automatically execute actions whenever they trigger. For example, if a user tries to send a message which contains a certain keyword, a rule can trigger and block the message before it is sent.
 
 ### Auto Moderation Rule Object
 
@@ -41,7 +43,7 @@ Auto Moderation is a per [guild](#DOCS_RESOURCES_GUILD/) feature which allows th
     }
   ],
   "trigger_metadata": {
-    "keyword_filter": ["cat*", "*cat", "*ana*"]
+    "keyword_filter": ["cat*", "*dog", "*ana*", "i like javascript"]
   },
   "enabled": true,
   "exempt_roles": ["323456789123456789", "423456789123456789"],
@@ -51,7 +53,7 @@ Auto Moderation is a per [guild](#DOCS_RESOURCES_GUILD/) feature which allows th
 
 ###### Trigger Types
 
-Characterizes what type of information will be checked to determine whether a rule is triggered.
+Characterizes the type of content which can trigger the rule.
 
 | Type                 | Value   | Description                                                          |
 | -------------------- | ------- | -------------------------------------------------------------------- |
@@ -67,8 +69,12 @@ value of [trigger_type](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-obj
 
 | Field          | Type                                                                                                              | Associated Trigger Types | Description                                                               | 
 | -------------- | ----------------------------------------------------------------------------------------------------------------- | ------------------------ | ------------------------------------------------------------------------- |
-| keyword_filter | array of strings                                                                                                  | KEYWORD                  | substrings which will be searched for in content                          |
+| keyword_filter | array of strings *                                                                                                | KEYWORD                  | substrings which will be searched for in content                          |
 | presets        | array of [keyword preset types](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-keyword-preset-types) | KEYWORD_PRESET           | the internally pre-defined wordsets which will be searched for in content |
+
+
+\* A keyword can be a phrase which contains multiple words. Wildcard symbols can be used to customize how each keyword will be matched.
+See [keyword matching strategies](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-keyword-matching-strategies).
 
 
 ###### Keyword Preset Types
@@ -87,6 +93,47 @@ Indicates in what event context a rule should be checked.
 | Type             | Value   | Description                                         |
 | ---------------- | ------- | --------------------------------------------------- |
 | MESSAGE_SEND     | 1       | when a member sends or edits a message in the guild |
+
+
+###### Keyword Matching Strategies
+
+Use the `*` wildcard symbol at the beginning and end of a keyword to define how the keyword should be matched. All keywords are case insensitve.
+
+**Prefix** - word must start with the keyword
+
+| Keyword   | Matches                               |
+| --------- | --------------------------------------|
+| cat\*     | **cat**ch, **Cat**apult, **CAt**tLE   |
+| tra\*     | **tra**in, **tra**de, **TRA**ditional |
+| the mat\* | **the mat**rix                        |
+ 
+
+**Suffix** - word must end with the keyword
+
+| Keyword   | Matches                             |
+| --------- | ----------------------------------- |
+| \*cat     | wild**cat**, copy**Cat**            |
+| \*tra     | ex**tra**, ul**tra**, orches**TRA** |
+| \*the mat | brea**the mat**                     |
+
+
+**Anywhere** - keyword can appear anywhere in the content
+
+| Keyword     | Matches                     |
+| ----------- | --------------------------- |
+| \*cat\*     | lo**cat**ion, edu**Cat**ion |
+| \*tra\*     | abs**tra**cted, ou**tra**ge |
+| \*the mat\* | brea**the mat**ter          |
+
+
+**Whole Word** - keyword is a full word or phrase and must be surrounded by whitespace at the beginning and end
+
+| Keyword | Matches     |
+| ------- | ----------- |
+| cat     | **cat**     |
+| train   | **train**   |
+| the mat | **the mat** |
+
 
 
 ### Auto Moderation Action Object
