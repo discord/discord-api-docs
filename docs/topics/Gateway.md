@@ -301,6 +301,15 @@ GUILD_SCHEDULED_EVENTS (1 << 16)
   - GUILD_SCHEDULED_EVENT_DELETE
   - GUILD_SCHEDULED_EVENT_USER_ADD
   - GUILD_SCHEDULED_EVENT_USER_REMOVE
+
+AUTO_MODERATION_CONFIGURATION (1 << 20)
+  - AUTO_MODERATION_RULE_CREATE
+  - AUTO_MODERATION_RULE_UPDATE
+  - AUTO_MODERATION_RULE_DELETE
+
+AUTO_MODERATION_EXECUTION (1 << 21)
+  - AUTO_MODERATION_ACTION_EXECUTION
+
 ```
 
 \* [Thread Members Update](#DOCS_TOPICS_GATEWAY/thread-members-update) contains different data depending on which intents are used.
@@ -481,6 +490,10 @@ Events are payloads sent over the socket to a client that correspond to events i
 | [Reconnect](#DOCS_TOPICS_GATEWAY/reconnect)                                                             | server is going away, client should reconnect to gateway and resume                                                              |
 | [Invalid Session](#DOCS_TOPICS_GATEWAY/invalid-session)                                                 | failure response to [Identify](#DOCS_TOPICS_GATEWAY/identify) or [Resume](#DOCS_TOPICS_GATEWAY/resume) or invalid active session |
 | [Application Command Permissions Update](#DOCS_TOPICS_GATEWAY/application-command-permissions-update)   | application command permission was updated                                                                                       |
+| [Auto Moderation Rule Create](#DOCS_TOPICS_GATEWAY/auto-moderation-rule-create)                         | auto moderation rule was created                                                                                                 |
+| [Auto Moderation Rule Update](#DOCS_TOPICS_GATEWAY/auto-moderation-rule-update)                         | auto moderation rule was updated                                                                                                 |
+| [Auto Moderation Rule Delete](#DOCS_TOPICS_GATEWAY/auto-moderation-rule-delete)                         | auto moderation rule was deleted                                                                                                 |
+| [Auto Moderation Action Execution](#DOCS_TOPICS_GATEWAY/auto-moderation-action-execution)               | auto moderation rule was triggered and an action was executed (e.g. a message was blocked)                                       |
 | [Channel Create](#DOCS_TOPICS_GATEWAY/channel-create)                                                   | new guild channel created                                                                                                        |
 | [Channel Update](#DOCS_TOPICS_GATEWAY/channel-update)                                                   | channel was updated                                                                                                              |
 | [Channel Delete](#DOCS_TOPICS_GATEWAY/channel-delete)                                                   | channel was deleted                                                                                                              |
@@ -819,6 +832,46 @@ The inner `d` key is a boolean that indicates whether the session may be resumab
 #### Application Command Permissions Update
 
 `APPLICATION_COMMAND_PERMISSIONS_UPDATE` event, sent when an application command's permissions are updated. The inner payload is an [application command permissions](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-permissions-object-guild-application-command-permissions-structure) object.
+
+### Auto Moderation
+
+All auto moderation related events are currently only sent to bot users which have the `MANAGE_GUILD` permission.
+
+#### Auto Moderation Rule Create
+
+Sent when a rule is created. The inner payload is an [auto moderation rule](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object) object.
+
+#### Auto Moderation Rule Update
+
+Sent when a rule is updated. The inner payload is an [auto moderation rule](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object) object.
+
+#### Auto Moderation Rule Delete
+
+Sent when a rule is deleted. The inner payload is an [auto moderation rule](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object) object.
+
+#### Auto Moderation Action Execution
+
+Sent when an rule is triggered and an action is executed (e.g. message is blocked).
+
+###### Auto Moderation Action Execution Event Fields
+
+| Field                    | Type                                                                                           | Description                                                                        |
+| ------------------------ | ---------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
+| guild_id                 | snowflake                                                                                      | the id of the guild in which action was executed                                   |
+| action                   | [auto moderation action](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-action-object) object | the action which was executed                                                      |
+| rule_id                  | snowflake                                                                                      | the id of the rule which action belongs to                                         |
+| rule_trigger_type        | [trigger_type](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-trigger-types)      | the trigger type of rule which was triggered                                       |
+| user_id                  | snowflake                                                                                      | the id of the user which generated the content which triggered the rule            |
+| channel_id?              | snowflake                                                                                      | the id of the channel in which user content was posted                             |
+| message_id?              | snowflake                                                                                      | the id of any user message which content belongs to *                              |
+| alert_system_message_id? | snowflake                                                                                      | the id of any system auto moderation messages posted as a result of this action ** |
+| content                  | string                                                                                         | the user generated text content                                                    |
+| matched_keyword          | ?string                                                                                        | the word or phrase configured in the rule that triggered the rule                  |
+| matched_content          | ?string                                                                                        | the substring in content that triggered the rule                                   |
+
+
+\* `message_id` will not exist if message was blocked by automod or content was not part of any message
+\** `alert_system_message_id` will not exist if this event does not correspond to an action with type `SEND_ALERT_MESSAGE`
 
 ### Channels
 
