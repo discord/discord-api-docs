@@ -3,6 +3,7 @@
 ## Auto Moderation
 
 #### Jun 17, 2022
+
 #### Breaking Changes
 
 The `MESSAGE_CONTENT` (`1 << 15`) intent is now required to receive non-empty values for the `content` field in [AUTO_MODERATION_ACTION_EXECUTION](#DOCS_TOPICS_GATEWAY/auto-moderation-action-execution) gateway events. This matches the intended behavior for message content across the API.
