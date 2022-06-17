@@ -47,7 +47,7 @@ Rules can be configured to automatically execute actions whenever they trigger. 
   },
   "enabled": true,
   "exempt_roles": ["323456789123456789", "423456789123456789"],
-  "exempt_channels": ["523456789123456789"],
+  "exempt_channels": ["523456789123456789"]
 }
 ```
 
@@ -201,6 +201,9 @@ Create a new rule. Returns an [auto moderation rule](#DOCS_RESOURCES_AUTO_MODERA
 > info
 > Requires `MANAGE_GUILD` [permissions](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-permission-requirements)
 
+> info
+> This endpoint supports the `X-Audit-Log-Reason` header.
+
 ###### JSON Params
 
 | Field               | Type                                                                                     | Description                                                                                       |
@@ -230,6 +233,9 @@ Modify an existing rule. Returns an [auto moderation rule](#DOCS_RESOURCES_AUTO_
 > info
 > All parameters for this endpoint are optional.
 
+> info
+> This endpoint supports the `X-Audit-Log-Reason` header.
+
 ###### JSON Params
 
 | Field               | Type                                                                                     | Description                                                                                       |
@@ -250,3 +256,6 @@ Delete a rule. Returns a `204` on success.
 
 > info
 > Requires `MANAGE_GUILD` [permissions](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-permission-requirements)
+
+> info
+> This endpoint supports the `X-Audit-Log-Reason` header.
