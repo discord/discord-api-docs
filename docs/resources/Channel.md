@@ -552,14 +552,51 @@ A thread member is used to indicate whether a user has joined a thread or not.
 
 Embed types are "loosely defined" and, for the most part, are not used by our clients for rendering. Embed attributes power what is rendered. Embed types should be considered deprecated and might be removed in a future API version.
 
-| Type    | Description                                        |
-|---------|----------------------------------------------------|
-| rich    | generic embed rendered from embed attributes       |
-| image   | image embed                                        |
-| video   | video embed                                        |
-| gifv    | animated gif image embed rendered as a video embed |
-| article | article embed                                      |
-| link    | link embed                                         |
+| Type                    | Description                                        |
+|-------------------------|----------------------------------------------------|
+| rich                    | generic embed rendered from embed attributes       |
+| image                   | image embed                                        |
+| video                   | video embed                                        |
+| gifv                    | animated gif image embed rendered as a video embed |
+| article                 | article embed                                      |
+| link                    | link embed                                         |
+| auto_moderation_message | message blocked by automod                         |
+
+###### Auto Moderation Message Embed Example
+
+```json
+{
+  "type": "auto_moderation_message",
+  "description": "who lets the dogs out lol",
+  "fields": [
+    {
+      "name": "rule_name",
+      "value": "No Dogs Allowed!!",
+      "inline": false
+    },
+    {
+      "name": "channel_id",
+      "value": "826221915618017321",
+      "inline": false
+    },
+    {
+      "name": "decision_id",
+      "value": "98d3566417944c738dffbf5083dda41b",
+      "inline": false
+    },
+    {
+      "name": "keyword",
+      "value": "dog",
+      "inline": false
+    },
+    {
+      "name": "keyword_matched_content",
+      "value": "dog",
+      "inline": false
+    }
+  ]
+}
+```
 
 ###### Embed Thumbnail Structure
 
