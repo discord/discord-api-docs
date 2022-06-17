@@ -47,7 +47,7 @@ Rules can be configured to automatically execute actions whenever they trigger. 
   },
   "enabled": true,
   "exempt_roles": ["323456789123456789", "423456789123456789"],
-  "exempt_channels": ["523456789123456789"],
+  "exempt_channels": ["523456789123456789"]
 }
 ```
 
