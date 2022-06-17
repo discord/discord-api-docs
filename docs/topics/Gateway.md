@@ -877,7 +877,6 @@ Sent when an rule is triggered and an action is executed (e.g. message is blocke
 \*\* `alert_system_message_id` will not exist if this event does not correspond to an action with type `SEND_ALERT_MESSAGE`
 \*\*\* `MESSAGE_CONTENT` (`1 << 15`) [gateway intent](#DOCS_TOPICS_GATEWAY/gateway-intents) is required to receive non-empty values for the `content` field
 
-> warn
 
 
 ### Channels
