@@ -230,7 +230,7 @@ Represents a message sent in a channel within Discord.
 ###### Message Structure
 
 > info
-> Fields specific to the `MESSAGE_CREATE` and `MESSAGE_UPDATE` events are listed in the [Gateway documentation](#DOCS_TOPICS_GATEWAY/guild-create).
+> There are fields specific to the [`MESSAGE_CREATE`](#DOCS_TOPICS_GATEWAY/message-create) and [`MESSAGE_UPDATE`](#DOCS_TOPICS_GATEWAY/message-update) events. They are listed in the [Gateway Events and Commands](#DOCS_TOPICS_GATEWAY/commands-and-events) documentation.
 
 > warn
 > `content`, `embeds`, `attachments`, and `components` will require a privileged intent in 2022. [Learn more here](https://support-dev.discord.com/hc/en-us/articles/4404772028055).
