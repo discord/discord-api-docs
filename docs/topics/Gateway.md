@@ -868,13 +868,15 @@ Sent when an rule is triggered and an action is executed (e.g. message is blocke
 | channel_id?              | snowflake                                                                                      | the id of the channel in which user content was posted                             |
 | message_id?              | snowflake                                                                                      | the id of any user message which content belongs to *                              |
 | alert_system_message_id? | snowflake                                                                                      | the id of any system auto moderation messages posted as a result of this action ** |
-| content                  | string                                                                                         | the user generated text content                                                    |
+| content ***              | string                                                                                         | the user generated text content                                                    |
 | matched_keyword          | ?string                                                                                        | the word or phrase configured in the rule that triggered the rule                  |
 | matched_content          | ?string                                                                                        | the substring in content that triggered the rule                                   |
 
 
 \* `message_id` will not exist if message was blocked by automod or content was not part of any message
-\** `alert_system_message_id` will not exist if this event does not correspond to an action with type `SEND_ALERT_MESSAGE`
+\*\* `alert_system_message_id` will not exist if this event does not correspond to an action with type `SEND_ALERT_MESSAGE`
+\*\*\* `MESSAGE_CONTENT` (`1 << 15`) [gateway intent](#DOCS_TOPICS_GATEWAY/gateway-intents) is required to receive non-empty values for the `content` field
+
 
 ### Channels
 
