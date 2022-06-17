@@ -1,5 +1,13 @@
 # Change Log
 
+## Updated Connection Property Field Names
+
+#### Jun 17, 2022
+
+The `$` prefix in [identify connection properties](#DOCS_TOPICS_GATEWAY/identify-identify-connection-properties) are deprecated. The new field names are `os`, `browser`, and `device`. When passed, the `$`-prefixed names will resolve to the new ones. 
+
+In the next major API version, support for the previous field names (`$os`, `$browser`, and `$device`) will be removed.
+
 ## Updated Command Permissions
 
 #### Apr 27, 2022
