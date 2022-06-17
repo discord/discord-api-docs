@@ -154,9 +154,9 @@ This is a minimal `IDENTIFY` payload. `IDENTIFY` supports additional optional fi
     "token": "my_token",
     "intents": 513,
     "properties": {
-      "$os": "linux",
-      "$browser": "my_library",
-      "$device": "my_library"
+      "os": "linux",
+      "browser": "my_library",
+      "device": "my_library"
     }
   }
 }
@@ -570,11 +570,14 @@ Used to trigger the initial handshake with the gateway.
 
 ###### Identify Connection Properties
 
-| Field     | Type   | Description           |
-| --------- | ------ | --------------------- |
-| \$os      | string | your operating system |
-| \$browser | string | your library name     |
-| \$device  | string | your library name     |
+| Field   | Type   | Description           |
+| ------- | ------ | --------------------- |
+| os      | string | your operating system |
+| browser | string | your library name     |
+| device  | string | your library name     |
+
+> warn
+> These fields originally were $ prefixed (i.e: `$browser`) but [this syntax is deprecated](#DOCS_CHANGE_LOG/updated-connection-property-field-names). While they currently still work, it is recommended to move to non-prefixed fields.
 
 ###### Example Identify
 
@@ -584,9 +587,9 @@ Used to trigger the initial handshake with the gateway.
   "d": {
     "token": "my_token",
     "properties": {
-      "$os": "linux",
-      "$browser": "disco",
-      "$device": "disco"
+      "os": "linux",
+      "browser": "disco",
+      "device": "disco"
     },
     "compress": true,
     "large_threshold": 250,
