@@ -875,7 +875,7 @@ Sent when an rule is triggered and an action is executed (e.g. message is blocke
 
 \* `message_id` will not exist if message was blocked by automod or content was not part of any message
 \*\* `alert_system_message_id` will not exist if this event does not correspond to an action with type `SEND_ALERT_MESSAGE`
-\*\*\* `MESSAGE_CONTENT` (`1 << 15`) [gateway intent](#DOCS_TOPICS_GATEWAY/gateway-intents) is required to receive non-empty values for this `content` field
+\*\*\* `MESSAGE_CONTENT` (`1 << 15`) [gateway intent](#DOCS_TOPICS_GATEWAY/gateway-intents) is required to receive non-empty values for the `content` field
 
 > warn
 > The `MESSAGE_CONTENT` (`1 << 15`) intent requirement for the `content` field is a breaking change
