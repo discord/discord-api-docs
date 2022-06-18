@@ -169,8 +169,8 @@ value of [action type](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-action-ob
 
 | Field            | Type       | Associated Action Types | Description                                    | 
 | ---------------- | ---------- | ----------------------- | ---------------------------------------------- |
-| channel_id       | snowflake  | SEND_ALERT_MESSAGE      | channel to which user content should be logged |
-| duration_seconds | integer    | TIMEOUT                 | timeout duration in seconds *                  |
+| channel_id?       | snowflake  | SEND_ALERT_MESSAGE      | channel to which user content should be logged |
+| duration_seconds? | integer    | TIMEOUT                 | timeout duration in seconds *                  |
 
 \* Maximum of 2419200 seconds (4 weeks)
 
