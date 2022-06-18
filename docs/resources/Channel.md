@@ -1,4 +1,4 @@
-+# Channels Resource
+# Channels Resource
 
 ### Channel Object
 
