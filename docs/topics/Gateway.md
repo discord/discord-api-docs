@@ -871,6 +871,7 @@ Sent when an rule is triggered and an action is executed (e.g. message is blocke
 
 
 \* `message_id` will not exist if message was blocked by automod or content was not part of any message
+
 \** `alert_system_message_id` will not exist if this event does not correspond to an action with type `SEND_ALERT_MESSAGE`
 
 ### Channels
