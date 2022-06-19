@@ -72,8 +72,8 @@ value of [trigger_type](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-obj
 
 | Field          | Type                                                                                                              | Associated Trigger Types | Description                                                               | 
 | -------------- | ----------------------------------------------------------------------------------------------------------------- | ------------------------ | ------------------------------------------------------------------------- |
-| keyword_filter | array of strings *                                                                                                | KEYWORD                  | substrings which will be searched for in content                          |
-| presets        | array of [keyword preset types](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-keyword-preset-types) | KEYWORD_PRESET           | the internally pre-defined wordsets which will be searched for in content |
+| keyword_filter? | array of strings *                                                                                                | KEYWORD                  | substrings which will be searched for in content                          |
+| presets?        | array of [keyword preset types](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-keyword-preset-types) | KEYWORD_PRESET           | the internally pre-defined wordsets which will be searched for in content |
 
 
 \* A keyword can be a phrase which contains multiple words. Wildcard symbols can be used to customize how each keyword will be matched.
