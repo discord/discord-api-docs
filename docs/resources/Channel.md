@@ -230,7 +230,7 @@ Represents a message sent in a channel within Discord.
 ###### Message Structure
 
 > info
-> Fields specific to the `MESSAGE_CREATE` and `MESSAGE_UPDATE` events are listed in the [Gateway documentation](#DOCS_TOPICS_GATEWAY/guild-create).
+> Fields specific to the `MESSAGE_CREATE` and `MESSAGE_UPDATE` events are listed in the [Gateway documentation](#DOCS_TOPICS_GATEWAY/message-create).
 
 > warn
 > `content`, `embeds`, `attachments`, and `components` will require a privileged intent in 2022. [Learn more here](https://support-dev.discord.com/hc/en-us/articles/4404772028055).
@@ -260,7 +260,7 @@ Represents a message sent in a channel within Discord.
 | application_id?         | snowflake                                                                                                                          | if the message is an [Interaction](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/) or application-owned webhook, this is the id of the application |
 | message_reference?      | [message reference](#DOCS_RESOURCES_CHANNEL/message-reference-object-message-reference-structure) object                           | data showing the source of a crosspost, channel follow add, pin, or reply message                                                                |
 | flags?                  | integer                                                                                                                            | [message flags](#DOCS_RESOURCES_CHANNEL/message-object-message-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field)          |
-| referenced_message?\*\* | ?[message object](#DOCS_RESOURCES_CHANNEL/message-object)                                                                          | the message associated with the message_reference                                                                                                |
+| referenced_message?\*\* | ?[partial message object](#DOCS_RESOURCES_CHANNEL/message-object)                                                                  | the message associated with the message_reference                                                                                                |
 | interaction?            | [message interaction object](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/message-interaction-object-message-interaction-structure) | sent if the message is a response to an [Interaction](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/)                                              |
 | thread?                 | [channel](#DOCS_RESOURCES_CHANNEL/channel-object) object                                                                           | the thread that was started from this message, includes [thread member](#DOCS_RESOURCES_CHANNEL/thread-member-object) object                     |
 | components?             | Array of [message components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-object)                                              | sent if the message contains components like buttons, action rows, or other interactive components                                               |
