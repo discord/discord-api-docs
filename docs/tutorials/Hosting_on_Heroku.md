@@ -46,7 +46,7 @@ If you have your own application to deploy, you can skip the `baker-bot` setup. 
 
 ### Prepping required components
 
-> INFO
+> info
 > If you don't have git configured, you can read [the Git reference](https://git-scm.com/book/en/v2/Getting-Started-First-Time-Git-Setup)
 
 To configure your app locally, first clone or fork the repository and install its dependencies.
@@ -76,7 +76,7 @@ CLIENT_ID=
 
 These credentials will be added to your Heroku app later in the tutorial, or to a new `.env` file if you're developing locally.
 
-> INFO
+> info
 > Enabling Developer Mode in your Discord client will let you right-click fetch the IDs for your guild (`GUILD_ID`) and bot application (`CLIENT_ID`).
 
 To create your Discord app, go to the [app configuration](https://discord.com/developers/applications) and click **New Application** in the upper-right corner.
@@ -109,7 +109,7 @@ After logging in, at the top right corner of your account dashboard, click New >
 
 For your app to work with Heroku, you'll need to add a `Procfile`. **Create a new file called `Procfile`** where you will add a short script that Heroku will run when starting up your app.
 
-> INFO
+> info
 > For folks following the tutorial and using the [sample repo](https://github.com/discord/heroku-sample-app), the `Procfile` will already be configured appropriately. Otherwise, the script in your `Procfile` will vary depending on what language you're coding in.
 
 ```bash
@@ -123,7 +123,7 @@ You now have an empty application for Heroku that's ready to be linked to your r
 
 In this tutorial, we'll use a GitHub repository as the source for the Heroku app. Before you can deploy, you should [push your project to GitHub](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-new-repository).
 
-> INFO
+> info
 > If you prefer to deploy from your local app, you can [use the Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli)
 
 After you have your GitHub repo and Heroku application set up, you will be met with some options in the **Deploy** tab. From here, you have several deployment method options to choose from
@@ -132,8 +132,8 @@ After you have your GitHub repo and Heroku application set up, you will be met w
 
 Click **Connect this app to GitHub**.
  
-> INFO
-> that you can only connect Heroku apps to a single GitHub repository. 
+> info
+> Note that you can only connect Heroku apps to a single GitHub repository. 
 
 From there, you will be able to manage the app's deployment method:
 
@@ -141,7 +141,7 @@ From there, you will be able to manage the app's deployment method:
 
 Selecting a branch and enabling **Automatic Deploys** for your app will deploy a new version of this app every time a push occurs. **Manual Deploys** would require you to select a specific branch before updates go live for your bot. 
 
-> INFO
+> info
 > If you want to do this with the Heroku CLI, there are [separate steps in the dashboard](https://devcenter.heroku.com/articles/heroku-cli) you can follow to accomplish this.
 
 ## Configuring app in Heroku
@@ -152,7 +152,7 @@ Before your app can go online, you'll have to configure your Heroku environment 
 
 In the **Settings** tab, add your bot’s `TOKEN`, `GUILD_ID`, `CLIENT_ID` from [the section above](#DOCS_TUTORIALS_HOSTING_ON_HEROKU/creating-your-discord-app), and any other tokens or API keys you want for your own app.
 
-> INFO
+> info
 > If you're developing your app locally, you can store your credentials in a `.env` file (see `.sample.env` for an example)
 
 ![Configuring variables in Heroku](heroku-configVars.png)
@@ -183,7 +183,7 @@ Status and updates for the dyno, any deploys as well as specific logs from your 
 
 ## Next steps
 
-> INFO
+> info
 > If you need to reference any of the code, you can find the repo [on GitHub](https://github.com/discord/heroku-sample-app)
 
 You can play around with the app by navigating to the guild you installed it in. First `/setup` the necessary roles and channels, then start baking with the `/start` command. Good luck and don't set the oven on fire!
