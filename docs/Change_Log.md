@@ -2,7 +2,7 @@
 
 ## Auto Moderation
 
-#### Jun 17, 2022
+#### Jun 21, 2022
 
 #### Breaking Changes
 
