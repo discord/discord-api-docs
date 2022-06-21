@@ -1,6 +1,6 @@
 # Change Log
 
-## Auto Moderation
+## Message Content in AutoMod events
 
 #### Jun 21, 2022
 
