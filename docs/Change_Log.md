@@ -6,7 +6,7 @@
 
 #### Breaking Changes
 
-The `MESSAGE_CONTENT` (`1 << 15`) intent is now required to receive non-empty values for the `content` and `matched_content` fields in [`AUTO_MODERATION_ACTION_EXECUTION`](#DOCS_TOPICS_GATEWAY/auto-moderation-action-execution) gateway events. This matches the intended behavior for message content across the API.
+In API v10, the `MESSAGE_CONTENT` (`1 << 15`) intent is now required to receive non-empty values for the `content` and `matched_content` fields in [`AUTO_MODERATION_ACTION_EXECUTION`](#DOCS_TOPICS_GATEWAY/auto-moderation-action-execution) gateway events. This matches the intended behavior for message content across the API.
 
 ## Updated Connection Property Field Names
 
