@@ -62,7 +62,7 @@ Application commands are native ways to interact with apps in the Discord client
 
 \* `autocomplete` may not be set to true if `choices` are present.
 
-> note
+> info
 > Options using `autocomplete` are not confined to only use choices given by the application.
 
 ###### Application Command Option Type
