@@ -60,6 +60,7 @@ Discord does not maintain official SDKs.  The following table is an inexhaustive
   - [Rauf's Slash Command Generator](https://rauf.wtf/slash)
   - [Autocode Slash Command Builder](https://autocode.com/tools/discord/command-builder/)
   - [Bsati's Slash Command Builder](https://bsati.github.io/dc-app-command-builder/)
+  - [Tech's Slash Command Builder](https://slash-edit.motiondevelopment.top/app/)
 
 ## Game SDK Tools
 
