@@ -288,11 +288,11 @@ Represents a message sent in a channel within Discord.
 | CHANNEL_NAME_CHANGE                          | 4     |
 | CHANNEL_ICON_CHANGE                          | 5     |
 | CHANNEL_PINNED_MESSAGE                       | 6     |
-| GUILD_MEMBER_JOIN                            | 7     |
-| USER_PREMIUM_GUILD_SUBSCRIPTION              | 8     |
-| USER_PREMIUM_GUILD_SUBSCRIPTION_TIER_1       | 9     |
-| USER_PREMIUM_GUILD_SUBSCRIPTION_TIER_2       | 10    |
-| USER_PREMIUM_GUILD_SUBSCRIPTION_TIER_3       | 11    |
+| USER_JOIN                                    | 7     |
+| GUILD_BOOST                                  | 8     |
+| GUILD_BOOST_TIER_1                           | 9     |
+| GUILD_BOOST_TIER_2                           | 10    |
+| GUILD_BOOST_TIER_3                           | 11    |
 | CHANNEL_FOLLOW_ADD                           | 12    |
 | GUILD_DISCOVERY_DISQUALIFIED                 | 14    |
 | GUILD_DISCOVERY_REQUALIFIED                  | 15    |
