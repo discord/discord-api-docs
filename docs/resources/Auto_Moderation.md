@@ -100,7 +100,7 @@ Indicates in what event context a rule should be checked.
 
 ###### Keyword Matching Strategies
 
-Use the `*` wildcard symbol at the beginning and end of a keyword to define how the keyword should be matched. All keywords are case insensitive.
+Use the wildcard symbol (`*`) at the beginning or end of a keyword to define how it should be matched. All keywords are case insensitive.
 
 **Prefix** - word must start with the keyword
 
