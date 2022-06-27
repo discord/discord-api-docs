@@ -911,7 +911,7 @@ This event can be sent in three different scenarios:
 3.  When the current user joins a new Guild (this Guild may be available or unavailable).
 
 The inner payload can be:
-- An available Guild: a [guild](#DOCS_RESOURCES_GUILD/guild-object) object with extra fields, as detailed bellow.
+- An available Guild: a [guild](#DOCS_RESOURCES_GUILD/guild-object) object with extra fields, as detailed below.
 - An unavailable Guild: an [unavailable guild](#DOCS_RESOURCES_GUILD/unavailable-guild-object) object.
 
 ###### Guild Create Available Guild Extra Fields
