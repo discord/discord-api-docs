@@ -906,15 +906,18 @@ Sent when a message is pinned or unpinned in a text channel. This is not sent wh
 
 This event can be sent in three different scenarios:
 
-1.  When a user is initially connecting, to lazily load and backfill information for all unavailable guilds sent in the [Ready](#DOCS_TOPICS_GATEWAY/ready) event.
+1.  When a user is initially connecting, to lazily load and backfill information for all unavailable guilds sent in the [Ready](#DOCS_TOPICS_GATEWAY/ready) event. Guilds that are unavailable due to an outage will send a [Guild Delete](#DOCS_TOPICS_GATEWAY/guild-delete) event.
 2.  When a Guild becomes available again to the client.
-3.  When the current user joins a new Guild (this Guild may be available or unavailable).
+3.  When the current user joins a new Guild.
+
+> note
+> During an outage, the guild object in scenarios 1 and 3 may be marked as unavailable.
 
 The inner payload can be:
-- An available Guild: a [guild](#DOCS_RESOURCES_GUILD/guild-object) object with extra fields, as detailed below.
+- An available Guild: a [guild](#DOCS_RESOURCES_GUILD/guild-object) object with extra fields, as noted below.
 - An unavailable Guild: an [unavailable guild](#DOCS_RESOURCES_GUILD/unavailable-guild-object) object.
 
-###### Guild Create Available Guild Extra Fields
+###### Guild Create Extra Fields
 
 | Field                  | Type                                                                                                         | Description                                                                                                                |
 | ---------------------- | ------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------- |
