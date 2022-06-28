@@ -153,6 +153,7 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 10087  | Unknown Tag                                                                                                                   |
 | 20001  | Bots cannot use this endpoint                                                                                                 |
 | 20002  | Only bots can use this endpoint                                                                                               |
+| 20003  | RPC proxy disallowed                                                                                                          |
 | 20009  | Explicit content cannot be sent to the desired recipient(s)                                                                   |
 | 20012  | You are not authorized to perform this action on this application                                                             |
 | 20016  | This action cannot be performed due to slowmode rate limit                                                                    |
@@ -196,6 +197,7 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 40005  | Request entity too large. Try sending something smaller in size                                                               |
 | 40006  | This feature has been temporarily disabled server-side                                                                        |
 | 40007  | The user is banned from this guild                                                                                            |
+| 40012  | Connection has been revoked                                                                                                   |
 | 40032  | Target user is not connected to voice                                                                                         |
 | 40033  | This message has already been crossposted                                                                                     |
 | 40041  | An application command with that name already exists                                                                          |
@@ -221,6 +223,7 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 50019  | A message can only be pinned to the channel it was sent in                                                                    |
 | 50020  | Invite code was either invalid or taken                                                                                       |
 | 50021  | Cannot execute action on a system message                                                                                     |
+| 50023  | Invalid Client ID                                                                                                             |
 | 50024  | Cannot execute action on this channel type                                                                                    |
 | 50025  | Invalid OAuth2 access token provided                                                                                          |
 | 50026  | Missing required OAuth2 scope                                                                                                 |
@@ -269,6 +272,8 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 180000 | Cannot update a finished event                                                                                                |
 | 180002 | Failed to create stage needed for stage event                                                                                 |
 | 220003 | Webhooks can only create threads in forum channels                                                                            |
+| 200000 | Message was blocked by automatic moderation                                                                                   |
+| 220001 | Title was blocked by automatic moderation                                                                                     |
 
 ###### Example JSON Error Response
 
