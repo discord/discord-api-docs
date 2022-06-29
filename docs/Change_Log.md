@@ -1,5 +1,13 @@
 # Change Log
 
+## Calculated Permissions in Interaction Payloads
+
+#### Jun 29, 2022
+
+Interaction payloads now contain an `app_permissions` field whose value is the computed [permissions](#DOCS_TOPICS_PERMISSIONS/permissions-bitwise-permission-flags) for a bot or app in the context of a specific interaction (including any custom permissions for the origin channel). For apps without a bot, the value of `app_permissions` will be the same as the permissions for `@everyone`, limited to the permissions that can be used in interaction responses (currently `ATTACH_FILES`, `EMBED_LINKS`, `MENTION_EVERYONE`, and `USE_EXTERNAL_EMOJIS`).
+
+Similar to other permission fields, the value of `app_permissions` is a bitwise OR-ed set of permissions expressed as a string. Read details in the [interactions documentation](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object).
+
 ## Message Content in AutoMod events
 
 #### Jun 21, 2022

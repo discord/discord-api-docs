@@ -457,6 +457,7 @@ When someone uses a slash command, your application will receive an interaction:
     },
     "id": "786008729715212338",
     "guild_id": "290926798626357999",
+    "app_permissions": "2158482422",
     "guild_locale": "en-US",
     "locale": "en-US",
     "data": {
@@ -810,6 +811,7 @@ When someone uses a user command, your application will receive an interaction:
     },
     "guild_id": "772904309264089089",
     "guild_locale": "en-US",
+    "app_permissions": "2158482422",
     "id": "867794291820986368",
     "locale": "en-US",
     "member": {
@@ -900,6 +902,7 @@ When someone uses a message command, your application will receive an interactio
     },
     "guild_id": "772904309264089089",
     "guild_locale": "en-US",
+    "app_permissions": "2158482422",
     "id": "867793873336926249",
     "locale": "en-US",
     "member": {
