@@ -1,14 +1,14 @@
 # Change Log
 
-## Changes to Bot Permissions for Interactions
+## Changes to Bot Permissions for Interactions and Webhooks
 
 #### Jun 29, 2022
 
 #### Breaking Changes
 
-Starting **July 28, 2022**, the way a bot's [permissions](#DOCS_TOPICS_PERMISSIONS/permissions) are calculated when responding to interactions (like application commands or message components) will change. Going forward, a bot’s permission will be calculated based on the permissions it was installed with and any permission overrides in the channel where the interaction occurred.
+Starting **July 28, 2022**, the way a bot's [permissions](#DOCS_TOPICS_PERMISSIONS/permissions) are calculated when **responding to interactions** (like application commands or message components) or when **executing a webhook that the bot created**. Going forward, a bot’s permission will be calculated based on the permissions it was installed with and any permission overrides in the relevant channel.
 
-Previously, a bot’s permissions matched `@everyone` when responding to interactions, regardless of the permissions it was installed with.
+Previously, a bot’s permissions matched `@everyone` when responding to interactions or executing a webhook, regardless of the permissions it was installed with.
 
 At the time of the change, the following permissions may be impacted:
 - Attach Files (`ATTACH_FILES`)
