@@ -190,7 +190,7 @@ Below is an example payload your app would receive when a user invoked a global 
     },
     "id": "INTERACTION_ID",
     "application_id": "YOUR_APP_ID",
-    "app_permissions": "2158482422",
+    "app_permissions": "442368",
     "guild_id": "A_GUILD_ID",
     "guild_locale": "en-US",
     "locale": "en-US",
