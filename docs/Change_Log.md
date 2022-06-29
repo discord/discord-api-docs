@@ -13,15 +13,17 @@ Starting **July 28, 2022**, the way a bot's [permissions](#DOCS_TOPICS_PERMISSIO
 - When **responding to an [interaction](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING)** (like application commands or message components)
 - When **executing a [webhook](#DOCS_RESOURCES_WEBHOOK) that the bot created**
 
-Going forward, in the above cases, a bot’s permission will be calculated based on the permissions it was installed with and any overrides in the associated channel. Previously, a bot’s permissions matched `@everyone`, regardless of the permissions it was installed with.
+Going forward, in the above cases, a bot’s permissions will be calculated using the permissions granted to it, including any [overwrites](#DOCS_TOPICS_PERMISSIONS/permission-overwrites). This change makes a bot's permissions for interactions and webhooks the same as those for [posting a message to a channel](#DOCS_RESOURCES_CHANNEL/create-message). Previously, a bot’s permissions in these cases relied only on those granted to `@everyone`.
 
-At the time of the change, **Attach Files** (`ATTACH_FILES`), **Embed Links** (`EMBED_LINKS`), **Mention Everyone** (`MENTION_EVERYONE`), and **Use External Emojis** (`USE_EXTERNAL_EMOJIS`) are the permissions that will be affected.
+At the time of the change, **Attach Files** (`ATTACH_FILES`), **Embed Links** (`EMBED_LINKS`), **Mention Everyone** (`MENTION_EVERYONE`), and **Use External Emojis** (`USE_EXTERNAL_EMOJIS`) are the permissions that may be affected.
 
-This change *only* applies to bots. The permissions for an app without a bot user (or without the `bot` scope) will still be the same as `@everyone`.
+This change *only* applies to bots. The permissions for an app without a bot user (or without the `bot` scope) will still depend on `@everyone`.
 
 #### Updating Your App
 
-If your bot depends on any of the affected permissions (`ATTACH_FILES`, `EMBED_LINKS`, `MENTION_EVERYONE`, or `USE_EXTERNAL_EMOJIS`) when responding to interactions or executing a webhook, **ensure that the bot was installed with them**. If it wasn’t, your app with the bot will need to be reauthenticated with its required permissions before July 28.
+If your bot wants to use any affected permissions (`ATTACH_FILES`, `EMBED_LINKS`, `MENTION_EVERYONE`, or `USE_EXTERNAL_EMOJIS`) when responding to interactions or executing a webhook, **ensure that the bot was installed with them**. If it wasn’t, your app with the bot should be reauthenticated with them before July 28.
+
+Note that even if your bot is installed with certain permissions, they can be changed using overwrites. For interactions, you can use the [`app_permissions` field](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-interaction-structure) to determine your app or bot's contextual permissions before replying.
 
 ## Calculated Permissions in Interaction Payloads
 
