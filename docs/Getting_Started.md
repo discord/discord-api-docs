@@ -65,7 +65,7 @@ For now, we’ll just add two scopes:
 - `applications.commands` lets your app create commands in guilds its installed
 - `bot` is to enable your bot user. After you click bot, you can also add different user permissions to the bot. For now, just check **Send Messages**.
 
-See a list of all [OAuth2 scopes](#DOCS_TOPICS_OAUTH2/shared-resources-oauth2-scopes), or read more on [user permissions](#DOCS_TOPICS_PERMISSIONS) in the documentation.
+See a list of all [OAuth2 scopes](#DOCS_TOPICS_OAUTH2/oauth2-scopes), or read more on [user permissions](#DOCS_TOPICS_PERMISSIONS) in the documentation.
 
 ![URL generator screenshot](url-generator.png)
 

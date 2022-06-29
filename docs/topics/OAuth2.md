@@ -104,7 +104,7 @@ The authorization code grant is what most developers will recognize as "standard
 https://discord.com/api/oauth2/authorize?response_type=code&client_id=157730590492196864&scope=identify%20guilds.join&state=15773059ghq9183habn&redirect_uri=https%3A%2F%2Fnicememe.website&prompt=consent
 ```
 
-`client_id` is your application's `client_id`. `scope` is a list of [OAuth2 scopes](#DOCS_TOPICS_OAUTH2/shared-resources-oauth2-scopes) separated by url encoded spaces (`%20`). `redirect_uri` is whatever URL you registered when creating your application, url-encoded. `state` is the unique string mentioned in [State and Security](#DOCS_TOPICS_OAUTH2/state-and-security).
+`client_id` is your application's `client_id`. `scope` is a list of [OAuth2 scopes](#DOCS_TOPICS_OAUTH2/oauth2-scopes) separated by url encoded spaces (`%20`). `redirect_uri` is whatever URL you registered when creating your application, url-encoded. `state` is the unique string mentioned in [State and Security](#DOCS_TOPICS_OAUTH2/state-and-security).
 
 When someone navigates to this URL, they will be prompted to authorize your application for the requested scopes. On acceptance, they will be redirected to your `redirect_uri`, which will contain an additional querystring parameter, `code`. `state` will also be returned if previously sent, and should be validated at this point.
 
@@ -222,7 +222,7 @@ There are tradeoffs in using the implicit grant flow. It is both quicker and eas
 
 The client credential flow is a quick and easy way for bot developers to get their own bearer tokens for testing purposes. By making a `POST` request to the [token URL](#DOCS_TOPICS_OAUTH2/shared-resources-oauth2-urls) with a grant type of `client_credentials`, using Basic authentication with your client id as the username and your client secret as the password, you will be returned an access token for the bot owner. Therefore, always be super-extra-very-we-are-not-kidding-like-really-be-secure-make-sure-your-info-is-not-in-your-source-code careful with your `client_id` and `client_secret`. We don't take kindly to imposters around these parts.
 
-You can specify scopes with the `scope` parameter, which is a list of [OAuth2 scopes](#DOCS_TOPICS_OAUTH2/shared-resources-oauth2-scopes) separated by spaces:
+You can specify scopes with the `scope` parameter, which is a list of [OAuth2 scopes](#DOCS_TOPICS_OAUTH2/oauth2-scopes) separated by spaces:
 
 > info
 > Team applications are limited to the `identify` and `applications.commands.update` scope, because teams are not bound to a specific user.

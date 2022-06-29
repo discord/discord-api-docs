@@ -35,7 +35,7 @@ Application command permissions have been updated to add more granular control a
 #### Breaking changes
 
 - Bearer tokens are now required to edit command permissions. Bearer tokens are tokens tied to an authenticating user's permissions, and can be [retrieved using OAuth](#DOCS_TOPICS_OAUTH2). The user must have permission to manage the guild and roles.
-- [`applications.commands.permissions.update`](#DOCS_TOPICS_OAUTH2/shared-resources-oauth2-scopes) scope was added as a requirement to edit command permissions.
+- [`applications.commands.permissions.update`](#DOCS_TOPICS_OAUTH2/oauth2-scopes) scope was added as a requirement to edit command permissions.
 - Disabled the batch editing endpoint ([`PUT /applications/{application.id}/guilds/{guild.id}/commands/permissions`](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/batch-edit-application-command-permissions)).
 
 #### Other changes

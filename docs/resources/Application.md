@@ -88,7 +88,7 @@
 
 ###### Install Params Structure
 
-| Field       | Type             | Description                                                                                                |
-| ----------- | ---------------- | ---------------------------------------------------------------------------------------------------------- |
-| scopes      | array of strings | the [scopes](#DOCS_TOPICS_OAUTH2/shared-resources-oauth2-scopes) to add the application to the server with |
-| permissions | string           | the [permissions](#DOCS_TOPICS_PERMISSIONS) to request for the bot role                                    |
+| Field       | Type             | Description                                                                               |
+| ----------- | ---------------- | ----------------------------------------------------------------------------------------- |
+| scopes      | array of strings | the [scopes](#DOCS_TOPICS_OAUTH2/oauth2-scopes) to add the application to the server with |
+| permissions | string           | the [permissions](#DOCS_TOPICS_PERMISSIONS) to request for the bot role                   |
