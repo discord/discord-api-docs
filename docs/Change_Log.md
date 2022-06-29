@@ -6,7 +6,7 @@
 
 #### Breaking Changes
 
-Starting **July 28, 2022**, the way a bot's [permissions](#DOCS_TOPICS_PERMISSIONS/permissions) are calculated when responding to interactions (like application commands or message components) will change. Going forward, **a bot’s permission will be calculated based on the permissions it was installed with and any permission overrides in the channel where the interaction occurred**.
+Starting **July 28, 2022**, the way a bot's [permissions](#DOCS_TOPICS_PERMISSIONS/permissions) are calculated when responding to interactions (like application commands or message components) will change. Going forward, a bot’s permission will be calculated based on the permissions it was installed with and any permission overrides in the channel where the interaction occurred.
 
 Previously, a bot’s permissions matched `@everyone` when responding to interactions, regardless of the permissions it was installed with.
 
@@ -20,13 +20,13 @@ This change only applies to bots. The permissions for an app without a bot will 
 
 #### Updating your app
 
-If your bot depends on any of the affected permissions (`ATTACH_FILES`, `EMBED_LINKS`, `MENTION_EVERYONE`, or `USE_EXTERNAL_EMOJIS`) when responding to interactions, ensure that the bot was installed with them. If it wasn’t, your app will need to be reauthenticated with the permissions it requires.
+If your bot depends on any of the affected permissions (`ATTACH_FILES`, `EMBED_LINKS`, `MENTION_EVERYONE`, or `USE_EXTERNAL_EMOJIS`) when responding to interactions, **ensure that the bot was installed with them**. If it wasn’t, your app will need to be reauthenticated with the permissions it requires.
 
 ## Calculated Permissions in Interaction Payloads
 
 #### Jun 29, 2022
 
-Interaction payloads now contain an `app_permissions` field whose value is the computed [permissions](#DOCS_TOPICS_PERMISSIONS/permissions-bitwise-permission-flags) for a bot or app in the context of a specific interaction (including any custom permissions for the origin channel). Similar to other permission fields, the value of `app_permissions` is a bitwise OR-ed set of permissions expressed as a string. Read details in the [interactions documentation](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object).
+Interaction payloads now contain an `app_permissions` field whose value is the computed [permissions](#DOCS_TOPICS_PERMISSIONS/permissions-bitwise-permission-flags) for a bot or app in the context of a specific interaction (including any channel overwrites). Similar to other permission fields, the value of `app_permissions` is a bitwise OR-ed set of permissions expressed as a string. Read details in the [interactions documentation](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object).
 
 For apps without a bot user (or without the `bot` scope), the value of `app_permissions` will be the same as the permissions for `@everyone`, but limited to the permissions that can be used in interaction responses (currently `ATTACH_FILES`, `EMBED_LINKS`, `MENTION_EVERYONE`, and `USE_EXTERNAL_EMOJIS`).
 
