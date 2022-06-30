@@ -46,21 +46,19 @@ Users can authorize these scopes using the normal OAuth2 process.
 
 ###### Guild Scopes
 
-Applications can be added to a guild with these scopes by members with the Manage Server permission.
+Applications can be added to a guild with these scopes by members with the Manage Server permission, creating an [integration](#DOCS_RESOURCES_GUILD/integration-object).
 
-| Name                                     | Description                                                                            |
-| ---------------------------------------- | -------------------------------------------------------------------------------------- |
-| applications.commands                    | allows your app to use [commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/) in a guild |
-| bot                                      | for oauth2 bots, this puts the bot in the user's selected guild by default             |
+| Name                                     | Description                                                                                         |
+| ---------------------------------------- | --------------------------------------------------------------------------------------------------- |
+| applications.commands                    | allows your app to use [commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/) in a guild              |
+| bot                                      | for oauth2 bots, this puts the bot in the user's selected guild by default                          |
+| webhook.incoming                         | this generates a webhook that is returned in the oauth token response for authorization code grants |
 
 ###### Other Scopes
-
-These scopes can be used to do other actions with Discord's OAuth2 system.
 
 | Name                                     | Description                                                                                                                                                                             |
 | ---------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | applications.commands.update             | allows your app to update its [commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/) using a Bearer token - [client credentials grant](#DOCS_TOPICS_OAUTH2/client-credentials-grant) only |
-| webhook.incoming                         | this generates a webhook that is returned in the oauth token response for authorization code grants                                                                                     |
 
 ###### Restricted User Scopes
 
