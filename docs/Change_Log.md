@@ -11,7 +11,7 @@ While this is a breaking change, most apps only rely on interaction responses (f
 
 #### Upcoming Changes
 
-Starting **July 18, 2022**, the `name` field for [message interaction objects](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/message-interaction-object) will now include subcommands and subcommand groups in the value (along with the existing top-level command).
+Starting **July 18, 2022**, the `name` field for [message interaction objects](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/message-interaction-object) will now include subcommands and subcommand groups in the value (along with the existing top-level command). In the future, we recommend not relying on this message interaction field.
 
 The format of the value will be the different command levels (if they exist), separated by spaces:
 `<command name> <subcommand group name> <subcommand name>`
@@ -19,6 +19,7 @@ The format of the value will be the different command levels (if they exist), se
 The `name` field is only seen on messages that are a response to an interaction without an existing message, so interaction objects for message components don’t include this field.
 
 #### Updating your app
+
 Most apps only rely on interaction responses, not message interaction objects.
 
 We don't recommend that your app relies on the `name` field for message interactions objects, but if it does you should update your app to handle subcommands and subcommand groups that your app may encounter.
