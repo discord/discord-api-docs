@@ -854,7 +854,7 @@ Sent when a rule is deleted. The inner payload is an [auto moderation rule](#DOC
 
 #### Auto Moderation Action Execution
 
-Sent when an rule is triggered and an action is executed (e.g. message is blocked).
+Sent when a rule is triggered and an action is executed (e.g. when a message is blocked).
 
 ###### Auto Moderation Action Execution Event Fields
 

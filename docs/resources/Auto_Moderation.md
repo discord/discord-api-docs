@@ -100,7 +100,7 @@ Indicates in what event context a rule should be checked.
 
 ###### Keyword Matching Strategies
 
-Use the `*` wildcard symbol at the beginning and end of a keyword to define how the keyword should be matched. All keywords are case insensitve.
+Use the wildcard symbol (`*`) at the beginning or end of a keyword to define how it should be matched. All keywords are case insensitive.
 
 **Prefix** - word must start with the keyword
 
@@ -129,7 +129,7 @@ Use the `*` wildcard symbol at the beginning and end of a keyword to define how 
 | \*the mat\* | brea**the mat**ter          |
 
 
-**Whole Word** - keyword is a full word or phrase and must be surrounded by whitespace at the beginning and end
+**Whole Word** - keyword is a full word or phrase and must be surrounded by whitespace
 
 | Keyword | Matches     |
 | ------- | ----------- |
@@ -159,12 +159,12 @@ An action which will execute whenever a rule is triggered.
 | SEND_ALERT_MESSAGE    | 2       | logs user content to a specified channel              |
 | TIMEOUT               | 3       | timeout user for a specified duration *               |
 
-\* A `TIMEOUT` action can only be setup for `KEYWORD` rules. `MODERATE_MEMBERS` permission is required to use the `TIMEOUT` action type.
+\* A `TIMEOUT` action can only be setup for `KEYWORD` rules. The `MODERATE_MEMBERS` permission is required to use the `TIMEOUT` action type.
 
 
 ###### Action Metadata
 
-Additional data used when an action is executed. Different fields are relevant based on
+Additional data used when an action is executed. Different fields are relevant based on the
 value of [action type](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-action-object-action-types).
 
 | Field            | Type       | Associated Action Types | Description                                    | 
@@ -182,24 +182,24 @@ Some [action types](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-action-objec
 
 ## List Auto Moderation Rules for Guild % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/auto-moderation/rules
 
-Get a list of all rules currently configured for guild. Returns a list of [auto moderation rule](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object) objects for the given guild.
+Get a list of all rules currently configured for the guild. Returns a list of [auto moderation rule](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object) objects for the given guild.
 
 > info
-> Requires `MANAGE_GUILD` [permissions](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-permission-requirements)
+> This endpoint requires the `MANAGE_GUILD` [permission](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-permission-requirements).
 
 ## Get Auto Moderation Rule % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/auto-moderation/rules/{auto_moderation_rule.id#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object}
 
 Get a single rule. Returns an [auto moderation rule](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object) object.
 
 > info
-> Requires `MANAGE_GUILD` [permissions](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-permission-requirements)
+> This endpoint requires the `MANAGE_GUILD` [permission](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-permission-requirements).
 
 ## Create Auto Moderation Rule % POST /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/auto-moderation/rules
 
 Create a new rule. Returns an [auto moderation rule](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object) on success.
 
 > info
-> Requires `MANAGE_GUILD` [permissions](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-permission-requirements)
+> This endpoint requires the `MANAGE_GUILD` [permission](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-permission-requirements).
 
 > info
 > This endpoint supports the `X-Audit-Log-Reason` header.
@@ -255,7 +255,7 @@ Modify an existing rule. Returns an [auto moderation rule](#DOCS_RESOURCES_AUTO_
 Delete a rule. Returns a `204` on success.
 
 > info
-> Requires `MANAGE_GUILD` [permissions](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-permission-requirements)
+> This endpoint requires the `MANAGE_GUILD` [permission](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-permission-requirements).
 
 > info
 > This endpoint supports the `X-Audit-Log-Reason` header.
