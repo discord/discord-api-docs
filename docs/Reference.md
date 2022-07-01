@@ -267,7 +267,7 @@ Discord utilizes a subset of markdown for rendering message content on its clien
 
 Using the markdown for either users, roles, or channels will usually mention the target(s) accordingly, but this can be suppressed using the `allowed_mentions` parameter when creating a message. Standard emoji are currently rendered using [Twemoji](https://twemoji.twitter.com/) for Desktop/Android and Apple's native emoji on iOS.
 
-Timestamps will display the given timestamp in the user's timezone and locale.
+Timestamps are expressed in seconds and display the given timestamp in the user's timezone and locale.
 
 \* User mentions with an exclamation mark are deprecated and should be handled like any other user mention.
 
