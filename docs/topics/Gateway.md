@@ -879,7 +879,6 @@ Sent when an rule is triggered and an action is executed (e.g. message is blocke
 
 \*\*\* `MESSAGE_CONTENT` (`1 << 15`) [gateway intent](#DOCS_TOPICS_GATEWAY/gateway-intents) is required to receive non-empty values for the `content` and `matched_content` fields
 
-
 ### Channels
 
 #### Channel Create
