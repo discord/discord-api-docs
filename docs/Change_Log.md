@@ -7,7 +7,7 @@
 
 #### July 1, 2022
 
-While this is a breaking change, most apps only rely on interaction responses (for events `INTERACTION_CREATE` and `MESSAGE_CREATE`), *not* message interaction objects. [Interaction responses](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/message-interaction-object/interaction-object-interaction-data) are unaffected by this change.
+While this is a breaking change, most apps only rely on interaction responses (`INTERACTION_CREATE`), *not* message interaction objects (`MESSAGE_CREATE`). [Interaction responses](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/message-interaction-object/interaction-object-interaction-data) are unaffected by this change.
 
 #### Upcoming Changes
 
