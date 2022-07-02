@@ -312,7 +312,9 @@ Represents a message sent in a channel within Discord.
 | THREAD_STARTER_MESSAGE                       | 21    | false     |
 | GUILD_INVITE_REMINDER                        | 22    | true      |
 | CONTEXT_MENU_COMMAND                         | 23    | true      |
-| AUTO_MODERATION_ACTION                       | 24    | true      |
+| AUTO_MODERATION_ACTION                       | 24    | true*     |
+
+\* Can only be deleted by members with `MANAGE_MESSAGES` permission
 
 ###### Message Activity Structure
 
