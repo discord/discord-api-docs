@@ -149,7 +149,7 @@ We're in the heart of a manifest now! `label` is the name you want to give an in
 // Imaginary directory structure:
 // C:\game\binary
 // C:\game\langs\en-US
-// C:\game\langes\fr
+// C:\game\langs\fr
 
 {
   "manifests": [

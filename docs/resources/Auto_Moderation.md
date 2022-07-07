@@ -109,7 +109,7 @@ Use the wildcard symbol (`*`) at the beginning or end of a keyword to define how
 | cat\*     | **cat**ch, **Cat**apult, **CAt**tLE   |
 | tra\*     | **tra**in, **tra**de, **TRA**ditional |
 | the mat\* | **the mat**rix                        |
- 
+
 
 **Suffix** - word must end with the keyword
 
