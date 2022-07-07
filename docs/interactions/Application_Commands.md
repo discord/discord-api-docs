@@ -464,9 +464,11 @@ When someone uses a slash command, your application will receive an interaction:
     "locale": "en-US",
     "data": {
         "options": [{
+            "type": 3,
             "name": "cardname",
             "value": "The Gitrog Monster"
         }],
+        "type": 1,
         "name": "cardsearch",
         "id": "771825006014889984"
     },
