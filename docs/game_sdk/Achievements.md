@@ -23,7 +23,7 @@ You can also mark achievements as `secret` and `secure`. "Secret" achievements w
 | application_id            | Int64                                                                 | Unique ID of the application                         |
 | name                      | string                                                                | Name of the achievement                              |
 | name_localizations        | ?dictionary with keys as [available locales](#DOCS_REFERENCE/locales) | Localization dictionary for the `name` field         |
-| description               | string                                                                | Description of the achievement                        |
+| description               | string                                                                | Description of the achievement                       |
 | description_localizations | ?dictionary with keys as [available locales](#DOCS_REFERENCE/locales) | Localization dictionary for the `description` field  |
 | secret                    | boolean                                                               | If the achievement is secret                         |
 | secure                    | boolean                                                               | If the achievement is secure                         |
