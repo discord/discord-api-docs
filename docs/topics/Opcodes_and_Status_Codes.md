@@ -199,6 +199,7 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 40032  | Target user is not connected to voice                                                                                         |
 | 40033  | This message has already been crossposted                                                                                     |
 | 40041  | An application command with that name already exists                                                                          |
+| 40043  | Application interaction failed to send                                                                                        |
 | 40060  | Interaction has already been acknowledged                                                                                     |
 | 40061  | Tag names must be unique                                                                                                      |
 | 50001  | Missing access                                                                                                                |
