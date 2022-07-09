@@ -652,12 +652,13 @@ Additionally, the combined sum of characters in all `title`, `description`, `fie
 | content_type? | string    | the attachment's [media type](https://en.wikipedia.org/wiki/Media_type)             |
 | size          | integer   | size of file in bytes                                                               |
 | url           | string    | source url of file                                                                  |
-| proxy_url     | string    | a proxied url of file                                                               |
+| proxy_url \*  | string    | a proxied url of file                                                               |
 | height?       | ?integer  | height of file (if image)                                                           |
 | width?        | ?integer  | width of file (if image)                                                            |
-| ephemeral? \* | boolean   | whether this attachment is ephemeral                                                |
+| ephemeral? \**| boolean   | whether this attachment is ephemeral                                                |
 
-\* Ephemeral attachments will automatically be removed after a set period of time. Ephemeral attachments on messages are guaranteed to be available as long as the message itself exists.
+\* The proxy url only supports attachments which have a defined `width` and `height`, such as images and videos. For all other attachments, the proxy returns a `415: Unsupported Media Type` error.
+\** Ephemeral attachments will automatically be removed after a set period of time. Ephemeral attachments on messages are guaranteed to be available as long as the message itself exists.
 
 ### Channel Mention Object
 
