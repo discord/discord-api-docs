@@ -76,7 +76,7 @@ value of [trigger_type](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-obj
 | presets        | array of [keyword preset types](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-keyword-preset-types) | KEYWORD_PRESET           | the internally pre-defined wordsets which will be searched for in content |
 | allow_list     | array of strings *                                                                                                | KEYWORD_PRESET           | substrings which will be exempt from triggering the preset trigger type   |
 
-\* A keyword or allowed-word can be a phrase which contains multiple words. Wildcard symbols can be used to customize how each string will be matched.
+\* A keyword can be a phrase which contains multiple words. Wildcard symbols can be used to customize how each keyword will be matched.
 See [keyword matching strategies](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-keyword-matching-strategies).
 
 
