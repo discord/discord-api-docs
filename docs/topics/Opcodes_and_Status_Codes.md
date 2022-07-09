@@ -178,6 +178,7 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 30019  | Maximum number of server members reached                                                                                      |
 | 30030  | Maximum number of server categories has been reached (5)                                                                      |
 | 30031  | Guild already has a template                                                                                                  |
+| 30032  | Maximum number of application commands reached                                                                                |
 | 30033  | Max number of thread participants has been reached (1000)                                                                     |
 | 30035  | Maximum number of bans for non-guild members have been exceeded                                                               |
 | 30037  | Maximum number of bans fetches has been reached                                                                               |
