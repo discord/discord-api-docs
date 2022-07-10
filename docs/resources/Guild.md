@@ -124,10 +124,11 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 | ANIMATED_ICON                    | guild has access to set an animated guild icon                                                                      |
 | AUTO_MODERATION                  | guild has set up auto moderation rules                                                                              |
 | BANNER                           | guild has access to set a guild banner image                                                                        |
-| COMMERCE                         | guild has access to use commerce features (i.e. create store channels)                                              |
 | COMMUNITY                        | guild can enable welcome screen, Membership Screening, stage channels and discovery, and receives community updates |
 | DISCOVERABLE                     | guild is able to be discovered in the directory                                                                     |
 | FEATURABLE                       | guild is able to be featured in the directory                                                                       |
+| HAS_DIRECTORY_ENTRY              | guild is listed in a [student hub](https://support.discord.com/hc/en-us/articles/4406046651927)                     |
+| HUB                              | guild is a [student hub](https://support.discord.com/hc/en-us/articles/4406046651927)                              |
 | INVITE_SPLASH                    | guild has access to set an invite splash background                                                                 |
 | MEMBER_VERIFICATION_GATE_ENABLED | guild has enabled [Membership Screening](#DOCS_RESOURCES_GUILD/membership-screening-object)                         |
 | MONETIZATION_ENABLED             | guild has enabled monetization                                                                                      |
