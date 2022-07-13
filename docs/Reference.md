@@ -253,24 +253,26 @@ Discord utilizes a subset of markdown for rendering message content on its clien
 
 ###### Formats
 
-| Type                    | Structure           | Example                       |
-| ----------------------- | ------------------- | ----------------------------- |
-| User                    | <@USER_ID>          | <@80351110224678912>          |
-| User \*                 | <@!USER_ID>         | <@!80351110224678912>         |
-| Channel                 | <#CHANNEL_ID>       | <#103735883630395392>         |
-| Role                    | <@&ROLE_ID>         | <@&165511591545143296>        |
-| Application Command     | </NAME:ID>          | </airhorn:816437322781949972> |
-| Standard Emoji          | Unicode Characters  | 💯                            |
-| Custom Emoji            | <:NAME:ID>          | <:mmLol:216154654256398347>   |
-| Custom Emoji (Animated) | <a:NAME:ID>         | <a:b1nzy:392938283556143104>  |
-| Unix Timestamp          | <t:TIMESTAMP>       | <t:1618953630>                |
-| Unix Timestamp (Styled) | <t:TIMESTAMP:STYLE> | <t:1618953630:d>              |
+| Type                     | Structure           | Example                       |
+| ------------------------ | ------------------- | ----------------------------- |
+| User                     | <@USER_ID>          | <@80351110224678912>          |
+| User \*                  | <@!USER_ID>         | <@!80351110224678912>         |
+| Channel                  | <#CHANNEL_ID>       | <#103735883630395392>         |
+| Role                     | <@&ROLE_ID>         | <@&165511591545143296>        |
+| Application Command \*\* | </NAME:ID>          | </airhorn:816437322781949972> |
+| Standard Emoji           | Unicode Characters  | 💯                            |
+| Custom Emoji             | <:NAME:ID>          | <:mmLol:216154654256398347>   |
+| Custom Emoji (Animated)  | <a:NAME:ID>         | <a:b1nzy:392938283556143104>  |
+| Unix Timestamp           | <t:TIMESTAMP>       | <t:1618953630>                |
+| Unix Timestamp (Styled)  | <t:TIMESTAMP:STYLE> | <t:1618953630:d>              |
 
 Using the markdown for either users, roles, or channels will usually mention the target(s) accordingly, but this can be suppressed using the `allowed_mentions` parameter when creating a message. Standard emoji are currently rendered using [Twemoji](https://twemoji.twitter.com/) for Desktop/Android and Apple's native emoji on iOS.
 
 Timestamps are expressed in seconds and display the given timestamp in the user's timezone and locale.
 
 \* User mentions with an exclamation mark are deprecated and should be handled like any other user mention.
+
+\*\* Subcommands and subcommand groups can also be mentioned by using respectively `</NAME SUBCOMMAND:ID>` and `</NAME SUBCOMMAND_GROUP SUBCOMMAND:ID>`.
 
 ###### Timestamp Styles
 
