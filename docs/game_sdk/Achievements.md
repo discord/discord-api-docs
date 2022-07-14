@@ -23,7 +23,7 @@ You can also mark achievements as `secret` and `secure`. "Secret" achievements w
 | application_id            | Int64                                                                 | Unique ID of the application                         |
 | name                      | string                                                                | Name of the achievement                              |
 | name_localizations        | ?dictionary with keys as [available locales](#DOCS_REFERENCE/locales) | Localization dictionary for the `name` field         |
-| description               | string                                                                | Description of the achievment                        |
+| description               | string                                                                | Description of the achievement                       |
 | description_localizations | ?dictionary with keys as [available locales](#DOCS_REFERENCE/locales) | Localization dictionary for the `description` field  |
 | secret                    | boolean                                                               | If the achievement is secret                         |
 | secure                    | boolean                                                               | If the achievement is secure                         |
@@ -360,7 +360,7 @@ Updates the UserAchievement record for a given user. Use this endpoint to update
 
 ## Get User Achievements % GET /users/@me/applications/{application.id#DOCS_GAME_SDK_SDK_STARTER_GUIDE/get-set-up}/achievements
 
-Returns a list of achievements for the user whose token you're making the request with. This endpoint will **NOT** accept the Bearer token for your application generated via the [Client Crendentials Grant](#DOCS_TOPICS_OAUTH2/client-credentials-grant). You will need the _user's_ bearer token, gotten via either the [Authorization Code OAuth2 Grant](#DOCS_TOPICS_OAUTH2/authorization-code-grant) or via the SDK with [GetOAuth2Token](#DOCS_GAME_SDK_APPLICATIONS/getoauth2token). This endpoint has a rate limit of 2 requests per 5 seconds per application per user.
+Returns a list of achievements for the user whose token you're making the request with. This endpoint will **NOT** accept the Bearer token for your application generated via the [Client Credentials Grant](#DOCS_TOPICS_OAUTH2/client-credentials-grant). You will need the _user's_ bearer token, gotten via either the [Authorization Code OAuth2 Grant](#DOCS_TOPICS_OAUTH2/authorization-code-grant) or via the SDK with [GetOAuth2Token](#DOCS_GAME_SDK_APPLICATIONS/getoauth2token). This endpoint has a rate limit of 2 requests per 5 seconds per application per user.
 
 > info
 > This endpoint will _not_ return any achievements marked as `secret` that the user has not yet completed.

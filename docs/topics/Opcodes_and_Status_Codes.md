@@ -178,6 +178,7 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 30019  | Maximum number of server members reached                                                                                      |
 | 30030  | Maximum number of server categories has been reached (5)                                                                      |
 | 30031  | Guild already has a template                                                                                                  |
+| 30032  | Maximum number of application commands reached                                                                                |
 | 30033  | Max number of thread participants has been reached (1000)                                                                     |
 | 30035  | Maximum number of bans for non-guild members have been exceeded                                                               |
 | 30037  | Maximum number of bans fetches has been reached                                                                               |
@@ -199,6 +200,7 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 40032  | Target user is not connected to voice                                                                                         |
 | 40033  | This message has already been crossposted                                                                                     |
 | 40041  | An application command with that name already exists                                                                          |
+| 40043  | Application interaction failed to send                                                                                        |
 | 40060  | Interaction has already been acknowledged                                                                                     |
 | 40061  | Tag names must be unique                                                                                                      |
 | 50001  | Missing access                                                                                                                |
@@ -248,7 +250,8 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 50097  | This server needs monetization enabled in order to perform this action                                                        |
 | 50101  | This server needs more boosts to perform this action                                                                          |
 | 50109  | The request body contains invalid JSON.                                                                                       |
-| 50132  | Ownership cannot be transferred to a bot user                                                                                       |
+| 50132  | Ownership cannot be transferred to a bot user                                                                                 |
+| 50146  | Uploaded file not found.                                                                                                      |
 | 50600  | You do not have permission to send this sticker.                                                                              |
 | 60003  | Two factor is required for this operation                                                                                     |
 | 80004  | No users with DiscordTag exist                                                                                                |
