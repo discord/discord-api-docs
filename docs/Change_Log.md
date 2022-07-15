@@ -9,8 +9,8 @@ On August 8th, 2022 we will begin requiring the `VIEW_CHANNEL (1 << 10)` permiss
 - [`GET /webhooks/{webhook.id}`](#DOCS_RESOURCES_WEBHOOK/get-webhook)
 - [`DELETE /webhooks/{webhook.id}`](#DOCS_RESOURCES_WEBHOOK/delete-webhook)
 - [`PATCH /webhooks/{webhook.id}`](#DOCS_RESOURCES_WEBHOOK/modify-webhook)
-- [`GET /channels/{channel.id}>/webhooks`](#DOCS_RESOURCES_WEBHOOK/get-channel-webhooks)
-- [`POST /channels/{channel.id}>/webhooks`](#DOCS_RESOURCES_WEBHOOK/create-webhook)
+- [`GET /channels/{channel.id}/webhooks`](#DOCS_RESOURCES_WEBHOOK/get-channel-webhooks)
+- [`POST /channels/{channel.id}/webhooks`](#DOCS_RESOURCES_WEBHOOK/create-webhook)
 
 ## Min and Max Length for Command Options
 
