@@ -78,6 +78,7 @@ There are other rules and restrictions not shared here for the sake of spam and 
 | 1 << 17 | VERIFIED_DEVELOPER       | Early Verified Bot Developer                                                                                                                   |
 | 1 << 18 | CERTIFIED_MODERATOR      | Discord Certified Moderator                                                                                                                    |
 | 1 << 19 | BOT_HTTP_INTERACTIONS    | Bot uses only [HTTP interactions](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/receiving-an-interaction) and is shown in the online member list |
+| 1 << 20 | LIKELY_SPAMMER           | User is likely a spammer                                                                                                                       |
 
 ###### Premium Types
 
