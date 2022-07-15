@@ -301,7 +301,7 @@ RPC is the [local Discord server](#DOCS_TOPICS_RPC/) running on localhost. Acces
 | 4007 | Invalid client ID                  | An invalid OAuth2 application ID was used to authorize or authenticate with.          |
 | 4008 | Invalid origin                     | An invalid OAuth2 application origin was used to authorize or authenticate with.      |
 | 4009 | Invalid token                      | An invalid OAuth2 token was used to authorize or authenticate with.                   |
-| 4010 | Invalid user                       | The specified user ID was invalid.                                                    |
+| 4010 | Invalid user                       | The specified user ID is invalid.                                                     |
 | 5000 | OAuth2 error                       | A standard OAuth2 error occurred; check the data object for the OAuth2 error details. |
 | 5001 | Select channel timed out           | An asynchronous `SELECT_TEXT_CHANNEL`/`SELECT_VOICE_CHANNEL` command timed out.       |
 | 5002 | `GET_GUILD` timed out              | An asynchronous `GET_GUILD` command timed out.                                        |
