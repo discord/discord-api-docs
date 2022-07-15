@@ -115,17 +115,19 @@ The connection object that the user has attached.
 | epicgames          | Epic Games          |
 | facebook           | Facebook            |
 | github             | GitHub              |
-| leagueoflegends    | League of Legends   |
+| leagueoflegends *  | League of Legends   |
 | playstation        | PlayStation Network |
 | reddit             | Reddit              |
-| samsunggalaxy      | Samsung Galaxy      |
+| samsunggalaxy *    | Samsung Galaxy      |
 | spotify            | Spotify             |
-| skype              | Skype               |
+| skype *            | Skype               |
 | steam              | Steam               |
 | twitch             | Twitch              |
 | twitter            | Twitter             |
 | xbox               | Xbox                |
 | youtube            | YouTube             |
+
+\* Service can no longer be added by users
 
 ###### Visibility Types
 
