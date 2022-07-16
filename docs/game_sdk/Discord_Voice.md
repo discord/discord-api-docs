@@ -181,7 +181,7 @@ if (voiceManager.IsSelfDeaf())
 
 ## SetSelfDeaf
 
-Deafens or undefeans the currently connected user.
+Deafens or undeafens the currently connected user.
 
 Returns `void`.
 

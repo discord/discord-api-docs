@@ -11,7 +11,7 @@ Rules can be configured to automatically execute actions whenever they trigger. 
 | Field            | Type                                                                                     | Description                                                                                               |
 | ---------------- | ---------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- |
 | id               | snowflake                                                                                | the id of this rule                                                                                       |
-| guild_id         | snowflake                                                                                | the guild which this rule belongs to                                                                      |
+| guild_id         | snowflake                                                                                | the id of the guild which this rule belongs to                                                            |
 | name             | string                                                                                   | the rule name                                                                                             |
 | creator_id       | snowflake                                                                                | the user which first created this rule                                                                    |
 | event_type       | integer                                                                                  | the rule [event type](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-event-types)            |
@@ -74,9 +74,9 @@ value of [trigger_type](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-obj
 | -------------- | ----------------------------------------------------------------------------------------------------------------- | ------------------------ | ------------------------------------------------------------------------- |
 | keyword_filter | array of strings *                                                                                                | KEYWORD                  | substrings which will be searched for in content                          |
 | presets        | array of [keyword preset types](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-keyword-preset-types) | KEYWORD_PRESET           | the internally pre-defined wordsets which will be searched for in content |
+| allow_list     | array of strings *                                                                                                | KEYWORD_PRESET           | substrings which will be exempt from triggering the preset trigger type   |
 
-
-\* A keyword can be a phrase which contains multiple words. Wildcard symbols can be used to customize how each keyword will be matched.
+\* A keyword can be a phrase which contains multiple words. Wildcard symbols (not available to allow lists) can be used to customize how each keyword will be matched.
 See [keyword matching strategies](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-keyword-matching-strategies).
 
 
@@ -100,7 +100,7 @@ Indicates in what event context a rule should be checked.
 
 ###### Keyword Matching Strategies
 
-Use the `*` wildcard symbol at the beginning and end of a keyword to define how the keyword should be matched. All keywords are case insensitve.
+Use the wildcard symbol (`*`) at the beginning or end of a keyword to define how it should be matched. All keywords are case insensitive.
 
 **Prefix** - word must start with the keyword
 
@@ -109,7 +109,7 @@ Use the `*` wildcard symbol at the beginning and end of a keyword to define how 
 | cat\*     | **cat**ch, **Cat**apult, **CAt**tLE   |
 | tra\*     | **tra**in, **tra**de, **TRA**ditional |
 | the mat\* | **the mat**rix                        |
- 
+
 
 **Suffix** - word must end with the keyword
 
@@ -129,7 +129,7 @@ Use the `*` wildcard symbol at the beginning and end of a keyword to define how 
 | \*the mat\* | brea**the mat**ter          |
 
 
-**Whole Word** - keyword is a full word or phrase and must be surrounded by whitespace at the beginning and end
+**Whole Word** - keyword is a full word or phrase and must be surrounded by whitespace
 
 | Keyword | Matches     |
 | ------- | ----------- |
@@ -159,12 +159,12 @@ An action which will execute whenever a rule is triggered.
 | SEND_ALERT_MESSAGE    | 2       | logs user content to a specified channel              |
 | TIMEOUT               | 3       | timeout user for a specified duration *               |
 
-\* A `TIMEOUT` action can only be setup for `KEYWORD` rules. `MODERATE_MEMBERS` permission is required to use the `TIMEOUT` action type.
+\* A `TIMEOUT` action can only be setup for `KEYWORD` rules. The `MODERATE_MEMBERS` permission is required to use the `TIMEOUT` action type.
 
 
 ###### Action Metadata
 
-Additional data used when an action is executed. Different fields are relevant based on
+Additional data used when an action is executed. Different fields are relevant based on the
 value of [action type](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-action-object-action-types).
 
 | Field            | Type       | Associated Action Types | Description                                    | 
@@ -182,37 +182,40 @@ Some [action types](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-action-objec
 
 ## List Auto Moderation Rules for Guild % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/auto-moderation/rules
 
-Get a list of all rules currently configured for guild. Returns a list of [auto moderation rule](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object) objects for the given guild.
+Get a list of all rules currently configured for the guild. Returns a list of [auto moderation rule](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object) objects for the given guild.
 
 > info
-> Requires `MANAGE_GUILD` [permissions](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-permission-requirements)
+> This endpoint requires the `MANAGE_GUILD` [permission](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-permission-requirements).
 
 ## Get Auto Moderation Rule % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/auto-moderation/rules/{auto_moderation_rule.id#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object}
 
 Get a single rule. Returns an [auto moderation rule](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object) object.
 
 > info
-> Requires `MANAGE_GUILD` [permissions](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-permission-requirements)
+> This endpoint requires the `MANAGE_GUILD` [permission](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-permission-requirements).
 
 ## Create Auto Moderation Rule % POST /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/auto-moderation/rules
 
 Create a new rule. Returns an [auto moderation rule](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object) on success.
 
 > info
-> Requires `MANAGE_GUILD` [permissions](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-permission-requirements)
+> This endpoint requires the `MANAGE_GUILD` [permission](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-permission-requirements).
+
+> info
+> This endpoint supports the `X-Audit-Log-Reason` header.
 
 ###### JSON Params
 
-| Field               | Type                                                                                     | Description                                                                                       |
-| ------------------- | ---------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- |
-| name                | string                                                                                   | the rule name                                                                                     |
-| event_type          | integer                                                                                  | the [event type](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-event-types)         |
-| trigger_type        | integer                                                                                  | the [trigger type](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-trigger-types)     |
-| trigger_metadata? * | object                                                                                   | the [trigger metadata](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-trigger-types) |
-| actions             | array of [action](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-action-object) objects | the actions which will execute when the rule is triggered                                         |
-| enabled?            | boolean                                                                                  | whether the rule is enabled (False by default)                                                    |
-| exempt_roles?       | array of snowflakes                                                                      | the role ids that should not be affected by the rule (Maximum of 20)                              |
-| exempt_channels?    | array of snowflakes                                                                      | the channel ids that should not be affected by the rule (Maximum of 50)                           |
+| Field               | Type                                                                                     | Description                                                                                          |
+| ------------------- | ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
+| name                | string                                                                                   | the rule name                                                                                        |
+| event_type          | integer                                                                                  | the [event type](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-event-types)            |
+| trigger_type        | integer                                                                                  | the [trigger type](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-trigger-types)        |
+| trigger_metadata? * | object                                                                                   | the [trigger metadata](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-trigger-metadata) |
+| actions             | array of [action](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-action-object) objects | the actions which will execute when the rule is triggered                                            |
+| enabled?            | boolean                                                                                  | whether the rule is enabled (False by default)                                                       |
+| exempt_roles?       | array of snowflakes                                                                      | the role ids that should not be affected by the rule (Maximum of 20)                                 |
+| exempt_channels?    | array of snowflakes                                                                      | the channel ids that should not be affected by the rule (Maximum of 50)                              |
 
 \* Can be omitted based on `trigger_type`. See the `Associated Trigger Types` column in [trigger metadata](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-trigger-metadata) to understand which `trigger_type` values require `trigger_metadata` to be set.
 
@@ -230,17 +233,20 @@ Modify an existing rule. Returns an [auto moderation rule](#DOCS_RESOURCES_AUTO_
 > info
 > All parameters for this endpoint are optional.
 
+> info
+> This endpoint supports the `X-Audit-Log-Reason` header.
+
 ###### JSON Params
 
-| Field               | Type                                                                                     | Description                                                                                       |
-| ----------------    | ---------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- |
-| name                | string                                                                                   | the rule name                                                                                     |
-| event_type          | integer                                                                                  | the [event type](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-event-types)         |
-| trigger_metadata? * | object                                                                                   | the [trigger metadata](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-trigger-types) |
-| actions             | array of [action](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-action-object) objects | the actions which will execute when the rule is triggered                                         |
-| enabled             | boolean                                                                                  | whether the rule is enabled                                                                       |
-| exempt_roles        | array of snowflakes                                                                      | the role ids that should not be affected by the rule (Maximum of 20)                              |
-| exempt_channels     | array of snowflakes                                                                      | the channel ids that should not be affected by the rule (Maximum of 50)                           |
+| Field               | Type                                                                                     | Description                                                                                          |
+| ------------------- | ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
+| name                | string                                                                                   | the rule name                                                                                        |
+| event_type          | integer                                                                                  | the [event type](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-event-types)            |
+| trigger_metadata? * | object                                                                                   | the [trigger metadata](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-trigger-metadata) |
+| actions             | array of [action](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-action-object) objects | the actions which will execute when the rule is triggered                                            |
+| enabled             | boolean                                                                                  | whether the rule is enabled                                                                          |
+| exempt_roles        | array of snowflakes                                                                      | the role ids that should not be affected by the rule (Maximum of 20)                                 |
+| exempt_channels     | array of snowflakes                                                                      | the channel ids that should not be affected by the rule (Maximum of 50)                              |
 
 \* Can be omitted based on `trigger_type`. See the `Associated Trigger Types` column in [trigger metadata](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-trigger-metadata) to understand which `trigger_type` values require `trigger_metadata` to be set.
 
@@ -249,4 +255,7 @@ Modify an existing rule. Returns an [auto moderation rule](#DOCS_RESOURCES_AUTO_
 Delete a rule. Returns a `204` on success.
 
 > info
-> Requires `MANAGE_GUILD` [permissions](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-permission-requirements)
+> This endpoint requires the `MANAGE_GUILD` [permission](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-permission-requirements).
+
+> info
+> This endpoint supports the `X-Audit-Log-Reason` header.

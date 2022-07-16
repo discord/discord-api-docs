@@ -854,7 +854,7 @@ Sent when a rule is deleted. The inner payload is an [auto moderation rule](#DOC
 
 #### Auto Moderation Action Execution
 
-Sent when an rule is triggered and an action is executed (e.g. message is blocked).
+Sent when a rule is triggered and an action is executed (e.g. when a message is blocked).
 
 ###### Auto Moderation Action Execution Event Fields
 
@@ -878,7 +878,6 @@ Sent when an rule is triggered and an action is executed (e.g. message is blocke
 \*\* `alert_system_message_id` will not exist if this event does not correspond to an action with type `SEND_ALERT_MESSAGE`
 
 \*\*\* `MESSAGE_CONTENT` (`1 << 15`) [gateway intent](#DOCS_TOPICS_GATEWAY/gateway-intents) is required to receive non-empty values for the `content` and `matched_content` fields
-
 
 ### Channels
 
@@ -978,7 +977,7 @@ The inner payload is a [guild](#DOCS_RESOURCES_GUILD/guild-object) object, with 
 | ---------------------- | ------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------- |
 | joined_at              | ISO8601 timestamp                                                                                            | when this guild was joined at                                                                                              |
 | large                  | boolean                                                                                                      | true if this is considered a large guild                                                                                   |
-| unavailable            | boolean                                                                                                      | true if this guild is unavailable due to an outage                                                                         |
+| unavailable?           | boolean                                                                                                      | true if this guild is unavailable due to an outage                                                                         |
 | member_count           | integer                                                                                                      | total number of members in this guild                                                                                      |
 | voice_states           | array of partial [voice state](#DOCS_RESOURCES_VOICE/voice-state-object) objects                             | states of members currently in voice channels; lacks the `guild_id` key                                                    |
 | members                | array of [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) objects                                   | users in the guild                                                                                                         |

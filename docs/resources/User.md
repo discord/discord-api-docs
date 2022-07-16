@@ -99,13 +99,35 @@ The connection object that the user has attached.
 | ------------- | ------- | ---------------------------------------------------------------------------------------- |
 | id            | string  | id of the connection account                                                             |
 | name          | string  | the username of the connection account                                                   |
-| type          | string  | the service of the connection (twitch, youtube)                                          |
+| type          | string  | the [service](#DOCS_RESOURCES_USER/connection-object-services) of this connection        |
 | revoked?      | boolean | whether the connection is revoked                                                        |
 | integrations? | array   | an array of partial [server integrations](#DOCS_RESOURCES_GUILD/integration-object)      |
 | verified      | boolean | whether the connection is verified                                                       |
 | friend_sync   | boolean | whether friend sync is enabled for this connection                                       |
 | show_activity | boolean | whether activities related to this connection will be shown in presence updates          |
 | visibility    | integer | [visibility](#DOCS_RESOURCES_USER/connection-object-visibility-types) of this connection |
+
+###### Services
+
+| Value              | Name                |
+| ------------------ | ------------------- |
+| battlenet          | Battle.net          |
+| epicgames          | Epic Games          |
+| facebook           | Facebook            |
+| github             | GitHub              |
+| leagueoflegends *  | League of Legends   |
+| playstation        | PlayStation Network |
+| reddit             | Reddit              |
+| samsunggalaxy *    | Samsung Galaxy      |
+| spotify            | Spotify             |
+| skype *            | Skype               |
+| steam              | Steam               |
+| twitch             | Twitch              |
+| twitter            | Twitter             |
+| xbox               | Xbox                |
+| youtube            | YouTube             |
+
+\* Service can no longer be added by users
 
 ###### Visibility Types
 
