@@ -19,7 +19,7 @@ The first step in implementing OAuth2 is [registering a developer application](#
 
 ##### OAuth2 Scopes
 
-These are a list of all the OAuth2 scopes that Discord supports. Some scopes require approval from Discord to use, and there is no public application process. Requesting them from a user without approval from Discord may cause errors or undocumented behavior in the OAuth2 flow.
+These are a list of all the OAuth2 scopes that Discord supports. Full access to restricted and private scopes is only granted to applications made by Discord and companies that Discord works with. There is no public application process for these scopes. Requesting them from a user without approval from Discord may cause errors or undocumented behavior in the OAuth2 flow.
 
 > info
 > `guilds.join` and `bot` require you to have a bot account linked to your application. Also, in order to add a user to a guild, your bot has to already belong to that guild.
@@ -28,21 +28,21 @@ These are a list of all the OAuth2 scopes that Discord supports. Some scopes req
 
 Users can authorize these scopes using the normal OAuth2 process.
 
-| Name                                     | Description                                                                                                                                           |
-| ---------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
-| applications.builds.read                 | allows your app to read build data for a user's applications                                                                                          |
-| applications.commands.permissions.update | allows your app to update [permissions for its commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/permissions) in a guild a user has permissions to    |
-| applications.entitlements                | allows your app to read entitlements for a user's applications                                                                                        |
-| applications.store.update                | allows your app to read and update store data (SKUs, store listings, achievements, etc.) for a user's applications                                    |
-| connections                              | allows [/users/@me/connections](#DOCS_RESOURCES_USER/get-user-connections) to return linked third-party accounts                                      |
-| email                                    | enables [/users/@me](#DOCS_RESOURCES_USER/get-current-user) to return an `email`                                                                      |
-| gdm.join                                 | allows your app to [join users to a group dm](#DOCS_RESOURCES_CHANNEL/group-dm-add-recipient)                                                         |
-| guilds                                   | allows [/users/@me/guilds](#DOCS_RESOURCES_USER/get-current-user-guilds) to return basic information about all of a user's guilds                     |
-| guilds.join                              | allows [/guilds/{guild.id}/members/{user.id}](#DOCS_RESOURCES_GUILD/add-guild-member) to be used for joining users to a guild                         |
-| guilds.members.read                      | allows [/users/@me/guilds/{guild.id}/member](#DOCS_RESOURCES_USER/get-current-user-guild-member) to return a user's member information in a guild     |
-| identify                                 | allows [/users/@me](#DOCS_RESOURCES_USER/get-current-user) without `email`                                                                            |
-| messages.read                            | for local rpc server api access, this allows you to read messages from all client channels (otherwise restricted to channels/guilds your app creates) |
-| rpc.notifications.read                   | for local rpc server access, this allows you to receive notifications pushed out to the user                                                          |
+| Name                                     | Description                                                                                                                                                                                     |
+| ---------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| applications.builds.read                 | allows your app to read build data for a user's applications                                                                                                                                    |
+| applications.commands.permissions.update | allows your app to update [permissions for its commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/permissions) in a guild a user has permissions to                                              |
+| applications.entitlements                | allows your app to read [entitlements](#DOCS_GAME_SDK_STORE/http-apis) for a user's applications                                                                                                |
+| applications.store.update                | allows your app to read and update store data ([SKUs](#DOCS_GAME_SDK_STORE/http-apis), store listings, [achievements](#DOCS_GAME_SDK_ACHIEVEMENTS/the-api-way), etc.) for a user's applications |
+| connections                              | allows [/users/@me/connections](#DOCS_RESOURCES_USER/get-user-connections) to return linked third-party accounts                                                                                |
+| email                                    | enables [/users/@me](#DOCS_RESOURCES_USER/get-current-user) to return an `email`                                                                                                                |
+| gdm.join                                 | allows your app to [join users to a group dm](#DOCS_RESOURCES_CHANNEL/group-dm-add-recipient)                                                                                                   |
+| guilds                                   | allows [/users/@me/guilds](#DOCS_RESOURCES_USER/get-current-user-guilds) to return basic information about all of a user's guilds                                                               |
+| guilds.join                              | allows [/guilds/{guild.id}/members/{user.id}](#DOCS_RESOURCES_GUILD/add-guild-member) to be used for joining users to a guild                                                                   |
+| guilds.members.read                      | allows [/users/@me/guilds/{guild.id}/member](#DOCS_RESOURCES_USER/get-current-user-guild-member) to return a user's member information in a guild                                               |
+| identify                                 | allows [/users/@me](#DOCS_RESOURCES_USER/get-current-user) without `email`                                                                                                                      |
+| messages.read                            | for local rpc server api access, this allows you to read messages from all client channels (otherwise restricted to channels/guilds your app creates)                                           |
+| rpc.notifications.read                   | for local rpc server access, this allows you to receive notifications pushed out to the user                                                                                                    |
 
 ###### Guild Scopes
 
