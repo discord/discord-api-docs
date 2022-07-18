@@ -35,8 +35,7 @@ Since threads are a new [type of channel](#DOCS_RESOURCES_CHANNEL/channel-object
 Additionally, there are a few new fields that are only available on threads:
 
 - `member_count` store an approximate member count, but it stop counting at 50 (these are only used in our UI, so likely are not valuable to bots)
-- `message_count` and `total_message_sent` store messages count in a thread. The difference is that the `message_count` decrement when there's message deleted, but `total_message_count` will not change in this case. They stop
-  counting at 100_000. (The UI shows "100k+", and then it will stop counting) Thread before July 1, 2022 caps at 50.
+- `message_count` and `total_message_sent` store the amount of messages in a thread. The difference is that when a message is deleted, `message_count` is decremented, but `total_message_count` will not be. (threads created before July 1, 2022 stops counting both value at 50).
 - `thread_metadata` contains a few thread specific fields, `archived`, `archive_timestamp`, `auto_archive_duration`, `locked`. `archive_timestamp` is changed when creating, archiving, or unarchiving a thread, and when changing the `auto_archive_duration` field.
 
 ## Public & Private Threads
