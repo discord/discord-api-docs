@@ -64,17 +64,19 @@ Characterizes the type of content which can trigger the rule.
 | HARMFUL_LINK         | 2       | check if content contains any harmful links                          | 1             |
 | SPAM                 | 3       | check if content represents generic spam                             | 1             |
 | KEYWORD_PRESET       | 4       | check if content contains words from internal pre-defined wordsets   | 1             |
+| MENTION_SPAM         | 5       | check if content contains words from internal pre-defined wordsets   | 1             |
 
 ###### Trigger Metadata
 
 Additional data used to determine whether a rule should be triggered. Different fields are relevant based on the
 value of [trigger_type](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-trigger-types).
 
-| Field          | Type                                                                                                              | Associated Trigger Types | Description                                                               | 
-| -------------- | ----------------------------------------------------------------------------------------------------------------- | ------------------------ | ------------------------------------------------------------------------- |
-| keyword_filter | array of strings *                                                                                                | KEYWORD                  | substrings which will be searched for in content                          |
-| presets        | array of [keyword preset types](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-keyword-preset-types) | KEYWORD_PRESET           | the internally pre-defined wordsets which will be searched for in content |
-| allow_list     | array of strings *                                                                                                | KEYWORD_PRESET           | substrings which will be exempt from triggering the preset trigger type   |
+| Field                 | Type                                                                                                              | Associated Trigger Types | Description                                                               | 
+| ----------------------| ----------------------------------------------------------------------------------------------------------------- | ------------------------ | ------------------------------------------------------------------------- |
+| keyword_filter        | array of strings *                                                                                                | KEYWORD                  | substrings which will be searched for in content                          |
+| presets               | array of [keyword preset types](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-keyword-preset-types) | KEYWORD_PRESET           | the internally pre-defined wordsets which will be searched for in content |
+| allow_list            | array of strings *                                                                                                | KEYWORD_PRESET           | substrings which will be exempt from triggering the preset trigger type   |
+| mention_total_limit   | int                                                                                                               | MENTION_SPAM             | total number of mentions (role & user) allowed per message (Maximum of 50)|
 
 \* A keyword can be a phrase which contains multiple words. Wildcard symbols (not available to allow lists) can be used to customize how each keyword will be matched.
 See [keyword matching strategies](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-keyword-matching-strategies).
