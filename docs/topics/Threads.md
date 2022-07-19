@@ -34,7 +34,8 @@ Since threads are a new [type of channel](#DOCS_RESOURCES_CHANNEL/channel-object
 
 Additionally, there are a few new fields that are only available on threads:
 
-- `message_count` and `member_count` store an approximate count, but they stop counting at 50 (these are only used in our UI, so likely are not valuable to bots)
+- `member_count` stores an approximate member count, but it stops counting at 50 (this is only used in our UI, so it is not valuable to bots)
+- `message_count` and `total_message_sent` store the number of messages in a thread. The difference is that when a message is deleted, `message_count` is decremented, but `total_message_sent` will not be. (threads created before July 1, 2022 stop counting both values at 50).
 - `thread_metadata` contains a few thread specific fields, `archived`, `archive_timestamp`, `auto_archive_duration`, `locked`. `archive_timestamp` is changed when creating, archiving, or unarchiving a thread, and when changing the `auto_archive_duration` field.
 
 ## Public & Private Threads
@@ -183,6 +184,7 @@ Listed below are some of the important details of forum channels and are safe to
 - The API to create a thread in a forum will create _both_ a thread and message in the same call, and as such requires passing in parameters for both the thread and message. The name and behavior of parameters is the same as they are for the existing create thread/message endpoints to simplify integrating with it.
 - The message created by that API call will have the same id as the thread.
 - The `last_message_id` field on the forum channel object tracks the id of the most recently created thread. It has the same behavior and requirements as it does for messages, namely that you will not receive a `CHANNEL_UPDATE` when it is changed. Instead clients should update the value when receiving [Thread Create](#DOCS_TOPICS_GATEWAY/thread-create).
+- The `message_count` and `total_message_sent` will increment on `MESSAGE_CREATE` and will decrement on `MESSAGE_DELETE`/`MESSAGE_DELETE_BULK`. There will be no `CHANNEL_UPDATE` event through gateway notifying those fields' changes (similar to `last_message_id` changes). Clients should update those values when receiving corresponding events.
 
 Listed below are things that are unlikely to change, but still might:
 

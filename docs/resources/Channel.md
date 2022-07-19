@@ -28,13 +28,14 @@ Represents a guild or DM channel within Discord.
 | last_pin_timestamp?            | ?ISO8601 timestamp                                                         | when the last pinned message was pinned. This may be `null` in events such as `GUILD_CREATE` when a message is not pinned.                                                                      |
 | rtc_region?                    | ?string                                                                    | [voice region](#DOCS_RESOURCES_VOICE/voice-region-object) id for the voice channel, automatic when set to null                                                                                  |
 | video_quality_mode?            | integer                                                                    | the camera [video quality mode](#DOCS_RESOURCES_CHANNEL/channel-object-video-quality-modes) of the voice channel, 1 when not present                                                            |
-| message_count?                 | integer                                                                    | an approximate count of messages in a thread, stops counting at 50                                                                                                                              |
-| member_count?                  | integer                                                                    | an approximate count of users in a thread, stops counting at 50                                                                                                                                 |
+| message_count?                 | integer                                                                    | number of messages (not including the initial message or deleted messages) in a thread (if the thread was created before July 1, 2022, it stops counting at 50)        |
+| member_count?                  | integer                                                                    | an approximate count of users in a thread, stops counting at 50                   |
 | thread_metadata?               | a [thread metadata](#DOCS_RESOURCES_CHANNEL/thread-metadata-object) object | thread-specific fields not needed by other channels                                                                                                                                             |
 | member?                        | a [thread member](#DOCS_RESOURCES_CHANNEL/thread-member-object) object     | thread member object for the current user, if they have joined the thread, only included on certain API endpoints                                                                               |
 | default_auto_archive_duration? | integer                                                                    | default duration that the clients (not the API) will use for newly created threads, in minutes, to automatically archive the thread after recent activity, can be set to: 60, 1440, 4320, 10080 |
 | permissions?                   | string                                                                     | computed permissions for the invoking user in the channel, including overwrites, only included when part of the `resolved` data received on a slash command interaction                         |
 | flags?                         | integer                                                                    | [channel flags](#DOCS_RESOURCES_CHANNEL/channel-object-channel-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field)                                                         |
+| total_message_sent?            | integer                                                                    | number of messages ever sent in a thread, it's similar to `message_count` on message creation, but will not decrement the number when a message is deleted            |
 
 \* `rate_limit_per_user` also applies to thread creation. Users can send one message and create one thread during each `rate_limit_per_user` interval.
 
@@ -219,7 +220,8 @@ The [threads](#DOCS_TOPICS_THREADS) topic has some more information.
     "auto_archive_duration": 1440,
     "archive_timestamp": "2021-04-12T23:40:39.855793+00:00",
     "locked": false
-  }
+  },
+  "total_message_sent": 1
 }
 ```
 
@@ -266,6 +268,7 @@ Represents a message sent in a channel within Discord.
 | components?               | Array of [message components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-object)                                              | sent if the message contains components like buttons, action rows, or other interactive components                                               |
 | sticker_items?            | array of [message sticker item objects](#DOCS_RESOURCES_STICKER/sticker-item-object)                                               | sent if the message contains stickers                                                                                                            |
 | stickers?                 | array of [sticker](#DOCS_RESOURCES_STICKER/sticker-object) objects                                                                 | **Deprecated** the stickers sent with the message                                                                                                |
+| position?                 | integer                                                                                                                            | A generally increasing integer (there may be gaps or duplicates) that represents the approximate position of the message in a thread, it can be used to estimate the relative position of the messsage in a thread in company with `total_message_sent` on parent thread                   |
 
 \* The author object follows the structure of the user object, but is only a valid user in the case where the message is generated by a user or bot user. If the message is generated by a webhook, the author object corresponds to the webhook's id, username, and avatar. You can tell if a message is generated by a webhook by checking for the `webhook_id` on the message object.
 
@@ -888,7 +891,7 @@ Files must be attached using a `multipart/form-data` body as described in [Uploa
 ###### JSON/Form Params
 
 > info
-> When creating a message, apps must provide a value for **at least one of** `content`, `embeds`, `sticker_ids`, or `files[n]`. 
+> When creating a message, apps must provide a value for **at least one of** `content`, `embeds`, `sticker_ids`, or `files[n]`.
 
 | Field                 | Type                                                                                              | Description                                                                                                                                                                 |
 | --------------------- | ------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -1184,7 +1187,7 @@ Creates a new thread in a forum channel, and sends a message within the created 
 ###### Forum Thread Message Params Object
 
 > info
-> When sending a message, apps must provide a value for **at least one of** `content`, `embeds`, `files[n]`, or `sticker_ids`. 
+> When sending a message, apps must provide a value for **at least one of** `content`, `embeds`, `files[n]`, or `sticker_ids`.
 
 | Field                 | Type                                                                                         | Description                                                                                                                                                                 |
 | --------------------- | -------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
