@@ -64,7 +64,7 @@ Characterizes the type of content which can trigger the rule.
 | HARMFUL_LINK         | 2       | check if content contains any harmful links                          | 1             |
 | SPAM                 | 3       | check if content represents generic spam                             | 1             |
 | KEYWORD_PRESET       | 4       | check if content contains words from internal pre-defined wordsets   | 1             |
-| MENTION_SPAM         | 5       | check if content contains words from internal pre-defined wordsets   | 1             |
+| MENTION_SPAM         | 5       | check if content contains more mentions than allowed                 | 1             |
 
 ###### Trigger Metadata
 
