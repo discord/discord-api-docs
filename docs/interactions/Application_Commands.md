@@ -1055,7 +1055,7 @@ Fetch all of the global commands for your application. Returns an array of [appl
 > danger
 > Creating a command with the same name as an existing command for your application will overwrite the old command.
 
-Create a new global command. Returns `201` and an [application command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object) object.
+Create a new global command. Returns `201` if the command does not already exist, a `200` if it does, and an [application command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object) object.
 
 ###### JSON Params
 
@@ -1124,7 +1124,7 @@ Fetch all of the guild commands for your application for a specific guild. Retur
 > danger
 > Creating a command with the same name as an existing command for your application will overwrite the old command.
 
-Create a new guild command. New guild commands will be available in the guild immediately. Returns `201` and an [application command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object) object. If the command did not already exist, it will count toward daily application command create limits.
+Create a new guild command. New guild commands will be available in the guild immediately. Returns `201` if the command does not already exist, a `200` if it does, and an [application command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object) object. If the command did not already exist, it will count toward daily application command create limits.
 
 ###### JSON Params
 
