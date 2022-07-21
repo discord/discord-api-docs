@@ -99,6 +99,15 @@ Starting in API v8, we've improved error formatting in form error responses. The
 }
 ```
 
+###### API Error
+
+```json
+{
+    "message": "Missing Access",
+    "code": 50001
+}
+```
+
 ## Authentication
 
 Authenticating with the Discord API can be done in one of two ways:
