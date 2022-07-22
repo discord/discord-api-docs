@@ -140,7 +140,7 @@ If no object is noted, there won't be a `changes` array in the entry, though oth
 | members_removed    | string    | Number of members removed by the prune                           | MEMBER_PRUNE                                                                                                                       |
 | message_id         | snowflake | ID of the message that was targeted                              | MESSAGE_PIN & MESSAGE_UNPIN                                                                                                        |
 | role_name          | string    | Name of the role if type is `"0"` (not present if type is `"1"`) | CHANNEL_OVERWRITE_CREATE & CHANNEL_OVERWRITE_UPDATE & CHANNEL_OVERWRITE_DELETE                                                     |
-| type               | string    | Type of overwritten entity - role (`"0"`) or member (`"1"`)      | CHANNEL_OVERWRITE_CREATE & CHANNEL_OVERWRITE_UPDATE & CHANNEL_OVERWRITE_DELETE                                                     |
+| type               | string    | [Type of overwritten entity](#DOCS_RESOURCES_CHANNEL/overwrite-object-overwrite-type)      | CHANNEL_OVERWRITE_CREATE & CHANNEL_OVERWRITE_UPDATE & CHANNEL_OVERWRITE_DELETE                                                     |
 
 ### Audit Log Change Object
 

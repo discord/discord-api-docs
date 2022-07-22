@@ -494,12 +494,19 @@ See [permissions](#DOCS_TOPICS_PERMISSIONS/permissions) for more information abo
 
 ###### Overwrite Structure
 
-| Field | Type      | Description                   |
-|-------|-----------|-------------------------------|
-| id    | snowflake | role or user id               |
-| type  | int       | either 0 (role) or 1 (member) |
-| allow | string    | permission bit set            |
-| deny  | string    | permission bit set            |
+| Field | Type      | Description                      |
+|-------|-----------|----------------------------------|
+| id    | snowflake | id of the specified target       |
+| type  | number    | The [type of target](#DOCS_RESOURCES_CHANNEL/overwrite-object-overwrite-type) to apply the overwrite for |
+| allow | string    | permission bit set to allow (✔️) |
+| deny  | string    | permission bit set to deny (❌)  |
+
+###### Overwrite Type
+
+| Field  | Value | Descrition                                                                       |
+| ------ | ----- | -------------------------------------------------------------------------------- |
+| role   | 0     | overwrite for a [role](#DOCS_TOPICS_PERMISSIONS/role-object)                     |
+| member | 1     | overwrite for a [guild member object](#DOCS_RESOURCES_GUILD/guild-member-object) |
 
 ### Thread Metadata Object
 
