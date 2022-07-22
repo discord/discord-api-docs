@@ -938,7 +938,7 @@ Used by hardware manufacturers to send information about the current state of th
 
 ###### Device Type
 
-| Type         | Value         |
+| Name         | Value         |
 | ------------ | ------------- |
 | AUDIO_INPUT  | "audioinput"  |
 | AUDIO_OUTPUT | "audiooutput" |

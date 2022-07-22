@@ -26,14 +26,14 @@ Incidentally the client will always use a name generated from an emoji as the va
 
 ###### Sticker Types
 
-| Type     | Value | Description                                                                   |
+| Name     | Value | Description                                                                   |
 | -------- | ----- | ----------------------------------------------------------------------------- |
 | STANDARD | 1     | an official sticker in a pack, part of Nitro or in a removed purchasable pack |
 | GUILD    | 2     | a sticker uploaded to a guild for the guild's members                         |
 
 ###### Sticker Format Types
 
-| Type   | Value |
+| Name   | Value |
 | ------ | ----- |
 | PNG    | 1     |
 | APNG   | 2     |

@@ -18,7 +18,7 @@ A _Stage Instance_ holds information about a live stage.
 
 ###### Privacy Level
 
-| Level      | Value | Description                                                         |
+| Name       | Value | Description                                                         |
 | ---------- | ----- | ------------------------------------------------------------------- |
 | PUBLIC     | 1     | The Stage instance is visible publicly. (deprecated)                |
 | GUILD_ONLY | 2     | The Stage instance is visible to only guild members.                |

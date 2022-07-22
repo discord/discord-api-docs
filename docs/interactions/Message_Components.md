@@ -14,12 +14,12 @@ The top-level `components` field is an array of [Action Row](#DOCS_INTERACTIONS_
 
 ###### Component Types
 
-| Type | Name        | Description                            |
-| ---- | ----------- | -------------------------------------- |
-| 1    | Action Row  | A container for other components       |
-| 2    | Button      | A button object                        |
-| 3    | Select Menu | A select menu for picking from choices |
-| 4    | Text Input  | A text input object                    |
+| Name        | Value | Description                            |
+| ----------- | ----- | -------------------------------------- |
+| Action Row  | 1     | A container for other components       |
+| Button      | 2     | A button object                        |
+| Select Menu | 3     | A select menu for picking from choices |
+| Text Input  | 4     | A text input object                    |
 
 The structure of each component type is described in detail below.
 
@@ -104,13 +104,13 @@ Buttons come in a variety of styles to convey different types of actions. These 
 
 ###### Button Styles
 
-| Name      | Value | Color                    | Required Field |
-| --------- | ----- | ------------------------ | -------------- |
-| Primary   | 1     | blurple                  | `custom_id`    |
-| Secondary | 2     | grey                     | `custom_id`    |
-| Success   | 3     | green                    | `custom_id`    |
-| Danger    | 4     | red                      | `custom_id`    |
-| Link      | 5     | grey, navigates to a URL | `url`          |
+| Name      | Value | Description                                       |
+| --------- | ----- | ------------------------------------------------- |
+| Primary   | 1     | Color `blurple`. Requires `custom_id`             |
+| Secondary | 2     | Color `grey`. Requires `custom_id`                |
+| Success   | 3     | Color `green`. Requires `custom_id`               |
+| Danger    | 4     | Color `red`. Requires `custom_id`                 |
+| Link      | 5     | Color `grey`, navigates to a URL. Requires `url`  |
 
 ![An image showing the different button styles](button-styles.png)
 

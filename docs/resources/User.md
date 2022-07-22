@@ -24,23 +24,23 @@ There are other rules and restrictions not shared here for the sake of spam and 
 
 ###### User Structure
 
-| Field         | Type      | Description                                                                                          | Required OAuth2 Scope |
-| ------------- | --------- | ---------------------------------------------------------------------------------------------------- | --------------------- |
-| id            | snowflake | the user's id                                                                                        | identify              |
-| username      | string    | the user's username, not unique across the platform                                                  | identify              |
-| discriminator | string    | the user's 4-digit discord-tag                                                                       | identify              |
-| avatar        | ?string   | the user's [avatar hash](#DOCS_REFERENCE/image-formatting)                                           | identify              |
-| bot?          | boolean   | whether the user belongs to an OAuth2 application                                                    | identify              |
-| system?       | boolean   | whether the user is an Official Discord System user (part of the urgent message system)              | identify              |
-| mfa_enabled?  | boolean   | whether the user has two factor enabled on their account                                             | identify              |
-| banner?       | ?string   | the user's [banner hash](#DOCS_REFERENCE/image-formatting)                                           | identify              |
-| accent_color? | ?integer  | the user's banner color encoded as an integer representation of hexadecimal color code               | identify              |
-| locale?       | string    | the user's chosen [language option](#DOCS_REFERENCE/locales)                                         | identify              |
-| verified?     | boolean   | whether the email on this account has been verified                                                  | email                 |
-| email?        | ?string   | the user's email                                                                                     | email                 |
-| flags?        | integer   | the [flags](#DOCS_RESOURCES_USER/user-object-user-flags) on a user's account                         | identify              |
-| premium_type? | integer   | the [type of Nitro subscription](#DOCS_RESOURCES_USER/user-object-premium-types) on a user's account | identify              |
-| public_flags? | integer   | the public [flags](#DOCS_RESOURCES_USER/user-object-user-flags) on a user's account                  | identify              |
+| Field         | Type      | Description                                                                                                                       |
+| ------------- | --------- | --------------------------------------------------------------------------------------------------------------------------------- |
+| id            | snowflake | the user's id. Requires `identify` scope                                                                                          |
+| username      | string    | the user's username, not unique across the platform. Requires `identify` scope                                                    |
+| discriminator | string    | the user's 4-digit discord-tag. Requires `identify` scope                                                                         |
+| avatar        | ?string   | the user's [avatar hash](#DOCS_REFERENCE/image-formatting). Requires `identify` scope                                             |
+| bot?          | boolean   | whether the user belongs to an OAuth2 application. Requires `identify` scope                                                      |
+| system?       | boolean   | whether the user is an Official Discord System user (part of the urgent message system). Requires `identify` scope                |
+| mfa_enabled?  | boolean   | whether the user has two factor enabled on their account. Requires `identify` scope                                               |
+| banner?       | ?string   | the user's [banner hash](#DOCS_REFERENCE/image-formatting). Requires `identify` scope                                             |
+| accent_color? | ?integer  | the user's banner color encoded as an integer representation of hexadecimal color code. Requires `identify` scope                 |
+| locale?       | string    | the user's chosen [language option](#DOCS_REFERENCE/locales). Requires `identify` scope                                           |
+| verified?     | boolean   | whether the email on this account has been verified. Requires `email` scope                                                       |
+| email?        | ?string   | the user's email. Requires `email` scope                                                                                          |
+| flags?        | integer   | the [flags](#DOCS_RESOURCES_USER/user-object-user-flags) on a user's account. Requires `identify` scope                           |
+| premium_type? | integer   | the [type of Nitro subscription](#DOCS_RESOURCES_USER/user-object-premium-types) on a user's account. Requires `identify` scope   |
+| public_flags? | integer   | the public [flags](#DOCS_RESOURCES_USER/user-object-user-flags) on a user's account. Requires `identify` scope                    |
 
 ###### Example User
 
@@ -62,32 +62,32 @@ There are other rules and restrictions not shared here for the sake of spam and 
 
 ###### User Flags
 
-| Value   | Name                     | Description                                                                                                                                    |
-| ------- | ------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------- |
-| 1 << 0  | STAFF                    | Discord Employee                                                                                                                               |
-| 1 << 1  | PARTNER                  | Partnered Server Owner                                                                                                                         |
-| 1 << 2  | HYPESQUAD                | HypeSquad Events Member                                                                                                                        |
-| 1 << 3  | BUG_HUNTER_LEVEL_1       | Bug Hunter Level 1                                                                                                                             |
-| 1 << 6  | HYPESQUAD_ONLINE_HOUSE_1 | House Bravery Member                                                                                                                           |
-| 1 << 7  | HYPESQUAD_ONLINE_HOUSE_2 | House Brilliance Member                                                                                                                        |
-| 1 << 8  | HYPESQUAD_ONLINE_HOUSE_3 | House Balance Member                                                                                                                           |
-| 1 << 9  | PREMIUM_EARLY_SUPPORTER  | Early Nitro Supporter                                                                                                                          |
-| 1 << 10 | TEAM_PSEUDO_USER         | User is a [team](#DOCS_TOPICS_TEAMS/)                                                                                                          |
-| 1 << 14 | BUG_HUNTER_LEVEL_2       | Bug Hunter Level 2                                                                                                                             |
-| 1 << 16 | VERIFIED_BOT             | Verified Bot                                                                                                                                   |
-| 1 << 17 | VERIFIED_DEVELOPER       | Early Verified Bot Developer                                                                                                                   |
-| 1 << 18 | CERTIFIED_MODERATOR      | Discord Certified Moderator                                                                                                                    |
-| 1 << 19 | BOT_HTTP_INTERACTIONS    | Bot uses only [HTTP interactions](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/receiving-an-interaction) and is shown in the online member list |
+| Name                     | Value   | Description                                                                                                                                    |
+| ------------------------ | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| STAFF                    | 1 << 0  | Discord Employee                                                                                                                               |
+| PARTNER                  | 1 << 1  | Partnered Server Owner                                                                                                                         |
+| HYPESQUAD                | 1 << 2  | HypeSquad Events Member                                                                                                                        |
+| BUG_HUNTER_LEVEL_1       | 1 << 3  | Bug Hunter Level 1                                                                                                                             |
+| HYPESQUAD_ONLINE_HOUSE_1 | 1 << 6  | House Bravery Member                                                                                                                           |
+| HYPESQUAD_ONLINE_HOUSE_2 | 1 << 7  | House Brilliance Member                                                                                                                        |
+| HYPESQUAD_ONLINE_HOUSE_3 | 1 << 8  | House Balance Member                                                                                                                           |
+| PREMIUM_EARLY_SUPPORTER  | 1 << 9  | Early Nitro Supporter                                                                                                                          |
+| TEAM_PSEUDO_USER         | 1 << 10 | User is a [team](#DOCS_TOPICS_TEAMS/)                                                                                                          |
+| BUG_HUNTER_LEVEL_2       | 1 << 14 | Bug Hunter Level 2                                                                                                                             |
+| VERIFIED_BOT             | 1 << 16 | Verified Bot                                                                                                                                   |
+| VERIFIED_DEVELOPER       | 1 << 17 | Early Verified Bot Developer                                                                                                                   |
+| CERTIFIED_MODERATOR      | 1 << 18 | Discord Certified Moderator                                                                                                                    |
+| BOT_HTTP_INTERACTIONS    | 1 << 19 | Bot uses only [HTTP interactions](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/receiving-an-interaction) and is shown in the online member list |
 
 ###### Premium Types
 
 Premium types denote the level of premium a user has. Visit the [Nitro](https://discord.com/nitro) page to learn more about the premium plans we currently offer.
 
-| Value | Name          |
-| ----- | ------------- |
-| 0     | None          |
-| 1     | Nitro Classic |
-| 2     | Nitro         |
+| Name          | Value |
+| ------------- | ----- |
+| None          | 0     |
+| Nitro Classic | 1     |
+| Nitro         | 2     |
 
 ### Connection Object
 
@@ -109,32 +109,32 @@ The connection object that the user has attached.
 
 ###### Services
 
-| Value              | Name                |
-| ------------------ | ------------------- |
-| battlenet          | Battle.net          |
-| epicgames          | Epic Games          |
-| facebook           | Facebook            |
-| github             | GitHub              |
-| leagueoflegends *  | League of Legends   |
-| playstation        | PlayStation Network |
-| reddit             | Reddit              |
-| samsunggalaxy *    | Samsung Galaxy      |
-| spotify            | Spotify             |
-| skype *            | Skype               |
-| steam              | Steam               |
-| twitch             | Twitch              |
-| twitter            | Twitter             |
-| xbox               | Xbox                |
-| youtube            | YouTube             |
+| Name                | Value              |
+| ------------------- | ------------------ |
+| Battle.net          | battlenet          |
+| Epic Games          | epicgames          |
+| Facebook            | facebook           |
+| GitHub              | github             |
+| League of Legends   | leagueoflegends *  |
+| PlayStation Network | playstation        |
+| Reddit              | reddit             |
+| Samsung Galaxy      | samsunggalaxy *    |
+| Spotify             | spotify            |
+| Skype               | skype *            |
+| Steam               | steam              |
+| Twitch              | twitch             |
+| Twitter             | twitter            |
+| Xbox                | xbox               |
+| YouTube             | youtube            |
 
 \* Service can no longer be added by users
 
 ###### Visibility Types
 
-| Value | Name     | Description                                      |
-| ----- | -------- | ------------------------------------------------ |
-| 0     | None     | invisible to everyone except the user themselves |
-| 1     | Everyone | visible to everyone                              |
+| Name     | Value | Description                                      |
+| -------- | ----- | ------------------------------------------------ |
+| None     | 0     | invisible to everyone except the user themselves |
+| Everyone | 1     | visible to everyone                              |
 
 ## Get Current User % GET /users/@me
 
@@ -180,11 +180,11 @@ Returns a list of partial [guild](#DOCS_RESOURCES_GUILD/guild-object) objects th
 
 ###### Query String Params
 
-| Field  | Type      | Description                            | Required | Default |
-| ------ | --------- | -------------------------------------- | -------- | ------- |
-| before | snowflake | get guilds before this guild ID        | false    | absent  |
-| after  | snowflake | get guilds after this guild ID         | false    | absent  |
-| limit  | integer   | max number of guilds to return (1-200) | false    | 200     |
+| Field   | Type      | Description                                               |
+| ------- | --------- | --------------------------------------------------------- |
+| before? | snowflake | get guilds before this guild ID                           |
+| after?  | snowflake | get guilds after this guild ID                            |
+| limit?  | integer   | max number of guilds to return (1-200). defaults to `200` |
 
 ## Get Current User Guild Member % GET /users/@me/guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/member
 

@@ -193,7 +193,7 @@ The socket will respond with a `200 OK` status code and the following JSON.
 
 ###### Device Type
 
-| Type         | Value         |
+| Name         | Value         |
 | ------------ | ------------- |
 | AUDIO_INPUT  | "audioinput"  |
 | AUDIO_OUTPUT | "audiooutput" |

@@ -23,7 +23,7 @@ Represents a code that when used, adds a user to a guild or group DM channel.
 
 ###### Invite Target Types
 
-| Type                 | Value |
+| Name                 | Value |
 |----------------------|-------|
 | STREAM               | 1     |
 | EMBEDDED_APPLICATION | 2     |

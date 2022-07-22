@@ -558,15 +558,15 @@ Used to trigger the initial handshake with the gateway.
 
 ###### Identify Structure
 
-| Field            | Type                                                           | Description                                                                                                                    | Default |
-| ---------------- | -------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ | ------- |
-| token            | string                                                         | authentication token                                                                                                           | -       |
-| properties       | object                                                         | [connection properties](#DOCS_TOPICS_GATEWAY/identify-identify-connection-properties)                                          | -       |
-| compress?        | boolean                                                        | whether this connection supports compression of packets                                                                        | false   |
-| large_threshold? | integer                                                        | value between 50 and 250, total number of members where the gateway will stop sending offline members in the guild member list | 50      |
-| shard?           | array of two integers (shard_id, num_shards)                   | used for [Guild Sharding](#DOCS_TOPICS_GATEWAY/sharding)                                                                       | -       |
-| presence?        | [update presence](#DOCS_TOPICS_GATEWAY/update-presence) object | presence structure for initial presence information                                                                            | -       |
-| intents          | integer                                                        | the [Gateway Intents](#DOCS_TOPICS_GATEWAY/gateway-intents) you wish to receive                                                | -       |
+| Field            | Type                                                           | Description                                                                                                                                      |
+| ---------------- | -------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------         |
+| token            | string                                                         | authentication token                                                                                                                             |
+| properties       | object                                                         | [connection properties](#DOCS_TOPICS_GATEWAY/identify-identify-connection-properties)                                                            |
+| compress?        | boolean                                                        | whether this connection supports compression of packets. defaults to `false`                                                                     |
+| large_threshold? | integer                                                        | value between 50 and 250, total number of members where the gateway will stop sending offline members in the guild member list. defaults to `50` |
+| shard?           | array of two integers (shard_id, num_shards)                   | used for [Guild Sharding](#DOCS_TOPICS_GATEWAY/sharding)                                                                                         |
+| presence?        | [update presence](#DOCS_TOPICS_GATEWAY/update-presence) object | presence structure for initial presence information                                                                                              |
+| intents          | integer                                                        | the [Gateway Intents](#DOCS_TOPICS_GATEWAY/gateway-intents) you wish to receive                                                                  |
 
 ###### Identify Connection Properties
 
@@ -662,14 +662,14 @@ Due to our privacy and infrastructural concerns with this feature, there are som
 
 ###### Guild Request Members Structure
 
-| Field      | Type                             | Description                                                                                                                           | Required                   |
-| ---------- | -------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- | -------------------------- |
-| guild_id   | snowflake                        | id of the guild to get members for                                                                                                    | true                       |
-| query?     | string                           | string that username starts with, or an empty string to return all members                                                            | one of query or user_ids   |
-| limit      | integer                          | maximum number of members to send matching the `query`; a limit of `0` can be used with an empty string `query` to return all members | true when specifying query |
-| presences? | boolean                          | used to specify if we want the presences of the matched members                                                                       | false                      |
-| user_ids?  | snowflake or array of snowflakes | used to specify which users you wish to fetch                                                                                         | one of query or user_ids   |
-| nonce?     | string                           | nonce to identify the [Guild Members Chunk](#DOCS_TOPICS_GATEWAY/guild-members-chunk) response                                        | false                      |
+| Field      | Type                             | Description                                                                                                                                                              |
+| ---------- | -------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| guild_id   | snowflake                        | id of the guild to get members for                                                                                                                                       |
+| query?     | string                           | string that username starts with, or an empty string to return all members (requires one of query or user_ids)                                                           |
+| limit      | integer                          | maximum number of members to send matching the `query`; a limit of `0` can be used with an empty string `query` to return all members (required when specifying `query`) |
+| presences? | boolean                          | used to specify if we want the presences of the matched members                                                                                                          |
+| user_ids?  | snowflake or array of snowflakes | used to specify which users you wish to fetch (requires one of query or user_ids)                                                                                        |
+| nonce?     | string                           | nonce to identify the [Guild Members Chunk](#DOCS_TOPICS_GATEWAY/guild-members-chunk) response                                                                           |
 
 > info
 > Nonce can only be up to 32 bytes. If you send an invalid nonce it will be ignored and the reply member_chunk(s) will not have a nonce set.

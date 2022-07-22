@@ -44,33 +44,33 @@ Represents a guild or DM channel within Discord.
 > warn
 > Type 10, 11 and 12 are only available in API v9 and above.
 
-| Type                    | ID  | Description                                                                                                                                          |
-| ----------------------- | --- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
-| GUILD_TEXT              | 0   | a text channel within a server                                                                                                                       |
-| DM                      | 1   | a direct message between users                                                                                                                       |
-| GUILD_VOICE             | 2   | a voice channel within a server                                                                                                                      |
-| GROUP_DM                | 3   | a direct message between multiple users                                                                                                              |
-| GUILD_CATEGORY          | 4   | an [organizational category](https://support.discord.com/hc/en-us/articles/115001580171-Channel-Categories-101) that contains up to 50 channels      |
-| GUILD_NEWS              | 5   | a channel that [users can follow and crosspost into their own server](https://support.discord.com/hc/en-us/articles/360032008192)                    |
-| GUILD_NEWS_THREAD       | 10  | a temporary sub-channel within a GUILD_NEWS channel                                                                                                  |
-| GUILD_PUBLIC_THREAD     | 11  | a temporary sub-channel within a GUILD_TEXT channel                                                                                                  |
-| GUILD_PRIVATE_THREAD    | 12  | a temporary sub-channel within a GUILD_TEXT channel that is only viewable by those invited and those with the MANAGE_THREADS permission              |
-| GUILD_STAGE_VOICE       | 13  | a voice channel for [hosting events with an audience](https://support.discord.com/hc/en-us/articles/1500005513722)                                   |
-| GUILD_DIRECTORY         | 14  | the channel in a [hub](https://support.discord.com/hc/en-us/articles/4406046651927-Discord-Student-Hubs-FAQ) containing the listed servers           |
-| GUILD_FORUM\*           | 15  | (still in development) a channel that can only contain threads                                                                                       |
+| Name                    | Value   | Description                                                                                                                                          |
+| ----------------------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| GUILD_TEXT              | 0       | a text channel within a server                                                                                                                       |
+| DM                      | 1       | a direct message between users                                                                                                                       |
+| GUILD_VOICE             | 2       | a voice channel within a server                                                                                                                      |
+| GROUP_DM                | 3       | a direct message between multiple users                                                                                                              |
+| GUILD_CATEGORY          | 4       | an [organizational category](https://support.discord.com/hc/en-us/articles/115001580171-Channel-Categories-101) that contains up to 50 channels      |
+| GUILD_NEWS              | 5       | a channel that [users can follow and crosspost into their own server](https://support.discord.com/hc/en-us/articles/360032008192)                    |
+| GUILD_NEWS_THREAD       | 10      | a temporary sub-channel within a GUILD_NEWS channel                                                                                                  |
+| GUILD_PUBLIC_THREAD     | 11      | a temporary sub-channel within a GUILD_TEXT channel                                                                                                  |
+| GUILD_PRIVATE_THREAD    | 12      | a temporary sub-channel within a GUILD_TEXT channel that is only viewable by those invited and those with the MANAGE_THREADS permission              |
+| GUILD_STAGE_VOICE       | 13      | a voice channel for [hosting events with an audience](https://support.discord.com/hc/en-us/articles/1500005513722)                                   |
+| GUILD_DIRECTORY         | 14      | the channel in a [hub](https://support.discord.com/hc/en-us/articles/4406046651927-Discord-Student-Hubs-FAQ) containing the listed servers           |
+| GUILD_FORUM\*           | 15      | (still in development) a channel that can only contain threads                                                                                       |
 
 \* The `GUILD_FORUM` channel type is still in active development. Avoid implementing any features that are not documented here, since they are subject to change without notice!
 
 ###### Video Quality Modes
 
-| Mode | Value | Description                                         |
+| Name | Value | Description                                         |
 | ---- | ----- | --------------------------------------------------- |
 | AUTO | 1     | Discord chooses the quality for optimal performance |
 | FULL | 2     | 720p                                                |
 
 ###### Channel Flags
 
-| Flag                                   | Value  | Description                                                                       |
+| Name                                   | Value  | Description                                                                       |
 |----------------------------------------|--------|-----------------------------------------------------------------------------------|
 | PINNED                                 | 1 << 1 | this thread is pinned to the top of its parent forum channel                      |
 
@@ -282,7 +282,7 @@ Represents a message sent in a channel within Discord.
 > warn
 > Type `19` and `20` are only available in API v8 and above. In v6, they are represented as type `0`.  Additionally, type `21` is only available in API v9 and above.
 
-| Type                                         | Value |
+| Name                                         | Value |
 |----------------------------------------------|-------|
 | DEFAULT                                      | 0     |
 | RECIPIENT_ADD                                | 1     |
@@ -318,7 +318,7 @@ Represents a message sent in a channel within Discord.
 
 ###### Message Activity Types
 
-| Type         | Value |
+| Name         | Value |
 |--------------|-------|
 | JOIN         | 1     |
 | SPECTATE     | 2     |
@@ -327,7 +327,7 @@ Represents a message sent in a channel within Discord.
 
 ###### Message Flags
 
-| Flag                                   | Value  | Description                                                                       |
+| Name                                   | Value  | Description                                                                       |
 |----------------------------------------|--------|-----------------------------------------------------------------------------------|
 | CROSSPOSTED                            | 1 << 0 | this message has been published to subscribed channels (via Channel Following)    |
 | IS_CROSSPOST                           | 1 << 1 | this message originated from a message in another channel (via Channel Following) |
@@ -555,14 +555,14 @@ A thread member is used to indicate whether a user has joined a thread or not.
 
 Embed types are "loosely defined" and, for the most part, are not used by our clients for rendering. Embed attributes power what is rendered. Embed types should be considered deprecated and might be removed in a future API version.
 
-| Type    | Description                                        |
-|---------|----------------------------------------------------|
-| rich    | generic embed rendered from embed attributes       |
-| image   | image embed                                        |
-| video   | video embed                                        |
-| gifv    | animated gif image embed rendered as a video embed |
-| article | article embed                                      |
-| link    | link embed                                         |
+|  Value    | Description                                          |
+| --------- | ---------------------------------------------------- |
+|  rich     |  generic embed rendered from embed attributes        |
+|  image    |  image embed                                         |
+|  video    |  video embed                                         |
+|  gifv     |  animated gif image embed rendered as a video embed  |
+|  article  |  article embed                                       |
+|  link     |  link embed                                          |
 
 ###### Embed Thumbnail Structure
 
@@ -680,7 +680,7 @@ The allowed mention field allows for more granular control over mentions without
 
 ###### Allowed Mention Types
 
-| Type              | Value      | Description                           |
+| Name              | Value      | Description                           |
 |-------------------|------------|---------------------------------------|
 | Role Mentions     | "roles"    | Controls role mentions                |
 | User Mentions     | "users"    | Controls user mentions                |
@@ -799,21 +799,21 @@ Fires a [Channel Update](#DOCS_TOPICS_GATEWAY/channel-update) Gateway event.
 
 Requires the `MANAGE_CHANNELS` permission for the guild. Fires a [Channel Update](#DOCS_TOPICS_GATEWAY/channel-update) Gateway event. If modifying a category, individual [Channel Update](#DOCS_TOPICS_GATEWAY/channel-update) events will fire for each child channel that also changes. If modifying permission overwrites, the `MANAGE_ROLES` permission is required. Only permissions your bot has in the guild or parent channel (if applicable) can be allowed/denied (unless your bot has a `MANAGE_ROLES` overwrite in the channel).
 
-| Field                         | Type                                                                            | Description                                                                                                                                                                     | Channel Type             |
-|-------------------------------|---------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------|
-| name                          | string                                                                          | 1-100 character channel name                                                                                                                                                    | All                      |
-| type                          | integer                                                                         | the [type of channel](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types); only conversion between text and news is supported and only in guilds with the "NEWS" feature      | Text, News               |
-| position                      | ?integer                                                                        | the position of the channel in the left-hand listing                                                                                                                            | All                      |
-| topic                         | ?string                                                                         | 0-1024 character channel topic                                                                                                                                                  | Text, News               |
-| nsfw                          | ?boolean                                                                        | whether the channel is nsfw                                                                                                                                                     | Text, Voice, News        |
-| rate_limit_per_user           | ?integer                                                                        | amount of seconds a user has to wait before sending another message (0-21600); bots, as well as users with the permission `manage_messages` or `manage_channel`, are unaffected | Text                     |
-| bitrate\*                     | ?integer                                                                        | the bitrate (in bits) of the voice or stage channel; min 8000                                                                                                                   | Voice, Stage             |
-| user_limit                    | ?integer                                                                        | the user limit of the voice channel; 0 refers to no limit, 1 to 99 refers to a user limit                                                                                       | Voice                    |
-| permission_overwrites\*\*     | ?array of partial [overwrite](#DOCS_RESOURCES_CHANNEL/overwrite-object) objects | channel or category-specific permissions                                                                                                                                        | All                      |
-| parent_id                     | ?snowflake                                                                      | id of the new parent category for a channel                                                                                                                                     | Text, Voice, News        |
-| rtc_region                    | ?string                                                                         | channel [voice region](#DOCS_RESOURCES_VOICE/voice-region-object) id, automatic when set to null                                                                                | Voice, Stage             |
-| video_quality_mode            | ?integer                                                                        | the camera [video quality mode](#DOCS_RESOURCES_CHANNEL/channel-object-video-quality-modes) of the voice channel                                                                | Voice                    |
-| default_auto_archive_duration | ?integer                                                                        | the default duration that the clients use (not the API) for newly created threads in the channel, in minutes, to automatically archive the thread after recent activity         | Text, News               |
+| Field                         | Type                                                                            | Description                                                                                                                                                                                                |
+|-------------------------------|---------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| name                          | string                                                                          | 1-100 character channel name                                                                                                                                                                               |
+| type                          | integer                                                                         | the [type of channel](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types); only conversion between text and news is supported and only in guilds with the "NEWS" feature. Modifiable for `Text`, `News`  |
+| position                      | ?integer                                                                        | the position of the channel in the left-hand listing                                                                                                                                                       |
+| topic                         | ?string                                                                         | 0-1024 character channel topic. Modifiable for `Text`, `News`                                                                                                                                              |
+| nsfw                          | ?boolean                                                                        | whether the channel is nsfw. Modifiable for `Text`, `Voice`, `News`                                                                                                                                        |
+| rate_limit_per_user           | ?integer                                                                        | amount of seconds a user has to wait before sending another message (0-21600); bots, as well as users with the permission `manage_messages` or `manage_channel`, are unaffected. Modifiable for `Text`     |
+| bitrate\*                     | ?integer                                                                        | the bitrate (in bits) of the voice or stage channel; min 8000. Modifiable for `Voice`, `Stage`                                                                                                             |
+| user_limit                    | ?integer                                                                        | the user limit of the voice channel; 0 refers to no limit, 1 to 99 refers to a user limit. Modifiable for `Voice`                                                                                          |
+| permission_overwrites\*\*     | ?array of partial [overwrite](#DOCS_RESOURCES_CHANNEL/overwrite-object) objects | channel or category-specific permissions                                                                                                                                                                   |
+| parent_id                     | ?snowflake                                                                      | id of the new parent category for a channel. Modifiable for `Text`, `Voice`, `News`                                                                                                                        |
+| rtc_region                    | ?string                                                                         | channel [voice region](#DOCS_RESOURCES_VOICE/voice-region-object) id, automatic when set to null. Modifiable for `Voice`, `Stage`                                                                          |
+| video_quality_mode            | ?integer                                                                        | the camera [video quality mode](#DOCS_RESOURCES_CHANNEL/channel-object-video-quality-modes) of the voice channel. Modifiable for `Voice`                                                                   |
+| default_auto_archive_duration | ?integer                                                                        | the default duration that the clients use (not the API) for newly created threads in the channel, in minutes, to automatically archive the thread after recent activity. Modifiable for `Text`, `News`     |
 
 \* For voice channels, normal servers can set bitrate up to 96000, servers with Boost level 1 can set up to 128000, servers with Boost level 2 can set up to 256000, and servers with Boost level 3 or the `VIP_REGIONS` [guild feature](#DOCS_RESOURCES_GUILD/guild-object-guild-features) can set up to 384000. For stage channels, bitrate can be set up to 64000.
 
@@ -857,12 +857,14 @@ Returns the messages for a channel. If operating on a guild channel, this endpoi
 
 ###### Query String Params
 
-| Field   | Type      | Description                              | Default |
-|---------|-----------|------------------------------------------|---------|
-| around? | snowflake | Get messages around this message ID      | absent  |
-| before? | snowflake | Get messages before this message ID      | absent  |
-| after?  | snowflake | Get messages after this message ID       | absent  |
-| limit?  | integer   | Max number of messages to return (1-100) | 50      |
+Absent by default, except `limit`, which is set to `50` by default
+
+| Field   | Type      | Description                                            |
+|---------|-----------|------------------------------------------------------- |
+| around? | snowflake | Get messages around this message ID                    |
+| before? | snowflake | Get messages before this message ID                    |
+| after?  | snowflake | Get messages after this message ID                     |
+| limit?  | integer   | Max number of messages to return (1-100)               |
 
 ## Get Channel Message % GET /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}
 
@@ -952,10 +954,12 @@ The `emoji` must be [URL Encoded](https://en.wikipedia.org/wiki/Percent-encoding
 
 ###### Query String Params
 
-| Field   | Type      | Description                           | Default |
-|---------|-----------|---------------------------------------|---------|
-| after?  | snowflake | Get users after this user ID          | absent  |
-| limit?  | integer   | Max number of users to return (1-100) | 25      |
+`limit` is set to `25` by default, rest are absent.
+
+| Field   | Type      | Description                           |
+|---------|-----------|---------------------------------------|
+| after?  | snowflake | Get users after this user ID          |
+| limit?  | integer   | Max number of users to return (1-100) |
 
 ## Delete All Reactions % DELETE /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}/reactions
 
@@ -1049,15 +1053,15 @@ Create a new [invite](#DOCS_RESOURCES_INVITE/invite-object) object for the chann
 
 ###### JSON Params
 
-| Field                 | Type      | Description                                                                                                                               | Default          |
-|-----------------------|-----------|-------------------------------------------------------------------------------------------------------------------------------------------|------------------|
-| max_age               | integer   | duration of invite in seconds before expiry, or 0 for never. between 0 and 604800 (7 days)                                                | 86400 (24 hours) |
-| max_uses              | integer   | max number of uses or 0 for unlimited. between 0 and 100                                                                                  | 0                |
-| temporary             | boolean   | whether this invite only grants temporary membership                                                                                      | false            |
-| unique                | boolean   | if true, don't try to reuse a similar invite (useful for creating many unique one time use invites)                                       | false            |
-| target_type           | integer   | the [type of target](#DOCS_RESOURCES_INVITE/invite-object-invite-target-types) for this voice channel invite                              |                  |
-| target_user_id        | snowflake | the id of the user whose stream to display for this invite, required if `target_type` is 1, the user must be streaming in the channel     |                  |
-| target_application_id | snowflake | the id of the embedded application to open for this invite, required if `target_type` is 2, the application must have the `EMBEDDED` flag |                  |
+| Field                 | Type      | Description                                                                                                                                                  |
+|-----------------------|-----------|--------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| max_age               | integer   | duration of invite in seconds before expiry, or 0 for never. between 0 and 604800 (7 days). Defaults to `86400` (24 hours)                                   |
+| max_uses              | integer   | max number of uses or 0 for unlimited. between 0 and 100. Defaults to `0`                                                                                    |
+| temporary             | boolean   | whether this invite only grants temporary membership. Defaults to `false`                                                                                    |
+| unique                | boolean   | if true, don't try to reuse a similar invite (useful for creating many unique one time use invites). Defaults to `false`                                     |
+| target_type           | integer   | the [type of target](#DOCS_RESOURCES_INVITE/invite-object-invite-target-types) for this voice channel invite                                                 |
+| target_user_id        | snowflake | the id of the user whose stream to display for this invite, required if `target_type` is 1, the user must be streaming in the channel                        |
+| target_application_id | snowflake | the id of the embedded application to open for this invite, required if `target_type` is 2, the application must have the `EMBEDDED` flag                    |
 
 ## Delete Channel Permission % DELETE /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/permissions/{overwrite.id#DOCS_RESOURCES_CHANNEL/overwrite-object}
 

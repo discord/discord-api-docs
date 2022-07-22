@@ -12,32 +12,32 @@ Application commands are native ways to interact with apps in the Discord client
 
 ###### Application Command Structure
 
-| Field                      | Type                                                                                                                                           | Description                                                                                                                                                        | Valid Types |
-| -------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------- |
-| id                         | snowflake                                                                                                                                      | Unique ID of command                                                                                                                                               | all         |
-| type?                      | one of [application command type](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-types)                | [Type of command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-types), defaults to `1`                                   | all         |
-| application_id             | snowflake                                                                                                                                      | ID of the parent application                                                                                                                                       | all         |
-| guild_id?                  | snowflake                                                                                                                                      | guild id of the command, if not global                                                                                                                             | all         |
-| name                       | string                                                                                                                                         | [Name of command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-naming), 1-32 characters                                  | all         |
-| name_localizations?        | ?dictionary with keys in [available locales](#DOCS_REFERENCE/locales)                                                                          | Localization dictionary for `name` field. Values follow the same restrictions as `name`                                                                            | all         |
-| description                | string                                                                                                                                         | Description for `CHAT_INPUT` commands, 1-100 characters. Empty string for `USER` and `MESSAGE` commands                                                            | all         |
-| description_localizations? | ?dictionary with keys in [available locales](#DOCS_REFERENCE/locales)                                                                          | Localization dictionary for `description` field. Values follow the same restrictions as `description`                                                              | all         |
-| options?                   | array of [application command option](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-structure) | Parameters for the command, max of 25                                                                                                                              | CHAT_INPUT  |
-| default_member_permissions | ?string                                                                                                                                        | Set of [permissions](#DOCS_TOPICS_PERMISSIONS) represented as a bit set                                                                                            | all         |
-| dm_permission?             | boolean                                                                                                                                        | Indicates whether the command is available in DMs with the app, only for globally-scoped commands. By default, commands are visible.                               | all         |
-| default_permission?        | ?boolean                                                                                                                                       | Not recommended for use as field will soon be deprecated. Indicates whether the command is enabled by default when the app is added to a guild, defaults to `true` | all         |
-| version                    | snowflake                                                                                                                                      | Autoincrementing version identifier updated during substantial record changes                                                                                      | all         |
+| Field                      | Type                                                                                                                                           | Description                                                                                                                                                        |
+| -------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| id                         | snowflake                                                                                                                                      | Unique ID of command                                                                                                                                               |
+| type?                      | one of [application command type](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-types)                | [Type of command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-types), defaults to `1`                                   |
+| application_id             | snowflake                                                                                                                                      | ID of the parent application                                                                                                                                       |
+| guild_id?                  | snowflake                                                                                                                                      | guild id of the command, if not global                                                                                                                             |
+| name                       | string                                                                                                                                         | [Name of command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-naming), 1-32 characters                                  |
+| name_localizations?        | ?dictionary with keys in [available locales](#DOCS_REFERENCE/locales)                                                                          | Localization dictionary for `name` field. Values follow the same restrictions as `name`                                                                            |
+| description                | string                                                                                                                                         | Description for `CHAT_INPUT` commands, 1-100 characters. Empty string for `USER` and `MESSAGE` commands                                                            |
+| description_localizations? | ?dictionary with keys in [available locales](#DOCS_REFERENCE/locales)                                                                          | Localization dictionary for `description` field. Values follow the same restrictions as `description`                                                              |
+| options?                   | array of [application command option](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-structure) | Parameters for the command, max of 25. **Should only be used for `CHAT_INPUT`**                                                                                    |
+| default_member_permissions | ?string                                                                                                                                        | Set of [permissions](#DOCS_TOPICS_PERMISSIONS) represented as a bit set                                                                                            |
+| dm_permission?             | boolean                                                                                                                                        | Indicates whether the command is available in DMs with the app, only for globally-scoped commands. By default, commands are visible.                               |
+| default_permission?        | ?boolean                                                                                                                                       | Not recommended for use as field will soon be deprecated. Indicates whether the command is enabled by default when the app is added to a guild, defaults to `true` |
+| version                    | snowflake                                                                                                                                      | Autoincrementing version identifier updated during substantial record changes                                                                                      |
 
 > danger
 > `default_permission` will soon be deprecated. You can instead set `default_member_permissions` to `"0"` to disable the command for everyone except admins by default, and/or set `dm_permission` to `false` to disable globally-scoped commands inside of DMs with your app
 
 ###### Application Command Types
 
-| Name       | Type | Description                                                               |
-| ---------- | ---- | ------------------------------------------------------------------------- |
-| CHAT_INPUT | 1    | Slash commands; a text-based command that shows up when a user types `/`  |
-| USER       | 2    | A UI-based command that shows up when you right click or tap on a user    |
-| MESSAGE    | 3    | A UI-based command that shows up when you right click or tap on a message |
+| Name       | Value | Description                                                               |
+| ---------- | ----- | ------------------------------------------------------------------------- |
+| CHAT_INPUT | 1     | Slash commands; a text-based command that shows up when a user types `/`  |
+| USER       | 2     | A UI-based command that shows up when you right click or tap on a user    |
+| MESSAGE    | 3     | A UI-based command that shows up when you right click or tap on a message |
 
 
 ###### Application Command Option Structure
@@ -69,19 +69,19 @@ Application commands are native ways to interact with apps in the Discord client
 
 ###### Application Command Option Type
 
-| Name              | Value | Note                                                           |
-| ----------------- | ----- | -------------------------------------------------------------- |
-| SUB_COMMAND       | 1     |                                                                |
-| SUB_COMMAND_GROUP | 2     |                                                                |
-| STRING            | 3     |                                                                |
-| INTEGER           | 4     | Any integer between -2^53 and 2^53                             |
-| BOOLEAN           | 5     |                                                                |
-| USER              | 6     |                                                                |
-| CHANNEL           | 7     | Includes all channel types + categories                        |
-| ROLE              | 8     |                                                                |
-| MENTIONABLE       | 9     | Includes users and roles                                       |
-| NUMBER            | 10    | Any double between -2^53 and 2^53                              |
-| ATTACHMENT        | 11    | [attachment](#DOCS_RESOURCES_CHANNEL/attachment-object) object |
+| Name              | Value | Description                                                                                                               |
+| ----------------- | ----- | ------------------------------------------------------------------------------------------------------------------------- |
+| SUB_COMMAND       | 1     | A subcommand type, when a command has one of this or `SUB_COMMAND_GROUP`, then the command itself cannot be used directly |
+| SUB_COMMAND_GROUP | 2     | A subcommand group, contains subcommands                                                                                  |
+| STRING            | 3     | A string input                                                                                                            |
+| INTEGER           | 4     | Any integer between -2^53 and 2^53                                                                                        |
+| BOOLEAN           | 5     | A boolean input                                                                                                           |
+| USER              | 6     | A user input                                                                                                              |
+| CHANNEL           | 7     | Includes all channel types + categories                                                                                   |
+| ROLE              | 8     | A role input                                                                                                              |
+| MENTIONABLE       | 9     | Includes users and roles                                                                                                  |
+| NUMBER            | 10    | Any double between -2^53 and 2^53                                                                                         |
+| ATTACHMENT        | 11    | [attachment](#DOCS_RESOURCES_CHANNEL/attachment-object) object                                                            |
 
 ###### Application Command Option Choice Structure
 
@@ -303,10 +303,10 @@ Application command permissions allow you to enable or disable commands for spec
 
 The following constants can be used in the `id` field for command permissions payloads.
 
-| Permission   | Value          | Type      | Description             |
-| ------------ | -------------- | --------- | ----------------------- |
-| `@everyone`  | `guild_id`     | snowflake | All members in a guild  |
-| All Channels | `guild_id - 1` | snowflake | All channels in a guild |
+| Name         | Value                      | Description             |
+| ------------ | -------------------------- | ----------------------- |
+| `@everyone`  | snowflake (`guild_id`)     | All members in a guild  |
+| All Channels | snowflake (`guild_id - 1`) | All channels in a guild |
 
 ###### Application Command Permission Type
 
