@@ -503,7 +503,7 @@ See [permissions](#DOCS_TOPICS_PERMISSIONS/permissions) for more information abo
 
 ###### Overwrite Type
 
-| Field  | Value | Descrition                                                                       |
+| Name  | Value | Descrition                                                                       |
 | ------ | ----- | -------------------------------------------------------------------------------- |
 | role   | 0     | overwrite for a [role](#DOCS_TOPICS_PERMISSIONS/role-object)                     |
 | member | 1     | overwrite for a [guild member object](#DOCS_RESOURCES_GUILD/guild-member-object) |
