@@ -194,12 +194,12 @@ Get a list of guild scheduled event users subscribed to a guild scheduled event.
 
 ###### Query String Params
 
-| Field        | Type      | Description                                                          |
-| ------------ | -------   | -------------------------------------------------------------------- |
-| limit?       | number    | number of users to return (up to maximum 100, which is the default)  |
-| with_member? | boolean   | include guild member data if it exists. Defaults to `false`          |
-| before? *    | snowflake | consider only users before given user id. Defaults to `null`         |
-| after? *     | snowflake | consider only users after given user id. Defaults to `null`          |
+| Field        | Type      | Description                                                                    | Default |
+| ------------ | -------   | ------------------------------------------------------------------------------ | ------- |
+| limit?       | number    | number of users to return (up to maximum 100)                                  | 100     |
+| with_member? | boolean   | include guild member data if it exists                                         | false   |
+| before? *    | snowflake | consider only users before given user id                                       | null    |
+| after? *     | snowflake | consider only users after given user id                                        | null    |
 
 \* Provide a user id to `before` and `after` for pagination. Users will always be returned in ascending order by `user_id`. If both `before` and `after` are provided, only `before` is respected. Fetching users in-between `before` and `after` is not supported.
 

@@ -104,13 +104,13 @@ Buttons come in a variety of styles to convey different types of actions. These 
 
 ###### Button Styles
 
-| Name      | Value | Description                                       |
-| --------- | ----- | ------------------------------------------------- |
-| Primary   | 1     | Color `blurple`. Requires `custom_id`             |
-| Secondary | 2     | Color `grey`. Requires `custom_id`                |
-| Success   | 3     | Color `green`. Requires `custom_id`               |
-| Danger    | 4     | Color `red`. Requires `custom_id`                 |
-| Link      | 5     | Color `grey`, navigates to a URL. Requires `url`  |
+| Name      | Value | Color                    | Required Field |
+| --------- | ----- | ------------------------ | -------------- |
+| Primary   | 1     | blurple                  | `custom_id`    |
+| Secondary | 2     | grey                     | `custom_id`    |
+| Success   | 3     | green                    | `custom_id`    |
+| Danger    | 4     | red                      | `custom_id`    |
+| Link      | 5     | grey, navigates to a URL | `url`          |
 
 ![An image showing the different button styles](button-styles.png)
 

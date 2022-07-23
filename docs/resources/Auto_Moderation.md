@@ -58,23 +58,23 @@ Rules can be configured to automatically execute actions whenever they trigger. 
 
 Characterizes the type of content which can trigger the rule.
 
-| Name                 | Value   | Description                                                                           |
-| -------------------- | ------- | ------------------------------------------------------------------------------------- |
-| KEYWORD              | 1       | check if content contains words from a user defined list of keywords. Max per guild 3 |
-| HARMFUL_LINK         | 2       | check if content contains any harmful links. Max per guild 1                          |
-| SPAM                 | 3       | check if content represents generic spam. Max per guild 1                             |
-| KEYWORD_PRESET       | 4       | check if content contains words from internal pre-defined wordsets. Max per guild 1   |
+| Name                 | Value   | Description                                                          | Max per Guild |
+| -------------------- | ------- | -------------------------------------------------------------------- | ------------- |
+| KEYWORD              | 1       | check if content contains words from a user defined list of keywords | 3             |
+| HARMFUL_LINK         | 2       | check if content contains any harmful links                          | 1             |
+| SPAM                 | 3       | check if content represents generic spam                             | 1             |
+| KEYWORD_PRESET       | 4       | check if content contains words from internal pre-defined wordsets   | 1             |
 
 ###### Trigger Metadata
 
 Additional data used to determine whether a rule should be triggered. Different fields are relevant based on the
 value of [trigger_type](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-trigger-types).
 
-| Field          | Type                                                                                                              | Description                                                                                                    |
-| -------------- | ----------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
-| keyword_filter | array of strings *                                                                                                | Associated trigger `KEYWORD`. Substrings which will be searched for in content                                 |
-| presets        | array of [keyword preset types](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-keyword-preset-types) | Associated trigger `KEYWORD_PRESET`. The internally pre-defined wordsets which will be searched for in content |
-| allow_list     | array of strings *                                                                                                | Associated trigger `KEYWORD_PRESET`. Substrings which will be exempt from triggering the preset trigger type   |
+| Field          | Type                                                                                                              | Description                                                               | Associated Trigger Types |
+| -------------- | ----------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------- | ------------------------ |
+| keyword_filter | array of strings *                                                                                                | substrings which will be searched for in content                          | KEYWORD                  |
+| presets        | array of [keyword preset types](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-keyword-preset-types) | the internally pre-defined wordsets which will be searched for in content | KEYWORD_PRESET           |
+| allow_list     | array of strings *                                                                                                | substrings which will be exempt from triggering the preset trigger type   | KEYWORD_PRESET           |
 
 \* A keyword can be a phrase which contains multiple words. Wildcard symbols (not available to allow lists) can be used to customize how each keyword will be matched.
 See [keyword matching strategies](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-keyword-matching-strategies).
@@ -167,12 +167,10 @@ An action which will execute whenever a rule is triggered.
 Additional data used when an action is executed. Different fields are relevant based on the
 value of [action type](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-action-object-action-types).
 
-| Field            | Type       | Description                                                                           |
-| ---------------- | ---------- | ------------------------------------------------------------------------------------- |
-| channel_id       | snowflake  | Associaed action `SEND_ALERT_MESSAGE`. Channel to which user content should be logged |
-| duration_seconds | integer    | Associaed action `TIMEOUT`. Timeout duration in seconds *                             |
-
-\* Maximum of 2419200 seconds (4 weeks)
+| Field            | Type       | Associated Action Types | Description                                                      |
+| ---------------- | ---------- | ----------------------- | ---------------------------------------------------------------- |
+| channel_id       | snowflake  | SEND_ALERT_MESSAGE      | channel to which user content should be logged                   |
+| duration_seconds | integer    | TIMEOUT                 | timeout duration in seconds (Upto 2419200 seconds, i.e. 4 weeks) |
 
 
 ### Auto Moderation Permission Requirements
@@ -240,13 +238,13 @@ Modify an existing rule. Returns an [auto moderation rule](#DOCS_RESOURCES_AUTO_
 
 | Field               | Type                                                                                     | Description                                                                                          |
 | ------------------- | ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
-| name                | string                                                                                   | the rule name                                                                                        |
-| event_type          | integer                                                                                  | the [event type](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-event-types)            |
+| name?               | string                                                                                   | the rule name                                                                                        |
+| event_type?         | integer                                                                                  | the [event type](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-event-types)            |
 | trigger_metadata? * | object                                                                                   | the [trigger metadata](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-trigger-metadata) |
-| actions             | array of [action](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-action-object) objects | the actions which will execute when the rule is triggered                                            |
-| enabled             | boolean                                                                                  | whether the rule is enabled                                                                          |
-| exempt_roles        | array of snowflakes                                                                      | the role ids that should not be affected by the rule (Maximum of 20)                                 |
-| exempt_channels     | array of snowflakes                                                                      | the channel ids that should not be affected by the rule (Maximum of 50)                              |
+| actions?            | array of [action](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-action-object) objects | the actions which will execute when the rule is triggered                                            |
+| enabled?            | boolean                                                                                  | whether the rule is enabled                                                                          |
+| exempt_roles?       | array of snowflakes                                                                      | the role ids that should not be affected by the rule (Maximum of 20)                                 |
+| exempt_channels?    | array of snowflakes                                                                      | the channel ids that should not be affected by the rule (Maximum of 50)                              |
 
 \* Can be omitted based on `trigger_type`. See the `Associated Trigger Types` column in [trigger metadata](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-trigger-metadata) to understand which `trigger_type` values require `trigger_metadata` to be set.
 

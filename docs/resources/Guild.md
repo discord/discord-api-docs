@@ -66,7 +66,7 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 
 ###### Explicit Content Filter Level
 
-| Name                  | Integer | Description                                                 |
+| Name                  | Value   | Description                                                 |
 | --------------------- | ------- | ----------------------------------------------------------- |
 | DISABLED              | 0       | media content will not be scanned                           |
 | MEMBERS_WITHOUT_ROLES | 1       | media content sent by members without roles will be scanned |
@@ -74,14 +74,14 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 
 ###### MFA Level
 
-| Name     | Integer | Description                                             |
+| Name     | Value   | Description                                             |
 | -------- | ------- | ------------------------------------------------------- |
 | NONE     | 0       | guild has no MFA/2FA requirement for moderation actions |
 | ELEVATED | 1       | guild has a 2FA requirement for moderation actions      |
 
 ###### Verification Level
 
-| Name      | Integer | Description                                               |
+| Name      | Value   | Description                                               |
 | --------- | ------- | --------------------------------------------------------- |
 | NONE      | 0       | unrestricted                                              |
 | LOW       | 1       | must have verified email on account                       |
@@ -100,7 +100,7 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 
 ###### Premium Tier
 
-| Name   | Integer | Description                                   |
+| Name   | Value   | Description                                   |
 | ------ | ------- | --------------------------------------------- |
 | NONE   | 0       | guild has not unlocked any Server Boost perks |
 | TIER_1 | 1       | guild has unlocked Server Boost level 1 perks |
@@ -567,9 +567,9 @@ Returns the [guild](#DOCS_RESOURCES_GUILD/guild-object) object for the given id.
 
 ###### Query String Params
 
-| Field        | Type    | Description                                                                                        |
-| ------------ | ------- | -------------------------------------------------------------------------------------------------- |
-| with_counts? | boolean | when `true` (default `false`), will return approximate member and presence counts for the guild    |
+| Field        | Type    | Description                                                                   | Default |
+| ------------ | ------- | ----------------------------------------------------------------------------- | ------- |
+| with_counts? | boolean | when `true`, will return approximate member and presence counts for the guild | false   |
 
 ###### Example Response
 
@@ -660,28 +660,28 @@ Modify a guild's settings. Requires the `MANAGE_GUILD` permission. Returns the u
 
 ###### JSON Params
 
-| Field                         | Type                                                                                | Description                                                                                                                                                       |
-| ----------------------------- | ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| name                          | string                                                                              | guild name                                                                                                                                                        |
-| region                        | ?string                                                                             | guild [voice region](#DOCS_RESOURCES_VOICE/voice-region-object) id (deprecated)                                                                                   |
-| verification_level            | ?integer                                                                            | [verification level](#DOCS_RESOURCES_GUILD/guild-object-verification-level)                                                                                       |
-| default_message_notifications | ?integer                                                                            | default [message notification level](#DOCS_RESOURCES_GUILD/guild-object-default-message-notification-level)                                                       |
-| explicit_content_filter       | ?integer                                                                            | [explicit content filter level](#DOCS_RESOURCES_GUILD/guild-object-explicit-content-filter-level)                                                                 |
-| afk_channel_id                | ?snowflake                                                                          | id for afk channel                                                                                                                                                |
-| afk_timeout                   | integer                                                                             | afk timeout in seconds                                                                                                                                            |
-| icon                          | ?[image data](#DOCS_REFERENCE/image-data)                                           | base64 1024x1024 png/jpeg/gif image for the guild icon (can be animated gif when the server has the `ANIMATED_ICON` feature)                                      |
-| owner_id                      | snowflake                                                                           | user id to transfer guild ownership to (must be owner)                                                                                                            |
-| splash                        | ?[image data](#DOCS_REFERENCE/image-data)                                           | base64 16:9 png/jpeg image for the guild splash (when the server has the `INVITE_SPLASH` feature)                                                                 |
-| discovery_splash              | ?[image data](#DOCS_REFERENCE/image-data)                                           | base64 16:9 png/jpeg image for the guild discovery splash (when the server has the `DISCOVERABLE` feature)                                                        |
-| banner                        | ?[image data](#DOCS_REFERENCE/image-data)                                           | base64 16:9 png/jpeg image for the guild banner (when the server has the `BANNER` feature; can be animated gif when the server has the `ANIMATED_BANNER` feature) |
-| system_channel_id             | ?snowflake                                                                          | the id of the channel where guild notices such as welcome messages and boost events are posted                                                                    |
-| system_channel_flags          | integer                                                                             | [system channel flags](#DOCS_RESOURCES_GUILD/guild-object-system-channel-flags)                                                                                   |
-| rules_channel_id              | ?snowflake                                                                          | the id of the channel where Community guilds display rules and/or guidelines                                                                                      |
-| public_updates_channel_id     | ?snowflake                                                                          | the id of the channel where admins and moderators of Community guilds receive notices from Discord                                                                |
-| preferred_locale              | ?string                                                                             | the preferred [locale](#DOCS_REFERENCE/locales) of a Community guild used in server discovery and notices from Discord; defaults to "en-US"                       |
-| features                      | array of [guild feature](#DOCS_RESOURCES_GUILD/guild-object-guild-features) strings | enabled guild features                                                                                                                                            |
-| description                   | ?string                                                                             | the description for the guild                                                                                                                                     |
-| premium_progress_bar_enabled  | boolean                                                                             | whether the guild's boost progress bar should be enabled                                                                                                          |
+| Field                          | Type                                                                                | Description                                                                                                                                                       |
+| ------------------------------ | ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| name?                          | string                                                                              | guild name                                                                                                                                                        |
+| region?                        | ?string                                                                             | guild [voice region](#DOCS_RESOURCES_VOICE/voice-region-object) id (deprecated)                                                                                   |
+| verification_level?            | ?integer                                                                            | [verification level](#DOCS_RESOURCES_GUILD/guild-object-verification-level)                                                                                       |
+| default_message_notifications? | ?integer                                                                            | default [message notification level](#DOCS_RESOURCES_GUILD/guild-object-default-message-notification-level)                                                       |
+| explicit_content_filter?       | ?integer                                                                            | [explicit content filter level](#DOCS_RESOURCES_GUILD/guild-object-explicit-content-filter-level)                                                                 |
+| afk_channel_id?                | ?snowflake                                                                          | id for afk channel                                                                                                                                                |
+| afk_timeout?                   | integer                                                                             | afk timeout in seconds                                                                                                                                            |
+| icon?                          | ?[image data](#DOCS_REFERENCE/image-data)                                           | base64 1024x1024 png/jpeg/gif image for the guild icon (can be animated gif when the server has the `ANIMATED_ICON` feature)                                      |
+| owner_id?                      | snowflake                                                                           | user id to transfer guild ownership to (must be owner)                                                                                                            |
+| splash?                        | ?[image data](#DOCS_REFERENCE/image-data)                                           | base64 16:9 png/jpeg image for the guild splash (when the server has the `INVITE_SPLASH` feature)                                                                 |
+| discovery_splash?              | ?[image data](#DOCS_REFERENCE/image-data)                                           | base64 16:9 png/jpeg image for the guild discovery splash (when the server has the `DISCOVERABLE` feature)                                                        |
+| banner?                        | ?[image data](#DOCS_REFERENCE/image-data)                                           | base64 16:9 png/jpeg image for the guild banner (when the server has the `BANNER` feature; can be animated gif when the server has the `ANIMATED_BANNER` feature) |
+| system_channel_id?             | ?snowflake                                                                          | the id of the channel where guild notices such as welcome messages and boost events are posted                                                                    |
+| system_channel_flags?          | integer                                                                             | [system channel flags](#DOCS_RESOURCES_GUILD/guild-object-system-channel-flags)                                                                                   |
+| rules_channel_id?              | ?snowflake                                                                          | the id of the channel where Community guilds display rules and/or guidelines                                                                                      |
+| public_updates_channel_id?     | ?snowflake                                                                          | the id of the channel where admins and moderators of Community guilds receive notices from Discord                                                                |
+| preferred_locale?              | ?string                                                                             | the preferred [locale](#DOCS_REFERENCE/locales) of a Community guild used in server discovery and notices from Discord; defaults to "en-US"                       |
+| features?                      | array of [guild feature](#DOCS_RESOURCES_GUILD/guild-object-guild-features) strings | enabled guild features                                                                                                                                            |
+| description?                   | ?string                                                                             | the description for the guild                                                                                                                                     |
+| premium_progress_bar_enabled?  | boolean                                                                             | whether the guild's boost progress bar should be enabled                                                                                                          |
 
 ## Delete Guild % DELETE /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}
 
@@ -703,21 +703,21 @@ Create a new [channel](#DOCS_RESOURCES_CHANNEL/channel-object) object for the gu
 
 ###### JSON Params
 
-| Field                         | Type                                                                           | Description                                                                                                                                                                     |
-| ----------------------------- | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| name                          | string                                                                         | channel name (1-100 characters)                                                                                                                                                 |
-| type                          | integer                                                                        | the [type of channel](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types)                                                                                                     |
-| topic                         | string                                                                         | channel topic (0-1024 characters)                                                                                                                                               |
-| bitrate\*                     | integer                                                                        | the bitrate (in bits) of the voice or stage channel; min 8000                                                                                                                   |
-| user_limit                    | integer                                                                        | the user limit of the voice channel                                                                                                                                             |
-| rate_limit_per_user           | integer                                                                        | amount of seconds a user has to wait before sending another message (0-21600); bots, as well as users with the permission `manage_messages` or `manage_channel`, are unaffected |
-| position                      | integer                                                                        | sorting position of the channel                                                                                                                                                 |
-| permission_overwrites\*\*     | array of partial [overwrite](#DOCS_RESOURCES_CHANNEL/overwrite-object) objects | the channel's permission overwrites                                                                                                                                             |
-| parent_id                     | snowflake                                                                      | id of the parent category for a channel                                                                                                                                         |
-| nsfw                          | boolean                                                                        | whether the channel is nsfw                                                                                                                                                     |
-| rtc_region                    | string                                                                         | channel [voice region](#DOCS_RESOURCES_VOICE/voice-region-object) id of the voice or stage channel, automatic when set to null                                                  |
-| video_quality_mode            | integer                                                                        | the camera [video quality mode](#DOCS_RESOURCES_CHANNEL/channel-object-video-quality-modes) of the voice channel                                                                |
-| default_auto_archive_duration | integer                                                                        | the default duration that the clients use (not the API) for newly created threads in the channel, in minutes, to automatically archive the thread after recent activity         |
+| Field                           | Type                                                                            | Description                                                                                                                                                                     |
+| ------------------------------- | ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| name?                           | string                                                                          | channel name (1-100 characters)                                                                                                                                                 |
+| type?                           | ?integer                                                                        | the [type of channel](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types)                                                                                                     |
+| topic?                          | ?string                                                                         | channel topic (0-1024 characters)                                                                                                                                               |
+| bitrate? \*                     | ?integer                                                                        | the bitrate (in bits) of the voice or stage channel; min 8000                                                                                                                   |
+| user_limit?                     | ?integer                                                                        | the user limit of the voice channel                                                                                                                                             |
+| rate_limit_per_user?            | ?integer                                                                        | amount of seconds a user has to wait before sending another message (0-21600); bots, as well as users with the permission `manage_messages` or `manage_channel`, are unaffected |
+| position?                       | ?integer                                                                        | sorting position of the channel                                                                                                                                                 |
+| permission_overwrites? \*\*     | ?array of partial [overwrite](#DOCS_RESOURCES_CHANNEL/overwrite-object) objects | the channel's permission overwrites                                                                                                                                             |
+| parent_id?                      | ?snowflake                                                                      | id of the parent category for a channel                                                                                                                                         |
+| nsfw?                           | ?boolean                                                                        | whether the channel is nsfw                                                                                                                                                     |
+| rtc_region?                     | ?string                                                                         | channel [voice region](#DOCS_RESOURCES_VOICE/voice-region-object) id of the voice or stage channel, automatic when set to null                                                  |
+| video_quality_mode?             | ?integer                                                                        | the camera [video quality mode](#DOCS_RESOURCES_CHANNEL/channel-object-video-quality-modes) of the voice channel                                                                |
+| default_auto_archive_duration?  | ?integer                                                                        | the default duration that the clients use (not the API) for newly created threads in the channel, in minutes, to automatically archive the thread after recent activity         |
 
 \* For voice channels, normal servers can set bitrate up to 96000, servers with Boost level 1 can set up to 128000, servers with Boost level 2 can set up to 256000, and servers with Boost level 3 or the `VIP_REGIONS` [guild feature](#DOCS_RESOURCES_GUILD/guild-object-guild-features) can set up to 384000. For stage channels, bitrate can be set up to 64000.
 
@@ -768,10 +768,10 @@ Returns a list of [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) obje
 
 ###### Query String Params
 
-| Field | Type      | Description                                               |
-| ----- | --------- | --------------------------------------------------------- |
-| limit | integer   | max number of members to return (1-1000). deafults to `1` |
-| after | snowflake | the highest user id in the previous page. defaults to `0` |
+| Field  | Type      | Description                                      | Default |
+| ------ | --------- | ------------------------------------------------ | ------- |
+| limit? | integer   | max number of members to return (1-1000).        | `1`     |
+| after? | snowflake | the highest user id in the previous page.        | `0`     |
 
 ## Search Guild Members % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/members/search
 
@@ -782,10 +782,10 @@ Returns a list of [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) obje
 
 ###### Query String Params
 
-| Field | Type    | Description                                                       |
-| ----- | ------- | ----------------------------------------------------------------- |
-| query | string  | Query string to match username(s) and nickname(s) against.        |
-| limit | integer | max number of members to return (1-1000). Defaults to `1`         |
+| Field  | Type    | Description                                                 | Default |
+| ------ | ------- | ----------------------------------------------------------- | ------- |
+| query  | string  | Query string to match username(s) and nickname(s) against.  |         |
+| limit? | integer | max number of members to return (1-1000).                   | `1`     |
 
 ## Add Guild Member % PUT /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/members/{user.id#DOCS_RESOURCES_USER/user-object}
 
@@ -801,13 +801,13 @@ For guilds with [Membership Screening](#DOCS_RESOURCES_GUILD/membership-screenin
 
 ###### JSON Params
 
-| Field        | Type                | Description                                                                                                              |
-| ------------ | ------------------- | ------------------------------------------------------------------------------------------------------------------------ |
-| access_token | string              | an oauth2 access token granted with the `guilds.join` to the bot's application for the user you want to add to the guild |
-| nick         | string              | value to set user's nickname to. Requires `MANAGE_NICKNAMES`                                                             |
-| roles        | array of snowflakes | array of role ids the member is assigned. Requires `MANAGE_ROLES`                                                        |
-| mute         | boolean             | whether the user is muted in voice channels. Requires `MUTE_MEMBERS`                                                     |
-| deaf         | boolean             | whether the user is deafened in voice channels. Requires `DEAFEN_MEMBERS`                                                |
+| Field        | Type                | Description                                                                                                              | Required            |
+| ------------ | ------------------- | ------------------------------------------------------------------------------------------------------------------------ | ------------------- |
+| access_token | string              | an oauth2 access token granted with the `guilds.join` to the bot's application for the user you want to add to the guild |                     |
+| nick?        | string              | value to set user's nickname to.                                                                                         | `MANAGE_NICKNAMES`  |
+| roles?       | array of snowflakes | array of role ids the member is assigned.                                                                                | `MANAGE_ROLES`      |
+| mute?        | boolean             | whether the user is muted in voice channels.                                                                             | `MUTE_MEMBERS`      |
+| deaf?        | boolean             | whether the user is deafened in voice channels.                                                                          | `DEAFEN_MEMBERS`    |
 
 > warn
 > For guilds with Membership Screening enabled, assigning a role using the `roles` parameter will add the user to the guild as a full member (`pending` is false in the [member object](#DOCS_RESOURCES_GUILD/guild-member-object)). A member with a role will bypass membership screening and the guild's verification level, and get immediate access to chat. Therefore, instead of assigning a role when the member joins, it is recommended to grant roles only after the user completes screening.
@@ -824,14 +824,14 @@ Modify attributes of a [guild member](#DOCS_RESOURCES_GUILD/guild-member-object)
 
 ###### JSON Params
 
-| Field                        | Type                | Description                                                                                                                                                                                                                                                                                                                                                            |
-| ---------------------------- | ------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| nick                         | string              | value to set user's nickname to. Requires `MANAGE_NICKNAMES`                                                                                                                                                                                                                                                                                                           |
-| roles                        | array of snowflakes | array of role ids the member is assigned. Requires `MANAGE_ROLES`                                                                                                                                                                                                                                                                                                      |
-| mute                         | boolean             | whether the user is muted in voice channels. Will throw a 400 error if the user is not in a voice channel. Requires `MUTE_MEMBERS`                                                                                                                                                                                                                                     |
-| deaf                         | boolean             | whether the user is deafened in voice channels. Will throw a 400 error if the user is not in a voice channel. Requires `DEAFEN_MEMBERS`                                                                                                                                                                                                                                |
-| channel_id                   | snowflake           | id of channel to move user to (if they are connected to voice. Requires `MOVE_MEMBERS`                                                                                                                                                                                                                                                                                 |
-| communication_disabled_until | ISO8601 timestamp  | when the user's [timeout](https://support.discord.com/hc/en-us/articles/4413305239191-Time-Out-FAQ) will expire and the user will be able to communicate in the guild again (up to 28 days in the future), set to null to remove timeout. Will throw a 403 error if the user has the ADMINISTRATOR permission or is the owner of the guild. Requires `MODERATE_MEMBERS` |
+| Field                         | Type                 | Description                                                                                                                                                                                                                                                                                                                                | Permission         |
+| ----------------------------- | -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------ |
+| nick?                         | ?string              | value to set user's nickname to                                                                                                                                                                                                                                                                                                            | `MANAGE_NICKNAMES` |
+| roles?                        | ?array of snowflakes | array of role ids the member is assigned                                                                                                                                                                                                                                                                                                   | `MANAGE_ROLES`     |
+| mute?                         | ?boolean             | whether the user is muted in voice channels. Will throw a 400 error if the user is not in a voice channel                                                                                                                                                                                                                                  | `MUTE_MEMBERS`     |
+| deaf?                         | ?boolean             | whether the user is deafened in voice channels. Will throw a 400 error if the user is not in a voice channel                                                                                                                                                                                                                               | `DEAFEN_MEMBERS`   |
+| channel_id?                   | ?snowflake           | id of channel to move user to (if they are connected to voice)                                                                                                                                                                                                                                                                             | `MOVE_MEMBERS`     |
+| communication_disabled_until? | ?ISO8601 timestamp   | when the user's [timeout](https://support.discord.com/hc/en-us/articles/4413305239191-Time-Out-FAQ) will expire and the user will be able to communicate in the guild again (up to 28 days in the future), set to null to remove timeout. Will throw a 403 error if the user has the ADMINISTRATOR permission or is the owner of the guild  | `MODERATE_MEMBERS` |
 
 ## Modify Current Member % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/members/@me
 
@@ -842,9 +842,9 @@ Modifies the current member in a guild. Returns a 200 with the updated member ob
 
 ###### JSON Params
 
-| Field | Type    | Description                                                 |
-| ----- | ------- | ----------------------------------------------------------- |
-| nick? | ?string | value to set user's nickname to. Requires `CHANGE_NICKNAME` |
+| Field | Type    | Description                     | Permission        |
+| ----- | ------- | ------------------------------- | ----------------- |
+| nick? | ?string | value to set user's nickname to | `CHANGE_NICKNAME` |
 
 ## Modify Current User Nick % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/members/@me/nick
 
@@ -858,9 +858,9 @@ Modifies the nickname of the current user in a guild. Returns a 200 with the nic
 
 ###### JSON Params
 
-| Field | Type    | Description                                                 |
-| ----- | ------- | ----------------------------------------------------------- |
-| nick? | ?string | value to set user's nickname to. Requires `CHANGE_NICKNAME` |
+| Field | Type    | Description                     | Permission        |
+| ----- | ------- | ------------------------------- | ----------------- |
+| nick? | ?string | value to set user's nickname to | `CHANGE_NICKNAME` |
 
 ## Add Guild Member Role % PUT /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/members/{user.id#DOCS_RESOURCES_USER/user-object}/roles/{role.id#DOCS_TOPICS_PERMISSIONS/role-object}
 
@@ -889,11 +889,11 @@ Returns a list of [ban](#DOCS_RESOURCES_GUILD/ban-object) objects for the users 
 
 ###### Query String Params
 
-| Field        | Type      | Description                                                    |
-| ------------ | -------   | -------------------------------------------------------------- |
-| limit?       | number    | number of users to return (up to maximum 1000, the default).   |
-| before? *    | ?snowflake | consider only users before given user id                      |
-| after? *     | ?snowflake | consider only users after given user id                       |
+| Field        | Type      | Description                                                                    | Default |
+| ------------ | -------   | ------------------------------------------------------------------------------ | ------- |
+| limit?       | number    | number of users to return (up to maximum 1000)                                 | 1000    |
+| before? *    | snowflake | consider only users before given user id                                       |         |
+| after? *     | snowflake | consider only users after given user id                                        |         |
 
 \* Provide a user id to `before` and `after` for pagination. Users will always be returned in ascending order by `user.id`. If both `before` and `after` are provided, only `before` is respected.
 
@@ -910,10 +910,10 @@ Create a guild ban, and optionally delete previous messages sent by the banned u
 
 ###### JSON Params
 
-| Field                | Type    | Description                                                  |
-| -------------------- | ------- | ------------------------------------------------------------ |
-| delete_message_days? | integer | number of days to delete messages for (0-7). Defaults to `0` |
-| reason?              | string  | reason for the ban (deprecated)                              |
+| Field                | Type    | Description                                 | Default |
+| -------------------- | ------- | ------------------------------------------- | ------- |
+| delete_message_days? | integer | number of days to delete messages for (0-7) | 0       |
+| reason?              | string  | reason for the ban (deprecated)             |         |
 
 ## Remove Guild Ban % DELETE /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/bans/{user.id#DOCS_RESOURCES_USER/user-object}
 
@@ -935,15 +935,15 @@ Create a new [role](#DOCS_TOPICS_PERMISSIONS/role-object) for the guild. Require
 
 ###### JSON Params
 
-| Field         | Type                                      | Description                                                                                                                    |
-| ------------- | ----------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
-| name          | string                                    | name of the role. Defaults to `new role`                                                                                       |
-| permissions   | string                                    | bitwise value of the enabled/disabled permissions. Defaults to `@everyone` permissions in guild                                |
-| color         | integer                                   | RGB color value. `0` by default                                                                                                |
-| hoist         | boolean                                   | whether the role should be displayed separately in the sidebar. `false` by default                                             |
-| icon          | ?[image data](#DOCS_REFERENCE/image-data) | the role's icon image (if the guild has the `ROLE_ICONS` feature)                                                              |
-| unicode_emoji | ?string                                   | the role's unicode emoji as a [standard emoji](#DOCS_REFERENCE/message-formatting) (if the guild has the `ROLE_ICONS` feature) |
-| mentionable   | boolean                                   | whether the role should be mentionable. `false` by default                                                                     |
+| Field         | Type                                      | Description                                                                                                                    | Default                        |
+| ------------- | ----------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------ |
+| name          | string                                    | name of the role                                                                                                               | "new role"                     |
+| permissions   | string                                    | bitwise value of the enabled/disabled permissions                                                                              | @everyone permissions in guild |
+| color         | integer                                   | RGB color value                                                                                                                | 0                              |
+| hoist         | boolean                                   | whether the role should be displayed separately in the sidebar                                                                 | false                          |
+| icon          | ?[image data](#DOCS_REFERENCE/image-data) | the role's icon image (if the guild has the `ROLE_ICONS` feature)                                                              | null                           |
+| unicode_emoji | ?string                                   | the role's unicode emoji as a [standard emoji](#DOCS_REFERENCE/message-formatting) (if the guild has the `ROLE_ICONS` feature) | null                           |
+| mentionable   | boolean                                   | whether the role should be mentionable                                                                                         | false                          |
 
 ## Modify Guild Role Positions % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/roles
 
@@ -973,15 +973,15 @@ Modify a guild role. Requires the `MANAGE_ROLES` permission. Returns the updated
 
 ###### JSON Params
 
-| Field         | Type                                     | Description                                                                                                                    |
-| ------------- | ---------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
-| name          | string                                   | name of the role                                                                                                               |
-| permissions   | string                                   | bitwise value of the enabled/disabled permissions                                                                              |
-| color         | integer                                  | RGB color value                                                                                                                |
-| hoist         | boolean                                  | whether the role should be displayed separately in the sidebar                                                                 |
-| icon          | [image data](#DOCS_REFERENCE/image-data) | the role's icon image (if the guild has the `ROLE_ICONS` feature)                                                              |
-| unicode_emoji | string                                   | the role's unicode emoji as a [standard emoji](#DOCS_REFERENCE/message-formatting) (if the guild has the `ROLE_ICONS` feature) |
-| mentionable   | boolean                                  | whether the role should be mentionable                                                                                         |
+| Field          | Type                                      | Description                                                                                                                    |
+| -------------- | ----------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| name?          | ?string                                   | name of the role                                                                                                               |
+| permissions?   | ?string                                   | bitwise value of the enabled/disabled permissions                                                                              |
+| color?         | ?integer                                  | RGB color value                                                                                                                |
+| hoist?         | ?boolean                                  | whether the role should be displayed separately in the sidebar                                                                 |
+| icon?          | ?[image data](#DOCS_REFERENCE/image-data) | the role's icon image (if the guild has the `ROLE_ICONS` feature)                                                              |
+| unicode_emoji? | ?string                                   | the role's unicode emoji as a [standard emoji](#DOCS_REFERENCE/message-formatting) (if the guild has the `ROLE_ICONS` feature) |
+| mentionable?   | ?boolean                                  | whether the role should be mentionable                                                                                         |
 
 ## Modify Guild MFA Level % POST /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/mfa
 
@@ -1008,10 +1008,12 @@ By default, prune will not remove users with roles. You can optionally include s
 
 ###### Query String Params
 
-| Field         | Type                                         | Description                                           |
-| ------------- | -------------------------------------------- | ----------------------------------------------------- |
-| days          | integer                                      | number of days to count prune for (1-30), default `7` |
-| include_roles | ?string; comma-delimited array of snowflakes | role(s) to include                                    |
+| Field            | Type                                        | Description                              | Default |
+| ---------------- | ------------------------------------------- | ---------------------------------------- | ------- |
+| days             | integer                                     | number of days to count prune for (1-30) | 7       |
+| include_roles \* | string                                      | role(s) to include                       |         |
+
+\* For multiple roles you specify the query parameter multiple times, i.e `?include_roles=123&include_roles=456`
 
 ## Begin Guild Prune % POST /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/prune
 
@@ -1024,12 +1026,12 @@ By default, prune will not remove users with roles. You can optionally include s
 
 ###### JSON Params
 
-| Field               | Type                 | Description                                                                |
-| ------------------- | -------------------- | -------------------------------------------------------------------------- |
-| days                | integer              | number of days to prune (1-30). default `7`                                |
-| compute_prune_count | boolean              | whether `pruned` is returned, discouraged for large guilds. default `true` |
-| include_roles       | ?array of snowflakes | role(s) to include                                                         |
-| reason?             | string               | reason for the prune (deprecated)                                          |
+| Field               | Type                | Description                                                | Default |
+| ------------------- | ------------------- | ---------------------------------------------------------- | ------- |
+| days                | integer             | number of days to prune (1-30)                             | 7       |
+| compute_prune_count | boolean             | whether `pruned` is returned, discouraged for large guilds | true    |
+| include_roles       | array of snowflakes | role(s) to include                                         |         |
+| reason?             | string              | reason for the prune (deprecated)                          |         |
 
 ## Get Guild Voice Regions % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/regions
 
@@ -1087,9 +1089,9 @@ Returns a PNG image widget for the guild. Requires no permissions or authenticat
 
 ###### Query String Params
 
-| Field | Type   | Description                                                           |
-| ----- | ------ | --------------------------------------------------------------------- |
-| style | string | style of the widget image returned (see below). defaults to `shield`  |
+| Field  | Type   | Description                                    | Default |
+| ------ | ------ | ---------------------------------------------- | ------- |
+| style? | string | style of the widget image returned (see below) | shield  |
 
 ###### Widget Style Options
 
@@ -1117,11 +1119,11 @@ Modify the guild's [Welcome Screen](#DOCS_RESOURCES_GUILD/welcome-screen-object)
 
 ###### JSON Params
 
-| Field            | Type                                                                                                                    | Description                                                     |
-| ---------------- | ----------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------- |
-| enabled          | boolean                                                                                                                 | whether the welcome screen is enabled                           |
-| welcome_channels | array of [welcome screen channel](#DOCS_RESOURCES_GUILD/welcome-screen-object-welcome-screen-channel-structure) objects | channels linked in the welcome screen and their display options |
-| description      | string                                                                                                                  | the server description to show in the welcome screen            |
+| Field             | Type                                                                                                                    | Description                                                     |
+| ----------------- | ----------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------- |
+| enabled?          | ?boolean                                                                                                                 | whether the welcome screen is enabled                           |
+| welcome_channels? | ?array of [welcome screen channel](#DOCS_RESOURCES_GUILD/welcome-screen-object-welcome-screen-channel-structure) objects | channels linked in the welcome screen and their display options |
+| description?      | ?string                                                                                                                  | the server description to show in the welcome screen            |
 
 ## Modify Current User Voice State % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/voice-states/@me
 

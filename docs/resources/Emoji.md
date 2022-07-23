@@ -109,10 +109,10 @@ Modify the given emoji. Requires the `MANAGE_EMOJIS_AND_STICKERS` permission. Re
 
 ###### JSON Params
 
-| Field | Type                 | Description                                   |
-| ----- | -------------------- | --------------------------------------------- |
-| name  | string               | name of the emoji                             |
-| roles | ?array of snowflakes | roles allowed to use this emoji               |
+| Field  | Type                 | Description                                   |
+| ------ | -------------------- | --------------------------------------------- |
+| name?  | string               | name of the emoji                             |
+| roles? | ?array of snowflakes | roles allowed to use this emoji               |
 
 ## Delete Guild Emoji % DELETE /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/emojis/{emoji.id#DOCS_RESOURCES_EMOJI/emoji-object}
 

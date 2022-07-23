@@ -152,11 +152,11 @@ Modify the given sticker. Requires the `MANAGE_EMOJIS_AND_STICKERS` permission. 
 
 ###### JSON Params
 
-| Field       | Type    | Description                                                                                  |
-| ----------- | ------- | -------------------------------------------------------------------------------------------- |
-| name        | string  | name of the sticker (2-30 characters)                                                        |
-| description | ?string | description of the sticker (2-100 characters)                                                |
-| tags        | string  | autocomplete/suggestion tags for the sticker (max 200 characters)                            |
+| Field        | Type    | Description                                                                                  |
+| ------------ | ------- | -------------------------------------------------------------------------------------------- |
+| name?        | string  | name of the sticker (2-30 characters)                                                        |
+| description? | ?string | description of the sticker (2-100 characters)                                                |
+| tags?        | string  | autocomplete/suggestion tags for the sticker (max 200 characters)                            |
 
 ## Delete Guild Sticker % DELETE /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/stickers/{sticker.id#DOCS_RESOURCES_STICKER/sticker-object}
 

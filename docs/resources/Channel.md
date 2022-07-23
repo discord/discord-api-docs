@@ -790,30 +790,30 @@ Update a channel's settings. Returns a [channel](#DOCS_RESOURCES_CHANNEL/channel
 
 Fires a [Channel Update](#DOCS_TOPICS_GATEWAY/channel-update) Gateway event.
 
-| Field                 | Type                                                                    | Description                                                                                                                                                               |
-|-----------------------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| name                  | string                                                                  | 1-100 character channel name                                                                                                                                              |
-| icon                  | binary                                                                  | base64 encoded icon                                                                                                                                                       |
+| Field                  | Type                                                                    | Description                                                                                                                                                               |
+|------------------------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| name?                  | string                                                                  | 1-100 character channel name                                                                                                                                              |
+| icon?                  | binary                                                                  | base64 encoded icon                                                                                                                                                       |
 
 ###### JSON Params (Guild channel)
 
 Requires the `MANAGE_CHANNELS` permission for the guild. Fires a [Channel Update](#DOCS_TOPICS_GATEWAY/channel-update) Gateway event. If modifying a category, individual [Channel Update](#DOCS_TOPICS_GATEWAY/channel-update) events will fire for each child channel that also changes. If modifying permission overwrites, the `MANAGE_ROLES` permission is required. Only permissions your bot has in the guild or parent channel (if applicable) can be allowed/denied (unless your bot has a `MANAGE_ROLES` overwrite in the channel).
 
-| Field                         | Type                                                                            | Description                                                                                                                                                                                                |
-|-------------------------------|---------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| name                          | string                                                                          | 1-100 character channel name                                                                                                                                                                               |
-| type                          | integer                                                                         | the [type of channel](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types); only conversion between text and news is supported and only in guilds with the "NEWS" feature. Modifiable for `Text`, `News`  |
-| position                      | ?integer                                                                        | the position of the channel in the left-hand listing                                                                                                                                                       |
-| topic                         | ?string                                                                         | 0-1024 character channel topic. Modifiable for `Text`, `News`                                                                                                                                              |
-| nsfw                          | ?boolean                                                                        | whether the channel is nsfw. Modifiable for `Text`, `Voice`, `News`                                                                                                                                        |
-| rate_limit_per_user           | ?integer                                                                        | amount of seconds a user has to wait before sending another message (0-21600); bots, as well as users with the permission `manage_messages` or `manage_channel`, are unaffected. Modifiable for `Text`     |
-| bitrate\*                     | ?integer                                                                        | the bitrate (in bits) of the voice or stage channel; min 8000. Modifiable for `Voice`, `Stage`                                                                                                             |
-| user_limit                    | ?integer                                                                        | the user limit of the voice channel; 0 refers to no limit, 1 to 99 refers to a user limit. Modifiable for `Voice`                                                                                          |
-| permission_overwrites\*\*     | ?array of partial [overwrite](#DOCS_RESOURCES_CHANNEL/overwrite-object) objects | channel or category-specific permissions                                                                                                                                                                   |
-| parent_id                     | ?snowflake                                                                      | id of the new parent category for a channel. Modifiable for `Text`, `Voice`, `News`                                                                                                                        |
-| rtc_region                    | ?string                                                                         | channel [voice region](#DOCS_RESOURCES_VOICE/voice-region-object) id, automatic when set to null. Modifiable for `Voice`, `Stage`                                                                          |
-| video_quality_mode            | ?integer                                                                        | the camera [video quality mode](#DOCS_RESOURCES_CHANNEL/channel-object-video-quality-modes) of the voice channel. Modifiable for `Voice`                                                                   |
-| default_auto_archive_duration | ?integer                                                                        | the default duration that the clients use (not the API) for newly created threads in the channel, in minutes, to automatically archive the thread after recent activity. Modifiable for `Text`, `News`     |
+| Field                         | Type                                                                            | Description                                                                                                                                                                     | Channel Type             |
+|-------------------------------|---------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------|
+| name                          | string                                                                          | 1-100 character channel name                                                                                                                                                    | All                      |
+| type                          | integer                                                                         | the [type of channel](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types); only conversion between text and news is supported and only in guilds with the "NEWS" feature      | Text, News               |
+| position                      | ?integer                                                                        | the position of the channel in the left-hand listing                                                                                                                            | All                      |
+| topic                         | ?string                                                                         | 0-1024 character channel topic                                                                                                                                                  | Text, News               |
+| nsfw                          | ?boolean                                                                        | whether the channel is nsfw                                                                                                                                                     | Text, Voice, News        |
+| rate_limit_per_user           | ?integer                                                                        | amount of seconds a user has to wait before sending another message (0-21600); bots, as well as users with the permission `manage_messages` or `manage_channel`, are unaffected | Text                     |
+| bitrate\*                     | ?integer                                                                        | the bitrate (in bits) of the voice or stage channel; min 8000                                                                                                                   | Voice, Stage             |
+| user_limit                    | ?integer                                                                        | the user limit of the voice channel; 0 refers to no limit, 1 to 99 refers to a user limit                                                                                       | Voice                    |
+| permission_overwrites\*\*     | ?array of partial [overwrite](#DOCS_RESOURCES_CHANNEL/overwrite-object) objects | channel or category-specific permissions                                                                                                                                        | All                      |
+| parent_id                     | ?snowflake                                                                      | id of the new parent category for a channel                                                                                                                                     | Text, Voice, News        |
+| rtc_region                    | ?string                                                                         | channel [voice region](#DOCS_RESOURCES_VOICE/voice-region-object) id, automatic when set to null                                                                                | Voice, Stage             |
+| video_quality_mode            | ?integer                                                                        | the camera [video quality mode](#DOCS_RESOURCES_CHANNEL/channel-object-video-quality-modes) of the voice channel                                                                | Voice                    |
+| default_auto_archive_duration | ?integer                                                                        | the default duration that the clients use (not the API) for newly created threads in the channel, in minutes, to automatically archive the thread after recent activity         | Text, News               |
 
 \* For voice channels, normal servers can set bitrate up to 96000, servers with Boost level 1 can set up to 128000, servers with Boost level 2 can set up to 256000, and servers with Boost level 3 or the `VIP_REGIONS` [guild feature](#DOCS_RESOURCES_GUILD/guild-object-guild-features) can set up to 384000. For stage channels, bitrate can be set up to 64000.
 
@@ -857,14 +857,12 @@ Returns the messages for a channel. If operating on a guild channel, this endpoi
 
 ###### Query String Params
 
-Absent by default, except `limit`, which is set to `50` by default
-
-| Field   | Type      | Description                                            |
-|---------|-----------|------------------------------------------------------- |
-| around? | snowflake | Get messages around this message ID                    |
-| before? | snowflake | Get messages before this message ID                    |
-| after?  | snowflake | Get messages after this message ID                     |
-| limit?  | integer   | Max number of messages to return (1-100)               |
+| Field   | Type      | Description                                            | Default |
+|---------|-----------|------------------------------------------------------- | ------- |
+| around? | snowflake | Get messages around this message ID                    |         |
+| before? | snowflake | Get messages before this message ID                    |         |
+| after?  | snowflake | Get messages after this message ID                     |         |
+| limit?  | integer   | Max number of messages to return (1-100)               | 50      |
 
 ## Get Channel Message % GET /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}
 
@@ -954,12 +952,10 @@ The `emoji` must be [URL Encoded](https://en.wikipedia.org/wiki/Percent-encoding
 
 ###### Query String Params
 
-`limit` is set to `25` by default, rest are absent.
-
-| Field   | Type      | Description                           |
-|---------|-----------|---------------------------------------|
-| after?  | snowflake | Get users after this user ID          |
-| limit?  | integer   | Max number of users to return (1-100) |
+| Field   | Type      | Description                           | Default |
+|---------|-----------|---------------------------------------| ------- |
+| after?  | snowflake | Get users after this user ID          |         |
+| limit?  | integer   | Max number of users to return (1-100) | 25      |
 
 ## Delete All Reactions % DELETE /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}/reactions
 
@@ -989,16 +985,16 @@ Any provided files will be **appended** to the message. To remove or replace fil
 
 ###### JSON/Form Params
 
-| Field            | Type                                                                                 | Description                                                                                                                             |
-| ---------------- | ------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------- |
-| content          | string                                                                               | Message contents (up to 2000 characters)                                                                                                |
-| embeds           | array of [embed](#DOCS_RESOURCES_CHANNEL/embed-object) objects                       | Embedded `rich` content (up to 6000 characters)                                                                                         |
-| flags            | integer                                                                              | Edit the [flags](#DOCS_RESOURCES_CHANNEL/message-object-message-flags) of a message (only `SUPPRESS_EMBEDS` can currently be set/unset) |
-| allowed_mentions | [allowed mention object](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object)            | Allowed mentions for the message                                                                                                        |
-| components       | array of [message component](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-object) | Components to include with the message                                                                                                  |
-| files[n]         | file contents                                                                        | Contents of the file being sent/edited. See [Uploading Files](#DOCS_REFERENCE/uploading-files)                                          |
-| payload_json     | string                                                                               | JSON-encoded body of non-file params (multipart/form-data only). See [Uploading Files](#DOCS_REFERENCE/uploading-files)                 |
-| attachments      | array of [attachment](#DOCS_RESOURCES_CHANNEL/attachment-object) objects             | Attached files to keep and possible descriptions for new files. See [Uploading Files](#DOCS_REFERENCE/uploading-files)                  |
+| Field             | Type                                                                                  | Description                                                                                                                             |
+| ----------------- | ------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
+| content?          | ?string                                                                               | Message contents (up to 2000 characters)                                                                                                |
+| embeds?           | ?array of [embed](#DOCS_RESOURCES_CHANNEL/embed-object) objects                       | Embedded `rich` content (up to 6000 characters)                                                                                         |
+| flags?            | ?integer                                                                              | Edit the [flags](#DOCS_RESOURCES_CHANNEL/message-object-message-flags) of a message (only `SUPPRESS_EMBEDS` can currently be set/unset) |
+| allowed_mentions? | ?[allowed mention object](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object)            | Allowed mentions for the message                                                                                                        |
+| components?       | ?array of [message component](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-object) | Components to include with the message                                                                                                  |
+| files[n]?         | ?file contents                                                                        | Contents of the file being sent/edited. See [Uploading Files](#DOCS_REFERENCE/uploading-files)                                          |
+| payload_json?     | ?string                                                                               | JSON-encoded body of non-file params (multipart/form-data only). See [Uploading Files](#DOCS_REFERENCE/uploading-files)                 |
+| attachments?      | ?array of [attachment](#DOCS_RESOURCES_CHANNEL/attachment-object) objects             | Attached files to keep and possible descriptions for new files. See [Uploading Files](#DOCS_REFERENCE/uploading-files)                  |
 
 ## Delete Message % DELETE /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}
 
@@ -1053,15 +1049,15 @@ Create a new [invite](#DOCS_RESOURCES_INVITE/invite-object) object for the chann
 
 ###### JSON Params
 
-| Field                 | Type      | Description                                                                                                                                                  |
-|-----------------------|-----------|--------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| max_age               | integer   | duration of invite in seconds before expiry, or 0 for never. between 0 and 604800 (7 days). Defaults to `86400` (24 hours)                                   |
-| max_uses              | integer   | max number of uses or 0 for unlimited. between 0 and 100. Defaults to `0`                                                                                    |
-| temporary             | boolean   | whether this invite only grants temporary membership. Defaults to `false`                                                                                    |
-| unique                | boolean   | if true, don't try to reuse a similar invite (useful for creating many unique one time use invites). Defaults to `false`                                     |
-| target_type           | integer   | the [type of target](#DOCS_RESOURCES_INVITE/invite-object-invite-target-types) for this voice channel invite                                                 |
-| target_user_id        | snowflake | the id of the user whose stream to display for this invite, required if `target_type` is 1, the user must be streaming in the channel                        |
-| target_application_id | snowflake | the id of the embedded application to open for this invite, required if `target_type` is 2, the application must have the `EMBEDDED` flag                    |
+| Field                  | Type      | Description                                                                                                                               | Default          |
+|------------------------|-----------|-------------------------------------------------------------------------------------------------------------------------------------------|------------------|
+| max_age?               | integer   | duration of invite in seconds before expiry, or 0 for never. between 0 and 604800 (7 days)                                                | 86400 (24 hours) |
+| max_uses?              | integer   | max number of uses or 0 for unlimited. between 0 and 100                                                                                  | 0                |
+| temporary?             | boolean   | whether this invite only grants temporary membership                                                                                      | false            |
+| unique?                | boolean   | if true, don't try to reuse a similar invite (useful for creating many unique one time use invites)                                       | false            |
+| target_type?           | integer   | the [type of target](#DOCS_RESOURCES_INVITE/invite-object-invite-target-types) for this voice channel invite                              |                  |
+| target_user_id?        | snowflake | the id of the user whose stream to display for this invite, required if `target_type` is 1, the user must be streaming in the channel     |                  |
+| target_application_id? | snowflake | the id of the embedded application to open for this invite, required if `target_type` is 2, the application must have the `EMBEDDED` flag |                  |
 
 ## Delete Channel Permission % DELETE /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/permissions/{overwrite.id#DOCS_RESOURCES_CHANNEL/overwrite-object}
 

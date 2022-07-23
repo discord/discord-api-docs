@@ -143,11 +143,11 @@ Modify a webhook. Requires the `MANAGE_WEBHOOKS` permission. Returns the updated
 
 ###### JSON Params
 
-| Field      | Type                                      | Description                                        |
-| ---------- | ----------------------------------------- | -------------------------------------------------- |
-| name       | string                                    | the default name of the webhook                    |
-| avatar     | ?[image data](#DOCS_REFERENCE/image-data) | image for the default webhook avatar               |
-| channel_id | snowflake                                 | the new channel id this webhook should be moved to |
+| Field       | Type                                      | Description                                        |
+| ----------- | ----------------------------------------- | -------------------------------------------------- |
+| name?       | string                                    | the default name of the webhook                    |
+| avatar?     | ?[image data](#DOCS_REFERENCE/image-data) | image for the default webhook avatar               |
+| channel_id? | snowflake                                 | the new channel id this webhook should be moved to |
 
 ## Modify Webhook with Token % PATCH /webhooks/{webhook.id#DOCS_RESOURCES_WEBHOOK/webhook-object}/{webhook.token#DOCS_RESOURCES_WEBHOOK/webhook-object}
 
@@ -183,20 +183,20 @@ Refer to [Uploading Files](#DOCS_REFERENCE/uploading-files) for details on attac
 
 ###### JSON/Form Params
 
-| Field             | Type                                                                                 | Description                                                                                                                                                                                                |
-| ----------------- | ------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| content           | string                                                                               | the message contents (up to 2000 characters) (requires one of content, file, embeds)                                                                                                                       |
-| username?         | string                                                                               | override the default username of the webhook                                                                                                                                                               |
-| avatar_url?       | string                                                                               | override the default avatar of the webhook                                                                                                                                                                 |
-| tts?              | boolean                                                                              | true if this is a TTS message                                                                                                                                                                              |
-| embeds            | array of up to 10 [embed](#DOCS_RESOURCES_CHANNEL/embed-object) objects              | embedded `rich` content (requires one of content, file, embeds)                                                                                                                                            |
-| allowed_mentions? | [allowed mention object](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object)            | allowed mentions for the message                                                                                                                                                                           |
-| components? \*    | array of [message component](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-object) | the components to include with the message                                                                                                                                                                 |
-| files[n] \*\*     | file contents                                                                        | the contents of the file being sent (requires one of content, file, embeds)                                                                                                                                |
-| payload_json \*\* | string                                                                               | JSON encoded body of non-file params (`multipart/form-data` only)                                                                                                                                          |
-| attachments? \*\* | array of partial [attachment](#DOCS_RESOURCES_CHANNEL/attachment-object) objects     | attachment objects with filename and description                                                                                                                                                           |
-| flags?            | integer                                                                              | [message flags](#DOCS_RESOURCES_CHANNEL/message-object-message-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field) (only `SUPPRESS_EMBEDS` can be set)                                |
-| thread_name       | string                                                                               | name of thread to create (requires the webhook channel to be a forum channel)                                                                                                                              |
+| Field             | Type                                                                                 | Description                                                                                                                                                                  | Required                                      |
+| ----------------- | ------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------- |
+| content?          | string                                                                               | the message contents (up to 2000 characters)                                                                                                                                 | one of content, file, embeds                  |
+| username?         | string                                                                               | override the default username of the webhook                                                                                                                                 |                                               |
+| avatar_url?       | string                                                                               | override the default avatar of the webhook                                                                                                                                   |                                               |
+| tts?              | boolean                                                                              | true if this is a TTS message                                                                                                                                                |                                               |
+| embeds?           | array of up to 10 [embed](#DOCS_RESOURCES_CHANNEL/embed-object) objects              | embedded `rich` content                                                                                                                                                      | one of content, file, embeds                  |
+| allowed_mentions? | [allowed mention object](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object)            | allowed mentions for the message                                                                                                                                             |                                               |
+| components? \*    | array of [message component](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-object) | the components to include with the message                                                                                                                                   |                                               |
+| files[n]?\*\*     | file contents                                                                        | the contents of the file being sent                                                                                                                                          | one of content, file, embeds                  |
+| payload_json \*\* | string                                                                               | JSON encoded body of non-file params                                                                                                                                         | `multipart/form-data` only                    |
+| attachments? \*\* | array of partial [attachment](#DOCS_RESOURCES_CHANNEL/attachment-object) objects     | attachment objects with filename and description                                                                                                                             |                                               |
+| flags?            | integer                                                                              | [message flags](#DOCS_RESOURCES_CHANNEL/message-object-message-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field) (only `SUPPRESS_EMBEDS` can be set)  |                                               |
+| thread_name       | string                                                                               | name of thread to create                                                                                                                                                     | the webhook channel should be a forum channel |
 
 \* Requires an application-owned webhook.
 
@@ -260,15 +260,15 @@ Any provided files will be **appended** to the message. To remove or replace fil
 
 ###### JSON/Form Params
 
-| Field            | Type                                                                                 | Description                                                     |
-| ---------------- | ------------------------------------------------------------------------------------ | --------------------------------------------------------------- |
-| content          | string                                                                               | the message contents (up to 2000 characters)                    |
-| embeds           | array of up to 10 [embed](#DOCS_RESOURCES_CHANNEL/embed-object) objects              | embedded `rich` content                                         |
-| allowed_mentions | [allowed mention object](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object)            | allowed mentions for the message                                |
-| components \*    | array of [message component](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-object) | the components to include with the message                      |
-| files[n] \*\*    | file contents                                                                        | the contents of the file being sent/edited                      |
-| payload_json \*\*| string                                                                               | JSON encoded body of non-file params (multipart/form-data only) |
-| attachments \*\* | array of partial [attachment](#DOCS_RESOURCES_CHANNEL/attachment-object) objects     | attached files to keep and possible descriptions for new files  |
+| Field             | Type                                                                                  | Description                                                     |
+| ----------------- | ------------------------------------------------------------------------------------- | --------------------------------------------------------------- |
+| content?          | ?string                                                                               | the message contents (up to 2000 characters)                    |
+| embeds?           | ?array of up to 10 [embed](#DOCS_RESOURCES_CHANNEL/embed-object) objects              | embedded `rich` content                                         |
+| allowed_mentions? | ?[allowed mention object](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object)            | allowed mentions for the message                                |
+| components? \*    | ?array of [message component](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-object) | the components to include with the message                      |
+| files[n]? \*\*    | ?file contents                                                                        | the contents of the file being sent/edited                      |
+| payload_json? \*\*| ?string                                                                               | JSON encoded body of non-file params (multipart/form-data only) |
+| attachments? \*\* | ?array of partial [attachment](#DOCS_RESOURCES_CHANNEL/attachment-object) objects     | attached files to keep and possible descriptions for new files  |
 
 \* Requires an application-owned webhook.
 
