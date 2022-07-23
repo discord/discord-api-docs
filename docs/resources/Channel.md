@@ -652,7 +652,7 @@ Additionally, the combined sum of characters in all `title`, `description`, `fie
 |---------------|-----------|-------------------------------------------------------------------------------------|
 | id            | snowflake | attachment id                                                                       |
 | filename      | string    | name of file attached                                                               |
-| description?  | string    | description for the file                                                            |
+| description?  | string    | description for the file (max 1024 characters)                                      |
 | content_type? | string    | the attachment's [media type](https://en.wikipedia.org/wiki/Media_type)             |
 | size          | integer   | size of file in bytes                                                               |
 | url           | string    | source url of file                                                                  |
