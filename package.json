@@ -20,7 +20,8 @@
 		"build": "tsc --build",
 		"lint": "eslint ci",
 		"lint:fix": "eslint ci --fix",
-		"test:links": "node dist/ci/checkLinks.js"
+		"test:links": "node dist/ci/checkLinks.js",
+		"install": "npm run build"
 	},
 	"devDependencies": {
 		"@actions/core": "^1.6.0",

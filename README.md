@@ -26,6 +26,11 @@ Links between docs can be achieved by using a hash symbol (#), plus the markdown
 [Links to README.md H6](#README/h6-headings)
 ```
 
+To check if your links are correct, you can run the link linter tool locally.
+
+- Set up project with Node.js on project directory: `npm i`
+- Run the linting test script: `npm run test:links`
+
 ### Alert Boxes
 
 Alert boxes are achieved by using a block quote that has one of 'warn', 'danger' or 'info' on the first line.
