@@ -12,6 +12,7 @@ When an app is performing an eligible action using the APIs, it can pass an `X-A
 
 | Field                  | Type                                                                                                         | Description                                                 |
 | ---------------------- | ------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------- |
+| application_commands   | array of [application commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object) objects  | List of application commands referenced in the audit log    |
 | audit_log_entries      | array of [audit log entry](#DOCS_RESOURCES_AUDIT_LOG/audit-log-entry-object) objects                         | List of audit log entries, sorted from most to least recent |
 | auto_moderation_rules  | array of [auto moderation rule](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object) objects         | List of auto moderation rules referenced in the audit log   |
 | guild_scheduled_events | array of [guild scheduled event](#DOCS_RESOURCES_GUILD_SCHEDULED_EVENT/guild-scheduled-event-object) objects | List of guild scheduled events referenced in the audit log  |
