@@ -118,7 +118,6 @@ The connection object that the user has attached.
 | leagueoflegends *  | League of Legends   |
 | playstation        | PlayStation Network |
 | reddit             | Reddit              |
-| samsunggalaxy *    | Samsung Galaxy      |
 | spotify            | Spotify             |
 | skype *            | Skype               |
 | steam              | Steam               |
