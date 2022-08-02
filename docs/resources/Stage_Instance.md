@@ -57,7 +57,7 @@ Below are some definitions related to stages.
 
 ## Auto Closing
 
-When a Stage channel has no speakers for a certain period of time (on the order of minutes) it will be automatically deleted.
+When a Stage channel has no speakers for a certain period of time (on the order of minutes), the Stage instance will be automatically deleted.
 
 ## Create Stage Instance % POST /stage-instances
 
