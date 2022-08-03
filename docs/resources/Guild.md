@@ -142,6 +142,16 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 | VIP_REGIONS                      | guild has access to set 384kbps bitrate in voice (previously VIP voice servers)                                     |
 | WELCOME_SCREEN_ENABLED           | guild has enabled the welcome screen                                                                                |
 
+###### Mutable Guild Features
+
+| Features         | Required Permissions  | Effects                                                  |
+| ---------------- | --------------------- | -------------------------------------------------------- |
+| COMMUNITY        | Administrator         | Enables Community Features in the guild                  |
+| INVITES_DISABLED | Manage Guild          | Pauses all invites/access to the server                  |
+| DISCOVERABLE     | Administrator*        | Enables discovery in the guild making it publicly listed |
+
+\* Server also must be passing all discovery requirements 
+
 ###### Example Guild
 
 ```json
