@@ -148,7 +148,7 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 | ---------------- | --------------------- | -------------------------------------------------------- |
 | COMMUNITY        | Administrator         | Enables Community Features in the guild                  |
 | INVITES_DISABLED | Manage Guild          | Pauses all invites/access to the server                  |
-| DISCOVERABLE     | Administrator*        | Enables discovery in the guild making it publicly listed |
+| DISCOVERABLE     | Administrator*        | Enables discovery in the guild, making it publicly listed |
 
 \* Server also must be passing all discovery requirements 
 
