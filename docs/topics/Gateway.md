@@ -789,7 +789,7 @@ The ready event is dispatched when a client has completed the initial handshake 
 
 | Field              | Type                                                                                 | Description                                                                                                   |
 | ------------------ | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------- |
-| v i                | integer                                                                              | [API version](#DOCS_REFERENCE/api-versioning-api-versions)                                                   |
+| v                  | integer                                                                              | [API version](#DOCS_REFERENCE/api-versioning-api-versions)                                                    |
 | user               | [user](#DOCS_RESOURCES_USER/user-object) object                                      | information about the user including email                                                                    |
 | guilds             | array of [Unavailable Guild](#DOCS_RESOURCES_GUILD/unavailable-guild-object) objects | the guilds the user is in                                                                                     |
 | session_id         | string                                                                               | used for resuming connections                                                                                 |
