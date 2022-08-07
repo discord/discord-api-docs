@@ -661,7 +661,7 @@ Additionally, the combined sum of characters in all `title`, `description`, `fie
 | width?        | ?integer  | width of file (if image)                                                            |
 | ephemeral? \* | boolean   | whether this attachment is ephemeral                                                |
 
-\* Ephemeral attachments will automatically be removed after a set period of time. Ephemeral attachments on messages are guaranteed to be available as long as the message itself exists.
+\* Ephemeral attachments will automatically be removed after 2 weeks. Ephemeral attachments on messages are guaranteed to be available as long as the message itself exists.
 
 ### Channel Mention Object
 
