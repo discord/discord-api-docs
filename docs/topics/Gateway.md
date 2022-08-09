@@ -171,7 +171,7 @@ If the payload is valid, the gateway will respond with a [Ready](#DOCS_TOPICS_GA
 
 The Internet is a scary place. Disconnections happen, especially with persistent connections. Due to Discord's architecture, this is a semi-regular event and should be expected and handled. Discord has a process for "resuming" (or reconnecting) a connection that allows the client to replay any lost events from the last sequence number they received in the exact same way they would receive them normally.
 
-Your client should store the `session_id` from the [Ready](#DOCS_TOPICS_GATEWAY/ready), and the sequence number of the last event it received. When your client detects that it has been disconnected, it should completely close the connection and open a new one (following the same strategy as [Connecting](#DOCS_TOPICS_GATEWAY/connecting)). Once the new connection has been opened, the client should send a [Gateway Resume](#DOCS_TOPICS_GATEWAY/resume):
+Your client should store the `session_id` and `resume_gateway_url` from the [Ready](#DOCS_TOPICS_GATEWAY/ready), and the sequence number of the last event it received. When your client detects that it has been disconnected, it should completely close the connection and open a new one (following the same strategy as [Connecting](#DOCS_TOPICS_GATEWAY/connecting)) to `resume_gateway_url`. Once the new connection has been opened, the client should send a [Gateway Resume](#DOCS_TOPICS_GATEWAY/resume):
 
 ###### Example Gateway Resume
 
@@ -187,6 +187,8 @@ Your client should store the `session_id` from the [Ready](#DOCS_TOPICS_GATEWAY/
 ```
 
 If successful, the gateway will respond by replaying all missed events in order, finishing with a [Resumed](#DOCS_TOPICS_GATEWAY/resumed) event to signal replay has finished, and all subsequent events are new. It's also possible that your client cannot reconnect in time to resume, in which case the client will receive a [Opcode 9 Invalid Session](#DOCS_TOPICS_GATEWAY/invalid-session) and is expected to wait a random amount of time—between 1 and 5 seconds—then send a fresh [Opcode 2 Identify](#DOCS_TOPICS_GATEWAY/identify).
+
+Failure to respect the `resume_gateway_url` may result in your client being forced to reconnect again after a short period of time.
 
 ### Disconnections
 
@@ -785,14 +787,15 @@ The ready event is dispatched when a client has completed the initial handshake 
 
 ###### Ready Event Fields
 
-| Field       | Type                                                                                 | Description                                                                                                   |
-| ----------- | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------- |
-| v           | integer                                                                              | [API version](#DOCS_REFERENCE/api-versioning-api-versions)                                                   |
-| user        | [user](#DOCS_RESOURCES_USER/user-object) object                                      | information about the user including email                                                                    |
-| guilds      | array of [Unavailable Guild](#DOCS_RESOURCES_GUILD/unavailable-guild-object) objects | the guilds the user is in                                                                                     |
-| session_id  | string                                                                               | used for resuming connections                                                                                 |
-| shard?      | array of two integers (shard_id, num_shards)                                         | the [shard information](#DOCS_TOPICS_GATEWAY/sharding) associated with this session, if sent when identifying |
-| application | partial [application object](#DOCS_RESOURCES_APPLICATION/application-object)         | contains `id` and `flags`                                                                                     |
+| Field              | Type                                                                                 | Description                                                                                                   |
+| ------------------ | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------- |
+| v                  | integer                                                                              | [API version](#DOCS_REFERENCE/api-versioning-api-versions)                                                    |
+| user               | [user](#DOCS_RESOURCES_USER/user-object) object                                      | information about the user including email                                                                    |
+| guilds             | array of [Unavailable Guild](#DOCS_RESOURCES_GUILD/unavailable-guild-object) objects | the guilds the user is in                                                                                     |
+| session_id         | string                                                                               | used for resuming connections                                                                                 |
+| resume_gateway_url | string                                                                               | gateway url for resuming connections                                                                          |
+| shard?             | array of two integers (shard_id, num_shards)                                         | the [shard information](#DOCS_TOPICS_GATEWAY/sharding) associated with this session, if sent when identifying |
+| application        | partial [application object](#DOCS_RESOURCES_APPLICATION/application-object)         | contains `id` and `flags`                                                                                     |
 
 #### Resumed
 
