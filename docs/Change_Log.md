@@ -1,5 +1,7 @@
 # Change Log
+
 ## Zone-specific Gateway Resume URLs
+
 #### Aug 9, 2022
 
 > warn
