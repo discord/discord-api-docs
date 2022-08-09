@@ -1,4 +1,13 @@
 # Change Log
+## Zone-specific Gateway Resume URLs
+#### Aug 9, 2022
+
+> warn
+> Starting on **October 3, 2022**, apps that aren’t using the new `resume_gateway_url` field to resume gateway sessions will be disconnected significantly faster than normal.
+
+A new `resume_gateway_url` field has been added to the Ready gateway event to support zone-specific gateway connections. The value of `resume_gateway_url` is a zone-specific URL that should be used when resuming the gateway session after disconnects. Previously, `wss://gateway.discord.gg` was used to connect *and* resume sessions, but should now only be used during the connection.
+
+At the moment, the value of `resume_gateway_url` will always be `wss://gateway.discord.gg` to give developers more time to adopt the new field. In the near future, the value will change to the zone-specific URLs.
 
 ## Upcoming Permissions Change to Webhook Routes
 
