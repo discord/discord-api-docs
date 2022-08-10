@@ -115,8 +115,9 @@ The connection object that the user has attached.
 | epicgames          | Epic Games          |
 | facebook           | Facebook            |
 | github             | GitHub              |
-| leagueoflegends *  | League of Legends   |
+| leagueoflegends    | League of Legends   |
 | playstation        | PlayStation Network |
+| riotgames          | Riot Games          |
 | reddit             | Reddit              |
 | samsunggalaxy *    | Samsung Galaxy      |
 | spotify            | Spotify             |
