@@ -117,8 +117,8 @@ The connection object that the user has attached.
 | github             | GitHub              |
 | leagueoflegends    | League of Legends   |
 | playstation        | PlayStation Network |
-| riotgames          | Riot Games          |
 | reddit             | Reddit              |
+| riotgames          | Riot Games          |
 | samsunggalaxy *    | Samsung Galaxy      |
 | spotify            | Spotify             |
 | skype *            | Skype               |
