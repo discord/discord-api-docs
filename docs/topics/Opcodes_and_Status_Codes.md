@@ -158,6 +158,7 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 20016  | This action cannot be performed due to slowmode rate limit                                                                    |
 | 20018  | Only the owner of this account can perform this action                                                                        |
 | 20022  | This message cannot be edited due to announcement rate limits                                                                 |
+| 20024  | Under minimum age                                                                                                             |
 | 20028  | The channel you are writing has hit the write rate limit                                                                      |
 | 20029  | The write action you are performing on the server has hit the write rate limit                                                |
 | 20031  | Your Stage topic, server name, server description, or channel names contain words that are not allowed                        |
@@ -177,7 +178,9 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 30019  | Maximum number of server members reached                                                                                      |
 | 30030  | Maximum number of server categories has been reached (5)                                                                      |
 | 30031  | Guild already has a template                                                                                                  |
+| 30032  | Maximum number of application commands reached                                                                                |
 | 30033  | Max number of thread participants has been reached (1000)                                                                     |
+| 30034  | Max number of daily application command creates has been reached (200)                                                        |
 | 30035  | Maximum number of bans for non-guild members have been exceeded                                                               |
 | 30037  | Maximum number of bans fetches has been reached                                                                               |
 | 30038  | Maximum number of uncompleted guild scheduled events reached (100)                                                            |
@@ -195,9 +198,11 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 40005  | Request entity too large. Try sending something smaller in size                                                               |
 | 40006  | This feature has been temporarily disabled server-side                                                                        |
 | 40007  | The user is banned from this guild                                                                                            |
+| 40012  | Connection has been revoked                                                                                                   |
 | 40032  | Target user is not connected to voice                                                                                         |
 | 40033  | This message has already been crossposted                                                                                     |
 | 40041  | An application command with that name already exists                                                                          |
+| 40043  | Application interaction failed to send                                                                                        |
 | 40060  | Interaction has already been acknowledged                                                                                     |
 | 40061  | Tag names must be unique                                                                                                      |
 | 50001  | Missing access                                                                                                                |
@@ -247,10 +252,14 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 50097  | This server needs monetization enabled in order to perform this action                                                        |
 | 50101  | This server needs more boosts to perform this action                                                                          |
 | 50109  | The request body contains invalid JSON.                                                                                       |
+| 50132  | Ownership cannot be transferred to a bot user                                                                                 |
+| 50138  | Failed to resize asset below the maximum size: 262144                                                                         |
+| 50146  | Uploaded file not found.                                                                                                      |
 | 50600  | You do not have permission to send this sticker.                                                                              |
 | 60003  | Two factor is required for this operation                                                                                     |
 | 80004  | No users with DiscordTag exist                                                                                                |
 | 90001  | Reaction was blocked                                                                                                          |
+| 110001 | Application not yet available. Try again later                                                                                |
 | 130000 | API resource is currently overloaded. Try again a little later                                                                |
 | 150006 | The Stage is already open                                                                                                     |
 | 160002 | Cannot reply without permission to read message history                                                                       |
@@ -267,6 +276,8 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 170007 | Sticker animation duration exceeds maximum of 5 seconds                                                                       |
 | 180000 | Cannot update a finished event                                                                                                |
 | 180002 | Failed to create stage needed for stage event                                                                                 |
+| 200000 | Message was blocked by automatic moderation                                                                                   |
+| 200001 | Title was blocked by automatic moderation                                                                                     |
 | 220003 | Webhooks can only create threads in forum channels                                                                            |
 
 ###### Example JSON Error Response

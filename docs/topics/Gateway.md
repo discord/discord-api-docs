@@ -154,9 +154,9 @@ This is a minimal `IDENTIFY` payload. `IDENTIFY` supports additional optional fi
     "token": "my_token",
     "intents": 513,
     "properties": {
-      "$os": "linux",
-      "$browser": "my_library",
-      "$device": "my_library"
+      "os": "linux",
+      "browser": "my_library",
+      "device": "my_library"
     }
   }
 }
@@ -171,7 +171,7 @@ If the payload is valid, the gateway will respond with a [Ready](#DOCS_TOPICS_GA
 
 The Internet is a scary place. Disconnections happen, especially with persistent connections. Due to Discord's architecture, this is a semi-regular event and should be expected and handled. Discord has a process for "resuming" (or reconnecting) a connection that allows the client to replay any lost events from the last sequence number they received in the exact same way they would receive them normally.
 
-Your client should store the `session_id` from the [Ready](#DOCS_TOPICS_GATEWAY/ready), and the sequence number of the last event it received. When your client detects that it has been disconnected, it should completely close the connection and open a new one (following the same strategy as [Connecting](#DOCS_TOPICS_GATEWAY/connecting)). Once the new connection has been opened, the client should send a [Gateway Resume](#DOCS_TOPICS_GATEWAY/resume):
+Your client should store the `session_id` and `resume_gateway_url` from the [Ready](#DOCS_TOPICS_GATEWAY/ready), and the sequence number of the last event it received. When your client detects that it has been disconnected, it should completely close the connection and open a new one (following the same strategy as [Connecting](#DOCS_TOPICS_GATEWAY/connecting)) to `resume_gateway_url`. Once the new connection has been opened, the client should send a [Gateway Resume](#DOCS_TOPICS_GATEWAY/resume):
 
 ###### Example Gateway Resume
 
@@ -187,6 +187,8 @@ Your client should store the `session_id` from the [Ready](#DOCS_TOPICS_GATEWAY/
 ```
 
 If successful, the gateway will respond by replaying all missed events in order, finishing with a [Resumed](#DOCS_TOPICS_GATEWAY/resumed) event to signal replay has finished, and all subsequent events are new. It's also possible that your client cannot reconnect in time to resume, in which case the client will receive a [Opcode 9 Invalid Session](#DOCS_TOPICS_GATEWAY/invalid-session) and is expected to wait a random amount of time—between 1 and 5 seconds—then send a fresh [Opcode 2 Identify](#DOCS_TOPICS_GATEWAY/identify).
+
+Failure to respect the `resume_gateway_url` may result in your client being forced to reconnect again after a short period of time.
 
 ### Disconnections
 
@@ -570,11 +572,14 @@ Used to trigger the initial handshake with the gateway.
 
 ###### Identify Connection Properties
 
-| Field     | Type   | Description           |
-| --------- | ------ | --------------------- |
-| \$os      | string | your operating system |
-| \$browser | string | your library name     |
-| \$device  | string | your library name     |
+| Field   | Type   | Description           |
+| ------- | ------ | --------------------- |
+| os      | string | your operating system |
+| browser | string | your library name     |
+| device  | string | your library name     |
+
+> warn
+> These fields originally were $ prefixed (i.e: `$browser`) but [this syntax is deprecated](#DOCS_CHANGE_LOG/updated-connection-property-field-names). While they currently still work, it is recommended to move to non-prefixed fields.
 
 ###### Example Identify
 
@@ -584,9 +589,9 @@ Used to trigger the initial handshake with the gateway.
   "d": {
     "token": "my_token",
     "properties": {
-      "$os": "linux",
-      "$browser": "disco",
-      "$device": "disco"
+      "os": "linux",
+      "browser": "disco",
+      "device": "disco"
     },
     "compress": true,
     "large_threshold": 250,
@@ -782,14 +787,15 @@ The ready event is dispatched when a client has completed the initial handshake 
 
 ###### Ready Event Fields
 
-| Field       | Type                                                                                 | Description                                                                                                   |
-| ----------- | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------- |
-| v           | integer                                                                              | [API version](#DOCS_REFERENCE/api-versioning-api-versions)                                                   |
-| user        | [user](#DOCS_RESOURCES_USER/user-object) object                                      | information about the user including email                                                                    |
-| guilds      | array of [Unavailable Guild](#DOCS_RESOURCES_GUILD/unavailable-guild-object) objects | the guilds the user is in                                                                                     |
-| session_id  | string                                                                               | used for resuming connections                                                                                 |
-| shard?      | array of two integers (shard_id, num_shards)                                         | the [shard information](#DOCS_TOPICS_GATEWAY/sharding) associated with this session, if sent when identifying |
-| application | partial [application object](#DOCS_RESOURCES_APPLICATION/application-object)         | contains `id` and `flags`                                                                                     |
+| Field              | Type                                                                                 | Description                                                                                                   |
+| ------------------ | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------- |
+| v                  | integer                                                                              | [API version](#DOCS_REFERENCE/api-versioning-api-versions)                                                    |
+| user               | [user](#DOCS_RESOURCES_USER/user-object) object                                      | information about the user including email                                                                    |
+| guilds             | array of [Unavailable Guild](#DOCS_RESOURCES_GUILD/unavailable-guild-object) objects | the guilds the user is in                                                                                     |
+| session_id         | string                                                                               | used for resuming connections                                                                                 |
+| resume_gateway_url | string                                                                               | gateway url for resuming connections                                                                          |
+| shard?             | array of two integers (shard_id, num_shards)                                         | the [shard information](#DOCS_TOPICS_GATEWAY/sharding) associated with this session, if sent when identifying |
+| application        | partial [application object](#DOCS_RESOURCES_APPLICATION/application-object)         | contains `id` and `flags`                                                                                     |
 
 #### Resumed
 
@@ -851,7 +857,7 @@ Sent when a rule is deleted. The inner payload is an [auto moderation rule](#DOC
 
 #### Auto Moderation Action Execution
 
-Sent when an rule is triggered and an action is executed (e.g. message is blocked).
+Sent when a rule is triggered and an action is executed (e.g. when a message is blocked).
 
 ###### Auto Moderation Action Execution Event Fields
 
@@ -865,13 +871,16 @@ Sent when an rule is triggered and an action is executed (e.g. message is blocke
 | channel_id?              | snowflake                                                                                      | the id of the channel in which user content was posted                             |
 | message_id?              | snowflake                                                                                      | the id of any user message which content belongs to *                              |
 | alert_system_message_id? | snowflake                                                                                      | the id of any system auto moderation messages posted as a result of this action ** |
-| content                  | string                                                                                         | the user generated text content                                                    |
+| content ***              | string                                                                                         | the user generated text content                                                    |
 | matched_keyword          | ?string                                                                                        | the word or phrase configured in the rule that triggered the rule                  |
-| matched_content          | ?string                                                                                        | the substring in content that triggered the rule                                   |
+| matched_content ***      | ?string                                                                                        | the substring in content that triggered the rule                                   |
 
 
 \* `message_id` will not exist if message was blocked by automod or content was not part of any message
-\** `alert_system_message_id` will not exist if this event does not correspond to an action with type `SEND_ALERT_MESSAGE`
+
+\*\* `alert_system_message_id` will not exist if this event does not correspond to an action with type `SEND_ALERT_MESSAGE`
+
+\*\*\* `MESSAGE_CONTENT` (`1 << 15`) [gateway intent](#DOCS_TOPICS_GATEWAY/gateway-intents) is required to receive the `content` and `matched_content` fields
 
 ### Channels
 
@@ -971,7 +980,7 @@ The inner payload is a [guild](#DOCS_RESOURCES_GUILD/guild-object) object, with 
 | ---------------------- | ------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------- |
 | joined_at              | ISO8601 timestamp                                                                                            | when this guild was joined at                                                                                              |
 | large                  | boolean                                                                                                      | true if this is considered a large guild                                                                                   |
-| unavailable            | boolean                                                                                                      | true if this guild is unavailable due to an outage                                                                         |
+| unavailable?           | boolean                                                                                                      | true if this guild is unavailable due to an outage                                                                         |
 | member_count           | integer                                                                                                      | total number of members in this guild                                                                                      |
 | voice_states           | array of partial [voice state](#DOCS_RESOURCES_VOICE/voice-state-object) objects                             | states of members currently in voice channels; lacks the `guild_id` key                                                    |
 | members                | array of [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) objects                                   | users in the guild                                                                                                         |

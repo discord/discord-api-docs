@@ -1,5 +1,115 @@
 # Change Log
 
+## Session-specific Gateway Resume URLs
+
+#### Aug 9, 2022
+
+> warn
+> Starting on **September 12, 2022**, apps that aren’t using the new `resume_gateway_url` field to resume gateway sessions will be disconnected significantly faster than normal.
+
+A new `resume_gateway_url` field has been added to the [Ready](#DOCS_TOPICS_GATEWAY/ready) gateway event to support session-specific gateway connections. The value of `resume_gateway_url` is a session-specific URL that should be used when resuming the gateway session after a disconnect. Previously, `wss://gateway.discord.gg` was used to connect *and* resume sessions, but should now only be used during the connection.
+
+At the moment, the value of `resume_gateway_url` will always be `wss://gateway.discord.gg` to give developers more time to adopt the new field. In the near future, the value will change to the session-specific URLs.
+
+## Upcoming Permissions Change to Webhook Routes
+
+#### July 13, 2022
+
+On August 8th, 2022 we will begin requiring the `VIEW_CHANNEL (1 << 10)` permission for webhook routes which require `MANAGE_WEBHOOKS (1 << 29)`, to align with our documented behavior. We don't expect that many applications will be affected by this, but in case you are, please ensure you have updated permissions needed for accessing the following routes:
+
+- [`GET /webhooks/{webhook.id}`](#DOCS_RESOURCES_WEBHOOK/get-webhook)
+- [`DELETE /webhooks/{webhook.id}`](#DOCS_RESOURCES_WEBHOOK/delete-webhook)
+- [`PATCH /webhooks/{webhook.id}`](#DOCS_RESOURCES_WEBHOOK/modify-webhook)
+- [`GET /channels/{channel.id}/webhooks`](#DOCS_RESOURCES_WEBHOOK/get-channel-webhooks)
+- [`POST /channels/{channel.id}/webhooks`](#DOCS_RESOURCES_WEBHOOK/create-webhook)
+
+## Min and Max Length for Command Options
+
+#### July 1, 2022
+
+Application [command options](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-structure) of type `STRING` now includes optional `min_length` and `max_length` fields to control the length of text a user can input.
+
+The value of `min_length` must be greater or equal to `0`, and the value of `max_length` must be greater or equal to `1`.
+
+## Add Subcommand Groups and Subcommands to Message Interaction Objects
+
+> danger
+> This entry includes breaking changes
+
+#### July 1, 2022
+
+While this is a breaking change, most apps only rely on interaction responses (`INTERACTION_CREATE`), *not* message interaction objects (`MESSAGE_CREATE`). [Interaction responses](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/message-interaction-object/interaction-object-interaction-data) are unaffected by this change.
+
+#### Upcoming Changes
+
+Starting **July 18, 2022**, the `name` field for [message interaction objects](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/message-interaction-object) will now include subcommands and subcommand groups in the value (along with the existing top-level command). In the future, we recommend not relying on this message interaction field.
+
+The format of the value will be the different command levels (if they exist), separated by spaces:
+`<command name> <subcommand group name> <subcommand name>`
+
+The `name` field is only seen on messages that are a response to an interaction without an existing message, so interaction objects for message components don’t include this field.
+
+#### Updating your app
+
+Most apps only rely on interaction responses, not message interaction objects.
+
+We don't recommend that your app relies on the `name` field for message interactions objects, but if it does you should update your app to handle subcommands and subcommand groups that your app may encounter.
+
+As an example of the change, pretend your app had a command `/role` with subcommands `add` and `remove`. Currently, the `name` field in the original interaction payload would contain `role`. If you responded to that interaction with a message then fetched its contents, the `name` field for that message interaction object would contain `role` as well.
+
+After this change, the `name` field for the original interaction payload will still contain `role`. However, now if you responded to that interaction with a message then fetched its contents, the `name` field for that message interaction object would contain `role add` or `role remove`.
+
+## Changes to Bot Permissions for Interactions and Webhooks
+
+> danger
+> This entry includes breaking changes
+
+#### Jun 29, 2022
+
+#### Upcoming Changes
+
+> warn
+> `MENTION_EVERYONE`, `SEND_TTS_MESSAGES` and `USE_EXTERNAL_EMOJIS` are the only permissions that will be affected by this change. In a previous version of this changelog, it was indicated that `ATTACH_FILES` and `EMBED_LINKS` would be affected but this is no longer the case.
+
+Starting **August 3, 2022**, the way some of a bot's `MENTION_EVERYONE`, `SEND_TTS_MESSAGES` and `USE_EXTERNAL_EMOJIS` [permissions](#DOCS_TOPICS_PERMISSIONS/permissions) are calculated is changing in two cases:
+- When **responding to an [interaction](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING)** (like application commands or message components)
+- When **executing a [webhook](#DOCS_RESOURCES_WEBHOOK) that the bot created**
+
+Going forward, in the above cases, a bot’s `MENTION_EVERYONE`, `SEND_TTS_MESSAGES` and `USE_EXTERNAL_EMOJIS` permissions will be calculated based on the permissions its granted, *including* any [overwrites](#DOCS_TOPICS_PERMISSIONS/permission-overwrites). Previously, a bot’s permissions in these cases relied only on those granted to `@everyone`.
+
+This change *only* applies to bots. The permissions for an app without a bot user (or without the `bot` scope) will still depend on `@everyone`.
+
+#### Updating Your App
+
+If your bot wants to use the `MENTION_EVERYONE`, `SEND_TTS_MESSAGES` or `USE_EXTERNAL_EMOJIS` permissions when responding to interactions or executing a webhook, **ensure that the bot was installed (or explicitly granted) with them**.
+
+Note that even if your bot is installed with certain permissions, they can be changed using overwrites. For interactions, you can use the [`app_permissions` field](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-interaction-structure) to determine your app or bot's contextual permissions before replying.
+
+## Calculated Permissions in Interaction Payloads
+
+#### Jun 29, 2022
+
+Interaction payloads now contain an `app_permissions` field whose value is the computed [permissions](#DOCS_TOPICS_PERMISSIONS/permissions-bitwise-permission-flags) for a bot or app in the context of a specific interaction (including any channel overwrites). Similar to other permission fields, the value of `app_permissions` is a bitwise OR-ed set of permissions expressed as a string. Read details in the [interactions documentation](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object).
+
+For apps without a bot user (or without the `bot` scope), the value of `app_permissions` will be the same as the permissions for `@everyone`, but limited to the permissions that can be used in interaction responses (currently `ATTACH_FILES`, `EMBED_LINKS`, `MENTION_EVERYONE`, and `USE_EXTERNAL_EMOJIS`).
+
+
+## Message Content in AutoMod events
+
+#### Jun 21, 2022
+
+#### Breaking Changes
+
+In API v10, the `MESSAGE_CONTENT` (`1 << 15`) intent is now required to receive non-empty values for the `content` and `matched_content` fields in [`AUTO_MODERATION_ACTION_EXECUTION`](#DOCS_TOPICS_GATEWAY/auto-moderation-action-execution) gateway events. This matches the intended behavior for message content across the API.
+
+## Updated Connection Property Field Names
+
+#### Jun 17, 2022
+
+The `$` prefix in [identify connection properties](#DOCS_TOPICS_GATEWAY/identify-identify-connection-properties) are deprecated. The new field names are `os`, `browser`, and `device`. When passed, the `$`-prefixed names will resolve to the new ones. 
+
+In API v11, support for the previous field names (`$os`, `$browser`, and `$device`) will be removed.
+
 ## Auto Moderation
 
 #### Jun 16, 2022
@@ -48,7 +158,7 @@ The `GET /guilds/{guild.id}/bans` endpoint has been migrated to require paginati
 #### Feb 14, 2022
 
 - API v8 is now deprecated.
-- `GET /channels/{channel.id}/threads/active` is decomissioned in favor of [`GET /guilds/{guild.id}/threads/active`](#DOCS_RESOURCES_GUILD/list-active-guild-threads).
+- `GET /channels/{channel.id}/threads/active` is decommissioned in favor of [`GET /guilds/{guild.id}/threads/active`](#DOCS_RESOURCES_GUILD/list-active-guild-threads).
 - Starting in v10, you must specify the message content intent (`1 << 15`) to receive content-related fields in message dispatches. Read more in the [Gateway Intents documentation](#DOCS_TOPICS_GATEWAY/gateway-intents).
 - To specify a reason for an administrative action in audit logs, apps must now pass the `X-Audit-Log-Reason` header rather than the `reason` parameter for all endpoints. Read more in the [Audit Logs documentation](#DOCS_RESOURCES_AUDIT_LOG).
 - Message routes (like [`POST /channels/{channel.id}/messages`](#DOCS_RESOURCES_CHANNEL/create-message)) now use the `embeds` field (an array of embed objects) instead of `embed`.
@@ -59,7 +169,7 @@ The `GET /guilds/{guild.id}/bans` endpoint has been migrated to require paginati
 #### Upcoming changes
 
 - API v6 and v7 will be decommissioned **in early 2023**
-- `MESSAGE_CONTENT` is becoming a priviledged intent for verified bots in 75+ servers **on August 31, 2022**. Read details in [the FAQ](https://support-dev.discord.com/hc/en-us/articles/4404772028055-Message-Content-Privileged-Intent-FAQ) or follow [the guide](#DOCS_TUTORIALS_UPGRADING_TO_APPLICATION_COMMANDS) on updating your app.
+- `MESSAGE_CONTENT` is becoming a privileged intent for verified bots in 75+ servers **on August 31, 2022**. Read details in [the FAQ](https://support-dev.discord.com/hc/en-us/articles/4404772028055-Message-Content-Privileged-Intent-FAQ) or follow [the guide](#DOCS_TUTORIALS_UPGRADING_TO_APPLICATION_COMMANDS) on updating your app.
 - The `summary` field for applications will be removed in the next API version (v11)
 
 ## Interaction Modals and Application Command Attachment Option Type
