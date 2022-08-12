@@ -161,7 +161,7 @@ An action which will execute whenever a rule is triggered.
 | SEND_ALERT_MESSAGE    | 2       | logs user content to a specified channel              |
 | TIMEOUT               | 3       | timeout user for a specified duration *               |
 
-\* A `TIMEOUT` action can only be setup for `KEYWORD` rules. The `MODERATE_MEMBERS` permission is required to use the `TIMEOUT` action type.
+\* A `TIMEOUT` action can only be set up for `KEYWORD` and `MENTION_SPAM` rules. The `MODERATE_MEMBERS` permission is required to use the `TIMEOUT` action type.
 
 
 ###### Action Metadata
