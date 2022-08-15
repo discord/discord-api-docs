@@ -54,7 +54,7 @@ Rules can be configured to automatically execute actions whenever they trigger. 
 ###### Trigger Types
 
 > info
-> The `HARMFUL_LINK` and `SPAM` trigger types are not yet released, so they cannot be used in most servers.
+> The `HARMFUL_LINK`, `MENTION_SPAM`, and `SPAM` trigger types are not yet released, so they cannot be used in most servers.
 
 Characterizes the type of content which can trigger the rule.
 
