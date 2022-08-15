@@ -30,7 +30,7 @@ Since threads are a new [type of channel](#DOCS_RESOURCES_CHANNEL/channel-object
 
 - `id`, `guild_id`, `type`, `name`, `last_message_id`, `last_pin_timestamp`, `rate_limit_per_user` are being re-used
 - `owner_id` has been repurposed to store the id of the user that started the thread
-- `parent_id` has been repurposed to store the id of the `GUILD_TEXT` or `GUILD_NEWS` channel the thread was created in
+- `parent_id` has been repurposed to store the id of the `GUILD_TEXT` or `GUILD_ANNOUNCEMENT` channel the thread was created in
 
 Additionally, there are a few new fields that are only available on threads:
 
@@ -40,7 +40,7 @@ Additionally, there are a few new fields that are only available on threads:
 
 ## Public & Private Threads
 
-Public threads are viewable by everyone who can view the parent channel of the thread. Public threads must be created from an existing message, but can be "orphaned" if that message is deleted. The created thread and the message it was started from will share the same id. The [type](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types) of thread created matches the [type](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types) of the parent channel. `GUILD_TEXT` channels [create](#DOCS_RESOURCES_CHANNEL/start-thread-from-message) `GUILD_PUBLIC_THREAD` and `GUILD_NEWS` channels [create](#DOCS_RESOURCES_CHANNEL/start-thread-from-message) `GUILD_NEWS_THREAD`.
+Public threads are viewable by everyone who can view the parent channel of the thread. Public threads must be created from an existing message, but can be "orphaned" if that message is deleted. The created thread and the message it was started from will share the same id. The [type](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types) of thread created matches the [type](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types) of the parent channel. `GUILD_TEXT` channels [create](#DOCS_RESOURCES_CHANNEL/start-thread-from-message) `PUBLIC_THREAD` and `GUILD_ANNOUNCEMENT` channels [create](#DOCS_RESOURCES_CHANNEL/start-thread-from-message) `ANNOUNCEMENT_THREAD`.
 
 Private threads behave similar to Group DMs, but in a Guild. Private threads are always [created](#DOCS_RESOURCES_CHANNEL/start-thread-without-message) with the `GUILD_PRIVATE_THREAD` [type](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types) and can only be created in `GUILD_TEXT` channels.
 
@@ -117,7 +117,7 @@ Threads introduce a few new [message types](#DOCS_RESOURCES_CHANNEL/message-obje
 
 - `RECIPIENT_ADD` and `RECIPIENT_REMOVE` have been repurposed to also send when a user is added to or removed from a thread by someone else
 - `CHANNEL_NAME_CHANGE` has been repurposed and is sent when the thread's name is changed
-- `THREAD_CREATED` is a new message sent to the parent `GUILD_TEXT` channel, used to inform users that a thread has been created. It is currently only sent in one case: when a `GUILD_PUBLIC_THREAD` is created from an older message (older is still TBD, but is currently set to a very small value). The message contains a [message reference](#DOCS_RESOURCES_CHANNEL/message-reference-object-message-reference-structure) with the `guild_id` and `channel_id` of the thread. The `content` of the message is the `name` of the thread.
+- `THREAD_CREATED` is a new message sent to the parent `GUILD_TEXT` channel, used to inform users that a thread has been created. It is currently only sent in one case: when a `PUBLIC_THREAD` is created from an older message (older is still TBD, but is currently set to a very small value). The message contains a [message reference](#DOCS_RESOURCES_CHANNEL/message-reference-object-message-reference-structure) with the `guild_id` and `channel_id` of the thread. The `content` of the message is the `name` of the thread.
 - `THREAD_STARTER_MESSAGE` is a new message sent as the first message in threads that are started from an existing message in the parent channel. It _only_ contains a [message reference](#DOCS_RESOURCES_CHANNEL/message-reference-object-message-reference-structure) field that points to the message from which the thread was started.
 
 ## Enumerating threads
@@ -179,7 +179,7 @@ Listed below are some of the important details of forum channels and are safe to
 
 - Forums are a new channel type `15`.
 - Forums do not allow messages to be sent in them. Endpoints like /channels/channel_id/messages will not work on a forum channel.
-- Threads can be created in a forum channel. All threads in a forum are of type `GUILD_PUBLIC_THREAD`. These threads and messages within the thread have the same gateway events as threads in a normal text channel.
+- Threads can be created in a forum channel. All threads in a forum are of type `PUBLIC_THREAD`. These threads and messages within the thread have the same gateway events as threads in a normal text channel.
 - The APIs for loading active & archived threads, joining & leaving a thread, and loading who is in a thread are unchanged and work the same for threads in a forum.
 - The API to create a thread in a forum will create _both_ a thread and message in the same call, and as such requires passing in parameters for both the thread and message. The name and behavior of parameters is the same as they are for the existing create thread/message endpoints to simplify integrating with it.
 - The message created by that API call will have the same id as the thread.
