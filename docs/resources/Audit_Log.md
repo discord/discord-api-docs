@@ -179,9 +179,9 @@ Returns an [audit log](#DOCS_RESOURCES_AUDIT_LOG/audit-log-object) object for th
 
 The following parameters can be used to filter which and how many audit log entries are returned.
 
-| Field       | Type      | Description                                                                                                 |
-| ----------- | --------- | ----------------------------------------------------------------------------------------------------------- |
-| user_id     | snowflake | Entries from a specific user ID                                                                             |
-| action_type | integer   | Entries for a specific [audit log event](#DOCS_RESOURCES_AUDIT_LOG/audit-log-entry-object-audit-log-events) |
-| before      | snowflake | Entries that preceded a specific audit log entry ID                                                         |
-| limit       | integer   | Maximum number of entries (between 1-100) to return, defaults to 50                                         |
+| Field        | Type      | Description                                                                                                 |
+| ------------ | --------- | ----------------------------------------------------------------------------------------------------------- |
+| user_id?     | snowflake | Entries from a specific user ID                                                                             |
+| action_type? | integer   | Entries for a specific [audit log event](#DOCS_RESOURCES_AUDIT_LOG/audit-log-entry-object-audit-log-events) |
+| before?      | snowflake | Entries that preceded a specific audit log entry ID                                                         |
+| limit?       | integer   | Maximum number of entries (between 1-100) to return, defaults to 50                                         |
