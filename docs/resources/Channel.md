@@ -463,9 +463,14 @@ There are multiple message types that have a message_reference object.  Since me
 - These messages have `message_id` and `channel_id`, and `guild_id` if it is in a guild, with data of the message that was replied to. The channel_id and guild_id will be the same as the reply.
 - Replies are created by including a message_reference when sending a message. When sending, only `message_id` is required.
 
-###### Thread starter message
+###### Thread Created messages
 
-- These are the first message in a public thread.  They point back to the message in the parent channel from which the thread was started (type 21)
+- These are automatic messages sent when a public thread is created from an old message or without a message (type 18).
+- These messages have the `channel_id` and `guild_id` fields, with data of the created thread channel.
+
+###### Thread starter messages
+
+- These are the first message in public threads created from messages. They point back to the message in the parent channel from which the thread was started. (type 21)
 - These messages have `message_id`, `channel_id`, and `guild_id`.
 - These messages will never have content, embeds, or attachments, mainly just the `message_reference` and `referenced_message` fields.
 
