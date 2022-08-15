@@ -52,7 +52,7 @@ Represents a guild or DM channel within Discord.
 | GROUP_DM                | 3   | a direct message between multiple users                                                                                                              |
 | GUILD_CATEGORY          | 4   | an [organizational category](https://support.discord.com/hc/en-us/articles/115001580171-Channel-Categories-101) that contains up to 50 channels      |
 | GUILD_ANNOUNCEMENT              | 5   | a channel that [users can follow and crosspost into their own server](https://support.discord.com/hc/en-us/articles/360032008192)                    |
-| ANNOUNCEMENT_THREAD       | 10  | a temporary sub-channel within a GUILD_NEWS channel                                                                                                  |
+| ANNOUNCEMENT_THREAD       | 10  | a temporary sub-channel within a GUILD_ANNOUNCEMENT channel                                                                                                  |
 | PUBLIC_THREAD     | 11  | a temporary sub-channel within a GUILD_TEXT channel                                                                                                  |
 | PRIVATE_THREAD    | 12  | a temporary sub-channel within a GUILD_TEXT channel that is only viewable by those invited and those with the MANAGE_THREADS permission              |
 | GUILD_STAGE_VOICE       | 13  | a voice channel for [hosting events with an audience](https://support.discord.com/hc/en-us/articles/1500005513722)                                   |
