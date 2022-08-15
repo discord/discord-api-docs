@@ -54,6 +54,7 @@ Discord does not maintain official SDKs.  The following table is an inexhaustive
   - [discord-interactions.py](https://github.com/LiBa001/discord-interactions.py)
   - [dispike](https://github.com/ms7m/dispike)
   - [flask-discord-interactions](https://github.com/Breq16/flask-discord-interactions)
+  - [hikari](https://github.com/hikari-py/hikari)
 - PHP
   - [discord-interactions-php](https://github.com/discord/discord-interactions-php)
 - Other
