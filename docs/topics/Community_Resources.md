@@ -44,7 +44,6 @@ Discord does not maintain official SDKs.  The following table is an inexhaustive
 - Dart
   - [nyxx_interactions](https://github.com/l7ssha/Nyxx)
 - Go
-  - [discord-interactions-go](https://github.com/bsdlp/discord-interactions-go)
   - [Tempest](https://github.com/Amatsagu/Tempest)
 - Javascript
   - [discord-interactions-js](https://github.com/discord/discord-interactions-js)
