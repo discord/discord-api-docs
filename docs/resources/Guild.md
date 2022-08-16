@@ -987,6 +987,9 @@ Modify a guild role. Requires the `MANAGE_ROLES` permission. Returns the updated
 
 Modify a guild's MFA level. Requires guild ownership. Returns the updated [level](#DOCS_RESOURCES_GUILD/guild-object-mfa-level) on success. Fires a [Guild Update](#DOCS_TOPICS_GATEWAY/guild-update) Gateway event.
 
+> info
+> This endpoint supports the `X-Audit-Log-Reason` header.
+
 ###### JSON Params
 
 | Field         | Type                                     | Description                                                                                                                    |
