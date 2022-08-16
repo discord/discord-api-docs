@@ -52,6 +52,7 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 | nsfw_level                    | integer                                                                                                      | [guild NSFW level](#DOCS_RESOURCES_GUILD/guild-object-guild-nsfw-level)                                                                                                |
 | stickers?                     | array of [sticker](#DOCS_RESOURCES_STICKER/sticker-object) objects                                           | custom guild stickers                                                                                                                                                  |
 | premium_progress_bar_enabled  | boolean                                                                                                      | whether the guild has the boost progress bar enabled                                                                                                                   |
+
 \* These fields are only sent when using the [GET Current User Guilds](#DOCS_RESOURCES_USER/get-current-user-guilds) endpoint and are relative to the requested user
 
 \*\* This field is deprecated and is replaced by [channel.rtc_region](#DOCS_RESOURCES_CHANNEL/channel-object-channel-structure)
