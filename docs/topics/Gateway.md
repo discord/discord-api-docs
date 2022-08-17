@@ -1,8 +1,14 @@
 # Gateways
 
-Gateways are Discord's form of real-time communication over secure WebSockets. Clients will receive events and data over the gateway they are connected to and send data over the REST API. The API for interacting with Gateways is complex and fairly unforgiving, therefore it's highly recommended you read _all_ of the following documentation before writing a custom implementation.
+Gateways are secure WebSockets that apps use to receive events that occur in a Discord server where the app is installed, such as when a channel is updated or when a role is created. Gateway events have a common structure, but the contents and structure of its associated data (the `d` field) will vary.
 
-Important note: Not all event fields are documented, in particular, fields prefixed with an underscore are considered _internal fields_ and should not be relied on. We may change the format at any time.
+> info
+> While gateways are used to receive events, the [HTTP API](#DOCS_REFERENCE/http-api) is used to send and fetch data (like sending a message or querying for guild members).
+
+Interacting with gateways can be complicated, but you can find [community libraries](#DOCS_TOPICS_COMMUNITY_RESOURCES/libraries) with built-in support that simplify the complicated bits and bobs. you should read all of the following documentation before writing a custom implementation.
+
+> warn
+> Not all Gateway event fields are documented. You should assume that undocumented fields are not supported, and that their format and data may change at any time.
 
 ## Payloads
 
