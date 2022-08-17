@@ -54,14 +54,13 @@ Rules can be configured to automatically execute actions whenever they trigger. 
 ###### Trigger Types
 
 > info
-> The `HARMFUL_LINK`, `MENTION_SPAM`, and `SPAM` trigger types are not yet released, so they cannot be used in most servers.
+> The `MENTION_SPAM`, and `SPAM` trigger type is not yet released, so it cannot be used in most servers.
 
 Characterizes the type of content which can trigger the rule.
 
 | Type                 | Value   | Description                                                          | Max per Guild |
 | -------------------- | ------- | -------------------------------------------------------------------- | ------------- |
 | KEYWORD              | 1       | check if content contains words from a user defined list of keywords | 3             |
-| HARMFUL_LINK         | 2       | check if content contains any harmful links                          | 1             |
 | SPAM                 | 3       | check if content represents generic spam                             | 1             |
 | KEYWORD_PRESET       | 4       | check if content contains words from internal pre-defined wordsets   | 1             |
 | MENTION_SPAM         | 5       | check if content contains more mentions than allowed                 | 1             |
@@ -161,7 +160,7 @@ An action which will execute whenever a rule is triggered.
 | SEND_ALERT_MESSAGE    | 2       | logs user content to a specified channel              |
 | TIMEOUT               | 3       | timeout user for a specified duration *               |
 
-\* A `TIMEOUT` action can only be setup for `KEYWORD` rules. The `MODERATE_MEMBERS` permission is required to use the `TIMEOUT` action type.
+\* A `TIMEOUT` action can only be set up for `KEYWORD` and `MENTION_SPAM` rules. The `MODERATE_MEMBERS` permission is required to use the `TIMEOUT` action type.
 
 
 ###### Action Metadata

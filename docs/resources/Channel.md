@@ -51,10 +51,10 @@ Represents a guild or DM channel within Discord.
 | GUILD_VOICE             | 2   | a voice channel within a server                                                                                                                      |
 | GROUP_DM                | 3   | a direct message between multiple users                                                                                                              |
 | GUILD_CATEGORY          | 4   | an [organizational category](https://support.discord.com/hc/en-us/articles/115001580171-Channel-Categories-101) that contains up to 50 channels      |
-| GUILD_NEWS              | 5   | a channel that [users can follow and crosspost into their own server](https://support.discord.com/hc/en-us/articles/360032008192)                    |
-| GUILD_NEWS_THREAD       | 10  | a temporary sub-channel within a GUILD_NEWS channel                                                                                                  |
-| GUILD_PUBLIC_THREAD     | 11  | a temporary sub-channel within a GUILD_TEXT channel                                                                                                  |
-| GUILD_PRIVATE_THREAD    | 12  | a temporary sub-channel within a GUILD_TEXT channel that is only viewable by those invited and those with the MANAGE_THREADS permission              |
+| GUILD_ANNOUNCEMENT              | 5   | a channel that [users can follow and crosspost into their own server](https://support.discord.com/hc/en-us/articles/360032008192)                    |
+| ANNOUNCEMENT_THREAD       | 10  | a temporary sub-channel within a GUILD_ANNOUNCEMENT channel                                                                                                  |
+| PUBLIC_THREAD     | 11  | a temporary sub-channel within a GUILD_TEXT channel                                                                                                  |
+| PRIVATE_THREAD    | 12  | a temporary sub-channel within a GUILD_TEXT channel that is only viewable by those invited and those with the MANAGE_THREADS permission              |
 | GUILD_STAGE_VOICE       | 13  | a voice channel for [hosting events with an audience](https://support.discord.com/hc/en-us/articles/1500005513722)                                   |
 | GUILD_DIRECTORY         | 14  | the channel in a [hub](https://support.discord.com/hc/en-us/articles/4406046651927-Discord-Student-Hubs-FAQ) containing the listed servers           |
 | GUILD_FORUM\*           | 15  | (still in development) a channel that can only contain threads                                                                                       |
@@ -265,7 +265,7 @@ Represents a message sent in a channel within Discord.
 | referenced_message?\*\*\* | ?[message object](#DOCS_RESOURCES_CHANNEL/message-object)                                                                          | the message associated with the message_reference                                                                                                |
 | interaction?              | [message interaction object](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/message-interaction-object-message-interaction-structure) | sent if the message is a response to an [Interaction](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/)                                              |
 | thread?                   | [channel](#DOCS_RESOURCES_CHANNEL/channel-object) object                                                                           | the thread that was started from this message, includes [thread member](#DOCS_RESOURCES_CHANNEL/thread-member-object) object                     |
-| components?               | Array of [message components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-object)                                              | sent if the message contains components like buttons, action rows, or other interactive components                                               |
+| components?               | array of [message components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-object)                                              | sent if the message contains components like buttons, action rows, or other interactive components                                               |
 | sticker_items?            | array of [message sticker item objects](#DOCS_RESOURCES_STICKER/sticker-item-object)                                               | sent if the message contains stickers                                                                                                            |
 | stickers?                 | array of [sticker](#DOCS_RESOURCES_STICKER/sticker-object) objects                                                                 | **Deprecated** the stickers sent with the message                                                                                                |
 | position?                 | integer                                                                                                                            | A generally increasing integer (there may be gaps or duplicates) that represents the approximate position of the message in a thread, it can be used to estimate the relative position of the messsage in a thread in company with `total_message_sent` on parent thread                   |
@@ -463,9 +463,14 @@ There are multiple message types that have a message_reference object.  Since me
 - These messages have `message_id` and `channel_id`, and `guild_id` if it is in a guild, with data of the message that was replied to. The channel_id and guild_id will be the same as the reply.
 - Replies are created by including a message_reference when sending a message. When sending, only `message_id` is required.
 
-###### Thread starter message
+###### Thread Created messages
 
-- These are the first message in a public thread.  They point back to the message in the parent channel from which the thread was started (type 21)
+- These are automatic messages sent when a public thread is created from an old message or without a message (type 18).
+- These messages have the `channel_id` and `guild_id` fields, with data of the created thread channel.
+
+###### Thread starter messages
+
+- These are the first message in public threads created from messages. They point back to the message in the parent channel from which the thread was started. (type 21)
 - These messages have `message_id`, `channel_id`, and `guild_id`.
 - These messages will never have content, embeds, or attachments, mainly just the `message_reference` and `referenced_message` fields.
 
@@ -652,7 +657,7 @@ Additionally, the combined sum of characters in all `title`, `description`, `fie
 |---------------|-----------|-------------------------------------------------------------------------------------|
 | id            | snowflake | attachment id                                                                       |
 | filename      | string    | name of file attached                                                               |
-| description?  | string    | description for the file                                                            |
+| description?  | string    | description for the file (max 1024 characters)                                      |
 | content_type? | string    | the attachment's [media type](https://en.wikipedia.org/wiki/Media_type)             |
 | size          | integer   | size of file in bytes                                                               |
 | url           | string    | source url of file                                                                  |

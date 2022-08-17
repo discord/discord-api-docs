@@ -279,6 +279,7 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 200000 | Message was blocked by automatic moderation                                                                                   |
 | 200001 | Title was blocked by automatic moderation                                                                                     |
 | 220003 | Webhooks can only create threads in forum channels                                                                            |
+| 240000 | Message blocked by harmful links filter                                                                                       |
 
 ###### Example JSON Error Response
 
