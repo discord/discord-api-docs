@@ -390,7 +390,7 @@ Slash commands—the `CHAT_INPUT` type—are a type of application command. They
 Slash commands can also have groups and subcommands to further organize commands. More on those later.
 
 > warn
-> Slash commands can have a maximum of 4,000 characters for combined name, description, and value properties for each command, its subcommands and groups. When localization fields are set, only the longest string of the category counts towards this limit.
+> Slash commands can have a maximum of 4,000 characters for combined name, description, and value properties for each command, its subcommands and groups. When [localization fields](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/localization) are set, only the longest string of the category counts towards this limit.
 
 
 ###### Example Slash Command
