@@ -1,5 +1,7 @@
 # Gateway
 
+// TODO: literally need to figure out app/bot verbiage here. hella inconsistent
+
 The Gateway API lets apps open secure WebSocket connections with Discord in order to receive events about things that happen in a server, like when a channel is updated or a role is created. There are a few scenarios where apps will also use a Gateway connection to update or request a resource (like when [updating voice state](#DOCS_TOPICS_GATEWAY/update-voice-state)), but in *most* cases they'll instead use the [HTTP API](#DOCS_REFERENCE/http-api) when performing REST operations on resources (like creating, updating, deleting, or fetching them). 
 
 The Gateway is Discord's form of real-time communication used by clients (including apps), so there is data and nuances that simply aren't relevant to apps. Interacting with the Gateway can be tricky, but there are [community-built libraries](#DOCS_TOPICS_COMMUNITY_RESOURCES/libraries) with built-in support that simplify the most complicated bits and bobs. If you're planning to write a custom implementation, be sure to read the following documentation in its entirety to understand the sacred secrets of the Gateway.
@@ -82,105 +84,31 @@ Gateway connections are persistent WebSockets, which introduce more complexity t
    - If an app **can** resume/reconnect, it should open a new connection then send a [Resume event](TODO)
    - If an app **cannot** resume/reconnect, it should open a new connection and repeat the whole cycle. *Yipee!*
 
-## Encoding and Compression
-
-When [establishing a connection](#DOCS_TOPICS_GATEWAY/connecting) to the Gateway, apps can use the `encoding` parameter to choose whether to communicate with Discord using either a plain-text JSON or binary [ETF](https://erlang.org/doc/apps/erts/erl_ext_dist.html) encoding. You can pick whichever encoding type you're more comfortable with, but both have their own quirks. If you aren't sure which encoding to use, JSON is generally recommended.
-
-Apps can also optionally enable compression ([payload](TODO) or [transport](TODO)) to receive zlib-compressed //TODO: what word? events?// over the Gateway.
-
-### Using JSON Encoding
-
-// TODO: present transport as alternative
-When using the plain-text JSON encoding, apps have the option to enable [Payload Compression](#DOCS_TOPICS_GATEWAY/using-json-payload-compression).
-
-#### Payload Compression
-
-> warn
-> Payload compression can only be enabled when using JSON as the encoding type
-
-// TODO: how do you tell when a payload is compressed? something about zlib header i think
-
-Payload compression enables optional per-packet compression when Discord is sending events over the Gateway. Payload compression uses the zlib format (see [RFC1950 2.2](https://tools.ietf.org/html/rfc1950#section-2.2)) when sending payloads. To enable payload compression, your app can set `compress` to `true` when sending an [Identify event](#DOCS_TOPICS_GATEWAY/identify). Note that even when payload compression is enabled, not all payloads will be compressed.
-
-When payload compression is enabled, your app (or library) _must_ detect and decompress these payloads to plain-text JSON before attempting to parse them. If you are using payload compression, the gateway does not implement a shared compression context between events sent.
-
-Payload compression will be disabled if you use [transport compression](TODO).
-
-### Using ETF Encoding
-
-When using ETF (External Term Format) encoding, there are some specific behaviors you should know:
-
-- Snowflake IDs are transmitted as 64-bit integers or strings.
-- Your app can't send compressed messages to the server.
-- When sending payloads, you must use string keys. Using atom keys will result in a [`4002`](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/gateway-gateway-close-event-codes) decode error.
-
-See [erlpack](https://github.com/discord/erlpack) for an ETF implementation example.
-
-### Transport Compression
-
-// TODO: define transport compression
-
-> info
-> See the [code below](TODO) for an example of handling transport compression.
-
-Currently the only available transport compression option is `zlib-stream`.
-
-When transport compression is enabled, an app needs to process received data through a single Gateway connection using a shared zlib context. However, each Gateway connection should use its own unique zlib context.
-
-When processing data transport compressed data, you should push received data to a buffer until you receive the 4-byte `Z_SYNC_FLUSH` suffix (`00 00 ff ff`). After you receive the `Z_SYNC_FLUSH` suffix, you can then decompress the buffer.
-
-###### Transport Compression Example
-
-// TODO: can i pls link to Gus's example
-> info
-> The following example is in Python, but you can also find a JavaScript example [on Github](https://gist.github.com/devsnek/4e094812a4798d8f10428d04ee02cab7#file-simplediscord-js-L39)
-
-```python
-# Z_SYNC_FLUSH suffix
-ZLIB_SUFFIX = b'\x00\x00\xff\xff'
-# initialize a buffer to store chunks
-buffer = bytearray()
-# create a shared zlib inflation context to run chunks through
-inflator = zlib.decompressobj()
-
-# ...
-def on_websocket_message(msg):
-  # always push the message data to your cache
-  buffer.extend(msg)
-
-  # check if the last four bytes are equal to ZLIB_SUFFIX
-  if len(msg) < 4 or msg[-4:] != ZLIB_SUFFIX:
-    return
-
-  # if the message *does* end with ZLIB_SUFFIX,
-  # get the full message by decompressing the buffers
-  # NOTE: the message is utf-8 encoded.
-  msg = inflator.decompress(buffer)
-  buffer = bytearray()
-
-  # here you can treat `msg` as either JSON or ETF encoded,
-  # depending on your `encoding` param
-```
-
-## Connecting to the Gateway
-
 ### Connecting
+
+Before you can establish a connection to the Gateway, you should call the [Get Gateway](#DOCS_TOPICS_GATEWAY/get-gateway) or the [Get Gateway Bot](#DOCS_TOPICS_GATEWAY/get-gateway-bot) endpoint. Either method will return a payload with a `url` field whose value is the URL you can use to open a WebSocket connection.
+
+> info
+> TODO: wss://gateway.discord.gg always works??
+
+You can go ahead and open a connection to the WebSocket URL. When connecting to the URL, it's a good idea to explicitly pass the API version and [encoding](TODO) as query parameters. You can also optionally include whether Discord should [compress](TODO) packets that it sends to your app. Details about the query parameters are in the table below.
+
+> info
+> `wss://gateway.discord.gg/?v=10&encoding=json` is an example of a WebSocket URL an app may connect to
 
 ###### Gateway URL Query String Params
 
-| Field     | Type    | Description                                   | Accepted Values                                                 |
-| --------- | ------- | --------------------------------------------- | --------------------------------------------------------------- |
-| v         | integer | API Version to use                            | see [API versions](#DOCS_REFERENCE/api-versioning-api-versions) |
-| encoding  | string  | The encoding of received gateway packets      | `json` or `etf`                                                 |
-| compress? | string  | The (optional) compression of gateway packets | `zlib-stream`                                                   |
+| Field     | Type    | Description                                             | Accepted Values                                            |
+| --------- | ------- | ------------------------------------------------------- | ---------------------------------------------------------- |
+| v         | integer | API Version to use                                      | [API version](#DOCS_REFERENCE/api-versioning-api-versions) |
+| encoding  | string  | The encoding of received gateway packets                | `json` or `etf`                                            |
+| compress? | string  | The (optional) transport compression of gateway packets | `zlib-stream`                                              |
 
-The first step in establishing connectivity to the gateway is requesting a valid websocket endpoint from the API. This can be done through either the [Get Gateway](#DOCS_TOPICS_GATEWAY/get-gateway) or the [Get Gateway Bot](#DOCS_TOPICS_GATEWAY/get-gateway-bot) endpoint.
+#### Hello Event
 
-With the resulting payload, you can now open a websocket connection to the "url" (or endpoint) specified. Generally, it is a good idea to explicitly pass the API version and encoding. For example, we may connect to `wss://gateway.discord.gg/?v=10&encoding=json`.
+Once connected to the Gateway, your app should receive a [Opcode 10 Hello](#DOCS_TOPICS_GATEWAY/hello) payload that contains the connection's heartbeat interval (`hearbeat_interval`). The heartbeat interval indicates a length of time in milliseconds that an app should use to determine how often it needs to send a [Heartbeat event](TODO) to in order to maintain the active Gateway connection. Details about heartbeats is in the [Sending Heartbeats](TODO) section.
 
-Once connected, the client should immediately receive an [Opcode 10 Hello](#DOCS_TOPICS_GATEWAY/hello) payload, with information on the connection's heartbeat interval:
-
-###### Example Gateway Hello
+###### Example Hello Event
 
 ```json
 {
@@ -191,15 +119,21 @@ Once connected, the client should immediately receive an [Opcode 10 Hello](#DOCS
 }
 ```
 
-### Heartbeating
+### Sending Heartbeats
 
-After receiving [Opcode 10 Hello](#DOCS_TOPICS_GATEWAY/hello), the client may begin sending [Opcode 1 Heartbeat](#DOCS_TOPICS_GATEWAY/heartbeat) payloads after `heartbeat_interval * jitter` milliseconds (where jitter is a random value between 0 and 1), and every `heartbeat_interval` milliseconds thereafter. You may send heartbeats before this interval elapses, but you should avoid doing so unless necessary. There is already tolerance in the `heartbeat_interval` that will cover network latency, so you do not need to account for it in your own implementation - waiting the precise interval will suffice.
+// TODO: what is jitter? after `heartbeat_interval * jitter` milliseconds (where jitter is a random value between 0 and 1), and every `heartbeat_interval` milliseconds thereafter. 
 
-The gateway may request a heartbeat from the client in some situations by sending an [Opcode 1 Heartbeat](#DOCS_TOPICS_GATEWAY/heartbeat). When this occurs, the client should immediately send an [Opcode 1 Heartbeat](#DOCS_TOPICS_GATEWAY/heartbeat) without waiting the remainder of the current interval.
+Heartbeats are pings used to let Discord know that an app is still actively using the Gateway connection.
 
-Any time the client sends a heartbeat, the gateway will respond with [Opcode 11 Heartbeat ACK](#DOCS_TOPICS_GATEWAY/heartbeating-example-gateway-heartbeat-ack), a successful *acknowledgement* of their last heartbeat:
+#### Heartbeat Interval
 
-###### Example Gateway Heartbeat ACK
+When an app receives an [Opcode 10 Hello](#DOCS_TOPICS_GATEWAY/hello) event, the payload includes a `heartbeat_interval`. From that point until the connection is closed, the app must continually send Discord a [Heartbeat event](TODO) every `heartbeat_interval` milliseconds. If the app fails to send a [Opcode 1 Heartbeat](TODO) in time, it will be disconnected and forced to [Resume](TODO).
+
+You *can* send heartbeats before the `heartbeat_interval` elapses, but you should avoid doing so unless necessary. There is already tolerance in the `heartbeat_interval` that will cover network latency, so you do not need to account for it in your own implementation.
+
+When an app sends a Heartbeat event, Discord will respond with [Opcode 11 Heartbeat ACK](#DOCS_TOPICS_GATEWAY/heartbeating-example-gateway-heartbeat-ack), which is an acknowledgement that the heartbeat was received:
+
+###### Example Heartbeat ACK
 
 ```json
 {
@@ -207,18 +141,35 @@ Any time the client sends a heartbeat, the gateway will respond with [Opcode 11 
 }
 ```
 
+> info
+> In the event of a service outage where you stay connected to the Gateway, you should continue to send heartbeats and receive heartbeat ACKs. The Gateway will eventually respond and issue a session once it's able to.
+
 If a client does not receive a heartbeat ack between its attempts at sending heartbeats, this may be due to a failed or "zombied" connection. The client should then immediately terminate the connection with a non-1000 close code, reconnect, and attempt to [Resume](#DOCS_TOPICS_GATEWAY/resuming).
 
-> info
-> In the event of a service outage where you stay connected to the gateway, you should continue to heartbeat and receive ACKs. The gateway will eventually respond and issue a session once it's able to.
+// TODO: does non-1000 close code need extra clarity?
+
+#### Heartbeat Requests
+
+In addition to the Heartbeat interval, the Gateway may request additional heartbeats from an app by sending it a [Opcode 1 Heartbeat](#DOCS_TOPICS_GATEWAY/heartbeat). Upon receiving the event, the app should immediately send an [Opcode 1 Heartbeat](#DOCS_TOPICS_GATEWAY/heartbeat) without waiting the remainder of the current heartbeat interval.
+
+Just like with the interval, Discord will respond with [Opcode 11 Heartbeat ACK](#DOCS_TOPICS_GATEWAY/heartbeating-example-gateway-heartbeat-ack).
 
 ### Identifying
 
-Next, the client is expected to send an [Opcode 2 Identify](#DOCS_TOPICS_GATEWAY/identify):
+// TODO: max concurrency cleanup
 
-###### Example Gateway Identify
+After the connection is open and your app is sending heartbeats, you should send an [Opcode 2 Identify](#DOCS_TOPICS_GATEWAY/identify) event. The Identify event is an initial handshake with the Gateway that's required before your app can begin sending or receiving most Gateway events. Apps are limited by [maximum concurrency](#DOCS_TOPICS_GATEWAY/session-start-limit-object) when identifying. If they exceed this limit, Discord will respond with a [Opcode 9 Invalid Session](#DOCS_TOPICS_GATEWAY/invalid-session).
 
-This is a minimal `IDENTIFY` payload. `IDENTIFY` supports additional optional fields for other session properties, such as payload compression, or an initial presence state. See the [Identify Structure](#DOCS_TOPICS_GATEWAY/identify) for a more complete example of all options you can pass in.
+After an app sends a valid Identify payload, Discord will respond with a [Ready](#DOCS_TOPICS_GATEWAY/ready) event which indicates that your app is in a connected state with the Gateway.
+
+> warn
+> Clients are limited to 1000 `IDENTIFY` calls to the websocket in a 24-hour period. This limit is global and across all shards, but does not include `RESUME` calls. Upon hitting this limit, all active sessions for the app will be terminated, the bot token will be reset, and the owner will receive an email notification. It's up to the owner to update their application with the new token.
+
+###### Example Identify Payload
+
+This is a minimal `IDENTIFY` payload. `IDENTIFY` supports additional optional fields for other session properties such as payload compression or an initial presence state.
+
+See the [Identify Structure](#DOCS_TOPICS_GATEWAY/identify) for details about all of the options you can pass.
 
 ```json
 {
@@ -235,18 +186,53 @@ This is a minimal `IDENTIFY` payload. `IDENTIFY` supports additional optional fi
 }
 ```
 
-If the payload is valid, the gateway will respond with a [Ready](#DOCS_TOPICS_GATEWAY/ready) event. Your client is now considered in a "connected" state. Clients are limited by [maximum concurrency](#DOCS_TOPICS_GATEWAY/session-start-limit-object) when [Identifying](#DOCS_TOPICS_GATEWAY/identify); if they exceed this limit, the gateway will respond with an [Opcode 9 Invalid Session](#DOCS_TOPICS_GATEWAY/invalid-session). It is important to note that although the ready event contains a large portion of the required initial state, some information (such as guilds and their members) is sent asynchronously (see [Guild Create](#DOCS_TOPICS_GATEWAY/guild-create) event).
+#### Ready event
 
-> warn
-> Clients are limited to 1000 `IDENTIFY` calls to the websocket in a 24-hour period. This limit is global and across all shards, but does not include `RESUME` calls. Upon hitting this limit, all active sessions for the bot will be terminated, the bot's token will be reset, and the owner will receive an email notification. It's up to the owner to update their application with the new token.
+As mentioned above, the [Ready](TODO) event is sent to an app after it sends a valid Identify payload. The Ready event includes state required for your app to start interacting with the rest of the platform (like the guilds your app is in).
+
+//TODO: session_id field to highlight is the `resume_gateway_url` field, which contains a new WebSocket URL that your app should use when it [Resumes](TODO) after a disconnect. This URL should be used instead of the one [initially used when connecting](TODO). If the Resume fails, the app should use .
+
+Full details about the Ready event is in the [Gateway events documentation](TODO).
+
+### Disconnecting
+
+Gateway disconnects happen for a variety of reasons, and may be initiated by Discord or by your app.
+
+#### Handling a Disconnect
+
+Due to Discord's architecture, disconnects are a semi-regular event and should be expected and handled. When your app encounters a disconnect, it will typically be sent a [close code](TODO) which can be used to determine whether you can reconnect and [Resume](TODO) the session or not.
+
+After you determine whether you app can reconnect you will do one of the following:
+
+- If you determine that your app *can* reconnect and resume the previous session, then you should reconnect using the `resume_gateway_url` and `session_id` from the [Ready event](TODO). Details about when and how to resume can be found in the [Resuming](TODO) section.
+- If you *cannot* reconnect (or the reconnect fails), you should open a new connection using the URL from the initial call to [Get Gateway](#DOCS_TOPICS_GATEWAY/get-gateway) or the [Get Gateway Bot](#DOCS_TOPICS_GATEWAY/get-gateway-bot) endpoint. **In the case you cannot reconnect, you'll have to re-[Identify](TODO) after opening a new connection**.
+
+A full list of the close codes can be found in the [Response Codes](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/gateway-gateway-close-event-codes) documentation.
+
+#### Initiating a Disconnect
+
+When you close the connection to the gateway with the close code `1000` or `1001`, your session will be invalidated and your bot will appear offline.
+
+If you simply close the TCP connection or use a different close code, the session will remain active and timeout after a few minutes. This can be useful when you're [reconnecting](TODO), which will resume the previous session.
 
 ### Resuming
 
-The Internet is a scary place. Disconnections happen, especially with persistent connections. Due to Discord's architecture, this is a semi-regular event and should be expected and handled. Discord has a process for "resuming" (or reconnecting) a connection that allows the client to replay any lost events from the last sequence number they received in the exact same way they would receive them normally.
+When your app is disconnected, Discord has a process for resuming (or reconnecting) a connection that allows the app to replay any lost events from the last sequence number they received in the same way they would have normally received them. Unlike the initial connection, your app does **not** need to re-identify when resuming a session.
 
-Your client should store the `session_id` and `resume_gateway_url` from the [Ready](#DOCS_TOPICS_GATEWAY/ready), and the sequence number of the last event it received. When your client detects that it has been disconnected, it should completely close the connection and open a new one (following the same strategy as [Connecting](#DOCS_TOPICS_GATEWAY/connecting)) to `resume_gateway_url`. Once the new connection has been opened, the client should send a [Gateway Resume](#DOCS_TOPICS_GATEWAY/resume):
+There are a handful of scenarios when your app should attempt to resume a session:
 
-###### Example Gateway Resume
+1. TODO
+
+#### Preparing to Resume
+
+Before your app can send a [Resume event](TODO), it will need three values: the `session_id` and `resume_gateway_url` from the [Ready](#DOCS_TOPICS_GATEWAY/ready) event, and the sequence number of the last event it received before the disconnect.
+
+After the connection is closed, your app should open a new connection using the value of `resume_gateway_url` rather than the URL you used to initially connect. 
+// TODO: when reconnecting, do you need to pass in the query params?
+
+Once the new connection is opened, your app should send a [Gateway Resume](#DOCS_TOPICS_GATEWAY/resume) event using the `session_id` and sequence number mentioned above.
+
+###### Example Gateway Resume Event
 
 ```json
 {
@@ -262,12 +248,6 @@ Your client should store the `session_id` and `resume_gateway_url` from the [Rea
 If successful, the gateway will respond by replaying all missed events in order, finishing with a [Resumed](#DOCS_TOPICS_GATEWAY/resumed) event to signal replay has finished, and all subsequent events are new. It's also possible that your client cannot reconnect in time to resume, in which case the client will receive a [Opcode 9 Invalid Session](#DOCS_TOPICS_GATEWAY/invalid-session) and is expected to wait a random amount of time—between 1 and 5 seconds—then send a fresh [Opcode 2 Identify](#DOCS_TOPICS_GATEWAY/identify).
 
 Failure to respect the `resume_gateway_url` may result in your client being forced to reconnect again after a short period of time.
-
-### Disconnections
-
-If the gateway ever issues a disconnect to your client, it will provide a close event code that you can use to properly handle the disconnection. A full list of these close codes can be found in the [Response Codes](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/gateway-gateway-close-event-codes) documentation.
-
-When you close the connection to the gateway with the close code 1000 or 1001, your session will be invalidated and your bot will appear offline. If you simply close the TCP connection, or use a different close code, the bot session will remain active and timeout after a few minutes. This can be useful for a reconnect, which will resume the previous session.
 
 ## Gateway Intents
 
@@ -428,17 +408,102 @@ In addition to the gateway restrictions described here, Discord's REST API is al
 ## Rate Limiting
 
 > info
-> This section is about Gateway rate limits, not [HTTP API rate limits](#DOCS_TOPICS_RATE_LIMITS/)
+> This section refers to Gateway rate limits, not [HTTP API rate limits](#DOCS_TOPICS_RATE_LIMITS)
 
-Clients are allowed to send 120 [gateway commands](#DOCS_TOPICS_GATEWAY/commands-and-events) every 60 seconds, meaning you can send an average of 2 commands per second. Clients who surpass this limit are immediately disconnected from the Gateway, and similarly to the HTTP API, repeat offenders will have their API access revoked. Clients also have a limit of [concurrent](#DOCS_TOPICS_GATEWAY/session-start-limit-object) [Identify](#DOCS_TOPICS_GATEWAY/identify) requests allowed per 5 seconds. If you hit this limit, the Gateway will respond with an [Opcode 9 Invalid Session](#DOCS_TOPICS_GATEWAY/invalid-session).
+Apps can send 120 [gateway events](#DOCS_TOPICS_GATEWAY/commands-and-events) every 60 seconds, meaning an average of 2 commands per second. Apps that surpass the limit are immediately disconnected from the Gateway. Similarly to other rate limits, repeat offenders will have their API access revoked.
+
+Apps also have a limit for [concurrent](#DOCS_TOPICS_GATEWAY/session-start-limit-object) [Identify](#DOCS_TOPICS_GATEWAY/identify) requests allowed per 5 seconds. If you hit this limit, the Gateway will respond with an [Opcode 9 Invalid Session](#DOCS_TOPICS_GATEWAY/invalid-session).
+
+## Encoding and Compression
+
+When [establishing a connection](#DOCS_TOPICS_GATEWAY/connecting) to the Gateway, apps can use the `encoding` parameter to choose whether to communicate with Discord using either a plain-text JSON or binary [ETF](https://erlang.org/doc/apps/erts/erl_ext_dist.html) encoding. You can pick whichever encoding type you're more comfortable with, but both have their own quirks. If you aren't sure which encoding to use, JSON is generally recommended.
+
+Apps can also optionally enable compression ([payload](TODO) or [transport](TODO)) to receive zlib-compressed //TODO: what word? events?// over the Gateway.
+
+### Using JSON Encoding
+
+// TODO: present transport as alternative
+When using the plain-text JSON encoding, apps have the option to enable [Payload Compression](#DOCS_TOPICS_GATEWAY/using-json-payload-compression).
+
+#### Payload Compression
+
+> warn
+> Payload compression can only be enabled when using JSON as the encoding type
+
+// TODO: how do you tell when a payload is compressed? something about zlib header i think
+
+Payload compression enables optional per-packet compression when Discord is sending events over the Gateway. Payload compression uses the zlib format (see [RFC1950 2.2](https://tools.ietf.org/html/rfc1950#section-2.2)) when sending payloads. To enable payload compression, your app can set `compress` to `true` when sending an [Identify event](#DOCS_TOPICS_GATEWAY/identify). Note that even when payload compression is enabled, not all payloads will be compressed.
+
+When payload compression is enabled, your app (or library) _must_ detect and decompress these payloads to plain-text JSON before attempting to parse them. If you are using payload compression, the gateway does not implement a shared compression context between events sent.
+
+Payload compression will be disabled if you use [transport compression](TODO).
+
+### Using ETF Encoding
+
+When using ETF (External Term Format) encoding, there are some specific behaviors you should know:
+
+- Snowflake IDs are transmitted as 64-bit integers or strings.
+- Your app can't send compressed messages to the server.
+- When sending payloads, you must use string keys. Using atom keys will result in a [`4002`](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/gateway-gateway-close-event-codes) decode error.
+
+See [erlpack](https://github.com/discord/erlpack) for an ETF implementation example.
+
+### Transport Compression
+
+// TODO: define transport compression
+
+> info
+> See the [code below](TODO) for an example of handling transport compression.
+
+Currently the only available transport compression option is `zlib-stream`.
+
+When transport compression is enabled, an app needs to process received data through a single Gateway connection using a shared zlib context. However, each Gateway connection should use its own unique zlib context.
+
+When processing data transport compressed data, you should push received data to a buffer until you receive the 4-byte `Z_SYNC_FLUSH` suffix (`00 00 ff ff`). After you receive the `Z_SYNC_FLUSH` suffix, you can then decompress the buffer.
+
+###### Transport Compression Example
+
+// TODO: can i pls link to Gus's example
+> info
+> The following example is in Python, but you can also find a JavaScript example [on Github](https://gist.github.com/devsnek/4e094812a4798d8f10428d04ee02cab7#file-simplediscord-js-L39)
+
+```python
+# Z_SYNC_FLUSH suffix
+ZLIB_SUFFIX = b'\x00\x00\xff\xff'
+# initialize a buffer to store chunks
+buffer = bytearray()
+# create a shared zlib inflation context to run chunks through
+inflator = zlib.decompressobj()
+
+# ...
+def on_websocket_message(msg):
+  # always push the message data to your cache
+  buffer.extend(msg)
+
+  # check if the last four bytes are equal to ZLIB_SUFFIX
+  if len(msg) < 4 or msg[-4:] != ZLIB_SUFFIX:
+    return
+
+  # if the message *does* end with ZLIB_SUFFIX,
+  # get the full message by decompressing the buffers
+  # NOTE: the message is utf-8 encoded.
+  msg = inflator.decompress(buffer)
+  buffer = bytearray()
+
+  # here you can treat `msg` as either JSON or ETF encoded,
+  # depending on your `encoding` param
+```
 
 ## Tracking State
 
-Most of a client's state is provided during the initial [Ready](#DOCS_TOPICS_GATEWAY/ready) event and the [Guild Create](#DOCS_TOPICS_GATEWAY/guild-create) events that immediately follow. As objects are further created/updated/deleted, other events are sent to notify the client of these changes and to provide the new or updated data. To avoid excessive API calls, Discord expects clients to locally cache as many _relevant_ object states as possible, and to update them as gateway events are received.
+Most of a client's state is provided during the initial [Ready](#DOCS_TOPICS_GATEWAY/ready) event, and in the [Guild Create](#DOCS_TOPICS_GATEWAY/guild-create) events that follow.
 
-An example of state tracking can be found with member status caching. When initially connecting to the gateway, the client receives information regarding the online status of guild members (online, idle, dnd, offline). To keep this state updated, a client must track and parse [Presence Update](#DOCS_TOPICS_GATEWAY/presence-update) events as they are received, and apply the provided data to the cached member objects.
+As resources continue to be created, updated, and deleted, other events are sent to notify the app of these changes and to provide the new or updated data. To avoid excessive API calls, it's expected that apps locally cache as many relevant resource states as possible, and update them as new Gateway events are received.
 
-For larger bots, client state can grow to be quite large. We recommend only storing objects in memory that are needed for a bot's operation. Many bots, for example, just respond to user input through chat commands. These bots may only need to keep guild information (like guild/channel roles and permissions) in memory, since [MESSAGE_CREATE](#DOCS_TOPICS_GATEWAY/message-create) and [MESSAGE_UPDATE](#DOCS_TOPICS_GATEWAY/message-update) events have the full member object available.
+> info
+> For larger apps, client state can grow to be very large. Therefore, we recommend only storing data in memory that are *needed* for the app to operate. In some cases, there isn't a need to cache member information (like roles or permissions) since some events like [MESSAGE_CREATE](#DOCS_TOPICS_GATEWAY/message-create) have the full member object included.
+
+An example of state tracking can be considered in the case of an app that wants to track member status: when initially connecting to the Gateway, the app will receive information about the online status of guild members (whether they're online, idle, dnd, or offline). To keep the state updated, the app will track and parse [Presence Update](#DOCS_TOPICS_GATEWAY/presence-update) events as they're received, then update the cached member objects accordingly.
 
 ## Guild Availability
 
@@ -446,9 +511,9 @@ When connecting to the gateway as a bot user, guilds that the bot is a part of w
 
 ## Sharding
 
-As bots grow and are added to an increasing number of guilds, some developers may find it necessary to break or split portions of their bots operations into separate logical processes. As such, Discord gateways implement a method of user-controlled guild sharding which allows for splitting events across a number of gateway connections. Guild sharding is entirely user controlled, and requires no state-sharing between separate connections to operate.
+As apps grow and are added to an increasing number of guilds, some developers may find it necessary to break or split portions of their app's operations into separate processes. As such, Gateways implement a method of user-controlled guild sharding which allows apps to split events across a number of Gateway connections. Guild sharding is entirely controlled by an app, and requires no state-sharing between separate connections to operate.
 
-To enable sharding on a connection, the user should send the `shard` array in the [Identify](#DOCS_TOPICS_GATEWAY/identify) payload. The first item in this array should be the zero-based integer value of the current shard, while the second represents the total number of shards. DMs will only be sent to shard 0. To calculate what events will be sent to what shard, the following formula can be used:
+To enable sharding on a connection, the app should send the `shard` array in the [Identify](#DOCS_TOPICS_GATEWAY/identify) payload. The first item in this array should be the zero-based integer value of the current shard, while the second represents the total number of shards. DMs will only be sent to shard 0. To calculate which events will be sent to which shard, the following formula can be used:
 
 ###### Sharding Formula
 
@@ -458,7 +523,7 @@ shard_id = (guild_id >> 22) % num_shards
 
 As an example, if you wanted to split the connection between three shards, you'd use the following values for `shard` for each connection: `[0, 3]`, `[1, 3]`, and `[2, 3]`. Note that only the first shard (`[0, 3]`) would receive DMs.
 
-Note that `num_shards` does not relate to, or limit, the total number of potential sessions—it is only used for *routing* traffic. As such, sessions do not have to be identified in an evenly distributed manner when sharding. You can establish multiple sessions with the same `[shard_id, num_shards]`, or sessions with different `num_shards` values. This allows you to create sessions that will handle more or less traffic than others for more fine-tuned load balancing, or orchestrate "zero-downtime" scaling/updating by handing off traffic to a new deployment of sessions with a higher or lower `num_shards` count that are prepared in parallel.
+Note that `num_shards` does not relate to (or limit) the total number of potential sessions. It is only used for *routing* traffic. As such, sessions do not have to be identified in an evenly-distributed manner when sharding. You can establish multiple sessions with the same `[shard_id, num_shards]`, or sessions with different `num_shards` values. This allows you to create sessions that will handle more or less traffic for more fine-tuned load balancing, or to orchestrate "zero-downtime" scaling/updating by handing off traffic to a new deployment of sessions with a higher or lower `num_shards` count that are prepared in parallel.
 
 ###### Max Concurrency
 
@@ -528,7 +593,7 @@ shard_id: 31, rate limit key (31 % 16): 15
 
 In this case, you must start the shard buckets **in "order"**. That means that you can start shard 0 -> shard 15 concurrently, and then you can start shard 16 -> shard 31.
 
-## Sharding for Large Bots
+### Sharding for Large Bots
 
 If you own a bot that is near or in over 150,000 guilds, there are some additional considerations you must take around sharding. Discord will migrate your bot to large bot sharding when it starts to get near the large bot sharding threshold. The bot owner(s) will receive a system DM and email confirming this move has completed as well as what shard number has been assigned.
 
