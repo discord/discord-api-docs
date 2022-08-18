@@ -1,33 +1,37 @@
-# Gateways
+# Gateway
 
-Gateways are secure WebSockets that apps use to receive events that occur in a Discord server where the app is installed, such as when a channel is updated or when a role is created. Gateway events have a common structure, but the contents and structure of its associated data (the `d` field) will vary.
+The Gateway API lets apps open secure WebSocket connections with Discord in order to receive events that happen in a server, like when a channel is updated or a role is created. There are a few scenarios where apps will also use a Gateway connection to update or request a resource (like when [updating voice state](#DOCS_TOPICS_GATEWAY/update-voice-state)), but in *most* cases they'll instead use the [HTTP API](#DOCS_REFERENCE/http-api) when performing REST operations on resources (like creating, updating, deleting, or fetching them). 
 
-> info
-> While gateways are used to receive events, the [HTTP API](#DOCS_REFERENCE/http-api) is used to send and fetch data (like sending a message or querying for guild members).
-
-Interacting with gateways can be complicated, but you can find [community libraries](#DOCS_TOPICS_COMMUNITY_RESOURCES/libraries) with built-in support that simplify the complicated bits and bobs. you should read all of the following documentation before writing a custom implementation.
-
-> warn
-> Not all Gateway event fields are documented. You should assume that undocumented fields are not supported, and that their format and data may change at any time.
+The Gateway is Discord's form of real-time communication used by clients (including apps), so there is data and nuances that simply aren't relevant to apps. Interacting with the Gateway can be tricky, but there are [community-built libraries](#DOCS_TOPICS_COMMUNITY_RESOURCES/libraries) with built-in support that simplify the most complicated bits and bobs. If you're planning to write a custom implementation, be sure to read the following documentation in its entirety to understand the sacred secrets of the Gateway.
 
 ## Payloads
 
+Gateway event payloads have a common structure, but the contents of the associated data (the `d` field) varies between events.
+
+> warn
+> Not all Gateway event fields are documented. You should assume that undocumented fields are not supported for apps, and their format and data may change at any time.
+
 ###### Gateway Payload Structure
 
-| Field | Type                    | Description                                                                             |
-| ----- | ----------------------- | --------------------------------------------------------------------------------------- |
-| op    | integer                 | [opcode](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/gateway-gateway-opcodes) for the payload |
-| d     | ?mixed (any JSON value) | event data                                                                              |
-| s     | ?integer \*             | sequence number, used for resuming sessions and heartbeats                              |
-| t     | ?string \*              | the event name for this payload                                                         |
+| Field | Type                    | Description                                                                                                                       |
+| ----- | ----------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
+| op    | integer                 | [Gateway opcode](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/gateway-gateway-opcodes), which indicates the payload type                 |
+| d     | ?mixed (any JSON value) | Event data                                                                                                                        |
+| s     | ?integer \*             | Sequence number used for [resuming sessions](#DOCS_TOPICS_GATEWAY/resuming) and [heartbeating](#DOCS_TOPICS_GATEWAY/heartbeating) |
+| t     | ?string \*              | Event name                                                                                                                        |
 
-\* `s` and `t` are `null` when `op` is not `0` (Gateway Dispatch Opcode).
+\* `s` and `t` are `null` when `op` is not `0` ([Gateway Dispatch opcode](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/gateway-gateway-opcodes)).
 
-### Sending Payloads
+### Sending Gateway Events
 
-Packets sent from the client to the Gateway API are encapsulated within a [gateway payload object](#DOCS_TOPICS_GATEWAY/sending-payloads-example-gateway-dispatch) and must have the proper opcode and data object set. The payload object can then be serialized in the format of choice (see [ETF/JSON](#DOCS_TOPICS_GATEWAY/etfjson)), and sent over the websocket. Payloads to the gateway are limited to a maximum of 4096 bytes sent, going over this will cause a connection termination with error code 4002.
+When sending an [event](#DOCS_TOPICS_GATEWAY/commands-and-events-gateway-commands) over a Gateway connection (like when [performing an initial handshake](#DOCS_TOPICS_GATEWAY/identify) or [updating presence](#DOCS_TOPICS_GATEWAY/update-presence)), an app must send a [Gateway event payload object](#DOCS_TOPICS_GATEWAY/sending-payloads-example-gateway-event-payload) with a valid opcode and inner data object.
 
-###### Example Gateway Dispatch
+Event payloads sent over a Gateway connection:
+
+1. Must be serialized in [plain-text JSON or binary ETF](#DOCS_TOPICS_GATEWAY/etfjson)
+2. Must not exceed 4096 bytes. If an event payload *does* exceed 4096, the connection will be closed with a [`4002` gateway close event code](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/gateway-gateway-close-event-codes)
+
+###### Example Gateway Event Payload
 
 ```json
 {
@@ -38,33 +42,54 @@ Packets sent from the client to the Gateway API are encapsulated within a [gatew
 }
 ```
 
-### Receiving Payloads
+### Receiving Gateway Events
 
-Receiving payloads with the Gateway API is slightly more complex than sending. When using the JSON encoding with [Payload Compression](#DOCS_TOPICS_GATEWAY/payload-compression) enabled, the Gateway has the option of sending payloads as compressed JSON binaries using zlib, meaning your library _must_ detect (see [RFC1950 2.2](https://tools.ietf.org/html/rfc1950#section-2.2)) and decompress these payloads before attempting to parse them. Otherwise the gateway does implement a shared compression context between messages sent, see [Transport Compression](#DOCS_TOPICS_GATEWAY/transport-compression).
+// TODO: pls revise this intro lol
+Receiving events over a Gateway connection is slightly more complex than sending them. 
 
 ## Encoding and Compression
 
-#### ETF/JSON
+When [establishing a connection](#DOCS_TOPICS_GATEWAY/connecting) to the Gateway, apps can use the `encoding` parameter to choose whether to communicate with Discord using either a plain-text JSON or binary [ETF](https://erlang.org/doc/apps/erts/erl_ext_dist.html) encoding. You can pick whichever encoding type you're more comfortable with, but both have their own quirks. If you aren't sure which encoding to use, JSON is generally recommended.
 
-When initially creating and handshaking connections to the Gateway, a user can choose whether they wish to communicate over plain-text JSON or binary [ETF](https://erlang.org/doc/apps/erts/erl_ext_dist.html).
+Apps can also optionally enable compression ([payload](TODO) or [transport](TODO)) to receive zlib-compressed [TODO: what word? events?] over the Gateway.
 
-##### Using ETF
+#### Using JSON
 
-While using ETF there are some additional constraints to note:
+// TODO: present transport as alternative
+When using the plain-text JSON encoding, apps have the option to enable [Payload Compression](#DOCS_TOPICS_GATEWAY/using-json-payload-compression).
 
-- Snowflake IDs are transmitted as 64-bit integers or strings over ETF.
-- The client must not send compressed messages to the server.
-- Payloads must use string keys, atom keys will lead to a 4002 decode error.
+##### Payload Compression
+
+> warn
+> Payload compression can *only* be enabled when the encoding type for the Gateway connection is JSON.
+
+// TODO: how do you tell when a payload is compressed? something about zlib header i think
+
+Payload compression enables optional per-packet compression when Discord is sending events over the Gateway. Payload compression uses the zlib format (see [RFC1950 2.2](https://tools.ietf.org/html/rfc1950#section-2.2)) when sending payloads. To enable payload compression, your app can set `compress` to `true` when sending an [Identify event](#DOCS_TOPICS_GATEWAY/identify). Note that even when payload compression is enabled, not all payloads will be compressed.
+
+When payload compression is enabled, your app (or library) _must_ detect and decompress these payloads to plain-text JSON before attempting to parse them. If you are using payload compression, the gateway does not implement a shared compression context between events sent.
+
+Payload compression will be disabled if you use [transport compression](TODO).
+
+#### Using ETF
+
+When using ETF (External Term Format) encoding, there are some specific behaviors you should know:
+
+- Snowflake IDs are transmitted as 64-bit integers or strings.
+- Your app can't send compressed messages to the server.
+- When sending payloads, you must use string keys. Using atom keys will result in a [`4002`](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/gateway-gateway-close-event-codes) decode error.
 
 See [erlpack](https://github.com/discord/erlpack) for an ETF implementation example.
 
-#### Payload Compression
-
-When using JSON encoding with payload compression enabled (`compress: true` in identify), the Gateway may optionally send zlib-compressed payloads (see [RFC1950 2.2](https://tools.ietf.org/html/rfc1950#section-2.2)). Your library _must_ detect and decompress these payloads to plain-text JSON before attempting to parse them. If you are using payload compression, the gateway does not implement a shared compression context between messages sent. Payload compression will be disabled if you use transport compression (see below).
-
 #### Transport Compression
 
-Currently the only available transport compression option is `zlib-stream`. You will need to run all received packets through a shared zlib context, as seen in the example below. Every connection to the gateway should use its own unique zlib context.
+// TODO: define transport compression
+
+Currently the only available transport compression option is `zlib-stream`.
+
+When transport compression is enabled, an app needs to process received data through a single Gateway connection using a shared zlib context. However, each Gateway connection should use its own unique zlib context.
+
+When processing data transport compressed data, you should push received data to a buffer until you receive the 4-byte `Z_SYNC_FLUSH` suffix (`00 00 ff ff`). After you receive the `Z_SYNC_FLUSH` suffix, you can then decompress the buffer. An example of handling transport compression is below.
 
 ###### Transport Compression Example
 
@@ -73,7 +98,7 @@ Currently the only available transport compression option is `zlib-stream`. You 
 ZLIB_SUFFIX = b'\x00\x00\xff\xff'
 # initialize a buffer to store chunks
 buffer = bytearray()
-# create a zlib inflation context to run chunks through
+# create a shared zlib inflation context to run chunks through
 inflator = zlib.decompressobj()
 
 # ...
@@ -490,71 +515,71 @@ Events are payloads sent over the socket to a client that correspond to events i
 
 ###### Gateway Events
 
-| name                                                                                                    | description                                                                                                                      |
-| ------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| [Hello](#DOCS_TOPICS_GATEWAY/hello)                                                                     | defines the heartbeat interval                                                                                                   |
-| [Ready](#DOCS_TOPICS_GATEWAY/ready)                                                                     | contains the initial state information                                                                                           |
-| [Resumed](#DOCS_TOPICS_GATEWAY/resumed)                                                                 | response to [Resume](#DOCS_TOPICS_GATEWAY/resume)                                                                                |
-| [Reconnect](#DOCS_TOPICS_GATEWAY/reconnect)                                                             | server is going away, client should reconnect to gateway and resume                                                              |
-| [Invalid Session](#DOCS_TOPICS_GATEWAY/invalid-session)                                                 | failure response to [Identify](#DOCS_TOPICS_GATEWAY/identify) or [Resume](#DOCS_TOPICS_GATEWAY/resume) or invalid active session |
-| [Application Command Permissions Update](#DOCS_TOPICS_GATEWAY/application-command-permissions-update)   | application command permission was updated                                                                                       |
-| [Auto Moderation Rule Create](#DOCS_TOPICS_GATEWAY/auto-moderation-rule-create)                         | auto moderation rule was created                                                                                                 |
-| [Auto Moderation Rule Update](#DOCS_TOPICS_GATEWAY/auto-moderation-rule-update)                         | auto moderation rule was updated                                                                                                 |
-| [Auto Moderation Rule Delete](#DOCS_TOPICS_GATEWAY/auto-moderation-rule-delete)                         | auto moderation rule was deleted                                                                                                 |
-| [Auto Moderation Action Execution](#DOCS_TOPICS_GATEWAY/auto-moderation-action-execution)               | auto moderation rule was triggered and an action was executed (e.g. a message was blocked)                                       |
-| [Channel Create](#DOCS_TOPICS_GATEWAY/channel-create)                                                   | new guild channel created                                                                                                        |
-| [Channel Update](#DOCS_TOPICS_GATEWAY/channel-update)                                                   | channel was updated                                                                                                              |
-| [Channel Delete](#DOCS_TOPICS_GATEWAY/channel-delete)                                                   | channel was deleted                                                                                                              |
-| [Channel Pins Update](#DOCS_TOPICS_GATEWAY/channel-pins-update)                                         | message was pinned or unpinned                                                                                                   |
-| [Thread Create](#DOCS_TOPICS_GATEWAY/thread-create)                                                     | thread created, also sent when being added to a private thread                                                                   |
-| [Thread Update](#DOCS_TOPICS_GATEWAY/thread-update)                                                     | thread was updated                                                                                                               |
-| [Thread Delete](#DOCS_TOPICS_GATEWAY/thread-delete)                                                     | thread was deleted                                                                                                               |
-| [Thread List Sync](#DOCS_TOPICS_GATEWAY/thread-list-sync)                                               | sent when gaining access to a channel, contains all active threads in that channel                                               |
-| [Thread Member Update](#DOCS_TOPICS_GATEWAY/thread-member-update)                                       | [thread member](#DOCS_RESOURCES_CHANNEL/thread-member-object) for the current user was updated                                   |
-| [Thread Members Update](#DOCS_TOPICS_GATEWAY/thread-members-update)                                     | some user(s) were added to or removed from a thread                                                                              |
-| [Guild Create](#DOCS_TOPICS_GATEWAY/guild-create)                                                       | lazy-load for unavailable guild, guild became available, or user joined a new guild                                              |
-| [Guild Update](#DOCS_TOPICS_GATEWAY/guild-update)                                                       | guild was updated                                                                                                                |
-| [Guild Delete](#DOCS_TOPICS_GATEWAY/guild-delete)                                                       | guild became unavailable, or user left/was removed from a guild                                                                  |
-| [Guild Ban Add](#DOCS_TOPICS_GATEWAY/guild-ban-add)                                                     | user was banned from a guild                                                                                                     |
-| [Guild Ban Remove](#DOCS_TOPICS_GATEWAY/guild-ban-remove)                                               | user was unbanned from a guild                                                                                                   |
-| [Guild Emojis Update](#DOCS_TOPICS_GATEWAY/guild-emojis-update)                                         | guild emojis were updated                                                                                                        |
-| [Guild Stickers Update](#DOCS_TOPICS_GATEWAY/guild-stickers-update)                                     | guild stickers were updated                                                                                                      |
-| [Guild Integrations Update](#DOCS_TOPICS_GATEWAY/guild-integrations-update)                             | guild integration was updated                                                                                                    |
-| [Guild Member Add](#DOCS_TOPICS_GATEWAY/guild-member-add)                                               | new user joined a guild                                                                                                          |
-| [Guild Member Remove](#DOCS_TOPICS_GATEWAY/guild-member-remove)                                         | user was removed from a guild                                                                                                    |
-| [Guild Member Update](#DOCS_TOPICS_GATEWAY/guild-member-update)                                         | guild member was updated                                                                                                         |
-| [Guild Members Chunk](#DOCS_TOPICS_GATEWAY/guild-members-chunk)                                         | response to [Request Guild Members](#DOCS_TOPICS_GATEWAY/request-guild-members)                                                  |
-| [Guild Role Create](#DOCS_TOPICS_GATEWAY/guild-role-create)                                             | guild role was created                                                                                                           |
-| [Guild Role Update](#DOCS_TOPICS_GATEWAY/guild-role-update)                                             | guild role was updated                                                                                                           |
-| [Guild Role Delete](#DOCS_TOPICS_GATEWAY/guild-role-delete)                                             | guild role was deleted                                                                                                           |
-| [Guild Scheduled Event Create](#DOCS_TOPICS_GATEWAY/guild-scheduled-event-create)                       | guild scheduled event was created                                                                                                |
-| [Guild Scheduled Event Update](#DOCS_TOPICS_GATEWAY/guild-scheduled-event-update)                       | guild scheduled event was updated                                                                                                |
-| [Guild Scheduled Event Delete](#DOCS_TOPICS_GATEWAY/guild-scheduled-event-delete)                       | guild scheduled event was deleted                                                                                                |
-| [Guild Scheduled Event User Add](#DOCS_TOPICS_GATEWAY/guild-scheduled-event-user-add)                   | user subscribed to a guild scheduled event                                                                                       |
-| [Guild Scheduled Event User Remove](#DOCS_TOPICS_GATEWAY/guild-scheduled-event-user-remove)             | user unsubscribed from a guild scheduled event                                                                                   |
-| [Integration Create](#DOCS_TOPICS_GATEWAY/integration-create)                                           | guild integration was created                                                                                                    |
-| [Integration Update](#DOCS_TOPICS_GATEWAY/integration-update)                                           | guild integration was updated                                                                                                    |
-| [Integration Delete](#DOCS_TOPICS_GATEWAY/integration-delete)                                           | guild integration was deleted                                                                                                    |
-| [Interaction Create](#DOCS_TOPICS_GATEWAY/interaction-create)                                           | user used an interaction, such as an [Application Command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/)                             |
-| [Invite Create](#DOCS_TOPICS_GATEWAY/invite-create)                                                     | invite to a channel was created                                                                                                  |
-| [Invite Delete](#DOCS_TOPICS_GATEWAY/invite-delete)                                                     | invite to a channel was deleted                                                                                                  |
-| [Message Create](#DOCS_TOPICS_GATEWAY/message-create)                                                   | message was created                                                                                                              |
-| [Message Update](#DOCS_TOPICS_GATEWAY/message-update)                                                   | message was edited                                                                                                               |
-| [Message Delete](#DOCS_TOPICS_GATEWAY/message-delete)                                                   | message was deleted                                                                                                              |
-| [Message Delete Bulk](#DOCS_TOPICS_GATEWAY/message-delete-bulk)                                         | multiple messages were deleted at once                                                                                           |
-| [Message Reaction Add](#DOCS_TOPICS_GATEWAY/message-reaction-add)                                       | user reacted to a message                                                                                                        |
-| [Message Reaction Remove](#DOCS_TOPICS_GATEWAY/message-reaction-remove)                                 | user removed a reaction from a message                                                                                           |
-| [Message Reaction Remove All](#DOCS_TOPICS_GATEWAY/message-reaction-remove-all)                         | all reactions were explicitly removed from a message                                                                             |
-| [Message Reaction Remove Emoji](#DOCS_TOPICS_GATEWAY/message-reaction-remove-emoji)                     | all reactions for a given emoji were explicitly removed from a message                                                           |
-| [Presence Update](#DOCS_TOPICS_GATEWAY/presence-update)                                                 | user was updated                                                                                                                 |
-| [Stage Instance Create](#DOCS_TOPICS_GATEWAY/stage-instance-create)                                     | stage instance was created                                                                                                       |
-| [Stage Instance Delete](#DOCS_TOPICS_GATEWAY/stage-instance-delete)                                     | stage instance was deleted or closed                                                                                             |
-| [Stage Instance Update](#DOCS_TOPICS_GATEWAY/stage-instance-update)                                     | stage instance was updated                                                                                                       |
-| [Typing Start](#DOCS_TOPICS_GATEWAY/typing-start)                                                       | user started typing in a channel                                                                                                 |
-| [User Update](#DOCS_TOPICS_GATEWAY/user-update)                                                         | properties about the user changed                                                                                                |
-| [Voice State Update](#DOCS_TOPICS_GATEWAY/voice-state-update)                                           | someone joined, left, or moved a voice channel                                                                                   |
-| [Voice Server Update](#DOCS_TOPICS_GATEWAY/voice-server-update)                                         | guild's voice server was updated                                                                                                 |
-| [Webhooks Update](#DOCS_TOPICS_GATEWAY/webhooks-update)                                                 | guild channel webhook was created, update, or deleted                                                                            |
+| name                                                                                                  | description                                                                                                                      |
+| ----------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| [Hello](#DOCS_TOPICS_GATEWAY/hello)                                                                   | defines the heartbeat interval                                                                                                   |
+| [Ready](#DOCS_TOPICS_GATEWAY/ready)                                                                   | contains the initial state information                                                                                           |
+| [Resumed](#DOCS_TOPICS_GATEWAY/resumed)                                                               | response to [Resume](#DOCS_TOPICS_GATEWAY/resume)                                                                                |
+| [Reconnect](#DOCS_TOPICS_GATEWAY/reconnect)                                                           | server is going away, client should reconnect to gateway and resume                                                              |
+| [Invalid Session](#DOCS_TOPICS_GATEWAY/invalid-session)                                               | failure response to [Identify](#DOCS_TOPICS_GATEWAY/identify) or [Resume](#DOCS_TOPICS_GATEWAY/resume) or invalid active session |
+| [Application Command Permissions Update](#DOCS_TOPICS_GATEWAY/application-command-permissions-update) | application command permission was updated                                                                                       |
+| [Auto Moderation Rule Create](#DOCS_TOPICS_GATEWAY/auto-moderation-rule-create)                       | auto moderation rule was created                                                                                                 |
+| [Auto Moderation Rule Update](#DOCS_TOPICS_GATEWAY/auto-moderation-rule-update)                       | auto moderation rule was updated                                                                                                 |
+| [Auto Moderation Rule Delete](#DOCS_TOPICS_GATEWAY/auto-moderation-rule-delete)                       | auto moderation rule was deleted                                                                                                 |
+| [Auto Moderation Action Execution](#DOCS_TOPICS_GATEWAY/auto-moderation-action-execution)             | auto moderation rule was triggered and an action was executed (e.g. a message was blocked)                                       |
+| [Channel Create](#DOCS_TOPICS_GATEWAY/channel-create)                                                 | new guild channel created                                                                                                        |
+| [Channel Update](#DOCS_TOPICS_GATEWAY/channel-update)                                                 | channel was updated                                                                                                              |
+| [Channel Delete](#DOCS_TOPICS_GATEWAY/channel-delete)                                                 | channel was deleted                                                                                                              |
+| [Channel Pins Update](#DOCS_TOPICS_GATEWAY/channel-pins-update)                                       | message was pinned or unpinned                                                                                                   |
+| [Thread Create](#DOCS_TOPICS_GATEWAY/thread-create)                                                   | thread created, also sent when being added to a private thread                                                                   |
+| [Thread Update](#DOCS_TOPICS_GATEWAY/thread-update)                                                   | thread was updated                                                                                                               |
+| [Thread Delete](#DOCS_TOPICS_GATEWAY/thread-delete)                                                   | thread was deleted                                                                                                               |
+| [Thread List Sync](#DOCS_TOPICS_GATEWAY/thread-list-sync)                                             | sent when gaining access to a channel, contains all active threads in that channel                                               |
+| [Thread Member Update](#DOCS_TOPICS_GATEWAY/thread-member-update)                                     | [thread member](#DOCS_RESOURCES_CHANNEL/thread-member-object) for the current user was updated                                   |
+| [Thread Members Update](#DOCS_TOPICS_GATEWAY/thread-members-update)                                   | some user(s) were added to or removed from a thread                                                                              |
+| [Guild Create](#DOCS_TOPICS_GATEWAY/guild-create)                                                     | lazy-load for unavailable guild, guild became available, or user joined a new guild                                              |
+| [Guild Update](#DOCS_TOPICS_GATEWAY/guild-update)                                                     | guild was updated                                                                                                                |
+| [Guild Delete](#DOCS_TOPICS_GATEWAY/guild-delete)                                                     | guild became unavailable, or user left/was removed from a guild                                                                  |
+| [Guild Ban Add](#DOCS_TOPICS_GATEWAY/guild-ban-add)                                                   | user was banned from a guild                                                                                                     |
+| [Guild Ban Remove](#DOCS_TOPICS_GATEWAY/guild-ban-remove)                                             | user was unbanned from a guild                                                                                                   |
+| [Guild Emojis Update](#DOCS_TOPICS_GATEWAY/guild-emojis-update)                                       | guild emojis were updated                                                                                                        |
+| [Guild Stickers Update](#DOCS_TOPICS_GATEWAY/guild-stickers-update)                                   | guild stickers were updated                                                                                                      |
+| [Guild Integrations Update](#DOCS_TOPICS_GATEWAY/guild-integrations-update)                           | guild integration was updated                                                                                                    |
+| [Guild Member Add](#DOCS_TOPICS_GATEWAY/guild-member-add)                                             | new user joined a guild                                                                                                          |
+| [Guild Member Remove](#DOCS_TOPICS_GATEWAY/guild-member-remove)                                       | user was removed from a guild                                                                                                    |
+| [Guild Member Update](#DOCS_TOPICS_GATEWAY/guild-member-update)                                       | guild member was updated                                                                                                         |
+| [Guild Members Chunk](#DOCS_TOPICS_GATEWAY/guild-members-chunk)                                       | response to [Request Guild Members](#DOCS_TOPICS_GATEWAY/request-guild-members)                                                  |
+| [Guild Role Create](#DOCS_TOPICS_GATEWAY/guild-role-create)                                           | guild role was created                                                                                                           |
+| [Guild Role Update](#DOCS_TOPICS_GATEWAY/guild-role-update)                                           | guild role was updated                                                                                                           |
+| [Guild Role Delete](#DOCS_TOPICS_GATEWAY/guild-role-delete)                                           | guild role was deleted                                                                                                           |
+| [Guild Scheduled Event Create](#DOCS_TOPICS_GATEWAY/guild-scheduled-event-create)                     | guild scheduled event was created                                                                                                |
+| [Guild Scheduled Event Update](#DOCS_TOPICS_GATEWAY/guild-scheduled-event-update)                     | guild scheduled event was updated                                                                                                |
+| [Guild Scheduled Event Delete](#DOCS_TOPICS_GATEWAY/guild-scheduled-event-delete)                     | guild scheduled event was deleted                                                                                                |
+| [Guild Scheduled Event User Add](#DOCS_TOPICS_GATEWAY/guild-scheduled-event-user-add)                 | user subscribed to a guild scheduled event                                                                                       |
+| [Guild Scheduled Event User Remove](#DOCS_TOPICS_GATEWAY/guild-scheduled-event-user-remove)           | user unsubscribed from a guild scheduled event                                                                                   |
+| [Integration Create](#DOCS_TOPICS_GATEWAY/integration-create)                                         | guild integration was created                                                                                                    |
+| [Integration Update](#DOCS_TOPICS_GATEWAY/integration-update)                                         | guild integration was updated                                                                                                    |
+| [Integration Delete](#DOCS_TOPICS_GATEWAY/integration-delete)                                         | guild integration was deleted                                                                                                    |
+| [Interaction Create](#DOCS_TOPICS_GATEWAY/interaction-create)                                         | user used an interaction, such as an [Application Command](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/)                             |
+| [Invite Create](#DOCS_TOPICS_GATEWAY/invite-create)                                                   | invite to a channel was created                                                                                                  |
+| [Invite Delete](#DOCS_TOPICS_GATEWAY/invite-delete)                                                   | invite to a channel was deleted                                                                                                  |
+| [Message Create](#DOCS_TOPICS_GATEWAY/message-create)                                                 | message was created                                                                                                              |
+| [Message Update](#DOCS_TOPICS_GATEWAY/message-update)                                                 | message was edited                                                                                                               |
+| [Message Delete](#DOCS_TOPICS_GATEWAY/message-delete)                                                 | message was deleted                                                                                                              |
+| [Message Delete Bulk](#DOCS_TOPICS_GATEWAY/message-delete-bulk)                                       | multiple messages were deleted at once                                                                                           |
+| [Message Reaction Add](#DOCS_TOPICS_GATEWAY/message-reaction-add)                                     | user reacted to a message                                                                                                        |
+| [Message Reaction Remove](#DOCS_TOPICS_GATEWAY/message-reaction-remove)                               | user removed a reaction from a message                                                                                           |
+| [Message Reaction Remove All](#DOCS_TOPICS_GATEWAY/message-reaction-remove-all)                       | all reactions were explicitly removed from a message                                                                             |
+| [Message Reaction Remove Emoji](#DOCS_TOPICS_GATEWAY/message-reaction-remove-emoji)                   | all reactions for a given emoji were explicitly removed from a message                                                           |
+| [Presence Update](#DOCS_TOPICS_GATEWAY/presence-update)                                               | user was updated                                                                                                                 |
+| [Stage Instance Create](#DOCS_TOPICS_GATEWAY/stage-instance-create)                                   | stage instance was created                                                                                                       |
+| [Stage Instance Delete](#DOCS_TOPICS_GATEWAY/stage-instance-delete)                                   | stage instance was deleted or closed                                                                                             |
+| [Stage Instance Update](#DOCS_TOPICS_GATEWAY/stage-instance-update)                                   | stage instance was updated                                                                                                       |
+| [Typing Start](#DOCS_TOPICS_GATEWAY/typing-start)                                                     | user started typing in a channel                                                                                                 |
+| [User Update](#DOCS_TOPICS_GATEWAY/user-update)                                                       | properties about the user changed                                                                                                |
+| [Voice State Update](#DOCS_TOPICS_GATEWAY/voice-state-update)                                         | someone joined, left, or moved a voice channel                                                                                   |
+| [Voice Server Update](#DOCS_TOPICS_GATEWAY/voice-server-update)                                       | guild's voice server was updated                                                                                                 |
+| [Webhooks Update](#DOCS_TOPICS_GATEWAY/webhooks-update)                                               | guild channel webhook was created, update, or deleted                                                                            |
 
 ### Event Names
 
