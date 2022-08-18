@@ -4,14 +4,18 @@ The Gateway API lets apps open secure WebSocket connections with Discord in orde
 
 The Gateway is Discord's form of real-time communication used by clients (including apps), so there is data and nuances that simply aren't relevant to apps. Interacting with the Gateway can be tricky, but there are [community-built libraries](#DOCS_TOPICS_COMMUNITY_RESOURCES/libraries) with built-in support that simplify the most complicated bits and bobs. If you're planning to write a custom implementation, be sure to read the following documentation in its entirety to understand the sacred secrets of the Gateway.
 
-## Payloads
+## Gateway Events
 
-Gateway event payloads have a common structure, but the contents of the associated data (the `d` field) varies between events.
+Gateway events are payloads sent over a Gateway connection either from an app to Discord, or from Discord to an app. An app typically sends events when connecting and managing its connection to the Gateway, and receives events when it's listening to things taking place in a server.
+
+Below is the common Gateway event payload structure and information about sending and receiving events. A full list of events, and details about them, are in the [Gateway event documentation](#DOCS_TOPICS_GATEWAY_EVENTS).
 
 > warn
 > Not all Gateway event fields are documented. You should assume that undocumented fields are not supported for apps, and their format and data may change at any time.
 
-###### Gateway Payload Structure
+### Payload Structure
+
+Gateway event payloads have a common structure, but the contents of the associated data (the `d` field) varies between events.
 
 | Field | Type                    | Description                                                                                                                       |
 | ----- | ----------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
@@ -21,15 +25,6 @@ Gateway event payloads have a common structure, but the contents of the associat
 | t     | ?string \*              | Event name                                                                                                                        |
 
 \* `s` and `t` are `null` when `op` is not `0` ([Gateway Dispatch opcode](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/gateway-gateway-opcodes)).
-
-### Sending Gateway Events
-
-When sending an [event](#DOCS_TOPICS_GATEWAY/commands-and-events-gateway-commands) over a Gateway connection (like when [performing an initial handshake](#DOCS_TOPICS_GATEWAY/identify) or [updating presence](#DOCS_TOPICS_GATEWAY/update-presence)), an app must send a [Gateway event payload object](#DOCS_TOPICS_GATEWAY/sending-payloads-example-gateway-event-payload) with a valid opcode and inner data object.
-
-Event payloads sent over a Gateway connection:
-
-1. Must be serialized in [plain-text JSON or binary ETF](#DOCS_TOPICS_GATEWAY/etfjson)
-2. Must not exceed 4096 bytes. If an event payload *does* exceed 4096, the connection will be closed with a [`4002` gateway close event code](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/gateway-gateway-close-event-codes)
 
 ###### Example Gateway Event Payload
 
@@ -42,23 +37,63 @@ Event payloads sent over a Gateway connection:
 }
 ```
 
-### Receiving Gateway Events
+### Sending Events
 
-// TODO: pls revise this intro lol
-Receiving events over a Gateway connection is slightly more complex than sending them. 
+When sending an [event](#DOCS_TOPICS_GATEWAY/commands-and-events-gateway-commands) (like when [performing an initial handshake](#DOCS_TOPICS_GATEWAY/identify) or [updating presence](#DOCS_TOPICS_GATEWAY/update-presence)), an app must send a [Gateway event payload object](#DOCS_TOPICS_GATEWAY/sending-payloads-example-gateway-event-payload) with a valid opcode and inner data object.
+
+> info
+> TODO: rate limit
+
+Event payloads sent over a Gateway connection:
+
+1. Must be serialized in [plain-text JSON or binary ETF](#DOCS_TOPICS_GATEWAY/etfjson)
+2. Must not exceed 4096 bytes. If an event payload *does* exceed 4096, the connection will be closed with a [`4002` gateway close event code](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/gateway-gateway-close-event-codes)
+
+All send events are in the [event documentation](TODO).
+
+### Receiving Events
+
+Receiving an [event](#DOCS_TOPICS_GATEWAY/commands-and-events-gateway-commands) from Discord (like when [a reaction is added to a message](TODO)) is slightly more complex than sending them.
+
+While some events are sent by default after your app successfully connects to the Gateway, other events require your app to define intents when initially [identifying](TODO). Intents are [TODO: bitwise whatever] that indicate which events (or groups of events) you want Discord to send your app. A list of intents and their corresponding events are listed in the [intents] section.
+
+When receiving events, you can also configure how events will be sent to your app like how payloads are [encoded and compressed](), or whether to [enable sharding](TODO)).
+
+All receive events are in the [event documentation](TODO).
+
+## Gateway Connection Lifecycle
+
+Gateway connections are persistent WebSockets, which introduce more complexity than sending HTTP requests or responding to slash commands. An app must know how to open the initial connection, as well as maintain it and handle any disconnects. At a high-level, Gateway connections require the following cycle:
+
+> info
+> There are some nuances that aren't included below. More information about each connection step and event can be found in the sections below.
+
+// TODO: maybe a flowchart?
+
+1. App calls the [Get Gateway](TODO) or [Get Gateway Bot](TODO) endpoint to fetch a valid WebSocket URL to use when connecting to the Gateway.
+2. App establishes a connection with the Gateway using the WebSocket URL.
+3. Discord sends the app a [Hello event](TODO) (opcode `10`) containing a heartbeat interval (in milliseconds).
+   - From this point forward, the app must continue to send a [Heartbeat event](TODO) (opcode `1`) every heartbeat interval until the connection is closed.
+   - Discord will respond to a Heartbeat event with a [Heartbeat ACK event](TODO) to confirm it was received. If an app doesn't receive a Heartbeat ACK, it should [Reconnect](TODO).
+4. App sends an [Identify event](TODO) (opcode `2`) to perform the initial handshake with the Gateway.
+5. Discord sends the app a [Ready event](TODO) which indicates the handshake was successful and the connection was established.
+   - The Ready event contains a `resume_gateway_url` that the app should keep track of to determine the WebSocket URL an app should resume/reconnect with.
+6. The connection may be dropped for a variety of reasons. Whether your app can [Resume](TODO) the connection or whether it must fully re-identify is determined by a variety of factors like the [opcode](TODO) or [close code](TODO) the app receives.
+   - If an app **can** resume/reconnect, it should open a new connection then send a [Resume event](TODO)
+   - If an app **cannot** resume/reconnect, it should open a new connection and repeat the whole cycle. *Yipee!*
 
 ## Encoding and Compression
 
 When [establishing a connection](#DOCS_TOPICS_GATEWAY/connecting) to the Gateway, apps can use the `encoding` parameter to choose whether to communicate with Discord using either a plain-text JSON or binary [ETF](https://erlang.org/doc/apps/erts/erl_ext_dist.html) encoding. You can pick whichever encoding type you're more comfortable with, but both have their own quirks. If you aren't sure which encoding to use, JSON is generally recommended.
 
-Apps can also optionally enable compression ([payload](TODO) or [transport](TODO)) to receive zlib-compressed [TODO: what word? events?] over the Gateway.
+Apps can also optionally enable compression ([payload](TODO) or [transport](TODO)) to receive zlib-compressed //TODO: what word? events?// over the Gateway.
 
-#### Using JSON Encoding
+### Using JSON Encoding
 
 // TODO: present transport as alternative
 When using the plain-text JSON encoding, apps have the option to enable [Payload Compression](#DOCS_TOPICS_GATEWAY/using-json-payload-compression).
 
-##### Payload Compression
+#### Payload Compression
 
 > warn
 > Payload compression can only be enabled when using JSON as the encoding type
@@ -71,7 +106,7 @@ When payload compression is enabled, your app (or library) _must_ detect and dec
 
 Payload compression will be disabled if you use [transport compression](TODO).
 
-#### Using ETF Encoding
+### Using ETF Encoding
 
 When using ETF (External Term Format) encoding, there are some specific behaviors you should know:
 
@@ -81,7 +116,7 @@ When using ETF (External Term Format) encoding, there are some specific behavior
 
 See [erlpack](https://github.com/discord/erlpack) for an ETF implementation example.
 
-#### Transport Compression
+### Transport Compression
 
 // TODO: define transport compression
 
@@ -205,7 +240,7 @@ If the payload is valid, the gateway will respond with a [Ready](#DOCS_TOPICS_GA
 > warn
 > Clients are limited to 1000 `IDENTIFY` calls to the websocket in a 24-hour period. This limit is global and across all shards, but does not include `RESUME` calls. Upon hitting this limit, all active sessions for the bot will be terminated, the bot's token will be reset, and the owner will receive an email notification. It's up to the owner to update their application with the new token.
 
-## Resuming
+### Resuming
 
 The Internet is a scary place. Disconnections happen, especially with persistent connections. Due to Discord's architecture, this is a semi-regular event and should be expected and handled. Discord has a process for "resuming" (or reconnecting) a connection that allows the client to replay any lost events from the last sequence number they received in the exact same way they would receive them normally.
 
