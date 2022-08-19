@@ -4,7 +4,7 @@
 
 The Gateway API lets apps open secure WebSocket connections with Discord in order to receive events about things that happen in a server, like when a channel is updated or a role is created. There are a few scenarios where apps will also use a Gateway connection to update or request a resource (like when [updating voice state](#DOCS_TOPICS_GATEWAY/update-voice-state)), but in *most* cases they'll instead use the [HTTP API](#DOCS_REFERENCE/http-api) when performing REST operations on resources (like creating, updating, deleting, or fetching them). 
 
-The Gateway is Discord's form of real-time communication used by clients (including apps), so there is data and nuances that simply aren't relevant to apps. Interacting with the Gateway can be tricky, but there are [community-built libraries](#DOCS_TOPICS_COMMUNITY_RESOURCES/libraries) with built-in support that simplify the most complicated bits and bobs. If you're planning to write a custom implementation, be sure to read the following documentation in its entirety to understand the sacred secrets of the Gateway.
+The Gateway is Discord's form of real-time communication used by all clients (including apps), so there is data and nuances that simply aren't relevant to apps. Interacting with the Gateway can be tricky, but there are [community-built libraries](#DOCS_TOPICS_COMMUNITY_RESOURCES/libraries) with built-in support that simplify the most complicated bits. If you're planning to write a custom implementation, be sure to read the following documentation in its entirety so you understand the sacred secrets of the Gateway.
 
 ## Gateway Events
 
@@ -65,12 +65,16 @@ All receive events are in the [event documentation](TODO).
 
 ## Gateway Connection Lifecycle
 
+// TODO: rename to just "Gateway Connections" then make lifecycle the first section
+
 Gateway connections are persistent WebSockets, which introduce more complexity than sending HTTP requests or responding to slash commands. An app must know how to open the initial connection, as well as maintain it and handle any disconnects. At a high-level, Gateway connections require the following cycle:
 
 > info
 > There are some nuances that aren't included below. More information about each connection step and event can be found in the sections below.
 
 // TODO: maybe a flowchart?
+
+![High level overview of Gateway connection lifecycle](gateway-lifecycle.png)
 
 1. App calls the [Get Gateway](TODO) or [Get Gateway Bot](TODO) endpoint to fetch a valid WebSocket URL to use when connecting to the Gateway.
 2. App establishes a connection with the Gateway using the WebSocket URL.
@@ -81,7 +85,7 @@ Gateway connections are persistent WebSockets, which introduce more complexity t
 5. Discord sends the app a [Ready event](TODO) which indicates the handshake was successful and the connection was established.
    - The Ready event contains a `resume_gateway_url` that the app should keep track of to determine the WebSocket URL an app should resume/reconnect with.
 6. The connection may be dropped for a variety of reasons. Whether your app can [Resume](TODO) the connection or whether it must fully re-identify is determined by a variety of factors like the [opcode](TODO) or [close code](TODO) the app receives.
-   - If an app **can** resume/reconnect, it should open a new connection then send a [Resume event](TODO)
+   - If an app **can** resume/reconnect, it should open a new connection then send a [Resume event](TODO) (opcode `6`)
    - If an app **cannot** resume/reconnect, it should open a new connection and repeat the whole cycle. *Yipee!*
 
 ### Connecting
@@ -263,6 +267,11 @@ When [identifying](#DOCS_TOPICS_GATEWAY/identifying) to the gateway, you can spe
 
 ### List of Intents
 
+// TODO: example of this?
+Any [events not associated with an intent below](#DOCS_TOPICS_GATEWAY/commands-and-events-gateway-events) will always be sent to your app.
+
+// TODO: should this be turned into a table? moved to events? idkidk
+
 ```
 GUILDS (1 << 0)
   - GUILD_CREATE
@@ -372,8 +381,6 @@ AUTO_MODERATION_EXECUTION (1 << 21)
 \*\* `MESSAGE_CONTENT` is a special case as it doesn't represent individual events, but rather affects the data sent for most events that could contain message content fields (`content`, `attachments`, `embeds`, and `components`).
 
 ### Caveats
-
-Any [events not defined in an intent](#DOCS_TOPICS_GATEWAY/commands-and-events-gateway-events) are considered "passthrough" and will always be sent to you.
 
 [Guild Member Update](#DOCS_TOPICS_GATEWAY/guild-member-update) is sent for current-user updates regardless of whether the `GUILD_MEMBERS` intent is set.
 
@@ -507,9 +514,13 @@ An example of state tracking can be considered in the case of an app that wants 
 
 ## Guild Availability
 
+// TODO: can this be cut and incorporated into another section instead?
+
 When connecting to the gateway as a bot user, guilds that the bot is a part of will start out as unavailable. Don't fret! The gateway will automatically attempt to reconnect on your behalf. As guilds become available to you, you will receive [Guild Create](#DOCS_TOPICS_GATEWAY/guild-create) events.
 
 ## Sharding
+
+// TODO: recommended number of shards
 
 As apps grow and are added to an increasing number of guilds, some developers may find it necessary to break or split portions of their app's operations into separate processes. As such, Gateways implement a method of user-controlled guild sharding which allows apps to split events across a number of Gateway connections. Guild sharding is entirely controlled by an app, and requires no state-sharing between separate connections to operate.
 
@@ -608,7 +619,7 @@ The session start limit for these bots will also be increased from 1000 to `max(
 > info
 > This endpoint does not require authentication.
 
-Returns an object with a single valid WSS URL, which the client can use for [Connecting](#DOCS_TOPICS_GATEWAY/connecting). Clients **should** cache this value and only call this endpoint to retrieve a new URL if they are unable to properly establish a connection using the cached version of the URL.
+Returns an object with a valid WSS URL, which the client can use for [Connecting](#DOCS_TOPICS_GATEWAY/connecting). Apps should cache this value and only call this endpoint to retrieve a new URL if they are unable to properly establish a connection using the cached one.
 
 ###### Example Response
 
@@ -629,8 +640,8 @@ Returns an object based on the information in [Get Gateway](#DOCS_TOPICS_GATEWAY
 
 | Field               | Type                                                                          | Description                                                                              |
 | ------------------- | ----------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
-| url                 | string                                                                        | The WSS URL that can be used for connecting to the gateway                               |
-| shards              | integer                                                                       | The recommended number of [shards](#DOCS_TOPICS_GATEWAY/sharding) to use when connecting |
+| url                 | string                                                                        | WSS URL that can be used for connecting to the gateway                               |
+| shards              | integer                                                                       | Recommended number of [shards](#DOCS_TOPICS_GATEWAY/sharding) to use when connecting |
 | session_start_limit | [session_start_limit](#DOCS_TOPICS_GATEWAY/session-start-limit-object) object | Information on the current session start limit                                           |
 
 ###### Example Response
@@ -652,9 +663,9 @@ Returns an object based on the information in [Get Gateway](#DOCS_TOPICS_GATEWAY
 
 ###### Session Start Limit Structure
 
-| Field           | Type    | Description                                                        |
-| --------------- | ------- | ------------------------------------------------------------------ |
-| total           | integer | The total number of session starts the current user is allowed     |
-| remaining       | integer | The remaining number of session starts the current user is allowed |
-| reset_after     | integer | The number of milliseconds after which the limit resets            |
-| max_concurrency | integer | The number of identify requests allowed per 5 seconds              |
+| Field           | Type    | Description                                                    |
+| --------------- | ------- | -------------------------------------------------------------- |
+| total           | integer | Total number of session starts the current user is allowed     |
+| remaining       | integer | Remaining number of session starts the current user is allowed |
+| reset_after     | integer | Number of milliseconds after which the limit resets            |
+| max_concurrency | integer | Number of identify requests allowed per 5 seconds              |
