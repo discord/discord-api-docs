@@ -23,7 +23,7 @@
 		"test:links": "node dist/ci/checkLinks.js"
 	},
 	"devDependencies": {
-		"@actions/core": "^1.6.0",
+		"@actions/core": "^1.9.1",
 		"@types/node": "^16.10.3",
 		"@typescript-eslint/eslint-plugin": "^4.33.0",
 		"@typescript-eslint/parser": "^4.33.0",
