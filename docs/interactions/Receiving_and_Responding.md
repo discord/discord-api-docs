@@ -211,7 +211,7 @@ There are a number of ways you can respond to an interaction:
 Not all message fields are currently supported.
 
 
-| Name              | Type                                                                             | Description                                                                                                                                                                                 |
+| Field              | Type                                                                             | Description                                                                                                                                                                                 |
 | ----------------- | -------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | tts?              | boolean                                                                          | is the response TTS                                                                                                                                                                         |
 | content?          | string                                                                           | message content                                                                                                                                                                             |
@@ -225,7 +225,7 @@ Not all message fields are currently supported.
 
 ###### Autocomplete
 
-| Name    | Type                                                                                                                               | Description                              |
+| Field    | Type                                                                                                                               | Description                              |
 | ------- | ---------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------- |
 | choices | array of [choices](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-choice-structure) | autocomplete choices (max of 25 choices) |
 
@@ -234,7 +234,7 @@ Not all message fields are currently supported.
 > warn
 > Support for components in modals is currently limited to type 4 (Text Input).
 
-| Name       | Type                                                          | Description                                                          |
+| Field       | Type                                                          | Description                                                          |
 | ---------- | ------------------------------------------------------------- | -------------------------------------------------------------------- |
 | custom_id  | string                                                        | a developer-defined identifier for the component, max 100 characters |
 | title      | string                                                        | the title of the popup modal, max 45 characters                      |
