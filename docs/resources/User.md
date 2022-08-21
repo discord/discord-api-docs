@@ -116,6 +116,7 @@ The connection object that the user has attached.
 | facebook           | Facebook            |
 | github             | GitHub              |
 | leagueoflegends *  | League of Legends   |
+| paypal             | PayPal              |
 | playstation        | PlayStation Network |
 | reddit             | Reddit              |
 | spotify            | Spotify             |
