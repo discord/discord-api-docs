@@ -28,14 +28,14 @@ Represents a guild or DM channel within Discord.
 | last_pin_timestamp?            | ?ISO8601 timestamp                                                         | when the last pinned message was pinned. This may be `null` in events such as `GUILD_CREATE` when a message is not pinned.                                                                      |
 | rtc_region?                    | ?string                                                                    | [voice region](#DOCS_RESOURCES_VOICE/voice-region-object) id for the voice channel, automatic when set to null                                                                                  |
 | video_quality_mode?            | integer                                                                    | the camera [video quality mode](#DOCS_RESOURCES_CHANNEL/channel-object-video-quality-modes) of the voice channel, 1 when not present                                                            |
-| message_count?                 | integer                                                                    | number of messages (not including the initial message or deleted messages) in a thread (if the thread was created before July 1, 2022, it stops counting at 50)        |
-| member_count?                  | integer                                                                    | an approximate count of users in a thread, stops counting at 50                   |
+| message_count?                 | integer                                                                    | number of messages (not including the initial message or deleted messages) in a thread (if the thread was created before July 1, 2022, it stops counting at 50)                                 |
+| member_count?                  | integer                                                                    | an approximate count of users in a thread, stops counting at 50                                                                                                                                 |
 | thread_metadata?               | a [thread metadata](#DOCS_RESOURCES_CHANNEL/thread-metadata-object) object | thread-specific fields not needed by other channels                                                                                                                                             |
 | member?                        | a [thread member](#DOCS_RESOURCES_CHANNEL/thread-member-object) object     | thread member object for the current user, if they have joined the thread, only included on certain API endpoints                                                                               |
-| default_auto_archive_duration? | integer                                                                    | default duration that the clients (not the API) will use for newly created threads, in minutes, to automatically archive the thread after recent activity, can be set to: 60, 1440, 4320, 10080 |
+| default_auto_archive_duration? | integer                                                                    | default duration, copied onto newly created threads, in minutes, threads will stop showing in the channel list after the specified period of inactivity, can be set to: 60, 1440, 4320, 10080   |
 | permissions?                   | string                                                                     | computed permissions for the invoking user in the channel, including overwrites, only included when part of the `resolved` data received on a slash command interaction                         |
 | flags?                         | integer                                                                    | [channel flags](#DOCS_RESOURCES_CHANNEL/channel-object-channel-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field)                                                         |
-| total_message_sent?            | integer                                                                    | number of messages ever sent in a thread, it's similar to `message_count` on message creation, but will not decrement the number when a message is deleted            |
+| total_message_sent?            | integer                                                                    | number of messages ever sent in a thread, it's similar to `message_count` on message creation, but will not decrement the number when a message is deleted                                      |
 
 \* `rate_limit_per_user` also applies to thread creation. Users can send one message and create one thread during each `rate_limit_per_user` interval.
 
@@ -512,14 +512,14 @@ The thread metadata object contains a number of thread-specific channel fields t
 
 ###### Thread Metadata Structure
 
-| Field                 | Type               | Description                                                                                                         |
-|-----------------------|--------------------|---------------------------------------------------------------------------------------------------------------------|
-| archived              | boolean            | whether the thread is archived                                                                                      |
-| auto_archive_duration | integer            | duration in minutes to automatically archive the thread after recent activity, can be set to: 60, 1440, 4320, 10080 |
-| archive_timestamp     | ISO8601 timestamp  | timestamp when the thread's archive status was last changed, used for calculating recent activity                   |
-| locked                | boolean            | whether the thread is locked; when a thread is locked, only users with MANAGE_THREADS can unarchive it              |
-| invitable?            | boolean            | whether non-moderators can add other non-moderators to a thread; only available on private threads                  |
-| create_timestamp?     | ?ISO8601 timestamp | timestamp when the thread was created; only populated for threads created after 2022-01-09                          |
+| Field                 | Type               | Description                                                                                                                                |
+|-----------------------|--------------------|--------------------------------------------------------------------------------------------------------------------------------------------|
+| archived              | boolean            | whether the thread is archived                                                                                                             |
+| auto_archive_duration | integer            | the thread will stop showing in the channel list after `auto_archive_duration` minutes of inactivity, can be set to: 60, 1440, 4320, 10080 |
+| archive_timestamp     | ISO8601 timestamp  | timestamp when the thread's archive status was last changed, used for calculating recent activity                                          |
+| locked                | boolean            | whether the thread is locked; when a thread is locked, only users with MANAGE_THREADS can unarchive it                                     |
+| invitable?            | boolean            | whether non-moderators can add other non-moderators to a thread; only available on private threads                                         |
+| create_timestamp?     | ?ISO8601 timestamp | timestamp when the thread was created; only populated for threads created after 2022-01-09                                                 |
 
 ### Thread Member Object
 
@@ -834,7 +834,7 @@ Otherwise, requires the `MANAGE_THREADS` permission. Fires a [Thread Update](#DO
 |-----------------------|----------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | name                  | string   | 1-100 character channel name                                                                                                                                                                      |
 | archived              | boolean  | whether the thread is archived                                                                                                                                                                    |
-| auto_archive_duration | integer  | duration in minutes to automatically archive the thread after recent activity, can be set to: 60, 1440, 4320, 10080                                                                               |
+| auto_archive_duration | integer  | the thread will stop showing in the channel list after `auto_archive_duration` minutes of inactivity, can be set to: 60, 1440, 4320, 10080                                                        |
 | locked                | boolean  | whether the thread is locked; when a thread is locked, only users with MANAGE_THREADS can unarchive it                                                                                            |
 | invitable             | boolean  | whether non-moderators can add other non-moderators to a thread; only available on private threads                                                                                                |
 | rate_limit_per_user   | ?integer | amount of seconds a user has to wait before sending another message (0-21600); bots, as well as users with the permission `manage_messages`, `manage_thread`, or `manage_channel`, are unaffected |
@@ -1132,11 +1132,11 @@ When called on a `GUILD_TEXT` channel, creates a `GUILD_PUBLIC_THREAD`. When cal
 
 ###### JSON Params
 
-| Field                  | Type     | Description                                                                                                         |
-|------------------------|----------|---------------------------------------------------------------------------------------------------------------------|
-| name                   | string   | 1-100 character channel name                                                                                        |
-| auto_archive_duration? | integer  | duration in minutes to automatically archive the thread after recent activity, can be set to: 60, 1440, 4320, 10080 |
-| rate_limit_per_user?   | ?integer | amount of seconds a user has to wait before sending another message (0-21600)                                       |
+| Field                  | Type     | Description                                                                                                                                |
+|------------------------|----------|--------------------------------------------------------------------------------------------------------------------------------------------|
+| name                   | string   | 1-100 character channel name                                                                                                               |
+| auto_archive_duration? | integer  | the thread will stop showing in the channel list after `auto_archive_duration` minutes of inactivity, can be set to: 60, 1440, 4320, 10080 |
+| rate_limit_per_user?   | ?integer | amount of seconds a user has to wait before sending another message (0-21600)                                                              |
 
 ## Start Thread without Message % POST /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/threads
 
@@ -1150,13 +1150,13 @@ Creates a new thread that is not connected to an existing message. Returns a [ch
 
 ###### JSON Params
 
-| Field                  | Type     | Description                                                                                                         |
-|------------------------|----------|---------------------------------------------------------------------------------------------------------------------|
-| name                   | string   | 1-100 character channel name                                                                                        |
-| auto_archive_duration? | integer  | duration in minutes to automatically archive the thread after recent activity, can be set to: 60, 1440, 4320, 10080 |
-| type?\*                | integer  | the [type of thread](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types) to create                                |
-| invitable?             | boolean  | whether non-moderators can add other non-moderators to a thread; only available when creating a private thread      |
-| rate_limit_per_user?   | ?integer | amount of seconds a user has to wait before sending another message (0-21600)                                       |
+| Field                  | Type     | Description                                                                                                                                |
+|------------------------|----------|--------------------------------------------------------------------------------------------------------------------------------------------|
+| name                   | string   | 1-100 character channel name                                                                                                               |
+| auto_archive_duration? | integer  | the thread will stop showing in the channel list after `auto_archive_duration` minutes of inactivity, can be set to: 60, 1440, 4320, 10080 |
+| type?\*                | integer  | the [type of thread](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types) to create                                                       |
+| invitable?             | boolean  | whether non-moderators can add other non-moderators to a thread; only available when creating a private thread                             |
+| rate_limit_per_user?   | ?integer | amount of seconds a user has to wait before sending another message (0-21600)                                                              |
 
 \* `type` currently defaults to `GUILD_PRIVATE_THREAD` in order to match the behavior when thread documentation was first published. In a future API version this will be changed to be a required field, with no default.
 
