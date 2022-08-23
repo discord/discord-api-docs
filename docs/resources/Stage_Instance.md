@@ -52,7 +52,7 @@ Below are some definitions related to stages.
 - **Public**: A Stage instance is public when it has a `privacy_level` of `PUBLIC`. While a guild has a public Stage instance:
   - The guild will be lurkable.
   - Lurkers may join any Stage channel with a public Stage instance.
-  - Users in the Stage can have the Stage show in their [activities](#DOCS_TOPICS_GATEWAY/presence).
+  - Users in the Stage can have the Stage show in their [activities](#DOCS_TOPICS_GATEWAY_EVENTS/presence).
   - [Invites](#DOCS_RESOURCES_INVITE/invite-object) to the Stage channel will have the `stage_instance` field.
 
 ## Auto Closing

@@ -7,7 +7,7 @@
 > warn
 > Starting on **September 12, 2022**, apps that aren’t using the new `resume_gateway_url` field to resume gateway sessions will be disconnected significantly faster than normal.
 
-A new `resume_gateway_url` field has been added to the [Ready](#DOCS_TOPICS_GATEWAY/ready) gateway event to support session-specific gateway connections. The value of `resume_gateway_url` is a session-specific URL that should be used when resuming the gateway session after a disconnect. Previously, `wss://gateway.discord.gg` was used to connect *and* resume sessions, but should now only be used during the connection.
+A new `resume_gateway_url` field has been added to the [Ready](#DOCS_TOPICS_GATEWAY_EVENTS/ready) gateway event to support session-specific gateway connections. The value of `resume_gateway_url` is a session-specific URL that should be used when resuming the gateway session after a disconnect. Previously, `wss://gateway.discord.gg` was used to connect *and* resume sessions, but should now only be used during the connection.
 
 At the moment, the value of `resume_gateway_url` will always be `wss://gateway.discord.gg` to give developers more time to adopt the new field. In the near future, the value will change to the session-specific URLs.
 
@@ -100,13 +100,13 @@ For apps without a bot user (or without the `bot` scope), the value of `app_perm
 
 #### Breaking Changes
 
-In API v10, the `MESSAGE_CONTENT` (`1 << 15`) intent is now required to receive non-empty values for the `content` and `matched_content` fields in [`AUTO_MODERATION_ACTION_EXECUTION`](#DOCS_TOPICS_GATEWAY/auto-moderation-action-execution) gateway events. This matches the intended behavior for message content across the API.
+In API v10, the `MESSAGE_CONTENT` (`1 << 15`) intent is now required to receive non-empty values for the `content` and `matched_content` fields in [`AUTO_MODERATION_ACTION_EXECUTION`](#DOCS_TOPICS_GATEWAY_EVENTS/auto-moderation-action-execution) gateway events. This matches the intended behavior for message content across the API.
 
 ## Updated Connection Property Field Names
 
 #### Jun 17, 2022
 
-The `$` prefix in [identify connection properties](#DOCS_TOPICS_GATEWAY/identify-identify-connection-properties) are deprecated. The new field names are `os`, `browser`, and `device`. When passed, the `$`-prefixed names will resolve to the new ones. 
+The `$` prefix in [identify connection properties](#DOCS_TOPICS_GATEWAY_EVENTS/identify-identify-connection-properties) are deprecated. The new field names are `os`, `browser`, and `device`. When passed, the `$`-prefixed names will resolve to the new ones. 
 
 In API v11, support for the previous field names (`$os`, `$browser`, and `$device`) will be removed.
 
@@ -116,8 +116,8 @@ In API v11, support for the previous field names (`$os`, `$browser`, and `$devic
 
 Add new [Auto Moderation feature](#DOCS_RESOURCES_AUTO_MODERATION) which enables guilds to moderate message content based on keywords, harmful links, and unwanted spam. This change includes:
 - New endpoints for [creating](#DOCS_RESOURCES_AUTO_MODERATION/create-auto-moderation-rule), [updating](#DOCS_RESOURCES_AUTO_MODERATION/modify-auto-moderation-rule), and [deleting](#DOCS_RESOURCES_AUTO_MODERATION/delete-auto-moderation-rule) Auto Moderation rules
-- New gateway events emitted when Auto Moderation rules are [created](#DOCS_TOPICS_GATEWAY/auto-moderation-rule-create) (`AUTO_MODERATION_RULE_CREATE`), [updated](#DOCS_TOPICS_GATEWAY/auto-moderation-rule-update) (`AUTO_MODERATION_RULE_UPDATE `), and [deleted](#DOCS_TOPICS_GATEWAY/auto-moderation-rule-delete) (`AUTO_MODERATION_RULE_DELETE `). Requires the `AUTO_MODERATION_CONFIGURATION` (`1 << 20`) intent
-- New gateway event emitted when an [action is executed](#DOCS_TOPICS_GATEWAY/auto-moderation-action-execution) (`AUTO_MODERATION_ACTION_EXECUTION`). Requires the `AUTO_MODERATION_EXECUTION` (`1 << 21`) intent
+- New gateway events emitted when Auto Moderation rules are [created](#DOCS_TOPICS_GATEWAY_EVENTS/auto-moderation-rule-create) (`AUTO_MODERATION_RULE_CREATE`), [updated](#DOCS_TOPICS_GATEWAY_EVENTS/auto-moderation-rule-update) (`AUTO_MODERATION_RULE_UPDATE `), and [deleted](#DOCS_TOPICS_GATEWAY_EVENTS/auto-moderation-rule-delete) (`AUTO_MODERATION_RULE_DELETE `). Requires the `AUTO_MODERATION_CONFIGURATION` (`1 << 20`) intent
+- New gateway event emitted when an [action is executed](#DOCS_TOPICS_GATEWAY_EVENTS/auto-moderation-action-execution) (`AUTO_MODERATION_ACTION_EXECUTION`). Requires the `AUTO_MODERATION_EXECUTION` (`1 << 21`) intent
 - New [audit log entries](#DOCS_RESOURCES_AUDIT_LOG/audit-log-entry-object-audit-log-events) when rules are created (`AUTO_MODERATION_RULE_CREATE`), updated (`AUTO_MODERATION_RULE_UPDATE`), or deleted (`AUTO_MODERATION_RULE_DELETE`), or when AutoMod performs an action (`AUTO_MODERATION_BLOCK_MESSAGE`)
 
 ## Updated Command Permissions
@@ -139,7 +139,7 @@ Application command permissions have been updated to add more granular control a
 -  [constant (`guild_id - 1`)](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-permissions-object-application-command-permissions-constants) to represent all channels in command permissions
 - Added `default_member_permissions` field, which is a bitwise OR-ed set of [permissions](#DOCS_TOPICS_PERMISSIONS/permissions-bitwise-permission-flags), expressed as a string. This replaces the `default_permission` field, which will soon be deprecated.
 - Added `dm_permission`, which is a boolean flag used to indicate whether a command is available in DMs (only for global application commands). If no value is passed, the global command will be visible in DMs.
-- Added `APPLICATION_COMMAND_PERMISSIONS_UPDATE` [gateway](#DOCS_TOPICS_GATEWAY/application-command-permissions-update) event and `APPLICATION_COMMAND_PERMISSION_UPDATE` [audit log](#DOCS_RESOURCES_AUDIT_LOG) event.
+- Added `APPLICATION_COMMAND_PERMISSIONS_UPDATE` [gateway](#DOCS_TOPICS_GATEWAY_EVENTS/application-command-permissions-update) event and `APPLICATION_COMMAND_PERMISSION_UPDATE` [audit log](#DOCS_RESOURCES_AUDIT_LOG) event.
 
 ## Forum Channels
 
@@ -341,7 +341,7 @@ Inline Replies have been added to our documentation. They behave differently in 
 - You can now add a `message_reference` on message create to create a reply
 - A new field `referenced_message` has been added to the [Message Object](#DOCS_RESOURCES_CHANNEL/message-object)
 - A new field `replied_user` has been added to the [Allowed Mentions Object](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object)
-- [Message Create](#DOCS_TOPICS_GATEWAY/message-create) gateway event is guaranteed to have a `referenced_message` if the message created is a reply. Otherwise, that field is not guaranteed.
+- [Message Create](#DOCS_TOPICS_GATEWAY_EVENTS/message-create) gateway event is guaranteed to have a `referenced_message` if the message created is a reply. Otherwise, that field is not guaranteed.
 
 ## Stickers
 
@@ -353,7 +353,7 @@ Stickers are now documented as part of the [message](#DOCS_RESOURCES_CHANNEL/mes
 
 #### October 27, 2020
 
-The v6 gateway now applies the restrictions for gateway intents. This means the new chunking limitations are now in effect, regardless of intents being used. See [Request Guild Members](#DOCS_TOPICS_GATEWAY/request-guild-members) for further details.
+The v6 gateway now applies the restrictions for gateway intents. This means the new chunking limitations are now in effect, regardless of intents being used. See [Request Guild Members](#DOCS_TOPICS_GATEWAY_EVENTS/request-guild-members) for further details.
 Additionally, if privileged intents are not enabled in the application dashboard the bot will not receive the events for those intents.
 
 All other intents are always enabled by default unless specified otherwise by the identify payload. We have made a support article to explain some of the changes and resulting issues with more details: [Gateway Update FAQ](https://dis.gd/gwupdate)
@@ -376,9 +376,9 @@ The changes are:
 - Form body errors have been improved to include more helpful messaging on validation. [See more here](#DOCS_REFERENCE/error-messages)
 - The `Retry-After` header value and `retry_after` body value is now based in seconds instead of milliseconds (e.g. `123` means 123 seconds)
 - The `X-RateLimit-Precision` header is no longer respected. `X-RateLimit-Reset` and `X-RateLimit-Reset-After` are always returned at millisecond precision (e.g. `123.456` instead of `124`)
-- Bots no longer receive [Channel Create Gateway Event](#DOCS_TOPICS_GATEWAY/channel-create) for DMs
+- Bots no longer receive [Channel Create Gateway Event](#DOCS_TOPICS_GATEWAY_EVENTS/channel-create) for DMs
 - `delete-message-days` is no longer available. Use `delete_message_days`.
-- Removed `roles`, `premium_since`, and `nick` from [Presence Update Gateway Event](#DOCS_TOPICS_GATEWAY/presence-update)
+- Removed `roles`, `premium_since`, and `nick` from [Presence Update Gateway Event](#DOCS_TOPICS_GATEWAY_EVENTS/presence-update)
 - Removed some [integration object](#DOCS_RESOURCES_GUILD/integration-object) fields for Discord application integrations
 - Removed `include_applications` from [Get Guild Integrations](#DOCS_RESOURCES_GUILD/get-guild-integrations). Application integrations are always included.
 - The following deprecated routes have been removed for better naming conventions:
@@ -421,7 +421,7 @@ The legacy mention behavior for bots is now removed, and granular control of men
 
 #### April 24, 2020
 
-The [Guild Members Chunk](#DOCS_TOPICS_GATEWAY/guild-members-chunk) gateway event now contains two properties: `chunk_index` and `chunk_count`. These values can be used to keep track of how many events you have left to receive in response to a [Request Guild Members](#DOCS_TOPICS_GATEWAY/request-guild-members) command.
+The [Guild Members Chunk](#DOCS_TOPICS_GATEWAY_EVENTS/guild-members-chunk) gateway event now contains two properties: `chunk_index` and `chunk_count`. These values can be used to keep track of how many events you have left to receive in response to a [Request Guild Members](#DOCS_TOPICS_GATEWAY_EVENTS/request-guild-members) command.
 
 ## New Allowed Mentions Object
 
@@ -436,9 +436,9 @@ We've added a way to specify mentions in a more granular form. This change also 
 We've added a new endpoint for deleting all reactions of a specific emoji from a message, as well as some new invite and reaction gateway events. Read more:
 
 - [Delete All Reactions for Emoji](#DOCS_RESOURCES_CHANNEL/delete-all-reactions-for-emoji)
-- [Invite Create](#DOCS_TOPICS_GATEWAY/invite-create)
-- [Invite Delete](#DOCS_TOPICS_GATEWAY/invite-delete)
-- [Message Reaction Remove Emoji](#DOCS_TOPICS_GATEWAY/message-reaction-remove-emoji)
+- [Invite Create](#DOCS_TOPICS_GATEWAY_EVENTS/invite-create)
+- [Invite Delete](#DOCS_TOPICS_GATEWAY_EVENTS/invite-delete)
+- [Message Reaction Remove Emoji](#DOCS_TOPICS_GATEWAY_EVENTS/message-reaction-remove-emoji)
 
 ## Rich Presence Spectate Approval
 
@@ -454,12 +454,12 @@ We've added documentation around a brand new feature: [Gateway Intents!](#DOCS_T
 
 Using Intents will change the behavior of some existing events and commands, so please refer to:
 
-- [Guild Create](#DOCS_TOPICS_GATEWAY/guild-create)
-- [Request Guild Members](#DOCS_TOPICS_GATEWAY/request-guild-members)
-- [Guild Member Add](#DOCS_TOPICS_GATEWAY/guild-member-add)
-- [Guild Member Remove](#DOCS_TOPICS_GATEWAY/guild-member-remove)
-- [Guild Member Update](#DOCS_TOPICS_GATEWAY/guild-member-update)
-- [Presence Update](#DOCS_TOPICS_GATEWAY/presence-update)
+- [Guild Create](#DOCS_TOPICS_GATEWAY_EVENTS/guild-create)
+- [Request Guild Members](#DOCS_TOPICS_GATEWAY_EVENTS/request-guild-members)
+- [Guild Member Add](#DOCS_TOPICS_GATEWAY_EVENTS/guild-member-add)
+- [Guild Member Remove](#DOCS_TOPICS_GATEWAY_EVENTS/guild-member-remove)
+- [Guild Member Update](#DOCS_TOPICS_GATEWAY_EVENTS/guild-member-update)
+- [Presence Update](#DOCS_TOPICS_GATEWAY_EVENTS/presence-update)
 - [List Guild Members](#DOCS_RESOURCES_GUILD/list-guild-members)
 
 ## IP Discovery Updates
@@ -548,7 +548,7 @@ The [User object](#DOCS_RESOURCES_USER/user-object) now includes two new additio
 
 #### June 19, 2018
 
-The documentation has been updated to correctly note that the `private_channels` field in the [Ready](#DOCS_TOPICS_GATEWAY/ready) should be an empty array, as well as the response from `/users/@me/channels` for a bot user. This change has been in effect for a long time, but the documentation was not updated.
+The documentation has been updated to correctly note that the `private_channels` field in the [Ready](#DOCS_TOPICS_GATEWAY_EVENTS/ready) should be an empty array, as well as the response from `/users/@me/channels` for a bot user. This change has been in effect for a long time, but the documentation was not updated.
 
 ## Deprecation: RPC online member count and members list
 
@@ -614,7 +614,7 @@ Changes have been made throughout the documentation to reflect the addition of c
 
 #### August 16, 2017
 
-The `type` field in the [activity object](#DOCS_TOPICS_GATEWAY/activity-object) for [Gateway Status Update](#DOCS_TOPICS_GATEWAY/update-presence) and [Presence Update](#DOCS_TOPICS_GATEWAY/presence-update) payloads is no longer optional when the activity object is not null.
+The `type` field in the [activity object](#DOCS_TOPICS_GATEWAY_EVENTS/activity-object) for [Gateway Status Update](#DOCS_TOPICS_GATEWAY_EVENTS/update-presence) and [Presence Update](#DOCS_TOPICS_GATEWAY_EVENTS/presence-update) payloads is no longer optional when the activity object is not null.
 
 ## Breaking Change: Default Channels
 
@@ -642,5 +642,5 @@ Audit logs are here! Well, they've been here all along, but now we've got [docum
   - `recipient` is now `recipients`, an array of [user](#DOCS_RESOURCES_USER/user-object) objects
 - [Message](#DOCS_RESOURCES_CHANNEL/message-object) Object
   - [`type`](#DOCS_RESOURCES_CHANNEL/message-object-message-types) added to support system messages
-- [Status Update](#DOCS_TOPICS_GATEWAY/update-presence-gateway-presence-update-structure) Object
+- [Status Update](#DOCS_TOPICS_GATEWAY_EVENTS/update-presence-gateway-presence-update-structure) Object
   - `idle_since` renamed to `since`

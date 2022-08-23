@@ -1,8 +1,8 @@
 # Gateway
 
-The Gateway API lets apps open secure WebSocket connections with Discord in order to receive events about actions that take place in a server (or guild), like when a channel is updated or a role is created. There are a few scenarios where apps will also use Gateway connections to update or request resources (like when [updating voice state](#DOCS_TOPICS_GATEWAY/update-voice-state))—however, in *most* cases, the [HTTP API](#DOCS_REFERENCE/http-api) can be used instead when performing REST operations on resources (like creating, updating, deleting, or fetching them). 
+The Gateway API lets apps open secure WebSocket connections with Discord in order to receive events about actions that take place in a server, like when a channel is updated or a role is created. There are a few scenarios where apps will also use Gateway connections to update or request resources, like when updating voice state. However, in *most* cases, the [HTTP API](#DOCS_REFERENCE/http-api) can be used to perform those sorts of REST operations on resources (like creating, updating, deleting, or fetching them). 
 
-The Gateway is Discord's form of real-time communication used by all clients (including apps), so there is data and nuances that simply aren't relevant to apps. Interacting with the Gateway can be tricky, but there are [community-built libraries](#DOCS_TOPICS_COMMUNITY_RESOURCES/libraries) with built-in support that simplify the most complicated bits. If you're planning on writing a custom implementation, be sure to read the following documentation in its entirety so you understand the sacred secrets of the Gateway.
+The Gateway is Discord's form of real-time communication used by clients (including apps), so there is data and nuances that simply aren't relevant to apps. Interacting with the Gateway can be tricky, but there are [community-built libraries](#DOCS_TOPICS_COMMUNITY_RESOURCES/libraries) with built-in support that simplify the most complicated bits. If you're planning on writing a custom implementation, be sure to read the following documentation in its entirety so you understand the sacred secrets of the Gateway (or at least those that pertain to apps).
 
 ## Gateway Events
 
@@ -15,7 +15,7 @@ A full list of Gateway events and details are in the [Gateway event documentatio
 
 ### Payload Structure
 
-Gateway event payloads have a common structure, but the contents of the associated data (the `d` field) varies between events.
+Gateway event payloads have a common structure, but the contents of the associated data (the `d` field) varies between the different events.
 
 | Field | Type                    | Description                                                                                                                       |
 | ----- | ----------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
@@ -39,51 +39,51 @@ Gateway event payloads have a common structure, but the contents of the associat
 
 ### Sending Events
 
-When sending a Gateway event (like when [performing an initial handshake](#DOCS_TOPICS_GATEWAY_EVENTS/identify) or [updating presence](#DOCS_TOPICS_GATEWAY_EVENTS/update-presence)), an app must send an [event payload object](#DOCS_TOPICS_GATEWAY/payload-structure) with a valid opcode and inner data object.
+When sending a Gateway event (like when [performing an initial handshake](#DOCS_TOPICS_GATEWAY_EVENTS/identify) or [updating presence](#DOCS_TOPICS_GATEWAY_EVENTS/update-presence)), an app must send an [event payload object](#DOCS_TOPICS_GATEWAY/payload-structure) with a valid opcode (`op`) and inner data object (`d`).
 
 > info
-> TODO: rate limit
+> Specific rate limits are applied when sending events, which you can read about in the [Rate Limiting](#DOCS_TOPICS_GATEWAY/rate-limiting) section.
 
 Event payloads sent over a Gateway connection:
 
 1. Must be serialized in [plain-text JSON or binary ETF](#DOCS_TOPICS_GATEWAY/encoding-and-compression).
 2. Must not exceed 4096 bytes. If an event payload *does* exceed 4096 bytes, the connection will be closed with a [`4002` close event code](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/gateway-gateway-close-event-codes).
 
-All send events are in the [Gateway event documentation](#DOCS_TOPICS_GATEWAY_EVENTS).
+All events that your app can send are in the [Gateway event documentation](#DOCS_TOPICS_GATEWAY_EVENTS/send-events).
 
 ### Receiving Events
 
 Receiving an [event](#DOCS_TOPICS_GATEWAY/gateway-events) from Discord (like when [a reaction is added to a message](#DOCS_TOPICS_GATEWAY_EVENTS/message-reaction-add)) is slightly more complex than sending them.
 
-While some events are sent by default after your app successfully opens a connection to the Gateway, most events require your app to define intents when [Identifying](#DOCS_TOPICS_GATEWAY/identifying). Intents are [TODO: bitwise whatever] that indicate which events (or groups of events) you want Discord to send your app. A list of intents and their corresponding events are listed in the [intents section]((#DOCS_TOPICS_GATEWAY/gateway-intents).
+While some events are sent to your app automatically, most events require your app to define intents when [Identifying](#DOCS_TOPICS_GATEWAY/identifying). Intents are [TODO: bitwise whatever] that indicate which events (or groups of events) you want Discord to send your app. A list of intents and their corresponding events are listed in the [intents section]((#DOCS_TOPICS_GATEWAY/gateway-intents).
 
 When receiving events, you can also configure *how* events will be sent to your app, like the [encoding and compression](#DOCS_TOPICS_GATEWAY/encoding-and-compression), or whether to [enable sharding](#DOCS_TOPICS_GATEWAY/sharding)).
 
-All receive events are in the [Gateway event documentation](#DOCS_TOPICS_GATEWAY_EVENTS).
+All events that your app can receive are in the [Gateway event documentation](#DOCS_TOPICS_GATEWAY_EVENTS/receive-events).
 
 ## Connections
 
-Gateway connections are persistent WebSockets, which introduce more complexity than sending HTTP requests or responding to slash commands. An app must know how to open the initial connection, as well as maintain it and handle any disconnects.
+Gateway connections are persistent WebSockets, which introduce more complexity than sending HTTP requests or responding to interactions like Slash Commands. When interacting with the Gateway, an app must know how to open the initial connection, as well as maintain it and handle any disconnects.
 
 ### Connection Lifecycle
 
 > info
-> There are some nuances that aren't included below. More information about each connection step and event can be found in the individual sections below.
+> There are some nuances that aren't included in the overview below. More details about each step and event can be found in the individual sections below.
 
 At a high-level, Gateway connections require the following cycle:
 
-![High level overview of Gateway connection lifecycle](gateway-lifecycle.png)
+![High-level overview of Gateway connection lifecycle](gateway-lifecycle.png)
 
-1. App calls the [Get Gateway](#DOCS_TOPICS_GATEWAY/get-gateway) or [Get Gateway Bot](#DOCS_TOPICS_GATEWAY/get-gateway-bot) endpoint to fetch a valid WebSocket URL to use when connecting to the Gateway.
-2. App establishes a connection with the Gateway using the WebSocket URL.
-3. Discord sends the app a [Hello event](#DOCS_TOPICS_GATEWAY/hello-event) (opcode `10`) containing a heartbeat interval (in milliseconds).
-   - From this point forward, the app must continue to send a [Heartbeat event](#DOCS_TOPICS_GATEWAY_EVENTS/heartbeat) (opcode `1`) every heartbeat interval until the connection is closed.
-   - Discord will respond to a Heartbeat event with a [Heartbeat ACK event](#DOCS_TOPICS_GATEWAY/sending-heartbeats) to confirm it was received. If an app doesn't receive a Heartbeat ACK, it should [Reconnect](#DOCS_TOPICS_GATEWAY_EVENTS/reconnect).
-4. App sends an [Identify event](#DOCS_TOPICS_GATEWAY_EVENTS/identify) (opcode `2`) to perform the initial handshake with the Gateway.
+1. App calls the [Get Gateway](#DOCS_TOPICS_GATEWAY/get-gateway) or [Get Gateway Bot](#DOCS_TOPICS_GATEWAY/get-gateway-bot) endpoint to fetch and cache a valid WebSocket URL to use when connecting to the Gateway.
+2. App establishes a connection with the Gateway using the fetched WebSocket URL.
+3. Discord sends the app a [Hello event (opcode `10`)](#DOCS_TOPICS_GATEWAY/hello-event) containing a heartbeat interval in milliseconds.
+   - App must immediately send a send a [Heartbeat event (opcode `1`)](#DOCS_TOPICS_GATEWAY_EVENTS/heartbeat), then continue to send a them every heartbeat interval until the connection is closed.
+   - Discord will respond to each Heartbeat event with a [Heartbeat ACK event (opcode `11`)](#DOCS_TOPICS_GATEWAY/sending-heartbeats) to confirm it was received. If an app doesn't receive a Heartbeat ACK, it should [Reconnect](#DOCS_TOPICS_GATEWAY_EVENTS/reconnect).
+4. App sends an [Identify event (opcode `2`)](#DOCS_TOPICS_GATEWAY_EVENTS/identify) to perform the initial handshake with the Gateway.
 5. Discord sends the app a [Ready event](#DOCS_TOPICS_GATEWAY_EVENTS/ready) which indicates the handshake was successful and the connection was established.
    - The Ready event contains a `resume_gateway_url` that the app should keep track of to determine the WebSocket URL an app should resume/reconnect with.
 6. The connection may be dropped for a variety of reasons. Whether your app can [Resume](#DOCS_TOPICS_GATEWAY/resuming) the connection or whether it must fully re-identify is determined by a variety of factors like the [opcode](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/gateway-gateway-opcodes) or [close code](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/gateway-gateway-close-event-codes) the app receives.
-   - If an app **can** resume/reconnect, it should open a new connection then send a [Resume event](#DOCS_TOPICS_GATEWAY/resume) (opcode `6`)
+   - If an app **can** resume/reconnect, it should open a new connection then send a [Resume event (opcode `6`)](#DOCS_TOPICS_GATEWAY/resume) 
    - If an app **cannot** resume/reconnect, it should open a new connection and repeat the whole cycle. *Yipee!*
 
 ### Connecting
