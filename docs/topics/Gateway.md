@@ -1,8 +1,8 @@
 # Gateway
 
-// TODO: literally need to figure out app/bot verbiage here. hella inconsistent
+// TODO: literally need to figure out app/bot and server/guild verbiage here. hella inconsistent
 
-The Gateway API lets apps open secure WebSocket connections with Discord in order to receive events about actions that take place in a server, like when a channel is updated or a role is created. There are a few scenarios where apps will also use Gateway connections to update or request resources (like when [updating voice state](#DOCS_TOPICS_GATEWAY/update-voice-state))—however, in *most* cases, the [HTTP API](#DOCS_REFERENCE/http-api) can be used instead when performing REST operations on resources (like creating, updating, deleting, or fetching them). 
+The Gateway API lets apps open secure WebSocket connections with Discord in order to receive events about actions that take place in a server (or guild), like when a channel is updated or a role is created. There are a few scenarios where apps will also use Gateway connections to update or request resources (like when [updating voice state](#DOCS_TOPICS_GATEWAY/update-voice-state))—however, in *most* cases, the [HTTP API](#DOCS_REFERENCE/http-api) can be used instead when performing REST operations on resources (like creating, updating, deleting, or fetching them). 
 
 The Gateway is Discord's form of real-time communication used by all clients (including apps), so there is data and nuances that simply aren't relevant to apps. Interacting with the Gateway can be tricky, but there are [community-built libraries](#DOCS_TOPICS_COMMUNITY_RESOURCES/libraries) with built-in support that simplify the most complicated bits. If you're planning on writing a custom implementation, be sure to read the following documentation in its entirety so you understand the sacred secrets of the Gateway.
 
@@ -10,7 +10,7 @@ The Gateway is Discord's form of real-time communication used by all clients (in
 
 Gateway events are payloads sent over a [Gateway connection](TODO)—either from an app to Discord, or from Discord to an app. An app typically *sends* events when connecting and managing its connection to the Gateway, and *receives* events when listening to actions taking place in a server.
 
-A full list of Gateway events and their details are in the [Gateway event documentation](#DOCS_TOPICS_GATEWAY_EVENTS).
+A full list of Gateway events and details are in the [Gateway event documentation](#DOCS_TOPICS_GATEWAY_EVENTS).
 
 > warn
 > Not all Gateway event fields are documented. You should assume that undocumented fields are not supported for apps, and their format and data may change at any time.
@@ -125,13 +125,16 @@ Once connected to the Gateway, your app should receive a [Opcode 10 Hello](#DOCS
 
 ### Sending Heartbeats
 
-// TODO: what is jitter? after `heartbeat_interval * jitter` milliseconds (where jitter is a random value between 0 and 1), and every `heartbeat_interval` milliseconds thereafter. 
-
-Heartbeats are pings used to let Discord know that an app is still actively using the Gateway connection.
+Heartbeats are pings used to let Discord know that an app is still actively using the Gateway connection. Heartbeats should be sent by apps in a background process (as described below) until the Gateway connection is disconnected.
 
 #### Heartbeat Interval
 
-When an app receives an [Opcode 10 Hello](#DOCS_TOPICS_GATEWAY/hello) event, the payload includes a `heartbeat_interval`. From that point until the connection is closed, the app must continually send Discord a [Opcode 1 Heartbeat event](TODO) every `heartbeat_interval` milliseconds. If the app fails to send a heartbeat event in time, it will be disconnected and forced to [Resume](TODO).
+When an app receives an [Opcode 10 Hello](#DOCS_TOPICS_GATEWAY/hello) event, the payload includes a `heartbeat_interval`.
+
+After the Opcode 10 Hello event, your app should wait `heartbeat_interval * jitter` where `jitter` is a random value between 0 and 1. From that point until the connection is closed, the app must continually send Discord a [Opcode 1 Heartbeat event](TODO) every `heartbeat_interval` milliseconds. If an app fails to send a heartbeat event in time, it will be disconnected and forced to [Resume](TODO).
+
+> info
+> In the first heartbeat, `jitter` is an offset value between 0 and `heartbeat_interval` that is meant to prevent too many clients (both desktop and apps) from reconnecting their sessions at the exact same time (which could cause an influx of traffic).
 
 You *can* send heartbeats before the `heartbeat_interval` elapses, but you should avoid doing so unless necessary. There is already tolerance in the `heartbeat_interval` that will cover network latency, so you don't need to account for it in your implementation.
 
