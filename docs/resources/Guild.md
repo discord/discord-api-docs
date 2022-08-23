@@ -131,7 +131,7 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 | MEMBER_VERIFICATION_GATE_ENABLED | guild has enabled [Membership Screening](#DOCS_RESOURCES_GUILD/membership-screening-object)                         |
 | MONETIZATION_ENABLED             | guild has enabled monetization                                                                                      |
 | MORE_STICKERS                    | guild has increased custom sticker slots                                                                            |
-| NEWS                             | guild has access to create news channels                                                                            |
+| NEWS                             | guild has access to create announcement channels                                                                    |
 | PARTNERED                        | guild is partnered                                                                                                  |
 | PREVIEW_ENABLED                  | guild can be previewed before joining via Membership Screening or the directory                                     |
 | PRIVATE_THREADS                  | guild has access to create private threads                                                                          |
