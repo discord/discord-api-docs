@@ -8,7 +8,7 @@ The Gateway is Discord's form of real-time communication used by clients (includ
 
 Gateway events are payloads sent over a [Gateway connection](#DOCS_TOPICS_GATEWAY/connections)—either from an app to Discord, or from Discord to an app. An app typically *sends* events when connecting and managing its connection to the Gateway, and *receives* events when listening to actions taking place in a server.
 
-A full list of Gateway events and details are in the [Gateway event documentation](#DOCS_TOPICS_GATEWAY_EVENTS).
+A full list of Gateway events and their details are in the [Gateway events documentation](#DOCS_TOPICS_GATEWAY_EVENTS).
 
 > warn
 > Not all Gateway event fields are documented. You should assume that undocumented fields are not supported for apps, and their format and data may change at any time.
@@ -90,8 +90,7 @@ At a high-level, Gateway connections require the following cycle:
 
 Before your app can establish a connection to the Gateway, it should call the [Get Gateway](#DOCS_TOPICS_GATEWAY/get-gateway) or the [Get Gateway Bot](#DOCS_TOPICS_GATEWAY/get-gateway-bot) endpoint. Either method will return a payload with a `url` field whose value is the URL you can use to open a WebSocket connection.
 
-> info
-> TODO: wss://gateway.discord.gg always works??
+When initially calling either [Get Gateway](#DOCS_TOPICS_GATEWAY/get-gateway) or [Get Gateway Bot](#DOCS_TOPICS_GATEWAY/get-gateway-bot), you should cache the value of the `url` field and use that when re-connecting to the Gateway.
 
 When connecting to the URL, it's a good idea to explicitly pass the API version and [encoding](#DOCS_TOPICS_GATEWAY/encoding-and-compression) as query parameters. You can also optionally include whether Discord should [compress](#DOCS_TOPICS_GATEWAY/encoding-and-compression) data that it sends your app.
 
@@ -108,7 +107,9 @@ When connecting to the URL, it's a good idea to explicitly pass the API version 
 
 #### Hello Event
 
-Once connected to the Gateway, your app should receive a [Opcode 10 Hello](#DOCS_TOPICS_GATEWAY/hello) payload that contains the connection's heartbeat interval (`hearbeat_interval`). The heartbeat interval indicates a length of time in milliseconds that you should use to determine how often you app needs to send a Heartbeat event in order to maintain the active connection. Details about heartbeats is in the [Sending Heartbeats](#DOCS_TOPICS_GATEWAY/sending-heartbeats) section.
+Once connected to the Gateway, your app should immediately receive a [Opcode 10 Hello](#DOCS_TOPICS_GATEWAY/hello) payload that contains the connection's heartbeat interval (`hearbeat_interval`).
+
+The heartbeat interval indicates a length of time in milliseconds that you should use to determine how often you app needs to send a Heartbeat event in order to maintain the active connection. Heartbeating is detailed in the [Sending Heartbeats](#DOCS_TOPICS_GATEWAY/sending-heartbeats) section.
 
 ###### Example Hello Event
 
@@ -123,20 +124,20 @@ Once connected to the Gateway, your app should receive a [Opcode 10 Hello](#DOCS
 
 ### Sending Heartbeats
 
-Heartbeats are pings used to let Discord know that an app is still actively using the Gateway connection. Heartbeats should be sent by apps in a background process (as described below) until the Gateway connection is disconnected.
+Heartbeats are pings used to let Discord know that an app is still actively using a Gateway connection. After connecting to the Gateway, an app should send heartbeats in a background process (as described below) until the Gateway connection is closed.
 
 #### Heartbeat Interval
 
-When an app receives an [Opcode 10 Hello](#DOCS_TOPICS_GATEWAY/hello) event, the payload includes a `heartbeat_interval`.
+The payload for the [Hello event (opcode `10`)](#DOCS_TOPICS_GATEWAY/hello) event that an app receives when opening a connection to the Gateway includes a `heartbeat_interval` field, whose value is a length of time in milliseconds.
 
-After the Opcode 10 Hello event, your app should wait `heartbeat_interval * jitter` where `jitter` is a random value between 0 and 1. From that point until the connection is closed, the app must continually send Discord a [Opcode 1 Heartbeat event](#DOCS_TOPICS_GATEWAY_EVENTS/heartbeat) every `heartbeat_interval` milliseconds. If an app fails to send a heartbeat event in time, it will be disconnected and forced to [Resume](#DOCS_TOPICS_GATEWAY/resuming).
+After the Hello event, your app should wait `heartbeat_interval * jitter` where `jitter` is a random value between 0 and 1. From that point until the connection is closed, your app must continually send Discord a [Heartbeat event (opcode `1`)](#DOCS_TOPICS_GATEWAY_EVENTS/heartbeat) every `heartbeat_interval` milliseconds. If your app fails to send a heartbeat event in time, it will be disconnected and forced to [Resume](#DOCS_TOPICS_GATEWAY/resuming).
 
 > info
 > In the first heartbeat, `jitter` is an offset value between 0 and `heartbeat_interval` that is meant to prevent too many clients (both desktop and apps) from reconnecting their sessions at the exact same time (which could cause an influx of traffic).
 
 You *can* send heartbeats before the `heartbeat_interval` elapses, but you should avoid doing so unless necessary. There is already tolerance in the `heartbeat_interval` that will cover network latency, so you don't need to account for it in your implementation.
 
-When an app sends a Heartbeat event, Discord will respond with a [Opcode 11 Heartbeat ACK](#DOCS_TOPICS_GATEWAY/heartbeat-interval-example-heartbeat-ack) event, which is an acknowledgement that the heartbeat was received:
+When an app sends a Heartbeat event, Discord will respond with a [Heartbeat ACK (opcode `11`)](#DOCS_TOPICS_GATEWAY/heartbeat-interval-example-heartbeat-ack) event, which is an acknowledgement that the heartbeat was received:
 
 ###### Example Heartbeat ACK
 
@@ -155,9 +156,9 @@ If a client does not receive a heartbeat ACK between its attempts at sending hea
 
 #### Heartbeat Requests
 
-In addition to the Heartbeat interval, the Gateway may request additional heartbeats from an app by sending it a [Opcode 1 Heartbeat](#DOCS_TOPICS_GATEWAY_EVENTS/heartbeat). Upon receiving the event, the app should immediately send back another Heartbeat event without waiting the remainder of the current interval.
+In addition to the Heartbeat interval, Discord may request additional heartbeats from an app by sending a [Heartbeat event (opcode `1`)](#DOCS_TOPICS_GATEWAY_EVENTS/heartbeat). Upon receiving the event, the app should immediately send back another Heartbeat event without waiting the remainder of the current interval.
 
-Just like with the interval, Discord will respond with an [Opcode 11 Heartbeat ACK](#DOCS_TOPICS_GATEWAY/heartbeat-interval-example-heartbeat-ack) event.
+Just like with the interval, Discord will respond with an Heartbeat ACK (opcode `11`) event.
 
 ### Identifying
 
@@ -195,7 +196,7 @@ See the [Identify Structure](#DOCS_TOPICS_GATEWAY_EVENTS/identify-identify-struc
 
 As mentioned above, the [Ready](#DOCS_TOPICS_GATEWAY_EVENTS/ready) event is sent to an app after it sends a valid Identify payload. The Ready event includes state, like the guilds your app is in, that it needs to start interacting with the rest of the platform.
 
-The Ready event also includes fields that you'll need to track to eventually [Resume](#DOCS_TOPICS_GATEWAY/resuming) your connection after a disconnect. Two fields in particular are important to call out:
+The Ready event also includes fields that you'll need to cache in order to eventually [Resume](#DOCS_TOPICS_GATEWAY/resuming) your connection after disconnects. Two fields in particular are important to call out:
 - `resume_gateway_url` is a WebSocket URL that your app should use when it Resumes after a disconnect. The `resume_gateway_url` should be used instead of the URL [used when connecting](#DOCS_TOPICS_GATEWAY/connecting).
 - `session_id` is the ID for the Gateway session for the new connection. It's required to know which stream of events were associated with your disconnection connection.
 
@@ -207,9 +208,9 @@ Gateway disconnects happen for a variety of reasons, and may be initiated by Dis
 
 #### Handling a Disconnect
 
-Due to Discord's architecture, disconnects are a semi-regular event and should be expected and handled. When your app encounters a disconnect, it will typically be sent a [close code](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/gateway-gateway-close-event-codes) which can be used to determine whether you can reconnect and [Resume](#DOCS_TOPICS_GATEWAY/resuming) the session, or whether you have to re-Identify.
+Due to Discord's architecture, disconnects are a semi-regular event and should be expected and handled. When your app encounters a disconnect, it will typically be sent a [close code](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/gateway-gateway-close-event-codes) which can be used to determine whether you can reconnect and [Resume](#DOCS_TOPICS_GATEWAY/resuming) the session, or whether you have to start over and re-Identify.
 
-After you determine whether you app can reconnect you will do one of the following:
+After you determine whether or not your app can reconnect, you will do one of the following:
 
 - If you determine that your app *can* reconnect and resume the previous session, then you should reconnect using the `resume_gateway_url` and `session_id` from the [Ready event](#DOCS_TOPICS_GATEWAY_EVENTS/ready). Details about when and how to resume can be found in the [Resuming](#DOCS_TOPICS_GATEWAY/resuming) section.
 - If you *cannot* reconnect **or the reconnect fails**, you should open a new connection using the URL from the initial call to [Get Gateway](#DOCS_TOPICS_GATEWAY/get-gateway) or [Get Gateway Bot](#DOCS_TOPICS_GATEWAY/get-gateway-bot). In the case you cannot reconnect, you'll have to re-identify after opening a new connection.
@@ -656,11 +657,11 @@ Returns an object based on the information in [Get Gateway](#DOCS_TOPICS_GATEWAY
 
 ###### JSON Response
 
-| Field               | Type                                                                          | Description                                                                              |
-| ------------------- | ----------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
+| Field               | Type                                                                          | Description                                                                          |
+| ------------------- | ----------------------------------------------------------------------------- | ------------------------------------------------------------------------------------ |
 | url                 | string                                                                        | WSS URL that can be used for connecting to the gateway                               |
 | shards              | integer                                                                       | Recommended number of [shards](#DOCS_TOPICS_GATEWAY/sharding) to use when connecting |
-| session_start_limit | [session_start_limit](#DOCS_TOPICS_GATEWAY/session-start-limit-object) object | Information on the current session start limit                                           |
+| session_start_limit | [session_start_limit](#DOCS_TOPICS_GATEWAY/session-start-limit-object) object | Information on the current session start limit                                       |
 
 ###### Example Response
 
