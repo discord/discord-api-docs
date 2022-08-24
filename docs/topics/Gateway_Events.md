@@ -5,9 +5,9 @@ Gateway connections are WebSockets, meaning they're bidirectional and either sid
 - **Send events** are Gateway events sent by an app to Discord (like when identifying with the Gateway)
 - **Receive events** are Gateway events that are sent by Discord to app. These events represent something happening inside of a server where an app is installed, like a channel being updated.
 
-For more information about interacting with the Gateway, you can reference the [Gateway documentation](#DOCS_TOPICS_GATEWAY).
+All Gateway events are encapsulated in an [event payload](#DOCS_TOPICS_GATEWAY/payload-structure).
 
-// TODO: wrapper for events
+For more information about interacting with the Gateway, you can reference the [Gateway documentation](#DOCS_TOPICS_GATEWAY).
 
 #### Event Names
 
@@ -17,9 +17,7 @@ For readability, event names in the following documentation are typically left i
 
 ### Send Events
 
-Send events are Gateway events sent by an app to Discord through a Gateway connection.
-
-All send events are encapsulated in a common [event payload]().
+Send events are Gateway events encapsulated in an [event payload](#DOCS_TOPICS_GATEWAY/payload-structure). They are sent by an app to Discord through a Gateway connection.
 
 > info
 > Previously, Gateway send events were labeled as commands
@@ -36,7 +34,7 @@ All send events are encapsulated in a common [event payload]().
 
 ### Receive Events
 
-Receive events are Gateway events sent by Discord to an app through a Gateway connection. Receive events correspond to events that happen in a Discord server where the app is installed.
+Receive events are Gateway events encapsulated in an [event payload](#DOCS_TOPICS_GATEWAY/payload-structure). They are sent by Discord to an app through a Gateway connection. Receive events correspond to events that happen in a Discord server where the app is installed.
 
 All receive events are encapsulated in a common [event payload]().
 

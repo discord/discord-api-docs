@@ -80,12 +80,12 @@ At a high-level, Gateway connections require the following cycle:
 1. App calls the [Get Gateway](#DOCS_TOPICS_GATEWAY/get-gateway) or [Get Gateway Bot](#DOCS_TOPICS_GATEWAY/get-gateway-bot) endpoint to fetch and cache a valid WebSocket URL to use when connecting to the Gateway.
 2. App establishes a connection with the Gateway using the fetched WebSocket URL.
 3. Discord sends the app a [Hello event (opcode `10`)](#DOCS_TOPICS_GATEWAY/hello-event) containing a heartbeat interval in milliseconds.
-   - App must immediately send a send a [Heartbeat event (opcode `1`)](#DOCS_TOPICS_GATEWAY_EVENTS/heartbeat), then continue to send a them every heartbeat interval until the connection is closed.
-   - Discord will respond to each Heartbeat event with a [Heartbeat ACK event (opcode `11`)](#DOCS_TOPICS_GATEWAY/sending-heartbeats) to confirm it was received. If an app doesn't receive a Heartbeat ACK, it should [Reconnect](#DOCS_TOPICS_GATEWAY_EVENTS/reconnect).
+   - App must send a [Heartbeat event (opcode `1`)](#DOCS_TOPICS_GATEWAY_EVENTS/heartbeat), then continue to send a them every heartbeat interval until the connection is closed.
+   - Discord will respond to each Heartbeat event with a [Heartbeat ACK event (opcode `11`)](#DOCS_TOPICS_GATEWAY/sending-heartbeats) to confirm it was received. If an app doesn't receive a Heartbeat ACK, it should close the connection and [Reconnect](#DOCS_TOPICS_GATEWAY_EVENTS/reconnect).
 4. App sends an [Identify event (opcode `2`)](#DOCS_TOPICS_GATEWAY_EVENTS/identify) to perform the initial handshake with the Gateway.
-5. Discord sends the app a [Ready event](#DOCS_TOPICS_GATEWAY_EVENTS/ready) which indicates the handshake was successful and the connection was established.
-   - The Ready event contains a `resume_gateway_url` that the app should keep track of to determine the WebSocket URL an app should resume/reconnect with.
-6. The connection may be dropped for a variety of reasons. Whether your app can [Resume](#DOCS_TOPICS_GATEWAY/resuming) the connection or whether it must fully re-identify is determined by a variety of factors like the [opcode](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/gateway-gateway-opcodes) or [close code](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/gateway-gateway-close-event-codes) the app receives.
+5. Discord sends the app a [Ready](#DOCS_TOPICS_GATEWAY_EVENTS/ready) event which indicates the handshake was successful and the connection is established.
+   - The Ready event contains a `resume_gateway_url` that the app should keep track of to determine the WebSocket URL an app should use to Resume.
+6. The connection may be dropped for a variety of reasons. Whether your app can [Resume](#DOCS_TOPICS_GATEWAY/resuming) the connection, or whether it must fully re-identify, is determined by a variety of factors like the [opcode](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/gateway-gateway-opcodes) and [close code](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/gateway-gateway-close-event-codes) that the app receives.
    - If an app **can** resume/reconnect, it should open a new connection then send a [Resume event (opcode `6`)](#DOCS_TOPICS_GATEWAY/resume) 
    - If an app **cannot** resume/reconnect, it should open a new connection and repeat the whole cycle. *Yipee!*
 
@@ -110,7 +110,7 @@ When connecting to the URL, it's a good idea to explicitly pass the API version 
 
 #### Hello Event
 
-Once connected to the Gateway, your app should immediately receive a [Opcode 10 Hello](#DOCS_TOPICS_GATEWAY/hello) payload that contains the connection's heartbeat interval (`hearbeat_interval`).
+Once connected to the Gateway, your app should immediately receive a [Hello (opcode `10`)](#DOCS_TOPICS_GATEWAY/hello) event that contains the connection's heartbeat interval (`hearbeat_interval`).
 
 The heartbeat interval indicates a length of time in milliseconds that you should use to determine how often you app needs to send a Heartbeat event in order to maintain the active connection. Heartbeating is detailed in the [Sending Heartbeats](#DOCS_TOPICS_GATEWAY/sending-heartbeats) section.
 
@@ -153,9 +153,7 @@ When an app sends a Heartbeat event, Discord will respond with a [Heartbeat ACK 
 > info
 > In the event of a service outage where you stay connected to the Gateway, you should continue to send heartbeats and receive heartbeat ACKs. The Gateway will eventually respond and issue a session once it's able to.
 
-If a client does not receive a heartbeat ACK between its attempts at sending heartbeats, this may be due to a failed or "zombied" connection. The client should immediately terminate the connection with a non-1000 close code, reconnect, and attempt to [Resume](#DOCS_TOPICS_GATEWAY/resuming).
-
-// TODO: does non-1000 close code need extra clarity?
+If a client does not receive a heartbeat ACK between its attempts at sending heartbeats, this may be due to a failed or "zombied" connection. The client should immediately terminate the connection with any close code that is not `1000` or `1001`, then reconnect and attempt to [Resume](#DOCS_TOPICS_GATEWAY/resuming).
 
 #### Heartbeat Requests
 
@@ -165,9 +163,9 @@ Just like with the interval, Discord will respond with an Heartbeat ACK (opcode 
 
 ### Identifying
 
-// TODO: max concurrency cleanup
+After the connection is open and your app is sending heartbeats, you should send an [Identify (opcode `2`)](#DOCS_TOPICS_GATEWAY_EVENTS/identify) event. The Identify event is an initial handshake with the Gateway that's required before your app can begin sending or receiving most Gateway events.
 
-After the connection is open and your app is sending heartbeats, you should send an [Opcode 2 Identify](#DOCS_TOPICS_GATEWAY_EVENTS/identify) event. The Identify event is an initial handshake with the Gateway that's required before your app can begin sending or receiving most Gateway events. Apps are limited by [maximum concurrency](#DOCS_TOPICS_GATEWAY/session-start-limit-object) when identifying. If they exceed this limit, Discord will respond with a [Opcode 9 Invalid Session](#DOCS_TOPICS_GATEWAY_EVENTS/invalid-session) event.
+Apps are limited by maximum concurrency (`max_concurrency` in the [session start limit object](#DOCS_TOPICS_GATEWAY/session-start-limit-object))the when identifying. If your app exceeds this limit, Discord will respond with a [Invalid Session (opcode `9`)](#DOCS_TOPICS_GATEWAY_EVENTS/invalid-session) event.
 
 After an app sends a valid Identify payload, Discord will respond with a [Ready](#DOCS_TOPICS_GATEWAY_EVENTS/ready) event which indicates that your app is in a successfully-connected state with the Gateway.
 
@@ -215,7 +213,7 @@ Due to Discord's architecture, disconnects are a semi-regular event and should b
 
 After you determine whether or not your app can reconnect, you will do one of the following:
 
-- If you determine that your app *can* reconnect and resume the previous session, then you should reconnect using the `resume_gateway_url` and `session_id` from the [Ready event](#DOCS_TOPICS_GATEWAY_EVENTS/ready). Details about when and how to resume can be found in the [Resuming](#DOCS_TOPICS_GATEWAY/resuming) section.
+- If you determine that your app *can* reconnect and resume the previous session, then you should reconnect using the `resume_gateway_url` and `session_id` from the [Ready](#DOCS_TOPICS_GATEWAY_EVENTS/ready) event. Details about when and how to resume can be found in the [Resuming](#DOCS_TOPICS_GATEWAY/resuming) section.
 - If you *cannot* reconnect **or the reconnect fails**, you should open a new connection using the URL from the initial call to [Get Gateway](#DOCS_TOPICS_GATEWAY/get-gateway) or [Get Gateway Bot](#DOCS_TOPICS_GATEWAY/get-gateway-bot). In the case you cannot reconnect, you'll have to re-identify after opening a new connection.
 
 A full list of the close codes can be found in the [Response Codes](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/gateway-gateway-close-event-codes) documentation.
@@ -232,27 +230,22 @@ When your app is disconnected, Discord has a process for resuming, or reconnecti
 
 There are a handful of scenarios when your app should attempt to resume:
 
-1. It receives a [Opcode 7 Reconnect event](#DOCS_TOPICS_GATEWAY_EVENTS/reconnect)
+1. It receives a [Reconnect (opcode `7`)](#DOCS_TOPICS_GATEWAY_EVENTS/reconnect) event
 2. It's disconnected with a close code that indicates it can reconnect. The full list of close codes are in the [Gateway event](#DOCS_TOPICS_GATEWAY_EVENTS) documentation.
 3. It's disconnected but doesn't receive *any* close code.
-4. It receives an [Opcode 9 Invalid Session event](#DOCS_TOPICS_GATEWAY_EVENTS/invalid-session) with the `d` field set to `true`. This is an unlikely scenario, but it *is* possible.
+4. It receives an [Invalid Session (opcode `9`)](#DOCS_TOPICS_GATEWAY_EVENTS/invalid-session) event with the `d` field set to `true`. This is an unlikely scenario, but it *is* possible.
 
 #### Preparing to Resume
 
-Before your app can send a [Resume event](#DOCS_TOPICS_GATEWAY_EVENTS/resume), it will need three values: the `session_id` and `resume_gateway_url` from the [Ready](#DOCS_TOPICS_GATEWAY/ready) event, and the sequence number of the last event it received before the disconnect.
+Before your app can send a [Resume (opcode `6`)](#DOCS_TOPICS_GATEWAY_EVENTS/resume) event, it will need three values: the `session_id` and `resume_gateway_url` from the [Ready](#DOCS_TOPICS_GATEWAY/ready) event, and the sequence number of the last event it received before the disconnect.
 
 After the connection is closed, your app should open a *new* connection using `resume_gateway_url` rather than the URL you used to initially connect. If your app doesn't use the `resume_gateway_url` when reconnecting, it will experience disconnects at a higher rate than normal.
 
-// TODO: when reconnecting, do you need to pass in the query params?
-
-// TODO: i think this is conflating two events
 Once the new connection is opened, your app should send a [Gateway Resume](#DOCS_TOPICS_GATEWAY_EVENTS/resume) event using the `session_id` and sequence number mentioned above. When Resuming, you do not need to send an Identify event after opening the connection.
 
-// TODO: is resumed event different than Resume event?
+If successful, the gateway will respond by replaying all missed events in order, finishing with a [Resumed](#DOCS_TOPICS_GATEWAY/resumed) event to signal replay has finished and all subsequent events will be new.
 
-If successful, the gateway will respond by replaying all missed events in order, finishing with a [Resumed](#DOCS_TOPICS_GATEWAY/resumed) event to signal replay has finished and that all subsequent events are new.
-
-It's possible your app won't reconnect in time to Resume, in which case it will receive an [Opcode 9 Invalid Session](#DOCS_TOPICS_GATEWAY/invalid-session) event. If the `d` field is not set to `true` (it will almost always be `false`), your app should wait between 1 and 5 seconds then send an [Opcode 2 Identify](#DOCS_TOPICS_GATEWAY/identify) event.
+It's possible your app won't reconnect in time to Resume, in which case it will receive an [Invalid Session (opcode `9`)](#DOCS_TOPICS_GATEWAY/invalid-session) event. If the `d` field is not set to `true` (it will almost always be `false`), your app should wait between 1 and 5 seconds then send an [Identify (opcode `2`)](#DOCS_TOPICS_GATEWAY/identify) event.
 
 ###### Example Gateway Resume Event
 
@@ -362,7 +355,7 @@ HTTP API restrictions are independent of Gateway restrictions, and are unaffecte
 
 Apps can send 120 [gateway events](#DOCS_TOPICS_GATEWAY/commands-and-events) every 60 seconds, meaning an average of 2 commands per second. Apps that surpass the limit are immediately disconnected from the Gateway. Similar to other rate limits, repeat offenders will have their API access revoked.
 
-Apps also have a limit for [concurrent](#DOCS_TOPICS_GATEWAY/session-start-limit-object) [Identify](#DOCS_TOPICS_GATEWAY/identify) requests allowed per 5 seconds. If you hit this limit, the Gateway will respond with an [Opcode 9 Invalid Session](#DOCS_TOPICS_GATEWAY/invalid-session).
+Apps also have a limit for [concurrent](#DOCS_TOPICS_GATEWAY/session-start-limit-object) [Identify](#DOCS_TOPICS_GATEWAY/identify) requests allowed per 5 seconds. If you hit this limit, the Gateway will respond with an [Invalid Session (opcode `9`)](#DOCS_TOPICS_GATEWAY/invalid-session).
 
 ## Encoding and Compression
 
@@ -372,17 +365,16 @@ Apps can also optionally enable compression to receive zlib-compressed packets. 
 
 ### Using JSON Encoding
 
-// TODO: present transport as alternative
-When using the plain-text JSON encoding, apps have the option to enable [Payload Compression](#DOCS_TOPICS_GATEWAY/using-json-payload-compression).
+When using the plain-text JSON encoding, apps have the option to enable [payload compression](#DOCS_TOPICS_GATEWAY/using-json-payload-compression). 
 
 #### Payload Compression
 
 > warn
-> Payload compression can only be enabled when using JSON as the encoding type
+> If an app is using payload compression, it cannot use [transport compression](#DOCS_TOPICS_GATEWAY/transport-compression).
 
-// TODO: how do you tell when a payload is compressed? something about zlib header i think
+Payload compression enables optional per-packet compression for *some* events when Discord is sending events over the connection.
 
-Payload compression enables optional per-packet compression when Discord is sending events over the Gateway. Payload compression uses the zlib format (see [RFC1950 2.2](https://tools.ietf.org/html/rfc1950#section-2.2)) when sending payloads. To enable payload compression, your app can set `compress` to `true` when sending an [Identify event](#DOCS_TOPICS_GATEWAY/identify). Note that even when payload compression is enabled, not all payloads will be compressed.
+Payload compression uses the zlib format (see [RFC1950 2.2](https://tools.ietf.org/html/rfc1950#section-2.2)) when sending payloads. To enable payload compression, your app can set `compress` to `true` when sending an [Identify (opcode `2`)](#DOCS_TOPICS_GATEWAY/identify) event. Note that even when payload compression is enabled, not all payloads will be compressed.
 
 When payload compression is enabled, your app (or library) _must_ detect and decompress these payloads to plain-text JSON before attempting to parse them. If you are using payload compression, the gateway does not implement a shared compression context between events sent.
 
@@ -400,12 +392,12 @@ See [erlpack](https://github.com/discord/erlpack) for an ETF implementation exam
 
 ### Transport Compression
 
-// TODO: define transport compression
+Transport compression enables optional compression for all packets when Discord is sending events over the connection.
 
 > info
 > See the [code below](#DOCS_TOPICS_GATEWAY/transport-compression-transport-compression-example) for an example of handling transport compression.
 
-Currently the only available transport compression option is `zlib-stream`.
+The only available transport compression option is `zlib-stream`.
 
 When transport compression is enabled, an app needs to process received data through a single Gateway connection using a shared zlib context. However, each Gateway connection should use its own unique zlib context.
 
@@ -440,8 +432,6 @@ def on_websocket_message(msg):
   # depending on your `encoding` param
 ```
 
-// TODO: maybe include JS example as well?
-
 ## Tracking State
 
 Most of a client's state is provided during the initial [Ready](#DOCS_TOPICS_GATEWAY/ready) event and in the [Guild Create](#DOCS_TOPICS_GATEWAY/guild-create) events that follow.
@@ -458,8 +448,6 @@ An example of state tracking can be considered in the case of an app that wants 
 When connecting to the gateway as a bot user, guilds that the bot is a part of will start out as unavailable. Don't fret! The gateway will automatically attempt to reconnect on your behalf. As guilds become available to you, you will receive [Guild Create](#DOCS_TOPICS_GATEWAY/guild-create) events.
 
 ## Sharding
-
-// TODO: recommended number of shards
 
 As apps grow and are added to an increasing number of guilds, some developers may find it necessary to break or split portions of their app's operations into separate processes. As such, Gateways implement a method of user-controlled guild sharding which allows apps to split events across a number of Gateway connections. Guild sharding is entirely controlled by an app, and requires no state-sharing between separate connections to operate.
 
