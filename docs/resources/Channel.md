@@ -6,36 +6,36 @@ Represents a guild or DM channel within Discord.
 
 ###### Channel Structure
 
-| Field                          | Type                                                                       | Description                                                                                                                                                                                     |
-|--------------------------------|----------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| id                             | snowflake                                                                  | the id of this channel                                                                                                                                                                          |
-| type                           | integer                                                                    | the [type of channel](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types)                                                                                                                     |
-| guild_id?                      | snowflake                                                                  | the id of the guild (may be missing for some channel objects received over gateway guild dispatches)                                                                                            |
-| position?                      | integer                                                                    | sorting position of the channel                                                                                                                                                                 |
-| permission_overwrites?         | array of [overwrite](#DOCS_RESOURCES_CHANNEL/overwrite-object) objects     | explicit permission overwrites for members and roles                                                                                                                                            |
-| name?                          | ?string                                                                    | the name of the channel (1-100 characters)                                                                                                                                                      |
-| topic?                         | ?string                                                                    | the channel topic (0-1024 characters)                                                                                                                                                           |
-| nsfw?                          | boolean                                                                    | whether the channel is nsfw                                                                                                                                                                     |
-| last_message_id?               | ?snowflake                                                                 | the id of the last message sent in this channel (or thread for `GUILD_FORUM` channels) (may not point to an existing or valid message or thread)                                                |
-| bitrate?                       | integer                                                                    | the bitrate (in bits) of the voice channel                                                                                                                                                      |
-| user_limit?                    | integer                                                                    | the user limit of the voice channel                                                                                                                                                             |
-| rate_limit_per_user?\*         | integer                                                                    | amount of seconds a user has to wait before sending another message (0-21600); bots, as well as users with the permission `manage_messages` or `manage_channel`, are unaffected                 |
-| recipients?                    | array of [user](#DOCS_RESOURCES_USER/user-object) objects                  | the recipients of the DM                                                                                                                                                                        |
-| icon?                          | ?string                                                                    | icon hash of the group DM                                                                                                                                                                       |
-| owner_id?                      | snowflake                                                                  | id of the creator of the group DM or thread                                                                                                                                                     |
-| application_id?                | snowflake                                                                  | application id of the group DM creator if it is bot-created                                                                                                                                     |
-| parent_id?                     | ?snowflake                                                                 | for guild channels: id of the parent category for a channel (each parent category can contain up to 50 channels), for threads: id of the text channel this thread was created                   |
-| last_pin_timestamp?            | ?ISO8601 timestamp                                                         | when the last pinned message was pinned. This may be `null` in events such as `GUILD_CREATE` when a message is not pinned.                                                                      |
-| rtc_region?                    | ?string                                                                    | [voice region](#DOCS_RESOURCES_VOICE/voice-region-object) id for the voice channel, automatic when set to null                                                                                  |
-| video_quality_mode?            | integer                                                                    | the camera [video quality mode](#DOCS_RESOURCES_CHANNEL/channel-object-video-quality-modes) of the voice channel, 1 when not present                                                            |
-| message_count?                 | integer                                                                    | number of messages (not including the initial message or deleted messages) in a thread (if the thread was created before July 1, 2022, it stops counting at 50)                                 |
-| member_count?                  | integer                                                                    | an approximate count of users in a thread, stops counting at 50                                                                                                                                 |
-| thread_metadata?               | a [thread metadata](#DOCS_RESOURCES_CHANNEL/thread-metadata-object) object | thread-specific fields not needed by other channels                                                                                                                                             |
-| member?                        | a [thread member](#DOCS_RESOURCES_CHANNEL/thread-member-object) object     | thread member object for the current user, if they have joined the thread, only included on certain API endpoints                                                                               |
-| default_auto_archive_duration? | integer                                                                    | default duration, copied onto newly created threads, in minutes, threads will stop showing in the channel list after the specified period of inactivity, can be set to: 60, 1440, 4320, 10080   |
-| permissions?                   | string                                                                     | computed permissions for the invoking user in the channel, including overwrites, only included when part of the `resolved` data received on a slash command interaction                         |
-| flags?                         | integer                                                                    | [channel flags](#DOCS_RESOURCES_CHANNEL/channel-object-channel-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field)                                                         |
-| total_message_sent?            | integer                                                                    | number of messages ever sent in a thread, it's similar to `message_count` on message creation, but will not decrement the number when a message is deleted                                      |
+| Field                          | Type                                                                       | Description                                                                                                                                                                                   |
+| ------------------------------ | -------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| id                             | snowflake                                                                  | the id of this channel                                                                                                                                                                        |
+| type                           | integer                                                                    | the [type of channel](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types)                                                                                                                   |
+| guild_id?                      | snowflake                                                                  | the id of the guild (may be missing for some channel objects received over gateway guild dispatches)                                                                                          |
+| position?                      | integer                                                                    | sorting position of the channel                                                                                                                                                               |
+| permission_overwrites?         | array of [overwrite](#DOCS_RESOURCES_CHANNEL/overwrite-object) objects     | explicit permission overwrites for members and roles                                                                                                                                          |
+| name?                          | ?string                                                                    | the name of the channel (1-100 characters)                                                                                                                                                    |
+| topic?                         | ?string                                                                    | the channel topic (0-1024 characters)                                                                                                                                                         |
+| nsfw?                          | boolean                                                                    | whether the channel is nsfw                                                                                                                                                                   |
+| last_message_id?               | ?snowflake                                                                 | the id of the last message sent in this channel (or thread for `GUILD_FORUM` channels) (may not point to an existing or valid message or thread)                                              |
+| bitrate?                       | integer                                                                    | the bitrate (in bits) of the voice channel                                                                                                                                                    |
+| user_limit?                    | integer                                                                    | the user limit of the voice channel                                                                                                                                                           |
+| rate_limit_per_user?\*         | integer                                                                    | amount of seconds a user has to wait before sending another message (0-21600); bots, as well as users with the permission `manage_messages` or `manage_channel`, are unaffected               |
+| recipients?                    | array of [user](#DOCS_RESOURCES_USER/user-object) objects                  | the recipients of the DM                                                                                                                                                                      |
+| icon?                          | ?string                                                                    | icon hash of the group DM                                                                                                                                                                     |
+| owner_id?                      | snowflake                                                                  | id of the creator of the group DM or thread                                                                                                                                                   |
+| application_id?                | snowflake                                                                  | application id of the group DM creator if it is bot-created                                                                                                                                   |
+| parent_id?                     | ?snowflake                                                                 | for guild channels: id of the parent category for a channel (each parent category can contain up to 50 channels), for threads: id of the text channel this thread was created                 |
+| last_pin_timestamp?            | ?ISO8601 timestamp                                                         | when the last pinned message was pinned. This may be `null` in events such as `GUILD_CREATE` when a message is not pinned.                                                                    |
+| rtc_region?                    | ?string                                                                    | [voice region](#DOCS_RESOURCES_VOICE/voice-region-object) id for the voice channel, automatic when set to null                                                                                |
+| video_quality_mode?            | integer                                                                    | the camera [video quality mode](#DOCS_RESOURCES_CHANNEL/channel-object-video-quality-modes) of the voice channel, 1 when not present                                                          |
+| message_count?                 | integer                                                                    | number of messages (not including the initial message or deleted messages) in a thread (if the thread was created before July 1, 2022, it stops counting at 50)                               |
+| member_count?                  | integer                                                                    | an approximate count of users in a thread, stops counting at 50                                                                                                                               |
+| thread_metadata?               | a [thread metadata](#DOCS_RESOURCES_CHANNEL/thread-metadata-object) object | thread-specific fields not needed by other channels                                                                                                                                           |
+| member?                        | a [thread member](#DOCS_RESOURCES_CHANNEL/thread-member-object) object     | thread member object for the current user, if they have joined the thread, only included on certain API endpoints                                                                             |
+| default_auto_archive_duration? | integer                                                                    | default duration, copied onto newly created threads, in minutes, threads will stop showing in the channel list after the specified period of inactivity, can be set to: 60, 1440, 4320, 10080 |
+| permissions?                   | string                                                                     | computed permissions for the invoking user in the channel, including overwrites, only included when part of the `resolved` data received on a slash command interaction                       |
+| flags?                         | integer                                                                    | [channel flags](#DOCS_RESOURCES_CHANNEL/channel-object-channel-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field)                                                       |
+| total_message_sent?            | integer                                                                    | number of messages ever sent in a thread, it's similar to `message_count` on message creation, but will not decrement the number when a message is deleted                                    |
 
 \* `rate_limit_per_user` also applies to thread creation. Users can send one message and create one thread during each `rate_limit_per_user` interval.
 
@@ -70,9 +70,9 @@ Represents a guild or DM channel within Discord.
 
 ###### Channel Flags
 
-| Flag                                   | Value  | Description                                                                       |
-|----------------------------------------|--------|-----------------------------------------------------------------------------------|
-| PINNED                                 | 1 << 1 | this thread is pinned to the top of its parent forum channel                      |
+| Flag   | Value  | Description                                                  |
+| ------ | ------ | ------------------------------------------------------------ |
+| PINNED | 1 << 1 | this thread is pinned to the top of its parent forum channel |
 
 ###### Example Guild Text Channel
 
@@ -235,46 +235,48 @@ Represents a message sent in a channel within Discord.
 > Fields specific to the `MESSAGE_CREATE` and `MESSAGE_UPDATE` events are listed in the [Gateway documentation](#DOCS_TOPICS_GATEWAY/message-create).
 
 > warn
-> `content`, `embeds`, `attachments`, and `components` will require a privileged intent in 2022. [Learn more here](https://support-dev.discord.com/hc/en-us/articles/4404772028055).
+> `content`, `embeds`, `attachments`, and `components` require the [`MESSAGE_CONTENT` intent](#DOCS_TOPICS_GATEWAY/privileged-intents-message-content-intent) to receive non-empty values.
 
-| Field                     | Type                                                                                                                               | Description                                                                                                                                      |
-| ------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
-| id                        | snowflake                                                                                                                          | id of the message                                                                                                                                |
-| channel_id                | snowflake                                                                                                                          | id of the channel the message was sent in                                                                                                        |
-| author\*                  | [user](#DOCS_RESOURCES_USER/user-object) object                                                                                    | the author of this message (not guaranteed to be a valid user, see below)                                                                        |
-| content                   | string                                                                                                                             | contents of the message                                                                                                                          |
-| timestamp                 | ISO8601 timestamp                                                                                                                  | when this message was sent                                                                                                                       |
-| edited_timestamp          | ?ISO8601 timestamp                                                                                                                 | when this message was edited (or null if never)                                                                                                  |
-| tts                       | boolean                                                                                                                            | whether this was a TTS message                                                                                                                   |
-| mention_everyone          | boolean                                                                                                                            | whether this message mentions everyone                                                                                                           |
-| mentions                  | array of [user](#DOCS_RESOURCES_USER/user-object) objects                                                                          | users specifically mentioned in the message                                                                                                      |
-| mention_roles             | array of [role](#DOCS_TOPICS_PERMISSIONS/role-object) object ids                                                                   | roles specifically mentioned in this message                                                                                                     |
-| mention_channels?\*\*     | array of [channel mention](#DOCS_RESOURCES_CHANNEL/channel-mention-object) objects                                                 | channels specifically mentioned in this message                                                                                                  |
-| attachments               | array of [attachment](#DOCS_RESOURCES_CHANNEL/attachment-object) objects                                                           | any attached files                                                                                                                               |
-| embeds                    | array of [embed](#DOCS_RESOURCES_CHANNEL/embed-object) objects                                                                     | any embedded content                                                                                                                             |
-| reactions?                | array of [reaction](#DOCS_RESOURCES_CHANNEL/reaction-object) objects                                                               | reactions to the message                                                                                                                         |
-| nonce?                    | integer or string                                                                                                                  | used for validating a message was sent                                                                                                           |
-| pinned                    | boolean                                                                                                                            | whether this message is pinned                                                                                                                   |
-| webhook_id?               | snowflake                                                                                                                          | if the message is generated by a webhook, this is the webhook's id                                                                               |
-| type                      | integer                                                                                                                            | [type of message](#DOCS_RESOURCES_CHANNEL/message-object-message-types)                                                                          |
-| activity?                 | [message activity](#DOCS_RESOURCES_CHANNEL/message-object-message-activity-structure) object                                       | sent with Rich Presence-related chat embeds                                                                                                      |
-| application?              | partial [application](#DOCS_RESOURCES_APPLICATION/application-object) object                                                       | sent with Rich Presence-related chat embeds                                                                                                      |
-| application_id?           | snowflake                                                                                                                          | if the message is an [Interaction](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/) or application-owned webhook, this is the id of the application |
-| message_reference?        | [message reference](#DOCS_RESOURCES_CHANNEL/message-reference-object-message-reference-structure) object                           | data showing the source of a crosspost, channel follow add, pin, or reply message                                                                |
-| flags?                    | integer                                                                                                                            | [message flags](#DOCS_RESOURCES_CHANNEL/message-object-message-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field)          |
-| referenced_message?\*\*\* | ?[message object](#DOCS_RESOURCES_CHANNEL/message-object)                                                                          | the message associated with the message_reference                                                                                                |
-| interaction?              | [message interaction object](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/message-interaction-object-message-interaction-structure) | sent if the message is a response to an [Interaction](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/)                                              |
-| thread?                   | [channel](#DOCS_RESOURCES_CHANNEL/channel-object) object                                                                           | the thread that was started from this message, includes [thread member](#DOCS_RESOURCES_CHANNEL/thread-member-object) object                     |
-| components?               | array of [message components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-object)                                              | sent if the message contains components like buttons, action rows, or other interactive components                                               |
-| sticker_items?            | array of [message sticker item objects](#DOCS_RESOURCES_STICKER/sticker-item-object)                                               | sent if the message contains stickers                                                                                                            |
-| stickers?                 | array of [sticker](#DOCS_RESOURCES_STICKER/sticker-object) objects                                                                 | **Deprecated** the stickers sent with the message                                                                                                |
-| position?                 | integer                                                                                                                            | A generally increasing integer (there may be gaps or duplicates) that represents the approximate position of the message in a thread, it can be used to estimate the relative position of the messsage in a thread in company with `total_message_sent` on parent thread                   |
+| Field                       | Type                                                                                                                               | Description                                                                                                                                                                                                                                                              |
+| --------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| id                          | snowflake                                                                                                                          | id of the message                                                                                                                                                                                                                                                        |
+| channel_id                  | snowflake                                                                                                                          | id of the channel the message was sent in                                                                                                                                                                                                                                |
+| author\*                    | [user](#DOCS_RESOURCES_USER/user-object) object                                                                                    | the author of this message (not guaranteed to be a valid user, see below)                                                                                                                                                                                                |
+| content\*\*                 | string                                                                                                                             | contents of the message                                                                                                                                                                                                                                                  |
+| timestamp                   | ISO8601 timestamp                                                                                                                  | when this message was sent                                                                                                                                                                                                                                               |
+| edited_timestamp            | ?ISO8601 timestamp                                                                                                                 | when this message was edited (or null if never)                                                                                                                                                                                                                          |
+| tts                         | boolean                                                                                                                            | whether this was a TTS message                                                                                                                                                                                                                                           |
+| mention_everyone            | boolean                                                                                                                            | whether this message mentions everyone                                                                                                                                                                                                                                   |
+| mentions                    | array of [user](#DOCS_RESOURCES_USER/user-object) objects                                                                          | users specifically mentioned in the message                                                                                                                                                                                                                              |
+| mention_roles               | array of [role](#DOCS_TOPICS_PERMISSIONS/role-object) object ids                                                                   | roles specifically mentioned in this message                                                                                                                                                                                                                             |
+| mention_channels?\*\*\*     | array of [channel mention](#DOCS_RESOURCES_CHANNEL/channel-mention-object) objects                                                 | channels specifically mentioned in this message                                                                                                                                                                                                                          |
+| attachments\*\*             | array of [attachment](#DOCS_RESOURCES_CHANNEL/attachment-object) objects                                                           | any attached files                                                                                                                                                                                                                                                       |
+| embeds\*\*                  | array of [embed](#DOCS_RESOURCES_CHANNEL/embed-object) objects                                                                     | any embedded content                                                                                                                                                                                                                                                     |
+| reactions?                  | array of [reaction](#DOCS_RESOURCES_CHANNEL/reaction-object) objects                                                               | reactions to the message                                                                                                                                                                                                                                                 |
+| nonce?                      | integer or string                                                                                                                  | used for validating a message was sent                                                                                                                                                                                                                                   |
+| pinned                      | boolean                                                                                                                            | whether this message is pinned                                                                                                                                                                                                                                           |
+| webhook_id?                 | snowflake                                                                                                                          | if the message is generated by a webhook, this is the webhook's id                                                                                                                                                                                                       |
+| type                        | integer                                                                                                                            | [type of message](#DOCS_RESOURCES_CHANNEL/message-object-message-types)                                                                                                                                                                                                  |
+| activity?                   | [message activity](#DOCS_RESOURCES_CHANNEL/message-object-message-activity-structure) object                                       | sent with Rich Presence-related chat embeds                                                                                                                                                                                                                              |
+| application?                | partial [application](#DOCS_RESOURCES_APPLICATION/application-object) object                                                       | sent with Rich Presence-related chat embeds                                                                                                                                                                                                                              |
+| application_id?             | snowflake                                                                                                                          | if the message is an [Interaction](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/) or application-owned webhook, this is the id of the application                                                                                                                         |
+| message_reference?          | [message reference](#DOCS_RESOURCES_CHANNEL/message-reference-object-message-reference-structure) object                           | data showing the source of a crosspost, channel follow add, pin, or reply message                                                                                                                                                                                        |
+| flags?                      | integer                                                                                                                            | [message flags](#DOCS_RESOURCES_CHANNEL/message-object-message-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field)                                                                                                                                  |
+| referenced_message?\*\*\*\* | ?[message object](#DOCS_RESOURCES_CHANNEL/message-object)                                                                          | the message associated with the message_reference                                                                                                                                                                                                                        |
+| interaction?                | [message interaction object](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/message-interaction-object-message-interaction-structure) | sent if the message is a response to an [Interaction](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/)                                                                                                                                                                      |
+| thread?                     | [channel](#DOCS_RESOURCES_CHANNEL/channel-object) object                                                                           | the thread that was started from this message, includes [thread member](#DOCS_RESOURCES_CHANNEL/thread-member-object) object                                                                                                                                             |
+| components?\*\*             | array of [message components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-object)                                              | sent if the message contains components like buttons, action rows, or other interactive components                                                                                                                                                                       |
+| sticker_items?              | array of [message sticker item objects](#DOCS_RESOURCES_STICKER/sticker-item-object)                                               | sent if the message contains stickers                                                                                                                                                                                                                                    |
+| stickers?                   | array of [sticker](#DOCS_RESOURCES_STICKER/sticker-object) objects                                                                 | **Deprecated** the stickers sent with the message                                                                                                                                                                                                                        |
+| position?                   | integer                                                                                                                            | A generally increasing integer (there may be gaps or duplicates) that represents the approximate position of the message in a thread, it can be used to estimate the relative position of the messsage in a thread in company with `total_message_sent` on parent thread |
 
 \* The author object follows the structure of the user object, but is only a valid user in the case where the message is generated by a user or bot user. If the message is generated by a webhook, the author object corresponds to the webhook's id, username, and avatar. You can tell if a message is generated by a webhook by checking for the `webhook_id` on the message object.
 
-\*\* Not all channel mentions in a message will appear in `mention_channels`. Only textual channels that are visible to everyone in a lurkable guild will ever be included. Only crossposted messages (via Channel Following) currently include `mention_channels` at all. If no mentions in the message meet these requirements, this field will not be sent.
+\*\* An app will receive empty values in the `content`, `embeds`, `attachments`, and `components` fields if they have not configured (or been approved for) the [`MESSAGE_CONTENT` privileged intent (`1 << 15`)](#DOCS_TOPICS_GATEWAY/privileged-intents-message-content-intent).
 
-\*\*\* This field is only returned for messages with a `type` of `19` (REPLY) or `21` (THREAD_STARTER_MESSAGE). If the message is a reply but the `referenced_message` field is not present, the backend did not attempt to fetch the message that was being replied to, so its state is unknown. If the field exists but is null, the referenced message was deleted.
+\*\*\* Not all channel mentions in a message will appear in `mention_channels`. Only textual channels that are visible to everyone in a lurkable guild will ever be included. Only crossposted messages (via Channel Following) currently include `mention_channels` at all. If no mentions in the message meet these requirements, this field will not be sent.
+
+\*\*\*\* This field is only returned for messages with a `type` of `19` (REPLY) or `21` (THREAD_STARTER_MESSAGE). If the message is a reply but the `referenced_message` field is not present, the backend did not attempt to fetch the message that was being replied to, so its state is unknown. If the field exists but is null, the referenced message was deleted.
 
 
 ###### Message Types
@@ -283,7 +285,7 @@ Represents a message sent in a channel within Discord.
 > Type `19` and `20` are only available in API v8 and above. In v6, they are represented as type `0`.  Additionally, type `21` is only available in API v9 and above.
 
 | Type                                         | Value |
-|----------------------------------------------|-------|
+| -------------------------------------------- | ----- |
 | DEFAULT                                      | 0     |
 | RECIPIENT_ADD                                | 1     |
 | RECIPIENT_REMOVE                             | 2     |
@@ -312,14 +314,14 @@ Represents a message sent in a channel within Discord.
 ###### Message Activity Structure
 
 | Field     | Type    | Description                                                                                                        |
-|-----------|---------|--------------------------------------------------------------------------------------------------------------------|
+| --------- | ------- | ------------------------------------------------------------------------------------------------------------------ |
 | type      | integer | [type of message activity](#DOCS_RESOURCES_CHANNEL/message-object-message-activity-types)                          |
 | party_id? | string  | party_id from a [Rich Presence event](#DOCS_RICH_PRESENCE_HOW_TO/updating-presence-update-presence-payload-fields) |
 
 ###### Message Activity Types
 
 | Type         | Value |
-|--------------|-------|
+| ------------ | ----- |
 | JOIN         | 1     |
 | SPECTATE     | 2     |
 | LISTEN       | 3     |
@@ -328,7 +330,7 @@ Represents a message sent in a channel within Discord.
 ###### Message Flags
 
 | Flag                                   | Value  | Description                                                                       |
-|----------------------------------------|--------|-----------------------------------------------------------------------------------|
+| -------------------------------------- | ------ | --------------------------------------------------------------------------------- |
 | CROSSPOSTED                            | 1 << 0 | this message has been published to subscribed channels (via Channel Following)    |
 | IS_CROSSPOST                           | 1 << 1 | this message originated from a message in another channel (via Channel Following) |
 | SUPPRESS_EMBEDS                        | 1 << 2 | do not include any embeds when serializing this message                           |
@@ -430,7 +432,7 @@ Represents a message sent in a channel within Discord.
 ###### Message Reference Structure
 
 | Field               | Type      | Description                                                                                                                             |
-|---------------------|-----------|-----------------------------------------------------------------------------------------------------------------------------------------|
+| ------------------- | --------- | --------------------------------------------------------------------------------------------------------------------------------------- |
 | message_id?         | snowflake | id of the originating message                                                                                                           |
 | channel_id? \*      | snowflake | id of the originating message's channel                                                                                                 |
 | guild_id?           | snowflake | id of the originating message's guild                                                                                                   |
@@ -479,7 +481,7 @@ There are multiple message types that have a message_reference object.  Since me
 ###### Followed Channel Structure
 
 | Field      | Type      | Description               |
-|------------|-----------|---------------------------|
+| ---------- | --------- | ------------------------- |
 | channel_id | snowflake | source channel id         |
 | webhook_id | snowflake | created target webhook id |
 
@@ -488,7 +490,7 @@ There are multiple message types that have a message_reference object.  Since me
 ###### Reaction Structure
 
 | Field | Type                                                       | Description                                       |
-|-------|------------------------------------------------------------|---------------------------------------------------|
+| ----- | ---------------------------------------------------------- | ------------------------------------------------- |
 | count | integer                                                    | times this emoji has been used to react           |
 | me    | boolean                                                    | whether the current user reacted using this emoji |
 | emoji | partial [emoji](#DOCS_RESOURCES_EMOJI/emoji-object) object | emoji information                                 |
@@ -500,7 +502,7 @@ See [permissions](#DOCS_TOPICS_PERMISSIONS/permissions) for more information abo
 ###### Overwrite Structure
 
 | Field | Type      | Description                   |
-|-------|-----------|-------------------------------|
+| ----- | --------- | ----------------------------- |
 | id    | snowflake | role or user id               |
 | type  | int       | either 0 (role) or 1 (member) |
 | allow | string    | permission bit set            |
@@ -513,7 +515,7 @@ The thread metadata object contains a number of thread-specific channel fields t
 ###### Thread Metadata Structure
 
 | Field                 | Type               | Description                                                                                                                                |
-|-----------------------|--------------------|--------------------------------------------------------------------------------------------------------------------------------------------|
+| --------------------- | ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------ |
 | archived              | boolean            | whether the thread is archived                                                                                                             |
 | auto_archive_duration | integer            | the thread will stop showing in the channel list after `auto_archive_duration` minutes of inactivity, can be set to: 60, 1440, 4320, 10080 |
 | archive_timestamp     | ISO8601 timestamp  | timestamp when the thread's archive status was last changed, used for calculating recent activity                                          |
@@ -528,7 +530,7 @@ A thread member is used to indicate whether a user has joined a thread or not.
 ###### Thread Member Structure
 
 | Field          | Type              | Description                                                     |
-|----------------|-------------------|-----------------------------------------------------------------|
+| -------------- | ----------------- | --------------------------------------------------------------- |
 | id? \*         | snowflake         | the id of the thread                                            |
 | user_id? \*    | snowflake         | the id of the user                                              |
 | join_timestamp | ISO8601 timestamp | the time the current user last joined the thread                |
@@ -541,7 +543,7 @@ A thread member is used to indicate whether a user has joined a thread or not.
 ###### Embed Structure
 
 | Field        | Type                                                                                       | Description                                                                                          |
-|--------------|--------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------|
+| ------------ | ------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------- |
 | title?       | string                                                                                     | title of embed                                                                                       |
 | type?        | string                                                                                     | [type of embed](#DOCS_RESOURCES_CHANNEL/embed-object-embed-types) (always "rich" for webhook embeds) |
 | description? | string                                                                                     | description of embed                                                                                 |
@@ -561,7 +563,7 @@ A thread member is used to indicate whether a user has joined a thread or not.
 Embed types are "loosely defined" and, for the most part, are not used by our clients for rendering. Embed attributes power what is rendered. Embed types should be considered deprecated and might be removed in a future API version.
 
 | Type    | Description                                        |
-|---------|----------------------------------------------------|
+| ------- | -------------------------------------------------- |
 | rich    | generic embed rendered from embed attributes       |
 | image   | image embed                                        |
 | video   | video embed                                        |
@@ -572,7 +574,7 @@ Embed types are "loosely defined" and, for the most part, are not used by our cl
 ###### Embed Thumbnail Structure
 
 | Field      | Type    | Description                                                     |
-|------------|---------|-----------------------------------------------------------------|
+| ---------- | ------- | --------------------------------------------------------------- |
 | url        | string  | source url of thumbnail (only supports http(s) and attachments) |
 | proxy_url? | string  | a proxied url of the thumbnail                                  |
 | height?    | integer | height of thumbnail                                             |
@@ -581,7 +583,7 @@ Embed types are "loosely defined" and, for the most part, are not used by our cl
 ###### Embed Video Structure
 
 | Field      | Type    | Description                |
-|------------|---------|----------------------------|
+| ---------- | ------- | -------------------------- |
 | url?       | string  | source url of video        |
 | proxy_url? | string  | a proxied url of the video |
 | height?    | integer | height of video            |
@@ -590,7 +592,7 @@ Embed types are "loosely defined" and, for the most part, are not used by our cl
 ###### Embed Image Structure
 
 | Field      | Type    | Description                                                 |
-|------------|---------|-------------------------------------------------------------|
+| ---------- | ------- | ----------------------------------------------------------- |
 | url        | string  | source url of image (only supports http(s) and attachments) |
 | proxy_url? | string  | a proxied url of the image                                  |
 | height?    | integer | height of image                                             |
@@ -599,14 +601,14 @@ Embed types are "loosely defined" and, for the most part, are not used by our cl
 ###### Embed Provider Structure
 
 | Field | Type   | Description      |
-|-------|--------|------------------|
+| ----- | ------ | ---------------- |
 | name? | string | name of provider |
 | url?  | string | url of provider  |
 
 ###### Embed Author Structure
 
 | Field           | Type   | Description                                                |
-|-----------------|--------|------------------------------------------------------------|
+| --------------- | ------ | ---------------------------------------------------------- |
 | name            | string | name of author                                             |
 | url?            | string | url of author                                              |
 | icon_url?       | string | url of author icon (only supports http(s) and attachments) |
@@ -615,7 +617,7 @@ Embed types are "loosely defined" and, for the most part, are not used by our cl
 ###### Embed Footer Structure
 
 | Field           | Type   | Description                                                |
-|-----------------|--------|------------------------------------------------------------|
+| --------------- | ------ | ---------------------------------------------------------- |
 | text            | string | footer text                                                |
 | icon_url?       | string | url of footer icon (only supports http(s) and attachments) |
 | proxy_icon_url? | string | a proxied url of footer icon                               |
@@ -623,7 +625,7 @@ Embed types are "loosely defined" and, for the most part, are not used by our cl
 ###### Embed Field Structure
 
 | Field   | Type    | Description                                     |
-|---------|---------|-------------------------------------------------|
+| ------- | ------- | ----------------------------------------------- |
 | name    | string  | name of the field                               |
 | value   | string  | value of the field                              |
 | inline? | boolean | whether or not this field should display inline |
@@ -635,7 +637,7 @@ To facilitate showing rich content, rich embeds do not follow the traditional li
 All of the following limits are measured inclusively. Leading and trailing whitespace characters are not included (they are trimmed automatically).
 
 | Field                                                                      | Limit                                                                                |
-|----------------------------------------------------------------------------|--------------------------------------------------------------------------------------|
+| -------------------------------------------------------------------------- | ------------------------------------------------------------------------------------ |
 | title                                                                      | 256 characters                                                                       |
 | description                                                                | 4096 characters                                                                      |
 | fields                                                                     | Up to 25 [field](#DOCS_RESOURCES_CHANNEL/embed-object-embed-field-structure) objects |
@@ -653,18 +655,18 @@ Additionally, the combined sum of characters in all `title`, `description`, `fie
 > info
 > For the `attachments` array in Message Create/Edit requests, only the `id` is required.
 
-| Field         | Type      | Description                                                                         |
-|---------------|-----------|-------------------------------------------------------------------------------------|
-| id            | snowflake | attachment id                                                                       |
-| filename      | string    | name of file attached                                                               |
-| description?  | string    | description for the file (max 1024 characters)                                      |
-| content_type? | string    | the attachment's [media type](https://en.wikipedia.org/wiki/Media_type)             |
-| size          | integer   | size of file in bytes                                                               |
-| url           | string    | source url of file                                                                  |
-| proxy_url     | string    | a proxied url of file                                                               |
-| height?       | ?integer  | height of file (if image)                                                           |
-| width?        | ?integer  | width of file (if image)                                                            |
-| ephemeral? \* | boolean   | whether this attachment is ephemeral                                                |
+| Field         | Type      | Description                                                             |
+| ------------- | --------- | ----------------------------------------------------------------------- |
+| id            | snowflake | attachment id                                                           |
+| filename      | string    | name of file attached                                                   |
+| description?  | string    | description for the file (max 1024 characters)                          |
+| content_type? | string    | the attachment's [media type](https://en.wikipedia.org/wiki/Media_type) |
+| size          | integer   | size of file in bytes                                                   |
+| url           | string    | source url of file                                                      |
+| proxy_url     | string    | a proxied url of file                                                   |
+| height?       | ?integer  | height of file (if image)                                               |
+| width?        | ?integer  | width of file (if image)                                                |
+| ephemeral? \* | boolean   | whether this attachment is ephemeral                                    |
 
 \* Ephemeral attachments will automatically be removed after a set period of time. Ephemeral attachments on messages are guaranteed to be available as long as the message itself exists.
 
@@ -673,7 +675,7 @@ Additionally, the combined sum of characters in all `title`, `description`, `fie
 ###### Channel Mention Structure
 
 | Field    | Type      | Description                                                                 |
-|----------|-----------|-----------------------------------------------------------------------------|
+| -------- | --------- | --------------------------------------------------------------------------- |
 | id       | snowflake | id of the channel                                                           |
 | guild_id | snowflake | id of the guild containing the channel                                      |
 | type     | integer   | the [type of channel](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types) |
@@ -686,7 +688,7 @@ The allowed mention field allows for more granular control over mentions without
 ###### Allowed Mention Types
 
 | Type              | Value      | Description                           |
-|-------------------|------------|---------------------------------------|
+| ----------------- | ---------- | ------------------------------------- |
 | Role Mentions     | "roles"    | Controls role mentions                |
 | User Mentions     | "users"    | Controls user mentions                |
 | Everyone Mentions | "everyone" | Controls @everyone and @here mentions |
@@ -694,7 +696,7 @@ The allowed mention field allows for more granular control over mentions without
 ###### Allowed Mentions Structure
 
 | Field        | Type                           | Description                                                                                                                           |
-|--------------|--------------------------------|---------------------------------------------------------------------------------------------------------------------------------------|
+| ------------ | ------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------- |
 | parse        | array of allowed mention types | An array of [allowed mention types](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object-allowed-mention-types) to parse from the content. |
 | roles        | list of snowflakes             | Array of role_ids to mention (Max size of 100)                                                                                        |
 | users        | list of snowflakes             | Array of user_ids to mention (Max size of 100)                                                                                        |
@@ -795,17 +797,17 @@ Update a channel's settings. Returns a [channel](#DOCS_RESOURCES_CHANNEL/channel
 
 Fires a [Channel Update](#DOCS_TOPICS_GATEWAY/channel-update) Gateway event.
 
-| Field                 | Type                                                                    | Description                                                                                                                                                               |
-|-----------------------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| name                  | string                                                                  | 1-100 character channel name                                                                                                                                              |
-| icon                  | binary                                                                  | base64 encoded icon                                                                                                                                                       |
+| Field | Type   | Description                  |
+| ----- | ------ | ---------------------------- |
+| name  | string | 1-100 character channel name |
+| icon  | binary | base64 encoded icon          |
 
 ###### JSON Params (Guild channel)
 
 Requires the `MANAGE_CHANNELS` permission for the guild. Fires a [Channel Update](#DOCS_TOPICS_GATEWAY/channel-update) Gateway event. If modifying a category, individual [Channel Update](#DOCS_TOPICS_GATEWAY/channel-update) events will fire for each child channel that also changes. If modifying permission overwrites, the `MANAGE_ROLES` permission is required. Only permissions your bot has in the guild or parent channel (if applicable) can be allowed/denied (unless your bot has a `MANAGE_ROLES` overwrite in the channel).
 
 | Field                         | Type                                                                            | Description                                                                                                                                                                        | Channel Type              |
-|-------------------------------|---------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------|
+| ----------------------------- | ------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------- |
 | name                          | string                                                                          | 1-100 character channel name                                                                                                                                                       | All                       |
 | type                          | integer                                                                         | the [type of channel](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types); only conversion between text and announcement is supported and only in guilds with the "NEWS" feature | Text, Announcement        |
 | position                      | ?integer                                                                        | the position of the channel in the left-hand listing                                                                                                                               | All                       |
@@ -831,7 +833,7 @@ When setting `archived` to `false`, when `locked` is also `false`, only the `SEN
 Otherwise, requires the `MANAGE_THREADS` permission. Fires a [Thread Update](#DOCS_TOPICS_GATEWAY/thread-update) Gateway event. Requires the thread to have `archived` set to `false` or be set to `false` in the request.
 
 | Field                 | Type     | Description                                                                                                                                                                                       |
-|-----------------------|----------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| --------------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | name                  | string   | 1-100 character channel name                                                                                                                                                                      |
 | archived              | boolean  | whether the thread is archived                                                                                                                                                                    |
 | auto_archive_duration | integer  | the thread will stop showing in the channel list after `auto_archive_duration` minutes of inactivity, can be set to: 60, 1440, 4320, 10080                                                        |
@@ -863,7 +865,7 @@ Returns the messages for a channel. If operating on a guild channel, this endpoi
 ###### Query String Params
 
 | Field   | Type      | Description                              | Default |
-|---------|-----------|------------------------------------------|---------|
+| ------- | --------- | ---------------------------------------- | ------- |
 | around? | snowflake | Get messages around this message ID      | absent  |
 | before? | snowflake | Get messages before this message ID      | absent  |
 | after?  | snowflake | Get messages after this message ID       | absent  |
@@ -898,19 +900,19 @@ Files must be attached using a `multipart/form-data` body as described in [Uploa
 > info
 > When creating a message, apps must provide a value for **at least one of** `content`, `embeds`, `sticker_ids`, or `files[n]`.
 
-| Field                 | Type                                                                                              | Description                                                                                                                                                                 |
-| --------------------- | ------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| content?\*            | string                                                                                            | Message contents (up to 2000 characters)                                                                                                                                    |
-| tts?                  | boolean                                                                                           | `true` if this is a TTS message                                                                                                                                             |
-| embeds?\*             | array of [embed](#DOCS_RESOURCES_CHANNEL/embed-object) objects                                    | Embedded `rich` content (up to 6000 characters)                                                                                                                             |
-| allowed_mentions?     | [allowed mention object](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object)                         | Allowed mentions for the message                                                                                                                                            |
-| message_reference?    | [message reference](#DOCS_RESOURCES_CHANNEL/message-reference-object-message-reference-structure) | Include to make your message a reply                                                                                                                                        |
-| components?           | array of [message component](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-object) objects      | Components to include with the message                                                                                                                                      |
-| sticker_ids?\*        | array of snowflakes                                                                               | IDs of up to 3 [stickers](#DOCS_RESOURCES_STICKER/sticker-object) in the server to send in the message                                                                      |
-| files[n]?\*           | file contents                                                                                     | Contents of the file being sent. See [Uploading Files](#DOCS_REFERENCE/uploading-files)                                                                                     |
-| payload_json?         | string                                                                                            | JSON-encoded body of non-file params, only for `multipart/form-data` requests. See [Uploading Files](#DOCS_REFERENCE/uploading-files)                                       |
-| attachments?          | array of partial [attachment](#DOCS_RESOURCES_CHANNEL/attachment-object) objects                  | Attachment objects with filename and description. See [Uploading Files](#DOCS_REFERENCE/uploading-files)                                                                    |
-| flags?                | integer                                                                                           | [Message flags](#DOCS_RESOURCES_CHANNEL/message-object-message-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field) (only `SUPPRESS_EMBEDS` can be set) |
+| Field              | Type                                                                                              | Description                                                                                                                                                                 |
+| ------------------ | ------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| content?\*         | string                                                                                            | Message contents (up to 2000 characters)                                                                                                                                    |
+| tts?               | boolean                                                                                           | `true` if this is a TTS message                                                                                                                                             |
+| embeds?\*          | array of [embed](#DOCS_RESOURCES_CHANNEL/embed-object) objects                                    | Embedded `rich` content (up to 6000 characters)                                                                                                                             |
+| allowed_mentions?  | [allowed mention object](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object)                         | Allowed mentions for the message                                                                                                                                            |
+| message_reference? | [message reference](#DOCS_RESOURCES_CHANNEL/message-reference-object-message-reference-structure) | Include to make your message a reply                                                                                                                                        |
+| components?        | array of [message component](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-object) objects      | Components to include with the message                                                                                                                                      |
+| sticker_ids?\*     | array of snowflakes                                                                               | IDs of up to 3 [stickers](#DOCS_RESOURCES_STICKER/sticker-object) in the server to send in the message                                                                      |
+| files[n]?\*        | file contents                                                                                     | Contents of the file being sent. See [Uploading Files](#DOCS_REFERENCE/uploading-files)                                                                                     |
+| payload_json?      | string                                                                                            | JSON-encoded body of non-file params, only for `multipart/form-data` requests. See [Uploading Files](#DOCS_REFERENCE/uploading-files)                                       |
+| attachments?       | array of partial [attachment](#DOCS_RESOURCES_CHANNEL/attachment-object) objects                  | Attachment objects with filename and description. See [Uploading Files](#DOCS_REFERENCE/uploading-files)                                                                    |
+| flags?             | integer                                                                                           | [Message flags](#DOCS_RESOURCES_CHANNEL/message-object-message-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field) (only `SUPPRESS_EMBEDS` can be set) |
 
 \* At least one of `content`, `embeds`, `sticker_ids`, or `files[n]` is required.
 
@@ -957,10 +959,10 @@ The `emoji` must be [URL Encoded](https://en.wikipedia.org/wiki/Percent-encoding
 
 ###### Query String Params
 
-| Field   | Type      | Description                           | Default |
-|---------|-----------|---------------------------------------|---------|
-| after?  | snowflake | Get users after this user ID          | absent  |
-| limit?  | integer   | Max number of users to return (1-100) | 25      |
+| Field  | Type      | Description                           | Default |
+| ------ | --------- | ------------------------------------- | ------- |
+| after? | snowflake | Get users after this user ID          | absent  |
+| limit? | integer   | Max number of users to return (1-100) | 25      |
 
 ## Delete All Reactions % DELETE /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}/reactions
 
@@ -1023,7 +1025,7 @@ Any message IDs given that do not exist or are invalid will count towards the mi
 ###### JSON Params
 
 | Field    | Type                | Description                               |
-|----------|---------------------|-------------------------------------------|
+| -------- | ------------------- | ----------------------------------------- |
 | messages | array of snowflakes | an array of message ids to delete (2-100) |
 
 ## Edit Channel Permissions % PUT /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/permissions/{overwrite.id#DOCS_RESOURCES_CHANNEL/overwrite-object}
@@ -1036,7 +1038,7 @@ Edit the channel permission overwrites for a user or role in a channel. Only usa
 ###### JSON Params
 
 | Field  | Type    | Description                                                     |
-|--------|---------|-----------------------------------------------------------------|
+| ------ | ------- | --------------------------------------------------------------- |
 | allow? | string? | the bitwise value of all allowed permissions (default `"0"`)    |
 | deny?  | string? | the bitwise value of all disallowed permissions (default `"0"`) |
 | type   | integer | 0 for a role or 1 for a member                                  |
@@ -1055,7 +1057,7 @@ Create a new [invite](#DOCS_RESOURCES_INVITE/invite-object) object for the chann
 ###### JSON Params
 
 | Field                 | Type      | Description                                                                                                                               | Default          |
-|-----------------------|-----------|-------------------------------------------------------------------------------------------------------------------------------------------|------------------|
+| --------------------- | --------- | ----------------------------------------------------------------------------------------------------------------------------------------- | ---------------- |
 | max_age               | integer   | duration of invite in seconds before expiry, or 0 for never. between 0 and 604800 (7 days)                                                | 86400 (24 hours) |
 | max_uses              | integer   | max number of uses or 0 for unlimited. between 0 and 100                                                                                  | 0                |
 | temporary             | boolean   | whether this invite only grants temporary membership                                                                                      | false            |
@@ -1078,7 +1080,7 @@ Follow an Announcement Channel to send messages to a target channel. Requires th
 ###### JSON Params
 
 | Field              | Type      | Description          |
-|--------------------|-----------|----------------------|
+| ------------------ | --------- | -------------------- |
 | webhook_channel_id | snowflake | id of target channel |
 
 ## Trigger Typing Indicator % POST /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/typing
@@ -1113,7 +1115,7 @@ Adds a recipient to a Group DM using their access token.
 ###### JSON Params
 
 | Field        | Type   | Description                                                           |
-|--------------|--------|-----------------------------------------------------------------------|
+| ------------ | ------ | --------------------------------------------------------------------- |
 | access_token | string | access token of a user that has granted your app the `gdm.join` scope |
 | nick         | string | nickname of the user being added                                      |
 
@@ -1133,7 +1135,7 @@ When called on a `GUILD_TEXT` channel, creates a `PUBLIC_THREAD`. When called on
 ###### JSON Params
 
 | Field                  | Type     | Description                                                                                                                                |
-|------------------------|----------|--------------------------------------------------------------------------------------------------------------------------------------------|
+| ---------------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
 | name                   | string   | 1-100 character channel name                                                                                                               |
 | auto_archive_duration? | integer  | the thread will stop showing in the channel list after `auto_archive_duration` minutes of inactivity, can be set to: 60, 1440, 4320, 10080 |
 | rate_limit_per_user?   | ?integer | amount of seconds a user has to wait before sending another message (0-21600)                                                              |
@@ -1151,7 +1153,7 @@ Creates a new thread that is not connected to an existing message. Returns a [ch
 ###### JSON Params
 
 | Field                  | Type     | Description                                                                                                                                |
-|------------------------|----------|--------------------------------------------------------------------------------------------------------------------------------------------|
+| ---------------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
 | name                   | string   | 1-100 character channel name                                                                                                               |
 | auto_archive_duration? | integer  | the thread will stop showing in the channel list after `auto_archive_duration` minutes of inactivity, can be set to: 60, 1440, 4320, 10080 |
 | type?\*                | integer  | the [type of thread](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types) to create                                                       |
@@ -1182,7 +1184,7 @@ Creates a new thread in a forum channel, and sends a message within the created 
 ###### JSON/Form Params
 
 | Field                    | Type                                                                                                                             | Description                                                                                                         |
-|--------------------------|----------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------|
+| ------------------------ | -------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
 | name                     | string                                                                                                                           | 1-100 character channel name                                                                                        |
 | auto_archive_duration?\* | integer                                                                                                                          | duration in minutes to automatically archive the thread after recent activity, can be set to: 60, 1440, 4320, 10080 |
 | rate_limit_per_user?     | ?integer                                                                                                                         | amount of seconds a user has to wait before sending another message (0-21600)                                       |
@@ -1194,17 +1196,17 @@ Creates a new thread in a forum channel, and sends a message within the created 
 > info
 > When sending a message, apps must provide a value for **at least one of** `content`, `embeds`, `files[n]`, or `sticker_ids`.
 
-| Field                 | Type                                                                                         | Description                                                                                                                                                                 |
-| --------------------- | -------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| content?\*            | string                                                                                       | Message contents (up to 2000 characters)                                                                                                                                    |
-| embeds?               | array of [embed](#DOCS_RESOURCES_CHANNEL/embed-object) objects                               | Embedded `rich` content (up to 6000 characters)                                                                                                                             |
-| allowed_mentions?     | [allowed mention object](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object)                    | Allowed mentions for the message                                                                                                                                            |
-| components?           | array of [message component](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-object) objects | Components to include with the message                                                                                                                                      |
-| sticker_ids?\*        | array of snowflakes                                                                          | IDs of up to 3 [stickers](#DOCS_RESOURCES_STICKER/sticker-object) in the server to send in the message                                                                      |
-| files[n]\*            | file contents                                                                                | Contents of the file being sent. See [Uploading Files](#DOCS_REFERENCE/uploading-files)                                                                                     |
-| payload_json?         | string                                                                                       | JSON-encoded body of non-file params, only for `multipart/form-data` requests. See [Uploading Files](#DOCS_REFERENCE/uploading-files)                                       |
-| attachments?          | array of partial [attachment](#DOCS_RESOURCES_CHANNEL/attachment-object) objects             | Attachment objects with `filename` and `description`. See [Uploading Files](#DOCS_REFERENCE/uploading-files)                                                                |
-| flags?                | integer                                                                                      | [Message flags](#DOCS_RESOURCES_CHANNEL/message-object-message-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field) (only `SUPPRESS_EMBEDS` can be set) |
+| Field             | Type                                                                                         | Description                                                                                                                                                                 |
+| ----------------- | -------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| content?\*        | string                                                                                       | Message contents (up to 2000 characters)                                                                                                                                    |
+| embeds?           | array of [embed](#DOCS_RESOURCES_CHANNEL/embed-object) objects                               | Embedded `rich` content (up to 6000 characters)                                                                                                                             |
+| allowed_mentions? | [allowed mention object](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object)                    | Allowed mentions for the message                                                                                                                                            |
+| components?       | array of [message component](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-object) objects | Components to include with the message                                                                                                                                      |
+| sticker_ids?\*    | array of snowflakes                                                                          | IDs of up to 3 [stickers](#DOCS_RESOURCES_STICKER/sticker-object) in the server to send in the message                                                                      |
+| files[n]\*        | file contents                                                                                | Contents of the file being sent. See [Uploading Files](#DOCS_REFERENCE/uploading-files)                                                                                     |
+| payload_json?     | string                                                                                       | JSON-encoded body of non-file params, only for `multipart/form-data` requests. See [Uploading Files](#DOCS_REFERENCE/uploading-files)                                       |
+| attachments?      | array of partial [attachment](#DOCS_RESOURCES_CHANNEL/attachment-object) objects             | Attachment objects with `filename` and `description`. See [Uploading Files](#DOCS_REFERENCE/uploading-files)                                                                |
+| flags?            | integer                                                                                      | [Message flags](#DOCS_RESOURCES_CHANNEL/message-object-message-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field) (only `SUPPRESS_EMBEDS` can be set) |
 
 \* At least one of `content`, `embeds`, `files[n]`, or `sticker_ids` is required.
 
@@ -1242,14 +1244,14 @@ Returns archived threads in the channel that are public. When called on a `GUILD
 ###### Query String Params
 
 | Field   | Type              | Description                                  |
-|---------|-------------------|----------------------------------------------|
+| ------- | ----------------- | -------------------------------------------- |
 | before? | ISO8601 timestamp | returns threads before this timestamp        |
 | limit?  | integer           | optional maximum number of threads to return |
 
 ###### Response Body
 
 | Field    | Type                                                                            | Description                                                                                  |
-|----------|---------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------|
+| -------- | ------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
 | threads  | array of [channel](#DOCS_RESOURCES_CHANNEL/channel-object) objects              | the public, archived threads                                                                 |
 | members  | array of [thread members](#DOCS_RESOURCES_CHANNEL/thread-member-object) objects | a thread member object for each returned thread the current user has joined                  |
 | has_more | boolean                                                                         | whether there are potentially additional threads that could be returned on a subsequent call |
@@ -1261,14 +1263,14 @@ Returns archived threads in the channel that are of [type](#DOCS_RESOURCES_CHANN
 ###### Query String Params
 
 | Field   | Type              | Description                                  |
-|---------|-------------------|----------------------------------------------|
+| ------- | ----------------- | -------------------------------------------- |
 | before? | ISO8601 timestamp | returns threads before this timestamp        |
 | limit?  | integer           | optional maximum number of threads to return |
 
 ###### Response Body
 
 | Field    | Type                                                                            | Description                                                                                  |
-|----------|---------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------|
+| -------- | ------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
 | threads  | array of [channel](#DOCS_RESOURCES_CHANNEL/channel-object) objects              | the private, archived threads                                                                |
 | members  | array of [thread members](#DOCS_RESOURCES_CHANNEL/thread-member-object) objects | a thread member object for each returned thread the current user has joined                  |
 | has_more | boolean                                                                         | whether there are potentially additional threads that could be returned on a subsequent call |
@@ -1280,14 +1282,14 @@ Returns archived threads in the channel that are of [type](#DOCS_RESOURCES_CHANN
 ###### Query String Params
 
 | Field   | Type      | Description                                  |
-|---------|-----------|----------------------------------------------|
+| ------- | --------- | -------------------------------------------- |
 | before? | snowflake | returns threads before this id               |
 | limit?  | integer   | optional maximum number of threads to return |
 
 ###### Response Body
 
 | Field    | Type                                                                            | Description                                                                                  |
-|----------|---------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------|
+| -------- | ------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
 | threads  | array of [channel](#DOCS_RESOURCES_CHANNEL/channel-object) objects              | the private, archived threads the current user has joined                                    |
 | members  | array of [thread members](#DOCS_RESOURCES_CHANNEL/thread-member-object) objects | a thread member object for each returned thread the current user has joined                  |
 | has_more | boolean                                                                         | whether there are potentially additional threads that could be returned on a subsequent call |

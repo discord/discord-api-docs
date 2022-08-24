@@ -201,9 +201,6 @@ When you close the connection to the gateway with the close code 1000 or 1001, y
 > info
 > Intents are optionally supported on the v6 gateway but required as of v8
 
-> info
-> Starting in v10, `MESSAGE_CONTENT` (`1 << 15`) is required to receive non-empty values for content fields (`content`, `attachments`, `embeds`, and `components`). This doesn't apply for DMs, messages your bot sends, or messages in which your bot is mentioned. `MESSAGE_CONTENT` is not currently required for previous API versions.
-
 Maintaining a stateful application can be difficult when it comes to the amount of data you're expected to process, especially at scale. Gateway Intents are a system to help you lower that computational burden.
 
 When [identifying](#DOCS_TOPICS_GATEWAY/identifying) to the gateway, you can specify an `intents` parameter which allows you to conditionally subscribe to pre-defined "intents", groups of events (or event data) defined by Discord. If you do not specify a certain intent, you will not receive any of the gateway events that are batched into that group. The valid intents are:
@@ -316,7 +313,7 @@ AUTO_MODERATION_EXECUTION (1 << 21)
 
 \* [Thread Members Update](#DOCS_TOPICS_GATEWAY/thread-members-update) contains different data depending on which intents are used.
 
-\*\* `MESSAGE_CONTENT` is a special case as it doesn't represent individual events, but rather affects the data sent for most events that could contain message content fields (`content`, `attachments`, `embeds`, and `components`).
+\*\* `MESSAGE_CONTENT` does not represent individual events, but rather affects what data is present for events that could contain message content fields. More information is in the [message content intent](#DOCS_TOPICS_GATEWAY/privileged-intents-message-content-intent) section.
 
 ### Caveats
 
@@ -336,13 +333,11 @@ Bots in under 100 guilds can enable these intents in the bot tab of the develope
 
 ### Privileged Intents
 
-> warn
-> `MESSAGE_CONTENT` will become a privileged intent in Aug 2022. [Learn more here](https://support-dev.discord.com/hc/en-us/articles/4404772028055) or read the guide on [upgrading to commands](#DOCS_TUTORIALS_UPGRADING_TO_APPLICATION_COMMANDS).
-
 Some intents are defined as "Privileged" due to the sensitive nature of the data. Those intents are:
 
 - `GUILD_PRESENCES`
 - `GUILD_MEMBERS`
+- [`MESSAGE_CONTENT`](#DOCS_TOPICS_GATEWAY/privileged-intents-message-content-intent)
 
 To specify these intents in your `IDENTIFY` payload, you must visit your application page in the Developer Portal and enable the toggle for each Privileged Intent that you wish to use. If your bot qualifies for [verification](https://dis.gd/bot-verification), you must first [verify your bot](https://support.discord.com/hc/en-us/articles/360040720412-Bot-Verification-and-Data-Whitelisting) and request access to these intents during the verification process. If your bot is already verified and you need to request additional privileged intents, [contact support](https://dis.gd/support).
 
@@ -350,7 +345,19 @@ Events under the `GUILD_PRESENCES` and `GUILD_MEMBERS` intents are turned **off 
 
 If you are using **API v8** or above, Intents are mandatory and must be specified when identifying.
 
-In addition to the gateway restrictions described here, Discord's REST API is also affected by Privileged Intents. Specifically, to use the [List Guild Members](#DOCS_RESOURCES_GUILD/list-guild-members) endpoint, you must have the `GUILD_MEMBERS` intent enabled for your application. This behavior is independent of whether the intent is set during `IDENTIFY`.
+In addition to the gateway restrictions described here, Discord's REST API is also affected by Privileged Intents. For example, to use the [List Guild Members](#DOCS_RESOURCES_GUILD/list-guild-members) endpoint, you must have the `GUILD_MEMBERS` intent enabled for your application. This behavior is independent of whether the intent is set during `IDENTIFY`.
+
+#### Message Content Intent
+
+`MESSAGE_CONTENT (1 << 15)` is a unique privileged intent that isn't directly associated with any Gateway events. Instead, access to `MESSAGE_CONTENT` permits your app to receive message content across the APIs, including in `content`, `embeds`, `attachments`, and `components` fields.
+
+> info
+> Like other privileged intents, `MESSAGED_CONTENT` must be approved during verification, or afterwards by messaging support. You can read more about the message content intent review policy [in the Help Center](https://support-dev.discord.com/hc/en-us/articles/5324827539479).
+
+Apps **without** the intent will receive empty values in fields that contain user-inputted content with a few exceptions:
+- Content in messages that an app sends
+- Content in DMs with the app
+- Content in which the app is [mentioned](#DOCS_REFERENCE/message-formatting-formats)
 
 ## Rate Limiting
 
@@ -880,7 +887,7 @@ Sent when a rule is triggered and an action is executed (e.g. when a message is 
 
 \*\* `alert_system_message_id` will not exist if this event does not correspond to an action with type `SEND_ALERT_MESSAGE`
 
-\*\*\* `MESSAGE_CONTENT` (`1 << 15`) [gateway intent](#DOCS_TOPICS_GATEWAY/gateway-intents) is required to receive non-empty values for the `content` and `matched_content` fields
+\*\*\* The `MESSAGE_CONTENT` (`1 << 15`) [gateway intent](#DOCS_TOPICS_GATEWAY/gateway-intents) is required to receive non-empty values for the `content` and `matched_content` fields
 
 ### Channels
 
