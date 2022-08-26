@@ -3,19 +3,19 @@
 Gateway connections are WebSockets, meaning they're bidirectional and either side of the WebSocket can send events to the other. The following Gateway events are split up into two types:
 
 - **Send events** are Gateway events sent by an app to Discord (like when identifying with the Gateway)
-- **Receive events** are Gateway events that are sent by Discord to app. These events represent something happening inside of a server where an app is installed, like a channel being updated.
+- **Receive events** are Gateway events that are sent by Discord to an app. These events represent something happening inside of a server where an app is installed, like a channel being updated.
 
 All Gateway events are encapsulated in an [event payload](#DOCS_TOPICS_GATEWAY/payload-structure).
 
 For more information about interacting with the Gateway, you can reference the [Gateway documentation](#DOCS_TOPICS_GATEWAY).
 
-#### Event Names
+### Event Names
 
 In practice, event names are UPPER-CASED with under_scores joining each word in the name. For instance, [Channel Create](#DOCS_TOPICS_GATEWAY_EVENTS/channel-create) would be `CHANNEL_CREATE` and [Voice State Update](#DOCS_TOPICS_GATEWAY_EVENTS/voice-state-update) would be `VOICE_STATE_UPDATE`.
 
 For readability, event names in the following documentation are typically left in Title Case.
 
-### Send Events
+## Send Events
 
 Send events are Gateway events encapsulated in an [event payload](#DOCS_TOPICS_GATEWAY/payload-structure). They are sent by an app to Discord through a Gateway connection.
 
@@ -32,11 +32,9 @@ Send events are Gateway events encapsulated in an [event payload](#DOCS_TOPICS_G
 | [Update Presence](#DOCS_TOPICS_GATEWAY_EVENTS/update-presence)             | Updates a app's presence                                  |
 
 
-### Receive Events
+## Receive Events
 
 Receive events are Gateway events encapsulated in an [event payload](#DOCS_TOPICS_GATEWAY/payload-structure). They are sent by Discord to an app through a Gateway connection. Receive events correspond to events that happen in a Discord server where the app is installed.
-
-All receive events are encapsulated in a common [event payload]().
 
 | Name                                                                                                         | Description                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -103,7 +101,6 @@ All receive events are encapsulated in a common [event payload]().
 | [Voice State Update](#DOCS_TOPICS_GATEWAY_EVENTS/voice-state-update)                                         | Someone joined, left, or moved a voice channel                                                                                                 |
 | [Voice Server Update](#DOCS_TOPICS_GATEWAY_EVENTS/voice-server-update)                                       | Guild's voice server was updated                                                                                                               |
 | [Webhooks Update](#DOCS_TOPICS_GATEWAY_EVENTS/webhooks-update)                                               | Guild channel webhook was created, update, or deleted                                                                                          |
-
 
 
 #### Identify
@@ -251,8 +248,8 @@ Sent when a client wants to join, move, or disconnect from a voice channel.
 | ---------- | ---------- | -------------------------------------------------------------------- |
 | guild_id   | snowflake  | ID of the guild                                                      |
 | channel_id | ?snowflake | ID of the voice channel client wants to join (null if disconnecting) |
-| self_mute  | boolean    | is the client muted                                                  |
-| self_deaf  | boolean    | is the client deafened                                               |
+| self_mute  | boolean    | Whether the client is muted                                          |
+| self_deaf  | boolean    | Whether the client deafened                                          |
 
 ###### Example Gateway Voice State Update
 
