@@ -110,7 +110,7 @@ This is sent on the [message object](#DOCS_RESOURCES_CHANNEL/message-object) whe
 
 ###### Message Interaction Structure
 
-| Name    | Type                                                                                                | Description                                                                                                                                                                      |
+| Field   | Type                                                                                                | Description                                                                                                                                                                      |
 | ------- | --------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | id      | snowflake                                                                                           | ID of the interaction                                                                                                                                                            |
 | type    | [interaction type](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-interaction-type) | Type of interaction                                                                                                                                                              |
