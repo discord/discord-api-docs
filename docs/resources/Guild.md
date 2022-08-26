@@ -375,6 +375,7 @@ A partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object. Represents an Offl
 | subscriber_count? \*    | integer                                                                                              | how many subscribers this integration has                                       |
 | revoked? \*             | boolean                                                                                              | has this integration been revoked                                               |
 | application?            | [application](#DOCS_RESOURCES_GUILD/integration-application-object) object                           | The bot/OAuth2 application for discord integrations                             |
+| scopes?                 | array of [OAuth2 scopes](#DOCS_TOPICS_OAUTH2/shared-resources-oauth2-scopes)                         | the scopes the application has been authorized for                              |
 
 \* These fields are not provided for discord bot integrations.
 
