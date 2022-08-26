@@ -48,7 +48,7 @@ An Action Row is a container component for other types of components.
 
 | Field      | Type                                                | Description                                                                               |
 | ---------- | --------------------------------------------------- | ----------------------------------------------------------------------------------------- |
-| type       | integer                                             | `1` for a action row                                                                      |
+| type       | integer                                             | `1` for an action row                                                                      |
 | components | array of [component](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/action-rows-action-row-structure) objects | a list of component objects such as buttons and select menus              |
 
 ###### Action Row Example
