@@ -1135,7 +1135,7 @@ Updates the current user's voice state. Returns `204 No Content` on success.
 
 | Field                       | Type               | Description                                    |
 | --------------------------- | ------------------ | ---------------------------------------------- |
-| channel_id                  | snowflake          | the id of the channel the user is currently in |
+| channel_id?                 | snowflake          | the id of the channel the user is currently in |
 | suppress?                   | boolean            | toggles the user's suppress state              |
 | request_to_speak_timestamp? | ?ISO8601 timestamp | sets the user's request to speak               |
 
