@@ -555,7 +555,7 @@ An object that specifies the emoji to use as the default way to react to a forum
 
 ### Forum Tag Object
 
-An object that represents a tag applied to a thread in a `GUILD_FORUM` channel.
+An object that represents a tag that is able to be applied to a thread in a `GUILD_FORUM` channel.
 
 ###### Forum Tag Structure
 
