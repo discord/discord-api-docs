@@ -38,7 +38,7 @@ Represents a guild or DM channel within Discord.
 | total_message_sent?                 | integer                                                                       | number of messages ever sent in a thread, it's similar to `message_count` on message creation, but will not decrement the number when a message is deleted                                      |
 | available_tags?                     | array of [tag](#DOCS_RESOURCES_CHANNEL/forum-tag-object) objects              | the set of tags that can be used in a `GUILD_FORUM` channel                                                                                                                                     |
 | applied_tags?                       | array of snowflakes                                                           | the IDs of the set of tags that have been applied to a thread in a `GUILD_FORUM` channel                                                                                                        |
-| default_reaction_emoji?             | a [?default reaction](#DOCS_RESOURCES_CHANNEL/default-reaction-object) object | the emoji to show in the add reaction button on a thread in a `GUILD_FORUM` channel                                                                                                             |
+| default_reaction_emoji?             | ?[default reaction](#DOCS_RESOURCES_CHANNEL/default-reaction-object) object   | the emoji to show in the add reaction button on a thread in a `GUILD_FORUM` channel                                                                                                             |
 | default_thread_rate_limit_per_user? | integer                                                                       | the initial `rate_limit_per_user` to set on newly created threads in a channel. this field is copied to the thread at creation time and does not live update.                                   |
 
 \* `rate_limit_per_user` also applies to thread creation. Users can send one message and create one thread during each `rate_limit_per_user` interval.
@@ -547,10 +547,10 @@ An object that specifies the emoji to use as the default way to react to a forum
 
 ###### Default Reaction Structure
 
-| Field          | Type              | Description                                             |
-|----------------|-------------------|---------------------------------------------------------|
-| emoji_id?      | snowflake         | the id of a guild's custom emoji, or 0 if unset         |
-| emoji_name?    | string            | the name of a unicode emoji or an empty string if unset |
+| Field         | Type              | Description                                             |
+|---------------|-------------------|---------------------------------------------------------|
+| emoji_id      | snowflake         | the id of a guild's custom emoji, or 0 if unset         |
+| emoji_name    | ?string           | the unicode character of the emoji                      |
 
 ### Forum Tag Object
 
@@ -563,8 +563,8 @@ An object that represents a tag that is able to be applied to a thread in a `GUI
 | id          | snowflake | the id of the tag                                                                                              |
 | name        | string    | the name of the tag (0-20 characters)                                                                          |
 | moderated   | boolean   | whether this tag can only be added to or removed from threads by a member with the `MANAGE_THREADS` permission |
-| emoji_id?   | snowflake | the id of a guild's custom emoji, or 0 if unset \*                                                             |
-| emoji_name? | string    | the name of a unicode emoji, or an empty string if unset \*                                                    |
+| emoji_id    | snowflake | the id of a guild's custom emoji, or 0 if unset \*                                                             |
+| emoji_name  | ?string   | the unicode character of the emoji \*                                                                          |
 
 \* At most one of `emoji_id` and `emoji_name` may be set.
 
@@ -852,7 +852,7 @@ Requires the `MANAGE_CHANNELS` permission for the guild. Fires a [Channel Update
 | video_quality_mode                  | ?integer                                                                        | the camera [video quality mode](#DOCS_RESOURCES_CHANNEL/channel-object-video-quality-modes) of the voice channel                                                                   | Voice                            |
 | default_auto_archive_duration       | ?integer                                                                        | the default duration that the clients use (not the API) for newly created threads in the channel, in minutes, to automatically archive the thread after recent activity            | Text, Announcement, Forum        |
 | available_tags?                     | array of [tag](#DOCS_RESOURCES_CHANNEL/forum-tag-object) objects                | the set of tags that can be used in a `GUILD_FORUM` channel                                                                                                                        | Forum                            |
-| default_reaction_emoji?             | a [?default reaction](#DOCS_RESOURCES_CHANNEL/default-reaction-object) object   | the emoji to show in the add reaction button on a thread in a `GUILD_FORUM` channel                                                                                                | Forum                            |
+| default_reaction_emoji?             | ?[default reaction](#DOCS_RESOURCES_CHANNEL/default-reaction-object) object     | the emoji to show in the add reaction button on a thread in a `GUILD_FORUM` channel                                                                                                | Forum                            |
 | default_thread_rate_limit_per_user? | integer                                                                         | the initial `rate_limit_per_user` to set on newly created threads in a channel. this field is copied to the thread at creation time and does not live update.                      | Text, Forum                      |
 
 \* For voice channels, normal servers can set bitrate up to 96000, servers with Boost level 1 can set up to 128000, servers with Boost level 2 can set up to 256000, and servers with Boost level 3 or the `VIP_REGIONS` [guild feature](#DOCS_RESOURCES_GUILD/guild-object-guild-features) can set up to 384000. For stage channels, bitrate can be set up to 64000.
