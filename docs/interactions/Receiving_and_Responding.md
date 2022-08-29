@@ -60,7 +60,7 @@ While the `data` field is guaranteed to be present for all [interaction types](#
 | name       | string                                                                                                                                                                           | the [`name`](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-structure) of the invoked command                                                |
 | type       | integer                                                                                                                                                                          | the [`type`](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-structure) of the invoked command                                                |
 | resolved?  | [resolved data](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-resolved-data-structure)                                                                          | converted users + roles + channels + attachments                                                                                                                                     |
-| options?\* | array of [application command interaction data option](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-interaction-data-option-structure) | the params + values from the user                                                                                                                                                    |
+| options?\* | array of [application command interaction data option](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-application-command-interaction-data-option-structure) | the params + values from the user                                                                                                                                                    |
 | guild_id?  | snowflake                                                                                                                                                                        | the id of the guild the command is registered to                                                                                                                                     |
 | target_id? | snowflake                                                                                                                                                                        | id of the user or message targeted by a [user](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/user-commands) or [message](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/message-commands) command |
 
@@ -100,6 +100,20 @@ While the `data` field is guaranteed to be present for all [interaction types](#
 \* Partial `Member` objects are missing `user`, `deaf` and `mute` fields
 
 \*\* Partial `Channel` objects only have `id`, `name`, `type` and `permissions` fields. Threads will also have `thread_metadata` and `parent_id` fields.
+
+###### Application Command Interaction Data Option Structure
+
+All options have names, and an option can either be a parameter and input value--in which case `value` will be set--or it can denote a subcommand or group--in which case it will contain a top-level key and another array of `options`.
+
+`value` and `options` are mutually exclusive.
+
+| Field    | Type                                                                                                                                                                             | Description                                                                                                                                    |
+| -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| name     | string                                                                                                                                                                           | Name of the parameter                                                                                                                          |
+| type     | integer                                                                                                                                                                          | Value of [application command option type](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-type) |
+| value?   | string, integer, or double                                                                                                                                                       | Value of the option resulting from user input                                                                                                  |
+| options? | array of [application command interaction data option](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-application-command-interaction-data-option-structure) | Present if this option is a group or subcommand                                                                                                |
+| focused? | boolean                                                                                                                                                                          | `true` if this option is the currently focused option for autocomplete                                                                         |
 
 ### Message Interaction Object
 
