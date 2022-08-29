@@ -342,7 +342,7 @@ Deletes the given achievement from your application. This endpoint has a rate li
 // 204 No Content
 ```
 
-## Update User Achievement % PUT /applications/{application.id#DOCS_GAME_SDK_SDK_STARTER_GUIDE/get-set-up}/achievements/{achievement.id#DOCS_GAME_SDK_ACHIEVEMENTS/data-models-achievement-struct}
+## Update User Achievement % PUT /users/{user.id#DOCS_RESOURCES_USER/user-object}/applications/{application.id#DOCS_GAME_SDK_SDK_STARTER_GUIDE/get-set-up}/achievements/{achievement.id#DOCS_GAME_SDK_ACHIEVEMENTS/data-models-achievement-struct}
 
 Updates the UserAchievement record for a given user. Use this endpoint to update `secure` achievement progress for users. This endpoint has a rate limit of 5 requests per 5 seconds per application.
 
