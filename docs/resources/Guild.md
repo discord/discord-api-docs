@@ -144,10 +144,10 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 
 ###### Mutable Guild Features
 
-| Features         | Required Permissions  | Effects                                                  |
-| ---------------- | --------------------- | -------------------------------------------------------- |
-| COMMUNITY        | Administrator         | Enables Community Features in the guild                  |
-| INVITES_DISABLED | Manage Guild          | Pauses all invites/access to the server                  |
+| Features         | Required Permissions  | Effects                                                   |
+| ---------------- | --------------------- | --------------------------------------------------------- |
+| COMMUNITY        | Administrator         | Enables Community Features in the guild                   |
+| INVITES_DISABLED | Manage Guild          | Pauses all invites/access to the server                   |
 | DISCOVERABLE     | Administrator*        | Enables discovery in the guild, making it publicly listed |
 
 \* Server also must be passing all discovery requirements 
