@@ -74,9 +74,10 @@ Represents a guild or DM channel within Discord.
 
 ###### Channel Flags
 
-| Flag                                   | Value  | Description                                                                       |
-|----------------------------------------|--------|-----------------------------------------------------------------------------------|
-| PINNED                                 | 1 << 1 | this thread is pinned to the top of its parent forum channel                      |
+| Flag                                   | Value  | Description                                                                                                                                  |
+|----------------------------------------|--------|----------------------------------------------------------------------------------------------------------------------------------------------|
+| PINNED                                 | 1 << 1 | this thread is pinned to the top of its parent `GUILD_FORUM` channel                                                                         |
+| REQUIRE_TAG                            | 1 << 4 | whether a tag is required to be specified when creating a thread in a `GUILD_FORUM` channel. Tags are specified in the `applied_tags` field. |
 
 ###### Example Guild Text Channel
 
