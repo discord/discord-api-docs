@@ -313,7 +313,7 @@ AUTO_MODERATION_EXECUTION (1 << 21)
 
 \* [Thread Members Update](#DOCS_TOPICS_GATEWAY/thread-members-update) contains different data depending on which intents are used.
 
-\*\* `MESSAGE_CONTENT` does not represent individual events, but rather affects what data is present for events that could contain message content fields. More information is in the [message content intent](#DOCS_TOPICS_GATEWAY/privileged-intents-message-content-intent) section.
+\*\* `MESSAGE_CONTENT` does not represent individual events, but rather affects what data is present for events that could contain message content fields. More information is in the [message content intent](#DOCS_TOPICS_GATEWAY/message-content-intent) section.
 
 ### Caveats
 
@@ -337,7 +337,7 @@ Some intents are defined as "Privileged" due to the sensitive nature of the data
 
 - `GUILD_PRESENCES`
 - `GUILD_MEMBERS`
-- [`MESSAGE_CONTENT`](#DOCS_TOPICS_GATEWAY/privileged-intents-message-content-intent)
+- [`MESSAGE_CONTENT`](#DOCS_TOPICS_GATEWAY/message-content-intent)
 
 Apps that qualify for verification must be approved for the privileged intent(s) [during verification](https://support.discord.com/hc/en-us/articles/360040720412-Bot-Verification-and-Data-Whitelisting) before they can use them. If your app is already verified and you need to request additional privileged intents, [contact support](https://dis.gd/support).
 
@@ -890,7 +890,7 @@ Sent when a rule is triggered and an action is executed (e.g. when a message is 
 
 \*\* `alert_system_message_id` will not exist if this event does not correspond to an action with type `SEND_ALERT_MESSAGE`
 
-\*\*\* The `MESSAGE_CONTENT` (`1 << 15`) [gateway intent](#DOCS_TOPICS_GATEWAY/gateway-intents) is required to receive non-empty values for the `content` and `matched_content` fields. Read the [message content intent](#DOCS_TOPICS_GATEWAY/privileged-intents-message-content-intent) section for details.
+\*\*\* The `MESSAGE_CONTENT` (`1 << 15`) [gateway intent](#DOCS_TOPICS_GATEWAY/gateway-intents) is required to receive non-empty values for the `content` and `matched_content` fields. Read the [message content intent](#DOCS_TOPICS_GATEWAY/message-content-intent) section for details.
 
 ### Channels
 
