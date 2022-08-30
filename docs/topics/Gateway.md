@@ -333,28 +333,29 @@ Bots in under 100 guilds can enable these intents in the bot tab of the develope
 
 ### Privileged Intents
 
-Some intents are defined as "Privileged" due to the sensitive nature of the data. Those intents are:
+Some intents are defined as "Privileged" due to the sensitive nature of the data. Currently, those intents include:
 
 - `GUILD_PRESENCES`
 - `GUILD_MEMBERS`
 - [`MESSAGE_CONTENT`](#DOCS_TOPICS_GATEWAY/privileged-intents-message-content-intent)
 
-Apps that qualify for verification must be approved for the privileged intent [during verification](https://support.discord.com/hc/en-us/articles/360040720412-Bot-Verification-and-Data-Whitelisting) before they are allowed to use them or enable them in their app's settings. If your app is already verified and you need to request additional privileged intents, [contact support](https://dis.gd/support).
+Apps that qualify for verification must be approved for the privileged intent(s) [during verification](https://support.discord.com/hc/en-us/articles/360040720412-Bot-Verification-and-Data-Whitelisting) before they can use them. If your app is already verified and you need to request additional privileged intents, [contact support](https://dis.gd/support).
 
-To specify privileged intents in your `IDENTIFY` payload, you must enable the priviledged intents your app needs. To toggle priviledged intents, navigate to your app's settings in the Developer Portal. Click on the **Bot** page, and under the "Privileged Gateway Intents" section you can enable the toggle for each privileged intent your app needs. Verified apps cannot toggled any priviledged intents until they are approved by Discord.
+To specify privileged intents in your `IDENTIFY` payload, you must enable the priviledged intents your app needs. To toggle priviledged intents, navigate to your app's settings in the Developer Portal. Click on the **Bot** page, and under the "Privileged Gateway Intents" section you can enable the toggle for each intent your app needs. Verified apps can only use privileged intents once they've been approved for them.
 
-Events under the `GUILD_PRESENCES` and `GUILD_MEMBERS` intents are turned **off by default on all API versions**. If you are using **API v6**, you will receive those events if you are authorized to receive them and have enabled the intents in the Developer Portal. You do not need to use Intents on API v6 to receive these events; you just need to enable the flags.
+> info
+> Unverified apps can use privileged intents without approval, but still must enable them in their app's settings. If the app's verification status changes, it will then have to apply for the privileged intent(s).
 
-If you are using **API v8** or above, Intents are mandatory and must be specified when identifying.
+Events under the `GUILD_PRESENCES` and `GUILD_MEMBERS` intents are turned **off by default on all API versions**. If you are using **API v6**, you will receive those events if you are authorized to receive them and have enabled the intents in the Developer Portal. You do not need to use Intents on API v6 to receive these events; you just need to enable the flags. If you are using **API v8** or above, Intents are mandatory and must be specified when identifying.
 
 In addition to the gateway restrictions described here, Discord's REST API is also affected by Privileged Intents. For example, to use the [List Guild Members](#DOCS_RESOURCES_GUILD/list-guild-members) endpoint, you must have the `GUILD_MEMBERS` intent enabled for your application. This behavior is independent of whether the intent is set during `IDENTIFY`.
 
 #### Message Content Intent
 
-`MESSAGE_CONTENT (1 << 15)` is a unique privileged intent that isn't directly associated with any Gateway events. Instead, access to `MESSAGE_CONTENT` permits your app to receive message content across the APIs, including in `content`, `embeds`, `attachments`, and `components` fields.
+`MESSAGE_CONTENT (1 << 15)` is a unique privileged intent that isn't directly associated with any Gateway events. Instead, access to `MESSAGE_CONTENT` permits your app to receive message content data across the APIs, including in `content`, `embeds`, `attachments`, and `components` fields.
 
 > info
-> Like other privileged intents, `MESSAGED_CONTENT` must be approved during verification, or afterwards by contacting support. You can read more about the message content intent review policy [in the Help Center](https://support-dev.discord.com/hc/en-us/articles/5324827539479).
+> Like other privileged intents, `MESSAGED_CONTENT` must be approved during verification or afterwards by contacting support. You can read more about the message content intent review policy [in the Help Center](https://support-dev.discord.com/hc/en-us/articles/5324827539479).
 
 Apps **without** the intent will receive empty values in fields that contain user-inputted content with a few exceptions:
 - Content in messages that an app sends
