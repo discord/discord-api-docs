@@ -282,20 +282,6 @@ The following is an example of an app update that may be sent to communicate the
 
 ![Example message updating users about a new feature](examples-update-message.png)
 
-### Adding Reactive Education
-
-In addition to proactively communicating changes, you can reactively educate users when making changes to your app.
-
-For example, if your app currently replies to messages that start with `!poll`, you can continue listening to those messages for a couple of weeks and redirect users to a new `/poll` command. Or you can continue responding to the `!poll` command, but include a disclaimer that support for it will soon be removed. 
-
-Note that for message intents specifically, this approach only works between now and the August deadline.
-
-#### Example
-
-The following is an example of a message that appears when a user tries to use a prefix command.
-
-![Example message in response to using a deprecated feature](examples-message-reactive.png)
-
 ### Making Help Available
 
 Both new and existing users should always have ways for them to easily find usage instructions and support. Some of this help can come in the form of a support server or website, but you should also have instructions in the client. 
