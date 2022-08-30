@@ -547,10 +547,10 @@ An object that specifies the emoji to use as the default way to react to a forum
 
 ###### Default Reaction Structure
 
-| Field         | Type              | Description                                             |
-|---------------|-------------------|---------------------------------------------------------|
-| emoji_id      | snowflake         | the id of a guild's custom emoji, or 0 if unset         |
-| emoji_name    | ?string           | the unicode character of the emoji                      |
+| Field         | Type              | Description                        |
+|---------------|-------------------|------------------------------------|
+| emoji_id      | snowflake         | the id of a guild's custom emoji   |
+| emoji_name    | ?string           | the unicode character of the emoji |
 
 ### Forum Tag Object
 
@@ -563,7 +563,7 @@ An object that represents a tag that is able to be applied to a thread in a `GUI
 | id          | snowflake | the id of the tag                                                                                              |
 | name        | string    | the name of the tag (0-20 characters)                                                                          |
 | moderated   | boolean   | whether this tag can only be added to or removed from threads by a member with the `MANAGE_THREADS` permission |
-| emoji_id    | snowflake | the id of a guild's custom emoji, or 0 if unset \*                                                             |
+| emoji_id    | snowflake | the id of a guild's custom emoji \*                                                                            |
 | emoji_name  | ?string   | the unicode character of the emoji \*                                                                          |
 
 \* At most one of `emoji_id` and `emoji_name` may be set.
@@ -839,9 +839,9 @@ Requires the `MANAGE_CHANNELS` permission for the guild. Fires a [Channel Update
 | Field                               | Type                                                                            | Description                                                                                                                                                                        | Channel Type                     |
 |-------------------------------------|---------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------|
 | name                                | string                                                                          | 1-100 character channel name                                                                                                                                                       | All                              |
-| type                                | integer                                                                         | the [type of channel](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types); only conversion between text and announcement is supported and only in guilds with the "NEWS" feature | Text, Announcement, Forum        |
+| type                                | integer                                                                         | the [type of channel](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types); only conversion between text and announcement is supported and only in guilds with the "NEWS" feature | Text, Announcement               |
 | position                            | ?integer                                                                        | the position of the channel in the left-hand listing                                                                                                                               | All                              |
-| topic                               | ?string                                                                         | 0-1024 character channel topic                                                                                                                                                     | Text, Announcement, Forum        |
+| topic                               | ?string                                                                         | 0-1024 character channel topic (0-4096 characters for `GUILD_FORUM` channels)                                                                                                      | Text, Announcement, Forum        |
 | nsfw                                | ?boolean                                                                        | whether the channel is nsfw                                                                                                                                                        | Text, Voice, Announcement, Forum |
 | rate_limit_per_user                 | ?integer                                                                        | amount of seconds a user has to wait before sending another message (0-21600); bots, as well as users with the permission `manage_messages` or `manage_channel`, are unaffected    | Text, Forum                      |
 | bitrate\*                           | ?integer                                                                        | the bitrate (in bits) of the voice or stage channel; min 8000                                                                                                                      | Voice, Stage                     |
