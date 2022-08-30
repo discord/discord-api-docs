@@ -5,7 +5,7 @@
 	"useTabs": true,
 	"overrides": [
 		{
-			"files": ["*.md"],
+			"files": "*.md",
 			"options": {
 				"useTabs": false,
 				"tabWidth": 4
