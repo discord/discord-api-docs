@@ -52,10 +52,6 @@ Rules can be configured to automatically execute actions whenever they trigger. 
 ```
 
 ###### Trigger Types
-
-> info
-> The `MENTION_SPAM` trigger type is not rolled out to all servers yet.
-
 Characterizes the type of content which can trigger the rule.
 
 | Type                 | Value   | Description                                                          | Max per Guild |
