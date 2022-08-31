@@ -355,7 +355,7 @@ In addition to the gateway restrictions described here, Discord's REST API is al
 `MESSAGE_CONTENT (1 << 15)` is a unique privileged intent that isn't directly associated with any Gateway events. Instead, access to `MESSAGE_CONTENT` permits your app to receive message content data across the APIs, including (but not limited to) the `content`, `embeds`, `attachments`, and `components` fields.
 
 > info
-> Like other privileged intents, `MESSAGED_CONTENT` must be approved during verification or afterwards by contacting support. You can read more about the message content intent review policy [in the Help Center](https://support-dev.discord.com/hc/en-us/articles/5324827539479).
+> Like other privileged intents, `MESSAGE_CONTENT` must be approved during verification or afterwards by applying in the Developer Portal. You can read more about the message content intent review policy [in the Help Center](https://support-dev.discord.com/hc/en-us/articles/5324827539479).
 
 Apps **without** the intent will receive empty values in fields that contain user-inputted content with a few exceptions:
 - Content in messages that an app sends
