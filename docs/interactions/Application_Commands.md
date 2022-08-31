@@ -95,20 +95,6 @@ If you specify `choices` for an option, they are the **only** valid values for a
 
 \* Type of `value` depends on the [option type](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-type) that the choice belongs to.
 
-###### Application Command Interaction Data Option Structure
-
-All options have names, and an option can either be a parameter and input value--in which case `value` will be set--or it can denote a subcommand or group--in which case it will contain a top-level key and another array of `options`.
-
-`value` and `options` are mutually exclusive.
-
-| Field    | Type                                                                                                                                                                             | Description                                                                                                                                    |
-| -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
-| name     | string                                                                                                                                                                           | Name of the parameter                                                                                                                          |
-| type     | integer                                                                                                                                                                          | Value of [application command option type](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-type) |
-| value?   | string, integer, or double                                                                                                                                                       | Value of the option resulting from user input                                                                                                  |
-| options? | array of [application command interaction data option](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-interaction-data-option-structure) | Present if this option is a group or subcommand                                                                                                |
-| focused? | boolean                                                                                                                                                                          | `true` if this option is the currently focused option for autocomplete                                                                         |
-
 ## Authorizing Your Application
 
 Application commands do not depend on a bot user in the guild; they use the [interactions](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/) model. To create commands in a guild, your app must be authorized with the `applications.commands` scope.
@@ -390,7 +376,7 @@ Slash commands—the `CHAT_INPUT` type—are a type of application command. They
 Slash commands can also have groups and subcommands to further organize commands. More on those later.
 
 > warn
-> Slash commands can have a maximum of 4000 characters for combined name, description, and value properties for each command and its subcommands and groups
+> Slash commands can have a maximum of 4000 characters for combined name, description, and value properties for each command, its options (including subcommands and groups), and choices.  When [localization fields](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/localization) are present, only the longest localization for each field (including the default value) is counted towards the size limit.
 
 
 ###### Example Slash Command
