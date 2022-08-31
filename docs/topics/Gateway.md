@@ -339,7 +339,7 @@ Some intents are defined as "Privileged" due to the sensitive nature of the data
 - `GUILD_MEMBERS`
 - [`MESSAGE_CONTENT`](#DOCS_TOPICS_GATEWAY/message-content-intent)
 
-Apps that qualify for verification must be approved for the privileged intent(s) [during verification](https://support.discord.com/hc/en-us/articles/360040720412-Bot-Verification-and-Data-Whitelisting) before they can use them. If your app is already verified and you need to request additional privileged intents, [contact support](https://dis.gd/support).
+Apps that qualify for verification must be approved for the privileged intent(s) [during verification](https://support.discord.com/hc/en-us/articles/360040720412-Bot-Verification-and-Data-Whitelisting) before they can use them. If your app is already verified, you can request additional privileged intents in the Developer Portal.
 
 To specify privileged intents in your `IDENTIFY` payload, you must enable the privileged intents your app needs. To toggle privileged intents, navigate to your app's settings in the Developer Portal. Click on the **Bot** page, and under the "Privileged Gateway Intents" section you can enable the toggle for each intent your app needs. Verified apps can only use privileged intents once they've been approved for them.
 
