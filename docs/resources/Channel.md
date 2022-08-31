@@ -6,36 +6,40 @@ Represents a guild or DM channel within Discord.
 
 ###### Channel Structure
 
-| Field                          | Type                                                                       | Description                                                                                                                                                                                     |
-|--------------------------------|----------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| id                             | snowflake                                                                  | the id of this channel                                                                                                                                                                          |
-| type                           | integer                                                                    | the [type of channel](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types)                                                                                                                     |
-| guild_id?                      | snowflake                                                                  | the id of the guild (may be missing for some channel objects received over gateway guild dispatches)                                                                                            |
-| position?                      | integer                                                                    | sorting position of the channel                                                                                                                                                                 |
-| permission_overwrites?         | array of [overwrite](#DOCS_RESOURCES_CHANNEL/overwrite-object) objects     | explicit permission overwrites for members and roles                                                                                                                                            |
-| name?                          | ?string                                                                    | the name of the channel (1-100 characters)                                                                                                                                                      |
-| topic?                         | ?string                                                                    | the channel topic (0-1024 characters)                                                                                                                                                           |
-| nsfw?                          | boolean                                                                    | whether the channel is nsfw                                                                                                                                                                     |
-| last_message_id?               | ?snowflake                                                                 | the id of the last message sent in this channel (or thread for `GUILD_FORUM` channels) (may not point to an existing or valid message or thread)                                                |
-| bitrate?                       | integer                                                                    | the bitrate (in bits) of the voice channel                                                                                                                                                      |
-| user_limit?                    | integer                                                                    | the user limit of the voice channel                                                                                                                                                             |
-| rate_limit_per_user?\*         | integer                                                                    | amount of seconds a user has to wait before sending another message (0-21600); bots, as well as users with the permission `manage_messages` or `manage_channel`, are unaffected                 |
-| recipients?                    | array of [user](#DOCS_RESOURCES_USER/user-object) objects                  | the recipients of the DM                                                                                                                                                                        |
-| icon?                          | ?string                                                                    | icon hash of the group DM                                                                                                                                                                       |
-| owner_id?                      | snowflake                                                                  | id of the creator of the group DM or thread                                                                                                                                                     |
-| application_id?                | snowflake                                                                  | application id of the group DM creator if it is bot-created                                                                                                                                     |
-| parent_id?                     | ?snowflake                                                                 | for guild channels: id of the parent category for a channel (each parent category can contain up to 50 channels), for threads: id of the text channel this thread was created                   |
-| last_pin_timestamp?            | ?ISO8601 timestamp                                                         | when the last pinned message was pinned. This may be `null` in events such as `GUILD_CREATE` when a message is not pinned.                                                                      |
-| rtc_region?                    | ?string                                                                    | [voice region](#DOCS_RESOURCES_VOICE/voice-region-object) id for the voice channel, automatic when set to null                                                                                  |
-| video_quality_mode?            | integer                                                                    | the camera [video quality mode](#DOCS_RESOURCES_CHANNEL/channel-object-video-quality-modes) of the voice channel, 1 when not present                                                            |
-| message_count?                 | integer                                                                    | number of messages (not including the initial message or deleted messages) in a thread (if the thread was created before July 1, 2022, it stops counting at 50)                                 |
-| member_count?                  | integer                                                                    | an approximate count of users in a thread, stops counting at 50                                                                                                                                 |
-| thread_metadata?               | a [thread metadata](#DOCS_RESOURCES_CHANNEL/thread-metadata-object) object | thread-specific fields not needed by other channels                                                                                                                                             |
-| member?                        | a [thread member](#DOCS_RESOURCES_CHANNEL/thread-member-object) object     | thread member object for the current user, if they have joined the thread, only included on certain API endpoints                                                                               |
-| default_auto_archive_duration? | integer                                                                    | default duration, copied onto newly created threads, in minutes, threads will stop showing in the channel list after the specified period of inactivity, can be set to: 60, 1440, 4320, 10080   |
-| permissions?                   | string                                                                     | computed permissions for the invoking user in the channel, including overwrites, only included when part of the `resolved` data received on a slash command interaction                         |
-| flags?                         | integer                                                                    | [channel flags](#DOCS_RESOURCES_CHANNEL/channel-object-channel-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field)                                                         |
-| total_message_sent?            | integer                                                                    | number of messages ever sent in a thread, it's similar to `message_count` on message creation, but will not decrement the number when a message is deleted                                      |
+| Field                               | Type                                                                          | Description                                                                                                                                                                                     |
+|-------------------------------------|-------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| id                                  | snowflake                                                                     | the id of this channel                                                                                                                                                                          |
+| type                                | integer                                                                       | the [type of channel](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types)                                                                                                                     |
+| guild_id?                           | snowflake                                                                     | the id of the guild (may be missing for some channel objects received over gateway guild dispatches)                                                                                            |
+| position?                           | integer                                                                       | sorting position of the channel                                                                                                                                                                 |
+| permission_overwrites?              | array of [overwrite](#DOCS_RESOURCES_CHANNEL/overwrite-object) objects        | explicit permission overwrites for members and roles                                                                                                                                            |
+| name?                               | ?string                                                                       | the name of the channel (1-100 characters)                                                                                                                                                      |
+| topic?                              | ?string                                                                       | the channel topic (0-4096 characters for `GUILD_FORUM` channels, 0-1024 characters for all others)                                                                                                |
+| nsfw?                               | boolean                                                                       | whether the channel is nsfw                                                                                                                                                                     |
+| last_message_id?                    | ?snowflake                                                                    | the id of the last message sent in this channel (or thread for `GUILD_FORUM` channels) (may not point to an existing or valid message or thread)                                                |
+| bitrate?                            | integer                                                                       | the bitrate (in bits) of the voice channel                                                                                                                                                      |
+| user_limit?                         | integer                                                                       | the user limit of the voice channel                                                                                                                                                             |
+| rate_limit_per_user?\*              | integer                                                                       | amount of seconds a user has to wait before sending another message (0-21600); bots, as well as users with the permission `manage_messages` or `manage_channel`, are unaffected                 |
+| recipients?                         | array of [user](#DOCS_RESOURCES_USER/user-object) objects                     | the recipients of the DM                                                                                                                                                                        |
+| icon?                               | ?string                                                                       | icon hash of the group DM                                                                                                                                                                       |
+| owner_id?                           | snowflake                                                                     | id of the creator of the group DM or thread                                                                                                                                                     |
+| application_id?                     | snowflake                                                                     | application id of the group DM creator if it is bot-created                                                                                                                                     |
+| parent_id?                          | ?snowflake                                                                    | for guild channels: id of the parent category for a channel (each parent category can contain up to 50 channels), for threads: id of the text channel this thread was created                   |
+| last_pin_timestamp?                 | ?ISO8601 timestamp                                                            | when the last pinned message was pinned. This may be `null` in events such as `GUILD_CREATE` when a message is not pinned.                                                                      |
+| rtc_region?                         | ?string                                                                       | [voice region](#DOCS_RESOURCES_VOICE/voice-region-object) id for the voice channel, automatic when set to null                                                                                  |
+| video_quality_mode?                 | integer                                                                       | the camera [video quality mode](#DOCS_RESOURCES_CHANNEL/channel-object-video-quality-modes) of the voice channel, 1 when not present                                                            |
+| message_count?                      | integer                                                                       | number of messages (not including the initial message or deleted messages) in a thread (if the thread was created before July 1, 2022, it stops counting at 50)                                 |
+| member_count?                       | integer                                                                       | an approximate count of users in a thread, stops counting at 50                                                                                                                                 |
+| thread_metadata?                    | a [thread metadata](#DOCS_RESOURCES_CHANNEL/thread-metadata-object) object    | thread-specific fields not needed by other channels                                                                                                                                             |
+| member?                             | a [thread member](#DOCS_RESOURCES_CHANNEL/thread-member-object) object        | thread member object for the current user, if they have joined the thread, only included on certain API endpoints                                                                               |
+| default_auto_archive_duration?      | integer                                                                       | default duration, copied onto newly created threads, in minutes, threads will stop showing in the channel list after the specified period of inactivity, can be set to: 60, 1440, 4320, 10080   |
+| permissions?                        | string                                                                        | computed permissions for the invoking user in the channel, including overwrites, only included when part of the `resolved` data received on a slash command interaction                         |
+| flags?                              | integer                                                                       | [channel flags](#DOCS_RESOURCES_CHANNEL/channel-object-channel-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field)                                                         |
+| total_message_sent?                 | integer                                                                       | number of messages ever sent in a thread, it's similar to `message_count` on message creation, but will not decrement the number when a message is deleted                                      |
+| available_tags?                     | array of [tag](#DOCS_RESOURCES_CHANNEL/forum-tag-object) objects              | the set of tags that can be used in a `GUILD_FORUM` channel                                                                                                                                     |
+| applied_tags?                       | array of snowflakes                                                           | the IDs of the set of tags that have been applied to a thread in a `GUILD_FORUM` channel                                                                                                        |
+| default_reaction_emoji?             | ?[default reaction](#DOCS_RESOURCES_CHANNEL/default-reaction-object) object   | the emoji to show in the add reaction button on a thread in a `GUILD_FORUM` channel                                                                                                             |
+| default_thread_rate_limit_per_user? | integer                                                                       | the initial `rate_limit_per_user` to set on newly created threads in a channel. this field is copied to the thread at creation time and does not live update.                                   |
 
 \* `rate_limit_per_user` also applies to thread creation. Users can send one message and create one thread during each `rate_limit_per_user` interval.
 
@@ -70,9 +74,10 @@ Represents a guild or DM channel within Discord.
 
 ###### Channel Flags
 
-| Flag                                   | Value  | Description                                                                       |
-|----------------------------------------|--------|-----------------------------------------------------------------------------------|
-| PINNED                                 | 1 << 1 | this thread is pinned to the top of its parent forum channel                      |
+| Flag                                   | Value  | Description                                                                                                                                  |
+|----------------------------------------|--------|----------------------------------------------------------------------------------------------------------------------------------------------|
+| PINNED                                 | 1 << 1 | this thread is pinned to the top of its parent `GUILD_FORUM` channel                                                                         |
+| REQUIRE_TAG                            | 1 << 4 | whether a tag is required to be specified when creating a thread in a `GUILD_FORUM` channel. Tags are specified in the `applied_tags` field. |
 
 ###### Example Guild Text Channel
 
@@ -445,28 +450,28 @@ There are multiple message types that have a message_reference object.  Since me
 ###### Crosspost messages
 
 - These are messages that originated from another channel (IS_CROSSPOST flag).
-- These messages have all three fields, with data of the original message that was crossposted.
+- These messages have all three fields, which point to the original message that was crossposted.
 
 ###### Channel Follow Add messages
 
 - These are automatic messages sent when a channel is followed into the current channel (type 12).
-- These messages have the `channel_id` and `guild_id` fields, with data of the followed announcement channel.
+- These messages have the `channel_id` and `guild_id` fields, which point to the followed announcement channel.
 
 ###### Pin messages
 
 - These are automatic messages sent when a message is pinned (type 6).
-- These messages have `message_id` and `channel_id`, and `guild_id` if it is in a guild, with data of the message that was pinned.
+- These messages have `message_id` and `channel_id`, and `guild_id` if it is in a guild, which point to the message that was pinned.
 
 ###### Replies
 
 - These are messages replying to a previous message (type 19).
-- These messages have `message_id` and `channel_id`, and `guild_id` if it is in a guild, with data of the message that was replied to. The channel_id and guild_id will be the same as the reply.
+- These messages have `message_id` and `channel_id`, and `guild_id` if it is in a guild, which point to the message that was replied to. The channel_id and guild_id will be the same as the reply.
 - Replies are created by including a message_reference when sending a message. When sending, only `message_id` is required.
 
 ###### Thread Created messages
 
 - These are automatic messages sent when a public thread is created from an old message or without a message (type 18).
-- These messages have the `channel_id` and `guild_id` fields, with data of the created thread channel.
+- These messages have the `channel_id` and `guild_id` fields, which point to the created thread channel.
 
 ###### Thread starter messages
 
@@ -535,6 +540,33 @@ A thread member is used to indicate whether a user has joined a thread or not.
 | flags          | integer           | any user-thread settings, currently only used for notifications |
 
 ** \* These fields are omitted on the member sent within each thread in the [GUILD_CREATE](#DOCS_TOPICS_GATEWAY/guild-create) event **
+
+### Default Reaction Object
+
+An object that specifies the emoji to use as the default way to react to a forum post. Exactly one of `emoji_id` and `emoji_name` must be set.
+
+###### Default Reaction Structure
+
+| Field         | Type              | Description                        |
+|---------------|-------------------|------------------------------------|
+| emoji_id      | snowflake         | the id of a guild's custom emoji   |
+| emoji_name    | ?string           | the unicode character of the emoji |
+
+### Forum Tag Object
+
+An object that represents a tag that is able to be applied to a thread in a `GUILD_FORUM` channel.
+
+###### Forum Tag Structure
+
+| Field       | Type      | Description                                                                                                    |
+|-------------|-----------|----------------------------------------------------------------------------------------------------------------|
+| id          | snowflake | the id of the tag                                                                                              |
+| name        | string    | the name of the tag (0-20 characters)                                                                          |
+| moderated   | boolean   | whether this tag can only be added to or removed from threads by a member with the `MANAGE_THREADS` permission |
+| emoji_id    | snowflake | the id of a guild's custom emoji \*                                                                            |
+| emoji_name  | ?string   | the unicode character of the emoji \*                                                                          |
+
+\* At most one of `emoji_id` and `emoji_name` may be set.
 
 ### Embed Object
 
@@ -804,21 +836,24 @@ Fires a [Channel Update](#DOCS_TOPICS_GATEWAY/channel-update) Gateway event.
 
 Requires the `MANAGE_CHANNELS` permission for the guild. Fires a [Channel Update](#DOCS_TOPICS_GATEWAY/channel-update) Gateway event. If modifying a category, individual [Channel Update](#DOCS_TOPICS_GATEWAY/channel-update) events will fire for each child channel that also changes. If modifying permission overwrites, the `MANAGE_ROLES` permission is required. Only permissions your bot has in the guild or parent channel (if applicable) can be allowed/denied (unless your bot has a `MANAGE_ROLES` overwrite in the channel).
 
-| Field                         | Type                                                                            | Description                                                                                                                                                                        | Channel Type              |
-|-------------------------------|---------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------|
-| name                          | string                                                                          | 1-100 character channel name                                                                                                                                                       | All                       |
-| type                          | integer                                                                         | the [type of channel](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types); only conversion between text and announcement is supported and only in guilds with the "NEWS" feature | Text, Announcement        |
-| position                      | ?integer                                                                        | the position of the channel in the left-hand listing                                                                                                                               | All                       |
-| topic                         | ?string                                                                         | 0-1024 character channel topic                                                                                                                                                     | Text, Announcement        |
-| nsfw                          | ?boolean                                                                        | whether the channel is nsfw                                                                                                                                                        | Text, Voice, Announcement |
-| rate_limit_per_user           | ?integer                                                                        | amount of seconds a user has to wait before sending another message (0-21600); bots, as well as users with the permission `manage_messages` or `manage_channel`, are unaffected    | Text                      |
-| bitrate\*                     | ?integer                                                                        | the bitrate (in bits) of the voice or stage channel; min 8000                                                                                                                      | Voice, Stage              |
-| user_limit                    | ?integer                                                                        | the user limit of the voice channel; 0 refers to no limit, 1 to 99 refers to a user limit                                                                                          | Voice                     |
-| permission_overwrites\*\*     | ?array of partial [overwrite](#DOCS_RESOURCES_CHANNEL/overwrite-object) objects | channel or category-specific permissions                                                                                                                                           | All                       |
-| parent_id                     | ?snowflake                                                                      | id of the new parent category for a channel                                                                                                                                        | Text, Voice, Announcement |
-| rtc_region                    | ?string                                                                         | channel [voice region](#DOCS_RESOURCES_VOICE/voice-region-object) id, automatic when set to null                                                                                   | Voice, Stage              |
-| video_quality_mode            | ?integer                                                                        | the camera [video quality mode](#DOCS_RESOURCES_CHANNEL/channel-object-video-quality-modes) of the voice channel                                                                   | Voice                     |
-| default_auto_archive_duration | ?integer                                                                        | the default duration that the clients use (not the API) for newly created threads in the channel, in minutes, to automatically archive the thread after recent activity            | Text, Announcement        |
+| Field                               | Type                                                                            | Description                                                                                                                                                                        | Channel Type                     |
+|-------------------------------------|---------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------|
+| name                                | string                                                                          | 1-100 character channel name                                                                                                                                                       | All                              |
+| type                                | integer                                                                         | the [type of channel](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types); only conversion between text and announcement is supported and only in guilds with the "NEWS" feature | Text, Announcement               |
+| position                            | ?integer                                                                        | the position of the channel in the left-hand listing                                                                                                                               | All                              |
+| topic                               | ?string                                                                         | 0-1024 character channel topic (0-4096 characters for `GUILD_FORUM` channels)                                                                                                      | Text, Announcement, Forum        |
+| nsfw                                | ?boolean                                                                        | whether the channel is nsfw                                                                                                                                                        | Text, Voice, Announcement, Forum |
+| rate_limit_per_user                 | ?integer                                                                        | amount of seconds a user has to wait before sending another message (0-21600); bots, as well as users with the permission `manage_messages` or `manage_channel`, are unaffected    | Text, Forum                      |
+| bitrate\*                           | ?integer                                                                        | the bitrate (in bits) of the voice or stage channel; min 8000                                                                                                                      | Voice, Stage                     |
+| user_limit                          | ?integer                                                                        | the user limit of the voice channel; 0 refers to no limit, 1 to 99 refers to a user limit                                                                                          | Voice                            |
+| permission_overwrites\*\*           | ?array of partial [overwrite](#DOCS_RESOURCES_CHANNEL/overwrite-object) objects | channel or category-specific permissions                                                                                                                                           | All                              |
+| parent_id                           | ?snowflake                                                                      | id of the new parent category for a channel                                                                                                                                        | Text, Voice, Announcement, Forum |
+| rtc_region                          | ?string                                                                         | channel [voice region](#DOCS_RESOURCES_VOICE/voice-region-object) id, automatic when set to null                                                                                   | Voice, Stage                     |
+| video_quality_mode                  | ?integer                                                                        | the camera [video quality mode](#DOCS_RESOURCES_CHANNEL/channel-object-video-quality-modes) of the voice channel                                                                   | Voice                            |
+| default_auto_archive_duration       | ?integer                                                                        | the default duration that the clients use (not the API) for newly created threads in the channel, in minutes, to automatically archive the thread after recent activity            | Text, Announcement, Forum        |
+| available_tags?                     | array of [tag](#DOCS_RESOURCES_CHANNEL/forum-tag-object) objects                | the set of tags that can be used in a `GUILD_FORUM` channel                                                                                                                        | Forum                            |
+| default_reaction_emoji?             | ?[default reaction](#DOCS_RESOURCES_CHANNEL/default-reaction-object) object     | the emoji to show in the add reaction button on a thread in a `GUILD_FORUM` channel                                                                                                | Forum                            |
+| default_thread_rate_limit_per_user? | integer                                                                         | the initial `rate_limit_per_user` to set on newly created threads in a channel. this field is copied to the thread at creation time and does not live update.                      | Text, Forum                      |
 
 \* For voice channels, normal servers can set bitrate up to 96000, servers with Boost level 1 can set up to 128000, servers with Boost level 2 can set up to 256000, and servers with Boost level 3 or the `VIP_REGIONS` [guild feature](#DOCS_RESOURCES_GUILD/guild-object-guild-features) can set up to 384000. For stage channels, bitrate can be set up to 64000.
 
@@ -830,15 +865,16 @@ When setting `archived` to `false`, when `locked` is also `false`, only the `SEN
 
 Otherwise, requires the `MANAGE_THREADS` permission. Fires a [Thread Update](#DOCS_TOPICS_GATEWAY/thread-update) Gateway event. Requires the thread to have `archived` set to `false` or be set to `false` in the request.
 
-| Field                 | Type     | Description                                                                                                                                                                                       |
-|-----------------------|----------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| name                  | string   | 1-100 character channel name                                                                                                                                                                      |
-| archived              | boolean  | whether the thread is archived                                                                                                                                                                    |
-| auto_archive_duration | integer  | the thread will stop showing in the channel list after `auto_archive_duration` minutes of inactivity, can be set to: 60, 1440, 4320, 10080                                                        |
-| locked                | boolean  | whether the thread is locked; when a thread is locked, only users with MANAGE_THREADS can unarchive it                                                                                            |
-| invitable             | boolean  | whether non-moderators can add other non-moderators to a thread; only available on private threads                                                                                                |
-| rate_limit_per_user   | ?integer | amount of seconds a user has to wait before sending another message (0-21600); bots, as well as users with the permission `manage_messages`, `manage_thread`, or `manage_channel`, are unaffected |
-| flags?                | integer  | [channel flags](#DOCS_RESOURCES_CHANNEL/channel-object-channel-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field); `PINNED` can only be set for threads in forum channels   |
+| Field                 | Type                | Description                                                                                                                                                                                       |
+|-----------------------|---------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| name                  | string              | 1-100 character channel name                                                                                                                                                                      |
+| archived              | boolean             | whether the thread is archived                                                                                                                                                                    |
+| auto_archive_duration | integer             | the thread will stop showing in the channel list after `auto_archive_duration` minutes of inactivity, can be set to: 60, 1440, 4320, 10080                                                        |
+| locked                | boolean             | whether the thread is locked; when a thread is locked, only users with MANAGE_THREADS can unarchive it                                                                                            |
+| invitable             | boolean             | whether non-moderators can add other non-moderators to a thread; only available on private threads                                                                                                |
+| rate_limit_per_user   | ?integer            | amount of seconds a user has to wait before sending another message (0-21600); bots, as well as users with the permission `manage_messages`, `manage_thread`, or `manage_channel`, are unaffected |
+| flags?                | integer             | [channel flags](#DOCS_RESOURCES_CHANNEL/channel-object-channel-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field); `PINNED` can only be set for threads in forum channels   |
+| applied_tags?         | array of snowflakes | the IDs of the set of tags that have been applied to a thread in a `GUILD_FORUM` channel                                                                                                          |
 
 ## Delete/Close Channel % DELETE /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}
 
@@ -1187,6 +1223,7 @@ Creates a new thread in a forum channel, and sends a message within the created 
 | auto_archive_duration?\* | integer                                                                                                                          | duration in minutes to automatically archive the thread after recent activity, can be set to: 60, 1440, 4320, 10080 |
 | rate_limit_per_user?     | ?integer                                                                                                                         | amount of seconds a user has to wait before sending another message (0-21600)                                       |
 | message                  | a [forum thread message params](#DOCS_RESOURCES_CHANNEL/start-thread-in-forum-channel-forum-thread-message-params-object) object | contents of the first message in the forum thread                                                                   |
+| applied_tags?            | array of snowflakes                                                                                                              | the IDs of the set of tags that have been applied to a thread in a `GUILD_FORUM` channel                            |
 
 
 ###### Forum Thread Message Params Object
