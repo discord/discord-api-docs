@@ -127,7 +127,8 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 | COMMUNITY                        | guild can enable welcome screen, Membership Screening, stage channels and discovery, and receives community updates |
 | DISCOVERABLE                     | guild is able to be discovered in the directory                                                                     |
 | FEATURABLE                       | guild is able to be featured in the directory                                                                       |
-| INVITE_SPLASH                    | guild has access to set an invite splash background                                                                 |
+| INVITE_SPLASH                    | guild has access to set an invite splash background
+| INVITES_DISABLED                 | guild has disabled invites
 | MEMBER_VERIFICATION_GATE_ENABLED | guild has enabled [Membership Screening](#DOCS_RESOURCES_GUILD/membership-screening-object)                         |
 | MONETIZATION_ENABLED             | guild has enabled monetization                                                                                      |
 | MORE_STICKERS                    | guild has increased custom sticker slots                                                                            |
@@ -161,7 +162,8 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
     "MORE_EMOJI",
     "INVITE_SPLASH",
     "BANNER",
-    "COMMUNITY"
+    "COMMUNITY",
+    "INVITES_DISABLED"
   ],
   "emojis": [],
   "banner": "9b6439a7de04f1d26af92f84ac9e1e4a",
