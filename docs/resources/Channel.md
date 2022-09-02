@@ -549,10 +549,10 @@ An object that specifies the emoji to use as the default way to react to a forum
 
 ###### Default Reaction Structure
 
-| Field      | Type      | Description                        |
-| ---------- | --------- | ---------------------------------- |
-| emoji_id   | snowflake | the id of a guild's custom emoji   |
-| emoji_name | ?string   | the unicode character of the emoji |
+| Field       | Type      | Description                        |
+| ----------- | --------- | ---------------------------------- |
+| emoji_id?   | snowflake | the id of a guild's custom emoji   |
+| emoji_name? | ?string   | the unicode character of the emoji |
 
 ### Forum Tag Object
 
@@ -560,13 +560,13 @@ An object that represents a tag that is able to be applied to a thread in a `GUI
 
 ###### Forum Tag Structure
 
-| Field      | Type      | Description                                                                                                    |
-| ---------- | --------- | -------------------------------------------------------------------------------------------------------------- |
-| id         | snowflake | the id of the tag                                                                                              |
-| name       | string    | the name of the tag (0-20 characters)                                                                          |
-| moderated  | boolean   | whether this tag can only be added to or removed from threads by a member with the `MANAGE_THREADS` permission |
-| emoji_id   | snowflake | the id of a guild's custom emoji \*                                                                            |
-| emoji_name | ?string   | the unicode character of the emoji \*                                                                          |
+| Field       | Type      | Description                                                                                                    |
+| ----------- | --------- | -------------------------------------------------------------------------------------------------------------- |
+| id          | snowflake | the id of the tag                                                                                              |
+| name        | string    | the name of the tag (0-20 characters)                                                                          |
+| moderated   | boolean   | whether this tag can only be added to or removed from threads by a member with the `MANAGE_THREADS` permission |
+| emoji_id?   | snowflake | the id of a guild's custom emoji \*                                                                            |
+| emoji_name? | ?string   | the unicode character of the emoji \*                                                                          |
 
 \* At most one of `emoji_id` and `emoji_name` may be set.
 
