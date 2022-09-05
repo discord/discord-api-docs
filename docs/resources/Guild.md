@@ -1049,7 +1049,7 @@ Returns a list of [integration](#DOCS_RESOURCES_GUILD/integration-object) object
 
 ## Delete Guild Integration % DELETE /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/integrations/{integration.id#DOCS_RESOURCES_GUILD/integration-object}
 
-Delete the attached [integration](#DOCS_RESOURCES_GUILD/integration-object) object for the guild. Deletes any associated webhooks and kicks the associated bot if there is one. Requires the `MANAGE_GUILD` permission. Returns a 204 empty response on success. Fires a [Guild Integrations Update](#DOCS_TOPICS_GATEWAY/guild-integrations-update) Gateway event.
+Delete the attached [integration](#DOCS_RESOURCES_GUILD/integration-object) object for the guild. Deletes any associated webhooks and kicks the associated bot if there is one. Requires the `MANAGE_GUILD` permission. Returns a 204 empty response on success. Fires [Guild Integrations Update](#DOCS_TOPICS_GATEWAY/guild-integrations-update) and [Integration Delete](#DOCS_TOPICS_GATEWAY/integration-delete) Gateway events.
 
 > info
 > This endpoint supports the `X-Audit-Log-Reason` header.
@@ -1129,7 +1129,7 @@ Modify the guild's [Welcome Screen](#DOCS_RESOURCES_GUILD/welcome-screen-object)
 
 ## Modify Current User Voice State % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/voice-states/@me
 
-Updates the current user's voice state. Returns `204 No Content` on success.
+Updates the current user's voice state. Returns `204 No Content` on success. Fires a [Voice State Update](#DOCS_TOPICS_GATEWAY/voice-state-update) Gateway event.
 
 ###### JSON Params
 
@@ -1151,7 +1151,7 @@ There are currently several caveats for this endpoint:
 
 ## Modify User Voice State % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/voice-states/{user.id#DOCS_RESOURCES_USER/user-object}
 
-Updates another user's voice state.
+Updates another user's voice state. Fires a [Voice State Update](#DOCS_TOPICS_GATEWAY/voice-state-update) Gateway event.
 
 ###### JSON Params
 

@@ -554,8 +554,8 @@ Events are payloads sent over the socket to a client that correspond to events i
 | [Message Reaction Remove Emoji](#DOCS_TOPICS_GATEWAY/message-reaction-remove-emoji)                     | all reactions for a given emoji were explicitly removed from a message                                                           |
 | [Presence Update](#DOCS_TOPICS_GATEWAY/presence-update)                                                 | user was updated                                                                                                                 |
 | [Stage Instance Create](#DOCS_TOPICS_GATEWAY/stage-instance-create)                                     | stage instance was created                                                                                                       |
-| [Stage Instance Delete](#DOCS_TOPICS_GATEWAY/stage-instance-delete)                                     | stage instance was deleted or closed                                                                                             |
 | [Stage Instance Update](#DOCS_TOPICS_GATEWAY/stage-instance-update)                                     | stage instance was updated                                                                                                       |
+| [Stage Instance Delete](#DOCS_TOPICS_GATEWAY/stage-instance-delete)                                     | stage instance was deleted or closed                                                                                             |
 | [Typing Start](#DOCS_TOPICS_GATEWAY/typing-start)                                                       | user started typing in a channel                                                                                                 |
 | [User Update](#DOCS_TOPICS_GATEWAY/user-update)                                                         | properties about the user changed                                                                                                |
 | [Voice State Update](#DOCS_TOPICS_GATEWAY/voice-state-update)                                           | someone joined, left, or moved a voice channel                                                                                   |
@@ -1207,7 +1207,7 @@ Sent when a user has unsubscribed from a guild scheduled event.
 
 #### Integration Create
 
-Sent when an integration is created. The inner payload is a [integration](#DOCS_RESOURCES_GUILD/integration-object) object with an additional `guild_id` key:
+Sent when an integration is created. The inner payload is an [integration](#DOCS_RESOURCES_GUILD/integration-object) object with an additional `guild_id` key:
 
 ###### Integration Create Event Additional Fields
 
@@ -1217,7 +1217,7 @@ Sent when an integration is created. The inner payload is a [integration](#DOCS_
 
 #### Integration Update
 
-Sent when an integration is updated. The inner payload is a [integration](#DOCS_RESOURCES_GUILD/integration-object) object with an additional `guild_id` key:
+Sent when an integration is updated. The inner payload is an [integration](#DOCS_RESOURCES_GUILD/integration-object) object with an additional `guild_id` key:
 
 ###### Integration Update Event Additional Fields
 
