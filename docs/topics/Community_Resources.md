@@ -102,4 +102,4 @@ If you're working on a project that interacts with our API, you might find an AP
 | Name                                                                   | Language   |
 | ---------------------------------------------------------------------- | ---------- |
 | [dasgo](https://github.com/switchupcb/dasgo)                           | Go         |
-| [discord.js API Types](https://github.com/discordjs/discord-api-types) | JavaScript |
+| [discord-api-types](https://github.com/discordjs/discord-api-types)    | JavaScript |
