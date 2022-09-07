@@ -83,6 +83,7 @@
 | 1 << 17 | EMBEDDED                         | Indicates if an app is embedded within the Discord client (currently unavailable publicly)                                                                                                                                     |
 | 1 << 18 | GATEWAY_MESSAGE_CONTENT          | Intent required for bots in **100 or more servers** to receive [message content](https://support-dev.discord.com/hc/en-us/articles/4404772028055)                                                                              |
 | 1 << 19 | GATEWAY_MESSAGE_CONTENT_LIMITED  | Intent required for bots in under 100 servers to receive [message content](https://support-dev.discord.com/hc/en-us/articles/4404772028055), found in Bot Settings                                                             |
+| 1 << 23 | APPLICATION_COMMAND_BADGE        | Indicates if an app has registered global [application commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS)                                                                                                                      |
 
 ### Install Params Object
 

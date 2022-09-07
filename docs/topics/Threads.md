@@ -30,7 +30,7 @@ Since threads are a new [type of channel](#DOCS_RESOURCES_CHANNEL/channel-object
 
 - `id`, `guild_id`, `type`, `name`, `last_message_id`, `last_pin_timestamp`, `rate_limit_per_user` are being re-used
 - `owner_id` has been repurposed to store the id of the user that started the thread
-- `parent_id` has been repurposed to store the id of the `GUILD_TEXT` or `GUILD_NEWS` channel the thread was created in
+- `parent_id` has been repurposed to store the id of the `GUILD_TEXT` or `GUILD_ANNOUNCEMENT` channel the thread was created in
 
 Additionally, there are a few new fields that are only available on threads:
 
@@ -40,7 +40,7 @@ Additionally, there are a few new fields that are only available on threads:
 
 ## Public & Private Threads
 
-Public threads are viewable by everyone who can view the parent channel of the thread. Public threads must be created from an existing message, but can be "orphaned" if that message is deleted. The created thread and the message it was started from will share the same id. The [type](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types) of thread created matches the [type](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types) of the parent channel. `GUILD_TEXT` channels [create](#DOCS_RESOURCES_CHANNEL/start-thread-from-message) `GUILD_PUBLIC_THREAD` and `GUILD_NEWS` channels [create](#DOCS_RESOURCES_CHANNEL/start-thread-from-message) `GUILD_NEWS_THREAD`.
+Public threads are viewable by everyone who can view the parent channel of the thread. Public threads must be created from an existing message, but can be "orphaned" if that message is deleted. The created thread and the message it was started from will share the same id. The [type](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types) of thread created matches the [type](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types) of the parent channel. `GUILD_TEXT` channels [create](#DOCS_RESOURCES_CHANNEL/start-thread-from-message) `PUBLIC_THREAD` and `GUILD_ANNOUNCEMENT` channels [create](#DOCS_RESOURCES_CHANNEL/start-thread-from-message) `ANNOUNCEMENT_THREAD`.
 
 Private threads behave similar to Group DMs, but in a Guild. Private threads are always [created](#DOCS_RESOURCES_CHANNEL/start-thread-without-message) with the `GUILD_PRIVATE_THREAD` [type](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types) and can only be created in `GUILD_TEXT` channels.
 
@@ -54,7 +54,7 @@ Because of this constraint, the gateway protocol is designed to ensure that bots
 
 Threads do not count against the max-channels limit in a guild, but there will be a new limit on the maximum number of active threads in a guild.
 
-Threads automatically archive after inactivity. "Activity" is defined as sending a message, unarchiving a thread, or changing the auto-archive time. Bots can control how long a thread can be inactive with the `auto_archive_duration` field. Channels can also set `default_auto_archive_duration`, which is primarily used by our clients to pre-select a different auto-archive duration when a user starts the thread creation flow.
+Threads automatically archive after 7 days of inactivity (as a server approaches the max thread limit this timer will automatically lower, but never below the `auto_archive_duration`). "Activity" is defined as sending a message, unarchiving a thread, or changing the auto-archive time. The `auto_archive_duration` field previously controlled how long a thread could stay active, but is now repurposed to control how long the thread stays in the channel list. Channels can also set `default_auto_archive_duration`, which is used by our clients to pre-select a different `auto_archive_duration` value when a user creates a thread.
 
 ## Permissions
 
@@ -117,7 +117,7 @@ Threads introduce a few new [message types](#DOCS_RESOURCES_CHANNEL/message-obje
 
 - `RECIPIENT_ADD` and `RECIPIENT_REMOVE` have been repurposed to also send when a user is added to or removed from a thread by someone else
 - `CHANNEL_NAME_CHANGE` has been repurposed and is sent when the thread's name is changed
-- `THREAD_CREATED` is a new message sent to the parent `GUILD_TEXT` channel, used to inform users that a thread has been created. It is currently only sent in one case: when a `GUILD_PUBLIC_THREAD` is created from an older message (older is still TBD, but is currently set to a very small value). The message contains a [message reference](#DOCS_RESOURCES_CHANNEL/message-reference-object-message-reference-structure) with the `guild_id` and `channel_id` of the thread. The `content` of the message is the `name` of the thread.
+- `THREAD_CREATED` is a new message sent to the parent `GUILD_TEXT` channel, used to inform users that a thread has been created. It is currently only sent in one case: when a `PUBLIC_THREAD` is created from an older message (older is still TBD, but is currently set to a very small value). The message contains a [message reference](#DOCS_RESOURCES_CHANNEL/message-reference-object-message-reference-structure) with the `guild_id` and `channel_id` of the thread. The `content` of the message is the `name` of the thread.
 - `THREAD_STARTER_MESSAGE` is a new message sent as the first message in threads that are started from an existing message in the parent channel. It _only_ contains a [message reference](#DOCS_RESOURCES_CHANNEL/message-reference-object-message-reference-structure) field that points to the message from which the thread was started.
 
 ## Enumerating threads
@@ -167,29 +167,17 @@ Discord's clients only load active threads into memory on start. So when a threa
 
 A `GUILD_FORUM` channel is very similar (from an API perspective) to a `GUILD_TEXT` channel, except only threads can be created in that channel; messages cannot be sent directly in that channel.
 
-This feature is still in active development. Many aspects are in flux and subject to change, including (but not limited to):
-- The name of the feature
-- The permissions required to create threads in a forum (currently `SEND_MESSAGES` but may change)
-- The shape of data exposed on the channel objects
-
-> warn
-> Documentation for those features will be published in the future, once they have been finalized. We recommend developers avoid implementing features that are undocumented or are documented as still in flux.
-
-Listed below are some of the important details of forum channels and are safe to implement. Many bots can have reasonable support for the new channel simply by making it aware of the new channel type so it starts processing gateway events for that channel (and thus unlocking things like bots used for moderation):
-
 - Forums are a new channel type `15`.
 - Forums do not allow messages to be sent in them. Endpoints like /channels/channel_id/messages will not work on a forum channel.
-- Threads can be created in a forum channel. All threads in a forum are of type `GUILD_PUBLIC_THREAD`. These threads and messages within the thread have the same gateway events as threads in a normal text channel.
+- Threads can be created in a forum channel. All threads in a forum are of type `PUBLIC_THREAD`. These threads and messages within the thread have the same gateway events as threads in a normal text channel.
 - The APIs for loading active & archived threads, joining & leaving a thread, and loading who is in a thread are unchanged and work the same for threads in a forum.
 - The API to create a thread in a forum will create _both_ a thread and message in the same call, and as such requires passing in parameters for both the thread and message. The name and behavior of parameters is the same as they are for the existing create thread/message endpoints to simplify integrating with it.
 - The message created by that API call will have the same id as the thread.
 - The `last_message_id` field on the forum channel object tracks the id of the most recently created thread. It has the same behavior and requirements as it does for messages, namely that you will not receive a `CHANNEL_UPDATE` when it is changed. Instead clients should update the value when receiving [Thread Create](#DOCS_TOPICS_GATEWAY/thread-create).
-- The `message_count` and `total_message_sent` will increment on `MESSAGE_CREATE` and will decrement on `MESSAGE_DELETE`/`MESSAGE_DELETE_BULK`. There will be no `CHANNEL_UPDATE` event through gateway notifying those fields' changes (similar to `last_message_id` changes). Clients should update those values when receiving corresponding events.
-
-Listed below are things that are unlikely to change, but still might:
-
+- The `message_count` and `total_message_sent` fields on threads created in a forum will increment on `MESSAGE_CREATE` and will decrement on `MESSAGE_DELETE`/`MESSAGE_DELETE_BULK`. There will be no `CHANNEL_UPDATE` event through gateway notifying those fields' changes (similar to `last_message_id` changes). Clients should update those values when receiving corresponding events.
 - The `topic` field on a forum channel is what is shown in the "Guidelines" section visually
-- The `rate_limit_per_user` field currently behaves the same as in a text channel, limiting how frequently threads can be created, _but its behavior may be changed before launching_.
+- The `rate_limit_per_user` field currently behaves the same as in a text channel, limiting how frequently threads can be created. There is a new `default_thread_rate_limit_per_user` field that can be set on the forum as well, which will limit how often messages can be sent _in a thread_. This field is copied into `rate_limit_per_user` on the thread at creation time.
 - Threads in a forum have the same permissions behavior as threads in a text channel, inheriting all permissions from the parent channel, with just one exception: Creating a thread in a forum channel only requires the permission that is currently named `SEND_MESSAGES`.
 - The first message in a forum thread can contain additional markdown for bulleted list and headings.
 - A thread can be pinned within a forum. A thread that is pinned will have the `(1 << 1)` flag set. Archiving a pinned thread will unset the flag. A pinned thread will not auto archive.
+- Forums can specify `available_tags` that can be set on individual threads via the `applied_tags` field.

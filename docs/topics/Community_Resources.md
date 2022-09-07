@@ -53,7 +53,7 @@ Discord does not maintain official SDKs.  The following table is an inexhaustive
   - [discord-interactions-python](https://github.com/discord/discord-interactions-python)
   - [discord-interactions.py](https://github.com/LiBa001/discord-interactions.py)
   - [dispike](https://github.com/ms7m/dispike)
-  - [flask-discord-interactions](https://github.com/Breq16/flask-discord-interactions)
+  - [flask-discord-interactions](https://github.com/breqdev/flask-discord-interactions)
   - [hikari](https://github.com/hikari-py/hikari)
 - PHP
   - [discord-interactions-php](https://github.com/discord/discord-interactions-php)
@@ -103,4 +103,4 @@ If you're working on a project that interacts with our API, you might find an AP
 | Name                                                                   | Language   |
 | ---------------------------------------------------------------------- | ---------- |
 | [dasgo](https://github.com/switchupcb/dasgo)                           | Go         |
-| [discord.js API Types](https://github.com/discordjs/discord-api-types) | JavaScript |
+| [discord-api-types](https://github.com/discordjs/discord-api-types)    | JavaScript |

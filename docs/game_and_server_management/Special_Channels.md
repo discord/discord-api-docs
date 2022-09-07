@@ -1,7 +1,7 @@
 # Store Channels
 
 > danger
-> Selling SKUs on Discord has been discontinued as of March 1, 2022. [Read here for more info.](https://support.discord.com/hc/en-us/articles/4688647258007-Self-serve-Game-Selling-Deprecation)
+> Selling SKUs on Discord has been discontinued as of March 1, 2022. [Read here for more info.](https://support-dev.discord.com/hc/en-us/articles/6309018858647-Self-serve-Game-Selling-Deprecation)
 
 
 One of the new flagship features of Verified Servers and Game Servers are the ability to host your store pages directly in your server. We know that community is everything for games, and that your server is already the place where your community lives. Rather than the friction and impersonality of traditional storefronts, you can let your fans find your game in the cozy comfort of their home (your server!).

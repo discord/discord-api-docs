@@ -203,8 +203,11 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 40033  | This message has already been crossposted                                                                                     |
 | 40041  | An application command with that name already exists                                                                          |
 | 40043  | Application interaction failed to send                                                                                        |
+| 40058  | Cannot send a message in a forum channel                                                                                      |
 | 40060  | Interaction has already been acknowledged                                                                                     |
 | 40061  | Tag names must be unique                                                                                                      |
+| 40066  | There are no tags available that can be set by non-moderators                                                                 |
+| 40067  | A tag is required to create a forum post in this channel                                                                      |
 | 50001  | Missing access                                                                                                                |
 | 50002  | Invalid account type                                                                                                          |
 | 50003  | Cannot execute action on a DM channel                                                                                         |
@@ -278,7 +281,11 @@ Along with the HTTP error code, our API can also return more detailed error code
 | 180002 | Failed to create stage needed for stage event                                                                                 |
 | 200000 | Message was blocked by automatic moderation                                                                                   |
 | 200001 | Title was blocked by automatic moderation                                                                                     |
+| 220001 | Webhooks posted to forum channels must have a thread_name or thread_id                                                        |
+| 220002 | Webhooks posted to forum channels cannot have both a thread_name and thread_id                                                |
 | 220003 | Webhooks can only create threads in forum channels                                                                            |
+| 220004 | Webhook services cannot be used in forum channels                                                                             |
+| 240000 | Message blocked by harmful links filter                                                                                       |
 
 ###### Example JSON Error Response
 

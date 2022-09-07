@@ -4,7 +4,7 @@
 > Need help with the SDK? Talk to us in the [Discord Developers Server](https://discord.gg/discord-developers)!
 
 > danger
-> Selling SKUs on Discord has now been discontinued as of March 1, 2022. [Read here for more info.](https://support.discord.com/hc/en-us/articles/4688647258007-Self-serve-Game-Selling-Deprecation)
+> Selling SKUs on Discord has now been discontinued as of March 1, 2022. [Read here for more info.](https://support-dev.discord.com/hc/en-us/articles/6309018858647-Self-serve-Game-Selling-Deprecation)
 
 There's no feeling quite like accomplishing a goal that you've set out to achieve. Is killing 1000 zombies in a game as great an achievement as climbing Mt. Everest? Of course it is, and I didn't even have to leave my house. So get off my back, society.
 
@@ -342,7 +342,7 @@ Deletes the given achievement from your application. This endpoint has a rate li
 // 204 No Content
 ```
 
-## Update User Achievement % PUT /applications/{application.id#DOCS_GAME_SDK_SDK_STARTER_GUIDE/get-set-up}/achievements/{achievement.id#DOCS_GAME_SDK_ACHIEVEMENTS/data-models-achievement-struct}
+## Update User Achievement % PUT /users/{user.id#DOCS_RESOURCES_USER/user-object}/applications/{application.id#DOCS_GAME_SDK_SDK_STARTER_GUIDE/get-set-up}/achievements/{achievement.id#DOCS_GAME_SDK_ACHIEVEMENTS/data-models-achievement-struct}
 
 Updates the UserAchievement record for a given user. Use this endpoint to update `secure` achievement progress for users. This endpoint has a rate limit of 5 requests per 5 seconds per application.
 
