@@ -286,6 +286,7 @@ Two types of intents exist:
 
 The connection with your app will be closed if it passes invalid intents ([`4013` close code](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/gateway-gateway-close-event-codes)), or a priviledged intent that hasn't been configured or approved for your app ([`4014` close code](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/gateway-gateway-close-event-codes)).
 
+
 ### List of Intents
 
 Below is a list of all intents and the events associated with them. Any events *not* listed means it's not associated with an intent and will always be sent to your app.
@@ -400,7 +401,7 @@ AUTO_MODERATION_EXECUTION (1 << 21)
 
 \* [Thread Members Update](#DOCS_TOPICS_GATEWAY/thread-members-update) contains different data depending on which intents are used.
 
-\*\* `MESSAGE_CONTENT` is a special case as it doesn't represent individual events, but rather affects the data sent for most events that could contain message content fields (`content`, `attachments`, `embeds`, and `components`).
+\*\* `MESSAGE_CONTENT` does not represent individual events, but rather affects what data is present for events that could contain message content fields. More information is in the [message content intent](#DOCS_TOPICS_GATEWAY/message-content-intent) section.
 
 ### Caveats
 
@@ -412,13 +413,22 @@ AUTO_MODERATION_EXECUTION (1 << 21)
 
 ### Privileged Intents
 
-Priviledged intents are intents restricted due to the sensitive nature of the data they allow an app to receive. The current priviledged intents are listed below, but which intents are priviledged may change over time (with plenty of warning).
+Some intents are defined as "privileged" due to the sensitive nature of the data. Currently, those intents include:
 
-- `GUILD_PRESENCES (1 << 8)`
-- `GUILD_MEMBERS (1 << 1)`
+- `GUILD_PRESENCES`
+- `GUILD_MEMBERS`
+- [`MESSAGE_CONTENT`](#DOCS_TOPICS_GATEWAY/message-content-intent)
 
-> warn
-> `MESSAGE_CONTENT` will become a privileged intent in Aug 2022. [Learn more here](https://support-dev.discord.com/hc/en-us/articles/4404772028055) or read the guide on [upgrading to commands](#DOCS_TUTORIALS_UPGRADING_TO_APPLICATION_COMMANDS).
+Apps that qualify for verification **must** be approved for the privileged intent(s) before they can use them. After your app is verified, you can request privileged intents from your app's settings within the Developer Portal.
+
+To specify privileged intents in your `IDENTIFY` payload, you must enable the privileged intents your app requires. To toggle privileged intents, navigate to your app's settings in the Developer Portal. Click on the **Bot** page, and under the "Privileged Gateway Intents" section you can enable the toggle for each intent your app needs. Verified apps can only use privileged intents after they've been approved for them.
+
+> info
+> Unverified apps can use privileged intents without approval, but still must enable them in their app's settings. If the app's verification status changes, it will then have to apply for the privileged intent(s).
+
+Events under the `GUILD_PRESENCES` and `GUILD_MEMBERS` intents are turned **off by default on all API versions**. If you are using **API v6**, you will receive those events if you are authorized to receive them and have enabled the intents in the Developer Portal. You do not need to use Intents on API v6 to receive these events; you just need to enable the flags. If you are using **API v8** or above, Intents are mandatory and must be specified when identifying.
+
+In addition to the gateway restrictions described here, Discord's REST API is also affected by Privileged Intents. For example, to use the [List Guild Members](#DOCS_RESOURCES_GUILD/list-guild-members) endpoint, you must have the `GUILD_MEMBERS` intent enabled for your application. This behavior is independent of whether the intent is set during `IDENTIFY`.
 
 #### Enabling Priviledged Intents
 
@@ -440,6 +450,20 @@ Events associated with the `GUILD_PRESENCES` and `GUILD_MEMBERS` intents are tur
 In addition to Gateway restrictions, priviledged intents also affect the [HTTP API](#DOCS_REFERENCE/http-api) endpoints your app is permitted to call. For example, to use the [List Guild Members](#DOCS_RESOURCES_GUILD/list-guild-members) endpoint, your app must configure the `GUILD_MEMBERS` intent (and be approved for it if eligible for verified).
 
 HTTP API restrictions are independent of Gateway restrictions, and are unaffected by which intents an app passes in the `intents` parameter when Identifying.
+
+#### Message Content Intent
+
+`MESSAGE_CONTENT (1 << 15)` is a unique privileged intent that isn't directly associated with any Gateway events. Instead, access to `MESSAGE_CONTENT` permits your app to receive message content data across the APIs.
+
+Any fields affected by the message content intent are noted in the relevant documentation. For example, the `content`, `embeds`, `attachments`, and `components` fields in [message objects](#DOCS_RESOURCES_CHANNEL/message-object) all contain message content and therefore require the intent.
+
+> info
+> Like other privileged intents, `MESSAGE_CONTENT` must be approved for your app. After your app is verified, you can apply for the intent from your app's settings within the Developer Portal. You can read more about the message content intent review policy [in the Help Center](https://support-dev.discord.com/hc/en-us/articles/5324827539479).
+
+Apps **without** the intent will receive empty values in fields that contain user-inputted content with a few exceptions:
+- Content in messages that an app sends
+- Content in DMs with the app
+- Content in which the app is [mentioned](#DOCS_REFERENCE/message-formatting-formats)
 
 ## Rate Limiting
 

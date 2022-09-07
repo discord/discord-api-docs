@@ -1,6 +1,6 @@
 # Upgrading Apps to Use Application Commands
 
-As [message content becomes a privileged intent](https://support-dev.discord.com/hc/en-us/articles/4404772028055-Message-Content-Privileged-Intent-FAQ) for apps in 75 or more servers, [application commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS) will become the primary way Discord users interact with apps. The three types of commands (slash commands, user commands, and message commands) act as entry points into apps, and can be registered globally or for a subset of guilds.
+As [message content has become a privileged intent](https://support-dev.discord.com/hc/en-us/articles/4404772028055-Message-Content-Privileged-Intent-FAQ) for verified apps, [application commands](#DOCS_INTERACTIONS_APPLICATION_COMMANDS) are the primary way Discord users interact with apps. The three types of commands (slash commands, user commands, and message commands) act as entry points into apps, and can be registered globally or for a subset of guilds.
 
 This guide is intended to provide developers with apps currently using message content with a resource to walk through implementing and designing commands. Throughout the guide, the terms "application commands" and "commands" are used interchangeably.
 
@@ -126,7 +126,7 @@ Permissions for specific roles, users, and channels can be updated by your app i
 Commands use the [interactions model](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING) through HTTP-based outgoing webhooks or the WebSocket-based [Interaction Create gateway event](#DOCS_TOPICS_GATEWAY_EVENTS/interaction-create). Regardless of the transit method used to arrive, your app will receive relevant information when a Discord user triggers one of your app’s interactions.
 
 > warn
-> If you continue using gateway events, you’ll still receive message events but the payload will have empty string or array data for message content-related fields—like `content`, `embeds`, `attachments`, and `components`. You can read more about the changes to these events [in the original announcement](https://support-dev.discord.com/hc/en-us/articles/4404772028055-Message-Content-Privileged-Intent-for-Verified-Bots).
+> If you continue using Gateway events, you’ll still receive message events but the payloads will have empty string or array data for message content-related fields like `content`, `embeds`, `attachments`, and `components`. You can read more in the [message content intent](#DOCS_TOPICS_GATEWAY/message-content-intent) section.
 
 For commands, this means that each time one of your commands is used, your app will receive information like the command name and the user who triggered it. More information about this information is below in the section on [parsing command payloads](#DOCS_TUTORIALS_UPGRADING_TO_APPLICATION_COMMANDS/parsing-command-payloads).
 
@@ -281,20 +281,6 @@ You can also inform users about changes within the servers your app is installed
 The following is an example of an app update that may be sent to communicate the new way to access commands. Depending on the different features your app adopts (like options, subcommands, permissions, etc.), an update message or changelog entry will look very different.
 
 ![Example message updating users about a new feature](examples-update-message.png)
-
-### Adding Reactive Education
-
-In addition to proactively communicating changes, you can reactively educate users when making changes to your app.
-
-For example, if your app currently replies to messages that start with `!poll`, you can continue listening to those messages for a couple of weeks and redirect users to a new `/poll` command. Or you can continue responding to the `!poll` command, but include a disclaimer that support for it will soon be removed. 
-
-Note that for message intents specifically, this approach only works between now and the August deadline.
-
-#### Example
-
-The following is an example of a message that appears when a user tries to use a prefix command.
-
-![Example message in response to using a deprecated feature](examples-message-reactive.png)
 
 ### Making Help Available
 
