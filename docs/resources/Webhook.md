@@ -23,7 +23,7 @@ Used to represent a webhook.
 | source_channel? *  | partial [channel](#DOCS_RESOURCES_CHANNEL/channel-object) object | the channel that this webhook is following (returned for Channel Follower Webhooks)                           |
 | url?               | string                                                           | the url used for executing the webhook (returned by the [webhooks](#DOCS_TOPICS_OAUTH2/webhooks) OAuth2 flow) |
 
-\* These fields will be absent if the creator has since lost access to the guild where the followed channel resides
+\* These fields will be absent if the webhook creator has since lost access to the guild where the followed channel resides
 
 ###### Webhook Types
 
