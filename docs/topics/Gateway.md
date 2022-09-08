@@ -24,7 +24,7 @@ Gateway event payloads have a common structure, but the contents of the associat
 | ----- | ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
 | op    | integer                 | [Gateway opcode](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/gateway-gateway-opcodes), which indicates the payload type                          |
 | d     | ?mixed (any JSON value) | Event data                                                                                                                                 |
-| s     | ?integer \*             | Sequence number of event used for [resuming sessions](#DOCS_TOPICS_GATEWAY/resuming) and [heartbeating](#DOCS_TOPICS_GATEWAY/heartbeating) |
+| s     | ?integer \*             | Sequence number of event used for [resuming sessions](#DOCS_TOPICS_GATEWAY/resuming) and [heartbeating](#DOCS_TOPICS_GATEWAY/sending-heartbeats) |
 | t     | ?string \*              | Event name                                                                                                                                 |
 
 \* `s` and `t` are `null` when `op` is not `0` ([Gateway Dispatch opcode](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/gateway-gateway-opcodes)).
@@ -66,11 +66,11 @@ All events that your app can receive via a connection are in the [Gateway event 
 
 #### Dispatch Events
 
-[Dispatch (opcode `0`)](#DOCS_TOPICS_GATEWAY_EVENTS/sending-payloads-example-gateway-dispatch) events are the broadest type of event that your app will receive since *most* Gateway events that represent actions taking place in a guild will be sent to your app as a Dispatch event
+[Dispatch (opcode `0`)](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/gateway-gateway-opcodes) events are the broadest type of event that your app will receive since *most* Gateway events that represent actions taking place in a guild will be sent to your app as a Dispatch event
 
 When your app is parsing a Dispatch event:
 - The `t` field can be used to determine which [Gateway event](#DOCS_TOPICS_GATEWAY_EVENTS/receive-events) the payload represents and the data you can expect in the `d` field.
-- The `s` field represents the sequence number (or relative order) of the event. You need to cache the most recent non-null `s` value for heartbeats, and to pass when [Resuming](#DOCS_TOPICS_GATEWAY/RESUMING) a connection.
+- The `s` field represents the sequence number (or relative order) of the event. You need to cache the most recent non-null `s` value for heartbeats, and to pass when [Resuming](#DOCS_TOPICS_GATEWAY/resuming) a connection.
 
 ## Connections
 
@@ -94,7 +94,7 @@ At a high-level, Gateway connections require the following cycle:
 4. App sends an [Identify (opcode `2`)](#DOCS_TOPICS_GATEWAY_EVENTS/identify) event to perform the initial handshake with the Gateway. **Read the section on [Identifying](#DOCS_TOPICS_GATEWAY/identifying)**
 5. Discord sends the app a [Ready (opcode `0`)](#DOCS_TOPICS_GATEWAY_EVENTS/ready) event which indicates the handshake was successful and the connection is established. The Ready event contains a `resume_gateway_url` that the app should keep track of to determine the WebSocket URL an app should use to Resume. **Read the section on [the Ready event](#DOCS_TOPICS_GATEWAY/ready-event)**
 6. The connection may be dropped for a variety of reasons. Whether the app can [Resume](#DOCS_TOPICS_GATEWAY/resuming) the connection or whether it must re-identify is determined by a variety of factors like the [opcode](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/gateway-gateway-opcodes) and [close code](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/gateway-gateway-close-event-codes) that it receives. **Read the section on [Disconnecting](#DOCS_TOPICS_GATEWAY/disconnecting)**
-7. If an app **can** resume/reconnect, it should open a new connection using `resume_gateway_url`, then send a [Resume (opcode `6`)](#DOCS_TOPICS_GATEWAY/resume) event. If an app **cannot** resume/reconnect, it should open a new connection using the cached URL from step #1, then repeat the whole cycle. *Yipee!* **Read the section on [Resuming](#DOCS_TOPICS_GATEWAY/resuming)**
+7. If an app **can** resume/reconnect, it should open a new connection using `resume_gateway_url`, then send a [Resume (opcode `6`)](#DOCS_TOPICS_GATEWAY_EVENTS/resume) event. If an app **cannot** resume/reconnect, it should open a new connection using the cached URL from step #1, then repeat the whole cycle. *Yipee!* **Read the section on [Resuming](#DOCS_TOPICS_GATEWAY/resuming)**
 
 ### Connecting
 
@@ -117,7 +117,7 @@ When connecting to the URL, it's a good idea to explicitly pass the API version 
 
 #### Hello Event
 
-Once connected to the Gateway, your app should immediately receive a [Hello (opcode `10`)](#DOCS_TOPICS_GATEWAY/hello) event that contains your connection's heartbeat interval (`hearbeat_interval`).
+Once connected to the Gateway, your app should immediately receive a [Hello (opcode `10`)](#DOCS_TOPICS_GATEWAY/hello-event) event that contains your connection's heartbeat interval (`hearbeat_interval`).
 
 The heartbeat interval indicates a length of time in milliseconds that you should use to determine how often you app needs to send a Heartbeat event in order to maintain the active connection. Heartbeating is detailed in the [Sending Heartbeats](#DOCS_TOPICS_GATEWAY/sending-heartbeats) section.
 
@@ -138,7 +138,7 @@ Heartbeats are pings used to let Discord know that an app is still actively usin
 
 #### Heartbeat Interval
 
-When an app opens a connection to the Gateway, it receives a [Hello (opcode `10`)](#DOCS_TOPICS_GATEWAY/hello) event which includes a `heartbeat_interval` field that's value is a length of time in milliseconds.
+When an app opens a connection to the Gateway, it receives a [Hello (opcode `10`)](#DOCS_TOPICS_GATEWAY/hello-event) event which includes a `heartbeat_interval` field that's value is a length of time in milliseconds.
 
 Upon receiving this Hello event, your app should wait `heartbeat_interval * jitter` where `jitter` is any random value between 0 and 1, then send its first [Heartbeat (opcode `1`)](#DOCS_TOPICS_GATEWAY_EVENTS/heartbeat) event. From that point until the connection is closed, your app must continually send Discord a heartbeat every `heartbeat_interval` milliseconds. If your app fails to send a heartbeat event in time, your connection will be closed and you will be forced to [Resume](#DOCS_TOPICS_GATEWAY/resuming).
 
@@ -246,7 +246,7 @@ There are a handful of scenarios when your app should attempt to resume:
 
 #### Preparing to Resume
 
-Before your app can send a [Resume (opcode `6`)](#DOCS_TOPICS_GATEWAY_EVENTS/resume) event, it will need three values: the `session_id` and `resume_gateway_url` from the [Ready](#DOCS_TOPICS_GATEWAY/ready) event, and the sequence number (`s`) from the last Dispatch (opcode `0`) event it received before the disconnect.
+Before your app can send a [Resume (opcode `6`)](#DOCS_TOPICS_GATEWAY_EVENTS/resume) event, it will need three values: the `session_id` and `resume_gateway_url` from the [Ready](#DOCS_TOPICS_GATEWAY/ready-event) event, and the sequence number (`s`) from the last Dispatch (opcode `0`) event it received before the disconnect.
 
 After the connection is closed, your app should open a *new* connection using `resume_gateway_url` rather than the URL you used to initially connect. If your app doesn't use the `resume_gateway_url` when reconnecting, it will experience disconnects at a higher rate than normal.
 
@@ -254,9 +254,9 @@ Once the new connection is opened, your app should send a [Gateway Resume](#DOCS
 
 When Resuming, you do not need to send an Identify event after opening the connection.
 
-If successful, the gateway will respond by replaying all missed events in order, finishing with a [Resumed](#DOCS_TOPICS_GATEWAY/resumed) event to signal replay has finished and all subsequent events will be new.
+If successful, the gateway will respond by replaying all missed events in order, finishing with a [Resumed](#DOCS_TOPICS_GATEWAY_EVENTS/resumed) event to signal replay has finished and all subsequent events will be new.
 
-It's possible your app won't reconnect in time to Resume, in which case it will receive an [Invalid Session (opcode `9`)](#DOCS_TOPICS_GATEWAY/invalid-session) event. If the `d` field is not set to `true` (it will almost always be `false`), your app should wait between 1 and 5 seconds then send an [Identify (opcode `2`)](#DOCS_TOPICS_GATEWAY/identify) event.
+It's possible your app won't reconnect in time to Resume, in which case it will receive an [Invalid Session (opcode `9`)](#DOCS_TOPICS_GATEWAY_EVENTS/invalid-session) event. If the `d` field is not set to `true` (it will almost always be `false`), your app should disconnect. After disconnect, your app should create a new connection with your cached URL from the [Get Gateway](#DOCS_TOPICS_GATEWAY/get-gateway) or the [Get Gateway Bot](#DOCS_TOPICS_GATEWAY/get-gateway-bot) endpoint, then send an [Identify (opcode `2`)](#DOCS_TOPICS_GATEWAY_EVENTS/identify) event.
 
 ###### Example Gateway Resume Event
 
@@ -275,7 +275,7 @@ It's possible your app won't reconnect in time to Resume, in which case it will 
 
 Maintaining a stateful application can be difficult when it comes to the amount of data you're expected to process over a Gateway connection, especially at scale. Gateway intents are a system to help you lower the computational burden.
 
-Intents are bitwise values passed in the `intents` parameter when [Identifying](#DOCS_TOPICS_GATEWAY/identify) which correlate to a pre-defined set of related events. For example, the event sent when a guild is created (`GUILD_CREATE`) and when a channel is updated (`CHANNEL_UPDATE`) both require the same `GUILDS (1 << 0)` intent (as listed in the table below). If you do not specify an intent when identifying, you will not receive *any* of the Gateway events associated with that intent.
+Intents are bitwise values passed in the `intents` parameter when [Identifying](#DOCS_TOPICS_GATEWAY/identifying) which correlate to a pre-defined set of related events. For example, the event sent when a guild is created (`GUILD_CREATE`) and when a channel is updated (`CHANNEL_UPDATE`) both require the same `GUILDS (1 << 0)` intent (as listed in the table below). If you do not specify an intent when identifying, you will not receive *any* of the Gateway events associated with that intent.
 
 > info
 > Intents are optionally supported on the v6 gateway but required as of v8
@@ -399,17 +399,17 @@ AUTO_MODERATION_EXECUTION (1 << 21)
   - AUTO_MODERATION_ACTION_EXECUTION
 ```
 
-\* [Thread Members Update](#DOCS_TOPICS_GATEWAY/thread-members-update) contains different data depending on which intents are used.
+\* [Thread Members Update](#DOCS_TOPICS_GATEWAY_EVENTS/thread-members-update) contains different data depending on which intents are used.
 
 \*\* `MESSAGE_CONTENT` does not represent individual events, but rather affects what data is present for events that could contain message content fields. More information is in the [message content intent](#DOCS_TOPICS_GATEWAY/message-content-intent) section.
 
 ### Caveats
 
-[Guild Member Update](#DOCS_TOPICS_GATEWAY/guild-member-update) is sent for current-user updates regardless of whether the `GUILD_MEMBERS` intent is set.
+[Guild Member Update](#DOCS_TOPICS_GATEWAY_EVENTS/guild-member-update) is sent for current-user updates regardless of whether the `GUILD_MEMBERS` intent is set.
 
-[Guild Create](#DOCS_TOPICS_GATEWAY/guild-create) and [Request Guild Members](#DOCS_TOPICS_GATEWAY/request-guild-members) are uniquely affected by intents. See these sections for more information.
+[Guild Create](#DOCS_TOPICS_GATEWAY_EVENTS/guild-create) and [Request Guild Members](#DOCS_TOPICS_GATEWAY_EVENTS/request-guild-members) are uniquely affected by intents. See these sections for more information.
 
-[Thread Members Update](#DOCS_TOPICS_GATEWAY/thread-members-update) by default only includes if the current user was added to or removed from a thread.  To receive these updates for other users, request the `GUILD_MEMBERS` [Gateway Intent](#DOCS_TOPICS_GATEWAY/gateway-intents).
+[Thread Members Update](#DOCS_TOPICS_GATEWAY_EVENTS/thread-members-update) by default only includes if the current user was added to or removed from a thread.  To receive these updates for other users, request the `GUILD_MEMBERS` [Gateway Intent](#DOCS_TOPICS_GATEWAY/gateway-intents).
 
 ### Privileged Intents
 
@@ -470,9 +470,9 @@ Apps **without** the intent will receive empty values in fields that contain use
 > info
 > This section refers to Gateway rate limits, not [HTTP API rate limits](#DOCS_TOPICS_RATE_LIMITS)
 
-Apps can send 120 [gateway events](#DOCS_TOPICS_GATEWAY/commands-and-events) every 60 seconds, meaning an average of 2 commands per second. Apps that surpass the limit are immediately disconnected from the Gateway. Similar to other rate limits, repeat offenders will have their API access revoked.
+Apps can send 120 [gateway events](#DOCS_TOPICS_GATEWAY_EVENTS) every 60 seconds, meaning an average of 2 commands per second. Apps that surpass the limit are immediately disconnected from the Gateway. Similar to other rate limits, repeat offenders will have their API access revoked.
 
-Apps also have a limit for [concurrent](#DOCS_TOPICS_GATEWAY/session-start-limit-object) [Identify](#DOCS_TOPICS_GATEWAY/identify) requests allowed per 5 seconds. If you hit this limit, the Gateway will respond with an [Invalid Session (opcode `9`)](#DOCS_TOPICS_GATEWAY/invalid-session).
+Apps also have a limit for [concurrent](#DOCS_TOPICS_GATEWAY/session-start-limit-object) [Identify](#DOCS_TOPICS_GATEWAY/identifying) requests allowed per 5 seconds. If you hit this limit, the Gateway will respond with an [Invalid Session (opcode `9`)](#DOCS_TOPICS_GATEWAY_EVENTS/invalid-session).
 
 ## Encoding and Compression
 
@@ -482,7 +482,7 @@ Apps can also optionally enable compression to receive zlib-compressed packets. 
 
 ### Using JSON Encoding
 
-When using the plain-text JSON encoding, apps have the option to enable [payload compression](#DOCS_TOPICS_GATEWAY/using-json-payload-compression). 
+When using the plain-text JSON encoding, apps have the option to enable [payload compression](#DOCS_TOPICS_GATEWAY/payload-compression). 
 
 #### Payload Compression
 
@@ -491,7 +491,7 @@ When using the plain-text JSON encoding, apps have the option to enable [payload
 
 Payload compression enables optional per-packet compression for *some* events when Discord is sending events over the connection.
 
-Payload compression uses the zlib format (see [RFC1950 2.2](https://tools.ietf.org/html/rfc1950#section-2.2)) when sending payloads. To enable payload compression, your app can set `compress` to `true` when sending an [Identify (opcode `2`)](#DOCS_TOPICS_GATEWAY/identify) event. Note that even when payload compression is enabled, not all payloads will be compressed.
+Payload compression uses the zlib format (see [RFC1950 2.2](https://tools.ietf.org/html/rfc1950#section-2.2)) when sending payloads. To enable payload compression, your app can set `compress` to `true` when sending an [Identify (opcode `2`)](#DOCS_TOPICS_GATEWAY_EVENTS/identify) event. Note that even when payload compression is enabled, not all payloads will be compressed.
 
 When payload compression is enabled, your app (or library) _must_ detect and decompress these payloads to plain-text JSON before attempting to parse them. If you are using payload compression, the gateway does not implement a shared compression context between events sent.
 
@@ -546,18 +546,18 @@ def on_websocket_message(msg):
 
 ## Tracking State
 
-Most of a client's state is provided during the initial [Ready](#DOCS_TOPICS_GATEWAY/ready) event and in the [Guild Create](#DOCS_TOPICS_GATEWAY/guild-create) events that follow.
+Most of a client's state is provided during the initial [Ready](#DOCS_TOPICS_GATEWAY/ready-event) event and in the [Guild Create](#DOCS_TOPICS_GATEWAY_EVENTS/guild-create) events that follow.
 
 As resources continue to be created, updated, and deleted, Gateway events are sent to notify the app of these changes and to provide associated data. To avoid excessive API calls, apps should cache as many relevant resource states as possible, and update them as new events are received.
 
 > info
-> For larger apps, client state can grow to be very large. Therefore, we recommend only storing data in memory that are *needed* for the app to operate. In some cases, there isn't a need to cache member information (like roles or permissions) since some events like [MESSAGE_CREATE](#DOCS_TOPICS_GATEWAY/message-create) have the full member object included.
+> For larger apps, client state can grow to be very large. Therefore, we recommend only storing data in memory that are *needed* for the app to operate. In some cases, there isn't a need to cache member information (like roles or permissions) since some events like [MESSAGE_CREATE](#DOCS_TOPICS_GATEWAY_EVENTS/message-create) have the full member object included.
 
-An example of state tracking can be considered in the case of an app that wants to track member status: when initially connecting to the Gateway, the app will receive information about the online status of guild members (whether they're online, idle, dnd, or offline). To keep the state updated, the app will track and parse [Presence Update](#DOCS_TOPICS_GATEWAY/presence-update) events as they're received, then update the cached member objects accordingly.
+An example of state tracking can be considered in the case of an app that wants to track member status: when initially connecting to the Gateway, the app will receive information about the online status of guild members (whether they're online, idle, dnd, or offline). To keep the state updated, the app will track and parse [Presence Update](#DOCS_TOPICS_GATEWAY_EVENTS/presence-update) events as they're received, then update the cached member objects accordingly.
 
 ## Guild Availability
 
-When connecting to the gateway as a bot user, guilds that the bot is a part of will start out as unavailable. Don't fret! The gateway will automatically attempt to reconnect on your behalf. As guilds become available to you, you will receive [Guild Create](#DOCS_TOPICS_GATEWAY/guild-create) events.
+When connecting to the gateway as a bot user, guilds that the bot is a part of will start out as unavailable. Don't fret! The gateway will automatically attempt to reconnect on your behalf. As guilds become available to you, you will receive [Guild Create](#DOCS_TOPICS_GATEWAY_EVENTS/guild-create) events.
 
 ## Sharding
 
@@ -566,7 +566,7 @@ As apps grow and are added to an increasing number of guilds, some developers ma
 > warn
 > Each shard can only support a maximum of 2500 guilds, and apps that are in 2500+ guilds *must* enable sharding. 
 
-To enable sharding on a connection, the app should send the `shard` array in the [Identify](#DOCS_TOPICS_GATEWAY/identify) payload. The first item in this array should be the zero-based integer value of the current shard, while the second represents the total number of shards. DMs will only be sent to shard 0.
+To enable sharding on a connection, the app should send the `shard` array in the [Identify](#DOCS_TOPICS_GATEWAY_EVENTS/identify) payload. The first item in this array should be the zero-based integer value of the current shard, while the second represents the total number of shards. DMs will only be sent to shard 0.
 
 > info
 > The [Get Gateway Bot](#DOCS_TOPICS_GATEWAY/get-gateway-bot) endpoint provides a recommended number of shards for your app in the `shards` field

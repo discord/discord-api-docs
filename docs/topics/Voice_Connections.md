@@ -61,7 +61,7 @@ With this information, we can move on to establishing a voice WebSocket connecti
 
 ## Establishing a Voice Websocket Connection
 
-Once we retrieve a session_id, token, and endpoint information, we can connect and handshake with the voice server over another secure WebSocket. Unlike the gateway endpoint we receive in an HTTP [Get Gateway](#DOCS_TOPICS_GATEWAY_EVENTS/get-gateway) request, the endpoint received from our [Voice Server Update](#DOCS_TOPICS_GATEWAY_EVENTS/voice-server-update) payload does not contain a URL protocol, so some libraries may require manually prepending it with "wss://" before connecting. Once connected to the voice WebSocket endpoint, we can send an [Opcode 0 Identify](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice) payload with our server_id, user_id, session_id, and token:
+Once we retrieve a session_id, token, and endpoint information, we can connect and handshake with the voice server over another secure WebSocket. Unlike the gateway endpoint we receive in an HTTP [Get Gateway](#DOCS_TOPICS_GATEWAY/get-gateway) request, the endpoint received from our [Voice Server Update](#DOCS_TOPICS_GATEWAY_EVENTS/voice-server-update) payload does not contain a URL protocol, so some libraries may require manually prepending it with "wss://" before connecting. Once connected to the voice WebSocket endpoint, we can send an [Opcode 0 Identify](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice) payload with our server_id, user_id, session_id, and token:
 
 ###### Example Voice Identify Payload
 
