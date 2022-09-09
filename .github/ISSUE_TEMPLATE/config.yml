@@ -13,8 +13,8 @@ contact_links:
     url: https://feedback.discord.com
     about: Have feedback that isn't related to the API? Head over to Discord's feedback website.
   - name: Discord Bug Reports
-    url: https://discord.gg/discord-testers
-    about: Have bugs that aren't related to the API? Head over to the Discord Testers server.
+    url: https://dis.gd/bugreport
+    about: Have bugs that aren't related to the API? Submit a ticket to Discord's support team.
   - name: Discord Support
     url: https://dis.gd/contact
     about: Need something else? Submit a ticket to Discord's support team.
