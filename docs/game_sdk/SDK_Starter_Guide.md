@@ -23,7 +23,8 @@ Now you know, and knowing is half the battle.
 
 I know you're already convinced, so let's begin. First, get the SDK. Here it is:
 
-- [Discord Game SDK](https://dl-game-sdk.discordapp.net/2.5.6/discord_game_sdk.zip)
+- [Discord GameSDK v3.2.1](https://dl-game-sdk.discordapp.net/3.2.1/discord_game_sdk.zip) - Latest version, includes Apple silicon (aarch64) support
+- [Discord GameSDK v2.5.6](https://dl-game-sdk.discordapp.net/2.5.6/discord_game_sdk.zip) - Try this version if you encounter bugs on the latest version
 
 There's a few things in there, but let's quickly talk about what the SDK actually _is_. Inside the `lib/` folder, you'll see `x86/` and `x86_64/` that have some `.lib`, `.bundle`, and `.dll` files. These are the things you want to distribute with your game.
 
