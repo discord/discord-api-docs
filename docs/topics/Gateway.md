@@ -9,7 +9,7 @@ The Gateway is Discord's form of real-time communication used by clients (includ
 
 ## Gateway Events
 
-Gateway events are payloads sent over a [Gateway connection](#DOCS_TOPICS_GATEWAY/connections)—either from an app to Discord, or from Discord to an app. An app typically [*sends* events](#DOCS_TOPICS_GATEWAY/sending-events) when connecting and managing its connection to the Gateway, and [*receives* events](#DOCS_TOPICS_GATEWAY/receiving-events) when listening to actions taking place in a server.
+Gateway events are payloads sent over a [Gateway connection](#DOCS_TOPICS_GATEWAY/connections)—either from an app to Discord, or from Discord to an app. An app typically [*sends* events](#DOCS_TOPICS_GATEWAY_EVENTS/sending-events) when connecting and managing its connection to the Gateway, and [*receives* events](#DOCS_TOPICS_GATEWAY_EVENTS/receiving-events) when listening to actions taking place in a server.
 
 A full list of Gateway events and their details are in the [Gateway events documentation](#DOCS_TOPICS_GATEWAY_EVENTS).
 

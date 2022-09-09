@@ -309,9 +309,6 @@ Similar to how threads [inherit user and role permissions from the parent channe
 > info
 > If you don't have permission to use a command, it will not show up in the command picker. Members with the Administrator permission can use all commands.
 
-> warn
-> Currently, on Android clients, commands that users don't have access to will appear in the command picker, but will be disabled and unusable. Global commands can also take up to an hour to update for Android users.
-
 ###### Using Default Permissions
 
 Default permissions can be added to a command during creation using the `default_member_permissions` and `dm_permission` fields. Adding default permissions doesn't require any Bearer token since it's configured during command creation and isn't targeting specific roles, users, or channels.
@@ -1187,7 +1184,7 @@ Fetches permissions for a specific command for your application in a guild. Retu
 > warn
 > This endpoint will overwrite existing permissions for the command in that guild
 
-Edits command permissions for a specific command for your application in a guild and returns a [guild application command permissions](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-permissions-object-guild-application-command-permissions-structure) object.
+Edits command permissions for a specific command for your application in a guild and returns a [guild application command permissions](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-permissions-object-guild-application-command-permissions-structure) object. Fires an [Application Command Permissions Update](#DOCS_TOPICS_GATEWAY/application-command-permissions-update) Gateway event.
 
 You can add up to 100 permission overwrites for a command.
 
