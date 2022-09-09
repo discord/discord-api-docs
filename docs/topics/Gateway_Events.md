@@ -9,6 +9,9 @@ All Gateway events are encapsulated in a [Gateway event payload](#DOCS_TOPICS_GA
 
 For more information about interacting with the Gateway, you can reference the [Gateway documentation](#DOCS_TOPICS_GATEWAY).
 
+> warn
+> Not all Gateway event fields are documented. You should assume that undocumented fields are not supported for apps, and their format and data may change at any time.
+
 ### Event Names
 
 In practice, event names are UPPER-CASED with under_scores joining each word in the name. For instance, [Channel Create](#DOCS_TOPICS_GATEWAY_EVENTS/channel-create) would be `CHANNEL_CREATE` and [Voice State Update](#DOCS_TOPICS_GATEWAY_EVENTS/voice-state-update) would be `VOICE_STATE_UPDATE`.
@@ -41,7 +44,7 @@ Gateway event payloads have a common structure, but the contents of the associat
 
 ## Send Events
 
-Send events are Gateway events encapsulated in an [event payload](#DOCS_TOPICS_GATEWAY_EVENTS/payload-structure). They are sent by an app to Discord through a Gateway connection.
+Send events are Gateway events encapsulated in an [event payload](#DOCS_TOPICS_GATEWAY_EVENTS/payload-structure), and are sent by an app to Discord through a Gateway connection.
 
 > info
 > Previously, Gateway send events were labeled as commands
@@ -58,7 +61,7 @@ Send events are Gateway events encapsulated in an [event payload](#DOCS_TOPICS_G
 
 ## Receive Events
 
-Receive events are Gateway events encapsulated in an [event payload](#DOCS_TOPICS_GATEWAY_EVENTS/payload-structure). They are sent by Discord to an app through a Gateway connection. Receive events correspond to events that happen in a Discord server where the app is installed.
+Receive events are Gateway events encapsulated in an [event payload](#DOCS_TOPICS_GATEWAY_EVENTS/payload-structure), and are sent by Discord to an app through a Gateway connection. Receive events correspond to events that happen in a Discord server where the app is installed.
 
 | Name                                                                                                         | Description                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------- |
