@@ -95,20 +95,6 @@ If you specify `choices` for an option, they are the **only** valid values for a
 
 \* Type of `value` depends on the [option type](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-type) that the choice belongs to.
 
-###### Application Command Interaction Data Option Structure
-
-All options have names, and an option can either be a parameter and input value--in which case `value` will be set--or it can denote a subcommand or group--in which case it will contain a top-level key and another array of `options`.
-
-`value` and `options` are mutually exclusive.
-
-| Field    | Type                                                                                                                                                                             | Description                                                                                                                                    |
-| -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
-| name     | string                                                                                                                                                                           | Name of the parameter                                                                                                                          |
-| type     | integer                                                                                                                                                                          | Value of [application command option type](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-option-type) |
-| value?   | string, integer, or double                                                                                                                                                       | Value of the option resulting from user input                                                                                                  |
-| options? | array of [application command interaction data option](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-object-application-command-interaction-data-option-structure) | Present if this option is a group or subcommand                                                                                                |
-| focused? | boolean                                                                                                                                                                          | `true` if this option is the currently focused option for autocomplete                                                                         |
-
 ## Authorizing Your Application
 
 Application commands do not depend on a bot user in the guild; they use the [interactions](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/) model. To create commands in a guild, your app must be authorized with the `applications.commands` scope.
@@ -323,9 +309,6 @@ Similar to how threads [inherit user and role permissions from the parent channe
 > info
 > If you don't have permission to use a command, it will not show up in the command picker. Members with the Administrator permission can use all commands.
 
-> warn
-> Currently, on Android clients, commands that users don't have access to will appear in the command picker, but will be disabled and unusable. Global commands can also take up to an hour to update for Android users.
-
 ###### Using Default Permissions
 
 Default permissions can be added to a command during creation using the `default_member_permissions` and `dm_permission` fields. Adding default permissions doesn't require any Bearer token since it's configured during command creation and isn't targeting specific roles, users, or channels.
@@ -390,7 +373,7 @@ Slash commands—the `CHAT_INPUT` type—are a type of application command. They
 Slash commands can also have groups and subcommands to further organize commands. More on those later.
 
 > warn
-> Slash commands can have a maximum of 4000 characters for combined name, description, and value properties for each command and its subcommands and groups
+> Slash commands can have a maximum of 4000 characters for combined name, description, and value properties for each command, its options (including subcommands and groups), and choices.  When [localization fields](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/localization) are present, only the longest localization for each field (including the default value) is counted towards the size limit.
 
 
 ###### Example Slash Command
@@ -1201,7 +1184,7 @@ Fetches permissions for a specific command for your application in a guild. Retu
 > warn
 > This endpoint will overwrite existing permissions for the command in that guild
 
-Edits command permissions for a specific command for your application in a guild and returns a [guild application command permissions](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-permissions-object-guild-application-command-permissions-structure) object.
+Edits command permissions for a specific command for your application in a guild and returns a [guild application command permissions](#DOCS_INTERACTIONS_APPLICATION_COMMANDS/application-command-permissions-object-guild-application-command-permissions-structure) object. Fires an [Application Command Permissions Update](#DOCS_TOPICS_GATEWAY/application-command-permissions-update) Gateway event.
 
 You can add up to 100 permission overwrites for a command.
 

@@ -201,9 +201,6 @@ When you close the connection to the gateway with the close code 1000 or 1001, y
 > info
 > Intents are optionally supported on the v6 gateway but required as of v8
 
-> info
-> Starting in v10, `MESSAGE_CONTENT` (`1 << 15`) is required to receive non-empty values for content fields (`content`, `attachments`, `embeds`, and `components`). This doesn't apply for DMs, messages your bot sends, or messages in which your bot is mentioned. `MESSAGE_CONTENT` is not currently required for previous API versions.
-
 Maintaining a stateful application can be difficult when it comes to the amount of data you're expected to process, especially at scale. Gateway Intents are a system to help you lower that computational burden.
 
 When [identifying](#DOCS_TOPICS_GATEWAY/identifying) to the gateway, you can specify an `intents` parameter which allows you to conditionally subscribe to pre-defined "intents", groups of events (or event data) defined by Discord. If you do not specify a certain intent, you will not receive any of the gateway events that are batched into that group. The valid intents are:
@@ -316,7 +313,7 @@ AUTO_MODERATION_EXECUTION (1 << 21)
 
 \* [Thread Members Update](#DOCS_TOPICS_GATEWAY/thread-members-update) contains different data depending on which intents are used.
 
-\*\* `MESSAGE_CONTENT` is a special case as it doesn't represent individual events, but rather affects the data sent for most events that could contain message content fields (`content`, `attachments`, `embeds`, and `components`).
+\*\* `MESSAGE_CONTENT` does not represent individual events, but rather affects what data is present for events that could contain message content fields. More information is in the [message content intent](#DOCS_TOPICS_GATEWAY/message-content-intent) section.
 
 ### Caveats
 
@@ -336,21 +333,36 @@ Bots in under 100 guilds can enable these intents in the bot tab of the develope
 
 ### Privileged Intents
 
-> warn
-> `MESSAGE_CONTENT` will become a privileged intent in Aug 2022. [Learn more here](https://support-dev.discord.com/hc/en-us/articles/4404772028055) or read the guide on [upgrading to commands](#DOCS_TUTORIALS_UPGRADING_TO_APPLICATION_COMMANDS).
-
-Some intents are defined as "Privileged" due to the sensitive nature of the data. Those intents are:
+Some intents are defined as "privileged" due to the sensitive nature of the data. Currently, those intents include:
 
 - `GUILD_PRESENCES`
 - `GUILD_MEMBERS`
+- [`MESSAGE_CONTENT`](#DOCS_TOPICS_GATEWAY/message-content-intent)
 
-To specify these intents in your `IDENTIFY` payload, you must visit your application page in the Developer Portal and enable the toggle for each Privileged Intent that you wish to use. If your bot qualifies for [verification](https://dis.gd/bot-verification), you must first [verify your bot](https://support.discord.com/hc/en-us/articles/360040720412-Bot-Verification-and-Data-Whitelisting) and request access to these intents during the verification process. If your bot is already verified and you need to request additional privileged intents, [contact support](https://dis.gd/support).
+Apps that qualify for verification **must** be approved for the privileged intent(s) before they can use them. After your app is verified, you can request privileged intents from your app's settings within the Developer Portal.
 
-Events under the `GUILD_PRESENCES` and `GUILD_MEMBERS` intents are turned **off by default on all API versions**. If you are using **API v6**, you will receive those events if you are authorized to receive them and have enabled the intents in the Developer Portal. You do not need to use Intents on API v6 to receive these events; you just need to enable the flags.
+To specify privileged intents in your `IDENTIFY` payload, you must enable the privileged intents your app requires. To toggle privileged intents, navigate to your app's settings in the Developer Portal. Click on the **Bot** page, and under the "Privileged Gateway Intents" section you can enable the toggle for each intent your app needs. Verified apps can only use privileged intents after they've been approved for them.
 
-If you are using **API v8** or above, Intents are mandatory and must be specified when identifying.
+> info
+> Unverified apps can use privileged intents without approval, but still must enable them in their app's settings. If the app's verification status changes, it will then have to apply for the privileged intent(s).
 
-In addition to the gateway restrictions described here, Discord's REST API is also affected by Privileged Intents. Specifically, to use the [List Guild Members](#DOCS_RESOURCES_GUILD/list-guild-members) endpoint, you must have the `GUILD_MEMBERS` intent enabled for your application. This behavior is independent of whether the intent is set during `IDENTIFY`.
+Events under the `GUILD_PRESENCES` and `GUILD_MEMBERS` intents are turned **off by default on all API versions**. If you are using **API v6**, you will receive those events if you are authorized to receive them and have enabled the intents in the Developer Portal. You do not need to use Intents on API v6 to receive these events; you just need to enable the flags. If you are using **API v8** or above, Intents are mandatory and must be specified when identifying.
+
+In addition to the gateway restrictions described here, Discord's REST API is also affected by Privileged Intents. For example, to use the [List Guild Members](#DOCS_RESOURCES_GUILD/list-guild-members) endpoint, you must have the `GUILD_MEMBERS` intent enabled for your application. This behavior is independent of whether the intent is set during `IDENTIFY`.
+
+#### Message Content Intent
+
+`MESSAGE_CONTENT (1 << 15)` is a unique privileged intent that isn't directly associated with any Gateway events. Instead, access to `MESSAGE_CONTENT` permits your app to receive message content data across the APIs.
+
+Any fields affected by the message content intent are noted in the relevant documentation. For example, the `content`, `embeds`, `attachments`, and `components` fields in [message objects](#DOCS_RESOURCES_CHANNEL/message-object) all contain message content and therefore require the intent.
+
+> info
+> Like other privileged intents, `MESSAGE_CONTENT` must be approved for your app. After your app is verified, you can apply for the intent from your app's settings within the Developer Portal. You can read more about the message content intent review policy [in the Help Center](https://support-dev.discord.com/hc/en-us/articles/5324827539479).
+
+Apps **without** the intent will receive empty values in fields that contain user-inputted content with a few exceptions:
+- Content in messages that an app sends
+- Content in DMs with the app
+- Content in which the app is [mentioned](#DOCS_REFERENCE/message-formatting-formats)
 
 ## Rate Limiting
 
@@ -542,8 +554,8 @@ Events are payloads sent over the socket to a client that correspond to events i
 | [Message Reaction Remove Emoji](#DOCS_TOPICS_GATEWAY/message-reaction-remove-emoji)                     | all reactions for a given emoji were explicitly removed from a message                                                           |
 | [Presence Update](#DOCS_TOPICS_GATEWAY/presence-update)                                                 | user was updated                                                                                                                 |
 | [Stage Instance Create](#DOCS_TOPICS_GATEWAY/stage-instance-create)                                     | stage instance was created                                                                                                       |
-| [Stage Instance Delete](#DOCS_TOPICS_GATEWAY/stage-instance-delete)                                     | stage instance was deleted or closed                                                                                             |
 | [Stage Instance Update](#DOCS_TOPICS_GATEWAY/stage-instance-update)                                     | stage instance was updated                                                                                                       |
+| [Stage Instance Delete](#DOCS_TOPICS_GATEWAY/stage-instance-delete)                                     | stage instance was deleted or closed                                                                                             |
 | [Typing Start](#DOCS_TOPICS_GATEWAY/typing-start)                                                       | user started typing in a channel                                                                                                 |
 | [User Update](#DOCS_TOPICS_GATEWAY/user-update)                                                         | properties about the user changed                                                                                                |
 | [Voice State Update](#DOCS_TOPICS_GATEWAY/voice-state-update)                                           | someone joined, left, or moved a voice channel                                                                                   |
@@ -880,7 +892,7 @@ Sent when a rule is triggered and an action is executed (e.g. when a message is 
 
 \*\* `alert_system_message_id` will not exist if this event does not correspond to an action with type `SEND_ALERT_MESSAGE`
 
-\*\*\* `MESSAGE_CONTENT` (`1 << 15`) [gateway intent](#DOCS_TOPICS_GATEWAY/gateway-intents) is required to receive non-empty values for the `content` and `matched_content` fields
+\*\*\* The `MESSAGE_CONTENT` (`1 << 15`) [gateway intent](#DOCS_TOPICS_GATEWAY/gateway-intents) is required to receive non-empty values for the `content` and `matched_content` fields. Read the [message content intent](#DOCS_TOPICS_GATEWAY/message-content-intent) section for details.
 
 ### Channels
 
@@ -1195,7 +1207,7 @@ Sent when a user has unsubscribed from a guild scheduled event.
 
 #### Integration Create
 
-Sent when an integration is created. The inner payload is a [integration](#DOCS_RESOURCES_GUILD/integration-object) object with an additional `guild_id` key:
+Sent when an integration is created. The inner payload is an [integration](#DOCS_RESOURCES_GUILD/integration-object) object with an additional `guild_id` key:
 
 ###### Integration Create Event Additional Fields
 
@@ -1205,7 +1217,7 @@ Sent when an integration is created. The inner payload is a [integration](#DOCS_
 
 #### Integration Update
 
-Sent when an integration is updated. The inner payload is a [integration](#DOCS_RESOURCES_GUILD/integration-object) object with an additional `guild_id` key:
+Sent when an integration is updated. The inner payload is an [integration](#DOCS_RESOURCES_GUILD/integration-object) object with an additional `guild_id` key:
 
 ###### Integration Update Event Additional Fields
 

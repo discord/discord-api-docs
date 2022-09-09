@@ -112,6 +112,7 @@ The connection object that the user has attached.
 | Value              | Name                |
 | ------------------ | ------------------- |
 | battlenet          | Battle.net          |
+| ebay               | eBay                |
 | epicgames          | Epic Games          |
 | facebook           | Facebook            |
 | github             | GitHub              |
@@ -119,6 +120,7 @@ The connection object that the user has attached.
 | paypal             | PayPal              |
 | playstation        | PlayStation Network |
 | reddit             | Reddit              |
+| riotgames          | Riot Games          |
 | spotify            | Spotify             |
 | skype *            | Skype               |
 | steam              | Steam               |
@@ -146,7 +148,7 @@ Returns a [user](#DOCS_RESOURCES_USER/user-object) object for a given user ID.
 
 ## Modify Current User % PATCH /users/@me
 
-Modify the requester's user account settings. Returns a [user](#DOCS_RESOURCES_USER/user-object) object on success.
+Modify the requester's user account settings. Returns a [user](#DOCS_RESOURCES_USER/user-object) object on success. Fires a [User Update](#DOCS_TOPICS_GATEWAY/user-update) Gateway event.
 
 > info
 > All parameters to this endpoint are optional.
