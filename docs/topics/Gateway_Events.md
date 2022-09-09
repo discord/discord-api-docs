@@ -1,11 +1,11 @@
 # Gateway Events
 
-Gateway connections are WebSockets, meaning they're bidirectional and either side of the WebSocket can send events to the other. The following Gateway events are split up into two types:
+Gateway connections are WebSockets, meaning they're bidirectional and either side of the WebSocket can send events to the other. The following events are split up into two types:
 
 - **Send events** are Gateway events sent by an app to Discord (like when identifying with the Gateway)
-- **Receive events** are Gateway events that are sent by Discord to an app. These events represent something happening inside of a server where an app is installed, like a channel being updated.
+- **Receive events** are Gateway events that are sent by Discord to an app. These events typically represent something happening inside of a server where an app is installed, like a channel being updated.
 
-All Gateway events are encapsulated in an [event payload](#DOCS_TOPICS_GATEWAY/payload-structure).
+All Gateway events are encapsulated in a [Gateway event payload](#DOCS_TOPICS_GATEWAY_EVENTS/payload-structure).
 
 For more information about interacting with the Gateway, you can reference the [Gateway documentation](#DOCS_TOPICS_GATEWAY).
 
@@ -15,9 +15,33 @@ In practice, event names are UPPER-CASED with under_scores joining each word in 
 
 For readability, event names in the following documentation are typically left in Title Case.
 
+### Payload Structure
+
+Gateway event payloads have a common structure, but the contents of the associated data (`d`) varies between the different events.
+
+| Field | Type                    | Description                                                                                                                                |
+| ----- | ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| op    | integer                 | [Gateway opcode](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/gateway-gateway-opcodes), which indicates the payload type                          |
+| d     | ?mixed (any JSON value) | Event data                                                                                                                                 |
+| s     | ?integer \*             | Sequence number of event used for [resuming sessions](#DOCS_TOPICS_GATEWAY/resuming) and [heartbeating](#DOCS_TOPICS_GATEWAY/sending-heartbeats) |
+| t     | ?string \*              | Event name                                                                                                                                 |
+
+\* `s` and `t` are `null` when `op` is not `0` ([Gateway Dispatch opcode](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/gateway-gateway-opcodes)).
+
+###### Example Gateway Event Payload
+
+```json
+{
+  "op": 0,
+  "d": {},
+  "s": 42,
+  "t": "GATEWAY_EVENT_NAME"
+}
+```
+
 ## Send Events
 
-Send events are Gateway events encapsulated in an [event payload](#DOCS_TOPICS_GATEWAY/payload-structure). They are sent by an app to Discord through a Gateway connection.
+Send events are Gateway events encapsulated in an [event payload](#DOCS_TOPICS_GATEWAY_EVENTS/payload-structure). They are sent by an app to Discord through a Gateway connection.
 
 > info
 > Previously, Gateway send events were labeled as commands
@@ -34,7 +58,7 @@ Send events are Gateway events encapsulated in an [event payload](#DOCS_TOPICS_G
 
 ## Receive Events
 
-Receive events are Gateway events encapsulated in an [event payload](#DOCS_TOPICS_GATEWAY/payload-structure). They are sent by Discord to an app through a Gateway connection. Receive events correspond to events that happen in a Discord server where the app is installed.
+Receive events are Gateway events encapsulated in an [event payload](#DOCS_TOPICS_GATEWAY_EVENTS/payload-structure). They are sent by Discord to an app through a Gateway connection. Receive events correspond to events that happen in a Discord server where the app is installed.
 
 | Name                                                                                                         | Description                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -94,8 +118,8 @@ Receive events are Gateway events encapsulated in an [event payload](#DOCS_TOPIC
 | [Message Reaction Remove Emoji](#DOCS_TOPICS_GATEWAY_EVENTS/message-reaction-remove-emoji)                   | All reactions for a given emoji were explicitly removed from a message                                                                         |
 | [Presence Update](#DOCS_TOPICS_GATEWAY_EVENTS/presence-update)                                               | User was updated                                                                                                                               |
 | [Stage Instance Create](#DOCS_TOPICS_GATEWAY_EVENTS/stage-instance-create)                                   | Stage instance was created                                                                                                                     |
-| [Stage Instance Delete](#DOCS_TOPICS_GATEWAY_EVENTS/stage-instance-delete)                                   | Stage instance was deleted or closed                                                                                                           |
 | [Stage Instance Update](#DOCS_TOPICS_GATEWAY_EVENTS/stage-instance-update)                                   | Stage instance was updated                                                                                                                     |
+| [Stage Instance Delete](#DOCS_TOPICS_GATEWAY_EVENTS/stage-instance-delete)                                   | Stage instance was deleted or closed                                                                                                           |
 | [Typing Start](#DOCS_TOPICS_GATEWAY_EVENTS/typing-start)                                                     | User started typing in a channel                                                                                                               |
 | [User Update](#DOCS_TOPICS_GATEWAY_EVENTS/user-update)                                                       | Properties about the user changed                                                                                                              |
 | [Voice State Update](#DOCS_TOPICS_GATEWAY_EVENTS/voice-state-update)                                         | Someone joined, left, or moved a voice channel                                                                                                 |
@@ -106,6 +130,8 @@ Receive events are Gateway events encapsulated in an [event payload](#DOCS_TOPIC
 #### Identify
 
 Used to trigger the initial handshake with the gateway.
+
+Details about identifying is in the [Gateway documentation](#DOCS_TOPICS_GATEWAY/identifying).
 
 ###### Identify Structure
 
@@ -165,6 +191,8 @@ Used to trigger the initial handshake with the gateway.
 
 Used to replay missed events when a disconnected client resumes.
 
+Details about resuming are in the [Gateway documentation](#DOCS_TOPICS_GATEWAY/resuming).
+
 ###### Resume Structure
 
 | Field      | Type    | Description                   |
@@ -189,6 +217,8 @@ Used to replay missed events when a disconnected client resumes.
 #### Heartbeat
 
 Used to maintain an active gateway connection. Must be sent every `heartbeat_interval` milliseconds after the [Opcode 10 Hello](#DOCS_TOPICS_GATEWAY_EVENTS/hello) payload is received. The inner `d` key is the last sequence number—`s`—received by the client. If you have not yet received one, send `null`.
+
+Details about heartbeats are in the [Gateway documentation](#DOCS_TOPICS_GATEWAY/sending-heartbeats).
 
 ###### Example Heartbeat
 
@@ -744,7 +774,7 @@ Sent when a user has unsubscribed from a guild scheduled event.
 
 #### Integration Create
 
-Sent when an integration is created. The inner payload is a [integration](#DOCS_RESOURCES_GUILD/integration-object) object with an additional `guild_id` key:
+Sent when an integration is created. The inner payload is an [integration](#DOCS_RESOURCES_GUILD/integration-object) object with an additional `guild_id` key:
 
 ###### Integration Create Event Additional Fields
 
@@ -754,7 +784,7 @@ Sent when an integration is created. The inner payload is a [integration](#DOCS_
 
 #### Integration Update
 
-Sent when an integration is updated. The inner payload is a [integration](#DOCS_RESOURCES_GUILD/integration-object) object with an additional `guild_id` key:
+Sent when an integration is updated. The inner payload is an [integration](#DOCS_RESOURCES_GUILD/integration-object) object with an additional `guild_id` key:
 
 ###### Integration Update Event Additional Fields
 

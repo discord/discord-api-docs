@@ -9,27 +9,18 @@ The Gateway is Discord's form of real-time communication used by clients (includ
 
 ## Gateway Events
 
-Gateway events are payloads sent over a [Gateway connection](#DOCS_TOPICS_GATEWAY/connections)—either from an app to Discord, or from Discord to an app. An app typically [*sends* events](#DOCS_TOPICS_GATEWAY_EVENTS/sending-events) when connecting and managing its connection to the Gateway, and [*receives* events](#DOCS_TOPICS_GATEWAY_EVENTS/receiving-events) when listening to actions taking place in a server.
+Gateway events are payloads sent over a [Gateway connection](#DOCS_TOPICS_GATEWAY/connections)—either from an app to Discord, or from Discord to an app. An app typically [*sends* events](#DOCS_TOPICS_GATEWAY/sending-events) when connecting and managing its connection to the Gateway, and [*receives* events](#DOCS_TOPICS_GATEWAY/receiving-events) when listening to actions taking place in a server.
+
+All Gateway events are encapsulated in a [Gateway event payload](#DOCS_TOPICS_GATEWAY_EVENTS/payload-structure).
 
 A full list of Gateway events and their details are in the [Gateway events documentation](#DOCS_TOPICS_GATEWAY_EVENTS).
 
 > warn
 > Not all Gateway event fields are documented. You should assume that undocumented fields are not supported for apps, and their format and data may change at any time.
 
-### Payload Structure
+###### Example Gateway Event
 
-Gateway event payloads have a common structure, but the contents of the associated data (`d`) varies between the different events.
-
-| Field | Type                    | Description                                                                                                                                |
-| ----- | ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
-| op    | integer                 | [Gateway opcode](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/gateway-gateway-opcodes), which indicates the payload type                          |
-| d     | ?mixed (any JSON value) | Event data                                                                                                                                 |
-| s     | ?integer \*             | Sequence number of event used for [resuming sessions](#DOCS_TOPICS_GATEWAY/resuming) and [heartbeating](#DOCS_TOPICS_GATEWAY/sending-heartbeats) |
-| t     | ?string \*              | Event name                                                                                                                                 |
-
-\* `s` and `t` are `null` when `op` is not `0` ([Gateway Dispatch opcode](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/gateway-gateway-opcodes)).
-
-###### Example Gateway Event Payload
+Details about Gateway event payloads are in the [Gateway events documentation](#DOCS_TOPICS_GATEWAY_EVENTS/payload-structure).
 
 ```json
 {
@@ -42,7 +33,7 @@ Gateway event payloads have a common structure, but the contents of the associat
 
 ### Sending Events
 
-When sending a Gateway event (like when [performing an initial handshake](#DOCS_TOPICS_GATEWAY_EVENTS/identify) or [updating presence](#DOCS_TOPICS_GATEWAY_EVENTS/update-presence)), an app must send an [event payload object](#DOCS_TOPICS_GATEWAY/payload-structure) with a valid opcode (`op`) and inner data object (`d`).
+When sending a Gateway event (like when [performing an initial handshake](#DOCS_TOPICS_GATEWAY_EVENTS/identify) or [updating presence](#DOCS_TOPICS_GATEWAY_EVENTS/update-presence)), an app must send an [event payload object](#DOCS_TOPICS_GATEWAY_EVENTS/payload-structure) with a valid opcode (`op`) and inner data object (`d`).
 
 > info
 > Specific rate limits are applied when sending events, which you can read about in the [Rate Limiting](#DOCS_TOPICS_GATEWAY/rate-limiting) section.
@@ -142,7 +133,7 @@ When an app opens a connection to the Gateway, it receives a [Hello (opcode `10`
 
 Upon receiving this Hello event, your app should wait `heartbeat_interval * jitter` where `jitter` is any random value between 0 and 1, then send its first [Heartbeat (opcode `1`)](#DOCS_TOPICS_GATEWAY_EVENTS/heartbeat) event. From that point until the connection is closed, your app must continually send Discord a heartbeat every `heartbeat_interval` milliseconds. If your app fails to send a heartbeat event in time, your connection will be closed and you will be forced to [Resume](#DOCS_TOPICS_GATEWAY/resuming).
 
-When sending a heartbeat, your app will need to include the last sequence number your app received in the `d` field. The sequence number is sent to your app in the [event payload](#DOCS_TOPICS_GATEWAY/payload-structure) in the `s` field. If your app hasn't received any events yet, you can just pass `null` in the `d` field.
+When sending a heartbeat, your app will need to include the last sequence number your app received in the `d` field. The sequence number is sent to your app in the [event payload](#DOCS_TOPICS_GATEWAY_EVENTS/payload-structure) in the `s` field. If your app hasn't received any events yet, you can just pass `null` in the `d` field.
 
 > info
 > In the first heartbeat, `jitter` is an offset value between 0 and `heartbeat_interval` that is meant to prevent too many clients (both desktop and apps) from reconnecting their sessions at the exact same time (which could cause an influx of traffic).

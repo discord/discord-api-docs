@@ -121,7 +121,7 @@ Returns a [sticker](#DOCS_RESOURCES_STICKER/sticker-object) object for the given
 
 ## Create Guild Sticker % POST /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/stickers
 
-Create a new sticker for the guild. Send a `multipart/form-data` body. Requires the `MANAGE_EMOJIS_AND_STICKERS` permission. Returns the new [sticker](#DOCS_RESOURCES_STICKER/sticker-object) object on success. Fires a [Guild Stickers Update](#DOCS_TOPICS_GATEWAY/guild-stickers-update) Gateway event.
+Create a new sticker for the guild. Send a `multipart/form-data` body. Requires the `MANAGE_EMOJIS_AND_STICKERS` permission. Returns the new [sticker](#DOCS_RESOURCES_STICKER/sticker-object) object on success. Fires a [Guild Stickers Update](#DOCS_TOPICS_GATEWAY_EVENTS/guild-stickers-update) Gateway event.
 
 Every guilds has five free sticker slots by default, and each Boost level will grant access to more slots.
 
@@ -142,7 +142,7 @@ Every guilds has five free sticker slots by default, and each Boost level will g
 
 ## Modify Guild Sticker % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/stickers/{sticker.id#DOCS_RESOURCES_STICKER/sticker-object}
 
-Modify the given sticker. Requires the `MANAGE_EMOJIS_AND_STICKERS` permission. Returns the updated [sticker](#DOCS_RESOURCES_STICKER/sticker-object) object on success. Fires a [Guild Stickers Update](#DOCS_TOPICS_GATEWAY/guild-stickers-update) Gateway event.
+Modify the given sticker. Requires the `MANAGE_EMOJIS_AND_STICKERS` permission. Returns the updated [sticker](#DOCS_RESOURCES_STICKER/sticker-object) object on success. Fires a [Guild Stickers Update](#DOCS_TOPICS_GATEWAY_EVENTS/guild-stickers-update) Gateway event.
 
 > info
 > All parameters to this endpoint are optional.
@@ -160,7 +160,7 @@ Modify the given sticker. Requires the `MANAGE_EMOJIS_AND_STICKERS` permission. 
 
 ## Delete Guild Sticker % DELETE /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/stickers/{sticker.id#DOCS_RESOURCES_STICKER/sticker-object}
 
-Delete the given sticker. Requires the `MANAGE_EMOJIS_AND_STICKERS` permission. Returns `204 No Content` on success. Fires a [Guild Stickers Update](#DOCS_TOPICS_GATEWAY/guild-stickers-update) Gateway event.
+Delete the given sticker. Requires the `MANAGE_EMOJIS_AND_STICKERS` permission. Returns `204 No Content` on success. Fires a [Guild Stickers Update](#DOCS_TOPICS_GATEWAY_EVENTS/guild-stickers-update) Gateway event.
 
 > info
 > This endpoint supports the `X-Audit-Log-Reason` header.
