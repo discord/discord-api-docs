@@ -727,12 +727,12 @@ The allowed mention field allows for more granular control over mentions without
 
 ###### Allowed Mentions Structure
 
-| Field        | Type                           | Description                                                                                                                           |
-| ------------ | ------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------- |
+| Field        | Type                                                                                                    | Description                                                                                                                           |
+| ------------ | ------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
 | parse        | array of [allowed mention types](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object-allowed-mention-types) | An array of [allowed mention types](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object-allowed-mention-types) to parse from the content. |
-| roles        | list of snowflakes             | Array of role_ids to mention (Max size of 100)                                                                                        |
-| users        | list of snowflakes             | Array of user_ids to mention (Max size of 100)                                                                                        |
-| replied_user | boolean                        | For replies, whether to mention the author of the message being replied to (default false)                                            |
+| roles        | array of Snowflakes                                                                                     | Array of role_ids to mention (Max size of 100)                                                                                        |
+| users        | array of Snowflakes                                                                                     | Array of user_ids to mention (Max size of 100)                                                                                        |
+| replied_user | boolean                                                                                                 | For replies, whether to mention the author of the message being replied to (default false)                                            |
 
 ###### Allowed Mentions Reference
 
