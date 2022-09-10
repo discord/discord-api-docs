@@ -39,10 +39,19 @@ The structure of each component type is described in detail below.
 
 ## Action Rows
 
-An Action Row is a non-interactive container component for other types of components. It has a `type: 1` and a sub-array of `components` of other types.
+An Action Row is a container component for other types of components.
 
 - You can have up to 5 Action Rows per message
 - An Action Row cannot contain another Action Row
+
+###### Action Row Structure
+
+| Field      | Type                                                | Description                                                                               |
+| ---------- | --------------------------------------------------- | ----------------------------------------------------------------------------------------- |
+| type       | integer                                             | `1` for an action row                                                                      |
+| components | array of [component objects](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-object) | Components included in the action row. Cannot include another action row            |
+
+###### Action Row Example
 
 ```json
 {
