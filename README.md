@@ -28,12 +28,12 @@ Links between docs can be achieved by using a hash symbol (#), plus the markdown
 
 ### Alert Boxes
 
-Alert boxes are achieved by using a block quote that has one of 'warn', 'danger' or 'info' on the first line.
+Alert boxes are achieved by using a block quote that has one of 'warn', 'danger', or 'info' on the first line.
 
 ## Need some help?
 
 Here are some Discord servers that can help you out with everything Discord API:
 
-The [Official Discord Developers server](https://discord.gg/discord-developers) has plenty of help channels with knowledgeable people and Discord's developers to get you help with something you need, and get updates straight from the developers. However do keep in mind this is a purely on-topic server. If you are looking for a community, join the server below.
+The [Official Discord Developers server](https://discord.gg/discord-developers) has plenty of help channels with knowledgeable people and Discord's developers to get you help with something you need, and get updates straight from the developers. However, do keep in mind that this is a purely on-topic server. If you are looking for a community, join the server below.
 
 The [Unofficial Discord API server](https://discord.gg/discord-api) is a common hangout for library and bot developers alike. It's a great starting point for those looking to dive in and learn bot-creation with the Discord API.
