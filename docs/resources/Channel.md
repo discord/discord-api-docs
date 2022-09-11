@@ -853,13 +853,15 @@ Requires the `MANAGE_CHANNELS` permission for the guild. Fires a [Channel Update
 | rtc_region                          | ?string                                                                         | channel [voice region](#DOCS_RESOURCES_VOICE/voice-region-object) id, automatic when set to null                                                                                   | Voice, Stage                     |
 | video_quality_mode                  | ?integer                                                                        | the camera [video quality mode](#DOCS_RESOURCES_CHANNEL/channel-object-video-quality-modes) of the voice channel                                                                   | Voice                            |
 | default_auto_archive_duration       | ?integer                                                                        | the default duration that the clients use (not the API) for newly created threads in the channel, in minutes, to automatically archive the thread after recent activity            | Text, Announcement, Forum        |
-| available_tags?                     | array of [tag](#DOCS_RESOURCES_CHANNEL/forum-tag-object) objects                | the set of tags that can be used in a `GUILD_FORUM` channel                                                                                                                        | Forum                            |
+| available_tags?\*\*\*               | array of [tag](#DOCS_RESOURCES_CHANNEL/forum-tag-object) objects                | the set of tags that can be used in a `GUILD_FORUM` channel                                                                                                                        | Forum                            |
 | default_reaction_emoji?             | ?[default reaction](#DOCS_RESOURCES_CHANNEL/default-reaction-object) object     | the emoji to show in the add reaction button on a thread in a `GUILD_FORUM` channel                                                                                                | Forum                            |
 | default_thread_rate_limit_per_user? | integer                                                                         | the initial `rate_limit_per_user` to set on newly created threads in a channel. this field is copied to the thread at creation time and does not live update.                      | Text, Forum                      |
 
 \* For voice channels, normal servers can set bitrate up to 96000, servers with Boost level 1 can set up to 128000, servers with Boost level 2 can set up to 256000, and servers with Boost level 3 or the `VIP_REGIONS` [guild feature](#DOCS_RESOURCES_GUILD/guild-object-guild-features) can set up to 384000. For stage channels, bitrate can be set up to 64000.
 
 \*\* In each overwrite object, the `allow` and `deny` keys can be omitted or set to `null`, which both default to `"0"`.
+
+\*\*\* For the new tags in a `GUILD_FORUM` channel, only `name` is required.
 
 ###### JSON Params (Thread)
 
