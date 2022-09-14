@@ -1,6 +1,6 @@
 # Gateway
 
-The Gateway API lets apps open secure WebSocket connections with Discord to receive events about actions that take place in a server/guild, like when a channel is updated or a role is created. There are a few cases where apps will *also* use Gateway connections to update or request resources, like when updating voice state.
+The Gateway API lets apps open secure WebSocket connections with Discord to receive events about actions that take place in a server/guild, like when a channel is updated or a role is created, as well as direct messages or even Interactions (if you haven't configured them to use HTTP for your app). There are a few cases where apps will *also* use Gateway connections to update or request resources, like when updating voice state.
 
 > info
 > In *most* cases, performing REST operations on Discord resources can be done using the [HTTP API](#DOCS_REFERENCE/http-api) rather than the Gateway API. 
@@ -9,7 +9,7 @@ The Gateway is Discord's form of real-time communication used by clients (includ
 
 ## Gateway Events
 
-Gateway events are [payloads](#DOCS_TOPICS_GATEWAY_EVENTS/payload-structure) sent over a [Gateway connection](#DOCS_TOPICS_GATEWAY/connections)—either from an app to Discord, or from Discord to an app. An app typically [*sends* events](#DOCS_TOPICS_GATEWAY/sending-events) when connecting and managing its connection to the Gateway, and [*receives* events](#DOCS_TOPICS_GATEWAY/receiving-events) when listening to actions taking place in a server.
+Gateway events are [payloads](#DOCS_TOPICS_GATEWAY_EVENTS/payload-structure) sent over a [Gateway connection](#DOCS_TOPICS_GATEWAY/connections) — either from an app to Discord, or from Discord to an app. An app typically [*sends* events](#DOCS_TOPICS_GATEWAY/sending-events) when connecting and managing its connection to the Gateway, and [*receives* events](#DOCS_TOPICS_GATEWAY/receiving-events) when listening to actions taking place in a guild or a direct message.
 
 All Gateway events are encapsulated in a [Gateway event payload](#DOCS_TOPICS_GATEWAY_EVENTS/payload-structure).
 
@@ -58,11 +58,11 @@ All events that your app can receive via a connection are in the [Gateway event 
 
 When your app is parsing a Dispatch event:
 - The `t` field can be used to determine which [Gateway event](#DOCS_TOPICS_GATEWAY_EVENTS/receive-events) the payload represents and the data you can expect in the `d` field.
-- The `s` field represents the sequence number of the event, which is the relative order in which it occurred. You need to cache the most recent non-null `s` value for heartbeats, and to pass when [Resuming](#DOCS_TOPICS_GATEWAY/resuming) a connection.
+- The `s` field represents the sequence number of the event, which is the relative order in which it occurred. You need to cache the most recent non-null `s` value for heartbeats, and to pass it when [Resuming](#DOCS_TOPICS_GATEWAY/resuming) a connection.
 
 ## Connections
 
-Gateway connections are persistent WebSockets which introduce more complexity than sending HTTP requests or responding to interactions (like Slash Commands). When interacting with the Gateway, your app must know how to open the initial connection, as well as maintain it and handle any disconnects.
+Gateway connections are persistent WebSockets which introduce more complexity than sending HTTP requests or responding to interactions received through HTTP (like Slash Commands). When interacting with the Gateway, your app must know how to open the initial connection, as well as maintain it and handle any disconnects.
 
 ### Connection Lifecycle
 
@@ -81,15 +81,15 @@ At a high-level, Gateway connections consist of the following cycle:
 4. App sends an [Identify (opcode `2`)](#DOCS_TOPICS_GATEWAY_EVENTS/identify) event to perform the initial handshake with the Gateway. **Read the section on [Identifying](#DOCS_TOPICS_GATEWAY/identifying)**
 5. Discord sends the app a [Ready (opcode `0`)](#DOCS_TOPICS_GATEWAY_EVENTS/ready) event which indicates the handshake was successful and the connection is established. The Ready event contains a `resume_gateway_url` that the app should keep track of to determine the WebSocket URL an app should use to Resume. **Read the section on [the Ready event](#DOCS_TOPICS_GATEWAY/ready-event)**
 6. The connection may be dropped for a variety of reasons. Whether the app can [Resume](#DOCS_TOPICS_GATEWAY/resuming) the connection or whether it must re-identify is determined by a variety of factors like the [opcode](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/gateway-gateway-opcodes) and [close code](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/gateway-gateway-close-event-codes) that it receives. **Read the section on [Disconnecting](#DOCS_TOPICS_GATEWAY/disconnecting)**
-7. If an app **can** resume/reconnect, it should open a new connection using `resume_gateway_url`, then send a [Resume (opcode `6`)](#DOCS_TOPICS_GATEWAY_EVENTS/resume) event. If an app **cannot** resume/reconnect, it should open a new connection using the cached URL from step #1, then repeat the whole Gateway cycle. *Yipee!* **Read the section on [Resuming](#DOCS_TOPICS_GATEWAY/resuming)**
+7. If an app **can** resume/reconnect, it should open a new connection using `resume_gateway_url`, then send a [Resume (opcode `6`)](#DOCS_TOPICS_GATEWAY_EVENTS/resume) event instead of an [Identify (opcode `2`)](#DOCS_TOPICS_GATEWAY_EVENTS/identify) one. If an app **cannot** resume/reconnect, it should open a new connection using the cached URL from step #1, then repeat the whole Gateway cycle. *Yipee!* **Read the section on [Resuming](#DOCS_TOPICS_GATEWAY/resuming)**
 
 ### Connecting
 
 Before your app can establish a connection to the Gateway, it should call the [Get Gateway](#DOCS_TOPICS_GATEWAY/get-gateway) or the [Get Gateway Bot](#DOCS_TOPICS_GATEWAY/get-gateway-bot) endpoint. Either endpoint will return a payload with a `url` field whose value is the WSS URL you can use to open a WebSocket connection. In addition to the URL, [Get Gateway Bot](#DOCS_TOPICS_GATEWAY/get-gateway-bot) contains additional information about the recommended number of shards and the session start limits for your app.
 
-When initially calling either [Get Gateway](#DOCS_TOPICS_GATEWAY/get-gateway) or [Get Gateway Bot](#DOCS_TOPICS_GATEWAY/get-gateway-bot), you should cache the value of the `url` field and use that when re-connecting to the Gateway.
+When initially calling either [Get Gateway](#DOCS_TOPICS_GATEWAY/get-gateway) or [Get Gateway Bot](#DOCS_TOPICS_GATEWAY/get-gateway-bot), you should cache the value of the `url` field and use that when establishing a new connection to the Gateway.
 
-When connecting to the URL, it's a good idea to explicitly pass the API version and [encoding](#DOCS_TOPICS_GATEWAY/encoding-and-compression) as query parameters. You can also optionally include whether Discord should [compress](#DOCS_TOPICS_GATEWAY/encoding-and-compression) data that it sends your app.
+When connecting to the URL, it's a good idea to explicitly pass the [API Version](#DOCS_REFERENCE/api-versioning) and [encoding](#DOCS_TOPICS_GATEWAY/encoding-and-compression) as query parameters. You can also optionally include whether Discord should [compress](#DOCS_TOPICS_GATEWAY/encoding-and-compression) data that it sends your app.
 
 > info
 > `wss://gateway.discord.gg/?v=10&encoding=json` is an example of a WSS URL an app may use to connect to the Gateway.
@@ -161,12 +161,14 @@ Just like with the interval, Discord will respond with an [Heartbeat ACK (opcode
 
 After the connection is open and your app is sending heartbeats, you should send an [Identify (opcode `2`)](#DOCS_TOPICS_GATEWAY_EVENTS/identify) event. The Identify event is an initial handshake with the Gateway that's required before your app can begin sending or receiving most Gateway events.
 
-Apps are limited by maximum concurrency (`max_concurrency` in the [session start limit object](#DOCS_TOPICS_GATEWAY/session-start-limit-object))the when identifying. If your app exceeds this limit, Discord will respond with a [Invalid Session (opcode `9`)](#DOCS_TOPICS_GATEWAY_EVENTS/invalid-session) event.
-
-After your app sends a valid Identify payload, Discord will respond with a [Ready](#DOCS_TOPICS_GATEWAY_EVENTS/ready) event which indicates that your app is in a successfully-connected state with the Gateway. The Ready event is sent as a standard [Dispatch (opcode `0`)](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/gateway-gateway-opcodes).
+Apps have a limited amount of `IDENTIFY` calls they can do in a 24-hour period, which you can see by the `total` and the `remaining` property in the [session start limit object](#DOCS_TOPICS_GATEWAY/session-start-limit-object). This limit is global and across all shards, but does not include `RESUME` calls. You can also see when your limit will reset by checking the `reset_after` property, which is the number of milliseconds it will take for the `remaining` sessions to reset back to your `total` available.
 
 > warn
-> Clients are limited to 1000 `IDENTIFY` calls to the websocket in a 24-hour period. This limit is global and across all shards, but does not include `RESUME` calls. Upon hitting this limit, all active sessions for the app will be terminated, the bot token will be reset, and the owner will receive an email notification. It's up to the owner to update their application with the new token.
+> Upon hitting this limit, all active sessions for the app will be terminated, the bot token will be reset, and the owner will receive an email and in-app notification. It's up to the owner to update their application with the new token.
+
+Alongside that, apps have a maximum concurrency which dictates how many shards they can `IDENTIFY` every 5 seconds. You can see that fron the `max_concurrency` property in the [session start limit object](#DOCS_TOPICS_GATEWAY/session-start-limit-object). If your app exceeds this limit, Discord will respond with a [Invalid Session (opcode `9`)](#DOCS_TOPICS_GATEWAY_EVENTS/invalid-session) event.
+
+After your app sends a valid Identify payload, Discord will respond with a [Ready](#DOCS_TOPICS_GATEWAY_EVENTS/ready) event which indicates that your app is in a successfully-connected state with the Gateway. The Ready event is sent as a standard [Dispatch (opcode `0`)](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/gateway-gateway-opcodes).
 
 ###### Example Identify Payload
 
@@ -233,7 +235,7 @@ There are a handful of scenarios when your app should attempt to resume:
 
 #### Preparing to Resume
 
-Before your app can send a [Resume (opcode `6`)](#DOCS_TOPICS_GATEWAY_EVENTS/resume) event, it will need three values: the `session_id` and the `resume_gateway_url` from the [Ready](#DOCS_TOPICS_GATEWAY/ready-event) event, and the sequence number (`s`) from the last Dispatch (opcode `0`) event it received before the disconnect.
+Before your app can send a [Resume (opcode `6`)](#DOCS_TOPICS_GATEWAY_EVENTS/resume) event, it will need three values: the `session_id`, the `resume_gateway_url` from the [Ready](#DOCS_TOPICS_GATEWAY/ready-event) event, and the sequence number (`s`) from the last Dispatch (opcode `0`) event it received before the disconnect.
 
 After the connection is closed, your app should open a new connection using `resume_gateway_url` rather than the URL used to initially connect. If your app doesn't use the `resume_gateway_url` when reconnecting, it will experience disconnects at a higher rate than normal.
 
@@ -273,12 +275,7 @@ Two types of intents exist:
 
 The connection with your app will be closed if it passes invalid intents ([`4013` close code](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/gateway-gateway-close-event-codes)), or a privileged intent that hasn't been configured or approved for your app ([`4014` close code](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/gateway-gateway-close-event-codes)).
 
-
 ### List of Intents
-
-Below is a list of all intents and the Gateway events associated with them. Any events *not* listed means it's not associated with an intent and will always be sent to your app.
-
-All events, including those that aren't associated with an intent, are in the [Gateway events](#DOCS_TOPICS_GATEWAY_EVENTS) documentation.
 
 Below is a list of all intents and the Gateway events associated with them. Any events *not* listed means it's not associated with an intent and will always be sent to your app.
 
@@ -439,27 +436,6 @@ In addition to Gateway restrictions, privileged intents also affect the [HTTP AP
 
 HTTP API restrictions are independent of Gateway restrictions, and are unaffected by which intents your app passes in the `intents` parameter when Identifying.
 
-#### Enabling Priviledged Intents
-
-Before using privileged intents, you must enable them in your app's settings. In the [Developer Portal](#APPLICATIONS), you can navigate to your app's settings then toggle the privileged intents on the **Bots** page under the "Privileged Gateway Intents" section. You should only toggle privileged intents that your bot *requires to function*.
-
-If your app qualifies for [verification](https://dis.gd/bot-verification), you must first [verify your app](https://support.discord.com/hc/en-us/articles/360040720412-Bot-Verification-and-Data-Whitelisting) and request access to these intents during the verification process. If your app is already verified and you need to request additional privileged intents, you can [contact support](https://dis.gd/support).
-
-#### Gateway Restrictions
-
-Priviledged intents affect which Gateway events your app is permitted to receive. When using **API v8** and above, all intents (privileged and not) must be specified in the `intents` parameter when Identifying. If you pass a privileged intent in the `intents` parameter without configuring it in your app's settings, or being approved for it during verification, your Gateway connection will be closed with a ([`4014` close code](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/gateway-gateway-close-event-codes)).
-
-> info
-> For **API v6**, you will receive events associated with the privileged intents your app has configured and is authorized to receive *without* passing those intents into the `intents` parameter when Identifying.
-
-Events associated with the `GUILD_PRESENCES` and `GUILD_MEMBERS` intents are turned off by default regardless of the API version.
-
-#### HTTP Restrictions
-
-In addition to Gateway restrictions, privileged intents also affect the [HTTP API](#DOCS_REFERENCE/http-api) endpoints your app is permitted to call, and the data it can receive. For example, to use the [List Guild Members](#DOCS_RESOURCES_GUILD/list-guild-members) endpoint, your app must configure the `GUILD_MEMBERS` intent (and be approved for it if eligible for verified).
-
-HTTP API restrictions are independent of Gateway restrictions, and are unaffected by which intents your app passes in the `intents` parameter when Identifying.
-
 #### Message Content Intent
 
 `MESSAGE_CONTENT (1 << 15)` is a unique privileged intent that isn't directly associated with any Gateway events. Instead, access to `MESSAGE_CONTENT` permits your app to receive message content data across the APIs.
@@ -566,7 +542,7 @@ An example of state tracking can be considered in the case of an app that wants 
 
 ## Guild Availability
 
-When connecting to the gateway as a bot user, guilds that the bot is a part of will start out as unavailable. Don't fret! The gateway will automatically attempt to reconnect on your behalf. As guilds become available to you, you will receive [Guild Create](#DOCS_TOPICS_GATEWAY_EVENTS/guild-create) events.
+When connecting to the gateway as a bot user, guilds that the bot is a part of will start out as unavailable. Don't fret! The gateway will automatically make each of them available for you, and you will receive [Guild Create](#DOCS_TOPICS_GATEWAY_EVENTS/guild-create) events as that happens.
 
 ## Sharding
 
