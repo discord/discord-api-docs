@@ -109,25 +109,25 @@ The connection object that the user has attached.
 
 ###### Services
 
-| Value              | Name                |
-| ------------------ | ------------------- |
-| battlenet          | Battle.net          |
-| ebay               | eBay                |
-| epicgames          | Epic Games          |
-| facebook           | Facebook            |
-| github             | GitHub              |
-| leagueoflegends *  | League of Legends   |
-| paypal             | PayPal              |
-| playstation        | PlayStation Network |
-| reddit             | Reddit              |
-| riotgames          | Riot Games          |
-| spotify            | Spotify             |
-| skype *            | Skype               |
-| steam              | Steam               |
-| twitch             | Twitch              |
-| twitter            | Twitter             |
-| xbox               | Xbox                |
-| youtube            | YouTube             |
+| Value           | Name                |
+| --------------- | ------------------- |
+| battlenet       | Battle.net          |
+| ebay            | eBay                |
+| epicgames       | Epic Games          |
+| facebook        | Facebook            |
+| github          | GitHub              |
+| leagueoflegends | League of Legends   |
+| paypal          | PayPal              |
+| playstation     | PlayStation Network |
+| reddit          | Reddit              |
+| riotgames       | Riot Games          |
+| spotify         | Spotify             |
+| skype *         | Skype               |
+| steam           | Steam               |
+| twitch          | Twitch              |
+| twitter         | Twitter             |
+| xbox            | Xbox                |
+| youtube         | YouTube             |
 
 \* Service can no longer be added by users
 

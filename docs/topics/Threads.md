@@ -167,6 +167,9 @@ Discord's clients only load active threads into memory on start. So when a threa
 
 A `GUILD_FORUM` channel is very similar (from an API perspective) to a `GUILD_TEXT` channel, except only threads can be created in that channel; messages cannot be sent directly in that channel.
 
+> info
+> More information about forum channels and how they appear in Discord can be found in the [Forum Channels FAQ](https://support.discord.com/hc/en-us/articles/6208479917079-Forum-Channels-FAQ#h_01G69FJQWTWN88HFEHK7Z6X79N)
+
 - Forums are a new channel type `15`.
 - Forums do not allow messages to be sent in them. Endpoints like /channels/channel_id/messages will not work on a forum channel.
 - Threads can be created in a forum channel. All threads in a forum are of type `PUBLIC_THREAD`. These threads and messages within the thread have the same gateway events as threads in a normal text channel.
