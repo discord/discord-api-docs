@@ -121,16 +121,18 @@ Bots can post or publish messages in this type of channel if they have the prope
 ```json
 {
   "id": "155101607195836416",
-  "guild_id": "41771983423143937",
-  "name": "ROCKET CHEESE",
+  "last_message_id": "174629835082649376",
   "type": 2,
-  "nsfw": false,
+  "name": "ROCKET CHEESE",
   "position": 5,
-  "permission_overwrites": [],
+  "parent_id": null,
   "bitrate": 64000,
   "user_limit": 0,
-  "parent_id": null,
-  "rtc_region": null
+  "rtc_region": null,
+  "guild_id": "41771983423143937",
+  "permission_overwrites": [],
+  "rate_limit_per_user": 0,
+  "nsfw": false,
 }
 ```
 
