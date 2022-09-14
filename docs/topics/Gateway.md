@@ -984,7 +984,12 @@ This event can be sent in three different scenarios:
 2.  When a Guild becomes available again to the client.
 3.  When the current user joins a new Guild.
 
-The inner payload is a [guild](#DOCS_RESOURCES_GUILD/guild-object) object, with the following extra fields:
+> note
+> During an outage, the guild object in scenarios 1 and 3 may be marked as unavailable.
+
+The inner payload can be:
+- An available Guild: a [guild](#DOCS_RESOURCES_GUILD/guild-object) object with extra fields, as noted below.
+- An unavailable Guild: an [unavailable guild](#DOCS_RESOURCES_GUILD/unavailable-guild-object) object.
 
 ###### Guild Create Extra Fields
 
