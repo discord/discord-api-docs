@@ -105,7 +105,7 @@ The connection object that the user has attached.
 | verified      | boolean | whether the connection is verified                                                       |
 | friend_sync   | boolean | whether friend sync is enabled for this connection                                       |
 | show_activity | boolean | whether activities related to this connection will be shown in presence updates          |
-| two_way_link  | boolean | whether this connection supports console voice transfer                                  |
+| two_way_link  | boolean | whether this connection has a corresponding third party OAuth2 token                     |
 | visibility    | integer | [visibility](#DOCS_RESOURCES_USER/connection-object-visibility-types) of this connection |
 
 ###### Services
