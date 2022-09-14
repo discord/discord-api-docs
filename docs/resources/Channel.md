@@ -61,9 +61,7 @@ Represents a guild or DM channel within Discord.
 | PRIVATE_THREAD      | 12  | a temporary sub-channel within a GUILD_TEXT channel that is only viewable by those invited and those with the MANAGE_THREADS permission                    |
 | GUILD_STAGE_VOICE   | 13  | a voice channel for [hosting events with an audience](https://support.discord.com/hc/en-us/articles/1500005513722)                                         |
 | GUILD_DIRECTORY     | 14  | the channel in a [hub](https://support.discord.com/hc/en-us/articles/4406046651927-Discord-Student-Hubs-FAQ) containing the listed servers                 |
-| GUILD_FORUM\*       | 15  | (still in development) a channel that can only contain threads                                                                                             |
-
-\* The `GUILD_FORUM` channel type is still in active development. Avoid implementing any features that are not documented here, since they are subject to change without notice!
+| GUILD_FORUM         | 15  | Channel that can only contain threads                                                                                                                      |
 
 ###### Video Quality Modes
 
@@ -939,7 +937,7 @@ Files must be attached using a `multipart/form-data` body as described in [Uploa
 | Field              | Type                                                                                              | Description                                                                                                                                                                 |
 | ------------------ | ------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | content?\*         | string                                                                                            | Message contents (up to 2000 characters)                                                                                                                                    |
-| nonce?             | integer or string                                                                                 | Can be used to verify a message was sent (up to 25 characters). Value will appear in the [Message Create event](#DOCS_TOPICS_GATEWAY/message-create).
+| nonce?             | integer or string                                                                                 | Can be used to verify a message was sent (up to 25 characters). Value will appear in the [Message Create event](#DOCS_TOPICS_GATEWAY/message-create).                       |
 | tts?               | boolean                                                                                           | `true` if this is a TTS message                                                                                                                                             |
 | embeds?\*          | array of [embed](#DOCS_RESOURCES_CHANNEL/embed-object) objects                                    | Embedded `rich` content (up to 6000 characters)                                                                                                                             |
 | allowed_mentions?  | [allowed mention object](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object)                         | Allowed mentions for the message                                                                                                                                            |
