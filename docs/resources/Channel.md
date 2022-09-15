@@ -1212,7 +1212,7 @@ Creates a new thread in a forum channel, and sends a message within the created 
 - For the embed object, you can set every field except `type` (it will be `rich` regardless of if you try to set it), `provider`, `video`, and any `height`, `width`, or `proxy_url` values for images.
 - Examples for file uploads are available in [Uploading Files](#DOCS_REFERENCE/uploading-files).
 - Files must be attached using a `multipart/form-data` body as described in [Uploading Files](#DOCS_REFERENCE/uploading-files).
-- Note that when sending a message, you must provide a value for at **least one of** `content`, `embeds`, or `files[n]`.
+- Note that when sending a message, you must provide a value for at **least one of** `content`, `embeds`, `sticker_ids`, `components`, or `files[n]`.
 
 > warn
 > Discord may strip certain characters from message content, like invalid unicode characters or characters which cause unexpected message formatting. If you are passing user-generated strings into message content, consider sanitizing the data to prevent unexpected behavior and utilizing `allowed_mentions` to prevent unexpected mentions.
@@ -1234,21 +1234,21 @@ Creates a new thread in a forum channel, and sends a message within the created 
 ###### Forum Thread Message Params Object
 
 > info
-> When sending a message, apps must provide a value for **at least one of** `content`, `embeds`, `files[n]`, or `sticker_ids`.
+> When sending a message, apps must provide a value for **at least one of** `content`, `embeds`, `sticker_ids`, `components`, or `files[n]`.
 
 | Field             | Type                                                                                         | Description                                                                                                                                                                 |
 | ----------------- | -------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | content?\*        | string                                                                                       | Message contents (up to 2000 characters)                                                                                                                                    |
-| embeds?           | array of [embed](#DOCS_RESOURCES_CHANNEL/embed-object) objects                               | Embedded `rich` content (up to 6000 characters)                                                                                                                             |
+| embeds?\*         | array of [embed](#DOCS_RESOURCES_CHANNEL/embed-object) objects                               | Embedded `rich` content (up to 6000 characters)                                                                                                                             |
 | allowed_mentions? | [allowed mention object](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object)                    | Allowed mentions for the message                                                                                                                                            |
-| components?       | array of [message component](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-object) objects | Components to include with the message                                                                                                                                      |
+| components?\*     | array of [message component](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/component-object) objects | Components to include with the message                                                                                                                                      |
 | sticker_ids?\*    | array of snowflakes                                                                          | IDs of up to 3 [stickers](#DOCS_RESOURCES_STICKER/sticker-object) in the server to send in the message                                                                      |
 | files[n]\*        | file contents                                                                                | Contents of the file being sent. See [Uploading Files](#DOCS_REFERENCE/uploading-files)                                                                                     |
 | payload_json?     | string                                                                                       | JSON-encoded body of non-file params, only for `multipart/form-data` requests. See [Uploading Files](#DOCS_REFERENCE/uploading-files)                                       |
 | attachments?      | array of partial [attachment](#DOCS_RESOURCES_CHANNEL/attachment-object) objects             | Attachment objects with `filename` and `description`. See [Uploading Files](#DOCS_REFERENCE/uploading-files)                                                                |
 | flags?            | integer                                                                                      | [Message flags](#DOCS_RESOURCES_CHANNEL/message-object-message-flags) combined as a [bitfield](https://en.wikipedia.org/wiki/Bit_field) (only `SUPPRESS_EMBEDS` can be set) |
 
-\* At least one of `content`, `embeds`, `files[n]`, or `sticker_ids` is required.
+\* At least one of `content`, `embeds`, `sticker_ids`, `components`, or `files[n]` is required.
 
 ## Join Thread % PUT /channels/{channel.id#DOCS_RESOURCES_CHANNEL/channel-object}/thread-members/@me
 
