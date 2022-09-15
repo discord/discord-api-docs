@@ -565,14 +565,14 @@ An object that represents a tag that is able to be applied to a thread in a `GUI
 | Field      | Type      | Description                                                                                                    |
 | ---------- | --------- | -------------------------------------------------------------------------------------------------------------- |
 | id         | snowflake | the id of the tag                                                                                              |
-| name\*\*   | string    | the name of the tag (0-20 characters)                                                                          |
+| name \*    | string    | the name of the tag (0-20 characters)                                                                          |
 | moderated  | boolean   | whether this tag can only be added to or removed from threads by a member with the `MANAGE_THREADS` permission |
-| emoji_id   | snowflake | the id of a guild's custom emoji \*                                                                            |
-| emoji_name | ?string   | the unicode character of the emoji \*                                                                          |
+| emoji_id   | snowflake | the id of a guild's custom emoji \*\*                                                                          |
+| emoji_name | ?string   | the unicode character of the emoji \*\*                                                                        |
 
-\* At most one of `emoji_id` and `emoji_name` may be set.
+\* If you are modifying a `GUILD_FORUM` channel with tags in `available_tags`, for the new ones added, only this field is required.
 
-\*\* If you are modifying a `GUILD_FORUM` channel with tags in `available_tags`, for the new ones added, only this field is required.
+\*\* At most one of `emoji_id` and `emoji_name` may be set.
 
 ### Embed Object
 
