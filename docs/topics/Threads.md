@@ -177,10 +177,7 @@ A `GUILD_FORUM` channel is very similar (from an API perspective) to a `GUILD_TE
 - The API to create a thread in a forum will create _both_ a thread and message in the same call, and as such requires passing in parameters for both the thread and message. The name and behavior of parameters is the same as they are for the existing create thread/message endpoints to simplify integrating with it.
 - The message created by that API call will have the same id as the thread.
 - The `last_message_id` field on the forum channel object tracks the id of the most recently created thread. It has the same behavior and requirements as it does for messages, namely that you will not receive a `CHANNEL_UPDATE` when it is changed. Instead clients should update the value when receiving [Thread Create](#DOCS_TOPICS_GATEWAY_EVENTS/thread-create).
-- The `message_count` and `total_message_sent` will increment on `MESSAGE_CREATE` and will decrement on `MESSAGE_DELETE`/`MESSAGE_DELETE_BULK`. There will be no `CHANNEL_UPDATE` event through gateway notifying those fields' changes (similar to `last_message_id` changes). Clients should update those values when receiving corresponding events.
-
-Listed below are things that are unlikely to change, but still might:
-
+- The `message_count` and `total_message_sent` fields on threads created in a forum will increment on `MESSAGE_CREATE` and will decrement on `MESSAGE_DELETE`/`MESSAGE_DELETE_BULK`. There will be no `CHANNEL_UPDATE` event through gateway notifying those fields' changes (similar to `last_message_id` changes). Clients should update those values when receiving corresponding events.
 - The `topic` field on a forum channel is what is shown in the "Guidelines" section visually
 - The `rate_limit_per_user` field currently behaves the same as in a text channel, limiting how frequently threads can be created. There is a new `default_thread_rate_limit_per_user` field that can be set on the forum as well, which will limit how often messages can be sent _in a thread_. This field is copied into `rate_limit_per_user` on the thread at creation time.
 - Threads in a forum have the same permissions behavior as threads in a text channel, inheriting all permissions from the parent channel, with just one exception: Creating a thread in a forum channel only requires the permission that is currently named `SEND_MESSAGES`.
