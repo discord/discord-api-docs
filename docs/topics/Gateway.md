@@ -280,10 +280,6 @@ Below is a list of all intents and the Gateway events associated with them. Any 
 
 All events, including those that aren't associated with an intent, are in the [Gateway events](#DOCS_TOPICS_GATEWAY_EVENTS) documentation.
 
-Below is a list of all intents and the Gateway events associated with them. Any events *not* listed means it's not associated with an intent and will always be sent to your app.
-
-All events, including those that aren't associated with an intent, are in the [Gateway events](#DOCS_TOPICS_GATEWAY_EVENTS) documentation.
-
 ```
 GUILDS (1 << 0)
   - GUILD_CREATE
