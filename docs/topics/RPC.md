@@ -994,7 +994,7 @@ Used to update a user's Rich Presence.
 | Field    | Type                                                    | Description                             |
 | -------- | ------------------------------------------------------- | --------------------------------------- |
 | pid      | integer                                                 | the application's process id            |
-| activity | [activity](#DOCS_TOPICS_GATEWAY/activity-object) object | the rich presence to assign to the user |
+| activity | [activity](#DOCS_TOPICS_GATEWAY_EVENTS/activity-object) object | the rich presence to assign to the user |
 
 ###### Example Set Activity Payload
 

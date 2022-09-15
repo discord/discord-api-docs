@@ -1,6 +1,6 @@
 # Voice
 
-Voice connections operate in a similar fashion to the [Gateway](#DOCS_TOPICS_GATEWAY/gateways) connection. However, they use a different set of payloads and a separate UDP-based connection for voice data transmission. Because UDP is used for both receiving and transmitting voice data, your client _must_ be able to receive UDP packets, even through a firewall or NAT (see [UDP Hole Punching](https://en.wikipedia.org/wiki/UDP_hole_punching) for more information). The Discord Voice servers implement functionality (see [IP Discovery](#DOCS_TOPICS_VOICE_CONNECTIONS/ip-discovery)) for discovering the local machines remote UDP IP/Port, which can assist in some network configurations.
+Voice connections operate in a similar fashion to the [Gateway](#DOCS_TOPICS_GATEWAY) connection. However, they use a different set of payloads and a separate UDP-based connection for voice data transmission. Because UDP is used for both receiving and transmitting voice data, your client _must_ be able to receive UDP packets, even through a firewall or NAT (see [UDP Hole Punching](https://en.wikipedia.org/wiki/UDP_hole_punching) for more information). The Discord Voice servers implement functionality (see [IP Discovery](#DOCS_TOPICS_VOICE_CONNECTIONS/ip-discovery)) for discovering the local machines remote UDP IP/Port, which can assist in some network configurations.
 
 ## Voice Gateway Versioning
 
@@ -19,7 +19,7 @@ To ensure that you have the most up-to-date information, please use [version 4](
 
 ### Retrieving Voice Server Information
 
-The first step in connecting to a voice server (and in turn, a guild's voice channel) is formulating a request that can be sent to the [Gateway](#DOCS_TOPICS_GATEWAY/gateways), which will return information about the voice server we will connect to. Because Discord's voice platform is widely distributed, users **should never** cache or save the results of this call. To inform the gateway of our intent to establish voice connectivity, we first send an [Opcode 4 Gateway Voice State Update](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/gateway):
+The first step in connecting to a voice server (and in turn, a guild's voice channel) is formulating a request that can be sent to the [Gateway](#DOCS_TOPICS_GATEWAY), which will return information about the voice server we will connect to. Because Discord's voice platform is widely distributed, users **should never** cache or save the results of this call. To inform the gateway of our intent to establish voice connectivity, we first send an [Opcode 4 Gateway Voice State Update](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/gateway):
 
 ###### Gateway Voice State Update Example
 
@@ -35,7 +35,7 @@ The first step in connecting to a voice server (and in turn, a guild's voice cha
 }
 ```
 
-If our request succeeded, the gateway will respond with _two_ events—a [Voice State Update](#DOCS_TOPICS_GATEWAY/voice-state-update) event and a [Voice Server Update](#DOCS_TOPICS_GATEWAY/voice-server-update) event—meaning your library must properly wait for both events before continuing. The first will contain a new key, `session_id`, and the second will provide voice server information we can use to establish a new voice connection:
+If our request succeeded, the gateway will respond with _two_ events—a [Voice State Update](#DOCS_TOPICS_GATEWAY_EVENTS/voice-state-update) event and a [Voice Server Update](#DOCS_TOPICS_GATEWAY_EVENTS/voice-server-update) event—meaning your library must properly wait for both events before continuing. The first will contain a new key, `session_id`, and the second will provide voice server information we can use to establish a new voice connection:
 
 ###### Example Voice Server Update Payload
 
@@ -61,7 +61,7 @@ With this information, we can move on to establishing a voice WebSocket connecti
 
 ## Establishing a Voice Websocket Connection
 
-Once we retrieve a session_id, token, and endpoint information, we can connect and handshake with the voice server over another secure WebSocket. Unlike the gateway endpoint we receive in an HTTP [Get Gateway](#DOCS_TOPICS_GATEWAY/get-gateway) request, the endpoint received from our [Voice Server Update](#DOCS_TOPICS_GATEWAY/voice-server-update) payload does not contain a URL protocol, so some libraries may require manually prepending it with "wss://" before connecting. Once connected to the voice WebSocket endpoint, we can send an [Opcode 0 Identify](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice) payload with our server_id, user_id, session_id, and token:
+Once we retrieve a session_id, token, and endpoint information, we can connect and handshake with the voice server over another secure WebSocket. Unlike the gateway endpoint we receive in an HTTP [Get Gateway](#DOCS_TOPICS_GATEWAY/get-gateway) request, the endpoint received from our [Voice Server Update](#DOCS_TOPICS_GATEWAY_EVENTS/voice-server-update) payload does not contain a URL protocol, so some libraries may require manually prepending it with "wss://" before connecting. Once connected to the voice WebSocket endpoint, we can send an [Opcode 0 Identify](#DOCS_TOPICS_OPCODES_AND_STATUS_CODES/voice) payload with our server_id, user_id, session_id, and token:
 
 ###### Example Voice Identify Payload
 

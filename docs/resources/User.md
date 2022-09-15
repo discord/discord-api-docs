@@ -105,29 +105,30 @@ The connection object that the user has attached.
 | verified      | boolean | whether the connection is verified                                                       |
 | friend_sync   | boolean | whether friend sync is enabled for this connection                                       |
 | show_activity | boolean | whether activities related to this connection will be shown in presence updates          |
+| two_way_link  | boolean | whether this connection has a corresponding third party OAuth2 token                     |
 | visibility    | integer | [visibility](#DOCS_RESOURCES_USER/connection-object-visibility-types) of this connection |
 
 ###### Services
 
-| Value              | Name                |
-| ------------------ | ------------------- |
-| battlenet          | Battle.net          |
-| ebay               | eBay                |
-| epicgames          | Epic Games          |
-| facebook           | Facebook            |
-| github             | GitHub              |
-| leagueoflegends *  | League of Legends   |
-| paypal             | PayPal              |
-| playstation        | PlayStation Network |
-| reddit             | Reddit              |
-| riotgames          | Riot Games          |
-| spotify            | Spotify             |
-| skype *            | Skype               |
-| steam              | Steam               |
-| twitch             | Twitch              |
-| twitter            | Twitter             |
-| xbox               | Xbox                |
-| youtube            | YouTube             |
+| Value           | Name                |
+| --------------- | ------------------- |
+| battlenet       | Battle.net          |
+| ebay            | eBay                |
+| epicgames       | Epic Games          |
+| facebook        | Facebook            |
+| github          | GitHub              |
+| leagueoflegends | League of Legends   |
+| paypal          | PayPal              |
+| playstation     | PlayStation Network |
+| reddit          | Reddit              |
+| riotgames       | Riot Games          |
+| spotify         | Spotify             |
+| skype *         | Skype               |
+| steam           | Steam               |
+| twitch          | Twitch              |
+| twitter         | Twitter             |
+| xbox            | Xbox                |
+| youtube         | YouTube             |
 
 \* Service can no longer be added by users
 
@@ -148,7 +149,7 @@ Returns a [user](#DOCS_RESOURCES_USER/user-object) object for a given user ID.
 
 ## Modify Current User % PATCH /users/@me
 
-Modify the requester's user account settings. Returns a [user](#DOCS_RESOURCES_USER/user-object) object on success. Fires a [User Update](#DOCS_TOPICS_GATEWAY/user-update) Gateway event.
+Modify the requester's user account settings. Returns a [user](#DOCS_RESOURCES_USER/user-object) object on success. Fires a [User Update](#DOCS_TOPICS_GATEWAY_EVENTS/user-update) Gateway event.
 
 > info
 > All parameters to this endpoint are optional.
