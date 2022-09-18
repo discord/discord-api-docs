@@ -42,7 +42,7 @@ Represents a guild or DM channel within Discord.
 | default_thread_rate_limit_per_user? | integer                                                                     | the initial `rate_limit_per_user` to set on newly created threads in a channel. this field is copied to the thread at creation time and does not live update.                                 |
 
 \* `rate_limit_per_user` also applies to thread creation. Users can send one message and create one thread during each `rate_limit_per_user` interval.
-\*\* Threads created before July 1, 2022 may have an inaccurate message count, as this was initially capped at 50.
+\*\* For threads created before July 1, 2022, the message count is inaccurate when it's greater than 50.
 
 ###### Channel Types
 
