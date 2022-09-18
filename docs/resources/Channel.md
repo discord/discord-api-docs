@@ -28,7 +28,7 @@ Represents a guild or DM channel within Discord.
 | last_pin_timestamp?                 | ?ISO8601 timestamp                                                          | when the last pinned message was pinned. This may be `null` in events such as `GUILD_CREATE` when a message is not pinned.                                                                    |
 | rtc_region?                         | ?string                                                                     | [voice region](#DOCS_RESOURCES_VOICE/voice-region-object) id for the voice channel, automatic when set to null                                                                                |
 | video_quality_mode?                 | integer                                                                     | the camera [video quality mode](#DOCS_RESOURCES_CHANNEL/channel-object-video-quality-modes) of the voice channel, 1 when not present                                                          |
-| message_count?                      | integer                                                                     | number of messages (not including the initial message or deleted messages) in a thread. Threads created before July 1, 2022 may have an inaccurate message count.                                |
+| message_count?                      | integer                                                                     | number of messages (not including the initial message or deleted messages) in a thread.*                                                                                                      |
 | member_count?                       | integer                                                                     | an approximate count of users in a thread, stops counting at 50                                                                                                                               |
 | thread_metadata?                    | a [thread metadata](#DOCS_RESOURCES_CHANNEL/thread-metadata-object) object  | thread-specific fields not needed by other channels                                                                                                                                           |
 | member?                             | a [thread member](#DOCS_RESOURCES_CHANNEL/thread-member-object) object      | thread member object for the current user, if they have joined the thread, only included on certain API endpoints                                                                             |
@@ -42,6 +42,7 @@ Represents a guild or DM channel within Discord.
 | default_thread_rate_limit_per_user? | integer                                                                     | the initial `rate_limit_per_user` to set on newly created threads in a channel. this field is copied to the thread at creation time and does not live update.                                 |
 
 \* `rate_limit_per_user` also applies to thread creation. Users can send one message and create one thread during each `rate_limit_per_user` interval.
+\*\* Threads created before July 1, 2022 may have an inaccurate message count, as this was initially capped at 50.
 
 ###### Channel Types
 
