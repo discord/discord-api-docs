@@ -6,21 +6,21 @@ Used to represent a user's voice connection status.
 
 ###### Voice State Structure
 
-| Field                      | Type                                                             | Description                                    |
-| -------------------------- | ---------------------------------------------------------------- | ---------------------------------------------- |
-| guild_id?                  | snowflake                                                        | the guild id this voice state is for           |
-| channel_id                 | ?snowflake                                                       | the channel id this user is connected to       |
-| user_id                    | snowflake                                                        | the user id this voice state is for            |
-| member?                    | [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) object | the guild member this voice state is for       |
-| session_id                 | string                                                           | the session id for this voice state            |
-| deaf                       | boolean                                                          | whether this user is deafened by the server    |
-| mute                       | boolean                                                          | whether this user is muted by the server       |
-| self_deaf                  | boolean                                                          | whether this user is locally deafened          |
-| self_mute                  | boolean                                                          | whether this user is locally muted             |
-| self_stream?               | boolean                                                          | whether this user is streaming using "Go Live" |
-| self_video                 | boolean                                                          | whether this user's camera is enabled          |
-| suppress                   | boolean                                                          | whether this user is muted by the current user |
-| request_to_speak_timestamp | ?ISO8601 timestamp                                               | the time at which the user requested to speak  |
+| Field                      | Type                                                             | Description                                       |
+| -------------------------- | ---------------------------------------------------------------- | ------------------------------------------------- |
+| guild_id?                  | snowflake                                                        | the guild id this voice state is for              |
+| channel_id                 | ?snowflake                                                       | the channel id this user is connected to          |
+| user_id                    | snowflake                                                        | the user id this voice state is for               |
+| member?                    | [guild member](#DOCS_RESOURCES_GUILD/guild-member-object) object | the guild member this voice state is for          |
+| session_id                 | string                                                           | the session id for this voice state               |
+| deaf                       | boolean                                                          | whether this user is deafened by the server       |
+| mute                       | boolean                                                          | whether this user is muted by the server          |
+| self_deaf                  | boolean                                                          | whether this user is locally deafened             |
+| self_mute                  | boolean                                                          | whether this user is locally muted                |
+| self_stream?               | boolean                                                          | whether this user is streaming using "Go Live"    |
+| self_video                 | boolean                                                          | whether this user's camera is enabled             |
+| suppress                   | boolean                                                          | whether this user's permission to speak is denied |
+| request_to_speak_timestamp | ?ISO8601 timestamp                                               | the time at which the user requested to speak     |
 
 ###### Example Voice State
 
