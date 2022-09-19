@@ -4,6 +4,9 @@
 
 Threads have been designed to be very similar to [channel](#DOCS_RESOURCES_CHANNEL/channel-object) objects, and this topic aggregates all of the information about threads, which should all help to make migrating very straightforward.
 
+> warn
+> Threads are only available in API v9 and above. More information can be found in the [backwards compatibility](#DOCS_TOPICS_THREADS/backwards-compatibility) section.
+
 ## Thread Fields
 
 Since threads are a new [type of channel](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types), they share and re-purpose a number of the existing fields on a [channel](#DOCS_RESOURCES_CHANNEL/channel-object) object:
