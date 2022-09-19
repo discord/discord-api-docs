@@ -28,7 +28,7 @@ Represents a guild or DM channel within Discord.
 | last_pin_timestamp?                 | ?ISO8601 timestamp                                                          | when the last pinned message was pinned. This may be `null` in events such as `GUILD_CREATE` when a message is not pinned.                                                                    |
 | rtc_region?                         | ?string                                                                     | [voice region](#DOCS_RESOURCES_VOICE/voice-region-object) id for the voice channel, automatic when set to null                                                                                |
 | video_quality_mode?                 | integer                                                                     | the camera [video quality mode](#DOCS_RESOURCES_CHANNEL/channel-object-video-quality-modes) of the voice channel, 1 when not present                                                          |
-| message_count?                      | integer                                                                     | number of messages (not including the initial message or deleted messages) in a thread (if the thread was created before July 1, 2022, it stops counting at 50)                               |
+| message_count?\*\*                  | integer                                                                     | number of messages (not including the initial message or deleted messages) in a thread.                                                                                                       |
 | member_count?                       | integer                                                                     | an approximate count of users in a thread, stops counting at 50                                                                                                                               |
 | thread_metadata?                    | a [thread metadata](#DOCS_RESOURCES_CHANNEL/thread-metadata-object) object  | thread-specific fields not needed by other channels                                                                                                                                           |
 | member?                             | a [thread member](#DOCS_RESOURCES_CHANNEL/thread-member-object) object      | thread member object for the current user, if they have joined the thread, only included on certain API endpoints                                                                             |
@@ -40,8 +40,10 @@ Represents a guild or DM channel within Discord.
 | applied_tags?                       | array of snowflakes                                                         | the IDs of the set of tags that have been applied to a thread in a `GUILD_FORUM` channel                                                                                                      |
 | default_reaction_emoji?             | ?[default reaction](#DOCS_RESOURCES_CHANNEL/default-reaction-object) object | the emoji to show in the add reaction button on a thread in a `GUILD_FORUM` channel                                                                                                           |
 | default_thread_rate_limit_per_user? | integer                                                                     | the initial `rate_limit_per_user` to set on newly created threads in a channel. this field is copied to the thread at creation time and does not live update.                                 |
+| default_sort_order?                 | integer                                                                     | the [default sort order type](#DOCS_RESOURCES_CHANNEL/channel-object-sort-order-types) used to order posts in `GUILD_FORUM` channels                                                          |
 
 \* `rate_limit_per_user` also applies to thread creation. Users can send one message and create one thread during each `rate_limit_per_user` interval.
+\*\* For threads created before July 1, 2022, the message count is inaccurate when it's greater than 50.
 
 ###### Channel Types
 
@@ -76,6 +78,13 @@ Represents a guild or DM channel within Discord.
 | ----------- | ------ | -------------------------------------------------------------------------------------------------------------------------------------------- |
 | PINNED      | 1 << 1 | this thread is pinned to the top of its parent `GUILD_FORUM` channel                                                                         |
 | REQUIRE_TAG | 1 << 4 | whether a tag is required to be specified when creating a thread in a `GUILD_FORUM` channel. Tags are specified in the `applied_tags` field. |
+
+###### Sort Order Types
+
+| Flag            | Value | Description                                                    |
+| --------------- | ----- | -------------------------------------------------------------- |
+| LATEST_ACTIVITY | 0     | Sort forum posts by activity                                   |
+| CREATION_DATE   | 1     | Sort forum posts by creation time (from most recent to oldest) |
 
 ###### Example Guild Text Channel
 
@@ -858,6 +867,7 @@ Requires the `MANAGE_CHANNELS` permission for the guild. Fires a [Channel Update
 | available_tags?                     | array of [tag](#DOCS_RESOURCES_CHANNEL/forum-tag-object) objects                | the set of tags that can be used in a `GUILD_FORUM` channel                                                                                                                        | Forum                            |
 | default_reaction_emoji?             | ?[default reaction](#DOCS_RESOURCES_CHANNEL/default-reaction-object) object     | the emoji to show in the add reaction button on a thread in a `GUILD_FORUM` channel                                                                                                | Forum                            |
 | default_thread_rate_limit_per_user? | integer                                                                         | the initial `rate_limit_per_user` to set on newly created threads in a channel. this field is copied to the thread at creation time and does not live update.                      | Text, Forum                      |
+| default_sort_order                  | integer                                                                         | the [default sort order type](#DOCS_RESOURCES_CHANNEL/channel-object-sort-order-types) used to order posts in `GUILD_FORUM` channels                                               | Forum                            |
 
 \* For voice channels, normal servers can set bitrate up to 96000, servers with Boost level 1 can set up to 128000, servers with Boost level 2 can set up to 256000, and servers with Boost level 3 or the `VIP_REGIONS` [guild feature](#DOCS_RESOURCES_GUILD/guild-object-guild-features) can set up to 384000. For stage channels, bitrate can be set up to 64000.
 
