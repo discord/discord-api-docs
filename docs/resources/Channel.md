@@ -570,7 +570,7 @@ An object that represents a tag that is able to be applied to a thread in a `GUI
 | emoji_id   | snowflake | the id of a guild's custom emoji \*\*                                                                          |
 | emoji_name | ?string   | the unicode character of the emoji \*\*                                                                        |
 
-\* If you are modifying a `GUILD_FORUM` channel with tags in `available_tags`, for the new ones added, only this field is required.
+\* When updating a `GUILD_FORUM` channel, tag objects in `available_tags` only require the `name` field.
 
 \*\* At most one of `emoji_id` and `emoji_name` may be set.
 
