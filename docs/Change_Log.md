@@ -1,6 +1,6 @@
 # Change Log
 
-## Spam and Mention Spam AutoMod Trigger Types
+## AutoMod Spam and Mention Spam Trigger Types
 
 #### Sep 21, 2022
 
