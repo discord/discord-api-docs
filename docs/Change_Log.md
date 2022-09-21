@@ -1,5 +1,16 @@
 # Change Log
 
+## Spam and Mention Spam AutoMod Trigger Types
+
+#### Sep 21, 2022
+
+Two new [trigger types](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-trigger-types) were added to AutoMod:
+
+- `MENTION_SPAM` blocks messages that mention more than a set number of server members or roles. Apps can define the number (up to 50) using the `mention_total_limit` field in the [trigger metadata object](#DOCS_RESOURCES_AUTO_MODERATION/auto-moderation-rule-object-trigger-metadata) when creating or updating an Auto Moderation rule.
+- `SPAM` blocks links and messages that are identified as spam.
+
+More information can be found in the [AutoMod documentation](#DOCS_RESOURCES_AUTO_MODERATION).
+
 ## Forum Channels Release
 
 #### Sep 14, 2022
