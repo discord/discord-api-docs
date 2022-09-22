@@ -40,9 +40,18 @@ Represents a guild or DM channel within Discord.
 | applied_tags?                       | array of snowflakes                                                         | the IDs of the set of tags that have been applied to a thread in a `GUILD_FORUM` channel                                                                                                      |
 | default_reaction_emoji?             | ?[default reaction](#DOCS_RESOURCES_CHANNEL/default-reaction-object) object | the emoji to show in the add reaction button on a thread in a `GUILD_FORUM` channel                                                                                                           |
 | default_thread_rate_limit_per_user? | integer                                                                     | the initial `rate_limit_per_user` to set on newly created threads in a channel. this field is copied to the thread at creation time and does not live update.                                 |
+| default_sort_order?                 | ?integer                                                                    | (#DOCS_RESOURCES_CHANNEL/channel-object-sort-order-types) used to order posts in `GUILD_FORUM` channels. If `null`, then no default has been specified by channel admin                       |
 
 \* `rate_limit_per_user` also applies to thread creation. Users can send one message and create one thread during each `rate_limit_per_user` interval.
 \*\* For threads created before July 1, 2022, the message count is inaccurate when it's greater than 50.
+\*\*\* `default_sort_order` is `null` by default for all new and existing `GUILD_FORUM` channels. This is intended to highlight that admins have not specified a preferred sort ordering for a channel.
+
+###### Sort Order Types
+
+| Flag            | Value | Description                                                    |
+| --------------- | ----- | -------------------------------------------------------------- |
+| LATEST_ACTIVITY | 0     | Sort forum posts by activity                                   |
+| CREATION_DATE   | 1     | Sort forum posts by creation time (from most recent to oldest) |
 
 ###### Channel Types
 
@@ -860,6 +869,7 @@ Requires the `MANAGE_CHANNELS` permission for the guild. Fires a [Channel Update
 | available_tags?                     | array of [tag](#DOCS_RESOURCES_CHANNEL/forum-tag-object) objects                | the set of tags that can be used in a `GUILD_FORUM` channel                                                                                                                        | Forum                            |
 | default_reaction_emoji?             | ?[default reaction](#DOCS_RESOURCES_CHANNEL/default-reaction-object) object     | the emoji to show in the add reaction button on a thread in a `GUILD_FORUM` channel                                                                                                | Forum                            |
 | default_thread_rate_limit_per_user? | integer                                                                         | the initial `rate_limit_per_user` to set on newly created threads in a channel. this field is copied to the thread at creation time and does not live update.                      | Text, Forum                      |
+| default_sort_order?                 | ?integer                                                                        | the [default sort order type](#DOCS_RESOURCES_CHANNEL/channel-object-sort-order-types) used to order posts in `GUILD_FORUM` channels                                               | Forum                            |
 
 \* For voice channels, normal servers can set bitrate up to 96000, servers with Boost level 1 can set up to 128000, servers with Boost level 2 can set up to 256000, and servers with Boost level 3 or the `VIP_REGIONS` [guild feature](#DOCS_RESOURCES_GUILD/guild-object-guild-features) can set up to 384000. For stage channels, bitrate can be set up to 64000.
 
