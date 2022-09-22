@@ -46,13 +46,6 @@ Represents a guild or DM channel within Discord.
 \*\* For threads created before July 1, 2022, the message count is inaccurate when it's greater than 50.
 \*\*\* `default_sort_order` is `null` by default for all new and existing `GUILD_FORUM` channels. This is intended to highlight that admins have not specified a preferred sort ordering for a channel.
 
-###### Sort Order Types
-
-| Flag            | Value | Description                                                    |
-| --------------- | ----- | -------------------------------------------------------------- |
-| LATEST_ACTIVITY | 0     | Sort forum posts by activity                                   |
-| CREATION_DATE   | 1     | Sort forum posts by creation time (from most recent to oldest) |
-
 ###### Channel Types
 
 > warn
@@ -86,6 +79,13 @@ Represents a guild or DM channel within Discord.
 | ----------- | ------ | -------------------------------------------------------------------------------------------------------------------------------------------- |
 | PINNED      | 1 << 1 | this thread is pinned to the top of its parent `GUILD_FORUM` channel                                                                         |
 | REQUIRE_TAG | 1 << 4 | whether a tag is required to be specified when creating a thread in a `GUILD_FORUM` channel. Tags are specified in the `applied_tags` field. |
+
+###### Sort Order Types
+
+| Flag            | Value | Description                                                    |
+| --------------- | ----- | -------------------------------------------------------------- |
+| LATEST_ACTIVITY | 0     | Sort forum posts by activity                                   |
+| CREATION_DATE   | 1     | Sort forum posts by creation time (from most recent to oldest) |
 
 ###### Example Guild Text Channel
 
