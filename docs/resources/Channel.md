@@ -40,11 +40,10 @@ Represents a guild or DM channel within Discord.
 | applied_tags?                       | array of snowflakes                                                         | the IDs of the set of tags that have been applied to a thread in a `GUILD_FORUM` channel                                                                                                      |
 | default_reaction_emoji?             | ?[default reaction](#DOCS_RESOURCES_CHANNEL/default-reaction-object) object | the emoji to show in the add reaction button on a thread in a `GUILD_FORUM` channel                                                                                                           |
 | default_thread_rate_limit_per_user? | integer                                                                     | the initial `rate_limit_per_user` to set on newly created threads in a channel. this field is copied to the thread at creation time and does not live update.                                 |
-| default_sort_order?\*\*\*           | ?integer                                                                    | (#DOCS_RESOURCES_CHANNEL/channel-object-sort-order-types) used to order posts in `GUILD_FORUM` channels. Defaults to `null`, which indicates a preferred sort order hasn't been set by a channel admin                       |
+| default_sort_order?                 | ?integer                                                                    | (#DOCS_RESOURCES_CHANNEL/channel-object-sort-order-types) used to order posts in `GUILD_FORUM` channels. Defaults to `null`, which indicates a preferred sort order hasn't been set by a channel admin  |
 
 \* `rate_limit_per_user` also applies to thread creation. Users can send one message and create one thread during each `rate_limit_per_user` interval.
 \*\* For threads created before July 1, 2022, the message count is inaccurate when it's greater than 50.
-\*\*\* `default_sort_order` is `null` by default for all new and existing `GUILD_FORUM` channels. This is intended to highlight that admins have not specified a preferred sort ordering for a channel.
 
 ###### Channel Types
 
