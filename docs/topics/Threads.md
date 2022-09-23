@@ -166,7 +166,7 @@ When an app is added to _any_ thread, the Gateway will send it a [Thread Create]
 
 #### Gaining Access to Channels
 
-When an gains access to a channel (for example, they're given the moderator role), they likely won't have the threads in memory for that channel. To account for this, Discord sends a [Thread List Sync](#DOCS_TOPICS_GATEWAY_EVENTS/thread-list-sync) event when this happens.
+When an app gains access to a channel (for example, they're given the moderator role), they likely won't have the threads in memory for that channel. To account for this, Discord sends a [Thread List Sync](#DOCS_TOPICS_GATEWAY_EVENTS/thread-list-sync) event when this happens.
 
 The [Thread List Sync](#DOCS_TOPICS_GATEWAY_EVENTS/thread-list-sync) event contains a `channel_ids` array, which is the IDs of all channels whose threads are being synced. This field can be used to first clear out any active threads whose `parent_id` is in the `channel_ids` array, and then ingest any threads that were in the event.
 
