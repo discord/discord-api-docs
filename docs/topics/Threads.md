@@ -186,7 +186,7 @@ It's worth calling out a few details about fields specific to forum channels tha
 - The `topic` field is what is shown in the "Guidelines" section within the Discord client.
 - The `rate_limit_per_user` field limits how frequently threads can be created. There is a new `default_thread_rate_limit_per_user` field on forums as well, which limits how often messages can be sent _in a thread_. This field is copied into `rate_limit_per_user` on the thread at creation time.
 - The `available_tags` field can be set when creating or updating a channel, which determines which tags can be set on individual threads within the thread's `applied_tags` field.
-- The `flags` field indicates any [channel flags](#DOCS_RESOURCES_CHANNEL/channel-object-channel-flags) set for a forum channel. Currently only `REQUIRE_TAG` can be used, which requires that a tag from `available_tags` must specified when creating a thread in that channel.
+- The `flags` field indicates any [channel flags](#DOCS_RESOURCES_CHANNEL/channel-object-channel-flags) set for a forum channel. Currently only `REQUIRE_TAG` can be used, which requires that a tag from `available_tags` be specified when creating a thread in that channel.
 
 All fields for channels, including forum channels, can be found in the [Channel Object](#DOCS_RESOURCES_CHANNEL/channel-object). 
 
