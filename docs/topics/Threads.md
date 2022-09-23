@@ -26,13 +26,13 @@ The list of gateway events that may be dropped includes, but is not limited to:
 
 ## Thread Fields
 
-Since threads are a new [type of channel](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types), they share and repurpose a number of the existing fields on a [channel](#DOCS_RESOURCES_CHANNEL/channel-object) object:
+Threads share and repurpose a number of the existing fields from the [channel object](#DOCS_RESOURCES_CHANNEL/channel-object):
 
 - `id`, `guild_id`, `type`, `name`, `last_message_id`, `last_pin_timestamp`, `rate_limit_per_user` are being re-used
 - `owner_id` has been repurposed to store the id of the user that started the thread
 - `parent_id` has been repurposed to store the id of the `GUILD_TEXT` or `GUILD_ANNOUNCEMENT` channel the thread was created in
 
-Additionally, there are a few new fields that are only available on threads:
+Additionally, there are a few fields that are only available on threads:
 
 - `member_count` stores an approximate member count, but it stops counting at 50 (this is only used in our UI, so it is not valuable to bots)
 - `message_count` and `total_message_sent` store the number of messages in a thread. The difference is that when a message is deleted, `message_count` is decremented, but `total_message_sent` will not be. (threads created before July 1, 2022 stop counting both values at 50).
@@ -52,7 +52,7 @@ Besides helping to de-clutter the UI for users, archiving exists to limit the wo
 
 Because of this constraint, the gateway protocol is designed to ensure that bots are able to have an accurate view of the full set of active threads, but archived threads are not synced up-front via the gateway.
 
-Threads do not count against the max-channels limit in a guild, but there will be a new limit on the maximum number of active threads in a guild.
+Threads do not count against the max-channels limit in a guild, but there will is a limit on the maximum number of active threads in a guild.
 
 Threads automatically archive after 7 days of inactivity (as a server approaches the max thread limit this timer will automatically lower, but never below the `auto_archive_duration`). "Activity" is defined as sending a message, unarchiving a thread, or changing the auto-archive time. The `auto_archive_duration` field previously controlled how long a thread could stay active, but is now repurposed to control how long the thread stays in the channel list. Channels can also set `default_auto_archive_duration`, which is used by our clients to pre-select a different `auto_archive_duration` value when a user creates a thread.
 
