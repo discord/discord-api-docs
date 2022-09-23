@@ -26,7 +26,7 @@ The list of gateway events that may be dropped includes, but is not limited to:
 
 ## Thread Fields
 
-Since threads are a new [type of channel](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types), they share and re-purpose a number of the existing fields on a [channel](#DOCS_RESOURCES_CHANNEL/channel-object) object:
+Since threads are a new [type of channel](#DOCS_RESOURCES_CHANNEL/channel-object-channel-types), they share and repurpose a number of the existing fields on a [channel](#DOCS_RESOURCES_CHANNEL/channel-object) object:
 
 - `id`, `guild_id`, `type`, `name`, `last_message_id`, `last_pin_timestamp`, `rate_limit_per_user` are being re-used
 - `owner_id` has been repurposed to store the id of the user that started the thread
@@ -71,7 +71,7 @@ Finally, threads are treated slightly differently from channels in the gateway p
 
 ## Gateway Events
 
-- [Guild Create](#DOCS_TOPICS_GATEWAY_EVENTS/guild-create) contains a field, `threads`, which is an array of channel objects. This represents all active threads in the guild, that the current user is able to view.
+- [Guild Create](#DOCS_TOPICS_GATEWAY_EVENTS/guild-create) contains a field, `threads`, which is an array of channel objects. This represents all active threads in the guild that the current user is able to view.
 - When a thread is created, updated, or deleted, a [Thread Create](#DOCS_TOPICS_GATEWAY_EVENTS/thread-create), [Thread Update](#DOCS_TOPICS_GATEWAY_EVENTS/thread-update), or [Thread Delete](#DOCS_TOPICS_GATEWAY_EVENTS/thread-delete) event is sent. Like their channel counterparts, these just contain a thread.
 - Since the gateway only syncs active threads that the user can see, if a user _gains_ access to a channel, then the gateway may need to sync the active threads in that channel to the user. It will send a [Thread List Sync](#DOCS_TOPICS_GATEWAY_EVENTS/thread-list-sync) event for this.
 
@@ -116,7 +116,7 @@ Threads do not explicitly set the `nsfw` field. All threads in a channel marked 
 
 ## New Message Types
 
-Threads introduce a few [message types](#DOCS_RESOURCES_CHANNEL/message-object-message-types), and re-purpose some others:
+Threads introduce a few [message types](#DOCS_RESOURCES_CHANNEL/message-object-message-types), and repurpose some others:
 
 - `RECIPIENT_ADD` and `RECIPIENT_REMOVE` have been repurposed to also send when a user is added to or removed from a thread by someone else
 - `CHANNEL_NAME_CHANGE` has been repurposed and is sent when the thread's name is changed
