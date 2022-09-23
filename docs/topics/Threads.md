@@ -174,9 +174,7 @@ Messages cannot be sent directly in forum channels.
 
 ### Creating Threads in Forum Channels
 
-Threads appear as forum posts within forum channels, and are created the same way as threads in text channels. However, private threads are currently not supported in forum channels so all threads created must be of type `PUBLIC_THREAD`.
-
-Threads can be created using the [`POST /channels/<channel_id>/threads`](#DOCS_RESOURCES_CHANNEL/start-thread-in-forum-channel) endpoint. When creating threads in forum channels, the API will *also* create a message that will have the same ID as the thread. Since a message is being created, you're required to pass parameters for both a message and a thread when calling the create thread endpoint.
+Within a forum channel, threads appear as forum posts. They can be created using the [`POST /channels/<channel_id>/threads`](#DOCS_RESOURCES_CHANNEL/start-thread-in-forum-channel) endpoint as threads in text channels, but with [slightly different parameters](#DOCS_RESOURCES_CHANNEL/start-thread-in-forum-channel-jsonform-params). For example, when creating threads in a forum channel, a message is created that has the same ID as the thread. This requires you to pass parameters for both a thread *and* a message.
 
 Threads in a forum channel have the same permissions behavior as threads in a text channel, inheriting all permissions from the parent channel, with one exception: creating a thread in a forum channel only requires the `SEND_MESSAGES` permission.
 
@@ -188,6 +186,7 @@ It's worth calling out a few details about fields specific to forum channels tha
 - The `topic` field is what is shown in the "Guidelines" section within the Discord client.
 - The `rate_limit_per_user` field limits how frequently threads can be created. There is a new `default_thread_rate_limit_per_user` field on forums as well, which limits how often messages can be sent _in a thread_. This field is copied into `rate_limit_per_user` on the thread at creation time.
 - The `available_tags` field can be set when creating or updating a channel, which determines which tags can be set on individual threads within the thread's `applied_tags` field.
+- The `flags` field indicates any [channel flags](#DOCS_RESOURCES_CHANNELS/channel-object-channel-flags) set for a forum channel. Currently only `REQUIRE_TAG` can be used, which requires that a tag from `available_tags` must specified when creating a thread in that channel.
 
 All fields for channels, including forum channels, can be found in the [Channel Object](#DOCS_RESOURCES_CHANNEL/channel-object). 
 
@@ -199,6 +198,6 @@ The `message_count` and `total_message_sent` fields on threads in forum channels
 
 All fields for threads in forum channels can be found in the [channel resources documentation](#DOCS_RESOURCES_CHANNEL/start-thread-in-forum-channel-jsonform-params).
 
-### Forum Channel Thread Formatting
+### Forum Channel Formatting
 
-Unlike threads in text channels, threads in forum channels can contain additional markdown for bulleted lists and headings.
+In forum channels, the first message in a thread and the channel topic can both contain markdown for bulleted lists and headings (unlike text channels).
